@@ -62,11 +62,17 @@
             this.cnpjTextBox = new System.Windows.Forms.TextBox();
             this.ieTextBox = new System.Windows.Forms.TextBox();
             this.foneEmpresaTextBox = new System.Windows.Forms.TextBox();
+            this.btnContato = new System.Windows.Forms.Button();
             this.tb_contato_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_contato_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter();
             this.tb_contato_empresaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codigoEmpresaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             cnpjLabel = new System.Windows.Forms.Label();
@@ -148,7 +154,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(310, 221);
+            this.btnSalvar.Location = new System.Drawing.Point(306, 264);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -158,7 +164,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(10, 221);
+            this.btnBuscar.Location = new System.Drawing.Point(6, 264);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -169,7 +175,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(391, 221);
+            this.btnCancelar.Location = new System.Drawing.Point(387, 264);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -179,7 +185,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(85, 221);
+            this.btnNovo.Location = new System.Drawing.Point(81, 264);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -189,7 +195,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(235, 221);
+            this.btnExcluir.Location = new System.Drawing.Point(231, 264);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -199,7 +205,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(160, 221);
+            this.btnEditar.Location = new System.Drawing.Point(156, 264);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -348,6 +354,7 @@
             this.codigoEmpresaTextBox.Name = "codigoEmpresaTextBox";
             this.codigoEmpresaTextBox.Size = new System.Drawing.Size(100, 20);
             this.codigoEmpresaTextBox.TabIndex = 22;
+            this.codigoEmpresaTextBox.TextChanged += new System.EventHandler(this.codigoEmpresaTextBox_TextChanged);
             // 
             // nomeTextBox
             // 
@@ -381,6 +388,16 @@
             this.foneEmpresaTextBox.Size = new System.Drawing.Size(176, 20);
             this.foneEmpresaTextBox.TabIndex = 30;
             // 
+            // btnContato
+            // 
+            this.btnContato.Location = new System.Drawing.Point(363, 152);
+            this.btnContato.Name = "btnContato";
+            this.btnContato.Size = new System.Drawing.Size(110, 23);
+            this.btnContato.TabIndex = 31;
+            this.btnContato.Text = "Adicionar Contato";
+            this.btnContato.UseVisualStyleBackColor = true;
+            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
+            // 
             // tb_contato_empresaBindingSource
             // 
             this.tb_contato_empresaBindingSource.DataMember = "tb_contato_empresa";
@@ -392,24 +409,34 @@
             // 
             // tb_contato_empresaDataGridView
             // 
+            this.tb_contato_empresaDataGridView.AllowUserToAddRows = false;
             this.tb_contato_empresaDataGridView.AutoGenerateColumns = false;
             this.tb_contato_empresaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_contato_empresaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
             this.tb_contato_empresaDataGridView.DataSource = this.tb_contato_empresaBindingSource;
-            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 152);
+            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 181);
             this.tb_contato_empresaDataGridView.Name = "tb_contato_empresaDataGridView";
             this.tb_contato_empresaDataGridView.ReadOnly = true;
-            this.tb_contato_empresaDataGridView.Size = new System.Drawing.Size(468, 63);
-            this.tb_contato_empresaDataGridView.TabIndex = 30;
+            this.tb_contato_empresaDataGridView.Size = new System.Drawing.Size(468, 77);
+            this.tb_contato_empresaDataGridView.TabIndex = 31;
+            this.tb_contato_empresaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_contato_empresaDataGridView_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "codigoEmpresa";
             this.dataGridViewTextBoxColumn1.HeaderText = "codigoEmpresa";
+            this.dataGridViewTextBoxColumn1.MaxInputLength = 40;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn1.Visible = false;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -417,13 +444,53 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "codPessoa";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Contato";
+            this.dataGridViewTextBoxColumn3.MaxInputLength = 40;
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "fone1";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Fone1";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "fone2";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Fone2";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "endereco";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Endereço";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "cpf";
+            this.dataGridViewTextBoxColumn5.HeaderText = "CPF";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Visible = false;
             // 
             // FrmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 250);
+            this.ClientSize = new System.Drawing.Size(478, 291);
             this.Controls.Add(this.tb_contato_empresaDataGridView);
+            this.Controls.Add(this.btnContato);
             this.Controls.Add(codigoEmpresaLabel);
             this.Controls.Add(this.tb_empresaBindingNavigator);
             this.Controls.Add(this.codigoEmpresaTextBox);
@@ -493,10 +560,16 @@
         private System.Windows.Forms.TextBox cnpjTextBox;
         private System.Windows.Forms.TextBox ieTextBox;
         private System.Windows.Forms.TextBox foneEmpresaTextBox;
+        private System.Windows.Forms.Button btnContato;
         private SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter tb_contato_empresaTableAdapter;
         private System.Windows.Forms.BindingSource tb_contato_empresaBindingSource;
         private System.Windows.Forms.DataGridView tb_contato_empresaDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }

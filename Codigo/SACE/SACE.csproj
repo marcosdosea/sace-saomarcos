@@ -254,6 +254,9 @@
     <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter.datasource" />
     <None Include="Resources\16.png" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
