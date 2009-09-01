@@ -22,6 +22,8 @@ namespace SACE.Telas
         {
             // TODO: This line of code loads data into the 'saceDataSet.tb_contato_empresa' table. You can move, or remove it, as needed.
             this.tb_contato_empresaTableAdapter.Fill(this.saceDataSet.tb_contato_empresa);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_contato_empresa' table. You can move, or remove it, as needed.
+            this.tb_contato_empresaTableAdapter.Fill(this.saceDataSet.tb_contato_empresa);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
             habilitaBotoes(true);
@@ -170,11 +172,36 @@ namespace SACE.Telas
             btnEditar.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
-            tb_empresaBindingNavigator.Enabled = habilita;
+                     tb_empresaBindingNavigator.Enabled = habilita;
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void btnContato_Click(object sender, EventArgs e)
+        {
+            Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+            frmPessoaPesquisa.ShowDialog();
+            if (frmPessoaPesquisa.getCodPessoa() != -1)
+            {
+                btnSalvar_Click(sender, e);
+                tb_contato_empresaTableAdapter.Insert(long.Parse(codigoEmpresaTextBox.Text), frmPessoaPesquisa.getCodPessoa());
+                //btnEditar_Click(sender, e);
+                codigoEmpresaTextBox_TextChanged(sender, e);
+            }
+            frmPessoaPesquisa.Dispose();
+            btnContato.Focus();
+        }
+
+        private void codigoEmpresaTextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.tb_contato_empresaTableAdapter.FillByEmpresa(this.saceDataSet.tb_contato_empresa, int.Parse(codigoEmpresaTextBox.Text));
+        }
+
+        private void tb_contato_empresaDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
