@@ -33,7 +33,6 @@
             System.Windows.Forms.Label nomeLabel;
             System.Windows.Forms.Label enderecoLabel;
             System.Windows.Forms.Label cpfLabel;
-            System.Windows.Forms.Label numeroLabel;
             System.Windows.Forms.Label bairroLabel;
             System.Windows.Forms.Label cidadeLabel;
             System.Windows.Forms.Label fone1Label;
@@ -41,6 +40,8 @@
             System.Windows.Forms.Label limiteCompraLabel;
             System.Windows.Forms.Label valorComissaoLabel;
             System.Windows.Forms.Label observacaoLabel;
+            System.Windows.Forms.Label cepLabel;
+            System.Windows.Forms.Label ufLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPessoa));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -66,9 +67,7 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codPessoaTextBox = new System.Windows.Forms.TextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
-            this.enderecoTextBox = new System.Windows.Forms.TextBox();
             this.cpfTextBox = new System.Windows.Forms.TextBox();
-            this.numeroTextBox = new System.Windows.Forms.TextBox();
             this.bairroTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
             this.fone1TextBox = new System.Windows.Forms.TextBox();
@@ -76,11 +75,13 @@
             this.limiteCompraTextBox = new System.Windows.Forms.TextBox();
             this.valorComissaoTextBox = new System.Windows.Forms.TextBox();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
+            this.cepTextBox = new System.Windows.Forms.TextBox();
+            this.enderecoTextBox = new System.Windows.Forms.TextBox();
+            this.ufTextBox = new System.Windows.Forms.TextBox();
             codPessoaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             cpfLabel = new System.Windows.Forms.Label();
-            numeroLabel = new System.Windows.Forms.Label();
             bairroLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
             fone1Label = new System.Windows.Forms.Label();
@@ -88,6 +89,8 @@
             limiteCompraLabel = new System.Windows.Forms.Label();
             valorComissaoLabel = new System.Windows.Forms.Label();
             observacaoLabel = new System.Windows.Forms.Label();
+            cepLabel = new System.Windows.Forms.Label();
+            ufLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
@@ -131,15 +134,6 @@
             cpfLabel.TabIndex = 27;
             cpfLabel.Text = "CPF:";
             // 
-            // numeroLabel
-            // 
-            numeroLabel.AutoSize = true;
-            numeroLabel.Location = new System.Drawing.Point(4, 160);
-            numeroLabel.Name = "numeroLabel";
-            numeroLabel.Size = new System.Drawing.Size(47, 13);
-            numeroLabel.TabIndex = 29;
-            numeroLabel.Text = "Número:";
-            // 
             // bairroLabel
             // 
             bairroLabel.AutoSize = true;
@@ -152,7 +146,7 @@
             // cidadeLabel
             // 
             cidadeLabel.AutoSize = true;
-            cidadeLabel.Location = new System.Drawing.Point(309, 160);
+            cidadeLabel.Location = new System.Drawing.Point(268, 159);
             cidadeLabel.Name = "cidadeLabel";
             cidadeLabel.Size = new System.Drawing.Size(43, 13);
             cidadeLabel.TabIndex = 33;
@@ -202,6 +196,24 @@
             observacaoLabel.Size = new System.Drawing.Size(68, 13);
             observacaoLabel.TabIndex = 43;
             observacaoLabel.Text = "Observação:";
+            // 
+            // cepLabel
+            // 
+            cepLabel.AutoSize = true;
+            cepLabel.Location = new System.Drawing.Point(4, 160);
+            cepLabel.Name = "cepLabel";
+            cepLabel.Size = new System.Drawing.Size(31, 13);
+            cepLabel.TabIndex = 44;
+            cepLabel.Text = "CEP:";
+            // 
+            // ufLabel
+            // 
+            ufLabel.AutoSize = true;
+            ufLabel.Location = new System.Drawing.Point(421, 158);
+            ufLabel.Name = "ufLabel";
+            ufLabel.Size = new System.Drawing.Size(24, 13);
+            ufLabel.TabIndex = 46;
+            ufLabel.Text = "UF:";
             // 
             // label1
             // 
@@ -423,8 +435,10 @@
             this.codPessoaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "codPessoa", true));
             this.codPessoaTextBox.Location = new System.Drawing.Point(7, 86);
             this.codPessoaTextBox.Name = "codPessoaTextBox";
+            this.codPessoaTextBox.ReadOnly = true;
             this.codPessoaTextBox.Size = new System.Drawing.Size(100, 20);
             this.codPessoaTextBox.TabIndex = 22;
+            this.codPessoaTextBox.TabStop = false;
             // 
             // nomeTextBox
             // 
@@ -434,44 +448,28 @@
             this.nomeTextBox.Size = new System.Drawing.Size(350, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
-            // enderecoTextBox
-            // 
-            this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "endereco", true));
-            this.enderecoTextBox.Location = new System.Drawing.Point(118, 128);
-            this.enderecoTextBox.Name = "enderecoTextBox";
-            this.enderecoTextBox.Size = new System.Drawing.Size(349, 20);
-            this.enderecoTextBox.TabIndex = 26;
-            // 
             // cpfTextBox
             // 
             this.cpfTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf", true));
             this.cpfTextBox.Location = new System.Drawing.Point(7, 129);
             this.cpfTextBox.Name = "cpfTextBox";
             this.cpfTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cpfTextBox.TabIndex = 25;
-            // 
-            // numeroTextBox
-            // 
-            this.numeroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "numero", true));
-            this.numeroTextBox.Location = new System.Drawing.Point(7, 177);
-            this.numeroTextBox.Name = "numeroTextBox";
-            this.numeroTextBox.Size = new System.Drawing.Size(100, 20);
-            this.numeroTextBox.TabIndex = 30;
+            this.cpfTextBox.TabIndex = 26;
             // 
             // bairroTextBox
             // 
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "bairro", true));
             this.bairroTextBox.Location = new System.Drawing.Point(118, 177);
             this.bairroTextBox.Name = "bairroTextBox";
-            this.bairroTextBox.Size = new System.Drawing.Size(183, 20);
+            this.bairroTextBox.Size = new System.Drawing.Size(143, 20);
             this.bairroTextBox.TabIndex = 32;
             // 
             // cidadeTextBox
             // 
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cidade", true));
-            this.cidadeTextBox.Location = new System.Drawing.Point(312, 177);
+            this.cidadeTextBox.Location = new System.Drawing.Point(271, 176);
             this.cidadeTextBox.Name = "cidadeTextBox";
-            this.cidadeTextBox.Size = new System.Drawing.Size(155, 20);
+            this.cidadeTextBox.Size = new System.Drawing.Size(147, 20);
             this.cidadeTextBox.TabIndex = 34;
             // 
             // fone1TextBox
@@ -480,7 +478,7 @@
             this.fone1TextBox.Location = new System.Drawing.Point(7, 226);
             this.fone1TextBox.Name = "fone1TextBox";
             this.fone1TextBox.Size = new System.Drawing.Size(100, 20);
-            this.fone1TextBox.TabIndex = 36;
+            this.fone1TextBox.TabIndex = 38;
             // 
             // fone2TextBox
             // 
@@ -488,7 +486,7 @@
             this.fone2TextBox.Location = new System.Drawing.Point(118, 226);
             this.fone2TextBox.Name = "fone2TextBox";
             this.fone2TextBox.Size = new System.Drawing.Size(119, 20);
-            this.fone2TextBox.TabIndex = 38;
+            this.fone2TextBox.TabIndex = 40;
             // 
             // limiteCompraTextBox
             // 
@@ -496,7 +494,7 @@
             this.limiteCompraTextBox.Location = new System.Drawing.Point(243, 226);
             this.limiteCompraTextBox.Name = "limiteCompraTextBox";
             this.limiteCompraTextBox.Size = new System.Drawing.Size(150, 20);
-            this.limiteCompraTextBox.TabIndex = 40;
+            this.limiteCompraTextBox.TabIndex = 42;
             // 
             // valorComissaoTextBox
             // 
@@ -504,7 +502,7 @@
             this.valorComissaoTextBox.Location = new System.Drawing.Point(400, 226);
             this.valorComissaoTextBox.Name = "valorComissaoTextBox";
             this.valorComissaoTextBox.Size = new System.Drawing.Size(67, 20);
-            this.valorComissaoTextBox.TabIndex = 42;
+            this.valorComissaoTextBox.TabIndex = 44;
             // 
             // observacaoTextBox
             // 
@@ -513,24 +511,50 @@
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(460, 41);
-            this.observacaoTextBox.TabIndex = 44;
+            this.observacaoTextBox.TabIndex = 46;
+            // 
+            // cepTextBox
+            // 
+            this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cep", true));
+            this.cepTextBox.Location = new System.Drawing.Point(7, 177);
+            this.cepTextBox.Name = "cepTextBox";
+            this.cepTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cepTextBox.TabIndex = 30;
+            // 
+            // enderecoTextBox
+            // 
+            this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "endereco", true));
+            this.enderecoTextBox.Location = new System.Drawing.Point(118, 127);
+            this.enderecoTextBox.Name = "enderecoTextBox";
+            this.enderecoTextBox.Size = new System.Drawing.Size(349, 20);
+            this.enderecoTextBox.TabIndex = 28;
+            // 
+            // ufTextBox
+            // 
+            this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "uf", true));
+            this.ufTextBox.Location = new System.Drawing.Point(424, 175);
+            this.ufTextBox.Name = "ufTextBox";
+            this.ufTextBox.Size = new System.Drawing.Size(43, 20);
+            this.ufTextBox.TabIndex = 36;
             // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 345);
+            this.ClientSize = new System.Drawing.Size(476, 345);
+            this.Controls.Add(ufLabel);
+            this.Controls.Add(this.ufTextBox);
+            this.Controls.Add(this.enderecoTextBox);
+            this.Controls.Add(cepLabel);
+            this.Controls.Add(this.cepTextBox);
             this.Controls.Add(codPessoaLabel);
             this.Controls.Add(this.tb_pessoaBindingNavigator);
             this.Controls.Add(this.codPessoaTextBox);
             this.Controls.Add(nomeLabel);
             this.Controls.Add(this.nomeTextBox);
             this.Controls.Add(enderecoLabel);
-            this.Controls.Add(this.enderecoTextBox);
             this.Controls.Add(cpfLabel);
             this.Controls.Add(this.cpfTextBox);
-            this.Controls.Add(numeroLabel);
-            this.Controls.Add(this.numeroTextBox);
             this.Controls.Add(bairroLabel);
             this.Controls.Add(this.bairroTextBox);
             this.Controls.Add(cidadeLabel);
@@ -598,9 +622,7 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codPessoaTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
-        private System.Windows.Forms.TextBox enderecoTextBox;
         private System.Windows.Forms.TextBox cpfTextBox;
-        private System.Windows.Forms.TextBox numeroTextBox;
         private System.Windows.Forms.TextBox bairroTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
         private System.Windows.Forms.TextBox fone1TextBox;
@@ -608,5 +630,8 @@
         private System.Windows.Forms.TextBox limiteCompraTextBox;
         private System.Windows.Forms.TextBox valorComissaoTextBox;
         private System.Windows.Forms.TextBox observacaoTextBox;
+        private System.Windows.Forms.TextBox cepTextBox;
+        private System.Windows.Forms.TextBox enderecoTextBox;
+        private System.Windows.Forms.TextBox ufTextBox;
     }
 }

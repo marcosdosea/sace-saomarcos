@@ -42,7 +42,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_empresaDataGridView)).BeginInit();
@@ -138,8 +137,7 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
+            this.dataGridViewTextBoxColumn4});
             this.tb_empresaDataGridView.DataSource = this.tb_empresaBindingSource;
             this.tb_empresaDataGridView.Location = new System.Drawing.Point(10, 53);
             this.tb_empresaDataGridView.MultiSelect = false;
@@ -177,13 +175,6 @@
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "foneEmpresa";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Fone";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
             // FrmEmpresaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,7 +189,7 @@
             this.Name = "FrmEmpresaPesquisa";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Pesquisa Lojas";
+            this.Text = "Pesquisa Empresas";
             this.Load += new System.EventHandler(this.FrmEmpresaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmEmpresaPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();

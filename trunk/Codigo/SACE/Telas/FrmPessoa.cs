@@ -87,17 +87,19 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_pessoaTableAdapter.Insert(nomeTextBox.Text, enderecoTextBox.Text, cpfTextBox.Text, numeroTextBox.Text,
-                        bairroTextBox.Text, cidadeTextBox.Text, fone1TextBox.Text, fone2TextBox.Text, limiteCompraTextBox.Text,
-                        valorComissaoTextBox.Text, observacaoTextBox.Text);
+                    tb_pessoaTableAdapter.Insert(nomeTextBox.Text, enderecoTextBox.Text, cpfTextBox.Text,
+                        bairroTextBox.Text, cidadeTextBox.Text, fone1TextBox.Text, fone2TextBox.Text,
+                        limiteCompraTextBox.Text, valorComissaoTextBox.Text, observacaoTextBox.Text,
+                        cepTextBox.Text, ufTextBox.Text);
                     tb_pessoaTableAdapter.Fill(saceDataSet.tb_pessoa);
                     tb_pessoaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_pessoaTableAdapter.Update(nomeTextBox.Text, enderecoTextBox.Text, cpfTextBox.Text, numeroTextBox.Text,
-                        bairroTextBox.Text, cidadeTextBox.Text, fone1TextBox.Text, fone2TextBox.Text, decimal.Parse(limiteCompraTextBox.Text),
-                        decimal.Parse(valorComissaoTextBox.Text), observacaoTextBox.Text, long.Parse(codPessoaTextBox.Text));
+                    tb_pessoaTableAdapter.Update(nomeTextBox.Text, enderecoTextBox.Text, cpfTextBox.Text,
+                        bairroTextBox.Text, cidadeTextBox.Text, fone1TextBox.Text, fone2TextBox.Text,
+                        decimal.Parse(limiteCompraTextBox.Text), decimal.Parse(valorComissaoTextBox.Text), observacaoTextBox.Text,
+                        cepTextBox.Text, ufTextBox.Text, long.Parse(codPessoaTextBox.Text));
                     tb_pessoaBindingSource.EndEdit();
                 }
             }
