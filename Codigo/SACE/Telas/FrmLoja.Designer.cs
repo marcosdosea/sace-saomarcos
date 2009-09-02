@@ -34,9 +34,11 @@
             System.Windows.Forms.Label cnpjLabel;
             System.Windows.Forms.Label ieLabel;
             System.Windows.Forms.Label enderecoLabel;
-            System.Windows.Forms.Label numeroLabel;
             System.Windows.Forms.Label bairroLabel;
             System.Windows.Forms.Label cidadeLabel;
+            System.Windows.Forms.Label cepLabel;
+            System.Windows.Forms.Label ufLabel;
+            System.Windows.Forms.Label foneLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -65,17 +67,21 @@
             this.cnpjTextBox = new System.Windows.Forms.TextBox();
             this.ieTextBox = new System.Windows.Forms.TextBox();
             this.enderecoTextBox = new System.Windows.Forms.TextBox();
-            this.numeroTextBox = new System.Windows.Forms.TextBox();
             this.bairroTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
+            this.cepTextBox = new System.Windows.Forms.TextBox();
+            this.ufTextBox = new System.Windows.Forms.TextBox();
+            this.foneTextBox = new System.Windows.Forms.TextBox();
             codLojaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             cnpjLabel = new System.Windows.Forms.Label();
             ieLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
-            numeroLabel = new System.Windows.Forms.Label();
             bairroLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
+            cepLabel = new System.Windows.Forms.Label();
+            ufLabel = new System.Windows.Forms.Label();
+            foneLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
@@ -86,7 +92,7 @@
             // codLojaLabel
             // 
             codLojaLabel.AutoSize = true;
-            codLojaLabel.Location = new System.Drawing.Point(7, 66);
+            codLojaLabel.Location = new System.Drawing.Point(6, 72);
             codLojaLabel.Name = "codLojaLabel";
             codLojaLabel.Size = new System.Drawing.Size(43, 13);
             codLojaLabel.TabIndex = 21;
@@ -95,7 +101,7 @@
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(122, 66);
+            nomeLabel.Location = new System.Drawing.Point(120, 72);
             nomeLabel.Name = "nomeLabel";
             nomeLabel.Size = new System.Drawing.Size(38, 13);
             nomeLabel.TabIndex = 23;
@@ -104,7 +110,7 @@
             // cnpjLabel
             // 
             cnpjLabel.AutoSize = true;
-            cnpjLabel.Location = new System.Drawing.Point(7, 111);
+            cnpjLabel.Location = new System.Drawing.Point(6, 124);
             cnpjLabel.Name = "cnpjLabel";
             cnpjLabel.Size = new System.Drawing.Size(37, 13);
             cnpjLabel.TabIndex = 25;
@@ -113,7 +119,7 @@
             // ieLabel
             // 
             ieLabel.AutoSize = true;
-            ieLabel.Location = new System.Drawing.Point(122, 111);
+            ieLabel.Location = new System.Drawing.Point(120, 124);
             ieLabel.Name = "ieLabel";
             ieLabel.Size = new System.Drawing.Size(97, 13);
             ieLabel.TabIndex = 27;
@@ -122,38 +128,56 @@
             // enderecoLabel
             // 
             enderecoLabel.AutoSize = true;
-            enderecoLabel.Location = new System.Drawing.Point(12, 160);
+            enderecoLabel.Location = new System.Drawing.Point(6, 176);
             enderecoLabel.Name = "enderecoLabel";
             enderecoLabel.Size = new System.Drawing.Size(56, 13);
             enderecoLabel.TabIndex = 29;
             enderecoLabel.Text = "Endereço:";
             // 
-            // numeroLabel
-            // 
-            numeroLabel.AutoSize = true;
-            numeroLabel.Location = new System.Drawing.Point(232, 160);
-            numeroLabel.Name = "numeroLabel";
-            numeroLabel.Size = new System.Drawing.Size(47, 13);
-            numeroLabel.TabIndex = 31;
-            numeroLabel.Text = "Número:";
-            // 
             // bairroLabel
             // 
             bairroLabel.AutoSize = true;
-            bairroLabel.Location = new System.Drawing.Point(344, 160);
+            bairroLabel.Location = new System.Drawing.Point(6, 224);
             bairroLabel.Name = "bairroLabel";
             bairroLabel.Size = new System.Drawing.Size(37, 13);
-            bairroLabel.TabIndex = 33;
+            bairroLabel.TabIndex = 31;
             bairroLabel.Text = "Bairro:";
             // 
             // cidadeLabel
             // 
             cidadeLabel.AutoSize = true;
-            cidadeLabel.Location = new System.Drawing.Point(232, 111);
+            cidadeLabel.Location = new System.Drawing.Point(237, 124);
             cidadeLabel.Name = "cidadeLabel";
             cidadeLabel.Size = new System.Drawing.Size(43, 13);
-            cidadeLabel.TabIndex = 35;
+            cidadeLabel.TabIndex = 33;
             cidadeLabel.Text = "Cidade:";
+            // 
+            // cepLabel
+            // 
+            cepLabel.AutoSize = true;
+            cepLabel.Location = new System.Drawing.Point(237, 224);
+            cepLabel.Name = "cepLabel";
+            cepLabel.Size = new System.Drawing.Size(31, 13);
+            cepLabel.TabIndex = 35;
+            cepLabel.Text = "CEP:";
+            // 
+            // ufLabel
+            // 
+            ufLabel.AutoSize = true;
+            ufLabel.Location = new System.Drawing.Point(439, 124);
+            ufLabel.Name = "ufLabel";
+            ufLabel.Size = new System.Drawing.Size(24, 13);
+            ufLabel.TabIndex = 37;
+            ufLabel.Text = "UF:";
+            // 
+            // foneLabel
+            // 
+            foneLabel.AutoSize = true;
+            foneLabel.Location = new System.Drawing.Point(362, 224);
+            foneLabel.Name = "foneLabel";
+            foneLabel.Size = new System.Drawing.Size(34, 13);
+            foneLabel.TabIndex = 39;
+            foneLabel.Text = "Fone:";
             // 
             // label1
             // 
@@ -177,7 +201,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(310, 221);
+            this.btnSalvar.Location = new System.Drawing.Point(302, 270);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -187,7 +211,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(10, 221);
+            this.btnBuscar.Location = new System.Drawing.Point(2, 270);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -198,7 +222,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(391, 221);
+            this.btnCancelar.Location = new System.Drawing.Point(383, 270);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -208,7 +232,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(85, 221);
+            this.btnNovo.Location = new System.Drawing.Point(77, 270);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -218,7 +242,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(235, 221);
+            this.btnExcluir.Location = new System.Drawing.Point(227, 270);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -228,7 +252,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(160, 221);
+            this.btnEditar.Location = new System.Drawing.Point(152, 270);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -292,14 +316,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_lojaBindingNavigator.Location = new System.Drawing.Point(274, 41);
+            this.tb_lojaBindingNavigator.Location = new System.Drawing.Point(272, 41);
             this.tb_lojaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_lojaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_lojaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.tb_lojaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_lojaBindingNavigator.Name = "tb_lojaBindingNavigator";
             this.tb_lojaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_lojaBindingNavigator.Size = new System.Drawing.Size(240, 25);
+            this.tb_lojaBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_lojaBindingNavigator.TabIndex = 21;
             this.tb_lojaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -373,23 +397,25 @@
             // codLojaTextBox
             // 
             this.codLojaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "codLoja", true));
-            this.codLojaTextBox.Location = new System.Drawing.Point(7, 83);
+            this.codLojaTextBox.Location = new System.Drawing.Point(9, 89);
             this.codLojaTextBox.Name = "codLojaTextBox";
+            this.codLojaTextBox.ReadOnly = true;
             this.codLojaTextBox.Size = new System.Drawing.Size(100, 20);
             this.codLojaTextBox.TabIndex = 22;
+            this.codLojaTextBox.TabStop = false;
             // 
             // nomeTextBox
             // 
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "nome", true));
-            this.nomeTextBox.Location = new System.Drawing.Point(123, 83);
+            this.nomeTextBox.Location = new System.Drawing.Point(123, 89);
             this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(352, 20);
+            this.nomeTextBox.Size = new System.Drawing.Size(342, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
             // cnpjTextBox
             // 
             this.cnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cnpj", true));
-            this.cnpjTextBox.Location = new System.Drawing.Point(7, 128);
+            this.cnpjTextBox.Location = new System.Drawing.Point(7, 141);
             this.cnpjTextBox.Name = "cnpjTextBox";
             this.cnpjTextBox.Size = new System.Drawing.Size(100, 20);
             this.cnpjTextBox.TabIndex = 26;
@@ -397,7 +423,7 @@
             // ieTextBox
             // 
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "ie", true));
-            this.ieTextBox.Location = new System.Drawing.Point(125, 128);
+            this.ieTextBox.Location = new System.Drawing.Point(123, 141);
             this.ieTextBox.Name = "ieTextBox";
             this.ieTextBox.Size = new System.Drawing.Size(100, 20);
             this.ieTextBox.TabIndex = 28;
@@ -405,40 +431,57 @@
             // enderecoTextBox
             // 
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "endereco", true));
-            this.enderecoTextBox.Location = new System.Drawing.Point(12, 177);
+            this.enderecoTextBox.Location = new System.Drawing.Point(9, 193);
             this.enderecoTextBox.Name = "enderecoTextBox";
-            this.enderecoTextBox.Size = new System.Drawing.Size(213, 20);
-            this.enderecoTextBox.TabIndex = 32;
-            // 
-            // numeroTextBox
-            // 
-            this.numeroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "numero", true));
-            this.numeroTextBox.Location = new System.Drawing.Point(235, 177);
-            this.numeroTextBox.Name = "numeroTextBox";
-            this.numeroTextBox.Size = new System.Drawing.Size(100, 20);
-            this.numeroTextBox.TabIndex = 34;
+            this.enderecoTextBox.Size = new System.Drawing.Size(456, 20);
+            this.enderecoTextBox.TabIndex = 34;
             // 
             // bairroTextBox
             // 
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "bairro", true));
-            this.bairroTextBox.Location = new System.Drawing.Point(347, 177);
+            this.bairroTextBox.Location = new System.Drawing.Point(9, 241);
             this.bairroTextBox.Name = "bairroTextBox";
-            this.bairroTextBox.Size = new System.Drawing.Size(128, 20);
+            this.bairroTextBox.Size = new System.Drawing.Size(214, 20);
             this.bairroTextBox.TabIndex = 36;
             // 
             // cidadeTextBox
             // 
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cidade", true));
-            this.cidadeTextBox.Location = new System.Drawing.Point(235, 128);
+            this.cidadeTextBox.Location = new System.Drawing.Point(240, 141);
             this.cidadeTextBox.Name = "cidadeTextBox";
-            this.cidadeTextBox.Size = new System.Drawing.Size(240, 20);
+            this.cidadeTextBox.Size = new System.Drawing.Size(196, 20);
             this.cidadeTextBox.TabIndex = 30;
+            // 
+            // cepTextBox
+            // 
+            this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cep", true));
+            this.cepTextBox.Location = new System.Drawing.Point(240, 241);
+            this.cepTextBox.Name = "cepTextBox";
+            this.cepTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cepTextBox.TabIndex = 38;
+            // 
+            // ufTextBox
+            // 
+            this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "uf", true));
+            this.ufTextBox.Location = new System.Drawing.Point(442, 141);
+            this.ufTextBox.Name = "ufTextBox";
+            this.ufTextBox.Size = new System.Drawing.Size(23, 20);
+            this.ufTextBox.TabIndex = 32;
+            // 
+            // foneTextBox
+            // 
+            this.foneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "fone", true));
+            this.foneTextBox.Location = new System.Drawing.Point(365, 241);
+            this.foneTextBox.Name = "foneTextBox";
+            this.foneTextBox.Size = new System.Drawing.Size(100, 20);
+            this.foneTextBox.TabIndex = 40;
             // 
             // FrmLoja
             // 
+            this.AccessibleDescription = "\'";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 245);
+            this.ClientSize = new System.Drawing.Size(474, 295);
             this.Controls.Add(codLojaLabel);
             this.Controls.Add(this.tb_lojaBindingNavigator);
             this.Controls.Add(this.codLojaTextBox);
@@ -450,12 +493,16 @@
             this.Controls.Add(this.ieTextBox);
             this.Controls.Add(enderecoLabel);
             this.Controls.Add(this.enderecoTextBox);
-            this.Controls.Add(numeroLabel);
-            this.Controls.Add(this.numeroTextBox);
             this.Controls.Add(bairroLabel);
             this.Controls.Add(this.bairroTextBox);
             this.Controls.Add(cidadeLabel);
             this.Controls.Add(this.cidadeTextBox);
+            this.Controls.Add(cepLabel);
+            this.Controls.Add(this.cepTextBox);
+            this.Controls.Add(ufLabel);
+            this.Controls.Add(this.ufTextBox);
+            this.Controls.Add(foneLabel);
+            this.Controls.Add(this.foneTextBox);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnCancelar);
@@ -512,8 +559,10 @@
         private System.Windows.Forms.TextBox cnpjTextBox;
         private System.Windows.Forms.TextBox ieTextBox;
         private System.Windows.Forms.TextBox enderecoTextBox;
-        private System.Windows.Forms.TextBox numeroTextBox;
         private System.Windows.Forms.TextBox bairroTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
+        private System.Windows.Forms.TextBox cepTextBox;
+        private System.Windows.Forms.TextBox ufTextBox;
+        private System.Windows.Forms.TextBox foneTextBox;
     }
 }

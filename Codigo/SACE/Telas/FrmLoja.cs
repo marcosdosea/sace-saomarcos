@@ -87,15 +87,16 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_lojaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text,
-                        enderecoTextBox.Text, numeroTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text);
+                    tb_lojaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
+                        bairroTextBox.Text, cidadeTextBox.Text, cepTextBox.Text, ufTextBox.Text, foneTextBox.Text);
+                    
                     tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
                     tb_lojaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_lojaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text,
-                        enderecoTextBox.Text, numeroTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, int.Parse(codLojaTextBox.Text));
+                    tb_lojaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
+                        bairroTextBox.Text, cidadeTextBox.Text, cepTextBox.Text, ufTextBox.Text, foneTextBox.Text, int.Parse(codLojaTextBox.Text));
                     tb_lojaBindingSource.EndEdit();
                 }
             }
@@ -173,14 +174,6 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
-        }
-
-        private void tb_lojaBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_lojaBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
         }
     }
 }

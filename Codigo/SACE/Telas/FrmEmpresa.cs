@@ -22,8 +22,6 @@ namespace SACE.Telas
         {
             // TODO: This line of code loads data into the 'saceDataSet.tb_contato_empresa' table. You can move, or remove it, as needed.
             this.tb_contato_empresaTableAdapter.Fill(this.saceDataSet.tb_contato_empresa);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_contato_empresa' table. You can move, or remove it, as needed.
-            this.tb_contato_empresaTableAdapter.Fill(this.saceDataSet.tb_contato_empresa);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
             habilitaBotoes(true);
@@ -91,15 +89,17 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_empresaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text,
-                        foneEmpresaTextBox.Text);
+                    tb_empresaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, foneTextBox.Text,
+                        enderecoTextBox.Text, bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text,
+                        limiteCompraTextBox.Text, observacaoTextBox.Text);
                     tb_empresaTableAdapter.Fill(saceDataSet.tb_empresa);
                     tb_empresaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_empresaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text,
-                        foneEmpresaTextBox.Text, long.Parse(codigoEmpresaTextBox.Text));
+                    tb_empresaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, foneTextBox.Text,
+                        enderecoTextBox.Text, bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text,
+                        decimal.Parse(limiteCompraTextBox.Text), observacaoTextBox.Text, long.Parse(codigoEmpresaTextBox.Text));
                     tb_empresaBindingSource.EndEdit();
                 }
             }
@@ -197,11 +197,6 @@ namespace SACE.Telas
         private void codigoEmpresaTextBox_TextChanged(object sender, EventArgs e)
         {
             this.tb_contato_empresaTableAdapter.FillByEmpresa(this.saceDataSet.tb_contato_empresa, int.Parse(codigoEmpresaTextBox.Text));
-        }
-
-        private void tb_contato_empresaDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

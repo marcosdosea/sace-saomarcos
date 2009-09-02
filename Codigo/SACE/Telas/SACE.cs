@@ -93,5 +93,13 @@ namespace SACE
             frmEmpresa.Dispose();
         }
 
+        private void tb_produtoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.tb_produtoBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.saceDataSet);
+
+        }
+
     }
 }

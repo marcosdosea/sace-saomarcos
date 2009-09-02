@@ -33,7 +33,14 @@
             System.Windows.Forms.Label nomeLabel;
             System.Windows.Forms.Label cnpjLabel;
             System.Windows.Forms.Label ieLabel;
-            System.Windows.Forms.Label foneEmpresaLabel;
+            System.Windows.Forms.Label foneLabel;
+            System.Windows.Forms.Label enderecoLabel;
+            System.Windows.Forms.Label bairroLabel;
+            System.Windows.Forms.Label cepLabel;
+            System.Windows.Forms.Label cidadeLabel;
+            System.Windows.Forms.Label ufLabel;
+            System.Windows.Forms.Label limiteCompraLabel;
+            System.Windows.Forms.Label observacaoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEmpresa));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,11 +50,10 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tb_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.btnContato = new System.Windows.Forms.Button();
             this.tb_empresaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.tb_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -61,15 +67,21 @@
             this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.cnpjTextBox = new System.Windows.Forms.TextBox();
             this.ieTextBox = new System.Windows.Forms.TextBox();
-            this.foneEmpresaTextBox = new System.Windows.Forms.TextBox();
-            this.btnContato = new System.Windows.Forms.Button();
-            this.tb_contato_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.foneTextBox = new System.Windows.Forms.TextBox();
+            this.enderecoTextBox = new System.Windows.Forms.TextBox();
+            this.bairroTextBox = new System.Windows.Forms.TextBox();
+            this.cepTextBox = new System.Windows.Forms.TextBox();
+            this.cidadeTextBox = new System.Windows.Forms.TextBox();
+            this.ufTextBox = new System.Windows.Forms.TextBox();
+            this.limiteCompraTextBox = new System.Windows.Forms.TextBox();
+            this.tb_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter();
+            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_contato_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter();
+            this.observacaoTextBox = new System.Windows.Forms.TextBox();
+            this.tb_contato_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_contato_empresaDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fone1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,12 +89,19 @@
             nomeLabel = new System.Windows.Forms.Label();
             cnpjLabel = new System.Windows.Forms.Label();
             ieLabel = new System.Windows.Forms.Label();
-            foneEmpresaLabel = new System.Windows.Forms.Label();
+            foneLabel = new System.Windows.Forms.Label();
+            enderecoLabel = new System.Windows.Forms.Label();
+            bairroLabel = new System.Windows.Forms.Label();
+            cepLabel = new System.Windows.Forms.Label();
+            cidadeLabel = new System.Windows.Forms.Label();
+            ufLabel = new System.Windows.Forms.Label();
+            limiteCompraLabel = new System.Windows.Forms.Label();
+            observacaoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingNavigator)).BeginInit();
             this.tb_empresaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -90,47 +109,110 @@
             // codigoEmpresaLabel
             // 
             codigoEmpresaLabel.AutoSize = true;
-            codigoEmpresaLabel.Location = new System.Drawing.Point(4, 62);
+            codigoEmpresaLabel.Location = new System.Drawing.Point(4, 65);
             codigoEmpresaLabel.Name = "codigoEmpresaLabel";
             codigoEmpresaLabel.Size = new System.Drawing.Size(43, 13);
-            codigoEmpresaLabel.TabIndex = 21;
+            codigoEmpresaLabel.TabIndex = 32;
             codigoEmpresaLabel.Text = "Código:";
             // 
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(122, 62);
+            nomeLabel.Location = new System.Drawing.Point(121, 65);
             nomeLabel.Name = "nomeLabel";
             nomeLabel.Size = new System.Drawing.Size(38, 13);
-            nomeLabel.TabIndex = 23;
+            nomeLabel.TabIndex = 34;
             nomeLabel.Text = "Nome:";
             // 
             // cnpjLabel
             // 
             cnpjLabel.AutoSize = true;
-            cnpjLabel.Location = new System.Drawing.Point(4, 109);
+            cnpjLabel.Location = new System.Drawing.Point(4, 110);
             cnpjLabel.Name = "cnpjLabel";
             cnpjLabel.Size = new System.Drawing.Size(37, 13);
-            cnpjLabel.TabIndex = 25;
+            cnpjLabel.TabIndex = 36;
             cnpjLabel.Text = "CNPJ:";
             // 
             // ieLabel
             // 
             ieLabel.AutoSize = true;
-            ieLabel.Location = new System.Drawing.Point(122, 109);
+            ieLabel.Location = new System.Drawing.Point(121, 110);
             ieLabel.Name = "ieLabel";
             ieLabel.Size = new System.Drawing.Size(97, 13);
-            ieLabel.TabIndex = 27;
+            ieLabel.TabIndex = 38;
             ieLabel.Text = "Inscrição Estadual:";
             // 
-            // foneEmpresaLabel
+            // foneLabel
             // 
-            foneEmpresaLabel.AutoSize = true;
-            foneEmpresaLabel.Location = new System.Drawing.Point(296, 109);
-            foneEmpresaLabel.Name = "foneEmpresaLabel";
-            foneEmpresaLabel.Size = new System.Drawing.Size(34, 13);
-            foneEmpresaLabel.TabIndex = 29;
-            foneEmpresaLabel.Text = "Fone:";
+            foneLabel.AutoSize = true;
+            foneLabel.Location = new System.Drawing.Point(243, 211);
+            foneLabel.Name = "foneLabel";
+            foneLabel.Size = new System.Drawing.Size(34, 13);
+            foneLabel.TabIndex = 40;
+            foneLabel.Text = "Fone:";
+            // 
+            // enderecoLabel
+            // 
+            enderecoLabel.AutoSize = true;
+            enderecoLabel.Location = new System.Drawing.Point(4, 161);
+            enderecoLabel.Name = "enderecoLabel";
+            enderecoLabel.Size = new System.Drawing.Size(56, 13);
+            enderecoLabel.TabIndex = 42;
+            enderecoLabel.Text = "Endereço:";
+            // 
+            // bairroLabel
+            // 
+            bairroLabel.AutoSize = true;
+            bairroLabel.Location = new System.Drawing.Point(4, 211);
+            bairroLabel.Name = "bairroLabel";
+            bairroLabel.Size = new System.Drawing.Size(37, 13);
+            bairroLabel.TabIndex = 44;
+            bairroLabel.Text = "Bairro:";
+            // 
+            // cepLabel
+            // 
+            cepLabel.AutoSize = true;
+            cepLabel.Location = new System.Drawing.Point(153, 211);
+            cepLabel.Name = "cepLabel";
+            cepLabel.Size = new System.Drawing.Size(31, 13);
+            cepLabel.TabIndex = 46;
+            cepLabel.Text = "CEP:";
+            // 
+            // cidadeLabel
+            // 
+            cidadeLabel.AutoSize = true;
+            cidadeLabel.Location = new System.Drawing.Point(237, 110);
+            cidadeLabel.Name = "cidadeLabel";
+            cidadeLabel.Size = new System.Drawing.Size(43, 13);
+            cidadeLabel.TabIndex = 48;
+            cidadeLabel.Text = "Cidade:";
+            // 
+            // ufLabel
+            // 
+            ufLabel.AutoSize = true;
+            ufLabel.Location = new System.Drawing.Point(432, 110);
+            ufLabel.Name = "ufLabel";
+            ufLabel.Size = new System.Drawing.Size(24, 13);
+            ufLabel.TabIndex = 50;
+            ufLabel.Text = "UF:";
+            // 
+            // limiteCompraLabel
+            // 
+            limiteCompraLabel.AutoSize = true;
+            limiteCompraLabel.Location = new System.Drawing.Point(358, 211);
+            limiteCompraLabel.Name = "limiteCompraLabel";
+            limiteCompraLabel.Size = new System.Drawing.Size(76, 13);
+            limiteCompraLabel.TabIndex = 52;
+            limiteCompraLabel.Text = "Limite Compra:";
+            // 
+            // observacaoLabel
+            // 
+            observacaoLabel.AutoSize = true;
+            observacaoLabel.Location = new System.Drawing.Point(4, 259);
+            observacaoLabel.Name = "observacaoLabel";
+            observacaoLabel.Size = new System.Drawing.Size(68, 13);
+            observacaoLabel.TabIndex = 53;
+            observacaoLabel.Text = "Observação:";
             // 
             // label1
             // 
@@ -154,7 +236,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(306, 264);
+            this.btnSalvar.Location = new System.Drawing.Point(306, 447);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -164,7 +246,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(6, 264);
+            this.btnBuscar.Location = new System.Drawing.Point(6, 447);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -175,7 +257,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(387, 264);
+            this.btnCancelar.Location = new System.Drawing.Point(387, 447);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -185,7 +267,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(81, 264);
+            this.btnNovo.Location = new System.Drawing.Point(81, 447);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -195,7 +277,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(231, 264);
+            this.btnExcluir.Location = new System.Drawing.Point(231, 447);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -205,7 +287,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(156, 264);
+            this.btnEditar.Location = new System.Drawing.Point(156, 447);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -213,44 +295,15 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
+            // btnContato
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_empresaBindingSource
-            // 
-            this.tb_empresaBindingSource.DataMember = "tb_empresa";
-            this.tb_empresaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_empresaTableAdapter
-            // 
-            this.tb_empresaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
-            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = this.tb_contato_empresaTableAdapter;
-            this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
-            this.tableAdapterManager.tb_entrada_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.btnContato.Location = new System.Drawing.Point(361, 315);
+            this.btnContato.Name = "btnContato";
+            this.btnContato.Size = new System.Drawing.Size(110, 23);
+            this.btnContato.TabIndex = 57;
+            this.btnContato.Text = "Adicionar Contato";
+            this.btnContato.UseVisualStyleBackColor = true;
+            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
             // 
             // tb_empresaBindingNavigator
             // 
@@ -269,7 +322,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_empresaBindingNavigator.Location = new System.Drawing.Point(271, 40);
+            this.tb_empresaBindingNavigator.Location = new System.Drawing.Point(271, 41);
             this.tb_empresaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_empresaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_empresaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -277,8 +330,18 @@
             this.tb_empresaBindingNavigator.Name = "tb_empresaBindingNavigator";
             this.tb_empresaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
             this.tb_empresaBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_empresaBindingNavigator.TabIndex = 21;
+            this.tb_empresaBindingNavigator.TabIndex = 32;
             this.tb_empresaBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // tb_empresaBindingSource
+            // 
+            this.tb_empresaBindingSource.DataMember = "tb_empresa";
+            this.tb_empresaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
@@ -350,62 +413,141 @@
             // codigoEmpresaTextBox
             // 
             this.codigoEmpresaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "codigoEmpresa", true));
-            this.codigoEmpresaTextBox.Location = new System.Drawing.Point(7, 81);
+            this.codigoEmpresaTextBox.Location = new System.Drawing.Point(4, 82);
+            this.codigoEmpresaTextBox.Multiline = true;
             this.codigoEmpresaTextBox.Name = "codigoEmpresaTextBox";
+            this.codigoEmpresaTextBox.ReadOnly = true;
             this.codigoEmpresaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codigoEmpresaTextBox.TabIndex = 22;
+            this.codigoEmpresaTextBox.TabIndex = 33;
+            this.codigoEmpresaTextBox.TabStop = false;
             this.codigoEmpresaTextBox.TextChanged += new System.EventHandler(this.codigoEmpresaTextBox_TextChanged);
             // 
             // nomeTextBox
             // 
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "nome", true));
-            this.nomeTextBox.Location = new System.Drawing.Point(125, 81);
+            this.nomeTextBox.Location = new System.Drawing.Point(124, 82);
             this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(350, 20);
-            this.nomeTextBox.TabIndex = 24;
+            this.nomeTextBox.Size = new System.Drawing.Size(347, 20);
+            this.nomeTextBox.TabIndex = 35;
             // 
             // cnpjTextBox
             // 
             this.cnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "cnpj", true));
-            this.cnpjTextBox.Location = new System.Drawing.Point(7, 126);
+            this.cnpjTextBox.Location = new System.Drawing.Point(4, 127);
             this.cnpjTextBox.Name = "cnpjTextBox";
             this.cnpjTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cnpjTextBox.TabIndex = 26;
+            this.cnpjTextBox.TabIndex = 37;
             // 
             // ieTextBox
             // 
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "ie", true));
-            this.ieTextBox.Location = new System.Drawing.Point(125, 126);
+            this.ieTextBox.Location = new System.Drawing.Point(124, 127);
             this.ieTextBox.Name = "ieTextBox";
-            this.ieTextBox.Size = new System.Drawing.Size(146, 20);
-            this.ieTextBox.TabIndex = 28;
+            this.ieTextBox.Size = new System.Drawing.Size(100, 20);
+            this.ieTextBox.TabIndex = 39;
             // 
-            // foneEmpresaTextBox
+            // foneTextBox
             // 
-            this.foneEmpresaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "foneEmpresa", true));
-            this.foneEmpresaTextBox.Location = new System.Drawing.Point(299, 126);
-            this.foneEmpresaTextBox.Name = "foneEmpresaTextBox";
-            this.foneEmpresaTextBox.Size = new System.Drawing.Size(176, 20);
-            this.foneEmpresaTextBox.TabIndex = 30;
+            this.foneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "fone", true));
+            this.foneTextBox.Location = new System.Drawing.Point(246, 228);
+            this.foneTextBox.Name = "foneTextBox";
+            this.foneTextBox.Size = new System.Drawing.Size(100, 20);
+            this.foneTextBox.TabIndex = 51;
             // 
-            // btnContato
+            // enderecoTextBox
             // 
-            this.btnContato.Location = new System.Drawing.Point(363, 152);
-            this.btnContato.Name = "btnContato";
-            this.btnContato.Size = new System.Drawing.Size(110, 23);
-            this.btnContato.TabIndex = 31;
-            this.btnContato.Text = "Adicionar Contato";
-            this.btnContato.UseVisualStyleBackColor = true;
-            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
+            this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "endereco", true));
+            this.enderecoTextBox.Location = new System.Drawing.Point(7, 178);
+            this.enderecoTextBox.Name = "enderecoTextBox";
+            this.enderecoTextBox.Size = new System.Drawing.Size(464, 20);
+            this.enderecoTextBox.TabIndex = 45;
+            // 
+            // bairroTextBox
+            // 
+            this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "bairro", true));
+            this.bairroTextBox.Location = new System.Drawing.Point(7, 228);
+            this.bairroTextBox.Name = "bairroTextBox";
+            this.bairroTextBox.Size = new System.Drawing.Size(132, 20);
+            this.bairroTextBox.TabIndex = 47;
+            // 
+            // cepTextBox
+            // 
+            this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "cep", true));
+            this.cepTextBox.Location = new System.Drawing.Point(156, 228);
+            this.cepTextBox.Name = "cepTextBox";
+            this.cepTextBox.Size = new System.Drawing.Size(75, 20);
+            this.cepTextBox.TabIndex = 49;
+            // 
+            // cidadeTextBox
+            // 
+            this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "cidade", true));
+            this.cidadeTextBox.Location = new System.Drawing.Point(240, 127);
+            this.cidadeTextBox.Name = "cidadeTextBox";
+            this.cidadeTextBox.Size = new System.Drawing.Size(185, 20);
+            this.cidadeTextBox.TabIndex = 41;
+            // 
+            // ufTextBox
+            // 
+            this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "uf", true));
+            this.ufTextBox.Location = new System.Drawing.Point(435, 127);
+            this.ufTextBox.Name = "ufTextBox";
+            this.ufTextBox.Size = new System.Drawing.Size(36, 20);
+            this.ufTextBox.TabIndex = 43;
+            // 
+            // limiteCompraTextBox
+            // 
+            this.limiteCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "limiteCompra", true));
+            this.limiteCompraTextBox.Location = new System.Drawing.Point(361, 228);
+            this.limiteCompraTextBox.Name = "limiteCompraTextBox";
+            this.limiteCompraTextBox.Size = new System.Drawing.Size(110, 20);
+            this.limiteCompraTextBox.TabIndex = 53;
+            // 
+            // tb_empresaTableAdapter
+            // 
+            this.tb_empresaTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
+            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = this.tb_contato_empresaTableAdapter;
+            this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
+            this.tableAdapterManager.tb_entrada_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // tb_contato_empresaTableAdapter
+            // 
+            this.tb_contato_empresaTableAdapter.ClearBeforeFill = true;
+            // 
+            // observacaoTextBox
+            // 
+            this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "observacao", true));
+            this.observacaoTextBox.Location = new System.Drawing.Point(7, 276);
+            this.observacaoTextBox.Multiline = true;
+            this.observacaoTextBox.Name = "observacaoTextBox";
+            this.observacaoTextBox.Size = new System.Drawing.Size(464, 32);
+            this.observacaoTextBox.TabIndex = 55;
             // 
             // tb_contato_empresaBindingSource
             // 
             this.tb_contato_empresaBindingSource.DataMember = "tb_contato_empresa";
             this.tb_contato_empresaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_contato_empresaTableAdapter
-            // 
-            this.tb_contato_empresaTableAdapter.ClearBeforeFill = true;
             // 
             // tb_contato_empresaDataGridView
             // 
@@ -413,54 +555,31 @@
             this.tb_contato_empresaDataGridView.AutoGenerateColumns = false;
             this.tb_contato_empresaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_contato_empresaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn6,
+            this.nome,
+            this.fone1,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
             this.tb_contato_empresaDataGridView.DataSource = this.tb_contato_empresaBindingSource;
-            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 181);
+            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(12, 341);
             this.tb_contato_empresaDataGridView.Name = "tb_contato_empresaDataGridView";
             this.tb_contato_empresaDataGridView.ReadOnly = true;
-            this.tb_contato_empresaDataGridView.Size = new System.Drawing.Size(468, 77);
-            this.tb_contato_empresaDataGridView.TabIndex = 31;
-            this.tb_contato_empresaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_contato_empresaDataGridView_CellContentClick);
+            this.tb_contato_empresaDataGridView.Size = new System.Drawing.Size(459, 100);
+            this.tb_contato_empresaDataGridView.TabIndex = 59;
             // 
-            // dataGridViewTextBoxColumn1
+            // nome
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "codigoEmpresa";
-            this.dataGridViewTextBoxColumn1.HeaderText = "codigoEmpresa";
-            this.dataGridViewTextBoxColumn1.MaxInputLength = 40;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.nome.DataPropertyName = "nome";
+            this.nome.HeaderText = "Nome";
+            this.nome.Name = "nome";
+            this.nome.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // fone1
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "codPessoa";
-            this.dataGridViewTextBoxColumn2.HeaderText = "codPessoa";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Contato";
-            this.dataGridViewTextBoxColumn3.MaxInputLength = 40;
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 40;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "fone1";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Fone1";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.fone1.DataPropertyName = "fone1";
+            this.fone1.HeaderText = "Fone1";
+            this.fone1.Name = "fone1";
+            this.fone1.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -482,15 +601,15 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "CPF";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Visible = false;
             // 
             // FrmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 291);
+            this.ClientSize = new System.Drawing.Size(477, 473);
             this.Controls.Add(this.tb_contato_empresaDataGridView);
-            this.Controls.Add(this.btnContato);
+            this.Controls.Add(observacaoLabel);
+            this.Controls.Add(this.observacaoTextBox);
             this.Controls.Add(codigoEmpresaLabel);
             this.Controls.Add(this.tb_empresaBindingNavigator);
             this.Controls.Add(this.codigoEmpresaTextBox);
@@ -500,8 +619,21 @@
             this.Controls.Add(this.cnpjTextBox);
             this.Controls.Add(ieLabel);
             this.Controls.Add(this.ieTextBox);
-            this.Controls.Add(foneEmpresaLabel);
-            this.Controls.Add(this.foneEmpresaTextBox);
+            this.Controls.Add(foneLabel);
+            this.Controls.Add(this.foneTextBox);
+            this.Controls.Add(enderecoLabel);
+            this.Controls.Add(this.enderecoTextBox);
+            this.Controls.Add(bairroLabel);
+            this.Controls.Add(this.bairroTextBox);
+            this.Controls.Add(cepLabel);
+            this.Controls.Add(this.cepTextBox);
+            this.Controls.Add(cidadeLabel);
+            this.Controls.Add(this.cidadeTextBox);
+            this.Controls.Add(ufLabel);
+            this.Controls.Add(this.ufTextBox);
+            this.Controls.Add(limiteCompraLabel);
+            this.Controls.Add(this.limiteCompraTextBox);
+            this.Controls.Add(this.btnContato);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnCancelar);
@@ -519,11 +651,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmEmpresa_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingNavigator)).EndInit();
             this.tb_empresaBindingNavigator.ResumeLayout(false);
             this.tb_empresaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaDataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -541,6 +673,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Button btnContato;
         private SACE.Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_empresaBindingSource;
         private SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter tb_empresaTableAdapter;
@@ -559,15 +692,21 @@
         private System.Windows.Forms.TextBox nomeTextBox;
         private System.Windows.Forms.TextBox cnpjTextBox;
         private System.Windows.Forms.TextBox ieTextBox;
-        private System.Windows.Forms.TextBox foneEmpresaTextBox;
-        private System.Windows.Forms.Button btnContato;
+        private System.Windows.Forms.TextBox foneTextBox;
+        private System.Windows.Forms.TextBox enderecoTextBox;
+        private System.Windows.Forms.TextBox bairroTextBox;
+        private System.Windows.Forms.TextBox cepTextBox;
+        private System.Windows.Forms.TextBox cidadeTextBox;
+        private System.Windows.Forms.TextBox ufTextBox;
+        private System.Windows.Forms.TextBox limiteCompraTextBox;
+        private System.Windows.Forms.TextBox observacaoTextBox;
         private SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter tb_contato_empresaTableAdapter;
         private System.Windows.Forms.BindingSource tb_contato_empresaBindingSource;
         private System.Windows.Forms.DataGridView tb_contato_empresaDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fone1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
