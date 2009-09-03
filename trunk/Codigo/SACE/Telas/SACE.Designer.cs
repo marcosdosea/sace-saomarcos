@@ -33,9 +33,12 @@
             this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pessoasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gruposDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planoDeContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contasBancáriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cartõesDeCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bancosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +47,7 @@
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.baixasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.movimentaçãoContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atualizaçãoDePreçosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajusteDeEstoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,8 +73,6 @@
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnVenda = new System.Windows.Forms.Button();
-            this.contasBancáriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.movimentaçãoContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -96,10 +98,12 @@
             this.produtosToolStripMenuItem,
             this.pessoasToolStripMenuItem,
             this.empresasToolStripMenuItem,
+            this.lojasToolStripMenuItem,
             this.gruposDeProdutosToolStripMenuItem,
             this.planoDeContasToolStripMenuItem,
-            this.lojasToolStripMenuItem,
-            this.contasBancáriasToolStripMenuItem});
+            this.contasBancáriasToolStripMenuItem,
+            this.cartõesDeCréditoToolStripMenuItem,
+            this.bancosToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.cadastrosToolStripMenuItem.Text = "&Cadastros";
@@ -125,6 +129,13 @@
             this.empresasToolStripMenuItem.Text = "Empresas";
             this.empresasToolStripMenuItem.Click += new System.EventHandler(this.empresasToolStripMenuItem_Click);
             // 
+            // lojasToolStripMenuItem
+            // 
+            this.lojasToolStripMenuItem.Name = "lojasToolStripMenuItem";
+            this.lojasToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.lojasToolStripMenuItem.Text = "Lojas";
+            this.lojasToolStripMenuItem.Click += new System.EventHandler(this.lojasToolStripMenuItem_Click);
+            // 
             // gruposDeProdutosToolStripMenuItem
             // 
             this.gruposDeProdutosToolStripMenuItem.Name = "gruposDeProdutosToolStripMenuItem";
@@ -138,12 +149,25 @@
             this.planoDeContasToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.planoDeContasToolStripMenuItem.Text = "Plano de Contas";
             // 
-            // lojasToolStripMenuItem
+            // contasBancáriasToolStripMenuItem
             // 
-            this.lojasToolStripMenuItem.Name = "lojasToolStripMenuItem";
-            this.lojasToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.lojasToolStripMenuItem.Text = "Lojas";
-            this.lojasToolStripMenuItem.Click += new System.EventHandler(this.lojasToolStripMenuItem_Click);
+            this.contasBancáriasToolStripMenuItem.Name = "contasBancáriasToolStripMenuItem";
+            this.contasBancáriasToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.contasBancáriasToolStripMenuItem.Text = "Contas Banco";
+            this.contasBancáriasToolStripMenuItem.Click += new System.EventHandler(this.contasBancáriasToolStripMenuItem_Click);
+            // 
+            // cartõesDeCréditoToolStripMenuItem
+            // 
+            this.cartõesDeCréditoToolStripMenuItem.Name = "cartõesDeCréditoToolStripMenuItem";
+            this.cartõesDeCréditoToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.cartõesDeCréditoToolStripMenuItem.Text = "Cartões de Crédito";
+            // 
+            // bancosToolStripMenuItem
+            // 
+            this.bancosToolStripMenuItem.Name = "bancosToolStripMenuItem";
+            this.bancosToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.bancosToolStripMenuItem.Text = "Bancos";
+            this.bancosToolStripMenuItem.Click += new System.EventHandler(this.bancosToolStripMenuItem_Click);
             // 
             // movimentaçãoToolStripMenuItem
             // 
@@ -202,6 +226,12 @@
             this.baixasToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.baixasToolStripMenuItem.Text = "Baixas";
             // 
+            // movimentaçãoContasToolStripMenuItem
+            // 
+            this.movimentaçãoContasToolStripMenuItem.Name = "movimentaçãoContasToolStripMenuItem";
+            this.movimentaçãoContasToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.movimentaçãoContasToolStripMenuItem.Text = "Movimentação Contas";
+            // 
             // utilitáriosToolStripMenuItem
             // 
             this.utilitáriosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -252,7 +282,7 @@
             // fichaDoClienteToolStripMenuItem
             // 
             this.fichaDoClienteToolStripMenuItem.Name = "fichaDoClienteToolStripMenuItem";
-            this.fichaDoClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fichaDoClienteToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.fichaDoClienteToolStripMenuItem.Text = "Cliente";
             // 
             // produtosToolStripMenuItem1
@@ -260,7 +290,7 @@
             this.produtosToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.listagemDePreçoToolStripMenuItem});
             this.produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
-            this.produtosToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.produtosToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.produtosToolStripMenuItem1.Text = "Produtos";
             // 
             // listagemDePreçoToolStripMenuItem
@@ -272,19 +302,19 @@
             // estoqueToolStripMenuItem
             // 
             this.estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
-            this.estoqueToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.estoqueToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.estoqueToolStripMenuItem.Text = "Estoque";
             // 
             // vendasToolStripMenuItem
             // 
             this.vendasToolStripMenuItem.Name = "vendasToolStripMenuItem";
-            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.vendasToolStripMenuItem.Text = "Vendas";
             // 
             // comprasToolStripMenuItem
             // 
             this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.comprasToolStripMenuItem.Text = "Compras";
             // 
             // ajudaToolStripMenuItem
@@ -298,7 +328,7 @@
             // sobreToolStripMenuItem
             // 
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.sobreToolStripMenuItem.Text = "Sobre";
             // 
             // statusStrip1
@@ -428,18 +458,6 @@
             this.btnVenda.UseVisualStyleBackColor = true;
             this.btnVenda.Click += new System.EventHandler(this.btnVenda_Click);
             // 
-            // contasBancáriasToolStripMenuItem
-            // 
-            this.contasBancáriasToolStripMenuItem.Name = "contasBancáriasToolStripMenuItem";
-            this.contasBancáriasToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.contasBancáriasToolStripMenuItem.Text = "Contas Banco";
-            // 
-            // movimentaçãoContasToolStripMenuItem
-            // 
-            this.movimentaçãoContasToolStripMenuItem.Name = "movimentaçãoContasToolStripMenuItem";
-            this.movimentaçãoContasToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.movimentaçãoContasToolStripMenuItem.Text = "Movimentação Contas";
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -516,6 +534,8 @@
         private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contasBancáriasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem movimentaçãoContasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cartõesDeCréditoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bancosToolStripMenuItem;
 
     }
 }

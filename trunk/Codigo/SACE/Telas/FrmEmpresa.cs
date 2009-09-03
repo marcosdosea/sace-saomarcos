@@ -89,17 +89,18 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_empresaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, foneTextBox.Text,
-                        enderecoTextBox.Text, bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text,
-                        limiteCompraTextBox.Text, observacaoTextBox.Text);
+                    tb_empresaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text,
+                        foneTextBox.Text, enderecoTextBox.Text, bairroTextBox.Text, cepTextBox.Text,
+                        cidadeTextBox.Text, ufTextBox.Text, limiteCompraTextBox.Text, observacaoTextBox.Text);
                     tb_empresaTableAdapter.Fill(saceDataSet.tb_empresa);
                     tb_empresaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_empresaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, foneTextBox.Text,
-                        enderecoTextBox.Text, bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text,
-                        decimal.Parse(limiteCompraTextBox.Text), observacaoTextBox.Text, long.Parse(codigoEmpresaTextBox.Text));
+                    tb_empresaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text,
+                        foneTextBox.Text, enderecoTextBox.Text, bairroTextBox.Text, cepTextBox.Text,
+                        cidadeTextBox.Text, ufTextBox.Text, decimal.Parse(limiteCompraTextBox.Text), 
+                        observacaoTextBox.Text, long.Parse(codigoEmpresaTextBox.Text));
                     tb_empresaBindingSource.EndEdit();
                 }
             }
