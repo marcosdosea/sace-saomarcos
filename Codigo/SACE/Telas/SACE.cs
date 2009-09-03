@@ -93,12 +93,18 @@ namespace SACE
             frmEmpresa.Dispose();
         }
 
-        private void tb_produtoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void bancosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Validate();
-            this.tb_produtoBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
+            Telas.FrmBanco frmBanco = new Telas.FrmBanco();
+            frmBanco.ShowDialog();
+            frmBanco.Dispose();
+        }
 
+        private void contasBancáriasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmContaBanco frmContaBanco = new Telas.FrmContaBanco();
+            frmContaBanco.ShowDialog();
+            frmContaBanco.Dispose();
         }
 
     }

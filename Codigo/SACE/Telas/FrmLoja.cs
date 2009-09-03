@@ -88,7 +88,7 @@ namespace SACE.Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     tb_lojaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
-                        bairroTextBox.Text, cidadeTextBox.Text, cepTextBox.Text, ufTextBox.Text, foneTextBox.Text);
+                        bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, foneTextBox.Text);
                     
                     tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
                     tb_lojaBindingSource.MoveLast();
@@ -96,7 +96,7 @@ namespace SACE.Telas
                 else
                 {
                     tb_lojaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
-                        bairroTextBox.Text, cidadeTextBox.Text, cepTextBox.Text, ufTextBox.Text, foneTextBox.Text, int.Parse(codLojaTextBox.Text));
+                        bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, foneTextBox.Text, int.Parse(codLojaTextBox.Text));
                     tb_lojaBindingSource.EndEdit();
                 }
             }

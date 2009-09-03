@@ -102,6 +102,8 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
             this.tableAdapterManager.tb_conta_receberTableAdapter = null;
@@ -141,6 +143,7 @@
             this.tb_grupoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_grupoDataGridView.Size = new System.Drawing.Size(444, 220);
             this.tb_grupoDataGridView.TabIndex = 5;
+            this.tb_grupoDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_grupoDataGridView_CellClick);
             // 
             // dataGridViewTextBoxColumn1
             // 

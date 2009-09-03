@@ -50,10 +50,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.1.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.1.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Transactions" />
@@ -70,16 +73,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dados\saceDataSet.cs">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Dados\saceDataSet.Designer.cs">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>saceDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Telas\FrmContaBancoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmContaBancoPesquisa.Designer.cs">
+      <DependentUpon>FrmContaBancoPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmContaBanco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmContaBanco.Designer.cs">
+      <DependentUpon>FrmContaBanco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmBancoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmBancoPesquisa.Designer.cs">
+      <DependentUpon>FrmBancoPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmBanco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmBanco.Designer.cs">
+      <DependentUpon>FrmBanco.cs</DependentUpon>
+    </Compile>
     <Compile Include="Telas\FrmEmpresaPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +159,22 @@
       <DependentUpon>SACE.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Telas\FrmContaBancoPesquisa.resx">
+      <DependentUpon>FrmContaBancoPesquisa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmContaBanco.resx">
+      <DependentUpon>FrmContaBanco.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmBancoPesquisa.resx">
+      <DependentUpon>FrmBancoPesquisa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmBanco.resx">
+      <DependentUpon>FrmBanco.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Telas\FrmEmpresaPesquisa.resx">
       <DependentUpon>FrmEmpresaPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -244,9 +283,9 @@
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </None>
     <None Include="Dados\saceDataSet.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>saceDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Dados\saceDataSet.xss">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
@@ -256,6 +295,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
