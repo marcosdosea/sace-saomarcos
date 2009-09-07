@@ -107,5 +107,12 @@ namespace SACE
             frmContaBanco.Dispose();
         }
 
+        private void cartõesDeCréditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmCartaoCredito frmCartaoCredito = new Telas.FrmCartaoCredito();
+            frmCartaoCredito.ShowDialog();
+            frmCartaoCredito.Dispose();
+        }
+
     }
 }
