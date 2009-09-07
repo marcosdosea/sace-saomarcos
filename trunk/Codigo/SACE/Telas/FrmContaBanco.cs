@@ -88,8 +88,12 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_conta_bancoTableAdapter.Insert(codContaBancoTextBox.Text, 
-                        agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()));
+                    if (codBancoComboBox.SelectedValue != null)
+                        tb_conta_bancoTableAdapter.Insert(codContaBancoTextBox.Text,
+                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()));
+                    else
+                        tb_conta_bancoTableAdapter.Insert(codContaBancoTextBox.Text,
+                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), null);
                     tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
                     tb_conta_bancoBindingSource.MoveLast();
                 }
