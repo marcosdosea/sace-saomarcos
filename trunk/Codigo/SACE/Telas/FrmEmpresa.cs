@@ -25,6 +25,7 @@ namespace SACE.Telas
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
             habilitaBotoes(true);
+            //alteracao
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
