@@ -209,7 +209,7 @@ CREATE TABLE SACE.TB_CONTA_BANCO (
      , agencia VARCHAR(10)
      , descricao VARCHAR(30)
      , saldo DECIMAL(10, 2)
-     , codBanco INT NOT NULL
+     , codBanco INT
      , PRIMARY KEY (codContaBanco)
      , INDEX (codBanco)
      , CONSTRAINT FK_TB_CONTA_BANCO_1 FOREIGN KEY (codBanco)
