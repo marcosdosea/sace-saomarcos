@@ -73,12 +73,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dados\saceDataSet.cs">
+      <DependentUpon>saceDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Dados\saceDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Dados\saceDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>saceDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Telas\FrmEntradaProdutos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmEntradaProdutos.Designer.cs">
+      <DependentUpon>FrmEntradaProdutos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmGrupoContaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmGrupoContaPesquisa.Designer.cs">
+      <DependentUpon>FrmGrupoContaPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmGrupoConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmGrupoConta.Designer.cs">
+      <DependentUpon>FrmGrupoConta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmPreVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmPreVenda.Designer.cs">
+      <DependentUpon>FrmPreVenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmPlanoContaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmPlanoContaPesquisa.Designer.cs">
+      <DependentUpon>FrmPlanoContaPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\FrmPlanoConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FrmPlanoConta.Designer.cs">
+      <DependentUpon>FrmPlanoConta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Telas\FrmCartaoCreditoPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +216,30 @@
       <DependentUpon>SACE.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Telas\FrmEntradaProdutos.resx">
+      <DependentUpon>FrmEntradaProdutos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmGrupoContaPesquisa.resx">
+      <DependentUpon>FrmGrupoContaPesquisa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmGrupoConta.resx">
+      <DependentUpon>FrmGrupoConta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmPreVenda.resx">
+      <DependentUpon>FrmPreVenda.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmPlanoContaPesquisa.resx">
+      <DependentUpon>FrmPlanoContaPesquisa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FrmPlanoConta.resx">
+      <DependentUpon>FrmPlanoConta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Telas\FrmCartaoCreditoPesquisa.resx">
       <DependentUpon>FrmCartaoCreditoPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -309,6 +378,17 @@
     </None>
     <None Include="Dados\saceDataSet.xss">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Dados\saceDataSet2.xsc">
+      <DependentUpon>saceDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="Dados\saceDataSet2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>saceDataSet2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Dados\saceDataSet2.xss">
+      <DependentUpon>saceDataSet2.xsd</DependentUpon>
     </None>
     <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter.datasource" />
     <None Include="Resources\16.png" />

@@ -126,7 +126,7 @@ where nome like concat(@nome, '%')</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tb_cartao_creditoTableAdapter" GeneratorDataComponentClassName="tb_cartao_creditoTableAdapter" Name="tb_cartao_credito" UserDataComponentName="tb_cartao_creditoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_conta_banco" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM tb_cartao_credito
@@ -255,7 +255,7 @@ WHERE        (codContaBanco = @Original_codContaBanco)</CommandText>
               <Mapping SourceColumn="codBanco" DataSetColumn="codBanco" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByConta" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByConta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillByConta">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_conta_banco" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByConta" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByConta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillByConta">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        tb_conta_banco.codContaBanco, tb_conta_banco.agencia, tb_conta_banco.descricao, tb_conta_banco.saldo, tb_conta_banco.codBanco, 
@@ -269,7 +269,7 @@ WHERE        (tb_conta_banco.codContaBanco LIKE CONCAT(@codContaBanco, '%'))</Co
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByDescricao" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy1" GeneratorSourceName="FillByDescricao" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillByDescricao">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_conta_banco" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByDescricao" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy1" GeneratorSourceName="FillByDescricao" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillByDescricao">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        tb_conta_banco.codContaBanco, tb_conta_banco.agencia, tb_conta_banco.descricao, tb_conta_banco.saldo, tb_conta_banco.codBanco, 
@@ -1315,16 +1315,13 @@ where nome like concat(@nome, '%')</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tb_plano_contaTableAdapter" GeneratorDataComponentClassName="tb_plano_contaTableAdapter" Name="tb_plano_conta" UserDataComponentName="tb_plano_contaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_plano_conta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM `sace`.`tb_plano_conta` WHERE ((`codPlanoConta` = @Original_codPlanoConta) AND (`descricao` = @Original_descricao) AND (`tipoConta` = @Original_tipoConta) AND ((@IsNull_diaBase = 1 AND `diaBase` IS NULL) OR (`diaBase` = @Original_diaBase)))</CommandText>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>DELETE FROM tb_plano_conta
+WHERE        (codPlanoConta = @Original_codPlanoConta)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_codPlanoConta" Precision="0" ProviderType="Int64" Scale="0" Size="0" SourceColumn="codPlanoConta" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_descricao" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="descricao" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_tipoConta" Precision="0" ProviderType="String" Scale="0" Size="0" SourceColumn="tipoConta" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_diaBase" Precision="0" ProviderType="Int32" Scale="0" Size="0" SourceColumn="diaBase" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_diaBase" Precision="0" ProviderType="Int16" Scale="0" Size="0" SourceColumn="diaBase" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Original_codPlanoConta" ColumnName="codPlanoConta" DataSourceName="sace.tb_plano_conta" DataTypeServer="bigint(20)" DbType="Int64" Direction="Input" ParameterName="@Original_codPlanoConta" Precision="0" ProviderType="Int64" Scale="0" Size="0" SourceColumn="codPlanoConta" SourceColumnNullMapping="false" SourceVersion="Original" />
                     </Parameters>
                   </DbCommand>
                 </DeleteCommand>
@@ -1340,23 +1337,24 @@ where nome like concat(@nome, '%')</CommandText>
                 </InsertCommand>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT        codPlanoConta, descricao, tipoConta, diaBase
-FROM            tb_plano_conta</CommandText>
+                    <CommandText>SELECT        tb_plano_conta.codPlanoConta, tb_plano_conta.descricao, tb_plano_conta.tipoConta, tb_plano_conta.diaBase, tb_plano_conta.codTipoConta, 
+                         tb_tipo_conta.descricao AS descricaoTipoConta
+FROM            tb_plano_conta INNER JOIN
+                         tb_tipo_conta ON tb_plano_conta.codTipoConta = tb_tipo_conta.codTipoConta</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE `sace`.`tb_plano_conta` SET `descricao` = @descricao, `tipoConta` = @tipoConta, `diaBase` = @diaBase WHERE ((`codPlanoConta` = @Original_codPlanoConta) AND (`descricao` = @Original_descricao) AND (`tipoConta` = @Original_tipoConta) AND ((@IsNull_diaBase = 1 AND `diaBase` IS NULL) OR (`diaBase` = @Original_diaBase)))</CommandText>
+                    <CommandText>UPDATE       tb_plano_conta
+SET                descricao = @descricao, tipoConta = @tipoConta, diaBase = @diaBase, codTipoConta = @codTipoConta
+WHERE        (codPlanoConta = @Original_codPlanoConta)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@descricao" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="descricao" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@tipoConta" Precision="0" ProviderType="String" Scale="0" Size="0" SourceColumn="tipoConta" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@diaBase" Precision="0" ProviderType="Int16" Scale="0" Size="0" SourceColumn="diaBase" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_codPlanoConta" Precision="0" ProviderType="Int64" Scale="0" Size="0" SourceColumn="codPlanoConta" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_descricao" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="descricao" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_tipoConta" Precision="0" ProviderType="String" Scale="0" Size="0" SourceColumn="tipoConta" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_diaBase" Precision="0" ProviderType="Int32" Scale="0" Size="0" SourceColumn="diaBase" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_diaBase" Precision="0" ProviderType="Int16" Scale="0" Size="0" SourceColumn="diaBase" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="descricao" ColumnName="descricao" DataSourceName="" DataTypeServer="varchar(40)(40)" DbType="String" Direction="Input" ParameterName="@descricao" Precision="0" ProviderType="VarChar" Scale="0" Size="40" SourceColumn="descricao" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="tipoConta" ColumnName="tipoConta" DataSourceName="" DataTypeServer="char(1)(1)" DbType="String" Direction="Input" ParameterName="@tipoConta" Precision="0" ProviderType="String" Scale="0" Size="1" SourceColumn="tipoConta" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="diaBase" ColumnName="diaBase" DataSourceName="" DataTypeServer="smallint(6)" DbType="Int16" Direction="Input" ParameterName="@diaBase" Precision="0" ProviderType="Int16" Scale="0" Size="0" SourceColumn="diaBase" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="codTipoConta" ColumnName="codTipoConta" DataSourceName="" DataTypeServer="int(11)" DbType="Int32" Direction="Input" ParameterName="@codTipoConta" Precision="0" ProviderType="Int32" Scale="0" Size="0" SourceColumn="codTipoConta" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Original_codPlanoConta" ColumnName="codPlanoConta" DataSourceName="" DataTypeServer="bigint(20)" DbType="Int64" Direction="Input" ParameterName="@Original_codPlanoConta" Precision="0" ProviderType="Int64" Scale="0" Size="0" SourceColumn="codPlanoConta" SourceColumnNullMapping="false" SourceVersion="Original" />
                     </Parameters>
                   </DbCommand>
                 </UpdateCommand>
@@ -1367,8 +1365,31 @@ FROM            tb_plano_conta</CommandText>
               <Mapping SourceColumn="descricao" DataSetColumn="descricao" />
               <Mapping SourceColumn="tipoConta" DataSetColumn="tipoConta" />
               <Mapping SourceColumn="diaBase" DataSetColumn="diaBase" />
+              <Mapping SourceColumn="codTipoConta" DataSetColumn="codTipoConta" />
+              <Mapping SourceColumn="descricaoTipoConta" DataSetColumn="descricaoTipoConta" />
             </Mappings>
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_plano_conta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByCodPlanoConta" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByCodPlanoConta" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillByCodPlanoConta">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT codPlanoConta, codTipoConta, descricao, diaBase, tipoConta FROM tb_plano_conta WHERE (codPlanoConta = @codPlanoConta)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="codPlanoConta" ColumnName="codPlanoConta" DataSourceName="sace.tb_plano_conta" DataTypeServer="bigint(20)" DbType="Int64" Direction="Input" ParameterName="@codPlanoConta" Precision="0" ProviderType="Int64" Scale="0" Size="0" SourceColumn="codPlanoConta" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_plano_conta" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByDescricao" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByDescricao" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillByDescricao">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT codPlanoConta, codTipoConta, descricao, diaBase, tipoConta FROM tb_plano_conta WHERE (descricao LIKE CONCAT(@descricao, '%'))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="descricao" ColumnName="descricao" DataSourceName="sace.tb_plano_conta" DataTypeServer="varchar(40)(40)" DbType="AnsiString" Direction="Input" ParameterName="@descricao" Precision="0" ProviderType="VarChar" Scale="0" Size="40" SourceColumn="descricao" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tb_produtoTableAdapter" GeneratorDataComponentClassName="tb_produtoTableAdapter" Name="tb_produto" UserDataComponentName="tb_produtoTableAdapter">
             <MainSource>
@@ -2383,6 +2404,14 @@ FROM            tb_produto</CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="diaBase" msprop:Generator_UserColumnName="diaBase" msprop:Generator_ColumnVarNameInTable="columndiaBase" msprop:Generator_ColumnPropNameInRow="diaBase" msprop:Generator_ColumnPropNameInTable="diaBaseColumn" type="xs:short" minOccurs="0" />
+              <xs:element name="codTipoConta" msprop:Generator_UserColumnName="codTipoConta" msprop:Generator_ColumnPropNameInRow="codTipoConta" msprop:Generator_ColumnVarNameInTable="columncodTipoConta" msprop:Generator_ColumnPropNameInTable="codTipoContaColumn" type="xs:int" />
+              <xs:element name="descricaoTipoConta" msprop:Generator_UserColumnName="descricaoTipoConta" msprop:Generator_ColumnPropNameInRow="descricaoTipoConta" msprop:Generator_ColumnVarNameInTable="columndescricaoTipoConta" msprop:Generator_ColumnPropNameInTable="descricaoTipoContaColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

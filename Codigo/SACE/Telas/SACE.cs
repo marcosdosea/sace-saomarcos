@@ -64,11 +64,6 @@ namespace SACE
             frmLoja.Dispose();
         }
 
-        private void btnVenda_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnProdutos_Click(object sender, EventArgs e)
         {
 
@@ -112,6 +107,27 @@ namespace SACE
             Telas.FrmCartaoCredito frmCartaoCredito = new Telas.FrmCartaoCredito();
             frmCartaoCredito.ShowDialog();
             frmCartaoCredito.Dispose();
+        }
+
+        private void planoDeContasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmPlanoConta frmPlanoConta = new Telas.FrmPlanoConta();
+            frmPlanoConta.ShowDialog();
+            frmPlanoConta.Dispose();
+        }
+
+        private void tiposDeContasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmGrupoConta frmTipoConta = new Telas.FrmGrupoConta();
+            frmTipoConta.ShowDialog();
+            frmTipoConta.Dispose();
+        }
+
+        private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmPreVenda frmPreVenda = new Telas.FrmPreVenda();
+            frmPreVenda.ShowDialog();
+            frmPreVenda.Dispose();
         }
 
     }

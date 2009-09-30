@@ -236,7 +236,6 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private SACE.Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_cartao_creditoBindingSource;
         private SACE.Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter tb_cartao_creditoTableAdapter;
