@@ -39,6 +39,7 @@
             this.contasBancáriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cartõesDeCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bancosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tiposDeContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,7 +104,8 @@
             this.planoDeContasToolStripMenuItem,
             this.contasBancáriasToolStripMenuItem,
             this.cartõesDeCréditoToolStripMenuItem,
-            this.bancosToolStripMenuItem});
+            this.bancosToolStripMenuItem,
+            this.tiposDeContasToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.cadastrosToolStripMenuItem.Text = "&Cadastros";
@@ -148,6 +150,7 @@
             this.planoDeContasToolStripMenuItem.Name = "planoDeContasToolStripMenuItem";
             this.planoDeContasToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.planoDeContasToolStripMenuItem.Text = "Plano de Contas";
+            this.planoDeContasToolStripMenuItem.Click += new System.EventHandler(this.planoDeContasToolStripMenuItem_Click);
             // 
             // contasBancáriasToolStripMenuItem
             // 
@@ -170,6 +173,13 @@
             this.bancosToolStripMenuItem.Text = "Bancos";
             this.bancosToolStripMenuItem.Click += new System.EventHandler(this.bancosToolStripMenuItem_Click);
             // 
+            // tiposDeContasToolStripMenuItem
+            // 
+            this.tiposDeContasToolStripMenuItem.Name = "tiposDeContasToolStripMenuItem";
+            this.tiposDeContasToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.tiposDeContasToolStripMenuItem.Text = "Grupo de Contas";
+            this.tiposDeContasToolStripMenuItem.Click += new System.EventHandler(this.tiposDeContasToolStripMenuItem_Click);
+            // 
             // movimentaçãoToolStripMenuItem
             // 
             this.movimentaçãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -185,6 +195,7 @@
             this.vendaAoConsumidorToolStripMenuItem.Name = "vendaAoConsumidorToolStripMenuItem";
             this.vendaAoConsumidorToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.vendaAoConsumidorToolStripMenuItem.Text = "Pré-Venda ao Consumidor";
+            this.vendaAoConsumidorToolStripMenuItem.Click += new System.EventHandler(this.vendaAoConsumidorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -457,7 +468,7 @@
             this.btnVenda.Text = "Pré-Venda - F3";
             this.btnVenda.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnVenda.UseVisualStyleBackColor = true;
-            this.btnVenda.Click += new System.EventHandler(this.btnVenda_Click);
+            this.btnVenda.Click += new System.EventHandler(this.vendaAoConsumidorToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -537,6 +548,7 @@
         private System.Windows.Forms.ToolStripMenuItem movimentaçãoContasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cartõesDeCréditoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bancosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tiposDeContasToolStripMenuItem;
 
     }
 }

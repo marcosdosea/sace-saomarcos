@@ -1,6 +1,6 @@
 ﻿namespace SACE.Telas
 {
-    partial class FrmLojaPesquisa
+    partial class FrmPlanoContaPesquisa
     {
         /// <summary>
         /// Required designer variable.
@@ -34,22 +34,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_lojaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
+            this.tb_plano_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_plano_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_lojaDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_plano_contaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -67,7 +62,7 @@
             this.cmbBusca.FormattingEnabled = true;
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
-            "Nome",
+            "Descrição",
             "Código"});
             this.cmbBusca.Location = new System.Drawing.Point(10, 26);
             this.cmbBusca.Name = "cmbBusca";
@@ -88,7 +83,7 @@
             // 
             this.txtTexto.Location = new System.Drawing.Point(146, 26);
             this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(326, 20);
+            this.txtTexto.Size = new System.Drawing.Size(308, 20);
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
@@ -97,18 +92,20 @@
             this.saceDataSet.DataSetName = "saceDataSet";
             this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // tb_lojaBindingSource
+            // tb_plano_contaBindingSource
             // 
-            this.tb_lojaBindingSource.DataMember = "tb_loja";
-            this.tb_lojaBindingSource.DataSource = this.saceDataSet;
+            this.tb_plano_contaBindingSource.DataMember = "tb_plano_conta";
+            this.tb_plano_contaBindingSource.DataSource = this.saceDataSet;
             // 
-            // tb_lojaTableAdapter
+            // tb_plano_contaTableAdapter
             // 
-            this.tb_lojaTableAdapter.ClearBeforeFill = true;
+            this.tb_plano_contaTableAdapter.ClearBeforeFill = true;
             // 
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
             this.tableAdapterManager.tb_conta_receberTableAdapter = null;
@@ -119,10 +116,10 @@
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = this.tb_lojaTableAdapter;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = this.tb_plano_contaTableAdapter;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saida_pagamentoTableAdapter = null;
@@ -131,114 +128,74 @@
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tb_lojaDataGridView
+            // tb_plano_contaDataGridView
             // 
-            this.tb_lojaDataGridView.AllowUserToAddRows = false;
-            this.tb_lojaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_lojaDataGridView.AutoGenerateColumns = false;
-            this.tb_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
+            this.tb_plano_contaDataGridView.AllowUserToAddRows = false;
+            this.tb_plano_contaDataGridView.AllowUserToDeleteRows = false;
+            this.tb_plano_contaDataGridView.AutoGenerateColumns = false;
+            this.tb_plano_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tb_plano_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.UF,
-            this.fone});
-            this.tb_lojaDataGridView.DataSource = this.tb_lojaBindingSource;
-            this.tb_lojaDataGridView.Location = new System.Drawing.Point(10, 53);
-            this.tb_lojaDataGridView.MultiSelect = false;
-            this.tb_lojaDataGridView.Name = "tb_lojaDataGridView";
-            this.tb_lojaDataGridView.ReadOnly = true;
-            this.tb_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_lojaDataGridView.Size = new System.Drawing.Size(462, 241);
-            this.tb_lojaDataGridView.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "codLoja";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5});
+            this.tb_plano_contaDataGridView.DataSource = this.tb_plano_contaBindingSource;
+            this.tb_plano_contaDataGridView.Location = new System.Drawing.Point(10, 63);
+            this.tb_plano_contaDataGridView.MultiSelect = false;
+            this.tb_plano_contaDataGridView.Name = "tb_plano_contaDataGridView";
+            this.tb_plano_contaDataGridView.ReadOnly = true;
+            this.tb_plano_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tb_plano_contaDataGridView.Size = new System.Drawing.Size(444, 240);
+            this.tb_plano_contaDataGridView.TabIndex = 5;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "nome";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nome";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "codPlanoConta";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Código";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "cnpj";
-            this.dataGridViewTextBoxColumn3.HeaderText = "CNPJ";
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "descricao";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Descrição";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn4
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "ie";
-            this.dataGridViewTextBoxColumn4.HeaderText = "IE";
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "tipoConta";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Tipo";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn5
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "endereco";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Endereço";
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "diaBase";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Dia Base";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "bairro";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Bairro";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "cidade";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Cidade";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            // 
-            // UF
-            // 
-            this.UF.DataPropertyName = "uf";
-            this.UF.HeaderText = "UF";
-            this.UF.Name = "UF";
-            this.UF.ReadOnly = true;
-            // 
-            // fone
-            // 
-            this.fone.DataPropertyName = "fone";
-            this.fone.HeaderText = "fone";
-            this.fone.Name = "fone";
-            this.fone.ReadOnly = true;
-            // 
-            // FrmLojaPesquisa
+            // FrmPlanoContaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 306);
-            this.Controls.Add(this.tb_lojaDataGridView);
+            this.ClientSize = new System.Drawing.Size(474, 315);
+            this.Controls.Add(this.tb_plano_contaDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbBusca);
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
-            this.Name = "FrmLojaPesquisa";
+            this.Name = "FrmPlanoContaPesquisa";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Pesquisa Lojas";
-            this.Load += new System.EventHandler(this.FrmLojaPesquisa_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLojaPesquisa_KeyDown);
+            this.Text = "Pesquisar Plano de Contas";
+            this.Load += new System.EventHandler(this.FrmPlanoContaPesquisa_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPlanoContaPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,20 +206,16 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private SACE.Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_lojaBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTableAdapter;
+        private System.Windows.Forms.BindingSource tb_plano_contaBindingSource;
+        private SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
         private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.DataGridView tb_lojaDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridView tb_plano_contaDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UF;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fone;
   
     }
 }

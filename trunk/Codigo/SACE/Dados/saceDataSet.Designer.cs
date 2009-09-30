@@ -6002,6 +6002,10 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columndiaBase;
             
+            private global::System.Data.DataColumn columncodTipoConta;
+            
+            private global::System.Data.DataColumn columndescricaoTipoConta;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_plano_contaDataTable() {
                 this.TableName = "tb_plano_conta";
@@ -6061,6 +6065,20 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn codTipoContaColumn {
+                get {
+                    return this.columncodTipoConta;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn descricaoTipoContaColumn {
+                get {
+                    return this.columndescricaoTipoConta;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6089,13 +6107,15 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_plano_contaRow Addtb_plano_contaRow(string descricao, string tipoConta, short diaBase) {
+            public tb_plano_contaRow Addtb_plano_contaRow(string descricao, string tipoConta, short diaBase, int codTipoConta, string descricaoTipoConta) {
                 tb_plano_contaRow rowtb_plano_contaRow = ((tb_plano_contaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         descricao,
                         tipoConta,
-                        diaBase};
+                        diaBase,
+                        codTipoConta,
+                        descricaoTipoConta};
                 rowtb_plano_contaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_plano_contaRow);
                 return rowtb_plano_contaRow;
@@ -6125,6 +6145,8 @@ namespace SACE.Dados {
                 this.columndescricao = base.Columns["descricao"];
                 this.columntipoConta = base.Columns["tipoConta"];
                 this.columndiaBase = base.Columns["diaBase"];
+                this.columncodTipoConta = base.Columns["codTipoConta"];
+                this.columndescricaoTipoConta = base.Columns["descricaoTipoConta"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6137,6 +6159,10 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columntipoConta);
                 this.columndiaBase = new global::System.Data.DataColumn("diaBase", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndiaBase);
+                this.columncodTipoConta = new global::System.Data.DataColumn("codTipoConta", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodTipoConta);
+                this.columndescricaoTipoConta = new global::System.Data.DataColumn("descricaoTipoConta", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndescricaoTipoConta);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodPlanoConta}, true));
                 this.columncodPlanoConta.AutoIncrement = true;
@@ -6148,6 +6174,9 @@ namespace SACE.Dados {
                 this.columndescricao.MaxLength = 40;
                 this.columntipoConta.AllowDBNull = false;
                 this.columntipoConta.MaxLength = 1;
+                this.columncodTipoConta.AllowDBNull = false;
+                this.columndescricaoTipoConta.AllowDBNull = false;
+                this.columndescricaoTipoConta.MaxLength = 40;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10429,6 +10458,26 @@ namespace SACE.Dados {
                 }
                 set {
                     this[this.tabletb_plano_conta.diaBaseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int codTipoConta {
+                get {
+                    return ((int)(this[this.tabletb_plano_conta.codTipoContaColumn]));
+                }
+                set {
+                    this[this.tabletb_plano_conta.codTipoContaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string descricaoTipoConta {
+                get {
+                    return ((string)(this[this.tabletb_plano_conta.descricaoTipoContaColumn]));
+                }
+                set {
+                    this[this.tabletb_plano_conta.descricaoTipoContaColumn] = value;
                 }
             }
             
@@ -21308,13 +21357,13 @@ WHERE        (codPessoa = @Original_codPessoa)";
             tableMapping.ColumnMappings.Add("descricao", "descricao");
             tableMapping.ColumnMappings.Add("tipoConta", "tipoConta");
             tableMapping.ColumnMappings.Add("diaBase", "diaBase");
+            tableMapping.ColumnMappings.Add("codTipoConta", "codTipoConta");
+            tableMapping.ColumnMappings.Add("descricaoTipoConta", "descricaoTipoConta");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `sace`.`tb_plano_conta` WHERE ((`codPlanoConta` = @Original_codPlanoC" +
-                "onta) AND (`descricao` = @Original_descricao) AND (`tipoConta` = @Original_tipoC" +
-                "onta) AND ((@IsNull_diaBase = 1 AND `diaBase` IS NULL) OR (`diaBase` = @Original" +
-                "_diaBase)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_plano_conta\r\nWHERE        (codPlanoConta = @Original_codPlanoConta" +
+                ")";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codPlanoConta";
@@ -21322,39 +21371,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codPlanoConta";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_descricao";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "descricao";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_tipoConta";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "tipoConta";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_diaBase";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "diaBase";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_diaBase";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "diaBase";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
@@ -21385,19 +21401,23 @@ WHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `sace`.`tb_plano_conta` SET `descricao` = @descricao, `tipoConta` = @tipoConta, `diaBase` = @diaBase WHERE ((`codPlanoConta` = @Original_codPlanoConta) AND (`descricao` = @Original_descricao) AND (`tipoConta` = @Original_tipoConta) AND ((@IsNull_diaBase = 1 AND `diaBase` IS NULL) OR (`diaBase` = @Original_diaBase)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE       tb_plano_conta\r\nSET                descricao = @descricao, tipoConta" +
+                " = @tipoConta, diaBase = @diaBase, codTipoConta = @codTipoConta\r\nWHERE        (c" +
+                "odPlanoConta = @Original_codPlanoConta)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@descricao";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 40;
             param.IsNullable = true;
             param.SourceColumn = "descricao";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@tipoConta";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
             param.IsNullable = true;
             param.SourceColumn = "tipoConta";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -21409,44 +21429,18 @@ WHERE        (codPessoa = @Original_codPessoa)";
             param.SourceColumn = "diaBase";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codTipoConta";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codTipoConta";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codPlanoConta";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codPlanoConta";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_descricao";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "descricao";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_tipoConta";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "tipoConta";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_diaBase";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "diaBase";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_diaBase";
-            param.DbType = global::System.Data.DbType.Int16;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int16;
-            param.IsNullable = true;
-            param.SourceColumn = "diaBase";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
         }
@@ -21459,12 +21453,38 @@ WHERE        (codPessoa = @Original_codPessoa)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        codPlanoConta, descricao, tipoConta, diaBase\r\nFROM            tb_pl" +
-                "ano_conta";
+            this._commandCollection[0].CommandText = @"SELECT        tb_plano_conta.codPlanoConta, tb_plano_conta.descricao, tb_plano_conta.tipoConta, tb_plano_conta.diaBase, tb_plano_conta.codTipoConta, 
+                         tb_tipo_conta.descricao AS descricaoTipoConta
+FROM            tb_plano_conta INNER JOIN
+                         tb_tipo_conta ON tb_plano_conta.codTipoConta = tb_tipo_conta.codTipoConta";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT codPlanoConta, codTipoConta, descricao, diaBase, tipoConta FROM tb_plano_c" +
+                "onta WHERE (codPlanoConta = @codPlanoConta)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPlanoConta";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codPlanoConta";
+            this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT codPlanoConta, codTipoConta, descricao, diaBase, tipoConta FROM tb_plano_c" +
+                "onta WHERE (descricao LIKE CONCAT(@descricao, \'%\'))";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@descricao";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 40;
+            param.IsNullable = true;
+            param.SourceColumn = "descricao";
+            this._commandCollection[2].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21487,6 +21507,37 @@ WHERE        (codPessoa = @Original_codPessoa)";
             saceDataSet.tb_plano_contaDataTable dataTable = new saceDataSet.tb_plano_contaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodPlanoConta(saceDataSet.tb_plano_contaDataTable dataTable, long codPlanoConta) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codPlanoConta));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByDescricao(saceDataSet.tb_plano_contaDataTable dataTable, string descricao) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((descricao == null)) {
+                throw new global::System.ArgumentNullException("descricao");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(descricao));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21517,28 +21568,8 @@ WHERE        (codPessoa = @Original_codPessoa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_codPlanoConta, string Original_descricao, string Original_tipoConta, global::System.Nullable<short> Original_diaBase) {
+        public virtual int Delete(long Original_codPlanoConta) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_codPlanoConta));
-            if ((Original_descricao == null)) {
-                throw new global::System.ArgumentNullException("Original_descricao");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_descricao));
-            }
-            if ((Original_tipoConta == null)) {
-                throw new global::System.ArgumentNullException("Original_tipoConta");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_tipoConta));
-            }
-            if ((Original_diaBase.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((short)(Original_diaBase.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -21596,7 +21627,7 @@ WHERE        (codPessoa = @Original_codPessoa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string descricao, string tipoConta, global::System.Nullable<short> diaBase, long Original_codPlanoConta, string Original_descricao, string Original_tipoConta, global::System.Nullable<short> Original_diaBase) {
+        public virtual int Update(string descricao, string tipoConta, global::System.Nullable<short> diaBase, int codTipoConta, long Original_codPlanoConta) {
             if ((descricao == null)) {
                 throw new global::System.ArgumentNullException("descricao");
             }
@@ -21615,27 +21646,8 @@ WHERE        (codPessoa = @Original_codPessoa)";
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((long)(Original_codPlanoConta));
-            if ((Original_descricao == null)) {
-                throw new global::System.ArgumentNullException("Original_descricao");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_descricao));
-            }
-            if ((Original_tipoConta == null)) {
-                throw new global::System.ArgumentNullException("Original_tipoConta");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_tipoConta));
-            }
-            if ((Original_diaBase.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(Original_diaBase.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(codTipoConta));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(Original_codPlanoConta));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
