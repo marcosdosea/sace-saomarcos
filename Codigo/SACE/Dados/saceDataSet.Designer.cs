@@ -1444,8 +1444,6 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columndescricao;
             
-            private global::System.Data.DataColumn columnExpr1;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_cartao_creditoDataTable() {
                 this.TableName = "tb_cartao_credito";
@@ -1519,13 +1517,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn Expr1Column {
-                get {
-                    return this.columnExpr1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1554,7 +1545,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_cartao_creditoRow Addtb_cartao_creditoRow(string nome, int diaBase, int codContaBanco, string agencia, string descricao, int Expr1) {
+            public tb_cartao_creditoRow Addtb_cartao_creditoRow(string nome, int diaBase, int codContaBanco, string agencia, string descricao) {
                 tb_cartao_creditoRow rowtb_cartao_creditoRow = ((tb_cartao_creditoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1562,8 +1553,7 @@ namespace SACE.Dados {
                         diaBase,
                         codContaBanco,
                         agencia,
-                        descricao,
-                        Expr1};
+                        descricao};
                 rowtb_cartao_creditoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_cartao_creditoRow);
                 return rowtb_cartao_creditoRow;
@@ -1595,7 +1585,6 @@ namespace SACE.Dados {
                 this.columncodContaBanco = base.Columns["codContaBanco"];
                 this.columnagencia = base.Columns["agencia"];
                 this.columndescricao = base.Columns["descricao"];
-                this.columnExpr1 = base.Columns["Expr1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1612,8 +1601,6 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnagencia);
                 this.columndescricao = new global::System.Data.DataColumn("descricao", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndescricao);
-                this.columnExpr1 = new global::System.Data.DataColumn("Expr1", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExpr1);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodCartao}, true));
                 this.columncodCartao.AutoIncrement = true;
@@ -1626,7 +1613,6 @@ namespace SACE.Dados {
                 this.columncodContaBanco.AllowDBNull = false;
                 this.columnagencia.MaxLength = 10;
                 this.columndescricao.MaxLength = 30;
-                this.columnExpr1.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8246,16 +8232,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Expr1 {
-                get {
-                    return ((int)(this[this.tabletb_cartao_credito.Expr1Column]));
-                }
-                set {
-                    this[this.tabletb_cartao_credito.Expr1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsdiaBaseNull() {
                 return this.IsNull(this.tabletb_cartao_credito.diaBaseColumn);
             }
@@ -13019,10 +12995,8 @@ namespace SACE.Dados.saceDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("codCartao", "codCartao");
             tableMapping.ColumnMappings.Add("nome", "nome");
             tableMapping.ColumnMappings.Add("diaBase", "diaBase");
-            tableMapping.ColumnMappings.Add("codContaBanco", "codContaBanco");
             tableMapping.ColumnMappings.Add("agencia", "agencia");
             tableMapping.ColumnMappings.Add("descricao", "descricao");
-            tableMapping.ColumnMappings.Add("Expr1", "Expr1");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -13113,7 +13087,7 @@ namespace SACE.Dados.saceDataSetTableAdapters {
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_cartao_credito.codCartao, tb_cartao_credito.nome, tb_cartao_credito.diaBase, tb_cartao_credito.codContaBanco, tb_conta_banco.descricao, 
-                         tb_conta_banco.agencia, tb_conta_banco.codContaBanco AS Expr1
+                         tb_conta_banco.agencia
 FROM            tb_cartao_credito INNER JOIN
                          tb_conta_banco ON tb_cartao_credito.codContaBanco = tb_conta_banco.codContaBanco";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
@@ -16410,14 +16384,13 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codigoEmpresa`, `nome`, `cnpj`, `ie`, `fone`, `endereco`, `bairro`, `cep`" +
-                ", `cidade`, `uf`, `limiteCompra`, `observacao` FROM `sace`.`tb_empresa`";
+            this._commandCollection[0].CommandText = "SELECT        codigoEmpresa, nome, cnpj, ie, fone, endereco, bairro, cep, cidade," +
+                " uf, limiteCompra, observacao\r\nFROM            tb_empresa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT `codigoEmpresa`, `nome`, `cnpj`, `ie`, `fone`, `endereco`, `bairro`, `cep`" +
-                ", `cidade`, `uf`, `limiteCompra`, `observacao` FROM `sace`.`tb_empresa`\r\nWHERE  " +
-                "      (cnpj LIKE CONCAT(@cnpj, \'%\'))";
+            this._commandCollection[1].CommandText = "SELECT bairro, cep, cidade, cnpj, codigoEmpresa, endereco, fone, ie, limiteCompra" +
+                ", nome, observacao, uf FROM tb_empresa WHERE (cnpj LIKE CONCAT(@cnpj, \'%\'))";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@cnpj";
@@ -16428,9 +16401,8 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._commandCollection[1].Parameters.Add(param);
             this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT        codigoEmpresa, nome, cnpj, ie, fone, endereco, bairro, cep, cidade," +
-                " uf, limiteCompra, observacao\r\nFROM            tb_empresa\r\nWHERE        (codigoE" +
-                "mpresa = @codigoEmpresa)";
+            this._commandCollection[2].CommandText = "SELECT bairro, cep, cidade, cnpj, codigoEmpresa, endereco, fone, ie, limiteCompra" +
+                ", nome, observacao, uf FROM tb_empresa WHERE (codigoEmpresa = @codigoEmpresa)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codigoEmpresa";
@@ -16441,9 +16413,8 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._commandCollection[2].Parameters.Add(param);
             this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT        codigoEmpresa, nome, cnpj, ie, fone, endereco, bairro, cep, cidade," +
-                " uf, limiteCompra, observacao\r\nFROM            tb_empresa\r\nWHERE        (nome LI" +
-                "KE CONCAT(@nome, \'%\'))";
+            this._commandCollection[3].CommandText = "SELECT bairro, cep, cidade, cnpj, codigoEmpresa, endereco, fone, ie, limiteCompra" +
+                ", nome, observacao, uf FROM tb_empresa WHERE (nome LIKE CONCAT(@nome, \'%\'))";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
