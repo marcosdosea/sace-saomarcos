@@ -189,16 +189,9 @@ namespace SACE.Telas
             {
                 btnSalvar_Click(sender, e);
                 tb_contato_empresaTableAdapter.Insert(long.Parse(codigoEmpresaTextBox.Text), frmPessoaPesquisa.getCodPessoa());
-                //btnEditar_Click(sender, e);
-                codigoEmpresaTextBox_TextChanged(sender, e);
             }
             frmPessoaPesquisa.Dispose();
             btnContato.Focus();
-        }
-
-        private void codigoEmpresaTextBox_TextChanged(object sender, EventArgs e)
-        {
-            this.tb_contato_empresaTableAdapter.FillByEmpresa(this.saceDataSet.tb_contato_empresa, int.Parse(codigoEmpresaTextBox.Text));
         }
     }
 }

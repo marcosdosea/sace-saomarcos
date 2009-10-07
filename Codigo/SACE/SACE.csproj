@@ -73,19 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dados\saceDataSet.cs">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Dados\saceDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>saceDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Dados\saceDataSet2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>saceDataSet2.xsd</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Telas\FrmEntradaProdutos.cs">
@@ -378,17 +369,6 @@
     </None>
     <None Include="Dados\saceDataSet.xss">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Dados\saceDataSet2.xsc">
-      <DependentUpon>saceDataSet2.xsd</DependentUpon>
-    </None>
-    <None Include="Dados\saceDataSet2.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>saceDataSet2.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Dados\saceDataSet2.xss">
-      <DependentUpon>saceDataSet2.xsd</DependentUpon>
     </None>
     <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter.datasource" />
     <None Include="Resources\16.png" />

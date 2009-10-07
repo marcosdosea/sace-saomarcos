@@ -91,7 +91,7 @@ namespace SACE.Telas
                 {
                     
                     tb_cartao_creditoTableAdapter.Insert(nomeTextBox.Text, int.Parse(diaBaseTextBox.Text),
-                        codContaBancoComboBox.SelectedValue.ToString().Trim());
+                        long.Parse(codContaBancoComboBox.SelectedValue.ToString().Trim()));
                     tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
                     tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
                     tb_cartao_creditoBindingSource.MoveLast();
@@ -99,7 +99,7 @@ namespace SACE.Telas
                 else
                 {
                     tb_cartao_creditoTableAdapter.Update(nomeTextBox.Text, int.Parse(diaBaseTextBox.Text),
-                        codContaBancoComboBox.SelectedValue.ToString().Trim(), int.Parse(codCartaoTextBox.Text));
+                        long.Parse(codContaBancoComboBox.SelectedValue.ToString().Trim()), int.Parse(codCartaoTextBox.Text));
                     tb_cartao_creditoBindingSource.EndEdit();
                 }
             }

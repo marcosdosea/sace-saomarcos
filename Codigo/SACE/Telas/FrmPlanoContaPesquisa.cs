@@ -32,11 +32,11 @@ namespace SACE.Telas
         {
             try
             {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_plano_contaTableAdapter.FillByCodPlanoConta(this.saceDataSet.tb_plano_conta, int.Parse(txtTexto.Text));
+               // if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                    //this.tb_plano_contaTableAdapter.FillByCodPlanoConta(this.saceDataSet.tb_plano_conta, int.Parse(txtTexto.Text));
                    
-                else
-                    this.tb_plano_contaTableAdapter.FillByDescricao(this.saceDataSet.tb_plano_conta, txtTexto.Text);
+                //else
+                    //this.tb_plano_contaTableAdapter.FillByDescricao(this.saceDataSet.tb_plano_conta, txtTexto.Text);
             }
             catch (System.Exception ex)
             {

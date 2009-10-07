@@ -33,16 +33,16 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.saceDataSet2 = new SACE.Dados.saceDataSet2();
-            this.tb_tipo_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_tipo_contaTableAdapter = new SACE.Dados.saceDataSet2TableAdapters.tb_tipo_contaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSet2TableAdapters.TableAdapterManager();
-            this.tb_tipo_contaDataGridView = new System.Windows.Forms.DataGridView();
+            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.tb_grupo_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_grupo_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
+            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_grupo_contaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_contaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_contaDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -85,46 +85,46 @@
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
-            // saceDataSet2
+            // saceDataSet
             // 
-            this.saceDataSet2.DataSetName = "saceDataSet2";
-            this.saceDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // tb_tipo_contaBindingSource
+            // tb_grupo_contaBindingSource
             // 
-            this.tb_tipo_contaBindingSource.DataMember = "tb_tipo_conta";
-            this.tb_tipo_contaBindingSource.DataSource = this.saceDataSet2;
+            this.tb_grupo_contaBindingSource.DataMember = "tb_grupo_conta";
+            this.tb_grupo_contaBindingSource.DataSource = this.saceDataSet;
             // 
-            // tb_tipo_contaTableAdapter
+            // tb_grupo_contaTableAdapter
             // 
-            this.tb_tipo_contaTableAdapter.ClearBeforeFill = true;
+            this.tb_grupo_contaTableAdapter.ClearBeforeFill = true;
             // 
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = this.tb_tipo_contaTableAdapter;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSet2TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = this.tb_grupo_contaTableAdapter;
+            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tb_tipo_contaDataGridView
+            // tb_grupo_contaDataGridView
             // 
-            this.tb_tipo_contaDataGridView.AllowUserToAddRows = false;
-            this.tb_tipo_contaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_tipo_contaDataGridView.AutoGenerateColumns = false;
-            this.tb_tipo_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_tipo_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.tb_grupo_contaDataGridView.AllowUserToAddRows = false;
+            this.tb_grupo_contaDataGridView.AllowUserToDeleteRows = false;
+            this.tb_grupo_contaDataGridView.AutoGenerateColumns = false;
+            this.tb_grupo_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tb_grupo_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
-            this.tb_tipo_contaDataGridView.DataSource = this.tb_tipo_contaBindingSource;
-            this.tb_tipo_contaDataGridView.Location = new System.Drawing.Point(10, 53);
-            this.tb_tipo_contaDataGridView.Name = "tb_tipo_contaDataGridView";
-            this.tb_tipo_contaDataGridView.ReadOnly = true;
-            this.tb_tipo_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_tipo_contaDataGridView.Size = new System.Drawing.Size(444, 220);
-            this.tb_tipo_contaDataGridView.TabIndex = 5;
+            this.tb_grupo_contaDataGridView.DataSource = this.tb_grupo_contaBindingSource;
+            this.tb_grupo_contaDataGridView.Location = new System.Drawing.Point(10, 53);
+            this.tb_grupo_contaDataGridView.Name = "tb_grupo_contaDataGridView";
+            this.tb_grupo_contaDataGridView.ReadOnly = true;
+            this.tb_grupo_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tb_grupo_contaDataGridView.Size = new System.Drawing.Size(444, 220);
+            this.tb_grupo_contaDataGridView.TabIndex = 5;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "codTipoConta";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "codGrupoConta";
             this.dataGridViewTextBoxColumn2.HeaderText = "Código";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -141,7 +141,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 279);
-            this.Controls.Add(this.tb_tipo_contaDataGridView);
+            this.Controls.Add(this.tb_grupo_contaDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbBusca);
@@ -153,9 +153,9 @@
             this.Text = "Pesquisa TipoContas de Produtos";
             this.Load += new System.EventHandler(this.FrmGrupoContaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGrupoContaPesquisa_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_contaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_contaDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,12 +166,11 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private SACE.Dados.saceDataSet2 saceDataSet2;
-        private System.Windows.Forms.BindingSource tb_tipo_contaBindingSource;
-        private SACE.Dados.saceDataSet2TableAdapters.tb_tipo_contaTableAdapter tb_tipo_contaTableAdapter;
-        private SACE.Dados.saceDataSet2TableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.DataGridView tb_tipo_contaDataGridView;
+        private SACE.Dados.saceDataSet saceDataSet;
+        private System.Windows.Forms.BindingSource tb_grupo_contaBindingSource;
+        private SACE.Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
+        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.DataGridView tb_grupo_contaDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
   

@@ -63,7 +63,7 @@ namespace SACE.Telas
             {
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    tb_conta_bancoTableAdapter.Delete(codContaBancoTextBox.Text);
+                    tb_conta_bancoTableAdapter.Delete(long.Parse(codContaBancoTextBox.Text));
                     tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
                 }
             }
@@ -89,18 +89,18 @@ namespace SACE.Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     if (codBancoComboBox.SelectedValue != null)
-                        tb_conta_bancoTableAdapter.Insert(codContaBancoTextBox.Text,
-                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()));
+                        tb_conta_bancoTableAdapter.Insert(long.Parse(codContaBancoTextBox.Text),
+                            agenciaTextBox.Text, descricaoTextBox.Text, saldoTextBox.Text, int.Parse(codBancoComboBox.SelectedValue.ToString()));
                     else
-                        tb_conta_bancoTableAdapter.Insert(codContaBancoTextBox.Text,
-                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), null);
+                        tb_conta_bancoTableAdapter.Insert(long.Parse(codContaBancoTextBox.Text),
+                            agenciaTextBox.Text, descricaoTextBox.Text, saldoTextBox.Text, null);
                     tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
                     tb_conta_bancoBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_conta_bancoTableAdapter.Update(codContaBancoTextBox.Text, 
-                        agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()), codContaBancoTextBox.Text);
+                    tb_conta_bancoTableAdapter.Update(long.Parse(codContaBancoTextBox.Text), 
+                        agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()), long.Parse(codContaBancoTextBox.Text));
                     tb_conta_bancoBindingSource.EndEdit();
                 }
             }

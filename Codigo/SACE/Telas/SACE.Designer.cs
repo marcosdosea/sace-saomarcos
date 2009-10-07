@@ -100,11 +100,11 @@
             this.pessoasToolStripMenuItem,
             this.empresasToolStripMenuItem,
             this.lojasToolStripMenuItem,
-            this.gruposDeProdutosToolStripMenuItem,
+            this.bancosToolStripMenuItem,
             this.planoDeContasToolStripMenuItem,
             this.contasBancáriasToolStripMenuItem,
             this.cartõesDeCréditoToolStripMenuItem,
-            this.bancosToolStripMenuItem,
+            this.gruposDeProdutosToolStripMenuItem,
             this.tiposDeContasToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
@@ -176,8 +176,8 @@
             // tiposDeContasToolStripMenuItem
             // 
             this.tiposDeContasToolStripMenuItem.Name = "tiposDeContasToolStripMenuItem";
-            this.tiposDeContasToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.tiposDeContasToolStripMenuItem.Text = "Grupo de Contas";
+            this.tiposDeContasToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.tiposDeContasToolStripMenuItem.Text = "Grupo de Contas Pagar/Receber";
             this.tiposDeContasToolStripMenuItem.Click += new System.EventHandler(this.tiposDeContasToolStripMenuItem_Click);
             // 
             // movimentaçãoToolStripMenuItem
@@ -455,7 +455,7 @@
             this.btnProdutos.Text = "Produtos - F4";
             this.btnProdutos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnProdutos.UseVisualStyleBackColor = true;
-            this.btnProdutos.Click += new System.EventHandler(this.btnProdutos_Click);
+            this.btnProdutos.Click += new System.EventHandler(this.produtosToolStripMenuItem_Click);
             // 
             // btnVenda
             // 

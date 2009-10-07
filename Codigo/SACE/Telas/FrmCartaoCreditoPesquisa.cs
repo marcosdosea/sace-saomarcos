@@ -32,7 +32,7 @@ namespace SACE.Telas
         {
             try
             {
-                this.tb_cartao_creditoTableAdapter.FillByNome(this.saceDataSet.tb_cartao_credito, txtTexto.Text);
+                //this.tb_cartao_creditoTableAdapter.FillByNome(this.saceDataSet.tb_cartao_credito, txtTexto.Text);
             }
             catch (System.Exception ex)
             {

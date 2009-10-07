@@ -20,6 +20,8 @@ namespace SACE.Telas
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'saceDataSet.tb_grupo_conta' table. You can move, or remove it, as needed.
+            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
             this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
             habilitaBotoes(true);
@@ -87,7 +89,7 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_plano_contaTableAdapter.Insert(descricaoTextBox.Text, tipoContaComboBox.SelectedValue.ToString(), short.Parse(diaBaseTextBox.Text));
+                    //tb_plano_contaTableAdapter.Insert(descricaoTextBox.Text, tipoContaComboBox.SelectedValue.ToString(),null, short.Parse(diaBaseTextBox.Text));
                     tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
                     tb_plano_contaBindingSource.MoveLast();
                 }
