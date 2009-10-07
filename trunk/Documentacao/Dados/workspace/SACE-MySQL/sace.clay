@@ -9,7 +9,7 @@
 <table-list>
 <table alias="" name="TB_PESSOA" remarks="" uid="186b0ee:1213ff1194d:-7fff">
 <table-description/>
-<table-figure-bounds height="212" width="177" x="945" y="453"/>
+<table-figure-bounds height="225" width="177" x="1242" y="256"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codPessoa" remarks="" uid="186b0ee:1213ff1194d:-7ffa">
 <column-description/>
@@ -230,7 +230,7 @@
 </table>
 <table alias="" name="TB_PRODUTO" remarks="" uid="1e6cf07:1220e0a2302:-7fed">
 <table-description/>
-<table-figure-bounds height="283" width="252" x="248" y="-54"/>
+<table-figure-bounds height="283" width="252" x="259" y="-53"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codProduto" remarks="" uid="1e6cf07:1220e0a2302:-7fe9">
 <column-description/>
@@ -352,12 +352,12 @@
 <column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="frete" remarks="" uid="b8501d:12416c6871f:-7f58">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
 <variant type-name-pattern="DECIMAL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
@@ -748,10 +748,10 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="dtEntrada" remarks="" uid="1e6cf07:1220e0a2302:-7a7e">
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="dataEntrada" remarks="" uid="1e6cf07:1220e0a2302:-7a7e">
 <column-description/>
-<data-type jdbc-type="91" literal-prefix="'" literal-suffix="'" name="DATE" selected-variant-pattern="DATE">
-<variant type-name-pattern="DATE"/>
+<data-type jdbc-type="93" literal-prefix="'" literal-suffix="'" name="DATETIME" selected-variant-pattern="DATETIME">
+<variant type-name-pattern="DATETIME"/>
 </data-type>
 </column>
 <column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="valorTotal" remarks="" uid="1e6cf07:1220e0a2302:-7a7b">
@@ -926,7 +926,7 @@
 </table>
 <table alias="" name="TB_FORMA_PAGAMENTO" remarks="" uid="1e6cf07:1220e0a2302:-795b">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="342" y="932"/>
+<table-figure-bounds height="-1" width="-1" x="666" y="919"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codFormaPagamento" remarks="" uid="1e6cf07:1220e0a2302:-7957">
 <column-description/>
@@ -1219,7 +1219,7 @@
 </table>
 <table alias="" name="TB_CONTATO_EMPRESA" remarks="" uid="1b5eba4:1221df2fac7:-7ff3">
 <table-description/>
-<table-figure-bounds height="58" width="163" x="730" y="649"/>
+<table-figure-bounds height="58" width="163" x="835" y="639"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codigoEmpresa" remarks="" uid="1b5eba4:1221df2fac7:-7fd0">
 <column-description/>
@@ -1274,7 +1274,7 @@
 </table>
 <table alias="" name="TB_PLANO_CONTA" remarks="" uid="1ffbcb:12226eac926:-7fe8">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="331" y="1237"/>
+<table-figure-bounds height="-1" width="-1" x="576" y="1338"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codPlanoConta" remarks="" uid="1ffbcb:12226eac926:-7fe4">
 <column-description/>
@@ -1289,7 +1289,7 @@
 <variant type-name-pattern="BIGINT ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codTipoConta" remarks="" uid="13ceab3:123f23f30d3:-7fd4">
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codGrupoConta" remarks="" uid="13ceab3:123f23f30d3:-7fd4">
 <column-description/>
 <data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
 <variant type-name-pattern="INT"/>
@@ -1337,19 +1337,19 @@
 </primary-key>
 <unique-key-list/>
 <foreign-key-list>
-<foreign-key alias="" name="FK_TB_PLANO_CONTA_2" on-delete="" on-update="" referenced-key="PK_TB_TIPO_CONTA" referenced-table="TB_TIPO_CONTA" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="13ceab3:123f23f30d3:-7fd5">
+<foreign-key alias="" name="FK_TB_PLANO_CONTA_2" on-delete="" on-update="" referenced-key="PK_TB_GRUPO_CONTA" referenced-table="TB_GRUPO_CONTA" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="13ceab3:123f23f30d3:-7fd5">
 <foreign-key-description/>
 <foreign-key-figure>
 <fk-fig-bendpoint-list/>
 </foreign-key-figure>
-<foreign-key-column column-name="codTipoConta" referenced-key-column-name="codTipoConta"/>
+<foreign-key-column column-name="codGrupoConta" referenced-key-column-name="codGrupoConta"/>
 </foreign-key>
 </foreign-key-list>
 <index-list/>
 </table>
 <table alias="" name="TB_CONTA_PAGAR" remarks="" uid="1ffbcb:12226eac926:-7fdf">
 <table-description/>
-<table-figure-bounds height="228" width="195" x="4" y="832"/>
+<table-figure-bounds height="251" width="195" x="12" y="828"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codPagamento" remarks="" uid="1ffbcb:12226eac926:-7fca">
 <column-description/>
@@ -1367,8 +1367,8 @@
 <column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="codEntrada" remarks="" uid="b8501d:12416c6871f:-7f41">
 <column-description/>
 <data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT(%n)">
-<variant type-name-pattern="BIGINT"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
+<variant type-name-pattern="BIGINT"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED ZEROFILL"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) ZEROFILL"/>
@@ -1442,7 +1442,7 @@
 <variant type-name-pattern="DATE"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="valorPagamento" remarks="" uid="1ffbcb:12226eac926:-7f7b">
+<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="true" name="valorPagamento" remarks="" uid="1ffbcb:12226eac926:-7f7b">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -1504,6 +1504,19 @@
 <variant type-name-pattern="INT ZEROFILL"/>
 </data-type>
 </column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="codCartao" remarks="" uid="1ff395a:1241b563df4:-7fb7">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n)"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) ZEROFILL"/>
+<variant type-name-pattern="INT UNSIGNED"/>
+<variant type-name-pattern="INT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="INT ZEROFILL"/>
+</data-type>
+</column>
 </column-list>
 <primary-key alias="" name="PK_TB_CONTA_PAGAR" remarks="" uid="1ffbcb:12226eac926:-7fde">
 <primary-key-description/>
@@ -1553,12 +1566,19 @@
 </foreign-key-figure>
 <foreign-key-column column-name="codSaida" referenced-key-column-name="codSaida"/>
 </foreign-key>
+<foreign-key alias="" name="FK_TB_CONTA_PAGAR_7" on-delete="" on-update="" referenced-key="PK_TB_CARTAO_CREDITO" referenced-table="TB_CARTAO_CREDITO" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="1ff395a:1241b563df4:-7fb8">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="codCartao" referenced-key-column-name="codCartao"/>
+</foreign-key>
 </foreign-key-list>
 <index-list/>
 </table>
 <table alias="" name="TB_CONTA_RECEBER" remarks="" uid="1ffbcb:12226eac926:-7fdd">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="651" y="864"/>
+<table-figure-bounds height="249" width="205" x="1018" y="729"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codRecebimento" remarks="" uid="1ffbcb:12226eac926:-7eb9">
 <column-description/>
@@ -1576,8 +1596,8 @@
 <column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="codEntrada" remarks="" uid="b8501d:12416c6871f:-7ce3">
 <column-description/>
 <data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT(%n)">
-<variant type-name-pattern="BIGINT"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
+<variant type-name-pattern="BIGINT"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED ZEROFILL"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) ZEROFILL"/>
@@ -1673,6 +1693,12 @@
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n) BINARY"/>
 </data-type>
 </column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="dataRecebimento" remarks="" uid="93a985:12343124201:-7d08">
+<column-description/>
+<data-type jdbc-type="91" literal-prefix="'" literal-suffix="'" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
 <column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="valorRecebido" remarks="" uid="93a985:12343124201:-7d09">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
@@ -1687,12 +1713,6 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="dataRecebimento" remarks="" uid="93a985:12343124201:-7d08">
-<column-description/>
-<data-type jdbc-type="91" literal-prefix="'" literal-suffix="'" name="DATE" selected-variant-pattern="DATE">
-<variant type-name-pattern="DATE"/>
-</data-type>
-</column>
 <column alias="" auto-increment="false" column-size="200" decimal-digits="0" default-value="" mandatory="false" name="observacao" remarks="" uid="93a985:12343124201:-7d07">
 <column-description/>
 <data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
@@ -1701,6 +1721,19 @@
 </data-type>
 </column>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codFormaPagamento" remarks="" uid="b8501d:12416c6871f:-7e7e">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n)"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) ZEROFILL"/>
+<variant type-name-pattern="INT UNSIGNED"/>
+<variant type-name-pattern="INT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="INT ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="codCartao" remarks="" uid="1ff395a:1241b563df4:-7f27">
 <column-description/>
 <data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
 <variant type-name-pattern="INT"/>
@@ -1762,12 +1795,19 @@
 </foreign-key-figure>
 <foreign-key-column column-name="codEntrada" referenced-key-column-name="codEntrada"/>
 </foreign-key>
+<foreign-key alias="" name="FK_TB_CONTA_RECEBER_7" on-delete="" on-update="" referenced-key="PK_TB_CARTAO_CREDITO" referenced-table="TB_CARTAO_CREDITO" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="1ff395a:1241b563df4:-7f28">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="codCartao" referenced-key-column-name="codCartao"/>
+</foreign-key>
 </foreign-key-list>
 <index-list/>
 </table>
 <table alias="" name="TB_CONTA_BANCO" remarks="" uid="1ffbcb:12226eac926:-7f73">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="1107" y="851"/>
+<table-figure-bounds height="-1" width="-1" x="1175" y="1329"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codContaBanco" remarks="" uid="1ffbcb:12226eac926:-7f6f">
 <column-description/>
@@ -1842,7 +1882,7 @@
 </table>
 <table alias="" name="TB_TIPO_MOVIMENTACAO_CONTA" remarks="" uid="1ffbcb:12226eac926:-7f39">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="1262" y="1185"/>
+<table-figure-bounds height="-1" width="-1" x="1337" y="965"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codTipoMovimentacao" remarks="" uid="1ffbcb:12226eac926:-7f35">
 <column-description/>
@@ -1875,7 +1915,7 @@
 </table>
 <table alias="" name="TB_MOVIMENTACAO_CONTA" remarks="" uid="1ffbcb:12226eac926:-7f31">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="935" y="1197"/>
+<table-figure-bounds height="154" width="214" x="1130" y="1065"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codMovimentacao" remarks="" uid="1ffbcb:12226eac926:-7ef0">
 <column-description/>
@@ -2020,11 +2060,11 @@
 </foreign-key-list>
 <index-list/>
 </table>
-<table alias="" name="TB_TIPO_CONTA" remarks="" uid="13ceab3:123f23f30d3:-7fec">
+<table alias="" name="TB_GRUPO_CONTA" remarks="" uid="13ceab3:123f23f30d3:-7fec">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="130" y="1172"/>
+<table-figure-bounds height="-1" width="-1" x="272" y="1184"/>
 <column-list>
-<column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codTipoConta" remarks="" uid="13ceab3:123f23f30d3:-7fe8">
+<column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codGrupoConta" remarks="" uid="13ceab3:123f23f30d3:-7fe8">
 <column-description/>
 <data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
 <variant type-name-pattern="INT"/>
@@ -2045,9 +2085,9 @@
 </data-type>
 </column>
 </column-list>
-<primary-key alias="" name="PK_TB_TIPO_CONTA" remarks="" uid="13ceab3:123f23f30d3:-7feb">
+<primary-key alias="" name="PK_TB_GRUPO_CONTA" remarks="" uid="13ceab3:123f23f30d3:-7feb">
 <primary-key-description/>
-<primary-key-column name="codTipoConta"/>
+<primary-key-column name="codGrupoConta"/>
 </primary-key>
 <unique-key-list/>
 <foreign-key-list/>
@@ -2055,7 +2095,7 @@
 </table>
 <table alias="" name="TB_BANCO" remarks="" uid="deeebd:1240cb6b1c8:-7feb">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="1197" y="735"/>
+<table-figure-bounds height="-1" width="-1" x="865" y="1278"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codBanco" remarks="" uid="deeebd:1240cb6b1c8:-7fe7">
 <column-description/>
@@ -2088,7 +2128,7 @@
 </table>
 <table alias="" name="TB_CARTAO_CREDITO" remarks="" uid="deeebd:1240cb6b1c8:-7eff">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="1326" y="1050"/>
+<table-figure-bounds height="-1" width="-1" x="293" y="1525"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codCartao" remarks="" uid="deeebd:1240cb6b1c8:-7efb">
 <column-description/>
@@ -2232,7 +2272,7 @@
 </table>
 <table alias="" name="TB_CONFIGURACAO_SISTEMA" remarks="" uid="b8501d:12416c6871f:-7fe8">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="1131" y="35"/>
+<table-figure-bounds height="-1" width="-1" x="889" y="10"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codigo" remarks="" uid="b8501d:12416c6871f:-7fe1">
 <column-description/>
@@ -2250,12 +2290,12 @@
 <column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="lucro_minimo" remarks="" uid="b8501d:12416c6871f:-7fe4">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
 <variant type-name-pattern="DECIMAL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
@@ -2268,6 +2308,153 @@
 </primary-key>
 <unique-key-list/>
 <foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="TB_USUARIO" remarks="" uid="52c6f:1241bad8966:-7fe9">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="957" y="111"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codPessoa" remarks="" uid="52c6f:1241bad8966:-7fa8">
+<column-description/>
+<data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT">
+<variant type-name-pattern="BIGINT"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) ZEROFILL"/>
+<variant type-name-pattern="BIGINT UNSIGNED"/>
+<variant type-name-pattern="BIGINT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="BIGINT ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="20" decimal-digits="0" default-value="" mandatory="false" name="login" remarks="" uid="52c6f:1241bad8966:-7f68">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="20" decimal-digits="0" default-value="" mandatory="false" name="senha" remarks="" uid="52c6f:1241bad8966:-7f67">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TB_USUARIO" remarks="" uid="52c6f:1241bad8966:-7fe8">
+<primary-key-description/>
+<primary-key-column name="codPessoa"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_TABLE_24_1" on-delete="" on-update="" referenced-key="PK_TB_PESSOA" referenced-table="TB_PESSOA" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="52c6f:1241bad8966:-7fa9">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="codPessoa" referenced-key-column-name="codPessoa"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="TB_FUNCIONALIDADE" remarks="" uid="52c6f:1241bad8966:-7f66">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1326" y="113"/>
+<column-list>
+<column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codFuncionalidade" remarks="" uid="52c6f:1241bad8966:-7f62">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n)"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) ZEROFILL"/>
+<variant type-name-pattern="INT UNSIGNED"/>
+<variant type-name-pattern="INT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="INT ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="30" decimal-digits="0" default-value="" mandatory="true" name="descricao" remarks="" uid="52c6f:1241bad8966:-7f61">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TB_FUNCIONALIDADE" remarks="" uid="52c6f:1241bad8966:-7f65">
+<primary-key-description/>
+<primary-key-column name="codFuncionalidade"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="" name="TB_PERMISSAO" remarks="" uid="52c6f:1241bad8966:-7f60">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="1149" y="-8"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codPessoa" remarks="" uid="52c6f:1241bad8966:-7f44">
+<column-description/>
+<data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT">
+<variant type-name-pattern="BIGINT"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) ZEROFILL"/>
+<variant type-name-pattern="BIGINT UNSIGNED"/>
+<variant type-name-pattern="BIGINT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="BIGINT ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codFuncionalidade" remarks="" uid="52c6f:1241bad8966:-7f02">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n)"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) ZEROFILL"/>
+<variant type-name-pattern="INT UNSIGNED"/>
+<variant type-name-pattern="INT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="INT ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="permissao" remarks="" uid="52c6f:1241bad8966:-7ec8">
+<column-description/>
+<data-type jdbc-type="4" name="INT" selected-variant-pattern="INT">
+<variant type-name-pattern="INT"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n)"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="10" precision-min="0" precision-variable="%n" type-name-pattern="INT(%n) ZEROFILL"/>
+<variant type-name-pattern="INT UNSIGNED"/>
+<variant type-name-pattern="INT UNSIGNED ZEROFILL"/>
+<variant type-name-pattern="INT ZEROFILL"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TB_PERMISSAO" remarks="" uid="52c6f:1241bad8966:-7f5f">
+<primary-key-description/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_TB_PERMISSAO_1" on-delete="" on-update="" referenced-key="PK_TB_USUARIO" referenced-table="TB_USUARIO" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="52c6f:1241bad8966:-7f45">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="codPessoa" referenced-key-column-name="codPessoa"/>
+</foreign-key>
+<foreign-key alias="" name="FK_TB_PERMISSAO_2" on-delete="" on-update="" referenced-key="PK_TB_FUNCIONALIDADE" referenced-table="TB_FUNCIONALIDADE" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="52c6f:1241bad8966:-7f03">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="codFuncionalidade" referenced-key-column-name="codFuncionalidade"/>
+</foreign-key>
+</foreign-key-list>
 <index-list/>
 </table>
 </table-list>

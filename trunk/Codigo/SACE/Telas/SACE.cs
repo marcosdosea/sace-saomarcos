@@ -64,11 +64,6 @@ namespace SACE
             frmLoja.Dispose();
         }
 
-        private void btnProdutos_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
 

@@ -30,12 +30,12 @@ namespace SACE.Telas
         {
             try
             {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_empresaTableAdapter.FillByCodigoEmpresa(this.saceDataSet.tb_empresa, int.Parse(txtTexto.Text));
-                else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                    this.tb_empresaTableAdapter.FillByCnpj(this.saceDataSet.tb_empresa, txtTexto.Text);
-                else
-                    this.tb_empresaTableAdapter.FillByNome(this.saceDataSet.tb_empresa, txtTexto.Text);
+                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                //    this.tb_empresaTableAdapter.FillByCodigoEmpresa(this.saceDataSet.tb_empresa, int.Parse(txtTexto.Text));
+                //else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+                //    this.tb_empresaTableAdapter.FillByCnpj(this.saceDataSet.tb_empresa, txtTexto.Text);
+                //else
+                //    this.tb_empresaTableAdapter.FillByNome(this.saceDataSet.tb_empresa, txtTexto.Text);
             }
             catch (System.Exception ex)
             {

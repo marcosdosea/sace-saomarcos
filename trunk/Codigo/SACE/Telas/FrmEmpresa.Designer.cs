@@ -420,7 +420,6 @@
             this.codigoEmpresaTextBox.Size = new System.Drawing.Size(100, 20);
             this.codigoEmpresaTextBox.TabIndex = 33;
             this.codigoEmpresaTextBox.TabStop = false;
-            this.codigoEmpresaTextBox.TextChanged += new System.EventHandler(this.codigoEmpresaTextBox_TextChanged);
             // 
             // nomeTextBox
             // 
@@ -514,21 +513,6 @@
             this.tableAdapterManager.tb_conta_receberTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = this.tb_contato_empresaTableAdapter;
             this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
-            this.tableAdapterManager.tb_entrada_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_contato_empresaTableAdapter

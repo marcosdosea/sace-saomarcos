@@ -20,8 +20,8 @@ namespace SACE.Telas
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet2.tb_tipo_conta' table. You can move, or remove it, as needed.
-            this.tb_tipo_contaTableAdapter.Fill(this.saceDataSet2.tb_tipo_conta);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_grupo_conta' table. You can move, or remove it, as needed.
+            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             habilitaBotoes(true);
         }
 
@@ -31,10 +31,10 @@ namespace SACE.Telas
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.getCodTipoConta() != -1)
             {
-                tb_tipo_contaBindingSource.MoveFirst();
-                while (!codTipoContaTextBox.Text.Equals(frmTipoContaPesquisa.getCodTipoConta().ToString()))
+                tb_grupo_contaBindingSource.MoveFirst();
+                while (!codGrupoContaTextBox.Text.Equals(frmTipoContaPesquisa.getCodTipoConta().ToString()))
                 {
-                    tb_tipo_contaBindingSource.MoveNext();
+                    tb_grupo_contaBindingSource.MoveNext();
                 }
             }
             frmTipoContaPesquisa.Dispose();
@@ -42,8 +42,8 @@ namespace SACE.Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_tipo_contaBindingSource.AddNew();
-            codTipoContaTextBox.Enabled = false;
+            tb_grupo_contaBindingSource.AddNew();
+            codGrupoContaTextBox.Enabled = false;
             descricaoTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -62,8 +62,8 @@ namespace SACE.Telas
             {
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    tb_tipo_contaTableAdapter.Delete(int.Parse(codTipoContaTextBox.Text));
-                    tb_tipo_contaTableAdapter.Fill(saceDataSet2.tb_tipo_conta);
+                    tb_grupo_contaTableAdapter.Delete(int.Parse(codGrupoContaTextBox.Text));
+                    tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
                 }
             }
             catch (Exception exc)
@@ -75,8 +75,8 @@ namespace SACE.Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_tipo_contaBindingSource.CancelEdit();
-            tb_tipo_contaBindingSource.EndEdit();
+            tb_grupo_contaBindingSource.CancelEdit();
+            tb_grupo_contaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -87,14 +87,14 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_tipo_contaTableAdapter.Insert(descricaoTextBox.Text);
-                    tb_tipo_contaTableAdapter.Fill(saceDataSet2.tb_tipo_conta);
-                    tb_tipo_contaBindingSource.MoveLast();
+                    tb_grupo_contaTableAdapter.Insert(descricaoTextBox.Text);
+                    tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
+                    tb_grupo_contaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_tipo_contaTableAdapter.Update(descricaoTextBox.Text, int.Parse(codTipoContaTextBox.Text));
-                    tb_tipo_contaBindingSource.EndEdit();
+                    tb_grupo_contaTableAdapter.Update(descricaoTextBox.Text, int.Parse(codGrupoContaTextBox.Text));
+                    tb_grupo_contaBindingSource.EndEdit();
                 }
             }
             catch (Exception exc)
@@ -127,19 +127,19 @@ namespace SACE.Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_tipo_contaBindingSource.MoveLast();
+                    tb_grupo_contaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_tipo_contaBindingSource.MoveFirst();
+                    tb_grupo_contaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_tipo_contaBindingSource.MovePrevious();
+                    tb_grupo_contaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_tipo_contaBindingSource.MoveNext();
+                    tb_grupo_contaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -166,7 +166,7 @@ namespace SACE.Telas
             btnEditar.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
-            tb_tipo_contaBindingNavigator.Enabled = habilita;
+            tb_grupo_contaBindingNavigator.Enabled = habilita;
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
