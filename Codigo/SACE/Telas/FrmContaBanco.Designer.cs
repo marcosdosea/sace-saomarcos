@@ -221,7 +221,30 @@
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.tb_bancoTableAdapter = this.tb_bancoTableAdapter;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
+            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
+            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_bancoTableAdapter
@@ -341,7 +364,7 @@
             // 
             // saldoTextBox
             // 
-            this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "saldo", true));
+            this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "saldo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.saldoTextBox.Location = new System.Drawing.Point(7, 187);
             this.saldoTextBox.Name = "saldoTextBox";
             this.saldoTextBox.Size = new System.Drawing.Size(109, 20);
@@ -349,8 +372,8 @@
             // 
             // codBancoComboBox
             // 
-            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "codBanco", true));
             this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_conta_bancoBindingSource, "codBanco", true));
+            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "codBanco", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "null"));
             this.codBancoComboBox.DataSource = this.tbbancoBindingSource;
             this.codBancoComboBox.DisplayMember = "nome";
             this.codBancoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
