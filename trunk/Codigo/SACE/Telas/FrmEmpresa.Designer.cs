@@ -52,8 +52,6 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnContato = new System.Windows.Forms.Button();
             this.tb_empresaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.tb_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -74,17 +72,20 @@
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
             this.ufTextBox = new System.Windows.Forms.TextBox();
             this.limiteCompraTextBox = new System.Windows.Forms.TextBox();
+            this.observacaoTextBox = new System.Windows.Forms.TextBox();
+            this.tb_contato_empresaDataGridView = new System.Windows.Forms.DataGridView();
+            this.tb_contato_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.tb_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_contato_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter();
-            this.observacaoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_contato_empresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_contato_empresaDataGridView = new System.Windows.Forms.DataGridView();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fone1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fillByPessoaToolStrip = new System.Windows.Forms.ToolStrip();
+            this.codPessoaToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.codPessoaToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.fillByPessoaToolStripButton = new System.Windows.Forms.ToolStripButton();
             codigoEmpresaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             cnpjLabel = new System.Windows.Forms.Label();
@@ -100,10 +101,11 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingNavigator)).BeginInit();
             this.tb_empresaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).BeginInit();
+            this.fillByPessoaToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // codigoEmpresaLabel
@@ -333,16 +335,6 @@
             this.tb_empresaBindingNavigator.TabIndex = 32;
             this.tb_empresaBindingNavigator.Text = "bindingNavigator1";
             // 
-            // tb_empresaBindingSource
-            // 
-            this.tb_empresaBindingSource.DataMember = "tb_empresa";
-            this.tb_empresaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
@@ -420,6 +412,7 @@
             this.codigoEmpresaTextBox.Size = new System.Drawing.Size(100, 20);
             this.codigoEmpresaTextBox.TabIndex = 33;
             this.codigoEmpresaTextBox.TabStop = false;
+            this.codigoEmpresaTextBox.TextChanged += new System.EventHandler(this.codigoEmpresaTextBox_TextChanged);
             // 
             // nomeTextBox
             // 
@@ -495,29 +488,11 @@
             // 
             // limiteCompraTextBox
             // 
-            this.limiteCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "limiteCompra", true));
+            this.limiteCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "limiteCompra", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.limiteCompraTextBox.Location = new System.Drawing.Point(361, 228);
             this.limiteCompraTextBox.Name = "limiteCompraTextBox";
             this.limiteCompraTextBox.Size = new System.Drawing.Size(110, 20);
             this.limiteCompraTextBox.TabIndex = 53;
-            // 
-            // tb_empresaTableAdapter
-            // 
-            this.tb_empresaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
-            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = this.tb_contato_empresaTableAdapter;
-            this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_contato_empresaTableAdapter
-            // 
-            this.tb_contato_empresaTableAdapter.ClearBeforeFill = true;
             // 
             // observacaoTextBox
             // 
@@ -528,69 +503,121 @@
             this.observacaoTextBox.Size = new System.Drawing.Size(464, 32);
             this.observacaoTextBox.TabIndex = 55;
             // 
+            // tb_contato_empresaDataGridView
+            // 
+            this.tb_contato_empresaDataGridView.AutoGenerateColumns = false;
+            this.tb_contato_empresaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tb_contato_empresaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.tb_contato_empresaDataGridView.DataSource = this.tb_contato_empresaBindingSource;
+            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 345);
+            this.tb_contato_empresaDataGridView.Name = "tb_contato_empresaDataGridView";
+            this.tb_contato_empresaDataGridView.Size = new System.Drawing.Size(464, 96);
+            this.tb_contato_empresaDataGridView.TabIndex = 57;
+            // 
             // tb_contato_empresaBindingSource
             // 
             this.tb_contato_empresaBindingSource.DataMember = "tb_contato_empresa";
             this.tb_contato_empresaBindingSource.DataSource = this.saceDataSet;
             // 
-            // tb_contato_empresaDataGridView
+            // saceDataSet
             // 
-            this.tb_contato_empresaDataGridView.AllowUserToAddRows = false;
-            this.tb_contato_empresaDataGridView.AutoGenerateColumns = false;
-            this.tb_contato_empresaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_contato_empresaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nome,
-            this.fone1,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.tb_contato_empresaDataGridView.DataSource = this.tb_contato_empresaBindingSource;
-            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(12, 341);
-            this.tb_contato_empresaDataGridView.Name = "tb_contato_empresaDataGridView";
-            this.tb_contato_empresaDataGridView.ReadOnly = true;
-            this.tb_contato_empresaDataGridView.Size = new System.Drawing.Size(459, 100);
-            this.tb_contato_empresaDataGridView.TabIndex = 59;
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // nome
+            // tb_empresaBindingSource
             // 
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
+            this.tb_empresaBindingSource.DataMember = "tb_empresa";
+            this.tb_empresaBindingSource.DataSource = this.saceDataSet;
             // 
-            // fone1
+            // tb_empresaTableAdapter
             // 
-            this.fone1.DataPropertyName = "fone1";
-            this.fone1.HeaderText = "Fone1";
-            this.fone1.Name = "fone1";
-            this.fone1.ReadOnly = true;
+            this.tb_empresaTableAdapter.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn7
+            // tableAdapterManager
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "fone2";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Fone2";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
+            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = this.tb_contato_empresaTableAdapter;
+            this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // dataGridViewTextBoxColumn4
+            // tb_contato_empresaTableAdapter
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "endereco";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Endereço";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.tb_contato_empresaTableAdapter.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn5
+            // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "cpf";
-            this.dataGridViewTextBoxColumn5.HeaderText = "CPF";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "codigoEmpresa";
+            this.dataGridViewTextBoxColumn1.HeaderText = "codigoEmpresa";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "codPessoa";
+            this.dataGridViewTextBoxColumn2.HeaderText = "codPessoa";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // fillByPessoaToolStrip
+            // 
+            this.fillByPessoaToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.codPessoaToolStripLabel,
+            this.codPessoaToolStripTextBox,
+            this.fillByPessoaToolStripButton});
+            this.fillByPessoaToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.fillByPessoaToolStrip.Name = "fillByPessoaToolStrip";
+            this.fillByPessoaToolStrip.Size = new System.Drawing.Size(500, 25);
+            this.fillByPessoaToolStrip.TabIndex = 58;
+            this.fillByPessoaToolStrip.Text = "fillByPessoaToolStrip";
+            // 
+            // codPessoaToolStripLabel
+            // 
+            this.codPessoaToolStripLabel.Name = "codPessoaToolStripLabel";
+            this.codPessoaToolStripLabel.Size = new System.Drawing.Size(66, 22);
+            this.codPessoaToolStripLabel.Text = "codPessoa:";
+            // 
+            // codPessoaToolStripTextBox
+            // 
+            this.codPessoaToolStripTextBox.Name = "codPessoaToolStripTextBox";
+            this.codPessoaToolStripTextBox.Size = new System.Drawing.Size(100, 23);
+            // 
+            // fillByPessoaToolStripButton
+            // 
+            this.fillByPessoaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fillByPessoaToolStripButton.Name = "fillByPessoaToolStripButton";
+            this.fillByPessoaToolStripButton.Size = new System.Drawing.Size(75, 19);
+            this.fillByPessoaToolStripButton.Text = "FillByPessoa";
+            this.fillByPessoaToolStripButton.Click += new System.EventHandler(this.fillByPessoaToolStripButton_Click);
             // 
             // FrmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 473);
+            this.ClientSize = new System.Drawing.Size(500, 490);
+            this.Controls.Add(this.fillByPessoaToolStrip);
             this.Controls.Add(this.tb_contato_empresaDataGridView);
             this.Controls.Add(observacaoLabel);
             this.Controls.Add(this.observacaoTextBox);
@@ -638,10 +665,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingNavigator)).EndInit();
             this.tb_empresaBindingNavigator.ResumeLayout(false);
             this.tb_empresaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_empresaBindingSource)).EndInit();
+            this.fillByPessoaToolStrip.ResumeLayout(false);
+            this.fillByPessoaToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -684,13 +713,17 @@
         private System.Windows.Forms.TextBox ufTextBox;
         private System.Windows.Forms.TextBox limiteCompraTextBox;
         private System.Windows.Forms.TextBox observacaoTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter tb_contato_empresaTableAdapter;
-        private System.Windows.Forms.BindingSource tb_contato_empresaBindingSource;
-        private System.Windows.Forms.DataGridView tb_contato_empresaDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fone1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter tb_contato_empresaTableAdapter;
+        private System.Windows.Forms.BindingSource tb_contato_empresaBindingSource;
+        private System.Windows.Forms.DataGridView tb_contato_empresaDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.ToolStrip fillByPessoaToolStrip;
+        private System.Windows.Forms.ToolStripLabel codPessoaToolStripLabel;
+        private System.Windows.Forms.ToolStripTextBox codPessoaToolStripTextBox;
+        private System.Windows.Forms.ToolStripButton fillByPessoaToolStripButton;
     }
 }

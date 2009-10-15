@@ -22,10 +22,8 @@ namespace SACE.Telas
         {
             // TODO: This line of code loads data into the 'saceDataSet.tb_contato_empresa' table. You can move, or remove it, as needed.
             this.tb_contato_empresaTableAdapter.Fill(this.saceDataSet.tb_contato_empresa);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
             habilitaBotoes(true);
-            //alteracao
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -192,6 +190,24 @@ namespace SACE.Telas
             }
             frmPessoaPesquisa.Dispose();
             btnContato.Focus();
+        }
+
+        private void codigoEmpresaTextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.tb_contato_empresaTableAdapter.FillByPessoa(this.saceDataSet.tb_contato_empresa, long.Parse(codigoEmpresaTextBox.Text));
+        }
+
+        private void fillByPessoaToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.tb_contato_empresaTableAdapter.FillByPessoa(this.saceDataSet.tb_contato_empresa, ((long)(System.Convert.ChangeType(codPessoaToolStripTextBox.Text, typeof(long)))));
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

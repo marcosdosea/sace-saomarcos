@@ -99,8 +99,12 @@ namespace SACE.Telas
                 }
                 else
                 {
-                    tb_conta_bancoTableAdapter.Update(long.Parse(codContaBancoTextBox.Text), 
-                        agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()), long.Parse(codContaBancoTextBox.Text));
+                    if (codBancoComboBox.SelectedValue != null)
+                        tb_conta_bancoTableAdapter.Update(long.Parse(codContaBancoTextBox.Text), 
+                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()), long.Parse(codContaBancoTextBox.Text));
+                    else
+                        tb_conta_bancoTableAdapter.Update(long.Parse(codContaBancoTextBox.Text),
+                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), null, long.Parse(codContaBancoTextBox.Text));
                     tb_conta_bancoBindingSource.EndEdit();
                 }
             }
