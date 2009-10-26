@@ -269,6 +269,7 @@
             // 
             this.tb_lojaBindingSource.DataMember = "tb_loja";
             this.tb_lojaBindingSource.DataSource = this.saceDataSet;
+            this.tb_lojaBindingSource.Sort = "codLoja";
             // 
             // tb_lojaTableAdapter
             // 
@@ -277,6 +278,9 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
             this.tableAdapterManager.tb_conta_receberTableAdapter = null;
@@ -285,14 +289,22 @@
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = this.tb_lojaTableAdapter;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_lojaBindingNavigator
@@ -402,6 +414,7 @@
             // 
             // nomeTextBox
             // 
+            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(123, 89);
             this.nomeTextBox.Name = "nomeTextBox";
@@ -410,6 +423,7 @@
             // 
             // cnpjTextBox
             // 
+            this.cnpjTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cnpj", true));
             this.cnpjTextBox.Location = new System.Drawing.Point(7, 141);
             this.cnpjTextBox.Name = "cnpjTextBox";
@@ -418,6 +432,7 @@
             // 
             // ieTextBox
             // 
+            this.ieTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "ie", true));
             this.ieTextBox.Location = new System.Drawing.Point(123, 141);
             this.ieTextBox.Name = "ieTextBox";
@@ -426,6 +441,7 @@
             // 
             // enderecoTextBox
             // 
+            this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "endereco", true));
             this.enderecoTextBox.Location = new System.Drawing.Point(9, 193);
             this.enderecoTextBox.Name = "enderecoTextBox";
@@ -434,6 +450,7 @@
             // 
             // bairroTextBox
             // 
+            this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "bairro", true));
             this.bairroTextBox.Location = new System.Drawing.Point(9, 241);
             this.bairroTextBox.Name = "bairroTextBox";
@@ -442,6 +459,7 @@
             // 
             // cidadeTextBox
             // 
+            this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cidade", true));
             this.cidadeTextBox.Location = new System.Drawing.Point(240, 141);
             this.cidadeTextBox.Name = "cidadeTextBox";
@@ -450,6 +468,7 @@
             // 
             // cepTextBox
             // 
+            this.cepTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cep", true));
             this.cepTextBox.Location = new System.Drawing.Point(240, 241);
             this.cepTextBox.Name = "cepTextBox";
@@ -458,6 +477,7 @@
             // 
             // ufTextBox
             // 
+            this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "uf", true));
             this.ufTextBox.Location = new System.Drawing.Point(442, 141);
             this.ufTextBox.Name = "ufTextBox";
@@ -466,6 +486,7 @@
             // 
             // foneTextBox
             // 
+            this.foneTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.foneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "fone", true));
             this.foneTextBox.Location = new System.Drawing.Point(365, 241);
             this.foneTextBox.Name = "foneTextBox";

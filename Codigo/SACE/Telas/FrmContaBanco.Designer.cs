@@ -212,6 +212,7 @@
             // 
             this.tb_conta_bancoBindingSource.DataMember = "tb_conta_banco";
             this.tb_conta_bancoBindingSource.DataSource = this.saceDataSet;
+            this.tb_conta_bancoBindingSource.Sort = "codContaBanco";
             // 
             // tb_conta_bancoTableAdapter
             // 
@@ -236,11 +237,13 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
@@ -348,6 +351,7 @@
             // 
             // agenciaTextBox
             // 
+            this.agenciaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.agenciaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "agencia", true));
             this.agenciaTextBox.Location = new System.Drawing.Point(211, 97);
             this.agenciaTextBox.Name = "agenciaTextBox";
@@ -356,6 +360,7 @@
             // 
             // descricaoTextBox
             // 
+            this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(7, 145);
             this.descricaoTextBox.Name = "descricaoTextBox";
@@ -364,6 +369,7 @@
             // 
             // saldoTextBox
             // 
+            this.saldoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "saldo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.saldoTextBox.Location = new System.Drawing.Point(7, 187);
             this.saldoTextBox.Name = "saldoTextBox";
@@ -392,6 +398,7 @@
             // 
             // codContaBancoTextBox
             // 
+            this.codContaBancoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codContaBancoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "codContaBanco", true));
             this.codContaBancoTextBox.Location = new System.Drawing.Point(7, 96);
             this.codContaBancoTextBox.Name = "codContaBancoTextBox";

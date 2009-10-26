@@ -71,6 +71,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
+                tb_cartao_creditoBindingSource.CancelEdit();
             }
             
         }
@@ -106,6 +107,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                tb_cartao_creditoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

@@ -69,6 +69,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
+                tb_grupoBindingSource.CancelEdit();
             }
             
         }
@@ -89,7 +90,6 @@ namespace SACE.Telas
                 {
                     tb_grupoTableAdapter.Insert(descricaoTextBox.Text);
                     tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
-                    tb_grupoBindingSource.MoveLast();
                 }
                 else
                 {
@@ -100,6 +100,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                tb_grupoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

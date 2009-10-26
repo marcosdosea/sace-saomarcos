@@ -106,6 +106,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                tb_pessoaBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
             btnBuscar.Focus();
