@@ -305,6 +305,7 @@
             // 
             this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
             this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
+            this.tb_pessoaBindingSource.Sort = "codPessoa";
             // 
             // tb_pessoaTableAdapter
             // 
@@ -329,11 +330,13 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = this.tb_pessoaTableAdapter;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
@@ -447,6 +450,7 @@
             // 
             // nomeTextBox
             // 
+            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(117, 86);
             this.nomeTextBox.Name = "nomeTextBox";
@@ -455,6 +459,7 @@
             // 
             // cpfTextBox
             // 
+            this.cpfTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cpfTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf", true));
             this.cpfTextBox.Location = new System.Drawing.Point(7, 129);
             this.cpfTextBox.Name = "cpfTextBox";
@@ -463,6 +468,7 @@
             // 
             // bairroTextBox
             // 
+            this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "bairro", true));
             this.bairroTextBox.Location = new System.Drawing.Point(118, 177);
             this.bairroTextBox.Name = "bairroTextBox";
@@ -471,6 +477,7 @@
             // 
             // cidadeTextBox
             // 
+            this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cidade", true));
             this.cidadeTextBox.Location = new System.Drawing.Point(271, 176);
             this.cidadeTextBox.Name = "cidadeTextBox";
@@ -479,6 +486,7 @@
             // 
             // fone1TextBox
             // 
+            this.fone1TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.fone1TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "fone1", true));
             this.fone1TextBox.Location = new System.Drawing.Point(7, 226);
             this.fone1TextBox.Name = "fone1TextBox";
@@ -487,6 +495,7 @@
             // 
             // fone2TextBox
             // 
+            this.fone2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.fone2TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "fone2", true));
             this.fone2TextBox.Location = new System.Drawing.Point(118, 226);
             this.fone2TextBox.Name = "fone2TextBox";
@@ -495,6 +504,7 @@
             // 
             // limiteCompraTextBox
             // 
+            this.limiteCompraTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.limiteCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "limiteCompra", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.limiteCompraTextBox.Location = new System.Drawing.Point(243, 226);
             this.limiteCompraTextBox.Name = "limiteCompraTextBox";
@@ -503,6 +513,7 @@
             // 
             // valorComissaoTextBox
             // 
+            this.valorComissaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.valorComissaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "valorComissao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.valorComissaoTextBox.Location = new System.Drawing.Point(400, 226);
             this.valorComissaoTextBox.Name = "valorComissaoTextBox";
@@ -520,6 +531,7 @@
             // 
             // cepTextBox
             // 
+            this.cepTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cep", true));
             this.cepTextBox.Location = new System.Drawing.Point(7, 177);
             this.cepTextBox.Name = "cepTextBox";
@@ -528,6 +540,7 @@
             // 
             // enderecoTextBox
             // 
+            this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "endereco", true));
             this.enderecoTextBox.Location = new System.Drawing.Point(118, 127);
             this.enderecoTextBox.Name = "enderecoTextBox";
@@ -536,6 +549,7 @@
             // 
             // ufTextBox
             // 
+            this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "uf", true));
             this.ufTextBox.Location = new System.Drawing.Point(424, 175);
             this.ufTextBox.Name = "ufTextBox";

@@ -339,6 +339,7 @@
             // 
             this.tb_empresaBindingSource.DataMember = "tb_empresa";
             this.tb_empresaBindingSource.DataSource = this.saceDataSet;
+            this.tb_empresaBindingSource.Sort = "codigoEmpresa";
             // 
             // saceDataSet
             // 
@@ -426,6 +427,7 @@
             // 
             // nomeTextBox
             // 
+            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(124, 82);
             this.nomeTextBox.Name = "nomeTextBox";
@@ -434,6 +436,7 @@
             // 
             // cnpjTextBox
             // 
+            this.cnpjTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "cnpj", true));
             this.cnpjTextBox.Location = new System.Drawing.Point(4, 127);
             this.cnpjTextBox.Name = "cnpjTextBox";
@@ -442,6 +445,7 @@
             // 
             // ieTextBox
             // 
+            this.ieTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "ie", true));
             this.ieTextBox.Location = new System.Drawing.Point(124, 127);
             this.ieTextBox.Name = "ieTextBox";
@@ -450,6 +454,7 @@
             // 
             // foneTextBox
             // 
+            this.foneTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.foneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "fone", true));
             this.foneTextBox.Location = new System.Drawing.Point(246, 228);
             this.foneTextBox.Name = "foneTextBox";
@@ -458,6 +463,7 @@
             // 
             // enderecoTextBox
             // 
+            this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "endereco", true));
             this.enderecoTextBox.Location = new System.Drawing.Point(7, 178);
             this.enderecoTextBox.Name = "enderecoTextBox";
@@ -466,6 +472,7 @@
             // 
             // bairroTextBox
             // 
+            this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "bairro", true));
             this.bairroTextBox.Location = new System.Drawing.Point(7, 228);
             this.bairroTextBox.Name = "bairroTextBox";
@@ -474,6 +481,7 @@
             // 
             // cepTextBox
             // 
+            this.cepTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "cep", true));
             this.cepTextBox.Location = new System.Drawing.Point(156, 228);
             this.cepTextBox.Name = "cepTextBox";
@@ -482,6 +490,7 @@
             // 
             // cidadeTextBox
             // 
+            this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "cidade", true));
             this.cidadeTextBox.Location = new System.Drawing.Point(240, 127);
             this.cidadeTextBox.Name = "cidadeTextBox";
@@ -490,6 +499,7 @@
             // 
             // ufTextBox
             // 
+            this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "uf", true));
             this.ufTextBox.Location = new System.Drawing.Point(435, 127);
             this.ufTextBox.Name = "ufTextBox";
@@ -498,6 +508,7 @@
             // 
             // limiteCompraTextBox
             // 
+            this.limiteCompraTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.limiteCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_empresaBindingSource, "limiteCompra", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.limiteCompraTextBox.Location = new System.Drawing.Point(361, 228);
             this.limiteCompraTextBox.Name = "limiteCompraTextBox";
@@ -601,11 +612,13 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;

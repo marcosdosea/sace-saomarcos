@@ -70,6 +70,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
+                tb_conta_bancoBindingSource.CancelEdit();
             }
             
         }
@@ -111,6 +112,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                tb_conta_bancoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

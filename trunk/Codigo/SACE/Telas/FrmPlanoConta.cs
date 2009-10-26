@@ -20,10 +20,9 @@ namespace SACE.Telas
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_grupo_conta' table. You can move, or remove it, as needed.
-            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
             this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
+            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             habilitaBotoes(true);
         }
 
@@ -71,6 +70,7 @@ namespace SACE.Telas
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
+                tb_plano_contaBindingSource.CancelEdit();
             }
             
         }
@@ -89,7 +89,7 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    //tb_plano_contaTableAdapter.Insert(descricaoTextBox.Text, tipoContaComboBox.SelectedValue.ToString(),null, short.Parse(diaBaseTextBox.Text));
+                    tb_plano_contaTableAdapter.Insert(int.Parse(codGrupoContaComboBox.SelectedValue.ToString()), descricaoTextBox.Text, null, short.Parse(diaBaseTextBox.Text));
                     tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
                     tb_plano_contaBindingSource.MoveLast();
                 }
@@ -102,6 +102,7 @@ namespace SACE.Telas
             catch (Exception exc)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                tb_plano_contaBindingSource.CancelEdit(); tb_plano_contaBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

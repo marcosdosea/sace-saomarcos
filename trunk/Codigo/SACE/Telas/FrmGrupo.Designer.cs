@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codGrupoLabel;
             System.Windows.Forms.Label descricaoLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGrupo));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -173,6 +173,7 @@
             // 
             this.tb_grupoBindingSource.DataMember = "tb_grupo";
             this.tb_grupoBindingSource.DataSource = this.saceDataSet;
+            this.tb_grupoBindingSource.Sort = "codGrupo";
             // 
             // tb_grupoTableAdapter
             // 
@@ -181,7 +182,33 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
+            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
             this.tableAdapterManager.tb_grupoTableAdapter = this.tb_grupoTableAdapter;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_grupoBindingNavigator
@@ -282,6 +309,7 @@
             // codGrupoTextBox
             // 
             this.codGrupoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_grupoBindingSource, "codGrupo", true));
+            this.codGrupoTextBox.Enabled = false;
             this.codGrupoTextBox.Location = new System.Drawing.Point(3, 88);
             this.codGrupoTextBox.Name = "codGrupoTextBox";
             this.codGrupoTextBox.Size = new System.Drawing.Size(100, 20);
@@ -289,6 +317,7 @@
             // 
             // descricaoTextBox
             // 
+            this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_grupoBindingSource, "descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(118, 88);
             this.descricaoTextBox.Name = "descricaoTextBox";

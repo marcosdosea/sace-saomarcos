@@ -97,7 +97,7 @@
             // diaBaseLabel
             // 
             diaBaseLabel.AutoSize = true;
-            diaBaseLabel.Location = new System.Drawing.Point(4, 138);
+            diaBaseLabel.Location = new System.Drawing.Point(4, 137);
             diaBaseLabel.Name = "diaBaseLabel";
             diaBaseLabel.Size = new System.Drawing.Size(53, 13);
             diaBaseLabel.TabIndex = 25;
@@ -106,7 +106,7 @@
             // codContaBancoLabel
             // 
             codContaBancoLabel.AutoSize = true;
-            codContaBancoLabel.Location = new System.Drawing.Point(139, 138);
+            codContaBancoLabel.Location = new System.Drawing.Point(139, 137);
             codContaBancoLabel.Name = "codContaBancoLabel";
             codContaBancoLabel.Size = new System.Drawing.Size(72, 13);
             codContaBancoLabel.TabIndex = 27;
@@ -202,6 +202,7 @@
             // 
             this.tb_cartao_creditoBindingSource.DataMember = "tb_cartao_credito";
             this.tb_cartao_creditoBindingSource.DataSource = this.saceDataSet;
+            this.tb_cartao_creditoBindingSource.Sort = "codCartao";
             // 
             // tb_cartao_creditoTableAdapter
             // 
@@ -210,8 +211,33 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = this.tb_cartao_creditoTableAdapter;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
+            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
+            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_conta_bancoTableAdapter
@@ -315,6 +341,7 @@
             // 
             // codCartaoTextBox
             // 
+            this.codCartaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codCartaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "codCartao", true));
             this.codCartaoTextBox.Location = new System.Drawing.Point(7, 99);
             this.codCartaoTextBox.Name = "codCartaoTextBox";
@@ -323,6 +350,7 @@
             // 
             // nomeTextBox
             // 
+            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(142, 99);
             this.nomeTextBox.Name = "nomeTextBox";
@@ -331,6 +359,7 @@
             // 
             // diaBaseTextBox
             // 
+            this.diaBaseTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "diaBase", true));
             this.diaBaseTextBox.Location = new System.Drawing.Point(7, 154);
             this.diaBaseTextBox.Name = "diaBaseTextBox";
