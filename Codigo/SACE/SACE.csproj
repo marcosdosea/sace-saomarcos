@@ -204,6 +204,7 @@
     <Compile Include="Telas\FrmGrupoPesquisa.Designer.cs">
       <DependentUpon>FrmGrupoPesquisa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\Mensagens.cs" />
     <Compile Include="Telas\SACE.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -68,9 +68,9 @@ namespace SACE.Telas
                     tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             
         }
@@ -99,9 +99,9 @@ namespace SACE.Telas
                     tb_bancoBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
             }
             habilitaBotoes(true);
             btnBuscar.Focus();
@@ -173,14 +173,6 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
-        }
-
-        private void tb_bancoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_bancoBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
         }
     }
 }

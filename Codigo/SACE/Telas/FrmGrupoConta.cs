@@ -66,9 +66,9 @@ namespace SACE.Telas
                     tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             
         }

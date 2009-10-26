@@ -68,9 +68,9 @@ namespace SACE.Telas
                     tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             
         }
@@ -101,7 +101,7 @@ namespace SACE.Telas
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

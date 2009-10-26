@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="15" version="2.0">
+<workbench progressCount="11" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="46" y="2">
 <fastViewData fastViewLocation="1024"/>
@@ -16,7 +16,7 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" itemType="typeToolBarContribution" x="395" y="22"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -28,22 +28,12 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
-<part id="2"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" name="sace.clay" partName="sace.clay" path="D:/SACE/workspace/SACE-MySQL/sace.clay" title="sace.clay" tooltip="SACE-MySQL/sace.clay" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" name="sace.clay" partName="sace.clay" path="D:/SACE/trunk/Documentacao/Dados/workspace/SACE-MySQL/sace.clay" title="sace.clay" tooltip="SACE-MySQL/sace.clay" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SACE-MySQL/sace.clay"/>
-</editor>
-<editor id="org.eclipse.ui.DefaultTextEditor" name="sace2306.sql" partName="sace2306.sql" path="D:/SACE/workspace/SACE-MySQL/scripts/sace2306.sql" title="sace2306.sql" tooltip="SACE-MySQL/scripts/sace2306.sql" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SACE-MySQL/scripts/sace2306.sql"/>
-<editorState selectionLength="0" selectionOffset="5967"/>
-</editor>
-<editor id="org.eclipse.ui.DefaultTextEditor" name="sace2606.sql" partName="sace2606.sql" path="D:/SACE/workspace/SACE-MySQL/scripts/sace2606.sql" title="sace2606.sql" tooltip="SACE-MySQL/scripts/sace2606.sql" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SACE-MySQL/scripts/sace2606.sql"/>
-<editorState selectionLength="476" selectionOffset="5459"/>
 </editor>
 </editors>
 <views>
@@ -53,9 +43,6 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings"/>
-</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="64" org.eclipse.ui.ide.markerType="94" org.eclipse.ui.ide.pathField="124" org.eclipse.ui.ide.resourceField="94" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -217,58 +204,8 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" path="/SACE-MySQL/sace.clay"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/SACE-MySQL/scripts/sace.sql"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" path="/SACE-MySQL/sace.clay"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/SACE-MySQL/scripts/sace.sql"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/SACE-MySQL/scripts/sace2306.sql"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/SACE-MySQL/scripts/sace2306.sql"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/SACE-MySQL/scripts/sace2606.sql"/>
 </editors>
-<item historyLabel="sace.clay" index="0"/>
-<item historyLabel="sace.sql" index="1">
-<position/>
-</item>
-<item historyLabel="sace.clay" index="0"/>
-<item historyLabel="sace.sql" index="1">
-<position/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace.sql" index="3">
-<position/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace.sql" index="3">
-<position/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2306.sql" index="4">
-<position/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2306.sql" index="4">
-<position info="not_deleted" x="3723" y="591"/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2306.sql" index="4">
-<position info="not_deleted" x="5427" y="538"/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2306.sql" index="4">
-<position info="not_deleted" x="5427" y="538"/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2306.sql" index="5">
-<position info="not_deleted" x="5967" y="0"/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2606.sql" index="6">
-<position/>
-</item>
-<item historyLabel="sace.clay" index="2"/>
-<item historyLabel="sace2606.sql" index="6">
-<position info="not_deleted" x="5459" y="476"/>
-</item>
-<item active="true" historyLabel="sace.clay" index="2"/>
+<item active="true" historyLabel="sace.clay" index="0"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -286,6 +223,12 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" name="sace.clay" tooltip="SACE-MySQL/sace.clay">
+<persistable path="/SACE-MySQL/sace.clay"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="sace24102009.sql" tooltip="SACE-MySQL/scripts/sace24102009.sql">
+<persistable path="/SACE-MySQL/scripts/sace24102009.sql"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="sace2606.sql" tooltip="SACE-MySQL/scripts/sace2606.sql">
 <persistable path="/SACE-MySQL/scripts/sace2606.sql"/>
 </file>
@@ -294,9 +237,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="sace.sql" tooltip="SACE-MySQL/scripts/sace.sql">
 <persistable path="/SACE-MySQL/scripts/sace.sql"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="jp.azzurri.clay.ui.edit.DatabaseModelEditor" name="sace.clay" tooltip="SACE-MySQL/sace.clay">
-<persistable path="/SACE-MySQL/sace.clay"/>
 </file>
 </mruList>
 </workbench>

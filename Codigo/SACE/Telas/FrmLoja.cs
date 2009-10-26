@@ -66,9 +66,9 @@ namespace SACE.Telas
                     tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             
         }
@@ -100,9 +100,9 @@ namespace SACE.Telas
                     tb_lojaBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

@@ -66,9 +66,9 @@ namespace SACE.Telas
                     tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             
         }
@@ -97,9 +97,9 @@ namespace SACE.Telas
                     tb_grupoBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
             }
             habilitaBotoes(true);
             btnBuscar.Focus();

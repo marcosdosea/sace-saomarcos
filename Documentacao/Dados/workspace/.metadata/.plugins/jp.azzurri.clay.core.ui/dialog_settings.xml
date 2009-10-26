@@ -4,8 +4,8 @@
 		<item value="1" key="selectedTab"/>
 	</section>
 	<section name="NewDatabaseModelWizard">
-		<item value="/SACE-MySQL" key="container.full.path"/>
 		<item value="sace.clay" key="filename"/>
+		<item value="/SACE-MySQL" key="container.full.path"/>
 		<item value="MySQL 5.0" key="sql.dialect"/>
 	</section>
 	<section name="GenerateDDLScriptWizard">
@@ -22,11 +22,11 @@
 		<item value="false" key="generateColumnComments"/>
 		<item value="false" key="generateOutOfLineUniqueKey"/>
 		<item value="false" key="noSchemas"/>
-		<item value="true" key="generateTable"/>
 		<item value="true" key="useDomains"/>
-		<item value="false" key="generateDropIndex"/>
+		<item value="true" key="generateTable"/>
 		<item value="false" key="alwaysQuote"/>
-		<item value="sace2606.sql" key="filename"/>
+		<item value="false" key="generateDropIndex"/>
+		<item value="sace24102009.sql" key="filename"/>
 		<item value="true" key="generateIndexes"/>
 	</section>
 </section>
