@@ -21,7 +21,6 @@ namespace SACE.Telas
         private void FrmEmpresa_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'saceDataSet.tb_contato_empresa' table. You can move, or remove it, as needed.
-            this.tb_contato_empresaTableAdapter.Fill(this.saceDataSet.tb_contato_empresa);
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
             habilitaBotoes(true);
         }
@@ -67,9 +66,9 @@ namespace SACE.Telas
                     tb_empresaTableAdapter.Fill(saceDataSet.tb_empresa);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
 
         }
@@ -103,12 +102,78 @@ namespace SACE.Telas
                     tb_empresaBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
             }
             habilitaBotoes(true);
             btnBuscar.Focus();
+        }
+
+ 
+        private void btnContato_Click(object sender, EventArgs e)
+        {
+            Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+            frmPessoaPesquisa.ShowDialog();
+            if (frmPessoaPesquisa.getCodPessoa() != -1)
+            {
+                btnSalvar_Click(sender, e);
+                try
+                {
+                    tb_contato_empresaTableAdapter.Insert(long.Parse(codigoEmpresaTextBox.Text), frmPessoaPesquisa.getCodPessoa());
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("O contato selecionado já foi incluído na empresa.");
+                }
+            }
+            frmPessoaPesquisa.Dispose();
+            btnContato.Focus();
+            this.tb_contato_empresaTableAdapter.FillByEmpresa(this.saceDataSet.tb_contato_empresa, long.Parse(codigoEmpresaTextBox.Text));
+        }
+
+        private void excluirContato(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Confirma exclusão do contato?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    if (tb_contato_empresaDataGridView.Rows.Count > 0)
+                    {
+                        long codPessoa = long.Parse(tb_contato_empresaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
+                        long codEmpresa = long.Parse(codigoEmpresaTextBox.Text);
+                        tb_contato_empresaTableAdapter.Delete(codEmpresa, codPessoa);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
+            }
+            this.tb_contato_empresaTableAdapter.FillByEmpresa(this.saceDataSet.tb_contato_empresa, long.Parse(codigoEmpresaTextBox.Text));
+        }
+
+        private void codigoEmpresaTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!codigoEmpresaTextBox.Text.Equals(""))
+            {
+                this.tb_contato_empresaTableAdapter.FillByEmpresa(this.saceDataSet.tb_contato_empresa, long.Parse(codigoEmpresaTextBox.Text));
+            }
+        }
+
+        private void habilitaBotoes(Boolean habilita)
+        {
+            btnSalvar.Enabled = !(habilita);
+            btnCancelar.Enabled = !(habilita);
+            btnBuscar.Enabled = habilita;
+            btnEditar.Enabled = habilita;
+            btnNovo.Enabled = habilita;
+            btnExcluir.Enabled = habilita;
+                     tb_empresaBindingNavigator.Enabled = habilita;
+            if (habilita)
+            {
+                estado = EstadoFormulario.ESPERA;
+            }
         }
 
         private void FrmEmpresa_KeyDown(object sender, KeyEventArgs e)
@@ -154,7 +219,7 @@ namespace SACE.Telas
             }
             else
             {
-                if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
+                if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
                 }
@@ -163,51 +228,20 @@ namespace SACE.Telas
                     btnSalvar_Click(sender, e);
                 }
             }
-        }
-        private void habilitaBotoes(Boolean habilita)
-        {
-            btnSalvar.Enabled = !(habilita);
-            btnCancelar.Enabled = !(habilita);
-            btnBuscar.Enabled = habilita;
-            btnEditar.Enabled = habilita;
-            btnNovo.Enabled = habilita;
-            btnExcluir.Enabled = habilita;
-                     tb_empresaBindingNavigator.Enabled = habilita;
-            if (habilita)
-            {
-                estado = EstadoFormulario.ESPERA;
-            }
-        }
+            if (e.KeyCode == Keys.F7)
+                btnContato_Click(sender, e);
 
-        private void btnContato_Click(object sender, EventArgs e)
-        {
-            Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
-            frmPessoaPesquisa.ShowDialog();
-            if (frmPessoaPesquisa.getCodPessoa() != -1)
+            // Coloca o foco na grid caso ela não possua
+            if (e.KeyCode == Keys.F12)
             {
-                btnSalvar_Click(sender, e);
-                tb_contato_empresaTableAdapter.Insert(long.Parse(codigoEmpresaTextBox.Text), frmPessoaPesquisa.getCodPessoa());
-            }
-            frmPessoaPesquisa.Dispose();
-            btnContato.Focus();
-        }
-
-        private void codigoEmpresaTextBox_TextChanged(object sender, EventArgs e)
-        {
-            this.tb_contato_empresaTableAdapter.FillByPessoa(this.saceDataSet.tb_contato_empresa, long.Parse(codigoEmpresaTextBox.Text));
-        }
-
-        private void fillByPessoaToolStripButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.tb_contato_empresaTableAdapter.FillByPessoa(this.saceDataSet.tb_contato_empresa, ((long)(System.Convert.ChangeType(codPessoaToolStripTextBox.Text, typeof(long)))));
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                tb_contato_empresaDataGridView.Focus();
             }
 
+            // permite excluir um contato quando o foco está na grid
+            if ((e.KeyCode == Keys.Delete) && (tb_contato_empresaDataGridView.Focused == true))
+            {
+                excluirContato(sender, e);
+            }
         }
     }
 }

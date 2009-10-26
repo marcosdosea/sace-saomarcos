@@ -68,9 +68,9 @@ namespace SACE.Telas
                     tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             
         }
@@ -103,9 +103,9 @@ namespace SACE.Telas
                     tb_cartao_creditoBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
             }
             habilitaBotoes(true);
             btnBuscar.Focus();
