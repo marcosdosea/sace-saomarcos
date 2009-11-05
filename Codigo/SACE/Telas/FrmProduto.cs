@@ -9,50 +9,53 @@ using System.Windows.Forms;
 
 namespace SACE.Telas
 {
-    public partial class FrmPlanoConta : Form
+    public partial class FrmProduto : Form
     {
         private EstadoFormulario estado;
 
-        public FrmPlanoConta()
+        public FrmProduto()
         {
             InitializeComponent();
         }
 
-        private void FrmPlanoConta_Load(object sender, EventArgs e)
+        private void FrmProduto_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
-            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
-            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
+            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
+            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmPlanoContaPesquisa frmPlanoContaPesquisa = new Telas.FrmPlanoContaPesquisa();
-            frmPlanoContaPesquisa.ShowDialog();
-            if (frmPlanoContaPesquisa.getCodPlanoConta() != -1)
+            Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
+            frmProdutoPesquisa.ShowDialog();
+            if (frmProdutoPesquisa.getCodProduto() != -1)
             {
-                tb_plano_contaBindingSource.MoveFirst();
-                while (!codPlanoContaTextBox.Text.Equals(frmPlanoContaPesquisa.getCodPlanoConta().ToString()))
+                tb_bancoBindingSource.MoveFirst();
+                while (!codProdutoTextBox.Text.Equals(frmProdutoPesquisa.getCodProduto().ToString()))
                 {
-                    tb_plano_contaBindingSource.MoveNext();
+                    tb_bancoBindingSource.MoveNext();
                 }
             }
-            frmPlanoContaPesquisa.Dispose();
+            frmProdutoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_plano_contaBindingSource.AddNew();
-            codPlanoContaTextBox.Enabled = false;
-            descricaoTextBox.Focus();
+            tb_bancoBindingSource.AddNew();
+            codProdutoTextBox.Enabled = false;
+            nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            descricaoTextBox.Focus();
+            nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.ATUALIZAR;
         }
@@ -63,22 +66,22 @@ namespace SACE.Telas
             {
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    tb_plano_contaTableAdapter.Delete(int.Parse(codPlanoContaTextBox.Text));
-                    tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
+                    tb_bancoTableAdapter.Delete(int.Parse(codProdutoTextBox.Text));
+                    tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_plano_contaBindingSource.CancelEdit();
+                tb_bancoBindingSource.CancelEdit();
             }
             
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_plano_contaBindingSource.CancelEdit();
-            tb_plano_contaBindingSource.EndEdit();
+            tb_bancoBindingSource.CancelEdit();
+            tb_bancoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -89,26 +92,26 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_plano_contaTableAdapter.Insert(int.Parse(codGrupoContaComboBox.SelectedValue.ToString()), descricaoTextBox.Text, null, short.Parse(diaBaseTextBox.Text));
-                    tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
-                    tb_plano_contaBindingSource.MoveLast();
+                    tb_bancoTableAdapter.Insert(nomeTextBox.Text);
+                    tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
+                    tb_bancoBindingSource.MoveLast();
                 }
                 else
                 {
-                    //tb_plano_contaTableAdapter.Update(descricaoTextBox.Text, tipoContaComboBox.SelectedValue.ToString(), short.Parse(diaBaseTextBox.Text), int.Parse(codPlanoContaTextBox.Text));
-                    tb_plano_contaBindingSource.EndEdit();
+                    tb_bancoTableAdapter.Update(nomeTextBox.Text, int.Parse(codProdutoTextBox.Text));
+                    tb_bancoBindingSource.EndEdit();
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_plano_contaBindingSource.CancelEdit(); tb_plano_contaBindingSource.CancelEdit();
+                tb_bancoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
 
-        private void FrmPlanoConta_KeyDown(object sender, KeyEventArgs e)
+        private void FrmProduto_KeyDown(object sender, KeyEventArgs e)
         {
             if (estado.Equals(EstadoFormulario.ESPERA))
             {
@@ -130,19 +133,19 @@ namespace SACE.Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_plano_contaBindingSource.MoveLast();
+                    tb_bancoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_plano_contaBindingSource.MoveFirst();
+                    tb_bancoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_plano_contaBindingSource.MovePrevious();
+                    tb_bancoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_plano_contaBindingSource.MoveNext();
+                    tb_bancoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -169,11 +172,19 @@ namespace SACE.Telas
             btnEditar.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
-            tb_plano_contaBindingNavigator.Enabled = habilita;
+            tb_bancoBindingNavigator.Enabled = habilita;
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void tb_produtoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.tb_produtoBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.saceDataSet);
+
         }
     }
 }

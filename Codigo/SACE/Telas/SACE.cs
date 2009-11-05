@@ -37,13 +37,12 @@ namespace SACE
             {
                 btnSair_Click(sender, e);
             }
+            else if (e.KeyCode == Keys.F6)
+            {
+                entradaDeProdutosToolStripMenuItem_Click(sender, e);
+            }
         }
 
-        private void btnCliente_Click(object sender, EventArgs e)
-        {
-            //FrmCliente formCliente = new FrmCliente();
-            //formCliente.ShowDialog();
-        }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
@@ -123,6 +122,20 @@ namespace SACE
             Telas.FrmPreVenda frmPreVenda = new Telas.FrmPreVenda();
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
+        }
+
+        private void entradaDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmEntrada frmEntrada = new Telas.FrmEntrada();
+            frmEntrada.ShowDialog();
+            frmEntrada.Dispose();
+        }
+
+        private void transformaçãoDePrToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmTransformacaoProduto frmTrasnformacaoProduto = new Telas.FrmTransformacaoProduto();
+            frmTrasnformacaoProduto.ShowDialog();
+            frmTrasnformacaoProduto.Dispose();
         }
 
     }

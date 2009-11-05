@@ -31,6 +31,7 @@ namespace SACE.Telas
             frmEmpresaPesquisa.ShowDialog();
             if (frmEmpresaPesquisa.getCodEmpresa() != -1)
             {
+
                 tb_empresaBindingSource.MoveFirst();
                 while (!codigoEmpresaTextBox.Text.Equals(frmEmpresaPesquisa.getCodEmpresa().ToString()))
                 {
