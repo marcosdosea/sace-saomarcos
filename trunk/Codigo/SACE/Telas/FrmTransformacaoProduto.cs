@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace SACE.Telas
 {
-    public partial class FrmEntradaProdutos : Form
+    public partial class FrmTransformacaoProduto : Form
     {
-        public FrmEntradaProdutos()
+        public FrmTransformacaoProduto()
         {
             InitializeComponent();
         }

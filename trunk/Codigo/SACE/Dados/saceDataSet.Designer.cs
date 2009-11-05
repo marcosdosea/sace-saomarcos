@@ -3985,10 +3985,10 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entradaRow Addtb_entradaRow(long codEntrada, long codigoFornecedor, long codigoEmpresaFrete, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal) {
+            public tb_entradaRow Addtb_entradaRow(long codigoFornecedor, long codigoEmpresaFrete, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal) {
                 tb_entradaRow rowtb_entradaRow = ((tb_entradaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        codEntrada,
+                        null,
                         codigoFornecedor,
                         codigoEmpresaFrete,
                         valorCustoFrete,
@@ -4051,6 +4051,9 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnnumeroNotaFiscal);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodEntrada}, true));
+                this.columncodEntrada.AutoIncrement = true;
+                this.columncodEntrada.AutoIncrementSeed = -1;
+                this.columncodEntrada.AutoIncrementStep = -1;
                 this.columncodEntrada.AllowDBNull = false;
                 this.columncodEntrada.Unique = true;
                 this.columncodigoFornecedor.AllowDBNull = false;
@@ -4195,6 +4198,8 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnpreco_custo;
             
+            private global::System.Data.DataColumn columnnome;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_entrada_produtoDataTable() {
                 this.TableName = "tb_entrada_produto";
@@ -4275,6 +4280,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn nomeColumn {
+                get {
+                    return this.columnnome;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4303,7 +4315,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entrada_produtoRow Addtb_entrada_produtoRow(long codEntrada, long codProduto, decimal quantidade, decimal valor_compra, decimal ipi, decimal icms, decimal preco_custo) {
+            public tb_entrada_produtoRow Addtb_entrada_produtoRow(long codEntrada, long codProduto, decimal quantidade, decimal valor_compra, decimal ipi, decimal icms, decimal preco_custo, string nome) {
                 tb_entrada_produtoRow rowtb_entrada_produtoRow = ((tb_entrada_produtoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         codEntrada,
@@ -4312,7 +4324,8 @@ namespace SACE.Dados {
                         valor_compra,
                         ipi,
                         icms,
-                        preco_custo};
+                        preco_custo,
+                        nome};
                 rowtb_entrada_produtoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_entrada_produtoRow);
                 return rowtb_entrada_produtoRow;
@@ -4346,6 +4359,7 @@ namespace SACE.Dados {
                 this.columnipi = base.Columns["ipi"];
                 this.columnicms = base.Columns["icms"];
                 this.columnpreco_custo = base.Columns["preco_custo"];
+                this.columnnome = base.Columns["nome"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4364,11 +4378,15 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnicms);
                 this.columnpreco_custo = new global::System.Data.DataColumn("preco_custo", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpreco_custo);
+                this.columnnome = new global::System.Data.DataColumn("nome", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnome);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodEntrada,
                                 this.columncodProduto}, true));
                 this.columncodEntrada.AllowDBNull = false;
                 this.columncodProduto.AllowDBNull = false;
+                this.columnnome.AllowDBNull = false;
+                this.columnnome.MaxLength = 40;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7483,25 +7501,21 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnultimaDataAtualizacao;
             
-            private global::System.Data.DataColumn columnqtdVendaPreco1;
-            
-            private global::System.Data.DataColumn columnlucroPrecoVenda1;
-            
-            private global::System.Data.DataColumn columnprecoVenda1;
-            
-            private global::System.Data.DataColumn columnqtdVendaPreco2;
-            
-            private global::System.Data.DataColumn columnlucroPrecoVenda2;
-            
-            private global::System.Data.DataColumn columnprecoVenda2;
-            
-            private global::System.Data.DataColumn columnqtdPrecoVenda3;
-            
-            private global::System.Data.DataColumn columnlucroPrecoVenda3;
-            
-            private global::System.Data.DataColumn columnprecoVenda3;
-            
             private global::System.Data.DataColumn columnexibiNaListagem;
+            
+            private global::System.Data.DataColumn columnnomeFabricante;
+            
+            private global::System.Data.DataColumn columnlucroPrecoVendaVarejo;
+            
+            private global::System.Data.DataColumn columnprecoVendaVarejo;
+            
+            private global::System.Data.DataColumn columnlucroPrecoVendaAtacado;
+            
+            private global::System.Data.DataColumn columnprecoVendaAtacado;
+            
+            private global::System.Data.DataColumn columnlucroPrecoVendaSuperAtacado;
+            
+            private global::System.Data.DataColumn columnprecoVendaSuperAtacado;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_produtoDataTable() {
@@ -7653,72 +7667,58 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn qtdVendaPreco1Column {
-                get {
-                    return this.columnqtdVendaPreco1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn lucroPrecoVenda1Column {
-                get {
-                    return this.columnlucroPrecoVenda1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn precoVenda1Column {
-                get {
-                    return this.columnprecoVenda1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn qtdVendaPreco2Column {
-                get {
-                    return this.columnqtdVendaPreco2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn lucroPrecoVenda2Column {
-                get {
-                    return this.columnlucroPrecoVenda2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn precoVenda2Column {
-                get {
-                    return this.columnprecoVenda2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn qtdPrecoVenda3Column {
-                get {
-                    return this.columnqtdPrecoVenda3;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn lucroPrecoVenda3Column {
-                get {
-                    return this.columnlucroPrecoVenda3;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn precoVenda3Column {
-                get {
-                    return this.columnprecoVenda3;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn exibiNaListagemColumn {
                 get {
                     return this.columnexibiNaListagem;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn nomeFabricanteColumn {
+                get {
+                    return this.columnnomeFabricante;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn lucroPrecoVendaVarejoColumn {
+                get {
+                    return this.columnlucroPrecoVendaVarejo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn precoVendaVarejoColumn {
+                get {
+                    return this.columnprecoVendaVarejo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn lucroPrecoVendaAtacadoColumn {
+                get {
+                    return this.columnlucroPrecoVendaAtacado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn precoVendaAtacadoColumn {
+                get {
+                    return this.columnprecoVendaAtacado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn lucroPrecoVendaSuperAtacadoColumn {
+                get {
+                    return this.columnlucroPrecoVendaSuperAtacado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn precoVendaSuperAtacadoColumn {
+                get {
+                    return this.columnprecoVendaSuperAtacado;
                 }
             }
             
@@ -7768,16 +7768,14 @@ namespace SACE.Dados {
                         decimal ultimoPrecoCusto, 
                         System.DateTime ultimaDataCompra, 
                         System.DateTime ultimaDataAtualizacao, 
-                        decimal qtdVendaPreco1, 
-                        decimal lucroPrecoVenda1, 
-                        decimal precoVenda1, 
-                        decimal qtdVendaPreco2, 
-                        decimal lucroPrecoVenda2, 
-                        decimal precoVenda2, 
-                        decimal qtdPrecoVenda3, 
-                        decimal lucroPrecoVenda3, 
-                        decimal precoVenda3, 
-                        bool exibiNaListagem) {
+                        bool exibiNaListagem, 
+                        string nomeFabricante, 
+                        decimal lucroPrecoVendaVarejo, 
+                        decimal precoVendaVarejo, 
+                        decimal lucroPrecoVendaAtacado, 
+                        decimal precoVendaAtacado, 
+                        decimal lucroPrecoVendaSuperAtacado, 
+                        decimal precoVendaSuperAtacado) {
                 tb_produtoRow rowtb_produtoRow = ((tb_produtoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -7797,16 +7795,14 @@ namespace SACE.Dados {
                         ultimoPrecoCusto,
                         ultimaDataCompra,
                         ultimaDataAtualizacao,
-                        qtdVendaPreco1,
-                        lucroPrecoVenda1,
-                        precoVenda1,
-                        qtdVendaPreco2,
-                        lucroPrecoVenda2,
-                        precoVenda2,
-                        qtdPrecoVenda3,
-                        lucroPrecoVenda3,
-                        precoVenda3,
-                        exibiNaListagem};
+                        exibiNaListagem,
+                        nomeFabricante,
+                        lucroPrecoVendaVarejo,
+                        precoVendaVarejo,
+                        lucroPrecoVendaAtacado,
+                        precoVendaAtacado,
+                        lucroPrecoVendaSuperAtacado,
+                        precoVendaSuperAtacado};
                 rowtb_produtoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_produtoRow);
                 return rowtb_produtoRow;
@@ -7849,16 +7845,14 @@ namespace SACE.Dados {
                 this.columnultimoPrecoCusto = base.Columns["ultimoPrecoCusto"];
                 this.columnultimaDataCompra = base.Columns["ultimaDataCompra"];
                 this.columnultimaDataAtualizacao = base.Columns["ultimaDataAtualizacao"];
-                this.columnqtdVendaPreco1 = base.Columns["qtdVendaPreco1"];
-                this.columnlucroPrecoVenda1 = base.Columns["lucroPrecoVenda1"];
-                this.columnprecoVenda1 = base.Columns["precoVenda1"];
-                this.columnqtdVendaPreco2 = base.Columns["qtdVendaPreco2"];
-                this.columnlucroPrecoVenda2 = base.Columns["lucroPrecoVenda2"];
-                this.columnprecoVenda2 = base.Columns["precoVenda2"];
-                this.columnqtdPrecoVenda3 = base.Columns["qtdPrecoVenda3"];
-                this.columnlucroPrecoVenda3 = base.Columns["lucroPrecoVenda3"];
-                this.columnprecoVenda3 = base.Columns["precoVenda3"];
                 this.columnexibiNaListagem = base.Columns["exibiNaListagem"];
+                this.columnnomeFabricante = base.Columns["nomeFabricante"];
+                this.columnlucroPrecoVendaVarejo = base.Columns["lucroPrecoVendaVarejo"];
+                this.columnprecoVendaVarejo = base.Columns["precoVendaVarejo"];
+                this.columnlucroPrecoVendaAtacado = base.Columns["lucroPrecoVendaAtacado"];
+                this.columnprecoVendaAtacado = base.Columns["precoVendaAtacado"];
+                this.columnlucroPrecoVendaSuperAtacado = base.Columns["lucroPrecoVendaSuperAtacado"];
+                this.columnprecoVendaSuperAtacado = base.Columns["precoVendaSuperAtacado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7897,26 +7891,22 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnultimaDataCompra);
                 this.columnultimaDataAtualizacao = new global::System.Data.DataColumn("ultimaDataAtualizacao", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnultimaDataAtualizacao);
-                this.columnqtdVendaPreco1 = new global::System.Data.DataColumn("qtdVendaPreco1", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnqtdVendaPreco1);
-                this.columnlucroPrecoVenda1 = new global::System.Data.DataColumn("lucroPrecoVenda1", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlucroPrecoVenda1);
-                this.columnprecoVenda1 = new global::System.Data.DataColumn("precoVenda1", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnprecoVenda1);
-                this.columnqtdVendaPreco2 = new global::System.Data.DataColumn("qtdVendaPreco2", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnqtdVendaPreco2);
-                this.columnlucroPrecoVenda2 = new global::System.Data.DataColumn("lucroPrecoVenda2", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlucroPrecoVenda2);
-                this.columnprecoVenda2 = new global::System.Data.DataColumn("precoVenda2", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnprecoVenda2);
-                this.columnqtdPrecoVenda3 = new global::System.Data.DataColumn("qtdPrecoVenda3", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnqtdPrecoVenda3);
-                this.columnlucroPrecoVenda3 = new global::System.Data.DataColumn("lucroPrecoVenda3", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlucroPrecoVenda3);
-                this.columnprecoVenda3 = new global::System.Data.DataColumn("precoVenda3", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnprecoVenda3);
                 this.columnexibiNaListagem = new global::System.Data.DataColumn("exibiNaListagem", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnexibiNaListagem);
+                this.columnnomeFabricante = new global::System.Data.DataColumn("nomeFabricante", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnomeFabricante);
+                this.columnlucroPrecoVendaVarejo = new global::System.Data.DataColumn("lucroPrecoVendaVarejo", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlucroPrecoVendaVarejo);
+                this.columnprecoVendaVarejo = new global::System.Data.DataColumn("precoVendaVarejo", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprecoVendaVarejo);
+                this.columnlucroPrecoVendaAtacado = new global::System.Data.DataColumn("lucroPrecoVendaAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlucroPrecoVendaAtacado);
+                this.columnprecoVendaAtacado = new global::System.Data.DataColumn("precoVendaAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprecoVendaAtacado);
+                this.columnlucroPrecoVendaSuperAtacado = new global::System.Data.DataColumn("lucroPrecoVendaSuperAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlucroPrecoVendaSuperAtacado);
+                this.columnprecoVendaSuperAtacado = new global::System.Data.DataColumn("precoVendaSuperAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprecoVendaSuperAtacado);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodProduto}, true));
                 this.columncodProduto.AutoIncrement = true;
@@ -7931,6 +7921,7 @@ namespace SACE.Dados {
                 this.columncodigoBarra.MaxLength = 40;
                 this.columncodGrupo.AllowDBNull = false;
                 this.columncfop.MaxLength = 4;
+                this.columnnomeFabricante.MaxLength = 40;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11065,6 +11056,16 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string nome {
+                get {
+                    return ((string)(this[this.tabletb_entrada_produto.nomeColumn]));
+                }
+                set {
+                    this[this.tabletb_entrada_produto.nomeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsquantidadeNull() {
                 return this.IsNull(this.tabletb_entrada_produto.quantidadeColumn);
             }
@@ -12365,141 +12366,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal qtdVendaPreco1 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.qtdVendaPreco1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'qtdVendaPreco1\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.qtdVendaPreco1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal lucroPrecoVenda1 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.lucroPrecoVenda1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'lucroPrecoVenda1\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.lucroPrecoVenda1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal precoVenda1 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.precoVenda1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'precoVenda1\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.precoVenda1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal qtdVendaPreco2 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.qtdVendaPreco2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'qtdVendaPreco2\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.qtdVendaPreco2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal lucroPrecoVenda2 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.lucroPrecoVenda2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'lucroPrecoVenda2\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.lucroPrecoVenda2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal precoVenda2 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.precoVenda2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'precoVenda2\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.precoVenda2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal qtdPrecoVenda3 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.qtdPrecoVenda3Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'qtdPrecoVenda3\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.qtdPrecoVenda3Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal lucroPrecoVenda3 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.lucroPrecoVenda3Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'lucroPrecoVenda3\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.lucroPrecoVenda3Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal precoVenda3 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_produto.precoVenda3Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'precoVenda3\' in table \'tb_produto\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_produto.precoVenda3Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool exibiNaListagem {
                 get {
                     try {
@@ -12511,6 +12377,112 @@ namespace SACE.Dados {
                 }
                 set {
                     this[this.tabletb_produto.exibiNaListagemColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string nomeFabricante {
+                get {
+                    try {
+                        return ((string)(this[this.tabletb_produto.nomeFabricanteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'nomeFabricante\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.nomeFabricanteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal lucroPrecoVendaVarejo {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.lucroPrecoVendaVarejoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'lucroPrecoVendaVarejo\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.lucroPrecoVendaVarejoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal precoVendaVarejo {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.precoVendaVarejoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'precoVendaVarejo\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.precoVendaVarejoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal lucroPrecoVendaAtacado {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.lucroPrecoVendaAtacadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'lucroPrecoVendaAtacado\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.lucroPrecoVendaAtacadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal precoVendaAtacado {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.precoVendaAtacadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'precoVendaAtacado\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.precoVendaAtacadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal lucroPrecoVendaSuperAtacado {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.lucroPrecoVendaSuperAtacadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'lucroPrecoVendaSuperAtacado\' in table \'tb_produto\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.lucroPrecoVendaSuperAtacadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal precoVendaSuperAtacado {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.precoVendaSuperAtacadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'precoVendaSuperAtacado\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.precoVendaSuperAtacadoColumn] = value;
                 }
             }
             
@@ -12645,96 +12617,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsqtdVendaPreco1Null() {
-                return this.IsNull(this.tabletb_produto.qtdVendaPreco1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetqtdVendaPreco1Null() {
-                this[this.tabletb_produto.qtdVendaPreco1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IslucroPrecoVenda1Null() {
-                return this.IsNull(this.tabletb_produto.lucroPrecoVenda1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetlucroPrecoVenda1Null() {
-                this[this.tabletb_produto.lucroPrecoVenda1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsprecoVenda1Null() {
-                return this.IsNull(this.tabletb_produto.precoVenda1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetprecoVenda1Null() {
-                this[this.tabletb_produto.precoVenda1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsqtdVendaPreco2Null() {
-                return this.IsNull(this.tabletb_produto.qtdVendaPreco2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetqtdVendaPreco2Null() {
-                this[this.tabletb_produto.qtdVendaPreco2Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IslucroPrecoVenda2Null() {
-                return this.IsNull(this.tabletb_produto.lucroPrecoVenda2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetlucroPrecoVenda2Null() {
-                this[this.tabletb_produto.lucroPrecoVenda2Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsprecoVenda2Null() {
-                return this.IsNull(this.tabletb_produto.precoVenda2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetprecoVenda2Null() {
-                this[this.tabletb_produto.precoVenda2Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsqtdPrecoVenda3Null() {
-                return this.IsNull(this.tabletb_produto.qtdPrecoVenda3Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetqtdPrecoVenda3Null() {
-                this[this.tabletb_produto.qtdPrecoVenda3Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IslucroPrecoVenda3Null() {
-                return this.IsNull(this.tabletb_produto.lucroPrecoVenda3Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetlucroPrecoVenda3Null() {
-                this[this.tabletb_produto.lucroPrecoVenda3Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsprecoVenda3Null() {
-                return this.IsNull(this.tabletb_produto.precoVenda3Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetprecoVenda3Null() {
-                this[this.tabletb_produto.precoVenda3Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsexibiNaListagemNull() {
                 return this.IsNull(this.tabletb_produto.exibiNaListagemColumn);
             }
@@ -12742,6 +12624,76 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetexibiNaListagemNull() {
                 this[this.tabletb_produto.exibiNaListagemColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsnomeFabricanteNull() {
+                return this.IsNull(this.tabletb_produto.nomeFabricanteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetnomeFabricanteNull() {
+                this[this.tabletb_produto.nomeFabricanteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IslucroPrecoVendaVarejoNull() {
+                return this.IsNull(this.tabletb_produto.lucroPrecoVendaVarejoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetlucroPrecoVendaVarejoNull() {
+                this[this.tabletb_produto.lucroPrecoVendaVarejoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsprecoVendaVarejoNull() {
+                return this.IsNull(this.tabletb_produto.precoVendaVarejoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetprecoVendaVarejoNull() {
+                this[this.tabletb_produto.precoVendaVarejoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IslucroPrecoVendaAtacadoNull() {
+                return this.IsNull(this.tabletb_produto.lucroPrecoVendaAtacadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetlucroPrecoVendaAtacadoNull() {
+                this[this.tabletb_produto.lucroPrecoVendaAtacadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsprecoVendaAtacadoNull() {
+                return this.IsNull(this.tabletb_produto.precoVendaAtacadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetprecoVendaAtacadoNull() {
+                this[this.tabletb_produto.precoVendaAtacadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IslucroPrecoVendaSuperAtacadoNull() {
+                return this.IsNull(this.tabletb_produto.lucroPrecoVendaSuperAtacadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetlucroPrecoVendaSuperAtacadoNull() {
+                this[this.tabletb_produto.lucroPrecoVendaSuperAtacadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsprecoVendaSuperAtacadoNull() {
+                return this.IsNull(this.tabletb_produto.precoVendaSuperAtacadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetprecoVendaSuperAtacadoNull() {
+                this[this.tabletb_produto.precoVendaSuperAtacadoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -18666,12 +18618,25 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `codigoEmpresa`, `nome`, `cnpj`, `ie`, `fone`, `endereco`, `bairro`, `cep`" +
                 ", `cidade`, `uf`, `limiteCompra`, `observacao` FROM `sace`.`tb_empresa`";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        codigoEmpresa, nome, cnpj, ie, fone, endereco, bairro, cep, cidade," +
+                " uf, limiteCompra, observacao\r\nFROM            tb_empresa\r\nWHERE        (codigoE" +
+                "mpresa = @codigoEmpresa)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codigoEmpresa";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoEmpresa";
+            this._commandCollection[1].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18691,6 +18656,30 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual saceDataSet.tb_empresaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            saceDataSet.tb_empresaDataTable dataTable = new saceDataSet.tb_empresaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodigoEmpresa(saceDataSet.tb_empresaDataTable dataTable, long codigoEmpresa) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codigoEmpresa));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_empresaDataTable GetDataByCodigoEmpresa(long codigoEmpresa) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codigoEmpresa));
             saceDataSet.tb_empresaDataTable dataTable = new saceDataSet.tb_empresaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -19042,7 +19031,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `sace`.`tb_entrada` WHERE ((`codEntrada` = @Original_codEntrada) AND (`codigoFornecedor` = @Original_codigoFornecedor) AND (`codigoEmpresaFrete` = @Original_codigoEmpresaFrete) AND ((@IsNull_valorCustoFrete = 1 AND `valorCustoFrete` IS NULL) OR (`valorCustoFrete` = @Original_valorCustoFrete)) AND ((@IsNull_dataEntrada = 1 AND `dataEntrada` IS NULL) OR (`dataEntrada` = @Original_dataEntrada)) AND ((@IsNull_valorTotal = 1 AND `valorTotal` IS NULL) OR (`valorTotal` = @Original_valorTotal)) AND ((@IsNull_tipoEntrada = 1 AND `tipoEntrada` IS NULL) OR (`tipoEntrada` = @Original_tipoEntrada)) AND ((@IsNull_numeroNotaFiscal = 1 AND `numeroNotaFiscal` IS NULL) OR (`numeroNotaFiscal` = @Original_numeroNotaFiscal)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_entrada\r\nWHERE        (codEntrada = @Original_codEntrada)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codEntrada";
@@ -19052,116 +19041,12 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             param.SourceColumn = "codEntrada";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codigoFornecedor";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoFornecedor";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codigoEmpresaFrete";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoEmpresaFrete";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_valorCustoFrete";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "valorCustoFrete";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_valorCustoFrete";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "valorCustoFrete";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_dataEntrada";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "dataEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_dataEntrada";
-            param.DbType = global::System.Data.DbType.DateTime;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.DateTime;
-            param.IsNullable = true;
-            param.SourceColumn = "dataEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_valorTotal";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "valorTotal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_valorTotal";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "valorTotal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_tipoEntrada";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "tipoEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_tipoEntrada";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "tipoEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_numeroNotaFiscal";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "numeroNotaFiscal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_numeroNotaFiscal";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "numeroNotaFiscal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `sace`.`tb_entrada` (`codEntrada`, `codigoFornecedor`, `codigoEmpresaFrete`, `valorCustoFrete`, `dataEntrada`, `valorTotal`, `tipoEntrada`, `numeroNotaFiscal`) VALUES (@codEntrada, @codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEntrada, @valorTotal, @tipoEntrada, @numeroNotaFiscal)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO tb_entrada
+                         (codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal)
+VALUES        (@codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEntrada, @valorTotal, @tipoEntrada, @numeroNotaFiscal)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codEntrada";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codEntrada";
-            this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codigoFornecedor";
             param.DbType = global::System.Data.DbType.Int64;
@@ -19178,6 +19063,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorCustoFrete";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorCustoFrete";
@@ -19191,14 +19077,16 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorTotal";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorTotal";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@tipoEntrada";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
             param.IsNullable = true;
             param.SourceColumn = "tipoEntrada";
             this._adapter.InsertCommand.Parameters.Add(param);
@@ -19211,7 +19099,10 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `sace`.`tb_entrada` SET `codEntrada` = @codEntrada, `codigoFornecedor` = @codigoFornecedor, `codigoEmpresaFrete` = @codigoEmpresaFrete, `valorCustoFrete` = @valorCustoFrete, `dataEntrada` = @dataEntrada, `valorTotal` = @valorTotal, `tipoEntrada` = @tipoEntrada, `numeroNotaFiscal` = @numeroNotaFiscal WHERE ((`codEntrada` = @Original_codEntrada) AND (`codigoFornecedor` = @Original_codigoFornecedor) AND (`codigoEmpresaFrete` = @Original_codigoEmpresaFrete) AND ((@IsNull_valorCustoFrete = 1 AND `valorCustoFrete` IS NULL) OR (`valorCustoFrete` = @Original_valorCustoFrete)) AND ((@IsNull_dataEntrada = 1 AND `dataEntrada` IS NULL) OR (`dataEntrada` = @Original_dataEntrada)) AND ((@IsNull_valorTotal = 1 AND `valorTotal` IS NULL) OR (`valorTotal` = @Original_valorTotal)) AND ((@IsNull_tipoEntrada = 1 AND `tipoEntrada` IS NULL) OR (`tipoEntrada` = @Original_tipoEntrada)) AND ((@IsNull_numeroNotaFiscal = 1 AND `numeroNotaFiscal` IS NULL) OR (`numeroNotaFiscal` = @Original_numeroNotaFiscal)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_entrada
+SET                codEntrada = @codEntrada, codigoFornecedor = @codigoFornecedor, codigoEmpresaFrete = @codigoEmpresaFrete, valorCustoFrete = @valorCustoFrete, 
+                         dataEntrada = @dataEntrada, valorTotal = @valorTotal, tipoEntrada = @tipoEntrada, numeroNotaFiscal = @numeroNotaFiscal
+WHERE        (codEntrada = @Original_codEntrada)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codEntrada";
@@ -19236,6 +19127,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorCustoFrete";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorCustoFrete";
@@ -19249,14 +19141,16 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorTotal";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorTotal";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@tipoEntrada";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
             param.IsNullable = true;
             param.SourceColumn = "tipoEntrada";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -19275,105 +19169,6 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             param.SourceColumn = "codEntrada";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codigoFornecedor";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoFornecedor";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codigoEmpresaFrete";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoEmpresaFrete";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_valorCustoFrete";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "valorCustoFrete";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_valorCustoFrete";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "valorCustoFrete";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_dataEntrada";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "dataEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_dataEntrada";
-            param.DbType = global::System.Data.DbType.DateTime;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.DateTime;
-            param.IsNullable = true;
-            param.SourceColumn = "dataEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_valorTotal";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "valorTotal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_valorTotal";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "valorTotal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_tipoEntrada";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "tipoEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_tipoEntrada";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "tipoEntrada";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_numeroNotaFiscal";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "numeroNotaFiscal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_numeroNotaFiscal";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "numeroNotaFiscal";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19387,9 +19182,9 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codEntrada`, `codigoFornecedor`, `codigoEmpresaFrete`, `valorCustoFrete`," +
-                " `dataEntrada`, `valorTotal`, `tipoEntrada`, `numeroNotaFiscal` FROM `sace`.`tb_" +
-                "entrada`";
+            this._commandCollection[0].CommandText = "SELECT        codEntrada, codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, " +
+                "dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal\r\nFROM            tb_entra" +
+                "da";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -19443,50 +19238,8 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_codEntrada, long Original_codigoFornecedor, long Original_codigoEmpresaFrete, string Original_valorCustoFrete, global::System.Nullable<global::System.DateTime> Original_dataEntrada, string Original_valorTotal, string Original_tipoEntrada, global::System.Nullable<long> Original_numeroNotaFiscal) {
+        public virtual int Delete(long Original_codEntrada) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_codEntrada));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((long)(Original_codigoFornecedor));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((long)(Original_codigoEmpresaFrete));
-            if ((Original_valorCustoFrete == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_valorCustoFrete));
-            }
-            if ((Original_dataEntrada.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_dataEntrada.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Original_valorTotal == null)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_valorTotal));
-            }
-            if ((Original_tipoEntrada == null)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_tipoEntrada));
-            }
-            if ((Original_numeroNotaFiscal.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((long)(Original_numeroNotaFiscal.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -19506,39 +19259,38 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long codEntrada, long codigoFornecedor, long codigoEmpresaFrete, string valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, string valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((long)(codEntrada));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((long)(codigoFornecedor));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((long)(codigoEmpresaFrete));
-            if ((valorCustoFrete == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+        public virtual int Insert(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((long)(codigoFornecedor));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((long)(codigoEmpresaFrete));
+            if ((valorCustoFrete.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(valorCustoFrete.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(valorCustoFrete));
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             if ((dataEntrada.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(dataEntrada.Value));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(dataEntrada.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((valorTotal.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(valorTotal.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((valorTotal == null)) {
+            if ((tipoEntrada == null)) {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(valorTotal));
-            }
-            if ((tipoEntrada == null)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(tipoEntrada));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(tipoEntrada));
             }
             if ((numeroNotaFiscal.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((long)(numeroNotaFiscal.Value));
+                this.Adapter.InsertCommand.Parameters[6].Value = ((long)(numeroNotaFiscal.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -19559,31 +19311,15 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    long codEntrada, 
-                    long codigoFornecedor, 
-                    long codigoEmpresaFrete, 
-                    string valorCustoFrete, 
-                    global::System.Nullable<global::System.DateTime> dataEntrada, 
-                    string valorTotal, 
-                    string tipoEntrada, 
-                    global::System.Nullable<long> numeroNotaFiscal, 
-                    long Original_codEntrada, 
-                    long Original_codigoFornecedor, 
-                    long Original_codigoEmpresaFrete, 
-                    string Original_valorCustoFrete, 
-                    global::System.Nullable<global::System.DateTime> Original_dataEntrada, 
-                    string Original_valorTotal, 
-                    string Original_tipoEntrada, 
-                    global::System.Nullable<long> Original_numeroNotaFiscal) {
+        public virtual int Update(long codEntrada, long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, long Original_codEntrada) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(codEntrada));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(codigoFornecedor));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((long)(codigoEmpresaFrete));
-            if ((valorCustoFrete == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            if ((valorCustoFrete.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(valorCustoFrete.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(valorCustoFrete));
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             if ((dataEntrada.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(dataEntrada.Value));
@@ -19591,11 +19327,11 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((valorTotal == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            if ((valorTotal.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(valorTotal.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(valorTotal));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             if ((tipoEntrada == null)) {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
@@ -19610,48 +19346,6 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_codEntrada));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(Original_codigoFornecedor));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((long)(Original_codigoEmpresaFrete));
-            if ((Original_valorCustoFrete == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_valorCustoFrete));
-            }
-            if ((Original_dataEntrada.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_dataEntrada.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            if ((Original_valorTotal == null)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_valorTotal));
-            }
-            if ((Original_tipoEntrada == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Original_tipoEntrada));
-            }
-            if ((Original_numeroNotaFiscal.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((long)(Original_numeroNotaFiscal.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -19671,8 +19365,8 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long codigoFornecedor, long codigoEmpresaFrete, string valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, string valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, long Original_codEntrada, long Original_codigoFornecedor, long Original_codigoEmpresaFrete, string Original_valorCustoFrete, global::System.Nullable<global::System.DateTime> Original_dataEntrada, string Original_valorTotal, string Original_tipoEntrada, global::System.Nullable<long> Original_numeroNotaFiscal) {
-            return this.Update(Original_codEntrada, codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, Original_codEntrada, Original_codigoFornecedor, Original_codigoEmpresaFrete, Original_valorCustoFrete, Original_dataEntrada, Original_valorTotal, Original_tipoEntrada, Original_numeroNotaFiscal);
+        public virtual int Update(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, long Original_codEntrada) {
+            return this.Update(Original_codEntrada, codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, Original_codEntrada);
         }
     }
     
@@ -19798,6 +19492,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             tableMapping.ColumnMappings.Add("ipi", "ipi");
             tableMapping.ColumnMappings.Add("icms", "icms");
             tableMapping.ColumnMappings.Add("preco_custo", "preco_custo");
+            tableMapping.ColumnMappings.Add("nome", "nome");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -20106,8 +19801,10 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codEntrada`, `codProduto`, `quantidade`, `valor_compra`, `ipi`, `icms`, `" +
-                "preco_custo` FROM `sace`.`tb_entrada_produto`";
+            this._commandCollection[0].CommandText = @"SELECT        tb_entrada_produto.codEntrada, tb_entrada_produto.codProduto, tb_entrada_produto.quantidade, tb_entrada_produto.valor_compra, tb_entrada_produto.ipi, 
+                         tb_entrada_produto.icms, tb_entrada_produto.preco_custo, tb_produto.nome
+FROM            tb_entrada_produto INNER JOIN
+                         tb_produto ON tb_entrada_produto.codProduto = tb_produto.codProduto";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -24724,20 +24421,50 @@ WHERE        (codPessoa = @Original_codPessoa)";
             tableMapping.ColumnMappings.Add("ultimoPrecoCusto", "ultimoPrecoCusto");
             tableMapping.ColumnMappings.Add("ultimaDataCompra", "ultimaDataCompra");
             tableMapping.ColumnMappings.Add("ultimaDataAtualizacao", "ultimaDataAtualizacao");
-            tableMapping.ColumnMappings.Add("qtdVendaPreco1", "qtdVendaPreco1");
-            tableMapping.ColumnMappings.Add("lucroPrecoVenda1", "lucroPrecoVenda1");
-            tableMapping.ColumnMappings.Add("precoVenda1", "precoVenda1");
-            tableMapping.ColumnMappings.Add("qtdVendaPreco2", "qtdVendaPreco2");
-            tableMapping.ColumnMappings.Add("lucroPrecoVenda2", "lucroPrecoVenda2");
-            tableMapping.ColumnMappings.Add("precoVenda2", "precoVenda2");
-            tableMapping.ColumnMappings.Add("qtdPrecoVenda3", "qtdPrecoVenda3");
-            tableMapping.ColumnMappings.Add("lucroPrecoVenda3", "lucroPrecoVenda3");
-            tableMapping.ColumnMappings.Add("precoVenda3", "precoVenda3");
             tableMapping.ColumnMappings.Add("exibiNaListagem", "exibiNaListagem");
+            tableMapping.ColumnMappings.Add("nomeFabricante", "nomeFabricante");
+            tableMapping.ColumnMappings.Add("lucroPrecoVendaVarejo", "lucroPrecoVendaVarejo");
+            tableMapping.ColumnMappings.Add("precoVendaVarejo", "precoVendaVarejo");
+            tableMapping.ColumnMappings.Add("lucroPrecoVendaAtacado", "lucroPrecoVendaAtacado");
+            tableMapping.ColumnMappings.Add("precoVendaAtacado", "precoVendaAtacado");
+            tableMapping.ColumnMappings.Add("lucroPrecoVendaSuperAtacado", "lucroPrecoVendaSuperAtacado");
+            tableMapping.ColumnMappings.Add("precoVendaSuperAtacado", "precoVendaSuperAtacado");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_produto\r\nWHERE        (codProduto = @Original_codProduto)";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM `sace`.`tb_produto` WHERE ((`codProduto` = @Original_codProduto) AND " +
+                "(`nome` = @Original_nome) AND ((@IsNull_nomeFabricante = 1 AND `nomeFabricante` " +
+                "IS NULL) OR (`nomeFabricante` = @Original_nomeFabricante)) AND (`unidade` = @Ori" +
+                "ginal_unidade) AND ((@IsNull_codigoBarra = 1 AND `codigoBarra` IS NULL) OR (`cod" +
+                "igoBarra` = @Original_codigoBarra)) AND (`codGrupo` = @Original_codGrupo) AND ((" +
+                "@IsNull_codigoFabricante = 1 AND `codigoFabricante` IS NULL) OR (`codigoFabrican" +
+                "te` = @Original_codigoFabricante)) AND ((@IsNull_temVencimento = 1 AND `temVenci" +
+                "mento` IS NULL) OR (`temVencimento` = @Original_temVencimento)) AND ((@IsNull_cf" +
+                "op = 1 AND `cfop` IS NULL) OR (`cfop` = @Original_cfop)) AND ((@IsNull_icms = 1 " +
+                "AND `icms` IS NULL) OR (`icms` = @Original_icms)) AND ((@IsNull_simples = 1 AND " +
+                "`simples` IS NULL) OR (`simples` = @Original_simples)) AND ((@IsNull_ipi = 1 AND" +
+                " `ipi` IS NULL) OR (`ipi` = @Original_ipi)) AND ((@IsNull_frete = 1 AND `frete` " +
+                "IS NULL) OR (`frete` = @Original_frete)) AND ((@IsNull_custoVenda = 1 AND `custo" +
+                "Venda` IS NULL) OR (`custoVenda` = @Original_custoVenda)) AND ((@IsNull_ultimoPr" +
+                "ecoCompra = 1 AND `ultimoPrecoCompra` IS NULL) OR (`ultimoPrecoCompra` = @Origin" +
+                "al_ultimoPrecoCompra)) AND ((@IsNull_ultimoPrecoCusto = 1 AND `ultimoPrecoCusto`" +
+                " IS NULL) OR (`ultimoPrecoCusto` = @Original_ultimoPrecoCusto)) AND ((@IsNull_ul" +
+                "timaDataCompra = 1 AND `ultimaDataCompra` IS NULL) OR (`ultimaDataCompra` = @Ori" +
+                "ginal_ultimaDataCompra)) AND ((@IsNull_ultimaDataAtualizacao = 1 AND `ultimaData" +
+                "Atualizacao` IS NULL) OR (`ultimaDataAtualizacao` = @Original_ultimaDataAtualiza" +
+                "cao)) AND ((@IsNull_lucroPrecoVendaVarejo = 1 AND `lucroPrecoVendaVarejo` IS NUL" +
+                "L) OR (`lucroPrecoVendaVarejo` = @Original_lucroPrecoVendaVarejo)) AND ((@IsNull" +
+                "_precoVendaVarejo = 1 AND `precoVendaVarejo` IS NULL) OR (`precoVendaVarejo` = @" +
+                "Original_precoVendaVarejo)) AND ((@IsNull_lucroPrecoVendaAtacado = 1 AND `lucroP" +
+                "recoVendaAtacado` IS NULL) OR (`lucroPrecoVendaAtacado` = @Original_lucroPrecoVe" +
+                "ndaAtacado)) AND ((@IsNull_precoVendaAtacado = 1 AND `precoVendaAtacado` IS NULL" +
+                ") OR (`precoVendaAtacado` = @Original_precoVendaAtacado)) AND ((@IsNull_lucroPre" +
+                "coVendaSuperAtacado = 1 AND `lucroPrecoVendaSuperAtacado` IS NULL) OR (`lucroPre" +
+                "coVendaSuperAtacado` = @Original_lucroPrecoVendaSuperAtacado)) AND ((@IsNull_pre" +
+                "coVendaSuperAtacado = 1 AND `precoVendaSuperAtacado` IS NULL) OR (`precoVendaSup" +
+                "erAtacado` = @Original_precoVendaSuperAtacado)) AND ((@IsNull_exibiNaListagem = " +
+                "1 AND `exibiNaListagem` IS NULL) OR (`exibiNaListagem` = @Original_exibiNaListag" +
+                "em)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codProduto";
@@ -24747,9 +24474,377 @@ WHERE        (codPessoa = @Original_codPessoa)";
             param.SourceColumn = "codProduto";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_nomeFabricante";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_nomeFabricante";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_unidade";
+            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.IsNullable = true;
+            param.SourceColumn = "unidade";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_codigoBarra";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoBarra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codigoBarra";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoBarra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codGrupo";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codGrupo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_codigoFabricante";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codigoFabricante";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_temVencimento";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "temVencimento";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_temVencimento";
+            param.DbType = global::System.Data.DbType.SByte;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.IsNullable = true;
+            param.SourceColumn = "temVencimento";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_cfop";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "cfop";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_cfop";
+            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.IsNullable = true;
+            param.SourceColumn = "cfop";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_icms";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "icms";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_icms";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "icms";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_simples";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "simples";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_simples";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "simples";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ipi";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ipi";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ipi";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "ipi";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_frete";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "frete";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_frete";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "frete";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_custoVenda";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "custoVenda";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_custoVenda";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "custoVenda";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimoPrecoCompra";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimoPrecoCompra";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimoPrecoCusto";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCusto";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimoPrecoCusto";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCusto";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimaDataCompra";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimaDataCompra";
+            param.DbType = global::System.Data.DbType.Date;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimaDataAtualizacao";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataAtualizacao";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimaDataAtualizacao";
+            param.DbType = global::System.Data.DbType.Date;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataAtualizacao";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_lucroPrecoVendaVarejo";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_lucroPrecoVendaVarejo";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_precoVendaVarejo";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_precoVendaVarejo";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_lucroPrecoVendaAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_lucroPrecoVendaAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_precoVendaAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_precoVendaAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_lucroPrecoVendaSuperAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_lucroPrecoVendaSuperAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_precoVendaSuperAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_precoVendaSuperAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_exibiNaListagem";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "exibiNaListagem";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_exibiNaListagem";
+            param.DbType = global::System.Data.DbType.SByte;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.IsNullable = true;
+            param.SourceColumn = "exibiNaListagem";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `sace`.`tb_produto` (`nome`, `unidade`, `codigoBarra`, `codGrupo`, `codigoFabricante`, `temVencimento`, `cfop`, `icms`, `simples`, `ipi`, `frete`, `custoVenda`, `ultimoPrecoCompra`, `ultimoPrecoCusto`, `ultimaDataCompra`, `ultimaDataAtualizacao`, `qtdVendaPreco1`, `lucroPrecoVenda1`, `precoVenda1`, `qtdVendaPreco2`, `lucroPrecoVenda2`, `precoVenda2`, `qtdPrecoVenda3`, `lucroPrecoVenda3`, `precoVenda3`, `exibiNaListagem`) VALUES (@nome, @unidade, @codigoBarra, @codGrupo, @codigoFabricante, @temVencimento, @cfop, @icms, @simples, @ipi, @frete, @custoVenda, @ultimoPrecoCompra, @ultimoPrecoCusto, @ultimaDataCompra, @ultimaDataAtualizacao, @qtdVendaPreco1, @lucroPrecoVenda1, @precoVenda1, @qtdVendaPreco2, @lucroPrecoVenda2, @precoVenda2, @qtdPrecoVenda3, @lucroPrecoVenda3, @precoVenda3, @exibiNaListagem)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO `sace`.`tb_produto` (`nome`, `nomeFabricante`, `unidade`, `codigoBarra`, `codGrupo`, `codigoFabricante`, `temVencimento`, `cfop`, `icms`, `simples`, `ipi`, `frete`, `custoVenda`, `ultimoPrecoCompra`, `ultimoPrecoCusto`, `ultimaDataCompra`, `ultimaDataAtualizacao`, `lucroPrecoVendaVarejo`, `precoVendaVarejo`, `lucroPrecoVendaAtacado`, `precoVendaAtacado`, `lucroPrecoVendaSuperAtacado`, `precoVendaSuperAtacado`, `exibiNaListagem`) VALUES (@nome, @nomeFabricante, @unidade, @codigoBarra, @codGrupo, @codigoFabricante, @temVencimento, @cfop, @icms, @simples, @ipi, @frete, @custoVenda, @ultimoPrecoCompra, @ultimoPrecoCusto, @ultimaDataCompra, @ultimaDataAtualizacao, @lucroPrecoVendaVarejo, @precoVendaVarejo, @lucroPrecoVendaAtacado, @precoVendaAtacado, @lucroPrecoVendaSuperAtacado, @precoVendaSuperAtacado, @exibiNaListagem)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
@@ -24757,6 +24852,13 @@ WHERE        (codPessoa = @Original_codPessoa)";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
             param.IsNullable = true;
             param.SourceColumn = "nome";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nomeFabricante";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFabricante";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@unidade";
@@ -24857,58 +24959,40 @@ WHERE        (codPessoa = @Original_codPessoa)";
             param.SourceColumn = "ultimaDataAtualizacao";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@qtdVendaPreco1";
+            param.ParameterName = "@lucroPrecoVendaVarejo";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "qtdVendaPreco1";
+            param.SourceColumn = "lucroPrecoVendaVarejo";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@lucroPrecoVenda1";
+            param.ParameterName = "@precoVendaVarejo";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "lucroPrecoVenda1";
+            param.SourceColumn = "precoVendaVarejo";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@precoVenda1";
+            param.ParameterName = "@lucroPrecoVendaAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "precoVenda1";
+            param.SourceColumn = "lucroPrecoVendaAtacado";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@qtdVendaPreco2";
+            param.ParameterName = "@precoVendaAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "qtdVendaPreco2";
+            param.SourceColumn = "precoVendaAtacado";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@lucroPrecoVenda2";
+            param.ParameterName = "@lucroPrecoVendaSuperAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "lucroPrecoVenda2";
+            param.SourceColumn = "lucroPrecoVendaSuperAtacado";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@precoVenda2";
+            param.ParameterName = "@precoVendaSuperAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "precoVenda2";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@qtdPrecoVenda3";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "qtdPrecoVenda3";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@lucroPrecoVenda3";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "lucroPrecoVenda3";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@precoVenda3";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "precoVenda3";
+            param.SourceColumn = "precoVendaSuperAtacado";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@exibiNaListagem";
@@ -24919,29 +25003,68 @@ WHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_produto
-SET                nome = @nome, unidade = @unidade, codigoBarra = @codigoBarra, codGrupo = @codGrupo, codigoFabricante = @codigoFabricante, 
-                         temVencimento = @temVencimento, cfop = @cfop, icms = @icms, simples = @simples, ipi = @ipi, frete = @frete, custoVenda = @custoVenda, 
-                         ultimoPrecoCompra = @ultimoPrecoCompra, ultimoPrecoCusto = @ultimoPrecoCusto, ultimaDataCompra = @ultimaDataCompra, 
-                         ultimaDataAtualizacao = @ultimaDataAtualizacao, qtdVendaPreco1 = @qtdVendaPreco1, lucroPrecoVenda1 = @lucroPrecoVenda1, 
-                         precoVenda1 = @precoVenda1, qtdVendaPreco2 = @qtdVendaPreco2, lucroPrecoVenda2 = @lucroPrecoVenda2, precoVenda2 = @precoVenda2, 
-                         qtdPrecoVenda3 = @qtdPrecoVenda3, lucroPrecoVenda3 = @lucroPrecoVenda3, precoVenda3 = @precoVenda3, 
-                         exibiNaListagem = @exibiNaListagem
-WHERE        (codProduto = @Original_codProduto)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `sace`.`tb_produto` SET `nome` = @nome, `nomeFabricante` = @nomeFabricante" +
+                ", `unidade` = @unidade, `codigoBarra` = @codigoBarra, `codGrupo` = @codGrupo, `c" +
+                "odigoFabricante` = @codigoFabricante, `temVencimento` = @temVencimento, `cfop` =" +
+                " @cfop, `icms` = @icms, `simples` = @simples, `ipi` = @ipi, `frete` = @frete, `c" +
+                "ustoVenda` = @custoVenda, `ultimoPrecoCompra` = @ultimoPrecoCompra, `ultimoPreco" +
+                "Custo` = @ultimoPrecoCusto, `ultimaDataCompra` = @ultimaDataCompra, `ultimaDataA" +
+                "tualizacao` = @ultimaDataAtualizacao, `lucroPrecoVendaVarejo` = @lucroPrecoVenda" +
+                "Varejo, `precoVendaVarejo` = @precoVendaVarejo, `lucroPrecoVendaAtacado` = @lucr" +
+                "oPrecoVendaAtacado, `precoVendaAtacado` = @precoVendaAtacado, `lucroPrecoVendaSu" +
+                "perAtacado` = @lucroPrecoVendaSuperAtacado, `precoVendaSuperAtacado` = @precoVen" +
+                "daSuperAtacado, `exibiNaListagem` = @exibiNaListagem WHERE ((`codProduto` = @Ori" +
+                "ginal_codProduto) AND (`nome` = @Original_nome) AND ((@IsNull_nomeFabricante = 1" +
+                " AND `nomeFabricante` IS NULL) OR (`nomeFabricante` = @Original_nomeFabricante))" +
+                " AND (`unidade` = @Original_unidade) AND ((@IsNull_codigoBarra = 1 AND `codigoBa" +
+                "rra` IS NULL) OR (`codigoBarra` = @Original_codigoBarra)) AND (`codGrupo` = @Ori" +
+                "ginal_codGrupo) AND ((@IsNull_codigoFabricante = 1 AND `codigoFabricante` IS NUL" +
+                "L) OR (`codigoFabricante` = @Original_codigoFabricante)) AND ((@IsNull_temVencim" +
+                "ento = 1 AND `temVencimento` IS NULL) OR (`temVencimento` = @Original_temVencime" +
+                "nto)) AND ((@IsNull_cfop = 1 AND `cfop` IS NULL) OR (`cfop` = @Original_cfop)) A" +
+                "ND ((@IsNull_icms = 1 AND `icms` IS NULL) OR (`icms` = @Original_icms)) AND ((@I" +
+                "sNull_simples = 1 AND `simples` IS NULL) OR (`simples` = @Original_simples)) AND" +
+                " ((@IsNull_ipi = 1 AND `ipi` IS NULL) OR (`ipi` = @Original_ipi)) AND ((@IsNull_" +
+                "frete = 1 AND `frete` IS NULL) OR (`frete` = @Original_frete)) AND ((@IsNull_cus" +
+                "toVenda = 1 AND `custoVenda` IS NULL) OR (`custoVenda` = @Original_custoVenda)) " +
+                "AND ((@IsNull_ultimoPrecoCompra = 1 AND `ultimoPrecoCompra` IS NULL) OR (`ultimo" +
+                "PrecoCompra` = @Original_ultimoPrecoCompra)) AND ((@IsNull_ultimoPrecoCusto = 1 " +
+                "AND `ultimoPrecoCusto` IS NULL) OR (`ultimoPrecoCusto` = @Original_ultimoPrecoCu" +
+                "sto)) AND ((@IsNull_ultimaDataCompra = 1 AND `ultimaDataCompra` IS NULL) OR (`ul" +
+                "timaDataCompra` = @Original_ultimaDataCompra)) AND ((@IsNull_ultimaDataAtualizac" +
+                "ao = 1 AND `ultimaDataAtualizacao` IS NULL) OR (`ultimaDataAtualizacao` = @Origi" +
+                "nal_ultimaDataAtualizacao)) AND ((@IsNull_lucroPrecoVendaVarejo = 1 AND `lucroPr" +
+                "ecoVendaVarejo` IS NULL) OR (`lucroPrecoVendaVarejo` = @Original_lucroPrecoVenda" +
+                "Varejo)) AND ((@IsNull_precoVendaVarejo = 1 AND `precoVendaVarejo` IS NULL) OR (" +
+                "`precoVendaVarejo` = @Original_precoVendaVarejo)) AND ((@IsNull_lucroPrecoVendaA" +
+                "tacado = 1 AND `lucroPrecoVendaAtacado` IS NULL) OR (`lucroPrecoVendaAtacado` = " +
+                "@Original_lucroPrecoVendaAtacado)) AND ((@IsNull_precoVendaAtacado = 1 AND `prec" +
+                "oVendaAtacado` IS NULL) OR (`precoVendaAtacado` = @Original_precoVendaAtacado)) " +
+                "AND ((@IsNull_lucroPrecoVendaSuperAtacado = 1 AND `lucroPrecoVendaSuperAtacado` " +
+                "IS NULL) OR (`lucroPrecoVendaSuperAtacado` = @Original_lucroPrecoVendaSuperAtaca" +
+                "do)) AND ((@IsNull_precoVendaSuperAtacado = 1 AND `precoVendaSuperAtacado` IS NU" +
+                "LL) OR (`precoVendaSuperAtacado` = @Original_precoVendaSuperAtacado)) AND ((@IsN" +
+                "ull_exibiNaListagem = 1 AND `exibiNaListagem` IS NULL) OR (`exibiNaListagem` = @" +
+                "Original_exibiNaListagem)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
             param.IsNullable = true;
             param.SourceColumn = "nome";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@unidade";
+            param.ParameterName = "@nomeFabricante";
             param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFabricante";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@unidade";
+            param.DbType = global::System.Data.DbType.StringFixedLength;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.Size = 3;
             param.IsNullable = true;
             param.SourceColumn = "unidade";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -24949,7 +25072,6 @@ WHERE        (codProduto = @Original_codProduto)";
             param.ParameterName = "@codigoBarra";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
             param.IsNullable = true;
             param.SourceColumn = "codigoBarra";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -24969,151 +25091,114 @@ WHERE        (codProduto = @Original_codProduto)";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@temVencimento";
-            param.DbType = global::System.Data.DbType.Object;
+            param.DbType = global::System.Data.DbType.SByte;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
-            param.Size = 1024;
             param.IsNullable = true;
             param.SourceColumn = "temVencimento";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@cfop";
-            param.DbType = global::System.Data.DbType.String;
+            param.DbType = global::System.Data.DbType.StringFixedLength;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.Size = 4;
             param.IsNullable = true;
             param.SourceColumn = "cfop";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@icms";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "icms";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@simples";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "simples";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ipi";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "ipi";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@frete";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "frete";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@custoVenda";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "custoVenda";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ultimoPrecoCompra";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "ultimoPrecoCompra";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ultimoPrecoCusto";
-            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "ultimoPrecoCusto";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ultimaDataCompra";
-            param.DbType = global::System.Data.DbType.DateTime;
+            param.DbType = global::System.Data.DbType.Date;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
             param.IsNullable = true;
             param.SourceColumn = "ultimaDataCompra";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ultimaDataAtualizacao";
-            param.DbType = global::System.Data.DbType.DateTime;
+            param.DbType = global::System.Data.DbType.Date;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
             param.IsNullable = true;
             param.SourceColumn = "ultimaDataAtualizacao";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@qtdVendaPreco1";
-            param.DbType = global::System.Data.DbType.Decimal;
+            param.ParameterName = "@lucroPrecoVendaVarejo";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "qtdVendaPreco1";
+            param.SourceColumn = "lucroPrecoVendaVarejo";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@lucroPrecoVenda1";
-            param.DbType = global::System.Data.DbType.Decimal;
+            param.ParameterName = "@precoVendaVarejo";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "lucroPrecoVenda1";
+            param.SourceColumn = "precoVendaVarejo";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@precoVenda1";
-            param.DbType = global::System.Data.DbType.Decimal;
+            param.ParameterName = "@lucroPrecoVendaAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "precoVenda1";
+            param.SourceColumn = "lucroPrecoVendaAtacado";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@qtdVendaPreco2";
-            param.DbType = global::System.Data.DbType.Decimal;
+            param.ParameterName = "@precoVendaAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "qtdVendaPreco2";
+            param.SourceColumn = "precoVendaAtacado";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@lucroPrecoVenda2";
-            param.DbType = global::System.Data.DbType.Decimal;
+            param.ParameterName = "@lucroPrecoVendaSuperAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "lucroPrecoVenda2";
+            param.SourceColumn = "lucroPrecoVendaSuperAtacado";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@precoVenda2";
-            param.DbType = global::System.Data.DbType.Decimal;
+            param.ParameterName = "@precoVendaSuperAtacado";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
-            param.SourceColumn = "precoVenda2";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@qtdPrecoVenda3";
-            param.DbType = global::System.Data.DbType.Decimal;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "qtdPrecoVenda3";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@lucroPrecoVenda3";
-            param.DbType = global::System.Data.DbType.Decimal;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "lucroPrecoVenda3";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@precoVenda3";
-            param.DbType = global::System.Data.DbType.Decimal;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "precoVenda3";
+            param.SourceColumn = "precoVendaSuperAtacado";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@exibiNaListagem";
-            param.DbType = global::System.Data.DbType.Object;
+            param.DbType = global::System.Data.DbType.SByte;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
-            param.Size = 1024;
             param.IsNullable = true;
             param.SourceColumn = "exibiNaListagem";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -25123,6 +25208,374 @@ WHERE        (codProduto = @Original_codProduto)";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codProduto";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_nomeFabricante";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_nomeFabricante";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_unidade";
+            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.IsNullable = true;
+            param.SourceColumn = "unidade";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_codigoBarra";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoBarra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codigoBarra";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoBarra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codGrupo";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codGrupo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_codigoFabricante";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codigoFabricante";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codigoFabricante";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_temVencimento";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "temVencimento";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_temVencimento";
+            param.DbType = global::System.Data.DbType.SByte;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.IsNullable = true;
+            param.SourceColumn = "temVencimento";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_cfop";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "cfop";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_cfop";
+            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.IsNullable = true;
+            param.SourceColumn = "cfop";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_icms";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "icms";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_icms";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "icms";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_simples";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "simples";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_simples";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "simples";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ipi";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ipi";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ipi";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "ipi";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_frete";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "frete";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_frete";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "frete";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_custoVenda";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "custoVenda";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_custoVenda";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "custoVenda";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimoPrecoCompra";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimoPrecoCompra";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimoPrecoCusto";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCusto";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimoPrecoCusto";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimoPrecoCusto";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimaDataCompra";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimaDataCompra";
+            param.DbType = global::System.Data.DbType.Date;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataCompra";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_ultimaDataAtualizacao";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataAtualizacao";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_ultimaDataAtualizacao";
+            param.DbType = global::System.Data.DbType.Date;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
+            param.IsNullable = true;
+            param.SourceColumn = "ultimaDataAtualizacao";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_lucroPrecoVendaVarejo";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_lucroPrecoVendaVarejo";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_precoVendaVarejo";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_precoVendaVarejo";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaVarejo";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_lucroPrecoVendaAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_lucroPrecoVendaAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_precoVendaAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_precoVendaAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_lucroPrecoVendaSuperAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_lucroPrecoVendaSuperAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "lucroPrecoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_precoVendaSuperAtacado";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_precoVendaSuperAtacado";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "precoVendaSuperAtacado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@IsNull_exibiNaListagem";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "exibiNaListagem";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_exibiNaListagem";
+            param.DbType = global::System.Data.DbType.SByte;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Byte;
+            param.IsNullable = true;
+            param.SourceColumn = "exibiNaListagem";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
         }
@@ -25138,7 +25591,7 @@ WHERE        (codProduto = @Original_codProduto)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT `codProduto`, `nome`, `unidade`, `codigoBarra`, `codGrupo`, `codigoFabricante`, `temVencimento`, `cfop`, `icms`, `simples`, `ipi`, `frete`, `custoVenda`, `ultimoPrecoCompra`, `ultimoPrecoCusto`, `ultimaDataCompra`, `ultimaDataAtualizacao`, `qtdVendaPreco1`, `lucroPrecoVenda1`, `precoVenda1`, `qtdVendaPreco2`, `lucroPrecoVenda2`, `precoVenda2`, `qtdPrecoVenda3`, `lucroPrecoVenda3`, `precoVenda3`, `exibiNaListagem` FROM `sace`.`tb_produto`";
+            this._commandCollection[0].CommandText = "SELECT        tb_produto.*\r\nFROM            tb_produto";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -25192,8 +25645,214 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_codProduto) {
+        public virtual int Delete(
+                    long Original_codProduto, 
+                    string Original_nome, 
+                    string Original_nomeFabricante, 
+                    string Original_unidade, 
+                    string Original_codigoBarra, 
+                    long Original_codGrupo, 
+                    global::System.Nullable<long> Original_codigoFabricante, 
+                    global::System.Nullable<byte> Original_temVencimento, 
+                    string Original_cfop, 
+                    string Original_icms, 
+                    string Original_simples, 
+                    string Original_ipi, 
+                    string Original_frete, 
+                    string Original_custoVenda, 
+                    string Original_ultimoPrecoCompra, 
+                    string Original_ultimoPrecoCusto, 
+                    global::System.Nullable<global::System.DateTime> Original_ultimaDataCompra, 
+                    global::System.Nullable<global::System.DateTime> Original_ultimaDataAtualizacao, 
+                    string Original_lucroPrecoVendaVarejo, 
+                    string Original_precoVendaVarejo, 
+                    string Original_lucroPrecoVendaAtacado, 
+                    string Original_precoVendaAtacado, 
+                    string Original_lucroPrecoVendaSuperAtacado, 
+                    string Original_precoVendaSuperAtacado, 
+                    global::System.Nullable<byte> Original_exibiNaListagem) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_codProduto));
+            if ((Original_nome == null)) {
+                throw new global::System.ArgumentNullException("Original_nome");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_nome));
+            }
+            if ((Original_nomeFabricante == null)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_nomeFabricante));
+            }
+            if ((Original_unidade == null)) {
+                throw new global::System.ArgumentNullException("Original_unidade");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_unidade));
+            }
+            if ((Original_codigoBarra == null)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_codigoBarra));
+            }
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((long)(Original_codGrupo));
+            if ((Original_codigoFabricante.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((long)(Original_codigoFabricante.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            if ((Original_temVencimento.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((byte)(Original_temVencimento.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((Original_cfop == null)) {
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((string)(Original_cfop));
+            }
+            if ((Original_icms == null)) {
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((string)(Original_icms));
+            }
+            if ((Original_simples == null)) {
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((string)(Original_simples));
+            }
+            if ((Original_ipi == null)) {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[19].Value = ((string)(Original_ipi));
+            }
+            if ((Original_frete == null)) {
+                this.Adapter.DeleteCommand.Parameters[20].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[20].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((string)(Original_frete));
+            }
+            if ((Original_custoVenda == null)) {
+                this.Adapter.DeleteCommand.Parameters[22].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[23].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[22].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((string)(Original_custoVenda));
+            }
+            if ((Original_ultimoPrecoCompra == null)) {
+                this.Adapter.DeleteCommand.Parameters[24].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[25].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[24].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[25].Value = ((string)(Original_ultimoPrecoCompra));
+            }
+            if ((Original_ultimoPrecoCusto == null)) {
+                this.Adapter.DeleteCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[27].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[27].Value = ((string)(Original_ultimoPrecoCusto));
+            }
+            if ((Original_ultimaDataCompra.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[28].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[29].Value = ((System.DateTime)(Original_ultimaDataCompra.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[28].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[29].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ultimaDataAtualizacao.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[30].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[31].Value = ((System.DateTime)(Original_ultimaDataAtualizacao.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[30].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[31].Value = global::System.DBNull.Value;
+            }
+            if ((Original_lucroPrecoVendaVarejo == null)) {
+                this.Adapter.DeleteCommand.Parameters[32].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[33].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[32].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[33].Value = ((string)(Original_lucroPrecoVendaVarejo));
+            }
+            if ((Original_precoVendaVarejo == null)) {
+                this.Adapter.DeleteCommand.Parameters[34].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[35].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[34].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[35].Value = ((string)(Original_precoVendaVarejo));
+            }
+            if ((Original_lucroPrecoVendaAtacado == null)) {
+                this.Adapter.DeleteCommand.Parameters[36].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[37].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[36].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[37].Value = ((string)(Original_lucroPrecoVendaAtacado));
+            }
+            if ((Original_precoVendaAtacado == null)) {
+                this.Adapter.DeleteCommand.Parameters[38].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[39].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[38].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[39].Value = ((string)(Original_precoVendaAtacado));
+            }
+            if ((Original_lucroPrecoVendaSuperAtacado == null)) {
+                this.Adapter.DeleteCommand.Parameters[40].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[41].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[40].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[41].Value = ((string)(Original_lucroPrecoVendaSuperAtacado));
+            }
+            if ((Original_precoVendaSuperAtacado == null)) {
+                this.Adapter.DeleteCommand.Parameters[42].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[43].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[42].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[43].Value = ((string)(Original_precoVendaSuperAtacado));
+            }
+            if ((Original_exibiNaListagem.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[44].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[45].Value = ((byte)(Original_exibiNaListagem.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[44].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[45].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -25215,6 +25874,7 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(
                     string nome, 
+                    string nomeFabricante, 
                     string unidade, 
                     string codigoBarra, 
                     long codGrupo, 
@@ -25230,15 +25890,12 @@ WHERE        (codProduto = @Original_codProduto)";
                     string ultimoPrecoCusto, 
                     global::System.Nullable<global::System.DateTime> ultimaDataCompra, 
                     global::System.Nullable<global::System.DateTime> ultimaDataAtualizacao, 
-                    string qtdVendaPreco1, 
-                    string lucroPrecoVenda1, 
-                    string precoVenda1, 
-                    string qtdVendaPreco2, 
-                    string lucroPrecoVenda2, 
-                    string precoVenda2, 
-                    string qtdPrecoVenda3, 
-                    string lucroPrecoVenda3, 
-                    string precoVenda3, 
+                    string lucroPrecoVendaVarejo, 
+                    string precoVendaVarejo, 
+                    string lucroPrecoVendaAtacado, 
+                    string precoVendaAtacado, 
+                    string lucroPrecoVendaSuperAtacado, 
+                    string precoVendaSuperAtacado, 
                     global::System.Nullable<byte> exibiNaListagem) {
             if ((nome == null)) {
                 throw new global::System.ArgumentNullException("nome");
@@ -25246,150 +25903,138 @@ WHERE        (codProduto = @Original_codProduto)";
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(nome));
             }
+            if ((nomeFabricante == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(nomeFabricante));
+            }
             if ((unidade == null)) {
                 throw new global::System.ArgumentNullException("unidade");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(unidade));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(unidade));
             }
             if ((codigoBarra == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(codigoBarra));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(codigoBarra));
             }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((long)(codGrupo));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((long)(codGrupo));
             if ((codigoFabricante.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((long)(codigoFabricante.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((temVencimento.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((byte)(temVencimento.Value));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((long)(codigoFabricante.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((cfop == null)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            if ((temVencimento.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((byte)(temVencimento.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(cfop));
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((icms == null)) {
+            if ((cfop == null)) {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(icms));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(cfop));
             }
-            if ((simples == null)) {
+            if ((icms == null)) {
                 this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(simples));
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(icms));
             }
-            if ((ipi == null)) {
+            if ((simples == null)) {
                 this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(ipi));
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(simples));
             }
-            if ((frete == null)) {
+            if ((ipi == null)) {
                 this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(frete));
+                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(ipi));
             }
-            if ((custoVenda == null)) {
+            if ((frete == null)) {
                 this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(custoVenda));
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(frete));
             }
-            if ((ultimoPrecoCompra == null)) {
+            if ((custoVenda == null)) {
                 this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(ultimoPrecoCompra));
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(custoVenda));
             }
-            if ((ultimoPrecoCusto == null)) {
+            if ((ultimoPrecoCompra == null)) {
                 this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[13].Value = ((string)(ultimoPrecoCusto));
+                this.Adapter.InsertCommand.Parameters[13].Value = ((string)(ultimoPrecoCompra));
             }
-            if ((ultimaDataCompra.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[14].Value = ((System.DateTime)(ultimaDataCompra.Value));
-            }
-            else {
+            if ((ultimoPrecoCusto == null)) {
                 this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            if ((ultimaDataAtualizacao.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[15].Value = ((System.DateTime)(ultimaDataAtualizacao.Value));
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((string)(ultimoPrecoCusto));
+            }
+            if ((ultimaDataCompra.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[15].Value = ((System.DateTime)(ultimaDataCompra.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
-            if ((qtdVendaPreco1 == null)) {
-                this.Adapter.InsertCommand.Parameters[16].Value = global::System.DBNull.Value;
+            if ((ultimaDataAtualizacao.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[16].Value = ((System.DateTime)(ultimaDataAtualizacao.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[16].Value = ((string)(qtdVendaPreco1));
+                this.Adapter.InsertCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVenda1 == null)) {
+            if ((lucroPrecoVendaVarejo == null)) {
                 this.Adapter.InsertCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[17].Value = ((string)(lucroPrecoVenda1));
+                this.Adapter.InsertCommand.Parameters[17].Value = ((string)(lucroPrecoVendaVarejo));
             }
-            if ((precoVenda1 == null)) {
+            if ((precoVendaVarejo == null)) {
                 this.Adapter.InsertCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[18].Value = ((string)(precoVenda1));
+                this.Adapter.InsertCommand.Parameters[18].Value = ((string)(precoVendaVarejo));
             }
-            if ((qtdVendaPreco2 == null)) {
+            if ((lucroPrecoVendaAtacado == null)) {
                 this.Adapter.InsertCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[19].Value = ((string)(qtdVendaPreco2));
+                this.Adapter.InsertCommand.Parameters[19].Value = ((string)(lucroPrecoVendaAtacado));
             }
-            if ((lucroPrecoVenda2 == null)) {
+            if ((precoVendaAtacado == null)) {
                 this.Adapter.InsertCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[20].Value = ((string)(lucroPrecoVenda2));
+                this.Adapter.InsertCommand.Parameters[20].Value = ((string)(precoVendaAtacado));
             }
-            if ((precoVenda2 == null)) {
+            if ((lucroPrecoVendaSuperAtacado == null)) {
                 this.Adapter.InsertCommand.Parameters[21].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[21].Value = ((string)(precoVenda2));
+                this.Adapter.InsertCommand.Parameters[21].Value = ((string)(lucroPrecoVendaSuperAtacado));
             }
-            if ((qtdPrecoVenda3 == null)) {
+            if ((precoVendaSuperAtacado == null)) {
                 this.Adapter.InsertCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[22].Value = ((string)(qtdPrecoVenda3));
-            }
-            if ((lucroPrecoVenda3 == null)) {
-                this.Adapter.InsertCommand.Parameters[23].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[23].Value = ((string)(lucroPrecoVenda3));
-            }
-            if ((precoVenda3 == null)) {
-                this.Adapter.InsertCommand.Parameters[24].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[24].Value = ((string)(precoVenda3));
+                this.Adapter.InsertCommand.Parameters[22].Value = ((string)(precoVendaSuperAtacado));
             }
             if ((exibiNaListagem.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[25].Value = ((byte)(exibiNaListagem.Value));
+                this.Adapter.InsertCommand.Parameters[23].Value = ((byte)(exibiNaListagem.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -25412,184 +26057,375 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
                     string nome, 
+                    string nomeFabricante, 
                     string unidade, 
                     string codigoBarra, 
                     long codGrupo, 
                     global::System.Nullable<long> codigoFabricante, 
-                    object temVencimento, 
+                    global::System.Nullable<byte> temVencimento, 
                     string cfop, 
-                    global::System.Nullable<decimal> icms, 
-                    global::System.Nullable<decimal> simples, 
-                    global::System.Nullable<decimal> ipi, 
-                    global::System.Nullable<decimal> frete, 
-                    global::System.Nullable<decimal> custoVenda, 
-                    global::System.Nullable<decimal> ultimoPrecoCompra, 
-                    global::System.Nullable<decimal> ultimoPrecoCusto, 
+                    string icms, 
+                    string simples, 
+                    string ipi, 
+                    string frete, 
+                    string custoVenda, 
+                    string ultimoPrecoCompra, 
+                    string ultimoPrecoCusto, 
                     global::System.Nullable<global::System.DateTime> ultimaDataCompra, 
                     global::System.Nullable<global::System.DateTime> ultimaDataAtualizacao, 
-                    global::System.Nullable<decimal> qtdVendaPreco1, 
-                    global::System.Nullable<decimal> lucroPrecoVenda1, 
-                    global::System.Nullable<decimal> precoVenda1, 
-                    global::System.Nullable<decimal> qtdVendaPreco2, 
-                    global::System.Nullable<decimal> lucroPrecoVenda2, 
-                    global::System.Nullable<decimal> precoVenda2, 
-                    global::System.Nullable<decimal> qtdPrecoVenda3, 
-                    global::System.Nullable<decimal> lucroPrecoVenda3, 
-                    global::System.Nullable<decimal> precoVenda3, 
-                    object exibiNaListagem, 
-                    long Original_codProduto) {
+                    string lucroPrecoVendaVarejo, 
+                    string precoVendaVarejo, 
+                    string lucroPrecoVendaAtacado, 
+                    string precoVendaAtacado, 
+                    string lucroPrecoVendaSuperAtacado, 
+                    string precoVendaSuperAtacado, 
+                    global::System.Nullable<byte> exibiNaListagem, 
+                    long Original_codProduto, 
+                    string Original_nome, 
+                    string Original_nomeFabricante, 
+                    string Original_unidade, 
+                    string Original_codigoBarra, 
+                    long Original_codGrupo, 
+                    global::System.Nullable<long> Original_codigoFabricante, 
+                    global::System.Nullable<byte> Original_temVencimento, 
+                    string Original_cfop, 
+                    string Original_icms, 
+                    string Original_simples, 
+                    string Original_ipi, 
+                    string Original_frete, 
+                    string Original_custoVenda, 
+                    string Original_ultimoPrecoCompra, 
+                    string Original_ultimoPrecoCusto, 
+                    global::System.Nullable<global::System.DateTime> Original_ultimaDataCompra, 
+                    global::System.Nullable<global::System.DateTime> Original_ultimaDataAtualizacao, 
+                    string Original_lucroPrecoVendaVarejo, 
+                    string Original_precoVendaVarejo, 
+                    string Original_lucroPrecoVendaAtacado, 
+                    string Original_precoVendaAtacado, 
+                    string Original_lucroPrecoVendaSuperAtacado, 
+                    string Original_precoVendaSuperAtacado, 
+                    global::System.Nullable<byte> Original_exibiNaListagem) {
             if ((nome == null)) {
                 throw new global::System.ArgumentNullException("nome");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(nome));
             }
+            if ((nomeFabricante == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(nomeFabricante));
+            }
             if ((unidade == null)) {
                 throw new global::System.ArgumentNullException("unidade");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(unidade));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(unidade));
             }
             if ((codigoBarra == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(codigoBarra));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(codigoBarra));
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((long)(codGrupo));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(codGrupo));
             if ((codigoFabricante.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(codigoFabricante.Value));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((long)(codigoFabricante.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((temVencimento == null)) {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(temVencimento));
+            if ((temVencimento.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((byte)(temVencimento.Value));
             }
-            if ((cfop == null)) {
+            else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(cfop));
-            }
-            if ((icms.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(icms.Value));
-            }
-            else {
+            if ((cfop == null)) {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((simples.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((decimal)(simples.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(cfop));
+            }
+            if ((icms == null)) {
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((ipi.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(ipi.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(icms));
+            }
+            if ((simples == null)) {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            if ((frete.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(frete.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(simples));
+            }
+            if ((ipi == null)) {
                 this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
-            if ((custoVenda.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(custoVenda.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(ipi));
+            }
+            if ((frete == null)) {
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            if ((ultimoPrecoCompra.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((decimal)(ultimoPrecoCompra.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(frete));
+            }
+            if ((custoVenda == null)) {
                 this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
-            if ((ultimoPrecoCusto.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((decimal)(ultimoPrecoCusto.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(custoVenda));
+            }
+            if ((ultimoPrecoCompra == null)) {
                 this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((ultimaDataCompra.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(ultimaDataCompra.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(ultimoPrecoCompra));
+            }
+            if ((ultimoPrecoCusto == null)) {
                 this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            if ((ultimaDataAtualizacao.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(ultimaDataAtualizacao.Value));
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(ultimoPrecoCusto));
+            }
+            if ((ultimaDataCompra.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(ultimaDataCompra.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
-            if ((qtdVendaPreco1.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(qtdVendaPreco1.Value));
+            if ((ultimaDataAtualizacao.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((System.DateTime)(ultimaDataAtualizacao.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVenda1.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(lucroPrecoVenda1.Value));
-            }
-            else {
+            if ((lucroPrecoVendaVarejo == null)) {
                 this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((precoVenda1.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(precoVenda1.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(lucroPrecoVendaVarejo));
+            }
+            if ((precoVendaVarejo == null)) {
                 this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            if ((qtdVendaPreco2.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(qtdVendaPreco2.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(precoVendaVarejo));
+            }
+            if ((lucroPrecoVendaAtacado == null)) {
                 this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVenda2.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((decimal)(lucroPrecoVenda2.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(lucroPrecoVendaAtacado));
+            }
+            if ((precoVendaAtacado == null)) {
                 this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
-            if ((precoVenda2.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(precoVenda2.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(precoVendaAtacado));
+            }
+            if ((lucroPrecoVendaSuperAtacado == null)) {
                 this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
             }
-            if ((qtdPrecoVenda3.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((decimal)(qtdPrecoVenda3.Value));
-            }
             else {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((string)(lucroPrecoVendaSuperAtacado));
+            }
+            if ((precoVendaSuperAtacado == null)) {
                 this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVenda3.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((decimal)(lucroPrecoVenda3.Value));
+            else {
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((string)(precoVendaSuperAtacado));
+            }
+            if ((exibiNaListagem.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((byte)(exibiNaListagem.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
-            if ((precoVenda3.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((decimal)(precoVenda3.Value));
+            this.Adapter.UpdateCommand.Parameters[24].Value = ((long)(Original_codProduto));
+            if ((Original_nome == null)) {
+                throw new global::System.ArgumentNullException("Original_nome");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_nome));
             }
-            if ((exibiNaListagem == null)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+            if ((Original_nomeFabricante == null)) {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(exibiNaListagem));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_nomeFabricante));
             }
-            this.Adapter.UpdateCommand.Parameters[26].Value = ((long)(Original_codProduto));
+            if ((Original_unidade == null)) {
+                throw new global::System.ArgumentNullException("Original_unidade");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_unidade));
+            }
+            if ((Original_codigoBarra == null)) {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((string)(Original_codigoBarra));
+            }
+            this.Adapter.UpdateCommand.Parameters[31].Value = ((long)(Original_codGrupo));
+            if ((Original_codigoFabricante.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((long)(Original_codigoFabricante.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
+            }
+            if ((Original_temVencimento.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((byte)(Original_temVencimento.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+            }
+            if ((Original_cfop == null)) {
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((string)(Original_cfop));
+            }
+            if ((Original_icms == null)) {
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((string)(Original_icms));
+            }
+            if ((Original_simples == null)) {
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((string)(Original_simples));
+            }
+            if ((Original_ipi == null)) {
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((string)(Original_ipi));
+            }
+            if ((Original_frete == null)) {
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[45].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[45].Value = ((string)(Original_frete));
+            }
+            if ((Original_custoVenda == null)) {
+                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[47].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((string)(Original_custoVenda));
+            }
+            if ((Original_ultimoPrecoCompra == null)) {
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[49].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[49].Value = ((string)(Original_ultimoPrecoCompra));
+            }
+            if ((Original_ultimoPrecoCusto == null)) {
+                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[51].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((string)(Original_ultimoPrecoCusto));
+            }
+            if ((Original_ultimaDataCompra.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((System.DateTime)(Original_ultimaDataCompra.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[53].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ultimaDataAtualizacao.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((System.DateTime)(Original_ultimaDataAtualizacao.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[55].Value = global::System.DBNull.Value;
+            }
+            if ((Original_lucroPrecoVendaVarejo == null)) {
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[57].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((string)(Original_lucroPrecoVendaVarejo));
+            }
+            if ((Original_precoVendaVarejo == null)) {
+                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[59].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((string)(Original_precoVendaVarejo));
+            }
+            if ((Original_lucroPrecoVendaAtacado == null)) {
+                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[61].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((string)(Original_lucroPrecoVendaAtacado));
+            }
+            if ((Original_precoVendaAtacado == null)) {
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[63].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[63].Value = ((string)(Original_precoVendaAtacado));
+            }
+            if ((Original_lucroPrecoVendaSuperAtacado == null)) {
+                this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[65].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((string)(Original_lucroPrecoVendaSuperAtacado));
+            }
+            if ((Original_precoVendaSuperAtacado == null)) {
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[67].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[67].Value = ((string)(Original_precoVendaSuperAtacado));
+            }
+            if ((Original_exibiNaListagem.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[69].Value = ((byte)(Original_exibiNaListagem.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[69].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

@@ -97,7 +97,7 @@ namespace SACE.Telas
                     tb_grupo_contaBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
                 tb_grupo_contaBindingSource.CancelEdit();
