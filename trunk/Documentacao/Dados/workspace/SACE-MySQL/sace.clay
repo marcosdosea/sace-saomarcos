@@ -240,7 +240,7 @@
 </table>
 <table alias="" name="TB_PRODUTO" remarks="" uid="1e6cf07:1220e0a2302:-7fed">
 <table-description/>
-<table-figure-bounds height="418" width="252" x="353" y="-72"/>
+<table-figure-bounds height="359" width="252" x="353" y="-72"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codProduto" remarks="" uid="1e6cf07:1220e0a2302:-7fe9">
 <column-description/>
@@ -262,11 +262,18 @@
 <variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="3" decimal-digits="0" default-value="" mandatory="true" name="unidade" remarks="" uid="1ffbcb:12226eac926:-7fee">
+<column alias="" auto-increment="false" column-size="40" decimal-digits="0" default-value="" mandatory="false" name="nomeFabricante" remarks="" uid="453dd5:124aacbd16d:-7fe3">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="3" decimal-digits="0" default-value="" mandatory="false" name="unidade" remarks="" uid="1ffbcb:12226eac926:-7fee">
 <column-description/>
 <data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
-<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
 <variant type-name-pattern="CHAR"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n) BINARY"/>
 </data-type>
 </column>
@@ -277,7 +284,7 @@
 <variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codGrupo" remarks="" uid="1e6cf07:1220e0a2302:-73b4">
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="codGrupo" remarks="" uid="1e6cf07:1220e0a2302:-73b4">
 <column-description/>
 <data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT">
 <variant type-name-pattern="BIGINT"/>
@@ -317,7 +324,21 @@
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n) BINARY"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="icms" remarks="" uid="1e6cf07:1220e0a2302:-7e3e">
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="icms" remarks="" uid="1e6cf07:1220e0a2302:-7e3e">
+<column-description/>
+<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
+<variant type-name-pattern="DECIMAL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="simples" remarks="" uid="1e6cf07:1220e0a2302:-7e3d">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -331,7 +352,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="simples" remarks="" uid="1e6cf07:1220e0a2302:-7e3d">
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="ipi" remarks="" uid="1e6cf07:1220e0a2302:-7e21">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -345,7 +366,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="ipi" remarks="" uid="1e6cf07:1220e0a2302:-7e21">
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="frete" remarks="" uid="b8501d:12416c6871f:-7f58">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -359,7 +380,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="frete" remarks="" uid="b8501d:12416c6871f:-7f58">
+<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="0" mandatory="false" name="custoVenda" remarks="" uid="1e6cf07:1220e0a2302:-7499">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -371,54 +392,6 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="custoVenda" remarks="" uid="1e6cf07:1220e0a2302:-7499">
-<column-description/>
-<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
-<variant type-name-pattern="DECIMAL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="ultimoPrecoCompra" remarks="" uid="1e6cf07:1220e0a2302:-7e28">
-<column-description/>
-<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
-<variant type-name-pattern="DECIMAL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="ultimoPrecoCusto" remarks="" uid="1e6cf07:1220e0a2302:-7e27">
-<column-description/>
-<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
-<variant type-name-pattern="DECIMAL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="ultimaDataCompra" remarks="" uid="1e6cf07:1220e0a2302:-7e22">
-<column-description/>
-<data-type jdbc-type="91" literal-prefix="'" literal-suffix="'" name="DATE" selected-variant-pattern="DATE">
-<variant type-name-pattern="DATE"/>
 </data-type>
 </column>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="ultimaDataAtualizacao" remarks="" uid="deeebd:1240cb6b1c8:-7cc7">
@@ -427,7 +400,7 @@
 <variant type-name-pattern="DATE"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="qtdVendaPreco1" remarks="" uid="11b99c4:12443a7cd72:-7fe4">
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="lucroPrecoVendaVarejo" remarks="" uid="11b99c4:12443a7cd72:-7fe3">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -441,7 +414,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="lucroPrecoVenda1" remarks="" uid="11b99c4:12443a7cd72:-7fe3">
+<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="0" mandatory="false" name="precoVendaVarejo" remarks="" uid="11b99c4:12443a7cd72:-7fe0">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -455,7 +428,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="precoVenda1" remarks="" uid="11b99c4:12443a7cd72:-7fe0">
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="lucroPrecoVendaAtacado" remarks="" uid="11b99c4:12443a7cd72:-7fdc">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -469,7 +442,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="qtdVendaPreco2" remarks="" uid="11b99c4:12443a7cd72:-7fdd">
+<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="0" mandatory="false" name="precoVendaAtacado" remarks="" uid="11b99c4:12443a7cd72:-7fdb">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -483,7 +456,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="lucroPrecoVenda2" remarks="" uid="11b99c4:12443a7cd72:-7fdc">
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="0" mandatory="false" name="lucroPrecoVendaSuperAtacado" remarks="" uid="11b99c4:12443a7cd72:-7fd9">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -497,7 +470,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="precoVenda2" remarks="" uid="11b99c4:12443a7cd72:-7fdb">
+<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="0" mandatory="false" name="precoVendaSuperAtacado" remarks="" uid="11b99c4:12443a7cd72:-7fd8">
 <column-description/>
 <data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
@@ -511,49 +484,7 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="qtdPrecoVenda3" remarks="" uid="11b99c4:12443a7cd72:-7fda">
-<column-description/>
-<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
-<variant type-name-pattern="DECIMAL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="lucroPrecoVenda3" remarks="" uid="11b99c4:12443a7cd72:-7fd9">
-<column-description/>
-<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
-<variant type-name-pattern="DECIMAL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="2" default-value="" mandatory="false" name="precoVenda3" remarks="" uid="11b99c4:12443a7cd72:-7fd8">
-<column-description/>
-<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
-<variant type-name-pattern="DECIMAL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
-<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
-</data-type>
-</column>
-<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="exibiNaListagem" remarks="" uid="114a3c6:1248708424c:-7df1">
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="true" mandatory="false" name="exibiNaListagem" remarks="" uid="114a3c6:1248708424c:-7df1">
 <column-description/>
 <data-type jdbc-type="-7" name="BOOLEAN" selected-variant-pattern="BOOLEAN">
 <variant type-name-pattern="BOOLEAN"/>
@@ -580,12 +511,19 @@
 </foreign-key-figure>
 <foreign-key-column column-name="codigoFabricante" referenced-key-column-name="codigoEmpresa"/>
 </foreign-key>
+<foreign-key alias="" name="FK_TB_PRODUTO_3" on-delete="" on-update="" referenced-key="PK_TB_CFOP" referenced-table="TB_CFOP" referenced-table-schema="SACE" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="453dd5:124aacbd16d:-7f81">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="cfop" referenced-key-column-name="cfop"/>
+</foreign-key>
 </foreign-key-list>
 <index-list/>
 </table>
 <table alias="" name="TB_PRODUTO_LOJA" remarks="" uid="1e6cf07:1220e0a2302:-7faf">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="0" y="351"/>
+<table-figure-bounds height="164" width="188" x="0" y="351"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codLoja" remarks="" uid="1e6cf07:1220e0a2302:-7ee1">
 <column-description/>
@@ -672,6 +610,13 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="30" decimal-digits="0" default-value="" mandatory="false" name="localizacao" remarks="" uid="453dd5:124aacbd16d:-7f16">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
 </data-type>
 </column>
 </column-list>
@@ -828,7 +773,7 @@
 <table-description/>
 <table-figure-bounds height="150" width="207" x="-1" y="596"/>
 <column-list>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="codEntrada" remarks="" uid="1e6cf07:1220e0a2302:-7e08">
+<column alias="" auto-increment="true" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="codEntrada" remarks="" uid="1e6cf07:1220e0a2302:-7e08">
 <column-description/>
 <data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT(%n)">
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
@@ -2659,6 +2604,48 @@
 <foreign-key-column column-name="codContaBanco" referenced-key-column-name="codContaBanco"/>
 </foreign-key>
 </foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="TB_CFOP" remarks="" uid="453dd5:124aacbd16d:-7f99">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="683" y="-74"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="4" decimal-digits="0" default-value="" mandatory="true" name="cfop" remarks="" uid="453dd5:124aacbd16d:-7f95">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+<variant type-name-pattern="CHAR"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="CHAR(%n) BINARY"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="40" decimal-digits="0" default-value="" mandatory="false" name="descricao" remarks="" uid="453dd5:124aacbd16d:-7f94">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+<variant precision-max="255" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n) BINARY"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="icms" remarks="" uid="453dd5:124aacbd16d:-7f93">
+<column-description/>
+<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
+<variant type-name-pattern="DECIMAL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_TB_CFOP" remarks="" uid="453dd5:124aacbd16d:-7f98">
+<primary-key-description/>
+<primary-key-column name="cfop"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
 <index-list/>
 </table>
 </table-list>
