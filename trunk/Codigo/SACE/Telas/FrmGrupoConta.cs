@@ -31,11 +31,7 @@ namespace SACE.Telas
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.getCodTipoConta() != -1)
             {
-                tb_grupo_contaBindingSource.MoveFirst();
-                while (!codGrupoContaTextBox.Text.Equals(frmTipoContaPesquisa.getCodTipoConta().ToString()))
-                {
-                    tb_grupo_contaBindingSource.MoveNext();
-                }
+                tb_grupo_contaBindingSource.Position = tb_grupo_contaBindingSource.Find("codTipoConta", frmTipoContaPesquisa.getCodTipoConta());
             }
             frmTipoContaPesquisa.Dispose();
         }
@@ -90,6 +86,7 @@ namespace SACE.Telas
                 {
                     tb_grupo_contaTableAdapter.Insert(descricaoTextBox.Text);
                     tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
+                    tb_grupo_contaBindingSource.MoveLast();
                 }
                 else
                 {

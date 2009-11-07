@@ -35,11 +35,7 @@ namespace SACE.Telas
             frmEntradaPesquisa.ShowDialog();
             if (frmEntradaPesquisa.getCodEntrada() != -1)
             {
-                tb_entradaBindingSource.MoveFirst();
-                while (!codEntradaTextBox.Text.Equals(frmEntradaPesquisa.getCodEntrada().ToString()))
-                {
-                    tb_entradaBindingSource.MoveNext();
-                }
+                tb_entradaBindingSource.Position = tb_entradaBindingSource.Find("codEntrada", frmEntradaPesquisa.getCodEntrada());
             }
             frmEntradaPesquisa.Dispose();
         }

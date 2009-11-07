@@ -33,11 +33,7 @@ namespace SACE.Telas
             frmCartaoCreditoPesquisa.ShowDialog();
             if (frmCartaoCreditoPesquisa.getCodCartaoCredito() != -1)
             {
-                tb_cartao_creditoBindingSource.MoveFirst();
-                while (!codCartaoTextBox.Text.Equals(frmCartaoCreditoPesquisa.getCodCartaoCredito().ToString()))
-                {
-                    tb_cartao_creditoBindingSource.MoveNext();
-                }
+                tb_cartao_creditoBindingSource.Position = tb_cartao_creditoBindingSource.Find("codCartaoCredito", frmCartaoCreditoPesquisa.getCodCartaoCredito());
             }
             frmCartaoCreditoPesquisa.Dispose();
         }

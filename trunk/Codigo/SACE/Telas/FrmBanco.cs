@@ -33,11 +33,7 @@ namespace SACE.Telas
             frmBancoPesquisa.ShowDialog();
             if (frmBancoPesquisa.getCodBanco() != -1)
             {
-                tb_bancoBindingSource.MoveFirst();
-                while (!codBancoTextBox.Text.Equals(frmBancoPesquisa.getCodBanco().ToString()))
-                {
-                    tb_bancoBindingSource.MoveNext();
-                }
+                tb_bancoBindingSource.Position = tb_bancoBindingSource.Find("codBanco", frmBancoPesquisa.getCodBanco());
             }
             frmBancoPesquisa.Dispose();
         }

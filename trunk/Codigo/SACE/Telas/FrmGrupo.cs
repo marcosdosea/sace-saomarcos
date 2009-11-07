@@ -31,11 +31,7 @@ namespace SACE.Telas
             frmGrupoPesquisa.ShowDialog();
             if (frmGrupoPesquisa.getCodGrupo() != -1)
             {
-                tb_grupoBindingSource.MoveFirst();
-                while (!codGrupoTextBox.Text.Equals(frmGrupoPesquisa.getCodGrupo().ToString()))
-                {
-                    tb_grupoBindingSource.MoveNext();
-                }
+                tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", frmGrupoPesquisa.getCodGrupo());
             }
             frmGrupoPesquisa.Dispose();
         }
@@ -90,6 +86,7 @@ namespace SACE.Telas
                 {
                     tb_grupoTableAdapter.Insert(descricaoTextBox.Text);
                     tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
+                    tb_grupoBindingSource.MoveLast();
                 }
                 else
                 {
@@ -103,6 +100,7 @@ namespace SACE.Telas
                 tb_grupoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
+            
             btnBuscar.Focus();
         }
 

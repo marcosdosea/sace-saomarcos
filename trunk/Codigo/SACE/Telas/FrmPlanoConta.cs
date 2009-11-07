@@ -32,11 +32,7 @@ namespace SACE.Telas
             frmPlanoContaPesquisa.ShowDialog();
             if (frmPlanoContaPesquisa.getCodPlanoConta() != -1)
             {
-                tb_plano_contaBindingSource.MoveFirst();
-                while (!codPlanoContaTextBox.Text.Equals(frmPlanoContaPesquisa.getCodPlanoConta().ToString()))
-                {
-                    tb_plano_contaBindingSource.MoveNext();
-                }
+                tb_plano_contaBindingSource.Position = tb_plano_contaBindingSource.Find("codPlanoConta", frmPlanoContaPesquisa.getCodPlanoConta());
             }
             frmPlanoContaPesquisa.Dispose();
         }

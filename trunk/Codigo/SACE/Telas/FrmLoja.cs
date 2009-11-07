@@ -31,11 +31,7 @@ namespace SACE.Telas
             frmLojaPesquisa.ShowDialog();
             if (frmLojaPesquisa.getCodLoja() != -1)
             {
-                tb_lojaBindingSource.MoveFirst();
-                while (!codLojaTextBox.Text.Equals(frmLojaPesquisa.getCodLoja().ToString()))
-                {
-                    tb_lojaBindingSource.MoveNext();
-                }
+                tb_lojaBindingSource.Position = tb_lojaBindingSource.Find("codLoja", frmLojaPesquisa.getCodLoja());
             }
             frmLojaPesquisa.Dispose();
         }
