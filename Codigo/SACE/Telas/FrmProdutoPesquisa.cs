@@ -21,8 +21,8 @@ namespace SACE.Telas
 
         private void FrmProdutoPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
-            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             cmbBusca.SelectedIndex = 0;
         }
 
@@ -31,10 +31,10 @@ namespace SACE.Telas
             try
             {
                 //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_bancoTableAdapter.FillByCodProduto(this.saceDataSet.tb_banco, int.Parse(txtTexto.Text));
+                //    this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, int.Parse(txtTexto.Text));
                    
                 //else
-                //    this.tb_bancoTableAdapter.FillByNome(this.saceDataSet.tb_banco, txtTexto.Text);
+                //    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, txtTexto.Text);
             }
             catch (System.Exception ex)
             {
@@ -42,9 +42,9 @@ namespace SACE.Telas
             }
         }
 
-        private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void tb_produtoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codProduto = int.Parse(tb_bancoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            codProduto = int.Parse(tb_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
             this.Close();
         }
 
@@ -52,7 +52,7 @@ namespace SACE.Telas
         {
             if (e.KeyCode == Keys.Enter)
             {
-                tb_bancoDataGridView_CellClick(sender, null);
+                tb_produtoDataGridView_CellClick(sender, null);
             } 
             if (e.KeyCode == Keys.Escape)
             {
@@ -60,11 +60,11 @@ namespace SACE.Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_bancoBindingSource.MoveNext();
+                tb_produtoBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_bancoBindingSource.MovePrevious();
+                tb_produtoBindingSource.MovePrevious();
             }
         }
 
@@ -76,6 +76,14 @@ namespace SACE.Telas
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
+        }
+
+        private void tb_produtoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.tb_produtoBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.saceDataSet);
+
         }
     }
 }

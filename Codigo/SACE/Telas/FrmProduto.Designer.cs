@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             System.Windows.Forms.Label codProdutoLabel;
             System.Windows.Forms.Label nomeLabel;
             System.Windows.Forms.Label unidadeLabel;
@@ -50,6 +49,7 @@
             System.Windows.Forms.Label precoVendaAtacadoLabel;
             System.Windows.Forms.Label lucroPrecoVendaSuperAtacadoLabel;
             System.Windows.Forms.Label precoVendaSuperAtacadoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -62,12 +62,14 @@
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter();
+            this.tb_grupoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
@@ -77,7 +79,9 @@
             this.unidadeTextBox = new System.Windows.Forms.TextBox();
             this.codigoBarraTextBox = new System.Windows.Forms.TextBox();
             this.codGrupoComboBox = new System.Windows.Forms.ComboBox();
+            this.tbgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codigoFabricanteComboBox = new System.Windows.Forms.ComboBox();
+            this.tbempresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.temVencimentoCheckBox = new System.Windows.Forms.CheckBox();
             this.cfopTextBox = new System.Windows.Forms.TextBox();
             this.icmsTextBox = new System.Windows.Forms.TextBox();
@@ -119,7 +123,189 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).BeginInit();
             this.tb_produtoBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbempresaBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // codProdutoLabel
+            // 
+            codProdutoLabel.AutoSize = true;
+            codProdutoLabel.Location = new System.Drawing.Point(4, 72);
+            codProdutoLabel.Name = "codProdutoLabel";
+            codProdutoLabel.Size = new System.Drawing.Size(43, 13);
+            codProdutoLabel.TabIndex = 21;
+            codProdutoLabel.Text = "Código:";
+            // 
+            // nomeLabel
+            // 
+            nomeLabel.AutoSize = true;
+            nomeLabel.Location = new System.Drawing.Point(147, 68);
+            nomeLabel.Name = "nomeLabel";
+            nomeLabel.Size = new System.Drawing.Size(38, 13);
+            nomeLabel.TabIndex = 23;
+            nomeLabel.Text = "Nome:";
+            // 
+            // unidadeLabel
+            // 
+            unidadeLabel.AutoSize = true;
+            unidadeLabel.Location = new System.Drawing.Point(6, 155);
+            unidadeLabel.Name = "unidadeLabel";
+            unidadeLabel.Size = new System.Drawing.Size(47, 13);
+            unidadeLabel.TabIndex = 25;
+            unidadeLabel.Text = "Unidade";
+            // 
+            // codigoBarraLabel
+            // 
+            codigoBarraLabel.AutoSize = true;
+            codigoBarraLabel.Location = new System.Drawing.Point(7, 196);
+            codigoBarraLabel.Name = "codigoBarraLabel";
+            codigoBarraLabel.Size = new System.Drawing.Size(68, 13);
+            codigoBarraLabel.TabIndex = 27;
+            codigoBarraLabel.Text = "Código Barra";
+            // 
+            // codGrupoLabel
+            // 
+            codGrupoLabel.AutoSize = true;
+            codGrupoLabel.Location = new System.Drawing.Point(150, 196);
+            codGrupoLabel.Name = "codGrupoLabel";
+            codGrupoLabel.Size = new System.Drawing.Size(39, 13);
+            codGrupoLabel.TabIndex = 29;
+            codGrupoLabel.Text = "Grupo:";
+            // 
+            // codigoFabricanteLabel
+            // 
+            codigoFabricanteLabel.AutoSize = true;
+            codigoFabricanteLabel.Location = new System.Drawing.Point(147, 152);
+            codigoFabricanteLabel.Name = "codigoFabricanteLabel";
+            codigoFabricanteLabel.Size = new System.Drawing.Size(60, 13);
+            codigoFabricanteLabel.TabIndex = 31;
+            codigoFabricanteLabel.Text = "Fabricante:";
+            // 
+            // cfopLabel
+            // 
+            cfopLabel.AutoSize = true;
+            cfopLabel.Location = new System.Drawing.Point(6, 112);
+            cfopLabel.Name = "cfopLabel";
+            cfopLabel.Size = new System.Drawing.Size(31, 13);
+            cfopLabel.TabIndex = 35;
+            cfopLabel.Text = "cfop:";
+            // 
+            // icmsLabel
+            // 
+            icmsLabel.AutoSize = true;
+            icmsLabel.Location = new System.Drawing.Point(158, 243);
+            icmsLabel.Name = "icmsLabel";
+            icmsLabel.Size = new System.Drawing.Size(42, 13);
+            icmsLabel.TabIndex = 37;
+            icmsLabel.Text = "% icms:";
+            // 
+            // simplesLabel
+            // 
+            simplesLabel.AutoSize = true;
+            simplesLabel.Location = new System.Drawing.Point(281, 243);
+            simplesLabel.Name = "simplesLabel";
+            simplesLabel.Size = new System.Drawing.Size(55, 13);
+            simplesLabel.TabIndex = 39;
+            simplesLabel.Text = "% simples:";
+            // 
+            // ipiLabel
+            // 
+            ipiLabel.AutoSize = true;
+            ipiLabel.Location = new System.Drawing.Point(388, 243);
+            ipiLabel.Name = "ipiLabel";
+            ipiLabel.Size = new System.Drawing.Size(31, 13);
+            ipiLabel.TabIndex = 41;
+            ipiLabel.Text = "% ipi:";
+            // 
+            // freteLabel
+            // 
+            freteLabel.AutoSize = true;
+            freteLabel.Location = new System.Drawing.Point(503, 243);
+            freteLabel.Name = "freteLabel";
+            freteLabel.Size = new System.Drawing.Size(42, 13);
+            freteLabel.TabIndex = 43;
+            freteLabel.Text = "% frete:";
+            // 
+            // custoVendaLabel
+            // 
+            custoVendaLabel.AutoSize = true;
+            custoVendaLabel.Location = new System.Drawing.Point(6, 283);
+            custoVendaLabel.Name = "custoVendaLabel";
+            custoVendaLabel.Size = new System.Drawing.Size(115, 13);
+            custoVendaLabel.TabIndex = 45;
+            custoVendaLabel.Text = "Preço de Custo Médio:";
+            // 
+            // ultimaDataAtualizacaoLabel
+            // 
+            ultimaDataAtualizacaoLabel.AutoSize = true;
+            ultimaDataAtualizacaoLabel.Location = new System.Drawing.Point(154, 283);
+            ultimaDataAtualizacaoLabel.Name = "ultimaDataAtualizacaoLabel";
+            ultimaDataAtualizacaoLabel.Size = new System.Drawing.Size(97, 13);
+            ultimaDataAtualizacaoLabel.TabIndex = 53;
+            ultimaDataAtualizacaoLabel.Text = "Última Atualizacao:";
+            // 
+            // nomeFabricanteLabel
+            // 
+            nomeFabricanteLabel.AutoSize = true;
+            nomeFabricanteLabel.Location = new System.Drawing.Point(150, 113);
+            nomeFabricanteLabel.Name = "nomeFabricanteLabel";
+            nomeFabricanteLabel.Size = new System.Drawing.Size(178, 13);
+            nomeFabricanteLabel.TabIndex = 57;
+            nomeFabricanteLabel.Text = "Nome Produto conforme Fabricante:";
+            // 
+            // lucroPrecoVendaVarejoLabel
+            // 
+            lucroPrecoVendaVarejoLabel.AutoSize = true;
+            lucroPrecoVendaVarejoLabel.Location = new System.Drawing.Point(280, 283);
+            lucroPrecoVendaVarejoLabel.Name = "lucroPrecoVendaVarejoLabel";
+            lucroPrecoVendaVarejoLabel.Size = new System.Drawing.Size(70, 13);
+            lucroPrecoVendaVarejoLabel.TabIndex = 59;
+            lucroPrecoVendaVarejoLabel.Text = "Lucro Varejo:";
+            // 
+            // precoVendaVarejoLabel
+            // 
+            precoVendaVarejoLabel.AutoSize = true;
+            precoVendaVarejoLabel.Location = new System.Drawing.Point(403, 283);
+            precoVendaVarejoLabel.Name = "precoVendaVarejoLabel";
+            precoVendaVarejoLabel.Size = new System.Drawing.Size(71, 13);
+            precoVendaVarejoLabel.TabIndex = 61;
+            precoVendaVarejoLabel.Text = "Preço Varejo:";
+            // 
+            // lucroPrecoVendaAtacadoLabel
+            // 
+            lucroPrecoVendaAtacadoLabel.AutoSize = true;
+            lucroPrecoVendaAtacadoLabel.Location = new System.Drawing.Point(6, 340);
+            lucroPrecoVendaAtacadoLabel.Name = "lucroPrecoVendaAtacadoLabel";
+            lucroPrecoVendaAtacadoLabel.Size = new System.Drawing.Size(80, 13);
+            lucroPrecoVendaAtacadoLabel.TabIndex = 63;
+            lucroPrecoVendaAtacadoLabel.Text = "Lucro Atacado:";
+            // 
+            // precoVendaAtacadoLabel
+            // 
+            precoVendaAtacadoLabel.AutoSize = true;
+            precoVendaAtacadoLabel.Location = new System.Drawing.Point(154, 340);
+            precoVendaAtacadoLabel.Name = "precoVendaAtacadoLabel";
+            precoVendaAtacadoLabel.Size = new System.Drawing.Size(81, 13);
+            precoVendaAtacadoLabel.TabIndex = 65;
+            precoVendaAtacadoLabel.Text = "Preço Atacado:";
+            // 
+            // lucroPrecoVendaSuperAtacadoLabel
+            // 
+            lucroPrecoVendaSuperAtacadoLabel.AutoSize = true;
+            lucroPrecoVendaSuperAtacadoLabel.Location = new System.Drawing.Point(280, 340);
+            lucroPrecoVendaSuperAtacadoLabel.Name = "lucroPrecoVendaSuperAtacadoLabel";
+            lucroPrecoVendaSuperAtacadoLabel.Size = new System.Drawing.Size(111, 13);
+            lucroPrecoVendaSuperAtacadoLabel.TabIndex = 67;
+            lucroPrecoVendaSuperAtacadoLabel.Text = "Lucro Super Atacado:";
+            // 
+            // precoVendaSuperAtacadoLabel
+            // 
+            precoVendaSuperAtacadoLabel.AutoSize = true;
+            precoVendaSuperAtacadoLabel.Location = new System.Drawing.Point(402, 340);
+            precoVendaSuperAtacadoLabel.Name = "precoVendaSuperAtacadoLabel";
+            precoVendaSuperAtacadoLabel.Size = new System.Drawing.Size(112, 13);
+            precoVendaSuperAtacadoLabel.TabIndex = 69;
+            precoVendaSuperAtacadoLabel.Text = "Preço Super Atacado:";
             // 
             // label1
             // 
@@ -226,13 +412,13 @@
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
             this.tableAdapterManager.tb_conta_receberTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
             this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = this.tb_grupoTableAdapter;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_pagamentoTableAdapter = null;
@@ -247,6 +433,14 @@
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // tb_empresaTableAdapter
+            // 
+            this.tb_empresaTableAdapter.ClearBeforeFill = true;
+            // 
+            // tb_grupoTableAdapter
+            // 
+            this.tb_grupoTableAdapter.ClearBeforeFill = true;
             // 
             // tb_produtoBindingNavigator
             // 
@@ -275,6 +469,13 @@
             this.tb_produtoBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_produtoBindingNavigator.TabIndex = 21;
             this.tb_produtoBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -308,16 +509,9 @@
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-            // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
             this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
@@ -340,112 +534,84 @@
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // codProdutoLabel
-            // 
-            codProdutoLabel.AutoSize = true;
-            codProdutoLabel.Location = new System.Drawing.Point(4, 72);
-            codProdutoLabel.Name = "codProdutoLabel";
-            codProdutoLabel.Size = new System.Drawing.Size(43, 13);
-            codProdutoLabel.TabIndex = 21;
-            codProdutoLabel.Text = "Código:";
             // 
             // codProdutoTextBox
             // 
             this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codProduto", true));
+            this.codProdutoTextBox.Enabled = false;
             this.codProdutoTextBox.Location = new System.Drawing.Point(7, 89);
             this.codProdutoTextBox.Name = "codProdutoTextBox";
             this.codProdutoTextBox.Size = new System.Drawing.Size(134, 20);
             this.codProdutoTextBox.TabIndex = 22;
             // 
-            // nomeLabel
-            // 
-            nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(147, 68);
-            nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new System.Drawing.Size(38, 13);
-            nomeLabel.TabIndex = 23;
-            nomeLabel.Text = "Nome:";
-            // 
             // nomeTextBox
             // 
+            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(150, 90);
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(430, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
-            // unidadeLabel
-            // 
-            unidadeLabel.AutoSize = true;
-            unidadeLabel.Location = new System.Drawing.Point(6, 118);
-            unidadeLabel.Name = "unidadeLabel";
-            unidadeLabel.Size = new System.Drawing.Size(47, 13);
-            unidadeLabel.TabIndex = 25;
-            unidadeLabel.Text = "Unidade";
-            // 
             // unidadeTextBox
             // 
+            this.unidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.unidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "unidade", true));
-            this.unidadeTextBox.Location = new System.Drawing.Point(7, 135);
+            this.unidadeTextBox.Location = new System.Drawing.Point(7, 172);
+            this.unidadeTextBox.MaxLength = 3;
             this.unidadeTextBox.Name = "unidadeTextBox";
             this.unidadeTextBox.Size = new System.Drawing.Size(134, 20);
-            this.unidadeTextBox.TabIndex = 26;
-            // 
-            // codigoBarraLabel
-            // 
-            codigoBarraLabel.AutoSize = true;
-            codigoBarraLabel.Location = new System.Drawing.Point(7, 160);
-            codigoBarraLabel.Name = "codigoBarraLabel";
-            codigoBarraLabel.Size = new System.Drawing.Size(68, 13);
-            codigoBarraLabel.TabIndex = 27;
-            codigoBarraLabel.Text = "Código Barra";
+            this.unidadeTextBox.TabIndex = 30;
             // 
             // codigoBarraTextBox
             // 
+            this.codigoBarraTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codigoBarraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codigoBarra", true));
-            this.codigoBarraTextBox.Location = new System.Drawing.Point(10, 176);
+            this.codigoBarraTextBox.Location = new System.Drawing.Point(10, 213);
             this.codigoBarraTextBox.Name = "codigoBarraTextBox";
             this.codigoBarraTextBox.Size = new System.Drawing.Size(134, 20);
-            this.codigoBarraTextBox.TabIndex = 28;
-            // 
-            // codGrupoLabel
-            // 
-            codGrupoLabel.AutoSize = true;
-            codGrupoLabel.Location = new System.Drawing.Point(150, 160);
-            codGrupoLabel.Name = "codGrupoLabel";
-            codGrupoLabel.Size = new System.Drawing.Size(39, 13);
-            codGrupoLabel.TabIndex = 29;
-            codGrupoLabel.Text = "Grupo:";
+            this.codigoBarraTextBox.TabIndex = 34;
             // 
             // codGrupoComboBox
             // 
             this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codGrupo", true));
+            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codGrupo", true));
+            this.codGrupoComboBox.DataSource = this.tbgrupoBindingSource;
+            this.codGrupoComboBox.DisplayMember = "descricao";
+            this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoComboBox.FormattingEnabled = true;
-            this.codGrupoComboBox.Location = new System.Drawing.Point(150, 176);
+            this.codGrupoComboBox.Location = new System.Drawing.Point(150, 213);
             this.codGrupoComboBox.Name = "codGrupoComboBox";
             this.codGrupoComboBox.Size = new System.Drawing.Size(430, 21);
-            this.codGrupoComboBox.TabIndex = 30;
+            this.codGrupoComboBox.TabIndex = 36;
+            this.codGrupoComboBox.ValueMember = "codGrupo";
             // 
-            // codigoFabricanteLabel
+            // tbgrupoBindingSource
             // 
-            codigoFabricanteLabel.AutoSize = true;
-            codigoFabricanteLabel.Location = new System.Drawing.Point(147, 115);
-            codigoFabricanteLabel.Name = "codigoFabricanteLabel";
-            codigoFabricanteLabel.Size = new System.Drawing.Size(60, 13);
-            codigoFabricanteLabel.TabIndex = 31;
-            codigoFabricanteLabel.Text = "Fabricante:";
+            this.tbgrupoBindingSource.DataMember = "tb_grupo";
+            this.tbgrupoBindingSource.DataSource = this.saceDataSet;
             // 
             // codigoFabricanteComboBox
             // 
             this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codigoFabricante", true));
+            this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codigoFabricante", true));
+            this.codigoFabricanteComboBox.DataSource = this.tbempresaBindingSource;
+            this.codigoFabricanteComboBox.DisplayMember = "nome";
+            this.codigoFabricanteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codigoFabricanteComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.codigoFabricanteComboBox.FormattingEnabled = true;
-            this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 133);
+            this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 170);
             this.codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
             this.codigoFabricanteComboBox.Size = new System.Drawing.Size(430, 21);
             this.codigoFabricanteComboBox.TabIndex = 32;
+            this.codigoFabricanteComboBox.ValueMember = "codigoEmpresa";
+            // 
+            // tbempresaBindingSource
+            // 
+            this.tbempresaBindingSource.DataMember = "tb_empresa";
+            this.tbempresaBindingSource.DataSource = this.saceDataSet;
             // 
             // temVencimentoCheckBox
             // 
@@ -453,124 +619,68 @@
             this.temVencimentoCheckBox.Location = new System.Drawing.Point(12, 238);
             this.temVencimentoCheckBox.Name = "temVencimentoCheckBox";
             this.temVencimentoCheckBox.Size = new System.Drawing.Size(125, 24);
-            this.temVencimentoCheckBox.TabIndex = 34;
+            this.temVencimentoCheckBox.TabIndex = 38;
             this.temVencimentoCheckBox.Text = "Possui Vencimento";
             this.temVencimentoCheckBox.UseVisualStyleBackColor = true;
             // 
-            // cfopLabel
-            // 
-            cfopLabel.AutoSize = true;
-            cfopLabel.Location = new System.Drawing.Point(6, 200);
-            cfopLabel.Name = "cfopLabel";
-            cfopLabel.Size = new System.Drawing.Size(31, 13);
-            cfopLabel.TabIndex = 35;
-            cfopLabel.Text = "cfop:";
-            // 
             // cfopTextBox
             // 
+            this.cfopTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cfopTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "cfop", true));
-            this.cfopTextBox.Location = new System.Drawing.Point(7, 216);
+            this.cfopTextBox.Location = new System.Drawing.Point(7, 129);
             this.cfopTextBox.Name = "cfopTextBox";
             this.cfopTextBox.Size = new System.Drawing.Size(137, 20);
-            this.cfopTextBox.TabIndex = 36;
-            // 
-            // icmsLabel
-            // 
-            icmsLabel.AutoSize = true;
-            icmsLabel.Location = new System.Drawing.Point(158, 243);
-            icmsLabel.Name = "icmsLabel";
-            icmsLabel.Size = new System.Drawing.Size(31, 13);
-            icmsLabel.TabIndex = 37;
-            icmsLabel.Text = "icms:";
+            this.cfopTextBox.TabIndex = 26;
             // 
             // icmsTextBox
             // 
             this.icmsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "icms", true));
             this.icmsTextBox.Location = new System.Drawing.Point(159, 260);
             this.icmsTextBox.Name = "icmsTextBox";
+            this.icmsTextBox.ReadOnly = true;
             this.icmsTextBox.Size = new System.Drawing.Size(111, 20);
             this.icmsTextBox.TabIndex = 38;
-            // 
-            // simplesLabel
-            // 
-            simplesLabel.AutoSize = true;
-            simplesLabel.Location = new System.Drawing.Point(281, 243);
-            simplesLabel.Name = "simplesLabel";
-            simplesLabel.Size = new System.Drawing.Size(44, 13);
-            simplesLabel.TabIndex = 39;
-            simplesLabel.Text = "simples:";
             // 
             // simplesTextBox
             // 
             this.simplesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "simples", true));
             this.simplesTextBox.Location = new System.Drawing.Point(283, 260);
             this.simplesTextBox.Name = "simplesTextBox";
+            this.simplesTextBox.ReadOnly = true;
             this.simplesTextBox.Size = new System.Drawing.Size(93, 20);
             this.simplesTextBox.TabIndex = 40;
-            // 
-            // ipiLabel
-            // 
-            ipiLabel.AutoSize = true;
-            ipiLabel.Location = new System.Drawing.Point(388, 243);
-            ipiLabel.Name = "ipiLabel";
-            ipiLabel.Size = new System.Drawing.Size(20, 13);
-            ipiLabel.TabIndex = 41;
-            ipiLabel.Text = "ipi:";
             // 
             // ipiTextBox
             // 
             this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "ipi", true));
             this.ipiTextBox.Location = new System.Drawing.Point(391, 260);
             this.ipiTextBox.Name = "ipiTextBox";
+            this.ipiTextBox.ReadOnly = true;
             this.ipiTextBox.Size = new System.Drawing.Size(102, 20);
             this.ipiTextBox.TabIndex = 42;
-            // 
-            // freteLabel
-            // 
-            freteLabel.AutoSize = true;
-            freteLabel.Location = new System.Drawing.Point(503, 243);
-            freteLabel.Name = "freteLabel";
-            freteLabel.Size = new System.Drawing.Size(31, 13);
-            freteLabel.TabIndex = 43;
-            freteLabel.Text = "frete:";
             // 
             // freteTextBox
             // 
             this.freteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "frete", true));
             this.freteTextBox.Location = new System.Drawing.Point(503, 260);
             this.freteTextBox.Name = "freteTextBox";
+            this.freteTextBox.ReadOnly = true;
             this.freteTextBox.Size = new System.Drawing.Size(75, 20);
             this.freteTextBox.TabIndex = 44;
-            // 
-            // custoVendaLabel
-            // 
-            custoVendaLabel.AutoSize = true;
-            custoVendaLabel.Location = new System.Drawing.Point(6, 283);
-            custoVendaLabel.Name = "custoVendaLabel";
-            custoVendaLabel.Size = new System.Drawing.Size(115, 13);
-            custoVendaLabel.TabIndex = 45;
-            custoVendaLabel.Text = "Preço de Custo Médio:";
             // 
             // custoVendaTextBox
             // 
             this.custoVendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "custoVenda", true));
             this.custoVendaTextBox.Location = new System.Drawing.Point(7, 305);
             this.custoVendaTextBox.Name = "custoVendaTextBox";
+            this.custoVendaTextBox.ReadOnly = true;
             this.custoVendaTextBox.Size = new System.Drawing.Size(134, 20);
             this.custoVendaTextBox.TabIndex = 46;
-            // 
-            // ultimaDataAtualizacaoLabel
-            // 
-            ultimaDataAtualizacaoLabel.AutoSize = true;
-            ultimaDataAtualizacaoLabel.Location = new System.Drawing.Point(154, 283);
-            ultimaDataAtualizacaoLabel.Name = "ultimaDataAtualizacaoLabel";
-            ultimaDataAtualizacaoLabel.Size = new System.Drawing.Size(97, 13);
-            ultimaDataAtualizacaoLabel.TabIndex = 53;
-            ultimaDataAtualizacaoLabel.Text = "Última Atualizacao:";
             // 
             // ultimaDataAtualizacaoDateTimePicker
             // 
             this.ultimaDataAtualizacaoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tb_produtoBindingSource, "ultimaDataAtualizacao", true));
+            this.ultimaDataAtualizacaoDateTimePicker.Enabled = false;
             this.ultimaDataAtualizacaoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.ultimaDataAtualizacaoDateTimePicker.Location = new System.Drawing.Point(159, 302);
             this.ultimaDataAtualizacaoDateTimePicker.Name = "ultimaDataAtualizacaoDateTimePicker";
@@ -583,126 +693,70 @@
             this.exibiNaListagemCheckBox.Location = new System.Drawing.Point(13, 258);
             this.exibiNaListagemCheckBox.Name = "exibiNaListagemCheckBox";
             this.exibiNaListagemCheckBox.Size = new System.Drawing.Size(103, 24);
-            this.exibiNaListagemCheckBox.TabIndex = 56;
+            this.exibiNaListagemCheckBox.TabIndex = 40;
             this.exibiNaListagemCheckBox.Text = "Exibir Listagem";
             this.exibiNaListagemCheckBox.UseVisualStyleBackColor = true;
             // 
-            // nomeFabricanteLabel
-            // 
-            nomeFabricanteLabel.AutoSize = true;
-            nomeFabricanteLabel.Location = new System.Drawing.Point(150, 200);
-            nomeFabricanteLabel.Name = "nomeFabricanteLabel";
-            nomeFabricanteLabel.Size = new System.Drawing.Size(178, 13);
-            nomeFabricanteLabel.TabIndex = 57;
-            nomeFabricanteLabel.Text = "Nome Produto conforme Fabricante:";
-            // 
             // nomeFabricanteTextBox
             // 
+            this.nomeFabricanteTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeFabricanteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "nomeFabricante", true));
-            this.nomeFabricanteTextBox.Location = new System.Drawing.Point(150, 216);
+            this.nomeFabricanteTextBox.Location = new System.Drawing.Point(150, 129);
             this.nomeFabricanteTextBox.Name = "nomeFabricanteTextBox";
             this.nomeFabricanteTextBox.Size = new System.Drawing.Size(430, 20);
-            this.nomeFabricanteTextBox.TabIndex = 58;
-            // 
-            // lucroPrecoVendaVarejoLabel
-            // 
-            lucroPrecoVendaVarejoLabel.AutoSize = true;
-            lucroPrecoVendaVarejoLabel.Location = new System.Drawing.Point(280, 283);
-            lucroPrecoVendaVarejoLabel.Name = "lucroPrecoVendaVarejoLabel";
-            lucroPrecoVendaVarejoLabel.Size = new System.Drawing.Size(70, 13);
-            lucroPrecoVendaVarejoLabel.TabIndex = 59;
-            lucroPrecoVendaVarejoLabel.Text = "Lucro Varejo:";
+            this.nomeFabricanteTextBox.TabIndex = 28;
             // 
             // lucroPrecoVendaVarejoTextBox
             // 
             this.lucroPrecoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "lucroPrecoVendaVarejo", true));
             this.lucroPrecoVendaVarejoTextBox.Location = new System.Drawing.Point(283, 302);
             this.lucroPrecoVendaVarejoTextBox.Name = "lucroPrecoVendaVarejoTextBox";
+            this.lucroPrecoVendaVarejoTextBox.ReadOnly = true;
             this.lucroPrecoVendaVarejoTextBox.Size = new System.Drawing.Size(109, 20);
             this.lucroPrecoVendaVarejoTextBox.TabIndex = 60;
-            // 
-            // precoVendaVarejoLabel
-            // 
-            precoVendaVarejoLabel.AutoSize = true;
-            precoVendaVarejoLabel.Location = new System.Drawing.Point(403, 283);
-            precoVendaVarejoLabel.Name = "precoVendaVarejoLabel";
-            precoVendaVarejoLabel.Size = new System.Drawing.Size(71, 13);
-            precoVendaVarejoLabel.TabIndex = 61;
-            precoVendaVarejoLabel.Text = "Preço Varejo:";
             // 
             // precoVendaVarejoTextBox
             // 
             this.precoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaVarejo", true));
             this.precoVendaVarejoTextBox.Location = new System.Drawing.Point(406, 302);
             this.precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
+            this.precoVendaVarejoTextBox.ReadOnly = true;
             this.precoVendaVarejoTextBox.Size = new System.Drawing.Size(174, 20);
             this.precoVendaVarejoTextBox.TabIndex = 62;
-            // 
-            // lucroPrecoVendaAtacadoLabel
-            // 
-            lucroPrecoVendaAtacadoLabel.AutoSize = true;
-            lucroPrecoVendaAtacadoLabel.Location = new System.Drawing.Point(6, 340);
-            lucroPrecoVendaAtacadoLabel.Name = "lucroPrecoVendaAtacadoLabel";
-            lucroPrecoVendaAtacadoLabel.Size = new System.Drawing.Size(80, 13);
-            lucroPrecoVendaAtacadoLabel.TabIndex = 63;
-            lucroPrecoVendaAtacadoLabel.Text = "Lucro Atacado:";
             // 
             // lucroPrecoVendaAtacadoTextBox
             // 
             this.lucroPrecoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "lucroPrecoVendaAtacado", true));
             this.lucroPrecoVendaAtacadoTextBox.Location = new System.Drawing.Point(7, 356);
             this.lucroPrecoVendaAtacadoTextBox.Name = "lucroPrecoVendaAtacadoTextBox";
+            this.lucroPrecoVendaAtacadoTextBox.ReadOnly = true;
             this.lucroPrecoVendaAtacadoTextBox.Size = new System.Drawing.Size(134, 20);
             this.lucroPrecoVendaAtacadoTextBox.TabIndex = 64;
-            // 
-            // precoVendaAtacadoLabel
-            // 
-            precoVendaAtacadoLabel.AutoSize = true;
-            precoVendaAtacadoLabel.Location = new System.Drawing.Point(154, 340);
-            precoVendaAtacadoLabel.Name = "precoVendaAtacadoLabel";
-            precoVendaAtacadoLabel.Size = new System.Drawing.Size(81, 13);
-            precoVendaAtacadoLabel.TabIndex = 65;
-            precoVendaAtacadoLabel.Text = "Preço Atacado:";
             // 
             // precoVendaAtacadoTextBox
             // 
             this.precoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaAtacado", true));
             this.precoVendaAtacadoTextBox.Location = new System.Drawing.Point(157, 356);
             this.precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
+            this.precoVendaAtacadoTextBox.ReadOnly = true;
             this.precoVendaAtacadoTextBox.Size = new System.Drawing.Size(120, 20);
             this.precoVendaAtacadoTextBox.TabIndex = 66;
-            // 
-            // lucroPrecoVendaSuperAtacadoLabel
-            // 
-            lucroPrecoVendaSuperAtacadoLabel.AutoSize = true;
-            lucroPrecoVendaSuperAtacadoLabel.Location = new System.Drawing.Point(280, 340);
-            lucroPrecoVendaSuperAtacadoLabel.Name = "lucroPrecoVendaSuperAtacadoLabel";
-            lucroPrecoVendaSuperAtacadoLabel.Size = new System.Drawing.Size(111, 13);
-            lucroPrecoVendaSuperAtacadoLabel.TabIndex = 67;
-            lucroPrecoVendaSuperAtacadoLabel.Text = "Lucro Super Atacado:";
             // 
             // lucroPrecoVendaSuperAtacadoTextBox
             // 
             this.lucroPrecoVendaSuperAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "lucroPrecoVendaSuperAtacado", true));
             this.lucroPrecoVendaSuperAtacadoTextBox.Location = new System.Drawing.Point(283, 356);
             this.lucroPrecoVendaSuperAtacadoTextBox.Name = "lucroPrecoVendaSuperAtacadoTextBox";
+            this.lucroPrecoVendaSuperAtacadoTextBox.ReadOnly = true;
             this.lucroPrecoVendaSuperAtacadoTextBox.Size = new System.Drawing.Size(109, 20);
             this.lucroPrecoVendaSuperAtacadoTextBox.TabIndex = 68;
-            // 
-            // precoVendaSuperAtacadoLabel
-            // 
-            precoVendaSuperAtacadoLabel.AutoSize = true;
-            precoVendaSuperAtacadoLabel.Location = new System.Drawing.Point(402, 340);
-            precoVendaSuperAtacadoLabel.Name = "precoVendaSuperAtacadoLabel";
-            precoVendaSuperAtacadoLabel.Size = new System.Drawing.Size(112, 13);
-            precoVendaSuperAtacadoLabel.TabIndex = 69;
-            precoVendaSuperAtacadoLabel.Text = "Preço Super Atacado:";
             // 
             // precoVendaSuperAtacadoTextBox
             // 
             this.precoVendaSuperAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaSuperAtacado", true));
             this.precoVendaSuperAtacadoTextBox.Location = new System.Drawing.Point(406, 356);
             this.precoVendaSuperAtacadoTextBox.Name = "precoVendaSuperAtacadoTextBox";
+            this.precoVendaSuperAtacadoTextBox.ReadOnly = true;
             this.precoVendaSuperAtacadoTextBox.Size = new System.Drawing.Size(174, 20);
             this.precoVendaSuperAtacadoTextBox.TabIndex = 70;
             // 
@@ -776,6 +830,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).EndInit();
             this.tb_produtoBindingNavigator.ResumeLayout(false);
             this.tb_produtoBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbempresaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,5 +883,9 @@
         private System.Windows.Forms.TextBox precoVendaAtacadoTextBox;
         private System.Windows.Forms.TextBox lucroPrecoVendaSuperAtacadoTextBox;
         private System.Windows.Forms.TextBox precoVendaSuperAtacadoTextBox;
+        private SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter tb_empresaTableAdapter;
+        private System.Windows.Forms.BindingSource tbempresaBindingSource;
+        private SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
+        private System.Windows.Forms.BindingSource tbgrupoBindingSource;
     }
 }

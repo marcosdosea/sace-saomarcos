@@ -25,6 +25,10 @@ namespace SACE
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.F4)
+            {
+                produtosToolStripMenuItem_Click(sender, e);
+            }
             if (e.KeyCode == Keys.F5)
             {
                 pessoasToolStripMenuItem_Click(sender, e);
@@ -65,7 +69,9 @@ namespace SACE
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+            frmProduto.ShowDialog();
+            frmProduto.Dispose();
         }
 
         private void pessoasToolStripMenuItem_Click(object sender, EventArgs e)

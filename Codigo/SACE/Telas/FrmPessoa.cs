@@ -31,11 +31,7 @@ namespace SACE.Telas
             frmPessoaPesquisa.ShowDialog();
             if (frmPessoaPesquisa.getCodPessoa() != -1)
             {
-                tb_pessoaBindingSource.MoveFirst();
-                while (!codPessoaTextBox.Text.Equals(frmPessoaPesquisa.getCodPessoa().ToString()))
-                {
-                    tb_pessoaBindingSource.MoveNext();
-                }
+                tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.getCodPessoa());
             }
             frmPessoaPesquisa.Dispose();
         }
