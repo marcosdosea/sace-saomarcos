@@ -45,6 +45,8 @@ namespace SACE.Telas
             tb_produtoBindingSource.AddNew();
             codProdutoTextBox.Enabled = false;
             nomeTextBox.Focus();
+            temVencimentoCheckBox.Checked = false;
+            exibiNaListagemCheckBox.Checked = true;
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -88,21 +90,11 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    //tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                    //    codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
-                    //    long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
-                    //    cfopTextBox.Text, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
-                    //    decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text),
-                    //    ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                    //    decimal.Parse(precoVendaVarejoTextBox.Text), decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                    //    decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
-                    //    decimal.Parse(precoVendaSuperAtacadoTextBox.Text), exibiNaListagemCheckBox.Checked);
                     tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
                         codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), false,
-                        cfopTextBox.Text, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
-                        decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text),
-                        ultimaDataAtualizacaoDateTimePicker.Value, 0,0,0,0,0,0, false);
+                        long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
+                       null, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value, 0,
+                       0, 0, 0, 0, 0, 0, 0, exibiNaListagemCheckBox.Checked);
                     
                     tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
                     tb_produtoBindingSource.MoveLast();
@@ -112,11 +104,11 @@ namespace SACE.Telas
                     tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
                         codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
                         long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
-                        cfopTextBox.Text, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
+                        null, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
                         decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text),
                         ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                        decimal.Parse(precoVendaVarejoTextBox.Text), decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                        decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
+                        decimal.Parse(precoVendaVarejoTextBox.Text),0, decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
+                        decimal.Parse(precoVendaAtacadoTextBox.Text),0, decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
                         decimal.Parse(precoVendaSuperAtacadoTextBox.Text), exibiNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
                     tb_produtoBindingSource.EndEdit();
                 }
@@ -170,16 +162,40 @@ namespace SACE.Telas
                 {
                     this.Close();
                 }
+                else if (e.KeyCode == Keys.F7)
+                {
+                    btnPreco_Click(sender, e);
+                }
             }
             else
             {
-                if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
+                if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
                 }
                 else if (e.KeyCode == Keys.F6)
                 {
                     btnSalvar_Click(sender, e);
+                }
+                else if ((e.KeyCode == Keys.Enter) && (codGrupoComboBox.Focused))
+                {
+                    Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
+                    frmGrupoPesquisa.ShowDialog();
+                    if (frmGrupoPesquisa.getCodGrupo() != -1)
+                    {
+                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.getCodGrupo());                        
+                    }
+                    frmGrupoPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.Enter) && (codigoFabricanteComboBox.Focused))
+                {
+                    Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
+                    frmEmpresaPesquisa.ShowDialog();
+                    if (frmEmpresaPesquisa.getCodEmpresa() != -1)
+                    {
+                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                    }
+                    frmEmpresaPesquisa.Dispose();
                 }
             }
         }
@@ -191,6 +207,7 @@ namespace SACE.Telas
             btnEditar.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
+            btnPreco.Enabled = habilita;
             tb_produtoBindingNavigator.Enabled = habilita;
             if (habilita)
             {
@@ -198,12 +215,11 @@ namespace SACE.Telas
             }
         }
 
-        private void tb_produtoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void btnPreco_Click(object sender, EventArgs e)
         {
-            this.Validate();
-            this.tb_produtoBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
+            Telas.FrmProdutoPreco frmProdutoPreco = new Telas.FrmProdutoPreco();
+            frmProdutoPreco.ShowDialog();
+            frmProdutoPreco.Dispose();
         }
     }
 }

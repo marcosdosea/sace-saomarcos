@@ -3870,6 +3870,8 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnnumeroNotaFiscal;
             
+            private global::System.Data.DataColumn columnvalorICMSSubstituto;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_entradaDataTable() {
                 this.TableName = "tb_entrada";
@@ -3957,6 +3959,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn valorICMSSubstitutoColumn {
+                get {
+                    return this.columnvalorICMSSubstituto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3985,7 +3994,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entradaRow Addtb_entradaRow(long codigoFornecedor, long codigoEmpresaFrete, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal) {
+            public tb_entradaRow Addtb_entradaRow(long codigoFornecedor, long codigoEmpresaFrete, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal, decimal valorICMSSubstituto) {
                 tb_entradaRow rowtb_entradaRow = ((tb_entradaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3995,7 +4004,8 @@ namespace SACE.Dados {
                         dataEntrada,
                         valorTotal,
                         tipoEntrada,
-                        numeroNotaFiscal};
+                        numeroNotaFiscal,
+                        valorICMSSubstituto};
                 rowtb_entradaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_entradaRow);
                 return rowtb_entradaRow;
@@ -4029,6 +4039,7 @@ namespace SACE.Dados {
                 this.columnvalorTotal = base.Columns["valorTotal"];
                 this.columntipoEntrada = base.Columns["tipoEntrada"];
                 this.columnnumeroNotaFiscal = base.Columns["numeroNotaFiscal"];
+                this.columnvalorICMSSubstituto = base.Columns["valorICMSSubstituto"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4049,6 +4060,8 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columntipoEntrada);
                 this.columnnumeroNotaFiscal = new global::System.Data.DataColumn("numeroNotaFiscal", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnnumeroNotaFiscal);
+                this.columnvalorICMSSubstituto = new global::System.Data.DataColumn("valorICMSSubstituto", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvalorICMSSubstituto);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodEntrada}, true));
                 this.columncodEntrada.AutoIncrement = true;
@@ -7495,15 +7508,21 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columncustoVenda;
             
+            private global::System.Data.DataColumn columnultimoPrecoCompra;
+            
             private global::System.Data.DataColumn columnultimaDataAtualizacao;
             
             private global::System.Data.DataColumn columnlucroPrecoVendaVarejo;
             
             private global::System.Data.DataColumn columnprecoVendaVarejo;
             
+            private global::System.Data.DataColumn columnqtdProdutoAtacado;
+            
             private global::System.Data.DataColumn columnlucroPrecoVendaAtacado;
             
             private global::System.Data.DataColumn columnprecoVendaAtacado;
+            
+            private global::System.Data.DataColumn columnqtdProdutoSuperAtacado;
             
             private global::System.Data.DataColumn columnlucroPrecoVendaSuperAtacado;
             
@@ -7640,6 +7659,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ultimoPrecoCompraColumn {
+                get {
+                    return this.columnultimoPrecoCompra;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn ultimaDataAtualizacaoColumn {
                 get {
                     return this.columnultimaDataAtualizacao;
@@ -7661,6 +7687,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn qtdProdutoAtacadoColumn {
+                get {
+                    return this.columnqtdProdutoAtacado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn lucroPrecoVendaAtacadoColumn {
                 get {
                     return this.columnlucroPrecoVendaAtacado;
@@ -7671,6 +7704,13 @@ namespace SACE.Dados {
             public global::System.Data.DataColumn precoVendaAtacadoColumn {
                 get {
                     return this.columnprecoVendaAtacado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn qtdProdutoSuperAtacadoColumn {
+                get {
+                    return this.columnqtdProdutoSuperAtacado;
                 }
             }
             
@@ -7738,11 +7778,14 @@ namespace SACE.Dados {
                         decimal ipi, 
                         decimal frete, 
                         decimal custoVenda, 
+                        decimal ultimoPrecoCompra, 
                         System.DateTime ultimaDataAtualizacao, 
                         decimal lucroPrecoVendaVarejo, 
                         decimal precoVendaVarejo, 
+                        decimal qtdProdutoAtacado, 
                         decimal lucroPrecoVendaAtacado, 
                         decimal precoVendaAtacado, 
+                        decimal qtdProdutoSuperAtacado, 
                         decimal lucroPrecoVendaSuperAtacado, 
                         decimal precoVendaSuperAtacado, 
                         bool exibiNaListagem) {
@@ -7762,11 +7805,14 @@ namespace SACE.Dados {
                         ipi,
                         frete,
                         custoVenda,
+                        ultimoPrecoCompra,
                         ultimaDataAtualizacao,
                         lucroPrecoVendaVarejo,
                         precoVendaVarejo,
+                        qtdProdutoAtacado,
                         lucroPrecoVendaAtacado,
                         precoVendaAtacado,
+                        qtdProdutoSuperAtacado,
                         lucroPrecoVendaSuperAtacado,
                         precoVendaSuperAtacado,
                         exibiNaListagem};
@@ -7809,11 +7855,14 @@ namespace SACE.Dados {
                 this.columnipi = base.Columns["ipi"];
                 this.columnfrete = base.Columns["frete"];
                 this.columncustoVenda = base.Columns["custoVenda"];
+                this.columnultimoPrecoCompra = base.Columns["ultimoPrecoCompra"];
                 this.columnultimaDataAtualizacao = base.Columns["ultimaDataAtualizacao"];
                 this.columnlucroPrecoVendaVarejo = base.Columns["lucroPrecoVendaVarejo"];
                 this.columnprecoVendaVarejo = base.Columns["precoVendaVarejo"];
+                this.columnqtdProdutoAtacado = base.Columns["qtdProdutoAtacado"];
                 this.columnlucroPrecoVendaAtacado = base.Columns["lucroPrecoVendaAtacado"];
                 this.columnprecoVendaAtacado = base.Columns["precoVendaAtacado"];
+                this.columnqtdProdutoSuperAtacado = base.Columns["qtdProdutoSuperAtacado"];
                 this.columnlucroPrecoVendaSuperAtacado = base.Columns["lucroPrecoVendaSuperAtacado"];
                 this.columnprecoVendaSuperAtacado = base.Columns["precoVendaSuperAtacado"];
                 this.columnexibiNaListagem = base.Columns["exibiNaListagem"];
@@ -7849,16 +7898,22 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnfrete);
                 this.columncustoVenda = new global::System.Data.DataColumn("custoVenda", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncustoVenda);
+                this.columnultimoPrecoCompra = new global::System.Data.DataColumn("ultimoPrecoCompra", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnultimoPrecoCompra);
                 this.columnultimaDataAtualizacao = new global::System.Data.DataColumn("ultimaDataAtualizacao", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnultimaDataAtualizacao);
                 this.columnlucroPrecoVendaVarejo = new global::System.Data.DataColumn("lucroPrecoVendaVarejo", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlucroPrecoVendaVarejo);
                 this.columnprecoVendaVarejo = new global::System.Data.DataColumn("precoVendaVarejo", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnprecoVendaVarejo);
+                this.columnqtdProdutoAtacado = new global::System.Data.DataColumn("qtdProdutoAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnqtdProdutoAtacado);
                 this.columnlucroPrecoVendaAtacado = new global::System.Data.DataColumn("lucroPrecoVendaAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlucroPrecoVendaAtacado);
                 this.columnprecoVendaAtacado = new global::System.Data.DataColumn("precoVendaAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnprecoVendaAtacado);
+                this.columnqtdProdutoSuperAtacado = new global::System.Data.DataColumn("qtdProdutoSuperAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnqtdProdutoSuperAtacado);
                 this.columnlucroPrecoVendaSuperAtacado = new global::System.Data.DataColumn("lucroPrecoVendaSuperAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlucroPrecoVendaSuperAtacado);
                 this.columnprecoVendaSuperAtacado = new global::System.Data.DataColumn("precoVendaSuperAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -10852,6 +10907,21 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal valorICMSSubstituto {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_entrada.valorICMSSubstitutoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'valorICMSSubstituto\' in table \'tb_entrada\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_entrada.valorICMSSubstitutoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsvalorCustoFreteNull() {
                 return this.IsNull(this.tabletb_entrada.valorCustoFreteColumn);
             }
@@ -10899,6 +10969,16 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetnumeroNotaFiscalNull() {
                 this[this.tabletb_entrada.numeroNotaFiscalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsvalorICMSSubstitutoNull() {
+                return this.IsNull(this.tabletb_entrada.valorICMSSubstitutoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetvalorICMSSubstitutoNull() {
+                this[this.tabletb_entrada.valorICMSSubstitutoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -12287,6 +12367,21 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal ultimoPrecoCompra {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.ultimoPrecoCompraColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ultimoPrecoCompra\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.ultimoPrecoCompraColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime ultimaDataAtualizacao {
                 get {
                     try {
@@ -12332,6 +12427,21 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal qtdProdutoAtacado {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.qtdProdutoAtacadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'qtdProdutoAtacado\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.qtdProdutoAtacadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal lucroPrecoVendaAtacado {
                 get {
                     try {
@@ -12358,6 +12468,21 @@ namespace SACE.Dados {
                 }
                 set {
                     this[this.tabletb_produto.precoVendaAtacadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal qtdProdutoSuperAtacado {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_produto.qtdProdutoSuperAtacadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'qtdProdutoSuperAtacado\' in table \'tb_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.qtdProdutoSuperAtacadoColumn] = value;
                 }
             }
             
@@ -12528,6 +12653,16 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsultimoPrecoCompraNull() {
+                return this.IsNull(this.tabletb_produto.ultimoPrecoCompraColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetultimoPrecoCompraNull() {
+                this[this.tabletb_produto.ultimoPrecoCompraColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsultimaDataAtualizacaoNull() {
                 return this.IsNull(this.tabletb_produto.ultimaDataAtualizacaoColumn);
             }
@@ -12558,6 +12693,16 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsqtdProdutoAtacadoNull() {
+                return this.IsNull(this.tabletb_produto.qtdProdutoAtacadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetqtdProdutoAtacadoNull() {
+                this[this.tabletb_produto.qtdProdutoAtacadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IslucroPrecoVendaAtacadoNull() {
                 return this.IsNull(this.tabletb_produto.lucroPrecoVendaAtacadoColumn);
             }
@@ -12575,6 +12720,16 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetprecoVendaAtacadoNull() {
                 this[this.tabletb_produto.precoVendaAtacadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsqtdProdutoSuperAtacadoNull() {
+                return this.IsNull(this.tabletb_produto.qtdProdutoSuperAtacadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetqtdProdutoSuperAtacadoNull() {
+                this[this.tabletb_produto.qtdProdutoSuperAtacadoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18939,6 +19094,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             tableMapping.ColumnMappings.Add("valorTotal", "valorTotal");
             tableMapping.ColumnMappings.Add("tipoEntrada", "tipoEntrada");
             tableMapping.ColumnMappings.Add("numeroNotaFiscal", "numeroNotaFiscal");
+            tableMapping.ColumnMappings.Add("valorICMSSubstituto", "valorICMSSubstituto");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -18955,8 +19111,8 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = @"INSERT INTO tb_entrada
-                         (codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal)
-VALUES        (@codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEntrada, @valorTotal, @tipoEntrada, @numeroNotaFiscal)";
+                         (codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, valorICMSSubstituto)
+VALUES        (@codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEntrada, @valorTotal, @tipoEntrada, @numeroNotaFiscal, @valorICMSSubstituto)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codigoFornecedor";
@@ -19008,20 +19164,20 @@ VALUES        (@codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEn
             param.IsNullable = true;
             param.SourceColumn = "numeroNotaFiscal";
             this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@valorICMSSubstituto";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "valorICMSSubstituto";
+            this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_entrada
-SET                codEntrada = @codEntrada, codigoFornecedor = @codigoFornecedor, codigoEmpresaFrete = @codigoEmpresaFrete, valorCustoFrete = @valorCustoFrete, 
-                         dataEntrada = @dataEntrada, valorTotal = @valorTotal, tipoEntrada = @tipoEntrada, numeroNotaFiscal = @numeroNotaFiscal
+SET                codigoFornecedor = @codigoFornecedor, codigoEmpresaFrete = @codigoEmpresaFrete, valorCustoFrete = @valorCustoFrete, dataEntrada = @dataEntrada, 
+                         valorTotal = @valorTotal, tipoEntrada = @tipoEntrada, numeroNotaFiscal = @numeroNotaFiscal, valorICMSSubstituto = @valorICMSSubstituto
 WHERE        (codEntrada = @Original_codEntrada)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codEntrada";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codEntrada";
-            this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codigoFornecedor";
             param.DbType = global::System.Data.DbType.Int64;
@@ -19073,6 +19229,13 @@ WHERE        (codEntrada = @Original_codEntrada)";
             param.SourceColumn = "numeroNotaFiscal";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@valorICMSSubstituto";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "valorICMSSubstituto";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codEntrada";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
@@ -19094,8 +19257,8 @@ WHERE        (codEntrada = @Original_codEntrada)";
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        codEntrada, codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, " +
-                "dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal\r\nFROM            tb_entra" +
-                "da";
+                "dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, valorICMSSubstituto\r\nFRO" +
+                "M            tb_entrada";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -19170,7 +19333,7 @@ WHERE        (codEntrada = @Original_codEntrada)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal) {
+        public virtual int Insert(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, global::System.Nullable<decimal> valorICMSSubstituto) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(codigoFornecedor));
             this.Adapter.InsertCommand.Parameters[1].Value = ((long)(codigoEmpresaFrete));
             if ((valorCustoFrete.HasValue == true)) {
@@ -19203,6 +19366,12 @@ WHERE        (codEntrada = @Original_codEntrada)";
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
+            if ((valorICMSSubstituto.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(valorICMSSubstituto.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -19222,36 +19391,41 @@ WHERE        (codEntrada = @Original_codEntrada)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long codEntrada, long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, long Original_codEntrada) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(codEntrada));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(codigoFornecedor));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((long)(codigoEmpresaFrete));
+        public virtual int Update(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, global::System.Nullable<decimal> valorICMSSubstituto, long Original_codEntrada) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(codigoFornecedor));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(codigoEmpresaFrete));
             if ((valorCustoFrete.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(valorCustoFrete.Value));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(valorCustoFrete.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((dataEntrada.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(dataEntrada.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((dataEntrada.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(dataEntrada.Value));
+            if ((valorTotal.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(valorTotal.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((valorTotal.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(valorTotal.Value));
-            }
-            else {
+            if ((tipoEntrada == null)) {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((tipoEntrada == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(tipoEntrada));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(tipoEntrada));
             }
             if ((numeroNotaFiscal.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((long)(numeroNotaFiscal.Value));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((long)(numeroNotaFiscal.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((valorICMSSubstituto.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(valorICMSSubstituto.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
@@ -19271,13 +19445,6 @@ WHERE        (codEntrada = @Original_codEntrada)";
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, long Original_codEntrada) {
-            return this.Update(Original_codEntrada, codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, Original_codEntrada);
         }
     }
     
@@ -24332,9 +24499,12 @@ WHERE        (codPessoa = @Original_codPessoa)";
             tableMapping.ColumnMappings.Add("ultimaDataAtualizacao", "ultimaDataAtualizacao");
             tableMapping.ColumnMappings.Add("lucroPrecoVendaVarejo", "lucroPrecoVendaVarejo");
             tableMapping.ColumnMappings.Add("precoVendaVarejo", "precoVendaVarejo");
+            tableMapping.ColumnMappings.Add("qtdProdutoAtacado", "qtdProdutoAtacado");
             tableMapping.ColumnMappings.Add("lucroPrecoVendaAtacado", "lucroPrecoVendaAtacado");
             tableMapping.ColumnMappings.Add("precoVendaAtacado", "precoVendaAtacado");
+            tableMapping.ColumnMappings.Add("qtdProdutoSuperAtacado", "qtdProdutoSuperAtacado");
             tableMapping.ColumnMappings.Add("lucroPrecoVendaSuperAtacado", "lucroPrecoVendaSuperAtacado");
+            tableMapping.ColumnMappings.Add("precoVendaSuperAtacado", "precoVendaSuperAtacado");
             tableMapping.ColumnMappings.Add("exibiNaListagem", "exibiNaListagem");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
@@ -24353,11 +24523,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = @"INSERT INTO tb_produto
                          (nome, nomeFabricante, unidade, codigoBarra, codGrupo, codigoFabricante, temVencimento, cfop, icms, simples, ipi, frete, custoVenda, 
-                         ultimaDataAtualizacao, lucroPrecoVendaVarejo, precoVendaVarejo, lucroPrecoVendaAtacado, precoVendaAtacado, lucroPrecoVendaSuperAtacado, 
-                         precoVendaSuperAtacado, exibiNaListagem)
+                         ultimaDataAtualizacao, lucroPrecoVendaVarejo, precoVendaVarejo, qtdProdutoAtacado, lucroPrecoVendaAtacado, precoVendaAtacado, 
+                         qtdProdutoSuperAtacado, lucroPrecoVendaSuperAtacado, precoVendaSuperAtacado, exibiNaListagem)
 VALUES        (@nome, @nomeFabricante, @unidade, @codigoBarra, @codGrupo, @codigoFabricante, @temVencimento, @cfop, @icms, @simples, @ipi, @frete, 
-                         @custoVenda, @ultimaDataAtualizacao, @lucroPrecoVendaVarejo, @precoVendaVarejo, @lucroPrecoVendaAtacado, @precoVendaAtacado, 
-                         @lucroPrecoVendaSuperAtacado, @precoVendaSuperAtacado, @exibiNaListagem)";
+                         @custoVenda, @ultimaDataAtualizacao, @lucroPrecoVendaVarejo, @precoVendaVarejo, @qtdProdutoAtacado, @lucroPrecoVendaAtacado, 
+                         @precoVendaAtacado, @qtdProdutoSuperAtacado, @lucroPrecoVendaSuperAtacado, @precoVendaSuperAtacado, @exibiNaListagem)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
@@ -24478,6 +24648,13 @@ VALUES        (@nome, @nomeFabricante, @unidade, @codigoBarra, @codGrupo, @codig
             param.SourceColumn = "precoVendaVarejo";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@qtdProdutoAtacado";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "qtdProdutoAtacado";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
@@ -24490,6 +24667,13 @@ VALUES        (@nome, @nomeFabricante, @unidade, @codigoBarra, @codGrupo, @codig
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "precoVendaAtacado";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@qtdProdutoSuperAtacado";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "qtdProdutoSuperAtacado";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaSuperAtacado";
@@ -24519,7 +24703,8 @@ VALUES        (@nome, @nomeFabricante, @unidade, @codigoBarra, @codGrupo, @codig
 SET                nome = @nome, nomeFabricante = @nomeFabricante, unidade = @unidade, codigoBarra = @codigoBarra, codGrupo = @codGrupo, 
                          codigoFabricante = @codigoFabricante, temVencimento = @temVencimento, cfop = @cfop, icms = @icms, simples = @simples, ipi = @ipi, frete = @frete, 
                          custoVenda = @custoVenda, ultimaDataAtualizacao = @ultimaDataAtualizacao, lucroPrecoVendaVarejo = @lucroPrecoVendaVarejo, 
-                         precoVendaVarejo = @precoVendaVarejo, lucroPrecoVendaAtacado = @lucroPrecoVendaAtacado, precoVendaAtacado = @precoVendaAtacado, 
+                         precoVendaVarejo = @precoVendaVarejo, qtdProdutoAtacado = @qtdProdutoAtacado, lucroPrecoVendaAtacado = @lucroPrecoVendaAtacado, 
+                         precoVendaAtacado = @precoVendaAtacado, qtdProdutoSuperAtacado = @qtdProdutoSuperAtacado, 
                          lucroPrecoVendaSuperAtacado = @lucroPrecoVendaSuperAtacado, precoVendaSuperAtacado = @precoVendaSuperAtacado, 
                          exibiNaListagem = @exibiNaListagem
 WHERE        (codProduto = @Original_codProduto)";
@@ -24643,6 +24828,13 @@ WHERE        (codProduto = @Original_codProduto)";
             param.SourceColumn = "precoVendaVarejo";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@qtdProdutoAtacado";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "qtdProdutoAtacado";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
@@ -24655,6 +24847,13 @@ WHERE        (codProduto = @Original_codProduto)";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "precoVendaAtacado";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@qtdProdutoSuperAtacado";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "qtdProdutoSuperAtacado";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaSuperAtacado";
@@ -24699,7 +24898,7 @@ WHERE        (codProduto = @Original_codProduto)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT codProduto, nome, nomeFabricante, unidade, codigoBarra, codGrupo, codigoFabricante, temVencimento, cfop, icms, simples, ipi, frete, custoVenda, ultimaDataAtualizacao, lucroPrecoVendaVarejo, precoVendaVarejo, lucroPrecoVendaAtacado, precoVendaAtacado, lucroPrecoVendaSuperAtacado, exibiNaListagem FROM tb_produto";
+            this._commandCollection[0].CommandText = @"SELECT codProduto, nome, nomeFabricante, unidade, codigoBarra, codGrupo, codigoFabricante, temVencimento, cfop, icms, simples, ipi, frete, custoVenda, ultimaDataAtualizacao, lucroPrecoVendaVarejo, precoVendaVarejo, qtdProdutoAtacado, lucroPrecoVendaAtacado, precoVendaAtacado, qtdProdutoSuperAtacado, lucroPrecoVendaSuperAtacado, precoVendaSuperAtacado, exibiNaListagem FROM tb_produto";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -24791,8 +24990,10 @@ WHERE        (codProduto = @Original_codProduto)";
                     global::System.Nullable<global::System.DateTime> ultimaDataAtualizacao, 
                     global::System.Nullable<decimal> lucroPrecoVendaVarejo, 
                     global::System.Nullable<decimal> precoVendaVarejo, 
+                    global::System.Nullable<decimal> qtdProdutoAtacado, 
                     global::System.Nullable<decimal> lucroPrecoVendaAtacado, 
                     global::System.Nullable<decimal> precoVendaAtacado, 
+                    global::System.Nullable<decimal> qtdProdutoSuperAtacado, 
                     global::System.Nullable<decimal> lucroPrecoVendaSuperAtacado, 
                     global::System.Nullable<decimal> precoVendaSuperAtacado, 
                     object exibiNaListagem) {
@@ -24892,35 +25093,47 @@ WHERE        (codProduto = @Original_codProduto)";
             else {
                 this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVendaAtacado.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[16].Value = ((decimal)(lucroPrecoVendaAtacado.Value));
+            if ((qtdProdutoAtacado.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[16].Value = ((decimal)(qtdProdutoAtacado.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((precoVendaAtacado.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[17].Value = ((decimal)(precoVendaAtacado.Value));
+            if ((lucroPrecoVendaAtacado.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[17].Value = ((decimal)(lucroPrecoVendaAtacado.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVendaSuperAtacado.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[18].Value = ((decimal)(lucroPrecoVendaSuperAtacado.Value));
+            if ((precoVendaAtacado.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[18].Value = ((decimal)(precoVendaAtacado.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            if ((precoVendaSuperAtacado.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[19].Value = ((decimal)(precoVendaSuperAtacado.Value));
+            if ((qtdProdutoSuperAtacado.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[19].Value = ((decimal)(qtdProdutoSuperAtacado.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
-            if ((exibiNaListagem == null)) {
-                this.Adapter.InsertCommand.Parameters[20].Value = global::System.DBNull.Value;
+            if ((lucroPrecoVendaSuperAtacado.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[20].Value = ((decimal)(lucroPrecoVendaSuperAtacado.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[20].Value = ((object)(exibiNaListagem));
+                this.Adapter.InsertCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            if ((precoVendaSuperAtacado.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[21].Value = ((decimal)(precoVendaSuperAtacado.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            if ((exibiNaListagem == null)) {
+                this.Adapter.InsertCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[22].Value = ((object)(exibiNaListagem));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -24958,8 +25171,10 @@ WHERE        (codProduto = @Original_codProduto)";
                     global::System.Nullable<global::System.DateTime> ultimaDataAtualizacao, 
                     global::System.Nullable<decimal> lucroPrecoVendaVarejo, 
                     global::System.Nullable<decimal> precoVendaVarejo, 
+                    global::System.Nullable<decimal> qtdProdutoAtacado, 
                     global::System.Nullable<decimal> lucroPrecoVendaAtacado, 
                     global::System.Nullable<decimal> precoVendaAtacado, 
+                    global::System.Nullable<decimal> qtdProdutoSuperAtacado, 
                     global::System.Nullable<decimal> lucroPrecoVendaSuperAtacado, 
                     global::System.Nullable<decimal> precoVendaSuperAtacado, 
                     object exibiNaListagem, 
@@ -25060,37 +25275,49 @@ WHERE        (codProduto = @Original_codProduto)";
             else {
                 this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVendaAtacado.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(lucroPrecoVendaAtacado.Value));
+            if ((qtdProdutoAtacado.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(qtdProdutoAtacado.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((precoVendaAtacado.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(precoVendaAtacado.Value));
+            if ((lucroPrecoVendaAtacado.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(lucroPrecoVendaAtacado.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((lucroPrecoVendaSuperAtacado.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(lucroPrecoVendaSuperAtacado.Value));
+            if ((precoVendaAtacado.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(precoVendaAtacado.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            if ((precoVendaSuperAtacado.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(precoVendaSuperAtacado.Value));
+            if ((qtdProdutoSuperAtacado.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(qtdProdutoSuperAtacado.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
-            if ((exibiNaListagem == null)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+            if ((lucroPrecoVendaSuperAtacado.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((decimal)(lucroPrecoVendaSuperAtacado.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(exibiNaListagem));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[21].Value = ((long)(Original_codProduto));
+            if ((precoVendaSuperAtacado.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(precoVendaSuperAtacado.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            if ((exibiNaListagem == null)) {
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(exibiNaListagem));
+            }
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((long)(Original_codProduto));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

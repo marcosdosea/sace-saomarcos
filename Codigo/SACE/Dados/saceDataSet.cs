@@ -9,6 +9,10 @@
 }
 
 namespace SACE.saceDataSetTableAdapters {
+    partial class tb_produtoTableAdapter
+    {
+    }
+
     partial class tb_entradaTableAdapter
     {
     }

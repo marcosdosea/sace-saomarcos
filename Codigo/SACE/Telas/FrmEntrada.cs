@@ -20,6 +20,10 @@ namespace SACE.Telas
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            // TODO: This line of code loads data into the 'saceDataSet.tb_entrada_produto' table. You can move, or remove it, as needed.
+            this.tb_entrada_produtoTableAdapter.Fill(this.saceDataSet.tb_entrada_produto);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
@@ -91,7 +95,7 @@ namespace SACE.Telas
                     tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()), 
                         long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), 
                         DateTime.Parse(dataEntradaDateTimePicker.Text), decimal.Parse(valorTotalTextBox.Text), 
-                        tipoEntradaTextBox.Text, long.Parse(numeroNotaFiscalTextBox.Text));
+                        tipoEntradaTextBox.Text, long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text));
                     tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                     tb_entradaBindingSource.MoveLast();
                 }
@@ -99,7 +103,7 @@ namespace SACE.Telas
                 {
                     tb_entradaTableAdapter.Update(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
                         long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), DateTime.Parse(dataEntradaDateTimePicker.Text),
-                        decimal.Parse(valorTotalTextBox.Text), tipoEntradaTextBox.Text, long.Parse(numeroNotaFiscalTextBox.Text), long.Parse(codEntradaTextBox.Text));
+                        decimal.Parse(valorTotalTextBox.Text), tipoEntradaTextBox.Text, long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text), long.Parse(codEntradaTextBox.Text));
                     tb_entradaBindingSource.EndEdit();
                 }
             }
