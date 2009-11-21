@@ -51,9 +51,6 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -175,9 +172,6 @@
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn13,
-            this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15,
-            this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewCheckBoxColumn2,
             this.dataGridViewTextBoxColumn18,
@@ -189,8 +183,10 @@
             this.dataGridViewTextBoxColumn24});
             this.tb_produtoDataGridView.DataSource = this.tb_produtoBindingSource;
             this.tb_produtoDataGridView.Location = new System.Drawing.Point(10, 62);
+            this.tb_produtoDataGridView.MultiSelect = false;
             this.tb_produtoDataGridView.Name = "tb_produtoDataGridView";
             this.tb_produtoDataGridView.ReadOnly = true;
+            this.tb_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_produtoDataGridView.Size = new System.Drawing.Size(565, 255);
             this.tb_produtoDataGridView.TabIndex = 5;
             // 
@@ -284,27 +280,6 @@
             this.dataGridViewTextBoxColumn13.HeaderText = "custoVenda";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "ultimoPrecoCompra";
-            this.dataGridViewTextBoxColumn14.HeaderText = "ultimoPrecoCompra";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            this.dataGridViewTextBoxColumn14.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "ultimoPrecoCusto";
-            this.dataGridViewTextBoxColumn15.HeaderText = "ultimoPrecoCusto";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "ultimaDataCompra";
-            this.dataGridViewTextBoxColumn16.HeaderText = "ultimaDataCompra";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            this.dataGridViewTextBoxColumn16.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn17
             // 
