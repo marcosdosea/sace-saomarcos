@@ -78,9 +78,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dados\saceDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>saceDataSet.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Telas\FrmProdutoPreco.cs">

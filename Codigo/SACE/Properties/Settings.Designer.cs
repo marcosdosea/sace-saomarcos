@@ -26,8 +26,8 @@ namespace SACE.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;password=010182;persist security info=True;database" +
-            "=sace")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;database=sace;password=010182;persist security info" +
+            "=True")]
         public string saceConnectionString {
             get {
                 return ((string)(this["saceConnectionString"]));
