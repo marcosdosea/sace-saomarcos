@@ -75,12 +75,11 @@
   <ItemGroup>
     <Compile Include="Dados\saceDataSet.cs">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dados\saceDataSet.Designer.cs">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>saceDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Telas\FrmProdutoPreco.cs">
