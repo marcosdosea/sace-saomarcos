@@ -20,6 +20,8 @@ namespace SACE.Telas
 
         private void FrmProduto_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'saceDataSet.tb_cfop' table. You can move, or remove it, as needed.
+            this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
             // TODO: This line of code loads data into the 'saceDataSet.tb_grupo' table. You can move, or remove it, as needed.
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
@@ -93,23 +95,25 @@ namespace SACE.Telas
                     tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
                         codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
                         long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
-                       null, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value, 0,
-                       0, 0, 0, 0, 0, 0, 0, exibiNaListagemCheckBox.Checked);
-                    
+                       cfopComboBox.SelectedValue.ToString(), icmsTextBox.Text, simplesTextBox.Text, ipiTextBox.Text, 
+                       freteTextBox.Text, custoVendaTextBox.Text, ultimoPrecoCompraTextBox.Text, ultimaDataAtualizacaoDateTimePicker.Value,
+                       lucroPrecoVendaVarejoTextBox.Text, precoVendaVarejoTextBox.Text, qtdProdutoAtacadoTextBox.Text, lucroPrecoVendaAtacadoTextBox.Text,
+                        precoVendaAtacadoTextBox.Text, qtdProdutoSuperAtacadoTextBox.Text, lucroPrecoVendaSuperAtacadoTextBox.Text, precoVendaSuperAtacadoTextBox.Text,
+                        exibiNaListagemCheckBox.Checked);
                     tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
                     tb_produtoBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                        codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
-                        null, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
-                        decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text),
-                        ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                        decimal.Parse(precoVendaVarejoTextBox.Text),0, decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                        decimal.Parse(precoVendaAtacadoTextBox.Text),0, decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
-                        decimal.Parse(precoVendaSuperAtacadoTextBox.Text), exibiNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
+                    //tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                    //    codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
+                    //    long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
+                    //    null, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
+                    //    decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
+                    //    ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
+                    //    decimal.Parse(precoVendaVarejoTextBox.Text),0, decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
+                    //    decimal.Parse(precoVendaAtacadoTextBox.Text),0, decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
+                    //    decimal.Parse(precoVendaSuperAtacadoTextBox.Text), exibiNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
                     tb_produtoBindingSource.EndEdit();
                 }
             }
