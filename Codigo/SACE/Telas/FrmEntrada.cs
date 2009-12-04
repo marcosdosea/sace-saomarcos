@@ -93,9 +93,9 @@ namespace SACE.Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()), 
-                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), 
-                        DateTime.Parse(dataEntradaDateTimePicker.Text), decimal.Parse(valorTotalTextBox.Text), 
-                        tipoEntradaTextBox.Text, long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text));
+                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text, 
+                        DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text, 
+                        tipoEntradaTextBox.Text, long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text);
                     tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                     tb_entradaBindingSource.MoveLast();
                 }
@@ -109,8 +109,7 @@ namespace SACE.Telas
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
-                //MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
                 tb_entradaBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
