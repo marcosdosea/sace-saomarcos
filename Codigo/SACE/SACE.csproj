@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Dados\saceDataSet.cs">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dados\saceDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

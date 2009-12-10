@@ -66,6 +66,7 @@
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_cfopTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
             this.tb_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter();
             this.tb_grupoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
@@ -106,9 +107,8 @@
             this.qtdProdutoAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.qtdProdutoSuperAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
-            this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             this.tbcfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_cfopTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
+            this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -281,7 +281,7 @@
             // precoVendaVarejoLabel
             // 
             precoVendaVarejoLabel.AutoSize = true;
-            precoVendaVarejoLabel.Location = new System.Drawing.Point(464, 281);
+            precoVendaVarejoLabel.Location = new System.Drawing.Point(466, 281);
             precoVendaVarejoLabel.Name = "precoVendaVarejoLabel";
             precoVendaVarejoLabel.Size = new System.Drawing.Size(71, 13);
             precoVendaVarejoLabel.TabIndex = 61;
@@ -405,7 +405,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(467, 383);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -486,6 +486,10 @@
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // tb_cfopTableAdapter
+            // 
+            this.tb_cfopTableAdapter.ClearBeforeFill = true;
             // 
             // tb_empresaTableAdapter
             // 
@@ -597,7 +601,7 @@
             this.codProdutoTextBox.Location = new System.Drawing.Point(7, 89);
             this.codProdutoTextBox.Name = "codProdutoTextBox";
             this.codProdutoTextBox.Size = new System.Drawing.Size(134, 20);
-            this.codProdutoTextBox.TabIndex = 22;
+            this.codProdutoTextBox.TabIndex = 7;
             // 
             // nomeTextBox
             // 
@@ -606,7 +610,7 @@
             this.nomeTextBox.Location = new System.Drawing.Point(150, 90);
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(430, 20);
-            this.nomeTextBox.TabIndex = 24;
+            this.nomeTextBox.TabIndex = 8;
             // 
             // unidadeTextBox
             // 
@@ -616,7 +620,7 @@
             this.unidadeTextBox.MaxLength = 3;
             this.unidadeTextBox.Name = "unidadeTextBox";
             this.unidadeTextBox.Size = new System.Drawing.Size(134, 20);
-            this.unidadeTextBox.TabIndex = 30;
+            this.unidadeTextBox.TabIndex = 12;
             // 
             // codigoBarraTextBox
             // 
@@ -625,7 +629,7 @@
             this.codigoBarraTextBox.Location = new System.Drawing.Point(10, 213);
             this.codigoBarraTextBox.Name = "codigoBarraTextBox";
             this.codigoBarraTextBox.Size = new System.Drawing.Size(134, 20);
-            this.codigoBarraTextBox.TabIndex = 34;
+            this.codigoBarraTextBox.TabIndex = 16;
             // 
             // codGrupoComboBox
             // 
@@ -639,7 +643,7 @@
             this.codGrupoComboBox.Location = new System.Drawing.Point(150, 213);
             this.codGrupoComboBox.Name = "codGrupoComboBox";
             this.codGrupoComboBox.Size = new System.Drawing.Size(430, 21);
-            this.codGrupoComboBox.TabIndex = 36;
+            this.codGrupoComboBox.TabIndex = 18;
             this.codGrupoComboBox.ValueMember = "codGrupo";
             // 
             // tbgrupoBindingSource
@@ -660,7 +664,7 @@
             this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 170);
             this.codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
             this.codigoFabricanteComboBox.Size = new System.Drawing.Size(430, 21);
-            this.codigoFabricanteComboBox.TabIndex = 32;
+            this.codigoFabricanteComboBox.TabIndex = 14;
             this.codigoFabricanteComboBox.ValueMember = "codigoEmpresa";
             // 
             // tbempresaBindingSource
@@ -674,7 +678,7 @@
             this.temVencimentoCheckBox.Location = new System.Drawing.Point(12, 238);
             this.temVencimentoCheckBox.Name = "temVencimentoCheckBox";
             this.temVencimentoCheckBox.Size = new System.Drawing.Size(125, 24);
-            this.temVencimentoCheckBox.TabIndex = 38;
+            this.temVencimentoCheckBox.TabIndex = 20;
             this.temVencimentoCheckBox.Text = "Possui Vencimento";
             this.temVencimentoCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -747,7 +751,7 @@
             this.exibiNaListagemCheckBox.Location = new System.Drawing.Point(13, 258);
             this.exibiNaListagemCheckBox.Name = "exibiNaListagemCheckBox";
             this.exibiNaListagemCheckBox.Size = new System.Drawing.Size(103, 24);
-            this.exibiNaListagemCheckBox.TabIndex = 40;
+            this.exibiNaListagemCheckBox.TabIndex = 22;
             this.exibiNaListagemCheckBox.Text = "Exibir Listagem";
             this.exibiNaListagemCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -758,7 +762,7 @@
             this.nomeFabricanteTextBox.Location = new System.Drawing.Point(150, 129);
             this.nomeFabricanteTextBox.Name = "nomeFabricanteTextBox";
             this.nomeFabricanteTextBox.Size = new System.Drawing.Size(430, 20);
-            this.nomeFabricanteTextBox.TabIndex = 28;
+            this.nomeFabricanteTextBox.TabIndex = 10;
             // 
             // lucroPrecoVendaVarejoTextBox
             // 
@@ -825,7 +829,7 @@
             this.btnPreco.Location = new System.Drawing.Point(387, 383);
             this.btnPreco.Name = "btnPreco";
             this.btnPreco.Size = new System.Drawing.Size(81, 23);
-            this.btnPreco.TabIndex = 71;
+            this.btnPreco.TabIndex = 5;
             this.btnPreco.Text = "F7 - Preços";
             this.btnPreco.UseVisualStyleBackColor = true;
             this.btnPreco.Click += new System.EventHandler(this.btnPreco_Click);
@@ -844,7 +848,6 @@
             this.qtdProdutoAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "qtdProdutoAtacado", true));
             this.qtdProdutoAtacadoTextBox.Location = new System.Drawing.Point(7, 348);
             this.qtdProdutoAtacadoTextBox.Name = "qtdProdutoAtacadoTextBox";
-            this.qtdProdutoAtacadoTextBox.ReadOnly = true;
             this.qtdProdutoAtacadoTextBox.Size = new System.Drawing.Size(101, 20);
             this.qtdProdutoAtacadoTextBox.TabIndex = 73;
             // 
@@ -853,7 +856,6 @@
             this.qtdProdutoSuperAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "qtdProdutoSuperAtacado", true));
             this.qtdProdutoSuperAtacadoTextBox.Location = new System.Drawing.Point(318, 348);
             this.qtdProdutoSuperAtacadoTextBox.Name = "qtdProdutoSuperAtacadoTextBox";
-            this.qtdProdutoSuperAtacadoTextBox.ReadOnly = true;
             this.qtdProdutoSuperAtacadoTextBox.Size = new System.Drawing.Size(72, 20);
             this.qtdProdutoSuperAtacadoTextBox.TabIndex = 74;
             // 
@@ -868,8 +870,13 @@
             this.cfopComboBox.Location = new System.Drawing.Point(7, 128);
             this.cfopComboBox.Name = "cfopComboBox";
             this.cfopComboBox.Size = new System.Drawing.Size(134, 21);
-            this.cfopComboBox.TabIndex = 75;
+            this.cfopComboBox.TabIndex = 9;
             this.cfopComboBox.ValueMember = "cfop";
+            // 
+            // tbcfopBindingSource
+            // 
+            this.tbcfopBindingSource.DataMember = "tb_cfop";
+            this.tbcfopBindingSource.DataSource = this.saceDataSet;
             // 
             // ultimoPrecoCompraTextBox
             // 
@@ -880,20 +887,11 @@
             this.ultimoPrecoCompraTextBox.Size = new System.Drawing.Size(100, 20);
             this.ultimoPrecoCompraTextBox.TabIndex = 76;
             // 
-            // tbcfopBindingSource
-            // 
-            this.tbcfopBindingSource.DataMember = "tb_cfop";
-            this.tbcfopBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_cfopTableAdapter
-            // 
-            this.tb_cfopTableAdapter.ClearBeforeFill = true;
-            // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 426);
+            this.ClientSize = new System.Drawing.Size(582, 407);
             this.Controls.Add(ultimoPrecoCompraLabel);
             this.Controls.Add(this.ultimoPrecoCompraTextBox);
             this.Controls.Add(this.cfopComboBox);

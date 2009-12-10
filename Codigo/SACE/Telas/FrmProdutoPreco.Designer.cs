@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codProdutoLabel;
             System.Windows.Forms.Label custoVendaLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoPreco));
             System.Windows.Forms.Label ultimoPrecoCompraLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoPreco));
             this.textBoxCFOP = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -44,7 +44,7 @@
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new SACE.Dados.saceDataSet();
             this.precoVendaVarejoTextBox = new System.Windows.Forms.TextBox();
-            this.textBoxVarejoPreco = new System.Windows.Forms.TextBox();
+            this.novoPrecoVarejoTextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxVarejoMedio = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lucroPrecoVendaAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.precoVendaAtacadoTextBox = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.novoPrecoAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lucroPrecoVendaSuperAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.precoVendaSuperAtacadoTextBox = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.novoPrecoSuperTextBox = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -74,7 +74,6 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -104,6 +103,9 @@
             this.freteTextBox = new System.Windows.Forms.TextBox();
             this.custoVendaTextBox = new System.Windows.Forms.TextBox();
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
+            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             codProdutoLabel = new System.Windows.Forms.Label();
             custoVendaLabel = new System.Windows.Forms.Label();
             ultimoPrecoCompraLabel = new System.Windows.Forms.Label();
@@ -135,13 +137,23 @@
             custoVendaLabel.TabIndex = 38;
             custoVendaLabel.Text = "Manutenção (%):";
             // 
+            // ultimoPrecoCompraLabel
+            // 
+            ultimoPrecoCompraLabel.AutoSize = true;
+            ultimoPrecoCompraLabel.Location = new System.Drawing.Point(320, 113);
+            ultimoPrecoCompraLabel.Name = "ultimoPrecoCompraLabel";
+            ultimoPrecoCompraLabel.Size = new System.Drawing.Size(109, 13);
+            ultimoPrecoCompraLabel.TabIndex = 39;
+            ultimoPrecoCompraLabel.Text = "Último Preço Compra:";
+            // 
             // textBoxCFOP
             // 
             this.textBoxCFOP.Location = new System.Drawing.Point(8, 129);
             this.textBoxCFOP.Name = "textBoxCFOP";
             this.textBoxCFOP.ReadOnly = true;
             this.textBoxCFOP.Size = new System.Drawing.Size(291, 20);
-            this.textBoxCFOP.TabIndex = 4;
+            this.textBoxCFOP.TabIndex = 10;
+            this.textBoxCFOP.TabStop = false;
             // 
             // label5
             // 
@@ -167,7 +179,8 @@
             this.textBoxPrecoCusto.Name = "textBoxPrecoCusto";
             this.textBoxPrecoCusto.ReadOnly = true;
             this.textBoxPrecoCusto.Size = new System.Drawing.Size(122, 20);
-            this.textBoxPrecoCusto.TabIndex = 14;
+            this.textBoxPrecoCusto.TabIndex = 24;
+            this.textBoxPrecoCusto.TabStop = false;
             // 
             // textBoxPrecoCustoMedio
             // 
@@ -175,7 +188,8 @@
             this.textBoxPrecoCustoMedio.Name = "textBoxPrecoCustoMedio";
             this.textBoxPrecoCustoMedio.ReadOnly = true;
             this.textBoxPrecoCustoMedio.Size = new System.Drawing.Size(124, 20);
-            this.textBoxPrecoCustoMedio.TabIndex = 16;
+            this.textBoxPrecoCustoMedio.TabIndex = 26;
+            this.textBoxPrecoCustoMedio.TabStop = false;
             // 
             // label7
             // 
@@ -191,7 +205,7 @@
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.groupBox1.Controls.Add(this.lucroPrecoVendaVarejoTextBox);
             this.groupBox1.Controls.Add(this.precoVendaVarejoTextBox);
-            this.groupBox1.Controls.Add(this.textBoxVarejoPreco);
+            this.groupBox1.Controls.Add(this.novoPrecoVarejoTextBox);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.textBoxVarejoMedio);
             this.groupBox1.Controls.Add(this.label11);
@@ -213,7 +227,8 @@
             this.lucroPrecoVendaVarejoTextBox.Name = "lucroPrecoVendaVarejoTextBox";
             this.lucroPrecoVendaVarejoTextBox.ReadOnly = true;
             this.lucroPrecoVendaVarejoTextBox.Size = new System.Drawing.Size(52, 20);
-            this.lucroPrecoVendaVarejoTextBox.TabIndex = 34;
+            this.lucroPrecoVendaVarejoTextBox.TabIndex = 30;
+            this.lucroPrecoVendaVarejoTextBox.TabStop = false;
             // 
             // tb_produtoBindingSource
             // 
@@ -232,14 +247,17 @@
             this.precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
             this.precoVendaVarejoTextBox.ReadOnly = true;
             this.precoVendaVarejoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.precoVendaVarejoTextBox.TabIndex = 33;
+            this.precoVendaVarejoTextBox.TabIndex = 28;
+            this.precoVendaVarejoTextBox.TabStop = false;
             // 
-            // textBoxVarejoPreco
+            // novoPrecoVarejoTextBox
             // 
-            this.textBoxVarejoPreco.Location = new System.Drawing.Point(458, 36);
-            this.textBoxVarejoPreco.Name = "textBoxVarejoPreco";
-            this.textBoxVarejoPreco.Size = new System.Drawing.Size(123, 20);
-            this.textBoxVarejoPreco.TabIndex = 32;
+            this.novoPrecoVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaVarejo", true));
+            this.novoPrecoVarejoTextBox.Location = new System.Drawing.Point(458, 36);
+            this.novoPrecoVarejoTextBox.Name = "novoPrecoVarejoTextBox";
+            this.novoPrecoVarejoTextBox.Size = new System.Drawing.Size(123, 20);
+            this.novoPrecoVarejoTextBox.TabIndex = 36;
+            this.novoPrecoVarejoTextBox.Text = "0,00";
             // 
             // label12
             // 
@@ -256,7 +274,8 @@
             this.textBoxVarejoMedio.Name = "textBoxVarejoMedio";
             this.textBoxVarejoMedio.ReadOnly = true;
             this.textBoxVarejoMedio.Size = new System.Drawing.Size(123, 20);
-            this.textBoxVarejoMedio.TabIndex = 30;
+            this.textBoxVarejoMedio.TabIndex = 34;
+            this.textBoxVarejoMedio.TabStop = false;
             // 
             // label11
             // 
@@ -273,7 +292,8 @@
             this.textBoxVarejoCusto.Name = "textBoxVarejoCusto";
             this.textBoxVarejoCusto.ReadOnly = true;
             this.textBoxVarejoCusto.Size = new System.Drawing.Size(123, 20);
-            this.textBoxVarejoCusto.TabIndex = 28;
+            this.textBoxVarejoCusto.TabIndex = 32;
+            this.textBoxVarejoCusto.TabStop = false;
             // 
             // label10
             // 
@@ -283,7 +303,6 @@
             this.label10.Size = new System.Drawing.Size(124, 13);
             this.label10.TabIndex = 27;
             this.label10.Text = "Preço Venda/Custo (R$)";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label9
             // 
@@ -308,7 +327,7 @@
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.groupBox2.Controls.Add(this.lucroPrecoVendaAtacadoTextBox);
             this.groupBox2.Controls.Add(this.precoVendaAtacadoTextBox);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.novoPrecoAtacadoTextBox);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.textBox3);
             this.groupBox2.Controls.Add(this.label15);
@@ -330,7 +349,8 @@
             this.lucroPrecoVendaAtacadoTextBox.Name = "lucroPrecoVendaAtacadoTextBox";
             this.lucroPrecoVendaAtacadoTextBox.ReadOnly = true;
             this.lucroPrecoVendaAtacadoTextBox.Size = new System.Drawing.Size(52, 20);
-            this.lucroPrecoVendaAtacadoTextBox.TabIndex = 34;
+            this.lucroPrecoVendaAtacadoTextBox.TabIndex = 40;
+            this.lucroPrecoVendaAtacadoTextBox.TabStop = false;
             // 
             // precoVendaAtacadoTextBox
             // 
@@ -339,14 +359,17 @@
             this.precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
             this.precoVendaAtacadoTextBox.ReadOnly = true;
             this.precoVendaAtacadoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.precoVendaAtacadoTextBox.TabIndex = 33;
+            this.precoVendaAtacadoTextBox.TabIndex = 38;
+            this.precoVendaAtacadoTextBox.TabStop = false;
             // 
-            // textBox2
+            // novoPrecoAtacadoTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(458, 36);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(123, 20);
-            this.textBox2.TabIndex = 32;
+            this.novoPrecoAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaAtacado", true));
+            this.novoPrecoAtacadoTextBox.Location = new System.Drawing.Point(458, 36);
+            this.novoPrecoAtacadoTextBox.Name = "novoPrecoAtacadoTextBox";
+            this.novoPrecoAtacadoTextBox.Size = new System.Drawing.Size(123, 20);
+            this.novoPrecoAtacadoTextBox.TabIndex = 46;
+            this.novoPrecoAtacadoTextBox.Text = "0,00";
             // 
             // label14
             // 
@@ -363,7 +386,8 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(123, 20);
-            this.textBox3.TabIndex = 30;
+            this.textBox3.TabIndex = 44;
+            this.textBox3.TabStop = false;
             // 
             // label15
             // 
@@ -380,7 +404,8 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(123, 20);
-            this.textBox4.TabIndex = 28;
+            this.textBox4.TabIndex = 42;
+            this.textBox4.TabStop = false;
             // 
             // label16
             // 
@@ -414,7 +439,7 @@
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.groupBox3.Controls.Add(this.lucroPrecoVendaSuperAtacadoTextBox);
             this.groupBox3.Controls.Add(this.precoVendaSuperAtacadoTextBox);
-            this.groupBox3.Controls.Add(this.textBox7);
+            this.groupBox3.Controls.Add(this.novoPrecoSuperTextBox);
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.textBox8);
             this.groupBox3.Controls.Add(this.label20);
@@ -436,7 +461,8 @@
             this.lucroPrecoVendaSuperAtacadoTextBox.Name = "lucroPrecoVendaSuperAtacadoTextBox";
             this.lucroPrecoVendaSuperAtacadoTextBox.ReadOnly = true;
             this.lucroPrecoVendaSuperAtacadoTextBox.Size = new System.Drawing.Size(65, 20);
-            this.lucroPrecoVendaSuperAtacadoTextBox.TabIndex = 34;
+            this.lucroPrecoVendaSuperAtacadoTextBox.TabIndex = 50;
+            this.lucroPrecoVendaSuperAtacadoTextBox.TabStop = false;
             // 
             // precoVendaSuperAtacadoTextBox
             // 
@@ -445,14 +471,17 @@
             this.precoVendaSuperAtacadoTextBox.Name = "precoVendaSuperAtacadoTextBox";
             this.precoVendaSuperAtacadoTextBox.ReadOnly = true;
             this.precoVendaSuperAtacadoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.precoVendaSuperAtacadoTextBox.TabIndex = 33;
+            this.precoVendaSuperAtacadoTextBox.TabIndex = 48;
+            this.precoVendaSuperAtacadoTextBox.TabStop = false;
             // 
-            // textBox7
+            // novoPrecoSuperTextBox
             // 
-            this.textBox7.Location = new System.Drawing.Point(458, 36);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(123, 20);
-            this.textBox7.TabIndex = 32;
+            this.novoPrecoSuperTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaSuperAtacado", true));
+            this.novoPrecoSuperTextBox.Location = new System.Drawing.Point(458, 36);
+            this.novoPrecoSuperTextBox.Name = "novoPrecoSuperTextBox";
+            this.novoPrecoSuperTextBox.Size = new System.Drawing.Size(123, 20);
+            this.novoPrecoSuperTextBox.TabIndex = 56;
+            this.novoPrecoSuperTextBox.Text = "0,00";
             // 
             // label19
             // 
@@ -469,7 +498,8 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(123, 20);
-            this.textBox8.TabIndex = 30;
+            this.textBox8.TabIndex = 54;
+            this.textBox8.TabStop = false;
             // 
             // label20
             // 
@@ -486,7 +516,8 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(123, 20);
-            this.textBox9.TabIndex = 28;
+            this.textBox9.TabIndex = 52;
+            this.textBox9.TabStop = false;
             // 
             // label21
             // 
@@ -515,23 +546,15 @@
             this.label23.TabIndex = 23;
             this.label23.Text = "Lucro (%)";
             // 
-            // btnSalvar
-            // 
-            this.btnSalvar.Location = new System.Drawing.Point(413, 423);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(84, 23);
-            this.btnSalvar.TabIndex = 29;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            // 
             // btnCancelar
             // 
             this.btnCancelar.Location = new System.Drawing.Point(503, 423);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 30;
+            this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label24
             // 
@@ -555,13 +578,13 @@
             // 
             // btnAjustar
             // 
-            this.btnAjustar.Location = new System.Drawing.Point(323, 423);
+            this.btnAjustar.Location = new System.Drawing.Point(327, 423);
             this.btnAjustar.Name = "btnAjustar";
             this.btnAjustar.Size = new System.Drawing.Size(84, 23);
-            this.btnAjustar.TabIndex = 28;
-            this.btnAjustar.Text = "F4 - Ajustar %";
+            this.btnAjustar.TabIndex = 3;
+            this.btnAjustar.Text = "F5 - Ajustar %";
             this.btnAjustar.UseVisualStyleBackColor = true;
-            this.btnAjustar.Click += new System.EventHandler(this.button1_Click);
+            this.btnAjustar.Click += new System.EventHandler(this.btnAjustar_Click);
             // 
             // label1
             // 
@@ -617,6 +640,7 @@
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
@@ -746,7 +770,8 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.ReadOnly = true;
             this.nomeTextBox.Size = new System.Drawing.Size(467, 20);
-            this.nomeTextBox.TabIndex = 33;
+            this.nomeTextBox.TabIndex = 8;
+            this.nomeTextBox.TabStop = false;
             // 
             // codProdutoTextBox
             // 
@@ -755,7 +780,8 @@
             this.codProdutoTextBox.Name = "codProdutoTextBox";
             this.codProdutoTextBox.ReadOnly = true;
             this.codProdutoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codProdutoTextBox.TabIndex = 34;
+            this.codProdutoTextBox.TabIndex = 6;
+            this.codProdutoTextBox.TabStop = false;
             // 
             // ipiTextBox
             // 
@@ -764,7 +790,8 @@
             this.ipiTextBox.Name = "ipiTextBox";
             this.ipiTextBox.ReadOnly = true;
             this.ipiTextBox.Size = new System.Drawing.Size(59, 20);
-            this.ipiTextBox.TabIndex = 35;
+            this.ipiTextBox.TabIndex = 14;
+            this.ipiTextBox.TabStop = false;
             // 
             // icmsTextBox
             // 
@@ -773,7 +800,8 @@
             this.icmsTextBox.Name = "icmsTextBox";
             this.icmsTextBox.ReadOnly = true;
             this.icmsTextBox.Size = new System.Drawing.Size(84, 20);
-            this.icmsTextBox.TabIndex = 36;
+            this.icmsTextBox.TabIndex = 18;
+            this.icmsTextBox.TabStop = false;
             // 
             // simplesTextBox
             // 
@@ -782,7 +810,8 @@
             this.simplesTextBox.Name = "simplesTextBox";
             this.simplesTextBox.ReadOnly = true;
             this.simplesTextBox.Size = new System.Drawing.Size(84, 20);
-            this.simplesTextBox.TabIndex = 37;
+            this.simplesTextBox.TabIndex = 20;
+            this.simplesTextBox.TabStop = false;
             // 
             // freteTextBox
             // 
@@ -791,7 +820,8 @@
             this.freteTextBox.Name = "freteTextBox";
             this.freteTextBox.ReadOnly = true;
             this.freteTextBox.Size = new System.Drawing.Size(84, 20);
-            this.freteTextBox.TabIndex = 38;
+            this.freteTextBox.TabIndex = 22;
+            this.freteTextBox.TabStop = false;
             // 
             // custoVendaTextBox
             // 
@@ -800,16 +830,8 @@
             this.custoVendaTextBox.Name = "custoVendaTextBox";
             this.custoVendaTextBox.ReadOnly = true;
             this.custoVendaTextBox.Size = new System.Drawing.Size(68, 20);
-            this.custoVendaTextBox.TabIndex = 39;
-            // 
-            // ultimoPrecoCompraLabel
-            // 
-            ultimoPrecoCompraLabel.AutoSize = true;
-            ultimoPrecoCompraLabel.Location = new System.Drawing.Point(320, 113);
-            ultimoPrecoCompraLabel.Name = "ultimoPrecoCompraLabel";
-            ultimoPrecoCompraLabel.Size = new System.Drawing.Size(109, 13);
-            ultimoPrecoCompraLabel.TabIndex = 39;
-            ultimoPrecoCompraLabel.Text = "Último Preço Compra:";
+            this.custoVendaTextBox.TabIndex = 16;
+            this.custoVendaTextBox.TabStop = false;
             // 
             // ultimoPrecoCompraTextBox
             // 
@@ -818,13 +840,48 @@
             this.ultimoPrecoCompraTextBox.Name = "ultimoPrecoCompraTextBox";
             this.ultimoPrecoCompraTextBox.ReadOnly = true;
             this.ultimoPrecoCompraTextBox.Size = new System.Drawing.Size(106, 20);
-            this.ultimoPrecoCompraTextBox.TabIndex = 40;
+            this.ultimoPrecoCompraTextBox.TabIndex = 12;
+            this.ultimoPrecoCompraTextBox.TabStop = false;
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Location = new System.Drawing.Point(417, 423);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
+            this.btnSalvar.TabIndex = 4;
+            this.btnSalvar.Text = "F6 - Salvar";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(165, 423);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.Text = "F2 - Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(246, 423);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.TabIndex = 2;
+            this.btnEditar.Text = "F4 - Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // FrmProdutoPreco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 452);
+            this.Controls.Add(this.btnSalvar);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.btnEditar);
             this.Controls.Add(ultimoPrecoCompraLabel);
             this.Controls.Add(this.ultimoPrecoCompraTextBox);
             this.Controls.Add(custoVendaLabel);
@@ -839,7 +896,6 @@
             this.Controls.Add(this.nomeTextBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnAjustar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -855,9 +911,12 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.Name = "FrmProdutoPreco";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cálculo Individual de Preços";
             this.Load += new System.EventHandler(this.FrmCalcularPreco_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoPreco_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
@@ -888,12 +947,12 @@
         private System.Windows.Forms.TextBox textBoxVarejoCusto;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxVarejoPreco;
+        private System.Windows.Forms.TextBox novoPrecoVarejoTextBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxVarejoMedio;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox novoPrecoAtacadoTextBox;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label15;
@@ -901,14 +960,13 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox novoPrecoSuperTextBox;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Panel panel1;
@@ -949,5 +1007,8 @@
         private System.Windows.Forms.TextBox lucroPrecoVendaSuperAtacadoTextBox;
         private System.Windows.Forms.TextBox precoVendaSuperAtacadoTextBox;
         private System.Windows.Forms.TextBox ultimoPrecoCompraTextBox;
+        private System.Windows.Forms.Button btnSalvar;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Button btnEditar;
     }
 }
