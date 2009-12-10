@@ -49,6 +49,7 @@ namespace SACE.Telas
             nomeTextBox.Focus();
             temVencimentoCheckBox.Checked = false;
             exibiNaListagemCheckBox.Checked = true;
+            cfopComboBox.SelectedIndex = 0;
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -90,30 +91,47 @@ namespace SACE.Telas
         {
             try
             {
+                // Grupo do produto pode ser null
+                long? codGrupo = null;
+                if (codGrupoComboBox.SelectedValue != null)
+                    codGrupo = long.Parse(codGrupoComboBox.SelectedValue.ToString());
+
+                // CFOP pode ser null
+                string cfop = null;
+                if (cfopComboBox.SelectedValue != null)
+                    cfop = cfopComboBox.SelectedValue.ToString();
+
+                // Fabricante pode ser null
+                long? codFabricante = null;
+                if (codigoFabricanteComboBox.SelectedValue != null)
+                    codFabricante = long.Parse(codigoFabricanteComboBox.SelectedValue.ToString());
+
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                        codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
-                       cfopComboBox.SelectedValue.ToString(), icmsTextBox.Text, simplesTextBox.Text, ipiTextBox.Text, 
-                       freteTextBox.Text, custoVendaTextBox.Text, ultimoPrecoCompraTextBox.Text, ultimaDataAtualizacaoDateTimePicker.Value,
-                       lucroPrecoVendaVarejoTextBox.Text, precoVendaVarejoTextBox.Text, qtdProdutoAtacadoTextBox.Text, lucroPrecoVendaAtacadoTextBox.Text,
-                        precoVendaAtacadoTextBox.Text, qtdProdutoSuperAtacadoTextBox.Text, lucroPrecoVendaSuperAtacadoTextBox.Text, precoVendaSuperAtacadoTextBox.Text,
+                   tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                        codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
+                       cfop, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text), 
+                       decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), 
+                       decimal.Parse(ultimoPrecoCompraTextBox.Text), ultimaDataAtualizacaoDateTimePicker.Value,
+                       decimal.Parse(lucroPrecoVendaVarejoTextBox.Text), decimal.Parse(precoVendaVarejoTextBox.Text), 
+                       decimal.Parse(qtdProdutoAtacadoTextBox.Text), decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
+                       decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
+                       decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), decimal.Parse(precoVendaSuperAtacadoTextBox.Text),
                         exibiNaListagemCheckBox.Checked);
                     tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
                     tb_produtoBindingSource.MoveLast();
                 }
                 else
                 {
-                    //tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                    //    codigoBarraTextBox.Text, long.Parse(codGrupoComboBox.SelectedValue.ToString()),
-                    //    long.Parse(codigoFabricanteComboBox.SelectedValue.ToString()), temVencimentoCheckBox.Checked,
-                    //    null, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
-                    //    decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
-                    //    ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                    //    decimal.Parse(precoVendaVarejoTextBox.Text),0, decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                    //    decimal.Parse(precoVendaAtacadoTextBox.Text),0, decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
-                    //    decimal.Parse(precoVendaSuperAtacadoTextBox.Text), exibiNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
+                    tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                        codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
+                        cfop, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
+                        decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
+                        ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
+                        decimal.Parse(precoVendaVarejoTextBox.Text), decimal.Parse(qtdProdutoAtacadoTextBox.Text),
+                        decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text), decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
+                        decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), decimal.Parse(precoVendaSuperAtacadoTextBox.Text), 
+                        exibiNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
                     tb_produtoBindingSource.EndEdit();
                 }
             }
@@ -221,8 +239,11 @@ namespace SACE.Telas
 
         private void btnPreco_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPreco frmProdutoPreco = new Telas.FrmProdutoPreco();
+            Telas.FrmProdutoPreco frmProdutoPreco = new Telas.FrmProdutoPreco(long.Parse(codProdutoTextBox.Text));
             frmProdutoPreco.ShowDialog();
+            string codProduto = codProdutoTextBox.Text;
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", codProduto);
             frmProdutoPreco.Dispose();
         }
     }

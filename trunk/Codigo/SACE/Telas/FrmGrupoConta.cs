@@ -31,7 +31,7 @@ namespace SACE.Telas
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.getCodTipoConta() != -1)
             {
-                tb_grupo_contaBindingSource.Position = tb_grupo_contaBindingSource.Find("codTipoConta", frmTipoContaPesquisa.getCodTipoConta());
+                tb_grupo_contaBindingSource.Position = tb_grupo_contaBindingSource.Find("codGrupoConta", frmTipoContaPesquisa.getCodTipoConta());
             }
             frmTipoContaPesquisa.Dispose();
         }
