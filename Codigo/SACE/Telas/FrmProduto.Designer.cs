@@ -94,7 +94,7 @@
             this.freteTextBox = new System.Windows.Forms.TextBox();
             this.custoVendaTextBox = new System.Windows.Forms.TextBox();
             this.ultimaDataAtualizacaoDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.exibiNaListagemCheckBox = new System.Windows.Forms.CheckBox();
+            this.exibeNaListagemCheckBox = new System.Windows.Forms.CheckBox();
             this.nomeFabricanteTextBox = new System.Windows.Forms.TextBox();
             this.lucroPrecoVendaVarejoTextBox = new System.Windows.Forms.TextBox();
             this.precoVendaVarejoTextBox = new System.Windows.Forms.TextBox();
@@ -106,9 +106,9 @@
             this.custoVendaTextBox1 = new System.Windows.Forms.TextBox();
             this.qtdProdutoAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.qtdProdutoSuperAtacadoTextBox = new System.Windows.Forms.TextBox();
-            this.cfopComboBox = new System.Windows.Forms.ComboBox();
             this.tbcfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
+            this.cfopComboBox = new System.Windows.Forms.ComboBox();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -724,7 +724,7 @@
             // 
             // custoVendaTextBox
             // 
-            this.custoVendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "custoVenda", true));
+            this.custoVendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "ultimoPrecoMedio", true));
             this.custoVendaTextBox.Location = new System.Drawing.Point(7, 305);
             this.custoVendaTextBox.Name = "custoVendaTextBox";
             this.custoVendaTextBox.ReadOnly = true;
@@ -743,17 +743,17 @@
             this.ultimaDataAtualizacaoDateTimePicker.TabIndex = 54;
             this.ultimaDataAtualizacaoDateTimePicker.TabStop = false;
             // 
-            // exibiNaListagemCheckBox
+            // exibeNaListagemCheckBox
             // 
-            this.exibiNaListagemCheckBox.Checked = true;
-            this.exibiNaListagemCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.exibiNaListagemCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_produtoBindingSource, "exibiNaListagem", true));
-            this.exibiNaListagemCheckBox.Location = new System.Drawing.Point(13, 258);
-            this.exibiNaListagemCheckBox.Name = "exibiNaListagemCheckBox";
-            this.exibiNaListagemCheckBox.Size = new System.Drawing.Size(103, 24);
-            this.exibiNaListagemCheckBox.TabIndex = 22;
-            this.exibiNaListagemCheckBox.Text = "Exibir Listagem";
-            this.exibiNaListagemCheckBox.UseVisualStyleBackColor = true;
+            this.exibeNaListagemCheckBox.Checked = true;
+            this.exibeNaListagemCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.exibeNaListagemCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_produtoBindingSource, "exibeNaListagem", true));
+            this.exibeNaListagemCheckBox.Location = new System.Drawing.Point(13, 258);
+            this.exibeNaListagemCheckBox.Name = "exibeNaListagemCheckBox";
+            this.exibeNaListagemCheckBox.Size = new System.Drawing.Size(103, 24);
+            this.exibeNaListagemCheckBox.TabIndex = 22;
+            this.exibeNaListagemCheckBox.Text = "Exibir Listagem";
+            this.exibeNaListagemCheckBox.UseVisualStyleBackColor = true;
             // 
             // nomeFabricanteTextBox
             // 
@@ -842,6 +842,7 @@
             this.custoVendaTextBox1.ReadOnly = true;
             this.custoVendaTextBox1.Size = new System.Drawing.Size(78, 20);
             this.custoVendaTextBox1.TabIndex = 72;
+            this.custoVendaTextBox1.TabStop = false;
             // 
             // qtdProdutoAtacadoTextBox
             // 
@@ -859,20 +860,6 @@
             this.qtdProdutoSuperAtacadoTextBox.Size = new System.Drawing.Size(72, 20);
             this.qtdProdutoSuperAtacadoTextBox.TabIndex = 74;
             // 
-            // cfopComboBox
-            // 
-            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "cfop", true));
-            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "cfop", true));
-            this.cfopComboBox.DataSource = this.tbcfopBindingSource;
-            this.cfopComboBox.DisplayMember = "descricao";
-            this.cfopComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cfopComboBox.FormattingEnabled = true;
-            this.cfopComboBox.Location = new System.Drawing.Point(7, 128);
-            this.cfopComboBox.Name = "cfopComboBox";
-            this.cfopComboBox.Size = new System.Drawing.Size(134, 21);
-            this.cfopComboBox.TabIndex = 9;
-            this.cfopComboBox.ValueMember = "cfop";
-            // 
             // tbcfopBindingSource
             // 
             this.tbcfopBindingSource.DataMember = "tb_cfop";
@@ -886,15 +873,31 @@
             this.ultimoPrecoCompraTextBox.ReadOnly = true;
             this.ultimoPrecoCompraTextBox.Size = new System.Drawing.Size(100, 20);
             this.ultimoPrecoCompraTextBox.TabIndex = 76;
+            this.ultimoPrecoCompraTextBox.TabStop = false;
+            // 
+            // cfopComboBox
+            // 
+            this.cfopComboBox.CausesValidation = false;
+            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "cfop", true));
+            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "cfop", true));
+            this.cfopComboBox.DataSource = this.tbcfopBindingSource;
+            this.cfopComboBox.DisplayMember = "descricao";
+            this.cfopComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cfopComboBox.FormattingEnabled = true;
+            this.cfopComboBox.Location = new System.Drawing.Point(7, 128);
+            this.cfopComboBox.Name = "cfopComboBox";
+            this.cfopComboBox.Size = new System.Drawing.Size(134, 21);
+            this.cfopComboBox.TabIndex = 9;
+            this.cfopComboBox.ValueMember = "cfop";
             // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 407);
+            this.Controls.Add(this.cfopComboBox);
             this.Controls.Add(ultimoPrecoCompraLabel);
             this.Controls.Add(this.ultimoPrecoCompraTextBox);
-            this.Controls.Add(this.cfopComboBox);
             this.Controls.Add(qtdProdutoSuperAtacadoLabel);
             this.Controls.Add(this.qtdProdutoSuperAtacadoTextBox);
             this.Controls.Add(qtdProdutoAtacadoLabel);
@@ -929,7 +932,7 @@
             this.Controls.Add(this.custoVendaTextBox);
             this.Controls.Add(ultimaDataAtualizacaoLabel);
             this.Controls.Add(this.ultimaDataAtualizacaoDateTimePicker);
-            this.Controls.Add(this.exibiNaListagemCheckBox);
+            this.Controls.Add(this.exibeNaListagemCheckBox);
             this.Controls.Add(nomeFabricanteLabel);
             this.Controls.Add(this.nomeFabricanteTextBox);
             this.Controls.Add(lucroPrecoVendaVarejoLabel);
@@ -1011,7 +1014,7 @@
         private System.Windows.Forms.TextBox freteTextBox;
         private System.Windows.Forms.TextBox custoVendaTextBox;
         private System.Windows.Forms.DateTimePicker ultimaDataAtualizacaoDateTimePicker;
-        private System.Windows.Forms.CheckBox exibiNaListagemCheckBox;
+        private System.Windows.Forms.CheckBox exibeNaListagemCheckBox;
         private System.Windows.Forms.TextBox nomeFabricanteTextBox;
         private System.Windows.Forms.TextBox lucroPrecoVendaVarejoTextBox;
         private System.Windows.Forms.TextBox precoVendaVarejoTextBox;
@@ -1027,9 +1030,9 @@
         private System.Windows.Forms.TextBox custoVendaTextBox1;
         private System.Windows.Forms.TextBox qtdProdutoAtacadoTextBox;
         private System.Windows.Forms.TextBox qtdProdutoSuperAtacadoTextBox;
-        private System.Windows.Forms.ComboBox cfopComboBox;
         private System.Windows.Forms.TextBox ultimoPrecoCompraTextBox;
         private SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
         private System.Windows.Forms.BindingSource tbcfopBindingSource;
+        private System.Windows.Forms.ComboBox cfopComboBox;
     }
 }

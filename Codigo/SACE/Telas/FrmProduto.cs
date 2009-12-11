@@ -48,8 +48,10 @@ namespace SACE.Telas
             codProdutoTextBox.Enabled = false;
             nomeTextBox.Focus();
             temVencimentoCheckBox.Checked = false;
-            exibiNaListagemCheckBox.Checked = true;
+            exibeNaListagemCheckBox.Checked = true;
             cfopComboBox.SelectedIndex = 0;
+            qtdProdutoAtacadoTextBox.Text = "0";
+            qtdProdutoSuperAtacadoTextBox.Text = "0";
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -97,9 +99,9 @@ namespace SACE.Telas
                     codGrupo = long.Parse(codGrupoComboBox.SelectedValue.ToString());
 
                 // CFOP pode ser null
-                string cfop = null;
+                int? cfop = null;
                 if (cfopComboBox.SelectedValue != null)
-                    cfop = cfopComboBox.SelectedValue.ToString();
+                    cfop = int.Parse(cfopComboBox.SelectedValue.ToString());
 
                 // Fabricante pode ser null
                 long? codFabricante = null;
@@ -108,16 +110,12 @@ namespace SACE.Telas
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                   tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                        codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
-                       cfop, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text), 
-                       decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), 
-                       decimal.Parse(ultimoPrecoCompraTextBox.Text), ultimaDataAtualizacaoDateTimePicker.Value,
-                       decimal.Parse(lucroPrecoVendaVarejoTextBox.Text), decimal.Parse(precoVendaVarejoTextBox.Text), 
-                       decimal.Parse(qtdProdutoAtacadoTextBox.Text), decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                       decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
-                       decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), decimal.Parse(precoVendaSuperAtacadoTextBox.Text),
-                        exibiNaListagemCheckBox.Checked);
+                    tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                         codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
+                        cfop, 0, 0,0, 0, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value,
+                        0, 0, decimal.Parse(qtdProdutoAtacadoTextBox.Text), 0,0,
+                        decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text),0, 0,
+                         exibeNaListagemCheckBox.Checked);
                     tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
                     tb_produtoBindingSource.MoveLast();
                 }
@@ -131,7 +129,7 @@ namespace SACE.Telas
                         decimal.Parse(precoVendaVarejoTextBox.Text), decimal.Parse(qtdProdutoAtacadoTextBox.Text),
                         decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text), decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
                         decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), decimal.Parse(precoVendaSuperAtacadoTextBox.Text), 
-                        exibiNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
+                        exibeNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
                     tb_produtoBindingSource.EndEdit();
                 }
             }

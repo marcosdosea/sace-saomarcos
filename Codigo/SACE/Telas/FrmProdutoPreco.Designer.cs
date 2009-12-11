@@ -300,9 +300,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(199, 17);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(124, 13);
+            this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 27;
-            this.label10.Text = "Preço Venda/Custo (R$)";
+            this.label10.Text = "Preço Sugestão (R$)";
             // 
             // label9
             // 
@@ -412,9 +412,9 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(199, 17);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(124, 13);
+            this.label16.Size = new System.Drawing.Size(106, 13);
             this.label16.TabIndex = 27;
-            this.label16.Text = "Preço Venda/Custo (R$)";
+            this.label16.Text = "Preço Sugestão (R$)";
             // 
             // label17
             // 
@@ -524,9 +524,9 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(199, 17);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(124, 13);
+            this.label21.Size = new System.Drawing.Size(106, 13);
             this.label21.TabIndex = 27;
-            this.label21.Text = "Preço Venda/Custo (R$)";
+            this.label21.Text = "Preço Sugestão (R$)";
             // 
             // label22
             // 
