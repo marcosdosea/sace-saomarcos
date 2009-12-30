@@ -197,7 +197,7 @@ namespace SACE.Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
-                else if ((e.KeyCode == Keys.Enter) && (codGrupoComboBox.Focused))
+                else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
                     Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
@@ -207,7 +207,7 @@ namespace SACE.Telas
                     }
                     frmGrupoPesquisa.Dispose();
                 }
-                else if ((e.KeyCode == Keys.Enter) && (codigoFabricanteComboBox.Focused))
+                else if ((e.KeyCode == Keys.F2) && (codigoFabricanteComboBox.Focused))
                 {
                     Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
                     frmEmpresaPesquisa.ShowDialog();

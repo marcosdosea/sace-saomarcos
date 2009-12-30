@@ -46,8 +46,6 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaDataGridView)).BeginInit();
@@ -113,6 +111,7 @@
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
@@ -154,15 +153,17 @@
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11});
+            this.dataGridViewTextBoxColumn9});
             this.tb_entradaDataGridView.DataSource = this.tb_entradaBindingSource;
             this.tb_entradaDataGridView.Location = new System.Drawing.Point(12, 63);
+            this.tb_entradaDataGridView.MultiSelect = false;
             this.tb_entradaDataGridView.Name = "tb_entradaDataGridView";
             this.tb_entradaDataGridView.ReadOnly = true;
+            this.tb_entradaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_entradaDataGridView.Size = new System.Drawing.Size(673, 260);
             this.tb_entradaDataGridView.TabIndex = 4;
+            this.tb_entradaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_entradaDataGridView_CellClick);
+            this.tb_entradaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_entradaDataGridView_CellClick);
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -222,25 +223,11 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "nomeFornecedor";
-            this.dataGridViewTextBoxColumn10.HeaderText = "nomeFornecedor";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "nomeEmpresaFrete";
-            this.dataGridViewTextBoxColumn11.HeaderText = "nomeEmpresaFrete";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
             // FrmEntradaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 335);
+            this.ClientSize = new System.Drawing.Size(691, 335);
             this.Controls.Add(this.tb_entradaDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
@@ -250,7 +237,7 @@
             this.Name = "FrmEntradaPesquisa";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Pesquisa Grupos de Produtos";
+            this.Text = "Pesquisa Entrada de Produtos";
             this.Load += new System.EventHandler(this.FrmEntradaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmEntradaPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).EndInit();

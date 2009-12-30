@@ -4459,6 +4459,10 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnicms_substituto;
             
+            private global::System.Data.DataColumn columnnome;
+            
+            private global::System.Data.DataColumn columnsubtotal;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_entrada_produtoDataTable() {
                 this.TableName = "tb_entrada_produto";
@@ -4546,6 +4550,20 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn nomeColumn {
+                get {
+                    return this.columnnome;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn subtotalColumn {
+                get {
+                    return this.columnsubtotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4574,7 +4592,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entrada_produtoRow Addtb_entrada_produtoRow(long codEntrada, long codProduto, decimal quantidade, decimal valor_compra, decimal ipi, decimal icms, decimal preco_custo, decimal icms_substituto) {
+            public tb_entrada_produtoRow Addtb_entrada_produtoRow(long codEntrada, long codProduto, decimal quantidade, decimal valor_compra, decimal ipi, decimal icms, decimal preco_custo, decimal icms_substituto, string nome, decimal subtotal) {
                 tb_entrada_produtoRow rowtb_entrada_produtoRow = ((tb_entrada_produtoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         codEntrada,
@@ -4584,7 +4602,9 @@ namespace SACE.Dados {
                         ipi,
                         icms,
                         preco_custo,
-                        icms_substituto};
+                        icms_substituto,
+                        nome,
+                        subtotal};
                 rowtb_entrada_produtoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_entrada_produtoRow);
                 return rowtb_entrada_produtoRow;
@@ -4619,6 +4639,8 @@ namespace SACE.Dados {
                 this.columnicms = base.Columns["icms"];
                 this.columnpreco_custo = base.Columns["preco_custo"];
                 this.columnicms_substituto = base.Columns["icms_substituto"];
+                this.columnnome = base.Columns["nome"];
+                this.columnsubtotal = base.Columns["subtotal"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4639,11 +4661,17 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnpreco_custo);
                 this.columnicms_substituto = new global::System.Data.DataColumn("icms_substituto", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnicms_substituto);
+                this.columnnome = new global::System.Data.DataColumn("nome", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnome);
+                this.columnsubtotal = new global::System.Data.DataColumn("subtotal", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsubtotal);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodEntrada,
                                 this.columncodProduto}, true));
                 this.columncodEntrada.AllowDBNull = false;
                 this.columncodProduto.AllowDBNull = false;
+                this.columnnome.AllowDBNull = false;
+                this.columnnome.MaxLength = 40;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11422,6 +11450,31 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string nome {
+                get {
+                    return ((string)(this[this.tabletb_entrada_produto.nomeColumn]));
+                }
+                set {
+                    this[this.tabletb_entrada_produto.nomeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal subtotal {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabletb_entrada_produto.subtotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'subtotal\' in table \'tb_entrada_produto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_entrada_produto.subtotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsquantidadeNull() {
                 return this.IsNull(this.tabletb_entrada_produto.quantidadeColumn);
             }
@@ -11479,6 +11532,16 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void Seticms_substitutoNull() {
                 this[this.tabletb_entrada_produto.icms_substitutoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IssubtotalNull() {
+                return this.IsNull(this.tabletb_entrada_produto.subtotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetsubtotalNull() {
+                this[this.tabletb_entrada_produto.subtotalColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -20435,6 +20498,8 @@ WHERE        (codEntrada = @Original_codEntrada)";
             tableMapping.ColumnMappings.Add("icms", "icms");
             tableMapping.ColumnMappings.Add("preco_custo", "preco_custo");
             tableMapping.ColumnMappings.Add("icms_substituto", "icms_substituto");
+            tableMapping.ColumnMappings.Add("nome", "nome");
+            tableMapping.ColumnMappings.Add("subtotal", "subtotal");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -20608,12 +20673,43 @@ WHERE        (codEntrada = @Original_codEntrada) AND (codProduto = @Original_cod
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        codEntrada, codProduto, quantidade, valor_compra, ipi, icms, preco_" +
-                "custo, icms_substituto\r\nFROM            tb_entrada_produto";
+            this._commandCollection[0].CommandText = @"SELECT        tb_entrada_produto.codEntrada, tb_entrada_produto.codProduto, tb_entrada_produto.quantidade, tb_entrada_produto.valor_compra, tb_entrada_produto.ipi, 
+                         tb_entrada_produto.icms, tb_entrada_produto.preco_custo, tb_entrada_produto.icms_substituto, tb_produto.nome, 
+                         tb_entrada_produto.quantidade * tb_entrada_produto.valor_compra AS subtotal
+FROM            tb_entrada_produto INNER JOIN
+                         tb_produto ON tb_entrada_produto.codProduto = tb_produto.codProduto";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = @"SELECT        tb_entrada_produto.codEntrada, tb_entrada_produto.codProduto, tb_entrada_produto.quantidade, tb_entrada_produto.valor_compra, tb_entrada_produto.ipi, 
+                         tb_entrada_produto.icms, tb_entrada_produto.preco_custo, tb_entrada_produto.icms_substituto, tb_produto.nome, 
+                         tb_entrada_produto.quantidade * tb_entrada_produto.valor_compra AS subtotal
+FROM            tb_entrada_produto INNER JOIN
+                         tb_produto ON tb_entrada_produto.codProduto = tb_produto.codProduto
+WHERE        (tb_entrada_produto.codEntrada = @codEntrada)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codEntrada";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codEntrada";
+            this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT        SUM(quantidade * valor_compra) AS TOTAL\r\nFROM            tb_entrada" +
+                "_produto\r\nWHERE        (codEntrada = @codEntrada)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codEntrada";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codEntrada";
+            this._commandCollection[2].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20636,6 +20732,19 @@ WHERE        (codEntrada = @Original_codEntrada) AND (codProduto = @Original_cod
             saceDataSet.tb_entrada_produtoDataTable dataTable = new saceDataSet.tb_entrada_produtoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByEntrada(saceDataSet.tb_entrada_produtoDataTable dataTable, long codEntrada) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20808,6 +20917,34 @@ WHERE        (codEntrada = @Original_codEntrada) AND (codProduto = @Original_cod
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(global::System.Nullable<decimal> quantidade, global::System.Nullable<decimal> valor_compra, global::System.Nullable<decimal> ipi, global::System.Nullable<decimal> icms, global::System.Nullable<decimal> icms_substituto, global::System.Nullable<decimal> preco_custo, long Original_codEntrada, long Original_codProduto) {
             return this.Update(Original_codEntrada, Original_codProduto, quantidade, valor_compra, ipi, icms, icms_substituto, preco_custo, Original_codEntrada, Original_codProduto);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<decimal> totalEntrada(long codEntrada) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[2];
+            command.Parameters[0].Value = ((long)(codEntrada));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<decimal>();
+            }
+            else {
+                return new global::System.Nullable<decimal>(((decimal)(returnValue)));
+            }
         }
     }
     

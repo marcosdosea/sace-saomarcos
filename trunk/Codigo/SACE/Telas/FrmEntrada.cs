@@ -75,7 +75,7 @@ namespace SACE.Telas
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
                 tb_entradaBindingSource.CancelEdit();
             }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -92,9 +92,9 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()), 
-                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text, 
-                        DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text, 
+                    tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
+                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text,
+                        DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text,
                         "F", long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text);
                     tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                     tb_entradaBindingSource.MoveLast();
@@ -107,13 +107,33 @@ namespace SACE.Telas
                     tb_entradaBindingSource.EndEdit();
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
                 tb_entradaBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
-            btnBuscar.Focus();
+        }
+
+        private void excluirProduto(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Confirma exclusão do produto?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    if (tb_entrada_produtoDataGridView.Rows.Count > 0)
+                    {
+                        long codProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[1].Value.ToString());
+                        long codEntrada = long.Parse(codEntradaTextBox.Text);
+                        tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Mensagens.ERRO_REMOCAO);
+            }
+            this.tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
         }
 
         private void FrmEntrada_KeyDown(object sender, KeyEventArgs e)
@@ -136,6 +156,10 @@ namespace SACE.Telas
                 {
                     btnExcluir_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F7)
+                {
+                    btnProdutos_Click(sender, e);
+                } 
                 else if (e.KeyCode == Keys.End)
                 {
                     tb_entradaBindingSource.MoveLast();
@@ -167,8 +191,49 @@ namespace SACE.Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
+                else if ((e.KeyCode == Keys.F2) && (codigoFornecedorComboBox.Focused))
+                {
+                    Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
+                    frmEmpresaPesquisa.ShowDialog();
+                    if (frmEmpresaPesquisa.getCodEmpresa() != -1)
+                    {
+                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                    }
+                    frmEmpresaPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F2) && (codigoEmpresaFreteComboBox.Focused))
+                {
+                    Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
+                    frmEmpresaPesquisa.ShowDialog();
+                    if (frmEmpresaPesquisa.getCodEmpresa() != -1)
+                    {
+                        tbempresaBindingSource1.Position = tbempresaBindingSource1.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                    }
+                    frmEmpresaPesquisa.Dispose();
+                }
 
             }
+            // Coloca o foco na grid caso ela não possua
+            if (e.KeyCode == Keys.F12)
+            {
+                tb_entrada_produtoDataGridView.Focus();
+            }
+
+            // permite excluir um contato quando o foco está na grid
+            if ((e.KeyCode == Keys.Delete) && (tb_entrada_produtoDataGridView.Focused == true))
+            {
+                excluirProduto(sender, e);
+            }
+
+            if ((e.KeyCode.Equals(Keys.Tab) && (codProdutoTextBox.Focused)))
+            {
+                codProdutoTextBox_Tab(sender, e);
+            }
+            if ((e.KeyCode == Keys.Tab) && (precoCompraTextBox.Focused))
+            {
+                precoCompraTextBox_Tab(sender, e);
+            }
+                
         }
         private void habilitaBotoes(Boolean habilita)
         {
@@ -183,6 +248,83 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+
+        private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!codEntradaTextBox.Text.Equals(""))
+            {
+                tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+                totalNotaCalculadoTextBox.Text = tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text)).ToString();
+            }
+        }
+
+        private void btnProdutos_Click(object sender, EventArgs e)
+        {
+            codProdutoTextBox.Focus();
+        }
+
+        private void codProdutoTextBox_Tab(object sender, EventArgs e)
+        {
+            int posicaoProduto = -1;
+            if (codProdutoTextBox.Text.Trim().Equals(""))
+            {
+                Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
+                frmProdutoPesquisa.ShowDialog();
+                if (frmProdutoPesquisa.getCodProduto() != -1)
+                {
+                    codProdutoTextBox.Text = frmProdutoPesquisa.getCodProduto().ToString();
+                }
+                else
+                {
+                    codProdutoTextBox.Text = "";
+                }
+                frmProdutoPesquisa.Dispose();
+            }
+            if (!codProdutoTextBox.Text.Trim().Equals(""))
+            {
+                posicaoProduto = tbprodutoBindingSource.Find("codProduto", codProdutoTextBox.Text);
+            }
+            if (posicaoProduto <= 0)
+            {
+                codProdutoTextBox.Text = "";
+                codProdutoTextBox.Focus();
+            }
+            else
+            {
+                tbprodutoBindingSource.Position = posicaoProduto;
+                ipiTextBox.Text = "";
+                precoCompraTextBox.Text = "";
+            }
+
+        }
+
+        private void precoCompraTextBox_Tab(object sender, EventArgs e)
+        {
+            btnSalvar_Click(sender, e);
+            try
+            {
+                tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),
+                    decimal.Parse(quantidadeTextBox.Text), decimal.Parse(precoCompraTextBox.Text), decimal.Parse(ipiTextBox.Text),
+                    decimal.Parse(icmsTextBox.Text), 0, 0);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("O produto já foi incluído na nota fiscal.");
+            }
+            tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+            codProdutoTextBox.Text = "";
+        }
+
+        private void valorTotalTextBox_Leave(object sender, EventArgs e)
+        {
+            codProdutoTextBox.Focus();
+        }
+
+        private void quantidadeTextBox_Leave(object sender, EventArgs e)
+        {
+            precoCompraTextBox.Focus();
         }
     }
 }

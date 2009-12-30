@@ -37,7 +37,16 @@
             System.Windows.Forms.Label valorTotalLabel;
             System.Windows.Forms.Label numeroNotaFiscalLabel;
             System.Windows.Forms.Label valorICMSSubstitutoLabel;
+            System.Windows.Forms.Label icmsLabel;
+            System.Windows.Forms.Label ipiLabel;
+            System.Windows.Forms.Label codProdutoLabel;
+            System.Windows.Forms.Label nomeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntrada));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -72,21 +81,18 @@
             this.dataEntradaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.valorTotalTextBox = new System.Windows.Forms.TextBox();
             this.numeroNotaFiscalTextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.quantidadeTextBox = new System.Windows.Forms.TextBox();
+            this.precoCompraTextBox = new System.Windows.Forms.TextBox();
             this.tb_entrada_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
             this.tbprodutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnAdicionar = new System.Windows.Forms.Button();
+            this.btnProdutos = new System.Windows.Forms.Button();
             this.valorICMSSubstitutoTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnPagamentos = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblTotal = new System.Windows.Forms.Label();
             this.tb_entrada_produtoDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,8 +100,12 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.icmsTextBox = new System.Windows.Forms.TextBox();
+            this.ipiTextBox = new System.Windows.Forms.TextBox();
+            this.totalNotaCalculadoTextBox = new System.Windows.Forms.TextBox();
+            this.codProdutoTextBox = new System.Windows.Forms.TextBox();
+            this.nomeTextBox = new System.Windows.Forms.TextBox();
             codEntradaLabel = new System.Windows.Forms.Label();
             codigoFornecedorLabel = new System.Windows.Forms.Label();
             codigoEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -104,6 +114,10 @@
             valorTotalLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             valorICMSSubstitutoLabel = new System.Windows.Forms.Label();
+            icmsLabel = new System.Windows.Forms.Label();
+            ipiLabel = new System.Windows.Forms.Label();
+            codProdutoLabel = new System.Windows.Forms.Label();
+            nomeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).BeginInit();
@@ -119,7 +133,7 @@
             // codEntradaLabel
             // 
             codEntradaLabel.AutoSize = true;
-            codEntradaLabel.Location = new System.Drawing.Point(4, 73);
+            codEntradaLabel.Location = new System.Drawing.Point(4, 72);
             codEntradaLabel.Name = "codEntradaLabel";
             codEntradaLabel.Size = new System.Drawing.Size(43, 13);
             codEntradaLabel.TabIndex = 21;
@@ -128,7 +142,7 @@
             // codigoFornecedorLabel
             // 
             codigoFornecedorLabel.AutoSize = true;
-            codigoFornecedorLabel.Location = new System.Drawing.Point(97, 73);
+            codigoFornecedorLabel.Location = new System.Drawing.Point(97, 72);
             codigoFornecedorLabel.Name = "codigoFornecedorLabel";
             codigoFornecedorLabel.Size = new System.Drawing.Size(64, 13);
             codigoFornecedorLabel.TabIndex = 23;
@@ -137,7 +151,7 @@
             // codigoEmpresaFreteLabel
             // 
             codigoEmpresaFreteLabel.AutoSize = true;
-            codigoEmpresaFreteLabel.Location = new System.Drawing.Point(0, 118);
+            codigoEmpresaFreteLabel.Location = new System.Drawing.Point(4, 114);
             codigoEmpresaFreteLabel.Name = "codigoEmpresaFreteLabel";
             codigoEmpresaFreteLabel.Size = new System.Drawing.Size(78, 13);
             codigoEmpresaFreteLabel.TabIndex = 25;
@@ -146,7 +160,7 @@
             // valorCustoFreteLabel
             // 
             valorCustoFreteLabel.AutoSize = true;
-            valorCustoFreteLabel.Location = new System.Drawing.Point(491, 118);
+            valorCustoFreteLabel.Location = new System.Drawing.Point(321, 115);
             valorCustoFreteLabel.Name = "valorCustoFreteLabel";
             valorCustoFreteLabel.Size = new System.Drawing.Size(87, 13);
             valorCustoFreteLabel.TabIndex = 27;
@@ -155,7 +169,7 @@
             // dataEntradaLabel
             // 
             dataEntradaLabel.AutoSize = true;
-            dataEntradaLabel.Location = new System.Drawing.Point(515, 74);
+            dataEntradaLabel.Location = new System.Drawing.Point(515, 73);
             dataEntradaLabel.Name = "dataEntradaLabel";
             dataEntradaLabel.Size = new System.Drawing.Size(73, 13);
             dataEntradaLabel.TabIndex = 29;
@@ -164,7 +178,7 @@
             // valorTotalLabel
             // 
             valorTotalLabel.AutoSize = true;
-            valorTotalLabel.Location = new System.Drawing.Point(611, 118);
+            valorTotalLabel.Location = new System.Drawing.Point(629, 115);
             valorTotalLabel.Name = "valorTotalLabel";
             valorTotalLabel.Size = new System.Drawing.Size(83, 13);
             valorTotalLabel.TabIndex = 31;
@@ -173,7 +187,7 @@
             // numeroNotaFiscalLabel
             // 
             numeroNotaFiscalLabel.AutoSize = true;
-            numeroNotaFiscalLabel.Location = new System.Drawing.Point(653, 73);
+            numeroNotaFiscalLabel.Location = new System.Drawing.Point(653, 72);
             numeroNotaFiscalLabel.Name = "numeroNotaFiscalLabel";
             numeroNotaFiscalLabel.Size = new System.Drawing.Size(63, 13);
             numeroNotaFiscalLabel.TabIndex = 35;
@@ -182,11 +196,47 @@
             // valorICMSSubstitutoLabel
             // 
             valorICMSSubstitutoLabel.AutoSize = true;
-            valorICMSSubstitutoLabel.Location = new System.Drawing.Point(353, 118);
+            valorICMSSubstitutoLabel.Location = new System.Drawing.Point(506, 114);
             valorICMSSubstitutoLabel.Name = "valorICMSSubstitutoLabel";
             valorICMSSubstitutoLabel.Size = new System.Drawing.Size(109, 13);
             valorICMSSubstitutoLabel.TabIndex = 46;
             valorICMSSubstitutoLabel.Text = "ICMS Substituto (R$):";
+            // 
+            // icmsLabel
+            // 
+            icmsLabel.AutoSize = true;
+            icmsLabel.Location = new System.Drawing.Point(421, 114);
+            icmsLabel.Name = "icmsLabel";
+            icmsLabel.Size = new System.Drawing.Size(70, 13);
+            icmsLabel.TabIndex = 64;
+            icmsLabel.Text = "ICMS RF (%):";
+            // 
+            // ipiLabel
+            // 
+            ipiLabel.AutoSize = true;
+            ipiLabel.Location = new System.Drawing.Point(495, 379);
+            ipiLabel.Name = "ipiLabel";
+            ipiLabel.Size = new System.Drawing.Size(23, 13);
+            ipiLabel.TabIndex = 65;
+            ipiLabel.Text = "IPI:";
+            // 
+            // codProdutoLabel
+            // 
+            codProdutoLabel.AutoSize = true;
+            codProdutoLabel.Location = new System.Drawing.Point(4, 379);
+            codProdutoLabel.Name = "codProdutoLabel";
+            codProdutoLabel.Size = new System.Drawing.Size(69, 13);
+            codProdutoLabel.TabIndex = 66;
+            codProdutoLabel.Text = "Cod Produto:";
+            // 
+            // nomeLabel
+            // 
+            nomeLabel.AutoSize = true;
+            nomeLabel.Location = new System.Drawing.Point(117, 379);
+            nomeLabel.Name = "nomeLabel";
+            nomeLabel.Size = new System.Drawing.Size(47, 13);
+            nomeLabel.TabIndex = 67;
+            nomeLabel.Text = "Produto:";
             // 
             // label1
             // 
@@ -231,10 +281,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(482, 469);
+            this.btnCancelar.Location = new System.Drawing.Point(565, 469);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -430,10 +480,13 @@
             this.codEntradaTextBox.Name = "codEntradaTextBox";
             this.codEntradaTextBox.ReadOnly = true;
             this.codEntradaTextBox.Size = new System.Drawing.Size(84, 20);
-            this.codEntradaTextBox.TabIndex = 22;
+            this.codEntradaTextBox.TabIndex = 10;
+            this.codEntradaTextBox.TabStop = false;
+            this.codEntradaTextBox.TextChanged += new System.EventHandler(this.codEntradaTextBox_TextChanged);
             // 
             // codigoFornecedorComboBox
             // 
+            this.codigoFornecedorComboBox.CausesValidation = false;
             this.codigoFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "codigoFornecedor", true));
             this.codigoFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codigoFornecedor", true));
             this.codigoFornecedorComboBox.DataSource = this.tbempresaBindingSource;
@@ -443,7 +496,7 @@
             this.codigoFornecedorComboBox.Location = new System.Drawing.Point(100, 89);
             this.codigoFornecedorComboBox.Name = "codigoFornecedorComboBox";
             this.codigoFornecedorComboBox.Size = new System.Drawing.Size(412, 21);
-            this.codigoFornecedorComboBox.TabIndex = 2;
+            this.codigoFornecedorComboBox.TabIndex = 12;
             this.codigoFornecedorComboBox.ValueMember = "codigoEmpresa";
             // 
             // tbempresaBindingSource
@@ -453,16 +506,17 @@
             // 
             // codigoEmpresaFreteComboBox
             // 
+            this.codigoEmpresaFreteComboBox.CausesValidation = false;
             this.codigoEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "codigoEmpresaFrete", true));
             this.codigoEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codigoEmpresaFrete", true));
             this.codigoEmpresaFreteComboBox.DataSource = this.tbempresaBindingSource1;
             this.codigoEmpresaFreteComboBox.DisplayMember = "nome";
             this.codigoEmpresaFreteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codigoEmpresaFreteComboBox.FormattingEnabled = true;
-            this.codigoEmpresaFreteComboBox.Location = new System.Drawing.Point(3, 133);
+            this.codigoEmpresaFreteComboBox.Location = new System.Drawing.Point(7, 131);
             this.codigoEmpresaFreteComboBox.Name = "codigoEmpresaFreteComboBox";
-            this.codigoEmpresaFreteComboBox.Size = new System.Drawing.Size(331, 21);
-            this.codigoEmpresaFreteComboBox.TabIndex = 8;
+            this.codigoEmpresaFreteComboBox.Size = new System.Drawing.Size(311, 21);
+            this.codigoEmpresaFreteComboBox.TabIndex = 18;
             this.codigoEmpresaFreteComboBox.ValueMember = "codigoEmpresa";
             // 
             // tbempresaBindingSource1
@@ -472,11 +526,11 @@
             // 
             // valorCustoFreteTextBox
             // 
-            this.valorCustoFreteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "valorCustoFrete", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
-            this.valorCustoFreteTextBox.Location = new System.Drawing.Point(494, 134);
+            this.valorCustoFreteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "valorCustoFrete", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.valorCustoFreteTextBox.Location = new System.Drawing.Point(324, 132);
             this.valorCustoFreteTextBox.Name = "valorCustoFreteTextBox";
-            this.valorCustoFreteTextBox.Size = new System.Drawing.Size(114, 20);
-            this.valorCustoFreteTextBox.TabIndex = 12;
+            this.valorCustoFreteTextBox.Size = new System.Drawing.Size(94, 20);
+            this.valorCustoFreteTextBox.TabIndex = 20;
             // 
             // dataEntradaDateTimePicker
             // 
@@ -485,37 +539,29 @@
             this.dataEntradaDateTimePicker.Location = new System.Drawing.Point(518, 90);
             this.dataEntradaDateTimePicker.Name = "dataEntradaDateTimePicker";
             this.dataEntradaDateTimePicker.Size = new System.Drawing.Size(124, 20);
-            this.dataEntradaDateTimePicker.TabIndex = 4;
+            this.dataEntradaDateTimePicker.TabIndex = 14;
             // 
             // valorTotalTextBox
             // 
-            this.valorTotalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "valorTotal", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
-            this.valorTotalTextBox.Location = new System.Drawing.Point(614, 134);
+            this.valorTotalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "valorTotal", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.valorTotalTextBox.Location = new System.Drawing.Point(630, 132);
             this.valorTotalTextBox.Name = "valorTotalTextBox";
-            this.valorTotalTextBox.Size = new System.Drawing.Size(126, 20);
-            this.valorTotalTextBox.TabIndex = 14;
+            this.valorTotalTextBox.Size = new System.Drawing.Size(116, 20);
+            this.valorTotalTextBox.TabIndex = 24;
+            this.valorTotalTextBox.Leave += new System.EventHandler(this.valorTotalTextBox_Leave);
             // 
             // numeroNotaFiscalTextBox
             // 
             this.numeroNotaFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "numeroNotaFiscal", true));
             this.numeroNotaFiscalTextBox.Location = new System.Drawing.Point(656, 89);
             this.numeroNotaFiscalTextBox.Name = "numeroNotaFiscalTextBox";
-            this.numeroNotaFiscalTextBox.Size = new System.Drawing.Size(84, 20);
-            this.numeroNotaFiscalTextBox.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 169);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 37;
-            this.label3.Text = "Produto";
+            this.numeroNotaFiscalTextBox.Size = new System.Drawing.Size(90, 20);
+            this.numeroNotaFiscalTextBox.TabIndex = 16;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(494, 169);
+            this.label4.Location = new System.Drawing.Point(539, 379);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 38;
@@ -524,70 +570,62 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(615, 174);
+            this.label5.Location = new System.Drawing.Point(629, 379);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 13);
             this.label5.TabIndex = 39;
             this.label5.Text = "Preço Compra (R$)";
             // 
-            // textBox3
+            // quantidadeTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(494, 190);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(112, 20);
-            this.textBox3.TabIndex = 18;
+            this.quantidadeTextBox.CausesValidation = false;
+            this.quantidadeTextBox.Location = new System.Drawing.Point(543, 396);
+            this.quantidadeTextBox.Name = "quantidadeTextBox";
+            this.quantidadeTextBox.Size = new System.Drawing.Size(79, 20);
+            this.quantidadeTextBox.TabIndex = 34;
+            this.quantidadeTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
-            // textBox4
+            // precoCompraTextBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(616, 190);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(124, 20);
-            this.textBox4.TabIndex = 20;
+            this.precoCompraTextBox.CausesValidation = false;
+            this.precoCompraTextBox.Location = new System.Drawing.Point(632, 396);
+            this.precoCompraTextBox.Name = "precoCompraTextBox";
+            this.precoCompraTextBox.Size = new System.Drawing.Size(114, 20);
+            this.precoCompraTextBox.TabIndex = 26;
             // 
             // tb_entrada_produtoBindingSource
             // 
             this.tb_entrada_produtoBindingSource.DataMember = "tb_entrada_produto";
             this.tb_entrada_produtoBindingSource.DataSource = this.saceDataSet;
             // 
-            // codProdutoComboBox
-            // 
-            this.codProdutoComboBox.DataSource = this.tbprodutoBindingSource;
-            this.codProdutoComboBox.DisplayMember = "nome";
-            this.codProdutoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codProdutoComboBox.FormattingEnabled = true;
-            this.codProdutoComboBox.Location = new System.Drawing.Point(7, 190);
-            this.codProdutoComboBox.Name = "codProdutoComboBox";
-            this.codProdutoComboBox.Size = new System.Drawing.Size(469, 21);
-            this.codProdutoComboBox.TabIndex = 16;
-            this.codProdutoComboBox.ValueMember = "codProduto";
-            // 
             // tbprodutoBindingSource
             // 
             this.tbprodutoBindingSource.DataMember = "tb_produto";
             this.tbprodutoBindingSource.DataSource = this.saceDataSet;
             // 
-            // btnAdicionar
+            // btnProdutos
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(618, 214);
-            this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(120, 23);
-            this.btnAdicionar.TabIndex = 22;
-            this.btnAdicionar.Text = "F7 - Adicionar Produto";
-            this.btnAdicionar.UseVisualStyleBackColor = true;
+            this.btnProdutos.Location = new System.Drawing.Point(381, 469);
+            this.btnProdutos.Name = "btnProdutos";
+            this.btnProdutos.Size = new System.Drawing.Size(84, 23);
+            this.btnProdutos.TabIndex = 36;
+            this.btnProdutos.Text = "F7 - Produtos";
+            this.btnProdutos.UseVisualStyleBackColor = true;
+            this.btnProdutos.Click += new System.EventHandler(this.btnProdutos_Click);
             // 
             // valorICMSSubstitutoTextBox
             // 
-            this.valorICMSSubstitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "valorICMSSubstituto", true));
-            this.valorICMSSubstitutoTextBox.Location = new System.Drawing.Point(351, 133);
+            this.valorICMSSubstitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "valorICMSSubstituto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.valorICMSSubstitutoTextBox.Location = new System.Drawing.Point(509, 131);
             this.valorICMSSubstitutoTextBox.Name = "valorICMSSubstitutoTextBox";
-            this.valorICMSSubstitutoTextBox.Size = new System.Drawing.Size(125, 20);
-            this.valorICMSSubstitutoTextBox.TabIndex = 10;
+            this.valorICMSSubstitutoTextBox.Size = new System.Drawing.Size(113, 20);
+            this.valorICMSSubstitutoTextBox.TabIndex = 22;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(89, 227);
+            this.label2.Location = new System.Drawing.Point(91, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 61;
@@ -597,7 +635,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(4, 227);
+            this.label6.Location = new System.Drawing.Point(10, 159);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 60;
@@ -605,36 +643,30 @@
             // 
             // btnPagamentos
             // 
-            this.btnPagamentos.Location = new System.Drawing.Point(382, 469);
+            this.btnPagamentos.Location = new System.Drawing.Point(465, 469);
             this.btnPagamentos.Name = "btnPagamentos";
             this.btnPagamentos.Size = new System.Drawing.Size(100, 23);
-            this.btnPagamentos.TabIndex = 62;
+            this.btnPagamentos.TabIndex = 5;
             this.btnPagamentos.Text = "F8 - Pagamentos";
             this.btnPagamentos.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(525, 423);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(535, 428);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.Size = new System.Drawing.Size(71, 26);
             this.label7.TabIndex = 63;
             this.label7.Text = "Total: ";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(605, 423);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(57, 13);
-            this.lblTotal.TabIndex = 64;
-            this.lblTotal.Text = "R$ 100,00";
             // 
             // tb_entrada_produtoDataGridView
             // 
             this.tb_entrada_produtoDataGridView.AllowUserToAddRows = false;
             this.tb_entrada_produtoDataGridView.AllowUserToDeleteRows = false;
             this.tb_entrada_produtoDataGridView.AutoGenerateColumns = false;
+            this.tb_entrada_produtoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.tb_entrada_produtoDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_entrada_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_entrada_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -643,19 +675,32 @@
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn9});
+            this.subtotal});
             this.tb_entrada_produtoDataGridView.DataSource = this.tb_entrada_produtoBindingSource;
-            this.tb_entrada_produtoDataGridView.Location = new System.Drawing.Point(7, 253);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_entrada_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            this.tb_entrada_produtoDataGridView.Location = new System.Drawing.Point(7, 176);
             this.tb_entrada_produtoDataGridView.Name = "tb_entrada_produtoDataGridView";
             this.tb_entrada_produtoDataGridView.ReadOnly = true;
-            this.tb_entrada_produtoDataGridView.Size = new System.Drawing.Size(742, 220);
-            this.tb_entrada_produtoDataGridView.TabIndex = 64;
+            this.tb_entrada_produtoDataGridView.RowHeadersVisible = false;
+            this.tb_entrada_produtoDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.tb_entrada_produtoDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tb_entrada_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tb_entrada_produtoDataGridView.Size = new System.Drawing.Size(739, 200);
+            this.tb_entrada_produtoDataGridView.TabIndex = 38;
+            this.tb_entrada_produtoDataGridView.DataMemberChanged += new System.EventHandler(this.codEntradaTextBox_TextChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "codEntrada";
             this.dataGridViewTextBoxColumn1.HeaderText = "codEntrada";
+            this.dataGridViewTextBoxColumn1.MaxInputLength = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Visible = false;
@@ -663,72 +708,139 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "codProduto";
-            this.dataGridViewTextBoxColumn2.HeaderText = "codProduto";
+            this.dataGridViewTextBoxColumn2.FillWeight = 15F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Código";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "quantidade";
-            this.dataGridViewTextBoxColumn3.HeaderText = "quantidade";
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Produto";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn4
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "valor_compra";
-            this.dataGridViewTextBoxColumn4.HeaderText = "valor_compra";
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "quantidade";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewTextBoxColumn4.FillWeight = 20F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Quantidade";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn5
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "ipi";
-            this.dataGridViewTextBoxColumn5.HeaderText = "ipi";
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "valor_compra";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTextBoxColumn5.FillWeight = 25F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Preço";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn6
             // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "icms";
-            this.dataGridViewTextBoxColumn6.HeaderText = "icms";
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "ipi";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewTextBoxColumn6.FillWeight = 15F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "IPI";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn7
+            // subtotal
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "preco_custo";
-            this.dataGridViewTextBoxColumn7.HeaderText = "preco_custo";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.subtotal.DataPropertyName = "subtotal";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = "0";
+            this.subtotal.DefaultCellStyle = dataGridViewCellStyle4;
+            this.subtotal.FillWeight = 30F;
+            this.subtotal.HeaderText = "SUBTOTAL";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn9
+            // icmsTextBox
             // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "icms_substituto";
-            this.dataGridViewTextBoxColumn9.HeaderText = "icms_substituto";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.icmsTextBox.CausesValidation = false;
+            this.icmsTextBox.Location = new System.Drawing.Point(424, 131);
+            this.icmsTextBox.Name = "icmsTextBox";
+            this.icmsTextBox.Size = new System.Drawing.Size(79, 20);
+            this.icmsTextBox.TabIndex = 21;
+            // 
+            // ipiTextBox
+            // 
+            this.ipiTextBox.CausesValidation = false;
+            this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "ipi", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.ipiTextBox.Location = new System.Drawing.Point(493, 396);
+            this.ipiTextBox.Name = "ipiTextBox";
+            this.ipiTextBox.Size = new System.Drawing.Size(40, 20);
+            this.ipiTextBox.TabIndex = 32;
+            // 
+            // totalNotaCalculadoTextBox
+            // 
+            this.totalNotaCalculadoTextBox.BackColor = System.Drawing.Color.Blue;
+            this.totalNotaCalculadoTextBox.Font = new System.Drawing.Font("DejaVu Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalNotaCalculadoTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.totalNotaCalculadoTextBox.Location = new System.Drawing.Point(598, 428);
+            this.totalNotaCalculadoTextBox.Name = "totalNotaCalculadoTextBox";
+            this.totalNotaCalculadoTextBox.ReadOnly = true;
+            this.totalNotaCalculadoTextBox.Size = new System.Drawing.Size(148, 32);
+            this.totalNotaCalculadoTextBox.TabIndex = 66;
+            this.totalNotaCalculadoTextBox.Text = "0";
+            this.totalNotaCalculadoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // codProdutoTextBox
+            // 
+            this.codProdutoTextBox.CausesValidation = false;
+            this.codProdutoTextBox.Location = new System.Drawing.Point(7, 396);
+            this.codProdutoTextBox.Name = "codProdutoTextBox";
+            this.codProdutoTextBox.Size = new System.Drawing.Size(100, 20);
+            this.codProdutoTextBox.TabIndex = 28;
+            // 
+            // nomeTextBox
+            // 
+            this.nomeTextBox.CausesValidation = false;
+            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "nome", true));
+            this.nomeTextBox.Location = new System.Drawing.Point(117, 396);
+            this.nomeTextBox.Name = "nomeTextBox";
+            this.nomeTextBox.ReadOnly = true;
+            this.nomeTextBox.Size = new System.Drawing.Size(370, 20);
+            this.nomeTextBox.TabIndex = 68;
+            this.nomeTextBox.TabStop = false;
             // 
             // FrmEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 512);
+            this.ClientSize = new System.Drawing.Size(751, 495);
+            this.Controls.Add(nomeLabel);
+            this.Controls.Add(this.nomeTextBox);
+            this.Controls.Add(codProdutoLabel);
+            this.Controls.Add(this.codProdutoTextBox);
+            this.Controls.Add(this.totalNotaCalculadoTextBox);
+            this.Controls.Add(ipiLabel);
+            this.Controls.Add(this.ipiTextBox);
+            this.Controls.Add(icmsLabel);
+            this.Controls.Add(this.icmsTextBox);
             this.Controls.Add(this.tb_entrada_produtoDataGridView);
-            this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnPagamentos);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
             this.Controls.Add(valorICMSSubstitutoLabel);
             this.Controls.Add(this.valorICMSSubstitutoTextBox);
-            this.Controls.Add(this.btnAdicionar);
-            this.Controls.Add(this.codProdutoComboBox);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.btnProdutos);
+            this.Controls.Add(this.precoCompraTextBox);
+            this.Controls.Add(this.quantidadeTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(codEntradaLabel);
             this.Controls.Add(this.codEntradaTextBox);
             this.Controls.Add(codigoFornecedorLabel);
@@ -810,32 +922,33 @@
         private SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter tb_empresaTableAdapter;
         private System.Windows.Forms.BindingSource tbempresaBindingSource;
         private System.Windows.Forms.BindingSource tbempresaBindingSource1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private SACE.Dados.saceDataSetTableAdapters.tb_entrada_produtoTableAdapter tb_entrada_produtoTableAdapter;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox quantidadeTextBox;
+        private System.Windows.Forms.TextBox precoCompraTextBox;
         private System.Windows.Forms.BindingSource tb_entrada_produtoBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.ComboBox codProdutoComboBox;
         private SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
         private System.Windows.Forms.BindingSource tbprodutoBindingSource;
-        private System.Windows.Forms.Button btnAdicionar;
+        private System.Windows.Forms.Button btnProdutos;
         private System.Windows.Forms.TextBox valorICMSSubstitutoTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnPagamentos;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.DataGridView tb_entrada_produtoDataGridView;
+        private System.Windows.Forms.TextBox icmsTextBox;
+        private System.Windows.Forms.TextBox ipiTextBox;
+        private System.Windows.Forms.TextBox totalNotaCalculadoTextBox;
+        private System.Windows.Forms.TextBox codProdutoTextBox;
+        private System.Windows.Forms.TextBox nomeTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
     }
 }

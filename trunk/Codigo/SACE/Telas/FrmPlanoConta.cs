@@ -155,6 +155,16 @@ namespace SACE.Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
+                else if ((e.KeyCode == Keys.F2) && (codGrupoContaComboBox.Focused))
+                {
+                    Telas.FrmGrupoContaPesquisa frmGrupoContaPesquisa = new Telas.FrmGrupoContaPesquisa();
+                    frmGrupoContaPesquisa.ShowDialog();
+                    if (frmGrupoContaPesquisa.getCodTipoConta() != -1)
+                    {
+                        tbgrupocontaBindingSource.Position = tbgrupocontaBindingSource.Find("codTipoConta", frmGrupoContaPesquisa.getCodTipoConta());
+                    }
+                    frmGrupoContaPesquisa.Dispose();
+                }
             }
         }
         private void habilitaBotoes(Boolean habilita)

@@ -31,7 +31,7 @@ namespace SACE.Telas
             frmEmpresaPesquisa.ShowDialog();
             if (frmEmpresaPesquisa.getCodEmpresa() != -1)
             {
-                tb_empresaBindingSource.Position = tb_empresaBindingSource.Find("codEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                tb_empresaBindingSource.Position = tb_empresaBindingSource.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
             }
             frmEmpresaPesquisa.Dispose();
         }

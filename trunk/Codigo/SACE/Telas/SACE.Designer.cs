@@ -44,6 +44,7 @@
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.entradaDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transformaçãoDePrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,9 +66,6 @@
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.transformaçãoDePrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSair = new System.Windows.Forms.Button();
             this.btnEntradas = new System.Windows.Forms.Button();
             this.btnFornecedor = new System.Windows.Forms.Button();
@@ -211,6 +209,13 @@
             this.entradaDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.entradaDeProdutosToolStripMenuItem.Text = "Entrada de Produtos";
             this.entradaDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.entradaDeProdutosToolStripMenuItem_Click);
+            // 
+            // transformaçãoDePrToolStripMenuItem
+            // 
+            this.transformaçãoDePrToolStripMenuItem.Name = "transformaçãoDePrToolStripMenuItem";
+            this.transformaçãoDePrToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.transformaçãoDePrToolStripMenuItem.Text = "Transformação de Produtos";
+            this.transformaçãoDePrToolStripMenuItem.Click += new System.EventHandler(this.transformaçãoDePrToolStripMenuItem_Click);
             // 
             // contasAPagarToolStripMenuItem
             // 
@@ -362,35 +367,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(97, 17);
             this.toolStripStatusLabel1.Text = "Usuário: VENDAS";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(372, 398);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(387, 90);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "São Marcos";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Location = new System.Drawing.Point(323, 476);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(461, 45);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Materiais de Construção Ltda";
-            // 
-            // transformaçãoDePrToolStripMenuItem
-            // 
-            this.transformaçãoDePrToolStripMenuItem.Name = "transformaçãoDePrToolStripMenuItem";
-            this.transformaçãoDePrToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.transformaçãoDePrToolStripMenuItem.Text = "Transformação de Produtos";
-            this.transformaçãoDePrToolStripMenuItem.Click += new System.EventHandler(this.transformaçãoDePrToolStripMenuItem_Click);
-            // 
             // btnSair
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -486,13 +462,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 534);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.btnEntradas);
             this.Controls.Add(this.btnFornecedor);
             this.Controls.Add(this.btnContas);
             this.Controls.Add(this.btnCliente);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnProdutos);
             this.Controls.Add(this.btnVenda);
             this.Controls.Add(this.statusStrip1);
@@ -502,6 +476,7 @@
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SACE - Sistema de Apoio ao Controle de Estoque";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Principal_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -535,13 +510,11 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button btnVenda;
         private System.Windows.Forms.Button btnProdutos;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Button btnContas;
         private System.Windows.Forms.Button btnFornecedor;
         private System.Windows.Forms.Button btnEntradas;
         private System.Windows.Forms.Button btnSair;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem utilitáriosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem atualizaçãoDePreçosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ajusteDeEstoqueToolStripMenuItem;

@@ -165,6 +165,16 @@ namespace SACE.Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
+                else if ((e.KeyCode == Keys.F2) && (codBancoComboBox.Focused))
+                {
+                    Telas.FrmBancoPesquisa frmBancoPesquisa = new Telas.FrmBancoPesquisa();
+                    frmBancoPesquisa.ShowDialog();
+                    if (frmBancoPesquisa.getCodBanco() != -1)
+                    {                    
+                        tbbancoBindingSource.Position = tbbancoBindingSource.Find("codBanco", frmBancoPesquisa.getCodBanco());
+                    }
+                    frmBancoPesquisa.Dispose();
+                }
             }
         }
         private void habilitaBotoes(Boolean habilita)
