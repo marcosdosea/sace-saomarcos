@@ -215,6 +215,7 @@
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
@@ -371,9 +372,11 @@
             // 
             // codGrupoContaComboBox
             // 
+            this.codGrupoContaComboBox.CausesValidation = false;
             this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "codGrupoConta", true));
             this.codGrupoContaComboBox.DataSource = this.tbgrupocontaBindingSource;
             this.codGrupoContaComboBox.DisplayMember = "descricao";
+            this.codGrupoContaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoContaComboBox.FormattingEnabled = true;
             this.codGrupoContaComboBox.Location = new System.Drawing.Point(10, 134);
             this.codGrupoContaComboBox.Name = "codGrupoContaComboBox";
@@ -424,7 +427,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 198);
+            this.ClientSize = new System.Drawing.Size(473, 192);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(codGrupoContaLabel);
             this.Controls.Add(this.codGrupoContaComboBox);

@@ -11,7 +11,7 @@ namespace SACE.Telas
 {
     public partial class FrmEntradaPesquisa : Form
     {
-        private Int32 codEntrada;
+        private Int64 codEntrada;
 
         public FrmEntradaPesquisa()
         {
@@ -69,7 +69,7 @@ namespace SACE.Telas
             }
         }
 
-        public Int32 getCodEntrada()
+        public Int64 getCodEntrada()
         {
             return codEntrada;
         }

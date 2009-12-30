@@ -612,7 +612,7 @@
 </table>
 <table alias="" name="TB_PRODUTO_LOJA" remarks="" uid="1e6cf07:1220e0a2302:-7faf">
 <table-description/>
-<table-figure-bounds height="164" width="188" x="0" y="351"/>
+<table-figure-bounds height="151" width="188" x="0" y="351"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codLoja" remarks="" uid="1e6cf07:1220e0a2302:-7ee1">
 <column-description/>
@@ -640,11 +640,11 @@
 <variant type-name-pattern="BIGINT ZEROFILL"/>
 </data-type>
 </column>
-<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="codEntrada" remarks="" uid="b8501d:12416c6871f:-7fb4">
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="codEntrada" remarks="" uid="b8501d:12416c6871f:-7fb4">
 <column-description/>
 <data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT(%n)">
-<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
 <variant type-name-pattern="BIGINT"/>
+<variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED ZEROFILL"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) ZEROFILL"/>

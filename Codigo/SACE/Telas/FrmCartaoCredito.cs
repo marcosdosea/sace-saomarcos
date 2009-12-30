@@ -160,6 +160,16 @@ namespace SACE.Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
+                else if ((e.KeyCode == Keys.F2) && (codContaBancoComboBox.Focused))
+                {
+                    Telas.FrmContaBancoPesquisa frmContaBancoPesquisa = new Telas.FrmContaBancoPesquisa();
+                    frmContaBancoPesquisa.ShowDialog();
+                    if (frmContaBancoPesquisa.getCodContaBanco() != -1)
+                    {
+                        tbcontabancoBindingSource.Position = tbcontabancoBindingSource.Find("codContaBanco", frmContaBancoPesquisa.getCodContaBanco());
+                    }
+                    frmContaBancoPesquisa.Dispose();
+                }
             }
         }
         private void habilitaBotoes(Boolean habilita)
