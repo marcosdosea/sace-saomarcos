@@ -4118,6 +4118,8 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnvalorICMSSubstituto;
             
+            private global::System.Data.DataColumn columnicmsPadrao;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_entradaDataTable() {
                 this.TableName = "tb_entrada";
@@ -4212,6 +4214,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn icmsPadraoColumn {
+                get {
+                    return this.columnicmsPadrao;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4240,7 +4249,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entradaRow Addtb_entradaRow(long codigoFornecedor, long codigoEmpresaFrete, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal, decimal valorICMSSubstituto) {
+            public tb_entradaRow Addtb_entradaRow(long codigoFornecedor, long codigoEmpresaFrete, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal, decimal valorICMSSubstituto, decimal icmsPadrao) {
                 tb_entradaRow rowtb_entradaRow = ((tb_entradaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -4251,7 +4260,8 @@ namespace SACE.Dados {
                         valorTotal,
                         tipoEntrada,
                         numeroNotaFiscal,
-                        valorICMSSubstituto};
+                        valorICMSSubstituto,
+                        icmsPadrao};
                 rowtb_entradaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_entradaRow);
                 return rowtb_entradaRow;
@@ -4286,6 +4296,7 @@ namespace SACE.Dados {
                 this.columntipoEntrada = base.Columns["tipoEntrada"];
                 this.columnnumeroNotaFiscal = base.Columns["numeroNotaFiscal"];
                 this.columnvalorICMSSubstituto = base.Columns["valorICMSSubstituto"];
+                this.columnicmsPadrao = base.Columns["icmsPadrao"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4308,6 +4319,8 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnnumeroNotaFiscal);
                 this.columnvalorICMSSubstituto = new global::System.Data.DataColumn("valorICMSSubstituto", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalorICMSSubstituto);
+                this.columnicmsPadrao = new global::System.Data.DataColumn("icmsPadrao", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnicmsPadrao);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodEntrada}, true));
                 this.columncodEntrada.AutoIncrement = true;
@@ -4318,6 +4331,7 @@ namespace SACE.Dados {
                 this.columncodigoFornecedor.AllowDBNull = false;
                 this.columncodigoEmpresaFrete.AllowDBNull = false;
                 this.columntipoEntrada.MaxLength = 1;
+                this.columnicmsPadrao.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11261,6 +11275,16 @@ namespace SACE.Dados {
                 }
                 set {
                     this[this.tabletb_entrada.valorICMSSubstitutoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal icmsPadrao {
+                get {
+                    return ((decimal)(this[this.tabletb_entrada.icmsPadraoColumn]));
+                }
+                set {
+                    this[this.tabletb_entrada.icmsPadraoColumn] = value;
                 }
             }
             
@@ -20028,6 +20052,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             tableMapping.ColumnMappings.Add("tipoEntrada", "tipoEntrada");
             tableMapping.ColumnMappings.Add("numeroNotaFiscal", "numeroNotaFiscal");
             tableMapping.ColumnMappings.Add("valorICMSSubstituto", "valorICMSSubstituto");
+            tableMapping.ColumnMappings.Add("icmsPadrao", "icmsPadrao");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -20043,7 +20068,10 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `sace`.`tb_entrada` (`codigoFornecedor`, `codigoEmpresaFrete`, `valorCustoFrete`, `dataEntrada`, `valorTotal`, `tipoEntrada`, `numeroNotaFiscal`, `valorICMSSubstituto`) VALUES (@codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEntrada, @valorTotal, @tipoEntrada, @numeroNotaFiscal, @valorICMSSubstituto)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO tb_entrada
+                         (codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, valorICMSSubstituto, icmsPadrao)
+VALUES        (@codigoFornecedor, @codigoEmpresaFrete, @valorCustoFrete, @dataEntrada, @valorTotal, @tipoEntrada, @numeroNotaFiscal, @valorICMSSubstituto, 
+                         @icmsPadrao)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codigoFornecedor";
@@ -20061,6 +20089,7 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorCustoFrete";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorCustoFrete";
@@ -20074,14 +20103,16 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorTotal";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorTotal";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@tipoEntrada";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
             param.IsNullable = true;
             param.SourceColumn = "tipoEntrada";
             this._adapter.InsertCommand.Parameters.Add(param);
@@ -20094,15 +20125,24 @@ WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valorICMSSubstituto";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valorICMSSubstituto";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@icmsPadrao";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "icmsPadrao";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_entrada
 SET                codigoFornecedor = @codigoFornecedor, codigoEmpresaFrete = @codigoEmpresaFrete, valorCustoFrete = @valorCustoFrete, dataEntrada = @dataEntrada, 
-                         valorTotal = @valorTotal, tipoEntrada = @tipoEntrada, numeroNotaFiscal = @numeroNotaFiscal, valorICMSSubstituto = @valorICMSSubstituto
+                         valorTotal = @valorTotal, tipoEntrada = @tipoEntrada, numeroNotaFiscal = @numeroNotaFiscal, valorICMSSubstituto = @valorICMSSubstituto, 
+                         icmsPadrao = @icmsPadrao
 WHERE        (codEntrada = @Original_codEntrada)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
@@ -20163,6 +20203,13 @@ WHERE        (codEntrada = @Original_codEntrada)";
             param.SourceColumn = "valorICMSSubstituto";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@icmsPadrao";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "icmsPadrao";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codEntrada";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
@@ -20183,9 +20230,9 @@ WHERE        (codEntrada = @Original_codEntrada)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codEntrada`, `codigoFornecedor`, `codigoEmpresaFrete`, `valorCustoFrete`," +
-                " `dataEntrada`, `valorTotal`, `tipoEntrada`, `numeroNotaFiscal`, `valorICMSSubst" +
-                "ituto` FROM `sace`.`tb_entrada`";
+            this._commandCollection[0].CommandText = "SELECT        codEntrada, codigoFornecedor, codigoEmpresaFrete, valorCustoFrete, " +
+                "dataEntrada, valorTotal, tipoEntrada, numeroNotaFiscal, valorICMSSubstituto, \r\n " +
+                "                        icmsPadrao\r\nFROM            tb_entrada";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -20260,14 +20307,14 @@ WHERE        (codEntrada = @Original_codEntrada)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long codigoFornecedor, long codigoEmpresaFrete, string valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, string valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, string valorICMSSubstituto) {
+        public virtual int Insert(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, global::System.Nullable<decimal> valorICMSSubstituto, decimal icmsPadrao) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(codigoFornecedor));
             this.Adapter.InsertCommand.Parameters[1].Value = ((long)(codigoEmpresaFrete));
-            if ((valorCustoFrete == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            if ((valorCustoFrete.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(valorCustoFrete.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(valorCustoFrete));
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             if ((dataEntrada.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(dataEntrada.Value));
@@ -20275,11 +20322,11 @@ WHERE        (codEntrada = @Original_codEntrada)";
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((valorTotal == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            if ((valorTotal.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(valorTotal.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(valorTotal));
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((tipoEntrada == null)) {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
@@ -20293,12 +20340,13 @@ WHERE        (codEntrada = @Original_codEntrada)";
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((valorICMSSubstituto == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            if ((valorICMSSubstituto.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(valorICMSSubstituto.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(valorICMSSubstituto));
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
+            this.Adapter.InsertCommand.Parameters[8].Value = ((decimal)(icmsPadrao));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -20318,7 +20366,7 @@ WHERE        (codEntrada = @Original_codEntrada)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, global::System.Nullable<decimal> valorICMSSubstituto, long Original_codEntrada) {
+        public virtual int Update(long codigoFornecedor, long codigoEmpresaFrete, global::System.Nullable<decimal> valorCustoFrete, global::System.Nullable<global::System.DateTime> dataEntrada, global::System.Nullable<decimal> valorTotal, string tipoEntrada, global::System.Nullable<long> numeroNotaFiscal, global::System.Nullable<decimal> valorICMSSubstituto, decimal icmsPadrao, long Original_codEntrada) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(codigoFornecedor));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(codigoEmpresaFrete));
             if ((valorCustoFrete.HasValue == true)) {
@@ -20357,7 +20405,8 @@ WHERE        (codEntrada = @Original_codEntrada)";
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_codEntrada));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((decimal)(icmsPadrao));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(Original_codEntrada));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

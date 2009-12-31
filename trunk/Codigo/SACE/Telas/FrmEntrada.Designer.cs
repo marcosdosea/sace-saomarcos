@@ -94,6 +94,11 @@
             this.btnPagamentos = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.tb_entrada_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.icmsTextBox = new System.Windows.Forms.TextBox();
+            this.ipiTextBox = new System.Windows.Forms.TextBox();
+            this.totalNotaCalculadoTextBox = new System.Windows.Forms.TextBox();
+            this.codProdutoTextBox = new System.Windows.Forms.TextBox();
+            this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,11 +106,6 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.icmsTextBox = new System.Windows.Forms.TextBox();
-            this.ipiTextBox = new System.Windows.Forms.TextBox();
-            this.totalNotaCalculadoTextBox = new System.Windows.Forms.TextBox();
-            this.codProdutoTextBox = new System.Windows.Forms.TextBox();
-            this.nomeTextBox = new System.Windows.Forms.TextBox();
             codEntradaLabel = new System.Windows.Forms.Label();
             codigoFornecedorLabel = new System.Windows.Forms.Label();
             codigoEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -284,7 +284,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(565, 469);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -548,7 +548,6 @@
             this.valorTotalTextBox.Name = "valorTotalTextBox";
             this.valorTotalTextBox.Size = new System.Drawing.Size(116, 20);
             this.valorTotalTextBox.TabIndex = 24;
-            this.valorTotalTextBox.Leave += new System.EventHandler(this.valorTotalTextBox_Leave);
             // 
             // numeroNotaFiscalTextBox
             // 
@@ -583,7 +582,7 @@
             this.quantidadeTextBox.Name = "quantidadeTextBox";
             this.quantidadeTextBox.Size = new System.Drawing.Size(79, 20);
             this.quantidadeTextBox.TabIndex = 34;
-            this.quantidadeTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.quantidadeTextBox.Enter += new System.EventHandler(this.camposProdutoTextBox_Enter);
             // 
             // precoCompraTextBox
             // 
@@ -591,7 +590,9 @@
             this.precoCompraTextBox.Location = new System.Drawing.Point(632, 396);
             this.precoCompraTextBox.Name = "precoCompraTextBox";
             this.precoCompraTextBox.Size = new System.Drawing.Size(114, 20);
-            this.precoCompraTextBox.TabIndex = 26;
+            this.precoCompraTextBox.TabIndex = 36;
+            this.precoCompraTextBox.Leave += new System.EventHandler(this.precoCompraTextBox_Leave);
+            this.precoCompraTextBox.Enter += new System.EventHandler(this.camposProdutoTextBox_Enter);
             // 
             // tb_entrada_produtoBindingSource
             // 
@@ -608,7 +609,7 @@
             this.btnProdutos.Location = new System.Drawing.Point(381, 469);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(84, 23);
-            this.btnProdutos.TabIndex = 36;
+            this.btnProdutos.TabIndex = 5;
             this.btnProdutos.Text = "F7 - Produtos";
             this.btnProdutos.UseVisualStyleBackColor = true;
             this.btnProdutos.Click += new System.EventHandler(this.btnProdutos_Click);
@@ -646,7 +647,7 @@
             this.btnPagamentos.Location = new System.Drawing.Point(465, 469);
             this.btnPagamentos.Name = "btnPagamentos";
             this.btnPagamentos.Size = new System.Drawing.Size(100, 23);
-            this.btnPagamentos.TabIndex = 5;
+            this.btnPagamentos.TabIndex = 6;
             this.btnPagamentos.Text = "F8 - Pagamentos";
             this.btnPagamentos.UseVisualStyleBackColor = true;
             // 
@@ -694,7 +695,58 @@
             this.tb_entrada_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_entrada_produtoDataGridView.Size = new System.Drawing.Size(739, 200);
             this.tb_entrada_produtoDataGridView.TabIndex = 38;
-            this.tb_entrada_produtoDataGridView.DataMemberChanged += new System.EventHandler(this.codEntradaTextBox_TextChanged);
+            // 
+            // icmsTextBox
+            // 
+            this.icmsTextBox.CausesValidation = false;
+            this.icmsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "icmsPadrao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.icmsTextBox.Location = new System.Drawing.Point(424, 131);
+            this.icmsTextBox.Name = "icmsTextBox";
+            this.icmsTextBox.Size = new System.Drawing.Size(79, 20);
+            this.icmsTextBox.TabIndex = 21;
+            // 
+            // ipiTextBox
+            // 
+            this.ipiTextBox.CausesValidation = false;
+            this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "ipi", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.ipiTextBox.Location = new System.Drawing.Point(493, 396);
+            this.ipiTextBox.Name = "ipiTextBox";
+            this.ipiTextBox.Size = new System.Drawing.Size(40, 20);
+            this.ipiTextBox.TabIndex = 32;
+            this.ipiTextBox.Enter += new System.EventHandler(this.camposProdutoTextBox_Enter);
+            // 
+            // totalNotaCalculadoTextBox
+            // 
+            this.totalNotaCalculadoTextBox.BackColor = System.Drawing.Color.Blue;
+            this.totalNotaCalculadoTextBox.Font = new System.Drawing.Font("DejaVu Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalNotaCalculadoTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.totalNotaCalculadoTextBox.Location = new System.Drawing.Point(598, 428);
+            this.totalNotaCalculadoTextBox.Name = "totalNotaCalculadoTextBox";
+            this.totalNotaCalculadoTextBox.ReadOnly = true;
+            this.totalNotaCalculadoTextBox.Size = new System.Drawing.Size(148, 32);
+            this.totalNotaCalculadoTextBox.TabIndex = 66;
+            this.totalNotaCalculadoTextBox.Text = "0";
+            this.totalNotaCalculadoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // codProdutoTextBox
+            // 
+            this.codProdutoTextBox.CausesValidation = false;
+            this.codProdutoTextBox.Location = new System.Drawing.Point(7, 396);
+            this.codProdutoTextBox.Name = "codProdutoTextBox";
+            this.codProdutoTextBox.Size = new System.Drawing.Size(100, 20);
+            this.codProdutoTextBox.TabIndex = 28;
+            this.codProdutoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
+            // 
+            // nomeTextBox
+            // 
+            this.nomeTextBox.CausesValidation = false;
+            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "nome", true));
+            this.nomeTextBox.Location = new System.Drawing.Point(117, 396);
+            this.nomeTextBox.Name = "nomeTextBox";
+            this.nomeTextBox.ReadOnly = true;
+            this.nomeTextBox.Size = new System.Drawing.Size(370, 20);
+            this.nomeTextBox.TabIndex = 68;
+            this.nomeTextBox.TabStop = false;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -765,55 +817,6 @@
             this.subtotal.HeaderText = "SUBTOTAL";
             this.subtotal.Name = "subtotal";
             this.subtotal.ReadOnly = true;
-            // 
-            // icmsTextBox
-            // 
-            this.icmsTextBox.CausesValidation = false;
-            this.icmsTextBox.Location = new System.Drawing.Point(424, 131);
-            this.icmsTextBox.Name = "icmsTextBox";
-            this.icmsTextBox.Size = new System.Drawing.Size(79, 20);
-            this.icmsTextBox.TabIndex = 21;
-            // 
-            // ipiTextBox
-            // 
-            this.ipiTextBox.CausesValidation = false;
-            this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "ipi", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
-            this.ipiTextBox.Location = new System.Drawing.Point(493, 396);
-            this.ipiTextBox.Name = "ipiTextBox";
-            this.ipiTextBox.Size = new System.Drawing.Size(40, 20);
-            this.ipiTextBox.TabIndex = 32;
-            // 
-            // totalNotaCalculadoTextBox
-            // 
-            this.totalNotaCalculadoTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalNotaCalculadoTextBox.Font = new System.Drawing.Font("DejaVu Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalNotaCalculadoTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalNotaCalculadoTextBox.Location = new System.Drawing.Point(598, 428);
-            this.totalNotaCalculadoTextBox.Name = "totalNotaCalculadoTextBox";
-            this.totalNotaCalculadoTextBox.ReadOnly = true;
-            this.totalNotaCalculadoTextBox.Size = new System.Drawing.Size(148, 32);
-            this.totalNotaCalculadoTextBox.TabIndex = 66;
-            this.totalNotaCalculadoTextBox.Text = "0";
-            this.totalNotaCalculadoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // codProdutoTextBox
-            // 
-            this.codProdutoTextBox.CausesValidation = false;
-            this.codProdutoTextBox.Location = new System.Drawing.Point(7, 396);
-            this.codProdutoTextBox.Name = "codProdutoTextBox";
-            this.codProdutoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codProdutoTextBox.TabIndex = 28;
-            // 
-            // nomeTextBox
-            // 
-            this.nomeTextBox.CausesValidation = false;
-            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "nome", true));
-            this.nomeTextBox.Location = new System.Drawing.Point(117, 396);
-            this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.ReadOnly = true;
-            this.nomeTextBox.Size = new System.Drawing.Size(370, 20);
-            this.nomeTextBox.TabIndex = 68;
-            this.nomeTextBox.TabStop = false;
             // 
             // FrmEntrada
             // 

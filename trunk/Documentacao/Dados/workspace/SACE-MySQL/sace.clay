@@ -643,8 +643,8 @@
 <column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="false" name="codEntrada" remarks="" uid="b8501d:12416c6871f:-7fb4">
 <column-description/>
 <data-type jdbc-type="-5" name="BIGINT" selected-variant-pattern="BIGINT(%n)">
-<variant type-name-pattern="BIGINT"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n)"/>
+<variant type-name-pattern="BIGINT"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) UNSIGNED ZEROFILL"/>
 <variant precision-max="255" precision-min="0" precision-variable="%n" type-name-pattern="BIGINT(%n) ZEROFILL"/>
@@ -742,7 +742,7 @@
 </table>
 <table alias="" name="TB_EMPRESA" remarks="" uid="1e6cf07:1220e0a2302:-7e1e">
 <table-description/>
-<table-figure-bounds height="-1" width="-1" x="448" y="454"/>
+<table-figure-bounds height="-1" width="-1" x="450" y="477"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="codigoEmpresa" remarks="" uid="1e6cf07:1220e0a2302:-7e1a">
 <column-description/>
@@ -860,7 +860,7 @@
 </table>
 <table alias="" name="TB_ENTRADA" remarks="" uid="1e6cf07:1220e0a2302:-7e0c">
 <table-description/>
-<table-figure-bounds height="165" width="207" x="-1" y="596"/>
+<table-figure-bounds height="181" width="207" x="-4" y="566"/>
 <column-list>
 <column alias="" auto-increment="true" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="codEntrada" remarks="" uid="1e6cf07:1220e0a2302:-7e08">
 <column-description/>
@@ -970,6 +970,20 @@
 <variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
 </data-type>
 </column>
+<column alias="" auto-increment="false" column-size="5" decimal-digits="2" default-value="" mandatory="false" name="icmsPadrao" remarks="" uid="9c15d2:125e0cba5cd:-7fe1">
+<column-description/>
+<data-type jdbc-type="3" name="DECIMAL" selected-variant-pattern="DECIMAL(%p, %s)">
+<variant type-name-pattern="DECIMAL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n)"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) UNSIGNED ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%n" type-name-pattern="DECIMAL(%n) ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s)"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) UNSIGNED ZEROFILL"/>
+<variant precision-max="65" precision-min="0" precision-variable="%p" scale-max="30" scale-min="0" scale-variable="%s" type-name-pattern="DECIMAL(%p, %s) ZEROFILL"/>
+</data-type>
+</column>
 </column-list>
 <primary-key alias="" name="PK_TB_ENTRADA" remarks="" uid="1e6cf07:1220e0a2302:-7e0b">
 <primary-key-description/>
@@ -996,7 +1010,7 @@
 </table>
 <table alias="" name="TB_ENTRADA_PRODUTO" remarks="" uid="1e6cf07:1220e0a2302:-7a79">
 <table-description/>
-<table-figure-bounds height="140" width="162" x="265" y="390"/>
+<table-figure-bounds height="155" width="162" x="265" y="390"/>
 <column-list>
 <column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="codEntrada" remarks="" uid="1e6cf07:1220e0a2302:-7a4e">
 <column-description/>

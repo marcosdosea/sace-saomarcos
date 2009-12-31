@@ -86,6 +86,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\GerenciadorEntrada.cs" />
+    <Compile Include="Negocio\SaceConst.cs" />
     <Compile Include="Negocio\GerenciadorPrecos.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Telas\FrmProdutoPreco.cs">
