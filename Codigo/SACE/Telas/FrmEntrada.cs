@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SACE.Telas
@@ -93,9 +87,9 @@ namespace SACE.Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text,
-                        DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text,
-                        "F", long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text);
+                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text),
+                        DateTime.Parse(dataEntradaDateTimePicker.Text), decimal.Parse(valorTotalTextBox.Text),
+                        "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text), decimal.Parse(icmsTextBox.Text));
                     tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                     tb_entradaBindingSource.MoveLast();
                 }
@@ -103,13 +97,14 @@ namespace SACE.Telas
                 {
                     tb_entradaTableAdapter.Update(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
                         long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), DateTime.Parse(dataEntradaDateTimePicker.Text),
-                        decimal.Parse(valorTotalTextBox.Text), "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text), long.Parse(codEntradaTextBox.Text));
+                        decimal.Parse(valorTotalTextBox.Text), "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text),
+                        decimal.Parse(icmsTextBox.Text), long.Parse(codEntradaTextBox.Text));
                     tb_entradaBindingSource.EndEdit();
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
+                MessageBox.Show("Campos obrigatórios não foram preenchidos.");
                 tb_entradaBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
@@ -125,7 +120,7 @@ namespace SACE.Telas
                     {
                         long codProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[1].Value.ToString());
                         long codEntrada = long.Parse(codEntradaTextBox.Text);
-                        tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
+                        Negocio.GerenciadorEntrada.excluirProdutoEntrada(codEntrada, codProduto);
                     }
                 }
             }
@@ -134,6 +129,7 @@ namespace SACE.Telas
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
             }
             this.tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+            codEntradaTextBox_TextChanged(sender, e);
         }
 
         private void FrmEntrada_KeyDown(object sender, KeyEventArgs e)
@@ -224,17 +220,8 @@ namespace SACE.Telas
             {
                 excluirProduto(sender, e);
             }
-
-            if ((e.KeyCode.Equals(Keys.Tab) && (codProdutoTextBox.Focused)))
-            {
-                codProdutoTextBox_Tab(sender, e);
-            }
-            if ((e.KeyCode == Keys.Tab) && (precoCompraTextBox.Focused))
-            {
-                precoCompraTextBox_Tab(sender, e);
-            }
-                
         }
+
         private void habilitaBotoes(Boolean habilita)
         {
             btnSalvar.Enabled = !(habilita);
@@ -251,6 +238,86 @@ namespace SACE.Telas
         }
 
 
+        private void btnProdutos_Click(object sender, EventArgs e)
+        {
+            codProdutoTextBox.Focus();
+        }
+
+        private void camposProdutoTextBox_Enter(object sender, EventArgs e)
+        {
+            if (nomeTextBox.Text.Trim().Equals(""))
+            {
+                int posicaoProduto = -1;
+                if (codProdutoTextBox.Text.Trim().Equals(""))
+                {
+                    Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
+                    frmProdutoPesquisa.ShowDialog();
+                    if (frmProdutoPesquisa.getCodProduto() != -1)
+                    {
+                        codProdutoTextBox.Text = frmProdutoPesquisa.getCodProduto().ToString();
+                    }
+                    else
+                    {
+                        codProdutoTextBox.Text = "";
+                    }
+                    frmProdutoPesquisa.Dispose();
+                } else {
+                    posicaoProduto = tbprodutoBindingSource.Find("codProduto", codProdutoTextBox.Text);
+                }
+                if (posicaoProduto <= 0)
+                {
+                    codProdutoTextBox.Focus();
+                }
+                else
+                {
+                    tbprodutoBindingSource.Position = posicaoProduto;
+                }
+                codProdutoTextBox.TabIndex = 37;
+            }
+        }
+
+        private void codProdutoTextBox_Enter(object sender, EventArgs e)
+        {
+            ipiTextBox.Text = "0";
+            nomeTextBox.Text = "";
+            quantidadeTextBox.Text = "0";
+            precoCompraTextBox.Text = "0";
+            codProdutoTextBox.TabIndex = 28;
+        }
+
+        private void precoCompraTextBox_Leave(object sender, EventArgs e)
+        {
+            btnSalvar_Click(sender, e);
+            try
+            {
+                SACE.Dados.saceDataSet.tb_produtoRow produto = (SACE.Dados.saceDataSet.tb_produtoRow) ((System.Data.DataRowView) tbprodutoBindingSource.Current).Row;
+                decimal percIcmsSubstituicao = (decimal.Parse(valorICMSSubstitutoTextBox.Text)>0)?decimal.Parse(valorICMSSubstitutoTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100:0;
+                decimal percFrete = (decimal.Parse(valorCustoFreteTextBox.Text)>0)?decimal.Parse(valorCustoFreteTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100:0;
+                decimal precoCusto = 0;
+                if (produto.cfop == SACE.Negocio.SaceConst.CFOP_NORMAL)
+                {
+                    precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoNormal(decimal.Parse(precoCompraTextBox.Text),
+                        decimal.Parse(icmsTextBox.Text), SACE.Negocio.SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
+                }
+                else 
+                {
+                    precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoSubstituicao(decimal.Parse(precoCompraTextBox.Text),
+                        percIcmsSubstituicao, SACE.Negocio.SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
+                }
+
+                tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),
+                    decimal.Parse(quantidadeTextBox.Text), decimal.Parse(precoCompraTextBox.Text), decimal.Parse(ipiTextBox.Text),
+                    decimal.Parse(icmsTextBox.Text), percIcmsSubstituicao, precoCusto);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+            codProdutoTextBox.Text = "";
+            codEntradaTextBox_TextChanged(sender, e);
+        }
+
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!codEntradaTextBox.Text.Equals(""))
@@ -258,73 +325,6 @@ namespace SACE.Telas
                 tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
                 totalNotaCalculadoTextBox.Text = tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text)).ToString();
             }
-        }
-
-        private void btnProdutos_Click(object sender, EventArgs e)
-        {
-            codProdutoTextBox.Focus();
-        }
-
-        private void codProdutoTextBox_Tab(object sender, EventArgs e)
-        {
-            int posicaoProduto = -1;
-            if (codProdutoTextBox.Text.Trim().Equals(""))
-            {
-                Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
-                frmProdutoPesquisa.ShowDialog();
-                if (frmProdutoPesquisa.getCodProduto() != -1)
-                {
-                    codProdutoTextBox.Text = frmProdutoPesquisa.getCodProduto().ToString();
-                }
-                else
-                {
-                    codProdutoTextBox.Text = "";
-                }
-                frmProdutoPesquisa.Dispose();
-            }
-            if (!codProdutoTextBox.Text.Trim().Equals(""))
-            {
-                posicaoProduto = tbprodutoBindingSource.Find("codProduto", codProdutoTextBox.Text);
-            }
-            if (posicaoProduto <= 0)
-            {
-                codProdutoTextBox.Text = "";
-                codProdutoTextBox.Focus();
-            }
-            else
-            {
-                tbprodutoBindingSource.Position = posicaoProduto;
-                ipiTextBox.Text = "";
-                precoCompraTextBox.Text = "";
-            }
-
-        }
-
-        private void precoCompraTextBox_Tab(object sender, EventArgs e)
-        {
-            btnSalvar_Click(sender, e);
-            try
-            {
-                tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),
-                    decimal.Parse(quantidadeTextBox.Text), decimal.Parse(precoCompraTextBox.Text), decimal.Parse(ipiTextBox.Text),
-                    decimal.Parse(icmsTextBox.Text), 0, 0);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("O produto já foi incluído na nota fiscal.");
-            }
-            tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-            codProdutoTextBox.Text = "";
-        }
-
-        private void valorTotalTextBox_Leave(object sender, EventArgs e)
-        {
-            codProdutoTextBox.Focus();
-        }
-
-        private void quantidadeTextBox_Leave(object sender, EventArgs e)
-        {
-            precoCompraTextBox.Focus();
         }
     }
 }
