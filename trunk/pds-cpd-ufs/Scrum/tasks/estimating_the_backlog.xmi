@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-cfGxn29uR-ajTuxloxCwVQ"
+    name=",_lesG8F53Ed22Gu98eFOlrQ" guid="-cfGxn29uR-ajTuxloxCwVQ" changeDate="2008-07-30T17:24:25.000-0400">
+  <mainDescription>&lt;p>&#xD;
+    Prior to release planning and periodically as the product backlog evolves and the team gains insight through experience&#xD;
+    the Scrum Team will estimate the size of items on the Product Backlog.&amp;nbsp;&amp;nbsp; This is key information to help&#xD;
+    the&amp;nbsp;Product Owner make prioritization decisions (some items may become less of a priority if the&amp;nbsp;Product&#xD;
+    Owner learns that major effort will be required to deliver them).&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Estimations are relative and&amp;nbsp;are measured in “points” rather than real-world units of effort.&amp;nbsp; To the&#xD;
+    uninitiated this may&amp;nbsp;seem unpredicatable but after the first few sprints Scrum teams can empirically derive&amp;nbsp;a&#xD;
+    velocity&amp;nbsp;that allows them to&amp;nbsp;accurately predict delivery capability.&amp;nbsp;&lt;br />&#xD;
+&lt;/p></mainDescription>
+  <purpose>Enables the&amp;nbsp;Product Owner to make prioritization decisions</purpose>
+</org.eclipse.epf.uma:TaskDescription>

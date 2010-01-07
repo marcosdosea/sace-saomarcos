@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-SHkaOieQ30MfC5nmlcCWdw"
+    name=",_ukuz4O7OEd2C0KkvQJ9heQ" guid="-SHkaOieQ30MfC5nmlcCWdw" changeDate="2009-01-30T12:23:12.421-0300">
+  <mainDescription>Identifica as funcionalidades do produto que será desenvolvido através de reuniões com os usuários.</mainDescription>
+  <sections xmi:id="_EE2y0O7iEd2C0KkvQJ9heQ" name="Entrevistar Usuário" guid="_EE2y0O7iEd2C0KkvQJ9heQ">
+    <sectionDescription>&lt;p>&#xD;
+    Deve-se marcar reuniões com o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
+    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a> e através de entrevistas entender qual o problema&amp;nbsp;a&#xD;
+    ser resolvido, anotando todas as necessidades do usuário.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O tempo para cada reunião não deve ultrapassar 2 horas.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Ao final da reunião o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
+    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve criar o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
+    Produto&lt;/a>.&#xD;
+&lt;/p>&lt;br /></sectionDescription>
+  </sections>
+  <sections xmi:id="_IOsWAO7iEd2C0KkvQJ9heQ" name="Descrever Histórias" guid="_IOsWAO7iEd2C0KkvQJ9heQ">
+    <sectionDescription>&lt;p>&#xD;
+    Após cada entrevista o &lt;a class=&quot;elementLink&quot;&#xD;
+    id=&quot;A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/roles/scrum_master_produto_603468.html:.:.:A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/roles/scrum_master_produto_603468.html:.:.:A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/roles/scrum_master_produto_603468.html:.:.:A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/roles/scrum_master_produto_603468.html:.:.:&quot;&#xD;
+     href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot; guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do&#xD;
+    Produto&lt;/a>&amp;nbsp;deve descrever as Histórias identificadas. O modelo para descrição dessas histórias pode ser acessado&#xD;
+    através &lt;a class=&quot;elementLink&quot;&#xD;
+    id=&quot;A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html:.:.:A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html:.:.:A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html:.:.:A_-_-_C:/Documents%20and%20Settings/cpd02/Meus%20documentos/Marcos%20Dósea/Nova%20pasta/scrum/PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html:.:.:&quot;&#xD;
+     href=&quot;./../../PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html&quot; guid=&quot;_vDqwoO7kEd2C0KkvQJ9heQ&quot;>Site de&#xD;
+    Desenvolvimento do CPD&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Para facilitar a conversa com o&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
+    Produto&lt;/a> é recomendável&amp;nbsp;a utilização de&amp;nbsp;fichas manuais para descrição das histórias. No &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html&quot;&#xD;
+    guid=&quot;_vDqwoO7kEd2C0KkvQJ9heQ&quot;>Site de Desenvolvimento do CPD&lt;/a>&amp;nbsp;existe um&amp;nbsp;exemplo de como essas fichas&#xD;
+    seriam utilizadas.&amp;nbsp;Cada história seria descrita&amp;nbsp;em uma&amp;nbsp;ficha. Quando os requisitos estiverem&#xD;
+    estabilizados o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
+    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deverá trascrever as histórias identificadas e&#xD;
+    armazená-las no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot;&#xD;
+    guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>&amp;nbsp;para futura aprovação pelo usuário.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Cada história deve conter:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Número Identificador Único.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Nome&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Descrição&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Como demonstrar que a funcionalidade funciona.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    As histórias devem ser escritas de forma simples para que possam ser entendidas por toda &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_scrum_D8BBA1B9.html&quot; guid=&quot;_q5qZ8O4WEd2u-un9w_0PKA&quot;>Equipe Scrum&lt;/a>.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <purpose>&lt;p>&#xD;
+    Identificar as funcionalidades do produtos&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

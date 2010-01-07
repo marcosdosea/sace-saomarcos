@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-B-d2Wl0Vyk_-I-RwtKzhKQ"
+    name="new_supporting_material,_lC260PVhEdyMdecrgpMbRg" guid="-B-d2Wl0Vyk_-I-RwtKzhKQ"
+    changeDate="2008-03-18T23:08:42.078-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    With Scrum, projects progress via a series of month-long iterations called &lt;em>sprints&lt;/em>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Scrum is ideally suited for projects with rapidly changing or highly emergent requirements. The work to be done on a&#xD;
+    Scrum project is listed in the Product Backlog, which is a list of all desired changes to the product. At the start of&#xD;
+    each sprint a Sprint Planning Meeting is held during which the Product Owner prioritizes the Product Backlog and the&#xD;
+    Scrum Team selects the tasks they can complete during the coming Sprint. These tasks are then moved from the Product&#xD;
+    Backlog to the Sprint Backlog.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Each day during the sprint conducts a brief daily meeting called the Daily Scrum, which helps the team stay on track.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    At the end of each sprint the team demonstrates the completed functionality at a Sprint Review Meeting.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Graphically, Scrum looks something like this:&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../Scrum/tasks/the_daily_scrum_C8FB7908.html&quot; guid=&quot;_oSM0AOF-Edyp34pwdTOSVQ&quot;>The Daily Scrum&lt;/a>&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;img height=&quot;371&quot; alt=&quot;Scrum Overview&quot; src=&quot;./resources/ScrumLargeLabelled.png&quot; width=&quot;799&quot; usemap=&quot;#map&quot; /> &lt;map&#xD;
+    id=&quot;Map&quot; name=&quot;Map&quot;>&#xD;
+        &lt;area shape=&quot;rect&quot; coords=&quot;62,96,168,174&quot; href=&quot;./../../../Scrum/workproducts/product_backlog_68345C16.html&quot;&#xD;
+        guid=&quot;_OZIPIOF8Edyp34pwdTOSVQ&quot; />&#xD;
+        &lt;area shape=&quot;rect&quot; coords=&quot;212,95,319,175&quot; href=&quot;./../../../Scrum/workproducts/sprint_backlog_7A5B8A37.html&quot;&#xD;
+        guid=&quot;_Q5Ki8OF8Edyp34pwdTOSVQ&quot; />&#xD;
+        &lt;area shape=&quot;rect&quot; coords=&quot;234,-2,362,69&quot; href=&quot;./../../../Scrum/tasks/the_daily_scrum_C8FB7908.html&quot;&#xD;
+        guid=&quot;_oSM0AOF-Edyp34pwdTOSVQ&quot; />&#xD;
+        &lt;area shape=&quot;rect&quot; coords=&quot;607,73,756,196&quot;&#xD;
+        href=&quot;./../../../Scrum/workproducts/potentially_shippable_product_incremement_69E6418C.html&quot;&#xD;
+        guid=&quot;__uNYkPVgEdyMdecrgpMbRg&quot; />&#xD;
+    &lt;/map>&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

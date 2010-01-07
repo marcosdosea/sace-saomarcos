@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:GuidanceDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-3AgWsgStwa4K2S5b_pS3jA"
+    name="new_template,_OO6A0F8rEd22Gu98eFOlrQ" guid="-3AgWsgStwa4K2S5b_pS3jA" changeDate="2008-08-14T13:46:44.318-0400">
+  <mainDescription>&lt;p>&#xD;
+    If you are considering using a&amp;nbsp;spreadsheet to track your project's backlog and burndown consider these two&#xD;
+    templates&amp;nbsp;kindly provided by Clay Ver Valen and Petri Heiramo.&amp;nbsp; Both templates are excellent and one is sure&#xD;
+    to be appeal to your project. Petri's template uses macros which provide a richer functionality but may be an&#xD;
+    impediment to some.&amp;nbsp; Petris' template is pre-loaded with sample data while Clay provides a separate sample for his&#xD;
+    template.&#xD;
+&lt;/p></mainDescription>
+  <attachments>resources/Burndown_Template_Clay.xls|resources/Burndown_Template_Petri.xls|resources/Burndown_Sample_Clay.xls</attachments>
+</org.eclipse.epf.uma:GuidanceDescription>

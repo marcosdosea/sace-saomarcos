@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-nWkdnCY81yxMhIodXTJAsQ"
+    name="Product Owner,_QcnRMOF5Edyp34pwdTOSVQ" guid="-nWkdnCY81yxMhIodXTJAsQ" changeDate="2009-12-01T16:49:28.327-0300">
+  <mainDescription>&lt;p>&#xD;
+    O&amp;nbsp;Dono do Produto&amp;nbsp;tem as seguintes responsabilidades:&#xD;
+&lt;/p>&#xD;
+&lt;ul class=&quot;noindent&quot;>&#xD;
+    &lt;li>&#xD;
+        Definir as funcionalidades do produto;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Decidir a data de liberação e conteúdo do Release (versão estável colocada em produção);&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Priorizar as funcionalidades que deverão ser desenvolvidas;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Ajustar funcionalidades e prioridades a cada Sprint, conforme necessário; e&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Aceitar ou Rejeitar os resultados de trabalho.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    O Dono do Produto é responsável pela primeira das três formalidades do Scrum: o Planejamento do Sprint.&#xD;
+&lt;/p></mainDescription>
+  <assignmentApproaches>&lt;ul>
+
+    &lt;li>Uma única pessoa dedicada ao projeto - deve estar disponível para responder às dúvidas do time &lt;/li>
+
+    &lt;li>Um membro extra do time que participa das reuniões de Sprint Planning e Sprint Review &lt;/li>
+
+    &lt;li>Tipicamente, alguém do Marketing ou um usuário chave em desenvolvimentos internos &lt;/li>
+
+    &lt;li>Pode ser um representante do cliente ou um procurador do cliente &lt;/li>
+
+&lt;/ul></assignmentApproaches>
+</org.eclipse.epf.uma:RoleDescription>

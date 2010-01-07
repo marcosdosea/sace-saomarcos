@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-_aNvcFLkG6dHmKhaz93BwA"
+    name="scrum_copyright,_4kVeYOGBEdyp34pwdTOSVQ" guid="-_aNvcFLkG6dHmKhaz93BwA"
+    changeDate="2008-07-25T14:37:38.656-0400">
+  <mainDescription>&lt;p>&#xD;
+    This program and the accompanying materials are made available under the&lt;br />&#xD;
+    &lt;a href=&quot;http://www.eclipse.org/org/documents/epl-v10.php&quot; target=&quot;_blank&quot;>Eclipse Public License v1.0&lt;/a> which&#xD;
+    accompanies this distribution.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Copyright &amp;copy; 1998--2008 Mountain Goat Software. All rights reserved.&lt;br />&#xD;
+    Copyright &amp;copy; 2008 ATSC. All rights reserved.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

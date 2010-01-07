@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:GuidanceDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-KkrHQnR4XqgdNpWEvfFEtw"
+    name=",_zUZ0MPVpEdyJbYuqG3X5Ag" guid="-KkrHQnR4XqgdNpWEvfFEtw" changeDate="2008-08-19T14:32:51.690-0700">
+  <mainDescription>&lt;p>&#xD;
+    The typical Scrum&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../../Scrum/workproducts/release_burndown_chart_7E6A4A45.html&quot;&#xD;
+    guid=&quot;_tFw9IPVoEdyJbYuqG3X5Ag&quot;>Release Burndown Chart&lt;/a>shows a single value--the net change in the amount of work&#xD;
+    remaining. In some cases the simplicity of this is wonderful. However, it can also mask what may be going on in a&#xD;
+    project. For example, suppose a team had expected to make progress of 40 (hours, points, whatever) last sprint but the&#xD;
+    burndown chart only shows net progress of 10. Was the team slower than expected or was more work added to the release?&#xD;
+    It's important to know the answer to this question because we cannot really predict when the release will be done&#xD;
+    without it. With this in mind, I've introduced the following type of burndown chart:&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;img height=&quot;300&quot; alt=&quot;&quot; src=&quot;resources/altrelburndown1.gif&quot; width=&quot;400&quot; />&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    On this burndown chart, the height of each bar represents the amount of work remaining in the release. I prefer to&#xD;
+    estimate &lt;a class=&quot;elementLink&quot; href=&quot;./../../../Scrum/workproducts/product_backlog_68345C16.html&quot;&#xD;
+    guid=&quot;_OZIPIOF8Edyp34pwdTOSVQ&quot;>Product Backlog&lt;/a>, items in &quot;story points&quot; so this figure shows a release with 175&#xD;
+    story points planned in it as of sprint 1. The team finished 25 points in sprint 1, leaving 150 to go as of the start&#xD;
+    of sprint 2. There were 120 as of the start of sprint 3. So, the top of the bar is reduced by the amount of work the&#xD;
+    team finishes in a given sprint. Before the start of sprint 4, the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../Scrum/roles/product_owner_10E7BD3.html&quot; guid=&quot;_QcnRMOF5Edyp34pwdTOSVQ&quot;>Product Owner&lt;/a> added work to&#xD;
+    the project. This additional work is shown at the bottom of the bar for the fourth sprint. You can see that the&#xD;
+    vertical height of sprint 4 goes from about -40 to about 95, or 135 points of work remaining. Fourty of those 135&#xD;
+    points are from new work.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Prior to the start of sprint 6 work was removed by the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../Scrum/roles/product_owner_10E7BD3.html&quot; guid=&quot;_QcnRMOF5Edyp34pwdTOSVQ&quot;>Product Owner&lt;/a>. As with an&#xD;
+    increase in scope, a decrease in scope comes off the bottom. This is true whether the work removed is work that was&#xD;
+    initially planned or work that was added during the project.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    One way to predict how many sprints a project will take is to draw a trend line through the bars and extend the&#xD;
+    baseline. For example:&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;img height=&quot;300&quot; alt=&quot;&quot; src=&quot;resources/altrelburndown2.gif&quot; width=&quot;400&quot; />&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A problem with this is that predicting the end date as above does not include the rate of change to the scope of the&#xD;
+    project. You can anticipate the number of sprints needed by also drawing a trend line through the changes occurring at&#xD;
+    the bottom of the bars as shown below:&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;img height=&quot;300&quot; alt=&quot;&quot; src=&quot;resources/altrelburndown3.gif&quot; width=&quot;400&quot; />&amp;nbsp;&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:GuidanceDescription>

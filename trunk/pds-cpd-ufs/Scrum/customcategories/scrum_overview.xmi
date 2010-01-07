@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-OUAVEKu-MpijImO-oy53Rg"
+    name="new_custom_category,_Om8IAOGEEdyp34pwdTOSVQ" guid="-OUAVEKu-MpijImO-oy53Rg"
+    changeDate="2008-03-18T23:15:02.937-0400">
+  <mainDescription>&lt;br />&#xD;
+&lt;p>&#xD;
+    &lt;img src=&quot;http://wahoo.atsva.com/wiki/download/attachments/20578927/Scrum.png&quot; align=&quot;absmiddle&quot; border=&quot;0&quot; />&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Scrum projects make progress in a series of &quot;sprints&quot;. Sprint are analogous to iterations. The typical duration of a&#xD;
+    sprint is 2-4 weeks.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

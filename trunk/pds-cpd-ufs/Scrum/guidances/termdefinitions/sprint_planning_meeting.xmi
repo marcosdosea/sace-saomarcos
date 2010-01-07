@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-sn7UkWq_5c2tFfkZq7XYRw"
+    name=",_d24NQESREdyDx7cbCULuLg" guid="-sn7UkWq_5c2tFfkZq7XYRw" authors="Lyndon Washington"
+    changeDate="2008-07-30T13:46:50.437-0400" changeDescription="Initial revision"
+    version="0.1">
+  <mainDescription>The start of a Sprint is marked by a planning meeting where the Product Owner will go through the highest priority Product&#xD;
+Backlog items, and based on that information the team will select the Product Backlog Items they will implement during the&#xD;
+next Sprint.&lt;br /></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

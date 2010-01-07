@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-XfVP-2V8It98jEYmEBlgIQ"
+    name="reuniao_revisao_sprint,_RPlXdO7REd2C0KkvQJ9heQ" guid="-XfVP-2V8It98jEYmEBlgIQ"
+    changeDate="2009-02-04T08:29:10.906-0300">
+  <mainDescription>&lt;p>&#xD;
+    A Reunião de Revisão do Sprint&amp;nbsp;é uma maneira de ganhar mais apoio do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
+    Produto&lt;/a>&amp;nbsp;e&amp;nbsp;dos demais&amp;nbsp;envolvidos no projeto. Nela deve-se demonstrar as funcionalidades desenvolvidas&#xD;
+    durante o Sprint. A apresentação deve ser rápida, não deve ultrapassar 2 horas.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A apresentação do Sprint deve seguir as seguintes recomendações:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Apresentar claramente o objetivo do Sprint&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Apresentação rápida ao invés de bonita&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Focar no negócio e não nos detalhes técnicos&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Se possível deixar a audiência testar o produto&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    Outro grande objetivo da apresentação é compartilhar conhecimento, já que outros vão aprender o que a equipe está&#xD;
+    fazendo.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Para &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
+    guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>&amp;nbsp;a Reunião de Revisão do Sprint serve de&#xD;
+    motivado para que as funcionalidades seja finalizadas com qualidade, já que ninguém vai querer se constranger e mostrar&#xD;
+    coisas inacabadas.&#xD;
+&lt;/p></mainDescription>
+  <keyConsiderations>The sprint review meeting is intentionally kept very informal, typically with rules forbidding the use of PowerPoint slides&#xD;
+and allowing no more than two hours of preparation time for the meeting. A sprint review meeting should not become a&#xD;
+distraction or significant detour for the team; rather, it should be a natural result of the sprint.&lt;br /></keyConsiderations>
+  <purpose>&lt;p>&#xD;
+    Demostrar ao &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
+    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a>&amp;nbsp;as funcionalidades que foram desenvolvidas no Sprint,&#xD;
+    incentivando-o a opinar sobre as funcionalidades.&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

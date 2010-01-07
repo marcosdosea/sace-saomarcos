@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-h9Xx7G_42VKrAJeiPoEXhA"
+    name="new_term_definition,_lV7DoESPEdyDx7cbCULuLg" guid="-h9Xx7G_42VKrAJeiPoEXhA"
+    authors="Lyndon Washington" changeDate="2007-08-06T22:42:00.039-0400" changeDescription="Initial revision"
+    version="0.1">
+  <mainDescription>The Product Owner is the role in charge of the product that is being built by the team.&amp;nbsp; The Product Owner decides the
+        priority of the Product Backlog, and also when the product should be released.&lt;br /></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

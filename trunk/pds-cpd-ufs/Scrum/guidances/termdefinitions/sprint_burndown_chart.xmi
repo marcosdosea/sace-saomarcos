@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-7-9C-kYSzQHQc_uQkYm-_g"
+    name=",_mJqYQESQEdyDx7cbCULuLg" guid="-7-9C-kYSzQHQc_uQkYm-_g" authors="Lyndon Washington"
+    changeDate="2007-08-06T22:51:28.983-0400" changeDescription="Initial revision"
+    version="0.1">
+  <mainDescription>The Sprint Burndown Chart is a graphical representation of the work remaining over the duration of the Sprint.&amp;nbsp; The
+        Vertical axis displays the hours of effort remaining for the Sprint.&amp;nbsp; The horizontal axis displays the days of the
+        Sprint.&amp;nbsp; The burndown is supposed to be shown by the line of descent from the start of the Sprint with the starting
+        hours, down to the end of the Sprint with no hours remaining.&amp;nbsp; The Burndown chart is used by the team to gauge how
+        well the Sprint is going.&lt;br /></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

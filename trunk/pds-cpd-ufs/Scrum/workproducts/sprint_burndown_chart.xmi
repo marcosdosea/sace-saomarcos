@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ArtifactDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-EQ9gGoEO7QfWA_0iXzILuA"
+    name="sprint_burndown_chart,_YzmSIF8sEd22Gu98eFOlrQ" guid="-EQ9gGoEO7QfWA_0iXzILuA"
+    changeDate="2008-07-31T14:13:47.718-0400">
+  <mainDescription>&lt;p>&#xD;
+    The estimated work remaining in the sprint is calculated daily and graphed, resulting in a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/workproducts/sprint_burndown_chart_F647C347.html&quot; guid=&quot;_YzmSIF8sEd22Gu98eFOlrQ&quot;>Sprint Burndown&#xD;
+    Chart&lt;/a> The vertical axis displays the hours of effort remaining for the Sprint.&amp;nbsp; The horizontal axis displays&#xD;
+    the days of the Sprint.&amp;nbsp; The burndown is supposed to be shown by the line of descent from the start of the Sprint&#xD;
+    with the starting hours, down to the end of the Sprint with no hours remaining.&amp;nbsp;&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;img height=&quot;300&quot; alt=&quot;&quot; src=&quot;./resources/sprintburndown.jpg&quot; width=&quot;400&quot; />&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The team does its best to pull the right amount of work into the sprint but sometimes too much or too little work is&#xD;
+    pulled in during the &lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/tasks/sprint_planning_meeting_9F0B8F28.html&quot;&#xD;
+    guid=&quot;_4gCKAOF9Edyp34pwdTOSVQ&quot;>Sprint Planning Meeting&lt;/a> in this case the team needs to add or remove tasks. In the&#xD;
+    above sprint burndown chart you can see that the team had pulled in too much work initially and still had nearly 600&#xD;
+    hours to go on 5/16/02. In this case the &lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/roles/product_owner_10E7BD3.html&quot;&#xD;
+    guid=&quot;_QcnRMOF5Edyp34pwdTOSVQ&quot;>Product Owner&lt;/a> was consulted and it was agreed to remove some work from the sprint,&#xD;
+    which resulted in the big drop on the chart between 5/16/02 (619 hours) and 5/17/02. From there the team made good&#xD;
+    consistent progress and finished the sprint successfully.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;br />&#xD;
+    &amp;nbsp;&#xD;
+&lt;/p></mainDescription>
+  <purpose>Used by the team to gauge how well the Sprint is going.</purpose>
+</org.eclipse.epf.uma:ArtifactDescription>

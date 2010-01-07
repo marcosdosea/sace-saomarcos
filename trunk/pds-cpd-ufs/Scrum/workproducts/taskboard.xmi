@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ArtifactDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-JGaSKq8Cd3WrAqkPLTUUGg"
+    name="new_artifact,_rU4H4F8fEd22Gu98eFOlrQ" guid="-JGaSKq8Cd3WrAqkPLTUUGg" changeDate="2008-07-31T12:44:26.578-0400">
+  <mainDescription>&lt;p>&#xD;
+    The task board shows all the work the team is&amp;nbsp;doing during a sprint. It is updated&amp;nbsp;continuously throughout&#xD;
+    the sprint–if someone thinks of a new task they&amp;nbsp;write a new card and puts it on the board. Either during or&#xD;
+    before&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/tasks/the_daily_scrum_C8FB7908.html&quot;&#xD;
+    guid=&quot;_oSM0AOF-Edyp34pwdTOSVQ&quot;>The Daily Scrum&lt;/a>, estimates are changed (up or down) and cards are moved around the&#xD;
+    board.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The task board might look like this:&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;span class=&quot;articleImage&quot;>&lt;img style=&quot;WIDTH: 461px; HEIGHT: 336px&quot; height=&quot;447&quot; alt=&quot;&quot;&#xD;
+    src=&quot;resources/MockedTaskBoard.jpg&quot; width=&quot;600&quot; />&lt;a&#xD;
+    href=&quot;http://www.mountaingoatsoftware.com/system/hidden_asset/file/29/MockedTaskBoard.jpg&quot;>&lt;u>&lt;font&#xD;
+    color=&quot;#0000ff&quot;>&amp;nbsp;&lt;/font>&lt;/u>&lt;/a>&lt;/span>&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;span class=&quot;articleImage&quot;>&lt;br />&#xD;
+    &amp;nbsp;&lt;/span>&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Each row on the task board is a product backlog item (in this&amp;nbsp; particular example stories). During the &lt;a&#xD;
+    class=&quot;elementLinkWithUserText&quot; href=&quot;./../../Scrum/tasks/sprint_planning_meeting_9F0B8F28.html&quot;&#xD;
+    guid=&quot;_4gCKAOF9Edyp34pwdTOSVQ&quot;>sprint planning meeting&lt;/a> the team selects the product backlog items they can complete&#xD;
+    during the coming sprint. Each product backlog item is turned into multiple &lt;a class=&quot;elementLinkWithUserText&quot;&#xD;
+    href=&quot;./../../Scrum/workproducts/sprint_backlog_7A5B8A37.html&quot; guid=&quot;_Q5Ki8OF8Edyp34pwdTOSVQ&quot;>sprint backlog&lt;/a> items.&#xD;
+    Each of these is represented by one task card that is placed on the task board. Each task card starts on the task board&#xD;
+    in the “To Do” column. The columns are:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        &lt;b>Story&lt;/b>–The story description (“As a user I want to…”) shown on that row.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        &lt;b>To Do&lt;/b>–This holds all the cards that are not done or in process.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        &lt;b>Work In Process&lt;/b>–Any card being worked on goes here. The programmer who chooses to work on it moves it over&#xD;
+        when she’s ready to start the task. Often this happens during the Daily Scrum when someone says, “I’m going to work&#xD;
+        on the boojum today.”&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        &lt;b>To Verify&lt;/b>–A lot of tasks have corresponding test task cards. So, if there’s a “Code the boojum class” card&#xD;
+        there is likely one or more task cards related to testing: “Test the boojum”, “Write FitNesse tests for the&#xD;
+        boojum,” “Write FitNesse fixture for the boojum,” etc. Some task cards don’t often get corresponding test cards&#xD;
+        (“Fix Bug #321 in Bugzilla”) so those are placed in the “To Verify” column.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        &lt;b>Done&lt;/b>–Cards pile up over here when they’re done. They’re removed at the end of the sprint.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></mainDescription>
+  <purpose>Tangibly communicates progress&amp;nbsp;across team members and stakeholders.</purpose>
+  <representationOptions>There are many different ways to implement a task board.&amp;nbsp; Co-located teams may use a wall.&amp;nbsp; Distributed teams&#xD;
+will use some kind of tool.</representationOptions>
+</org.eclipse.epf.uma:ArtifactDescription>

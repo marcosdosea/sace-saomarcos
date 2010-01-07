@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-D34_OGMrmz1Cs9exs3tIeg"
+    name="sprint_retrospective,_sKJ9AOF-Edyp34pwdTOSVQ" guid="-D34_OGMrmz1Cs9exs3tIeg"
+    changeDate="2009-02-04T10:37:53.640-0300">
+  <mainDescription>&lt;p>&#xD;
+    A Retrospectiva do Sprint é a oportunidade que é dada a equipe para discussão de melhorias que podem ser implantadas&#xD;
+    nos próximos Sprints.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Inicialmente o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
+    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve fazer um resumo do Sprint. Em seguida, todos os&#xD;
+    membros da &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
+    guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>&amp;nbsp;deve falar sobre o que foi bom/ruim e&#xD;
+    como poderiam melhorar.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Deve-se comparar a velocidade estimada pela equipe, através do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/sprint_backlog_1699DBEA.html&quot; guid=&quot;_KlZ-cu7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
+    Sprint&lt;/a>&amp;nbsp;e a velocidade real de execução da tarefa, obtida através do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Trac&lt;/a>. O &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
+    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;é responsável por fazer essa comparação e discutir os&#xD;
+    motivos que levaram a uma diferença no prazo estimado.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Finalmente deve-se divulgar as lições aprendidas entre os demais membros da Equipe de Desenvolvimento do CPD. O &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
+    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve definir quais&amp;nbsp;lições aprendidas deverão&#xD;
+    ser&amp;nbsp;divulgadas através do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html&quot; guid=&quot;_vDqwoO7kEd2C0KkvQJ9heQ&quot;>Site de&#xD;
+    Desenvolvimento do CPD&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+  <purpose>&lt;p>&#xD;
+    A Retrospectiva do Sprint é o principal mecanismo para que a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_scrum_D8BBA1B9.html&quot; guid=&quot;_q5qZ8O4WEd2u-un9w_0PKA&quot;>Equipe&#xD;
+    Scrum&lt;/a>&amp;nbsp;possa avaliar as decisões tomada durante o Sprint, encontrar problemas e oportunidades de melhoria.&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

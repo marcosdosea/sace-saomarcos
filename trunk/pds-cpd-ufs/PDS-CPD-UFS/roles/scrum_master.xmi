@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-ZLkdUEO4bNJNSZ--payOlg"
+    name="scrum_master,_DHh3Yt6yEd6PEreghJQPwg" guid="-ZLkdUEO4bNJNSZ--payOlg" changeDate="2009-12-01T17:13:27.487-0300">
+  <mainDescription>&lt;p>&#xD;
+    O Scrum Master:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Representa a gestão do projecto (ligação);&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        É responsável por difundir os valores do Scrum e suas práticas;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Executa as Reuniões Diárias com os Scrum Master dos Produtos;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Remove os impedimentos;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Protege&amp;nbsp;as Equipes Scrum&amp;nbsp;contra interferências externas;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Assegura que o time esteja totalmente funcional e produtivo; e&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Possibilita uma cooperação estreita entre todos os papéis e funções.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></mainDescription>
+  <keyConsiderations>&lt;br />&#xD;
+&lt;ul class=&quot;noindent&quot;>&#xD;
+    &lt;li>&#xD;
+        não é o gerente de projetos, mas um líder facilitador que gerencia processos Scrum;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        monitoria as tarefas do Sprint para assegurar o sucesso do Sprint, mas não cria/atribui tarefas - o time é quem as&#xD;
+        cria/atribui;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        é parte do time: divide responsabilidades com outros membros;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        deve, regularmente, fisicamente, reunir-se com os demais membros do time.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></keyConsiderations>
+</org.eclipse.epf.uma:RoleDescription>

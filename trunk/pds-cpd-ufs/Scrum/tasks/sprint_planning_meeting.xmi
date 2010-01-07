@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-2Wj3V9GSZ2lAtr6E5xISGQ"
+    name="sprint_planning_meeting,_4gCKAOF9Edyp34pwdTOSVQ" guid="-2Wj3V9GSZ2lAtr6E5xISGQ"
+    changeDate="2008-03-09T14:31:57.515-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    The Sprint Planning Meeting is attended by the Product Owner, Scrum Master, the entire Scrum Team, and any interested&#xD;
+    and appropriate management or customer representatives.&lt;br />&#xD;
+    &lt;br />&#xD;
+    During the sprint planning meeting the product owner describes the highest priority features to the team. The team asks&#xD;
+    enough questions during this meeting so that they can go off after the meeting and determine which tasks they will move&#xD;
+    from the product backlog to the sprint backlog.&lt;br />&#xD;
+    &lt;br />&#xD;
+    Collectively, the Scrum team and the product owner define a sprint goal, which is a short description of what the&#xD;
+    sprint will attempt to achieve. The success of the sprint will later be assessed during the Sprint Review Meeting&#xD;
+    against the sprint goal, rather than against each specific item selected from the product backlog.&lt;br />&#xD;
+    &lt;br />&#xD;
+    After the sprint planning meeting, the Scrum team meets separately to discuss what they heard and decide how much they&#xD;
+    can commit to during the coming sprint. In some cases there will be negotiation with the product owner but it will&#xD;
+    always be up to the team to determine how much they can commit to completing.&#xD;
+&lt;/p></mainDescription>
+  <keyConsiderations>The product owner doesn't have to describe every item being tracked on the product backlog. Depending on the size of the&#xD;
+backlog and the speed of the team it may be sufficient to describe only the high priority items, saving the discussion of&#xD;
+lower priority items for the next sprint planning meeting. Typically, the Scrum team will provide guidance when they start&#xD;
+to get further into the backlog list than they know could be done in the next sprint.</keyConsiderations>
+</org.eclipse.epf.uma:TaskDescription>

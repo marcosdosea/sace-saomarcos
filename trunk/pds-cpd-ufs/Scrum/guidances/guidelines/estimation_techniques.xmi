@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-eyjJa_TnruHlbgFfOCM5Jg"
+    name="estimating_the_backlog,_L1t78F5nEd22Gu98eFOlrQ" guid="-eyjJa_TnruHlbgFfOCM5Jg"
+    changeDate="2008-07-31T09:25:11.593-0400">
+  <mainDescription>&lt;p>&#xD;
+    Scrum does not prescribe specific estimation&amp;nbsp;techniques.&amp;nbsp;&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Estimation by analogy is one&amp;nbsp;technique used by Scrum teams.&amp;nbsp; The mechanism is very simple and consists of&#xD;
+    comparing backlog items to similar backlog&amp;nbsp;items that were previously implemented.&amp;nbsp; Lack of&#xD;
+    available&amp;nbsp;data points will&amp;nbsp;limit the effectiveness of this technique.&amp;nbsp;&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Planning Poker is a popular iterative approach to estimating.&amp;nbsp; Here are the steps:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Each estimator is given a deck of cards, each card has a valid estimate written on it&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The Product owner reads a story and it’s discussed briefly&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Each estimator selects a card representing&amp;nbsp;his or her estimate&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The cards are turned over so all can see them&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Discuss differences (especially outliers)&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Re-estimate until estimates converge&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&lt;br />&#xD;
+&lt;p>&#xD;
+    Planning poker cards and an &lt;a href=&quot;http://www.planningpoker.com/&quot;>online version of Planning Poker&lt;/a> are available&#xD;
+    from &lt;a href=&quot;http://www.mountaingoatsoftware.com//&quot;>Mountain Goat Software&lt;/a>&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

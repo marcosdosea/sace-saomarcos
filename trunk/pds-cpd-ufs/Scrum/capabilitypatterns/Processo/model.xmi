@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore" xmlns:org.eclipse.epf.uma.resourcemanager="http:///org/eclipse/epf/uma/resourcemanager.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0">
+  <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_whpNQd5LEd2f_8ttyz0EUQ"
+      guid="_whpNQd5LEd2f_8ttyz0EUQ">
+    <resourceDescriptors xmi:id="_whpNQt5LEd2f_8ttyz0EUQ" id="-zBRhyZ4BFpqUUlbFxhC7oQ"
+        uri="content.xmi"/>
+  </org.eclipse.epf.uma.resourcemanager:ResourceManager>
+  <org.eclipse.epf.uma:ProcessComponent xmi:id="_wfaYoN5LEd2f_8ttyz0EUQ" name="Processo"
+      guid="_wfaYoN5LEd2f_8ttyz0EUQ">
+    <process xsi:type="org.eclipse.epf.uma:CapabilityPattern" xmi:id="_wfaYod5LEd2f_8ttyz0EUQ"
+        name="Processo" guid="_wfaYod5LEd2f_8ttyz0EUQ" presentationName="Processo">
+      <presentation xmi:id="-zBRhyZ4BFpqUUlbFxhC7oQ" href="uma://-zBRhyZ4BFpqUUlbFxhC7oQ#-zBRhyZ4BFpqUUlbFxhC7oQ"/>
+      <defaultContext href="uma://_rnsX4OF4Edyp34pwdTOSVQ#_ZVQ80OGNEdyp34pwdTOSVQ"/>
+      <validContext href="uma://_rnsX4OF4Edyp34pwdTOSVQ#_ZVQ80OGNEdyp34pwdTOSVQ"/>
+    </process>
+  </org.eclipse.epf.uma:ProcessComponent>
+</xmi:XMI>

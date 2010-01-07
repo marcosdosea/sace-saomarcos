@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-zsVlsBZ45FLdZcI46krg4g"
+    name="encaminhar_demanda,_FurV8OAJEd6cQJ8mWE1AKA" guid="-zsVlsBZ45FLdZcI46krg4g"
+    changeDate="2009-12-15T08:57:56.532-0300">
+  <mainDescription>&lt;p>&#xD;
+    Quando não possui solução para a demanda,&amp;nbsp;a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento&#xD;
+    ao Usuário&lt;/a>&amp;nbsp;deve encaminhá-la para Equipe de Sistemas.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Para isso deve ser criado um novo chamado (ticket) dentro do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>. O&#xD;
+    ticket deve ser criado da seguinte forma:&#xD;
+&lt;/p>&#xD;
+&lt;ol>&#xD;
+    &lt;li>&#xD;
+        O título do ticket deve iniciar com o número do SOS.&lt;br />&#xD;
+        Exemplo: SOS00123-Demanda do Usuário&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        O conteúdo do ticket deve conter uma explicação detalhada da demanda. Caso a solicitação do usuário através do &lt;a&#xD;
+        class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
+        guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>&amp;nbsp;não seja clara, a &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de&#xD;
+        Atendimento ao Usuário&lt;/a>&amp;nbsp;deve esclarecer as dúvidas com o solicitante antes de encaminhá-la para Equipe de&#xD;
+        Sistemas.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
+        guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve se cadastrar como &quot;observadora&quot; do&#xD;
+        ticket criado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
+        guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>. O objetivo é que possa receber por e-mail quaisquer atualizações&#xD;
+        realizadas no ticket. Essas atualizações devem ser&amp;nbsp;utilizadas par atualizar o status da demanda&amp;nbsp;no &lt;a&#xD;
+        class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
+        guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>.&lt;br />&#xD;
+    &lt;/li>&#xD;
+&lt;/ol>&#xD;
+&lt;p>&#xD;
+    O ticket deve ser encaminhado primariamente para o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_DE223945.html&quot; guid=&quot;_DHh3Yt6yEd6PEreghJQPwg&quot;>Scrum Master&lt;/a>. Ele é o&#xD;
+    responsável por determinar quem irá resolver a demanda.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Porém, caso a &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
+    guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>, tenha conhecimento num determinado momento, quem é&#xD;
+    o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>, a demanda pode ser encaminhada diretamente para este.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Encaminhar para Equipe de Sistemas os chamados sem solução.</purpose>
+</org.eclipse.epf.uma:TaskDescription>
