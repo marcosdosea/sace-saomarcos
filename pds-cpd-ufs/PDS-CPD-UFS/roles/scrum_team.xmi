@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-kxh8QvQz8SO3KXCrjeFjVA"
+    name="new_role,_O65KUOF6Edyp34pwdTOSVQ" guid="-kxh8QvQz8SO3KXCrjeFjVA" changeDate="2009-12-01T17:09:18.043-0300">
+  <mainDescription>&lt;p>&#xD;
+    A Equipe&amp;nbsp;Scrum:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Seleciona o objetivo do Sprint (Sprint Goal) e especifica os produtos de trabalho necessários;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Tem a liberdade de fazer qualquer coisa dentro das diretrizes do projeto para alcançar o objetivo do Sprint;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Auto organiza-se e organiza suas atividades; e&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Apresenta os produtos de trabalho ao &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    Membros do Time Scrum não têm um papel fixo (Ex: programador, designer, testador ou arquiteto). Todos no projeto&#xD;
+    trabalham juntos para finalizar a lista de atividades que eles coletivamente se comprometeram a realizar durante um&#xD;
+    Sprint.&#xD;
+&lt;/p></mainDescription>
+  <assignmentApproaches>&lt;p>Membros devem se dedicar em tempo integral, mas pode haver exceções (ex: administrador de banco de dados). &lt;/p>
+
+&lt;p>Deve-se alterar membros somente no intervalo entre Sprints. &lt;/p></assignmentApproaches>
+</org.eclipse.epf.uma:RoleDescription>

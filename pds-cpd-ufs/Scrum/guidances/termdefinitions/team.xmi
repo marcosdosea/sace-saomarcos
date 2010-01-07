@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-EqhbZ-SkHp61Y2vSUUoCOQ"
+    name="new_term_definition,_vZ3Q8ESTEdyDx7cbCULuLg" guid="-EqhbZ-SkHp61Y2vSUUoCOQ"
+    authors="Lyndon Washington" changeDate="2007-08-06T23:13:21.867-0400" changeDescription="Initial revision"
+    version="0.1">
+  <mainDescription>The Team is a cross-functional group of 5-9 people who commit to delivering high value increments of product functionality
+        to the customers each Sprint.&amp;nbsp; The Team is in charge of their own destiny since they are empowered to organize
+        themselves to make sure that all of the work is completed.&lt;br /></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

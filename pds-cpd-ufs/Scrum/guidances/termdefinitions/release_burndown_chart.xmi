@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-5ZwUAb_042ViuoKsGdsWmw"
+    name="new_term_definition,_YCtMUF5eEd22Gu98eFOlrQ" guid="-5ZwUAb_042ViuoKsGdsWmw"
+    changeDate="2008-07-30T13:40:15.125-0400">
+  <mainDescription>&lt;p>&#xD;
+    On a Scrum project, the team tracks its progress against a release plan by updating a release burndown chart at the end&#xD;
+    of each sprint. The horizontal axis of the release burndown chart shows the sprints; the vertical axis shows the amount&#xD;
+    of work remaining at the start of each sprint.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The scope of this chart is a single release; however, a product burndown chart spans all releases.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

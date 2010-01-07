@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-NrSTjiuzDnfEiZxA7N_tFA"
+    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-NrSTjiuzDnfEiZxA7N_tFA" changeDate="2008-07-31T12:05:05.046-0400">
+  <mainDescription>&lt;p>&#xD;
+    At the beginning of a project the team will create a&amp;nbsp;high-level release plan.&amp;nbsp; The team cannot possibly know&#xD;
+    everything up front so a detailed plan is not necessary.&amp;nbsp; The&amp;nbsp;release plan should&amp;nbsp;address:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        The number and duration of the sprints&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        How many people or teams should be on this project&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The number of releases&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The value delivered in&amp;nbsp;each release&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The ship date for the releases&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    Key inputs to release planning are:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        The prioritized Product Backlong&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The&amp;nbsp;estimated velocity&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Any hard and fast&amp;nbsp;to-market dates the Product Owner must satisfy&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></mainDescription>
+  <purpose>To level-set expectations (internal and external) and to proactively uncover needs and dependencies</purpose>
+</org.eclipse.epf.uma:TaskDescription>

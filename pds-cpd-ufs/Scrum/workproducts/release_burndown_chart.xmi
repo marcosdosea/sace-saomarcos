@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ArtifactDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-f7PDqWbPWJ4XP9HiP8IVKQ"
+    name="release_burndown_chart,_tFw9IPVoEdyJbYuqG3X5Ag" guid="-f7PDqWbPWJ4XP9HiP8IVKQ"
+    changeDate="2008-03-19T00:00:22.125-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    On a Scrum project, the team tracks its progress against a release plan by updating a release burndown chart at the end&#xD;
+    of each sprint. The horizontal axis of the release burndown chart shows the sprints; the vertical axis shows the amount&#xD;
+    of work remaining at the start of each sprint. Work remaining can be shown in whatever unit the team prefers--story&#xD;
+    points, ideal days, team days, and so on.&amp;nbsp;&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    &lt;img height=&quot;358&quot; alt=&quot;&quot; src=&quot;resources/releaseburndown.png&quot; width=&quot;298&quot; />&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    On this burndown chart, the team started a project that was planned to be eleven two-week sprints. They began with 200&#xD;
+    story points of work. The first sprint went well and from the chart you can infer that they had around 180 story points&#xD;
+    of work remaining after the first sprint. During the second sprint, however, the estimated work remaining actually&#xD;
+    burned up. This could have been because work was added to the project or because the team changed some estimates of the&#xD;
+    remaining work. From there the project continued well. Progress slowed during sprint 7 but then quickly resumed.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    This type of release burndown chart works very well in many situations and in many teams. However, on projects with&#xD;
+    lots of changing requirements you may want to look at an &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/guidances/examples/alternative_release_burndown_chart_565346BF.html&quot;&#xD;
+    guid=&quot;_zUZ0MPVpEdyJbYuqG3X5Ag&quot;>Alternative Release Burndown Chart&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ArtifactDescription>

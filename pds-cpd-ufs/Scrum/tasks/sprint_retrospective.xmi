@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-xohW6akCXeAm21kFxbyPgA"
+    name="sprint_retrospective,_sKJ9AOF-Edyp34pwdTOSVQ" guid="-xohW6akCXeAm21kFxbyPgA"
+    changeDate="2008-03-18T21:32:11.093-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    The Sprint Retrospective is an opportunity for the team to discuss what's working and what's not working, and agree on&#xD;
+    changes to try.&amp;nbsp; One approach taken is that the whole team gathers and discusses what they’d like to&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Start doing&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Stop doing&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Continue doing&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></mainDescription>
+  <keyConsiderations>&lt;p>&#xD;
+    The &lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/roles/scrum_team_8D8F2B3.html&quot; guid=&quot;_O65KUOF6Edyp34pwdTOSVQ&quot;>Scrum&#xD;
+    Team&lt;/a>, the &lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/roles/product_owner_10E7BD3.html&quot;&#xD;
+    guid=&quot;_QcnRMOF5Edyp34pwdTOSVQ&quot;>Product Owner&lt;/a>, and the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/roles/scrummaster_357FCB70.html&quot; guid=&quot;_Bw-twOF6Edyp34pwdTOSVQ&quot;>ScrumMaster&lt;/a> will all attend,&#xD;
+    and a neutral outsider will facilitate the meeting.&#xD;
+&lt;/p></keyConsiderations>
+  <purpose>The Sprint Retrospective is the main mechanism for taking the visibility that Scrum provides into areas of potential&#xD;
+improvement, and turning it into results.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

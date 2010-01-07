@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-o2vZu8B76fDp1vMbb1mOJQ"
+    name="atender_demanda,_4Fh_sOAIEd6cQJ8mWE1AKA" guid="-o2vZu8B76fDp1vMbb1mOJQ"
+    changeDate="2009-12-15T08:47:18.793-0300">
+  <mainDescription>&lt;p>&#xD;
+    A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
+    guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve atender a demanda do usuário quando a&#xD;
+    solução já é pré-definida.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Após o atendimento o status do chamado deve ser atualizado no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot; guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS&#xD;
+    Manutenção&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Atender a demandas de usuário cuja equipe já possui solução pré-definida.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

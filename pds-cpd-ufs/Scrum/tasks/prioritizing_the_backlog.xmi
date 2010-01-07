@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-_17L09AWhCtpcfaV1O_oIA"
+    name=",_btIuEF8LEd22Gu98eFOlrQ" guid="-_17L09AWhCtpcfaV1O_oIA" changeDate="2008-07-31T10:34:21.500-0400">
+  <mainDescription>&lt;p>&#xD;
+    The Product Backlog is a prioritized list of work to be completed by the team.&amp;nbsp; It is continuously updated by the&#xD;
+    Product Owner&amp;nbsp;based on&amp;nbsp;feedback from the end-user (as they are exposed to new product increments) and&#xD;
+    also&amp;nbsp;in response to&amp;nbsp;the&amp;nbsp;evolving technical and business landscape.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    It is important that the&amp;nbsp;team provides the Product Owner with sizing estimates&amp;nbsp;for the&amp;nbsp;Product Backlog&#xD;
+    items to enable the&amp;nbsp;Product Owner to balance&amp;nbsp;business need with&amp;nbsp;the estimated cost of implementation.&#xD;
+&lt;/p></mainDescription>
+  <purpose>&lt;p>&#xD;
+    To ensure that the team builds the right product.&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

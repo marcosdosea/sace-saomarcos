@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:org.eclipse.epf.uma.resourcemanager="http:///org/eclipse/epf/uma/resourcemanager.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0">
+  <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_alhG0O02Ed2AGvfZCrwPjw"
+      guid="_alhG0O02Ed2AGvfZCrwPjw">
+    <resourceDescriptors xmi:id="_al0BwO02Ed2AGvfZCrwPjw" id="_alXV0e02Ed2AGvfZCrwPjw"
+        uri=""/>
+  </org.eclipse.epf.uma.resourcemanager:ResourceManager>
+  <org.eclipse.epf.uma:MethodLibrary xmi:id="_alXV0e02Ed2AGvfZCrwPjw" name="PDS-CPD-UFS"
+      guid="_alXV0e02Ed2AGvfZCrwPjw"/>
+</xmi:XMI>

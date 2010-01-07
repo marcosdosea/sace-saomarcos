@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-Y-zl9iSqLAWljv7qv-gFxQ"
+    name="avaliar_atendimento,_jMh7EOAJEd6cQJ8mWE1AKA" guid="-Y-zl9iSqLAWljv7qv-gFxQ"
+    changeDate="2009-12-15T12:04:24.877-0300">
+  <mainDescription>Através do &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
+guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>&amp;nbsp;o solicitante é incentivado a dar uma nota ao atendimento e enviar&#xD;
+críticas e sugestões&amp;nbsp;à Equipe do CPD.</mainDescription>
+  <purpose>Avaliar a qualidade do atendimento prestado pela Equipe do CPD.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

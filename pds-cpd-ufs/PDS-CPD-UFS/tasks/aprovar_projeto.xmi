@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-lMdqm6QmJVJ2ScbVFfubdg"
+    name="aprovar_projeto,_RG5yAO7QEd2C0KkvQJ9heQ" guid="-lMdqm6QmJVJ2ScbVFfubdg"
+    changeDate="2009-02-04T07:59:47.828-0300">
+  <mainDescription>&lt;p>&#xD;
+    Aprovar projeto para execução pela &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot; guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de&#xD;
+    Desenvolvimento de Sistemas&lt;/a>. O projeto é descrito pelo documento de &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot; guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Visão do&#xD;
+    Sistema&lt;/a>. Cada nova versão do sistema possui um documento de visão atualizado. Quando novas funcionalidades forem&#xD;
+    adicionadas em um sistema existente, elas deverão ficar em destaque no documento de visão do sistema.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A aprovação desse documento é condição necessária para que um novo sistema ou alterações&amp;nbsp;em um&amp;nbsp;sistema&#xD;
+    existente possam ser desenvolvidas.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O documento deve ser armazenado e aprovado utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Depois da aprovação deve-se criar o sistema (caso não exista)&amp;nbsp;e a&amp;nbsp;release que será desenvolvida no &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
+    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Trac&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Aprovar projeto para execução pela &lt;a class=&quot;elementLink&quot;&#xD;
+href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot; guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de&#xD;
+Desenvolvimento de Sistemas&lt;/a>.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

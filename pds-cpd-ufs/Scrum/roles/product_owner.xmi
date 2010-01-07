@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="--OmeeCdOSH1ki1_i9TN0kg"
+    name="Product Owner,_QcnRMOF5Edyp34pwdTOSVQ" guid="--OmeeCdOSH1ki1_i9TN0kg" changeDate="2008-03-11T17:32:26.593-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    The Product Owner has the following responsibilities:&#xD;
+&lt;/p>&#xD;
+&lt;ul class=&quot;noindent&quot;>&#xD;
+    &lt;li>&#xD;
+        Define the features of the product;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Decide on release date and content;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Be responsible for the profitability of the product (ROI);&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Prioritize features according to market value;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Adjust features and priority every 30 days, as needed; and&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Accept or reject work results.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    The product owner is responsible for the first of the three Scrum ceremonies&amp;nbsp;:&amp;nbsp;Sprint Planning&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The Scrum Team looks at the prioritized Product Backlog and slices off the top priority items and commits to completing&#xD;
+    them during a sprint. These items become the Sprint Backlog.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    In return for the Scrum team's commitment to completing the selected tasks, the Product Owner commits that he or she&#xD;
+    will not throw new requirements at the team during the sprint. Requirements are allowed to change but only outside the&#xD;
+    sprint. Once the team starts on a sprint it remains maniacally focused on the goal of that sprint.&#xD;
+&lt;/p></mainDescription>
+  <assignmentApproaches>&lt;ul>&#xD;
+    &lt;li>&#xD;
+        A single person dedicated the the project - must be available to answer the team's questions&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        An extended member of the team that participates in sprint planning and sprint review&amp;nbsp;meetings&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Typically someone from a Marketing role or a key user in internal development&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Can be a&amp;nbsp;customer representative or a customer proxy&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></assignmentApproaches>
+</org.eclipse.epf.uma:RoleDescription>

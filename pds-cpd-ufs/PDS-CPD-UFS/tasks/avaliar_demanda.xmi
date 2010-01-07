@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-spNnlJEEg8FTW3VHFxFZxw"
+    name="avaliar_demanda,_giArAOAIEd6cQJ8mWE1AKA" guid="-spNnlJEEg8FTW3VHFxFZxw"
+    changeDate="2009-12-15T08:19:14.978-0300">
+  <mainDescription>&lt;p>&#xD;
+    A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
+    guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve avaliar todas as&amp;nbsp;solicitações&#xD;
+    enviadas pelos &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+    guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A partir dessa avaliação a equipe pode tomar duas ações:&#xD;
+&lt;/p>&#xD;
+&lt;ol>&#xD;
+    &lt;li>&#xD;
+        Atender o chamado caso possua solução.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Encaminhar o chamado para Equipe de Sistemas utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+&lt;/ol></mainDescription>
+  <purpose>Fazer a triagem dos problemas/demandas para Equipe de Sistemas.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-NJeLrD73rLqTcd3ZCDW5Mg"
+    name="gerenciamento_documentos,_2RRcQO7jEd2C0KkvQJ9heQ" guid="-NJeLrD73rLqTcd3ZCDW5Mg"
+    changeDate="2009-02-03T09:25:30.500-0300">
+  <mainDescription>O Nuxeo é a ferramenta utilizada para armazenar toda documentação do sistema,&amp;nbsp;além de ser responsável&#xD;
+pela&amp;nbsp;aprovação de documentos pelos envolvidos.</mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

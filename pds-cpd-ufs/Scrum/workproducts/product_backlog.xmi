@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ArtifactDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-v5-z0Dm_JF0P2xtKd0FDrA"
+    name="new_artifact,_OZIPIOF8Edyp34pwdTOSVQ" guid="-v5-z0Dm_JF0P2xtKd0FDrA" changeDate="2008-03-18T20:39:19.656-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    When a project is initiated there is no comprehensive, time-consuming effort to write down all foreseeable tasks or&#xD;
+    requirements. Typically, a project writes down everything obvious, which is almost always more than enough for a first&#xD;
+    sprint. The Product Backlog is then allowed to grow and change as more is learned about the product and its customers.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    During the &lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/tasks/sprint_planning_meeting_9F0B8F28.html&quot;&#xD;
+    guid=&quot;_4gCKAOF9Edyp34pwdTOSVQ&quot;>Sprint Planning Meeting&lt;/a> the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/roles/product_owner_10E7BD3.html&quot; guid=&quot;_QcnRMOF5Edyp34pwdTOSVQ&quot;>Product Owner&lt;/a> prioritizes the&#xD;
+    items in the Product Backlog and describes them to the team. The team then determines which items they can complete&#xD;
+    during the coming Sprint. The team then moves items from the Product Backlog to the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/workproducts/sprint_backlog_7A5B8A37.html&quot; guid=&quot;_Q5Ki8OF8Edyp34pwdTOSVQ&quot;>Sprint Backlog&lt;/a>. In&#xD;
+    doing they expand each Product Backlog item into one or more Sprint Backlog tasks so they can more effectively share&#xD;
+    work during the Sprint. Conceptually, the team starts at the top of the prioritized Product Backlog list and draws a&#xD;
+    line after the lowest of the high priority items they feel they can complete. In practice it is not unusual to see a&#xD;
+    team select, for example, the top five items and then two items from lower on the list but that are associated with the&#xD;
+    initial five.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Product backlog items can be technical tasks (&quot;Refactor the Login class to throw an exception&quot;) or more user-centric&#xD;
+    (&quot;Allow undo on the setup screen&quot;). A very interesting prospect is expressing Scrum backlog items in the form of&#xD;
+    Extreme Programming's User Stories.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The Product Backlog can be maintained in an Excel spreadsheet. An example from a real project is shown below. This&#xD;
+    Excel spreadsheet shows each product backlog item assigned a general priority (Very High, High, etc.) by the Product&#xD;
+    Owner. Estimates have been developed by the developers but it is understood that they are very imprecise and are useful&#xD;
+    only for rough assignments of tasks into the various sprints.&#xD;
+&lt;/p>&lt;img height=&quot;482&quot; alt=&quot;&quot; src=&quot;resources/productbacklog.jpg&quot; width=&quot;500&quot; /></mainDescription>
+</org.eclipse.epf.uma:ArtifactDescription>

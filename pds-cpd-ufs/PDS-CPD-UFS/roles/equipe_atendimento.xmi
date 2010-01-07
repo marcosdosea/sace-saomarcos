@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-E7l2aA0sf26r0EdeZJvXgg"
+    name="new_role,_2fRecOAGEd6cQJ8mWE1AKA" guid="-E7l2aA0sf26r0EdeZJvXgg" changeDate="2009-12-03T09:26:50.031-0300">
+  <mainDescription>&lt;p>&#xD;
+    A Equipe de Atendimento tem as seguintes responsabilidades:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Receber todas as solicitações dos &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+        guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>&amp;nbsp;e encaminhar, caso necessário, para as &lt;a&#xD;
+        class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe&#xD;
+        Scrum&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Caso existam dúvidas sobre a solicitação deve retornar ao usuário para esclarecer todas as dúvidas.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Após o encerramento do chamado deve verificar com o usuário&amp;nbsp;se a solicitação foi&amp;nbsp;atendida adequadamente.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&lt;br /></mainDescription>
+</org.eclipse.epf.uma:RoleDescription>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-e9FxENZuCFr7WkungxFv0Q"
+    name="new_guideline,_SCv2oOF7Edyp34pwdTOSVQ" guid="-e9FxENZuCFr7WkungxFv0Q" changeDate="2008-02-22T14:21:10.421-0500">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    The primary way of scaling Scrum to work with large teams is to coordinate a &quot;Scrum of Scrums.&quot; With this approach each&#xD;
+    Scrum team proceeds as normal but each team also contributes one person who attends Scrum of Scrum meetings to&#xD;
+    coordinate the work of multiple Scrum teams. These meetings are analogous to the Daily Scrum Meeting, but do not&#xD;
+    necessarily happen every day. In many organizations, having a Scrum of Scrums meeting two or three times a week is&#xD;
+    sufficient.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The illustration below shows how a Scrum of Scrums approach allows Scrum to scale up (in this case to 243 people). Each&#xD;
+    cell represents one person on a Scrum team. The bottom of this illustration shows teams with nine developers on them.&#xD;
+    One person from each team (the differently colored cell) also participates in a Scrum of Scrum to coordinate work above&#xD;
+    that team. Then from those nine-person teams another person is selected (this time shown with diagonal lines) to&#xD;
+    participate in what might be called a Scrum of Scrums of Scrums.&#xD;
+&lt;/p>&lt;img height=&quot;242&quot; alt=&quot;Scrum of scrums&quot; src=&quot;http://www.mountaingoatsoftware.com/images/scrumofscrums.gif&quot;&#xD;
+width=&quot;400&quot; /></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

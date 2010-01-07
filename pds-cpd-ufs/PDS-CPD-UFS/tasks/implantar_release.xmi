@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-zhveb22_gY7G7yRMieCrdQ"
+    name="implantar_release,_wG6bgO7SEd2C0KkvQJ9heQ" guid="-zhveb22_gY7G7yRMieCrdQ"
+    changeDate="2009-02-04T13:07:21.578-0300">
+  <mainDescription>&lt;p>&#xD;
+    Implanta a release desenvolvida utilizando o processo no ambiente de produção.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Devem ser realizados testes exploratórios na release após a implantação pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
+    Produto&lt;/a>, que será responsável em aprovar a liberação e divulgação do sistema para os demais interessados.&#xD;
+&lt;/p>&lt;br /></mainDescription>
+  <purpose>Implantar Release no ambiente de Produção.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-zKwBZtjJMczpeWxduDoL4A"
+    name="prioritizing_the_backlog,_PmtE0F5oEd22Gu98eFOlrQ" guid="-zKwBZtjJMczpeWxduDoL4A"
+    changeDate="2008-07-31T11:47:45.406-0400">
+  <mainDescription>&lt;p>&#xD;
+    Scrum does not prescribe how the Product Backlog is prioritized.&amp;nbsp; Some techniques are:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Kano Analysis&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Theme Screening&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Theme Scoring&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Relative Weighting&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    For more information see &lt;a&#xD;
+    href=&quot;http://www.mountaingoatsoftware.com/system/presentation/file/78/Cohn_PrioritizingYourBacklog.pdf&quot;&#xD;
+    target=&quot;_blank&quot;>Prioritizing the Product Backlog&lt;/a>&amp;nbsp;by Mike Cohn.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

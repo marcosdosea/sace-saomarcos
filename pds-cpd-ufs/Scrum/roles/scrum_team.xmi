@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-u_0D0nwGoZhpANLeqrq14A"
+    name="new_role,_O65KUOF6Edyp34pwdTOSVQ" guid="-u_0D0nwGoZhpANLeqrq14A" changeDate="2008-03-06T18:46:48.828-0500">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    The Team:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Is cross-functional, with seven (plus/minus two) members;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Selects the Sprint goal and specifies work results;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Has the right to do everything within the boundaries of the project guidelines to reach the Sprint goal;&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Organizes itself and its work; and&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Demos work results to the Product Owner.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    Scrum teams do not include any of the traditional software engineering roles such as programmer, designer, tester, or&#xD;
+    architect. Everyone on the project works together to complete the set of work they have collectively committed to&#xD;
+    complete within a sprint. Scrum teams develop a deep form of camaraderie and a feeling that &quot;we're all in this&#xD;
+    together.&quot;&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A&amp;nbsp;typical Scrum team&amp;nbsp;is 5-9 people but can be scaled using a Scrum of Scrums.&#xD;
+&lt;/p></mainDescription>
+  <assignmentApproaches>&lt;p>&#xD;
+    Members should be full-time but there may be exceptions (e.g. database administrator)&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Members should change only between sprints&#xD;
+&lt;/p></assignmentApproaches>
+</org.eclipse.epf.uma:RoleDescription>

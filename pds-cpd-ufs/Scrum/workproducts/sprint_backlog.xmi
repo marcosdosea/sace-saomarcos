@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ArtifactDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-N_A3a4KFML6T529HCXOO8w"
+    name="sprint_backlog,_Q5Ki8OF8Edyp34pwdTOSVQ" guid="-N_A3a4KFML6T529HCXOO8w" changeDate="2008-07-31T14:20:08.515-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>&lt;p>&#xD;
+    Items on the sprint backlog are drawn from the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/workproducts/product_backlog_68345C16.html&quot; guid=&quot;_OZIPIOF8Edyp34pwdTOSVQ&quot;>Product Backlog&lt;/a>, by&#xD;
+    the team based on the priorities set by the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../Scrum/roles/product_owner_10E7BD3.html&quot; guid=&quot;_QcnRMOF5Edyp34pwdTOSVQ&quot;>Product Owner&lt;/a> and the team's&#xD;
+    perception of the time it will take to complete the various features.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    It is critical that the team selects the items and size of the sprint backlog. Because they are the ones committing to&#xD;
+    completing the tasks they must be the ones to choose what they are committing to.&#xD;
+&lt;/p>&#xD;
+&lt;div id=&quot;content&quot;>&#xD;
+    &lt;p>&#xD;
+        The sprint backlog is very commonly maintained as an Excel spreadsheet but it is also possible to use your defect&#xD;
+        tracking system or any of a number of software products designed specifically for Scrum or agile. An example of the&#xD;
+        Sprint Backlog in Excel looks like this:&#xD;
+    &lt;/p>&lt;img height=&quot;188&quot; alt=&quot;Sprint backlog&quot; src=&quot;resources/sprintbacklog.gif&quot; width=&quot;400&quot; /> &#xD;
+    &lt;p>&#xD;
+        During the Sprint the &lt;a class=&quot;elementLink&quot; href=&quot;./../../Scrum/roles/scrummaster_357FCB70.html&quot;&#xD;
+        guid=&quot;_Bw-twOF6Edyp34pwdTOSVQ&quot;>ScrumMaster&lt;/a> maintains the sprint backlog by updating it to reflect which tasks&#xD;
+        are completed and how long the team thinks it will take to complete those that are not yet done. The estimated work&#xD;
+        remaining in the sprint is calculated daily and graphed, resulting in a &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../Scrum/workproducts/sprint_burndown_chart_F647C347.html&quot; guid=&quot;_YzmSIF8sEd22Gu98eFOlrQ&quot;>Sprint&#xD;
+        Burndown Chart&lt;/a>&#xD;
+    &lt;/p>&#xD;
+&lt;/div></mainDescription>
+</org.eclipse.epf.uma:ArtifactDescription>

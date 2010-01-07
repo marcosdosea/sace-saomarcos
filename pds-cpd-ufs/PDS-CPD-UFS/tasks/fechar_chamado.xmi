@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-KcA5XsSAiJpBy5s1TeSHPA"
+    name="fechar_chamado,_ajr18OAJEd6cQJ8mWE1AKA" guid="-KcA5XsSAiJpBy5s1TeSHPA" changeDate="2009-12-15T12:00:19.879-0300">
+  <mainDescription>&lt;p>&#xD;
+    A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
+    guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve encerrar o chamado no&amp;nbsp;&lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
+    guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>&amp;nbsp;quando este for atendido.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Caso o solicitante considere que sua solicitação não foi atendida ele pode reabrir o chamado e informar maiores&#xD;
+    detalhes.&#xD;
+&lt;/p>&lt;br /></mainDescription>
+  <purpose>Encerrar o chamado aberto pelos &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

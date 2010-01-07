@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-bGl4WDpeag1duq9jSWKwLg"
+    name="the_daily_scrum,_oSM0AOF-Edyp34pwdTOSVQ" guid="-bGl4WDpeag1duq9jSWKwLg"
+    changeDate="2008-07-31T13:18:31.531-0400">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>On each day of a sprint, the team holds daily meetings (“the daily scrum”). Meetings are typically held in the same&#xD;
+location and at the same time each day. Ideally the daily scrums are held in the morning as they help set the context for&#xD;
+the coming day's work.&lt;br />&#xD;
+&lt;br />&#xD;
+All team members are required to attend the daily scrum. Anyone else (for example, a departmental VP, a salesperson, or a&#xD;
+developer from another project) is allowed to attend but is there only to listen. This makes the daily scrums an excellent&#xD;
+way for a Scrum team to disseminate status information--if you're interested in hearing where things are at, attend that&#xD;
+day's meeting.&lt;br />&#xD;
+&lt;br />&#xD;
+The daily scrum is not used as a problem-solving or issue resolution meeting. Issues that are raised are taken offline and&#xD;
+usually dealt with by the relevant sub-group immediately after the daily scrum. During the daily scrum each team member&#xD;
+provides answers to the following three questions:&lt;br />&#xD;
+&lt;br />&#xD;
+1. What did you do yesterday?&lt;br />&#xD;
+2. What will you do today?&lt;br />&#xD;
+3. Are there any impediments in your way?&lt;br />&#xD;
+&lt;br />&#xD;
+By focusing on what each person accomplished yesterday and will accomplish today the team gains an excellent understanding&#xD;
+of what work has been done and what work remains. The daily scrum is not a status update meeting in which a boss is&#xD;
+collecting information about who is behind schedule. Rather, it is a meeting in which team members make commitments to each&#xD;
+other. If a programmer stands up and says &quot;Today I will finish the data storage module&quot; everyone knows that in tomorrow's&#xD;
+meeting he will say whether or not he did finish. This has the wonderful effect of helping a team realize the significance&#xD;
+of these commitments and that their commitments are to each other, not to some far-off customer or salesman.&lt;br />&#xD;
+&lt;br />&#xD;
+In cases where the ScrumMaster cannot remove these impediments directly himself (e.g., usually the more technical issues)&#xD;
+he still takes responsibility for making sure someone on the team does quickly resolve the issue.</mainDescription>
+  <keyConsiderations>&lt;p>&#xD;
+    There is an old joke in which a chicken and a pig are talking and the chicken says, &quot;Let's start a restaurant.&quot; The pig&#xD;
+    replies, &quot;Good idea, but what should we call it?&quot; &quot;How about 'Ham and Eggs'&quot; says the chicken. &quot;No thanks,&quot; says the&#xD;
+    pig, &quot;I'd be committed, you'd only be involved.&quot; The joke is meant to point out the difference between those who are&#xD;
+    committed on a project and those who are only involved. Scrum affords special status to those who are committed and&#xD;
+    many teams enforce a rule in which only those who are committed are allowed to talk during the daily scrum.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Any impediments that are raised become the ScrumMaster's responsibility to resolve as quickly as possible. Typical&#xD;
+    impediments are:&lt;br />&#xD;
+    &lt;br />&#xD;
+    * My ____ broke and I need a new one today.&lt;br />&#xD;
+    * I still haven't got the software I ordered a month ago.&lt;br />&#xD;
+    * I need help debugging a problem with ______.&lt;br />&#xD;
+    * I'm struggling to learn ______ and would like to pair with someone on it.&lt;br />&#xD;
+    * I can't get the vendor's tech support group to call me back.&lt;br />&#xD;
+    * Our new contractor can't start because no one is here to sign her contract.&lt;br />&#xD;
+    * I can't get the ____ group to give me any time and I need to meet with them.&lt;br />&#xD;
+    * The department VP has asked me to work on something else &quot;for a day or two.&quot;&#xD;
+&lt;/p></keyConsiderations>
+</org.eclipse.epf.uma:TaskDescription>

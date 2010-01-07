@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-HtNZ06hlFOp27aZwl4mvWQ"
+    name="receber_solucao,_a4sAIOAKEd6cQJ8mWE1AKA" guid="-HtNZ06hlFOp27aZwl4mvWQ"
+    changeDate="2009-12-15T11:30:26.096-0300">
+  <mainDescription>&lt;p>&#xD;
+    Quando o chamado é atendido pela Equipe de Desenvolvimento de Sistemas,&amp;nbsp;a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento&#xD;
+    ao Usuário&lt;/a>&amp;nbsp;é avisada pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>. Esta&#xD;
+    então deve avisar, através do&amp;nbsp; &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot; guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS&#xD;
+    Manutenção&lt;/a>&amp;nbsp;que o chamado foi resolvido.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Recebee a solução enviada pela Equipe de Sistemas e enviá-la para o usuário.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

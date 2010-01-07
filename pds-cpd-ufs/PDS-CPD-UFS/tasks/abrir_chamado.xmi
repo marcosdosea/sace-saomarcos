@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-3QTfTpUNMHrkdJL9PswqQw"
+    name="abrir_chamado,_apxFQOAIEd6cQJ8mWE1AKA" guid="-3QTfTpUNMHrkdJL9PswqQw" changeDate="2009-12-15T08:12:23.341-0300">
+  <mainDescription>&lt;p>&#xD;
+    Sempre que os &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+    guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>&amp;nbsp;tiverem qualquer problema/demanda&amp;nbsp;relativo a&#xD;
+    sistemas deve necessariamente abrir um chamado para Equipe de Sistemas.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O chamado deve ser aberto e acompanhado pelos&amp;nbsp; &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot; guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos&#xD;
+    Sistemas&lt;/a>&amp;nbsp;através do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot; guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS&#xD;
+    Manutenção&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:TaskDescription>

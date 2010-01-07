@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-Cv7UEGo8xbP2on04Q4qCsw"
+    name=",_lesG8F53Ed22Gu98eFOlrQ" guid="-Cv7UEGo8xbP2on04Q4qCsw" changeDate="2009-02-03T08:33:22.203-0300">
+  <mainDescription>&lt;p>&#xD;
+    Através de uma planilha cujo modelo pode ser encontrado no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html&quot; guid=&quot;_vDqwoO7kEd2C0KkvQJ9heQ&quot;>Site de&#xD;
+    Desenvolvimento do CPD&lt;/a>&amp;nbsp;deve-se informar os dados com estimativas iniciais da Equipe de Desenvolvimento para&#xD;
+    cada história do produto que será desenvolvido. Para cada história identificada deve ser informado:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        &lt;em>Estimativa Inicial:&lt;/em> Quanto tempo a equipe&amp;nbsp;de desenvolvimento acha que irá gastar. A unidade é pontos&#xD;
+        por história que é equivalente a homens/dia. Deve-se considerar que não haverá interrupções.&#xD;
+        Exemplo:&amp;nbsp;Se&amp;nbsp;a estimativa para&amp;nbsp;a história&amp;nbsp;Cadastro de Cliente&amp;nbsp;são 5 pontos,&amp;nbsp;seria&#xD;
+        equivalente a dizer que seriam necessários 5 dias para que 1 desenvolvedor, sem interrupções,&amp;nbsp;desenvolvesse&#xD;
+        totalmente essa história.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        &lt;em>Tipo da Mudança:&lt;/em> Otimização ou Melhoria.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>A planilha criada/atualizada deverá ser colocada no &lt;a class=&quot;elementLink&quot;&#xD;
+href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>&amp;nbsp;já&#xD;
+que ela deverá ser acessada ou atualizada por qualquer membro da &lt;a class=&quot;elementLink&quot;&#xD;
+href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot; guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de&#xD;
+Desenvolvimento de Sistemas&lt;/a>.&lt;br /></mainDescription>
+  <purpose>&lt;p>&#xD;
+    Habilitar o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
+    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a> a tomar e rever suas decisões sobre prioridades das&#xD;
+    funcionalidades.&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.4/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.2.0" xmi:id="-pG2ESbyFiJiYPp8g3_H-Ow"
+    name="sprint_review_meeting,_i_fkQOF-Edyp34pwdTOSVQ" guid="-pG2ESbyFiJiYPp8g3_H-Ow">
+  <copyrightStatement href="uma://_6Ab_EOF4Edyp34pwdTOSVQ#_4kVeYOGBEdyp34pwdTOSVQ"/>
+  <mainDescription>At the end of each sprint a sprint review meeting is held. During this meeting the Scrum team shows what they accomplished&#xD;
+during the sprint. Typically this takes the form of a demo of the new features.&lt;br />&#xD;
+&lt;br />&#xD;
+Participants in the sprint review typically include the Product Owner, the Scrum team, the ScrumMaster, management,&#xD;
+customers, and engineers from other projects.&lt;br />&#xD;
+&lt;br />&#xD;
+During the sprint review the project is assessed against the sprint goal determined during the Sprint planning meeting.&#xD;
+Ideally the team has completed each product backlog item brought into the sprint, but it is more important that they&#xD;
+achieve the overall goal of the sprint.</mainDescription>
+  <keyConsiderations>The sprint review meeting is intentionally kept very informal, typically with rules forbidding the use of PowerPoint slides&#xD;
+and allowing no more than two hours of preparation time for the meeting. A sprint review meeting should not become a&#xD;
+distraction or significant detour for the team; rather, it should be a natural result of the sprint.&lt;br /></keyConsiderations>
+</org.eclipse.epf.uma:TaskDescription>

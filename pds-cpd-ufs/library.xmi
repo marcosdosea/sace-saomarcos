@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:org.eclipse.epf.uma.resourcemanager="http:///org/eclipse/epf/uma/resourcemanager.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0">
+  <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_rnsX4eF4Edyp34pwdTOSVQ"
+      guid="_rnsX4eF4Edyp34pwdTOSVQ">
+    <subManagers xmi:id="_cpQIgeFqEd2H3a3kT5zMig" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_cpQIgeFqEd2H3a3kT5zMig"/>
+    <resourceDescriptors xmi:id="_rnsX4uF4Edyp34pwdTOSVQ" id="_rnsX4OF4Edyp34pwdTOSVQ"
+        uri=""/>
+    <resourceDescriptors xmi:id="_cpQIguFqEd2H3a3kT5zMig" id="_cpQIcOFqEd2H3a3kT5zMig"
+        uri="PDS-CPD-UFS/plugin.xmi"/>
+    <resourceDescriptors xmi:id="_Sy3Zwd6wEd6Rp7qGS-ywjA" id="_0TLvwMlgEdmt3adZL5Dmdw"
+        uri="openup/plugin.xmi"/>
+    <resourceDescriptors xmi:id="_XGZrgd6wEd6Rp7qGS-ywjA" id="_6Ab_EOF4Edyp34pwdTOSVQ"
+        uri="Scrum/plugin.xmi"/>
+    <resourceDescriptors xmi:id="_ZuXMQd6wEd6Rp7qGS-ywjA" id="{35DCB3E1-2766-423E-A849-57ECD4F41A40}"
+        uri="xp/plugin.xmi"/>
+  </org.eclipse.epf.uma.resourcemanager:ResourceManager>
+  <org.eclipse.epf.uma:MethodLibrary xmi:id="_rnsX4OF4Edyp34pwdTOSVQ" name="Scrum"
+      guid="_rnsX4OF4Edyp34pwdTOSVQ">
+    <methodPlugins xmi:id="_cpQIcOFqEd2H3a3kT5zMig" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_cpQIcOFqEd2H3a3kT5zMig"/>
+  </org.eclipse.epf.uma:MethodLibrary>
+</xmi:XMI>
