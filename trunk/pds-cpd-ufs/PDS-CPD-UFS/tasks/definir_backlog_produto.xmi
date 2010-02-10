@@ -2,8 +2,25 @@
 <org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-SHkaOieQ30MfC5nmlcCWdw"
-    name=",_ukuz4O7OEd2C0KkvQJ9heQ" guid="-SHkaOieQ30MfC5nmlcCWdw" changeDate="2009-01-30T12:23:12.421-0300">
-  <mainDescription>Identifica as funcionalidades do produto que será desenvolvido através de reuniões com os usuários.</mainDescription>
+    name=",_ukuz4O7OEd2C0KkvQJ9heQ" guid="-SHkaOieQ30MfC5nmlcCWdw" changeDate="2010-02-09T17:24:01.617-0300">
+  <mainDescription>&lt;p>&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot;&#xD;
+    guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;deve definir quais são as novas funcionalidades do produto que&#xD;
+    será desenvolvido.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;pode auxiliar na definição do backlog do produto.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Cada item do backlog do produto será representado por um caso de uso de negócio. O resultado pode ser visualizado&#xD;
+    através do diagrama de caso de uso que deverá ser criado no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/guidances/templates/visao_sistema_template_A9D60ADE.html&quot;&#xD;
+    guid=&quot;_6cYmcPugEd6N_KBLgJVxdQ&quot;>Template para Documento de Visão do Sistema&lt;/a>.&#xD;
+&lt;/p>&lt;br />&#xD;
+&lt;p>&#xD;
+    Identifica as funcionalidades do produto que será desenvolvido através de reuniões com os usuários.&#xD;
+&lt;/p></mainDescription>
   <sections xmi:id="_EE2y0O7iEd2C0KkvQJ9heQ" name="Entrevistar Usuário" guid="_EE2y0O7iEd2C0KkvQJ9heQ">
     <sectionDescription>&lt;p>&#xD;
     Deve-se marcar reuniões com o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
@@ -66,6 +83,6 @@
 &lt;/p></sectionDescription>
   </sections>
   <purpose>&lt;p>&#xD;
-    Identificar as funcionalidades do produtos&#xD;
+    Identificar as principais funcionalidades do produto&amp;nbsp;que será desenvolvido.&#xD;
 &lt;/p></purpose>
 </org.eclipse.epf.uma:TaskDescription>

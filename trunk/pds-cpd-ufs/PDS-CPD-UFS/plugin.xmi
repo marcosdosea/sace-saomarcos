@@ -9,16 +9,6 @@
     <subManagers xmi:id="_MxySAd65Ed6vmrEjzCaxNA" href="uma://_MvQicN65Ed6vmrEjzCaxNA#_MxySAd65Ed6vmrEjzCaxNA"/>
     <resourceDescriptors xmi:id="_gYmvEOFqEd2H3a3kT5zMig" id="_gH6nsuFqEd2H3a3kT5zMig"
         uri="capabilitypatterns/pds_novas_funcionalidades/model.xmi"/>
-    <resourceDescriptors xmi:id="_tLciMe7NEd2C0KkvQJ9heQ" id="-cxY00jQ5QT90Vzn6BKd_4g"
-        uri="workproducts/product_backlog.xmi"/>
-    <resourceDescriptors xmi:id="_tLmTMO7NEd2C0KkvQJ9heQ" id="-IFWx34HgcDfUvnx0hEGgew"
-        uri="workproducts/release_burndown_chart.xmi"/>
-    <resourceDescriptors xmi:id="_tL5OIO7NEd2C0KkvQJ9heQ" id="-NjJwkAnDBFfvF_VoRU9q6Q"
-        uri="workproducts/sprint_backlog.xmi"/>
-    <resourceDescriptors xmi:id="_tMMJEO7NEd2C0KkvQJ9heQ" id="-eoQgCwsICWVlJImoFkh5KA"
-        uri="workproducts/sprint_burndown_chart.xmi"/>
-    <resourceDescriptors xmi:id="_tMV6EO7NEd2C0KkvQJ9heQ" id="-lTPavwFbHwe7b1kV_HybIQ"
-        uri="workproducts/taskboard.xmi"/>
     <resourceDescriptors xmi:id="_wDBzUO7NEd2C0KkvQJ9heQ" id="-Cv7UEGo8xbP2on04Q4qCsw"
         uri="tasks/estimar_backlog_produto.xmi"/>
     <resourceDescriptors xmi:id="_wDLkUO7NEd2C0KkvQJ9heQ" id="-nwDbzkoHzNTfVNEsEX8pWQ"
@@ -101,6 +91,18 @@
         uri="tasks/fechar_chamado.xmi"/>
     <resourceDescriptors xmi:id="_UEIekOmLEd6a3YmIiX1Ajw" id="-Y-zl9iSqLAWljv7qv-gFxQ"
         uri="tasks/avaliar_atendimento.xmi"/>
+    <resourceDescriptors xmi:id="_Wi3-wPubEd6N_KBLgJVxdQ" id="-XRMj_F9PWT9v5eXvcuPRwA"
+        uri="tasks/aprovar_modelo_negocio.xmi"/>
+    <resourceDescriptors xmi:id="_Bh_XMPuhEd6N_KBLgJVxdQ" id="-ExRon4zVnwVIp9AyZFRfmA"
+        uri="guidances/templates/visao_sistema_template.xmi"/>
+    <resourceDescriptors xmi:id="_QPIhEPuhEd6N_KBLgJVxdQ" id="-2zRwKs35KbbWb95psHJU5w"
+        uri="guidances/templates/historia_template.xmi"/>
+    <resourceDescriptors xmi:id="_JGi4UPuiEd6N_KBLgJVxdQ" id="-H-xjTUvVhV3xSUn15IxJ1A"
+        uri="guidances/examples/visao_sistema_exemplo.xmi"/>
+    <resourceDescriptors xmi:id="_jf6G4BW7Ed-bi_W2VC7kVA" id="-uaJpUDOO10G29z73t57oag"
+        uri="guidances/examples/historia_exemplo.xmi"/>
+    <resourceDescriptors xmi:id="_ugDakBW7Ed-bi_W2VC7kVA" id="-M4HptGRlZxRVGeCSAXOajg"
+        uri="guidances/examples/backlog_produto_exemplo.xmi"/>
   </org.eclipse.epf.uma.resourcemanager:ResourceManager>
   <org.eclipse.epf.uma:MethodPlugin xmi:id="_cpQIcOFqEd2H3a3kT5zMig" name="PDS-CPD-UFS"
       guid="_cpQIcOFqEd2H3a3kT5zMig" briefDescription="Processo de Desenvolvimento de Software da Universidade Federal de Sergipe.&#x9;"
@@ -184,31 +186,6 @@
           name="CoreContent" guid="_cpQIfOFqEd2H3a3kT5zMig">
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_1FJWgO4WEd2u-un9w_0PKA"
             name="planejamento" guid="_1FJWgO4WEd2u-un9w_0PKA" presentationName="Planejamento">
-          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_s82FgO7NEd2C0KkvQJ9heQ"
-              name="product_backlog" guid="_s82FgO7NEd2C0KkvQJ9heQ" presentationName="Backlog do Produto"
-              briefDescription="É uma lista com todas as funcionalidades desejadas para o produto.">
-            <presentation xmi:id="-cxY00jQ5QT90Vzn6BKd_4g" href="uma://-cxY00jQ5QT90Vzn6BKd_4g#-cxY00jQ5QT90Vzn6BKd_4g"/>
-          </contentElements>
-          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_s8_PcO7NEd2C0KkvQJ9heQ"
-              name="release_burndown_chart" guid="_s8_PcO7NEd2C0KkvQJ9heQ" presentationName="Release Burndown Chart"
-              briefDescription="The release burndown chart tracks a team's progress against its release plant. ">
-            <presentation xmi:id="-IFWx34HgcDfUvnx0hEGgew" href="uma://-IFWx34HgcDfUvnx0hEGgew#-IFWx34HgcDfUvnx0hEGgew"/>
-          </contentElements>
-          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_s8_Pce7NEd2C0KkvQJ9heQ"
-              name="sprint_backlog" guid="_s8_Pce7NEd2C0KkvQJ9heQ" presentationName="Sprint Backlog"
-              briefDescription="The sprint backlog is the list of tasks that the Scrum team is committing that they will complete in the current sprint. ">
-            <presentation xmi:id="-NjJwkAnDBFfvF_VoRU9q6Q" href="uma://-NjJwkAnDBFfvF_VoRU9q6Q#-NjJwkAnDBFfvF_VoRU9q6Q"/>
-          </contentElements>
-          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_s8_Pcu7NEd2C0KkvQJ9heQ"
-              name="sprint_burndown_chart" guid="_s8_Pcu7NEd2C0KkvQJ9heQ" presentationName="Sprint Burndown Chart "
-              briefDescription="The Sprint Burndown Chart is a graphical representation of the work remaining over the duration of the Sprint.">
-            <presentation xmi:id="-eoQgCwsICWVlJImoFkh5KA" href="uma://-eoQgCwsICWVlJImoFkh5KA#-eoQgCwsICWVlJImoFkh5KA"/>
-          </contentElements>
-          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_s8_Pc-7NEd2C0KkvQJ9heQ"
-              name="taskboard" guid="_s8_Pc-7NEd2C0KkvQJ9heQ" presentationName="Task Board"
-              briefDescription="The task board shows all the work the team is doing during a sprint">
-            <presentation xmi:id="-lTPavwFbHwe7b1kV_HybIQ" href="uma://-lTPavwFbHwe7b1kV_HybIQ#-lTPavwFbHwe7b1kV_HybIQ"/>
-          </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_v0RloO7NEd2C0KkvQJ9heQ"
               name="estimar_backlog_produto" guid="_v0RloO7NEd2C0KkvQJ9heQ" presentationName="Estimar Backlog do Produto"
               briefDescription="Periodicamente a Equipe Scrum deve estimar o tamanho de cada item do Backlog do Produto.&#x9;">
@@ -231,7 +208,9 @@
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_RG5yAO7QEd2C0KkvQJ9heQ"
               name="aprovar_projeto" guid="_RG5yAO7QEd2C0KkvQJ9heQ" presentationName="Aprovar Projeto"
-              briefDescription="Aprova o projeto de acordo com escopo e prazo inicial definido.">
+              briefDescription="Aprova o projeto de acordo com escopo e prazo inicial definido."
+              performedBy="_DHh3YN6yEd6PEreghJQPwg" mandatoryInput="_f6V-oPHlEd2X5Z5r7N-1aQ"
+              additionallyPerformedBy="_mFYe4OAGEd6cQJ8mWE1AKA" optionalInput="_XoWm0PugEd6N_KBLgJVxdQ">
             <presentation xmi:id="-lMdqm6QmJVJ2ScbVFfubdg" href="uma://-lMdqm6QmJVJ2ScbVFfubdg#-lMdqm6QmJVJ2ScbVFfubdg"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_pYp54N67Ed6vmrEjzCaxNA"
@@ -239,7 +218,12 @@
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_wV71EN67Ed6vmrEjzCaxNA"
               name="preparar_ambiente_projeto" guid="_wV71EN67Ed6vmrEjzCaxNA" presentationName="Preparar Ambiente do Produto"/>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_gSuJcOAWEd6cQJ8mWE1AKA"
-              name="aprovar_modelo_negocio" guid="_gSuJcOAWEd6cQJ8mWE1AKA" presentationName="Aprovar Modelo de Negócio"/>
+              name="aprovar_modelo_negocio" guid="_gSuJcOAWEd6cQJ8mWE1AKA" presentationName="Aprovar Modelo de Negócio"
+              briefDescription="Aprovação formal do Modelo de Negócio do Sistema que será desenvolvido."
+              performedBy="_DHh3YN6yEd6PEreghJQPwg" mandatoryInput="_gJE8oPueEd6N_KBLgJVxdQ"
+              output="_nRg-8PueEd6N_KBLgJVxdQ" additionallyPerformedBy="_mFYe4OAGEd6cQJ8mWE1AKA">
+            <presentation xmi:id="-XRMj_F9PWT9v5eXvcuPRwA" href="uma://-XRMj_F9PWT9v5eXvcuPRwA#-XRMj_F9PWT9v5eXvcuPRwA"/>
+          </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_RPlXce7REd2C0KkvQJ9heQ"
               name="criar_plano_release" guid="_RPlXce7REd2C0KkvQJ9heQ" presentationName="Criar Plano das Releases"
               briefDescription="Plano inicial do projeto para a release que será desenvolvida.&#x9;">
@@ -344,8 +328,9 @@
             <presentation xmi:id="-nXwE7AYTai7O2G_2KSJa7Q" href="uma://-nXwE7AYTai7O2G_2KSJa7Q#-nXwE7AYTai7O2G_2KSJa7Q"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_f6V-oPHlEd2X5Z5r7N-1aQ"
-              name="visao_sistema" guid="_f6V-oPHlEd2X5Z5r7N-1aQ" presentationName="Visão do Sistema"
-              briefDescription="Documento que contém uma descrição geral do sistema e um diagrama de casos de uso mostrando as principais funcionalidades."/>
+              name="visao_sistema" guid="_f6V-oPHlEd2X5Z5r7N-1aQ" presentationName="Documento de Visão do Sistema"
+              briefDescription="Documento que contém uma descrição geral do sistema e um diagrama de casos de uso mostrando as principais funcionalidades."
+              examples="_RMuKsPuhEd6N_KBLgJVxdQ" templates="_6cYmcPugEd6N_KBLgJVxdQ"/>
           <contentElements xsi:type="org.eclipse.epf.uma:SupportingMaterial" xmi:id="_M_zucPafEd2Ep8HjTWOaHA"
               name="processo_overview" guid="_M_zucPafEd2Ep8HjTWOaHA" presentationName="Visão Geral"
               briefDescription="Visão Geral do Processo de Desenvolvimento de Software do CPD-UFS">
@@ -380,6 +365,38 @@
               name="equipe_atendimento" guid="_2fRecOAGEd6cQJ8mWE1AKA" presentationName="Equipe de Atendimento ao Usuário"
               briefDescription="Recebe todas as solicitações de usuário e as encaminha, caso necessário, para a Equipe Scrum.">
             <presentation xmi:id="-E7l2aA0sf26r0EdeZJvXgg" href="uma://-E7l2aA0sf26r0EdeZJvXgg#-E7l2aA0sf26r0EdeZJvXgg"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_gJE8oPueEd6N_KBLgJVxdQ"
+              name="modelo_negocio" guid="_gJE8oPueEd6N_KBLgJVxdQ" presentationName="Modelo de Negócio do Sistema"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_nRg-8PueEd6N_KBLgJVxdQ"
+              name="modelo_negocio_aprovado" guid="_nRg-8PueEd6N_KBLgJVxdQ" presentationName="Modelo de Negócio Aprovado"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_XoWm0PugEd6N_KBLgJVxdQ"
+              name="visao_sistema_aprovada" guid="_XoWm0PugEd6N_KBLgJVxdQ" presentationName="Visão do Sistema Aprovada"
+              variabilityType="extendsReplaces" variabilityBasedOnElement="_f6V-oPHlEd2X5Z5r7N-1aQ"
+              examples="_RMuKsPuhEd6N_KBLgJVxdQ" templates="_6cYmcPugEd6N_KBLgJVxdQ"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Template" xmi:id="_6cYmcPugEd6N_KBLgJVxdQ"
+              name="visao_sistema_template" guid="_6cYmcPugEd6N_KBLgJVxdQ" presentationName="Template para Documento de Visão do Sistema">
+            <presentation xmi:id="-ExRon4zVnwVIp9AyZFRfmA" href="uma://-ExRon4zVnwVIp9AyZFRfmA#-ExRon4zVnwVIp9AyZFRfmA"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Template" xmi:id="_M_JXAPuhEd6N_KBLgJVxdQ"
+              name="historia_template" guid="_M_JXAPuhEd6N_KBLgJVxdQ" presentationName="Template História">
+            <presentation xmi:id="-2zRwKs35KbbWb95psHJU5w" href="uma://-2zRwKs35KbbWb95psHJU5w#-2zRwKs35KbbWb95psHJU5w"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Example" xmi:id="_RMuKsPuhEd6N_KBLgJVxdQ"
+              name="visao_sistema_exemplo" guid="_RMuKsPuhEd6N_KBLgJVxdQ" presentationName="Exemplo do Documento de Visão do Sistema">
+            <presentation xmi:id="-H-xjTUvVhV3xSUn15IxJ1A" href="uma://-H-xjTUvVhV3xSUn15IxJ1A#-H-xjTUvVhV3xSUn15IxJ1A"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_SoHqYBW7Ed-bi_W2VC7kVA"
+              name="historia" guid="_SoHqYBW7Ed-bi_W2VC7kVA" presentationName="História"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_Vja94BW7Ed-bi_W2VC7kVA"
+              name="historia_aprovada" guid="_Vja94BW7Ed-bi_W2VC7kVA" presentationName="História Aprovada"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Example" xmi:id="_eo-NIBW7Ed-bi_W2VC7kVA"
+              name="historia_exemplo" guid="_eo-NIBW7Ed-bi_W2VC7kVA" presentationName="Exemplo de História">
+            <presentation xmi:id="-uaJpUDOO10G29z73t57oag" href="uma://-uaJpUDOO10G29z73t57oag#-uaJpUDOO10G29z73t57oag"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Example" xmi:id="_kFQPoBW7Ed-bi_W2VC7kVA"
+              name="backlog_produto_exemplo" guid="_kFQPoBW7Ed-bi_W2VC7kVA" presentationName="Exemplo de Backlog do Produto">
+            <presentation xmi:id="-M4HptGRlZxRVGeCSAXOajg" href="uma://-M4HptGRlZxRVGeCSAXOajg#-M4HptGRlZxRVGeCSAXOajg"/>
           </contentElements>
         </childPackages>
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_XJHpAOAIEd6cQJ8mWE1AKA"
