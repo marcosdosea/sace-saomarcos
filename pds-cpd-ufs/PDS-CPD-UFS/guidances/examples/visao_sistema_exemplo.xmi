@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:GuidanceDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-H-xjTUvVhV3xSUn15IxJ1A"
+    name="new_example,_RMuKsPuhEd6N_KBLgJVxdQ" guid="-H-xjTUvVhV3xSUn15IxJ1A">
+  <attachments>resources/VisaoSistemaGerenciamentoDeSolicitacoesDeMateriais-Versao1.0.doc</attachments>
+</org.eclipse.epf.uma:GuidanceDescription>
