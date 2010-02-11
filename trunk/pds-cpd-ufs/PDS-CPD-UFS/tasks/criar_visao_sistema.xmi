@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-4fxt47_tj8UVTfX-MeCH5A"
+    name="criar_visao_sistema,_pYp54N67Ed6vmrEjzCaxNA" guid="-4fxt47_tj8UVTfX-MeCH5A"
+    changeDate="2010-02-11T09:36:01.386-0300">
+  <mainDescription>&lt;p>&#xD;
+    Através de reuniões presenciais entre o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;e&#xD;
+    o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;devem ser definido o modelo de negócio do sistema.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Nessa reunião inicial podem ser identificadas algumas funcionalidades (Histórias) que deverão ser detalhadas apenas&#xD;
+    depois da aprovação do modelo de negócio.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O modelo de negócio deve ser desenhado na ferramenta&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/modelagem_negocio_2E79B0C7.html&quot; guid=&quot;_933CUOAWEd6cQJ8mWE1AKA&quot;>BizAgi Process&#xD;
+    Modeler&lt;/a>. Ele deverá ser incluído no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot; guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão&#xD;
+    do Sistema&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    As Histórias identificadas devem ser apresentadas através de um Diagrama de Casos de Uso que deve ser desenhado na&#xD;
+    ferramenta &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/modelagem_uml_4088DD1A.html&quot;&#xD;
+    guid=&quot;_Agu9ABcVEd-eMOE9RKNLxQ&quot;>StarUML&lt;/a>. O diagrama criado também deverá ser incluído no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot; guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão&#xD;
+    do Sistema&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Criar&amp;nbsp;ou Atualizar o modelo de negócio&amp;nbsp;para incluir as novas&amp;nbsp;funcionalidades que serão desenvolvidas.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

@@ -2,32 +2,34 @@
 <org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-Cv7UEGo8xbP2on04Q4qCsw"
-    name=",_lesG8F53Ed22Gu98eFOlrQ" guid="-Cv7UEGo8xbP2on04Q4qCsw" changeDate="2009-02-03T08:33:22.203-0300">
+    name=",_lesG8F53Ed22Gu98eFOlrQ" guid="-Cv7UEGo8xbP2on04Q4qCsw" changeDate="2010-02-11T15:08:59.599-0300">
   <mainDescription>&lt;p>&#xD;
-    Através de uma planilha cujo modelo pode ser encontrado no &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html&quot; guid=&quot;_vDqwoO7kEd2C0KkvQJ9heQ&quot;>Site de&#xD;
-    Desenvolvimento do CPD&lt;/a>&amp;nbsp;deve-se informar os dados com estimativas iniciais da Equipe de Desenvolvimento para&#xD;
-    cada história do produto que será desenvolvido. Para cada história identificada deve ser informado:&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve&amp;nbsp;marcar uma reunião presencial com&amp;nbsp;a &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe&#xD;
+    Scrum&lt;/a>&amp;nbsp;para realizar estimativas de cada item do Backlog.&#xD;
 &lt;/p>&#xD;
-&lt;ul>&#xD;
-    &lt;li>&#xD;
-        &lt;em>Estimativa Inicial:&lt;/em> Quanto tempo a equipe&amp;nbsp;de desenvolvimento acha que irá gastar. A unidade é pontos&#xD;
-        por história que é equivalente a homens/dia. Deve-se considerar que não haverá interrupções.&#xD;
-        Exemplo:&amp;nbsp;Se&amp;nbsp;a estimativa para&amp;nbsp;a história&amp;nbsp;Cadastro de Cliente&amp;nbsp;são 5 pontos,&amp;nbsp;seria&#xD;
-        equivalente a dizer que seriam necessários 5 dias para que 1 desenvolvedor, sem interrupções,&amp;nbsp;desenvolvesse&#xD;
-        totalmente essa história.&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        &lt;em>Tipo da Mudança:&lt;/em> Otimização ou Melhoria.&#xD;
-    &lt;/li>&#xD;
-&lt;/ul>A planilha criada/atualizada deverá ser colocada no &lt;a class=&quot;elementLink&quot;&#xD;
-href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>&amp;nbsp;já&#xD;
-que ela deverá ser acessada ou atualizada por qualquer membro da &lt;a class=&quot;elementLink&quot;&#xD;
-href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot; guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de&#xD;
-Desenvolvimento de Sistemas&lt;/a>.&lt;br /></mainDescription>
+&lt;p>&#xD;
+    O resultado deve ser documentado no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_projetos_4A9283B0.html&quot; guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>,&#xD;
+    através do qual é possível determinar o prazo final de conclusão do projeto.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Para determinar as estimativas do&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
+    Produto&lt;/a> é importande dividir cada Item do Backlog em subatividades que possam ser cumpridas em um dia de trabalho.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A estimativa do &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot;&#xD;
+    guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do Produto&lt;/a>&amp;nbsp;é um dos pontos fundamentais para determinar a viabilidade&#xD;
+    do projeto.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    A cada novo Sprint, as estimativas no Backlog do Produto devem ser revisadas e atualizadas por toda a &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe&#xD;
+    Scrum&lt;/a>.&#xD;
+&lt;/p></mainDescription>
   <purpose>&lt;p>&#xD;
-    Habilitar o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
-    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a> a tomar e rever suas decisões sobre prioridades das&#xD;
-    funcionalidades.&#xD;
+    Realizar estimativas para cada item do backlog do produto.&#xD;
 &lt;/p></purpose>
 </org.eclipse.epf.uma:TaskDescription>

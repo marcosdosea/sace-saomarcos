@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-lnQZqscgkR4dcP9cFB2-1Q"
     name="gerenciar_recursos,_qB5FYO7PEd2C0KkvQJ9heQ" guid="-lnQZqscgkR4dcP9cFB2-1Q"
-    changeDate="2009-02-02T12:57:44.359-0300">
+    changeDate="2010-02-11T12:15:46.584-0300">
   <mainDescription>&lt;p>&#xD;
     O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
     guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deverá listar todos os recursos necessário ao&#xD;
@@ -25,7 +25,8 @@
         A equipe é suficiente? Serão necessários novas pessoas?&#xD;
     &lt;/li>&#xD;
     &lt;li>&#xD;
-        Se&amp;nbsp;o prazo&amp;nbsp;para conclusão&amp;nbsp;das solicitações&amp;nbsp;é um dos requisitos, então ele é suficiente?&#xD;
+        O&amp;nbsp;prazo&amp;nbsp;para conclusão&amp;nbsp;das solicitações&amp;nbsp;é um dos requisitos? Ele pode ser cumprido com os&#xD;
+        recursos disponíveis?&#xD;
     &lt;/li>&#xD;
     &lt;li>&#xD;
         etc.&#xD;

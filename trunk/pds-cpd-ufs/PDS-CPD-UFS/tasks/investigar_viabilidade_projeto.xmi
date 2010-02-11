@@ -3,22 +3,25 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-ljf_TzK_ggFywiatCgNKYQ"
     name="investigar_viabilidade_projeto,_lu0tsO7PEd2C0KkvQJ9heQ" guid="-ljf_TzK_ggFywiatCgNKYQ"
-    changeDate="2009-02-02T12:28:30.875-0300">
+    changeDate="2010-02-11T16:07:19.263-0300">
   <mainDescription>&lt;p>&#xD;
     Utilizando-se as estimativas que foram anotadas no &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
     Produto&lt;/a>&amp;nbsp;deve-se investigar se o projeto é viável para o prazo que foi estimado.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    Nesta tarefa também deve-se verificar se os recursos e prazos estipulados pelo &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
+    Nesta tarefa também deve-se verificar se os recursos e prazos estipulados pelo&amp;nbsp;&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do&#xD;
     Produto&lt;/a>&amp;nbsp;(isso acontece quando o prazo é um requisito) são sufucientes para que o projeto seja concluído dentro&#xD;
     do prazo, custo e padrões de qualidade esperados.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    O resultado dessa análise pode ser uma renogociação de prazos, deste projeto ou ainda de outros projetos em andamento&#xD;
-    pela equipe. Outro resultado possível é que o projeto pode&amp;nbsp;ser colocado em espera até que todos recursos&#xD;
-    necessários para conclusão do projeto sejam disponibilizados.&#xD;
+    O resultado dessa análise pode ser uma renogociação de prazos e recursos (máquinas e pessoal)&amp;nbsp;deste projeto ou&#xD;
+    ainda de outros projetos em andamento pela equipe.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Outro resultado possível é que o projeto pode&amp;nbsp;ser colocado em espera até que todos recursos necessários para&#xD;
+    conclusão do projeto sejam disponibilizados.&#xD;
 &lt;/p></mainDescription>
   <purpose>Garantir que o produto desejado pode ser construído.</purpose>
 </org.eclipse.epf.uma:TaskDescription>

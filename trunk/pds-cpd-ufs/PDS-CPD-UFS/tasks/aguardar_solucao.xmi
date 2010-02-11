@@ -3,13 +3,13 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-eUNgXbOCPGoopJ3MByAsDg"
     name="aguardar_solucao,_B8NUcOAKEd6cQJ8mWE1AKA" guid="-eUNgXbOCPGoopJ3MByAsDg"
-    changeDate="2009-12-15T09:29:35.641-0300">
+    changeDate="2010-02-11T09:33:59.363-0300">
   <mainDescription>&lt;p>&#xD;
     A&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
     guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve aguardar atualizações realizadas no&#xD;
     ticket criado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
-    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>. As atualizações são recebidas por e-amail quando esta se cadastra como&#xD;
-    &quot;observadora&quot; do ticket.&#xD;
+    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>. As atualizações são recebidas por e-amail quando esta&amp;nbsp;se cadastra&#xD;
+    para&amp;nbsp;&quot;monitorar&quot;&amp;nbsp;o ticket.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     As&amp;nbsp;atualizações devem ser&amp;nbsp;utilizadas&amp;nbsp;como base para&amp;nbsp;atualizar o status da demanda&amp;nbsp;do usuário&#xD;
