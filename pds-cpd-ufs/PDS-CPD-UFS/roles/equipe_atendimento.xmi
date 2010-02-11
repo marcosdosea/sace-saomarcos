@@ -2,9 +2,9 @@
 <org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-E7l2aA0sf26r0EdeZJvXgg"
-    name="new_role,_2fRecOAGEd6cQJ8mWE1AKA" guid="-E7l2aA0sf26r0EdeZJvXgg" changeDate="2009-12-03T09:26:50.031-0300">
+    name="new_role,_2fRecOAGEd6cQJ8mWE1AKA" guid="-E7l2aA0sf26r0EdeZJvXgg" changeDate="2010-02-11T10:38:10.011-0300">
   <mainDescription>&lt;p>&#xD;
-    A Equipe de Atendimento tem as seguintes responsabilidades:&#xD;
+    A Equipe de&amp;nbsp;HelpDesk tem as seguintes responsabilidades:&#xD;
 &lt;/p>&#xD;
 &lt;ul>&#xD;
     &lt;li>&#xD;

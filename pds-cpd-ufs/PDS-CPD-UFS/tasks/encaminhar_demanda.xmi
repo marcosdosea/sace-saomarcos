@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-zsVlsBZ45FLdZcI46krg4g"
     name="encaminhar_demanda,_FurV8OAJEd6cQJ8mWE1AKA" guid="-zsVlsBZ45FLdZcI46krg4g"
-    changeDate="2009-12-15T08:57:56.532-0300">
+    changeDate="2010-02-11T09:56:46.202-0300">
   <mainDescription>&lt;p>&#xD;
     Quando não possui solução para a demanda,&amp;nbsp;a &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento&#xD;
@@ -29,12 +29,15 @@
     &lt;/li>&#xD;
     &lt;li>&#xD;
         A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
-        guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve se cadastrar como &quot;observadora&quot; do&#xD;
-        ticket criado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
+        guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve se cadastrar para &quot;monitoraramento&quot;&#xD;
+        do ticket criado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
         guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>. O objetivo é que possa receber por e-mail quaisquer atualizações&#xD;
         realizadas no ticket. Essas atualizações devem ser&amp;nbsp;utilizadas par atualizar o status da demanda&amp;nbsp;no &lt;a&#xD;
         class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
-        guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>.&lt;br />&#xD;
+        guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        O&amp;nbsp;ticket deve ser atribuído ao usuário ScrumMaster.&lt;br />&#xD;
     &lt;/li>&#xD;
 &lt;/ol>&#xD;
 &lt;p>&#xD;

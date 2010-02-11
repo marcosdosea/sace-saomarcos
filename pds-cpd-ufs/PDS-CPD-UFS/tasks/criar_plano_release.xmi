@@ -2,29 +2,38 @@
 <org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-ZCMhDi2WfYnUNKBtg8n7qw"
-    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-ZCMhDi2WfYnUNKBtg8n7qw" changeDate="2010-02-09T17:22:00.186-0300">
+    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-ZCMhDi2WfYnUNKBtg8n7qw" changeDate="2010-02-11T16:00:22.883-0300">
   <mainDescription>&lt;p>&#xD;
-    No início do projeto o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
-    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deverá criar um plano de alto nível para a release que&#xD;
-    será desenvolvida. Nesse plano devem estar descritos:&#xD;
+    O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
+    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>, utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
+    Produto&lt;/a>&amp;nbsp;criado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_projetos_4A9283B0.html&quot;&#xD;
+    guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>, deverá atualizá-lo para criação do plano de Release.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    As atualizações&amp;nbsp;que devem ser realizadas no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
+    Produto&lt;/a>&amp;nbsp;são:&amp;nbsp;&#xD;
 &lt;/p>&#xD;
 &lt;ul>&#xD;
     &lt;li>&#xD;
-        O número e a duração dos Sprints (o padrão do CPD&amp;nbsp;são 3 semanas)&#xD;
+        Pessoas que serão envolvidas no projeto&#xD;
     &lt;/li>&#xD;
     &lt;li>&#xD;
-        O que deverá ser entregue em cada Sprint (apenas uma idéia inicial que será depois melhor discutida)&#xD;
+        Dependências existentes entre os Itens do Backlog.&#xD;
     &lt;/li>&#xD;
     &lt;li>&#xD;
-        Pessoas que serão envolvidas no projeto.&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Número de releases&#xD;
+        Determinar quais Itens do Backlog podem ser desenvolvido de forma paralela.&#xD;
     &lt;/li>&#xD;
 &lt;/ul>&#xD;
 &lt;p>&#xD;
-    Para criação do plano de release deve-se utilizar a ferramenta &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_projetos_4A9283B0.html&quot; guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>.&#xD;
+    Essas atualizações são necessárias para conseguir estimar um prazo final para conclusão total da release.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Vale ressaltar, que deve ficar claro para os &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do&#xD;
+    Produto&lt;/a>&amp;nbsp;que a cada 3 semanas uma nova versão do sistema será entregue. Os Itens do Backlog que serão&#xD;
+    desenvolvidos em cada Sprint serão definidos sempre no início de cada Sprint.&#xD;
 &lt;/p></mainDescription>
   <purpose>&lt;p>&#xD;
     Mostrar a expectativas de prazos e funcionalidades e suas dependências.&#xD;

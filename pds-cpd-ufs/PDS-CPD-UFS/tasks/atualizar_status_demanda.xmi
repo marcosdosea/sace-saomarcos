@@ -3,33 +3,44 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-DDoot67DI3-hL1aKDhJTHA"
     name="atualizar_status_demanda,_OzODIOAKEd6cQJ8mWE1AKA" guid="-DDoot67DI3-hL1aKDhJTHA"
-    changeDate="2009-12-15T11:52:16.685-0300">
+    changeDate="2010-02-11T10:08:36.704-0300">
   <mainDescription>&lt;p>&#xD;
-    A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
-    guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;deve atualizar o status da demanda através do&#xD;
-    &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
+    A &lt;a id=&quot;A_-_-_D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html:.:.:&quot; class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento&#xD;
+    ao Usuário&lt;/a>&amp;nbsp;deve atualizar o status da demanda através do &lt;a&#xD;
+    id=&quot;A_-_-_D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html:.:.:&quot;&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
     guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    Essas atualizações podem ser realizadas sempre que uma solicitação (ticket) criado no &lt;a class=&quot;elementLink&quot;&#xD;
+    Essas atualizações podem ser realizadas sempre que uma solicitação (ticket) criado no &lt;a&#xD;
+    id=&quot;A_-_-_D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html:.:.:&quot; class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>&amp;nbsp;é&#xD;
     atualizado pela Equipe de Desenvolvimento de Sistemas.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    As atualizações são enviadas automaticamente por e-mail pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    As atualizações são enviadas automaticamente por e-mail pelo &lt;a&#xD;
+    id=&quot;A_-_-_D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html:.:.:&quot; class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
-    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>&amp;nbsp;para &lt;a class=&quot;elementLink&quot;&#xD;
+    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>&amp;nbsp;para &lt;a&#xD;
+    id=&quot;A_-_-_D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html:.:.:&quot; class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento&#xD;
     ao Usuário&lt;/a>, sempre que a Equipe de Desenvolvimento de Sistemas faz alguma atualização no ticket.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     Uma das atualizações mais importantes que a Equipe de Desenvolvimento de Sistemas deve realizar no ticket criado no &lt;a&#xD;
-    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
-    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>&amp;nbsp;é a data prevista para atendimento da solicitação. Essa data deve então&#xD;
-    ser atualizada pela&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot;&#xD;
-    guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento ao Usuário&lt;/a>&amp;nbsp;no &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot; guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS&#xD;
-    Manutenção&lt;/a>.&#xD;
+    id=&quot;A_-_-_D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html:.:.:&quot; class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>&amp;nbsp;é&#xD;
+    a data prevista para atendimento da solicitação. Essa data é informada pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot; guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do&#xD;
+    Produto&lt;/a>, assim que ele recebe o ticket e verifica no seu planejamento quando o ticket poderá ser atendido.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Assim que a data for atualizada no Redmine, a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/equipe_atendimento_82C829E6.html&quot; guid=&quot;_2fRecOAGEd6cQJ8mWE1AKA&quot;>Equipe de Atendimento&#xD;
+    ao Usuário&lt;/a>&amp;nbsp;recebe uma notificação por e-mail dessa atualização para que possa&amp;nbsp;atualizar o &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demanda_usuario_41AB99EF.html&quot;&#xD;
+    guid=&quot;_rpcScOAIEd6cQJ8mWE1AKA&quot;>SOS Manutenção&lt;/a>.&#xD;
 &lt;/p></mainDescription>
   <purpose>Atualiza o status da solicitação para o Usuário, evitando que este precise ligar para o CPD.</purpose>
 </org.eclipse.epf.uma:TaskDescription>
