@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-rDI4gA-Hp-kAwliLmT8etQ"
+    name="atualizar_plano_releases,_88FLAOAgEd6cQJ8mWE1AKA" guid="-rDI4gA-Hp-kAwliLmT8etQ"
+    changeDate="2010-02-23T11:06:00.408-0300">
+  <mainDescription>&lt;p>&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve realizar as alterações necessárias no &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot;&#xD;
+    guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do Produto&lt;/a>&amp;nbsp;e no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot; guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão&#xD;
+    do Sistema&lt;/a>&amp;nbsp;para acomodar as mudanças nos requisitos.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Todos os artefatos alterados, deverão ser aprovados posteriormente pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Atualizar o Backlog do Produto para acomodar as atualizações realizadas nos requisitos.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

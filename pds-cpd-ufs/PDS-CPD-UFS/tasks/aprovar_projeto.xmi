@@ -3,34 +3,22 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-lMdqm6QmJVJ2ScbVFfubdg"
     name="aprovar_projeto,_RG5yAO7QEd2C0KkvQJ9heQ" guid="-lMdqm6QmJVJ2ScbVFfubdg"
-    changeDate="2010-02-11T16:09:16.918-0300">
+    changeDate="2010-02-23T10:09:02.481-0300">
   <mainDescription>&lt;p>&#xD;
     O projeto descrito pelo&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
-    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>&amp;nbsp;e&amp;nbsp;uma visão de alto nível do &lt;a&#xD;
-    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot;&#xD;
-    guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do Produto&lt;/a>&amp;nbsp;devem ser aprovados pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>&amp;nbsp;que foi atualizado com o plano de&#xD;
+    releases,&amp;nbsp;deve ser aprovado pelo &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>.&amp;nbsp;&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
-    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>&amp;nbsp;só precisa ser aprovado caso tenha ocorrido&#xD;
-    alguma modificação desde a primeira aprovação.&#xD;
-&lt;/p>&#xD;
-&lt;p>&#xD;
-    No &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
-    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>&amp;nbsp;é possível visualizar o modelo de negócio e os&#xD;
-    itens do backlog. Já no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot;&#xD;
-    guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do Produto&lt;/a>&amp;nbsp;é possível visualizar prazos, recursos necessários e&#xD;
-    dependências entre os Itens do Backlog para conclusão do projeto.&#xD;
-&lt;/p>&#xD;
-&lt;p>&#xD;
-    Ambos os artefatos devem ser aprovados utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
+    O&amp;nbsp;artefato deve ser aprovado utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    A&amp;nbsp;aprovação desses artefatos é condição necessária para que um novo sistema ou as novas funcionalidade no sistema&#xD;
-    possam ser desenvolvidas pela &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
-    guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>.&#xD;
+    A&amp;nbsp;aprovação do &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
+    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>&amp;nbsp;é condição necessária para que as novas&#xD;
+    funcionalidade no sistema possam ser desenvolvidas pela &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>.&#xD;
 &lt;/p></mainDescription>
   <purpose>Aprovar projeto para execução pela &lt;a class=&quot;elementLink&quot;&#xD;
 href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot; guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de&#xD;

@@ -3,59 +3,25 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-OpnYyKW6CLiEc9rbU2YoKA"
     name="sprint_planning_meeting,_4gCKAOF9Edyp34pwdTOSVQ" guid="-OpnYyKW6CLiEc9rbU2YoKA"
-    changeDate="2009-02-09T12:21:55.609-0300">
+    changeDate="2010-02-23T11:14:13.390-0300">
   <mainDescription>&lt;p>&#xD;
     Através de&amp;nbsp;uma reunião entre a &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_scrum_D8BBA1B9.html&quot; guid=&quot;_q5qZ8O4WEd2u-un9w_0PKA&quot;>Equipe Scrum&lt;/a>&amp;nbsp;e&#xD;
     demais interessados&amp;nbsp;devem ser&amp;nbsp;definidos quais são os objetivos a serem concluídos no Sprint.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    O primeiro passo é a priorização pelo &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
-    Produto&lt;/a>&amp;nbsp;das tarefas que deverão ser executadas no Sprint. O &lt;a class=&quot;elementLink&quot;&#xD;
+    Deve-se observar as definições&amp;nbsp;iniciais&amp;nbsp;do&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
-    Produto&lt;/a>&amp;nbsp;já possui uma priorização inicial e deve ser utilizado como base para essa tarefa. O resultado dessa&#xD;
-    atividade é o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/sprint_backlog_1699DBEA.html&quot;&#xD;
-    guid=&quot;_KlZ-cu7REd2C0KkvQJ9heQ&quot;>Backlog do Sprint&lt;/a>&amp;nbsp;que deve ser armazenado no &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>. Todas&#xD;
-    as histórias selecionadas para o Sprint deverão ser aprovadas, através do &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>, pelo&#xD;
-    &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
-    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a>.&#xD;
+    Produto&lt;/a>&amp;nbsp;e verificar se as funcionalidades planejadas ainda podem ser acomodadas no Sprint após as&#xD;
+    atualizações.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    Em seguida, a &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
-    guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>,&amp;nbsp;deve listar para cada história&#xD;
-    identificada, quais as tarefas que são necessárias para que ela seja concluída. Cada tarefa deve ser executada em 1&#xD;
-    dia. Alguns exemplos de tarefas comuns para uma história.&#xD;
-&lt;/p>&#xD;
-&lt;ul>&#xD;
-    &lt;li>&#xD;
-        Criar Modelo de Dados&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Criar Camada de Apresentação.&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Refatorar camada de Dados&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Criar Rotinas de Validação dos Dados da Tela.&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Criar Camada de Lógica de Negócio.&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Criar Camada de Acesso a Dados.&#xD;
-    &lt;/li>&#xD;
-    &lt;li>&#xD;
-        Criar e Executar testes de Automatizados.&#xD;
-    &lt;/li>&#xD;
-&lt;/ul>&#xD;
-&lt;p>&#xD;
-    Todas as tarefas identificadas para que a história seja concluída devem ser cadastradas no &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Trac&lt;/a>&amp;nbsp;pelo&#xD;
-    &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
-    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>, para que depois possam ser associadas aos executores.&lt;br />&#xD;
+    O resultado dessa atividade&amp;nbsp;é uma atualização&amp;nbsp;o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot; guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão&#xD;
+    do Sistema&lt;/a>&amp;nbsp;e nas &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/historia_7952AC9E.html&quot;&#xD;
+    guid=&quot;_SoHqYBW7Ed-bi_W2VC7kVA&quot;>História&lt;/a>s que deverão ser&amp;nbsp;aprovados posteriormente através do&amp;nbsp;&lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot;&#xD;
+    guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>.&#xD;
 &lt;/p></mainDescription>
+  <purpose>Planejar os objetivos a serem alcançados no Sprint.</purpose>
 </org.eclipse.epf.uma:TaskDescription>

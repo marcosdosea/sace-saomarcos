@@ -15,7 +15,7 @@
       <processElements xsi:type="org.eclipse.epf.uma:Phase" xmi:id="_14xpQe7OEd2C0KkvQJ9heQ"
           name="Planejamento" guid="_14xpQe7OEd2C0KkvQJ9heQ" presentationName="Planejamento Funcionalidades"
           superActivities="_gIEYueFqEd2H3a3kT5zMig" linkToPredecessor="_LxTA4OAjEd6cQJ8mWE1AKA"
-          breakdownElements="_UwndQBdCEd-y5JVRVrA3vA _RzYQEBdCEd-y5JVRVrA3vA _StOus-AXEd6cQJ8mWE1AKA _StOuteAXEd6cQJ8mWE1AKA _StOutuAXEd6cQJ8mWE1AKA _StOut-AXEd6cQJ8mWE1AKA _StOuuOAXEd6cQJ8mWE1AKA _KT0oMOAhEd6cQJ8mWE1AKA _gC7hEOWUEd6-3tY8_bjEGA _Q-t48BdCEd-y5JVRVrA3vA _Q-t48RdCEd-y5JVRVrA3vA _Q-t48hdCEd-y5JVRVrA3vA _Q-t48xdCEd-y5JVRVrA3vA _RzYQERdCEd-y5JVRVrA3vA _RzYQEhdCEd-y5JVRVrA3vA _UwndQRdCEd-y5JVRVrA3vA"/>
+          breakdownElements="_UwndQBdCEd-y5JVRVrA3vA _RzYQEBdCEd-y5JVRVrA3vA _StOus-AXEd6cQJ8mWE1AKA _StOuteAXEd6cQJ8mWE1AKA _zLN-8CCMEd-Wru5UC8PaeQ _StOutuAXEd6cQJ8mWE1AKA _StOut-AXEd6cQJ8mWE1AKA _StOuuOAXEd6cQJ8mWE1AKA _KT0oMOAhEd6cQJ8mWE1AKA _gC7hEOWUEd6-3tY8_bjEGA _Q-t48BdCEd-y5JVRVrA3vA _Q-t48RdCEd-y5JVRVrA3vA _Q-t48hdCEd-y5JVRVrA3vA _Q-t48xdCEd-y5JVRVrA3vA _RzYQERdCEd-y5JVRVrA3vA _RzYQEhdCEd-y5JVRVrA3vA _UwndQRdCEd-y5JVRVrA3vA"/>
       <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_R2qkke7cEd2C0KkvQJ9heQ"
           guid="_R2qkke7cEd2C0KkvQJ9heQ"/>
       <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_SdabgO7cEd2C0KkvQJ9heQ"
@@ -63,7 +63,7 @@
           guid="_BqP5YOAYEd6cQJ8mWE1AKA"/>
       <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_KT0oMOAhEd6cQJ8mWE1AKA"
           name="criar_plano_release" guid="_KT0oMOAhEd6cQJ8mWE1AKA" presentationName="Criar Plano das Releases"
-          superActivities="_14xpQe7OEd2C0KkvQJ9heQ" linkToPredecessor="_W-eDgOV_Ed6-3tY8_bjEGA _Yg9J8OV_Ed6-3tY8_bjEGA _hcsV4OV_Ed6-3tY8_bjEGA">
+          superActivities="_14xpQe7OEd2C0KkvQJ9heQ" linkToPredecessor="_W-eDgOV_Ed6-3tY8_bjEGA _Yg9J8OV_Ed6-3tY8_bjEGA _hcsV4OV_Ed6-3tY8_bjEGA _C6HgwSCNEd-Wru5UC8PaeQ">
         <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_RPlXce7REd2C0KkvQJ9heQ"/>
       </processElements>
       <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_LxTA4OAjEd6cQJ8mWE1AKA"
@@ -153,6 +153,15 @@
           guid="_eYQ3gBdDEd-y5JVRVrA3vA" pred="_RzYQEBdCEd-y5JVRVrA3vA"/>
       <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_eYQ3gRdDEd-y5JVRVrA3vA"
           guid="_eYQ3gRdDEd-y5JVRVrA3vA" pred="_RzYQEBdCEd-y5JVRVrA3vA"/>
+      <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_zLN-8CCMEd-Wru5UC8PaeQ"
+          name="atualizar_modelo_dados" guid="_zLN-8CCMEd-Wru5UC8PaeQ" presentationName="Atualizar Modelo de Dados"
+          superActivities="_14xpQe7OEd2C0KkvQJ9heQ" linkToPredecessor="_AukPMCCNEd-Wru5UC8PaeQ">
+        <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_Y9MBQCCLEd-Wru5UC8PaeQ"/>
+      </processElements>
+      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_AukPMCCNEd-Wru5UC8PaeQ"
+          guid="_AukPMCCNEd-Wru5UC8PaeQ" pred="_RzYQEBdCEd-y5JVRVrA3vA"/>
+      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_C6HgwSCNEd-Wru5UC8PaeQ"
+          guid="_C6HgwSCNEd-Wru5UC8PaeQ" pred="_zLN-8CCMEd-Wru5UC8PaeQ"/>
     </childPackages>
     <childPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_3JZjoO7OEd2C0KkvQJ9heQ"
         name="Sprints" guid="_3JZjoO7OEd2C0KkvQJ9heQ">
@@ -160,7 +169,7 @@
           name="Planejamento" guid="_6m4CcOAFEd6cQJ8mWE1AKA">
         <processElements xsi:type="org.eclipse.epf.uma:Phase" xmi:id="_6m4CceAFEd6cQJ8mWE1AKA"
             name="Planejamento" guid="_6m4CceAFEd6cQJ8mWE1AKA" presentationName="Planejamento do Sprint"
-            superActivities="_3JZjoe7OEd2C0KkvQJ9heQ" breakdownElements="_NIHKMOAgEd6cQJ8mWE1AKA _P3XlwOAgEd6cQJ8mWE1AKA _ZGluYOAgEd6cQJ8mWE1AKA _edgvwOAgEd6cQJ8mWE1AKA _P15wsOAhEd6cQJ8mWE1AKA _e-cAoOAiEd6cQJ8mWE1AKA _bVY-cOWVEd6-3tY8_bjEGA"/>
+            superActivities="_3JZjoe7OEd2C0KkvQJ9heQ" breakdownElements="_NIHKMOAgEd6cQJ8mWE1AKA _P3XlwOAgEd6cQJ8mWE1AKA _ZGluYOAgEd6cQJ8mWE1AKA _edgvwOAgEd6cQJ8mWE1AKA _P15wsOAhEd6cQJ8mWE1AKA _xgjM4CCMEd-Wru5UC8PaeQ _e-cAoOAiEd6cQJ8mWE1AKA _bVY-cOWVEd6-3tY8_bjEGA"/>
         <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_NIHKMOAgEd6cQJ8mWE1AKA"
             name="priorizar_backlog_produto" guid="_NIHKMOAgEd6cQJ8mWE1AKA" presentationName="Priorizar Backlog do Produto"
             superActivities="_6m4CceAFEd6cQJ8mWE1AKA">
@@ -188,7 +197,7 @@
         </processElements>
         <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_e-cAoOAiEd6cQJ8mWE1AKA"
             name="definir_tarefas_diarias" guid="_e-cAoOAiEd6cQJ8mWE1AKA" presentationName="Definir Tarefas Diárias"
-            superActivities="_6m4CceAFEd6cQJ8mWE1AKA" linkToPredecessor="_9xHPAem3Ed6wa8jWSu8DnA _9xQY8Om3Ed6wa8jWSu8DnA _9xQY8em3Ed6wa8jWSu8DnA">
+            superActivities="_6m4CceAFEd6cQJ8mWE1AKA" linkToPredecessor="_9xHPAem3Ed6wa8jWSu8DnA _9xQY8Om3Ed6wa8jWSu8DnA _9xQY8em3Ed6wa8jWSu8DnA _LvdJwCCNEd-Wru5UC8PaeQ">
           <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_bE8mkOAiEd6cQJ8mWE1AKA"/>
         </processElements>
         <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_oCrrEOWCEd6-3tY8_bjEGA"
@@ -210,6 +219,15 @@
             guid="_9xQY8em3Ed6wa8jWSu8DnA" pred="_ZGluYOAgEd6cQJ8mWE1AKA"/>
         <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_Kxf8Iem4Ed6wa8jWSu8DnA"
             guid="_Kxf8Iem4Ed6wa8jWSu8DnA" pred="_e-cAoOAiEd6cQJ8mWE1AKA"/>
+        <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_xgjM4CCMEd-Wru5UC8PaeQ"
+            name="atualizar_modelo_dados" guid="_xgjM4CCMEd-Wru5UC8PaeQ" presentationName="Atualizar Modelo de Dados"
+            superActivities="_6m4CceAFEd6cQJ8mWE1AKA" linkToPredecessor="_KdyGgCCNEd-Wru5UC8PaeQ">
+          <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_Y9MBQCCLEd-Wru5UC8PaeQ"/>
+        </processElements>
+        <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_KdyGgCCNEd-Wru5UC8PaeQ"
+            guid="_KdyGgCCNEd-Wru5UC8PaeQ" pred="_NIHKMOAgEd6cQJ8mWE1AKA"/>
+        <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_LvdJwCCNEd-Wru5UC8PaeQ"
+            guid="_LvdJwCCNEd-Wru5UC8PaeQ" pred="_xgjM4CCMEd-Wru5UC8PaeQ"/>
       </childPackages>
       <childPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_92agkOAFEd6cQJ8mWE1AKA"
           name="Execução" guid="_92agkOAFEd6cQJ8mWE1AKA">
@@ -327,16 +345,11 @@
         name="Solicitação de Mudança" guid="_VhV6QOAFEd6cQJ8mWE1AKA">
       <processElements xsi:type="org.eclipse.epf.uma:Phase" xmi:id="_VhV6QeAFEd6cQJ8mWE1AKA"
           name="Solicitação de Mudança" guid="_VhV6QeAFEd6cQJ8mWE1AKA" presentationName="Atender Demandas"
-          superActivities="_gIEYueFqEd2H3a3kT5zMig" breakdownElements="_-1UmkOAKEd6cQJ8mWE1AKA _-1UmkeAKEd6cQJ8mWE1AKA _-1UmkuAKEd6cQJ8mWE1AKA _-1Umk-AKEd6cQJ8mWE1AKA _-1UmlOAKEd6cQJ8mWE1AKA _-1UmleAKEd6cQJ8mWE1AKA _-1UmluAKEd6cQJ8mWE1AKA _-1Uml-AKEd6cQJ8mWE1AKA _-1UmmOAKEd6cQJ8mWE1AKA _-1UmmeAKEd6cQJ8mWE1AKA"/>
+          superActivities="_gIEYueFqEd2H3a3kT5zMig" breakdownElements="_-1UmkOAKEd6cQJ8mWE1AKA _-1UmkuAKEd6cQJ8mWE1AKA _-1Umk-AKEd6cQJ8mWE1AKA _-1UmlOAKEd6cQJ8mWE1AKA _-1UmleAKEd6cQJ8mWE1AKA _-1UmluAKEd6cQJ8mWE1AKA _-1Uml-AKEd6cQJ8mWE1AKA _-1UmmOAKEd6cQJ8mWE1AKA _-1UmmeAKEd6cQJ8mWE1AKA"/>
       <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_-1UmkOAKEd6cQJ8mWE1AKA"
           name="abrir_chamado" guid="_-1UmkOAKEd6cQJ8mWE1AKA" presentationName="Abrir Chamado"
           superActivities="_VhV6QeAFEd6cQJ8mWE1AKA">
         <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_apxFQOAIEd6cQJ8mWE1AKA"/>
-      </processElements>
-      <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_-1UmkeAKEd6cQJ8mWE1AKA"
-          name="aguardar_solucao" guid="_-1UmkeAKEd6cQJ8mWE1AKA" presentationName="Aguardar Solução da Equipe de Sistemas"
-          superActivities="_VhV6QeAFEd6cQJ8mWE1AKA" linkToPredecessor="_Pls-EOAMEd6cQJ8mWE1AKA">
-        <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_B8NUcOAKEd6cQJ8mWE1AKA"/>
       </processElements>
       <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_-1UmkuAKEd6cQJ8mWE1AKA"
           name="atender_demanda" guid="_-1UmkuAKEd6cQJ8mWE1AKA" presentationName="Atender Demanda"
@@ -345,7 +358,7 @@
       </processElements>
       <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_-1Umk-AKEd6cQJ8mWE1AKA"
           name="atualizar_status_demanda" guid="_-1Umk-AKEd6cQJ8mWE1AKA" presentationName="Atualizar o Status da Demanda"
-          superActivities="_VhV6QeAFEd6cQJ8mWE1AKA" linkToPredecessor="_QIgwMeAMEd6cQJ8mWE1AKA">
+          superActivities="_VhV6QeAFEd6cQJ8mWE1AKA" linkToPredecessor="_9MD-UCB3Ed-Wru5UC8PaeQ">
         <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_OzODIOAKEd6cQJ8mWE1AKA"/>
       </processElements>
       <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_-1UmlOAKEd6cQJ8mWE1AKA"
@@ -375,19 +388,17 @@
       </processElements>
       <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_-1UmmeAKEd6cQJ8mWE1AKA"
           name="receber_solucao" guid="_-1UmmeAKEd6cQJ8mWE1AKA" presentationName="Receber Solução da Equipe de Sistemas"
-          superActivities="_VhV6QeAFEd6cQJ8mWE1AKA" linkToPredecessor="_HAXDceANEd6cQJ8mWE1AKA">
+          superActivities="_VhV6QeAFEd6cQJ8mWE1AKA" linkToPredecessor="_-d4ykCB3Ed-Wru5UC8PaeQ">
         <Task href="uma://_cpQIcOFqEd2H3a3kT5zMig#_a4sAIOAKEd6cQJ8mWE1AKA"/>
       </processElements>
       <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_OXIHkOALEd6cQJ8mWE1AKA"
           guid="_OXIHkOALEd6cQJ8mWE1AKA" pred="_-1UmkOAKEd6cQJ8mWE1AKA"/>
-      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_Pls-EOAMEd6cQJ8mWE1AKA"
-          guid="_Pls-EOAMEd6cQJ8mWE1AKA" pred="_-1UmluAKEd6cQJ8mWE1AKA"/>
-      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_QIgwMeAMEd6cQJ8mWE1AKA"
-          guid="_QIgwMeAMEd6cQJ8mWE1AKA" pred="_-1UmluAKEd6cQJ8mWE1AKA"/>
-      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_HAXDceANEd6cQJ8mWE1AKA"
-          guid="_HAXDceANEd6cQJ8mWE1AKA" pred="_-1UmkeAKEd6cQJ8mWE1AKA"/>
       <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_l6ARIeANEd6cQJ8mWE1AKA"
           guid="_l6ARIeANEd6cQJ8mWE1AKA" pred="_-1Uml-AKEd6cQJ8mWE1AKA"/>
+      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_9MD-UCB3Ed-Wru5UC8PaeQ"
+          guid="_9MD-UCB3Ed-Wru5UC8PaeQ" pred="_-1UmluAKEd6cQJ8mWE1AKA"/>
+      <processElements xsi:type="org.eclipse.epf.uma:WorkOrder" xmi:id="_-d4ykCB3Ed-Wru5UC8PaeQ"
+          guid="_-d4ykCB3Ed-Wru5UC8PaeQ" pred="_-1Umk-AKEd6cQJ8mWE1AKA"/>
     </childPackages>
     <process xsi:type="org.eclipse.epf.uma:CapabilityPattern" xmi:id="_gIEYueFqEd2H3a3kT5zMig"
         name="pds_novas_funcionalidades" guid="_gIEYueFqEd2H3a3kT5zMig" presentationName="PDS para Novas Funcionalidades"
