@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-GFNeIeF5z0fUx4VufgehqA"
+    name="aprovar_requisitos_sprint,_Z2WXYOAgEd6cQJ8mWE1AKA" guid="-GFNeIeF5z0fUx4VufgehqA"
+    changeDate="2010-02-23T11:26:43.001-0300">
+  <mainDescription>&lt;p>&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deverá convocar uma reunião presencial com o &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do&#xD;
+    Produto&lt;/a>&amp;nbsp;para aprovação das:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/historia_7952AC9E.html&quot;&#xD;
+        guid=&quot;_SoHqYBW7Ed-bi_W2VC7kVA&quot;>História&lt;/a>s definidas para serem desenvolvidas no Sprint&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
+        guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>, caso este tenha sofrido alguma alteração.&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    Após a aprovação desses artefatos no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>, o &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deverá cadastrar as tarefas diárias no &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
+    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>.&#xD;
+&lt;/p>&lt;br /></mainDescription>
+  <purpose>Aprovar os requisitos que serão desenvolvidos no Sprint.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

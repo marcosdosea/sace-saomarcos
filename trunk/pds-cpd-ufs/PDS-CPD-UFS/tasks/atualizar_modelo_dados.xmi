@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-WxNckLIDb3VFzJU_uDIiLg"
+    name=",_Y9MBQCCLEd-Wru5UC8PaeQ" guid="-WxNckLIDb3VFzJU_uDIiLg" changeDate="2010-02-23T11:56:10.541-0300">
+  <mainDescription>&lt;p>&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve idintificar os campos, tabelas e relacionamentos&#xD;
+    que serão necessários criar.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    As atualizações no modelo de dados devem ser&amp;nbsp;realizadas utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/modelagem_dados_6922207D.html&quot; guid=&quot;_8_w3oCCLEd-Wru5UC8PaeQ&quot;>Clay&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    É importante atualizar o modelo de dados em paralelo com a definição dos requisitos, pois através dele, novos&#xD;
+    requisitos poderão ser identificados.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Atualizar o modelo de dados com campos e tabelas necessários.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

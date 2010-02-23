@@ -2,7 +2,7 @@
 <org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-ZCMhDi2WfYnUNKBtg8n7qw"
-    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-ZCMhDi2WfYnUNKBtg8n7qw" changeDate="2010-02-11T16:00:22.883-0300">
+    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-ZCMhDi2WfYnUNKBtg8n7qw" changeDate="2010-02-23T09:59:59.242-0300">
   <mainDescription>&lt;p>&#xD;
     O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
     guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>, utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
@@ -11,9 +11,9 @@
     guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>, deverá atualizá-lo para criação do plano de Release.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    As atualizações&amp;nbsp;que devem ser realizadas no &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
-    Produto&lt;/a>&amp;nbsp;são:&amp;nbsp;&#xD;
+    As atualizações&amp;nbsp;que devem ser realizadas no&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_projetos_4A9283B0.html&quot;&#xD;
+    guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>&amp;nbsp;são:&amp;nbsp;&#xD;
 &lt;/p>&#xD;
 &lt;ul>&#xD;
     &lt;li>&#xD;
@@ -25,15 +25,22 @@
     &lt;li>&#xD;
         Determinar quais Itens do Backlog podem ser desenvolvido de forma paralela.&#xD;
     &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Solicitar ao &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot;&#xD;
+        guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;a prioridade inicial para desenvolvimento das&#xD;
+        funcionalidades.&#xD;
+    &lt;/li>&#xD;
 &lt;/ul>&#xD;
 &lt;p>&#xD;
-    Essas atualizações são necessárias para conseguir estimar um prazo final para conclusão total da release.&#xD;
+    Essas atualizações são necessárias para conseguir estimar um prazo final para conclusão total da release. Concluído o&#xD;
+    desenvolvimento desse planejamento, deve ser criada uma planilha que sumariza esse dados para ser colocada no &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
+    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>, que foi aprovado anteriormente.&amp;nbsp;&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     Vale ressaltar, que deve ficar claro para os &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do&#xD;
-    Produto&lt;/a>&amp;nbsp;que a cada 3 semanas uma nova versão do sistema será entregue. Os Itens do Backlog que serão&#xD;
-    desenvolvidos em cada Sprint serão definidos sempre no início de cada Sprint.&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;as&#xD;
+    datas de entrega das versões do sistema.&#xD;
 &lt;/p></mainDescription>
   <purpose>&lt;p>&#xD;
     Mostrar a expectativas de prazos e funcionalidades e suas dependências.&#xD;
