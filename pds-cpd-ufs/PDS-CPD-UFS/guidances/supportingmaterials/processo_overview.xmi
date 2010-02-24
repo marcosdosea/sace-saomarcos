@@ -3,23 +3,24 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-wfpgBnVAAVZb6uY6rLJ3MQ"
     name="new_supporting_material,_M_zucPafEd2Ep8HjTWOaHA" guid="-wfpgBnVAAVZb6uY6rLJ3MQ"
-    authors="Marcos Dósea" changeDate="2009-02-09T08:46:59.343-0300" version="1.0">
+    authors="Marcos Dósea" changeDate="2010-02-23T17:40:14.578-0300" version="1.0">
   <mainDescription>&lt;p>&#xD;
     O processo de Desenvolvimento de Software do CPD-UFS tem como objetivo padronizar todo o processo necessário para o&#xD;
     desenvolvimento de software de alta qualidade no CPD da Universidade Federal de Sergipe.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    &lt;img height=&quot;203&quot; alt=&quot;&quot; src=&quot;./resources/scrum.bmp&quot; width=&quot;498&quot; />&#xD;
+    &lt;img alt=&quot;&quot; src=&quot;./resources/scrum.bmp&quot; width=&quot;498&quot; height=&quot;203&quot; />&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     O processo é fortemente baseado no Scrum.&amp;nbsp; O Scrum&amp;nbsp;é um processo ágil de desenvolvimento de software no&#xD;
     qual&amp;nbsp;o progresso do projeto é controlado através de uma série de sprints que possuem duração fixa. No CPD o tempo&#xD;
-    padrão de duração de um Sprint são 3 semanas.&#xD;
+    padrão de duração de um Sprint são 3 semanas. Eventualmente pode-se criar Sprints de menor duração para tarefas&#xD;
+    emergenciais, mas é recomendado que esse Sprint não seja inferior a 1 semana.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     No início de cada sprint uma&amp;nbsp;&lt;em>Reunião de Planejamento do Sprint&lt;/em>&amp;nbsp;é realizada durante o qual o&amp;nbsp;&lt;a&#xD;
-    class=&quot;elementLink&quot; href=&quot;./../../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
-    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a> prioriza o &lt;a class=&quot;elementLink&quot;&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono&#xD;
+    do Produto&lt;/a>&amp;nbsp;prioriza o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
     Produto&lt;/a>.&amp;nbsp;A &lt;a class=&quot;elementLink&quot; href=&quot;./../../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
     guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>&amp;nbsp;seleciona então as atividades que poderão&#xD;

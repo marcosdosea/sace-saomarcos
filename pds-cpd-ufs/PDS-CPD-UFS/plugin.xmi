@@ -6,9 +6,8 @@
   <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_cpQIgeFqEd2H3a3kT5zMig"
       guid="_cpQIgeFqEd2H3a3kT5zMig">
     <subManagers xmi:id="_gYmvEeFqEd2H3a3kT5zMig" href="uma://_gH6nsuFqEd2H3a3kT5zMig#_gYmvEeFqEd2H3a3kT5zMig"/>
-    <subManagers xmi:id="_MxySAd65Ed6vmrEjzCaxNA" href="uma://_MvQicN65Ed6vmrEjzCaxNA#_MxySAd65Ed6vmrEjzCaxNA"/>
     <resourceDescriptors xmi:id="_gYmvEOFqEd2H3a3kT5zMig" id="_gH6nsuFqEd2H3a3kT5zMig"
-        uri="capabilitypatterns/pds_novas_funcionalidades/model.xmi"/>
+        uri="capabilitypatterns/processo_desenvolvimento/model.xmi"/>
     <resourceDescriptors xmi:id="_wDBzUO7NEd2C0KkvQJ9heQ" id="-Cv7UEGo8xbP2on04Q4qCsw"
         uri="tasks/estimar_backlog_produto.xmi"/>
     <resourceDescriptors xmi:id="_wDLkUO7NEd2C0KkvQJ9heQ" id="-nwDbzkoHzNTfVNEsEX8pWQ"
@@ -65,8 +64,6 @@
         uri="roles/scrum_master.xmi"/>
     <resourceDescriptors xmi:id="_w5XhAN61Ed6PEreghJQPwg" id="-WQNFtmYeqL7kTRx2NZxS_w"
         uri="roles/scrum_master_produto.xmi"/>
-    <resourceDescriptors xmi:id="_MxMcId65Ed6vmrEjzCaxNA" id="_MvQicN65Ed6vmrEjzCaxNA"
-        uri="capabilitypatterns/pds_manutencao/model.xmi"/>
     <resourceDescriptors xmi:id="_1ziZ0eAGEd6cQJ8mWE1AKA" id="-M6-3S8MQrnbAUKEEWfq44Q"
         uri="roles/usuario.xmi"/>
     <resourceDescriptors xmi:id="_UnhrcOAHEd6cQJ8mWE1AKA" id="-E7l2aA0sf26r0EdeZJvXgg"
@@ -115,6 +112,16 @@
         uri="tasks/aprovar_backlog_sprint.xmi"/>
     <resourceDescriptors xmi:id="_lGq7kSCLEd-Wru5UC8PaeQ" id="-WxNckLIDb3VFzJU_uDIiLg"
         uri="tasks/atualizar_modelo_dados.xmi"/>
+    <resourceDescriptors xmi:id="_ASxucCC2Ed-JBt3KYu4jUA" id="-tqU7_gBKXW4cMHV6-RqwjA"
+        uri="roles/administrador_dados.xmi"/>
+    <resourceDescriptors xmi:id="_zgG3wSC2Ed-JBt3KYu4jUA" id="-3wqaYbomLV6WoL9QDu0BQQ"
+        uri="tasks/gerenciar_projeto.xmi"/>
+    <resourceDescriptors xmi:id="_2zHOsCC4Ed-JBt3KYu4jUA" id="-SFH4JIdvaBxfNeQ1kIS5mQ"
+        uri="tasks/realizar_treinamentos.xmi"/>
+    <resourceDescriptors xmi:id="_0tZC4SC5Ed-JBt3KYu4jUA" id="--Oi3qp9WTwGnyJlG9P8Jdw"
+        uri="tasks/divulgar_licoes_aprendidas.xmi"/>
+    <resourceDescriptors xmi:id="_SfMpUCC7Ed-JBt3KYu4jUA" id="-krklalvUOGTj0VUBGO0GHA"
+        uri="tasks/tirar_folga_tecnica.xmi"/>
   </org.eclipse.epf.uma.resourcemanager:ResourceManager>
   <org.eclipse.epf.uma:MethodPlugin xmi:id="_cpQIcOFqEd2H3a3kT5zMig" name="PDS-CPD-UFS"
       guid="_cpQIcOFqEd2H3a3kT5zMig" briefDescription="Processo de Desenvolvimento de Software da Universidade Federal de Sergipe.&#x9;"
@@ -237,7 +244,7 @@
               name="aprovar_projeto" guid="_RG5yAO7QEd2C0KkvQJ9heQ" presentationName="Aprovar Projeto"
               briefDescription="Aprova o projeto de acordo com escopo e prazos definidos pela Equipe de Desenvolvimento de Sistemas.&#x9;"
               performedBy="_DHh3YN6yEd6PEreghJQPwg" mandatoryInput="_f6V-oPHlEd2X5Z5r7N-1aQ"
-              additionallyPerformedBy="_mFYe4OAGEd6cQJ8mWE1AKA" optionalInput="_XoWm0PugEd6N_KBLgJVxdQ">
+              output="_XoWm0PugEd6N_KBLgJVxdQ" additionallyPerformedBy="_mFYe4OAGEd6cQJ8mWE1AKA">
             <presentation xmi:id="-lMdqm6QmJVJ2ScbVFfubdg" href="uma://-lMdqm6QmJVJ2ScbVFfubdg#-lMdqm6QmJVJ2ScbVFfubdg"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_pYp54N67Ed6vmrEjzCaxNA"
@@ -262,7 +269,8 @@
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_RPlXce7REd2C0KkvQJ9heQ"
               name="criar_plano_release" guid="_RPlXce7REd2C0KkvQJ9heQ" presentationName="Criar Plano das Releases"
               briefDescription="Plano inicial do projeto para a release que será desenvolvida.&#x9;"
-              performedBy="_vW4akN61Ed6PEreghJQPwg" additionallyPerformedBy="_DHh3Yd6yEd6PEreghJQPwg">
+              performedBy="_vW4akN61Ed6PEreghJQPwg" mandatoryInput="_KlZ-cO7REd2C0KkvQJ9heQ"
+              output="_KlZ-cO7REd2C0KkvQJ9heQ _f6V-oPHlEd2X5Z5r7N-1aQ" additionallyPerformedBy="_DHh3Yd6yEd6PEreghJQPwg">
             <presentation xmi:id="-ZCMhDi2WfYnUNKBtg8n7qw" href="uma://-ZCMhDi2WfYnUNKBtg8n7qw#-ZCMhDi2WfYnUNKBtg8n7qw"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_Y9MBQCCLEd-Wru5UC8PaeQ"
@@ -291,7 +299,7 @@
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_WiDEsO7TEd2C0KkvQJ9heQ"
               name="executar_tarefa_diaria" guid="_WiDEsO7TEd2C0KkvQJ9heQ" presentationName="Executar Tarefa Diária"
-              briefDescription="O Desenvolvedor executa a tarefa diária seguindo os padrões estabelecidos."
+              briefDescription="O Desenvolvedor executa a tarefa diária seguindo os padrões de qualidade estabelecidos."
               performedBy="_DHh3Yd6yEd6PEreghJQPwg">
             <presentation xmi:id="-Nh1TKTkMD1X6Larpax7Acw" href="uma://-Nh1TKTkMD1X6Larpax7Acw#-Nh1TKTkMD1X6Larpax7Acw"/>
           </contentElements>
@@ -335,30 +343,45 @@
             name="encerramento" guid="_5QKw8O7QEd2C0KkvQJ9heQ" presentationName="Encerramento">
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_wG6bgO7SEd2C0KkvQJ9heQ"
               name="implantar_release" guid="_wG6bgO7SEd2C0KkvQJ9heQ" presentationName="Implantar Release"
-              briefDescription="Implanta a release desenvolvida.">
+              briefDescription="Implanta a release desenvolvida." performedBy="_vW4akN61Ed6PEreghJQPwg"
+              additionallyPerformedBy="_DHh3Yd6yEd6PEreghJQPwg">
             <presentation xmi:id="-zhveb22_gY7G7yRMieCrdQ" href="uma://-zhveb22_gY7G7yRMieCrdQ#-zhveb22_gY7G7yRMieCrdQ"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_1o9u0O7SEd2C0KkvQJ9heQ"
-              name="realizar_treinamentos" guid="_1o9u0O7SEd2C0KkvQJ9heQ" presentationName="Realizar Treinamentos"/>
+              name="realizar_treinamentos" guid="_1o9u0O7SEd2C0KkvQJ9heQ" presentationName="Realizar Treinamentos"
+              briefDescription="Realizar treinamentos para os usuários do sistema."
+              performedBy="_DHh3YN6yEd6PEreghJQPwg" additionallyPerformedBy="_vW4akN61Ed6PEreghJQPwg">
+            <presentation xmi:id="-SFH4JIdvaBxfNeQ1kIS5mQ" href="uma://-SFH4JIdvaBxfNeQ1kIS5mQ#-SFH4JIdvaBxfNeQ1kIS5mQ"/>
+          </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_mNGcMOAhEd6cQJ8mWE1AKA"
-              name="divulgar_licoes_aprendidas" guid="_mNGcMOAhEd6cQJ8mWE1AKA" presentationName="Divulgar Lições Aprendidas"/>
+              name="divulgar_licoes_aprendidas" guid="_mNGcMOAhEd6cQJ8mWE1AKA" presentationName="Divulgar Lições Aprendidas"
+              briefDescription="Divulga as lições aprendidas no site de desenvolvimento do CPD."
+              performedBy="_vW4akN61Ed6PEreghJQPwg" additionallyPerformedBy="_DHh3Yd6yEd6PEreghJQPwg">
+            <presentation xmi:id="--Oi3qp9WTwGnyJlG9P8Jdw" href="uma://--Oi3qp9WTwGnyJlG9P8Jdw#--Oi3qp9WTwGnyJlG9P8Jdw"/>
+          </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_p-j9MO7SEd2C0KkvQJ9heQ"
               name="implantar_versao_beta" guid="_p-j9MO7SEd2C0KkvQJ9heQ" presentationName="Implantar Versão Beta"
-              briefDescription="Implantar Versão no Servidor de Homologação para Realização de Testes pelo Usuário.">
+              briefDescription="Implantar Versão no Servidor de Homologação para Realização de Testes pelo Usuário."
+              performedBy="_vW4akN61Ed6PEreghJQPwg" additionallyPerformedBy="_DHh3Yd6yEd6PEreghJQPwg">
             <presentation xmi:id="-pSYsLOwdWVF-PXIlCBu63g" href="uma://-pSYsLOwdWVF-PXIlCBu63g#-pSYsLOwdWVF-PXIlCBu63g"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_RPlXc-7REd2C0KkvQJ9heQ"
               name="retrospectiva_sprint" guid="_RPlXc-7REd2C0KkvQJ9heQ" presentationName="Realizar Retrospectiva Sprint"
-              briefDescription="Após a Reunião de Revisão do Sprint a Equipe Scrum reúne-se para discutir o Sprint realizado e o que pode ser melhorado.">
+              briefDescription="Após a Reunião de Revisão do Sprint a Equipe Scrum reúne-se para discutir o Sprint realizado e o que pode ser melhorado."
+              performedBy="_DHh3Yd6yEd6PEreghJQPwg" additionallyPerformedBy="_DHh3Yt6yEd6PEreghJQPwg">
             <presentation xmi:id="-D34_OGMrmz1Cs9exs3tIeg" href="uma://-D34_OGMrmz1Cs9exs3tIeg#-D34_OGMrmz1Cs9exs3tIeg"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_RPlXdO7REd2C0KkvQJ9heQ"
               name="reuniao_revisao_sprint" guid="_RPlXdO7REd2C0KkvQJ9heQ" presentationName="Reunião de Revisão do Sprint"
-              briefDescription="A Reunião de Revisão de Sprint serve para mostrar ao usuário uma versão potencialmente implantável do produto.">
+              briefDescription="A Reunião de Revisão de Sprint serve para mostrar ao usuário uma versão potencialmente implantável do produto."
+              performedBy="_DHh3Yd6yEd6PEreghJQPwg">
             <presentation xmi:id="-XfVP-2V8It98jEYmEBlgIQ" href="uma://-XfVP-2V8It98jEYmEBlgIQ#-XfVP-2V8It98jEYmEBlgIQ"/>
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_ua3H0OAhEd6cQJ8mWE1AKA"
-              name="tirar_folga_tecnica" guid="_ua3H0OAhEd6cQJ8mWE1AKA" presentationName="Tirar Folga Técnica"/>
+              name="tirar_folga_tecnica" guid="_ua3H0OAhEd6cQJ8mWE1AKA" presentationName="Tirar Folga Técnica"
+              briefDescription="Tirar folga técnica de 1 dia." performedBy="_DHh3Yd6yEd6PEreghJQPwg">
+            <presentation xmi:id="-krklalvUOGTj0VUBGO0GHA" href="uma://-krklalvUOGTj0VUBGO0GHA#-krklalvUOGTj0VUBGO0GHA"/>
+          </contentElements>
         </childPackages>
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="__o50oO7QEd2C0KkvQJ9heQ"
             name="papeis_artefatos" guid="__o50oO7QEd2C0KkvQJ9heQ" presentationName="Papíes e Artefatos">
@@ -432,8 +455,8 @@
           <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_nRg-8PueEd6N_KBLgJVxdQ"
               name="modelo_negocio_aprovado" guid="_nRg-8PueEd6N_KBLgJVxdQ" presentationName="Modelo de Negócio Aprovado"/>
           <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_XoWm0PugEd6N_KBLgJVxdQ"
-              name="visao_sistema_aprovada" guid="_XoWm0PugEd6N_KBLgJVxdQ" presentationName="Visão do Sistema Aprovada"
-              variabilityType="extendsReplaces" variabilityBasedOnElement="_f6V-oPHlEd2X5Z5r7N-1aQ"
+              name="visao_sistema_aprovada" guid="_XoWm0PugEd6N_KBLgJVxdQ" presentationName="Documento de Visão do Sistema Aprovada"
+              variabilityType="extends" variabilityBasedOnElement="_f6V-oPHlEd2X5Z5r7N-1aQ"
               examples="_RMuKsPuhEd6N_KBLgJVxdQ" templates="_6cYmcPugEd6N_KBLgJVxdQ"/>
           <contentElements xsi:type="org.eclipse.epf.uma:Template" xmi:id="_6cYmcPugEd6N_KBLgJVxdQ"
               name="visao_sistema_template" guid="_6cYmcPugEd6N_KBLgJVxdQ" presentationName="Template para Documento de Visão do Sistema">
@@ -468,6 +491,11 @@
               briefDescription="Padrão de Nomenclatura para Banco de Dados e Código"/>
           <contentElements xsi:type="org.eclipse.epf.uma:SupportingMaterial" xmi:id="_ppE08CB5Ed-Wru5UC8PaeQ"
               name="gerenciamento_versoes" guid="_ppE08CB5Ed-Wru5UC8PaeQ" presentationName="Gerenciamento de Versões"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Role" xmi:id="_3Ugy8CC1Ed-JBt3KYu4jUA"
+              name="administrador_dados" guid="_3Ugy8CC1Ed-JBt3KYu4jUA" presentationName="Administrador de Dados"
+              briefDescription="Responsável pela monitoramento e quaisquer alterações nos esquemas do banco de dados.">
+            <presentation xmi:id="-tqU7_gBKXW4cMHV6-RqwjA" href="uma://-tqU7_gBKXW4cMHV6-RqwjA#-tqU7_gBKXW4cMHV6-RqwjA"/>
+          </contentElements>
         </childPackages>
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_XJHpAOAIEd6cQJ8mWE1AKA"
             name="solicitar_mudanca" guid="_XJHpAOAIEd6cQJ8mWE1AKA" presentationName="Solicitar Mudança">
@@ -529,15 +557,17 @@
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_JmZYsOWLEd6-3tY8_bjEGA"
             name="gerenciamento" guid="_JmZYsOWLEd6-3tY8_bjEGA">
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_LV-f8OWLEd6-3tY8_bjEGA"
-              name="gerenciar_projeto" guid="_LV-f8OWLEd6-3tY8_bjEGA" presentationName="Gerenciar Projeto"/>
+              name="gerenciar_projeto" guid="_LV-f8OWLEd6-3tY8_bjEGA" presentationName="Gerenciar Projeto"
+              briefDescription="Gerencia o andamento de todos os projetos do CPD.&#x9;"
+              performedBy="_DHh3Yt6yEd6PEreghJQPwg" additionallyPerformedBy="_vW4akN61Ed6PEreghJQPwg">
+            <presentation xmi:id="-3wqaYbomLV6WoL9QDu0BQQ" href="uma://-3wqaYbomLV6WoL9QDu0BQQ#-3wqaYbomLV6WoL9QDu0BQQ"/>
+          </contentElements>
         </childPackages>
       </childPackages>
       <childPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_cpQIfeFqEd2H3a3kT5zMig"
           name="CapabilityPatterns" guid="_cpQIfeFqEd2H3a3kT5zMig">
         <childPackages xsi:type="org.eclipse.epf.uma:ProcessComponent" xmi:id="_gH6nsuFqEd2H3a3kT5zMig"
             href="uma://_gH6nsuFqEd2H3a3kT5zMig#_gH6nsuFqEd2H3a3kT5zMig"/>
-        <childPackages xsi:type="org.eclipse.epf.uma:ProcessComponent" xmi:id="_MvQicN65Ed6vmrEjzCaxNA"
-            href="uma://_MvQicN65Ed6vmrEjzCaxNA#_MvQicN65Ed6vmrEjzCaxNA"/>
       </childPackages>
     </methodPackages>
     <methodPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_cpQIfuFqEd2H3a3kT5zMig"

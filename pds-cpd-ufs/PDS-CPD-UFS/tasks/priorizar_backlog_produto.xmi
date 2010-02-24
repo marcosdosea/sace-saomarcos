@@ -4,9 +4,10 @@
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-nwDbzkoHzNTfVNEsEX8pWQ"
     name=",_btIuEF8LEd22Gu98eFOlrQ" guid="-nwDbzkoHzNTfVNEsEX8pWQ" changeDate="2010-02-23T10:44:08.509-0300">
   <mainDescription>&lt;p>&#xD;
-    O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot;&#xD;
-    guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;deve indicar a importância para cada história&#xD;
-    identificada.&amp;nbsp;&#xD;
+    &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
+    guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a> &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do&#xD;
+    Produto&lt;/a>&amp;nbsp;deve indicar a importância para cada história identificada.&amp;nbsp;&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     Deve-se informar uma pontuação entre 0 e 100. Mais pontos siginifica maior importância. É recomendado inicialmente&#xD;
@@ -17,7 +18,7 @@
 &lt;p>&#xD;
     Caso ocorra alguma alteração em relação ao planejamento inicial, devem ser alterados o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
-    Produto&lt;/a>&amp;nbsp;e o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
+    Produto&lt;/a>&amp;nbsp;e o&amp;nbsp; &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot;&#xD;
     guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão do Sistema&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
@@ -25,6 +26,6 @@
     href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_documentos_71FCBACB.html&quot; guid=&quot;_2RRcQO7jEd2C0KkvQJ9heQ&quot;>Nuxeo&lt;/a>.&#xD;
 &lt;/p></mainDescription>
   <purpose>&lt;p>&#xD;
-    Revisar a priorização de construção dos intes do Backlog do Produto.&#xD;
+    Revisar a priorização de construção dos itens do Backlog do Produto.&#xD;
 &lt;/p></purpose>
 </org.eclipse.epf.uma:TaskDescription>

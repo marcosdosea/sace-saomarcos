@@ -3,12 +3,14 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-XfVP-2V8It98jEYmEBlgIQ"
     name="reuniao_revisao_sprint,_RPlXdO7REd2C0KkvQJ9heQ" guid="-XfVP-2V8It98jEYmEBlgIQ"
-    changeDate="2009-02-04T08:29:10.906-0300">
+    changeDate="2010-02-23T17:16:16.165-0300">
   <mainDescription>&lt;p>&#xD;
     A Reunião de Revisão do Sprint&amp;nbsp;é uma maneira de ganhar mais apoio do &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
-    Produto&lt;/a>&amp;nbsp;e&amp;nbsp;dos demais&amp;nbsp;envolvidos no projeto. Nela deve-se demonstrar as funcionalidades desenvolvidas&#xD;
-    durante o Sprint. A apresentação deve ser rápida, não deve ultrapassar 2 horas.&#xD;
+    href=&quot;D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
+    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a>&amp;nbsp;e&amp;nbsp;dos &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot; guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>. Nela&#xD;
+    deve-se demonstrar as funcionalidades desenvolvidas durante o Sprint. A apresentação deve ser rápida, não deve&#xD;
+    ultrapassar 2 horas.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     A apresentação do Sprint deve seguir as seguintes recomendações:&#xD;
@@ -34,15 +36,20 @@
 &lt;p>&#xD;
     Para &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
     guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>&amp;nbsp;a Reunião de Revisão do Sprint serve de&#xD;
-    motivado para que as funcionalidades seja finalizadas com qualidade, já que ninguém vai querer se constranger e mostrar&#xD;
-    coisas inacabadas.&#xD;
+    motivador para que as funcionalidades seja finalizadas com qualidade, já que ninguém vai querer se constranger e&#xD;
+    mostrar coisas inacabadas.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Caso sejam identificados problemas ou oportunidades de melhoria, essas demandas deverão ser registradas para atualizar&#xD;
+    o &lt;a class=&quot;elementLink&quot; href=&quot;about:./resources/product_backlog_226A1EE1.html&quot; guid=&quot;_s82FgO7NEd2C0KkvQJ9heQ&quot;>Backlog&#xD;
+    do Produto&lt;/a>, as &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/workproducts/historia_7952AC9E.html&quot;&#xD;
+    guid=&quot;_SoHqYBW7Ed-bi_W2VC7kVA&quot;>História&lt;/a>s e o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/visao_sistema_6C1B889D.html&quot; guid=&quot;_f6V-oPHlEd2X5Z5r7N-1aQ&quot;>Documento de Visão&#xD;
+    do Sistema&lt;/a>. As solicitações&amp;nbsp;de mudança deverão&amp;nbsp;ser alocadas nos próximos Sprints.&#xD;
 &lt;/p></mainDescription>
-  <keyConsiderations>The sprint review meeting is intentionally kept very informal, typically with rules forbidding the use of PowerPoint slides&#xD;
-and allowing no more than two hours of preparation time for the meeting. A sprint review meeting should not become a&#xD;
-distraction or significant detour for the team; rather, it should be a natural result of the sprint.&lt;br /></keyConsiderations>
   <purpose>&lt;p>&#xD;
-    Demostrar ao &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
-    guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a>&amp;nbsp;as funcionalidades que foram desenvolvidas no Sprint,&#xD;
+    Demostrar aos&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+    guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>&amp;nbsp;as funcionalidades que foram desenvolvidas no Sprint,&#xD;
     incentivando-o a opinar sobre as funcionalidades.&#xD;
 &lt;/p></purpose>
 </org.eclipse.epf.uma:TaskDescription>

@@ -2,7 +2,7 @@
 <org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-Cv7UEGo8xbP2on04Q4qCsw"
-    name=",_lesG8F53Ed22Gu98eFOlrQ" guid="-Cv7UEGo8xbP2on04Q4qCsw" changeDate="2010-02-11T15:08:59.599-0300">
+    name=",_lesG8F53Ed22Gu98eFOlrQ" guid="-Cv7UEGo8xbP2on04Q4qCsw" changeDate="2010-02-23T20:10:38.306-0300">
   <mainDescription>&lt;p>&#xD;
     O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
     guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve&amp;nbsp;marcar uma reunião presencial com&amp;nbsp;a &lt;a&#xD;
@@ -25,9 +25,10 @@
     do projeto.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    A cada novo Sprint, as estimativas no Backlog do Produto devem ser revisadas e atualizadas por toda a &lt;a&#xD;
-    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe&#xD;
-    Scrum&lt;/a>.&#xD;
+    A cada novo Sprint, as estimativas no &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
+    Produto&lt;/a>&amp;nbsp;devem ser revisadas e atualizadas por toda a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>.&#xD;
 &lt;/p></mainDescription>
   <purpose>&lt;p>&#xD;
     Realizar estimativas para cada item do backlog do produto.&#xD;

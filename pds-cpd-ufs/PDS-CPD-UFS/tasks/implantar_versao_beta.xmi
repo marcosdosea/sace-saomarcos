@@ -3,17 +3,15 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-pSYsLOwdWVF-PXIlCBu63g"
     name="implantar_versao,_p-j9MO7SEd2C0KkvQJ9heQ" guid="-pSYsLOwdWVF-PXIlCBu63g"
-    changeDate="2009-02-04T10:50:10.578-0300">
+    changeDate="2010-02-23T17:08:48.336-0300">
   <mainDescription>&lt;p>&#xD;
-    Deve-se disponibilizar uma versão do produto desenvolvido no servidor de homologação para que o &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
-    Produto&lt;/a>&amp;nbsp;possa fazer testes exploratórios na versão do produto disponibilizada.&#xD;
-&lt;/p>Caso o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot;&#xD;
-guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo Produto&lt;/a>&amp;nbsp;identifique problemas ou oportunidades de melhoria, essas&#xD;
-demandas deverão ser atualizadas no &lt;a class=&quot;elementLink&quot;&#xD;
-href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_226A1EE1.html&quot; guid=&quot;_s82FgO7NEd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
-Produto&lt;/a>&amp;nbsp;para que possam ser alocadas nos próximos Sprints.&lt;br /></mainDescription>
-  <purpose>Disponibilizar uma versão para que o &lt;a class=&quot;elementLink&quot;&#xD;
-href=&quot;./../../PDS-CPD-UFS/roles/responsavel_produto_A588C4A0.html&quot; guid=&quot;_GBDCce7REd2C0KkvQJ9heQ&quot;>Responsável pelo&#xD;
-Produto&lt;/a>&amp;nbsp;possa fazer testes e identificar problemas e oportunidades de melhorias.</purpose>
+    A &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
+    guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>&amp;nbsp;deve disponibilizar uma versão do produto desenvolvido no servidor&#xD;
+    de homologação para que o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot;&#xD;
+    guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;possa fazer testes exploratórios na versão do produto&#xD;
+    disponibilizada.&lt;br />&#xD;
+&lt;/p></mainDescription>
+  <purpose>Disponibilizar uma versão para que o&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;possa&#xD;
+fazer testes e identificar problemas e oportunidades de melhorias.</purpose>
 </org.eclipse.epf.uma:TaskDescription>
