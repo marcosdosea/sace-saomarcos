@@ -3,28 +3,29 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-pRcK4QLfwVnngNKfd08chw"
     name="resolver_impedimentos,_EAVScO7SEd2C0KkvQJ9heQ" guid="-pRcK4QLfwVnngNKfd08chw"
-    changeDate="2009-02-04T08:04:29.750-0300">
+    changeDate="2010-02-23T16:50:58.784-0300">
   <mainDescription>&lt;p>&#xD;
-    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
-    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve resolver todos os impedimentos para conclusão de&#xD;
-    uma determinada tarefa. Caso necessário o &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_B026A4B0.html&quot; guid=&quot;_GBDCcu7REd2C0KkvQJ9heQ&quot;>Scrum Master&lt;/a>&amp;nbsp;pode&#xD;
+    O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve resolver todos os impedimentos para conclusão de&#xD;
+    uma determinada tarefa. Caso necessário o&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_DE223945.html&quot; guid=&quot;_DHh3Yt6yEd6PEreghJQPwg&quot;>Scrum Master&lt;/a>&amp;nbsp;pode&#xD;
     ser envolvido para ajudar a remover esses impedimentos.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     Quando uma tarefa possui algum impedimento para que possa ser concluída, o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/desenvolvedor_CD8511C.html&quot; guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>&amp;nbsp;deve&#xD;
     mudar a situação da tarefa no &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Trac&lt;/a>&amp;nbsp;e&#xD;
+    href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>&amp;nbsp;e&#xD;
     documentar esse impedimento na ferramenta. Em seguida o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/desenvolvedor_CD8511C.html&quot; guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>&amp;nbsp;deve&#xD;
-    escolher uma nova tarefa, com a aprovação do gerente, para execução.&#xD;
+    escolher uma nova tarefa para execução, com a aprovação do &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot; guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do&#xD;
+    Produto&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     Quando o impedimento for removido a tarefa deve ser encaminhada para o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/desenvolvedor_CD8511C.html&quot; guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>&amp;nbsp;que&#xD;
-    detectou o impedimento. A tarefa só voltará a ser executada quando a tarefa executada pelo desenvolvedor no momento for&#xD;
-    totalmente concluída.&#xD;
+    detectou o impedimento.&#xD;
 &lt;/p>&lt;br /></mainDescription>
   <purpose>Remover impedimentos para conclusão de uma tarefa.</purpose>
 </org.eclipse.epf.uma:TaskDescription>

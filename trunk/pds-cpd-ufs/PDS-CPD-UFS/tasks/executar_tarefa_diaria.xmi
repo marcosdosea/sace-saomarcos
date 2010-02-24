@@ -3,23 +3,25 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-Nh1TKTkMD1X6Larpax7Acw"
     name="executar_tarefa_diaria,_WiDEsO7TEd2C0KkvQJ9heQ" guid="-Nh1TKTkMD1X6Larpax7Acw"
-    changeDate="2009-02-09T12:24:48.203-0300">
+    changeDate="2010-02-23T16:56:29.535-0300">
   <mainDescription>&lt;p>&#xD;
     O primeiro passo para que&amp;nbsp;o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/desenvolvedor_CD8511C.html&quot;&#xD;
-    guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>&amp;nbsp;inicie a tarefa é mudar a situação da tarefa ao qual foi&#xD;
-    designado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
-    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Trac&lt;/a>.&#xD;
+    guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>&amp;nbsp;iniciar a tarefa é mudar a situação da tarefa ao qual&#xD;
+    foi&amp;nbsp;atribuído no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot;&#xD;
+    guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    Quando&amp;nbsp;a tarefa necessitar criar ou alterar algum modelo de dados, deve-se enviar o novo modelo para o&#xD;
-    administrador de dados para que este possa aprová-lo. É recomendado também pedir a opinião e a aprovação de outros&#xD;
-    integrantes da &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
-    guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>&amp;nbsp;antes de enviar o modelo para aprovação.&#xD;
+    Quando&amp;nbsp;a tarefa necessitar criar ou alterar algum modelo de dados, deve-se enviar o script das alterações para o&#xD;
+    &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/administrador_dados_ADFBA990.html&quot;&#xD;
+    guid=&quot;_3Ugy8CC1Ed-JBt3KYu4jUA&quot;>Administrador de Dados&lt;/a>. Ele é o responsável por aprovar as alterações e executar nos&#xD;
+    esquemas devidos. Alterações no modelo de dados devem ser enviadas sempre pelo &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot; guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do&#xD;
+    Produto&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    Para executar a tarefa deve-se seguir todos os padrões de desenvolvimento disponibilizados no &lt;a class=&quot;elementLink&quot;&#xD;
+    Para executar a tarefa deve-se seguir todos os padrões de qualidade disponibilizados no &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/tools/site_desenvolvimento_FE016271.html&quot; guid=&quot;_vDqwoO7kEd2C0KkvQJ9heQ&quot;>Site de&#xD;
     Desenvolvimento do CPD&lt;/a>.&#xD;
 &lt;/p></mainDescription>
-  <purpose>Concluir uma tarefa diária com qualidade.</purpose>
+  <purpose>Executar a tarefa diária seguindo os padrões de qualidade estabelecidos.</purpose>
 </org.eclipse.epf.uma:TaskDescription>

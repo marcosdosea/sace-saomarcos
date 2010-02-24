@@ -14,7 +14,13 @@
 &lt;p>&#xD;
     Caso sejam realizadas alterações nas Histórias, deve-se usar a Barra de Ferramentas de Revisão do &lt;a&#xD;
     class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/descricao_historias_7C3699DA.html&quot;&#xD;
-    guid=&quot;_yOHzoCCDEd-Wru5UC8PaeQ&quot;>Word&lt;/a>, para que possa ficar claro tudo que foi alterado na História.&lt;br />&#xD;
+    guid=&quot;_yOHzoCCDEd-Wru5UC8PaeQ&quot;>Word&lt;/a>, para que possa ficar claro tudo que foi alterado na História.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    É recomendável a criação de protótipos de tela para ajudar no refinamento dos requisitos. Os protótipos são bastante&#xD;
+    importantes para passar as histórias para os desenvolvedores. Os protótipos devem ser criados na ferramenta &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/criacao_prototipo_E382FD94.html&quot;&#xD;
+    guid=&quot;_lnNcwNqCEd6eyIEOQu2awQ&quot;>PTela&lt;/a>.&lt;br />&#xD;
 &lt;/p>&lt;br /></mainDescription>
   <purpose>Refinar os requisitos que serão desenvolvidos no Sprint.</purpose>
 </org.eclipse.epf.uma:TaskDescription>
