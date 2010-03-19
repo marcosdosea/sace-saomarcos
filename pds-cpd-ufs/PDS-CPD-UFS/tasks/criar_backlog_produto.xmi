@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-SHkaOieQ30MfC5nmlcCWdw"
     name="criar_backlog_produto,_ukuz4O7OEd2C0KkvQJ9heQ" guid="-SHkaOieQ30MfC5nmlcCWdw"
-    changeDate="2010-02-23T11:36:56.670-0300">
+    changeDate="2010-02-25T10:01:03.038-0300">
   <mainDescription>&lt;p>&#xD;
     Através de reuniões presenciais entre o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot; guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;e&#xD;
@@ -27,8 +27,7 @@
     href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_projetos_4A9283B0.html&quot; guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>.&#xD;
     Inicialmente ele deve conter apenas as&amp;nbsp;&lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/workproducts/historia_7952AC9E.html&quot; guid=&quot;_SoHqYBW7Ed-bi_W2VC7kVA&quot;>História&lt;/a>s.&#xD;
-    Eventualmente pode-se definir as tarefas diárias necessárias para conclusão da história. Essas tarefas diárias são&#xD;
-    importantes para estimar&amp;nbsp;os prazos de&amp;nbsp;entregas.&#xD;
+    Eventualmente pode-se iniciar a identificação de algumas tarefas diárias necessárias para conclusão da história.&#xD;
 &lt;/p></mainDescription>
   <purpose>&lt;p>&#xD;
     Identificar e iniciar o detalhamento das principais funcionalidades do produto&amp;nbsp;que será desenvolvido.&#xD;

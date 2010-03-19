@@ -6,6 +6,7 @@
   <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_cpQIgeFqEd2H3a3kT5zMig"
       guid="_cpQIgeFqEd2H3a3kT5zMig">
     <subManagers xmi:id="_gYmvEeFqEd2H3a3kT5zMig" href="uma://_gH6nsuFqEd2H3a3kT5zMig#_gYmvEeFqEd2H3a3kT5zMig"/>
+    <subManagers xmi:id="_mV03MCIIEd-_vuAzZdogeQ" href="uma://_i29joCIIEd-_vuAzZdogeQ#_mV03MCIIEd-_vuAzZdogeQ"/>
     <resourceDescriptors xmi:id="_gYmvEOFqEd2H3a3kT5zMig" id="_gH6nsuFqEd2H3a3kT5zMig"
         uri="capabilitypatterns/processo_desenvolvimento/model.xmi"/>
     <resourceDescriptors xmi:id="_wDBzUO7NEd2C0KkvQJ9heQ" id="-Cv7UEGo8xbP2on04Q4qCsw"
@@ -122,6 +123,12 @@
         uri="tasks/divulgar_licoes_aprendidas.xmi"/>
     <resourceDescriptors xmi:id="_SfMpUCC7Ed-JBt3KYu4jUA" id="-krklalvUOGTj0VUBGO0GHA"
         uri="tasks/tirar_folga_tecnica.xmi"/>
+    <resourceDescriptors xmi:id="_mVrGMCIIEd-_vuAzZdogeQ" id="_i29joCIIEd-_vuAzZdogeQ"
+        uri="capabilitypatterns/processo_manutencao/model.xmi"/>
+    <resourceDescriptors xmi:id="_Xn_6UCe6Ed-gINPI7M_x9Q" id="-e2j6dV20J-7oWDJtIsSsfw"
+        uri="guidances/templates/mapeamento_historia_dados_template.xmi"/>
+    <resourceDescriptors xmi:id="_ivIm0Se6Ed-gINPI7M_x9Q" id="-lQnOW89I5GvMPso2apiwXA"
+        uri="guidances/examples/mapeamento_historia_dados_exemplo.xmi"/>
   </org.eclipse.epf.uma.resourcemanager:ResourceManager>
   <org.eclipse.epf.uma:MethodPlugin xmi:id="_cpQIcOFqEd2H3a3kT5zMig" name="PDS-CPD-UFS"
       guid="_cpQIcOFqEd2H3a3kT5zMig" briefDescription="Processo de Desenvolvimento de Software da Universidade Federal de Sergipe.&#x9;"
@@ -147,10 +154,10 @@
             name="RoleSets" guid="_cpQIdeFqEd2H3a3kT5zMig">
           <contentElements xsi:type="org.eclipse.epf.uma:RoleSet" xmi:id="_q5qZ8O4WEd2u-un9w_0PKA"
               name="equipe_scrum" guid="_q5qZ8O4WEd2u-un9w_0PKA" presentationName="Equipe Scrum"
-              roles="_DHh3YN6yEd6PEreghJQPwg _DHh3Yt6yEd6PEreghJQPwg _vW4akN61Ed6PEreghJQPwg _DHh3Yd6yEd6PEreghJQPwg _2fRecOAGEd6cQJ8mWE1AKA _mFYe4OAGEd6cQJ8mWE1AKA"/>
+              roles="_DHh3YN6yEd6PEreghJQPwg _vW4akN61Ed6PEreghJQPwg _DHh3Yd6yEd6PEreghJQPwg"/>
           <contentElements xsi:type="org.eclipse.epf.uma:RoleSet" xmi:id="_HYW2kPHlEd2X5Z5r7N-1aQ"
               name="equipe_desenvolvimento" guid="_HYW2kPHlEd2X5Z5r7N-1aQ" presentationName="Equipe de Desenvolvimento de Sistemas"
-              roles="_DHh3Yt6yEd6PEreghJQPwg _vW4akN61Ed6PEreghJQPwg _DHh3Yd6yEd6PEreghJQPwg _DHh3YN6yEd6PEreghJQPwg"/>
+              roles="_DHh3Yt6yEd6PEreghJQPwg _vW4akN61Ed6PEreghJQPwg _DHh3Yd6yEd6PEreghJQPwg _DHh3YN6yEd6PEreghJQPwg _2fRecOAGEd6cQJ8mWE1AKA _3Ugy8CC1Ed-JBt3KYu4jUA"/>
         </childPackages>
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_cpQIduFqEd2H3a3kT5zMig"
             name="WP Types" guid="_cpQIduFqEd2H3a3kT5zMig"/>
@@ -201,6 +208,8 @@
                 href="#_M_zucPafEd2Ep8HjTWOaHA"/>
             <categorizedElements xsi:type="org.eclipse.epf.uma:CapabilityPattern"
                 href="uma://_gH6nsuFqEd2H3a3kT5zMig#_gIEYueFqEd2H3a3kT5zMig"/>
+            <categorizedElements xsi:type="org.eclipse.epf.uma:CapabilityPattern"
+                href="uma://_i29joCIIEd-_vuAzZdogeQ#_i29joSIIEd-_vuAzZdogeQ"/>
             <categorizedElements xsi:type="org.eclipse.epf.uma:RoleSet" href="#_q5qZ8O4WEd2u-un9w_0PKA"/>
             <categorizedElements xsi:type="org.eclipse.epf.uma:RoleSet" href="#_HYW2kPHlEd2X5Z5r7N-1aQ"/>
             <categorizedElements xsi:type="org.eclipse.epf.uma:SupportingMaterial"
@@ -299,7 +308,7 @@
           </contentElements>
           <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_WiDEsO7TEd2C0KkvQJ9heQ"
               name="executar_tarefa_diaria" guid="_WiDEsO7TEd2C0KkvQJ9heQ" presentationName="Executar Tarefa Diária"
-              briefDescription="O Desenvolvedor executa a tarefa diária seguindo os padrões de qualidade estabelecidos."
+              briefDescription="O membro da Equipe Scrum executa a tarefa diária seguindo os padrões de qualidade estabelecidos."
               performedBy="_DHh3Yd6yEd6PEreghJQPwg">
             <presentation xmi:id="-Nh1TKTkMD1X6Larpax7Acw" href="uma://-Nh1TKTkMD1X6Larpax7Acw#-Nh1TKTkMD1X6Larpax7Acw"/>
           </contentElements>
@@ -496,6 +505,20 @@
               briefDescription="Responsável pela monitoramento e quaisquer alterações nos esquemas do banco de dados.">
             <presentation xmi:id="-tqU7_gBKXW4cMHV6-RqwjA" href="uma://-tqU7_gBKXW4cMHV6-RqwjA#-tqU7_gBKXW4cMHV6-RqwjA"/>
           </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Template" xmi:id="_OMuSsCe6Ed-gINPI7M_x9Q"
+              name="mapeamento_historia_dados_template" guid="_OMuSsCe6Ed-gINPI7M_x9Q"
+              presentationName="Template Mapeamento Histórias Dados">
+            <presentation xmi:id="-e2j6dV20J-7oWDJtIsSsfw" href="uma://-e2j6dV20J-7oWDJtIsSsfw#-e2j6dV20J-7oWDJtIsSsfw"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Example" xmi:id="_Ysby0Ce6Ed-gINPI7M_x9Q"
+              name="mapeamento_historia_dados_exemplo" guid="_Ysby0Ce6Ed-gINPI7M_x9Q"
+              presentationName="Exemplo de Mapeamento História Dados">
+            <presentation xmi:id="-lQnOW89I5GvMPso2apiwXA" href="uma://-lQnOW89I5GvMPso2apiwXA#-lQnOW89I5GvMPso2apiwXA"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_jmeegCe6Ed-gINPI7M_x9Q"
+              name="mapeamento_historia_dados" guid="_jmeegCe6Ed-gINPI7M_x9Q" presentationName="Tabela de Mapeamento Histórias x Dados"
+              briefDescription="Permite identificar as tabelas, visões e campos da tabela que são utilizados pelas histórias."
+              examples="_Ysby0Ce6Ed-gINPI7M_x9Q" templates="_OMuSsCe6Ed-gINPI7M_x9Q"/>
         </childPackages>
         <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_XJHpAOAIEd6cQJ8mWE1AKA"
             name="solicitar_mudanca" guid="_XJHpAOAIEd6cQJ8mWE1AKA" presentationName="Solicitar Mudança">
@@ -568,6 +591,8 @@
           name="CapabilityPatterns" guid="_cpQIfeFqEd2H3a3kT5zMig">
         <childPackages xsi:type="org.eclipse.epf.uma:ProcessComponent" xmi:id="_gH6nsuFqEd2H3a3kT5zMig"
             href="uma://_gH6nsuFqEd2H3a3kT5zMig#_gH6nsuFqEd2H3a3kT5zMig"/>
+        <childPackages xsi:type="org.eclipse.epf.uma:ProcessComponent" xmi:id="_i29joCIIEd-_vuAzZdogeQ"
+            href="uma://_i29joCIIEd-_vuAzZdogeQ#_i29joCIIEd-_vuAzZdogeQ"/>
       </childPackages>
     </methodPackages>
     <methodPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_cpQIfuFqEd2H3a3kT5zMig"

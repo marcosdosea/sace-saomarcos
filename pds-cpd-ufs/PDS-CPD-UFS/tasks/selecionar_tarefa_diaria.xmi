@@ -3,18 +3,18 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-cF8ayw_yyvas0ykj9nMPOA"
     name="selecionar_tarefa_diaria,_FDq2YO7gEd2C0KkvQJ9heQ" guid="-cF8ayw_yyvas0ykj9nMPOA"
-    changeDate="2010-02-23T16:53:32.194-0300">
+    changeDate="2010-02-25T10:28:08.389-0300">
   <mainDescription>&lt;p>&#xD;
-    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/desenvolvedor_CD8511C.html&quot;&#xD;
-    guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>&amp;nbsp;deve selecionar uma das tarefas em aberto para que possa iniciar&#xD;
-    a execução. As tarefas em aberto podem ser consultadas através do &lt;a class=&quot;elementLink&quot;&#xD;
+    O membro da &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
+    guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>&amp;nbsp;deve selecionar uma das tarefas (tickets)&amp;nbsp;em aberto para que&#xD;
+    possa iniciar a execução. As tarefas em aberto podem ser consultadas através do &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
-    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;deve aprovar a escolha e atribuir essa tarefa para que&#xD;
-    possa ser executada pelo &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/desenvolvedor_CD8511C.html&quot;&#xD;
-    guid=&quot;_kTvKkO7hEd2C0KkvQJ9heQ&quot;>Desenvolvedor&lt;/a>.&#xD;
+    O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a> deve aprovar a escolha e atribuir essa tarefa para que possa&#xD;
+    ser executada pelo membro da &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
+    guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>.&#xD;
 &lt;/p></mainDescription>
   <purpose>Selecionar uma tarefa para conclusão do Sprint.</purpose>
 </org.eclipse.epf.uma:TaskDescription>

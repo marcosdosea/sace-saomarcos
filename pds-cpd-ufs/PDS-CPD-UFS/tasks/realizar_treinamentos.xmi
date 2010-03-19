@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-SFH4JIdvaBxfNeQ1kIS5mQ"
+    name="realizar_treinamentos,_1o9u0O7SEd2C0KkvQJ9heQ" guid="-SFH4JIdvaBxfNeQ1kIS5mQ"
+    changeDate="2010-02-25T10:42:47.730-0300">
+  <mainDescription>&lt;p>&#xD;
+    Caso novas funcionalidades sejam desenvolvidas, é recomendável a realização de um treinamento para os &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot; guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos&#xD;
+    Sistemas&lt;/a>, antes da implantação da versão no servidor de produção.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/product_owner_E4EB451F.html&quot;&#xD;
+    guid=&quot;_DHh3YN6yEd6PEreghJQPwg&quot;>Dono do Produto&lt;/a>&amp;nbsp;será o responsável por montar e realizar o treinamento nas&#xD;
+    novas funcionalidades do sistema.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    É recomendável que os &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+    guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>&amp;nbsp;sejam capazes de utilizar o sistema durante o&#xD;
+    treinamento.&#xD;
+&lt;/p></mainDescription>
+  <purpose>Treinar os &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/usuario_2F1FD553.html&quot;&#xD;
+guid=&quot;_mFYe4OAGEd6cQJ8mWE1AKA&quot;>Usuários dos Sistemas&lt;/a>&amp;nbsp;nas novas funcionalidades desenvolvidas.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

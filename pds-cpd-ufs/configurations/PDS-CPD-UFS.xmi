@@ -30,6 +30,7 @@
   <methodPackageSelection xsi:type="org.eclipse.epf.uma:ProcessPackage" href="uma://_gH6nsuFqEd2H3a3kT5zMig#_3JZjoO7OEd2C0KkvQJ9heQ"/>
   <methodPackageSelection xsi:type="org.eclipse.epf.uma:ContentPackage" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_XJHpAOAIEd6cQJ8mWE1AKA"/>
   <methodPackageSelection xsi:type="org.eclipse.epf.uma:ContentPackage" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_JmZYsOWLEd6-3tY8_bjEGA"/>
+  <methodPackageSelection xsi:type="org.eclipse.epf.uma:ProcessComponent" href="uma://_i29joCIIEd-_vuAzZdogeQ#_i29joCIIEd-_vuAzZdogeQ"/>
   <processViews xsi:type="org.eclipse.epf.uma:CustomCategory" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_WjyQgO4XEd2u-un9w_0PKA"/>
   <addedCategory xsi:type="org.eclipse.epf.uma:Tool" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_2RRcQO7jEd2C0KkvQJ9heQ"/>
   <addedCategory xsi:type="org.eclipse.epf.uma:RoleSet" href="uma://_cpQIcOFqEd2H3a3kT5zMig#_q5qZ8O4WEd2u-un9w_0PKA"/>

@@ -3,12 +3,12 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-ErKtV_CM__fPFcGIV5RxeQ"
     name="definir_tarefas_diarias,_bE8mkOAiEd6cQJ8mWE1AKA" guid="-ErKtV_CM__fPFcGIV5RxeQ"
-    changeDate="2010-02-23T11:20:16.449-0300">
+    changeDate="2010-02-25T10:15:06.767-0300">
   <mainDescription>&lt;p>&#xD;
-    A&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
-    guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>,&amp;nbsp;deve listar para cada história&#xD;
-    identificada, quais as tarefas que são necessárias para que ela seja concluída. Cada tarefa deve ser executada em 1&#xD;
-    dia. Alguns exemplos de tarefas comuns para uma história são:&#xD;
+    A&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
+    guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>,&amp;nbsp;deve listar para cada história identificada, quais as tarefas que&#xD;
+    são necessárias para que ela seja concluída. Cada tarefa deve ser executada em 1 dia. Alguns exemplos de tarefas comuns&#xD;
+    para uma história são:&#xD;
 &lt;/p>&#xD;
 &lt;ul>&#xD;
     &lt;li>&#xD;

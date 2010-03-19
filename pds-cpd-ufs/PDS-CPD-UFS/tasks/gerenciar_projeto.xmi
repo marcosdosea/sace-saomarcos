@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-3wqaYbomLV6WoL9QDu0BQQ"
+    name="gerenciar_projeto,_LV-f8OWLEd6-3tY8_bjEGA" guid="-3wqaYbomLV6WoL9QDu0BQQ"
+    changeDate="2010-02-25T10:32:31.202-0300">
+  <mainDescription>&lt;p>&#xD;
+    Atarvés de uma reunião diária de 15 minutos, realizadas em pé, entre o &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_DE223945.html&quot; guid=&quot;_DHh3Yt6yEd6PEreghJQPwg&quot;>Scrum&#xD;
+    Master&lt;/a>&amp;nbsp;e&amp;nbsp;os &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>, deve-se verificar:&#xD;
+&lt;/p>&#xD;
+&lt;ol>&#xD;
+    &lt;li>&#xD;
+        Impedimentos que só podem ser resolvidos pelo &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_DE223945.html&quot; guid=&quot;_DHh3Yt6yEd6PEreghJQPwg&quot;>Scrum Master&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Planejamento para os próximos Sprints.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Alocação ou Desalocação de membros das &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>&amp;nbsp;para&#xD;
+        os próximos Sprints.&#xD;
+    &lt;/li>&#xD;
+&lt;/ol>O &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_DE223945.html&quot;&#xD;
+guid=&quot;_DHh3Yt6yEd6PEreghJQPwg&quot;>Scrum Master&lt;/a>&amp;nbsp;pode também realizar reuniões individualmente com os &lt;a&#xD;
+class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>&amp;nbsp;para verificações mais específicas, por&#xD;
+exemplo:&amp;nbsp;&lt;br />&#xD;
+&lt;ol>&#xD;
+    &lt;li>&#xD;
+        Acompanhamento do cronograma através do &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_demandas_9467738D.html&quot; guid=&quot;_7pCyMO7jEd2C0KkvQJ9heQ&quot;>Redmine&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Acompanhamento da produtividade dos membros da &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Planejamento para os próximos Sprints.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Alocação ou Desalocação de membros da &lt;a class=&quot;elementLink&quot;&#xD;
+        href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>&amp;nbsp;para&#xD;
+        os próximos Sprints.&#xD;
+    &lt;/li>&#xD;
+&lt;/ol>&#xD;
+&lt;p>&#xD;
+    Essas reuniões específicas devem ser realizadas pelo menos uma vez na semana e não devem ultrapassar 1 hora de duração.&#xD;
+&lt;/p>&lt;br /></mainDescription>
+  <purpose>Gerenciar o andamento de todos os projetos do CPD.&amp;nbsp;</purpose>
+</org.eclipse.epf.uma:TaskDescription>

@@ -3,12 +3,11 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-PGVa1yOihFjKzAalzc7eOA"
     name="the_daily_scrum,_oSM0AOF-Edyp34pwdTOSVQ" guid="-PGVa1yOihFjKzAalzc7eOA"
-    changeDate="2009-02-04T08:03:31.140-0300">
+    changeDate="2010-02-25T10:25:35.275-0300">
   <mainDescription>&lt;p>&#xD;
-    Todos os dias a &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
-    guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>&amp;nbsp;deve se reunir com o &lt;a&#xD;
-    class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
-    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>. Cada integrante deve responder as seguintes perguntas:&#xD;
+    Todos os dias a&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
+    guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>&amp;nbsp;deve se reunir. Cada integrante deve responder as seguintes&#xD;
+    perguntas:&#xD;
 &lt;/p>&#xD;
 &lt;ol>&#xD;
     &lt;li>&#xD;
@@ -24,7 +23,12 @@
 &lt;p>&#xD;
     As reuniões diárias devem ser realizadas preferencialmente com todos de pé (stand-up meeting), não devem ultrapassar os&#xD;
     15 minutos&amp;nbsp;e devem ser realizadas pela manhã no horário entre 9:00 e 10:00.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Eventualmente o &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_DE223945.html&quot;&#xD;
+    guid=&quot;_DHh3Yt6yEd6PEreghJQPwg&quot;>Scrum Master&lt;/a>&amp;nbsp;pode ser convidado a participar da reunião diária para, por&#xD;
+    exemplo, relatar como anda a solução do impedimento que esta sob sua responsabilidade.&#xD;
 &lt;/p></mainDescription>
-  <purpose>Acompanhar o progresso da &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/rolesets/equipe_desenvolvimento_3B077146.html&quot;&#xD;
-guid=&quot;_HYW2kPHlEd2X5Z5r7N-1aQ&quot;>Equipe de Desenvolvimento de Sistemas&lt;/a>.</purpose>
+  <purpose>Acompanhar o progresso da &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot;&#xD;
+guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>.</purpose>
 </org.eclipse.epf.uma:TaskDescription>
