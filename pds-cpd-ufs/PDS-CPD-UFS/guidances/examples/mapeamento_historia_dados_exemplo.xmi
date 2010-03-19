@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:GuidanceDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-lQnOW89I5GvMPso2apiwXA"
+    name="new_example,_Ysby0Ce6Ed-gINPI7M_x9Q" guid="-lQnOW89I5GvMPso2apiwXA">
+  <attachments>resources/MapeamentoHistoriaDadosSistemaGerenciamentoSolicitacosMateriais-DB2.xls</attachments>
+</org.eclipse.epf.uma:GuidanceDescription>
