@@ -20,10 +20,6 @@ namespace SACE.Telas
             this.tb_entrada_produtoTableAdapter.Fill(this.saceDataSet.tb_entrada_produto);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
-            this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_entrada' table. You can move, or remove it, as needed.
-            this.tb_entradaTableAdapter.Fill(this.saceDataSet.tb_entrada);
             habilitaBotoes(true);
         }
 
