@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-wfpgBnVAAVZb6uY6rLJ3MQ"
     name="new_supporting_material,_M_zucPafEd2Ep8HjTWOaHA" guid="-wfpgBnVAAVZb6uY6rLJ3MQ"
-    authors="Marcos Dósea" changeDate="2010-02-23T17:40:14.578-0300" version="1.0">
+    authors="Marcos Dósea" changeDate="2010-02-25T09:02:59.203-0300" version="1.0">
   <mainDescription>&lt;p>&#xD;
     O processo de Desenvolvimento de Software do CPD-UFS tem como objetivo padronizar todo o processo necessário para o&#xD;
     desenvolvimento de software de alta qualidade no CPD da Universidade Federal de Sergipe.&#xD;
@@ -14,8 +14,8 @@
 &lt;p>&#xD;
     O processo é fortemente baseado no Scrum.&amp;nbsp; O Scrum&amp;nbsp;é um processo ágil de desenvolvimento de software no&#xD;
     qual&amp;nbsp;o progresso do projeto é controlado através de uma série de sprints que possuem duração fixa. No CPD o tempo&#xD;
-    padrão de duração de um Sprint são 3 semanas. Eventualmente pode-se criar Sprints de menor duração para tarefas&#xD;
-    emergenciais, mas é recomendado que esse Sprint não seja inferior a 1 semana.&#xD;
+    padrão de duração de um Sprint são 3 semanas para projetos de desenvolvimento de novas funcionalidades. No caso de&#xD;
+    projetos de manutenção o Sprint não deve ser inferior a 1 semana.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
     No início de cada sprint uma&amp;nbsp;&lt;em>Reunião de Planejamento do Sprint&lt;/em>&amp;nbsp;é realizada durante o qual o&amp;nbsp;&lt;a&#xD;
@@ -49,7 +49,13 @@
     sendo o principal responsável por aplicar os valores e práticas do scrum.&#xD;
 &lt;/p>&#xD;
 &lt;p>&#xD;
-    No fim de cada sprint a equipe deve demonstrar a funcionalidade completa&amp;nbsp;do Sprint a todo &lt;a class=&quot;elementLink&quot;&#xD;
-    href=&quot;./../../../PDS-CPD-UFS/rolesets/equipe_scrum_D8BBA1B9.html&quot; guid=&quot;_q5qZ8O4WEd2u-un9w_0PKA&quot;>Equipe Scrum&lt;/a>.&#xD;
+    No fim de cada sprint a equipe deve demonstrar a funcionalidade completa&amp;nbsp;do Sprint a toda &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../PDS-CPD-UFS/rolesets/equipe_scrum_D8BBA1B9.html&quot; guid=&quot;_q5qZ8O4WEd2u-un9w_0PKA&quot;>Equipe&#xD;
+    Scrum&lt;/a>&amp;nbsp;na Reunião de Revisão do Sprint.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    O sprint é finalizado após uma última reunião, denominada Retrospectiva do Sprint, onde a &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../PDS-CPD-UFS/rolesets/equipe_scrum_D8BBA1B9.html&quot; guid=&quot;_q5qZ8O4WEd2u-un9w_0PKA&quot;>Equipe&#xD;
+    Scrum&lt;/a>&amp;nbsp;deve enfantizar o que houve de bom e o que houve de ruim durante a execuçã do Sprint.&#xD;
 &lt;/p></mainDescription>
 </org.eclipse.epf.uma:ContentDescription>

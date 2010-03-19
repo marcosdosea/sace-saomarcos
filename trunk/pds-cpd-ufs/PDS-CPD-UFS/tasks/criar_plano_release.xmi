@@ -2,10 +2,10 @@
 <org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
     xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-ZCMhDi2WfYnUNKBtg8n7qw"
-    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-ZCMhDi2WfYnUNKBtg8n7qw" changeDate="2010-02-23T09:59:59.242-0300">
+    name=",_RunHEF8ZEd22Gu98eFOlrQ" guid="-ZCMhDi2WfYnUNKBtg8n7qw" changeDate="2010-02-25T10:10:02.457-0300">
   <mainDescription>&lt;p>&#xD;
-    O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;D:/SACE/trunk/pds-cpd-ufs/PDS-CPD-UFS/roles/scrum_master_produto_603468.html&quot;&#xD;
-    guid=&quot;_GBDCc-7REd2C0KkvQJ9heQ&quot;>Scrum Master do Produto&lt;/a>, utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
+    O&amp;nbsp;&lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/roles/scrum_master_produto_5C4A2404.html&quot;&#xD;
+    guid=&quot;_vW4akN61Ed6PEreghJQPwg&quot;>Scrum Master do Produto&lt;/a>, utilizando o &lt;a class=&quot;elementLink&quot;&#xD;
     href=&quot;./../../PDS-CPD-UFS/workproducts/product_backlog_1D62E7C4.html&quot; guid=&quot;_KlZ-cO7REd2C0KkvQJ9heQ&quot;>Backlog do&#xD;
     Produto&lt;/a>&amp;nbsp;criado no &lt;a class=&quot;elementLink&quot; href=&quot;./../../PDS-CPD-UFS/tools/gerenciamento_projetos_4A9283B0.html&quot;&#xD;
     guid=&quot;_d1MDcPH6Ed2X5Z5r7N-1aQ&quot;>OpenProj&lt;/a>, deverá atualizá-lo para criação do plano de Release.&#xD;

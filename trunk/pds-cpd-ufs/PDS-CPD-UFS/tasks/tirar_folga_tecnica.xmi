@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
+    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-krklalvUOGTj0VUBGO0GHA"
+    name="tirar_folga_tecnica,_ua3H0OAhEd6cQJ8mWE1AKA" guid="-krklalvUOGTj0VUBGO0GHA"
+    changeDate="2010-02-23T17:35:15.386-0300">
+  <mainDescription>&lt;p>&#xD;
+    Após a conclusão do Sprint os membros da &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../PDS-CPD-UFS/roles/scrum_team_D3845935.html&quot; guid=&quot;_DHh3Yd6yEd6PEreghJQPwg&quot;>Equipe Scrum&lt;/a>&amp;nbsp;devem&#xD;
+    tirar um dia de folga técnica.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Nesse dia os membros devem ser dispensados das atividades de desenvolvimento e se dedicarem a outras atividades de&#xD;
+    pesquisa que poderão ajudar nos próximos Sprints.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Alguns exemplos de atividades que podem ser desenvolvidas pela equipe são:&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Avaliação de novas ferramentas.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Avaliação de um componente.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Estudo de novas tecnologias.&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        etc&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></mainDescription>
+  <purpose>Tirar folga técnica de 1 dia para executar atividades que não houve tempo durante a execução do Sprint.</purpose>
+</org.eclipse.epf.uma:TaskDescription>
