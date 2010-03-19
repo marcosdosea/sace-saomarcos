@@ -11,7 +11,8 @@ namespace SACE.Negocio
         {
             try
             {
-                SACE.Dados.saceDataSet.tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
+                    //SACE.Dados.saceDataSet.tb_entrada_produtoDataTable.
+                    
             }
             catch (Exception e)
             {
@@ -23,7 +24,7 @@ namespace SACE.Negocio
         {
             try
             {
-                SACE.Dados.saceDataSet.tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
+                //SACE.Dados.saceDataSet.tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
             }
             catch (Exception e)
             {
