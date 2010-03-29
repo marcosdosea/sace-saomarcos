@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<org.eclipse.epf.uma:ContentDescription xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
-    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-dvrCm6Q-L2z1qObUr1F41A"
-    name="new_tool,_d1MDcPH6Ed2X5Z5r7N-1aQ" guid="-dvrCm6Q-L2z1qObUr1F41A" changeDate="2009-02-03T10:57:45.203-0300">
-  <mainDescription>Ferramenta para Gerenciamento de Projeto onde o plano&amp;nbsp;dos sprints&amp;nbsp;de uma versão deve ser criado.</mainDescription>
-</org.eclipse.epf.uma:ContentDescription>
