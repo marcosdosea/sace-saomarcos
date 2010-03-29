@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<org.eclipse.epf.uma:RoleDescription xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.5/uma.ecore"
-    xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.0" xmi:id="-M6-3S8MQrnbAUKEEWfq44Q"
-    name=",_mFYe4OAGEd6cQJ8mWE1AKA" guid="-M6-3S8MQrnbAUKEEWfq44Q" changeDate="2009-12-03T09:24:45.028-0300">
-  <mainDescription>&lt;p>&#xD;
-    Pessoas que utiliza efetivamente o sistema no seu cotidiano.&#xD;
-&lt;/p></mainDescription>
-</org.eclipse.epf.uma:RoleDescription>
