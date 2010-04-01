@@ -83,9 +83,9 @@ namespace SACE.Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text),
-                        DateTime.Parse(dataEntradaDateTimePicker.Text), decimal.Parse(valorTotalTextBox.Text),
-                        "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text), decimal.Parse(icmsTextBox.Text));
+                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text,
+                        DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text,
+                        "F", long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text, icmsTextBox.Text);
                     tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                     tb_entradaBindingSource.MoveLast();
                 }
@@ -302,8 +302,8 @@ namespace SACE.Telas
                 }
 
                 tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),
-                    decimal.Parse(quantidadeTextBox.Text), decimal.Parse(precoCompraTextBox.Text), decimal.Parse(ipiTextBox.Text),
-                    decimal.Parse(icmsTextBox.Text), percIcmsSubstituicao, precoCusto);
+                    quantidadeTextBox.Text, precoCompraTextBox.Text, ipiTextBox.Text,
+                    icmsTextBox.Text, "0.0", valorICMSSubstitutoTextBox.Text);
             }
             catch (Exception ex)
             {
