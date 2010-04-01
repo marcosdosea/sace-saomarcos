@@ -429,6 +429,7 @@
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter.datasource" />
+    <None Include="Properties\DataSources\SACE.Negocio.GerenciadorEntrada.datasource" />
     <None Include="Resources\16.png" />
   </ItemGroup>
   <ItemGroup>

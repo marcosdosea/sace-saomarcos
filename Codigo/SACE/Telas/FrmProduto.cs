@@ -110,12 +110,12 @@ namespace SACE.Telas
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                         codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
-                        cfop, 0, 0,0, 0, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value,
-                        0, 0, decimal.Parse(qtdProdutoAtacadoTextBox.Text), 0,0,
-                        decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text),0, 0,
-                         exibeNaListagemCheckBox.Checked);
+                    //tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                    //     codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
+                    //    cfop, 0, 0,0, 0, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value,
+                    //    0, 0, decimal.Parse(qtdProdutoAtacadoTextBox.Text), 0,0,
+                    //    decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text),0, 0,
+                    //     exibeNaListagemCheckBox.Checked);
                     tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
                     tb_produtoBindingSource.MoveLast();
                 }

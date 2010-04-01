@@ -54,6 +54,7 @@
             System.Windows.Forms.Label qtdProdutoSuperAtacadoLabel;
             System.Windows.Forms.Label ultimoPrecoCompraLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
+            System.Windows.Forms.Label icms_substitutoLabel;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -109,6 +110,7 @@
             this.tbcfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
+            this.icms_substitutoTextBox = new System.Windows.Forms.TextBox();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -133,6 +135,7 @@
             qtdProdutoAtacadoLabel = new System.Windows.Forms.Label();
             qtdProdutoSuperAtacadoLabel = new System.Windows.Forms.Label();
             ultimoPrecoCompraLabel = new System.Windows.Forms.Label();
+            icms_substitutoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
@@ -218,7 +221,7 @@
             // simplesLabel
             // 
             simplesLabel.AutoSize = true;
-            simplesLabel.Location = new System.Drawing.Point(232, 241);
+            simplesLabel.Location = new System.Drawing.Point(304, 238);
             simplesLabel.Name = "simplesLabel";
             simplesLabel.Size = new System.Drawing.Size(55, 13);
             simplesLabel.TabIndex = 39;
@@ -227,7 +230,7 @@
             // ipiLabel
             // 
             ipiLabel.AutoSize = true;
-            ipiLabel.Location = new System.Drawing.Point(318, 241);
+            ipiLabel.Location = new System.Drawing.Point(370, 241);
             ipiLabel.Name = "ipiLabel";
             ipiLabel.Size = new System.Drawing.Size(31, 13);
             ipiLabel.TabIndex = 41;
@@ -236,7 +239,7 @@
             // freteLabel
             // 
             freteLabel.AutoSize = true;
-            freteLabel.Location = new System.Drawing.Point(406, 241);
+            freteLabel.Location = new System.Drawing.Point(426, 241);
             freteLabel.Name = "freteLabel";
             freteLabel.Size = new System.Drawing.Size(42, 13);
             freteLabel.TabIndex = 43;
@@ -688,37 +691,37 @@
             this.icmsTextBox.Location = new System.Drawing.Point(150, 258);
             this.icmsTextBox.Name = "icmsTextBox";
             this.icmsTextBox.ReadOnly = true;
-            this.icmsTextBox.Size = new System.Drawing.Size(78, 20);
+            this.icmsTextBox.Size = new System.Drawing.Size(57, 20);
             this.icmsTextBox.TabIndex = 38;
             this.icmsTextBox.TabStop = false;
             // 
             // simplesTextBox
             // 
             this.simplesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "simples", true));
-            this.simplesTextBox.Location = new System.Drawing.Point(234, 258);
+            this.simplesTextBox.Location = new System.Drawing.Point(307, 257);
             this.simplesTextBox.Name = "simplesTextBox";
             this.simplesTextBox.ReadOnly = true;
-            this.simplesTextBox.Size = new System.Drawing.Size(78, 20);
+            this.simplesTextBox.Size = new System.Drawing.Size(52, 20);
             this.simplesTextBox.TabIndex = 40;
             this.simplesTextBox.TabStop = false;
             // 
             // ipiTextBox
             // 
             this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "ipi", true));
-            this.ipiTextBox.Location = new System.Drawing.Point(321, 258);
+            this.ipiTextBox.Location = new System.Drawing.Point(373, 257);
             this.ipiTextBox.Name = "ipiTextBox";
             this.ipiTextBox.ReadOnly = true;
-            this.ipiTextBox.Size = new System.Drawing.Size(78, 20);
+            this.ipiTextBox.Size = new System.Drawing.Size(43, 20);
             this.ipiTextBox.TabIndex = 42;
             this.ipiTextBox.TabStop = false;
             // 
             // freteTextBox
             // 
             this.freteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "frete", true));
-            this.freteTextBox.Location = new System.Drawing.Point(406, 258);
+            this.freteTextBox.Location = new System.Drawing.Point(429, 257);
             this.freteTextBox.Name = "freteTextBox";
             this.freteTextBox.ReadOnly = true;
-            this.freteTextBox.Size = new System.Drawing.Size(78, 20);
+            this.freteTextBox.Size = new System.Drawing.Size(59, 20);
             this.freteTextBox.TabIndex = 44;
             this.freteTextBox.TabStop = false;
             // 
@@ -890,11 +893,31 @@
             this.cfopComboBox.TabIndex = 9;
             this.cfopComboBox.ValueMember = "cfop";
             // 
+            // icms_substitutoLabel
+            // 
+            icms_substitutoLabel.AutoSize = true;
+            icms_substitutoLabel.Location = new System.Drawing.Point(219, 242);
+            icms_substitutoLabel.Name = "icms_substitutoLabel";
+            icms_substitutoLabel.Size = new System.Drawing.Size(72, 13);
+            icms_substitutoLabel.TabIndex = 76;
+            icms_substitutoLabel.Text = "% icms antec:";
+            // 
+            // icms_substitutoTextBox
+            // 
+            this.icms_substitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "icms_substituto", true));
+            this.icms_substitutoTextBox.Location = new System.Drawing.Point(215, 257);
+            this.icms_substitutoTextBox.Name = "icms_substitutoTextBox";
+            this.icms_substitutoTextBox.ReadOnly = true;
+            this.icms_substitutoTextBox.Size = new System.Drawing.Size(83, 20);
+            this.icms_substitutoTextBox.TabIndex = 77;
+            // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 407);
+            this.ClientSize = new System.Drawing.Size(602, 426);
+            this.Controls.Add(icms_substitutoLabel);
+            this.Controls.Add(this.icms_substitutoTextBox);
             this.Controls.Add(this.cfopComboBox);
             this.Controls.Add(ultimoPrecoCompraLabel);
             this.Controls.Add(this.ultimoPrecoCompraTextBox);
@@ -1034,5 +1057,6 @@
         private SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
         private System.Windows.Forms.BindingSource tbcfopBindingSource;
         private System.Windows.Forms.ComboBox cfopComboBox;
+        private System.Windows.Forms.TextBox icms_substitutoTextBox;
     }
 }
