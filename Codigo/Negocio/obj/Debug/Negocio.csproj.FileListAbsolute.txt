@@ -1,0 +1,7 @@
+D:\SACE\trunk\Codigo\Negocio\obj\Debug\ResolveAssemblyReference.cache
+D:\SACE\trunk\Codigo\Negocio\obj\Debug\Negocio.Properties.Resources.resources
+D:\SACE\trunk\Codigo\Negocio\obj\Debug\Negocio.csproj.GenerateResource.Cache
+D:\SACE\trunk\Codigo\Negocio\bin\Debug\Negocio.pdb
+D:\SACE\trunk\Codigo\Negocio\obj\Debug\Negocio.pdb
+D:\SACE\trunk\Codigo\Negocio\bin\Debug\Negocio.dll
+D:\SACE\trunk\Codigo\Negocio\obj\Debug\Negocio.dll

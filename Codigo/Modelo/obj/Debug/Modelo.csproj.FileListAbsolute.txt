@@ -1,0 +1,7 @@
+D:\SACE\trunk\Codigo\Modelo\obj\Debug\ResolveAssemblyReference.cache
+D:\SACE\trunk\Codigo\Modelo\obj\Debug\Modelo.Properties.Resources.resources
+D:\SACE\trunk\Codigo\Modelo\obj\Debug\Modelo.csproj.GenerateResource.Cache
+D:\SACE\trunk\Codigo\Modelo\bin\Debug\Modelo.dll
+D:\SACE\trunk\Codigo\Modelo\bin\Debug\Modelo.pdb
+D:\SACE\trunk\Codigo\Modelo\obj\Debug\Modelo.dll
+D:\SACE\trunk\Codigo\Modelo\obj\Debug\Modelo.pdb
