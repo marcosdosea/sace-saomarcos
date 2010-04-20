@@ -1,9 +1,0 @@
-D:\SACE\trunk\Codigo\Dados\bin\Debug\Dados.pdb
-D:\SACE\trunk\Codigo\Dados\obj\Debug\ResolveAssemblyReference.cache
-D:\SACE\trunk\Codigo\Dados\obj\Debug\Dados.csproj.GenerateResource.Cache
-D:\SACE\trunk\Codigo\Dados\obj\Debug\Dados.pdb
-D:\SACE\trunk\Codigo\Dados\bin\Debug\Dados.dll.config
-D:\SACE\trunk\Codigo\Dados\bin\Debug\Dados.dll
-D:\SACE\trunk\Codigo\Dados\obj\Debug\Dados.dll
-D:\SACE\trunk\Codigo\Dados\obj\Debug\SACE.Dados.Properties.Resources.resources
-D:\SACE\trunk\Codigo\Dados\obj\Debug\SACE.Dados.saceDataSet.resources

@@ -1,7 +1,0 @@
-D:\SACE\trunk\Codigo\teste\bin\Debug\teste.exe
-D:\SACE\trunk\Codigo\teste\bin\Debug\teste.pdb
-D:\SACE\trunk\Codigo\teste\obj\Debug\ResolveAssemblyReference.cache
-D:\SACE\trunk\Codigo\teste\obj\Debug\teste.Properties.Resources.resources
-D:\SACE\trunk\Codigo\teste\obj\Debug\teste.csproj.GenerateResource.Cache
-D:\SACE\trunk\Codigo\teste\obj\Debug\teste.exe
-D:\SACE\trunk\Codigo\teste\obj\Debug\teste.pdb
