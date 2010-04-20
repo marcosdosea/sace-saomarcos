@@ -1,0 +1,9 @@
+D:\SACE\trunk\Codigo\Excecoes\bin\Debug\Excecoes.pdb
+D:\SACE\trunk\Codigo\Excecoes\obj\Debug\ResolveAssemblyReference.cache
+D:\SACE\trunk\Codigo\Excecoes\obj\Debug\Excecoes.Properties.Resources.resources
+D:\SACE\trunk\Codigo\Excecoes\obj\Debug\Excecoes.csproj.GenerateResource.Cache
+D:\SACE\trunk\Codigo\Excecoes\obj\Debug\Excecoes.pdb
+D:\SACE\trunk\Codigo\Excecoes\bin\Debug\Excecoes.dll
+D:\SACE\trunk\Codigo\Excecoes\obj\Debug\Excecoes.dll
+D:\SACE\trunk\Codigo\Excecoes\bin\Debug\Dados.dll
+D:\SACE\trunk\Codigo\Excecoes\bin\Debug\Dados.pdb
