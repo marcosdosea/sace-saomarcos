@@ -144,5 +144,12 @@ namespace SACE
             frmTrasnformacaoProduto.Dispose();
         }
 
+        private void usuárioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmUsuario frmFrmUsuario = new Telas.FrmUsuario();
+            frmFrmUsuario.ShowDialog();
+            frmFrmUsuario.Dispose();
+        }
+
     }
 }
