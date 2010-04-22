@@ -66,8 +66,8 @@
             this.tb_PerfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_usuarioTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tb_perfilTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_perfilTableAdapter();
+            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             nomeLabel = new System.Windows.Forms.Label();
             loginLabel = new System.Windows.Forms.Label();
             senhaLabel = new System.Windows.Forms.Label();
@@ -327,6 +327,7 @@
             // 
             this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
             this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
+            this.tb_pessoaBindingSource.Sort = "codPessoa";
             // 
             // nomeTextBox
             // 
@@ -336,6 +337,7 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(350, 20);
             this.nomeTextBox.TabIndex = 30;
+            this.nomeTextBox.TextChanged += new System.EventHandler(this.nomeTextBox_TextChanged);
             // 
             // loginTextBox
             // 
@@ -349,11 +351,11 @@
             // confirmarSenhaTextBox
             // 
             this.confirmarSenhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.confirmarSenhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
             this.confirmarSenhaTextBox.Location = new System.Drawing.Point(241, 181);
             this.confirmarSenhaTextBox.Name = "confirmarSenhaTextBox";
             this.confirmarSenhaTextBox.Size = new System.Drawing.Size(227, 20);
             this.confirmarSenhaTextBox.TabIndex = 34;
+            this.confirmarSenhaTextBox.UseSystemPasswordChar = true;
             // 
             // codPessoaTextBox
             // 
@@ -368,23 +370,26 @@
             // senhaTextBox
             // 
             this.senhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.senhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
+            this.senhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "senha", true));
             this.senhaTextBox.Location = new System.Drawing.Point(9, 181);
             this.senhaTextBox.Name = "senhaTextBox";
             this.senhaTextBox.Size = new System.Drawing.Size(227, 20);
             this.senhaTextBox.TabIndex = 38;
+            this.senhaTextBox.UseSystemPasswordChar = true;
             // 
             // perfilComboBox
             // 
             this.perfilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_usuarioBindingSource, "codPerfil", true));
             this.perfilComboBox.DataSource = this.tb_PerfilBindingSource;
             this.perfilComboBox.DisplayMember = "nome";
+            this.perfilComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.perfilComboBox.FormattingEnabled = true;
             this.perfilComboBox.Location = new System.Drawing.Point(242, 141);
             this.perfilComboBox.Name = "perfilComboBox";
             this.perfilComboBox.Size = new System.Drawing.Size(226, 21);
             this.perfilComboBox.TabIndex = 39;
             this.perfilComboBox.ValueMember = "codPerfil";
+            this.perfilComboBox.SelectedIndexChanged += new System.EventHandler(this.perfilComboBox_SelectedIndexChanged);
             // 
             // tb_PerfilBindingSource
             // 
@@ -430,13 +435,13 @@
             this.tableAdapterManager.tb_usuarioTableAdapter = this.tb_usuarioTableAdapter;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
-            // 
             // tb_perfilTableAdapter
             // 
             this.tb_perfilTableAdapter.ClearBeforeFill = true;
+            // 
+            // tb_pessoaTableAdapter
+            // 
+            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
             // 
             // FrmUsuario
             // 
@@ -465,6 +470,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "FrmUsuario";
             this.Text = "Cadastro Usuário";
+            this.Load += new System.EventHandler(this.FrmUsuario_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();

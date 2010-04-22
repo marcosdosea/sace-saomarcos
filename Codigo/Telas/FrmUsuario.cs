@@ -18,6 +18,16 @@ namespace SACE.Telas
             InitializeComponent();
         }
 
+        private void FrmUsuario_Load(object sender, EventArgs e)
+        {
+            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
+            this.tb_usuarioTableAdapter.Fill(this.saceDataSet.tb_usuario);
+            tb_pessoaBindingSource.Find("codPessoa", -1);
+            
+            habilitaBotoes(true);
+        }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
@@ -108,6 +118,16 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void nomeTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void perfilComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

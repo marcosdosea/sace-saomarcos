@@ -53,8 +53,8 @@
             System.Windows.Forms.Label qtdProdutoAtacadoLabel;
             System.Windows.Forms.Label qtdProdutoSuperAtacadoLabel;
             System.Windows.Forms.Label ultimoPrecoCompraLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             System.Windows.Forms.Label icms_substitutoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -362,6 +362,15 @@
             ultimoPrecoCompraLabel.TabIndex = 75;
             ultimoPrecoCompraLabel.Text = "Último Preço Compra:";
             // 
+            // icms_substitutoLabel
+            // 
+            icms_substitutoLabel.AutoSize = true;
+            icms_substitutoLabel.Location = new System.Drawing.Point(219, 242);
+            icms_substitutoLabel.Name = "icms_substitutoLabel";
+            icms_substitutoLabel.Size = new System.Drawing.Size(72, 13);
+            icms_substitutoLabel.TabIndex = 76;
+            icms_substitutoLabel.Text = "% icms antec:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -446,6 +455,7 @@
             // saceDataSet
             // 
             this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
             this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tb_produtoBindingSource
@@ -478,6 +488,8 @@
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
@@ -892,15 +904,6 @@
             this.cfopComboBox.Size = new System.Drawing.Size(134, 21);
             this.cfopComboBox.TabIndex = 9;
             this.cfopComboBox.ValueMember = "cfop";
-            // 
-            // icms_substitutoLabel
-            // 
-            icms_substitutoLabel.AutoSize = true;
-            icms_substitutoLabel.Location = new System.Drawing.Point(219, 242);
-            icms_substitutoLabel.Name = "icms_substitutoLabel";
-            icms_substitutoLabel.Size = new System.Drawing.Size(72, 13);
-            icms_substitutoLabel.TabIndex = 76;
-            icms_substitutoLabel.Text = "% icms antec:";
             // 
             // icms_substitutoTextBox
             // 
