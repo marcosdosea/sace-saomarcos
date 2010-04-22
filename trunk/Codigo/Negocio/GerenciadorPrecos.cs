@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SACE.Negocio
 {
-    class GerenciadorPrecos
+    public class GerenciadorPrecos
     {
         static GerenciadorPrecos gerenciadorPrecos = null;
         

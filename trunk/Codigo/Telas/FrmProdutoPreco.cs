@@ -65,12 +65,21 @@ namespace SACE.Telas
             try
             {
                        
-                tb_produtoTableAdapter.UpdatePrecos(decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
-                     decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
-                     DateTime.Now, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                     decimal.Parse(novoPrecoVarejoTextBox.Text), decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                     decimal.Parse(novoPrecoAtacadoTextBox.Text), decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
-                     decimal.Parse(novoPrecoSuperTextBox.Text), long.Parse(codProdutoTextBox.Text));
+                tb_produtoTableAdapter.UpdatePrecos( decimal.Parse(icmsTextBox.Text), 
+                                                     decimal.Parse(simplesTextBox.Text),
+                                                     decimal.Parse(ipiTextBox.Text), 
+                                                     decimal.Parse(freteTextBox.Text), 
+                                                     decimal.Parse(custoVendaTextBox.Text), 
+                                                     decimal.Parse("0"),
+                                                     DateTime.Now, 
+                                                     decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
+                                                     decimal.Parse(novoPrecoVarejoTextBox.Text), 
+                                                     decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
+                                                     decimal.Parse(novoPrecoAtacadoTextBox.Text), 
+                                                     decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
+                                                     decimal.Parse(novoPrecoSuperTextBox.Text),
+                                                     long.Parse(codProdutoTextBox.Text)
+                 );
                  tb_produtoBindingSource.EndEdit();
                 
             }
