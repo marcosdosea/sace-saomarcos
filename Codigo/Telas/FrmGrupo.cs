@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SACE.Negocio;
-using SACE.Modelo;
 
 namespace SACE.Telas
 {
@@ -59,7 +58,7 @@ namespace SACE.Telas
             {
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    tb_grupoBindingSource.Remove( getDados().CodGrupo );
+                    tb_grupoTableAdapter.Delete(long.Parse(codGrupoTextBox.Text));
                     tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
                 }
             }
@@ -68,7 +67,7 @@ namespace SACE.Telas
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
                 tb_grupoBindingSource.CancelEdit();
             }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -83,16 +82,15 @@ namespace SACE.Telas
         {
             try
             {
-                grupo = getDados();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_grupoTableAdapter.Insert(grupo.Descricao);
+                    tb_grupoTableAdapter.Insert(descricaoTextBox.Text);
                     tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
                     tb_grupoBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_grupoTableAdapter.Update(grupo.Descricao, grupo.CodGrupo);
+                    tb_grupoTableAdapter.Update(descricaoTextBox.Text, long.Parse(codGrupoTextBox.Text));
                     tb_grupoBindingSource.EndEdit();
                 }
             }
@@ -102,6 +100,7 @@ namespace SACE.Telas
                 tb_grupoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
+
             btnBuscar.Focus();
         }
 

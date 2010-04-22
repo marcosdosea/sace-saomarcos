@@ -123,13 +123,20 @@ namespace SACE.Telas
                 {
                     tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
                         codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
-                        cfop, decimal.Parse(icmsTextBox.Text), decimal.Parse(simplesTextBox.Text),
+                        cfop, decimal.Parse(icmsTextBox.Text), 
+                        decimal.Parse(simplesTextBox.Text),
                         decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
-                        ultimaDataAtualizacaoDateTimePicker.Value, decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                        decimal.Parse(precoVendaVarejoTextBox.Text), decimal.Parse(qtdProdutoAtacadoTextBox.Text),
-                        decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text), decimal.Parse(precoVendaAtacadoTextBox.Text), decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
-                        decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), decimal.Parse(precoVendaSuperAtacadoTextBox.Text), 
-                        exibeNaListagemCheckBox.Checked, long.Parse(codProdutoTextBox.Text));
+                        ultimaDataAtualizacaoDateTimePicker.Value, 
+                        decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
+                        decimal.Parse(precoVendaVarejoTextBox.Text), 
+                        decimal.Parse(qtdProdutoAtacadoTextBox.Text),
+                        decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text), 
+                        decimal.Parse(precoVendaAtacadoTextBox.Text), 
+                        decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
+                        decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), 
+                        decimal.Parse(precoVendaSuperAtacadoTextBox.Text), 
+                        exibeNaListagemCheckBox.Checked, 
+                        long.Parse(codProdutoTextBox.Text));
                     tb_produtoBindingSource.EndEdit();
                 }
             }

@@ -52,11 +52,13 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codBancoTextBox = new System.Windows.Forms.TextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
+            this.tb_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             codBancoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).BeginInit();
             this.tb_bancoBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codBancoLabel
@@ -269,6 +271,10 @@
             this.nomeTextBox.Size = new System.Drawing.Size(337, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
+            // tb_bancoBindingSource
+            // 
+            this.tb_bancoBindingSource.DataSource = typeof(SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter);
+            // 
             // FrmBanco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).EndInit();
             this.tb_bancoBindingNavigator.ResumeLayout(false);
             this.tb_bancoBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,5 +336,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codBancoTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
+        private System.Windows.Forms.BindingSource tb_bancoBindingSource;
     }
 }

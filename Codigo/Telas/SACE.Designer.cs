@@ -370,7 +370,7 @@
             // btnSair
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSair.Image = global::SACE.Properties.Resources._118;
+            this.btnSair.Image = global::Telas.Properties.Resources._118;
             this.btnSair.Location = new System.Drawing.Point(624, 27);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(105, 78);
@@ -383,7 +383,7 @@
             // btnEntradas
             // 
             this.btnEntradas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEntradas.Image = global::SACE.Properties.Resources._122;
+            this.btnEntradas.Image = global::Telas.Properties.Resources._761;
             this.btnEntradas.Location = new System.Drawing.Point(312, 27);
             this.btnEntradas.Name = "btnEntradas";
             this.btnEntradas.Size = new System.Drawing.Size(105, 78);
@@ -396,7 +396,7 @@
             // btnFornecedor
             // 
             this.btnFornecedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFornecedor.Image = global::SACE.Properties.Resources._66;
+            this.btnFornecedor.Image = global::Telas.Properties.Resources._122;
             this.btnFornecedor.Location = new System.Drawing.Point(520, 27);
             this.btnFornecedor.Name = "btnFornecedor";
             this.btnFornecedor.Size = new System.Drawing.Size(105, 78);
@@ -409,7 +409,7 @@
             // btnContas
             // 
             this.btnContas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContas.Image = global::SACE.Properties.Resources._86;
+            this.btnContas.Image = global::Telas.Properties.Resources._86;
             this.btnContas.Location = new System.Drawing.Point(416, 27);
             this.btnContas.Name = "btnContas";
             this.btnContas.Size = new System.Drawing.Size(105, 78);
@@ -421,7 +421,7 @@
             // btnCliente
             // 
             this.btnCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCliente.Image = global::SACE.Properties.Resources._54;
+            this.btnCliente.Image = global::Telas.Properties.Resources._54;
             this.btnCliente.Location = new System.Drawing.Point(208, 27);
             this.btnCliente.Name = "btnCliente";
             this.btnCliente.Size = new System.Drawing.Size(105, 78);
@@ -434,7 +434,7 @@
             // btnProdutos
             // 
             this.btnProdutos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProdutos.Image = global::SACE.Properties.Resources._68;
+            this.btnProdutos.Image = global::Telas.Properties.Resources._66;
             this.btnProdutos.Location = new System.Drawing.Point(104, 27);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(105, 78);
@@ -447,7 +447,7 @@
             // btnVenda
             // 
             this.btnVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVenda.Image = global::SACE.Properties.Resources._761;
+            this.btnVenda.Image = global::Telas.Properties.Resources._761;
             this.btnVenda.Location = new System.Drawing.Point(0, 27);
             this.btnVenda.Name = "btnVenda";
             this.btnVenda.Size = new System.Drawing.Size(105, 78);
