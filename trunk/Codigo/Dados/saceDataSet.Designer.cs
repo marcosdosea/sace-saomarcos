@@ -81,6 +81,10 @@ namespace SACE.Dados {
         
         private tb_usuarioDataTable tabletb_usuario;
         
+        private tb_perfilDataTable tabletb_perfil;
+        
+        private tb_perfil_funcionalidadeDataTable tabletb_perfil_funcionalidade;
+        
         private global::System.Data.DataRelation relationFK_TB_CARTAO_CREDITO_1;
         
         private global::System.Data.DataRelation relationFK_TB_CONTA_BANCO_1;
@@ -162,6 +166,12 @@ namespace SACE.Dados {
         private global::System.Data.DataRelation relationFK_TB_SAIDA_PRODUTO_2;
         
         private global::System.Data.DataRelation relationFK_TABLE_24_1;
+        
+        private global::System.Data.DataRelation relationtb_perfil_tb_usuario_fk;
+        
+        private global::System.Data.DataRelation relationtb_funcionalidade_tb_perfil_usuario_fk;
+        
+        private global::System.Data.DataRelation relationtb_perfil_tb_perfil_usuario_fk;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -272,6 +282,12 @@ namespace SACE.Dados {
                 }
                 if ((ds.Tables["tb_usuario"] != null)) {
                     base.Tables.Add(new tb_usuarioDataTable(ds.Tables["tb_usuario"]));
+                }
+                if ((ds.Tables["tb_perfil"] != null)) {
+                    base.Tables.Add(new tb_perfilDataTable(ds.Tables["tb_perfil"]));
+                }
+                if ((ds.Tables["tb_perfil_funcionalidade"] != null)) {
+                    base.Tables.Add(new tb_perfil_funcionalidadeDataTable(ds.Tables["tb_perfil_funcionalidade"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -544,6 +560,24 @@ namespace SACE.Dados {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public tb_perfilDataTable tb_perfil {
+            get {
+                return this.tabletb_perfil;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public tb_perfil_funcionalidadeDataTable tb_perfil_funcionalidade {
+            get {
+                return this.tabletb_perfil_funcionalidade;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -685,6 +719,12 @@ namespace SACE.Dados {
                 }
                 if ((ds.Tables["tb_usuario"] != null)) {
                     base.Tables.Add(new tb_usuarioDataTable(ds.Tables["tb_usuario"]));
+                }
+                if ((ds.Tables["tb_perfil"] != null)) {
+                    base.Tables.Add(new tb_perfilDataTable(ds.Tables["tb_perfil"]));
+                }
+                if ((ds.Tables["tb_perfil_funcionalidade"] != null)) {
+                    base.Tables.Add(new tb_perfil_funcionalidadeDataTable(ds.Tables["tb_perfil_funcionalidade"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -884,6 +924,18 @@ namespace SACE.Dados {
                     this.tabletb_usuario.InitVars();
                 }
             }
+            this.tabletb_perfil = ((tb_perfilDataTable)(base.Tables["tb_perfil"]));
+            if ((initTable == true)) {
+                if ((this.tabletb_perfil != null)) {
+                    this.tabletb_perfil.InitVars();
+                }
+            }
+            this.tabletb_perfil_funcionalidade = ((tb_perfil_funcionalidadeDataTable)(base.Tables["tb_perfil_funcionalidade"]));
+            if ((initTable == true)) {
+                if ((this.tabletb_perfil_funcionalidade != null)) {
+                    this.tabletb_perfil_funcionalidade.InitVars();
+                }
+            }
             this.relationFK_TB_CARTAO_CREDITO_1 = this.Relations["FK_TB_CARTAO_CREDITO_1"];
             this.relationFK_TB_CONTA_BANCO_1 = this.Relations["FK_TB_CONTA_BANCO_1"];
             this.relationFK_CONTA_PAGAR_1 = this.Relations["FK_CONTA_PAGAR_1"];
@@ -925,6 +977,9 @@ namespace SACE.Dados {
             this.relationFK_TB_SAIDA_PRODUTO_1 = this.Relations["FK_TB_SAIDA_PRODUTO_1"];
             this.relationFK_TB_SAIDA_PRODUTO_2 = this.Relations["FK_TB_SAIDA_PRODUTO_2"];
             this.relationFK_TABLE_24_1 = this.Relations["FK_TABLE_24_1"];
+            this.relationtb_perfil_tb_usuario_fk = this.Relations["tb_perfil_tb_usuario_fk"];
+            this.relationtb_funcionalidade_tb_perfil_usuario_fk = this.Relations["tb_funcionalidade_tb_perfil_usuario_fk"];
+            this.relationtb_perfil_tb_perfil_usuario_fk = this.Relations["tb_perfil_tb_perfil_usuario_fk"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -990,6 +1045,10 @@ namespace SACE.Dados {
             base.Tables.Add(this.tabletb_tipo_movimentacao_conta);
             this.tabletb_usuario = new tb_usuarioDataTable();
             base.Tables.Add(this.tabletb_usuario);
+            this.tabletb_perfil = new tb_perfilDataTable();
+            base.Tables.Add(this.tabletb_perfil);
+            this.tabletb_perfil_funcionalidade = new tb_perfil_funcionalidadeDataTable();
+            base.Tables.Add(this.tabletb_perfil_funcionalidade);
             this.relationFK_TB_CARTAO_CREDITO_1 = new global::System.Data.DataRelation("FK_TB_CARTAO_CREDITO_1", new global::System.Data.DataColumn[] {
                         this.tabletb_conta_banco.codContaBancoColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_cartao_credito.codContaBancoColumn}, false);
@@ -1154,6 +1213,18 @@ namespace SACE.Dados {
                         this.tabletb_pessoa.codPessoaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_usuario.codPessoaColumn}, false);
             this.Relations.Add(this.relationFK_TABLE_24_1);
+            this.relationtb_perfil_tb_usuario_fk = new global::System.Data.DataRelation("tb_perfil_tb_usuario_fk", new global::System.Data.DataColumn[] {
+                        this.tabletb_perfil.codPerfilColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletb_usuario.codPerfilColumn}, false);
+            this.Relations.Add(this.relationtb_perfil_tb_usuario_fk);
+            this.relationtb_funcionalidade_tb_perfil_usuario_fk = new global::System.Data.DataRelation("tb_funcionalidade_tb_perfil_usuario_fk", new global::System.Data.DataColumn[] {
+                        this.tabletb_funcionalidade.codFuncionalidadeColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletb_perfil_funcionalidade.codFuncionalidadeColumn}, false);
+            this.Relations.Add(this.relationtb_funcionalidade_tb_perfil_usuario_fk);
+            this.relationtb_perfil_tb_perfil_usuario_fk = new global::System.Data.DataRelation("tb_perfil_tb_perfil_usuario_fk", new global::System.Data.DataColumn[] {
+                        this.tabletb_perfil.codPerfilColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletb_perfil_funcionalidade.codPerfilColumn}, false);
+            this.Relations.Add(this.relationtb_perfil_tb_perfil_usuario_fk);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1297,6 +1368,16 @@ namespace SACE.Dados {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializetb_perfil() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializetb_perfil_funcionalidade() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1404,6 +1485,10 @@ namespace SACE.Dados {
         public delegate void tb_tipo_movimentacao_contaRowChangeEventHandler(object sender, tb_tipo_movimentacao_contaRowChangeEvent e);
         
         public delegate void tb_usuarioRowChangeEventHandler(object sender, tb_usuarioRowChangeEvent e);
+        
+        public delegate void tb_perfilRowChangeEventHandler(object sender, tb_perfilRowChangeEvent e);
+        
+        public delegate void tb_perfil_funcionalidadeRowChangeEventHandler(object sender, tb_perfil_funcionalidadeRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -10061,6 +10146,8 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnsenha;
             
+            private global::System.Data.DataColumn columncodPerfil;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_usuarioDataTable() {
                 this.TableName = "tb_usuario";
@@ -10113,6 +10200,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn codPerfilColumn {
+                get {
+                    return this.columncodPerfil;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -10141,14 +10235,18 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_usuarioRow Addtb_usuarioRow(tb_pessoaRow parenttb_pessoaRowByFK_TABLE_24_1, string login, string senha) {
+            public tb_usuarioRow Addtb_usuarioRow(tb_pessoaRow parenttb_pessoaRowByFK_TABLE_24_1, string login, string senha, tb_perfilRow parenttb_perfilRowBytb_perfil_tb_usuario_fk) {
                 tb_usuarioRow rowtb_usuarioRow = ((tb_usuarioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         login,
-                        senha};
+                        senha,
+                        null};
                 if ((parenttb_pessoaRowByFK_TABLE_24_1 != null)) {
                     columnValuesArray[0] = parenttb_pessoaRowByFK_TABLE_24_1[0];
+                }
+                if ((parenttb_perfilRowBytb_perfil_tb_usuario_fk != null)) {
+                    columnValuesArray[3] = parenttb_perfilRowBytb_perfil_tb_usuario_fk[1];
                 }
                 rowtb_usuarioRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_usuarioRow);
@@ -10178,6 +10276,7 @@ namespace SACE.Dados {
                 this.columncodPessoa = base.Columns["codPessoa"];
                 this.columnlogin = base.Columns["login"];
                 this.columnsenha = base.Columns["senha"];
+                this.columncodPerfil = base.Columns["codPerfil"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10188,12 +10287,15 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnlogin);
                 this.columnsenha = new global::System.Data.DataColumn("senha", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsenha);
+                this.columncodPerfil = new global::System.Data.DataColumn("codPerfil", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodPerfil);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodPessoa}, true));
                 this.columncodPessoa.AllowDBNull = false;
                 this.columncodPessoa.Unique = true;
                 this.columnlogin.MaxLength = 20;
                 this.columnsenha.MaxLength = 20;
+                this.columncodPerfil.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10271,6 +10373,508 @@ namespace SACE.Dados {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "tb_usuarioDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class tb_perfilDataTable : global::System.Data.TypedTableBase<tb_perfilRow> {
+            
+            private global::System.Data.DataColumn columnnome;
+            
+            private global::System.Data.DataColumn columncodPerfil;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilDataTable() {
+                this.TableName = "tb_perfil";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal tb_perfilDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected tb_perfilDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn nomeColumn {
+                get {
+                    return this.columnnome;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn codPerfilColumn {
+                get {
+                    return this.columncodPerfil;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow this[int index] {
+                get {
+                    return ((tb_perfilRow)(this.Rows[index]));
+                }
+            }
+            
+            public event tb_perfilRowChangeEventHandler tb_perfilRowChanging;
+            
+            public event tb_perfilRowChangeEventHandler tb_perfilRowChanged;
+            
+            public event tb_perfilRowChangeEventHandler tb_perfilRowDeleting;
+            
+            public event tb_perfilRowChangeEventHandler tb_perfilRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void Addtb_perfilRow(tb_perfilRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow Addtb_perfilRow(string nome, int codPerfil) {
+                tb_perfilRow rowtb_perfilRow = ((tb_perfilRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        nome,
+                        codPerfil};
+                rowtb_perfilRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowtb_perfilRow);
+                return rowtb_perfilRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow FindBycodPerfil(int codPerfil) {
+                return ((tb_perfilRow)(this.Rows.Find(new object[] {
+                            codPerfil})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone() {
+                tb_perfilDataTable cln = ((tb_perfilDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new tb_perfilDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnnome = base.Columns["nome"];
+                this.columncodPerfil = base.Columns["codPerfil"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnnome = new global::System.Data.DataColumn("nome", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnome);
+                this.columncodPerfil = new global::System.Data.DataColumn("codPerfil", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodPerfil);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columncodPerfil}, true));
+                this.columnnome.AllowDBNull = false;
+                this.columnnome.MaxLength = 20;
+                this.columncodPerfil.AllowDBNull = false;
+                this.columncodPerfil.Unique = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow Newtb_perfilRow() {
+                return ((tb_perfilRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new tb_perfilRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType() {
+                return typeof(tb_perfilRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.tb_perfilRowChanged != null)) {
+                    this.tb_perfilRowChanged(this, new tb_perfilRowChangeEvent(((tb_perfilRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.tb_perfilRowChanging != null)) {
+                    this.tb_perfilRowChanging(this, new tb_perfilRowChangeEvent(((tb_perfilRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.tb_perfilRowDeleted != null)) {
+                    this.tb_perfilRowDeleted(this, new tb_perfilRowChangeEvent(((tb_perfilRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.tb_perfilRowDeleting != null)) {
+                    this.tb_perfilRowDeleting(this, new tb_perfilRowChangeEvent(((tb_perfilRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void Removetb_perfilRow(tb_perfilRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                saceDataSet ds = new saceDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "tb_perfilDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class tb_perfil_funcionalidadeDataTable : global::System.Data.TypedTableBase<tb_perfil_funcionalidadeRow> {
+            
+            private global::System.Data.DataColumn columncodFuncionalidade;
+            
+            private global::System.Data.DataColumn columncodPerfil;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeDataTable() {
+                this.TableName = "tb_perfil_funcionalidade";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal tb_perfil_funcionalidadeDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected tb_perfil_funcionalidadeDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn codFuncionalidadeColumn {
+                get {
+                    return this.columncodFuncionalidade;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn codPerfilColumn {
+                get {
+                    return this.columncodPerfil;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow this[int index] {
+                get {
+                    return ((tb_perfil_funcionalidadeRow)(this.Rows[index]));
+                }
+            }
+            
+            public event tb_perfil_funcionalidadeRowChangeEventHandler tb_perfil_funcionalidadeRowChanging;
+            
+            public event tb_perfil_funcionalidadeRowChangeEventHandler tb_perfil_funcionalidadeRowChanged;
+            
+            public event tb_perfil_funcionalidadeRowChangeEventHandler tb_perfil_funcionalidadeRowDeleting;
+            
+            public event tb_perfil_funcionalidadeRowChangeEventHandler tb_perfil_funcionalidadeRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void Addtb_perfil_funcionalidadeRow(tb_perfil_funcionalidadeRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow Addtb_perfil_funcionalidadeRow(tb_funcionalidadeRow parenttb_funcionalidadeRowBytb_funcionalidade_tb_perfil_usuario_fk, tb_perfilRow parenttb_perfilRowBytb_perfil_tb_perfil_usuario_fk) {
+                tb_perfil_funcionalidadeRow rowtb_perfil_funcionalidadeRow = ((tb_perfil_funcionalidadeRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        null};
+                if ((parenttb_funcionalidadeRowBytb_funcionalidade_tb_perfil_usuario_fk != null)) {
+                    columnValuesArray[0] = parenttb_funcionalidadeRowBytb_funcionalidade_tb_perfil_usuario_fk[0];
+                }
+                if ((parenttb_perfilRowBytb_perfil_tb_perfil_usuario_fk != null)) {
+                    columnValuesArray[1] = parenttb_perfilRowBytb_perfil_tb_perfil_usuario_fk[1];
+                }
+                rowtb_perfil_funcionalidadeRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowtb_perfil_funcionalidadeRow);
+                return rowtb_perfil_funcionalidadeRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow FindBycodFuncionalidadecodPerfil(int codFuncionalidade, int codPerfil) {
+                return ((tb_perfil_funcionalidadeRow)(this.Rows.Find(new object[] {
+                            codFuncionalidade,
+                            codPerfil})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone() {
+                tb_perfil_funcionalidadeDataTable cln = ((tb_perfil_funcionalidadeDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new tb_perfil_funcionalidadeDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columncodFuncionalidade = base.Columns["codFuncionalidade"];
+                this.columncodPerfil = base.Columns["codPerfil"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columncodFuncionalidade = new global::System.Data.DataColumn("codFuncionalidade", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodFuncionalidade);
+                this.columncodPerfil = new global::System.Data.DataColumn("codPerfil", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodPerfil);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columncodFuncionalidade,
+                                this.columncodPerfil}, true));
+                this.columncodFuncionalidade.AllowDBNull = false;
+                this.columncodPerfil.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow Newtb_perfil_funcionalidadeRow() {
+                return ((tb_perfil_funcionalidadeRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new tb_perfil_funcionalidadeRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType() {
+                return typeof(tb_perfil_funcionalidadeRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.tb_perfil_funcionalidadeRowChanged != null)) {
+                    this.tb_perfil_funcionalidadeRowChanged(this, new tb_perfil_funcionalidadeRowChangeEvent(((tb_perfil_funcionalidadeRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.tb_perfil_funcionalidadeRowChanging != null)) {
+                    this.tb_perfil_funcionalidadeRowChanging(this, new tb_perfil_funcionalidadeRowChangeEvent(((tb_perfil_funcionalidadeRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.tb_perfil_funcionalidadeRowDeleted != null)) {
+                    this.tb_perfil_funcionalidadeRowDeleted(this, new tb_perfil_funcionalidadeRowChangeEvent(((tb_perfil_funcionalidadeRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.tb_perfil_funcionalidadeRowDeleting != null)) {
+                    this.tb_perfil_funcionalidadeRowDeleting(this, new tb_perfil_funcionalidadeRowChangeEvent(((tb_perfil_funcionalidadeRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void Removetb_perfil_funcionalidadeRow(tb_perfil_funcionalidadeRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                saceDataSet ds = new saceDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "tb_perfil_funcionalidadeDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -12309,6 +12913,16 @@ namespace SACE.Dados {
                 }
                 else {
                     return ((tb_permissaoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TB_PERMISSAO_2"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow[] Gettb_perfil_funcionalidadeRows() {
+                if ((this.Table.ChildRelations["tb_funcionalidade_tb_perfil_usuario_fk"] == null)) {
+                    return new tb_perfil_funcionalidadeRow[0];
+                }
+                else {
+                    return ((tb_perfil_funcionalidadeRow[])(base.GetChildRows(this.Table.ChildRelations["tb_funcionalidade_tb_perfil_usuario_fk"])));
                 }
             }
         }
@@ -15040,12 +15654,32 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int codPerfil {
+                get {
+                    return ((int)(this[this.tabletb_usuario.codPerfilColumn]));
+                }
+                set {
+                    this[this.tabletb_usuario.codPerfilColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_pessoaRow tb_pessoaRow {
                 get {
                     return ((tb_pessoaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TABLE_24_1"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_TABLE_24_1"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow tb_perfilRow {
+                get {
+                    return ((tb_perfilRow)(this.GetParentRow(this.Table.ParentRelations["tb_perfil_tb_usuario_fk"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["tb_perfil_tb_usuario_fk"]);
                 }
             }
             
@@ -15076,6 +15710,116 @@ namespace SACE.Dados {
                 }
                 else {
                     return ((tb_permissaoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TB_PERMISSAO_1"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class tb_perfilRow : global::System.Data.DataRow {
+            
+            private tb_perfilDataTable tabletb_perfil;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal tb_perfilRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tabletb_perfil = ((tb_perfilDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string nome {
+                get {
+                    return ((string)(this[this.tabletb_perfil.nomeColumn]));
+                }
+                set {
+                    this[this.tabletb_perfil.nomeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int codPerfil {
+                get {
+                    return ((int)(this[this.tabletb_perfil.codPerfilColumn]));
+                }
+                set {
+                    this[this.tabletb_perfil.codPerfilColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_usuarioRow[] Gettb_usuarioRows() {
+                if ((this.Table.ChildRelations["tb_perfil_tb_usuario_fk"] == null)) {
+                    return new tb_usuarioRow[0];
+                }
+                else {
+                    return ((tb_usuarioRow[])(base.GetChildRows(this.Table.ChildRelations["tb_perfil_tb_usuario_fk"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow[] Gettb_perfil_funcionalidadeRows() {
+                if ((this.Table.ChildRelations["tb_perfil_tb_perfil_usuario_fk"] == null)) {
+                    return new tb_perfil_funcionalidadeRow[0];
+                }
+                else {
+                    return ((tb_perfil_funcionalidadeRow[])(base.GetChildRows(this.Table.ChildRelations["tb_perfil_tb_perfil_usuario_fk"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class tb_perfil_funcionalidadeRow : global::System.Data.DataRow {
+            
+            private tb_perfil_funcionalidadeDataTable tabletb_perfil_funcionalidade;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal tb_perfil_funcionalidadeRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tabletb_perfil_funcionalidade = ((tb_perfil_funcionalidadeDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int codFuncionalidade {
+                get {
+                    return ((int)(this[this.tabletb_perfil_funcionalidade.codFuncionalidadeColumn]));
+                }
+                set {
+                    this[this.tabletb_perfil_funcionalidade.codFuncionalidadeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int codPerfil {
+                get {
+                    return ((int)(this[this.tabletb_perfil_funcionalidade.codPerfilColumn]));
+                }
+                set {
+                    this[this.tabletb_perfil_funcionalidade.codPerfilColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_funcionalidadeRow tb_funcionalidadeRow {
+                get {
+                    return ((tb_funcionalidadeRow)(this.GetParentRow(this.Table.ParentRelations["tb_funcionalidade_tb_perfil_usuario_fk"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["tb_funcionalidade_tb_perfil_usuario_fk"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow tb_perfilRow {
+                get {
+                    return ((tb_perfilRow)(this.GetParentRow(this.Table.ParentRelations["tb_perfil_tb_perfil_usuario_fk"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["tb_perfil_tb_perfil_usuario_fk"]);
                 }
             }
         }
@@ -15935,6 +16679,68 @@ namespace SACE.Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_usuarioRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class tb_perfilRowChangeEvent : global::System.EventArgs {
+            
+            private tb_perfilRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRowChangeEvent(tb_perfilRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfilRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class tb_perfil_funcionalidadeRowChangeEvent : global::System.EventArgs {
+            
+            private tb_perfil_funcionalidadeRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRowChangeEvent(tb_perfil_funcionalidadeRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public tb_perfil_funcionalidadeRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -30868,12 +31674,11 @@ WHERE        (codProduto = @Original_codProduto)";
             tableMapping.ColumnMappings.Add("codPessoa", "codPessoa");
             tableMapping.ColumnMappings.Add("login", "login");
             tableMapping.ColumnMappings.Add("senha", "senha");
+            tableMapping.ColumnMappings.Add("codPerfil", "codPerfil");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `sace`.`tb_usuario` WHERE ((`codPessoa` = @Original_codPessoa) AND ((" +
-                "@IsNull_login = 1 AND `login` IS NULL) OR (`login` = @Original_login)) AND ((@Is" +
-                "Null_senha = 1 AND `senha` IS NULL) OR (`senha` = @Original_senha)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_usuario\r\nWHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codPessoa";
@@ -30883,44 +31688,10 @@ WHERE        (codProduto = @Original_codProduto)";
             param.SourceColumn = "codPessoa";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_login";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "login";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_login";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "login";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_senha";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "senha";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_senha";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "senha";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `sace`.`tb_usuario` (`codPessoa`, `login`, `senha`) VALUES (@codPesso" +
-                "a, @login, @senha)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `sace`.`tb_usuario` (`codPessoa`, `login`, `senha`, `codPerfil`) VALU" +
+                "ES (@codPessoa, @login, @senha, @codPerfil)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codPessoa";
@@ -30943,21 +31714,23 @@ WHERE        (codProduto = @Original_codProduto)";
             param.IsNullable = true;
             param.SourceColumn = "senha";
             this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `sace`.`tb_usuario` SET `codPessoa` = @codPessoa, `login` = @login, `senha` = @senha WHERE ((`codPessoa` = @Original_codPessoa) AND ((@IsNull_login = 1 AND `login` IS NULL) OR (`login` = @Original_login)) AND ((@IsNull_senha = 1 AND `senha` IS NULL) OR (`senha` = @Original_senha)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE       tb_usuario\r\nSET                login = @login, senha = @senha, codPe" +
+                "rfil = @codPerfil\r\nWHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codPessoa";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codPessoa";
-            this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@login";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 20;
             param.IsNullable = true;
             param.SourceColumn = "login";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -30965,8 +31738,16 @@ WHERE        (codProduto = @Original_codProduto)";
             param.ParameterName = "@senha";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 20;
             param.IsNullable = true;
             param.SourceColumn = "senha";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codPessoa";
@@ -30974,40 +31755,6 @@ WHERE        (codProduto = @Original_codProduto)";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codPessoa";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_login";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "login";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_login";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "login";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_senha";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "senha";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_senha";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "senha";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
         }
@@ -31023,7 +31770,7 @@ WHERE        (codProduto = @Original_codProduto)";
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codPessoa`, `login`, `senha` FROM `sace`.`tb_usuario`";
+            this._commandCollection[0].CommandText = "SELECT        codPessoa, login, senha, codPerfil\r\nFROM            tb_usuario";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -31077,24 +31824,8 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_codPessoa, string Original_login, string Original_senha) {
+        public virtual int Delete(long Original_codPessoa) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_codPessoa));
-            if ((Original_login == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_login));
-            }
-            if ((Original_senha == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_senha));
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -31114,7 +31845,7 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long codPessoa, string login, string senha) {
+        public virtual int Insert(long codPessoa, string login, string senha, int codPerfil) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(codPessoa));
             if ((login == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -31128,6 +31859,7 @@ WHERE        (codProduto = @Original_codProduto)";
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(senha));
             }
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(codPerfil));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -31147,37 +31879,366 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long codPessoa, string login, string senha, long Original_codPessoa, string Original_login, string Original_senha) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(codPessoa));
+        public virtual int Update(string login, string senha, int codPerfil, long Original_codPessoa) {
             if ((login == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(login));
+            }
+            if ((senha == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(login));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(senha));
             }
-            if ((senha == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(senha));
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(codPerfil));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((long)(Original_codPessoa));
-            if ((Original_login == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class tb_perfilTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
+        
+        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
+        
+        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
+        
+        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public tb_perfilTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "tb_perfil";
+            tableMapping.ColumnMappings.Add("nome", "nome");
+            tableMapping.ColumnMappings.Add("codPerfil", "codPerfil");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM `sace`.`tb_perfil` WHERE ((`nome` = @Original_nome) AND (`codPerfil` " +
+                "= @Original_codPerfil))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `sace`.`tb_perfil` (`nome`, `codPerfil`) VALUES (@nome, @codPerfil)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE `sace`.`tb_perfil` SET `nome` = @nome, `codPerfil` = @codPerfil WHERE ((`n" +
+                "ome` = @Original_nome) AND (`codPerfil` = @Original_codPerfil))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
+            this._connection.ConnectionString = global::SACE.Dados.Properties.Settings.Default.saceConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT        nome, codPerfil\r\nFROM            tb_perfil";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(saceDataSet.tb_perfilDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual saceDataSet.tb_perfilDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            saceDataSet.tb_perfilDataTable dataTable = new saceDataSet.tb_perfilDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(saceDataSet.tb_perfilDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(saceDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "tb_perfil");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(string Original_nome, int Original_codPerfil) {
+            if ((Original_nome == null)) {
+                throw new global::System.ArgumentNullException("Original_nome");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_login));
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((string)(Original_nome));
             }
-            if ((Original_senha == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_codPerfil));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string nome, int codPerfil) {
+            if ((nome == null)) {
+                throw new global::System.ArgumentNullException("nome");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_senha));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(nome));
             }
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(codPerfil));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string nome, int codPerfil, string Original_nome, int Original_codPerfil) {
+            if ((nome == null)) {
+                throw new global::System.ArgumentNullException("nome");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(nome));
+            }
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(codPerfil));
+            if ((Original_nome == null)) {
+                throw new global::System.ArgumentNullException("Original_nome");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Original_nome));
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_codPerfil));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -31197,8 +32258,343 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string login, string senha, long Original_codPessoa, string Original_login, string Original_senha) {
-            return this.Update(Original_codPessoa, login, senha, Original_codPessoa, Original_login, Original_senha);
+        public virtual int Update(string nome, string Original_nome, int Original_codPerfil) {
+            return this.Update(nome, Original_codPerfil, Original_nome, Original_codPerfil);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class tb_perfil_funcionalidadeTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
+        
+        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
+        
+        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
+        
+        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public tb_perfil_funcionalidadeTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "tb_perfil_funcionalidade";
+            tableMapping.ColumnMappings.Add("codFuncionalidade", "codFuncionalidade");
+            tableMapping.ColumnMappings.Add("codPerfil", "codPerfil");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM `sace`.`tb_perfil_funcionalidade` WHERE ((`codFuncionalidade` = @Orig" +
+                "inal_codFuncionalidade) AND (`codPerfil` = @Original_codPerfil))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codFuncionalidade";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codFuncionalidade";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `sace`.`tb_perfil_funcionalidade` (`codFuncionalidade`, `codPerfil`) " +
+                "VALUES (@codFuncionalidade, @codPerfil)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codFuncionalidade";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codFuncionalidade";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE `sace`.`tb_perfil_funcionalidade` SET `codFuncionalidade` = @codFuncionali" +
+                "dade, `codPerfil` = @codPerfil WHERE ((`codFuncionalidade` = @Original_codFuncio" +
+                "nalidade) AND (`codPerfil` = @Original_codPerfil))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codFuncionalidade";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codFuncionalidade";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codFuncionalidade";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codFuncionalidade";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codPerfil";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codPerfil";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
+            this._connection.ConnectionString = global::SACE.Dados.Properties.Settings.Default.saceConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT        codFuncionalidade, codPerfil\r\nFROM            tb_perfil_funcionalid" +
+                "ade";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(saceDataSet.tb_perfil_funcionalidadeDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual saceDataSet.tb_perfil_funcionalidadeDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            saceDataSet.tb_perfil_funcionalidadeDataTable dataTable = new saceDataSet.tb_perfil_funcionalidadeDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(saceDataSet.tb_perfil_funcionalidadeDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(saceDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "tb_perfil_funcionalidade");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_codFuncionalidade, int Original_codPerfil) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_codFuncionalidade));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_codPerfil));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int codFuncionalidade, int codPerfil) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(codFuncionalidade));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(codPerfil));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int codFuncionalidade, int codPerfil, int Original_codFuncionalidade, int Original_codPerfil) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(codFuncionalidade));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(codPerfil));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_codFuncionalidade));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_codPerfil));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int Original_codFuncionalidade, int Original_codPerfil) {
+            return this.Update(Original_codFuncionalidade, Original_codPerfil, Original_codFuncionalidade, Original_codPerfil);
         }
     }
     
@@ -31270,6 +32666,10 @@ WHERE        (codProduto = @Original_codProduto)";
         private tb_tipo_movimentacao_contaTableAdapter _tb_tipo_movimentacao_contaTableAdapter;
         
         private tb_usuarioTableAdapter _tb_usuarioTableAdapter;
+        
+        private tb_perfilTableAdapter _tb_perfilTableAdapter;
+        
+        private tb_perfil_funcionalidadeTableAdapter _tb_perfil_funcionalidadeTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -31650,6 +33050,32 @@ WHERE        (codProduto = @Original_codProduto)";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" +
+            "", "System.Drawing.Design.UITypeEditor")]
+        public tb_perfilTableAdapter tb_perfilTableAdapter {
+            get {
+                return this._tb_perfilTableAdapter;
+            }
+            set {
+                this._tb_perfilTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" +
+            "", "System.Drawing.Design.UITypeEditor")]
+        public tb_perfil_funcionalidadeTableAdapter tb_perfil_funcionalidadeTableAdapter {
+            get {
+                return this._tb_perfil_funcionalidadeTableAdapter;
+            }
+            set {
+                this._tb_perfil_funcionalidadeTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -31778,6 +33204,14 @@ WHERE        (codProduto = @Original_codProduto)";
                             && (this._tb_usuarioTableAdapter.Connection != null))) {
                     return this._tb_usuarioTableAdapter.Connection;
                 }
+                if (((this._tb_perfilTableAdapter != null) 
+                            && (this._tb_perfilTableAdapter.Connection != null))) {
+                    return this._tb_perfilTableAdapter.Connection;
+                }
+                if (((this._tb_perfil_funcionalidadeTableAdapter != null) 
+                            && (this._tb_perfil_funcionalidadeTableAdapter.Connection != null))) {
+                    return this._tb_perfil_funcionalidadeTableAdapter.Connection;
+                }
                 return null;
             }
             set {
@@ -31874,6 +33308,12 @@ WHERE        (codProduto = @Original_codProduto)";
                 if ((this._tb_usuarioTableAdapter != null)) {
                     count = (count + 1);
                 }
+                if ((this._tb_perfilTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 return count;
             }
         }
@@ -31911,6 +33351,15 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._tb_grupoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_grupoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._tb_entradaTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_entrada.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -31938,21 +33387,12 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_grupoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_perfilTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_grupoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_cfopTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_cfop.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_cfopTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_perfilTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -31965,57 +33405,12 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_tipo_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_tipo_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_cfopTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_cfop.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_tipo_movimentacao_contaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_conta_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_conta_bancoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_produtoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_lojaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_loja.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_lojaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_conta_pagarTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_pagar.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_conta_pagarTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_conta_receberTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_conta_receberTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_cfopTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -32028,12 +33423,57 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._tb_lojaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_loja.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_lojaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_produtoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_tipo_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_tipo_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_tipo_movimentacao_contaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_conta_pagarTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_pagar.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_conta_pagarTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._tb_forma_pagamentoTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_forma_pagamento.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tb_forma_pagamentoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_conta_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_conta_bancoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -32046,30 +33486,12 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_saida_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_saida_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_conta_receberTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_saida_produtoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_produto_lojaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_produto_loja.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_produto_lojaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_contato_empresaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_contato_empresaTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_conta_receberTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -32082,30 +33504,12 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_configuracao_sistemaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_configuracao_sistema.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_configuracao_sistemaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_entrada_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_entrada_produtoTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -32118,12 +33522,12 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_permissaoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_permissao.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_saida_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_saida_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_permissaoTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_saida_produtoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -32133,6 +33537,60 @@ WHERE        (codProduto = @Original_codProduto)";
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tb_pagamentoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_entrada_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_entrada_produtoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_permissaoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_permissao.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_permissaoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_produto_lojaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_produto_loja.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_produto_lojaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_configuracao_sistemaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_configuracao_sistema.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_configuracao_sistemaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_contato_empresaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_contato_empresaTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -32169,6 +33627,14 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._tb_grupoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_grupoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._tb_entradaTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_entrada.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -32193,19 +33659,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_grupoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_perfilTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_grupoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_cfopTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_cfop.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_cfopTableAdapter.Update(addedRows));
+                    result = (result + this._tb_perfilTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32217,51 +33675,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_tipo_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_tipo_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_cfopTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_cfop.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_tipo_movimentacao_contaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_conta_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_conta_bancoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_produtoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_lojaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_loja.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_lojaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_conta_pagarTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_pagar.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_conta_pagarTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_conta_receberTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_conta_receberTableAdapter.Update(addedRows));
+                    result = (result + this._tb_cfopTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32273,11 +33691,51 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._tb_lojaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_loja.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_lojaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_produtoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_tipo_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_tipo_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_tipo_movimentacao_contaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_conta_pagarTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_pagar.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_conta_pagarTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._tb_forma_pagamentoTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_forma_pagamento.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tb_forma_pagamentoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_conta_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_conta_bancoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32289,27 +33747,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_saida_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_saida_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_conta_receberTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_saida_produtoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_produto_lojaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_produto_loja.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_produto_lojaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_contato_empresaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_contato_empresaTableAdapter.Update(addedRows));
+                    result = (result + this._tb_conta_receberTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32321,27 +33763,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_configuracao_sistemaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_configuracao_sistema.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_configuracao_sistemaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_entrada_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_entrada_produtoTableAdapter.Update(addedRows));
+                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32353,11 +33779,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_permissaoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_permissao.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_saida_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_saida_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_permissaoTableAdapter.Update(addedRows));
+                    result = (result + this._tb_saida_produtoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32366,6 +33792,54 @@ WHERE        (codProduto = @Original_codProduto)";
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tb_pagamentoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_entrada_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_entrada_produtoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_permissaoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_permissao.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_permissaoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_produto_lojaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_produto_loja.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_produto_lojaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_configuracao_sistemaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_configuracao_sistema.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_configuracao_sistemaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_contato_empresaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_contato_empresaTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -32378,35 +33852,11 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private int UpdateDeletedRows(saceDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._tb_pagamentoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_pagamento.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_contato_empresaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_pagamentoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_permissaoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_permissao.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_permissaoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_cartao_creditoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_cartao_credito.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_cartao_creditoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_entrada_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_entrada_produtoTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_contato_empresaTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32418,6 +33868,30 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._tb_produto_lojaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_produto_loja.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_produto_lojaTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_permissaoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_permissao.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_permissaoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_entrada_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_entrada_produtoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tb_movimentacao_contaTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -32426,27 +33900,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_recebimentoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_recebimento.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_pagamentoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_pagamento.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_recebimentoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_contato_empresaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_contato_empresaTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_produto_lojaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_produto_loja.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_produto_lojaTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_pagamentoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32458,27 +33916,27 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_funcionalidadeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_cartao_creditoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_cartao_credito.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_funcionalidadeTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_cartao_creditoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_forma_pagamentoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_forma_pagamento.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_forma_pagamentoTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_usuarioTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_recebimentoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_recebimento.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_usuarioTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_recebimentoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32490,27 +33948,11 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_conta_pagarTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_conta_pagar.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_conta_pagarTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_lojaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_loja.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_lojaTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_produtoTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_funcionalidadeTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32522,6 +33964,22 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._tb_forma_pagamentoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_forma_pagamento.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_forma_pagamentoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_conta_pagarTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_conta_pagar.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_conta_pagarTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tb_tipo_movimentacao_contaTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_tipo_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -32530,11 +33988,27 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_produtoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_lojaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_loja.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_lojaTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_usuarioTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_usuarioTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32546,11 +34020,19 @@ WHERE        (codProduto = @Original_codProduto)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_grupoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_grupoTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_bancoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_perfilTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_perfilTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32575,6 +34057,14 @@ WHERE        (codProduto = @Original_codProduto)";
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._tb_entradaTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_grupoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_grupoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -32776,6 +34266,16 @@ WHERE        (codProduto = @Original_codProduto)";
             }
             if (((this._tb_usuarioTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._tb_usuarioTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._tb_perfilTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._tb_perfilTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._tb_perfil_funcionalidadeTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._tb_perfil_funcionalidadeTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -33063,6 +34563,24 @@ WHERE        (codProduto = @Original_codProduto)";
                         adaptersWithAcceptChangesDuringUpdate.Add(this._tb_usuarioTableAdapter.Adapter);
                     }
                 }
+                if ((this._tb_perfilTableAdapter != null)) {
+                    revertConnections.Add(this._tb_perfilTableAdapter, this._tb_perfilTableAdapter.Connection);
+                    this._tb_perfilTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(workConnection));
+                    this._tb_perfilTableAdapter.Transaction = ((global::MySql.Data.MySqlClient.MySqlTransaction)(workTransaction));
+                    if (this._tb_perfilTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._tb_perfilTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._tb_perfilTableAdapter.Adapter);
+                    }
+                }
+                if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                    revertConnections.Add(this._tb_perfil_funcionalidadeTableAdapter, this._tb_perfil_funcionalidadeTableAdapter.Connection);
+                    this._tb_perfil_funcionalidadeTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(workConnection));
+                    this._tb_perfil_funcionalidadeTableAdapter.Transaction = ((global::MySql.Data.MySqlClient.MySqlTransaction)(workTransaction));
+                    if (this._tb_perfil_funcionalidadeTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._tb_perfil_funcionalidadeTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._tb_perfil_funcionalidadeTableAdapter.Adapter);
+                    }
+                }
                 // 
                 //---- Perform updates -----------
                 //
@@ -33232,6 +34750,14 @@ WHERE        (codProduto = @Original_codProduto)";
                 if ((this._tb_usuarioTableAdapter != null)) {
                     this._tb_usuarioTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_usuarioTableAdapter]));
                     this._tb_usuarioTableAdapter.Transaction = null;
+                }
+                if ((this._tb_perfilTableAdapter != null)) {
+                    this._tb_perfilTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_perfilTableAdapter]));
+                    this._tb_perfilTableAdapter.Transaction = null;
+                }
+                if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                    this._tb_perfil_funcionalidadeTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_perfil_funcionalidadeTableAdapter]));
+                    this._tb_perfil_funcionalidadeTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];
