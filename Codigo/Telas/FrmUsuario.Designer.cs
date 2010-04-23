@@ -171,6 +171,7 @@
             // tb_usuarioBindingNavigator
             // 
             this.tb_usuarioBindingNavigator.AddNewItem = null;
+            this.tb_usuarioBindingNavigator.BindingSource = this.tb_usuarioBindingSource;
             this.tb_usuarioBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_usuarioBindingNavigator.DeleteItem = null;
             this.tb_usuarioBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -264,7 +265,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(306, 397);
+            this.btnSalvar.Location = new System.Drawing.Point(306, 210);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 27;
@@ -274,7 +275,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(6, 397);
+            this.btnBuscar.Location = new System.Drawing.Point(6, 210);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 23;
@@ -285,7 +286,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(387, 397);
+            this.btnCancelar.Location = new System.Drawing.Point(387, 210);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 28;
@@ -295,7 +296,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(81, 397);
+            this.btnNovo.Location = new System.Drawing.Point(81, 210);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 24;
@@ -305,7 +306,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(231, 397);
+            this.btnExcluir.Location = new System.Drawing.Point(231, 210);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 26;
@@ -315,7 +316,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(156, 397);
+            this.btnEditar.Location = new System.Drawing.Point(156, 210);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 25;
@@ -335,9 +336,10 @@
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(120, 101);
             this.nomeTextBox.Name = "nomeTextBox";
+            this.nomeTextBox.ReadOnly = true;
             this.nomeTextBox.Size = new System.Drawing.Size(350, 20);
-            this.nomeTextBox.TabIndex = 30;
-            this.nomeTextBox.TextChanged += new System.EventHandler(this.nomeTextBox_TextChanged);
+            this.nomeTextBox.TabIndex = 2;
+            this.nomeTextBox.TabStop = false;
             // 
             // loginTextBox
             // 
@@ -346,7 +348,7 @@
             this.loginTextBox.Location = new System.Drawing.Point(7, 141);
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(227, 20);
-            this.loginTextBox.TabIndex = 32;
+            this.loginTextBox.TabIndex = 3;
             // 
             // confirmarSenhaTextBox
             // 
@@ -354,18 +356,18 @@
             this.confirmarSenhaTextBox.Location = new System.Drawing.Point(241, 181);
             this.confirmarSenhaTextBox.Name = "confirmarSenhaTextBox";
             this.confirmarSenhaTextBox.Size = new System.Drawing.Size(227, 20);
-            this.confirmarSenhaTextBox.TabIndex = 34;
+            this.confirmarSenhaTextBox.TabIndex = 6;
             this.confirmarSenhaTextBox.UseSystemPasswordChar = true;
             // 
             // codPessoaTextBox
             // 
             this.codPessoaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "codPessoa", true));
+            this.codPessoaTextBox.Enabled = false;
             this.codPessoaTextBox.Location = new System.Drawing.Point(8, 101);
             this.codPessoaTextBox.Name = "codPessoaTextBox";
-            this.codPessoaTextBox.ReadOnly = true;
             this.codPessoaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codPessoaTextBox.TabIndex = 36;
-            this.codPessoaTextBox.TabStop = false;
+            this.codPessoaTextBox.TabIndex = 1;
+            this.codPessoaTextBox.TextChanged += new System.EventHandler(this.codPessoaTextBox_TextChanged);
             // 
             // senhaTextBox
             // 
@@ -374,7 +376,7 @@
             this.senhaTextBox.Location = new System.Drawing.Point(9, 181);
             this.senhaTextBox.Name = "senhaTextBox";
             this.senhaTextBox.Size = new System.Drawing.Size(227, 20);
-            this.senhaTextBox.TabIndex = 38;
+            this.senhaTextBox.TabIndex = 5;
             this.senhaTextBox.UseSystemPasswordChar = true;
             // 
             // perfilComboBox
@@ -387,9 +389,8 @@
             this.perfilComboBox.Location = new System.Drawing.Point(242, 141);
             this.perfilComboBox.Name = "perfilComboBox";
             this.perfilComboBox.Size = new System.Drawing.Size(226, 21);
-            this.perfilComboBox.TabIndex = 39;
+            this.perfilComboBox.TabIndex = 4;
             this.perfilComboBox.ValueMember = "codPerfil";
-            this.perfilComboBox.SelectedIndexChanged += new System.EventHandler(this.perfilComboBox_SelectedIndexChanged);
             // 
             // tb_PerfilBindingSource
             // 
@@ -447,7 +448,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 422);
+            this.ClientSize = new System.Drawing.Size(477, 240);
             this.Controls.Add(perfilLabel);
             this.Controls.Add(this.perfilComboBox);
             this.Controls.Add(senhaLabel1);

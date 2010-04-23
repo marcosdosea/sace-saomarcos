@@ -51,10 +51,6 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_pessoaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -78,6 +74,10 @@
             this.cepTextBox = new System.Windows.Forms.TextBox();
             this.enderecoTextBox = new System.Windows.Forms.TextBox();
             this.ufTextBox = new System.Windows.Forms.TextBox();
+            this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             codPessoaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
@@ -92,10 +92,10 @@
             cepLabel = new System.Windows.Forms.Label();
             ufLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).BeginInit();
             this.tb_pessoaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // codPessoaLabel
@@ -296,53 +296,6 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_pessoaBindingSource
-            // 
-            this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
-            this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
-            this.tb_pessoaBindingSource.Sort = "codPessoa";
-            // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
-            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = this.tb_pessoaTableAdapter;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
             // tb_pessoaBindingNavigator
             // 
             this.tb_pessoaBindingNavigator.AddNewItem = null;
@@ -360,14 +313,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_pessoaBindingNavigator.Location = new System.Drawing.Point(271, 40);
+            this.tb_pessoaBindingNavigator.Location = new System.Drawing.Point(271, 43);
             this.tb_pessoaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_pessoaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_pessoaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.tb_pessoaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_pessoaBindingNavigator.Name = "tb_pessoaBindingNavigator";
             this.tb_pessoaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_pessoaBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_pessoaBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_pessoaBindingNavigator.TabIndex = 21;
             this.tb_pessoaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -556,6 +509,57 @@
             this.ufTextBox.Size = new System.Drawing.Size(43, 20);
             this.ufTextBox.TabIndex = 36;
             // 
+            // tb_pessoaBindingSource
+            // 
+            this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
+            this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
+            this.tb_pessoaBindingSource.Sort = "codPessoa";
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tb_pessoaTableAdapter
+            // 
+            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
+            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = this.tb_pessoaTableAdapter;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,11 +609,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPessoa_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).EndInit();
             this.tb_pessoaBindingNavigator.ResumeLayout(false);
             this.tb_pessoaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

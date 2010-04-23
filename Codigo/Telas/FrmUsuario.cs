@@ -35,6 +35,7 @@ namespace SACE.Telas
             if (frmPessoaPesquisa.getCodPessoa() != -1)
             {
                 tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.getCodPessoa());
+                tb_usuarioBindingSource.Position = tb_usuarioBindingSource.Find("codPessoa", frmPessoaPesquisa.getCodPessoa());
                 codPessoaTextBox.Text = frmPessoaPesquisa.getCodPessoa().ToString();
             }
             frmPessoaPesquisa.Dispose();
@@ -50,6 +51,13 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            codPessoaTextBox.Enabled = false;
+            if (senhaTextBox.Text != confirmarSenhaTextBox.Text)
+            {
+                MessageBox.Show(Mensagens.SENHA_INCORRETAR);
+                tb_usuarioBindingSource.CancelEdit();
+                return;
+            }
             try
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
@@ -75,9 +83,9 @@ namespace SACE.Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
+            codPessoaTextBox.Focus();
             tb_usuarioBindingSource.AddNew();
-            codPessoaTextBox.Enabled = false;
-            nomeTextBox.Focus();
+            codPessoaTextBox.Enabled = true;
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -100,7 +108,7 @@ namespace SACE.Telas
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            nomeTextBox.Focus();
+            loginTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.ATUALIZAR;
         }
@@ -120,14 +128,13 @@ namespace SACE.Telas
             }
         }
 
-        private void nomeTextBox_TextChanged(object sender, EventArgs e)
+        private void codPessoaTextBox_TextChanged(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(codPessoaTextBox.Text))
+            {
+                tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", Convert.ToInt32(codPessoaTextBox.Text));
+            }
         }
 
-        private void perfilComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-    }
+   }
 }
