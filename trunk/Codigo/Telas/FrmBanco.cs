@@ -6,24 +6,27 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SACE.Negocio;
+using SACE.Dados.saceDataSetTableAdapters;
+using SACE.Dados;
+using SACE.Dominio;
+
 
 namespace SACE.Telas
 {
     public partial class FrmBanco : Form
     {
         private EstadoFormulario estado;
-
+        
         public FrmBanco()
         {
             InitializeComponent();
+
         }
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
-            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
-            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);
         }
 
@@ -60,7 +63,7 @@ namespace SACE.Telas
             {
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    tb_bancoTableAdapter.Delete(int.Parse(codBancoTextBox.Text));
+                    GerenciadorBanco.getInstace().remover(int.Parse(codBancoTextBox.Text));
                     tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
                 }
             }
@@ -69,7 +72,7 @@ namespace SACE.Telas
                 MessageBox.Show(Mensagens.ERRO_REMOCAO);
                 tb_bancoBindingSource.CancelEdit();
             }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -84,14 +87,19 @@ namespace SACE.Telas
         {
             try
             {
+                Banco banco = new Banco();
+                banco.CodBanco = Int32.Parse(codBancoTextBox.Text);
+                banco.Nome = nomeTextBox.Text;
+
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_bancoTableAdapter.Insert(nomeTextBox.Text);
+                    GerenciadorBanco.getInstace().inserir(banco);
                     tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
                     tb_bancoBindingSource.MoveLast();
                 }
                 else
                 {
+                    GerenciadorBanco.getInstace().atualizar(banco);
                     tb_bancoTableAdapter.Update(nomeTextBox.Text, int.Parse(codBancoTextBox.Text));
                     tb_bancoBindingSource.EndEdit();
                 }
@@ -102,6 +110,7 @@ namespace SACE.Telas
                 tb_bancoBindingSource.CancelEdit();
             }
             habilitaBotoes(true);
+
             btnBuscar.Focus();
         }
 
