@@ -40,6 +40,8 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
+            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.tb_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_bancoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -52,19 +54,20 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codBancoTextBox = new System.Windows.Forms.TextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
-            this.tb_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_bancoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
             codBancoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).BeginInit();
             this.tb_bancoBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codBancoLabel
             // 
             codBancoLabel.AutoSize = true;
-            codBancoLabel.Location = new System.Drawing.Point(4, 67);
+            codBancoLabel.Location = new System.Drawing.Point(4, 65);
             codBancoLabel.Name = "codBancoLabel";
             codBancoLabel.Size = new System.Drawing.Size(43, 13);
             codBancoLabel.TabIndex = 21;
@@ -73,10 +76,10 @@
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(129, 67);
+            nomeLabel.Location = new System.Drawing.Point(127, 65);
             nomeLabel.Name = "nomeLabel";
             nomeLabel.Size = new System.Drawing.Size(38, 13);
-            nomeLabel.TabIndex = 23;
+            nomeLabel.TabIndex = 22;
             nomeLabel.Text = "Nome:";
             // 
             // label1
@@ -160,9 +163,22 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tb_bancoBindingSource
+            // 
+            this.tb_bancoBindingSource.DataMember = "tb_banco";
+            this.tb_bancoBindingSource.DataSource = this.saceDataSet;
+            this.tb_bancoBindingSource.Sort = "codBanco";
+            // 
             // tb_bancoBindingNavigator
             // 
             this.tb_bancoBindingNavigator.AddNewItem = null;
+            this.tb_bancoBindingNavigator.BindingSource = this.tb_bancoBindingSource;
             this.tb_bancoBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_bancoBindingNavigator.DeleteItem = null;
             this.tb_bancoBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -256,35 +272,35 @@
             // 
             // codBancoTextBox
             // 
-            this.codBancoTextBox.Location = new System.Drawing.Point(7, 84);
+            this.codBancoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_bancoBindingSource, "codBanco", true));
+            this.codBancoTextBox.Location = new System.Drawing.Point(7, 86);
             this.codBancoTextBox.Name = "codBancoTextBox";
-            this.codBancoTextBox.ReadOnly = true;
             this.codBancoTextBox.Size = new System.Drawing.Size(100, 20);
             this.codBancoTextBox.TabIndex = 22;
-            this.codBancoTextBox.TabStop = false;
             // 
             // nomeTextBox
             // 
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nomeTextBox.Location = new System.Drawing.Point(132, 84);
+            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_bancoBindingSource, "nome", true));
+            this.nomeTextBox.Location = new System.Drawing.Point(130, 86);
             this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(337, 20);
-            this.nomeTextBox.TabIndex = 24;
+            this.nomeTextBox.Size = new System.Drawing.Size(339, 20);
+            this.nomeTextBox.TabIndex = 23;
             // 
-            // tb_bancoBindingSource
+            // tb_bancoTableAdapter
             // 
-            this.tb_bancoBindingSource.DataSource = typeof(SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter);
+            this.tb_bancoTableAdapter.ClearBeforeFill = true;
             // 
             // FrmBanco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 150);
-            this.Controls.Add(codBancoLabel);
-            this.Controls.Add(this.tb_bancoBindingNavigator);
-            this.Controls.Add(this.codBancoTextBox);
+            this.ClientSize = new System.Drawing.Size(474, 152);
             this.Controls.Add(nomeLabel);
+            this.Controls.Add(this.tb_bancoBindingNavigator);
             this.Controls.Add(this.nomeTextBox);
+            this.Controls.Add(codBancoLabel);
+            this.Controls.Add(this.codBancoTextBox);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnCancelar);
@@ -302,10 +318,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmBanco_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).EndInit();
             this.tb_bancoBindingNavigator.ResumeLayout(false);
             this.tb_bancoBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,8 +339,7 @@
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
         private SACE.Dados.saceDataSet saceDataSet;
-        private SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource tb_bancoBindingSource;
         private System.Windows.Forms.BindingNavigator tb_bancoBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -336,6 +352,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codBancoTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
-        private System.Windows.Forms.BindingSource tb_bancoBindingSource;
+        private SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
     }
 }
