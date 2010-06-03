@@ -20,17 +20,9 @@ namespace SACE
 
         static void Main(string[] args)
         {
-            // Creates an instance of the methods that will handle the exception.
             TratamentoException eh = new TratamentoException();
-
-            // Adds the event handler to to the event.
             Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarException);
-
-            // Runs the application.
             Application.Run(new Principal());
-
-            //Principal principal = new Principal();
-            //principal.ShowDialog();
         }
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)
@@ -160,18 +152,5 @@ namespace SACE
             frmFrmUsuario.ShowDialog();
             frmFrmUsuario.Dispose();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int x = 0;
-            int y = 1 / x;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Principal p = null;
-            p.Show();
-        }
-
     }
 }
