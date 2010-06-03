@@ -19,11 +19,7 @@ namespace Telas
             {
                 erro = "não é possivel divisão por 0";
             }
-            if (t.Exception is ArithmeticException)
-            {
-                erro = "Operação não permitida!";
-            }
-
+            
             try
             {
                 result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Stop);

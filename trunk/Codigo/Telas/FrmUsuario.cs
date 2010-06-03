@@ -20,6 +20,7 @@ namespace SACE.Telas
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
+            
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
             this.tb_usuarioTableAdapter.Fill(this.saceDataSet.tb_usuario);
