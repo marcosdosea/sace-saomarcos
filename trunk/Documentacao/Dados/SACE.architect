@@ -1944,8 +1944,8 @@
    <relationship id="REL1022" populated="true" UUID="ef8b00e8-7e6b-4cb0-81b6-c6453c499346" deferrability="7" deleteRule="3" fk-table-ref="TAB611" fkCardinality="7" identifying="false" name="FK_TB_SAIDA_2" physicalName="FK_TB_SAIDA_2" pk-table-ref="TAB891" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP1023" populated="true" UUID="fecd0174-6c0d-4ffd-bc3e-127c057d7e8c" fk-column-ref="COL616" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL892" />
    </relationship>
-   <relationship id="REL1024" populated="true" UUID="c32ceb30-2082-4389-8fc0-814ebf487536" deferrability="7" deleteRule="3" fk-table-ref="TAB692" fkCardinality="7" identifying="true" name="FK_TABLE_24_1" physicalName="FK_TABLE_24_1" pk-table-ref="TAB891" pkCardinality="2" updateRule="3" >
-    <column-mapping id="CMP1025" populated="true" UUID="d0507ab9-b410-41e6-ae31-964df5837b11" fk-column-ref="COL693" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL892" />
+   <relationship id="REL1024" populated="true" UUID="c32ceb30-2082-4389-8fc0-814ebf487536" deferrability="7" deleteRule="3" fk-table-ref="TAB692" fkCardinality="3" identifying="true" name="FK_TABLE_24_1" physicalName="FK_TABLE_24_1" pk-table-ref="TAB891" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP1025" populated="true" UUID="298451e4-1cbd-4f3f-9e98-12562810d42c" fk-column-ref="COL693" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL892" />
    </relationship>
    <relationship id="REL1026" populated="true" UUID="7caa76b0-9fb7-4c7e-a6dc-2d0f6053c1cc" deferrability="7" deleteRule="3" fk-table-ref="TAB742" fkCardinality="7" identifying="false" name="tb_cfop_tb_saida_produto_fk" physicalName="tb_cfop_tb_saida_produto_fk" pk-table-ref="TAB928" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP1027" populated="true" UUID="ca309be8-bf15-4dfe-bdb3-260f24b24dda" fk-column-ref="COL750" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL929" />
@@ -1956,10 +1956,8 @@
   </relationships>
  </target-database>
  <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
- <compare-dm-settings  ddlGenerator="ca.sqlpower.architect.ddl.MySqlDDLGenerator"  outputFormatAsString="SQL" >
-  <source-stuff   datastoreTypeAsString="DATABASE"   connectName="Mysql"   filePath=""  />  <target-stuff   datastoreTypeAsString="PROJECT"   connectName="Mysql"   filePath=""  /> </compare-dm-settings>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="1.0" viewportX="2207" viewportY="1962" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="1.0" viewportX="1007" viewportY="1838" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB526" x="1475" y="2230" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB534" x="1493" y="2084" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB539" x="1099" y="1279" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
@@ -2011,7 +2009,7 @@
   <table-link relationship-ref="REL986" pk-x="138" pk-y="41" fk-x="0" fk-y="35" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL988" pk-x="87" pk-y="0" fk-x="89" fk-y="71" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL982" pk-x="66" pk-y="169" fk-x="70" fk-y="0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL952" pk-x="0" pk-y="246" fk-x="153" fk-y="45" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL952" pk-x="0" pk-y="223" fk-x="153" fk-y="45" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
   <table-link relationship-ref="REL992" pk-x="161" pk-y="44" fk-x="0" fk-y="96" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL944" pk-x="161" pk-y="39" fk-x="0" fk-y="38" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL972" pk-x="82" pk-y="0" fk-x="70" fk-y="85" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
