@@ -7,5 +7,6 @@ namespace SACE.Excecoes
 {
     public class TelaException: SystemException
     {
+        
     }
 }
