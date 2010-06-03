@@ -11,7 +11,7 @@ namespace Telas
     class Autenticacao
     {
         int codUsuario;
-        string nomeUsuario;
+        string login;
 
         public int CodUsuario
         {
@@ -19,10 +19,10 @@ namespace Telas
             set { codUsuario = value; }
         }
 
-        public string NomeUsuario
+        public string Login
         {
-            get { return nomeUsuario; }
-            set { nomeUsuario = value; }
+            get { return login; }
+            set { login = value; }
         }
 
         public bool verificaPermissao(int funcao)

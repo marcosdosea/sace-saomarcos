@@ -197,5 +197,23 @@ namespace SACE
                 frmFrmUsuario.Dispose();
             }
         }
+
+        private void Principal_Load(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            Telas.FrmLogin frmFrmLogin = new Telas.FrmLogin();
+            frmFrmLogin.ShowDialog();
+            if (frmFrmLogin.Aturizado)
+            {
+                autenticacao.CodUsuario = frmFrmLogin.CodUsuario;
+                autenticacao.Login = frmFrmLogin.Login;
+                this.Visible = true;
+                frmFrmLogin.Dispose();
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
     }
 }

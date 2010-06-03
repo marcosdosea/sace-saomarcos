@@ -470,6 +470,7 @@
             this.Controls.Add(this.tb_usuarioBindingNavigator);
             this.Controls.Add(this.panel1);
             this.Name = "FrmUsuario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro Usuário";
             this.Load += new System.EventHandler(this.FrmUsuario_Load);
             this.panel1.ResumeLayout(false);

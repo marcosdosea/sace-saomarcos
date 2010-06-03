@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autenticacao.cs" />
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="TratamentoException.cs" />
     <Compile Include="FrmBanco.cs">
       <SubType>Form</SubType>
@@ -267,6 +273,9 @@
     <EmbeddedResource Include="FrmGrupoPesquisa.resx">
       <DependentUpon>FrmGrupoPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLoja.resx">
       <DependentUpon>FrmLoja.cs</DependentUpon>
