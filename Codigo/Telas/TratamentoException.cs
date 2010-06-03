@@ -22,7 +22,7 @@ namespace Telas
             
             try
             {
-                result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Stop);
+                result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch
             {
