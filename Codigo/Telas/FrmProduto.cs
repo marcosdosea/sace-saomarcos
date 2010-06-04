@@ -11,7 +11,7 @@ namespace SACE.Telas
 {
     public partial class FrmProduto : Form
     {
-        private EstadoFormulario estado;
+        public EstadoFormulario estado;
 
         public FrmProduto()
         {

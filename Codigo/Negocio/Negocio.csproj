@@ -55,6 +55,7 @@
     <Compile Include="GerenciadorPrecos.cs" />
     <Compile Include="Banco\IGerenciadorBanco.cs" />
     <Compile Include="IGerenciadorNegocio.cs" />
+    <Compile Include="Excecoes\NegocioException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
