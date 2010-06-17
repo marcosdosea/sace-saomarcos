@@ -8,9 +8,9 @@ namespace Negocio
     class NegocioException: Exception
     {
         public NegocioException()
+            : base("Erro na excecao")
         {
-            base();
-            Message = "Erro na excecao";
+
         }
     }
 }

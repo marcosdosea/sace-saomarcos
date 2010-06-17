@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -20,6 +21,8 @@ namespace SACE.Telas
 
         private void FrmPreVenda_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.PREVENDA, Principal.Autenticacao.CodUsuario);
+
             habilitaBotoes(true);
         }
 

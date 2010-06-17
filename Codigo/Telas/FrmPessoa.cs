@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -20,6 +21,8 @@ namespace SACE.Telas
 
         private void FrmPessoa_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.PESSOAS, Principal.Autenticacao.CodUsuario);
+
             // TODO: This line of code loads data into the 'saceDataSet.tb_pessoa' table. You can move, or remove it, as needed.
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             habilitaBotoes(true);

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -20,6 +21,8 @@ namespace SACE.Telas
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
+
             // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
             this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
             this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);

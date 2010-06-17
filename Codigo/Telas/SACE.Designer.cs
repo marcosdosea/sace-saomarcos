@@ -32,7 +32,6 @@
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pessoasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.empresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bancosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planoDeContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +68,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnSair = new System.Windows.Forms.Button();
             this.btnEntradas = new System.Windows.Forms.Button();
-            this.btnFornecedor = new System.Windows.Forms.Button();
             this.btnContas = new System.Windows.Forms.Button();
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnProdutos = new System.Windows.Forms.Button();
@@ -98,7 +96,6 @@
             this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.produtosToolStripMenuItem,
             this.pessoasToolStripMenuItem,
-            this.empresasToolStripMenuItem,
             this.lojasToolStripMenuItem,
             this.bancosToolStripMenuItem,
             this.planoDeContasToolStripMenuItem,
@@ -124,13 +121,6 @@
             this.pessoasToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
             this.pessoasToolStripMenuItem.Text = "Pessoas";
             this.pessoasToolStripMenuItem.Click += new System.EventHandler(this.pessoasToolStripMenuItem_Click);
-            // 
-            // empresasToolStripMenuItem
-            // 
-            this.empresasToolStripMenuItem.Name = "empresasToolStripMenuItem";
-            this.empresasToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.empresasToolStripMenuItem.Text = "Empresas";
-            this.empresasToolStripMenuItem.Click += new System.EventHandler(this.empresasToolStripMenuItem_Click);
             // 
             // lojasToolStripMenuItem
             // 
@@ -380,7 +370,7 @@
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSair.Image = global::Telas.Properties.Resources._118;
-            this.btnSair.Location = new System.Drawing.Point(624, 27);
+            this.btnSair.Location = new System.Drawing.Point(520, 27);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(105, 78);
             this.btnSair.TabIndex = 10;
@@ -401,19 +391,6 @@
             this.btnEntradas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEntradas.UseVisualStyleBackColor = true;
             this.btnEntradas.Click += new System.EventHandler(this.entradaDeProdutosToolStripMenuItem_Click);
-            // 
-            // btnFornecedor
-            // 
-            this.btnFornecedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFornecedor.Image = global::Telas.Properties.Resources._122;
-            this.btnFornecedor.Location = new System.Drawing.Point(520, 27);
-            this.btnFornecedor.Name = "btnFornecedor";
-            this.btnFornecedor.Size = new System.Drawing.Size(105, 78);
-            this.btnFornecedor.TabIndex = 8;
-            this.btnFornecedor.Text = "Empresas - F8";
-            this.btnFornecedor.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnFornecedor.UseVisualStyleBackColor = true;
-            this.btnFornecedor.Click += new System.EventHandler(this.empresasToolStripMenuItem_Click);
             // 
             // btnContas
             // 
@@ -473,7 +450,6 @@
             this.ClientSize = new System.Drawing.Size(784, 534);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.btnEntradas);
-            this.Controls.Add(this.btnFornecedor);
             this.Controls.Add(this.btnContas);
             this.Controls.Add(this.btnCliente);
             this.Controls.Add(this.btnProdutos);
@@ -503,7 +479,6 @@
         private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem produtosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pessoasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem empresasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gruposDeProdutosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem planoDeContasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem movimentaçãoToolStripMenuItem;
@@ -522,7 +497,6 @@
         private System.Windows.Forms.Button btnProdutos;
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Button btnContas;
-        private System.Windows.Forms.Button btnFornecedor;
         private System.Windows.Forms.Button btnEntradas;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.ToolStripMenuItem utilitáriosToolStripMenuItem;

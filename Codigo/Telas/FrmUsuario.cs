@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -20,7 +21,8 @@ namespace SACE.Telas
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
-            
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.USUARIOS, Principal.Autenticacao.CodUsuario);
+
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
             this.tb_usuarioTableAdapter.Fill(this.saceDataSet.tb_usuario);
@@ -136,6 +138,5 @@ namespace SACE.Telas
                 tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", Convert.ToInt32(codPessoaTextBox.Text));
             }
         }
-
    }
 }
