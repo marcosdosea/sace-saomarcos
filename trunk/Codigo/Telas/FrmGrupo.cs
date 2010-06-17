@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SACE.Negocio;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -21,6 +22,8 @@ namespace SACE.Telas
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
+
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             habilitaBotoes(true);
         }

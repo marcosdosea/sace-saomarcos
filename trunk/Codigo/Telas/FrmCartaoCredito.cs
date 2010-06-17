@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -20,6 +21,8 @@ namespace SACE.Telas
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
+
             // TODO: This line of code loads data into the 'saceDataSet.tb_conta_banco' table. You can move, or remove it, as needed.
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             // TODO: This line of code loads data into the 'saceDataSet.tb_cartao_credito' table. You can move, or remove it, as needed.

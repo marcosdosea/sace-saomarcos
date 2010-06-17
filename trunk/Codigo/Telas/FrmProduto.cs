@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -20,6 +21,7 @@ namespace SACE.Telas
 
         private void FrmProduto_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.PRODUTOS, Principal.Autenticacao.CodUsuario);
             // TODO: This line of code loads data into the 'saceDataSet.tb_cfop' table. You can move, or remove it, as needed.
             this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
             // TODO: This line of code loads data into the 'saceDataSet.tb_grupo' table. You can move, or remove it, as needed.
@@ -216,13 +218,13 @@ namespace SACE.Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codigoFabricanteComboBox.Focused))
                 {
-                    Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
-                    frmEmpresaPesquisa.ShowDialog();
-                    if (frmEmpresaPesquisa.getCodEmpresa() != -1)
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.getCodPessoa() != -1)
                     {
-                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
                     }
-                    frmEmpresaPesquisa.Dispose();
+                    frmPessoaPesquisa.Dispose();
                 }
             }
         }

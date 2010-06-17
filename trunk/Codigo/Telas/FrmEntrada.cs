@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Negocio;
 
 namespace SACE.Telas
 {
@@ -14,6 +15,8 @@ namespace SACE.Telas
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
+
             // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             // TODO: This line of code loads data into the 'saceDataSet.tb_entrada_produto' table. You can move, or remove it, as needed.
@@ -185,23 +188,23 @@ namespace SACE.Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codigoFornecedorComboBox.Focused))
                 {
-                    Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
-                    frmEmpresaPesquisa.ShowDialog();
-                    if (frmEmpresaPesquisa.getCodEmpresa() != -1)
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.getCodPessoa() != -1)
                     {
-                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
                     }
-                    frmEmpresaPesquisa.Dispose();
+                    frmPessoaPesquisa.Dispose();
                 }
                 else if ((e.KeyCode == Keys.F2) && (codigoEmpresaFreteComboBox.Focused))
                 {
-                    Telas.FrmEmpresaPesquisa frmEmpresaPesquisa = new Telas.FrmEmpresaPesquisa();
-                    frmEmpresaPesquisa.ShowDialog();
-                    if (frmEmpresaPesquisa.getCodEmpresa() != -1)
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.getCodPessoa() != -1)
                     {
-                        tbempresaBindingSource1.Position = tbempresaBindingSource1.Find("codigoEmpresa", frmEmpresaPesquisa.getCodEmpresa());
+                        tbempresaBindingSource1.Position = tbempresaBindingSource1.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
                     }
-                    frmEmpresaPesquisa.Dispose();
+                    frmPessoaPesquisa.Dispose();
                 }
 
             }

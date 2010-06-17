@@ -51,13 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autenticacao.cs" />
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Funcoes.cs" />
     <Compile Include="TratamentoException.cs" />
     <Compile Include="FrmBanco.cs">
       <SubType>Form</SubType>
@@ -95,18 +95,6 @@
     </Compile>
     <Compile Include="FrmContaBancoPesquisa.Designer.cs">
       <DependentUpon>FrmContaBancoPesquisa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmEmpresa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmEmpresa.Designer.cs">
-      <DependentUpon>FrmEmpresa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmEmpresaPesquisa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmEmpresaPesquisa.Designer.cs">
-      <DependentUpon>FrmEmpresaPesquisa.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmEntrada.cs">
       <SubType>Form</SubType>
@@ -240,14 +228,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmContaBancoPesquisa.resx">
       <DependentUpon>FrmContaBancoPesquisa.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmEmpresa.resx">
-      <DependentUpon>FrmEmpresa.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmEmpresaPesquisa.resx">
-      <DependentUpon>FrmEmpresaPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEntrada.resx">

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SACE.Telas
 {
-    enum EstadoFormulario
+    public enum EstadoFormulario
     {
         INSERIR, ESPERA, ATUALIZAR
     }

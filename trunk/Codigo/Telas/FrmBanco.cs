@@ -10,6 +10,7 @@ using SACE.Negocio;
 using SACE.Dados.saceDataSetTableAdapters;
 using SACE.Dados;
 using SACE.Dominio;
+using Negocio;
 
 
 namespace SACE.Telas
@@ -26,6 +27,8 @@ namespace SACE.Telas
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
+            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.BANCOS, Principal.Autenticacao.CodUsuario);
+
             tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);
         }
