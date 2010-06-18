@@ -27,7 +27,7 @@ namespace SACE.Telas
             // TODO: This line of code loads data into the 'saceDataSet.tb_grupo' table. You can move, or remove it, as needed.
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
-            this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
+            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             habilitaBotoes(true);
@@ -222,7 +222,7 @@ namespace SACE.Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.getCodPessoa() != -1)
                     {
-                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
+                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
                     }
                     frmPessoaPesquisa.Dispose();
                 }

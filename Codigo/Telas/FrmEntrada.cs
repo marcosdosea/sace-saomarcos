@@ -22,7 +22,7 @@ namespace SACE.Telas
             // TODO: This line of code loads data into the 'saceDataSet.tb_entrada_produto' table. You can move, or remove it, as needed.
             this.tb_entrada_produtoTableAdapter.Fill(this.saceDataSet.tb_entrada_produto);
             // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
-            this.tb_empresaTableAdapter.Fill(this.saceDataSet.tb_empresa);
+            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             habilitaBotoes(true);
         }
 
@@ -192,7 +192,7 @@ namespace SACE.Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.getCodPessoa() != -1)
                     {
-                        tbempresaBindingSource.Position = tbempresaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -202,7 +202,7 @@ namespace SACE.Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.getCodPessoa() != -1)
                     {
-                        tbempresaBindingSource1.Position = tbempresaBindingSource1.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
+                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
                     }
                     frmPessoaPesquisa.Dispose();
                 }
