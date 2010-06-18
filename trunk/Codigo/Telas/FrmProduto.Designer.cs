@@ -68,7 +68,6 @@
             this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_cfopTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
-            this.tb_empresaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter();
             this.tb_grupoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -87,7 +86,7 @@
             this.codGrupoComboBox = new System.Windows.Forms.ComboBox();
             this.tbgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codigoFabricanteComboBox = new System.Windows.Forms.ComboBox();
-            this.tbempresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.temVencimentoCheckBox = new System.Windows.Forms.CheckBox();
             this.icmsTextBox = new System.Windows.Forms.TextBox();
             this.simplesTextBox = new System.Windows.Forms.TextBox();
@@ -111,6 +110,7 @@
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
             this.icms_substitutoTextBox = new System.Windows.Forms.TextBox();
+            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -142,7 +142,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).BeginInit();
             this.tb_produtoBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbempresaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcfopBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -478,7 +478,6 @@
             this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
             this.tableAdapterManager.tb_conta_receberTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_empresaTableAdapter = this.tb_empresaTableAdapter;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
@@ -505,10 +504,6 @@
             // tb_cfopTableAdapter
             // 
             this.tb_cfopTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_empresaTableAdapter
-            // 
-            this.tb_empresaTableAdapter.ClearBeforeFill = true;
             // 
             // tb_grupoTableAdapter
             // 
@@ -671,7 +666,7 @@
             this.codigoFabricanteComboBox.CausesValidation = false;
             this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codigoFabricante", true));
             this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codigoFabricante", true));
-            this.codigoFabricanteComboBox.DataSource = this.tbempresaBindingSource;
+            this.codigoFabricanteComboBox.DataSource = this.tb_pessoaBindingSource;
             this.codigoFabricanteComboBox.DisplayMember = "nome";
             this.codigoFabricanteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codigoFabricanteComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -682,10 +677,10 @@
             this.codigoFabricanteComboBox.TabIndex = 14;
             this.codigoFabricanteComboBox.ValueMember = "codigoEmpresa";
             // 
-            // tbempresaBindingSource
+            // tb_pessoaBindingSource
             // 
-            this.tbempresaBindingSource.DataMember = "tb_empresa";
-            this.tbempresaBindingSource.DataSource = this.saceDataSet;
+            this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
+            this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
             // 
             // temVencimentoCheckBox
             // 
@@ -914,11 +909,15 @@
             this.icms_substitutoTextBox.Size = new System.Drawing.Size(83, 20);
             this.icms_substitutoTextBox.TabIndex = 77;
             // 
+            // tb_pessoaTableAdapter
+            // 
+            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
+            // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 426);
+            this.ClientSize = new System.Drawing.Size(581, 426);
             this.Controls.Add(icms_substitutoLabel);
             this.Controls.Add(this.icms_substitutoTextBox);
             this.Controls.Add(this.cfopComboBox);
@@ -996,7 +995,7 @@
             this.tb_produtoBindingNavigator.ResumeLayout(false);
             this.tb_produtoBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbempresaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcfopBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1048,8 +1047,7 @@
         private System.Windows.Forms.TextBox precoVendaAtacadoTextBox;
         private System.Windows.Forms.TextBox lucroPrecoVendaSuperAtacadoTextBox;
         private System.Windows.Forms.TextBox precoVendaSuperAtacadoTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_empresaTableAdapter tb_empresaTableAdapter;
-        private System.Windows.Forms.BindingSource tbempresaBindingSource;
+        private System.Windows.Forms.BindingSource tb_pessoaBindingSource;
         private SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
         private System.Windows.Forms.BindingSource tbgrupoBindingSource;
         private System.Windows.Forms.Button btnPreco;
@@ -1061,5 +1059,6 @@
         private System.Windows.Forms.BindingSource tbcfopBindingSource;
         private System.Windows.Forms.ComboBox cfopComboBox;
         private System.Windows.Forms.TextBox icms_substitutoTextBox;
+        private SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
     }
 }
