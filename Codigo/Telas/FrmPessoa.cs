@@ -88,8 +88,8 @@ namespace SACE.Telas
                 {
                     tb_pessoaTableAdapter.Insert(nomeTextBox.Text, cpfTextBox.Text, enderecoTextBox.Text,
                         cepTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1TextBox.Text,
-                        fone2TextBox.Text, limiteCompraTextBox.Text, valorComissaoTextBox.Text,
-                        observacaoTextBox.Text);
+                        fone2TextBox.Text, decimal.Parse(limiteCompraTextBox.Text), decimal.Parse(valorComissaoTextBox.Text),
+                        observacaoTextBox.Text, PfRadioButton.Checked?"F":"J");
                     tb_pessoaTableAdapter.Fill(saceDataSet.tb_pessoa);
                     tb_pessoaBindingSource.MoveLast();
                 }
@@ -98,7 +98,7 @@ namespace SACE.Telas
                     tb_pessoaTableAdapter.Update(nomeTextBox.Text, cpfTextBox.Text, enderecoTextBox.Text,
                         cepTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1TextBox.Text,
                         fone2TextBox.Text, decimal.Parse(limiteCompraTextBox.Text), decimal.Parse(valorComissaoTextBox.Text),
-                        observacaoTextBox.Text, long.Parse(codPessoaTextBox.Text));
+                        observacaoTextBox.Text, PfRadioButton.Checked ? "F" : "J", long.Parse(codPessoaTextBox.Text));
                     tb_pessoaBindingSource.EndEdit();
                 }
             }
@@ -176,6 +176,37 @@ namespace SACE.Telas
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
+            }
+        }
+
+        private void PfRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (PfRadioButton.Checked)
+            {
+                nomeLabel.Text = "Nome:";
+                cpfLabel.Text = "CPF:";
+            }
+            else
+            {
+                nomeLabel.Text = "Razão Social:";
+                cpfLabel.Text = "CNPJ:";
+            }
+        }
+
+        private void tb_pessoaBindingSource_PositionChanged(object sender, EventArgs e)
+        {
+            DataRowView linha = (DataRowView)tb_pessoaBindingSource.Current;
+
+            bool tipoCliente = linha["Tipo"].ToString().Equals("F");
+            if (tipoCliente)
+            {
+                PfRadioButton.Checked = true;
+                PjRadioButton.Checked = false;
+            }
+            else
+            {
+                PfRadioButton.Checked = false;
+                PjRadioButton.Checked = true;
             }
         }
 
