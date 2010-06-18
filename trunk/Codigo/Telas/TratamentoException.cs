@@ -37,10 +37,10 @@ namespace Telas
                 erro = "Indice invalido " + t.Exception.TargetSite;
 
             //verificar hierarquia de excecoes
-            if (t.Exception is ApplicationException)
-                erro = "... " + t.Exception.TargetSite;
-            else if (t.Exception is SystemException)
-                erro = "... " + t.Exception.TargetSite;
+            //if (t.Exception is ApplicationException)
+            //    erro = "... " + t.Exception.TargetSite;
+            //else if (t.Exception is SystemException)
+            //    erro = "... " + t.Exception.TargetSite;
 
 
             if (t.Exception is DivideByZeroException)

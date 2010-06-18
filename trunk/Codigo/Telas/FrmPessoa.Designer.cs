@@ -30,9 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codPessoaLabel;
-            System.Windows.Forms.Label nomeLabel;
             System.Windows.Forms.Label enderecoLabel;
-            System.Windows.Forms.Label cpfLabel;
             System.Windows.Forms.Label bairroLabel;
             System.Windows.Forms.Label cidadeLabel;
             System.Windows.Forms.Label fone1Label;
@@ -74,14 +72,17 @@
             this.cepTextBox = new System.Windows.Forms.TextBox();
             this.enderecoTextBox = new System.Windows.Forms.TextBox();
             this.ufTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.PfRadioButton = new System.Windows.Forms.RadioButton();
+            this.PjRadioButton = new System.Windows.Forms.RadioButton();
             this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new SACE.Dados.saceDataSet();
             this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.nomeLabel = new System.Windows.Forms.Label();
+            this.cpfLabel = new System.Windows.Forms.Label();
             codPessoaLabel = new System.Windows.Forms.Label();
-            nomeLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
-            cpfLabel = new System.Windows.Forms.Label();
             bairroLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
             fone1Label = new System.Windows.Forms.Label();
@@ -94,6 +95,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).BeginInit();
             this.tb_pessoaBindingNavigator.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.SuspendLayout();
@@ -107,15 +109,6 @@
             codPessoaLabel.TabIndex = 21;
             codPessoaLabel.Text = "Código:";
             // 
-            // nomeLabel
-            // 
-            nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(115, 69);
-            nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new System.Drawing.Size(38, 13);
-            nomeLabel.TabIndex = 23;
-            nomeLabel.Text = "Nome:";
-            // 
             // enderecoLabel
             // 
             enderecoLabel.AutoSize = true;
@@ -124,15 +117,6 @@
             enderecoLabel.Size = new System.Drawing.Size(56, 13);
             enderecoLabel.TabIndex = 25;
             enderecoLabel.Text = "Endereço:";
-            // 
-            // cpfLabel
-            // 
-            cpfLabel.AutoSize = true;
-            cpfLabel.Location = new System.Drawing.Point(4, 111);
-            cpfLabel.Name = "cpfLabel";
-            cpfLabel.Size = new System.Drawing.Size(30, 13);
-            cpfLabel.TabIndex = 27;
-            cpfLabel.Text = "CPF:";
             // 
             // bairroLabel
             // 
@@ -320,7 +304,7 @@
             this.tb_pessoaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_pessoaBindingNavigator.Name = "tb_pessoaBindingNavigator";
             this.tb_pessoaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_pessoaBindingNavigator.Size = new System.Drawing.Size(240, 25);
+            this.tb_pessoaBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_pessoaBindingNavigator.TabIndex = 21;
             this.tb_pessoaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -407,13 +391,13 @@
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(117, 86);
             this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(350, 20);
+            this.nomeTextBox.Size = new System.Drawing.Size(258, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
             // cpfTextBox
             // 
             this.cpfTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.cpfTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf", true));
+            this.cpfTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf_Cnpj", true));
             this.cpfTextBox.Location = new System.Drawing.Point(7, 129);
             this.cpfTextBox.Name = "cpfTextBox";
             this.cpfTextBox.Size = new System.Drawing.Size(100, 20);
@@ -509,11 +493,46 @@
             this.ufTextBox.Size = new System.Drawing.Size(43, 20);
             this.ufTextBox.TabIndex = 36;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.PjRadioButton);
+            this.groupBox1.Controls.Add(this.PfRadioButton);
+            this.groupBox1.Location = new System.Drawing.Point(383, 72);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(84, 52);
+            this.groupBox1.TabIndex = 47;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tipo:";
+            // 
+            // PfRadioButton
+            // 
+            this.PfRadioButton.AutoSize = true;
+            this.PfRadioButton.Checked = true;
+            this.PfRadioButton.Location = new System.Drawing.Point(7, 14);
+            this.PfRadioButton.Name = "PfRadioButton";
+            this.PfRadioButton.Size = new System.Drawing.Size(54, 17);
+            this.PfRadioButton.TabIndex = 0;
+            this.PfRadioButton.TabStop = true;
+            this.PfRadioButton.Text = "Física";
+            this.PfRadioButton.UseVisualStyleBackColor = true;
+            this.PfRadioButton.CheckedChanged += new System.EventHandler(this.PfRadioButton_CheckedChanged);
+            // 
+            // PjRadioButton
+            // 
+            this.PjRadioButton.AutoSize = true;
+            this.PjRadioButton.Location = new System.Drawing.Point(6, 32);
+            this.PjRadioButton.Name = "PjRadioButton";
+            this.PjRadioButton.Size = new System.Drawing.Size(63, 17);
+            this.PjRadioButton.TabIndex = 1;
+            this.PjRadioButton.Text = "Jurídica";
+            this.PjRadioButton.UseVisualStyleBackColor = true;
+            // 
             // tb_pessoaBindingSource
             // 
             this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
             this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
             this.tb_pessoaBindingSource.Sort = "codPessoa";
+            this.tb_pessoaBindingSource.PositionChanged += new System.EventHandler(this.tb_pessoaBindingSource_PositionChanged);
             // 
             // saceDataSet
             // 
@@ -560,11 +579,32 @@
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
+            // nomeLabel
+            // 
+            this.nomeLabel.AutoSize = true;
+            this.nomeLabel.Location = new System.Drawing.Point(118, 69);
+            this.nomeLabel.Name = "nomeLabel";
+            this.nomeLabel.Size = new System.Drawing.Size(38, 13);
+            this.nomeLabel.TabIndex = 48;
+            this.nomeLabel.Text = "Nome:";
+            // 
+            // cpfLabel
+            // 
+            this.cpfLabel.AutoSize = true;
+            this.cpfLabel.Location = new System.Drawing.Point(7, 111);
+            this.cpfLabel.Name = "cpfLabel";
+            this.cpfLabel.Size = new System.Drawing.Size(30, 13);
+            this.cpfLabel.TabIndex = 49;
+            this.cpfLabel.Text = "CPF:";
+            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 345);
+            this.Controls.Add(this.cpfLabel);
+            this.Controls.Add(this.nomeLabel);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(ufLabel);
             this.Controls.Add(this.ufTextBox);
             this.Controls.Add(this.enderecoTextBox);
@@ -573,10 +613,8 @@
             this.Controls.Add(codPessoaLabel);
             this.Controls.Add(this.tb_pessoaBindingNavigator);
             this.Controls.Add(this.codPessoaTextBox);
-            this.Controls.Add(nomeLabel);
             this.Controls.Add(this.nomeTextBox);
             this.Controls.Add(enderecoLabel);
-            this.Controls.Add(cpfLabel);
             this.Controls.Add(this.cpfTextBox);
             this.Controls.Add(bairroLabel);
             this.Controls.Add(this.bairroTextBox);
@@ -612,6 +650,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).EndInit();
             this.tb_pessoaBindingNavigator.ResumeLayout(false);
             this.tb_pessoaBindingNavigator.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.ResumeLayout(false);
@@ -656,5 +696,10 @@
         private System.Windows.Forms.TextBox cepTextBox;
         private System.Windows.Forms.TextBox enderecoTextBox;
         private System.Windows.Forms.TextBox ufTextBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton PjRadioButton;
+        private System.Windows.Forms.RadioButton PfRadioButton;
+        private System.Windows.Forms.Label nomeLabel;
+        private System.Windows.Forms.Label cpfLabel;
     }
 }
