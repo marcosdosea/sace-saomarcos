@@ -7,8 +7,21 @@ using System.Data.Common;
 
 namespace SACE.Excecoes
 {
-    class DadosException: DbException
+    public class DadosException: DbException
     {
+        public DadosException(): base()
+        { }
 
+        public DadosException(string msg):base(msg)
+        { }
+
+        public DadosException(string msg, Exception ex): base(msg,ex)
+        { }
+
+        public string Tratar()
+        {
+            //TODO tratar os tipos de erros sql
+            return this.Message;
+        }
     }
 }
