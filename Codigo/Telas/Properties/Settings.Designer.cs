@@ -26,8 +26,7 @@ namespace Telas.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=root;database=sace;Persist Security Info=True;password=r" +
-            "oot")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=root;database=sace;Persist Security Info=True")]
         public string saceConnectionString {
             get {
                 return ((string)(this["saceConnectionString"]));
