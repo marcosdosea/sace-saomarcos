@@ -39,8 +39,6 @@ namespace SACE.Dados {
         
         private tb_contato_empresaDataTable tabletb_contato_empresa;
         
-        private tb_empresaDataTable tabletb_empresa;
-        
         private tb_entradaDataTable tabletb_entrada;
         
         private tb_entrada_produtoDataTable tabletb_entrada_produto;
@@ -91,25 +89,15 @@ namespace SACE.Dados {
         
         private global::System.Data.DataRelation relationFK_CONTA_PAGAR_1;
         
-        private global::System.Data.DataRelation relationFK_CONTA_PAGAR_3;
-        
         private global::System.Data.DataRelation relationFK_TB_CONTA_PAGAR_4;
         
         private global::System.Data.DataRelation relationFK_TB_CONTA_PAGAR_6;
         
         private global::System.Data.DataRelation relationFK_CONTA_RECEBER_1;
         
-        private global::System.Data.DataRelation relationFK_CONTA_RECEBER_3;
-        
         private global::System.Data.DataRelation relationFK_TB_CONTA_RECEBER_5;
         
         private global::System.Data.DataRelation relationFK_TB_CONTA_RECEBER_6;
-        
-        private global::System.Data.DataRelation relationFK_TB_CONTATO_EMPRESA_1;
-        
-        private global::System.Data.DataRelation relationFK_TB_ENTRADA_1;
-        
-        private global::System.Data.DataRelation relationFK_TB_ENTRADA_2;
         
         private global::System.Data.DataRelation relationFK_TB_ENTRADA_PRODUTO_1;
         
@@ -132,8 +120,6 @@ namespace SACE.Dados {
         private global::System.Data.DataRelation relationFK_TB_PLANO_CONTA_2;
         
         private global::System.Data.DataRelation relationFK_TB_PRODUTO_1;
-        
-        private global::System.Data.DataRelation relationFK_TB_PRODUTO_2;
         
         private global::System.Data.DataRelation relationFK_TB_PRODUTO_LOJA_1;
         
@@ -227,9 +213,6 @@ namespace SACE.Dados {
                 }
                 if ((ds.Tables["tb_contato_empresa"] != null)) {
                     base.Tables.Add(new tb_contato_empresaDataTable(ds.Tables["tb_contato_empresa"]));
-                }
-                if ((ds.Tables["tb_empresa"] != null)) {
-                    base.Tables.Add(new tb_empresaDataTable(ds.Tables["tb_empresa"]));
                 }
                 if ((ds.Tables["tb_entrada"] != null)) {
                     base.Tables.Add(new tb_entradaDataTable(ds.Tables["tb_entrada"]));
@@ -375,15 +358,6 @@ namespace SACE.Dados {
         public tb_contato_empresaDataTable tb_contato_empresa {
             get {
                 return this.tabletb_contato_empresa;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public tb_empresaDataTable tb_empresa {
-            get {
-                return this.tabletb_empresa;
             }
         }
         
@@ -665,9 +639,6 @@ namespace SACE.Dados {
                 if ((ds.Tables["tb_contato_empresa"] != null)) {
                     base.Tables.Add(new tb_contato_empresaDataTable(ds.Tables["tb_contato_empresa"]));
                 }
-                if ((ds.Tables["tb_empresa"] != null)) {
-                    base.Tables.Add(new tb_empresaDataTable(ds.Tables["tb_empresa"]));
-                }
                 if ((ds.Tables["tb_entrada"] != null)) {
                     base.Tables.Add(new tb_entradaDataTable(ds.Tables["tb_entrada"]));
                 }
@@ -806,12 +777,6 @@ namespace SACE.Dados {
                     this.tabletb_contato_empresa.InitVars();
                 }
             }
-            this.tabletb_empresa = ((tb_empresaDataTable)(base.Tables["tb_empresa"]));
-            if ((initTable == true)) {
-                if ((this.tabletb_empresa != null)) {
-                    this.tabletb_empresa.InitVars();
-                }
-            }
             this.tabletb_entrada = ((tb_entradaDataTable)(base.Tables["tb_entrada"]));
             if ((initTable == true)) {
                 if ((this.tabletb_entrada != null)) {
@@ -947,16 +912,11 @@ namespace SACE.Dados {
             this.relationFK_TB_CARTAO_CREDITO_1 = this.Relations["FK_TB_CARTAO_CREDITO_1"];
             this.relationFK_TB_CONTA_BANCO_1 = this.Relations["FK_TB_CONTA_BANCO_1"];
             this.relationFK_CONTA_PAGAR_1 = this.Relations["FK_CONTA_PAGAR_1"];
-            this.relationFK_CONTA_PAGAR_3 = this.Relations["FK_CONTA_PAGAR_3"];
             this.relationFK_TB_CONTA_PAGAR_4 = this.Relations["FK_TB_CONTA_PAGAR_4"];
             this.relationFK_TB_CONTA_PAGAR_6 = this.Relations["FK_TB_CONTA_PAGAR_6"];
             this.relationFK_CONTA_RECEBER_1 = this.Relations["FK_CONTA_RECEBER_1"];
-            this.relationFK_CONTA_RECEBER_3 = this.Relations["FK_CONTA_RECEBER_3"];
             this.relationFK_TB_CONTA_RECEBER_5 = this.Relations["FK_TB_CONTA_RECEBER_5"];
             this.relationFK_TB_CONTA_RECEBER_6 = this.Relations["FK_TB_CONTA_RECEBER_6"];
-            this.relationFK_TB_CONTATO_EMPRESA_1 = this.Relations["FK_TB_CONTATO_EMPRESA_1"];
-            this.relationFK_TB_ENTRADA_1 = this.Relations["FK_TB_ENTRADA_1"];
-            this.relationFK_TB_ENTRADA_2 = this.Relations["FK_TB_ENTRADA_2"];
             this.relationFK_TB_ENTRADA_PRODUTO_1 = this.Relations["FK_TB_ENTRADA_PRODUTO_1"];
             this.relationFK_TB_ENTRADA_PRODUTO_2 = this.Relations["FK_TB_ENTRADA_PRODUTO_2"];
             this.relationFK_MOVIMENTACAO_CONTA_1 = this.Relations["FK_MOVIMENTACAO_CONTA_1"];
@@ -968,7 +928,6 @@ namespace SACE.Dados {
             this.relationFK_TB_PERMISSAO_2 = this.Relations["FK_TB_PERMISSAO_2"];
             this.relationFK_TB_PLANO_CONTA_2 = this.Relations["FK_TB_PLANO_CONTA_2"];
             this.relationFK_TB_PRODUTO_1 = this.Relations["FK_TB_PRODUTO_1"];
-            this.relationFK_TB_PRODUTO_2 = this.Relations["FK_TB_PRODUTO_2"];
             this.relationFK_TB_PRODUTO_LOJA_1 = this.Relations["FK_TB_PRODUTO_LOJA_1"];
             this.relationFK_TB_PRODUTO_LOJA_2 = this.Relations["FK_TB_PRODUTO_LOJA_2"];
             this.relationFK_TB_PRODUTO_LOJA_3 = this.Relations["FK_TB_PRODUTO_LOJA_3"];
@@ -1015,8 +974,6 @@ namespace SACE.Dados {
             base.Tables.Add(this.tabletb_conta_receber);
             this.tabletb_contato_empresa = new tb_contato_empresaDataTable();
             base.Tables.Add(this.tabletb_contato_empresa);
-            this.tabletb_empresa = new tb_empresaDataTable();
-            base.Tables.Add(this.tabletb_empresa);
             this.tabletb_entrada = new tb_entradaDataTable();
             base.Tables.Add(this.tabletb_entrada);
             this.tabletb_entrada_produto = new tb_entrada_produtoDataTable();
@@ -1073,10 +1030,6 @@ namespace SACE.Dados {
                         this.tabletb_plano_conta.codPlanoContaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_conta_pagar.codPlanoContaColumn}, false);
             this.Relations.Add(this.relationFK_CONTA_PAGAR_1);
-            this.relationFK_CONTA_PAGAR_3 = new global::System.Data.DataRelation("FK_CONTA_PAGAR_3", new global::System.Data.DataColumn[] {
-                        this.tabletb_empresa.codigoEmpresaColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_conta_pagar.codigoEmpresaColumn}, false);
-            this.Relations.Add(this.relationFK_CONTA_PAGAR_3);
             this.relationFK_TB_CONTA_PAGAR_4 = new global::System.Data.DataRelation("FK_TB_CONTA_PAGAR_4", new global::System.Data.DataColumn[] {
                         this.tabletb_entrada.codEntradaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_conta_pagar.codEntradaColumn}, false);
@@ -1089,10 +1042,6 @@ namespace SACE.Dados {
                         this.tabletb_plano_conta.codPlanoContaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_conta_receber.codPlanoContaColumn}, false);
             this.Relations.Add(this.relationFK_CONTA_RECEBER_1);
-            this.relationFK_CONTA_RECEBER_3 = new global::System.Data.DataRelation("FK_CONTA_RECEBER_3", new global::System.Data.DataColumn[] {
-                        this.tabletb_empresa.codigoEmpresaColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_conta_receber.codigoEmpresaColumn}, false);
-            this.Relations.Add(this.relationFK_CONTA_RECEBER_3);
             this.relationFK_TB_CONTA_RECEBER_5 = new global::System.Data.DataRelation("FK_TB_CONTA_RECEBER_5", new global::System.Data.DataColumn[] {
                         this.tabletb_saida.codSaidaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_conta_receber.codSaidaColumn}, false);
@@ -1101,18 +1050,6 @@ namespace SACE.Dados {
                         this.tabletb_entrada.codEntradaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_conta_receber.codEntradaColumn}, false);
             this.Relations.Add(this.relationFK_TB_CONTA_RECEBER_6);
-            this.relationFK_TB_CONTATO_EMPRESA_1 = new global::System.Data.DataRelation("FK_TB_CONTATO_EMPRESA_1", new global::System.Data.DataColumn[] {
-                        this.tabletb_empresa.codigoEmpresaColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_contato_empresa.codigoEmpresaColumn}, false);
-            this.Relations.Add(this.relationFK_TB_CONTATO_EMPRESA_1);
-            this.relationFK_TB_ENTRADA_1 = new global::System.Data.DataRelation("FK_TB_ENTRADA_1", new global::System.Data.DataColumn[] {
-                        this.tabletb_empresa.codigoEmpresaColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_entrada.codigoFornecedorColumn}, false);
-            this.Relations.Add(this.relationFK_TB_ENTRADA_1);
-            this.relationFK_TB_ENTRADA_2 = new global::System.Data.DataRelation("FK_TB_ENTRADA_2", new global::System.Data.DataColumn[] {
-                        this.tabletb_empresa.codigoEmpresaColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_entrada.codigoEmpresaFreteColumn}, false);
-            this.Relations.Add(this.relationFK_TB_ENTRADA_2);
             this.relationFK_TB_ENTRADA_PRODUTO_1 = new global::System.Data.DataRelation("FK_TB_ENTRADA_PRODUTO_1", new global::System.Data.DataColumn[] {
                         this.tabletb_entrada.codEntradaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_entrada_produto.codEntradaColumn}, false);
@@ -1157,10 +1094,6 @@ namespace SACE.Dados {
                         this.tabletb_grupo.codGrupoColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_produto.codGrupoColumn}, false);
             this.Relations.Add(this.relationFK_TB_PRODUTO_1);
-            this.relationFK_TB_PRODUTO_2 = new global::System.Data.DataRelation("FK_TB_PRODUTO_2", new global::System.Data.DataColumn[] {
-                        this.tabletb_empresa.codigoEmpresaColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_produto.codigoFabricanteColumn}, false);
-            this.Relations.Add(this.relationFK_TB_PRODUTO_2);
             this.relationFK_TB_PRODUTO_LOJA_1 = new global::System.Data.DataRelation("FK_TB_PRODUTO_LOJA_1", new global::System.Data.DataColumn[] {
                         this.tabletb_loja.codLojaColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_produto_loja.codLojaColumn}, false);
@@ -1287,11 +1220,6 @@ namespace SACE.Dados {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private bool ShouldSerializetb_contato_empresa() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializetb_empresa() {
             return false;
         }
         
@@ -1471,8 +1399,6 @@ namespace SACE.Dados {
         public delegate void tb_conta_receberRowChangeEventHandler(object sender, tb_conta_receberRowChangeEvent e);
         
         public delegate void tb_contato_empresaRowChangeEventHandler(object sender, tb_contato_empresaRowChangeEvent e);
-        
-        public delegate void tb_empresaRowChangeEventHandler(object sender, tb_empresaRowChangeEvent e);
         
         public delegate void tb_entradaRowChangeEventHandler(object sender, tb_entradaRowChangeEvent e);
         
@@ -2758,7 +2684,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_conta_pagarRow Addtb_conta_pagarRow(tb_entradaRow parenttb_entradaRowByFK_TB_CONTA_PAGAR_4, tb_saidaRow parenttb_saidaRowByFK_TB_CONTA_PAGAR_6, string documento, tb_plano_contaRow parenttb_plano_contaRowByFK_CONTA_PAGAR_1, tb_pessoaRow parenttb_pessoaRowByFK_CONTA_PAGAR_2, tb_empresaRow parenttb_empresaRowByFK_CONTA_PAGAR_3, System.DateTime dataVencimento, decimal valorPagamento, string situacaoPagamento, string observacao) {
+            public tb_conta_pagarRow Addtb_conta_pagarRow(tb_entradaRow parenttb_entradaRowByFK_TB_CONTA_PAGAR_4, tb_saidaRow parenttb_saidaRowByFK_TB_CONTA_PAGAR_6, string documento, tb_plano_contaRow parenttb_plano_contaRowByFK_CONTA_PAGAR_1, tb_pessoaRow parenttb_pessoaRowByFK_CONTA_PAGAR_2, tb_pessoaRow parenttb_pessoaRowBytb_pessoa_tb_conta_pagar_fk, System.DateTime dataVencimento, decimal valorPagamento, string situacaoPagamento, string observacao) {
                 tb_conta_pagarRow rowtb_conta_pagarRow = ((tb_conta_pagarRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2784,8 +2710,8 @@ namespace SACE.Dados {
                 if ((parenttb_pessoaRowByFK_CONTA_PAGAR_2 != null)) {
                     columnValuesArray[5] = parenttb_pessoaRowByFK_CONTA_PAGAR_2[0];
                 }
-                if ((parenttb_empresaRowByFK_CONTA_PAGAR_3 != null)) {
-                    columnValuesArray[6] = parenttb_empresaRowByFK_CONTA_PAGAR_3[0];
+                if ((parenttb_pessoaRowBytb_pessoa_tb_conta_pagar_fk != null)) {
+                    columnValuesArray[6] = parenttb_pessoaRowBytb_pessoa_tb_conta_pagar_fk[0];
                 }
                 rowtb_conta_pagarRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_conta_pagarRow);
@@ -3145,7 +3071,7 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_conta_receberRow Addtb_conta_receberRow(tb_entradaRow parenttb_entradaRowByFK_TB_CONTA_RECEBER_6, tb_saidaRow parenttb_saidaRowByFK_TB_CONTA_RECEBER_5, string documento, tb_plano_contaRow parenttb_plano_contaRowByFK_CONTA_RECEBER_1, tb_pessoaRow parenttb_pessoaRowByFK_CONTA_RECEBER_2, tb_empresaRow parenttb_empresaRowByFK_CONTA_RECEBER_3, System.DateTime dataVencimento, decimal valorRecebimento, string situacaoRecebimento, string observacao) {
+            public tb_conta_receberRow Addtb_conta_receberRow(tb_entradaRow parenttb_entradaRowByFK_TB_CONTA_RECEBER_6, tb_saidaRow parenttb_saidaRowByFK_TB_CONTA_RECEBER_5, string documento, tb_plano_contaRow parenttb_plano_contaRowByFK_CONTA_RECEBER_1, tb_pessoaRow parenttb_pessoaRowByFK_CONTA_RECEBER_2, tb_pessoaRow parenttb_pessoaRowBytb_pessoa_tb_conta_receber_fk, System.DateTime dataVencimento, decimal valorRecebimento, string situacaoRecebimento, string observacao) {
                 tb_conta_receberRow rowtb_conta_receberRow = ((tb_conta_receberRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3171,8 +3097,8 @@ namespace SACE.Dados {
                 if ((parenttb_pessoaRowByFK_CONTA_RECEBER_2 != null)) {
                     columnValuesArray[5] = parenttb_pessoaRowByFK_CONTA_RECEBER_2[0];
                 }
-                if ((parenttb_empresaRowByFK_CONTA_RECEBER_3 != null)) {
-                    columnValuesArray[6] = parenttb_empresaRowByFK_CONTA_RECEBER_3[0];
+                if ((parenttb_pessoaRowBytb_pessoa_tb_conta_receber_fk != null)) {
+                    columnValuesArray[6] = parenttb_pessoaRowBytb_pessoa_tb_conta_receber_fk[0];
                 }
                 rowtb_conta_receberRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_conta_receberRow);
@@ -3451,13 +3377,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_contato_empresaRow Addtb_contato_empresaRow(tb_empresaRow parenttb_empresaRowByFK_TB_CONTATO_EMPRESA_1, tb_pessoaRow parenttb_pessoaRowByFK_TB_CONTATO_EMPRESA_2) {
+            public tb_contato_empresaRow Addtb_contato_empresaRow(tb_pessoaRow parenttb_pessoaRowBytb_pessoa_tb_contato_empresa_fk, tb_pessoaRow parenttb_pessoaRowByFK_TB_CONTATO_EMPRESA_2) {
                 tb_contato_empresaRow rowtb_contato_empresaRow = ((tb_contato_empresaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null};
-                if ((parenttb_empresaRowByFK_TB_CONTATO_EMPRESA_1 != null)) {
-                    columnValuesArray[0] = parenttb_empresaRowByFK_TB_CONTATO_EMPRESA_1[0];
+                if ((parenttb_pessoaRowBytb_pessoa_tb_contato_empresa_fk != null)) {
+                    columnValuesArray[0] = parenttb_pessoaRowBytb_pessoa_tb_contato_empresa_fk[0];
                 }
                 if ((parenttb_pessoaRowByFK_TB_CONTATO_EMPRESA_2 != null)) {
                     columnValuesArray[1] = parenttb_pessoaRowByFK_TB_CONTATO_EMPRESA_2[0];
@@ -3580,399 +3506,6 @@ namespace SACE.Dados {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "tb_contato_empresaDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class tb_empresaDataTable : global::System.Data.TypedTableBase<tb_empresaRow> {
-            
-            private global::System.Data.DataColumn columncodigoEmpresa;
-            
-            private global::System.Data.DataColumn columnnome;
-            
-            private global::System.Data.DataColumn columncnpj;
-            
-            private global::System.Data.DataColumn columnie;
-            
-            private global::System.Data.DataColumn columnfone;
-            
-            private global::System.Data.DataColumn columnendereco;
-            
-            private global::System.Data.DataColumn columnbairro;
-            
-            private global::System.Data.DataColumn columncep;
-            
-            private global::System.Data.DataColumn columncidade;
-            
-            private global::System.Data.DataColumn columnuf;
-            
-            private global::System.Data.DataColumn columnlimiteCompra;
-            
-            private global::System.Data.DataColumn columnobservacao;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaDataTable() {
-                this.TableName = "tb_empresa";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal tb_empresaDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected tb_empresaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn codigoEmpresaColumn {
-                get {
-                    return this.columncodigoEmpresa;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn nomeColumn {
-                get {
-                    return this.columnnome;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn cnpjColumn {
-                get {
-                    return this.columncnpj;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn ieColumn {
-                get {
-                    return this.columnie;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn foneColumn {
-                get {
-                    return this.columnfone;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn enderecoColumn {
-                get {
-                    return this.columnendereco;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn bairroColumn {
-                get {
-                    return this.columnbairro;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn cepColumn {
-                get {
-                    return this.columncep;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn cidadeColumn {
-                get {
-                    return this.columncidade;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn ufColumn {
-                get {
-                    return this.columnuf;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn limiteCompraColumn {
-                get {
-                    return this.columnlimiteCompra;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn observacaoColumn {
-                get {
-                    return this.columnobservacao;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow this[int index] {
-                get {
-                    return ((tb_empresaRow)(this.Rows[index]));
-                }
-            }
-            
-            public event tb_empresaRowChangeEventHandler tb_empresaRowChanging;
-            
-            public event tb_empresaRowChangeEventHandler tb_empresaRowChanged;
-            
-            public event tb_empresaRowChangeEventHandler tb_empresaRowDeleting;
-            
-            public event tb_empresaRowChangeEventHandler tb_empresaRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Addtb_empresaRow(tb_empresaRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow Addtb_empresaRow(string nome, string cnpj, string ie, string fone, string endereco, string bairro, string cep, string cidade, string uf, decimal limiteCompra, string observacao) {
-                tb_empresaRow rowtb_empresaRow = ((tb_empresaRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        null,
-                        nome,
-                        cnpj,
-                        ie,
-                        fone,
-                        endereco,
-                        bairro,
-                        cep,
-                        cidade,
-                        uf,
-                        limiteCompra,
-                        observacao};
-                rowtb_empresaRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowtb_empresaRow);
-                return rowtb_empresaRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow FindBycodigoEmpresa(long codigoEmpresa) {
-                return ((tb_empresaRow)(this.Rows.Find(new object[] {
-                            codigoEmpresa})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override global::System.Data.DataTable Clone() {
-                tb_empresaDataTable cln = ((tb_empresaDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new tb_empresaDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columncodigoEmpresa = base.Columns["codigoEmpresa"];
-                this.columnnome = base.Columns["nome"];
-                this.columncnpj = base.Columns["cnpj"];
-                this.columnie = base.Columns["ie"];
-                this.columnfone = base.Columns["fone"];
-                this.columnendereco = base.Columns["endereco"];
-                this.columnbairro = base.Columns["bairro"];
-                this.columncep = base.Columns["cep"];
-                this.columncidade = base.Columns["cidade"];
-                this.columnuf = base.Columns["uf"];
-                this.columnlimiteCompra = base.Columns["limiteCompra"];
-                this.columnobservacao = base.Columns["observacao"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columncodigoEmpresa = new global::System.Data.DataColumn("codigoEmpresa", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodigoEmpresa);
-                this.columnnome = new global::System.Data.DataColumn("nome", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnnome);
-                this.columncnpj = new global::System.Data.DataColumn("cnpj", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncnpj);
-                this.columnie = new global::System.Data.DataColumn("ie", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnie);
-                this.columnfone = new global::System.Data.DataColumn("fone", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnfone);
-                this.columnendereco = new global::System.Data.DataColumn("endereco", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnendereco);
-                this.columnbairro = new global::System.Data.DataColumn("bairro", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbairro);
-                this.columncep = new global::System.Data.DataColumn("cep", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncep);
-                this.columncidade = new global::System.Data.DataColumn("cidade", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncidade);
-                this.columnuf = new global::System.Data.DataColumn("uf", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnuf);
-                this.columnlimiteCompra = new global::System.Data.DataColumn("limiteCompra", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlimiteCompra);
-                this.columnobservacao = new global::System.Data.DataColumn("observacao", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnobservacao);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnnome}, false));
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
-                                this.columncodigoEmpresa}, true));
-                this.columncodigoEmpresa.AutoIncrement = true;
-                this.columncodigoEmpresa.AutoIncrementSeed = -1;
-                this.columncodigoEmpresa.AutoIncrementStep = -1;
-                this.columncodigoEmpresa.AllowDBNull = false;
-                this.columncodigoEmpresa.Unique = true;
-                this.columnnome.AllowDBNull = false;
-                this.columnnome.Unique = true;
-                this.columnnome.MaxLength = 40;
-                this.columncnpj.MaxLength = 14;
-                this.columnie.MaxLength = 14;
-                this.columnfone.MaxLength = 10;
-                this.columnendereco.MaxLength = 100;
-                this.columnbairro.MaxLength = 40;
-                this.columncep.MaxLength = 8;
-                this.columncidade.MaxLength = 40;
-                this.columnuf.MaxLength = 2;
-                this.columnobservacao.MaxLength = 300;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow Newtb_empresaRow() {
-                return ((tb_empresaRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new tb_empresaRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Type GetRowType() {
-                return typeof(tb_empresaRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.tb_empresaRowChanged != null)) {
-                    this.tb_empresaRowChanged(this, new tb_empresaRowChangeEvent(((tb_empresaRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.tb_empresaRowChanging != null)) {
-                    this.tb_empresaRowChanging(this, new tb_empresaRowChangeEvent(((tb_empresaRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.tb_empresaRowDeleted != null)) {
-                    this.tb_empresaRowDeleted(this, new tb_empresaRowChangeEvent(((tb_empresaRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.tb_empresaRowDeleting != null)) {
-                    this.tb_empresaRowDeleting(this, new tb_empresaRowChangeEvent(((tb_empresaRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Removetb_empresaRow(tb_empresaRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                saceDataSet ds = new saceDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "tb_empresaDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -4170,11 +3703,11 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entradaRow Addtb_entradaRow(tb_empresaRow parenttb_empresaRowByFK_TB_ENTRADA_1, tb_empresaRow parenttb_empresaRowByFK_TB_ENTRADA_2, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal, decimal valorICMSSubstituto, decimal icmsPadrao) {
+            public tb_entradaRow Addtb_entradaRow(long codigoFornecedor, tb_pessoaRow parenttb_pessoaRowBytb_pessoa_tb_entrada_fk, decimal valorCustoFrete, System.DateTime dataEntrada, decimal valorTotal, string tipoEntrada, long numeroNotaFiscal, decimal valorICMSSubstituto, decimal icmsPadrao) {
                 tb_entradaRow rowtb_entradaRow = ((tb_entradaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null,
+                        codigoFornecedor,
                         null,
                         valorCustoFrete,
                         dataEntrada,
@@ -4183,11 +3716,8 @@ namespace SACE.Dados {
                         numeroNotaFiscal,
                         valorICMSSubstituto,
                         icmsPadrao};
-                if ((parenttb_empresaRowByFK_TB_ENTRADA_1 != null)) {
-                    columnValuesArray[1] = parenttb_empresaRowByFK_TB_ENTRADA_1[0];
-                }
-                if ((parenttb_empresaRowByFK_TB_ENTRADA_2 != null)) {
-                    columnValuesArray[2] = parenttb_empresaRowByFK_TB_ENTRADA_2[0];
+                if ((parenttb_pessoaRowBytb_pessoa_tb_entrada_fk != null)) {
+                    columnValuesArray[2] = parenttb_pessoaRowBytb_pessoa_tb_entrada_fk[0];
                 }
                 rowtb_entradaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_entradaRow);
@@ -7608,7 +7138,7 @@ namespace SACE.Dados {
                         string unidade, 
                         string codigoBarra, 
                         tb_grupoRow parenttb_grupoRowByFK_TB_PRODUTO_1, 
-                        tb_empresaRow parenttb_empresaRowByFK_TB_PRODUTO_2, 
+                        tb_pessoaRow parenttb_pessoaRowBytb_pessoa_tb_produto_fk, 
                         bool temVencimento, 
                         int cfop, 
                         decimal icms, 
@@ -7663,8 +7193,8 @@ namespace SACE.Dados {
                 if ((parenttb_grupoRowByFK_TB_PRODUTO_1 != null)) {
                     columnValuesArray[5] = parenttb_grupoRowByFK_TB_PRODUTO_1[0];
                 }
-                if ((parenttb_empresaRowByFK_TB_PRODUTO_2 != null)) {
-                    columnValuesArray[6] = parenttb_empresaRowByFK_TB_PRODUTO_2[0];
+                if ((parenttb_pessoaRowBytb_pessoa_tb_produto_fk != null)) {
+                    columnValuesArray[6] = parenttb_pessoaRowBytb_pessoa_tb_produto_fk[0];
                 }
                 rowtb_produtoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_produtoRow);
@@ -11476,16 +11006,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow tb_empresaRow {
-                get {
-                    return ((tb_empresaRow)(this.GetParentRow(this.Table.ParentRelations["FK_CONTA_PAGAR_3"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CONTA_PAGAR_3"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_entradaRow tb_entradaRow {
                 get {
                     return ((tb_entradaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_CONTA_PAGAR_4"])));
@@ -11777,16 +11297,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow tb_empresaRow {
-                get {
-                    return ((tb_empresaRow)(this.GetParentRow(this.Table.ParentRelations["FK_CONTA_RECEBER_3"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CONTA_RECEBER_3"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_saidaRow tb_saidaRow {
                 get {
                     return ((tb_saidaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_CONTA_RECEBER_5"])));
@@ -11942,16 +11452,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow tb_empresaRow {
-                get {
-                    return ((tb_empresaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_CONTATO_EMPRESA_1"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TB_CONTATO_EMPRESA_1"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_pessoaRow tb_pessoaRowByFK_TB_CONTATO_EMPRESA_2 {
                 get {
                     return ((tb_pessoaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_CONTATO_EMPRESA_2"])));
@@ -11968,351 +11468,6 @@ namespace SACE.Dados {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["tb_pessoa_tb_contato_empresa_fk"]);
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class tb_empresaRow : global::System.Data.DataRow {
-            
-            private tb_empresaDataTable tabletb_empresa;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal tb_empresaRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tabletb_empresa = ((tb_empresaDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public long codigoEmpresa {
-                get {
-                    return ((long)(this[this.tabletb_empresa.codigoEmpresaColumn]));
-                }
-                set {
-                    this[this.tabletb_empresa.codigoEmpresaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string nome {
-                get {
-                    return ((string)(this[this.tabletb_empresa.nomeColumn]));
-                }
-                set {
-                    this[this.tabletb_empresa.nomeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string cnpj {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.cnpjColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cnpj\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.cnpjColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ie {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.ieColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ie\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.ieColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string fone {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.foneColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'fone\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.foneColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string endereco {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.enderecoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'endereco\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.enderecoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string bairro {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.bairroColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'bairro\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.bairroColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string cep {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.cepColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cep\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.cepColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string cidade {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.cidadeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cidade\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.cidadeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string uf {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.ufColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'uf\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.ufColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal limiteCompra {
-                get {
-                    try {
-                        return ((decimal)(this[this.tabletb_empresa.limiteCompraColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'limiteCompra\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.limiteCompraColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string observacao {
-                get {
-                    try {
-                        return ((string)(this[this.tabletb_empresa.observacaoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'observacao\' in table \'tb_empresa\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabletb_empresa.observacaoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IscnpjNull() {
-                return this.IsNull(this.tabletb_empresa.cnpjColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetcnpjNull() {
-                this[this.tabletb_empresa.cnpjColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsieNull() {
-                return this.IsNull(this.tabletb_empresa.ieColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetieNull() {
-                this[this.tabletb_empresa.ieColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsfoneNull() {
-                return this.IsNull(this.tabletb_empresa.foneColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetfoneNull() {
-                this[this.tabletb_empresa.foneColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsenderecoNull() {
-                return this.IsNull(this.tabletb_empresa.enderecoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetenderecoNull() {
-                this[this.tabletb_empresa.enderecoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsbairroNull() {
-                return this.IsNull(this.tabletb_empresa.bairroColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetbairroNull() {
-                this[this.tabletb_empresa.bairroColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IscepNull() {
-                return this.IsNull(this.tabletb_empresa.cepColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetcepNull() {
-                this[this.tabletb_empresa.cepColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IscidadeNull() {
-                return this.IsNull(this.tabletb_empresa.cidadeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetcidadeNull() {
-                this[this.tabletb_empresa.cidadeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsufNull() {
-                return this.IsNull(this.tabletb_empresa.ufColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetufNull() {
-                this[this.tabletb_empresa.ufColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IslimiteCompraNull() {
-                return this.IsNull(this.tabletb_empresa.limiteCompraColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetlimiteCompraNull() {
-                this[this.tabletb_empresa.limiteCompraColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsobservacaoNull() {
-                return this.IsNull(this.tabletb_empresa.observacaoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetobservacaoNull() {
-                this[this.tabletb_empresa.observacaoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_conta_pagarRow[] Gettb_conta_pagarRows() {
-                if ((this.Table.ChildRelations["FK_CONTA_PAGAR_3"] == null)) {
-                    return new tb_conta_pagarRow[0];
-                }
-                else {
-                    return ((tb_conta_pagarRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CONTA_PAGAR_3"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_conta_receberRow[] Gettb_conta_receberRows() {
-                if ((this.Table.ChildRelations["FK_CONTA_RECEBER_3"] == null)) {
-                    return new tb_conta_receberRow[0];
-                }
-                else {
-                    return ((tb_conta_receberRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CONTA_RECEBER_3"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_contato_empresaRow[] Gettb_contato_empresaRows() {
-                if ((this.Table.ChildRelations["FK_TB_CONTATO_EMPRESA_1"] == null)) {
-                    return new tb_contato_empresaRow[0];
-                }
-                else {
-                    return ((tb_contato_empresaRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TB_CONTATO_EMPRESA_1"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entradaRow[] Gettb_entradaRowsByFK_TB_ENTRADA_1() {
-                if ((this.Table.ChildRelations["FK_TB_ENTRADA_1"] == null)) {
-                    return new tb_entradaRow[0];
-                }
-                else {
-                    return ((tb_entradaRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TB_ENTRADA_1"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_entradaRow[] Gettb_entradaRowsByFK_TB_ENTRADA_2() {
-                if ((this.Table.ChildRelations["FK_TB_ENTRADA_2"] == null)) {
-                    return new tb_entradaRow[0];
-                }
-                else {
-                    return ((tb_entradaRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TB_ENTRADA_2"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_produtoRow[] Gettb_produtoRows() {
-                if ((this.Table.ChildRelations["FK_TB_PRODUTO_2"] == null)) {
-                    return new tb_produtoRow[0];
-                }
-                else {
-                    return ((tb_produtoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TB_PRODUTO_2"])));
                 }
             }
         }
@@ -12463,26 +11618,6 @@ namespace SACE.Dados {
                 }
                 set {
                     this[this.tabletb_entrada.icmsPadraoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow tb_empresaRowByFK_TB_ENTRADA_1 {
-                get {
-                    return ((tb_empresaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_ENTRADA_1"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TB_ENTRADA_1"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow tb_empresaRowByFK_TB_ENTRADA_2 {
-                get {
-                    return ((tb_empresaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_ENTRADA_2"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TB_ENTRADA_2"]);
                 }
             }
             
@@ -14114,16 +13249,6 @@ namespace SACE.Dados {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_TB_PRODUTO_1"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow tb_empresaRow {
-                get {
-                    return ((tb_empresaRow)(this.GetParentRow(this.Table.ParentRelations["FK_TB_PRODUTO_2"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TB_PRODUTO_2"]);
                 }
             }
             
@@ -16158,37 +15283,6 @@ namespace SACE.Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public tb_contato_empresaRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class tb_empresaRowChangeEvent : global::System.EventArgs {
-            
-            private tb_empresaRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRowChangeEvent(tb_empresaRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public tb_empresaRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -20577,626 +19671,6 @@ namespace SACE.Dados.saceDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(long Original_codigoEmpresa, long Original_codPessoa) {
             return this.Update(Original_codigoEmpresa, Original_codPessoa, Original_codigoEmpresa, Original_codPessoa);
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class tb_empresaTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
-        
-        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
-        
-        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
-        
-        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public tb_empresaTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "tb_empresa";
-            tableMapping.ColumnMappings.Add("codigoEmpresa", "codigoEmpresa");
-            tableMapping.ColumnMappings.Add("nome", "nome");
-            tableMapping.ColumnMappings.Add("cnpj", "cnpj");
-            tableMapping.ColumnMappings.Add("ie", "ie");
-            tableMapping.ColumnMappings.Add("fone", "fone");
-            tableMapping.ColumnMappings.Add("endereco", "endereco");
-            tableMapping.ColumnMappings.Add("bairro", "bairro");
-            tableMapping.ColumnMappings.Add("cep", "cep");
-            tableMapping.ColumnMappings.Add("cidade", "cidade");
-            tableMapping.ColumnMappings.Add("uf", "uf");
-            tableMapping.ColumnMappings.Add("limiteCompra", "limiteCompra");
-            tableMapping.ColumnMappings.Add("observacao", "observacao");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_empresa\r\nWHERE        (codigoEmpresa = @Original_codigoEmpresa)";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codigoEmpresa";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoEmpresa";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `sace`.`tb_empresa` (`nome`, `cnpj`, `ie`, `fone`, `endereco`, `bairr" +
-                "o`, `cep`, `cidade`, `uf`, `limiteCompra`, `observacao`) VALUES (@nome, @cnpj, @" +
-                "ie, @fone, @endereco, @bairro, @cep, @cidade, @uf, @limiteCompra, @observacao)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@nome";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "nome";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@cnpj";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "cnpj";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@ie";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "ie";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@fone";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "fone";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@endereco";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "endereco";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@bairro";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "bairro";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@cep";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "cep";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@cidade";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "cidade";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@uf";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.IsNullable = true;
-            param.SourceColumn = "uf";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@limiteCompra";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "limiteCompra";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@observacao";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "observacao";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_empresa
-SET                nome = @nome, cnpj = @cnpj, ie = @ie, fone = @fone, endereco = @endereco, bairro = @bairro, cep = @cep, cidade = @cidade, uf = @uf, 
-                         limiteCompra = @limiteCompra, observacao = @observacao
-WHERE        (codigoEmpresa = @Original_codigoEmpresa)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@nome";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
-            param.IsNullable = true;
-            param.SourceColumn = "nome";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@cnpj";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 14;
-            param.IsNullable = true;
-            param.SourceColumn = "cnpj";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@ie";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 14;
-            param.IsNullable = true;
-            param.SourceColumn = "ie";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@fone";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.Size = 10;
-            param.IsNullable = true;
-            param.SourceColumn = "fone";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@endereco";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 100;
-            param.IsNullable = true;
-            param.SourceColumn = "endereco";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@bairro";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
-            param.IsNullable = true;
-            param.SourceColumn = "bairro";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@cep";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.Size = 8;
-            param.IsNullable = true;
-            param.SourceColumn = "cep";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@cidade";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
-            param.IsNullable = true;
-            param.SourceColumn = "cidade";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@uf";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
-            param.Size = 2;
-            param.IsNullable = true;
-            param.SourceColumn = "uf";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@limiteCompra";
-            param.DbType = global::System.Data.DbType.Decimal;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "limiteCompra";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@observacao";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 300;
-            param.IsNullable = true;
-            param.SourceColumn = "observacao";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codigoEmpresa";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoEmpresa";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::SACE.Dados.Properties.Settings.Default.saceConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
-            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codigoEmpresa`, `nome`, `cnpj`, `ie`, `fone`, `endereco`, `bairro`, `cep`" +
-                ", `cidade`, `uf`, `limiteCompra`, `observacao` FROM `sace`.`tb_empresa`";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT `codigoEmpresa`, `codPessoa` FROM `sace`.`tb_contato_empresa`\r\nwhere codig" +
-                "oEmpresa = @codigoEmpresa";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codigoEmpresa";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codigoEmpresa";
-            this._commandCollection[1].Parameters.Add(param);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(saceDataSet.tb_empresaDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual saceDataSet.tb_empresaDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            saceDataSet.tb_empresaDataTable dataTable = new saceDataSet.tb_empresaDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByEmpresa(saceDataSet.tb_empresaDataTable dataTable, long codigoEmpresa) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codigoEmpresa));
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual saceDataSet.tb_empresaDataTable GetDataByEmpresa(long codigoEmpresa) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codigoEmpresa));
-            saceDataSet.tb_empresaDataTable dataTable = new saceDataSet.tb_empresaDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(saceDataSet.tb_empresaDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(saceDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "tb_empresa");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_codigoEmpresa) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_codigoEmpresa));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string nome, string cnpj, string ie, string fone, string endereco, string bairro, string cep, string cidade, string uf, string limiteCompra, string observacao) {
-            if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(nome));
-            }
-            if ((cnpj == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(cnpj));
-            }
-            if ((ie == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(ie));
-            }
-            if ((fone == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(fone));
-            }
-            if ((endereco == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(endereco));
-            }
-            if ((bairro == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(bairro));
-            }
-            if ((cep == null)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(cep));
-            }
-            if ((cidade == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(cidade));
-            }
-            if ((uf == null)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(uf));
-            }
-            if ((limiteCompra == null)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(limiteCompra));
-            }
-            if ((observacao == null)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(observacao));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string nome, string cnpj, string ie, string fone, string endereco, string bairro, string cep, string cidade, string uf, global::System.Nullable<decimal> limiteCompra, string observacao, long Original_codigoEmpresa) {
-            if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(nome));
-            }
-            if ((cnpj == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(cnpj));
-            }
-            if ((ie == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(ie));
-            }
-            if ((fone == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(fone));
-            }
-            if ((endereco == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(endereco));
-            }
-            if ((bairro == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(bairro));
-            }
-            if ((cep == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(cep));
-            }
-            if ((cidade == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(cidade));
-            }
-            if ((uf == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(uf));
-            }
-            if ((limiteCompra.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(limiteCompra.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            if ((observacao == null)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(observacao));
-            }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((long)(Original_codigoEmpresa));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
         }
     }
     
@@ -32814,8 +31288,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
         
         private tb_contato_empresaTableAdapter _tb_contato_empresaTableAdapter;
         
-        private tb_empresaTableAdapter _tb_empresaTableAdapter;
-        
         private tb_entradaTableAdapter _tb_entradaTableAdapter;
         
         private tb_entrada_produtoTableAdapter _tb_entrada_produtoTableAdapter;
@@ -32962,19 +31434,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
             }
             set {
                 this._tb_contato_empresaTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" +
-            "", "System.Drawing.Design.UITypeEditor")]
-        public tb_empresaTableAdapter tb_empresaTableAdapter {
-            get {
-                return this._tb_empresaTableAdapter;
-            }
-            set {
-                this._tb_empresaTableAdapter = value;
             }
         }
         
@@ -33309,10 +31768,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                             && (this._tb_contato_empresaTableAdapter.Connection != null))) {
                     return this._tb_contato_empresaTableAdapter.Connection;
                 }
-                if (((this._tb_empresaTableAdapter != null) 
-                            && (this._tb_empresaTableAdapter.Connection != null))) {
-                    return this._tb_empresaTableAdapter.Connection;
-                }
                 if (((this._tb_entradaTableAdapter != null) 
                             && (this._tb_entradaTableAdapter.Connection != null))) {
                     return this._tb_entradaTableAdapter.Connection;
@@ -33434,9 +31889,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                 if ((this._tb_contato_empresaTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._tb_empresaTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 if ((this._tb_entradaTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -33513,15 +31965,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private int UpdateUpdatedRows(saceDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._tb_empresaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_empresa.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_empresaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._tb_grupo_contaTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_grupo_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -33540,12 +31983,12 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_plano_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_plano_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_plano_contaTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_bancoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33558,15 +32001,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_saidaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_saida.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_saidaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._tb_perfilTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -33576,12 +32010,21 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_saidaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_saida.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_saidaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_plano_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_plano_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_plano_contaTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33591,15 +32034,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tb_entradaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_conta_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_conta_bancoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33621,12 +32055,12 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_usuarioTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_conta_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_usuarioTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_conta_bancoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33639,12 +32073,12 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tb_usuarioTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_produtoTableAdapter.Update(updatedRows));
+                    result = (result + this._tb_usuarioTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33666,12 +32100,30 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._tb_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_produtoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._tb_conta_receberTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tb_conta_receberTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33684,6 +32136,15 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._tb_cfopTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_cfop.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -33693,30 +32154,12 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_entrada_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_entrada_produtoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._tb_cartao_creditoTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_cartao_credito.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tb_cartao_creditoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33738,21 +32181,21 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tb_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._tb_contato_empresaTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tb_contato_empresaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._tb_entrada_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tb_entrada_produtoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -33792,14 +32235,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private int UpdateInsertedRows(saceDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._tb_empresaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_empresa.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_empresaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._tb_grupo_contaTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_grupo_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -33816,11 +32251,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_plano_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_plano_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_plano_contaTableAdapter.Update(addedRows));
+                    result = (result + this._tb_bancoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33832,14 +32267,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_saidaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_saida.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_saidaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._tb_perfilTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -33848,11 +32275,19 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_saidaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_saida.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(addedRows));
+                    result = (result + this._tb_saidaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_plano_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_plano_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_plano_contaTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33861,14 +32296,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tb_entradaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_conta_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_conta_bancoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33888,11 +32315,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_usuarioTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_conta_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_usuarioTableAdapter.Update(addedRows));
+                    result = (result + this._tb_conta_bancoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33904,11 +32331,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tb_usuarioTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tb_produtoTableAdapter.Update(addedRows));
+                    result = (result + this._tb_usuarioTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33928,11 +32355,27 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._tb_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_produtoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._tb_conta_receberTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tb_conta_receberTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33944,6 +32387,14 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._tb_cfopTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_cfop.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -33952,27 +32403,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_entrada_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_entrada_produtoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._tb_cartao_creditoTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_cartao_credito.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tb_cartao_creditoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -33992,19 +32427,19 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tb_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._tb_contato_empresaTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tb_contato_empresaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tb_entrada_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tb_entrada_produtoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -34065,19 +32500,19 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._tb_entrada_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_entrada_produtoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tb_contato_empresaTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_contato_empresa.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._tb_contato_empresaTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_movimentacao_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34097,27 +32532,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._tb_cartao_creditoTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_cartao_credito.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._tb_cartao_creditoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_entrada_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_entrada_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_entrada_produtoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34129,6 +32548,14 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._tb_perfil_funcionalidadeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_perfil_funcionalidade.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_perfil_funcionalidadeTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tb_saida_produtoTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_saida_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -34137,11 +32564,27 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._tb_movimentacao_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_movimentacao_conta.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_movimentacao_contaTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tb_conta_receberTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_conta_receber.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._tb_conta_receberTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tb_produtoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_produtoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34161,11 +32604,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_produtoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_produto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_usuarioTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_produtoTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_usuarioTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34177,11 +32620,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_usuarioTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_usuario.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_conta_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_usuarioTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_conta_bancoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34201,14 +32644,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_conta_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_conta_bancoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._tb_entradaTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_entrada.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -34217,19 +32652,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_plano_contaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_plano_conta.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_perfilTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_perfilTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_plano_contaTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34241,6 +32668,14 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._tb_perfilTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_perfil.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tb_perfilTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tb_grupoTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tb_grupo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -34249,11 +32684,11 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_plano_contaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_plano_conta.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tb_bancoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_plano_contaTableAdapter.Update(deletedRows));
+                    result = (result + this._tb_bancoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34270,14 +32705,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._tb_grupo_contaTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._tb_empresaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_empresa.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_empresaTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -34350,11 +32777,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
             }
             if (((this._tb_contato_empresaTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._tb_contato_empresaTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
-            if (((this._tb_empresaTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._tb_empresaTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -34561,15 +32983,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                     if (this._tb_contato_empresaTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._tb_contato_empresaTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._tb_contato_empresaTableAdapter.Adapter);
-                    }
-                }
-                if ((this._tb_empresaTableAdapter != null)) {
-                    revertConnections.Add(this._tb_empresaTableAdapter, this._tb_empresaTableAdapter.Connection);
-                    this._tb_empresaTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(workConnection));
-                    this._tb_empresaTableAdapter.Transaction = ((global::MySql.Data.MySqlClient.MySqlTransaction)(workTransaction));
-                    if (this._tb_empresaTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._tb_empresaTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._tb_empresaTableAdapter.Adapter);
                     }
                 }
                 if ((this._tb_entradaTableAdapter != null)) {
@@ -34855,10 +33268,6 @@ WHERE        (codPessoa = @Original_codPessoa)";
                 if ((this._tb_contato_empresaTableAdapter != null)) {
                     this._tb_contato_empresaTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_contato_empresaTableAdapter]));
                     this._tb_contato_empresaTableAdapter.Transaction = null;
-                }
-                if ((this._tb_empresaTableAdapter != null)) {
-                    this._tb_empresaTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_empresaTableAdapter]));
-                    this._tb_empresaTableAdapter.Transaction = null;
                 }
                 if ((this._tb_entradaTableAdapter != null)) {
                     this._tb_entradaTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_entradaTableAdapter]));
