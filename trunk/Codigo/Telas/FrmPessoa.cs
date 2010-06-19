@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Util;
 
 namespace SACE.Telas
 {
@@ -86,18 +87,42 @@ namespace SACE.Telas
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_pessoaTableAdapter.Insert(nomeTextBox.Text, cpfTextBox.Text, enderecoTextBox.Text,
-                        cepTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1TextBox.Text,
-                        fone2TextBox.Text, decimal.Parse(limiteCompraTextBox.Text), decimal.Parse(valorComissaoTextBox.Text),
+                    if ((PfRadioButton.Checked) && (!Validacoes.ValidaCPF(cpf_cnpjMaskedTextBox.Text)))
+                    {
+                        ErrorProvider errorprovider = new ErrorProvider();
+                        cpf_cnpjErrorProvider.SetError(cpf_cnpjMaskedTextBox, "CPF Inválido");
+                        return;
+                    }
+                    else if (!(PfRadioButton.Checked) && (!Validacoes.ValidaCNPJ(cpf_cnpjMaskedTextBox.Text)))
+                    {
+                        ErrorProvider errorprovider = new ErrorProvider();
+                        cpf_cnpjErrorProvider.SetError(cpf_cnpjMaskedTextBox, "CNPJ Inválido");
+                        return;
+                    }
+                    tb_pessoaTableAdapter.Insert(nomeTextBox.Text, cpf_cnpjMaskedTextBox.Text, enderecoTextBox.Text,
+                        cepMaskedTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1MaskedTextBox.Text,
+                        fone2MaskedTextBox.Text, decimal.Parse(limiteCompraMaskedTextBox.Text), decimal.Parse(valorComissaoMaskedTextBox.Text),
                         observacaoTextBox.Text, PfRadioButton.Checked?"F":"J");
                     tb_pessoaTableAdapter.Fill(saceDataSet.tb_pessoa);
                     tb_pessoaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_pessoaTableAdapter.Update(nomeTextBox.Text, cpfTextBox.Text, enderecoTextBox.Text,
-                        cepTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1TextBox.Text,
-                        fone2TextBox.Text, decimal.Parse(limiteCompraTextBox.Text), decimal.Parse(valorComissaoTextBox.Text),
+                    if ((PfRadioButton.Checked) && (!Validacoes.ValidaCPF(cpf_cnpjMaskedTextBox.Text)))
+                    {
+                        ErrorProvider errorprovider = new ErrorProvider();
+                        cpf_cnpjErrorProvider.SetError(cpf_cnpjMaskedTextBox, "CPF Inválido");
+                        return;
+                    }
+                    else if (!(PfRadioButton.Checked) && (!Validacoes.ValidaCNPJ(cpf_cnpjMaskedTextBox.Text)))
+                    {
+                        ErrorProvider errorprovider = new ErrorProvider();
+                        cpf_cnpjErrorProvider.SetError(cpf_cnpjMaskedTextBox, "CNPJ Inválido");
+                        return;
+                    }                    
+                    tb_pessoaTableAdapter.Update(nomeTextBox.Text, cpf_cnpjMaskedTextBox.Text, enderecoTextBox.Text,
+                        cepMaskedTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1MaskedTextBox.Text,
+                        fone2MaskedTextBox.Text, decimal.Parse(limiteCompraMaskedTextBox.Text), decimal.Parse(valorComissaoMaskedTextBox.Text),
                         observacaoTextBox.Text, PfRadioButton.Checked ? "F" : "J", long.Parse(codPessoaTextBox.Text));
                     tb_pessoaBindingSource.EndEdit();
                 }
@@ -185,11 +210,13 @@ namespace SACE.Telas
             {
                 nomeLabel.Text = "Nome:";
                 cpfLabel.Text = "CPF:";
+                cpf_cnpjMaskedTextBox.Mask = "999.999.999-99";
             }
             else
             {
                 nomeLabel.Text = "Razão Social:";
                 cpfLabel.Text = "CNPJ:";
+                cpf_cnpjMaskedTextBox.Mask = "99.999.999/9999-99";
             }
         }
 
