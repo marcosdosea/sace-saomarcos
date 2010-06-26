@@ -168,5 +168,12 @@ namespace SACE
                 Application.Exit();
             }
         }
+
+        private void btnContas_Click(object sender, EventArgs e)
+        {
+            Telas.FrmContas frmConta = new Telas.FrmContas();
+            frmConta.ShowDialog();
+            frmConta.Dispose();
+        }
     }
 }

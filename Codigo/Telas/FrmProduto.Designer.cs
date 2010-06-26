@@ -475,8 +475,6 @@
             this.tableAdapterManager.tb_cfopTableAdapter = this.tb_cfopTableAdapter;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_conta_pagarTableAdapter = null;
-            this.tableAdapterManager.tb_conta_receberTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -486,7 +484,6 @@
             this.tableAdapterManager.tb_grupoTableAdapter = this.tb_grupoTableAdapter;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
             this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
@@ -494,7 +491,6 @@
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = this.tb_produtoTableAdapter;
-            this.tableAdapterManager.tb_recebimentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
