@@ -403,6 +403,7 @@
             this.btnContas.Text = "Contas - F7";
             this.btnContas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnContas.UseVisualStyleBackColor = true;
+            this.btnContas.Click += new System.EventHandler(this.btnContas_Click);
             // 
             // btnCliente
             // 

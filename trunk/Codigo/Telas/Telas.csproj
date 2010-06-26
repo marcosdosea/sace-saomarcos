@@ -51,6 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmContaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmContaPesquisa.Designer.cs">
+      <DependentUpon>FrmContaPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmContas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmContas.Designer.cs">
+      <DependentUpon>FrmContas.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +241,12 @@
     <EmbeddedResource Include="FrmContaBancoPesquisa.resx">
       <DependentUpon>FrmContaBancoPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmContaPesquisa.resx">
+      <DependentUpon>FrmContaPesquisa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmContas.resx">
+      <DependentUpon>FrmContas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEntrada.resx">
       <DependentUpon>FrmEntrada.cs</DependentUpon>
