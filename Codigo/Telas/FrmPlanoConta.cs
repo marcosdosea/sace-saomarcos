@@ -84,11 +84,16 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            string tipo = null;
+            if (radioButton1.Checked)
+                tipo = "P";
+            if (radioButton2.Checked)
+                tipo = "R";
             try
             {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_plano_contaTableAdapter.Insert(int.Parse(codGrupoContaComboBox.SelectedValue.ToString()), descricaoTextBox.Text, null, short.Parse(diaBaseTextBox.Text));
+                    tb_plano_contaTableAdapter.Insert(int.Parse(codGrupoContaComboBox.SelectedValue.ToString()), descricaoTextBox.Text, tipo, short.Parse(diaBaseTextBox.Text));
                     tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
                     tb_plano_contaBindingSource.MoveLast();
                 }

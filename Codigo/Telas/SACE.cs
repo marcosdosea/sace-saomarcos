@@ -175,5 +175,12 @@ namespace SACE
             frmConta.ShowDialog();
             frmConta.Dispose();
         }
+
+        private void baixasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmBaixaConta frmBaixaConta = new Telas.FrmBaixaConta();
+            frmBaixaConta.ShowDialog();
+            frmBaixaConta.Dispose();
+        }
     }
 }

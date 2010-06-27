@@ -244,6 +244,7 @@
             this.baixasToolStripMenuItem.Name = "baixasToolStripMenuItem";
             this.baixasToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.baixasToolStripMenuItem.Text = "Baixas";
+            this.baixasToolStripMenuItem.Click += new System.EventHandler(this.baixasToolStripMenuItem_Click);
             // 
             // movimentaçãoContasToolStripMenuItem
             // 

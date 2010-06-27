@@ -37,8 +37,8 @@
             System.Windows.Forms.Label pessoaLabel;
             System.Windows.Forms.Label dataVencLabel;
             System.Windows.Forms.Label valorLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmContas));
             System.Windows.Forms.Label observacaoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmContas));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -63,24 +63,6 @@
             this.saceDataSet = new SACE.Dados.saceDataSet();
             this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.documentoTextBox = new System.Windows.Forms.TextBox();
-            this.codContaTextBox = new System.Windows.Forms.TextBox();
-            this.codEntradaTextBox = new System.Windows.Forms.TextBox();
-            this.codSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.planoContaComboBox = new System.Windows.Forms.ComboBox();
-            this.pessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.dataVencDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.valorTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.quitadoRadioButton = new System.Windows.Forms.RadioButton();
-            this.AbertoRadioButton = new System.Windows.Forms.RadioButton();
-            this.devolvidoRadioButton = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pagarRadioButton = new System.Windows.Forms.RadioButton();
-            this.receberRadioButton = new System.Windows.Forms.RadioButton();
-            this.observacaoTextBox = new System.Windows.Forms.TextBox();
-            this.baixaContasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorPagoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,8 +70,26 @@
             this.valorDiferencaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codContaBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataBaixaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baixaContasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.documentoTextBox = new System.Windows.Forms.TextBox();
+            this.codContaTextBox = new System.Windows.Forms.TextBox();
+            this.codEntradaTextBox = new System.Windows.Forms.TextBox();
+            this.codSaidaTextBox = new System.Windows.Forms.TextBox();
+            this.planoContaComboBox = new System.Windows.Forms.ComboBox();
             this.planoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pessoaComboBox = new System.Windows.Forms.ComboBox();
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataVencDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.valorTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.devolvidoRadioButton = new System.Windows.Forms.RadioButton();
+            this.quitadoRadioButton = new System.Windows.Forms.RadioButton();
+            this.AbertoRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pagarRadioButton = new System.Windows.Forms.RadioButton();
+            this.receberRadioButton = new System.Windows.Forms.RadioButton();
+            this.observacaoTextBox = new System.Windows.Forms.TextBox();
             this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tb_plano_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
             nomeLabel = new System.Windows.Forms.Label();
@@ -107,17 +107,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.baixaContasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(4, 114);
+            nomeLabel.Location = new System.Drawing.Point(4, 117);
             nomeLabel.Name = "nomeLabel";
             nomeLabel.Size = new System.Drawing.Size(65, 13);
             nomeLabel.TabIndex = 34;
@@ -162,7 +162,7 @@
             // pessoaLabel
             // 
             pessoaLabel.AutoSize = true;
-            pessoaLabel.Location = new System.Drawing.Point(216, 114);
+            pessoaLabel.Location = new System.Drawing.Point(216, 117);
             pessoaLabel.Name = "pessoaLabel";
             pessoaLabel.Size = new System.Drawing.Size(45, 13);
             pessoaLabel.TabIndex = 43;
@@ -171,7 +171,7 @@
             // dataVencLabel
             // 
             dataVencLabel.AutoSize = true;
-            dataVencLabel.Location = new System.Drawing.Point(4, 155);
+            dataVencLabel.Location = new System.Drawing.Point(4, 161);
             dataVencLabel.Name = "dataVencLabel";
             dataVencLabel.Size = new System.Drawing.Size(92, 13);
             dataVencLabel.TabIndex = 45;
@@ -180,11 +180,20 @@
             // valorLabel
             // 
             valorLabel.AutoSize = true;
-            valorLabel.Location = new System.Drawing.Point(111, 155);
+            valorLabel.Location = new System.Drawing.Point(111, 161);
             valorLabel.Name = "valorLabel";
             valorLabel.Size = new System.Drawing.Size(34, 13);
             valorLabel.TabIndex = 47;
             valorLabel.Text = "Valor:";
+            // 
+            // observacaoLabel
+            // 
+            observacaoLabel.AutoSize = true;
+            observacaoLabel.Location = new System.Drawing.Point(165, 203);
+            observacaoLabel.Name = "observacaoLabel";
+            observacaoLabel.Size = new System.Drawing.Size(68, 13);
+            observacaoLabel.TabIndex = 51;
+            observacaoLabel.Text = "Observacao:";
             // 
             // panel1
             // 
@@ -342,7 +351,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 362);
+            this.btnSalvar.Location = new System.Drawing.Point(304, 374);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 28;
@@ -352,7 +361,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 362);
+            this.btnBuscar.Location = new System.Drawing.Point(4, 374);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 24;
@@ -363,7 +372,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 362);
+            this.btnCancelar.Location = new System.Drawing.Point(385, 374);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 29;
@@ -373,7 +382,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 362);
+            this.btnNovo.Location = new System.Drawing.Point(79, 374);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 25;
@@ -383,7 +392,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 362);
+            this.btnExcluir.Location = new System.Drawing.Point(229, 374);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 27;
@@ -393,7 +402,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 362);
+            this.btnEditar.Location = new System.Drawing.Point(154, 374);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 26;
@@ -427,194 +436,11 @@
             this.codContaBancoDataGridViewTextBoxColumn,
             this.dataBaixaDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.baixaContasBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 258);
+            this.dataGridView1.Location = new System.Drawing.Point(4, 270);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(465, 100);
             this.dataGridView1.TabIndex = 30;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 239);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "Quitado:";
-            // 
-            // documentoTextBox
-            // 
-            this.documentoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.documentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "documento", true));
-            this.documentoTextBox.Location = new System.Drawing.Point(7, 130);
-            this.documentoTextBox.Name = "documentoTextBox";
-            this.documentoTextBox.Size = new System.Drawing.Size(207, 20);
-            this.documentoTextBox.TabIndex = 35;
-            // 
-            // codContaTextBox
-            // 
-            this.codContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "codConta", true));
-            this.codContaTextBox.Location = new System.Drawing.Point(7, 86);
-            this.codContaTextBox.Name = "codContaTextBox";
-            this.codContaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codContaTextBox.TabIndex = 33;
-            // 
-            // codEntradaTextBox
-            // 
-            this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "codEntrada", true));
-            this.codEntradaTextBox.Location = new System.Drawing.Point(113, 86);
-            this.codEntradaTextBox.Name = "codEntradaTextBox";
-            this.codEntradaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codEntradaTextBox.TabIndex = 37;
-            // 
-            // codSaidaTextBox
-            // 
-            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "codSaida", true));
-            this.codSaidaTextBox.Location = new System.Drawing.Point(219, 86);
-            this.codSaidaTextBox.Name = "codSaidaTextBox";
-            this.codSaidaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codSaidaTextBox.TabIndex = 39;
-            // 
-            // planoContaComboBox
-            // 
-            this.planoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contasBindingSource, "codPlanoConta", true));
-            this.planoContaComboBox.DataSource = this.planoContaBindingSource;
-            this.planoContaComboBox.DisplayMember = "descricao";
-            this.planoContaComboBox.FormattingEnabled = true;
-            this.planoContaComboBox.Location = new System.Drawing.Point(325, 86);
-            this.planoContaComboBox.Name = "planoContaComboBox";
-            this.planoContaComboBox.Size = new System.Drawing.Size(144, 21);
-            this.planoContaComboBox.TabIndex = 40;
-            this.planoContaComboBox.ValueMember = "codPlanoConta";
-            // 
-            // pessoaComboBox
-            // 
-            this.pessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contasBindingSource, "codPessoa", true));
-            this.pessoaComboBox.DataSource = this.pessoaBindingSource;
-            this.pessoaComboBox.DisplayMember = "nome";
-            this.pessoaComboBox.FormattingEnabled = true;
-            this.pessoaComboBox.Location = new System.Drawing.Point(220, 130);
-            this.pessoaComboBox.Name = "pessoaComboBox";
-            this.pessoaComboBox.Size = new System.Drawing.Size(249, 21);
-            this.pessoaComboBox.TabIndex = 42;
-            this.pessoaComboBox.ValueMember = "codPessoa";
-            // 
-            // dataVencDateTimePicker
-            // 
-            this.dataVencDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tb_contasBindingSource, "dataVencimento", true));
-            this.dataVencDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataVencDateTimePicker.Location = new System.Drawing.Point(7, 171);
-            this.dataVencDateTimePicker.Name = "dataVencDateTimePicker";
-            this.dataVencDateTimePicker.Size = new System.Drawing.Size(100, 20);
-            this.dataVencDateTimePicker.TabIndex = 44;
-            // 
-            // valorTextBox
-            // 
-            this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "valor", true));
-            this.valorTextBox.Location = new System.Drawing.Point(114, 171);
-            this.valorTextBox.Name = "valorTextBox";
-            this.valorTextBox.Size = new System.Drawing.Size(100, 20);
-            this.valorTextBox.TabIndex = 46;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.devolvidoRadioButton);
-            this.groupBox1.Controls.Add(this.quitadoRadioButton);
-            this.groupBox1.Controls.Add(this.AbertoRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(219, 157);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 34);
-            this.groupBox1.TabIndex = 48;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Status:";
-            // 
-            // quitadoRadioButton
-            // 
-            this.quitadoRadioButton.AutoSize = true;
-            this.quitadoRadioButton.Location = new System.Drawing.Point(83, 14);
-            this.quitadoRadioButton.Name = "quitadoRadioButton";
-            this.quitadoRadioButton.Size = new System.Drawing.Size(62, 17);
-            this.quitadoRadioButton.TabIndex = 1;
-            this.quitadoRadioButton.TabStop = true;
-            this.quitadoRadioButton.Text = "Quitado";
-            this.quitadoRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // AbertoRadioButton
-            // 
-            this.AbertoRadioButton.AutoSize = true;
-            this.AbertoRadioButton.Location = new System.Drawing.Point(10, 14);
-            this.AbertoRadioButton.Name = "AbertoRadioButton";
-            this.AbertoRadioButton.Size = new System.Drawing.Size(56, 17);
-            this.AbertoRadioButton.TabIndex = 0;
-            this.AbertoRadioButton.TabStop = true;
-            this.AbertoRadioButton.Text = "Aberto";
-            this.AbertoRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // devolvidoRadioButton
-            // 
-            this.devolvidoRadioButton.AutoSize = true;
-            this.devolvidoRadioButton.Location = new System.Drawing.Point(166, 14);
-            this.devolvidoRadioButton.Name = "devolvidoRadioButton";
-            this.devolvidoRadioButton.Size = new System.Drawing.Size(73, 17);
-            this.devolvidoRadioButton.TabIndex = 2;
-            this.devolvidoRadioButton.TabStop = true;
-            this.devolvidoRadioButton.Text = "Devolvido";
-            this.devolvidoRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.pagarRadioButton);
-            this.groupBox2.Controls.Add(this.receberRadioButton);
-            this.groupBox2.Location = new System.Drawing.Point(7, 197);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(155, 34);
-            this.groupBox2.TabIndex = 49;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Tipo:";
-            // 
-            // pagarRadioButton
-            // 
-            this.pagarRadioButton.AutoSize = true;
-            this.pagarRadioButton.Location = new System.Drawing.Point(86, 14);
-            this.pagarRadioButton.Name = "pagarRadioButton";
-            this.pagarRadioButton.Size = new System.Drawing.Size(63, 17);
-            this.pagarRadioButton.TabIndex = 1;
-            this.pagarRadioButton.TabStop = true;
-            this.pagarRadioButton.Text = "À Pagar";
-            this.pagarRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // receberRadioButton
-            // 
-            this.receberRadioButton.AutoSize = true;
-            this.receberRadioButton.Location = new System.Drawing.Point(10, 14);
-            this.receberRadioButton.Name = "receberRadioButton";
-            this.receberRadioButton.Size = new System.Drawing.Size(76, 17);
-            this.receberRadioButton.TabIndex = 0;
-            this.receberRadioButton.TabStop = true;
-            this.receberRadioButton.Text = "À Receber";
-            this.receberRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // observacaoLabel
-            // 
-            observacaoLabel.AutoSize = true;
-            observacaoLabel.Location = new System.Drawing.Point(165, 194);
-            observacaoLabel.Name = "observacaoLabel";
-            observacaoLabel.Size = new System.Drawing.Size(68, 13);
-            observacaoLabel.TabIndex = 51;
-            observacaoLabel.Text = "Observacao:";
-            // 
-            // observacaoTextBox
-            // 
-            this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "observacao", true));
-            this.observacaoTextBox.Location = new System.Drawing.Point(168, 210);
-            this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(301, 20);
-            this.observacaoTextBox.TabIndex = 50;
-            // 
-            // baixaContasBindingSource
-            // 
-            this.baixaContasBindingSource.DataMember = "tb_baixa_conta";
-            this.baixaContasBindingSource.DataSource = this.saceDataSet;
             // 
             // codPagamentoDataGridViewTextBoxColumn
             // 
@@ -665,15 +491,188 @@
             this.dataBaixaDataGridViewTextBoxColumn.Name = "dataBaixaDataGridViewTextBoxColumn";
             this.dataBaixaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // baixaContasBindingSource
+            // 
+            this.baixaContasBindingSource.DataMember = "tb_baixa_conta";
+            this.baixaContasBindingSource.DataSource = this.saceDataSet;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 248);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "Quitado:";
+            // 
+            // documentoTextBox
+            // 
+            this.documentoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.documentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "documento", true));
+            this.documentoTextBox.Location = new System.Drawing.Point(7, 136);
+            this.documentoTextBox.Name = "documentoTextBox";
+            this.documentoTextBox.Size = new System.Drawing.Size(207, 20);
+            this.documentoTextBox.TabIndex = 35;
+            // 
+            // codContaTextBox
+            // 
+            this.codContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "codConta", true));
+            this.codContaTextBox.Location = new System.Drawing.Point(7, 89);
+            this.codContaTextBox.Name = "codContaTextBox";
+            this.codContaTextBox.Size = new System.Drawing.Size(100, 20);
+            this.codContaTextBox.TabIndex = 33;
+            // 
+            // codEntradaTextBox
+            // 
+            this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "codEntrada", true));
+            this.codEntradaTextBox.Location = new System.Drawing.Point(113, 89);
+            this.codEntradaTextBox.Name = "codEntradaTextBox";
+            this.codEntradaTextBox.Size = new System.Drawing.Size(100, 20);
+            this.codEntradaTextBox.TabIndex = 37;
+            // 
+            // codSaidaTextBox
+            // 
+            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "codSaida", true));
+            this.codSaidaTextBox.Location = new System.Drawing.Point(219, 89);
+            this.codSaidaTextBox.Name = "codSaidaTextBox";
+            this.codSaidaTextBox.Size = new System.Drawing.Size(100, 20);
+            this.codSaidaTextBox.TabIndex = 39;
+            // 
+            // planoContaComboBox
+            // 
+            this.planoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contasBindingSource, "codPlanoConta", true));
+            this.planoContaComboBox.DataSource = this.planoContaBindingSource;
+            this.planoContaComboBox.DisplayMember = "descricao";
+            this.planoContaComboBox.FormattingEnabled = true;
+            this.planoContaComboBox.Location = new System.Drawing.Point(325, 89);
+            this.planoContaComboBox.Name = "planoContaComboBox";
+            this.planoContaComboBox.Size = new System.Drawing.Size(144, 21);
+            this.planoContaComboBox.TabIndex = 40;
+            this.planoContaComboBox.ValueMember = "codPlanoConta";
+            // 
             // planoContaBindingSource
             // 
             this.planoContaBindingSource.DataMember = "tb_plano_conta";
             this.planoContaBindingSource.DataSource = this.saceDataSet;
             // 
+            // pessoaComboBox
+            // 
+            this.pessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contasBindingSource, "codPessoa", true));
+            this.pessoaComboBox.DataSource = this.pessoaBindingSource;
+            this.pessoaComboBox.DisplayMember = "nome";
+            this.pessoaComboBox.FormattingEnabled = true;
+            this.pessoaComboBox.Location = new System.Drawing.Point(220, 136);
+            this.pessoaComboBox.Name = "pessoaComboBox";
+            this.pessoaComboBox.Size = new System.Drawing.Size(249, 21);
+            this.pessoaComboBox.TabIndex = 42;
+            this.pessoaComboBox.ValueMember = "codPessoa";
+            // 
             // pessoaBindingSource
             // 
             this.pessoaBindingSource.DataMember = "tb_pessoa";
             this.pessoaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // dataVencDateTimePicker
+            // 
+            this.dataVencDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tb_contasBindingSource, "dataVencimento", true));
+            this.dataVencDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dataVencDateTimePicker.Location = new System.Drawing.Point(7, 180);
+            this.dataVencDateTimePicker.Name = "dataVencDateTimePicker";
+            this.dataVencDateTimePicker.Size = new System.Drawing.Size(100, 20);
+            this.dataVencDateTimePicker.TabIndex = 44;
+            // 
+            // valorTextBox
+            // 
+            this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "valor", true));
+            this.valorTextBox.Location = new System.Drawing.Point(114, 180);
+            this.valorTextBox.Name = "valorTextBox";
+            this.valorTextBox.Size = new System.Drawing.Size(100, 20);
+            this.valorTextBox.TabIndex = 46;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.devolvidoRadioButton);
+            this.groupBox1.Controls.Add(this.quitadoRadioButton);
+            this.groupBox1.Controls.Add(this.AbertoRadioButton);
+            this.groupBox1.Location = new System.Drawing.Point(219, 166);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(250, 34);
+            this.groupBox1.TabIndex = 48;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Status:";
+            // 
+            // devolvidoRadioButton
+            // 
+            this.devolvidoRadioButton.AutoSize = true;
+            this.devolvidoRadioButton.Location = new System.Drawing.Point(166, 14);
+            this.devolvidoRadioButton.Name = "devolvidoRadioButton";
+            this.devolvidoRadioButton.Size = new System.Drawing.Size(73, 17);
+            this.devolvidoRadioButton.TabIndex = 2;
+            this.devolvidoRadioButton.Text = "Devolvido";
+            this.devolvidoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // quitadoRadioButton
+            // 
+            this.quitadoRadioButton.AutoSize = true;
+            this.quitadoRadioButton.Location = new System.Drawing.Point(83, 14);
+            this.quitadoRadioButton.Name = "quitadoRadioButton";
+            this.quitadoRadioButton.Size = new System.Drawing.Size(62, 17);
+            this.quitadoRadioButton.TabIndex = 1;
+            this.quitadoRadioButton.Text = "Quitado";
+            this.quitadoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // AbertoRadioButton
+            // 
+            this.AbertoRadioButton.AutoSize = true;
+            this.AbertoRadioButton.Checked = true;
+            this.AbertoRadioButton.Location = new System.Drawing.Point(10, 14);
+            this.AbertoRadioButton.Name = "AbertoRadioButton";
+            this.AbertoRadioButton.Size = new System.Drawing.Size(56, 17);
+            this.AbertoRadioButton.TabIndex = 0;
+            this.AbertoRadioButton.TabStop = true;
+            this.AbertoRadioButton.Text = "Aberto";
+            this.AbertoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.pagarRadioButton);
+            this.groupBox2.Controls.Add(this.receberRadioButton);
+            this.groupBox2.Location = new System.Drawing.Point(7, 209);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(155, 34);
+            this.groupBox2.TabIndex = 49;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Tipo:";
+            // 
+            // pagarRadioButton
+            // 
+            this.pagarRadioButton.AutoSize = true;
+            this.pagarRadioButton.Location = new System.Drawing.Point(86, 14);
+            this.pagarRadioButton.Name = "pagarRadioButton";
+            this.pagarRadioButton.Size = new System.Drawing.Size(63, 17);
+            this.pagarRadioButton.TabIndex = 1;
+            this.pagarRadioButton.Text = "À Pagar";
+            this.pagarRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // receberRadioButton
+            // 
+            this.receberRadioButton.AutoSize = true;
+            this.receberRadioButton.Checked = true;
+            this.receberRadioButton.Location = new System.Drawing.Point(10, 14);
+            this.receberRadioButton.Name = "receberRadioButton";
+            this.receberRadioButton.Size = new System.Drawing.Size(76, 17);
+            this.receberRadioButton.TabIndex = 0;
+            this.receberRadioButton.TabStop = true;
+            this.receberRadioButton.Text = "À Receber";
+            this.receberRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // observacaoTextBox
+            // 
+            this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "observacao", true));
+            this.observacaoTextBox.Location = new System.Drawing.Point(168, 222);
+            this.observacaoTextBox.Name = "observacaoTextBox";
+            this.observacaoTextBox.Size = new System.Drawing.Size(301, 20);
+            this.observacaoTextBox.TabIndex = 50;
             // 
             // tb_pessoaTableAdapter
             // 
@@ -687,7 +686,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 389);
+            this.ClientSize = new System.Drawing.Size(475, 405);
             this.Controls.Add(observacaoLabel);
             this.Controls.Add(this.observacaoTextBox);
             this.Controls.Add(this.groupBox2);
@@ -730,13 +729,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baixaContasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.baixaContasBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
