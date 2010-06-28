@@ -97,11 +97,15 @@ namespace SACE.Telas
             if (receberRadioButton.Checked)
                 tipo = 'R';
 
+            long? codEntrada = null, codSaida = null;
+            if (!string.IsNullOrEmpty(codEntradaTextBox.Text)) codEntrada = Convert.ToInt64(codEntradaTextBox.Text);
+            if (!string.IsNullOrEmpty(codSaidaTextBox.Text)) codSaida = Convert.ToInt64(codSaidaTextBox.Text);
+
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue), 
-                      Convert.ToInt64(planoContaComboBox.SelectedValue), Convert.ToInt64(codSaidaTextBox.Text), documentoTextBox.Text,
-                      Convert.ToInt64(codEntradaTextBox.Text), dataVencDateTimePicker.Value, valorTextBox.Text, situacao.ToString(), 
+                tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue),
+                      Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
+                      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, situacao.ToString(), 
                       observacaoTextBox.Text, tipo.ToString());
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
                 tb_contasBindingSource.MoveLast();
@@ -109,8 +113,8 @@ namespace SACE.Telas
             else
             {
                 tb_contaTableAdapter.Update(Convert.ToInt64(pessoaComboBox.SelectedValue),
-                      Convert.ToInt64(planoContaComboBox.SelectedValue), Convert.ToInt64(codSaidaTextBox.Text), documentoTextBox.Text,
-                      Convert.ToInt64(codEntradaTextBox.Text), dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
+                      Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
+                      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
                       situacao.ToString(), observacaoTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
                 tb_contasBindingSource.EndEdit();
             }
@@ -122,6 +126,46 @@ namespace SACE.Telas
             tb_contasBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
+        }
+
+        private void tb_contasBindingSource_PositionChanged(object sender, EventArgs e)
+        {
+            DataRowView linha = (DataRowView)tb_contasBindingSource.Current;
+            string tipoCliente = linha["TipoConta"].ToString();
+            string situacao = linha["Situacao"].ToString();
+
+            if (tipoCliente.Equals("P"))
+            {
+                pagarRadioButton.Checked = true;
+                receberRadioButton.Checked = false;
+            }
+            else
+            {
+                pagarRadioButton.Checked = false;
+                receberRadioButton.Checked = true;
+            }
+
+            if(situacao.Equals("A"))
+            {
+                AbertoRadioButton.Checked = true;
+                quitadoRadioButton.Checked = false;
+                devolvidoRadioButton.Checked = false;
+            }
+            else
+            {
+                if (situacao.Equals("Q"))
+                {
+                    AbertoRadioButton.Checked = false;
+                    quitadoRadioButton.Checked = true;
+                    devolvidoRadioButton.Checked = false;
+                }
+                else
+                {
+                    AbertoRadioButton.Checked = false;
+                    quitadoRadioButton.Checked = false;
+                    devolvidoRadioButton.Checked = true;
+                }
+            }
         }
     }
 }
