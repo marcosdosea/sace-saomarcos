@@ -98,14 +98,14 @@ namespace SACE.Telas
                 tipo = 'R';
 
             long? codEntrada = null, codSaida = null;
-            if (!string.IsNullOrEmpty(codEntradaTextBox.Text)) codEntrada = Convert.ToInt64(codEntradaTextBox.Text);
-            if (!string.IsNullOrEmpty(codSaidaTextBox.Text)) codSaida = Convert.ToInt64(codSaidaTextBox.Text);
+            if (!string.IsNullOrEmpty(codEntradaMaskedTextBox.Text)) codEntrada = Convert.ToInt64(codEntradaMaskedTextBox.Text);
+            if (!string.IsNullOrEmpty(codSaidaMaskedTextBox.Text)) codSaida = Convert.ToInt64(codSaidaMaskedTextBox.Text);
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue),
                       Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, situacao.ToString(), 
+                      codEntrada, dataVencDateTimePicker.Value, valorMaskedTextBox.Text, situacao.ToString(), 
                       observacaoTextBox.Text, tipo.ToString());
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
                 tb_contasBindingSource.MoveLast();
@@ -114,7 +114,7 @@ namespace SACE.Telas
             {
                 tb_contaTableAdapter.Update(Convert.ToInt64(pessoaComboBox.SelectedValue),
                       Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
+                      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorMaskedTextBox.Text), 
                       situacao.ToString(), observacaoTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
                 tb_contasBindingSource.EndEdit();
             }
