@@ -77,11 +77,11 @@
             this.fone2MaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.limiteCompraMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.valorComissaoMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.cpf_cnpjErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new SACE.Dados.saceDataSet();
             this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.cpf_cnpjErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             bairroLabel = new System.Windows.Forms.Label();
@@ -97,9 +97,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).BeginInit();
             this.tb_pessoaBindingNavigator.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cpf_cnpjErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cpf_cnpjErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // codPessoaLabel
@@ -306,7 +306,7 @@
             this.tb_pessoaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_pessoaBindingNavigator.Name = "tb_pessoaBindingNavigator";
             this.tb_pessoaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_pessoaBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_pessoaBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_pessoaBindingNavigator.TabIndex = 21;
             this.tb_pessoaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -557,6 +557,10 @@
             this.valorComissaoMaskedTextBox.TabIndex = 44;
             this.valorComissaoMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             // 
+            // cpf_cnpjErrorProvider
+            // 
+            this.cpf_cnpjErrorProvider.ContainerControl = this;
+            // 
             // tb_pessoaBindingSource
             // 
             this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
@@ -577,11 +581,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -603,10 +609,6 @@
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // cpf_cnpjErrorProvider
-            // 
-            this.cpf_cnpjErrorProvider.ContainerControl = this;
             // 
             // FrmPessoa
             // 
@@ -663,9 +665,9 @@
             this.tb_pessoaBindingNavigator.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cpf_cnpjErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cpf_cnpjErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

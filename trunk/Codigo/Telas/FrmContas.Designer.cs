@@ -51,6 +51,8 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tb_contasBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.tableAdapterManager1 = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_baixa_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
             this.tb_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
@@ -60,8 +62,6 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.codPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,8 +104,8 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingNavigator)).BeginInit();
             this.tb_contasBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.baixaContasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
@@ -285,6 +285,7 @@
             // tb_contasBindingNavigator
             // 
             this.tb_contasBindingNavigator.AddNewItem = null;
+            this.tb_contasBindingNavigator.BindingSource = this.tb_contasBindingSource;
             this.tb_contasBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_contasBindingNavigator.DeleteItem = null;
             this.tb_contasBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -308,6 +309,18 @@
             this.tb_contasBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_contasBindingNavigator.TabIndex = 23;
             this.tb_contasBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // tb_contasBindingSource
+            // 
+            this.tb_contasBindingSource.DataMember = "tb_conta";
+            this.tb_contasBindingSource.DataSource = this.saceDataSet;
+            this.tb_contasBindingSource.PositionChanged += new System.EventHandler(this.tb_contasBindingSource_PositionChanged);
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tableAdapterManager1
             // 
@@ -409,17 +422,6 @@
             this.btnEditar.Text = "F4 - Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_contasBindingSource
-            // 
-            this.tb_contasBindingSource.DataMember = "tb_conta";
-            this.tb_contasBindingSource.DataSource = this.saceDataSet;
             // 
             // dataGridView1
             // 
@@ -726,8 +728,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingNavigator)).EndInit();
             this.tb_contasBindingNavigator.ResumeLayout(false);
             this.tb_contasBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.baixaContasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
