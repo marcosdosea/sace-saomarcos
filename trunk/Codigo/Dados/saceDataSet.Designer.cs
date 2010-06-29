@@ -27734,13 +27734,65 @@ WHERE        (codConta = @Original_codConta)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[5];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        codPessoa, codPlanoConta, codSaida, documento, codEntrada, codConta" +
                 ", dataVencimento, valor, situacao, observacao, tipoConta\r\nFROM            tb_con" +
                 "ta";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        codPessoa, codPlanoConta, codSaida, documento, codEntrada, codConta" +
+                ", dataVencimento, valor, situacao, observacao, tipoConta\r\nFROM            tb_con" +
+                "ta\r\nwhere codConta = @codConta";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codConta";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codConta";
+            this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT        codPessoa, codPlanoConta, codSaida, documento, codEntrada, codConta" +
+                ", dataVencimento, valor, situacao, observacao, tipoConta\r\nFROM            tb_con" +
+                "ta\r\nwhere codEntrada = @codEntrada";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codEntrada";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codEntrada";
+            this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT        codPessoa, codPlanoConta, codSaida, documento, codEntrada, codConta" +
+                ", dataVencimento, valor, situacao, observacao, tipoConta\r\nFROM            tb_con" +
+                "ta\r\nwhere codPessoa = @codPessoa";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPessoa";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codPessoa";
+            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "SELECT        codPessoa, codPlanoConta, codSaida, documento, codEntrada, codConta" +
+                ", dataVencimento, valor, situacao, observacao, tipoConta\r\nFROM            tb_con" +
+                "ta\r\nwhere codSaida = @codSaida";
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[4].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -27760,6 +27812,132 @@ WHERE        (codConta = @Original_codConta)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual saceDataSet.tb_contaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodConta(saceDataSet.tb_contaDataTable dataTable, long codConta) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_contaDataTable GetDataByCodConta(long codConta) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta));
+            saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodEntrada(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codEntrada) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((codEntrada.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_contaDataTable GetDataByCodEntrada(global::System.Nullable<long> codEntrada) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((codEntrada.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodPessoa(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codPessoa) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((codPessoa.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codPessoa.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_contaDataTable GetDataByCodPessoa(global::System.Nullable<long> codPessoa) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((codPessoa.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codPessoa.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodSaida(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codSaida) {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
+            if ((codSaida.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_contaDataTable GetDataByCodSaida(global::System.Nullable<long> codSaida) {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
+            if ((codSaida.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
