@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using SACE.Telas;
 using SACE;
+using SACE.Excecoes;
 
 namespace SACE.Telas
 {
@@ -25,6 +26,19 @@ namespace SACE.Telas
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet1.tb_conta);
             this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet1.tb_baixa_conta);
+        }
+
+        private void baixaButton_Click(object sender, EventArgs e)
+        {
+            if (contasDataGridView.SelectedRows.Count > 0)
+            {
+                pesquisaPanel.Enabled = false;
+                baixaPanel.Enabled = true;
+            }
+            else
+            {
+                throw new TelaException("Nenhum item selecionado!");
+            }
         }
     }
 }
