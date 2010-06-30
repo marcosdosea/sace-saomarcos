@@ -105,7 +105,7 @@ namespace SACE.Telas
             {
                 tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue),
                       Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, valorMaskedTextBox.Text, situacao.ToString(), 
+                      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, situacao.ToString(), 
                       observacaoTextBox.Text, tipo.ToString());
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
                 tb_contasBindingSource.MoveLast();
@@ -114,10 +114,13 @@ namespace SACE.Telas
             {
                 tb_contaTableAdapter.Update(Convert.ToInt64(pessoaComboBox.SelectedValue),
                       Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorMaskedTextBox.Text), 
+                      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
                       situacao.ToString(), observacaoTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
                 tb_contasBindingSource.EndEdit();
             }
+
+            habilitaBotoes(true);
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -167,6 +170,61 @@ namespace SACE.Telas
                 }
             }
             this.tb_baixa_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_baixa_conta, int.Parse(codContaTextBox.Text));
+        }
+
+        private void valorTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyData)
+            {
+                case Keys.D0:
+                case Keys.D1:
+                case Keys.D2:
+                case Keys.D3:
+                case Keys.D4:
+                case Keys.D5:
+                case Keys.D6:
+                case Keys.D7:
+                case Keys.D8:
+                case Keys.D9:
+                    e.SuppressKeyPress = false;
+                    break;
+                case Keys.Decimal:
+                    e.SuppressKeyPress = false;
+                    break;
+                case Keys.NumPad0:
+                case Keys.NumPad1:
+                case Keys.NumPad2:
+                case Keys.NumPad3:
+                case Keys.NumPad4:
+                case Keys.NumPad5:
+                case Keys.NumPad6:
+                case Keys.NumPad7:
+                case Keys.NumPad8:
+                case Keys.NumPad9:
+                case Keys.Back:
+                case Keys.Left:
+                case Keys.Right:
+                    e.SuppressKeyPress = false;
+                    break;
+                default:
+                    e.SuppressKeyPress = true;
+                    break;
+            }
+
+            string valor = valorTextBox.Text;
+            if (valor.Contains(",") && (e.KeyData == Keys.Oemcomma))
+            {
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyData == Keys.Oemcomma)
+            {
+                e.SuppressKeyPress = false;
+            }
+
+            //if ((valor.Length == 10) && (!valor.Contains(",")))
+            //{
+            //    valorTextBox.Text = valorTextBox.Text + ",";                
+            //}
         }
     }
 }
