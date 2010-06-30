@@ -687,10 +687,10 @@
             // 
             // valorMaskedTextBox
             // 
+            this.valorMaskedTextBox.AllowPromptAsInput = false;
             this.valorMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "valor", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
-            this.valorMaskedTextBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.valorMaskedTextBox.Location = new System.Drawing.Point(114, 179);
-            this.valorMaskedTextBox.Mask = "0000000000,00";
+            this.valorMaskedTextBox.Mask = "9999999990.00";
             this.valorMaskedTextBox.Name = "valorMaskedTextBox";
             this.valorMaskedTextBox.Size = new System.Drawing.Size(100, 20);
             this.valorMaskedTextBox.TabIndex = 54;
