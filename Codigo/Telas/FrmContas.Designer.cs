@@ -91,7 +91,7 @@
             this.tb_plano_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
             this.codEntradaMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.codSaidaMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.valorMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.valorTextBox = new System.Windows.Forms.TextBox();
             nomeLabel = new System.Windows.Forms.Label();
             codBancoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -515,7 +515,7 @@
             this.documentoTextBox.MaxLength = 20;
             this.documentoTextBox.Name = "documentoTextBox";
             this.documentoTextBox.Size = new System.Drawing.Size(207, 20);
-            this.documentoTextBox.TabIndex = 35;
+            this.documentoTextBox.TabIndex = 42;
             // 
             // codContaTextBox
             // 
@@ -552,7 +552,7 @@
             this.pessoaComboBox.Location = new System.Drawing.Point(220, 136);
             this.pessoaComboBox.Name = "pessoaComboBox";
             this.pessoaComboBox.Size = new System.Drawing.Size(249, 21);
-            this.pessoaComboBox.TabIndex = 42;
+            this.pessoaComboBox.TabIndex = 44;
             this.pessoaComboBox.ValueMember = "codPessoa";
             // 
             // pessoaBindingSource
@@ -567,7 +567,7 @@
             this.dataVencDateTimePicker.Location = new System.Drawing.Point(7, 180);
             this.dataVencDateTimePicker.Name = "dataVencDateTimePicker";
             this.dataVencDateTimePicker.Size = new System.Drawing.Size(100, 20);
-            this.dataVencDateTimePicker.TabIndex = 44;
+            this.dataVencDateTimePicker.TabIndex = 46;
             // 
             // groupBox1
             // 
@@ -577,7 +577,7 @@
             this.groupBox1.Location = new System.Drawing.Point(219, 166);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(250, 34);
-            this.groupBox1.TabIndex = 48;
+            this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Status:";
             // 
@@ -620,7 +620,7 @@
             this.groupBox2.Location = new System.Drawing.Point(7, 209);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(155, 34);
-            this.groupBox2.TabIndex = 49;
+            this.groupBox2.TabIndex = 52;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tipo:";
             // 
@@ -653,7 +653,7 @@
             this.observacaoTextBox.MaxLength = 64;
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(301, 20);
-            this.observacaoTextBox.TabIndex = 50;
+            this.observacaoTextBox.TabIndex = 54;
             // 
             // tb_pessoaTableAdapter
             // 
@@ -671,7 +671,7 @@
             this.codEntradaMaskedTextBox.Name = "codEntradaMaskedTextBox";
             this.codEntradaMaskedTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.codEntradaMaskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codEntradaMaskedTextBox.TabIndex = 52;
+            this.codEntradaMaskedTextBox.TabIndex = 36;
             this.codEntradaMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // codSaidaMaskedTextBox
@@ -682,25 +682,26 @@
             this.codSaidaMaskedTextBox.Name = "codSaidaMaskedTextBox";
             this.codSaidaMaskedTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.codSaidaMaskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codSaidaMaskedTextBox.TabIndex = 53;
+            this.codSaidaMaskedTextBox.TabIndex = 38;
             this.codSaidaMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // valorMaskedTextBox
+            // valorTextBox
             // 
-            this.valorMaskedTextBox.AllowPromptAsInput = false;
-            this.valorMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "valor", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
-            this.valorMaskedTextBox.Location = new System.Drawing.Point(114, 179);
-            this.valorMaskedTextBox.Mask = "9999999990.00";
-            this.valorMaskedTextBox.Name = "valorMaskedTextBox";
-            this.valorMaskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.valorMaskedTextBox.TabIndex = 54;
+            this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "valor", true));
+            this.valorTextBox.Location = new System.Drawing.Point(114, 179);
+            this.valorTextBox.MaxLength = 13;
+            this.valorTextBox.Name = "valorTextBox";
+            this.valorTextBox.Size = new System.Drawing.Size(100, 20);
+            this.valorTextBox.TabIndex = 48;
+            this.valorTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valorTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.valorTextBox_KeyDown);
             // 
             // FrmContas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 405);
-            this.Controls.Add(this.valorMaskedTextBox);
+            this.Controls.Add(this.valorTextBox);
             this.Controls.Add(this.codSaidaMaskedTextBox);
             this.Controls.Add(this.codEntradaMaskedTextBox);
             this.Controls.Add(observacaoLabel);
@@ -808,6 +809,6 @@
         private SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
         private System.Windows.Forms.MaskedTextBox codEntradaMaskedTextBox;
         private System.Windows.Forms.MaskedTextBox codSaidaMaskedTextBox;
-        private System.Windows.Forms.MaskedTextBox valorMaskedTextBox;
+        private System.Windows.Forms.TextBox valorTextBox;
     }
 }
