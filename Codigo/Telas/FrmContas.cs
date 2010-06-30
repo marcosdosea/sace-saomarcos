@@ -166,6 +166,7 @@ namespace SACE.Telas
                     devolvidoRadioButton.Checked = true;
                 }
             }
+            this.tb_baixa_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_baixa_conta, int.Parse(codContaTextBox.Text));
         }
     }
 }
