@@ -182,5 +182,12 @@ namespace SACE
             frmBaixaConta.ShowDialog();
             frmBaixaConta.Dispose();
         }
+
+        private void contasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmRelatorioConta frmRelatorioConta = new Telas.FrmRelatorioConta();
+            frmRelatorioConta.ShowDialog();
+            frmRelatorioConta.Dispose();
+        }
     }
 }
