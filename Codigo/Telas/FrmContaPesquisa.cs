@@ -64,13 +64,13 @@ namespace SACE.Telas
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text));
+                this.tb_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
             else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByCodPessoa(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text));
+                this.tb_contaTableAdapter.FillByCodPessoa(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByCodEntrada(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text));
+                this.tb_contaTableAdapter.FillByCodEntrada(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
             else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByCodSaida(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text));
+                this.tb_contaTableAdapter.FillByCodSaida(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
         }
     }
 }

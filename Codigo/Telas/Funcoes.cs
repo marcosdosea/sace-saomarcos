@@ -36,6 +36,7 @@ namespace SACE.Telas
         RELATORIO_LISTAGEM_PRECOS = 25,
         RELATORIO_ESTOQUE = 26,
         RELATORIO_VENDAS = 27,
-        RELATORIO_COMPRAS = 28;
+        RELATORIO_COMPRAS = 28,
+        RELATORIO_CONTAS = 29;
     }
 }

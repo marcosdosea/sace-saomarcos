@@ -85,13 +85,6 @@ namespace SACE.Telas
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             char tipo= ' ';
-            char situacao = ' ';
-            if (devolvidoRadioButton.Checked)
-                situacao = 'D';
-            if (AbertoRadioButton.Checked)
-                situacao = 'A';
-            if (quitadoRadioButton.Checked)
-                situacao = 'Q';
             if (pagarRadioButton.Checked)
                 tipo = 'P';
             if (receberRadioButton.Checked)
@@ -105,8 +98,8 @@ namespace SACE.Telas
             {
                 tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue),
                       Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, situacao.ToString(), 
-                      observacaoTextBox.Text, tipo.ToString());
+                      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, "A", 
+                      observacaoRichTextBox.Text, tipo.ToString());
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
                 tb_contasBindingSource.MoveLast();
             }
@@ -115,7 +108,7 @@ namespace SACE.Telas
                 tb_contaTableAdapter.Update(Convert.ToInt64(pessoaComboBox.SelectedValue),
                       Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
                       codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
-                      situacao.ToString(), observacaoTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
+                      observacaoRichTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
                 tb_contasBindingSource.EndEdit();
             }
 
@@ -147,29 +140,17 @@ namespace SACE.Telas
                 pagarRadioButton.Checked = false;
                 receberRadioButton.Checked = true;
             }
-
-            if(situacao.Equals("A"))
+            if (situacao.Equals("Q"))
             {
-                AbertoRadioButton.Checked = true;
-                quitadoRadioButton.Checked = false;
-                devolvidoRadioButton.Checked = false;
+                situacaoComboBox.SelectedIndex = 1;
             }
             else
             {
-                if (situacao.Equals("Q"))
-                {
-                    AbertoRadioButton.Checked = false;
-                    quitadoRadioButton.Checked = true;
-                    devolvidoRadioButton.Checked = false;
-                }
-                else
-                {
-                    AbertoRadioButton.Checked = false;
-                    quitadoRadioButton.Checked = false;
-                    devolvidoRadioButton.Checked = true;
-                }
+                situacaoComboBox.SelectedIndex = 0;
             }
-            this.tb_baixa_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_baixa_conta, int.Parse(codContaTextBox.Text));
+
+            if(!string.IsNullOrEmpty(codContaTextBox.Text))
+                this.tb_baixa_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_baixa_conta, int.Parse(codContaTextBox.Text));
         }
 
         private void valorTextBox_KeyDown(object sender, KeyEventArgs e)
