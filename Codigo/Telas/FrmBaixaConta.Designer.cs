@@ -46,16 +46,6 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.contasDataGridView = new System.Windows.Forms.DataGridView();
-            this.baixaPanel = new System.Windows.Forms.Panel();
-            this.ConfirmarButton = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.cancelarButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.valorMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.dataDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.avisoLabel = new System.Windows.Forms.Label();
-            this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet1 = new SACE.Dados.saceDataSet();
             this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codPlanoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,10 +57,23 @@
             this.situacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.observacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet1 = new SACE.Dados.saceDataSet();
+            this.baixaPanel = new System.Windows.Forms.Panel();
+            this.valorTextBox = new System.Windows.Forms.TextBox();
+            this.ConfirmarButton = new System.Windows.Forms.Button();
+            this.contaBancoComboBox = new System.Windows.Forms.ComboBox();
+            this.tb_contaBancobindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cancelarButton = new System.Windows.Forms.Button();
+            this.formaPagamentoComboBox = new System.Windows.Forms.ComboBox();
+            this.tb_formasPagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tb_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.tableAdapterManager1 = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_baixa_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
             this.tb_baixaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_forma_pagamentoTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter();
+            this.tb_conta_bancoTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
             valorLabel = new System.Windows.Forms.Label();
             dataPgtoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -79,9 +82,11 @@
             this.pesquisaPanel.SuspendLayout();
             this.tipoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contasDataGridView)).BeginInit();
-            this.baixaPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet1)).BeginInit();
+            this.baixaPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBancobindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_formasPagamentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_baixaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,7 +148,7 @@
             // 
             // baixaButton
             // 
-            this.baixaButton.Location = new System.Drawing.Point(394, 235);
+            this.baixaButton.Location = new System.Drawing.Point(308, 233);
             this.baixaButton.Name = "baixaButton";
             this.baixaButton.Size = new System.Drawing.Size(75, 23);
             this.baixaButton.TabIndex = 1;
@@ -161,7 +166,7 @@
             this.pesquisaPanel.Controls.Add(this.contasDataGridView);
             this.pesquisaPanel.Location = new System.Drawing.Point(7, 12);
             this.pesquisaPanel.Name = "pesquisaPanel";
-            this.pesquisaPanel.Size = new System.Drawing.Size(873, 217);
+            this.pesquisaPanel.Size = new System.Drawing.Size(683, 217);
             this.pesquisaPanel.TabIndex = 9;
             // 
             // tipoGroupBox
@@ -185,6 +190,8 @@
             this.receberRadioButton.TabIndex = 2;
             this.receberRadioButton.Text = "À Receber";
             this.receberRadioButton.UseVisualStyleBackColor = true;
+            this.receberRadioButton.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
+            this.receberRadioButton.CheckedChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
             // pagarRadioButton
             // 
@@ -195,6 +202,8 @@
             this.pagarRadioButton.TabIndex = 1;
             this.pagarRadioButton.Text = "À Pagar";
             this.pagarRadioButton.UseVisualStyleBackColor = true;
+            this.pagarRadioButton.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
+            this.pagarRadioButton.CheckedChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
             // todosRadioButton
             // 
@@ -207,6 +216,8 @@
             this.todosRadioButton.TabStop = true;
             this.todosRadioButton.Text = "Todos";
             this.todosRadioButton.UseVisualStyleBackColor = true;
+            this.todosRadioButton.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
+            this.todosRadioButton.CheckedChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
             // txtTexto
             // 
@@ -215,6 +226,7 @@
             this.txtTexto.Name = "txtTexto";
             this.txtTexto.Size = new System.Drawing.Size(308, 20);
             this.txtTexto.TabIndex = 10;
+            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
             // label2
             // 
@@ -241,6 +253,7 @@
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(121, 21);
             this.cmbBusca.TabIndex = 12;
+            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -274,104 +287,8 @@
             this.contasDataGridView.Name = "contasDataGridView";
             this.contasDataGridView.ReadOnly = true;
             this.contasDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.contasDataGridView.Size = new System.Drawing.Size(864, 150);
+            this.contasDataGridView.Size = new System.Drawing.Size(675, 150);
             this.contasDataGridView.TabIndex = 9;
-            // 
-            // baixaPanel
-            // 
-            this.baixaPanel.Controls.Add(this.totalLabel);
-            this.baixaPanel.Controls.Add(label5);
-            this.baixaPanel.Controls.Add(this.ConfirmarButton);
-            this.baixaPanel.Controls.Add(label4);
-            this.baixaPanel.Controls.Add(this.comboBox2);
-            this.baixaPanel.Controls.Add(this.cancelarButton);
-            this.baixaPanel.Controls.Add(this.comboBox1);
-            this.baixaPanel.Controls.Add(label3);
-            this.baixaPanel.Controls.Add(this.valorMaskedTextBox);
-            this.baixaPanel.Controls.Add(valorLabel);
-            this.baixaPanel.Controls.Add(dataPgtoLabel);
-            this.baixaPanel.Controls.Add(this.dataDateTimePicker);
-            this.baixaPanel.Location = new System.Drawing.Point(7, 262);
-            this.baixaPanel.Name = "baixaPanel";
-            this.baixaPanel.Size = new System.Drawing.Size(873, 144);
-            this.baixaPanel.TabIndex = 10;
-            // 
-            // ConfirmarButton
-            // 
-            this.ConfirmarButton.Location = new System.Drawing.Point(306, 118);
-            this.ConfirmarButton.Name = "ConfirmarButton";
-            this.ConfirmarButton.Size = new System.Drawing.Size(75, 23);
-            this.ConfirmarButton.TabIndex = 64;
-            this.ConfirmarButton.Text = "Confirmar";
-            this.ConfirmarButton.UseVisualStyleBackColor = true;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(526, 26);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 62;
-            // 
-            // cancelarButton
-            // 
-            this.cancelarButton.Location = new System.Drawing.Point(387, 118);
-            this.cancelarButton.Name = "cancelarButton";
-            this.cancelarButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelarButton.TabIndex = 61;
-            this.cancelarButton.Text = "Cancelar";
-            this.cancelarButton.UseVisualStyleBackColor = true;
-            this.cancelarButton.Click += new System.EventHandler(this.cancelarButton_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(398, 26);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 60;
-            // 
-            // valorMaskedTextBox
-            // 
-            this.valorMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contasBindingSource, "valor", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
-            this.valorMaskedTextBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.valorMaskedTextBox.Location = new System.Drawing.Point(291, 26);
-            this.valorMaskedTextBox.Mask = "0000000000,00";
-            this.valorMaskedTextBox.Name = "valorMaskedTextBox";
-            this.valorMaskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.valorMaskedTextBox.TabIndex = 58;
-            // 
-            // dataDateTimePicker
-            // 
-            this.dataDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tb_contasBindingSource, "dataVencimento", true));
-            this.dataDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataDateTimePicker.Location = new System.Drawing.Point(184, 27);
-            this.dataDateTimePicker.Name = "dataDateTimePicker";
-            this.dataDateTimePicker.Size = new System.Drawing.Size(100, 20);
-            this.dataDateTimePicker.TabIndex = 55;
-            // 
-            // avisoLabel
-            // 
-            this.avisoLabel.AutoSize = true;
-            this.avisoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avisoLabel.ForeColor = System.Drawing.Color.Red;
-            this.avisoLabel.Location = new System.Drawing.Point(475, 238);
-            this.avisoLabel.Name = "avisoLabel";
-            this.avisoLabel.Size = new System.Drawing.Size(318, 17);
-            this.avisoLabel.TabIndex = 67;
-            this.avisoLabel.Text = "Não pode dar baixa em contas de tipos diferente!";
-            this.avisoLabel.Visible = false;
-            // 
-            // tb_contasBindingSource
-            // 
-            this.tb_contasBindingSource.DataMember = "tb_conta";
-            this.tb_contasBindingSource.DataSource = this.saceDataSet1;
-            // 
-            // saceDataSet1
-            // 
-            this.saceDataSet1.DataSetName = "saceDataSet";
-            this.saceDataSet1.Prefix = "SACE";
-            this.saceDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // codPessoaDataGridViewTextBoxColumn
             // 
@@ -450,6 +367,107 @@
             this.tipoContaDataGridViewTextBoxColumn.Name = "tipoContaDataGridViewTextBoxColumn";
             this.tipoContaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // tb_contasBindingSource
+            // 
+            this.tb_contasBindingSource.DataMember = "tb_conta";
+            this.tb_contasBindingSource.DataSource = this.saceDataSet1;
+            // 
+            // saceDataSet1
+            // 
+            this.saceDataSet1.DataSetName = "saceDataSet";
+            this.saceDataSet1.Prefix = "SACE";
+            this.saceDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // baixaPanel
+            // 
+            this.baixaPanel.Controls.Add(this.valorTextBox);
+            this.baixaPanel.Controls.Add(this.totalLabel);
+            this.baixaPanel.Controls.Add(label5);
+            this.baixaPanel.Controls.Add(this.ConfirmarButton);
+            this.baixaPanel.Controls.Add(label4);
+            this.baixaPanel.Controls.Add(this.contaBancoComboBox);
+            this.baixaPanel.Controls.Add(this.cancelarButton);
+            this.baixaPanel.Controls.Add(this.formaPagamentoComboBox);
+            this.baixaPanel.Controls.Add(label3);
+            this.baixaPanel.Controls.Add(valorLabel);
+            this.baixaPanel.Controls.Add(dataPgtoLabel);
+            this.baixaPanel.Controls.Add(this.dataDateTimePicker);
+            this.baixaPanel.Enabled = false;
+            this.baixaPanel.Location = new System.Drawing.Point(7, 262);
+            this.baixaPanel.Name = "baixaPanel";
+            this.baixaPanel.Size = new System.Drawing.Size(683, 89);
+            this.baixaPanel.TabIndex = 10;
+            // 
+            // valorTextBox
+            // 
+            this.valorTextBox.Location = new System.Drawing.Point(291, 27);
+            this.valorTextBox.MaxLength = 13;
+            this.valorTextBox.Name = "valorTextBox";
+            this.valorTextBox.Size = new System.Drawing.Size(100, 20);
+            this.valorTextBox.TabIndex = 67;
+            this.valorTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valorTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.valorTextBox_KeyDown);
+            // 
+            // ConfirmarButton
+            // 
+            this.ConfirmarButton.Location = new System.Drawing.Point(227, 53);
+            this.ConfirmarButton.Name = "ConfirmarButton";
+            this.ConfirmarButton.Size = new System.Drawing.Size(75, 23);
+            this.ConfirmarButton.TabIndex = 64;
+            this.ConfirmarButton.Text = "Confirmar";
+            this.ConfirmarButton.UseVisualStyleBackColor = true;
+            this.ConfirmarButton.Click += new System.EventHandler(this.ConfirmarButton_Click);
+            // 
+            // contaBancoComboBox
+            // 
+            this.contaBancoComboBox.DataSource = this.tb_contaBancobindingSource;
+            this.contaBancoComboBox.DisplayMember = "descricao";
+            this.contaBancoComboBox.FormattingEnabled = true;
+            this.contaBancoComboBox.Location = new System.Drawing.Point(526, 26);
+            this.contaBancoComboBox.Name = "contaBancoComboBox";
+            this.contaBancoComboBox.Size = new System.Drawing.Size(121, 21);
+            this.contaBancoComboBox.TabIndex = 62;
+            this.contaBancoComboBox.ValueMember = "codContaBanco";
+            // 
+            // tb_contaBancobindingSource
+            // 
+            this.tb_contaBancobindingSource.DataMember = "tb_conta_banco";
+            this.tb_contaBancobindingSource.DataSource = this.saceDataSet1;
+            // 
+            // cancelarButton
+            // 
+            this.cancelarButton.Location = new System.Drawing.Point(357, 53);
+            this.cancelarButton.Name = "cancelarButton";
+            this.cancelarButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelarButton.TabIndex = 61;
+            this.cancelarButton.Text = "Cancelar";
+            this.cancelarButton.UseVisualStyleBackColor = true;
+            this.cancelarButton.Click += new System.EventHandler(this.cancelarButton_Click);
+            // 
+            // formaPagamentoComboBox
+            // 
+            this.formaPagamentoComboBox.DataSource = this.tb_formasPagamentoBindingSource;
+            this.formaPagamentoComboBox.DisplayMember = "descricao";
+            this.formaPagamentoComboBox.FormattingEnabled = true;
+            this.formaPagamentoComboBox.Location = new System.Drawing.Point(398, 26);
+            this.formaPagamentoComboBox.Name = "formaPagamentoComboBox";
+            this.formaPagamentoComboBox.Size = new System.Drawing.Size(121, 21);
+            this.formaPagamentoComboBox.TabIndex = 60;
+            this.formaPagamentoComboBox.ValueMember = "codFormaPagamento";
+            // 
+            // tb_formasPagamentoBindingSource
+            // 
+            this.tb_formasPagamentoBindingSource.DataMember = "tb_forma_pagamento";
+            this.tb_formasPagamentoBindingSource.DataSource = this.saceDataSet1;
+            // 
+            // dataDateTimePicker
+            // 
+            this.dataDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dataDateTimePicker.Location = new System.Drawing.Point(184, 27);
+            this.dataDateTimePicker.Name = "dataDateTimePicker";
+            this.dataDateTimePicker.Size = new System.Drawing.Size(100, 20);
+            this.dataDateTimePicker.TabIndex = 55;
+            // 
             // tb_contaTableAdapter
             // 
             this.tb_contaTableAdapter.ClearBeforeFill = true;
@@ -495,16 +513,24 @@
             this.tb_baixaBindingSource.DataMember = "tb_baixa_conta";
             this.tb_baixaBindingSource.DataSource = this.saceDataSet1;
             // 
+            // tb_forma_pagamentoTableAdapter1
+            // 
+            this.tb_forma_pagamentoTableAdapter1.ClearBeforeFill = true;
+            // 
+            // tb_conta_bancoTableAdapter1
+            // 
+            this.tb_conta_bancoTableAdapter1.ClearBeforeFill = true;
+            // 
             // FrmBaixaConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 423);
-            this.Controls.Add(this.avisoLabel);
+            this.ClientSize = new System.Drawing.Size(697, 361);
             this.Controls.Add(this.baixaPanel);
             this.Controls.Add(this.pesquisaPanel);
             this.Controls.Add(this.baixaButton);
             this.Name = "FrmBaixaConta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Baixa de contas";
             this.Load += new System.EventHandler(this.FrmBaixaConta_Load);
             this.pesquisaPanel.ResumeLayout(false);
@@ -512,13 +538,14 @@
             this.tipoGroupBox.ResumeLayout(false);
             this.tipoGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contasDataGridView)).EndInit();
-            this.baixaPanel.ResumeLayout(false);
-            this.baixaPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet1)).EndInit();
+            this.baixaPanel.ResumeLayout(false);
+            this.baixaPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBancobindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_formasPagamentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_baixaBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -548,7 +575,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn observacaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoContaDataGridViewTextBoxColumn;
         private System.Windows.Forms.Panel baixaPanel;
-        private System.Windows.Forms.MaskedTextBox valorMaskedTextBox;
         private System.Windows.Forms.DateTimePicker dataDateTimePicker;
         private System.Windows.Forms.BindingSource tb_baixaBindingSource;
         private System.Windows.Forms.GroupBox tipoGroupBox;
@@ -556,10 +582,14 @@
         private System.Windows.Forms.RadioButton pagarRadioButton;
         private System.Windows.Forms.RadioButton todosRadioButton;
         private System.Windows.Forms.Button cancelarButton;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox formaPagamentoComboBox;
+        private System.Windows.Forms.ComboBox contaBancoComboBox;
         private System.Windows.Forms.Button ConfirmarButton;
         private System.Windows.Forms.Label totalLabel;
-        private System.Windows.Forms.Label avisoLabel;
+        private SACE.Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter tb_forma_pagamentoTableAdapter1;
+        private SACE.Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter tb_conta_bancoTableAdapter1;
+        private System.Windows.Forms.TextBox valorTextBox;
+        private System.Windows.Forms.BindingSource tb_formasPagamentoBindingSource;
+        private System.Windows.Forms.BindingSource tb_contaBancobindingSource;
     }
 }

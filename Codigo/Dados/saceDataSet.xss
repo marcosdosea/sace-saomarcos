@@ -66,12 +66,12 @@
     <Connector ID="DesignRelation:FK_TB_ENTRADA_PRODUTO_1" ZOrder="52" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>851</X>
-          <Y>815</Y>
+          <X>847</X>
+          <Y>878</Y>
         </Point>
         <Point>
           <X>921</X>
-          <Y>815</Y>
+          <Y>878</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -146,12 +146,12 @@
     <Connector ID="DesignRelation:FK_TB_PLANO_CONTA_2" ZOrder="47" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>946</X>
-          <Y>119</Y>
+          <X>984</X>
+          <Y>70</Y>
         </Point>
         <Point>
-          <X>907</X>
-          <Y>119</Y>
+          <X>984</X>
+          <Y>-1</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -198,16 +198,16 @@
     <Connector ID="DesignRelation:FK_TB_PRODUTO_LOJA_3" ZOrder="43" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>834</X>
-          <Y>968</Y>
+          <X>830</X>
+          <Y>1031</Y>
         </Point>
         <Point>
-          <X>834</X>
-          <Y>1017</Y>
+          <X>830</X>
+          <Y>1039</Y>
         </Point>
         <Point>
           <X>921</X>
-          <Y>1017</Y>
+          <Y>1039</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -315,11 +315,11 @@
         </Point>
         <Point>
           <X>277</X>
-          <Y>726</Y>
+          <Y>789</Y>
         </Point>
         <Point>
-          <X>644</X>
-          <Y>726</Y>
+          <X>640</X>
+          <Y>789</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -410,100 +410,88 @@
           <Y>1354</Y>
         </Point>
         <Point>
-          <X>863</X>
+          <X>800</X>
           <Y>1354</Y>
         </Point>
         <Point>
-          <X>863</X>
-          <Y>484</Y>
+          <X>800</X>
+          <Y>428</Y>
         </Point>
       </RoutePoints>
     </Connector>
     <Connector ID="DesignRelation:fk_tb_pagamento_3" ZOrder="10" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>791</X>
+          <X>819</X>
           <Y>2329</Y>
         </Point>
         <Point>
-          <X>791</X>
-          <Y>484</Y>
+          <X>819</X>
+          <Y>428</Y>
         </Point>
       </RoutePoints>
     </Connector>
     <Connector ID="DesignRelation:fk_tb_pagamento_2" ZOrder="5" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>608</X>
-          <Y>423</Y>
+          <X>672</X>
+          <Y>148</Y>
         </Point>
         <Point>
-          <X>608</X>
-          <Y>448</Y>
-        </Point>
-        <Point>
-          <X>670</X>
-          <Y>448</Y>
+          <X>672</X>
+          <Y>180</Y>
         </Point>
       </RoutePoints>
     </Connector>
     <Connector ID="DesignRelation:fk_conta_pagar_1" ZOrder="9" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>705</X>
-          <Y>234</Y>
+          <X>768</X>
+          <Y>-87</Y>
         </Point>
         <Point>
-          <X>705</X>
-          <Y>254</Y>
-        </Point>
-        <Point>
-          <X>636</X>
-          <Y>254</Y>
+          <X>698</X>
+          <Y>-87</Y>
         </Point>
       </RoutePoints>
     </Connector>
     <Connector ID="DesignRelation:fk_conta_pagar_2" ZOrder="8" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>286</X>
-          <Y>56</Y>
+          <X>318</X>
+          <Y>-148</Y>
         </Point>
         <Point>
-          <X>286</X>
-          <Y>202</Y>
-        </Point>
-        <Point>
-          <X>336</X>
-          <Y>202</Y>
+          <X>398</X>
+          <Y>-148</Y>
         </Point>
       </RoutePoints>
     </Connector>
     <Connector ID="DesignRelation:fk_tb_conta_pagar_4" ZOrder="7" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>644</X>
-          <Y>734</Y>
+          <X>640</X>
+          <Y>797</Y>
         </Point>
         <Point>
-          <X>521</X>
-          <Y>734</Y>
+          <X>583</X>
+          <Y>797</Y>
         </Point>
         <Point>
-          <X>521</X>
-          <Y>423</Y>
+          <X>583</X>
+          <Y>148</Y>
         </Point>
       </RoutePoints>
     </Connector>
     <Connector ID="DesignRelation:fk_tb_conta_pagar_6" ZOrder="6" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>410</X>
+          <X>472</X>
           <Y>1973</Y>
         </Point>
         <Point>
-          <X>410</X>
-          <Y>423</Y>
+          <X>472</X>
+          <Y>148</Y>
         </Point>
       </RoutePoints>
     </Connector>
