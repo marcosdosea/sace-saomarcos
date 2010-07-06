@@ -5,7 +5,8 @@ using System.Text;
 
 namespace SACE.Excecoes
 {
-    class NegocioException : SystemException
+    public class NegocioException : SystemException
     {
+        public NegocioException(string menssagem):base(menssagem)  {        }
     }
 }

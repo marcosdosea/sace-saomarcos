@@ -22,6 +22,7 @@ namespace SACE.Telas
         private void FrmRelatorioConta_Load(object sender, EventArgs e)
         {
             Seguranca.GetInstancia().verificaPermissao(this, Funcoes.RELATORIO_CONTAS, Principal.Autenticacao.CodUsuario);
+            this.reportViewer1.RefreshReport();
         }
     }
 }
