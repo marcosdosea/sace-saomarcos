@@ -491,7 +491,7 @@
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = this.tb_produtoTableAdapter;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
