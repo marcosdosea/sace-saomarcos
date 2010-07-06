@@ -1,0 +1,37 @@
+COD_PROD  N 5
+COD_BARRA N 13
+APELIDO   C 40
+PRODUTO   C 40
+UNID      C 3 
+
+
+
+Nome do arquivo: ARQ.DBF
+
+Campo * *Tipo * * * Tam * * *Dec
+---------------------------------
+Codigo * * * N * * * * 7 * * * * 0
+Nome * * * *C * * * * *20 * * * 0
+Idade * * * *N * * * * *2 * * * *0
+
+O seu TXT deveria estar assim
+
+Nome do arquivo: TEXTO.TXT
+
+1234567AAAAAAAAAAAAAAAAAAAA15
+1111111BBBBBBBBBBBBBBBB * * * * *18
+2222222FULANO DE TAL * * * * * * * 20
+
+Faça um programinha em Clipper com as seguintes linhas:
+
+* Inicio do programa
+USE ARQ
+APPEND FROM TEXTO.TXT SDF
+USE
+* Fim do programa
+
+Se não tiver experiência em programação, recomendo usar o DBU do próprio CLIPPER. (Se quiser eu envio)
+Com o DBU vc cria o DBF e converte o arquivo TXT para DBF sem ter que fazer nenhum programa.
+
+
+append from myfile.txt delimited with character |
