@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Telas;
 
 namespace SACE.Telas
 {
@@ -28,6 +29,12 @@ namespace SACE.Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();            
+            frmSaidaPesquisa.ShowDialog();
+            //if (frmProdutoPesquisa.getCodProduto() != -1)
+            //{
+            //    tb_saida_produtoBindingSource.MoveFirst();
+            //}
             //Telas.FrmPreVendaPesquisa frmPreVendaPesquisa = new Telas.FrmPreVendaPesquisa();
             //frmPreVendaPesquisa.ShowDialog();
             //if (frmPreVendaPesquisa.getCodPreVenda() != -1)
@@ -38,14 +45,14 @@ namespace SACE.Telas
             //        tb_bancoBindingSource.MoveNext();
             //    }
             //}
-            //frmPreVendaPesquisa.Dispose();
+            frmSaidaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            //tb_bancoBindingSource.AddNew();
-            //codPreVendaTextBox.Enabled = false;
-            //nomeTextBox.Focus();
+            tb_saidaBindingSource.AddNew();
+            tb_saida_produtoBindingSource.AddNew();
+            produtoTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -159,10 +166,12 @@ namespace SACE.Telas
                 }
             }
         }
+
         private void habilitaBotoes(Boolean habilita)
         {
             btnSalvar.Enabled = !(habilita);
             btnCancelar.Enabled = !(habilita);
+            btnInsereProduto.Enabled = !(habilita);
             btnBuscar.Enabled = habilita;
             btnEditar.Enabled = habilita;
             btnNovo.Enabled = habilita;
@@ -180,6 +189,29 @@ namespace SACE.Telas
             //this.tb_bancoBindingSource.EndEdit();
             //this.tableAdapterManager.UpdateAll(this.saceDataSet);
 
+        }
+
+        private void insereProdutoButton_Click(object sender, EventArgs e)
+        {
+            if (estado.Equals(EstadoFormulario.INSERIR) && (rbtPreVenda.Checked))
+            {
+                DataRow produtoDR = tb_produtoTableAdapter.GetDataBycodigoBarra(produtoTextBox.Text).Rows[0];
+
+                tb_saida_produtoTableAdapter.Insert(produtoDR.Field<long>("codProduto"), produtoDR.Field<long>("codSaida"), quantidadeTextBox.Text, produtoDR.Field<String>("precoVendaVarejo"), null, null);
+                tb_saida_produtoTableAdapter.Fill(saceDataSet.tb_saida_produto);
+                tb_saida_produtoBindingSource.MoveLast();
+            }
+            
+        }
+
+        private void produtoTextBox_TextChanged(object sender, EventArgs e)
+        {
+            DataRow produtoDR = tb_produtoTableAdapter.GetDataBycodigoBarra(produtoTextBox.Text).Rows[0];
+            if (!produtoDR.IsNull(0))
+            {
+                precoTextBox.Text = produtoDR.Field<String>("precoVendaAtacado");
+                nomeProdutoLabel.Text = produtoDR.Field<String>("nome");
+            }
         }
     }
 }
