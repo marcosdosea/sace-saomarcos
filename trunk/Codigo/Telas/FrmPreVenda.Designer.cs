@@ -41,18 +41,10 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.produtoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_saida_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalLabel = new System.Windows.Forms.Label();
             this.aVistaLabel = new System.Windows.Forms.Label();
             this.volumesLabel = new System.Windows.Forms.Label();
@@ -67,16 +59,24 @@
             this.codigoLabel = new System.Windows.Forms.Label();
             this.btnInsereProduto = new System.Windows.Forms.Button();
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_saida_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_saidaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.tb_saida_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saida_produtoTableAdapter();
             this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -204,17 +204,6 @@
             this.produtoTextBox.TabIndex = 10;
             this.produtoTextBox.TextChanged += new System.EventHandler(this.produtoTextBox_TextChanged);
             // 
-            // tb_saida_produtoBindingSource
-            // 
-            this.tb_saida_produtoBindingSource.DataMember = "tb_saida_produto";
-            this.tb_saida_produtoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -265,48 +254,6 @@
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(554, 375);
             this.dataGridView.TabIndex = 20;
-            // 
-            // codProdutoDataGridViewTextBoxColumn
-            // 
-            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "codProduto";
-            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "codProduto";
-            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
-            this.codProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorVendaDataGridViewTextBoxColumn
-            // 
-            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "valorVenda";
-            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "valorVenda";
-            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
-            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descontoDataGridViewTextBoxColumn
-            // 
-            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "desconto";
-            this.descontoDataGridViewTextBoxColumn.HeaderText = "desconto";
-            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
-            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // subtotalDataGridViewTextBoxColumn
-            // 
-            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "subtotal";
-            this.subtotalDataGridViewTextBoxColumn.HeaderText = "subtotal";
-            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
-            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // totalLabel
             // 
@@ -414,6 +361,7 @@
             this.rbtPreVenda.TabStop = true;
             this.rbtPreVenda.Text = "Pré-Venda";
             this.rbtPreVenda.UseVisualStyleBackColor = true;
+            this.rbtPreVenda.CheckedChanged += new System.EventHandler(this.rbtPreVenda_CheckedChanged);
             // 
             // codigoLabel
             // 
@@ -421,9 +369,8 @@
             this.codigoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codigoLabel.Location = new System.Drawing.Point(282, 85);
             this.codigoLabel.Name = "codigoLabel";
-            this.codigoLabel.Size = new System.Drawing.Size(60, 24);
+            this.codigoLabel.Size = new System.Drawing.Size(0, 24);
             this.codigoLabel.TabIndex = 39;
-            this.codigoLabel.Text = "12345";
             // 
             // btnInsereProduto
             // 
@@ -434,6 +381,59 @@
             this.btnInsereProduto.Text = "Inserir Produto";
             this.btnInsereProduto.UseVisualStyleBackColor = true;
             this.btnInsereProduto.Click += new System.EventHandler(this.insereProdutoButton_Click);
+            // 
+            // codProdutoDataGridViewTextBoxColumn
+            // 
+            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "codProduto";
+            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "codProduto";
+            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
+            this.codProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "codSaida";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorVendaDataGridViewTextBoxColumn
+            // 
+            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "valorVenda";
+            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "valorVenda";
+            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
+            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descontoDataGridViewTextBoxColumn
+            // 
+            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "desconto";
+            this.descontoDataGridViewTextBoxColumn.HeaderText = "desconto";
+            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
+            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalDataGridViewTextBoxColumn
+            // 
+            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "subtotal";
+            this.subtotalDataGridViewTextBoxColumn.HeaderText = "subtotal";
+            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
+            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tb_saida_produtoBindingSource
+            // 
+            this.tb_saida_produtoBindingSource.DataMember = "tb_saida_produto";
+            this.tb_saida_produtoBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tb_saidaBindingSource
             // 
@@ -491,12 +491,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPreVenda_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
