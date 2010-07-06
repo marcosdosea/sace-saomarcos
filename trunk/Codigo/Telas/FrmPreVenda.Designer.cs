@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.qtdProdutoLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nomeProdutoLabel = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -39,10 +41,18 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.produtoTextBox = new System.Windows.Forms.TextBox();
+            this.tb_saida_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalLabel = new System.Windows.Forms.Label();
             this.aVistaLabel = new System.Windows.Forms.Label();
             this.volumesLabel = new System.Windows.Forms.Label();
@@ -57,26 +67,16 @@
             this.codigoLabel = new System.Windows.Forms.Label();
             this.btnInsereProduto = new System.Windows.Forms.Button();
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tb_saida_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_saidaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.tb_saida_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saida_produtoTableAdapter();
             this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
-            this.nomeProdutoLabel = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,9 +87,8 @@
             this.qtdProdutoLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.qtdProdutoLabel.Location = new System.Drawing.Point(9, 15);
             this.qtdProdutoLabel.Name = "qtdProdutoLabel";
-            this.qtdProdutoLabel.Size = new System.Drawing.Size(68, 42);
+            this.qtdProdutoLabel.Size = new System.Drawing.Size(0, 42);
             this.qtdProdutoLabel.TabIndex = 0;
-            this.qtdProdutoLabel.Text = "100";
             // 
             // panel1
             // 
@@ -101,6 +100,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(792, 71);
             this.panel1.TabIndex = 20;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label6.Location = new System.Drawing.Point(80, 15);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 42);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "X";
+            // 
+            // nomeProdutoLabel
+            // 
+            this.nomeProdutoLabel.AutoSize = true;
+            this.nomeProdutoLabel.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nomeProdutoLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.nomeProdutoLabel.Location = new System.Drawing.Point(126, 15);
+            this.nomeProdutoLabel.Name = "nomeProdutoLabel";
+            this.nomeProdutoLabel.Size = new System.Drawing.Size(0, 42);
+            this.nomeProdutoLabel.TabIndex = 1;
             // 
             // btnSalvar
             // 
@@ -178,10 +198,22 @@
             this.produtoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.tb_saida_produtoBindingSource, "codProduto", true));
             this.produtoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "codProduto", true));
             this.produtoTextBox.Location = new System.Drawing.Point(16, 183);
+            this.produtoTextBox.MaxLength = 40;
             this.produtoTextBox.Name = "produtoTextBox";
             this.produtoTextBox.Size = new System.Drawing.Size(174, 20);
-            this.produtoTextBox.TabIndex = 22;
+            this.produtoTextBox.TabIndex = 10;
             this.produtoTextBox.TextChanged += new System.EventHandler(this.produtoTextBox_TextChanged);
+            // 
+            // tb_saida_produtoBindingSource
+            // 
+            this.tb_saida_produtoBindingSource.DataMember = "tb_saida_produto";
+            this.tb_saida_produtoBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label3
             // 
@@ -215,6 +247,7 @@
             // 
             // dataGridView
             // 
+            this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoGenerateColumns = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -226,9 +259,54 @@
             this.subtotalDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.tb_saida_produtoBindingSource;
             this.dataGridView.Location = new System.Drawing.Point(225, 111);
+            this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(554, 375);
-            this.dataGridView.TabIndex = 29;
+            this.dataGridView.TabIndex = 20;
+            // 
+            // codProdutoDataGridViewTextBoxColumn
+            // 
+            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "codProduto";
+            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "codProduto";
+            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
+            this.codProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "codSaida";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorVendaDataGridViewTextBoxColumn
+            // 
+            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "valorVenda";
+            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "valorVenda";
+            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
+            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descontoDataGridViewTextBoxColumn
+            // 
+            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "desconto";
+            this.descontoDataGridViewTextBoxColumn.HeaderText = "desconto";
+            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
+            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalDataGridViewTextBoxColumn
+            // 
+            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "subtotal";
+            this.subtotalDataGridViewTextBoxColumn.HeaderText = "subtotal";
+            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
+            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // totalLabel
             // 
@@ -236,9 +314,8 @@
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalLabel.Location = new System.Drawing.Point(10, 389);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(139, 31);
+            this.totalLabel.Size = new System.Drawing.Size(0, 31);
             this.totalLabel.TabIndex = 30;
-            this.totalLabel.Text = "R$ 100,00";
             // 
             // aVistaLabel
             // 
@@ -246,9 +323,8 @@
             this.aVistaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aVistaLabel.Location = new System.Drawing.Point(10, 455);
             this.aVistaLabel.Name = "aVistaLabel";
-            this.aVistaLabel.Size = new System.Drawing.Size(124, 31);
+            this.aVistaLabel.Size = new System.Drawing.Size(0, 31);
             this.aVistaLabel.TabIndex = 31;
-            this.aVistaLabel.Text = "R$ 90,00";
             // 
             // volumesLabel
             // 
@@ -258,14 +334,15 @@
             this.volumesLabel.Name = "volumesLabel";
             this.volumesLabel.Size = new System.Drawing.Size(29, 31);
             this.volumesLabel.TabIndex = 32;
-            this.volumesLabel.Text = "3";
+            this.volumesLabel.Text = "0";
             // 
             // quantidadeTextBox
             // 
             this.quantidadeTextBox.Location = new System.Drawing.Point(16, 238);
             this.quantidadeTextBox.Name = "quantidadeTextBox";
             this.quantidadeTextBox.Size = new System.Drawing.Size(174, 20);
-            this.quantidadeTextBox.TabIndex = 34;
+            this.quantidadeTextBox.TabIndex = 12;
+            this.quantidadeTextBox.TextChanged += new System.EventHandler(this.quantidadeTextBox_TextChanged);
             // 
             // label9
             // 
@@ -323,13 +400,13 @@
             this.rbtOrcamento.Name = "rbtOrcamento";
             this.rbtOrcamento.Size = new System.Drawing.Size(77, 17);
             this.rbtOrcamento.TabIndex = 1;
-            this.rbtOrcamento.TabStop = true;
             this.rbtOrcamento.Text = "Orçamento";
             this.rbtOrcamento.UseVisualStyleBackColor = true;
             // 
             // rbtPreVenda
             // 
             this.rbtPreVenda.AutoSize = true;
+            this.rbtPreVenda.Checked = true;
             this.rbtPreVenda.Location = new System.Drawing.Point(16, 12);
             this.rbtPreVenda.Name = "rbtPreVenda";
             this.rbtPreVenda.Size = new System.Drawing.Size(75, 17);
@@ -353,57 +430,10 @@
             this.btnInsereProduto.Location = new System.Drawing.Point(47, 329);
             this.btnInsereProduto.Name = "btnInsereProduto";
             this.btnInsereProduto.Size = new System.Drawing.Size(102, 36);
-            this.btnInsereProduto.TabIndex = 40;
+            this.btnInsereProduto.TabIndex = 16;
             this.btnInsereProduto.Text = "Inserir Produto";
             this.btnInsereProduto.UseVisualStyleBackColor = true;
             this.btnInsereProduto.Click += new System.EventHandler(this.insereProdutoButton_Click);
-            // 
-            // codProdutoDataGridViewTextBoxColumn
-            // 
-            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "codProduto";
-            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "codProduto";
-            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            // 
-            // valorVendaDataGridViewTextBoxColumn
-            // 
-            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "valorVenda";
-            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "valorVenda";
-            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
-            // 
-            // descontoDataGridViewTextBoxColumn
-            // 
-            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "desconto";
-            this.descontoDataGridViewTextBoxColumn.HeaderText = "desconto";
-            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
-            // 
-            // subtotalDataGridViewTextBoxColumn
-            // 
-            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "subtotal";
-            this.subtotalDataGridViewTextBoxColumn.HeaderText = "subtotal";
-            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
-            // 
-            // tb_saida_produtoBindingSource
-            // 
-            this.tb_saida_produtoBindingSource.DataMember = "tb_saida_produto";
-            this.tb_saida_produtoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tb_saidaBindingSource
             // 
@@ -421,28 +451,6 @@
             // tb_produtoTableAdapter
             // 
             this.tb_produtoTableAdapter.ClearBeforeFill = true;
-            // 
-            // nomeProdutoLabel
-            // 
-            this.nomeProdutoLabel.AutoSize = true;
-            this.nomeProdutoLabel.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nomeProdutoLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.nomeProdutoLabel.Location = new System.Drawing.Point(126, 15);
-            this.nomeProdutoLabel.Name = "nomeProdutoLabel";
-            this.nomeProdutoLabel.Size = new System.Drawing.Size(238, 42);
-            this.nomeProdutoLabel.TabIndex = 1;
-            this.nomeProdutoLabel.Text = "União RC de 1/2";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(80, 15);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 42);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "X";
             // 
             // FrmPreVenda
             // 
@@ -483,12 +491,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPreVenda_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
