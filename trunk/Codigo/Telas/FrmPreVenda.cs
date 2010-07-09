@@ -24,7 +24,7 @@ namespace SACE.Telas
 
         private void FrmPreVenda_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.PREVENDA, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.PREVENDA, Principal.Autenticacao.CodUsuario);
 
             habilitaBotoes(true);
         }

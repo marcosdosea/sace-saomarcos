@@ -359,6 +359,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="RelContas.rdlc" />
     <EmbeddedResource Include="SACE.resx">
       <DependentUpon>SACE.cs</DependentUpon>
       <SubType>Designer</SubType>

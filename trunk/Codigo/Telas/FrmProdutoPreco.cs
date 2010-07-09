@@ -28,7 +28,7 @@ namespace SACE.Telas
 
         private void FrmCalcularPreco_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.ATUALIZAÇÃO_PREÇOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.ATUALIZAÇÃO_PREÇOS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);

@@ -27,7 +27,7 @@ namespace SACE.Telas
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.BANCOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.BANCOS, Principal.Autenticacao.CodUsuario);
 
             tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);

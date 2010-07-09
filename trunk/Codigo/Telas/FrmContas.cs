@@ -22,7 +22,7 @@ namespace SACE.Telas
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
             this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet.tb_baixa_conta);

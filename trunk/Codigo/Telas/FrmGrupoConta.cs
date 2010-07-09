@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_grupo_conta' table. You can move, or remove it, as needed.
             this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);

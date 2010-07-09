@@ -15,7 +15,7 @@ namespace SACE.Telas
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);

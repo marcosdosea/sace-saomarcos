@@ -19,7 +19,7 @@ namespace SACE.Telas
 
         private void FrmTransformacaoProduto_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.TRANFORMACOES, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.TRANFORMACOES, Principal.Autenticacao.CodUsuario);
         }
     }
 }
