@@ -80,7 +80,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SaceConst.cs" />
-    <Compile Include="Seguranca.cs" />
+    <Compile Include="GerenciadorSeguranca.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dados\Dados.csproj">

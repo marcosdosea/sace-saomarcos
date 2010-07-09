@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.USUARIOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.USUARIOS, Principal.Autenticacao.CodUsuario);
 
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);

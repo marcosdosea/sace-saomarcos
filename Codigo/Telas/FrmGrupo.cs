@@ -22,7 +22,7 @@ namespace SACE.Telas
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
 
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             habilitaBotoes(true);

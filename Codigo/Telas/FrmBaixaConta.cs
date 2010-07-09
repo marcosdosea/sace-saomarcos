@@ -24,7 +24,7 @@ namespace SACE.Telas
 
         private void FrmBaixaConta_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.BAIXAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.BAIXAS, Principal.Autenticacao.CodUsuario);
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet1.tb_conta);
             this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet1.tb_baixa_conta);
@@ -45,7 +45,8 @@ namespace SACE.Telas
                 tipo = contasDataGridView.SelectedRows[0].Cells["tipoContaDataGridViewTextBoxColumn"].Value.ToString();
                 for (int i = 0; i < contasDataGridView.SelectedRows.Count; i++)
                 {
-                    total += double.Parse(contasDataGridView.SelectedRows[i].Cells["valorDataGridViewTextBoxColumn"].Value.ToString());
+                    long codConta = Convert.ToInt64(contasDataGridView.SelectedRows[i].Cells["codContaDataGridViewTextBoxColumn"].Value.ToString());
+                    total += (double)tb_baixa_contaTableAdapter.GetTotalQuitado(codConta);
                     if (tipo != contasDataGridView.SelectedRows[i].Cells["tipoContaDataGridViewTextBoxColumn"].Value.ToString())
                     {
                         ConfirmarButton.Enabled = false;
@@ -129,8 +130,7 @@ namespace SACE.Telas
                 int i = 0;
                 while(i < contasDataGridView.SelectedRows.Count && total>0)
                 {
-                    string cod = contasDataGridView.SelectedRows[i].Cells["codContaDataGridViewTextBoxColumn"].Value.ToString();
-                    int codConta = Convert.ToInt32(cod);
+                    int codConta = Convert.ToInt32(contasDataGridView.SelectedRows[i].Cells["codContaDataGridViewTextBoxColumn"].Value.ToString());
                     char situacao = 'Q';
                     double valorQuitado = Convert.ToDouble(tb_baixa_contaTableAdapter.GetTotalQuitado(codConta));
                     double valorTotal = Convert.ToDouble(tb_contaTableAdapter.GetValorTotalConta(codConta));

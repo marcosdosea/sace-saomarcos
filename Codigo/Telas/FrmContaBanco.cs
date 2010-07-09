@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
-            Seguranca.GetInstancia().verificaPermissao(this, Funcoes.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
             this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
