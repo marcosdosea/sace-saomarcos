@@ -28,13 +28,10 @@ namespace SACE.Telas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.tb_pessoaTableAdapter1.Fill(saceDataSet.tb_pessoa);
-            this.tb_contaTableAdapter1.Fill(saceDataSet.tb_conta);
-            Dados.saceDataSet.tb_pessoaDataTable dt_pessoa = this.tb_pessoaTableAdapter1.GetData();
-            Dados.saceDataSet.tb_contaDataTable dt_conta = this.tb_contaTableAdapter1.GetData();
+            dt_RelContaTableAdapter1.Fill(saceRelatoriosDataSet.dt_RelConta);
+            Dados.saceRelatoriosDataSet.dt_RelContaDataTable dt_RelConta = this.dt_RelContaTableAdapter1.GetData();
             contasReportViewer.LocalReport.DataSources.Clear();
-            contasReportViewer.LocalReport.DataSources.Add(new ReportDataSource("saceDataSet_tb_pessoa", dt_conta));
-            contasReportViewer.LocalReport.DataSources.Add(new ReportDataSource("saceDataSet_tb_conta", dt_pessoa));
+            contasReportViewer.LocalReport.DataSources.Add(new ReportDataSource("saceRelatoriosDataSet_dt_RelConta", dt_RelConta));
             contasReportViewer.RefreshReport();
         }
     }
