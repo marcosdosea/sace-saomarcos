@@ -412,6 +412,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\DataSources\SACE.Dados.saceDataSet.datasource" />
+    <None Include="Properties\DataSources\SACE.Dados.saceRelatoriosDataSet.datasource" />
     <None Include="Resources\86.png" />
   </ItemGroup>
   <ItemGroup>

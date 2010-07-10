@@ -284,8 +284,6 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columntipoConta;
             
-            private global::System.Data.DataColumn columnExpr1;
-            
             private global::System.Data.DataColumn columnnome;
             
             private global::System.Data.DataColumn columncpf_Cnpj;
@@ -308,15 +306,11 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columnvalorComissao;
             
-            private global::System.Data.DataColumn columnExpr2;
-            
             private global::System.Data.DataColumn columnTipo;
             
             private global::System.Data.DataColumn columncodPagamento;
             
             private global::System.Data.DataColumn columncodFormaPagamento;
-            
-            private global::System.Data.DataColumn columnExpr3;
             
             private global::System.Data.DataColumn columnvalorPago;
             
@@ -434,13 +428,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn Expr1Column {
-                get {
-                    return this.columnExpr1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn nomeColumn {
                 get {
                     return this.columnnome;
@@ -518,13 +505,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn Expr2Column {
-                get {
-                    return this.columnExpr2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn TipoColumn {
                 get {
                     return this.columnTipo;
@@ -542,13 +522,6 @@ namespace SACE.Dados {
             public global::System.Data.DataColumn codFormaPagamentoColumn {
                 get {
                     return this.columncodFormaPagamento;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn Expr3Column {
-                get {
-                    return this.columnExpr3;
                 }
             }
             
@@ -631,10 +604,8 @@ namespace SACE.Dados {
                         string fone2, 
                         decimal limiteCompra, 
                         decimal valorComissao, 
-                        string Expr2, 
                         string Tipo, 
                         int codFormaPagamento, 
-                        long Expr3, 
                         decimal valorPago, 
                         decimal valorDiferenca, 
                         long codContaBanco, 
@@ -652,7 +623,6 @@ namespace SACE.Dados {
                         situacao,
                         observacao,
                         tipoConta,
-                        null,
                         nome,
                         cpf_Cnpj,
                         endereco,
@@ -664,11 +634,9 @@ namespace SACE.Dados {
                         fone2,
                         limiteCompra,
                         valorComissao,
-                        Expr2,
                         Tipo,
                         null,
                         codFormaPagamento,
-                        Expr3,
                         valorPago,
                         valorDiferenca,
                         codContaBanco,
@@ -703,7 +671,6 @@ namespace SACE.Dados {
                 this.columnsituacao = base.Columns["situacao"];
                 this.columnobservacao = base.Columns["observacao"];
                 this.columntipoConta = base.Columns["tipoConta"];
-                this.columnExpr1 = base.Columns["Expr1"];
                 this.columnnome = base.Columns["nome"];
                 this.columncpf_Cnpj = base.Columns["cpf_Cnpj"];
                 this.columnendereco = base.Columns["endereco"];
@@ -715,11 +682,9 @@ namespace SACE.Dados {
                 this.columnfone2 = base.Columns["fone2"];
                 this.columnlimiteCompra = base.Columns["limiteCompra"];
                 this.columnvalorComissao = base.Columns["valorComissao"];
-                this.columnExpr2 = base.Columns["Expr2"];
                 this.columnTipo = base.Columns["Tipo"];
                 this.columncodPagamento = base.Columns["codPagamento"];
                 this.columncodFormaPagamento = base.Columns["codFormaPagamento"];
-                this.columnExpr3 = base.Columns["Expr3"];
                 this.columnvalorPago = base.Columns["valorPago"];
                 this.columnvalorDiferenca = base.Columns["valorDiferenca"];
                 this.columncodContaBanco = base.Columns["codContaBanco"];
@@ -750,8 +715,6 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnobservacao);
                 this.columntipoConta = new global::System.Data.DataColumn("tipoConta", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntipoConta);
-                this.columnExpr1 = new global::System.Data.DataColumn("Expr1", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExpr1);
                 this.columnnome = new global::System.Data.DataColumn("nome", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnnome);
                 this.columncpf_Cnpj = new global::System.Data.DataColumn("cpf_Cnpj", typeof(string), null, global::System.Data.MappingType.Element);
@@ -774,16 +737,12 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columnlimiteCompra);
                 this.columnvalorComissao = new global::System.Data.DataColumn("valorComissao", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalorComissao);
-                this.columnExpr2 = new global::System.Data.DataColumn("Expr2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExpr2);
                 this.columnTipo = new global::System.Data.DataColumn("Tipo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTipo);
                 this.columncodPagamento = new global::System.Data.DataColumn("codPagamento", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncodPagamento);
                 this.columncodFormaPagamento = new global::System.Data.DataColumn("codFormaPagamento", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncodFormaPagamento);
-                this.columnExpr3 = new global::System.Data.DataColumn("Expr3", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExpr3);
                 this.columnvalorPago = new global::System.Data.DataColumn("valorPago", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalorPago);
                 this.columnvalorDiferenca = new global::System.Data.DataColumn("valorDiferenca", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -792,26 +751,13 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columncodContaBanco);
                 this.columndataBaixa = new global::System.Data.DataColumn("dataBaixa", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndataBaixa);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnnome}, false));
                 this.columncodConta.AutoIncrement = true;
                 this.columncodConta.AutoIncrementSeed = -1;
                 this.columncodConta.AutoIncrementStep = -1;
-                this.columncodConta.AllowDBNull = false;
                 this.columndocumento.MaxLength = 20;
-                this.columncodPlanoConta.AllowDBNull = false;
-                this.columndataVencimento.AllowDBNull = false;
-                this.columnvalor.AllowDBNull = false;
                 this.columnsituacao.MaxLength = 1;
                 this.columnobservacao.MaxLength = 64;
-                this.columntipoConta.AllowDBNull = false;
                 this.columntipoConta.MaxLength = 1;
-                this.columnExpr1.AutoIncrement = true;
-                this.columnExpr1.AutoIncrementSeed = -1;
-                this.columnExpr1.AutoIncrementStep = -1;
-                this.columnExpr1.AllowDBNull = false;
-                this.columnnome.AllowDBNull = false;
-                this.columnnome.Unique = true;
                 this.columnnome.MaxLength = 40;
                 this.columncpf_Cnpj.MaxLength = 14;
                 this.columnendereco.MaxLength = 100;
@@ -821,8 +767,6 @@ namespace SACE.Dados {
                 this.columnuf.MaxLength = 2;
                 this.columnfone1.MaxLength = 10;
                 this.columnfone2.MaxLength = 10;
-                this.columnExpr2.MaxLength = 300;
-                this.columnTipo.AllowDBNull = false;
                 this.columnTipo.MaxLength = 1;
                 this.columncodPagamento.AutoIncrement = true;
                 this.columncodPagamento.AutoIncrementSeed = -1;
@@ -961,7 +905,12 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long codConta {
                 get {
-                    return ((long)(this[this.tabledt_RelConta.codContaColumn]));
+                    try {
+                        return ((long)(this[this.tabledt_RelConta.codContaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'codConta\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.codContaColumn] = value;
@@ -1016,7 +965,12 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long codPlanoConta {
                 get {
-                    return ((long)(this[this.tabledt_RelConta.codPlanoContaColumn]));
+                    try {
+                        return ((long)(this[this.tabledt_RelConta.codPlanoContaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'codPlanoConta\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.codPlanoContaColumn] = value;
@@ -1041,7 +995,12 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime dataVencimento {
                 get {
-                    return ((global::System.DateTime)(this[this.tabledt_RelConta.dataVencimentoColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tabledt_RelConta.dataVencimentoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'dataVencimento\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.dataVencimentoColumn] = value;
@@ -1051,7 +1010,12 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal valor {
                 get {
-                    return ((decimal)(this[this.tabledt_RelConta.valorColumn]));
+                    try {
+                        return ((decimal)(this[this.tabledt_RelConta.valorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'valor\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.valorColumn] = value;
@@ -1091,7 +1055,12 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string tipoConta {
                 get {
-                    return ((string)(this[this.tabledt_RelConta.tipoContaColumn]));
+                    try {
+                        return ((string)(this[this.tabledt_RelConta.tipoContaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tipoConta\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.tipoContaColumn] = value;
@@ -1099,19 +1068,14 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public long Expr1 {
-                get {
-                    return ((long)(this[this.tabledt_RelConta.Expr1Column]));
-                }
-                set {
-                    this[this.tabledt_RelConta.Expr1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string nome {
                 get {
-                    return ((string)(this[this.tabledt_RelConta.nomeColumn]));
+                    try {
+                        return ((string)(this[this.tabledt_RelConta.nomeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'nome\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.nomeColumn] = value;
@@ -1269,24 +1233,14 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Expr2 {
-                get {
-                    try {
-                        return ((string)(this[this.tabledt_RelConta.Expr2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Expr2\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledt_RelConta.Expr2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Tipo {
                 get {
-                    return ((string)(this[this.tabledt_RelConta.TipoColumn]));
+                    try {
+                        return ((string)(this[this.tabledt_RelConta.TipoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Tipo\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabledt_RelConta.TipoColumn] = value;
@@ -1320,21 +1274,6 @@ namespace SACE.Dados {
                 }
                 set {
                     this[this.tabledt_RelConta.codFormaPagamentoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public long Expr3 {
-                get {
-                    try {
-                        return ((long)(this[this.tabledt_RelConta.Expr3Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Expr3\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tabledt_RelConta.Expr3Column] = value;
                 }
             }
             
@@ -1399,6 +1338,16 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IscodContaNull() {
+                return this.IsNull(this.tabledt_RelConta.codContaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetcodContaNull() {
+                this[this.tabledt_RelConta.codContaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IscodEntradaNull() {
                 return this.IsNull(this.tabledt_RelConta.codEntradaColumn);
             }
@@ -1429,6 +1378,16 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IscodPlanoContaNull() {
+                return this.IsNull(this.tabledt_RelConta.codPlanoContaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetcodPlanoContaNull() {
+                this[this.tabledt_RelConta.codPlanoContaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IscodPessoaNull() {
                 return this.IsNull(this.tabledt_RelConta.codPessoaColumn);
             }
@@ -1436,6 +1395,26 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetcodPessoaNull() {
                 this[this.tabledt_RelConta.codPessoaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsdataVencimentoNull() {
+                return this.IsNull(this.tabledt_RelConta.dataVencimentoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetdataVencimentoNull() {
+                this[this.tabledt_RelConta.dataVencimentoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsvalorNull() {
+                return this.IsNull(this.tabledt_RelConta.valorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetvalorNull() {
+                this[this.tabledt_RelConta.valorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1456,6 +1435,26 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetobservacaoNull() {
                 this[this.tabledt_RelConta.observacaoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IstipoContaNull() {
+                return this.IsNull(this.tabledt_RelConta.tipoContaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SettipoContaNull() {
+                this[this.tabledt_RelConta.tipoContaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsnomeNull() {
+                return this.IsNull(this.tabledt_RelConta.nomeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetnomeNull() {
+                this[this.tabledt_RelConta.nomeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1559,13 +1558,13 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsExpr2Null() {
-                return this.IsNull(this.tabledt_RelConta.Expr2Column);
+            public bool IsTipoNull() {
+                return this.IsNull(this.tabledt_RelConta.TipoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetExpr2Null() {
-                this[this.tabledt_RelConta.Expr2Column] = global::System.Convert.DBNull;
+            public void SetTipoNull() {
+                this[this.tabledt_RelConta.TipoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1586,16 +1585,6 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetcodFormaPagamentoNull() {
                 this[this.tabledt_RelConta.codFormaPagamentoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsExpr3Null() {
-                return this.IsNull(this.tabledt_RelConta.Expr3Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetExpr3Null() {
-                this[this.tabledt_RelConta.Expr3Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1800,7 +1789,6 @@ namespace SACE.Dados.saceRelatoriosDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("situacao", "situacao");
             tableMapping.ColumnMappings.Add("observacao", "observacao");
             tableMapping.ColumnMappings.Add("tipoConta", "tipoConta");
-            tableMapping.ColumnMappings.Add("Expr1", "Expr1");
             tableMapping.ColumnMappings.Add("nome", "nome");
             tableMapping.ColumnMappings.Add("cpf_Cnpj", "cpf_Cnpj");
             tableMapping.ColumnMappings.Add("endereco", "endereco");
@@ -1812,11 +1800,9 @@ namespace SACE.Dados.saceRelatoriosDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("fone2", "fone2");
             tableMapping.ColumnMappings.Add("limiteCompra", "limiteCompra");
             tableMapping.ColumnMappings.Add("valorComissao", "valorComissao");
-            tableMapping.ColumnMappings.Add("Expr2", "Expr2");
             tableMapping.ColumnMappings.Add("Tipo", "Tipo");
             tableMapping.ColumnMappings.Add("codPagamento", "codPagamento");
             tableMapping.ColumnMappings.Add("codFormaPagamento", "codFormaPagamento");
-            tableMapping.ColumnMappings.Add("Expr3", "Expr3");
             tableMapping.ColumnMappings.Add("valorPago", "valorPago");
             tableMapping.ColumnMappings.Add("valorDiferenca", "valorDiferenca");
             tableMapping.ColumnMappings.Add("codContaBanco", "codContaBanco");
@@ -1836,10 +1822,10 @@ namespace SACE.Dados.saceRelatoriosDataSetTableAdapters {
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codEntrada, tb_conta.codSaida, tb_conta.documento, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.dataVencimento, 
-                         tb_conta.valor, tb_conta.situacao, tb_conta.observacao, tb_conta.tipoConta, tb_pessoa.codPessoa AS Expr1, tb_pessoa.nome, tb_pessoa.cpf_Cnpj, 
-                         tb_pessoa.endereco, tb_pessoa.cep, tb_pessoa.bairro, tb_pessoa.cidade, tb_pessoa.uf, tb_pessoa.fone1, tb_pessoa.fone2, tb_pessoa.limiteCompra, 
-                         tb_pessoa.valorComissao, tb_pessoa.observacao AS Expr2, tb_pessoa.Tipo, tb_baixa_conta.codPagamento, tb_baixa_conta.codFormaPagamento, 
-                         tb_baixa_conta.codConta AS Expr3, tb_baixa_conta.valorPago, tb_baixa_conta.valorDiferenca, tb_baixa_conta.codContaBanco, tb_baixa_conta.dataBaixa
+                         tb_conta.valor, tb_conta.situacao, tb_conta.observacao, tb_conta.tipoConta, tb_pessoa.nome, tb_pessoa.cpf_Cnpj, tb_pessoa.endereco, tb_pessoa.cep, 
+                         tb_pessoa.bairro, tb_pessoa.cidade, tb_pessoa.uf, tb_pessoa.fone1, tb_pessoa.fone2, tb_pessoa.limiteCompra, tb_pessoa.valorComissao, tb_pessoa.Tipo, 
+                         tb_baixa_conta.codPagamento, tb_baixa_conta.codFormaPagamento, tb_baixa_conta.valorPago, tb_baixa_conta.valorDiferenca, tb_baixa_conta.codContaBanco, 
+                         tb_baixa_conta.dataBaixa
 FROM            tb_conta INNER JOIN
                          tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa LEFT OUTER JOIN
                          tb_baixa_conta ON tb_conta.codConta = tb_baixa_conta.codConta";

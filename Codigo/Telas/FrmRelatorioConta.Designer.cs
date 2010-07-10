@@ -34,16 +34,21 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.button1 = new System.Windows.Forms.Button();
             this.tb_contaTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.tableAdapterManager1 = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_baixa_contaTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
             this.tb_pessoaTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.saceRelatoriosDataSet = new SACE.Dados.saceRelatoriosDataSet();
+            this.dt_RelContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dt_RelContaTableAdapter1 = new SACE.Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceRelatoriosDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dt_RelContaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // contasReportViewer
@@ -82,16 +87,6 @@
             this.tb_contaBindingSource.DataMember = "fk_conta_pagar_2";
             this.tb_contaBindingSource.DataSource = this.tb_pessoaBindingSource;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(340, 119);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // tb_pessoaBindingSource
             // 
             this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
@@ -102,6 +97,16 @@
             this.saceDataSet.DataSetName = "saceDataSet";
             this.saceDataSet.Prefix = "SACE";
             this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(340, 119);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tb_contaTableAdapter1
             // 
@@ -147,11 +152,25 @@
             // 
             this.tb_pessoaTableAdapter1.ClearBeforeFill = true;
             // 
+            // saceRelatoriosDataSet
+            // 
+            this.saceRelatoriosDataSet.DataSetName = "saceRelatoriosDataSet";
+            this.saceRelatoriosDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dt_RelContaBindingSource
+            // 
+            this.dt_RelContaBindingSource.DataMember = "dt_RelConta";
+            this.dt_RelContaBindingSource.DataSource = this.saceRelatoriosDataSet;
+            // 
+            // dt_RelContaTableAdapter1
+            // 
+            this.dt_RelContaTableAdapter1.ClearBeforeFill = true;
+            // 
             // FrmRelatorioConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 492);
+            this.ClientSize = new System.Drawing.Size(754, 492);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dateTimePicker2);
@@ -164,6 +183,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceRelatoriosDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dt_RelContaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,5 +204,8 @@
         private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
         private SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter1;
         private SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter1;
+        private SACE.Dados.saceRelatoriosDataSet saceRelatoriosDataSet;
+        private System.Windows.Forms.BindingSource dt_RelContaBindingSource;
+        private SACE.Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter dt_RelContaTableAdapter1;
     }
 }
