@@ -58,6 +58,7 @@ namespace SACE.Telas
             //TODO alterar como saida é obtida!
             DataTable dt = tb_saidaTableAdapter.GetData();
             codSaida =  (int)dt.Rows[(dt.Rows.Count - 1)].Field<Int64>("codSaida");
+
             tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
             tb_saida_produtoBindingSource.AddNew();
             produtoTextBox.Focus();
@@ -207,7 +208,8 @@ namespace SACE.Telas
                 DataTable dt = tb_produtoTableAdapter.GetDataBycodigoBarra(codBarras);
                 if (dt.Rows.Count > 0)
                 {
-                    //TODO alterar forma como codSaida é obtido!                                        
+                    
+                    //TODO alterar forma como codSaida é obtido!
                     tb_saida_produtoTableAdapter.Insert(dt.Rows[0].Field<long>("codProduto"),
                         codSaida, quantidadeTextBox.Text, dt.Rows[0].Field<Decimal>("precoVendaVarejo").ToString(),
                         null, null);
@@ -221,17 +223,7 @@ namespace SACE.Telas
 
                 }
             }
-        }
-
-        private void produtoTextBox_TextChanged(object sender, EventArgs e)
-        {
-            DataTable dt = tb_produtoTableAdapter.GetDataBycodigoBarra(produtoTextBox.Text);            
-            if (dt.Rows.Count > 0)
-            {
-                precoTextBox.Text = dt.Rows[0].Field<Decimal>("precoVendaVarejo").ToString();
-                nomeProdutoLabel.Text = dt.Rows[0].Field<String>("nome");
-            }
-        }
+        }        
 
         private void quantidadeTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -251,5 +243,20 @@ namespace SACE.Telas
                 }
             }
         }
+
+        private void produtoTextBox_Leave(object sender, EventArgs e)
+        {
+            DataTable dt = tb_produtoTableAdapter.GetDataBycodigoBarra(produtoTextBox.Text);
+            if (dt.Rows.Count > 0)
+            {
+                precoTextBox.Text = dt.Rows[0].Field<Decimal>("precoVendaVarejo").ToString();
+                nomeProdutoLabel.Text = dt.Rows[0].Field<String>("nome");
+            }
+            else
+            {
+                produtoTextBox.Focus();
+                MessageBox.Show("Produto não encontrado!");
+            }
+        }       
     }
 }
