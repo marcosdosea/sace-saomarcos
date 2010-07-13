@@ -21347,7 +21347,7 @@ WHERE        (codProduto = @Original_codProduto)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[5];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[6];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT `codProduto`, `nome`, `nomeFabricante`, `unidade`, `codigoBarra`, `codGrupo`, `codigoFabricante`, `temVencimento`, `cfop`, `icms`, `icms_substituto`, `simples`, `ipi`, `frete`, `custoVenda`, `ultimoPrecoCompra`, `ultimaDataAtualizacao`, `ultimoPrecoCusto`, `ultimoPrecoMedio`, `lucroPrecoVendaVarejo`, `precoVendaVarejo`, `qtdProdutoAtacado`, `lucroPrecoVendaAtacado`, `precoVendaAtacado`, `qtdProdutoSuperAtacado`, `lucroPrecoVendaSuperAtacado`, `precoVendaSuperAtacado`, `exibeNaListagem` FROM `sace`.`tb_produto`";
@@ -21370,118 +21370,132 @@ WHERE        (codigoBarra = @codigoBarra)";
             this._commandCollection[1].Parameters.Add(param);
             this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT        qtdProdutoAtacado\r\nFROM            tb_produto\r\nWHERE        (codigo" +
-                "Barra = @codigoBarra)";
+            this._commandCollection[2].CommandText = @"SELECT        codProduto, nome, nomeFabricante, unidade, codigoBarra, codGrupo, codigoFabricante, temVencimento, cfop, icms, icms_substituto, simples, ipi, frete, custoVenda, 
+                         ultimoPrecoCompra, ultimaDataAtualizacao, ultimoPrecoCusto, ultimoPrecoMedio, lucroPrecoVendaVarejo, precoVendaVarejo, qtdProdutoAtacado, 
+                         lucroPrecoVendaAtacado, precoVendaAtacado, qtdProdutoSuperAtacado, lucroPrecoVendaSuperAtacado, precoVendaSuperAtacado, exibeNaListagem
+FROM            tb_produto
+WHERE        (codProduto = @codProduto)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codigoBarra";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
+            param.ParameterName = "@codProduto";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
-            param.SourceColumn = "codigoBarra";
+            param.SourceColumn = "codProduto";
             this._commandCollection[2].Parameters.Add(param);
             this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"UPDATE       tb_produto
+            this._commandCollection[3].CommandText = "SELECT        qtdProdutoAtacado\r\nFROM            tb_produto\r\nWHERE        (codPro" +
+                "duto = @codProduto)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codProduto";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codProduto";
+            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = @"UPDATE       tb_produto
 SET                icms = @icms, simples = @simples, ipi = @ipi, frete = @frete, custoVenda = @custoVenda, ultimoPrecoCompra = @ultimoPrecoCompra, 
                          ultimaDataAtualizacao = @ultimaDataAtualizacao, lucroPrecoVendaVarejo = @lucroPrecoVendaVarejo, precoVendaVarejo = @precoVendaVarejo, 
                          lucroPrecoVendaAtacado = @lucroPrecoVendaAtacado, precoVendaAtacado = @precoVendaAtacado, 
                          lucroPrecoVendaSuperAtacado = @lucroPrecoVendaSuperAtacado, precoVendaSuperAtacado = @precoVendaSuperAtacado, icms_substituto = icms_substituto, 
                          ultimoPrecoCusto = ultimoPrecoCusto
 WHERE        (codProduto = @Original_codProduto)";
-            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@icms";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "icms";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@simples";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "simples";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ipi";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "ipi";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@frete";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "frete";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@custoVenda";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "custoVenda";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ultimoPrecoCompra";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "ultimoPrecoCompra";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@ultimaDataAtualizacao";
             param.DbType = global::System.Data.DbType.DateTime;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
             param.IsNullable = true;
             param.SourceColumn = "ultimaDataAtualizacao";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaVarejo";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "lucroPrecoVendaVarejo";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@precoVendaVarejo";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "precoVendaVarejo";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "lucroPrecoVendaAtacado";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@precoVendaAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "precoVendaAtacado";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@lucroPrecoVendaSuperAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "lucroPrecoVendaSuperAtacado";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@precoVendaSuperAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "precoVendaSuperAtacado";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codProduto";
             param.DbType = global::System.Data.DbType.Int64;
@@ -21489,28 +21503,27 @@ WHERE        (codProduto = @Original_codProduto)";
             param.IsNullable = true;
             param.SourceColumn = "codProduto";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._commandCollection[3].Parameters.Add(param);
-            this._commandCollection[4] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "UPDATE       tb_produto\r\nSET                qtdProdutoAtacado = @qdtProdutoAtacad" +
-                "o\r\nWHERE        (codigoBarra = @codigoBarra)";
-            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(param);
+            this._commandCollection[5] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[5].Connection = this.Connection;
+            this._commandCollection[5].CommandText = "UPDATE       tb_produto\r\nSET                qtdProdutoAtacado = @qdtProdutoAtacad" +
+                "o\r\nWHERE        (codProduto = @codProduto)";
+            this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@qdtProdutoAtacado";
             param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "qtdProdutoAtacado";
-            this._commandCollection[4].Parameters.Add(param);
+            this._commandCollection[5].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codigoBarra";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 40;
+            param.ParameterName = "@codProduto";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
-            param.SourceColumn = "codigoBarra";
+            param.SourceColumn = "codProduto";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._commandCollection[4].Parameters.Add(param);
+            this._commandCollection[5].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21564,6 +21577,30 @@ WHERE        (codProduto = @Original_codProduto)";
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(codigoBarra));
             }
+            saceDataSet.tb_produtoDataTable dataTable = new saceDataSet.tb_produtoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBycodProduto(saceDataSet.tb_produtoDataTable dataTable, long codProduto) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codProduto));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_produtoDataTable GetDataBycodProduto(long codProduto) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codProduto));
             saceDataSet.tb_produtoDataTable dataTable = new saceDataSet.tb_produtoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -22016,14 +22053,9 @@ WHERE        (codProduto = @Original_codProduto)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object ScalarQueryQtdProduto(string codigoBarra) {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[2];
-            if ((codigoBarra == null)) {
-                command.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                command.Parameters[0].Value = ((string)(codigoBarra));
-            }
+        public virtual object ScalarQueryQtdProduto(long codProduto) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[3];
+            command.Parameters[0].Value = ((long)(codProduto));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -22050,7 +22082,7 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int UpdatePrecos(global::System.Nullable<decimal> icms, global::System.Nullable<decimal> simples, global::System.Nullable<decimal> ipi, global::System.Nullable<decimal> frete, global::System.Nullable<decimal> custoVenda, global::System.Nullable<decimal> ultimoPrecoCompra, global::System.Nullable<global::System.DateTime> ultimaDataAtualizacao, global::System.Nullable<decimal> lucroPrecoVendaVarejo, global::System.Nullable<decimal> precoVendaVarejo, global::System.Nullable<decimal> lucroPrecoVendaAtacado, global::System.Nullable<decimal> precoVendaAtacado, global::System.Nullable<decimal> lucroPrecoVendaSuperAtacado, global::System.Nullable<decimal> precoVendaSuperAtacado, long Original_codProduto) {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[3];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[4];
             if ((icms.HasValue == true)) {
                 command.Parameters[0].Value = ((decimal)(icms.Value));
             }
@@ -22150,20 +22182,15 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
-        public virtual int UpdateQuantidade(global::System.Nullable<decimal> qdtProdutoAtacado, string codigoBarra) {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[4];
+        public virtual int UpdateQuantidade(global::System.Nullable<decimal> qdtProdutoAtacado, long codProduto) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[5];
             if ((qdtProdutoAtacado.HasValue == true)) {
                 command.Parameters[0].Value = ((decimal)(qdtProdutoAtacado.Value));
             }
             else {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((codigoBarra == null)) {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                command.Parameters[1].Value = ((string)(codigoBarra));
-            }
+            command.Parameters[1].Value = ((long)(codProduto));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -23470,13 +23497,63 @@ WHERE        (codProduto = @Original_codProduto)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `codSaida`, `dataSaida`, `tipoSaida`, `codCliente`, `codProfissional`, `nu" +
                 "meroCartaoVenda`, `pedidoGerado`, `total`, `desconto`, `totalPago`, `totalLucro`" +
                 " FROM `sace`.`tb_saida`";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "UPDATE       tb_saida\r\nSET                tipoSaida = @tipoSaida, total = @total," +
+                " desconto = @desconto, totalPago = @totalPago, totalLucro = @totalLucro\r\nWHERE  " +
+                "      (codSaida = @codSaida)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@tipoSaida";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
+            param.IsNullable = true;
+            param.SourceColumn = "tipoSaida";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@total";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "total";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@desconto";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "desconto";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@totalPago";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "totalPago";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@totalLucro";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "totalLucro";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[1].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23831,6 +23908,59 @@ WHERE        (codProduto = @Original_codProduto)";
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateQuerySaida(string tipoSaida, global::System.Nullable<decimal> total, global::System.Nullable<decimal> desconto, global::System.Nullable<decimal> totalPago, global::System.Nullable<decimal> totalLucro, long codSaida) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[1];
+            if ((tipoSaida == null)) {
+                throw new global::System.ArgumentNullException("tipoSaida");
+            }
+            else {
+                command.Parameters[0].Value = ((string)(tipoSaida));
+            }
+            if ((total.HasValue == true)) {
+                command.Parameters[1].Value = ((decimal)(total.Value));
+            }
+            else {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((desconto.HasValue == true)) {
+                command.Parameters[2].Value = ((decimal)(desconto.Value));
+            }
+            else {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((totalPago.HasValue == true)) {
+                command.Parameters[3].Value = ((decimal)(totalPago.Value));
+            }
+            else {
+                command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((totalLucro.HasValue == true)) {
+                command.Parameters[4].Value = ((decimal)(totalLucro.Value));
+            }
+            else {
+                command.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            command.Parameters[5].Value = ((long)(codSaida));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -24216,7 +24346,7 @@ WHERE        (codProduto = @Original_codProduto)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `codProduto`, `codSaida`, `quantidade`, `valorVenda`, `desconto`, `subtota" +
@@ -24254,6 +24384,56 @@ WHERE        (codProduto = @Original_codProduto)";
             param.IsNullable = true;
             param.SourceColumn = "codSaida";
             this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "UPDATE       tb_saida_produto\r\nSET                quantidade = @quantidade, valor" +
+                "Venda = @valorVenda, desconto = @desconto, subtotal = @subtotal\r\nWHERE        (c" +
+                "odProduto = @codProduto) AND (codSaida = @codSaida)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@quantidade";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "quantidade";
+            this._commandCollection[3].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@valorVenda";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "valorVenda";
+            this._commandCollection[3].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@desconto";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "desconto";
+            this._commandCollection[3].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@subtotal";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "subtotal";
+            this._commandCollection[3].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codProduto";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codProduto";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[3].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[3].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -24538,6 +24718,54 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string quantidade, string valorVenda, string desconto, string subtotal, long Original_codProduto, long Original_codSaida, string Original_quantidade, string Original_valorVenda, string Original_desconto, string Original_subtotal) {
             return this.Update(Original_codProduto, Original_codSaida, quantidade, valorVenda, desconto, subtotal, Original_codProduto, Original_codSaida, Original_quantidade, Original_valorVenda, Original_desconto, Original_subtotal);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateProduto(global::System.Nullable<decimal> quantidade, global::System.Nullable<decimal> valorVenda, global::System.Nullable<decimal> desconto, global::System.Nullable<decimal> subtotal, long codProduto, long codSaida) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[3];
+            if ((quantidade.HasValue == true)) {
+                command.Parameters[0].Value = ((decimal)(quantidade.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((valorVenda.HasValue == true)) {
+                command.Parameters[1].Value = ((decimal)(valorVenda.Value));
+            }
+            else {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((desconto.HasValue == true)) {
+                command.Parameters[2].Value = ((decimal)(desconto.Value));
+            }
+            else {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((subtotal.HasValue == true)) {
+                command.Parameters[3].Value = ((decimal)(subtotal.Value));
+            }
+            else {
+                command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            command.Parameters[4].Value = ((long)(codProduto));
+            command.Parameters[5].Value = ((long)(codSaida));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
