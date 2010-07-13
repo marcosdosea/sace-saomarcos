@@ -14,7 +14,7 @@ namespace SACE.Telas
     public partial class FrmPreVenda : Form
     {
         private EstadoFormulario estado;
-        private String codBarras;
+        private int codProduto;
         private int codSaida;
 
         public FrmPreVenda()
@@ -25,7 +25,6 @@ namespace SACE.Telas
         private void FrmPreVenda_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.PREVENDA, Principal.Autenticacao.CodUsuario);
-
             habilitaBotoes(true);
         }
 
@@ -53,14 +52,20 @@ namespace SACE.Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             tb_saidaBindingSource.AddNew();
+            //alterar tipo de entrada...
             tb_saidaTableAdapter.Insert(DateTime.Now, "P", 1, null, null, "", "0,0", "0,0", "0,0", "0,0");
 
             //TODO alterar como saida é obtida!
             DataTable dt = tb_saidaTableAdapter.GetData();
-            codSaida =  (int)dt.Rows[(dt.Rows.Count - 1)].Field<Int64>("codSaida");
+            
+            codSaida = (int)dt.Rows[(dt.Rows.Count - 1)].Field<Int64>("codSaida");
+            codSaidaLabel.Text = codSaida.ToString();
+            volumesLabel.Text = "0";
+            totalLabel.Text = "0,0";
+            aVistaLabel.Text = "0,0";
 
             tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
-            tb_saida_produtoBindingSource.AddNew();
+            //tb_saida_produtoBindingSource.AddNew();
             produtoTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -99,25 +104,10 @@ namespace SACE.Telas
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    //tb_saidaTableAdapter.Insert(nomeTextBox.Text);
-                    //tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
-                    //tb_bancoBindingSource.MoveLast();
-                }
-                else
-                {
-                    //tb_bancoTableAdapter.Update(nomeTextBox.Text, int.Parse(codPreVendaTextBox.Text));
-                    //tb_bancoBindingSource.EndEdit();
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
+        {                     
+            tb_saidaTableAdapter.UpdateQuerySaida(rbtPreVenda.Checked ? "P" : "O", decimal.Parse(totalLabel.Text), 0, decimal.Parse(aVistaLabel.Text), 0, codSaida);
+            tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);                    
+            
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -204,24 +194,56 @@ namespace SACE.Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                codBarras = produtoTextBox.Text;
-                DataTable dt = tb_produtoTableAdapter.GetDataBycodigoBarra(codBarras);
-                if (dt.Rows.Count > 0)
+                codProduto = int.Parse(produtoTextBox.Text);
+                DataTable dtPRodutoInserido = tb_produtoTableAdapter.GetDataBycodProduto(codProduto);
+                double qtdProdutos = double.Parse(quantidadeTextBox.Text);
+                if (dtPRodutoInserido.Rows.Count > 0)
                 {
-                    
-                    //TODO alterar forma como codSaida é obtido!
-                    tb_saida_produtoTableAdapter.Insert(dt.Rows[0].Field<long>("codProduto"),
-                        codSaida, quantidadeTextBox.Text, dt.Rows[0].Field<Decimal>("precoVendaVarejo").ToString(),
-                        null, null);
-                    tb_saida_produtoTableAdapter.Fill(saceDataSet.tb_saida_produto);
-                    tb_saida_produtoBindingSource.MoveLast();
-                }
-                if (rbtPreVenda.Checked)
-                {
-                    decimal qtdProduto = decimal.Parse(tb_produtoTableAdapter.ScalarQueryQtdProduto(codBarras).ToString());
-                    tb_produtoTableAdapter.UpdateQuantidade(dt.Rows[0].Field<Decimal>("qtdProdutoAtacado") + qtdProduto, produtoTextBox.Text);
+                    DataTable dtProdutosInseridos = tb_saida_produtoTableAdapter.GetDataBycodProdutocodSaida(
+                        dtPRodutoInserido.Rows[0].Field<long>("codProduto"), codSaida);
+                    if (dtProdutosInseridos.Rows.Count > 0)
+                    {
+                        qtdProdutos += (double)dtProdutosInseridos.Rows[0].Field<decimal>("quantidade");
+                        
+                        tb_saida_produtoTableAdapter.UpdateProduto((decimal)qtdProdutos, null, null, null,
+                            dtProdutosInseridos.Rows[0].Field<long>("codProduto"), codSaida);
+                        tb_saida_produtoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_produto, codSaida);
+                        tb_saida_produtoBindingSource.MoveLast();
+                    }
+                    else
+                    {
+                        tb_saida_produtoTableAdapter.Insert(dtPRodutoInserido.Rows[0].Field<long>("codProduto"),
+                            codSaida, qtdProdutos.ToString(),
+                            ((double)dtPRodutoInserido.Rows[0].Field<Decimal>("precoVendaVarejo") * qtdProdutos).ToString(),
+                            "0", ((double)dtPRodutoInserido.Rows[0].Field<Decimal>("precoVendaVarejo") * qtdProdutos).ToString());
 
+                        tb_saida_produtoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_produto, codSaida);
+                        tb_saida_produtoBindingSource.MoveLast();
+                        volumesLabel.Text = tb_saida_produtoTableAdapter.GetDataByCodSaida(codSaida).Rows.Count.ToString();
+                    }
                 }
+                //if (rbtPreVenda.Checked)
+                //{
+                //    decimal qtdProduto = decimal.Parse(tb_produtoTableAdapter.ScalarQueryQtdProduto(codBarras).ToString());
+                //    tb_produtoTableAdapter.UpdateQuantidade(dtPRodutoInserido.Rows[0].Field<Decimal>("qtdProdutoAtacado") + qtdProduto, produtoTextBox.Text);
+                //}
+                DataTable dtProdutosVenda = tb_saida_produtoTableAdapter.GetDataByCodSaida(codSaida);
+                double valorTotal = 0;
+                double subTotal = 0;
+                
+                foreach (DataRow linha in dtProdutosVenda.Rows)
+                {
+                    valorTotal += (double)linha.Field<Decimal>("valorVenda");
+                    subTotal += (double)linha.Field<Decimal>("subtotal");
+                }
+                totalLabel.Text = "";
+                aVistaLabel.Text = "";
+                totalLabel.Text = valorTotal.ToString();
+                aVistaLabel.Text = subTotal.ToString();
+
+                produtoTextBox.Clear();
+                quantidadeTextBox.Clear();
+                produtoTextBox.Focus();
             }
         }        
 
@@ -238,25 +260,28 @@ namespace SACE.Telas
 
                 foreach (DataRow linha in dt.Rows)
                 {
-                    decimal qtdProduto = decimal.Parse(tb_produtoTableAdapter.ScalarQueryQtdProduto(codBarras).ToString());
-                    tb_produtoTableAdapter.UpdateQuantidade(decimal.Parse(linha["qtdProdutoAtacado"].ToString()), codBarras);
+                    decimal qtdProduto = decimal.Parse(tb_produtoTableAdapter.ScalarQueryQtdProduto(codProduto).ToString());
+                    tb_produtoTableAdapter.UpdateQuantidade(decimal.Parse(linha["qtdProdutoAtacado"].ToString()), codProduto);
                 }
             }
         }
 
         private void produtoTextBox_Leave(object sender, EventArgs e)
         {
-            DataTable dt = tb_produtoTableAdapter.GetDataBycodigoBarra(produtoTextBox.Text);
-            if (dt.Rows.Count > 0)
+            if (!String.IsNullOrEmpty(produtoTextBox.Text))
             {
-                precoTextBox.Text = dt.Rows[0].Field<Decimal>("precoVendaVarejo").ToString();
-                nomeProdutoLabel.Text = dt.Rows[0].Field<String>("nome");
-            }
-            else
-            {
-                produtoTextBox.Focus();
-                MessageBox.Show("Produto não encontrado!");
-            }
+                DataTable dt = tb_produtoTableAdapter.GetDataBycodProduto(int.Parse(produtoTextBox.Text));
+                if (dt.Rows.Count > 0)
+                {
+                    precoTextBox.Text = dt.Rows[0].Field<Decimal>("precoVendaVarejo").ToString();
+                    nomeProdutoLabel.Text = dt.Rows[0].Field<String>("nome");
+                }
+                else
+                {
+                    produtoTextBox.Focus();
+                    MessageBox.Show("Produto não encontrado!");
+                }
+            }            
         }       
     }
 }

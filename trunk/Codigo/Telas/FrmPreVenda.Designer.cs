@@ -64,7 +64,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbtOrcamento = new System.Windows.Forms.RadioButton();
             this.rbtPreVenda = new System.Windows.Forms.RadioButton();
-            this.codigoLabel = new System.Windows.Forms.Label();
             this.btnInsereProduto = new System.Windows.Forms.Button();
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
@@ -72,6 +71,7 @@
             this.tb_saidaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.tb_saida_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saida_produtoTableAdapter();
             this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
+            this.codSaidaLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -339,7 +339,7 @@
             // 
             // quantidadeTextBox
             // 
-            this.quantidadeTextBox.Location = new System.Drawing.Point(16, 238);
+            this.quantidadeTextBox.Location = new System.Drawing.Point(16, 303);
             this.quantidadeTextBox.Name = "quantidadeTextBox";
             this.quantidadeTextBox.Size = new System.Drawing.Size(174, 20);
             this.quantidadeTextBox.TabIndex = 12;
@@ -349,7 +349,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(12, 215);
+            this.label9.Location = new System.Drawing.Point(12, 280);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(92, 20);
             this.label9.TabIndex = 33;
@@ -357,7 +357,7 @@
             // 
             // precoTextBox
             // 
-            this.precoTextBox.Location = new System.Drawing.Point(16, 303);
+            this.precoTextBox.Location = new System.Drawing.Point(16, 257);
             this.precoTextBox.Name = "precoTextBox";
             this.precoTextBox.ReadOnly = true;
             this.precoTextBox.Size = new System.Drawing.Size(174, 20);
@@ -367,7 +367,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(12, 271);
+            this.label10.Location = new System.Drawing.Point(17, 234);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(87, 20);
             this.label10.TabIndex = 35;
@@ -377,7 +377,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(221, 88);
+            this.label11.Location = new System.Drawing.Point(221, 87);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(63, 20);
             this.label11.TabIndex = 37;
@@ -417,15 +417,6 @@
             this.rbtPreVenda.UseVisualStyleBackColor = true;
             this.rbtPreVenda.CheckedChanged += new System.EventHandler(this.rbtPreVenda_CheckedChanged);
             // 
-            // codigoLabel
-            // 
-            this.codigoLabel.AutoSize = true;
-            this.codigoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codigoLabel.Location = new System.Drawing.Point(282, 85);
-            this.codigoLabel.Name = "codigoLabel";
-            this.codigoLabel.Size = new System.Drawing.Size(0, 24);
-            this.codigoLabel.TabIndex = 39;
-            // 
             // btnInsereProduto
             // 
             this.btnInsereProduto.Location = new System.Drawing.Point(47, 329);
@@ -462,14 +453,23 @@
             // 
             this.tb_produtoTableAdapter.ClearBeforeFill = true;
             // 
+            // codSaidaLabel
+            // 
+            this.codSaidaLabel.AutoSize = true;
+            this.codSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codSaidaLabel.Location = new System.Drawing.Point(284, 87);
+            this.codSaidaLabel.Name = "codSaidaLabel";
+            this.codSaidaLabel.Size = new System.Drawing.Size(0, 20);
+            this.codSaidaLabel.TabIndex = 41;
+            // 
             // FrmPreVenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 544);
+            this.Controls.Add(this.codSaidaLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnInsereProduto);
-            this.Controls.Add(this.codigoLabel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.precoTextBox);
@@ -541,7 +541,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbtOrcamento;
         private System.Windows.Forms.RadioButton rbtPreVenda;
-        private System.Windows.Forms.Label codigoLabel;
         private SACE.Dados.saceDataSet saceDataSet;
         private SACE.Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
         private SACE.Dados.saceDataSetTableAdapters.tb_saida_produtoTableAdapter tb_saida_produtoTableAdapter;
@@ -559,5 +558,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label nomeProdutoLabel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label codSaidaLabel;
     }
 }
