@@ -320,6 +320,16 @@ namespace SACE.Dados {
             
             private global::System.Data.DataColumn columndataBaixa;
             
+            private global::System.Data.DataColumn columndescricao;
+            
+            private global::System.Data.DataColumn columnagencia;
+            
+            private global::System.Data.DataColumn columnExpr1;
+            
+            private global::System.Data.DataColumn columnsaldo;
+            
+            private global::System.Data.DataColumn columncodBanco;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public dt_RelContaDataTable() {
                 this.TableName = "dt_RelConta";
@@ -554,6 +564,41 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn descricaoColumn {
+                get {
+                    return this.columndescricao;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn agenciaColumn {
+                get {
+                    return this.columnagencia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn Expr1Column {
+                get {
+                    return this.columnExpr1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn saldoColumn {
+                get {
+                    return this.columnsaldo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn codBancoColumn {
+                get {
+                    return this.columncodBanco;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -609,7 +654,12 @@ namespace SACE.Dados {
                         decimal valorPago, 
                         decimal valorDiferenca, 
                         long codContaBanco, 
-                        System.DateTime dataBaixa) {
+                        System.DateTime dataBaixa, 
+                        string descricao, 
+                        string agencia, 
+                        string Expr1, 
+                        decimal saldo, 
+                        int codBanco) {
                 dt_RelContaRow rowdt_RelContaRow = ((dt_RelContaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -640,7 +690,12 @@ namespace SACE.Dados {
                         valorPago,
                         valorDiferenca,
                         codContaBanco,
-                        dataBaixa};
+                        dataBaixa,
+                        descricao,
+                        agencia,
+                        Expr1,
+                        saldo,
+                        codBanco};
                 rowdt_RelContaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdt_RelContaRow);
                 return rowdt_RelContaRow;
@@ -689,6 +744,11 @@ namespace SACE.Dados {
                 this.columnvalorDiferenca = base.Columns["valorDiferenca"];
                 this.columncodContaBanco = base.Columns["codContaBanco"];
                 this.columndataBaixa = base.Columns["dataBaixa"];
+                this.columndescricao = base.Columns["descricao"];
+                this.columnagencia = base.Columns["agencia"];
+                this.columnExpr1 = base.Columns["Expr1"];
+                this.columnsaldo = base.Columns["saldo"];
+                this.columncodBanco = base.Columns["codBanco"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -751,13 +811,29 @@ namespace SACE.Dados {
                 base.Columns.Add(this.columncodContaBanco);
                 this.columndataBaixa = new global::System.Data.DataColumn("dataBaixa", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndataBaixa);
+                this.columndescricao = new global::System.Data.DataColumn("descricao", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndescricao);
+                this.columnagencia = new global::System.Data.DataColumn("agencia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnagencia);
+                this.columnExpr1 = new global::System.Data.DataColumn("Expr1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExpr1);
+                this.columnsaldo = new global::System.Data.DataColumn("saldo", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsaldo);
+                this.columncodBanco = new global::System.Data.DataColumn("codBanco", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodBanco);
                 this.columncodConta.AutoIncrement = true;
                 this.columncodConta.AutoIncrementSeed = -1;
                 this.columncodConta.AutoIncrementStep = -1;
+                this.columncodConta.AllowDBNull = false;
                 this.columndocumento.MaxLength = 20;
+                this.columncodPlanoConta.AllowDBNull = false;
+                this.columndataVencimento.AllowDBNull = false;
+                this.columnvalor.AllowDBNull = false;
                 this.columnsituacao.MaxLength = 1;
                 this.columnobservacao.MaxLength = 64;
+                this.columntipoConta.AllowDBNull = false;
                 this.columntipoConta.MaxLength = 1;
+                this.columnnome.AllowDBNull = false;
                 this.columnnome.MaxLength = 40;
                 this.columncpf_Cnpj.MaxLength = 14;
                 this.columnendereco.MaxLength = 100;
@@ -767,10 +843,14 @@ namespace SACE.Dados {
                 this.columnuf.MaxLength = 2;
                 this.columnfone1.MaxLength = 10;
                 this.columnfone2.MaxLength = 10;
+                this.columnTipo.AllowDBNull = false;
                 this.columnTipo.MaxLength = 1;
                 this.columncodPagamento.AutoIncrement = true;
                 this.columncodPagamento.AutoIncrementSeed = -1;
                 this.columncodPagamento.AutoIncrementStep = -1;
+                this.columndescricao.MaxLength = 40;
+                this.columnagencia.MaxLength = 10;
+                this.columnExpr1.MaxLength = 30;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -905,12 +985,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long codConta {
                 get {
-                    try {
-                        return ((long)(this[this.tabledt_RelConta.codContaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'codConta\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((long)(this[this.tabledt_RelConta.codContaColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.codContaColumn] = value;
@@ -965,12 +1040,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long codPlanoConta {
                 get {
-                    try {
-                        return ((long)(this[this.tabledt_RelConta.codPlanoContaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'codPlanoConta\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((long)(this[this.tabledt_RelConta.codPlanoContaColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.codPlanoContaColumn] = value;
@@ -995,12 +1065,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime dataVencimento {
                 get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tabledt_RelConta.dataVencimentoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'dataVencimento\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((global::System.DateTime)(this[this.tabledt_RelConta.dataVencimentoColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.dataVencimentoColumn] = value;
@@ -1010,12 +1075,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal valor {
                 get {
-                    try {
-                        return ((decimal)(this[this.tabledt_RelConta.valorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'valor\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((decimal)(this[this.tabledt_RelConta.valorColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.valorColumn] = value;
@@ -1055,12 +1115,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string tipoConta {
                 get {
-                    try {
-                        return ((string)(this[this.tabledt_RelConta.tipoContaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'tipoConta\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tabledt_RelConta.tipoContaColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.tipoContaColumn] = value;
@@ -1070,12 +1125,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string nome {
                 get {
-                    try {
-                        return ((string)(this[this.tabledt_RelConta.nomeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'nome\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tabledt_RelConta.nomeColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.nomeColumn] = value;
@@ -1235,12 +1285,7 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Tipo {
                 get {
-                    try {
-                        return ((string)(this[this.tabledt_RelConta.TipoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Tipo\' in table \'dt_RelConta\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tabledt_RelConta.TipoColumn]));
                 }
                 set {
                     this[this.tabledt_RelConta.TipoColumn] = value;
@@ -1338,13 +1383,78 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IscodContaNull() {
-                return this.IsNull(this.tabledt_RelConta.codContaColumn);
+            public string descricao {
+                get {
+                    try {
+                        return ((string)(this[this.tabledt_RelConta.descricaoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'descricao\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledt_RelConta.descricaoColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetcodContaNull() {
-                this[this.tabledt_RelConta.codContaColumn] = global::System.Convert.DBNull;
+            public string agencia {
+                get {
+                    try {
+                        return ((string)(this[this.tabledt_RelConta.agenciaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'agencia\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledt_RelConta.agenciaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Expr1 {
+                get {
+                    try {
+                        return ((string)(this[this.tabledt_RelConta.Expr1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Expr1\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledt_RelConta.Expr1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal saldo {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabledt_RelConta.saldoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'saldo\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledt_RelConta.saldoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int codBanco {
+                get {
+                    try {
+                        return ((int)(this[this.tabledt_RelConta.codBancoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'codBanco\' in table \'dt_RelConta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledt_RelConta.codBancoColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1378,16 +1488,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IscodPlanoContaNull() {
-                return this.IsNull(this.tabledt_RelConta.codPlanoContaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetcodPlanoContaNull() {
-                this[this.tabledt_RelConta.codPlanoContaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IscodPessoaNull() {
                 return this.IsNull(this.tabledt_RelConta.codPessoaColumn);
             }
@@ -1395,26 +1495,6 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetcodPessoaNull() {
                 this[this.tabledt_RelConta.codPessoaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsdataVencimentoNull() {
-                return this.IsNull(this.tabledt_RelConta.dataVencimentoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetdataVencimentoNull() {
-                this[this.tabledt_RelConta.dataVencimentoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsvalorNull() {
-                return this.IsNull(this.tabledt_RelConta.valorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetvalorNull() {
-                this[this.tabledt_RelConta.valorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1435,26 +1515,6 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetobservacaoNull() {
                 this[this.tabledt_RelConta.observacaoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IstipoContaNull() {
-                return this.IsNull(this.tabledt_RelConta.tipoContaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SettipoContaNull() {
-                this[this.tabledt_RelConta.tipoContaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsnomeNull() {
-                return this.IsNull(this.tabledt_RelConta.nomeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetnomeNull() {
-                this[this.tabledt_RelConta.nomeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1558,16 +1618,6 @@ namespace SACE.Dados {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsTipoNull() {
-                return this.IsNull(this.tabledt_RelConta.TipoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetTipoNull() {
-                this[this.tabledt_RelConta.TipoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IscodPagamentoNull() {
                 return this.IsNull(this.tabledt_RelConta.codPagamentoColumn);
             }
@@ -1625,6 +1675,56 @@ namespace SACE.Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetdataBaixaNull() {
                 this[this.tabledt_RelConta.dataBaixaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsdescricaoNull() {
+                return this.IsNull(this.tabledt_RelConta.descricaoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetdescricaoNull() {
+                this[this.tabledt_RelConta.descricaoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsagenciaNull() {
+                return this.IsNull(this.tabledt_RelConta.agenciaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetagenciaNull() {
+                this[this.tabledt_RelConta.agenciaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsExpr1Null() {
+                return this.IsNull(this.tabledt_RelConta.Expr1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetExpr1Null() {
+                this[this.tabledt_RelConta.Expr1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IssaldoNull() {
+                return this.IsNull(this.tabledt_RelConta.saldoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetsaldoNull() {
+                this[this.tabledt_RelConta.saldoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IscodBancoNull() {
+                return this.IsNull(this.tabledt_RelConta.codBancoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetcodBancoNull() {
+                this[this.tabledt_RelConta.codBancoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1807,6 +1907,11 @@ namespace SACE.Dados.saceRelatoriosDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("valorDiferenca", "valorDiferenca");
             tableMapping.ColumnMappings.Add("codContaBanco", "codContaBanco");
             tableMapping.ColumnMappings.Add("dataBaixa", "dataBaixa");
+            tableMapping.ColumnMappings.Add("descricao", "descricao");
+            tableMapping.ColumnMappings.Add("agencia", "agencia");
+            tableMapping.ColumnMappings.Add("Expr1", "Expr1");
+            tableMapping.ColumnMappings.Add("saldo", "saldo");
+            tableMapping.ColumnMappings.Add("codBanco", "codBanco");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1818,18 +1923,82 @@ namespace SACE.Dados.saceRelatoriosDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codEntrada, tb_conta.codSaida, tb_conta.documento, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.dataVencimento, 
                          tb_conta.valor, tb_conta.situacao, tb_conta.observacao, tb_conta.tipoConta, tb_pessoa.nome, tb_pessoa.cpf_Cnpj, tb_pessoa.endereco, tb_pessoa.cep, 
                          tb_pessoa.bairro, tb_pessoa.cidade, tb_pessoa.uf, tb_pessoa.fone1, tb_pessoa.fone2, tb_pessoa.limiteCompra, tb_pessoa.valorComissao, tb_pessoa.Tipo, 
                          tb_baixa_conta.codPagamento, tb_baixa_conta.codFormaPagamento, tb_baixa_conta.valorPago, tb_baixa_conta.valorDiferenca, tb_baixa_conta.codContaBanco, 
-                         tb_baixa_conta.dataBaixa
-FROM            tb_conta INNER JOIN
-                         tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa LEFT OUTER JOIN
-                         tb_baixa_conta ON tb_conta.codConta = tb_baixa_conta.codConta";
+                         tb_baixa_conta.dataBaixa, tb_forma_pagamento.descricao, tb_conta_banco.agencia, tb_conta_banco.descricao AS Expr1, tb_conta_banco.saldo, 
+                         tb_conta_banco.codBanco
+FROM            tb_forma_pagamento INNER JOIN
+                         tb_baixa_conta ON tb_forma_pagamento.codFormaPagamento = tb_baixa_conta.codFormaPagamento INNER JOIN
+                         tb_conta_banco ON tb_baixa_conta.codContaBanco = tb_conta_banco.codContaBanco RIGHT OUTER JOIN
+                         tb_conta INNER JOIN
+                         tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa ON tb_baixa_conta.codConta = tb_conta.codConta";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        tb_conta.codConta, tb_conta.codEntrada, tb_conta.codSaida, tb_conta" +
+                ".documento, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.dataVencimento," +
+                " \r\n                         tb_conta.valor, tb_conta.situacao, tb_conta.observac" +
+                "ao, tb_conta.tipoConta, tb_pessoa.nome, tb_pessoa.cpf_Cnpj, tb_pessoa.endereco, " +
+                "tb_pessoa.cep, \r\n                         tb_pessoa.bairro, tb_pessoa.cidade, tb" +
+                "_pessoa.uf, tb_pessoa.fone1, tb_pessoa.fone2, tb_pessoa.limiteCompra, tb_pessoa." +
+                "valorComissao, tb_pessoa.Tipo, \r\n                         tb_baixa_conta.codPaga" +
+                "mento, tb_baixa_conta.codFormaPagamento, tb_baixa_conta.valorPago, tb_baixa_cont" +
+                "a.valorDiferenca, tb_baixa_conta.codContaBanco, \r\n                         tb_ba" +
+                "ixa_conta.dataBaixa, tb_forma_pagamento.descricao, tb_conta_banco.agencia, tb_co" +
+                "nta_banco.descricao AS Expr1, tb_conta_banco.saldo, \r\n                         t" +
+                "b_conta_banco.codBanco\r\nFROM            tb_forma_pagamento INNER JOIN\r\n         " +
+                "                tb_baixa_conta ON tb_forma_pagamento.codFormaPagamento = tb_baix" +
+                "a_conta.codFormaPagamento INNER JOIN\r\n                         tb_conta_banco ON" +
+                " tb_baixa_conta.codContaBanco = tb_conta_banco.codContaBanco RIGHT OUTER JOIN\r\n " +
+                "                        tb_conta INNER JOIN\r\n                         tb_pessoa " +
+                "ON tb_conta.codPessoa = tb_pessoa.codPessoa ON tb_baixa_conta.codConta = tb_cont" +
+                "a.codConta\r\n\r\nwhere (tb_conta.codPessoa = @codPessoa or @codPessoa is null) and " +
+                " \r\n(@dataini is null or @dataini <= tb_conta.dataVencimento) and\r\n(@datafim is n" +
+                "ull or @datafim >= tb_conta.dataVencimento) and\r\n(@tipo is null or @tipo =  tb_c" +
+                "onta.tipoConta) and\r\n(@situacao is null or @situacao =  tb_conta.situacao)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPessoa";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codPessoa";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@dataini";
+            param.DbType = global::System.Data.DbType.DateTime;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
+            param.IsNullable = true;
+            param.SourceColumn = "dataVencimento";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@datafim";
+            param.DbType = global::System.Data.DbType.DateTime;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
+            param.IsNullable = true;
+            param.SourceColumn = "dataVencimento";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@tipo";
+            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
+            param.IsNullable = true;
+            param.SourceColumn = "tipoConta";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@situacao";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
+            param.IsNullable = true;
+            param.SourceColumn = "situacao";
+            this._commandCollection[1].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1849,6 +2018,68 @@ FROM            tb_conta INNER JOIN
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual saceRelatoriosDataSet.dt_RelContaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            saceRelatoriosDataSet.dt_RelContaDataTable dataTable = new saceRelatoriosDataSet.dt_RelContaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByParametros(saceRelatoriosDataSet.dt_RelContaDataTable dataTable, global::System.Nullable<long> codPessoa, System.DateTime dataini, System.DateTime datafim, string tipo, string situacao) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((codPessoa.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codPessoa.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(dataini));
+            this.Adapter.SelectCommand.Parameters[2].Value = ((System.DateTime)(datafim));
+            if ((tipo == null)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((string)(tipo));
+            }
+            if ((situacao == null)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((string)(situacao));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceRelatoriosDataSet.dt_RelContaDataTable GetDataByParametros(global::System.Nullable<long> codPessoa, System.DateTime dataini, System.DateTime datafim, string tipo, string situacao) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((codPessoa.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codPessoa.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(dataini));
+            this.Adapter.SelectCommand.Parameters[2].Value = ((System.DateTime)(datafim));
+            if ((tipo == null)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((string)(tipo));
+            }
+            if ((situacao == null)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((string)(situacao));
+            }
             saceRelatoriosDataSet.dt_RelContaDataTable dataTable = new saceRelatoriosDataSet.dt_RelContaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

@@ -27,4 +27,5 @@ values
 (25, 'Relatorio Listagem preços'),
 (26, 'Relatorio Estoque'),
 (27, 'Relatorio Vendas'),
-(28, 'Relatorio Compras');
+(28, 'Relatorio Compras'),
+(29, 'Relatorio Contas');
