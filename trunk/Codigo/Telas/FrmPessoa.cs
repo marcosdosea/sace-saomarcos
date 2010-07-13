@@ -83,8 +83,6 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     if ((PfRadioButton.Checked) && (!Validacoes.ValidaCPF(cpf_cnpjMaskedTextBox.Text)))
@@ -126,12 +124,6 @@ namespace SACE.Telas
                         observacaoTextBox.Text, PfRadioButton.Checked ? "F" : "J", long.Parse(codPessoaTextBox.Text));
                     tb_pessoaBindingSource.EndEdit();
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_pessoaBindingSource.CancelEdit();
-            }
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -223,8 +215,9 @@ namespace SACE.Telas
         private void tb_pessoaBindingSource_PositionChanged(object sender, EventArgs e)
         {
             DataRowView linha = (DataRowView)tb_pessoaBindingSource.Current;
-
-            bool tipoCliente = linha["Tipo"].ToString().Equals("F");
+            bool tipoCliente = false;
+            if(linha != null)
+                tipoCliente = linha["Tipo"].ToString().Equals("F");
             if (tipoCliente)
             {
                 PfRadioButton.Checked = true;

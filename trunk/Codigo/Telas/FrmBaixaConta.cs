@@ -46,7 +46,7 @@ namespace SACE.Telas
                 for (int i = 0; i < contasDataGridView.SelectedRows.Count; i++)
                 {
                     long codConta = Convert.ToInt64(contasDataGridView.SelectedRows[i].Cells["codContaDataGridViewTextBoxColumn"].Value.ToString());
-                    total += (double)tb_baixa_contaTableAdapter.GetTotalQuitado(codConta);
+                    total += Convert.ToDouble(tb_contaTableAdapter.GetValorTotalConta(codConta)) - Convert.ToDouble(tb_baixa_contaTableAdapter.GetTotalQuitado(codConta));
                     if (tipo != contasDataGridView.SelectedRows[i].Cells["tipoContaDataGridViewTextBoxColumn"].Value.ToString())
                     {
                         ConfirmarButton.Enabled = false;

@@ -127,8 +127,14 @@ namespace SACE.Telas
         private void tb_contasBindingSource_PositionChanged(object sender, EventArgs e)
         {
             DataRowView linha = (DataRowView)tb_contasBindingSource.Current;
-            string tipoCliente = linha["TipoConta"].ToString();
-            string situacao = linha["Situacao"].ToString();
+            
+            string tipoCliente = "";
+            string situacao = "";
+            if (linha != null)
+            {
+                tipoCliente = linha["TipoConta"].ToString();
+                situacao = linha["Situacao"].ToString();
+            }
 
             if (tipoCliente.Equals("P"))
             {
