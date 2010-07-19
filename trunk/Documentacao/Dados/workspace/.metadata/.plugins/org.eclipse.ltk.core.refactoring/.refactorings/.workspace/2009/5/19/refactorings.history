@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;SACE-Dados&apos;" deleteContents="false" description="Delete resource &apos;SACE-Dados&apos;" element1="/SACE-Dados" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1241620752357"/>
-</session>
