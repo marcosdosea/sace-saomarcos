@@ -64,3 +64,7 @@ values
 (1,27),
 (1,28),
 (1,29);
+
+INSERT INTO tb_pessoa(nome, Tipo) VALUES("Marcos", "F");
+
+INSERT INTO tb_usuario VALUES(1, '1', '1', 1);
