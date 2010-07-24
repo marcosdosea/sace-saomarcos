@@ -6,7 +6,7 @@ CREATE TABLE sace.tb_baixa_conta (
                 codConta BIGINT(19) NOT NULL,
                 valorPago DECIMAL(10,2) NOT NULL,
                 valorDiferenca DECIMAL(10,2) DEFAULT 0.00,
-                codContaBanco BIGINT(19) NOT NULL,
+                codContaBanco VARCHAR(20) NOT NULL,
                 dataBaixa DATETIME,
                 PRIMARY KEY (codPagamento)
 );
@@ -23,7 +23,7 @@ CREATE TABLE sace.tb_cartao_credito (
                 codCartao INT(8) AUTO_INCREMENT NOT NULL,
                 nome VARCHAR(30) NOT NULL,
                 diaBase INT(8),
-                codContaBanco BIGINT(19) NOT NULL,
+                codContaBanco VARCHAR(20) NOT NULL,
                 PRIMARY KEY (codCartao)
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE sace.tb_conta (
 
 
 CREATE TABLE sace.tb_conta_banco (
-                codContaBanco BIGINT(19) NOT NULL,
+                codContaBanco VARCHAR(20) NOT NULL,
                 agencia VARCHAR(10),
                 descricao VARCHAR(30),
                 saldo DECIMAL(10,2),
@@ -154,7 +154,7 @@ CREATE TABLE sace.tb_movimentacao_conta (
                 valor DECIMAL(10,2) NOT NULL,
                 dataHora DATETIME NOT NULL,
                 codResponsavel BIGINT(19) NOT NULL,
-                codContaBanco BIGINT(19) NOT NULL,
+                codContaBanco VARCHAR(20) NOT NULL,
                 PRIMARY KEY (codMovimentacao)
 );
 

@@ -180,7 +180,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>saceRelatoriosDataSet</rd:DataSetName>
         <rd:TableName>dt_RelConta</rd:TableName>
-        <rd:ObjectDataSourceType>SACE.Dados.saceRelatoriosDataSet, Dados, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>Dados.saceRelatoriosDataSet, Dados, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
         <rd:ObjectDataSourceSelectMethod>dt_RelConta</rd:ObjectDataSourceSelectMethod>
       </rd:DataSetInfo>
     </DataSet>

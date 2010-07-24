@@ -53,10 +53,10 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tb_contasBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tableAdapterManager1 = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_baixa_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
-            this.tb_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tableAdapterManager1 = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_baixa_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
+            this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -83,8 +83,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pagarRadioButton = new System.Windows.Forms.RadioButton();
             this.receberRadioButton = new System.Windows.Forms.RadioButton();
-            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
-            this.tb_plano_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
+            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.tb_plano_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
             this.codEntradaMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.codSaidaMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.valorTextBox = new System.Windows.Forms.TextBox();
@@ -359,7 +359,7 @@
             this.tableAdapterManager1.tb_saidaTableAdapter = null;
             this.tableAdapterManager1.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager1.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager1.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager1.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_baixa_contaTableAdapter
             // 
@@ -743,16 +743,16 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingNavigator tb_contasBindingNavigator;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
+        private Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_contasBindingSource;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
@@ -774,8 +774,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataBaixaDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource planoContaBindingSource;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
         private System.Windows.Forms.MaskedTextBox codEntradaMaskedTextBox;
         private System.Windows.Forms.MaskedTextBox codSaidaMaskedTextBox;
         private System.Windows.Forms.TextBox valorTextBox;

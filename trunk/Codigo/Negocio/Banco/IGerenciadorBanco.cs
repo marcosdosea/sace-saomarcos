@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SACE.Dominio;
+using Dominio;
 
 
-namespace SACE.Negocio
+namespace Negocio
 {
     public interface IGerenciadorBanco: IGerenciadorNegocio<Banco, Int32>
     {
+        
 
     }
 }

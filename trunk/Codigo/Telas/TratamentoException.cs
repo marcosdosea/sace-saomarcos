@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using SACE.Excecoes;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Data.Common;
+using Dados;
 
 namespace Telas
 {
@@ -45,10 +46,27 @@ namespace Telas
                     erro = "Não é possivel divisão por zero ";
                 else if (t.Exception is NullReferenceException)
                     erro = "Referência para um objeto não encontrado.";
-                if (t.Exception is DbException)
+                if (t.Exception is DadosException)
                 {
-                    DadosException dadosException = new DadosException(t.Exception.Message, t.Exception);
-                    erro = dadosException.Tratar();
+                    DadosException de = (DadosException)t.Exception;
+                    if (de.InnerException is MySqlException)
+                    {
+                        MySqlException exception = (MySqlException) de.InnerException;
+                        // Tratamento de chaves únicas
+                        if (exception.Number == 1062)
+                        {
+                            erro = "O " + de.Entidade + " já foi inserido na base de dados.";
+                        }
+                        // Tratamento de chaves estrangeiras
+                        else if (exception.Number == 1451)
+                        {
+                            erro = "O " + de.Entidade + " não pode ser excluído por estar associado a outro registro na base de dados.";
+                        }
+                        else
+                        {
+                            erro = "Erro " + exception.Number + ": Favor contactar administrador do sistema.";
+                        }
+                    }
                 }
             }
 

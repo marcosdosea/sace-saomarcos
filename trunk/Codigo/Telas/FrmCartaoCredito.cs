@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_conta_banco' table. You can move, or remove it, as needed.
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
@@ -59,20 +59,13 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_cartao_creditoTableAdapter.Delete(int.Parse(codCartaoTextBox.Text));
-                    tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
-                }
+                tb_cartao_creditoTableAdapter.Delete(int.Parse(codCartaoTextBox.Text));
+                tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_cartao_creditoBindingSource.CancelEdit();
-            }
-            
+
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -84,32 +77,27 @@ namespace SACE.Telas
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
-        {   
-            try
-            {
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    
-                    tb_cartao_creditoTableAdapter.Insert(nomeTextBox.Text, int.Parse(diaBaseTextBox.Text),
-                        long.Parse(codContaBancoComboBox.SelectedValue.ToString().Trim()));
-                    tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
-                    tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
-                    tb_cartao_creditoBindingSource.MoveLast();
-                }
-                else
-                {
-                    tb_cartao_creditoTableAdapter.Update(nomeTextBox.Text, int.Parse(diaBaseTextBox.Text),
-                        long.Parse(codContaBancoComboBox.SelectedValue.ToString().Trim()), int.Parse(codCartaoTextBox.Text));
-                    tb_cartao_creditoBindingSource.EndEdit();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_cartao_creditoBindingSource.CancelEdit();
-            }
+        {
+
             habilitaBotoes(true);
             btnBuscar.Focus();
+
+            if (estado.Equals(EstadoFormulario.INSERIR))
+            {
+
+                tb_cartao_creditoTableAdapter.Insert(nomeTextBox.Text, int.Parse(diaBaseTextBox.Text),
+                    codContaBancoComboBox.SelectedValue.ToString().Trim());
+                tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
+                tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
+                tb_cartao_creditoBindingSource.MoveLast();
+            }
+            else
+            {
+                tb_cartao_creditoTableAdapter.Update(nomeTextBox.Text, int.Parse(diaBaseTextBox.Text),
+                    codContaBancoComboBox.SelectedValue.ToString().Trim(), int.Parse(codCartaoTextBox.Text));
+                tb_cartao_creditoBindingSource.EndEdit();
+            }
+
         }
 
         private void FrmCartaoCredito_KeyDown(object sender, KeyEventArgs e)

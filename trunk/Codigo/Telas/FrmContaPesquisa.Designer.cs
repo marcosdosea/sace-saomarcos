@@ -46,9 +46,9 @@
             this.observacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tb_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -247,7 +247,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // FrmContaPesquisa
             // 
@@ -278,9 +278,9 @@
         private System.Windows.Forms.TextBox txtTexto;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
-        private SACE.Dados.saceDataSet saceDataSet;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
+        private Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingSource tb_contaBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn codPessoaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codPlanoContaDataGridViewTextBoxColumn;

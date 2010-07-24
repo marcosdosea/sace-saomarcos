@@ -33,10 +33,10 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_grupo_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_grupo_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_grupo_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_grupo_contaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -103,10 +103,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -116,6 +119,8 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
@@ -125,7 +130,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_grupo_contaDataGridView
             // 
@@ -143,6 +148,7 @@
             this.tb_grupo_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_grupo_contaDataGridView.Size = new System.Drawing.Size(444, 220);
             this.tb_grupo_contaDataGridView.TabIndex = 5;
+            this.tb_grupo_contaDataGridView.TabStop = false;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -153,6 +159,7 @@
             // 
             // dataGridViewTextBoxColumn3
             // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "descricao";
             this.dataGridViewTextBoxColumn3.HeaderText = "Descrição";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -188,10 +195,10 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_grupo_contaBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView tb_grupo_contaDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

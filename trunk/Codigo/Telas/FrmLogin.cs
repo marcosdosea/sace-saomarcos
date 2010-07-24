@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SACE.Dados.saceDataSetTableAdapters;
+using Dados.saceDataSetTableAdapters;
 
 namespace SACE.Telas
 {
@@ -44,7 +44,7 @@ namespace SACE.Telas
         private void buttonEntrar_Click(object sender, EventArgs e)
         {
             tb_usuarioTableAdapter ta = new tb_usuarioTableAdapter();
-            DataTable dt = ta.GetUsuario(textBoxUsuario.Text, textBoxSenha.Text);
+            DataTable dt = ta.GetDataByLoginSenha(textBoxUsuario.Text, textBoxSenha.Text);
             if (dt.Rows.Count > 0)
             {
                 aturizado = true;

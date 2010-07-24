@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1C8236BB-B81C-43F4-9D32-E0B6C9D6FE24}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -52,11 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banco\GerenciadorBanco.cs" />
-    <Compile Include="GerenciadorEntrada.cs" />
+    <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
+    <Compile Include="ContaBanco\IGerenciadorContaBanco.cs" />
+    <Compile Include="Entrada\GerenciadorEntrada.cs" />
     <Compile Include="GerenciadorPrecos.cs" />
     <Compile Include="Banco\IGerenciadorBanco.cs" />
+    <Compile Include="GrupoConta\GerenciadorGrupoConta.cs" />
+    <Compile Include="GrupoConta\IGerenciadorGrupoConta.cs" />
+    <Compile Include="Grupo\GerenciadorGrupo.cs" />
+    <Compile Include="Grupo\IGerenciadorGrupo.cs" />
     <Compile Include="IGerenciadorNegocio.cs" />
-    <Compile Include="Excecoes\NegocioException.cs" />
+    <Compile Include="NegocioException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -94,6 +100,10 @@
     <ProjectReference Include="..\Excecoes\Excecoes.csproj">
       <Project>{96D1CE04-F6C9-4F59-860A-A672453445E5}</Project>
       <Name>Excecoes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{6C434BD3-4E07-4BD0-8B5F-B9ED31580119}</Project>
+      <Name>Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

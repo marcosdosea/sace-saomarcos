@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using Dominio;
 
-namespace Telas
+
+namespace Negocio
 {
-    class TelaPadrao : Form
+    public interface IGerenciadorGrupo: IGerenciadorNegocio<Grupo, Int32>
     {
+
     }
 }

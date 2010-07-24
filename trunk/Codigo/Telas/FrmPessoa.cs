@@ -22,7 +22,7 @@ namespace SACE.Telas
 
         private void FrmPessoa_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.PESSOAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PESSOAS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_pessoa' table. You can move, or remove it, as needed.
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
@@ -58,18 +58,13 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
-            {
+ 
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     tb_pessoaTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
                     tb_pessoaTableAdapter.Fill(saceDataSet.tb_pessoa);
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-            }
+
             
         }
 
@@ -99,7 +94,7 @@ namespace SACE.Telas
                     }
                     tb_pessoaTableAdapter.Insert(nomeTextBox.Text, cpf_cnpjMaskedTextBox.Text, enderecoTextBox.Text,
                         cepMaskedTextBox.Text, bairroTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, fone1MaskedTextBox.Text,
-                        fone2MaskedTextBox.Text, decimal.Parse(limiteCompraMaskedTextBox.Text), decimal.Parse(valorComissaoMaskedTextBox.Text),
+                        fone2MaskedTextBox.Text, limiteCompraMaskedTextBox.Text, valorComissaoMaskedTextBox.Text,
                         observacaoTextBox.Text, PfRadioButton.Checked?"F":"J");
                     tb_pessoaTableAdapter.Fill(saceDataSet.tb_pessoa);
                     tb_pessoaBindingSource.MoveLast();

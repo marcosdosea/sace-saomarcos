@@ -38,7 +38,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmUsuario));
             this.panel1 = new System.Windows.Forms.Panel();
             this.usuarioLabel = new System.Windows.Forms.Label();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_usuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_usuarioBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -64,10 +64,10 @@
             this.senhaTextBox = new System.Windows.Forms.TextBox();
             this.perfilComboBox = new System.Windows.Forms.ComboBox();
             this.tb_PerfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_usuarioTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_perfilTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_perfilTableAdapter();
-            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.tb_usuarioTableAdapter = new Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_perfilTableAdapter = new Dados.saceDataSetTableAdapters.tb_perfilTableAdapter();
+            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             nomeLabel = new System.Windows.Forms.Label();
             loginLabel = new System.Windows.Forms.Label();
             senhaLabel = new System.Windows.Forms.Label();
@@ -429,7 +429,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = this.tb_usuarioTableAdapter;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_perfilTableAdapter
             // 
@@ -486,7 +486,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label usuarioLabel;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_usuarioBindingSource;
         private System.Windows.Forms.BindingNavigator tb_usuarioBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -512,9 +512,9 @@
         private System.Windows.Forms.TextBox senhaTextBox;
         private System.Windows.Forms.ComboBox perfilComboBox;
         private System.Windows.Forms.BindingSource tb_PerfilBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter tb_usuarioTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private SACE.Dados.saceDataSetTableAdapters.tb_perfilTableAdapter tb_perfilTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter tb_usuarioTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSetTableAdapters.tb_perfilTableAdapter tb_perfilTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
     }
 }

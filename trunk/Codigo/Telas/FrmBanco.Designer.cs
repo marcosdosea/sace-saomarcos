@@ -40,7 +40,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_bancoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -54,7 +54,7 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codBancoTextBox = new System.Windows.Forms.TextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
-            this.tb_bancoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
+            this.tb_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
             codBancoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -338,7 +338,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_bancoBindingSource;
         private System.Windows.Forms.BindingNavigator tb_bancoBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -352,6 +352,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codBancoTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
     }
 }

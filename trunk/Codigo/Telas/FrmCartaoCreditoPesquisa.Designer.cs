@@ -33,10 +33,10 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_cartao_creditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_cartao_creditoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_cartao_creditoTableAdapter = new Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_cartao_creditoDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,7 +127,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_cartao_creditoDataGridView
             // 
@@ -208,10 +208,10 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_cartao_creditoBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter tb_cartao_creditoTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter tb_cartao_creditoTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView tb_cartao_creditoDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

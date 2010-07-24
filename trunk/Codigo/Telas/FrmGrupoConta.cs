@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dados;
+using Dominio;
 
 namespace SACE.Telas
 {
@@ -21,9 +23,7 @@ namespace SACE.Telas
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
-
-            // TODO: This line of code loads data into the 'saceDataSet.tb_grupo_conta' table. You can move, or remove it, as needed.
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
             this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             habilitaBotoes(true);
         }
@@ -57,20 +57,12 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_grupo_contaTableAdapter.Delete(int.Parse(codGrupoContaTextBox.Text));
-                    tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
-                }
+                GerenciadorContaBanco.getInstace().remover(codGrupoContaTextBox.Text);
+                tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_grupo_contaBindingSource.CancelEdit();
-            }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -85,25 +77,35 @@ namespace SACE.Telas
         {
             try
             {
+                GrupoConta grupoConta = new GrupoConta();
+                grupoConta.CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
+                grupoConta.Descricao = descricaoTextBox.Text;
+
+                IGerenciadorGrupoConta gGrupoConta = GerenciadorGrupoConta.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_grupo_contaTableAdapter.Insert(descricaoTextBox.Text);
+                    gGrupoConta.inserir(grupoConta);
                     tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
                     tb_grupo_contaBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_grupo_contaTableAdapter.Update(descricaoTextBox.Text, int.Parse(codGrupoContaTextBox.Text));
+                    gGrupoConta.atualizar(grupoConta);
                     tb_grupo_contaBindingSource.EndEdit();
                 }
             }
-            catch (Exception)
+            catch (DadosException de)
             {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
                 tb_grupo_contaBindingSource.CancelEdit();
+                throw de;
             }
-            habilitaBotoes(true);
-            btnBuscar.Focus();
+            finally
+            {
+                habilitaBotoes(true);
+                btnBuscar.Focus();
+            }
+            
+
         }
 
         private void FrmGrupoConta_KeyDown(object sender, KeyEventArgs e)

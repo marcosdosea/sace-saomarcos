@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SACE.Negocio
+namespace Negocio
 {
     public static class GerenciadorEntrada
     {
@@ -11,7 +11,7 @@ namespace SACE.Negocio
         {
             try
             {
-                    //SACE.Dados.saceDataSet.tb_entrada_produtoDataTable.
+                    //Dados.saceDataSet.tb_entrada_produtoDataTable.
                     
             }
             catch (Exception e)
@@ -24,7 +24,7 @@ namespace SACE.Negocio
         {
             try
             {
-                //SACE.Dados.saceDataSet.tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
+                //Dados.saceDataSet.tb_entrada_produtoTableAdapter.Delete(codEntrada, codProduto);
             }
             catch (Exception e)
             {

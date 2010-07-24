@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tb_saidaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -164,7 +164,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = this.tb_saidaTableAdapter;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // codSaidaDataGridViewTextBoxColumn
             // 
@@ -258,9 +258,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label1;
-        private SACE.Dados.saceDataSet saceDataSet;
-        private SACE.Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingSource tb_saidaBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSaida;

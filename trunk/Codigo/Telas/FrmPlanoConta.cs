@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
             this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
@@ -58,19 +58,13 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
-            {
+
                 if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     tb_plano_contaTableAdapter.Delete(int.Parse(codPlanoContaTextBox.Text));
                     tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_plano_contaBindingSource.CancelEdit();
-            }
+
             
         }
 
@@ -84,13 +78,16 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+
+            habilitaBotoes(true);
+            btnBuscar.Focus();
+
             string tipo = null;
             if (radioButton1.Checked)
                 tipo = "P";
             if (radioButton2.Checked)
                 tipo = "R";
-            try
-            {
+
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     tb_plano_contaTableAdapter.Insert(int.Parse(codGrupoContaComboBox.SelectedValue.ToString()), descricaoTextBox.Text, tipo, short.Parse(diaBaseTextBox.Text));
@@ -102,14 +99,8 @@ namespace SACE.Telas
                     //tb_plano_contaTableAdapter.Update(descricaoTextBox.Text, tipoContaComboBox.SelectedValue.ToString(), short.Parse(diaBaseTextBox.Text), int.Parse(codPlanoContaTextBox.Text));
                     tb_plano_contaBindingSource.EndEdit();
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_plano_contaBindingSource.CancelEdit(); tb_plano_contaBindingSource.CancelEdit();
-            }
-            habilitaBotoes(true);
-            btnBuscar.Focus();
+
+
         }
 
         private void FrmPlanoConta_KeyDown(object sender, KeyEventArgs e)

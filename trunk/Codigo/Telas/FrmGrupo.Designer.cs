@@ -40,7 +40,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_grupoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.tb_grupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -54,7 +54,7 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codGrupoTextBox = new System.Windows.Forms.TextBox();
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_grupoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
+            this.tb_grupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
             codGrupoLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -339,7 +339,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_grupoBindingSource;
         private System.Windows.Forms.BindingNavigator tb_grupoBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -353,6 +353,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codGrupoTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
     }
 }

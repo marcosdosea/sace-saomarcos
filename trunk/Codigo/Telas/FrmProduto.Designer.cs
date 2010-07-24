@@ -63,12 +63,12 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_produtoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_cfopTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
-            this.tb_grupoTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
+            this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_cfopTableAdapter = new Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
+            this.tb_grupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -110,7 +110,7 @@
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
             this.icms_substitutoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_pessoaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -495,7 +495,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_cfopTableAdapter
             // 
@@ -1008,10 +1008,10 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_produtoBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingNavigator tb_produtoBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -1044,17 +1044,17 @@
         private System.Windows.Forms.TextBox lucroPrecoVendaSuperAtacadoTextBox;
         private System.Windows.Forms.TextBox precoVendaSuperAtacadoTextBox;
         private System.Windows.Forms.BindingSource tb_pessoaBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
         private System.Windows.Forms.BindingSource tbgrupoBindingSource;
         private System.Windows.Forms.Button btnPreco;
         private System.Windows.Forms.TextBox custoVendaTextBox1;
         private System.Windows.Forms.TextBox qtdProdutoAtacadoTextBox;
         private System.Windows.Forms.TextBox qtdProdutoSuperAtacadoTextBox;
         private System.Windows.Forms.TextBox ultimoPrecoCompraTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
         private System.Windows.Forms.BindingSource tbcfopBindingSource;
         private System.Windows.Forms.ComboBox cfopComboBox;
         private System.Windows.Forms.TextBox icms_substitutoTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
     }
 }

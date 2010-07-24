@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.LOJAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.LOJAS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_loja' table. You can move, or remove it, as needed.
             this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
@@ -57,20 +57,13 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_lojaTableAdapter.Delete(int.Parse(codLojaTextBox.Text));
-                    tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
-                }
+                tb_lojaTableAdapter.Delete(int.Parse(codLojaTextBox.Text));
+                tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_lojaBindingSource.CancelEdit();
-            }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -83,30 +76,25 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    tb_lojaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
-                        bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, foneTextBox.Text);
-                    
-                    tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
-                    tb_lojaBindingSource.MoveLast();
-                }
-                else
-                {
-                    tb_lojaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
-                        bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, foneTextBox.Text, int.Parse(codLojaTextBox.Text));
-                    tb_lojaBindingSource.EndEdit();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_lojaBindingSource.CancelEdit();
-            }
             habilitaBotoes(true);
             btnBuscar.Focus();
+
+            if (estado.Equals(EstadoFormulario.INSERIR))
+            {
+                tb_lojaTableAdapter.Insert(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
+                    bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, foneTextBox.Text);
+
+                tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
+                tb_lojaBindingSource.MoveLast();
+            }
+            else
+            {
+                tb_lojaTableAdapter.Update(nomeTextBox.Text, cnpjTextBox.Text, ieTextBox.Text, enderecoTextBox.Text,
+                    bairroTextBox.Text, cepTextBox.Text, cidadeTextBox.Text, ufTextBox.Text, foneTextBox.Text, int.Parse(codLojaTextBox.Text));
+                tb_lojaBindingSource.EndEdit();
+            }
+
+
         }
 
         private void FrmLoja_KeyDown(object sender, KeyEventArgs e)

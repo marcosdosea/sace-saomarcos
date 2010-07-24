@@ -6,15 +6,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SACE.Negocio;
 using Negocio;
+using Dominio;
+using Dados;
 
 namespace SACE.Telas
 {
     public partial class FrmGrupo : Form
     {
         private EstadoFormulario estado;
-        
+
         public FrmGrupo()
         {
             InitializeComponent();
@@ -22,8 +23,7 @@ namespace SACE.Telas
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
-
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             habilitaBotoes(true);
         }
@@ -57,20 +57,11 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_grupoTableAdapter.Delete(long.Parse(codGrupoTextBox.Text));
-                    tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
-                }
+                tb_grupoTableAdapter.Delete(long.Parse(codGrupoTextBox.Text));
+                tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_grupoBindingSource.CancelEdit();
-            }
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -85,26 +76,33 @@ namespace SACE.Telas
         {
             try
             {
+                Grupo grupo = new Grupo();
+                grupo.Descricao = descricaoTextBox.Text;
+                grupo.CodGrupo = Int32.Parse(codGrupoTextBox.Text);
+
+                IGerenciadorGrupo gGrupo = GerenciadorGrupo.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    tb_grupoTableAdapter.Insert(descricaoTextBox.Text);
+                    gGrupo.inserir(grupo);
                     tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
                     tb_grupoBindingSource.MoveLast();
                 }
                 else
                 {
-                    tb_grupoTableAdapter.Update(descricaoTextBox.Text, long.Parse(codGrupoTextBox.Text));
+                    gGrupo.atualizar(grupo);
                     tb_grupoBindingSource.EndEdit();
                 }
             }
-            catch (Exception)
+            catch (DadosException de)
             {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
                 tb_grupoBindingSource.CancelEdit();
+                throw de;
             }
-            habilitaBotoes(true);
-
-            btnBuscar.Focus();
+            finally
+            {
+                habilitaBotoes(true);
+                btnBuscar.Focus();
+            }
         }
 
         private void FrmGrupo_KeyDown(object sender, KeyEventArgs e)

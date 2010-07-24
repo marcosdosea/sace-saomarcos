@@ -28,18 +28,10 @@ namespace SACE.Telas
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_grupoTableAdapter.FillByCodGrupo(this.saceDataSet.tb_grupo, long.Parse(txtTexto.Text));
-                   
-                //else
-                //    this.tb_grupoTableAdapter.FillByDescricao(this.saceDataSet.tb_grupo, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                this.tb_grupoTableAdapter.FillByCodGrupo(this.saceDataSet.tb_grupo, long.Parse(txtTexto.Text));
+            else
+                this.tb_grupoTableAdapter.FillByDescricao(this.saceDataSet.tb_grupo, txtTexto.Text);
         }
 
         private void tb_grupoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -53,11 +45,11 @@ namespace SACE.Telas
             if (e.KeyCode == Keys.Enter)
             {
                 tb_grupoDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
                 tb_grupoBindingSource.MoveNext();
