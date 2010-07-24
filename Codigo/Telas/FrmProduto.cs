@@ -21,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmProduto_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.PRODUTOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PRODUTOS, Principal.Autenticacao.CodUsuario);
             // TODO: This line of code loads data into the 'saceDataSet.tb_cfop' table. You can move, or remove it, as needed.
             this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
             // TODO: This line of code loads data into the 'saceDataSet.tb_grupo' table. You can move, or remove it, as needed.
@@ -67,20 +67,13 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_produtoTableAdapter.Delete(long.Parse(codProdutoTextBox.Text));
-                    tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
-                }
+                tb_produtoTableAdapter.Delete(long.Parse(codProdutoTextBox.Text));
+                tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_produtoBindingSource.CancelEdit();
-            }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -93,62 +86,55 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Grupo do produto pode ser null
-                long? codGrupo = null;
-                if (codGrupoComboBox.SelectedValue != null)
-                    codGrupo = long.Parse(codGrupoComboBox.SelectedValue.ToString());
-
-                // CFOP pode ser null
-                int? cfop = null;
-                if (cfopComboBox.SelectedValue != null)
-                    cfop = int.Parse(cfopComboBox.SelectedValue.ToString());
-
-                // Fabricante pode ser null
-                long? codFabricante = null;
-                if (codigoFabricanteComboBox.SelectedValue != null)
-                    codFabricante = long.Parse(codigoFabricanteComboBox.SelectedValue.ToString());
-
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    //tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                    //     codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
-                    //    cfop, 0, 0,0, 0, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value,
-                    //    0, 0, decimal.Parse(qtdProdutoAtacadoTextBox.Text), 0,0,
-                    //    decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text),0, 0,
-                    //     exibeNaListagemCheckBox.Checked);
-                    tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
-                    tb_produtoBindingSource.MoveLast();
-                }
-                else
-                {
-                    tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
-                        codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
-                        cfop, decimal.Parse(icmsTextBox.Text), 
-                        decimal.Parse(simplesTextBox.Text),
-                        decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
-                        ultimaDataAtualizacaoDateTimePicker.Value, 
-                        decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                        decimal.Parse(precoVendaVarejoTextBox.Text), 
-                        decimal.Parse(qtdProdutoAtacadoTextBox.Text),
-                        decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text), 
-                        decimal.Parse(precoVendaAtacadoTextBox.Text), 
-                        decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text), 
-                        decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text), 
-                        decimal.Parse(precoVendaSuperAtacadoTextBox.Text), 
-                        exibeNaListagemCheckBox.Checked, 
-                        long.Parse(codProdutoTextBox.Text));
-                    tb_produtoBindingSource.EndEdit();
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-                tb_produtoBindingSource.CancelEdit();
-            }
             habilitaBotoes(true);
             btnBuscar.Focus();
+
+            // Grupo do produto pode ser null
+            long? codGrupo = null;
+            if (codGrupoComboBox.SelectedValue != null)
+                codGrupo = long.Parse(codGrupoComboBox.SelectedValue.ToString());
+
+            // CFOP pode ser null
+            int? cfop = null;
+            if (cfopComboBox.SelectedValue != null)
+                cfop = int.Parse(cfopComboBox.SelectedValue.ToString());
+
+            // Fabricante pode ser null
+            long? codFabricante = null;
+            if (codigoFabricanteComboBox.SelectedValue != null)
+                codFabricante = long.Parse(codigoFabricanteComboBox.SelectedValue.ToString());
+
+            if (estado.Equals(EstadoFormulario.INSERIR))
+            {
+                //tb_produtoTableAdapter.Insert(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                //     codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
+                //    cfop, 0, 0,0, 0, 0, 0, 0, 0, 0, ultimaDataAtualizacaoDateTimePicker.Value,
+                //    0, 0, decimal.Parse(qtdProdutoAtacadoTextBox.Text), 0,0,
+                //    decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text),0, 0,
+                //     exibeNaListagemCheckBox.Checked);
+                tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
+                tb_produtoBindingSource.MoveLast();
+            }
+            else
+            {
+                //tb_produtoTableAdapter.Update(nomeTextBox.Text, nomeFabricanteTextBox.Text, unidadeTextBox.Text,
+                //    codigoBarraTextBox.Text, codGrupo, codFabricante, temVencimentoCheckBox.Checked,
+                //    cfop, decimal.Parse(icmsTextBox.Text),
+                //    decimal.Parse(simplesTextBox.Text),
+                //    decimal.Parse(ipiTextBox.Text), decimal.Parse(freteTextBox.Text), decimal.Parse(custoVendaTextBox.Text), decimal.Parse("0"),
+                //    ultimaDataAtualizacaoDateTimePicker.Value,
+                //    decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
+                //    decimal.Parse(precoVendaVarejoTextBox.Text),
+                //    decimal.Parse(qtdProdutoAtacadoTextBox.Text),
+                //    decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
+                //    decimal.Parse(precoVendaAtacadoTextBox.Text),
+                //    decimal.Parse(qtdProdutoSuperAtacadoTextBox.Text),
+                //    decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
+                //    decimal.Parse(precoVendaSuperAtacadoTextBox.Text),
+                //    exibeNaListagemCheckBox.Checked,
+                //    long.Parse(codProdutoTextBox.Text));
+                tb_produtoBindingSource.EndEdit();
+            }
         }
 
         private void FrmProduto_KeyDown(object sender, KeyEventArgs e)
@@ -212,7 +198,7 @@ namespace SACE.Telas
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.getCodGrupo() != -1)
                     {
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.getCodGrupo());                        
+                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.getCodGrupo());
                     }
                     frmGrupoPesquisa.Dispose();
                 }

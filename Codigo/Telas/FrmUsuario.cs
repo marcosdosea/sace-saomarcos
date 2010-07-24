@@ -21,13 +21,13 @@ namespace SACE.Telas
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.USUARIOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.USUARIOS, Principal.Autenticacao.CodUsuario);
 
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
             this.tb_usuarioTableAdapter.Fill(this.saceDataSet.tb_usuario);
             tb_pessoaBindingSource.Find("codPessoa", -1);
-            
+
             habilitaBotoes(true);
         }
 
@@ -57,31 +57,26 @@ namespace SACE.Telas
             codPessoaTextBox.Enabled = false;
             if (senhaTextBox.Text != confirmarSenhaTextBox.Text)
             {
-                MessageBox.Show(Mensagens.SENHA_INCORRETAR);
+                MessageBox.Show("Senha/Usuário inválidos");
                 tb_usuarioBindingSource.CancelEdit();
                 return;
             }
-            try
-            {
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    tb_usuarioTableAdapter.Insert(Convert.ToInt32(codPessoaTextBox.Text), loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue));
-                    tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
-                    tb_usuarioBindingSource.MoveLast();
-                }
-                else
-                {
-                    tb_usuarioTableAdapter.Update(loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue), Convert.ToInt32(codPessoaTextBox.Text));
-                    tb_usuarioBindingSource.EndEdit();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_usuarioBindingSource.CancelEdit();
-            }
             habilitaBotoes(true);
             btnBuscar.Focus();
+
+            if (estado.Equals(EstadoFormulario.INSERIR))
+            {
+                tb_usuarioTableAdapter.Insert(Convert.ToInt32(codPessoaTextBox.Text), loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue));
+                tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
+                tb_usuarioBindingSource.MoveLast();
+            }
+            else
+            {
+                tb_usuarioTableAdapter.Update(loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue), Convert.ToInt32(codPessoaTextBox.Text));
+                tb_usuarioBindingSource.EndEdit();
+            }
+
+
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -95,18 +90,13 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_usuarioTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
-                    tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
-                }
+                tb_usuarioTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
+                tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-            }
+
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -138,5 +128,5 @@ namespace SACE.Telas
                 tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", Convert.ToInt32(codPessoaTextBox.Text));
             }
         }
-   }
+    }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 
 namespace SACE.Telas
 {
@@ -21,11 +22,9 @@ namespace SACE.Telas
 
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
 
-            // TODO: This line of code loads data into the 'saceDataSet.tb_banco' table. You can move, or remove it, as needed.
             this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_conta_Banco' table. You can move, or remove it, as needed.
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             habilitaBotoes(true);
         }
@@ -46,6 +45,7 @@ namespace SACE.Telas
             tb_conta_bancoBindingSource.AddNew();
             codContaBancoTextBox.Focus();
             habilitaBotoes(false);
+            codBancoComboBox.SelectedIndex = 0;
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -58,20 +58,11 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_conta_bancoTableAdapter.Delete(long.Parse(codContaBancoTextBox.Text));
-                    tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
-                }
+                GerenciadorContaBanco.getInstace().remover(codContaBancoTextBox.Text);
+                tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_conta_bancoBindingSource.CancelEdit();
-            }
-            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -84,37 +75,29 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    if (codBancoComboBox.SelectedValue != null)
-                        tb_conta_bancoTableAdapter.Insert(long.Parse(codContaBancoTextBox.Text),
-                            agenciaTextBox.Text, descricaoTextBox.Text, saldoTextBox.Text, int.Parse(codBancoComboBox.SelectedValue.ToString()));
-                    else
-                        tb_conta_bancoTableAdapter.Insert(long.Parse(codContaBancoTextBox.Text),
-                            agenciaTextBox.Text, descricaoTextBox.Text, saldoTextBox.Text, null);
-                    tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
-                    tb_conta_bancoBindingSource.MoveLast();
-                }
-                else
-                {
-                    if (codBancoComboBox.SelectedValue != null)
-                        tb_conta_bancoTableAdapter.Update(long.Parse(codContaBancoTextBox.Text), 
-                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), int.Parse(codBancoComboBox.SelectedValue.ToString()), long.Parse(codContaBancoTextBox.Text));
-                    else
-                        tb_conta_bancoTableAdapter.Update(long.Parse(codContaBancoTextBox.Text),
-                            agenciaTextBox.Text, descricaoTextBox.Text, decimal.Parse(saldoTextBox.Text), null, long.Parse(codContaBancoTextBox.Text));
-                    tb_conta_bancoBindingSource.EndEdit();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
-                tb_conta_bancoBindingSource.CancelEdit();
-            }
             habilitaBotoes(true);
             btnBuscar.Focus();
+
+            ContaBanco contaBanco = new ContaBanco();
+            contaBanco.CodContaBanco = codContaBancoTextBox.Text;
+            contaBanco.Agencia = agenciaTextBox.Text;
+            contaBanco.Descricao = descricaoTextBox.Text;
+            contaBanco.Saldo = decimal.Parse(saldoTextBox.Text);
+            contaBanco.CodBanco = Int32.Parse(codBancoComboBox.SelectedValue.ToString());
+            
+            IGerenciadorContaBanco gContaBanco = GerenciadorContaBanco.getInstace();
+
+            if (estado.Equals(EstadoFormulario.INSERIR))
+            {
+                gContaBanco.inserir(contaBanco);
+                tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
+                tb_conta_bancoBindingSource.MoveLast();
+            }
+            else
+            {
+                gContaBanco.atualizar(contaBanco);
+                tb_conta_bancoBindingSource.EndEdit();
+            }
         }
 
         private void FrmContaBanco_KeyDown(object sender, KeyEventArgs e)
@@ -173,7 +156,7 @@ namespace SACE.Telas
                     Telas.FrmBancoPesquisa frmBancoPesquisa = new Telas.FrmBancoPesquisa();
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.getCodBanco() != -1)
-                    {                    
+                    {
                         tbbancoBindingSource.Position = tbbancoBindingSource.Find("codBanco", frmBancoPesquisa.getCodBanco());
                     }
                     frmBancoPesquisa.Dispose();

@@ -30,11 +30,11 @@ namespace SACE.Telas
         {
             try
             {
-                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_grupo_contaTableAdapter.FillByCodTipoConta(this.saceDataSet.tb_grupo_conta, int.Parse(txtTexto.Text));
+                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                    this.tb_grupo_contaTableAdapter.FillByCodGrupoConta(this.saceDataSet.tb_grupo_conta, int.Parse(txtTexto.Text));
                    
-                //else
-                //    this.tb_grupo_contaTableAdapter.FillByDescricao(this.saceDataSet.tb_grupo_conta, txtTexto.Text);
+                else
+                    this.tb_grupo_contaTableAdapter.FillByDescricao(this.saceDataSet.tb_grupo_conta, txtTexto.Text);
             }
             catch (System.Exception ex)
             {

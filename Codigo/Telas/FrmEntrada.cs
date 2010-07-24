@@ -15,7 +15,7 @@ namespace SACE.Telas
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
@@ -55,20 +55,11 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    tb_entradaTableAdapter.Delete(int.Parse(codEntradaTextBox.Text));
-                    tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
-                }
+                tb_entradaTableAdapter.Delete(int.Parse(codEntradaTextBox.Text));
+                tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_entradaBindingSource.CancelEdit();
-            }
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -81,38 +72,31 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (estado.Equals(EstadoFormulario.INSERIR))
-                {
-                    tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text,
-                        DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text,
-                        "F", long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text, icmsTextBox.Text);
-                    tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
-                    tb_entradaBindingSource.MoveLast();
-                }
-                else
-                {
-                    tb_entradaTableAdapter.Update(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
-                        long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), DateTime.Parse(dataEntradaDateTimePicker.Text),
-                        decimal.Parse(valorTotalTextBox.Text), "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text),
-                        decimal.Parse(icmsTextBox.Text), long.Parse(codEntradaTextBox.Text));
-                    tb_entradaBindingSource.EndEdit();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Campos obrigatórios não foram preenchidos.");
-                tb_entradaBindingSource.CancelEdit();
-            }
             habilitaBotoes(true);
+            if (estado.Equals(EstadoFormulario.INSERIR))
+            {
+                //tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
+                //    long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text,
+                //    DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text,
+                //    "F", long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text, icmsTextBox.Text);
+                tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
+                tb_entradaBindingSource.MoveLast();
+            }
+            else
+            {
+                //tb_entradaTableAdapter.Update(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
+                //    long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), DateTime.Parse(dataEntradaDateTimePicker.Text),
+                //    decimal.Parse(valorTotalTextBox.Text), "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text),
+                //    decimal.Parse(icmsTextBox.Text), long.Parse(codEntradaTextBox.Text));
+                tb_entradaBindingSource.EndEdit();
+            }
+
+
         }
 
         private void excluirProduto(object sender, EventArgs e)
         {
-            try
-            {
+            
                 if (MessageBox.Show("Confirma exclusão do produto?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     if (tb_entrada_produtoDataGridView.Rows.Count > 0)
@@ -122,12 +106,7 @@ namespace SACE.Telas
                         Negocio.GerenciadorEntrada.excluirProdutoEntrada(codEntrada, codProduto);
                     }
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-            }
-            this.tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+            tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
             codEntradaTextBox_TextChanged(sender, e);
         }
 
@@ -154,7 +133,7 @@ namespace SACE.Telas
                 else if (e.KeyCode == Keys.F7)
                 {
                     btnProdutos_Click(sender, e);
-                } 
+                }
                 else if (e.KeyCode == Keys.End)
                 {
                     tb_entradaBindingSource.MoveLast();
@@ -260,7 +239,9 @@ namespace SACE.Telas
                         codProdutoTextBox.Text = "";
                     }
                     frmProdutoPesquisa.Dispose();
-                } else {
+                }
+                else
+                {
                     posicaoProduto = tbprodutoBindingSource.Find("codProduto", codProdutoTextBox.Text);
                 }
                 if (posicaoProduto <= 0)
@@ -289,19 +270,19 @@ namespace SACE.Telas
             btnSalvar_Click(sender, e);
             try
             {
-                SACE.Dados.saceDataSet.tb_produtoRow produto = (SACE.Dados.saceDataSet.tb_produtoRow) ((System.Data.DataRowView) tbprodutoBindingSource.Current).Row;
-                decimal percIcmsSubstituicao = (decimal.Parse(valorICMSSubstitutoTextBox.Text)>0)?decimal.Parse(valorICMSSubstitutoTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100:0;
-                decimal percFrete = (decimal.Parse(valorCustoFreteTextBox.Text)>0)?decimal.Parse(valorCustoFreteTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100:0;
+                Dados.saceDataSet.tb_produtoRow produto = (Dados.saceDataSet.tb_produtoRow)((System.Data.DataRowView)tbprodutoBindingSource.Current).Row;
+                decimal percIcmsSubstituicao = (decimal.Parse(valorICMSSubstitutoTextBox.Text) > 0) ? decimal.Parse(valorICMSSubstitutoTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100 : 0;
+                decimal percFrete = (decimal.Parse(valorCustoFreteTextBox.Text) > 0) ? decimal.Parse(valorCustoFreteTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100 : 0;
                 decimal precoCusto = 0;
-                if (produto.cfop == SACE.Negocio.SaceConst.CFOP_NORMAL)
+                if (produto.cfop == SaceConst.CFOP_NORMAL)
                 {
                     precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoNormal(decimal.Parse(precoCompraTextBox.Text),
-                        decimal.Parse(icmsTextBox.Text), SACE.Negocio.SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
+                        decimal.Parse(icmsTextBox.Text), SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
                 }
-                else 
+                else
                 {
                     precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoSubstituicao(decimal.Parse(precoCompraTextBox.Text),
-                        percIcmsSubstituicao, SACE.Negocio.SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
+                        percIcmsSubstituicao, SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
                 }
 
                 tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),
@@ -322,7 +303,7 @@ namespace SACE.Telas
             if (!codEntradaTextBox.Text.Equals(""))
             {
                 tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-                totalNotaCalculadoTextBox.Text = tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text)).ToString();
+                //totalNotaCalculadoTextBox.Text = tb_entrada_produtoTableAdapter.totalEntrada(tb_entrada_produtoTableAdapter, long.Parse(codEntradaTextBox.Text)).ToString();
             }
         }
     }

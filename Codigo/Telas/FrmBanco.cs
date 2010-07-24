@@ -6,10 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SACE.Negocio;
-using SACE.Dados.saceDataSetTableAdapters;
-using SACE.Dados;
-using SACE.Dominio;
+using Dados.saceDataSetTableAdapters;
+using Dados;
+using Dominio;
 using Negocio;
 
 
@@ -18,7 +17,7 @@ namespace SACE.Telas
     public partial class FrmBanco : Form
     {
         private EstadoFormulario estado;
-        
+
         public FrmBanco()
         {
             InitializeComponent();
@@ -27,7 +26,7 @@ namespace SACE.Telas
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.BANCOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.BANCOS, Principal.Autenticacao.CodUsuario);
 
             tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);
@@ -62,20 +61,11 @@ namespace SACE.Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorBanco.getInstace().remover(int.Parse(codBancoTextBox.Text));
-                    tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
-                }
+                GerenciadorBanco.getInstace().remover(int.Parse(codBancoTextBox.Text));
+                tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(Mensagens.ERRO_REMOCAO);
-                tb_bancoBindingSource.CancelEdit();
-            }
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -94,27 +84,29 @@ namespace SACE.Telas
                 banco.CodBanco = Int32.Parse(codBancoTextBox.Text);
                 banco.Nome = nomeTextBox.Text;
 
+                IGerenciadorBanco gBanco = GerenciadorBanco.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    GerenciadorBanco.getInstace().inserir(banco);
+                    gBanco.inserir(banco);
                     tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
                     tb_bancoBindingSource.MoveLast();
                 }
                 else
                 {
-                    GerenciadorBanco.getInstace().atualizar(banco);
-                    tb_bancoTableAdapter.Update(nomeTextBox.Text, int.Parse(codBancoTextBox.Text));
+                    gBanco.atualizar(banco);
                     tb_bancoBindingSource.EndEdit();
                 }
             }
-            catch (Exception)
+            catch (DadosException de)
             {
-                MessageBox.Show(Mensagens.REGISTRO_DUPLICIDADE);
                 tb_bancoBindingSource.CancelEdit();
+                throw de;
             }
-            habilitaBotoes(true);
-
-            btnBuscar.Focus();
+            finally
+            {
+                habilitaBotoes(true);
+                btnBuscar.Focus();
+            }
         }
 
         private void FrmBanco_KeyDown(object sender, KeyEventArgs e)

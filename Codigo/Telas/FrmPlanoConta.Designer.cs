@@ -42,11 +42,11 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new SACE.Dados.saceDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_plano_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_plano_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
-            this.tableAdapterManager = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_grupo_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
+            this.tb_plano_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_grupo_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
             this.tb_plano_contaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -236,7 +236,7 @@
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_grupo_contaTableAdapter
             // 
@@ -473,10 +473,10 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_plano_contaBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingNavigator tb_plano_contaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -490,7 +490,7 @@
         private System.Windows.Forms.TextBox codPlanoContaTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.TextBox diaBaseTextBox;
-        private SACE.Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
         private System.Windows.Forms.ComboBox codGrupoContaComboBox;
         private System.Windows.Forms.BindingSource tbgrupocontaBindingSource;
         private System.Windows.Forms.GroupBox groupBox1;

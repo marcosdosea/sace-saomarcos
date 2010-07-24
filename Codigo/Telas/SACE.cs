@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using Telas;
 using System.Threading;
-using SACE.Excecoes;
 using Dominio;
 
 namespace SACE
@@ -125,9 +124,9 @@ namespace SACE
 
         private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmPreVenda frmPreVenda = new Telas.FrmPreVenda();
-            frmPreVenda.ShowDialog();
-            frmPreVenda.Dispose();
+            //Telas.FrmPreVenda frmPreVenda = new Telas.FrmPreVenda();
+            //frmPreVenda.ShowDialog();
+            //frmPreVenda.Dispose();
         }
 
         private void entradaDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -153,20 +152,23 @@ namespace SACE
 
         private void Principal_Load(object sender, EventArgs e)
         {
-            this.Visible = false;
-            Telas.FrmLogin frmFrmLogin = new Telas.FrmLogin();
-            frmFrmLogin.ShowDialog();
-            if (frmFrmLogin.Aturizado)
-            {
-                autenticacao.CodUsuario = frmFrmLogin.CodUsuario;
-                autenticacao.Login = frmFrmLogin.Login;
-                this.Visible = true;
-                frmFrmLogin.Dispose();
-            }
-            else
-            {
-                Application.Exit();
-            }
+            //this.Visible = false;
+            //Telas.FrmLogin frmFrmLogin = new Telas.FrmLogin();
+            //frmFrmLogin.ShowDialog();
+            //if (frmFrmLogin.Aturizado)
+            //{
+            //    autenticacao.CodUsuario = frmFrmLogin.CodUsuario;
+            //    autenticacao.Login = frmFrmLogin.Login;
+            //    this.Visible = true;
+            //    frmFrmLogin.Dispose();
+            //}
+            //else
+            //{
+            //    Application.Exit();
+            //}
+            autenticacao.CodUsuario = 1;
+            autenticacao.Login = "1";
+            this.Visible = true;
         }
 
         private void btnContas_Click(object sender, EventArgs e)

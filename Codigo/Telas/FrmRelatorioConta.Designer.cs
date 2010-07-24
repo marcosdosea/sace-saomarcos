@@ -36,14 +36,14 @@
             this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new SACE.Dados.saceDataSet();
-            this.tb_contaTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
-            this.tableAdapterManager1 = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_baixa_contaTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
-            this.tb_pessoaTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
-            this.saceRelatoriosDataSet = new SACE.Dados.saceRelatoriosDataSet();
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tb_contaTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
+            this.tableAdapterManager1 = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_baixa_contaTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
+            this.tb_pessoaTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.saceRelatoriosDataSet = new Dados.saceRelatoriosDataSet();
             this.dt_RelContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dt_RelContaTableAdapter1 = new SACE.Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter();
+            this.dt_RelContaTableAdapter1 = new Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -159,7 +159,7 @@
             this.tableAdapterManager1.tb_saidaTableAdapter = null;
             this.tableAdapterManager1.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager1.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager1.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager1.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_baixa_contaTableAdapter1
             // 
@@ -337,17 +337,17 @@
         private System.Windows.Forms.DateTimePicker inicialDateTimePicker;
         private System.Windows.Forms.DateTimePicker finalDateTimePicker;
         private System.Windows.Forms.TextBox codPessoaTextBox;
-        private SACE.Dados.saceDataSet saceDataSet;
+        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_pessoaBindingSource;
         private System.Windows.Forms.BindingSource tb_contaBindingSource;
         private System.Windows.Forms.Button button1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter1;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter1;
-        private SACE.Dados.saceRelatoriosDataSet saceRelatoriosDataSet;
+        private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter1;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
+        private Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter1;
+        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter1;
+        private Dados.saceRelatoriosDataSet saceRelatoriosDataSet;
         private System.Windows.Forms.BindingSource dt_RelContaBindingSource;
-        private SACE.Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter dt_RelContaTableAdapter1;
+        private Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter dt_RelContaTableAdapter1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

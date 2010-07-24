@@ -22,7 +22,7 @@ namespace SACE.Telas
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
             this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet.tb_baixa_conta);
@@ -96,19 +96,19 @@ namespace SACE.Telas
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue),
-                      Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, "A", 
-                      observacaoRichTextBox.Text, tipo.ToString());
+                //tb_contaTableAdapter.Insert(Convert.ToInt64(pessoaComboBox.SelectedValue),
+                //      Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
+                //      codEntrada, dataVencDateTimePicker.Value, valorTextBox.Text, "A", 
+                //      observacaoRichTextBox.Text, tipo.ToString());
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
                 tb_contasBindingSource.MoveLast();
             }
             else
             {
-                tb_contaTableAdapter.Update(Convert.ToInt64(pessoaComboBox.SelectedValue),
-                      Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
-                      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
-                      observacaoRichTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
+                //tb_contaTableAdapter.Update(Convert.ToInt64(pessoaComboBox.SelectedValue),
+                //      Convert.ToInt64(planoContaComboBox.SelectedValue), codSaida, documentoTextBox.Text,
+                //      codEntrada, dataVencDateTimePicker.Value, Convert.ToDecimal(valorTextBox.Text), 
+                //      observacaoRichTextBox.Text, tipo.ToString(), Convert.ToInt64(codContaTextBox.Text));
                 tb_contasBindingSource.EndEdit();
             }
 

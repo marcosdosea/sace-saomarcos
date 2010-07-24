@@ -58,7 +58,7 @@
             this.observacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet1 = new SACE.Dados.saceDataSet();
+            this.saceDataSet1 = new Dados.saceDataSet();
             this.baixaPanel = new System.Windows.Forms.Panel();
             this.valorTextBox = new System.Windows.Forms.TextBox();
             this.ConfirmarButton = new System.Windows.Forms.Button();
@@ -68,12 +68,12 @@
             this.formaPagamentoComboBox = new System.Windows.Forms.ComboBox();
             this.tb_formasPagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.tb_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
-            this.tableAdapterManager1 = new SACE.Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_baixa_contaTableAdapter = new SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
+            this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
+            this.tableAdapterManager1 = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_baixa_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
             this.tb_baixaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_forma_pagamentoTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter();
-            this.tb_conta_bancoTableAdapter1 = new SACE.Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
+            this.tb_forma_pagamentoTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter();
+            this.tb_conta_bancoTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
             valorLabel = new System.Windows.Forms.Label();
             dataPgtoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -502,7 +502,7 @@
             this.tableAdapterManager1.tb_saidaTableAdapter = null;
             this.tableAdapterManager1.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager1.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager1.UpdateOrder = SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager1.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_baixa_contaTableAdapter
             // 
@@ -552,10 +552,10 @@
         #endregion
 
         private System.Windows.Forms.BindingSource tb_contasBindingSource;
-        private SACE.Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
-        private SACE.Dados.saceDataSet saceDataSet1;
-        private SACE.Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
+        private Dados.saceDataSet saceDataSet1;
+        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
+        private Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter;
         private System.Windows.Forms.Button baixaButton;
         private System.Windows.Forms.Panel pesquisaPanel;
         private System.Windows.Forms.TextBox txtTexto;
@@ -586,8 +586,8 @@
         private System.Windows.Forms.ComboBox contaBancoComboBox;
         private System.Windows.Forms.Button ConfirmarButton;
         private System.Windows.Forms.Label totalLabel;
-        private SACE.Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter tb_forma_pagamentoTableAdapter1;
-        private SACE.Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter tb_conta_bancoTableAdapter1;
+        private Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter tb_forma_pagamentoTableAdapter1;
+        private Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter tb_conta_bancoTableAdapter1;
         private System.Windows.Forms.TextBox valorTextBox;
         private System.Windows.Forms.BindingSource tb_formasPagamentoBindingSource;
         private System.Windows.Forms.BindingSource tb_contaBancobindingSource;

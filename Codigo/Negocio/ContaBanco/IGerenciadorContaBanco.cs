@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dominio;
+
 
 namespace Negocio
 {
-    class NegocioException: Exception
+    public interface IGerenciadorContaBanco: IGerenciadorNegocio<ContaBanco, String>
     {
-        public NegocioException()
-            : base("Erro na excecao")
-        {
 
-        }
     }
 }

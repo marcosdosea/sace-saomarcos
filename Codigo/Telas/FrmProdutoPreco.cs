@@ -28,7 +28,7 @@ namespace SACE.Telas
 
         private void FrmCalcularPreco_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.GetInstancia().verificaPermissao(this, Funcoes.ATUALIZAÇÃO_PREÇOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.ATUALIZAÇÃO_PREÇOS, Principal.Autenticacao.CodUsuario);
 
             // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
@@ -68,21 +68,21 @@ namespace SACE.Telas
             try
             {
                        
-                tb_produtoTableAdapter.UpdatePrecos( decimal.Parse(icmsTextBox.Text), 
-                                                     decimal.Parse(simplesTextBox.Text),
-                                                     decimal.Parse(ipiTextBox.Text), 
-                                                     decimal.Parse(freteTextBox.Text), 
-                                                     decimal.Parse(custoVendaTextBox.Text), 
-                                                     decimal.Parse("0"),
-                                                     DateTime.Now, 
-                                                     decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                                                     decimal.Parse(novoPrecoVarejoTextBox.Text), 
-                                                     decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                                                     decimal.Parse(novoPrecoAtacadoTextBox.Text), 
-                                                     decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
-                                                     decimal.Parse(novoPrecoSuperTextBox.Text),
-                                                     long.Parse(codProdutoTextBox.Text)
-                 );
+                //tb_produtoTableAdapter.UpdatePrecos( decimal.Parse(icmsTextBox.Text), 
+                //                                     decimal.Parse(simplesTextBox.Text),
+                //                                     decimal.Parse(ipiTextBox.Text), 
+                //                                     decimal.Parse(freteTextBox.Text), 
+                //                                     decimal.Parse(custoVendaTextBox.Text), 
+                //                                     decimal.Parse("0"),
+                //                                     DateTime.Now, 
+                //                                     decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
+                //                                     decimal.Parse(novoPrecoVarejoTextBox.Text), 
+                //                                     decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
+                //                                     decimal.Parse(novoPrecoAtacadoTextBox.Text), 
+                //                                     decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
+                //                                     decimal.Parse(novoPrecoSuperTextBox.Text),
+                //                                     long.Parse(codProdutoTextBox.Text)
+                //);
                  tb_produtoBindingSource.EndEdit();
                 
             }
