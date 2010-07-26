@@ -17,11 +17,17 @@ namespace SACE.Telas
     public partial class FrmBanco : Form
     {
         private EstadoFormulario estado;
+        
+        private Int32 codBanco;
 
+        public Int32 CodBanco
+        {
+            get { return codBanco; }
+            set { codBanco = value; }
+        }
         public FrmBanco()
         {
             InitializeComponent();
-
         }
 
         private void FrmBanco_Load(object sender, EventArgs e)
@@ -36,9 +42,9 @@ namespace SACE.Telas
         {
             Telas.FrmBancoPesquisa frmBancoPesquisa = new Telas.FrmBancoPesquisa();
             frmBancoPesquisa.ShowDialog();
-            if (frmBancoPesquisa.getCodBanco() != -1)
+            if (frmBancoPesquisa.CodBanco != -1)
             {
-                tb_bancoBindingSource.Position = tb_bancoBindingSource.Find("codBanco", frmBancoPesquisa.getCodBanco());
+                tb_bancoBindingSource.Position = tb_bancoBindingSource.Find("codBanco", frmBancoPesquisa.CodBanco);
             }
             frmBancoPesquisa.Dispose();
         }
@@ -175,6 +181,16 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void FrmBanco_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void FrmBanco_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CodBanco = int.Parse(codBancoTextBox.Text);
         }
     }
 }

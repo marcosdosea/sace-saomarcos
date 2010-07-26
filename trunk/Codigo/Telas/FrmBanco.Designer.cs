@@ -315,6 +315,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro de Bancos";
             this.Load += new System.EventHandler(this.FrmBanco_Load);
+            this.Leave += new System.EventHandler(this.FrmBanco_Leave);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmBanco_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmBanco_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

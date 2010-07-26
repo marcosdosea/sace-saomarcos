@@ -154,6 +154,7 @@
             this.tb_conta_bancoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_conta_bancoDataGridView.Size = new System.Drawing.Size(437, 220);
             this.tb_conta_bancoDataGridView.TabIndex = 4;
+            this.tb_conta_bancoDataGridView.TabStop = false;
             // 
             // dataGridViewTextBoxColumn1
             // 

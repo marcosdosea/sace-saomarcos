@@ -33,11 +33,11 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.saceDataSet = new Dados.saceDataSet();
+            this.tb_lojaDataGridView = new System.Windows.Forms.DataGridView();
             this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
             this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_lojaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,9 +47,9 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UF = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -93,16 +93,41 @@
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
-            // saceDataSet
+            // tb_lojaDataGridView
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.tb_lojaDataGridView.AllowUserToAddRows = false;
+            this.tb_lojaDataGridView.AllowUserToDeleteRows = false;
+            this.tb_lojaDataGridView.AutoGenerateColumns = false;
+            this.tb_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tb_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.UF,
+            this.fone});
+            this.tb_lojaDataGridView.DataSource = this.tb_lojaBindingSource;
+            this.tb_lojaDataGridView.Location = new System.Drawing.Point(10, 53);
+            this.tb_lojaDataGridView.MultiSelect = false;
+            this.tb_lojaDataGridView.Name = "tb_lojaDataGridView";
+            this.tb_lojaDataGridView.ReadOnly = true;
+            this.tb_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tb_lojaDataGridView.Size = new System.Drawing.Size(462, 241);
+            this.tb_lojaDataGridView.TabIndex = 5;
             // 
             // tb_lojaBindingSource
             // 
             this.tb_lojaBindingSource.DataMember = "tb_loja";
             this.tb_lojaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tb_lojaTableAdapter
             // 
@@ -140,31 +165,6 @@
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tb_lojaDataGridView
-            // 
-            this.tb_lojaDataGridView.AllowUserToAddRows = false;
-            this.tb_lojaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_lojaDataGridView.AutoGenerateColumns = false;
-            this.tb_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.UF,
-            this.fone});
-            this.tb_lojaDataGridView.DataSource = this.tb_lojaBindingSource;
-            this.tb_lojaDataGridView.Location = new System.Drawing.Point(10, 53);
-            this.tb_lojaDataGridView.MultiSelect = false;
-            this.tb_lojaDataGridView.Name = "tb_lojaDataGridView";
-            this.tb_lojaDataGridView.ReadOnly = true;
-            this.tb_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_lojaDataGridView.Size = new System.Drawing.Size(462, 241);
-            this.tb_lojaDataGridView.TabIndex = 5;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "codLoja";
@@ -176,8 +176,10 @@
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "nome";
             this.dataGridViewTextBoxColumn2.HeaderText = "Nome";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 50;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 50;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -245,9 +247,9 @@
             this.Text = "Pesquisa Lojas";
             this.Load += new System.EventHandler(this.FrmLojaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLojaPesquisa_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

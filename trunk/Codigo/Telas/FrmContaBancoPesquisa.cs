@@ -11,12 +11,18 @@ namespace SACE.Telas
 {
     public partial class FrmContaBancoPesquisa : Form
     {
-        private Int32 codContaBanco;
+        private String codContaBanco;
+
+        public String CodContaBanco
+        {
+            get { return codContaBanco; }
+            set { codContaBanco = value; }
+        }
 
         public FrmContaBancoPesquisa()
         {
             InitializeComponent();
-            codContaBanco = -1;
+            codContaBanco = "";
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
@@ -43,7 +49,7 @@ namespace SACE.Telas
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codContaBanco = int.Parse(tb_conta_bancoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            codContaBanco = tb_conta_bancoDataGridView.SelectedRows[0].Cells[0].Value.ToString();
             this.Close();
         }
 
@@ -65,11 +71,6 @@ namespace SACE.Telas
             {
                 tb_conta_bancoBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodContaBanco()
-        {
-            return codContaBanco;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)

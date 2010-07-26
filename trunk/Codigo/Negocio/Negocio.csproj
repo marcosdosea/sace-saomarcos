@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banco\GerenciadorBanco.cs" />
+    <Compile Include="CartaoCredito\GerenciadorCartaoCredito.cs" />
+    <Compile Include="CartaoCredito\IGerenciadorCartaoCredito.cs" />
     <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
     <Compile Include="ContaBanco\IGerenciadorContaBanco.cs" />
     <Compile Include="Entrada\GerenciadorEntrada.cs" />
@@ -62,7 +64,11 @@
     <Compile Include="Grupo\GerenciadorGrupo.cs" />
     <Compile Include="Grupo\IGerenciadorGrupo.cs" />
     <Compile Include="IGerenciadorNegocio.cs" />
+    <Compile Include="Loja\GerenciadorLoja.cs" />
+    <Compile Include="Loja\IGerenciadorLoja.cs" />
     <Compile Include="NegocioException.cs" />
+    <Compile Include="PlanoConta\GerenciadorPlanoConta.cs" />
+    <Compile Include="PlanoConta\IGerenciadorPlanoConta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -371,6 +371,7 @@
             // 
             this.saldoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "saldo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.saldoTextBox.Enabled = false;
             this.saldoTextBox.Location = new System.Drawing.Point(7, 187);
             this.saldoTextBox.Name = "saldoTextBox";
             this.saldoTextBox.Size = new System.Drawing.Size(109, 20);
@@ -435,6 +436,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro de Contas Bancárias / Caixas";
             this.Load += new System.EventHandler(this.FrmContaBanco_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmContaBanco_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmContaBanco_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
