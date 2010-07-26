@@ -13,6 +13,12 @@ namespace SACE.Telas
     {
         private Int32 codGrupoConta;
 
+        public Int32 CodGrupoConta
+        {
+            get { return codGrupoConta; }
+            set { codGrupoConta = value; }
+        }
+
         public FrmGrupoContaPesquisa()
         {
             InitializeComponent();
@@ -66,11 +72,6 @@ namespace SACE.Telas
             {
                 tb_grupo_contaBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodTipoConta()
-        {
-            return codGrupoConta;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)

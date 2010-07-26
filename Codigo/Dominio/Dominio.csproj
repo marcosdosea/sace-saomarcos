@@ -47,9 +47,12 @@
   <ItemGroup>
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
+    <Compile Include="CartaoCredito.cs" />
     <Compile Include="ContaBanco.cs" />
     <Compile Include="Grupo.cs" />
     <Compile Include="GrupoConta.cs" />
+    <Compile Include="Loja.cs" />
+    <Compile Include="PlanoConta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

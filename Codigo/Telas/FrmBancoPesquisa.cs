@@ -13,6 +13,12 @@ namespace SACE.Telas
     {
         private Int32 codBanco;
 
+        public Int32 CodBanco
+        {
+            get { return codBanco; }
+            set { codBanco = value; }
+        }
+
         public FrmBancoPesquisa()
         {
             InitializeComponent();
@@ -58,11 +64,6 @@ namespace SACE.Telas
             {
                 tb_bancoBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodBanco()
-        {
-            return codBanco;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)

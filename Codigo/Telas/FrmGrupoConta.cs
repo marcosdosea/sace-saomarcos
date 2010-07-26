@@ -15,7 +15,14 @@ namespace SACE.Telas
     public partial class FrmGrupoConta : Form
     {
         private EstadoFormulario estado;
+        
+        private Int32 codGrupoConta;
 
+        public Int32 CodGrupoConta
+        {
+            get { return codGrupoConta; }
+            set { codGrupoConta = value; }
+        }
         public FrmGrupoConta()
         {
             InitializeComponent();
@@ -32,9 +39,9 @@ namespace SACE.Telas
         {
             Telas.FrmGrupoContaPesquisa frmTipoContaPesquisa = new Telas.FrmGrupoContaPesquisa();
             frmTipoContaPesquisa.ShowDialog();
-            if (frmTipoContaPesquisa.getCodTipoConta() != -1)
+            if (frmTipoContaPesquisa.CodGrupoConta != -1)
             {
-                tb_grupo_contaBindingSource.Position = tb_grupo_contaBindingSource.Find("codGrupoConta", frmTipoContaPesquisa.getCodTipoConta());
+                tb_grupo_contaBindingSource.Position = tb_grupo_contaBindingSource.Find("codGrupoConta", frmTipoContaPesquisa.CodGrupoConta);
             }
             frmTipoContaPesquisa.Dispose();
         }
@@ -59,7 +66,7 @@ namespace SACE.Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorContaBanco.getInstace().remover(codGrupoContaTextBox.Text);
+                GerenciadorGrupoConta.getInstace().remover(Int32.Parse(codGrupoContaTextBox.Text));
                 tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
             }
 
@@ -174,6 +181,11 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void FrmGrupoConta_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
         }
     }
 }

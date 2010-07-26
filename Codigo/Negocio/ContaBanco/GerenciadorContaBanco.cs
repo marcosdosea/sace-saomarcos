@@ -35,7 +35,7 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                throw new DadosException(e.Message, e);
+                throw new DadosException("Conta do Banco", e.Message, e);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                throw new DadosException(e.Message, e);
+                throw new DadosException("Conta do Banco", e.Message, e);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                throw new DadosException(e.Message, e);
+                throw new DadosException("Conta do Banco", e.Message, e);
             }
         }
     }

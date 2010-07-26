@@ -182,10 +182,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -195,6 +198,8 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
@@ -343,6 +348,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Grupo de Contas";
             this.Load += new System.EventHandler(this.FrmGrupoConta_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmGrupoConta_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGrupoConta_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

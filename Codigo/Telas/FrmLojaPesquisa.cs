@@ -13,33 +13,31 @@ namespace SACE.Telas
     {
         private Int32 codLoja;
 
+        public Int32 CodLoja
+        {
+            get { return codLoja; }
+            set { codLoja = value; }
+        }
+
         public FrmLojaPesquisa()
         {
             InitializeComponent();
-            codLoja = -1;
+            CodLoja = -1;
         }
 
         private void FrmLojaPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_loja' table. You can move, or remove it, as needed.
             this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_lojaTableAdapter.FillByCodLoja(this.saceDataSet.tb_loja, int.Parse(txtTexto.Text));
-                   
-                //else
-                //    this.tb_lojaTableAdapter.FillByNome(this.saceDataSet.tb_loja, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                this.tb_lojaTableAdapter.FillByCodLoja(this.saceDataSet.tb_loja, int.Parse(txtTexto.Text));
+
+            else
+                this.tb_lojaTableAdapter.FillByNome(this.saceDataSet.tb_loja, txtTexto.Text);
         }
 
         private void tb_lojaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -53,11 +51,11 @@ namespace SACE.Telas
             if (e.KeyCode == Keys.Enter)
             {
                 tb_lojaDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
                 tb_lojaBindingSource.MoveNext();
@@ -66,11 +64,6 @@ namespace SACE.Telas
             {
                 tb_lojaBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodLoja()
-        {
-            return codLoja;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
