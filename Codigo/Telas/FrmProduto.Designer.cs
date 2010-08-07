@@ -69,6 +69,7 @@
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_cfopTableAdapter = new Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
             this.tb_grupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
+            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -110,7 +111,6 @@
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
             this.icms_substitutoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -214,36 +214,36 @@
             icmsLabel.AutoSize = true;
             icmsLabel.Location = new System.Drawing.Point(149, 241);
             icmsLabel.Name = "icmsLabel";
-            icmsLabel.Size = new System.Drawing.Size(42, 13);
+            icmsLabel.Size = new System.Drawing.Size(47, 13);
             icmsLabel.TabIndex = 37;
-            icmsLabel.Text = "% icms:";
+            icmsLabel.Text = "% ICMS:";
             // 
             // simplesLabel
             // 
             simplesLabel.AutoSize = true;
-            simplesLabel.Location = new System.Drawing.Point(304, 238);
+            simplesLabel.Location = new System.Drawing.Point(304, 241);
             simplesLabel.Name = "simplesLabel";
-            simplesLabel.Size = new System.Drawing.Size(55, 13);
+            simplesLabel.Size = new System.Drawing.Size(57, 13);
             simplesLabel.TabIndex = 39;
-            simplesLabel.Text = "% simples:";
+            simplesLabel.Text = "% Simples:";
             // 
             // ipiLabel
             // 
             ipiLabel.AutoSize = true;
             ipiLabel.Location = new System.Drawing.Point(370, 241);
             ipiLabel.Name = "ipiLabel";
-            ipiLabel.Size = new System.Drawing.Size(31, 13);
+            ipiLabel.Size = new System.Drawing.Size(34, 13);
             ipiLabel.TabIndex = 41;
-            ipiLabel.Text = "% ipi:";
+            ipiLabel.Text = "% IPI:";
             // 
             // freteLabel
             // 
             freteLabel.AutoSize = true;
             freteLabel.Location = new System.Drawing.Point(426, 241);
             freteLabel.Name = "freteLabel";
-            freteLabel.Size = new System.Drawing.Size(42, 13);
+            freteLabel.Size = new System.Drawing.Size(45, 13);
             freteLabel.TabIndex = 43;
-            freteLabel.Text = "% frete:";
+            freteLabel.Text = "% Frete:";
             // 
             // custoVendaLabel
             // 
@@ -365,11 +365,11 @@
             // icms_substitutoLabel
             // 
             icms_substitutoLabel.AutoSize = true;
-            icms_substitutoLabel.Location = new System.Drawing.Point(219, 242);
+            icms_substitutoLabel.Location = new System.Drawing.Point(218, 241);
             icms_substitutoLabel.Name = "icms_substitutoLabel";
-            icms_substitutoLabel.Size = new System.Drawing.Size(72, 13);
+            icms_substitutoLabel.Size = new System.Drawing.Size(77, 13);
             icms_substitutoLabel.TabIndex = 76;
-            icms_substitutoLabel.Text = "% icms antec:";
+            icms_substitutoLabel.Text = "% ICMS Subst:";
             // 
             // label1
             // 
@@ -470,11 +470,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = this.tb_cfopTableAdapter;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -487,11 +489,11 @@
             this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
             this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = this.tb_pessoaTableAdapter;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = this.tb_produtoTableAdapter;
-            
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
@@ -504,6 +506,10 @@
             // tb_grupoTableAdapter
             // 
             this.tb_grupoTableAdapter.ClearBeforeFill = true;
+            // 
+            // tb_pessoaTableAdapter
+            // 
+            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
             // 
             // tb_produtoBindingNavigator
             // 
@@ -617,6 +623,7 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(430, 20);
             this.nomeTextBox.TabIndex = 8;
+            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // unidadeTextBox
             // 
@@ -671,7 +678,7 @@
             this.codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
             this.codigoFabricanteComboBox.Size = new System.Drawing.Size(430, 21);
             this.codigoFabricanteComboBox.TabIndex = 14;
-            this.codigoFabricanteComboBox.ValueMember = "codigoEmpresa";
+            this.codigoFabricanteComboBox.ValueMember = "codPessoa";
             // 
             // tb_pessoaBindingSource
             // 
@@ -904,16 +911,13 @@
             this.icms_substitutoTextBox.ReadOnly = true;
             this.icms_substitutoTextBox.Size = new System.Drawing.Size(83, 20);
             this.icms_substitutoTextBox.TabIndex = 77;
-            // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
+            this.icms_substitutoTextBox.TabStop = false;
             // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 426);
+            this.ClientSize = new System.Drawing.Size(581, 408);
             this.Controls.Add(icms_substitutoLabel);
             this.Controls.Add(this.icms_substitutoTextBox);
             this.Controls.Add(this.cfopComboBox);

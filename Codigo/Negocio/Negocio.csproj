@@ -56,8 +56,10 @@
     <Compile Include="CartaoCredito\IGerenciadorCartaoCredito.cs" />
     <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
     <Compile Include="ContaBanco\IGerenciadorContaBanco.cs" />
+    <Compile Include="ContatoPessoa\GerenciadorContatoPessoa.cs" />
+    <Compile Include="ContatoPessoa\IGerenciadorContatoPessoa.cs" />
     <Compile Include="Entrada\GerenciadorEntrada.cs" />
-    <Compile Include="GerenciadorPrecos.cs" />
+    <Compile Include="Produto\GerenciadorPrecos.cs" />
     <Compile Include="Banco\IGerenciadorBanco.cs" />
     <Compile Include="GrupoConta\GerenciadorGrupoConta.cs" />
     <Compile Include="GrupoConta\IGerenciadorGrupoConta.cs" />
@@ -67,8 +69,13 @@
     <Compile Include="Loja\GerenciadorLoja.cs" />
     <Compile Include="Loja\IGerenciadorLoja.cs" />
     <Compile Include="NegocioException.cs" />
+    <Compile Include="Pessoa\GerenciadorPessoa.cs" />
+    <Compile Include="Pessoa\IGerenciadorPessoa.cs" />
     <Compile Include="PlanoConta\GerenciadorPlanoConta.cs" />
     <Compile Include="PlanoConta\IGerenciadorPlanoConta.cs" />
+    <Compile Include="Produto\GerenciadorProduto.cs" />
+    <Compile Include="Produto\IGerenciadorPrecos.cs" />
+    <Compile Include="Produto\IGerenciadorProduto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

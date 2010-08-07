@@ -13,6 +13,12 @@ namespace SACE.Telas
     {
         private Int32 codPessoa;
 
+        public Int32 CodPessoa
+        {
+            get { return codPessoa; }
+            set { codPessoa = value; }
+        }
+
         public FrmPessoaPesquisa()
         {
             InitializeComponent();
@@ -30,16 +36,16 @@ namespace SACE.Telas
         {
             try
             {
-                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_pessoaTableAdapter.FillByCodPessoa(this.saceDataSet.tb_pessoa, int.Parse(txtTexto.Text));
-                //else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                //    this.tb_pessoaTableAdapter.FillByCPF(this.saceDataSet.tb_pessoa, txtTexto.Text);
-                //else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                //    this.tb_pessoaTableAdapter.FillByEndereco(this.saceDataSet.tb_pessoa, txtTexto.Text);
-                //else if ((cmbBusca.SelectedIndex == 4) && !txtTexto.Text.Equals(""))
-                //    this.tb_pessoaTableAdapter.FillByBairro(this.saceDataSet.tb_pessoa, txtTexto.Text);          
-                //else
-                //    this.tb_pessoaTableAdapter.FillByNome(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                    this.tb_pessoaTableAdapter.FillByCodPessoa(this.saceDataSet.tb_pessoa, int.Parse(txtTexto.Text));
+                else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+                    this.tb_pessoaTableAdapter.FillByCpfCnpj(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
+                    this.tb_pessoaTableAdapter.FillByEndereco(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                else if ((cmbBusca.SelectedIndex == 4) && !txtTexto.Text.Equals(""))
+                    this.tb_pessoaTableAdapter.FillByBairro(this.saceDataSet.tb_pessoa, txtTexto.Text);          
+                else
+                    this.tb_pessoaTableAdapter.FillByNome(this.saceDataSet.tb_pessoa, txtTexto.Text);
             }
             catch (System.Exception ex)
             {
@@ -71,11 +77,6 @@ namespace SACE.Telas
             {
                 tb_pessoaBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodPessoa()
-        {
-            return codPessoa;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)

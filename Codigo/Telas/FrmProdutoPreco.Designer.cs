@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codProdutoLabel;
-            System.Windows.Forms.Label custoVendaLabel;
             System.Windows.Forms.Label ultimoPrecoCompraLabel;
+            System.Windows.Forms.Label icms_substitutoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoPreco));
             this.textBoxCFOP = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,8 +41,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lucroPrecoVendaVarejoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
             this.precoVendaVarejoTextBox = new System.Windows.Forms.TextBox();
             this.novoPrecoVarejoTextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -83,8 +81,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.CFOP = new System.Windows.Forms.Label();
-            this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -101,22 +97,26 @@
             this.icmsTextBox = new System.Windows.Forms.TextBox();
             this.simplesTextBox = new System.Windows.Forms.TextBox();
             this.freteTextBox = new System.Windows.Forms.TextBox();
-            this.custoVendaTextBox = new System.Windows.Forms.TextBox();
             this.ultimoPrecoCompraTextBox = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
+            this.icms_substitutoTextBox = new System.Windows.Forms.TextBox();
+            this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             codProdutoLabel = new System.Windows.Forms.Label();
-            custoVendaLabel = new System.Windows.Forms.Label();
             ultimoPrecoCompraLabel = new System.Windows.Forms.Label();
+            icms_substitutoLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).BeginInit();
             this.tb_produtoBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // codProdutoLabel
@@ -128,15 +128,6 @@
             codProdutoLabel.TabIndex = 33;
             codProdutoLabel.Text = "Código:";
             // 
-            // custoVendaLabel
-            // 
-            custoVendaLabel.AutoSize = true;
-            custoVendaLabel.Location = new System.Drawing.Point(501, 113);
-            custoVendaLabel.Name = "custoVendaLabel";
-            custoVendaLabel.Size = new System.Drawing.Size(87, 13);
-            custoVendaLabel.TabIndex = 38;
-            custoVendaLabel.Text = "Manutenção (%):";
-            // 
             // ultimoPrecoCompraLabel
             // 
             ultimoPrecoCompraLabel.AutoSize = true;
@@ -145,6 +136,15 @@
             ultimoPrecoCompraLabel.Size = new System.Drawing.Size(109, 13);
             ultimoPrecoCompraLabel.TabIndex = 39;
             ultimoPrecoCompraLabel.Text = "Último Preço Compra:";
+            // 
+            // icms_substitutoLabel
+            // 
+            icms_substitutoLabel.AutoSize = true;
+            icms_substitutoLabel.Location = new System.Drawing.Point(82, 162);
+            icms_substitutoLabel.Name = "icms_substitutoLabel";
+            icms_substitutoLabel.Size = new System.Drawing.Size(83, 13);
+            icms_substitutoLabel.TabIndex = 39;
+            icms_substitutoLabel.Text = "ICMS Subst (%):";
             // 
             // textBoxCFOP
             // 
@@ -167,7 +167,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(318, 162);
+            this.label6.Location = new System.Drawing.Point(349, 162);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 13);
             this.label6.TabIndex = 13;
@@ -175,19 +175,21 @@
             // 
             // textBoxPrecoCusto
             // 
-            this.textBoxPrecoCusto.Location = new System.Drawing.Point(319, 180);
+            this.textBoxPrecoCusto.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "custoVenda", true));
+            this.textBoxPrecoCusto.Location = new System.Drawing.Point(350, 180);
             this.textBoxPrecoCusto.Name = "textBoxPrecoCusto";
             this.textBoxPrecoCusto.ReadOnly = true;
-            this.textBoxPrecoCusto.Size = new System.Drawing.Size(122, 20);
+            this.textBoxPrecoCusto.Size = new System.Drawing.Size(106, 20);
             this.textBoxPrecoCusto.TabIndex = 24;
             this.textBoxPrecoCusto.TabStop = false;
             // 
             // textBoxPrecoCustoMedio
             // 
-            this.textBoxPrecoCustoMedio.Location = new System.Drawing.Point(464, 180);
+            this.textBoxPrecoCustoMedio.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "ultimoPrecoMedio", true));
+            this.textBoxPrecoCustoMedio.Location = new System.Drawing.Point(468, 180);
             this.textBoxPrecoCustoMedio.Name = "textBoxPrecoCustoMedio";
             this.textBoxPrecoCustoMedio.ReadOnly = true;
-            this.textBoxPrecoCustoMedio.Size = new System.Drawing.Size(124, 20);
+            this.textBoxPrecoCustoMedio.Size = new System.Drawing.Size(120, 20);
             this.textBoxPrecoCustoMedio.TabIndex = 26;
             this.textBoxPrecoCustoMedio.TabStop = false;
             // 
@@ -229,16 +231,6 @@
             this.lucroPrecoVendaVarejoTextBox.Size = new System.Drawing.Size(52, 20);
             this.lucroPrecoVendaVarejoTextBox.TabIndex = 30;
             this.lucroPrecoVendaVarejoTextBox.TabStop = false;
-            // 
-            // tb_produtoBindingSource
-            // 
-            this.tb_produtoBindingSource.DataMember = "tb_produto";
-            this.tb_produtoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // precoVendaVarejoTextBox
             // 
@@ -598,7 +590,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(212, 162);
+            this.label4.Location = new System.Drawing.Point(266, 162);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 3;
@@ -607,7 +599,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(111, 160);
+            this.label3.Location = new System.Drawing.Point(184, 160);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 2;
@@ -630,38 +622,6 @@
             this.CFOP.Size = new System.Drawing.Size(35, 13);
             this.CFOP.TabIndex = 7;
             this.CFOP.Text = "CFOP";
-            // 
-            // tb_produtoTableAdapter
-            // 
-            this.tb_produtoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = this.tb_produtoTableAdapter;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_produtoBindingNavigator
             // 
@@ -787,6 +747,7 @@
             this.ipiTextBox.Size = new System.Drawing.Size(59, 20);
             this.ipiTextBox.TabIndex = 14;
             this.ipiTextBox.TabStop = false;
+            this.ipiTextBox.TextChanged += new System.EventHandler(this.ipiTextBox_TextChanged);
             // 
             // icmsTextBox
             // 
@@ -794,39 +755,29 @@
             this.icmsTextBox.Location = new System.Drawing.Point(9, 178);
             this.icmsTextBox.Name = "icmsTextBox";
             this.icmsTextBox.ReadOnly = true;
-            this.icmsTextBox.Size = new System.Drawing.Size(84, 20);
+            this.icmsTextBox.Size = new System.Drawing.Size(63, 20);
             this.icmsTextBox.TabIndex = 18;
             this.icmsTextBox.TabStop = false;
             // 
             // simplesTextBox
             // 
             this.simplesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "simples", true));
-            this.simplesTextBox.Location = new System.Drawing.Point(112, 178);
+            this.simplesTextBox.Location = new System.Drawing.Point(185, 178);
             this.simplesTextBox.Name = "simplesTextBox";
             this.simplesTextBox.ReadOnly = true;
-            this.simplesTextBox.Size = new System.Drawing.Size(84, 20);
+            this.simplesTextBox.Size = new System.Drawing.Size(71, 20);
             this.simplesTextBox.TabIndex = 20;
             this.simplesTextBox.TabStop = false;
             // 
             // freteTextBox
             // 
             this.freteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "frete", true));
-            this.freteTextBox.Location = new System.Drawing.Point(215, 178);
+            this.freteTextBox.Location = new System.Drawing.Point(269, 178);
             this.freteTextBox.Name = "freteTextBox";
             this.freteTextBox.ReadOnly = true;
-            this.freteTextBox.Size = new System.Drawing.Size(84, 20);
+            this.freteTextBox.Size = new System.Drawing.Size(69, 20);
             this.freteTextBox.TabIndex = 22;
             this.freteTextBox.TabStop = false;
-            // 
-            // custoVendaTextBox
-            // 
-            this.custoVendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "custoVenda", true));
-            this.custoVendaTextBox.Location = new System.Drawing.Point(515, 129);
-            this.custoVendaTextBox.Name = "custoVendaTextBox";
-            this.custoVendaTextBox.ReadOnly = true;
-            this.custoVendaTextBox.Size = new System.Drawing.Size(68, 20);
-            this.custoVendaTextBox.TabIndex = 16;
-            this.custoVendaTextBox.TabStop = false;
             // 
             // ultimoPrecoCompraTextBox
             // 
@@ -869,18 +820,73 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
+            // icms_substitutoTextBox
+            // 
+            this.icms_substitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "icms_substituto", true));
+            this.icms_substitutoTextBox.Location = new System.Drawing.Point(83, 178);
+            this.icms_substitutoTextBox.Name = "icms_substitutoTextBox";
+            this.icms_substitutoTextBox.ReadOnly = true;
+            this.icms_substitutoTextBox.Size = new System.Drawing.Size(82, 20);
+            this.icms_substitutoTextBox.TabIndex = 19;
+            // 
+            // tb_produtoBindingSource
+            // 
+            this.tb_produtoBindingSource.DataMember = "tb_produto";
+            this.tb_produtoBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tb_produtoTableAdapter
+            // 
+            this.tb_produtoTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = this.tb_produtoTableAdapter;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // FrmProdutoPreco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 452);
+            this.ClientSize = new System.Drawing.Size(602, 450);
+            this.Controls.Add(icms_substitutoLabel);
+            this.Controls.Add(this.icms_substitutoTextBox);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(ultimoPrecoCompraLabel);
             this.Controls.Add(this.ultimoPrecoCompraTextBox);
-            this.Controls.Add(custoVendaLabel);
-            this.Controls.Add(this.custoVendaTextBox);
             this.Controls.Add(this.freteTextBox);
             this.Controls.Add(this.simplesTextBox);
             this.Controls.Add(this.icmsTextBox);
@@ -914,8 +920,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoPreco_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -925,6 +929,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).EndInit();
             this.tb_produtoBindingNavigator.ResumeLayout(false);
             this.tb_produtoBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -996,7 +1002,6 @@
         private System.Windows.Forms.TextBox precoVendaVarejoTextBox;
         private System.Windows.Forms.TextBox simplesTextBox;
         private System.Windows.Forms.TextBox freteTextBox;
-        private System.Windows.Forms.TextBox custoVendaTextBox;
         private System.Windows.Forms.TextBox lucroPrecoVendaAtacadoTextBox;
         private System.Windows.Forms.TextBox precoVendaAtacadoTextBox;
         private System.Windows.Forms.TextBox lucroPrecoVendaSuperAtacadoTextBox;
@@ -1005,5 +1010,6 @@
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.TextBox icms_substitutoTextBox;
     }
 }

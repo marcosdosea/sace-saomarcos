@@ -46,7 +46,7 @@ namespace SACE.Telas
             codCartaoTextBox.Enabled = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);
-            tbcontabancoBindingSource.Position = 1;
+            tbcontabancoBindingSource.MoveFirst();
             estado = EstadoFormulario.INSERIR;
         }
 
