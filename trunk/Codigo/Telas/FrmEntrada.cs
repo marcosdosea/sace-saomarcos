@@ -169,9 +169,9 @@ namespace SACE.Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.getCodPessoa() != -1)
+                    if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.CodPessoa);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -179,9 +179,9 @@ namespace SACE.Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.getCodPessoa() != -1)
+                    if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codigoEmpresa", frmPessoaPesquisa.getCodPessoa());
+                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codigoEmpresa", frmPessoaPesquisa.CodPessoa);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -276,13 +276,13 @@ namespace SACE.Telas
                 decimal precoCusto = 0;
                 if (produto.cfop == SaceConst.CFOP_NORMAL)
                 {
-                    precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoNormal(decimal.Parse(precoCompraTextBox.Text),
-                        decimal.Parse(icmsTextBox.Text), SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
+                    //precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoNormal(decimal.Parse(precoCompraTextBox.Text),
+                    //    decimal.Parse(icmsTextBox.Text), SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
                 }
                 else
                 {
-                    precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoSubstituicao(decimal.Parse(precoCompraTextBox.Text),
-                        percIcmsSubstituicao, SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
+                    //precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoSubstituicao(decimal.Parse(precoCompraTextBox.Text),
+                    //    percIcmsSubstituicao, SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
                 }
 
                 tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),

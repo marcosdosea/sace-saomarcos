@@ -35,11 +35,11 @@ namespace SACE.Telas
         {
             Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
             frmPessoaPesquisa.ShowDialog();
-            if (frmPessoaPesquisa.getCodPessoa() != -1)
+            if (frmPessoaPesquisa.CodPessoa != -1)
             {
-                tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.getCodPessoa());
-                tb_usuarioBindingSource.Position = tb_usuarioBindingSource.Find("codPessoa", frmPessoaPesquisa.getCodPessoa());
-                codPessoaTextBox.Text = frmPessoaPesquisa.getCodPessoa().ToString();
+                tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                tb_usuarioBindingSource.Position = tb_usuarioBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                codPessoaTextBox.Text = frmPessoaPesquisa.CodPessoa.ToString();
             }
             frmPessoaPesquisa.Dispose();
         }

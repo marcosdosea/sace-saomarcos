@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 
 namespace SACE.Telas
 {
@@ -30,7 +31,6 @@ namespace SACE.Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.ATUALIZAÇÃO_PREÇOS, Principal.Autenticacao.CodUsuario);
 
-            // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             if (codProduto != null)
                 tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", codProduto);
@@ -65,32 +65,24 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                       
-                //tb_produtoTableAdapter.UpdatePrecos( decimal.Parse(icmsTextBox.Text), 
-                //                                     decimal.Parse(simplesTextBox.Text),
-                //                                     decimal.Parse(ipiTextBox.Text), 
-                //                                     decimal.Parse(freteTextBox.Text), 
-                //                                     decimal.Parse(custoVendaTextBox.Text), 
-                //                                     decimal.Parse("0"),
-                //                                     DateTime.Now, 
-                //                                     decimal.Parse(lucroPrecoVendaVarejoTextBox.Text),
-                //                                     decimal.Parse(novoPrecoVarejoTextBox.Text), 
-                //                                     decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text),
-                //                                     decimal.Parse(novoPrecoAtacadoTextBox.Text), 
-                //                                     decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text),
-                //                                     decimal.Parse(novoPrecoSuperTextBox.Text),
-                //                                     long.Parse(codProdutoTextBox.Text)
-                //);
-                 tb_produtoBindingSource.EndEdit();
-                
-            }
-            catch (Exception exc)
-            {   
-                MessageBox.Show(exc.Message);
-                tb_produtoBindingSource.CancelEdit();
-            }
+            Produto produto = new Produto();
+            produto.CodProduto = Int32.Parse(codProdutoTextBox.Text);
+            produto.Icms = decimal.Parse(icmsTextBox.Text);
+            produto.IcmsSubstituto = decimal.Parse(icms_substitutoTextBox.Text);
+            produto.Simples = decimal.Parse(simplesTextBox.Text);
+            produto.Ipi = decimal.Parse(ipiTextBox.Text);
+            produto.Frete = decimal.Parse(freteTextBox.Text);
+            produto.CustoVenda = decimal.Parse(textBoxPrecoCusto.Text);
+            produto.UltimaDataAtualizacao = DateTime.Now;
+            produto.LucroPrecoVendaVarejo = decimal.Parse(lucroPrecoVendaVarejoTextBox.Text);
+            produto.PrecoVendaVarejo = decimal.Parse(novoPrecoVarejoTextBox.Text);
+            produto.LucroPrecoVendaAtacado = decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text);
+            produto.PrecoVendaAtacado = decimal.Parse(novoPrecoAtacadoTextBox.Text);
+            produto.LucroPrecoVendaSuperAtacado = decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text);
+            produto.PrecoVendaSuperAtacado = decimal.Parse(novoPrecoSuperTextBox.Text);
+
+            GerenciadorProduto.getInstace().atualizarPrecos(produto);
+            tb_produtoBindingSource.EndEdit();
             habilitaBotoes(true);
             habilitaTextBox(true);
             btnBuscar.Focus();
@@ -122,21 +114,21 @@ namespace SACE.Telas
         private void habilitaTextBox(Boolean habilita)
         {
             ipiTextBox.ReadOnly = habilita;
-            ipiTextBox.TabStop = habilita;
-            custoVendaTextBox.ReadOnly = habilita;
-            custoVendaTextBox.TabStop = habilita;
+            ipiTextBox.TabStop = !habilita;
             icmsTextBox.ReadOnly = habilita;
-            icmsTextBox.TabStop = habilita;
+            icmsTextBox.TabStop = !habilita;
+            icms_substitutoTextBox.ReadOnly = habilita;
+            icms_substitutoTextBox.TabStop = !habilita;
             simplesTextBox.ReadOnly = habilita;
-            simplesTextBox.TabStop = habilita;
+            simplesTextBox.TabStop = !habilita;
             freteTextBox.ReadOnly = habilita;
-            freteTextBox.TabStop = habilita;
+            freteTextBox.TabStop = !habilita;
             lucroPrecoVendaAtacadoTextBox.ReadOnly = habilita;
-            lucroPrecoVendaAtacadoTextBox.TabStop = habilita;
+            lucroPrecoVendaAtacadoTextBox.TabStop = !habilita;
             lucroPrecoVendaSuperAtacadoTextBox.ReadOnly = habilita;
-            lucroPrecoVendaSuperAtacadoTextBox.TabStop = habilita;
+            lucroPrecoVendaSuperAtacadoTextBox.TabStop = !habilita;
             lucroPrecoVendaVarejoTextBox.ReadOnly = habilita;
-            lucroPrecoVendaVarejoTextBox.TabStop = habilita;
+            lucroPrecoVendaVarejoTextBox.TabStop = !habilita;
         }
 
         private void FrmProdutoPreco_KeyDown(object sender, KeyEventArgs e)
@@ -187,6 +179,19 @@ namespace SACE.Telas
                     btnSalvar_Click(sender, e);
                 }
             }
+        }
+
+        private void ipiTextBox_TextChanged(object sender, EventArgs e)
+        {
+            IGerenciadorProduto gProduto = GerenciadorProduto.getInstace();
+            decimal precoCompra = (ultimoPrecoCompraTextBox.Text.Trim()=="")?0:decimal.Parse(ultimoPrecoCompraTextBox.Text);
+            decimal diferencialICMS = (icmsTextBox.Text.Trim() == "") ? 0 : decimal.Parse(icmsTextBox.Text);
+            decimal ICMS_substituto = (icms_substitutoTextBox.Text.Trim() == "") ? 0 : decimal.Parse(icms_substitutoTextBox.Text);
+            decimal simples = (simplesTextBox.Text.Trim() == "") ? 0 : decimal.Parse(simplesTextBox.Text);
+            decimal frete = (freteTextBox.Text.Trim() == "") ? 0 : decimal.Parse(freteTextBox.Text);
+            decimal ipi = (ipiTextBox.Text.Trim() == "") ? 0 : decimal.Parse(ipiTextBox.Text);
+            decimal precoCusto = gProduto.calculaPrecoCustoNormal(precoCompra, diferencialICMS, simples, ipi, frete, 0);
+
         }
     }
 }

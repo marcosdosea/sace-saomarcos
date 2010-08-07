@@ -81,7 +81,7 @@ namespace SACE.Telas
                 planoConta.CodGrupoConta = int.Parse(codGrupoContaComboBox.SelectedValue.ToString());
                 planoConta.Descricao = descricaoTextBox.Text;
                 planoConta.TipoConta = (radioButton1.Checked)?PlanoConta.CONTA_PAGAR:PlanoConta.CONTA_RECEBER;
-                planoConta.DiaBase = short.Parse(diaBaseTextBox.Text);
+                planoConta.DiaBase = (diaBaseTextBox.Text=="")?short.Parse("0"):short.Parse(diaBaseTextBox.Text);
 
                 IGerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
