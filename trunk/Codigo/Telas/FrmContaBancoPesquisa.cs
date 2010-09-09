@@ -39,7 +39,7 @@ namespace SACE.Telas
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
                     this.tb_conta_bancoTableAdapter.FillByDescricao(this.saceDataSet.tb_conta_banco, txtTexto.Text);
                 else
-                    this.tb_conta_bancoTableAdapter.FillByContaBanco(this.saceDataSet.tb_conta_banco, txtTexto.Text);
+                    this.tb_conta_bancoTableAdapter.FillByNumeroConta(this.saceDataSet.tb_conta_banco, txtTexto.Text);
             }
             catch (System.Exception ex)
             {

@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codContaBancoLabel;
             System.Windows.Forms.Label agenciaLabel;
             System.Windows.Forms.Label descricaoLabel;
             System.Windows.Forms.Label saldoLabel;
             System.Windows.Forms.Label codBancoLabel;
+            System.Windows.Forms.Label numerocontaLabel;
+            System.Windows.Forms.Label codContaBancoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmContaBanco));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,12 +64,14 @@
             this.saldoTextBox = new System.Windows.Forms.TextBox();
             this.codBancoComboBox = new System.Windows.Forms.ComboBox();
             this.tbbancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.numerocontaTextBox = new System.Windows.Forms.TextBox();
             this.codContaBancoTextBox = new System.Windows.Forms.TextBox();
-            codContaBancoLabel = new System.Windows.Forms.Label();
             agenciaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             saldoLabel = new System.Windows.Forms.Label();
             codBancoLabel = new System.Windows.Forms.Label();
+            numerocontaLabel = new System.Windows.Forms.Label();
+            codContaBancoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingSource)).BeginInit();
@@ -77,19 +80,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbbancoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // codContaBancoLabel
-            // 
-            codContaBancoLabel.AutoSize = true;
-            codContaBancoLabel.Location = new System.Drawing.Point(4, 80);
-            codContaBancoLabel.Name = "codContaBancoLabel";
-            codContaBancoLabel.Size = new System.Drawing.Size(38, 13);
-            codContaBancoLabel.TabIndex = 21;
-            codContaBancoLabel.Text = "Conta:";
-            // 
             // agenciaLabel
             // 
             agenciaLabel.AutoSize = true;
-            agenciaLabel.Location = new System.Drawing.Point(208, 80);
+            agenciaLabel.Location = new System.Drawing.Point(302, 79);
             agenciaLabel.Name = "agenciaLabel";
             agenciaLabel.Size = new System.Drawing.Size(49, 13);
             agenciaLabel.TabIndex = 25;
@@ -98,7 +92,7 @@
             // descricaoLabel
             // 
             descricaoLabel.AutoSize = true;
-            descricaoLabel.Location = new System.Drawing.Point(4, 127);
+            descricaoLabel.Location = new System.Drawing.Point(4, 125);
             descricaoLabel.Name = "descricaoLabel";
             descricaoLabel.Size = new System.Drawing.Size(58, 13);
             descricaoLabel.TabIndex = 27;
@@ -107,7 +101,7 @@
             // saldoLabel
             // 
             saldoLabel.AutoSize = true;
-            saldoLabel.Location = new System.Drawing.Point(4, 170);
+            saldoLabel.Location = new System.Drawing.Point(4, 168);
             saldoLabel.Name = "saldoLabel";
             saldoLabel.Size = new System.Drawing.Size(37, 13);
             saldoLabel.TabIndex = 29;
@@ -116,11 +110,29 @@
             // codBancoLabel
             // 
             codBancoLabel.AutoSize = true;
-            codBancoLabel.Location = new System.Drawing.Point(130, 171);
+            codBancoLabel.Location = new System.Drawing.Point(130, 169);
             codBancoLabel.Name = "codBancoLabel";
             codBancoLabel.Size = new System.Drawing.Size(41, 13);
             codBancoLabel.TabIndex = 31;
             codBancoLabel.Text = "Banco:";
+            // 
+            // numerocontaLabel
+            // 
+            numerocontaLabel.AutoSize = true;
+            numerocontaLabel.Location = new System.Drawing.Point(134, 79);
+            numerocontaLabel.Name = "numerocontaLabel";
+            numerocontaLabel.Size = new System.Drawing.Size(78, 13);
+            numerocontaLabel.TabIndex = 32;
+            numerocontaLabel.Text = "Número Conta:";
+            // 
+            // codContaBancoLabel
+            // 
+            codContaBancoLabel.AutoSize = true;
+            codContaBancoLabel.Location = new System.Drawing.Point(5, 79);
+            codContaBancoLabel.Name = "codContaBancoLabel";
+            codContaBancoLabel.Size = new System.Drawing.Size(43, 13);
+            codContaBancoLabel.TabIndex = 33;
+            codContaBancoLabel.Text = "Código:";
             // 
             // label1
             // 
@@ -353,16 +365,18 @@
             // 
             this.agenciaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.agenciaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "agencia", true));
-            this.agenciaTextBox.Location = new System.Drawing.Point(211, 97);
+            this.agenciaTextBox.Location = new System.Drawing.Point(304, 96);
+            this.agenciaTextBox.MaxLength = 20;
             this.agenciaTextBox.Name = "agenciaTextBox";
-            this.agenciaTextBox.Size = new System.Drawing.Size(251, 20);
+            this.agenciaTextBox.Size = new System.Drawing.Size(158, 20);
             this.agenciaTextBox.TabIndex = 26;
             // 
             // descricaoTextBox
             // 
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "descricao", true));
-            this.descricaoTextBox.Location = new System.Drawing.Point(7, 145);
+            this.descricaoTextBox.Location = new System.Drawing.Point(7, 143);
+            this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(455, 20);
             this.descricaoTextBox.TabIndex = 28;
@@ -372,48 +386,63 @@
             this.saldoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "saldo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.saldoTextBox.Enabled = false;
-            this.saldoTextBox.Location = new System.Drawing.Point(7, 187);
+            this.saldoTextBox.Location = new System.Drawing.Point(7, 185);
+            this.saldoTextBox.MaxLength = 12;
             this.saldoTextBox.Name = "saldoTextBox";
             this.saldoTextBox.Size = new System.Drawing.Size(109, 20);
             this.saldoTextBox.TabIndex = 30;
             // 
             // codBancoComboBox
             // 
+            this.codBancoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codBancoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codBancoComboBox.CausesValidation = false;
             this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_conta_bancoBindingSource, "codBanco", true));
-            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "codBanco", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "null"));
+            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "nomeBanco", true));
             this.codBancoComboBox.DataSource = this.tbbancoBindingSource;
             this.codBancoComboBox.DisplayMember = "nome";
-            this.codBancoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codBancoComboBox.FormattingEnabled = true;
-            this.codBancoComboBox.Location = new System.Drawing.Point(133, 187);
+            this.codBancoComboBox.Location = new System.Drawing.Point(133, 185);
             this.codBancoComboBox.Name = "codBancoComboBox";
             this.codBancoComboBox.Size = new System.Drawing.Size(329, 21);
             this.codBancoComboBox.TabIndex = 32;
             this.codBancoComboBox.ValueMember = "codBanco";
+            this.codBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codBancoComboBox_KeyPress);
             // 
             // tbbancoBindingSource
             // 
             this.tbbancoBindingSource.DataMember = "tb_banco";
             this.tbbancoBindingSource.DataSource = this.saceDataSet;
             // 
+            // numerocontaTextBox
+            // 
+            this.numerocontaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.numerocontaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "numeroconta", true));
+            this.numerocontaTextBox.Location = new System.Drawing.Point(137, 96);
+            this.numerocontaTextBox.Name = "numerocontaTextBox";
+            this.numerocontaTextBox.Size = new System.Drawing.Size(147, 20);
+            this.numerocontaTextBox.TabIndex = 24;
+            // 
             // codContaBancoTextBox
             // 
-            this.codContaBancoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codContaBancoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "codContaBanco", true));
             this.codContaBancoTextBox.Location = new System.Drawing.Point(7, 96);
             this.codContaBancoTextBox.Name = "codContaBancoTextBox";
-            this.codContaBancoTextBox.Size = new System.Drawing.Size(184, 20);
-            this.codContaBancoTextBox.TabIndex = 24;
+            this.codContaBancoTextBox.ReadOnly = true;
+            this.codContaBancoTextBox.Size = new System.Drawing.Size(109, 20);
+            this.codContaBancoTextBox.TabIndex = 22;
+            this.codContaBancoTextBox.TabStop = false;
             // 
             // FrmContaBanco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 238);
-            this.Controls.Add(this.codContaBancoTextBox);
-            this.Controls.Add(this.codBancoComboBox);
+            this.ClientSize = new System.Drawing.Size(475, 238);
             this.Controls.Add(codContaBancoLabel);
+            this.Controls.Add(this.codContaBancoTextBox);
+            this.Controls.Add(numerocontaLabel);
+            this.Controls.Add(this.numerocontaTextBox);
+            this.Controls.Add(this.codBancoComboBox);
             this.Controls.Add(this.tb_conta_bancoBindingNavigator);
             this.Controls.Add(agenciaLabel);
             this.Controls.Add(this.agenciaTextBox);
@@ -481,6 +510,7 @@
         private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
         private System.Windows.Forms.ComboBox codBancoComboBox;
         private System.Windows.Forms.BindingSource tbbancoBindingSource;
+        private System.Windows.Forms.TextBox numerocontaTextBox;
         private System.Windows.Forms.TextBox codContaBancoTextBox;
     }
 }

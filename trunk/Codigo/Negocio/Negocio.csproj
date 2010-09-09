@@ -58,7 +58,6 @@
     <Compile Include="ContaBanco\IGerenciadorContaBanco.cs" />
     <Compile Include="ContatoPessoa\GerenciadorContatoPessoa.cs" />
     <Compile Include="ContatoPessoa\IGerenciadorContatoPessoa.cs" />
-    <Compile Include="Entrada\GerenciadorEntrada.cs" />
     <Compile Include="Produto\GerenciadorPrecos.cs" />
     <Compile Include="Banco\IGerenciadorBanco.cs" />
     <Compile Include="GrupoConta\GerenciadorGrupoConta.cs" />
@@ -118,6 +117,10 @@
       <Project>{6C434BD3-4E07-4BD0-8B5F-B9ED31580119}</Project>
       <Name>Util</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Conta\" />
+    <Folder Include="Entrada\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

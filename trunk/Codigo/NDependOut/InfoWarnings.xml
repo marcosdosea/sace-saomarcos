@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<InfoWarnings>
+  <Info>08/31/2010 13:04:24 Begin full analysis with NDepend v3.0.3</Info>
+  <Warning>Cant' load the assembly {Microsoft.ReportViewer.WinForms}:
+Can't find the .NET assembly {Microsoft.ReportViewer.WinForms} in specified folders. 
+Has it been compiled properly? 
+Is the NDepend project missing the containing folder of the .NET assembly?</Warning>
+  <Warning>Cant' load the assembly {MySql.Data}:
+Can't find the .NET assembly {MySql.Data} in specified folders. 
+Has it been compiled properly? 
+Is the NDepend project missing the containing folder of the .NET assembly?</Warning>
+  <Info>Assemblies loaded from {C:\Windows\Microsoft.NET\Framework\v2.0.50727} 
+   System.Windows.Forms.dll   v2.0.0.0
+   System.dll   v2.0.0.0
+   mscorlib.dll   v2.0.0.0
+   System.Drawing.dll   v2.0.0.0
+   System.Data.dll   v2.0.0.0
+   System.Xml.dll   v2.0.0.0</Info>
+  <Warning>No application or tier assembly found in directory {C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0}</Warning>
+  <Info>Assemblies loaded from {C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5} 
+   System.Data.DataSetExtensions.dll   v3.5.0.0</Info>
+  <Info>Assemblies loaded from {D:\SACE\trunk\Codigo\Telas\bin\Debug} 
+   Telas.exe   v1.0.0.0
+   Negocio.dll   v1.0.0.0
+   Util.dll   v1.0.0.0
+   Dados.dll   v1.0.0.0
+   Dominio.dll   v1.0.0.0</Info>
+  <Warning>Assembly {Microsoft.ReportViewer.WinForms} is referenced by {Telas} but is not found.</Warning>
+  <Warning>Assembly {MySql.Data} is referenced by {Telas} but is not found.</Warning>
+  <Warning>Assembly {MySql.Data} is referenced by {Dados} but is not found.</Warning>
+  <Warning>The source file {D:\SACE\trunk\Codigo\Dominio\Conta.cs} (last modified 22/08/2010 09:37:34) and the PDB file of the assembly {Dominio} (last modified 09/08/2010 23:14:16) are not in-sync.</Warning>
+  <Warning>The source file {D:\SACE\trunk\Codigo\Dominio\Entrada.cs} (last modified 22/08/2010 09:25:19) and the PDB file of the assembly {Dominio} (last modified 09/08/2010 23:14:16) are not in-sync.</Warning>
+  <Warning>The source file {D:\SACE\trunk\Codigo\Dominio\EntradaProduto.cs} (last modified 22/08/2010 09:37:18) and the PDB file of the assembly {Dominio} (last modified 09/08/2010 23:14:16) are not in-sync.</Warning>
+  <Info>126 source files parsed ; 1 source file not found ; 3 source files not in-sync with PDB</Info>
+  <Info>0 CQL constraint has been extracted from code.</Info>
+  <Info>No dependency cycle detected in assemblies referencement graph.</Info>
+  <Info>08/31/2010 13:04:28 Analyse dependencies of your application.</Info>
+  <Warning>The source file {D:\SACE\trunk\Codigo\Negocio\Entrada\GerenciadorEntrada.cs} referenced by the PDB file of the assembly {Negocio} does not exist.</Warning>
+  <Info>08/31/2010 13:04:28 Building the report (standard).</Info>
+</InfoWarnings>

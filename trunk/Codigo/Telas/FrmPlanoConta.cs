@@ -24,8 +24,8 @@ namespace SACE.Telas
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
-            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
             this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
+            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
             habilitaBotoes(true);
         }
 
@@ -44,6 +44,8 @@ namespace SACE.Telas
         {
             tb_plano_contaBindingSource.AddNew();
             codPlanoContaTextBox.Enabled = false;
+            rbPagar.Checked = true;
+            codGrupoContaComboBox.SelectedIndex = 0;
             descricaoTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -80,8 +82,9 @@ namespace SACE.Telas
                 PlanoConta planoConta = new PlanoConta();
                 planoConta.CodGrupoConta = int.Parse(codGrupoContaComboBox.SelectedValue.ToString());
                 planoConta.Descricao = descricaoTextBox.Text;
-                planoConta.TipoConta = (radioButton1.Checked)?PlanoConta.CONTA_PAGAR:PlanoConta.CONTA_RECEBER;
-                planoConta.DiaBase = (diaBaseTextBox.Text=="")?short.Parse("0"):short.Parse(diaBaseTextBox.Text);
+                planoConta.TipoConta = (rbPagar.Checked) ? PlanoConta.CONTA_PAGAR : PlanoConta.CONTA_RECEBER;
+                planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
+                planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
 
                 IGerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
@@ -100,6 +103,10 @@ namespace SACE.Telas
             {
                 tb_plano_contaBindingSource.CancelEdit();
                 throw de;
+            }
+           catch (Exception exc)
+            {
+                throw exc;
             }
             finally {
                 habilitaBotoes(true);
@@ -193,6 +200,39 @@ namespace SACE.Telas
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
+            }
+        }
+
+        private void codGrupoContaComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
+        }
+
+        private void tb_plano_contaBindingSource_PositionChanged(object sender, EventArgs e)
+        {
+            DataRowView linha = (DataRowView)tb_plano_contaBindingSource.Current;
+            if (linha != null)
+            {
+                String tipoConta = linha["tipoConta"].ToString();
+                if (tipoConta.Equals(PlanoConta.CONTA_PAGAR))
+                {
+                    rbPagar.Checked = true;
+                    rbReceber.Checked = false;
+                }
+                else
+                {
+                    rbPagar.Checked = false;
+                    rbReceber.Checked = true;
+                }
+            }
+        }
+
+        private void codGrupoContaComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codGrupoContaComboBox.SelectedValue == null)
+            {
+                codGrupoContaComboBox.Focus();
+                throw new TelaException("Um grupo válido precisa ser selecionado");
             }
         }
     }

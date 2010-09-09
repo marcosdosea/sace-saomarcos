@@ -24,8 +24,8 @@ namespace SACE.Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PRODUTOS, Principal.Autenticacao.CodUsuario);
             this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
-            this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
+            this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             habilitaBotoes(true);
         }
@@ -54,7 +54,8 @@ namespace SACE.Telas
             //tbcfopBindingSource.MoveFirst();
             cfopComboBox.SelectedIndex = 0;
             tbgrupoBindingSource.MoveFirst();
-            //tb_pessoaBindingSource.MoveFirst();
+            tb_pessoaBindingSource.MoveFirst();
+            unidadeTextBox.Text = "UND";
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -197,15 +198,37 @@ namespace SACE.Telas
                     }
                     frmGrupoPesquisa.Dispose();
                 }
+                else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
+                {
+                    Telas.FrmGrupo frmGrupo = new Telas.FrmGrupo();
+                    frmGrupo.ShowDialog();
+                    if (frmGrupo.CodGrupo > 0)
+                    {
+                        this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
+                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupo.CodGrupo);
+                    }
+                    frmGrupo.Dispose();
+                }
                 else if ((e.KeyCode == Keys.F2) && (codigoFabricanteComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.CodPessoa != -1)
                     {
                         tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
                     }
                     frmPessoaPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F3) && (codigoFabricanteComboBox.Focused))
+                {
+                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    frmPessoa.ShowDialog();
+                    if (frmPessoa.CodPessoa > 0 )
+                    {
+                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                    }
+                    frmPessoa.Dispose();
                 }
             }
         }
@@ -238,6 +261,20 @@ namespace SACE.Telas
         private void nomeTextBox_Leave(object sender, EventArgs e)
         {
             nomeFabricanteTextBox.Text = nomeTextBox.Text;
+        }
+
+        private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codigoFabricanteComboBox.SelectedValue == null)
+            {
+                codigoFabricanteComboBox.Focus();
+                throw new TelaException("Um fabricante válido precisa ser selecionado.");
+            }
+        }
+
+        private void codigoFabricanteComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
         }
     }
 }

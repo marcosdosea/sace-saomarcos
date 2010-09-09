@@ -462,6 +462,7 @@
             // 
             this.tb_produtoBindingSource.DataMember = "tb_produto";
             this.tb_produtoBindingSource.DataSource = this.saceDataSet;
+            this.tb_produtoBindingSource.Sort = "codProduto";
             // 
             // tb_produtoTableAdapter
             // 
@@ -620,6 +621,7 @@
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(150, 90);
+            this.nomeTextBox.MaxLength = 40;
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(430, 20);
             this.nomeTextBox.TabIndex = 8;
@@ -640,24 +642,27 @@
             this.codigoBarraTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codigoBarraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codigoBarra", true));
             this.codigoBarraTextBox.Location = new System.Drawing.Point(10, 213);
+            this.codigoBarraTextBox.MaxLength = 40;
             this.codigoBarraTextBox.Name = "codigoBarraTextBox";
             this.codigoBarraTextBox.Size = new System.Drawing.Size(134, 20);
             this.codigoBarraTextBox.TabIndex = 16;
             // 
             // codGrupoComboBox
             // 
+            this.codGrupoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codGrupoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codGrupoComboBox.CausesValidation = false;
-            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codGrupo", true));
             this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codGrupo", true));
+            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "descricaoGrupo", true));
             this.codGrupoComboBox.DataSource = this.tbgrupoBindingSource;
             this.codGrupoComboBox.DisplayMember = "descricao";
-            this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoComboBox.FormattingEnabled = true;
             this.codGrupoComboBox.Location = new System.Drawing.Point(150, 213);
             this.codGrupoComboBox.Name = "codGrupoComboBox";
             this.codGrupoComboBox.Size = new System.Drawing.Size(430, 21);
             this.codGrupoComboBox.TabIndex = 18;
             this.codGrupoComboBox.ValueMember = "codGrupo";
+            this.codGrupoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFabricanteComboBox_KeyPress);
             // 
             // tbgrupoBindingSource
             // 
@@ -666,19 +671,21 @@
             // 
             // codigoFabricanteComboBox
             // 
+            this.codigoFabricanteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codigoFabricanteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codigoFabricanteComboBox.CausesValidation = false;
-            this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codigoFabricante", true));
             this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codigoFabricante", true));
+            this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "nomePessoaFabricante", true));
             this.codigoFabricanteComboBox.DataSource = this.tb_pessoaBindingSource;
             this.codigoFabricanteComboBox.DisplayMember = "nome";
-            this.codigoFabricanteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codigoFabricanteComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.codigoFabricanteComboBox.FormattingEnabled = true;
             this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 170);
             this.codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
             this.codigoFabricanteComboBox.Size = new System.Drawing.Size(430, 21);
             this.codigoFabricanteComboBox.TabIndex = 14;
             this.codigoFabricanteComboBox.ValueMember = "codPessoa";
+            this.codigoFabricanteComboBox.Leave += new System.EventHandler(this.codigoFabricanteComboBox_Leave);
+            this.codigoFabricanteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFabricanteComboBox_KeyPress);
             // 
             // tb_pessoaBindingSource
             // 
@@ -773,6 +780,7 @@
             this.nomeFabricanteTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeFabricanteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "nomeFabricante", true));
             this.nomeFabricanteTextBox.Location = new System.Drawing.Point(150, 129);
+            this.nomeFabricanteTextBox.MaxLength = 40;
             this.nomeFabricanteTextBox.Name = "nomeFabricanteTextBox";
             this.nomeFabricanteTextBox.Size = new System.Drawing.Size(430, 20);
             this.nomeFabricanteTextBox.TabIndex = 10;
@@ -861,6 +869,7 @@
             // 
             this.qtdProdutoAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "qtdProdutoAtacado", true));
             this.qtdProdutoAtacadoTextBox.Location = new System.Drawing.Point(7, 348);
+            this.qtdProdutoAtacadoTextBox.MaxLength = 8;
             this.qtdProdutoAtacadoTextBox.Name = "qtdProdutoAtacadoTextBox";
             this.qtdProdutoAtacadoTextBox.Size = new System.Drawing.Size(101, 20);
             this.qtdProdutoAtacadoTextBox.TabIndex = 73;
@@ -869,6 +878,7 @@
             // 
             this.qtdProdutoSuperAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "qtdProdutoSuperAtacado", true));
             this.qtdProdutoSuperAtacadoTextBox.Location = new System.Drawing.Point(318, 348);
+            this.qtdProdutoSuperAtacadoTextBox.MaxLength = 8;
             this.qtdProdutoSuperAtacadoTextBox.Name = "qtdProdutoSuperAtacadoTextBox";
             this.qtdProdutoSuperAtacadoTextBox.Size = new System.Drawing.Size(72, 20);
             this.qtdProdutoSuperAtacadoTextBox.TabIndex = 74;
@@ -917,7 +927,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 408);
+            this.ClientSize = new System.Drawing.Size(582, 410);
             this.Controls.Add(icms_substitutoLabel);
             this.Controls.Add(this.icms_substitutoTextBox);
             this.Controls.Add(this.cfopComboBox);

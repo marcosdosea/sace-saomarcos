@@ -50,7 +50,7 @@ namespace SACE.Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             tb_conta_bancoBindingSource.AddNew();
-            codContaBancoTextBox.Focus();
+            numerocontaTextBox.Focus();
             habilitaBotoes(false);
             codBancoComboBox.SelectedIndex = 0;
             estado = EstadoFormulario.INSERIR;
@@ -67,7 +67,7 @@ namespace SACE.Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorContaBanco.getInstace().remover(codContaBancoTextBox.Text);
+                GerenciadorContaBanco.getInstace().remover(Int32.Parse(codContaBancoTextBox.Text));
                 tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
             }
         }
@@ -85,7 +85,8 @@ namespace SACE.Telas
             try
             {
                 ContaBanco contaBanco = new ContaBanco();
-                contaBanco.CodContaBanco = codContaBancoTextBox.Text;
+                contaBanco.CodContaBanco = Int32.Parse(codContaBancoTextBox.Text);
+                contaBanco.NumeroConta = numerocontaTextBox.Text;
                 contaBanco.Agencia = agenciaTextBox.Text;
                 contaBanco.Descricao = descricaoTextBox.Text;
                 contaBanco.Saldo = decimal.Parse(saldoTextBox.Text);
@@ -97,7 +98,7 @@ namespace SACE.Telas
                 {
                     gContaBanco.inserir(contaBanco);
                     tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
-                    //tb_conta_bancoBindingSource.MoveLast();
+                    tb_conta_bancoBindingSource.MoveLast();
                 }
                 else
                 {
@@ -209,6 +210,11 @@ namespace SACE.Telas
         private void FrmContaBanco_FormClosing(object sender, FormClosingEventArgs e)
         {
             CodContaBanco = codContaBancoTextBox.Text;
+        }
+
+        private void codBancoComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
         }
     }
 }

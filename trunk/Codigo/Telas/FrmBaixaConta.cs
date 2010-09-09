@@ -141,9 +141,9 @@ namespace SACE.Telas
                     }
                     if (valorRestante > 0)
                     {
-                        tb_baixa_contaTableAdapter.Insert(formaPgto, long.Parse(valorRestante.ToString()),
-                            codConta.ToString(), "0", contaBanco.ToString(), dataDateTimePicker.Value);
-                        tb_contaTableAdapter.UpdateSituacao(situacao.ToString(), codConta);
+                        //tb_baixa_contaTableAdapter.Insert(formaPgto, long.Parse(valorRestante.ToString()),
+                        //    codConta.ToString(), "0", contaBanco.ToString(), dataDateTimePicker.Value);
+                        //tb_contaTableAdapter.UpdateSituacao(situacao.ToString(), codConta);
                         valor -= valorRestante;
                     }
                     i++;

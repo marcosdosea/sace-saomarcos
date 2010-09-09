@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssemblySortForCompilOrObfusk>
+  <Assembly Assembly="Dados">8</Assembly>
+  <Assembly Assembly="Dominio">9</Assembly>
+  <Assembly Assembly="Negocio">10</Assembly>
+  <Assembly Assembly="Telas">11</Assembly>
+  <Assembly Assembly="Util">12</Assembly>
+</AssemblySortForCompilOrObfusk>

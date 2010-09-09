@@ -57,14 +57,14 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codPlanoContaTextBox = new System.Windows.Forms.TextBox();
+            this.codPlanoContaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
             this.diaBaseTextBox = new System.Windows.Forms.TextBox();
             this.codGrupoContaComboBox = new System.Windows.Forms.ComboBox();
             this.tbgrupocontaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rbPagar = new System.Windows.Forms.RadioButton();
+            this.rbReceber = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             codPlanoContaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             diaBaseLabel = new System.Windows.Forms.Label();
@@ -205,6 +205,7 @@
             this.tb_plano_contaBindingSource.DataMember = "tb_plano_conta";
             this.tb_plano_contaBindingSource.DataSource = this.saceDataSet;
             this.tb_plano_contaBindingSource.Sort = "codPlanoConta";
+            this.tb_plano_contaBindingSource.PositionChanged += new System.EventHandler(this.tb_plano_contaBindingSource_PositionChanged);
             // 
             // tb_plano_contaTableAdapter
             // 
@@ -343,7 +344,6 @@
             // 
             // codPlanoContaTextBox
             // 
-            this.codPlanoContaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codPlanoContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "codPlanoConta", true));
             this.codPlanoContaTextBox.Enabled = false;
             this.codPlanoContaTextBox.Location = new System.Drawing.Point(7, 89);
@@ -356,6 +356,7 @@
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(137, 89);
+            this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(326, 20);
             this.descricaoTextBox.TabIndex = 24;
@@ -365,68 +366,72 @@
             this.diaBaseTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "diaBase", true));
             this.diaBaseTextBox.Location = new System.Drawing.Point(413, 134);
+            this.diaBaseTextBox.MaxLength = 2;
             this.diaBaseTextBox.Name = "diaBaseTextBox";
             this.diaBaseTextBox.Size = new System.Drawing.Size(50, 20);
-            this.diaBaseTextBox.TabIndex = 28;
+            this.diaBaseTextBox.TabIndex = 30;
             // 
             // codGrupoContaComboBox
             // 
+            this.codGrupoContaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codGrupoContaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codGrupoContaComboBox.CausesValidation = false;
-            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "codGrupoConta", true));
+            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_plano_contaBindingSource, "codGrupoConta", true));
+            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "descricaoGrupoConta", true));
             this.codGrupoContaComboBox.DataSource = this.tbgrupocontaBindingSource;
             this.codGrupoContaComboBox.DisplayMember = "descricao";
-            this.codGrupoContaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoContaComboBox.FormattingEnabled = true;
             this.codGrupoContaComboBox.Location = new System.Drawing.Point(10, 134);
             this.codGrupoContaComboBox.Name = "codGrupoContaComboBox";
             this.codGrupoContaComboBox.Size = new System.Drawing.Size(249, 21);
-            this.codGrupoContaComboBox.TabIndex = 29;
+            this.codGrupoContaComboBox.TabIndex = 26;
             this.codGrupoContaComboBox.ValueMember = "codGrupoConta";
+            this.codGrupoContaComboBox.Leave += new System.EventHandler(this.codGrupoContaComboBox_Leave);
+            this.codGrupoContaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codGrupoContaComboBox_KeyPress);
             // 
             // tbgrupocontaBindingSource
             // 
             this.tbgrupocontaBindingSource.DataMember = "tb_grupo_conta";
             this.tbgrupocontaBindingSource.DataSource = this.saceDataSet;
             // 
+            // rbPagar
+            // 
+            this.rbPagar.AutoSize = true;
+            this.rbPagar.Location = new System.Drawing.Point(13, 14);
+            this.rbPagar.Name = "rbPagar";
+            this.rbPagar.Size = new System.Drawing.Size(53, 17);
+            this.rbPagar.TabIndex = 0;
+            this.rbPagar.TabStop = true;
+            this.rbPagar.Text = "Pagar";
+            this.rbPagar.UseVisualStyleBackColor = true;
+            // 
+            // rbReceber
+            // 
+            this.rbReceber.AutoSize = true;
+            this.rbReceber.Location = new System.Drawing.Point(65, 13);
+            this.rbReceber.Name = "rbReceber";
+            this.rbReceber.Size = new System.Drawing.Size(66, 17);
+            this.rbReceber.TabIndex = 1;
+            this.rbReceber.TabStop = true;
+            this.rbReceber.Text = "Receber";
+            this.rbReceber.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.rbReceber);
+            this.groupBox1.Controls.Add(this.rbPagar);
             this.groupBox1.Location = new System.Drawing.Point(269, 116);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(138, 38);
-            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tipo";
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(65, 13);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(66, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Receber";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.tb_plano_contaBindingSource, "tipoConta", true));
-            this.radioButton1.Location = new System.Drawing.Point(13, 14);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(53, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Pagar";
-            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // FrmPlanoConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 192);
+            this.ClientSize = new System.Drawing.Size(474, 192);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(codGrupoContaLabel);
             this.Controls.Add(this.codGrupoContaComboBox);
@@ -491,14 +496,14 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.TextBox codPlanoContaTextBox;
+        private System.Windows.Forms.MaskedTextBox codPlanoContaTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.TextBox diaBaseTextBox;
         private Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
         private System.Windows.Forms.ComboBox codGrupoContaComboBox;
         private System.Windows.Forms.BindingSource tbgrupocontaBindingSource;
+        private System.Windows.Forms.RadioButton rbPagar;
+        private System.Windows.Forms.RadioButton rbReceber;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

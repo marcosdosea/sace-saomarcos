@@ -35,6 +35,7 @@ namespace SACE.Telas
             if (codProduto != null)
                 tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", codProduto);
             habilitaBotoes(true);
+            ipiTextBox_Leave(sender, e);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -181,7 +182,7 @@ namespace SACE.Telas
             }
         }
 
-        private void ipiTextBox_TextChanged(object sender, EventArgs e)
+        private void ipiTextBox_Leave(object sender, EventArgs e)
         {
             IGerenciadorProduto gProduto = GerenciadorProduto.getInstace();
             decimal precoCompra = (ultimoPrecoCompraTextBox.Text.Trim()=="")?0:decimal.Parse(ultimoPrecoCompraTextBox.Text);
@@ -190,8 +191,22 @@ namespace SACE.Telas
             decimal simples = (simplesTextBox.Text.Trim() == "") ? 0 : decimal.Parse(simplesTextBox.Text);
             decimal frete = (freteTextBox.Text.Trim() == "") ? 0 : decimal.Parse(freteTextBox.Text);
             decimal ipi = (ipiTextBox.Text.Trim() == "") ? 0 : decimal.Parse(ipiTextBox.Text);
-            decimal precoCusto = gProduto.calculaPrecoCustoNormal(precoCompra, diferencialICMS, simples, ipi, frete, 0);
+            decimal precoCusto = 0;
+            
+            if (decimal.Parse(icms_substitutoTextBox.Text) == 0) 
+                precoCusto = GerenciadorProduto.getInstace().calculaPrecoCustoNormal(precoCompra, diferencialICMS, simples, ipi, frete, 0);
+            else
+                precoCusto = GerenciadorProduto.getInstace().calculaPrecoCustoSubstituicao(precoCompra, ICMS_substituto, simples, ipi, frete, 0);
 
+            textBoxPrecoCusto.Text = decimal.Round(precoCusto, 2).ToString();
+
+            decimal lucroVarejo = (lucroPrecoVendaVarejoTextBox.Text.Trim()=="") ? 0 : decimal.Parse(lucroPrecoVendaVarejoTextBox.Text);
+            decimal lucroAtacado = (lucroPrecoVendaAtacadoTextBox.Text.Trim()=="") ? 0 : decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text);
+            decimal lucroSuperAtacado = (lucroPrecoVendaSuperAtacadoTextBox.Text.Trim()=="") ? 0 : decimal.Parse(lucroPrecoVendaSuperAtacadoTextBox.Text);
+            
+            txtPrecoSugestaoVarejo.Text = decimal.Round(GerenciadorProduto.getInstace().calculaPrecoVenda(precoCusto, lucroVarejo),2).ToString();
+            txtPrecoSugestaoAtacado.Text = decimal.Round(GerenciadorProduto.getInstace().calculaPrecoVenda(precoCusto, lucroAtacado),2).ToString();
+            txtPrecoSugestaoSuperAtacado.Text = decimal.Round(GerenciadorProduto.getInstace().calculaPrecoVenda(precoCusto, lucroSuperAtacado),2).ToString();
         }
     }
 }

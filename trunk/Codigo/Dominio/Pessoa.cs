@@ -73,6 +73,13 @@ namespace Dominio
             get { return uf; }
             set { uf = value; }
         }
+        private String email;
+
+        public String Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
         private String fone1;
 
         public String Fone1

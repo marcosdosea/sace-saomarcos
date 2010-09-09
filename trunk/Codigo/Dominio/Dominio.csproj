@@ -48,8 +48,11 @@
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
     <Compile Include="CartaoCredito.cs" />
+    <Compile Include="Conta.cs" />
     <Compile Include="ContaBanco.cs" />
     <Compile Include="ContatoPessoa.cs" />
+    <Compile Include="Entrada.cs" />
+    <Compile Include="EntradaProduto.cs" />
     <Compile Include="Grupo.cs" />
     <Compile Include="GrupoConta.cs" />
     <Compile Include="Loja.cs" />

@@ -62,16 +62,16 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codLojaTextBox = new System.Windows.Forms.TextBox();
+            this.codLojaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
-            this.cnpjTextBox = new System.Windows.Forms.TextBox();
-            this.ieTextBox = new System.Windows.Forms.TextBox();
+            this.cnpjTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.ieTextBox = new System.Windows.Forms.MaskedTextBox();
             this.enderecoTextBox = new System.Windows.Forms.TextBox();
             this.bairroTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
-            this.cepTextBox = new System.Windows.Forms.TextBox();
+            this.cepTextBox = new System.Windows.Forms.MaskedTextBox();
             this.ufTextBox = new System.Windows.Forms.TextBox();
-            this.foneTextBox = new System.Windows.Forms.TextBox();
+            this.foneTextBox = new System.Windows.Forms.MaskedTextBox();
             codLojaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             cnpjLabel = new System.Windows.Forms.Label();
@@ -278,10 +278,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -291,6 +294,8 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = this.tb_lojaTableAdapter;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
@@ -412,13 +417,13 @@
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(123, 89);
+            this.nomeTextBox.MaxLength = 40;
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(342, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
             // cnpjTextBox
             // 
-            this.cnpjTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cnpj", true));
             this.cnpjTextBox.Location = new System.Drawing.Point(7, 141);
             this.cnpjTextBox.Name = "cnpjTextBox";
@@ -427,7 +432,6 @@
             // 
             // ieTextBox
             // 
-            this.ieTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "ie", true));
             this.ieTextBox.Location = new System.Drawing.Point(123, 141);
             this.ieTextBox.Name = "ieTextBox";
@@ -439,6 +443,7 @@
             this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "endereco", true));
             this.enderecoTextBox.Location = new System.Drawing.Point(9, 193);
+            this.enderecoTextBox.MaxLength = 40;
             this.enderecoTextBox.Name = "enderecoTextBox";
             this.enderecoTextBox.Size = new System.Drawing.Size(456, 20);
             this.enderecoTextBox.TabIndex = 34;
@@ -448,6 +453,7 @@
             this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "bairro", true));
             this.bairroTextBox.Location = new System.Drawing.Point(9, 241);
+            this.bairroTextBox.MaxLength = 40;
             this.bairroTextBox.Name = "bairroTextBox";
             this.bairroTextBox.Size = new System.Drawing.Size(214, 20);
             this.bairroTextBox.TabIndex = 36;
@@ -457,13 +463,13 @@
             this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cidade", true));
             this.cidadeTextBox.Location = new System.Drawing.Point(240, 141);
+            this.cidadeTextBox.MaxLength = 40;
             this.cidadeTextBox.Name = "cidadeTextBox";
             this.cidadeTextBox.Size = new System.Drawing.Size(196, 20);
             this.cidadeTextBox.TabIndex = 30;
             // 
             // cepTextBox
             // 
-            this.cepTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cep", true));
             this.cepTextBox.Location = new System.Drawing.Point(240, 241);
             this.cepTextBox.Name = "cepTextBox";
@@ -475,13 +481,13 @@
             this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "uf", true));
             this.ufTextBox.Location = new System.Drawing.Point(442, 141);
+            this.ufTextBox.MaxLength = 2;
             this.ufTextBox.Name = "ufTextBox";
             this.ufTextBox.Size = new System.Drawing.Size(23, 20);
             this.ufTextBox.TabIndex = 32;
             // 
             // foneTextBox
             // 
-            this.foneTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.foneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "fone", true));
             this.foneTextBox.Location = new System.Drawing.Point(365, 241);
             this.foneTextBox.Name = "foneTextBox";
@@ -566,15 +572,15 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.TextBox codLojaTextBox;
+        private System.Windows.Forms.MaskedTextBox codLojaTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
-        private System.Windows.Forms.TextBox cnpjTextBox;
-        private System.Windows.Forms.TextBox ieTextBox;
+        private System.Windows.Forms.MaskedTextBox cnpjTextBox;
+        private System.Windows.Forms.MaskedTextBox ieTextBox;
         private System.Windows.Forms.TextBox enderecoTextBox;
         private System.Windows.Forms.TextBox bairroTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
-        private System.Windows.Forms.TextBox cepTextBox;
+        private System.Windows.Forms.MaskedTextBox cepTextBox;
         private System.Windows.Forms.TextBox ufTextBox;
-        private System.Windows.Forms.TextBox foneTextBox;
+        private System.Windows.Forms.MaskedTextBox foneTextBox;
     }
 }

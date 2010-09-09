@@ -27,11 +27,14 @@ namespace SACE
             InitializeComponent();
         }
 
+       [STAThread]
         static void Main(string[] args)
         {
             TratamentoException eh = new TratamentoException();
             Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarException);
+
             Application.Run(new Principal());
+            
         }
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)

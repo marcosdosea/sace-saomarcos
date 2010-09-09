@@ -211,10 +211,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = this.tb_cartao_creditoTableAdapter;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -224,6 +227,8 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
@@ -340,6 +345,7 @@
             this.codCartaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "codCartao", true));
             this.codCartaoTextBox.Location = new System.Drawing.Point(7, 99);
             this.codCartaoTextBox.Name = "codCartaoTextBox";
+            this.codCartaoTextBox.ReadOnly = true;
             this.codCartaoTextBox.Size = new System.Drawing.Size(121, 20);
             this.codCartaoTextBox.TabIndex = 22;
             // 
@@ -348,6 +354,7 @@
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(142, 99);
+            this.nomeTextBox.MaxLength = 40;
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(320, 20);
             this.nomeTextBox.TabIndex = 24;
@@ -357,6 +364,7 @@
             this.diaBaseTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "diaBase", true));
             this.diaBaseTextBox.Location = new System.Drawing.Point(7, 154);
+            this.diaBaseTextBox.MaxLength = 2;
             this.diaBaseTextBox.Name = "diaBaseTextBox";
             this.diaBaseTextBox.Size = new System.Drawing.Size(121, 20);
             this.diaBaseTextBox.TabIndex = 26;
@@ -373,17 +381,20 @@
             // 
             // codContaBancoComboBox
             // 
-            this.codContaBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "codContaBanco", true));
+            this.codContaBancoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codContaBancoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codContaBancoComboBox.CausesValidation = false;
             this.codContaBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_cartao_creditoBindingSource, "codContaBanco", true));
+            this.codContaBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "descricao", true));
             this.codContaBancoComboBox.DataSource = this.tbcontabancoBindingSource;
             this.codContaBancoComboBox.DisplayMember = "descricao";
-            this.codContaBancoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codContaBancoComboBox.FormattingEnabled = true;
             this.codContaBancoComboBox.Location = new System.Drawing.Point(142, 153);
             this.codContaBancoComboBox.Name = "codContaBancoComboBox";
             this.codContaBancoComboBox.Size = new System.Drawing.Size(320, 21);
             this.codContaBancoComboBox.TabIndex = 28;
             this.codContaBancoComboBox.ValueMember = "codContaBanco";
+            this.codContaBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
             // 
             // FrmCartaoCredito
             // 

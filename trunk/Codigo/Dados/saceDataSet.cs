@@ -7,3 +7,10 @@
         }
     }
 }
+
+namespace Dados.saceDataSetTableAdapters {
+    
+    
+    public partial class tb_pessoaTableAdapter {
+    }
+}

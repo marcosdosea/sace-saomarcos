@@ -31,8 +31,8 @@ namespace Negocio
             try
             {
                 tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Ie, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.Fone3, pessoa.LimiteCompra, 
-                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString());
+                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.Fone3, pessoa.LimiteCompra.ToString(), 
+                    pessoa.ValorComissao.ToString(), pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.Email);
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace Negocio
             {
                 tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Ie, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
                     pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.Fone3, pessoa.LimiteCompra, pessoa.ValorComissao,
-                    pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.CodPessoa);
+                    pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.Email, pessoa.CodPessoa);
             }
             catch (Exception e)
             {

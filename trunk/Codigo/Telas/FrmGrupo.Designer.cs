@@ -198,6 +198,7 @@
             // 
             // tb_grupoBindingSource
             // 
+            this.tb_grupoBindingSource.AllowNew = true;
             this.tb_grupoBindingSource.DataMember = "tb_grupo";
             this.tb_grupoBindingSource.DataSource = this.saceDataSet;
             this.tb_grupoBindingSource.Sort = "codGrupo";
@@ -283,7 +284,7 @@
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_grupoBindingSource, "descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(118, 88);
-            this.descricaoTextBox.MaxLength = 30;
+            this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(351, 20);
             this.descricaoTextBox.TabIndex = 24;
@@ -316,6 +317,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro Grupos de Produto";
             this.Load += new System.EventHandler(this.FrmGrupo_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmGrupo_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGrupo_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssemblyDependencies>
+  <Dependencies_For Assembly="Dados v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>System.Data v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>mscorlib v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Data.DataSetExtensions v3.5.0.0</DependsOn_Name>
+      <DependsOn_Name>System v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml v2.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>Telas v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>Negocio v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="Dominio v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v2.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>Telas v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>Negocio v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="Negocio v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>System v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>mscorlib v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Dominio v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Dados v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Windows.Forms v2.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>Telas v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="Telas v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>System.Windows.Forms v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>mscorlib v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Dados v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Dominio v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Drawing v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Data v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Negocio v1.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="Util v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v2.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v2.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+</AssemblyDependencies>

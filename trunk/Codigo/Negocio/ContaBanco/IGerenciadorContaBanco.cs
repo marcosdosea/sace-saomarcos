@@ -7,7 +7,7 @@ using Dominio;
 
 namespace Negocio
 {
-    public interface IGerenciadorContaBanco: IGerenciadorNegocio<ContaBanco, String>
+    public interface IGerenciadorContaBanco: IGerenciadorNegocio<ContaBanco, Int32>
     {
 
     }
