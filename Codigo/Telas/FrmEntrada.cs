@@ -16,12 +16,8 @@ namespace SACE.Telas
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-
-            // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_entrada_produto' table. You can move, or remove it, as needed.
             this.tb_entrada_produtoTableAdapter.Fill(this.saceDataSet.tb_entrada_produto);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_empresa' table. You can move, or remove it, as needed.
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             habilitaBotoes(true);
         }
@@ -96,16 +92,16 @@ namespace SACE.Telas
 
         private void excluirProduto(object sender, EventArgs e)
         {
-            
-                if (MessageBox.Show("Confirma exclusão do produto?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+            if (MessageBox.Show("Confirma exclusão do produto?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (tb_entrada_produtoDataGridView.Rows.Count > 0)
                 {
-                    if (tb_entrada_produtoDataGridView.Rows.Count > 0)
-                    {
-                        long codProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                        long codEntrada = long.Parse(codEntradaTextBox.Text);
-                        Negocio.GerenciadorEntrada.excluirProdutoEntrada(codEntrada, codProduto);
-                    }
+                    long codProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[1].Value.ToString());
+                    long codEntrada = long.Parse(codEntradaTextBox.Text);
+                    //Negocio.GerenciadorEntrada.excluirProdutoEntrada(codEntrada, codProduto);
                 }
+            }
             tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
             codEntradaTextBox_TextChanged(sender, e);
         }
@@ -273,7 +269,7 @@ namespace SACE.Telas
                 Dados.saceDataSet.tb_produtoRow produto = (Dados.saceDataSet.tb_produtoRow)((System.Data.DataRowView)tbprodutoBindingSource.Current).Row;
                 decimal percIcmsSubstituicao = (decimal.Parse(valorICMSSubstitutoTextBox.Text) > 0) ? decimal.Parse(valorICMSSubstitutoTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100 : 0;
                 decimal percFrete = (decimal.Parse(valorCustoFreteTextBox.Text) > 0) ? decimal.Parse(valorCustoFreteTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100 : 0;
-                decimal precoCusto = 0;
+                //decimal precoCusto = 0;
                 if (produto.cfop == SaceConst.CFOP_NORMAL)
                 {
                     //precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoNormal(decimal.Parse(precoCompraTextBox.Text),
@@ -305,6 +301,11 @@ namespace SACE.Telas
                 tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
                 //totalNotaCalculadoTextBox.Text = tb_entrada_produtoTableAdapter.totalEntrada(tb_entrada_produtoTableAdapter, long.Parse(codEntradaTextBox.Text)).ToString();
             }
+        }
+
+        private void codigoFornecedorComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
         }
     }
 }

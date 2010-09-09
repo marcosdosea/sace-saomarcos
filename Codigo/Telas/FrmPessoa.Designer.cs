@@ -42,6 +42,7 @@
             System.Windows.Forms.Label ufLabel;
             System.Windows.Forms.Label ieLabel;
             System.Windows.Forms.Label fone3Label;
+            System.Windows.Forms.Label emailLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPessoa));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,7 +64,7 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codPessoaTextBox = new System.Windows.Forms.TextBox();
+            this.codPessoaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.bairroTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
@@ -99,6 +100,7 @@
             this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_contato_empresaTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_contato_empresaTableAdapter();
+            this.emailTextBox = new System.Windows.Forms.TextBox();
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             bairroLabel = new System.Windows.Forms.Label();
@@ -112,6 +114,7 @@
             ufLabel = new System.Windows.Forms.Label();
             ieLabel = new System.Windows.Forms.Label();
             fone3Label = new System.Windows.Forms.Label();
+            emailLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).BeginInit();
             this.tb_pessoaBindingNavigator.SuspendLayout();
@@ -135,7 +138,7 @@
             // enderecoLabel
             // 
             enderecoLabel.AutoSize = true;
-            enderecoLabel.Location = new System.Drawing.Point(115, 111);
+            enderecoLabel.Location = new System.Drawing.Point(224, 111);
             enderecoLabel.Name = "enderecoLabel";
             enderecoLabel.Size = new System.Drawing.Size(56, 13);
             enderecoLabel.TabIndex = 25;
@@ -144,7 +147,7 @@
             // bairroLabel
             // 
             bairroLabel.AutoSize = true;
-            bairroLabel.Location = new System.Drawing.Point(224, 158);
+            bairroLabel.Location = new System.Drawing.Point(88, 157);
             bairroLabel.Name = "bairroLabel";
             bairroLabel.Size = new System.Drawing.Size(37, 13);
             bairroLabel.TabIndex = 31;
@@ -153,7 +156,7 @@
             // cidadeLabel
             // 
             cidadeLabel.AutoSize = true;
-            cidadeLabel.Location = new System.Drawing.Point(396, 157);
+            cidadeLabel.Location = new System.Drawing.Point(260, 156);
             cidadeLabel.Name = "cidadeLabel";
             cidadeLabel.Size = new System.Drawing.Size(43, 13);
             cidadeLabel.TabIndex = 33;
@@ -207,7 +210,7 @@
             // cepLabel
             // 
             cepLabel.AutoSize = true;
-            cepLabel.Location = new System.Drawing.Point(118, 158);
+            cepLabel.Location = new System.Drawing.Point(4, 159);
             cepLabel.Name = "cepLabel";
             cepLabel.Size = new System.Drawing.Size(31, 13);
             cepLabel.TabIndex = 44;
@@ -216,7 +219,7 @@
             // ufLabel
             // 
             ufLabel.AutoSize = true;
-            ufLabel.Location = new System.Drawing.Point(549, 156);
+            ufLabel.Location = new System.Drawing.Point(371, 156);
             ufLabel.Name = "ufLabel";
             ufLabel.Size = new System.Drawing.Size(24, 13);
             ufLabel.TabIndex = 46;
@@ -225,7 +228,7 @@
             // ieLabel
             // 
             ieLabel.AutoSize = true;
-            ieLabel.Location = new System.Drawing.Point(7, 158);
+            ieLabel.Location = new System.Drawing.Point(118, 111);
             ieLabel.Name = "ieLabel";
             ieLabel.Size = new System.Drawing.Size(98, 13);
             ieLabel.TabIndex = 49;
@@ -239,6 +242,15 @@
             fone3Label.Size = new System.Drawing.Size(40, 13);
             fone3Label.TabIndex = 50;
             fone3Label.Text = "Fone3:";
+            // 
+            // emailLabel
+            // 
+            emailLabel.AutoSize = true;
+            emailLabel.Location = new System.Drawing.Point(401, 156);
+            emailLabel.Name = "emailLabel";
+            emailLabel.Size = new System.Drawing.Size(35, 13);
+            emailLabel.TabIndex = 63;
+            emailLabel.Text = "Email:";
             // 
             // label1
             // 
@@ -338,7 +350,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_pessoaBindingNavigator.Location = new System.Drawing.Point(395, 43);
+            this.tb_pessoaBindingNavigator.Location = new System.Drawing.Point(395, 41);
             this.tb_pessoaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_pessoaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_pessoaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -454,50 +466,51 @@
             // 
             this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "bairro", true));
-            this.bairroTextBox.Location = new System.Drawing.Point(227, 174);
+            this.bairroTextBox.Location = new System.Drawing.Point(91, 173);
             this.bairroTextBox.MaxLength = 40;
             this.bairroTextBox.Name = "bairroTextBox";
             this.bairroTextBox.Size = new System.Drawing.Size(166, 20);
-            this.bairroTextBox.TabIndex = 29;
+            this.bairroTextBox.TabIndex = 32;
             // 
             // cidadeTextBox
             // 
             this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cidade", true));
-            this.cidadeTextBox.Location = new System.Drawing.Point(399, 174);
+            this.cidadeTextBox.Location = new System.Drawing.Point(263, 173);
             this.cidadeTextBox.MaxLength = 40;
             this.cidadeTextBox.Name = "cidadeTextBox";
-            this.cidadeTextBox.Size = new System.Drawing.Size(147, 20);
-            this.cidadeTextBox.TabIndex = 30;
+            this.cidadeTextBox.Size = new System.Drawing.Size(103, 20);
+            this.cidadeTextBox.TabIndex = 34;
             // 
             // observacaoTextBox
             // 
             this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "observacao", true));
             this.observacaoTextBox.Location = new System.Drawing.Point(7, 259);
+            this.observacaoTextBox.MaxLength = 300;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(588, 41);
-            this.observacaoTextBox.TabIndex = 37;
+            this.observacaoTextBox.TabIndex = 50;
             // 
             // enderecoTextBox
             // 
             this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "endereco", true));
-            this.enderecoTextBox.Location = new System.Drawing.Point(118, 127);
+            this.enderecoTextBox.Location = new System.Drawing.Point(227, 127);
             this.enderecoTextBox.MaxLength = 64;
             this.enderecoTextBox.Name = "enderecoTextBox";
-            this.enderecoTextBox.Size = new System.Drawing.Size(477, 20);
-            this.enderecoTextBox.TabIndex = 26;
+            this.enderecoTextBox.Size = new System.Drawing.Size(368, 20);
+            this.enderecoTextBox.TabIndex = 29;
             // 
             // ufTextBox
             // 
             this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "uf", true));
-            this.ufTextBox.Location = new System.Drawing.Point(552, 173);
+            this.ufTextBox.Location = new System.Drawing.Point(374, 173);
             this.ufTextBox.MaxLength = 2;
             this.ufTextBox.Name = "ufTextBox";
-            this.ufTextBox.Size = new System.Drawing.Size(43, 20);
-            this.ufTextBox.TabIndex = 31;
+            this.ufTextBox.Size = new System.Drawing.Size(21, 20);
+            this.ufTextBox.TabIndex = 36;
             // 
             // groupBox1
             // 
@@ -562,11 +575,11 @@
             // cepMaskedTextBox
             // 
             this.cepMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cep", true));
-            this.cepMaskedTextBox.Location = new System.Drawing.Point(121, 173);
+            this.cepMaskedTextBox.Location = new System.Drawing.Point(7, 174);
             this.cepMaskedTextBox.Mask = "99.999-000";
             this.cepMaskedTextBox.Name = "cepMaskedTextBox";
-            this.cepMaskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cepMaskedTextBox.TabIndex = 28;
+            this.cepMaskedTextBox.Size = new System.Drawing.Size(75, 20);
+            this.cepMaskedTextBox.TabIndex = 30;
             this.cepMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.cepMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
@@ -577,7 +590,7 @@
             this.fone1MaskedTextBox.Mask = "(99) 9999-9999";
             this.fone1MaskedTextBox.Name = "fone1MaskedTextBox";
             this.fone1MaskedTextBox.Size = new System.Drawing.Size(110, 20);
-            this.fone1MaskedTextBox.TabIndex = 32;
+            this.fone1MaskedTextBox.TabIndex = 40;
             this.fone1MaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // fone2MaskedTextBox
@@ -587,7 +600,7 @@
             this.fone2MaskedTextBox.Mask = "(99) 9999-9999";
             this.fone2MaskedTextBox.Name = "fone2MaskedTextBox";
             this.fone2MaskedTextBox.Size = new System.Drawing.Size(117, 20);
-            this.fone2MaskedTextBox.TabIndex = 33;
+            this.fone2MaskedTextBox.TabIndex = 42;
             this.fone2MaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // limiteCompraMaskedTextBox
@@ -596,7 +609,7 @@
             this.limiteCompraMaskedTextBox.Location = new System.Drawing.Point(399, 216);
             this.limiteCompraMaskedTextBox.Name = "limiteCompraMaskedTextBox";
             this.limiteCompraMaskedTextBox.Size = new System.Drawing.Size(117, 20);
-            this.limiteCompraMaskedTextBox.TabIndex = 35;
+            this.limiteCompraMaskedTextBox.TabIndex = 46;
             this.limiteCompraMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             // 
             // valorComissaoMaskedTextBox
@@ -605,7 +618,7 @@
             this.valorComissaoMaskedTextBox.Location = new System.Drawing.Point(533, 216);
             this.valorComissaoMaskedTextBox.Name = "valorComissaoMaskedTextBox";
             this.valorComissaoMaskedTextBox.Size = new System.Drawing.Size(62, 20);
-            this.valorComissaoMaskedTextBox.TabIndex = 36;
+            this.valorComissaoMaskedTextBox.TabIndex = 48;
             this.valorComissaoMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             // 
             // cpf_cnpjErrorProvider
@@ -615,7 +628,7 @@
             // ieTextBox
             // 
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "ie", true));
-            this.ieTextBox.Location = new System.Drawing.Point(7, 174);
+            this.ieTextBox.Location = new System.Drawing.Point(117, 127);
             this.ieTextBox.Name = "ieTextBox";
             this.ieTextBox.Size = new System.Drawing.Size(100, 20);
             this.ieTextBox.TabIndex = 27;
@@ -626,7 +639,7 @@
             this.fone3TextBox.Location = new System.Drawing.Point(271, 216);
             this.fone3TextBox.Name = "fone3TextBox";
             this.fone3TextBox.Size = new System.Drawing.Size(117, 20);
-            this.fone3TextBox.TabIndex = 34;
+            this.fone3TextBox.TabIndex = 44;
             // 
             // tb_contato_empresaDataGridView
             // 
@@ -735,7 +748,7 @@
             this.btnAdicionarContato.Location = new System.Drawing.Point(480, 304);
             this.btnAdicionarContato.Name = "btnAdicionarContato";
             this.btnAdicionarContato.Size = new System.Drawing.Size(114, 23);
-            this.btnAdicionarContato.TabIndex = 38;
+            this.btnAdicionarContato.TabIndex = 52;
             this.btnAdicionarContato.Text = "F7 - Buscar Contato";
             this.btnAdicionarContato.UseVisualStyleBackColor = true;
             this.btnAdicionarContato.Click += new System.EventHandler(this.btnAdicionarContato_Click);
@@ -780,11 +793,21 @@
             // 
             this.tb_contato_empresaTableAdapter1.ClearBeforeFill = true;
             // 
+            // emailTextBox
+            // 
+            this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "email", true));
+            this.emailTextBox.Location = new System.Drawing.Point(401, 173);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(193, 20);
+            this.emailTextBox.TabIndex = 38;
+            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 454);
+            this.ClientSize = new System.Drawing.Size(598, 471);
+            this.Controls.Add(emailLabel);
+            this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.btnAdicionarContato);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
@@ -835,6 +858,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro Pessoas";
             this.Load += new System.EventHandler(this.FrmPessoa_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPessoa_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPessoa_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -877,7 +901,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.TextBox codPessoaTextBox;
+        private System.Windows.Forms.MaskedTextBox codPessoaTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
         private System.Windows.Forms.TextBox bairroTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
@@ -911,5 +935,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.TextBox emailTextBox;
     }
 }

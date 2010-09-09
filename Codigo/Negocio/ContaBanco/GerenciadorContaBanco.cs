@@ -30,8 +30,8 @@ namespace Negocio
         {
             try
             {
-                tb_conta_bancoTA.Insert(contaBanco.CodContaBanco, contaBanco.Agencia,
-                    contaBanco.Descricao, contaBanco.Saldo.ToString(), contaBanco.CodBanco);
+                tb_conta_bancoTA.Insert(contaBanco.NumeroConta, contaBanco.Agencia,
+                    contaBanco.Descricao, contaBanco.Saldo, contaBanco.CodBanco);
             }
             catch (Exception e)
             {
@@ -43,7 +43,7 @@ namespace Negocio
         {
             try
             {
-                tb_conta_bancoTA.Update(contaBanco.Agencia, contaBanco.Descricao, contaBanco.Saldo,
+                tb_conta_bancoTA.Update(contaBanco.NumeroConta, contaBanco.Agencia, contaBanco.Descricao, contaBanco.Saldo,
                     contaBanco.CodBanco, contaBanco.CodContaBanco);
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace Negocio
             }
         }
 
-        public void remover(String codcontaBanco)
+        public void remover(Int32 codcontaBanco)
         {
             try
             {

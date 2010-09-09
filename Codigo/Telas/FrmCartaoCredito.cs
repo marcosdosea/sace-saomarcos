@@ -42,12 +42,20 @@ namespace SACE.Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_cartao_creditoBindingSource.AddNew();
-            codCartaoTextBox.Enabled = false;
-            nomeTextBox.Focus();
-            habilitaBotoes(false);
-            tbcontabancoBindingSource.MoveFirst();
-            estado = EstadoFormulario.INSERIR;
+            if (tbcontabancoBindingSource.Count > 0)
+            {
+                tb_cartao_creditoBindingSource.AddNew();
+                codCartaoTextBox.Enabled = false;
+                nomeTextBox.Focus();
+                habilitaBotoes(false);
+                tbcontabancoBindingSource.MoveFirst();
+                codContaBancoComboBox.SelectedIndex = 0;
+                estado = EstadoFormulario.INSERIR;
+            }
+            else
+            {
+                throw new TelaException("É necessário inserir primeiro uma nova conta/caixa.");
+            }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -82,7 +90,7 @@ namespace SACE.Telas
                 cartaoCredito.CodCartao = int.Parse(codCartaoTextBox.Text);
                 cartaoCredito.Nome = nomeTextBox.Text;
                 cartaoCredito.DiaBase = int.Parse(diaBaseTextBox.Text);
-                cartaoCredito.CodContaBanco = codContaBancoComboBox.SelectedValue.ToString();
+                cartaoCredito.CodContaBanco = Int32.Parse(codContaBancoComboBox.SelectedValue.ToString());
 
                 IGerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
@@ -198,6 +206,11 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void codContaBancoComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
         }
 
     }

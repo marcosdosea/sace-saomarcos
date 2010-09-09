@@ -32,7 +32,7 @@
             this.contasReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.inicialDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.finalDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.codPessoaTextBox = new System.Windows.Forms.TextBox();
+            this.codPessoaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -336,7 +336,7 @@
         private Microsoft.Reporting.WinForms.ReportViewer contasReportViewer;
         private System.Windows.Forms.DateTimePicker inicialDateTimePicker;
         private System.Windows.Forms.DateTimePicker finalDateTimePicker;
-        private System.Windows.Forms.TextBox codPessoaTextBox;
+        private System.Windows.Forms.MaskedTextBox codPessoaTextBox;
         private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_pessoaBindingSource;
         private System.Windows.Forms.BindingSource tb_contaBindingSource;

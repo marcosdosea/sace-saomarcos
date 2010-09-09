@@ -7,13 +7,22 @@ namespace Dominio
 {
     public class ContaBanco
     {
-        private String codContaBanco;
+        private Int32 codContaBanco;
 
-        public String CodContaBanco
+        public Int32 CodContaBanco
         {
             get { return codContaBanco; }
             set { codContaBanco = value; }
         }
+
+        private String numeroConta;
+
+        public String NumeroConta
+        {
+            get { return numeroConta; }
+            set { numeroConta = value; }
+        }
+
         private String agencia;
 
         public String Agencia

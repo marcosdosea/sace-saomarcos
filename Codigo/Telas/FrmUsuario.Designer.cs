@@ -60,7 +60,7 @@
             this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.loginTextBox = new System.Windows.Forms.TextBox();
             this.confirmarSenhaTextBox = new System.Windows.Forms.TextBox();
-            this.codPessoaTextBox = new System.Windows.Forms.TextBox();
+            this.codPessoaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.senhaTextBox = new System.Windows.Forms.TextBox();
             this.perfilComboBox = new System.Windows.Forms.ComboBox();
             this.tb_PerfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -346,6 +346,7 @@
             this.loginTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.loginTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "login", true));
             this.loginTextBox.Location = new System.Drawing.Point(7, 141);
+            this.loginTextBox.MaxLength = 20;
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(227, 20);
             this.loginTextBox.TabIndex = 3;
@@ -354,6 +355,7 @@
             // 
             this.confirmarSenhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.confirmarSenhaTextBox.Location = new System.Drawing.Point(241, 181);
+            this.confirmarSenhaTextBox.MaxLength = 20;
             this.confirmarSenhaTextBox.Name = "confirmarSenhaTextBox";
             this.confirmarSenhaTextBox.Size = new System.Drawing.Size(227, 20);
             this.confirmarSenhaTextBox.TabIndex = 6;
@@ -374,6 +376,7 @@
             this.senhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.senhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "senha", true));
             this.senhaTextBox.Location = new System.Drawing.Point(9, 181);
+            this.senhaTextBox.MaxLength = 20;
             this.senhaTextBox.Name = "senhaTextBox";
             this.senhaTextBox.Size = new System.Drawing.Size(227, 20);
             this.senhaTextBox.TabIndex = 5;
@@ -404,11 +407,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -508,7 +513,7 @@
         private System.Windows.Forms.TextBox nomeTextBox;
         private System.Windows.Forms.TextBox loginTextBox;
         private System.Windows.Forms.TextBox confirmarSenhaTextBox;
-        private System.Windows.Forms.TextBox codPessoaTextBox;
+        private System.Windows.Forms.MaskedTextBox codPessoaTextBox;
         private System.Windows.Forms.TextBox senhaTextBox;
         private System.Windows.Forms.ComboBox perfilComboBox;
         private System.Windows.Forms.BindingSource tb_PerfilBindingSource;

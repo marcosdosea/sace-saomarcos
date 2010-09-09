@@ -15,6 +15,14 @@ namespace SACE.Telas
     public partial class FrmPessoa : Form
     {
         private EstadoFormulario estado;
+        private Int32 codPessoa;
+
+        public Int32 CodPessoa
+        {
+            get { return codPessoa; }
+            set { codPessoa = value; }
+        }
+
 
         public FrmPessoa()
         {
@@ -60,7 +68,7 @@ namespace SACE.Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                tb_pessoaTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
+                GerenciadorPessoa.getInstace().remover(Int64.Parse(codPessoaTextBox.Text));
                 tb_pessoaTableAdapter.Fill(saceDataSet.tb_pessoa);
             }
         }
@@ -251,9 +259,9 @@ namespace SACE.Telas
             }
         }
 
-        private void tb_contato_empresaBindingSource_CurrentChanged(object sender, EventArgs e)
+        private void FrmPessoa_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            CodPessoa = Int32.Parse(codPessoaTextBox.Text);
         }
     }
 }

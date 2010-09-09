@@ -12,6 +12,7 @@ namespace SACE.Telas
     public partial class FrmPessoaPesquisa : Form
     {
         private Int32 codPessoa;
+        private String filtroTipoPessoa;
 
         public Int32 CodPessoa
         {
@@ -23,12 +24,22 @@ namespace SACE.Telas
         {
             InitializeComponent();
             codPessoa = -1;
+            filtroTipoPessoa = null;
+        }
+
+        public FrmPessoaPesquisa(String tipoPessoa)
+        {
+            InitializeComponent();
+            codPessoa = -1;
+            filtroTipoPessoa = tipoPessoa;
         }
 
         private void FrmPessoaPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_pessoa' table. You can move, or remove it, as needed.
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            if (filtroTipoPessoa == null) 
+                this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            else
+                this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, filtroTipoPessoa);
             cmbBusca.SelectedIndex = 0;
         }
 

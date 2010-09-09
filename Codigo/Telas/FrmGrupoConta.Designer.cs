@@ -320,6 +320,7 @@
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_grupo_contaBindingSource, "descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(129, 96);
+            this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(340, 20);
             this.descricaoTextBox.TabIndex = 24;

@@ -283,6 +283,7 @@
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_bancoBindingSource, "nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(130, 86);
+            this.nomeTextBox.MaxLength = 40;
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(339, 20);
             this.nomeTextBox.TabIndex = 23;

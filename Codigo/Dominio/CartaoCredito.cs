@@ -29,9 +29,9 @@ namespace Dominio
             set { diaBase = value; }
         }
 
-        private String codContaBanco;
+        private Int32 codContaBanco;
 
-        public String CodContaBanco
+        public Int32 CodContaBanco
         {
             get { return codContaBanco; }
             set { codContaBanco = value; }

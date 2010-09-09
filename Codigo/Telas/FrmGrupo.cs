@@ -15,6 +15,13 @@ namespace SACE.Telas
     public partial class FrmGrupo : Form
     {
         private EstadoFormulario estado;
+        private Int32 codGrupo;
+
+        public Int32 CodGrupo
+        {
+            get { return codGrupo; }
+            set { codGrupo = value; }
+        }
 
         public FrmGrupo()
         {
@@ -171,6 +178,11 @@ namespace SACE.Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void FrmGrupo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CodGrupo = Int32.Parse(codGrupoTextBox.Text);
         }
     }
 }
