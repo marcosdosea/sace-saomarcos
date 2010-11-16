@@ -7,6 +7,14 @@ namespace Dominio
 {
     public class EntradaProduto
     {
+        private Int64 codEntradaProduto;
+
+        public Int64 CodEntradaProduto
+        {
+            get { return codEntradaProduto; }
+            set { codEntradaProduto = value; }
+        }
+
         private Int64 codEntrada;
 
         public Int64 CodEntrada
@@ -63,6 +71,5 @@ namespace Dominio
             get { return precoCusto; }
             set { precoCusto = value; }
         }
-
     }
 }

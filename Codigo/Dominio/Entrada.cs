@@ -56,9 +56,9 @@ namespace Dominio
             get { return tipoEntrada; }
             set { tipoEntrada = value; }
         }
-        private Int64 numeroNotaFiscal;
+        private String numeroNotaFiscal;
 
-        public Int64 NumeroNotaFiscal
+        public String NumeroNotaFiscal
         {
             get { return numeroNotaFiscal; }
             set { numeroNotaFiscal = value; }
@@ -71,12 +71,12 @@ namespace Dominio
             get { return valorICMSSubstituto; }
             set { valorICMSSubstituto = value; }
         }
-        private Decimal ICSMPadrao;
 
-        public Decimal ICSMPadrao1
+        private Decimal icmsPadrao;
+        public Decimal ICMSPadrao
         {
-            get { return ICSMPadrao; }
-            set { ICSMPadrao = value; }
+            get { return icmsPadrao; }
+            set { icmsPadrao = value; }
         }
     }
 }

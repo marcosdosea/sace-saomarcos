@@ -84,10 +84,10 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            char tipo= ' ';
+            char tipo;
             if (pagarRadioButton.Checked)
                 tipo = 'P';
-            if (receberRadioButton.Checked)
+            else 
                 tipo = 'R';
 
             long? codEntrada = null, codSaida = null;
