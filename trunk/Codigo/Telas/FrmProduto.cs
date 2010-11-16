@@ -51,10 +51,12 @@ namespace SACE.Telas
             qtdProdutoAtacadoTextBox.Text = "0";
             qtdProdutoSuperAtacadoTextBox.Text = "0";
             habilitaBotoes(false);
-            //tbcfopBindingSource.MoveFirst();
+            tbcfopBindingSource.MoveFirst();
             cfopComboBox.SelectedIndex = 0;
             tbgrupoBindingSource.MoveFirst();
+            codGrupoComboBox.SelectedIndex = 0;
             tb_pessoaBindingSource.MoveFirst();
+            codigoFabricanteComboBox.SelectedIndex = 0;
             unidadeTextBox.Text = "UND";
             estado = EstadoFormulario.INSERIR;
         }
