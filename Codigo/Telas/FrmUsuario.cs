@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmUsuario : Form
     {
@@ -21,7 +22,7 @@ namespace SACE.Telas
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.USUARIOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
@@ -72,7 +73,7 @@ namespace SACE.Telas
             }
             else
             {
-                tb_usuarioTableAdapter.Update(loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue), Convert.ToInt32(codPessoaTextBox.Text));
+                //tb_usuarioTableAdapter.Update(loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue), Convert.ToInt32(codPessoaTextBox.Text));
                 tb_usuarioBindingSource.EndEdit();
             }
 
@@ -93,7 +94,7 @@ namespace SACE.Telas
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                tb_usuarioTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
+                //tb_usuarioTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
                 tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
             }
 

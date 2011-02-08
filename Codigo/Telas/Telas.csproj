@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EEBD240B-AFF1-45F7-8AD3-3474466F7945}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -48,7 +48,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="MySql.Data, Version=6.2.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.3.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core">
@@ -70,6 +70,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmSaida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaida.Designer.cs">
+      <DependentUpon>FrmSaida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSaidaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaPagamento.Designer.cs">
+      <DependentUpon>FrmSaidaPagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProdutoAjusteEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProdutoAjusteEstoque.Designer.cs">
+      <DependentUpon>FrmProdutoAjusteEstoque.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmBaixaConta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,12 +112,6 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPreVenda.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPreVenda.Designer.cs">
-      <DependentUpon>FrmPreVenda.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmSaidaPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,9 +123,6 @@
     </Compile>
     <Compile Include="FrmRelatorioConta.Designer.cs">
       <DependentUpon>FrmRelatorioConta.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Funcoes.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="TelaException.cs" />
@@ -239,12 +248,6 @@
     <Compile Include="FrmProdutoPesquisa.Designer.cs">
       <DependentUpon>FrmProdutoPesquisa.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmProdutoPreco.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmProdutoPreco.Designer.cs">
-      <DependentUpon>FrmProdutoPreco.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmTransformacaoProduto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,6 +261,17 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmSaida.resx">
+      <DependentUpon>FrmSaida.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSaidaPagamento.resx">
+      <DependentUpon>FrmSaidaPagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProdutoAjusteEstoque.resx">
+      <DependentUpon>FrmProdutoAjusteEstoque.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBaixaConta.resx">
       <DependentUpon>FrmBaixaConta.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -346,20 +360,12 @@
       <DependentUpon>FrmPlanoContaPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreVenda.resx">
-      <DependentUpon>FrmPreVenda.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmProduto.resx">
       <DependentUpon>FrmProduto.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProdutoPesquisa.resx">
       <DependentUpon>FrmProdutoPesquisa.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmProdutoPreco.resx">
-      <DependentUpon>FrmProdutoPreco.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSaidaPesquisa.resx">
@@ -436,6 +442,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\DataSources\Dados.saceDataSet.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetTableAdapters.tb_lojaTableAdapter.datasource" />
     <None Include="Properties\DataSources\SACE.Dados.saceRelatoriosDataSet.datasource" />
     <None Include="Resources\86.png" />
   </ItemGroup>
@@ -478,6 +485,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

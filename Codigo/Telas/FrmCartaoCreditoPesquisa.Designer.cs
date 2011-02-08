@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmCartaoCreditoPesquisa
     {
@@ -33,18 +33,19 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_cartao_creditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_cartao_creditoTableAdapter = new Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.tb_cartao_creditoDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingSource)).BeginInit();
+            this.tb_cartao_creditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tb_cartao_creditoTableAdapter = new Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +63,8 @@
             this.cmbBusca.FormattingEnabled = true;
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
-            "Nome"});
+            "Nome",
+            "Código"});
             this.cmbBusca.Location = new System.Drawing.Point(10, 26);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(121, 21);
@@ -88,15 +90,75 @@
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
-            // saceDataSet
+            // tb_cartao_creditoDataGridView
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.tb_cartao_creditoDataGridView.AllowUserToAddRows = false;
+            this.tb_cartao_creditoDataGridView.AllowUserToDeleteRows = false;
+            this.tb_cartao_creditoDataGridView.AutoGenerateColumns = false;
+            this.tb_cartao_creditoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.tb_cartao_creditoDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.tb_cartao_creditoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tb_cartao_creditoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            this.tb_cartao_creditoDataGridView.DataSource = this.tb_cartao_creditoBindingSource;
+            this.tb_cartao_creditoDataGridView.Location = new System.Drawing.Point(10, 66);
+            this.tb_cartao_creditoDataGridView.Name = "tb_cartao_creditoDataGridView";
+            this.tb_cartao_creditoDataGridView.ReadOnly = true;
+            this.tb_cartao_creditoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tb_cartao_creditoDataGridView.Size = new System.Drawing.Size(444, 220);
+            this.tb_cartao_creditoDataGridView.TabIndex = 4;
+            this.tb_cartao_creditoDataGridView.TabStop = false;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "codCartao";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Código";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "nome";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Nome";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 60;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "diaBase";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Dia Base";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "codContaBanco";
+            this.dataGridViewTextBoxColumn4.HeaderText = "codContaBanco";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "descricao";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Conta Banco";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // tb_cartao_creditoBindingSource
             // 
             this.tb_cartao_creditoBindingSource.DataMember = "tb_cartao_credito";
             this.tb_cartao_creditoBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tb_cartao_creditoTableAdapter
             // 
@@ -105,10 +167,13 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = this.tb_cartao_creditoTableAdapter;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -118,10 +183,11 @@
             this.tableAdapterManager.tb_grupoTableAdapter = null;
             this.tableAdapterManager.tb_lojaTableAdapter = null;
             this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
@@ -129,60 +195,11 @@
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tb_cartao_creditoDataGridView
-            // 
-            this.tb_cartao_creditoDataGridView.AllowUserToAddRows = false;
-            this.tb_cartao_creditoDataGridView.AllowUserToDeleteRows = false;
-            this.tb_cartao_creditoDataGridView.AutoGenerateColumns = false;
-            this.tb_cartao_creditoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_cartao_creditoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.tb_cartao_creditoDataGridView.DataSource = this.tb_cartao_creditoBindingSource;
-            this.tb_cartao_creditoDataGridView.Location = new System.Drawing.Point(10, 53);
-            this.tb_cartao_creditoDataGridView.MultiSelect = false;
-            this.tb_cartao_creditoDataGridView.Name = "tb_cartao_creditoDataGridView";
-            this.tb_cartao_creditoDataGridView.ReadOnly = true;
-            this.tb_cartao_creditoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_cartao_creditoDataGridView.Size = new System.Drawing.Size(444, 248);
-            this.tb_cartao_creditoDataGridView.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "codCartao";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Nome";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "diaBase";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Dia Base";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "codContaBanco";
-            this.dataGridViewTextBoxColumn5.HeaderText = "codContaBanco";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Visible = false;
-            // 
             // FrmCartaoCreditoPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 313);
+            this.ClientSize = new System.Drawing.Size(463, 294);
             this.Controls.Add(this.tb_cartao_creditoDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
@@ -192,12 +209,12 @@
             this.Name = "FrmCartaoCreditoPesquisa";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Pesquisa Grupos de Produtos";
+            this.Text = "Pesquisa Cartões de Crédito";
             this.Load += new System.EventHandler(this.FrmCartaoCreditoPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCartaoCreditoPesquisa_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,13 +230,11 @@
         private Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter tb_cartao_creditoTableAdapter;
         private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView tb_cartao_creditoDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-  
+        
     }
 }

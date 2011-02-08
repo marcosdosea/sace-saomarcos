@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmPessoa
     {
@@ -84,7 +84,7 @@
             this.valorComissaoMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.cpf_cnpjErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.ieTextBox = new System.Windows.Forms.TextBox();
-            this.fone3TextBox = new System.Windows.Forms.TextBox();
+            this.fone3TextBox = new System.Windows.Forms.MaskedTextBox();
             this.tb_contato_empresaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -637,6 +637,7 @@
             // 
             this.fone3TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "fone3", true));
             this.fone3TextBox.Location = new System.Drawing.Point(271, 216);
+            this.fone3TextBox.Mask = "(99) 9999-9999";
             this.fone3TextBox.Name = "fone3TextBox";
             this.fone3TextBox.Size = new System.Drawing.Size(117, 20);
             this.fone3TextBox.TabIndex = 44;
@@ -760,7 +761,7 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
@@ -781,7 +782,6 @@
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = this.tb_pessoaTableAdapter;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
@@ -922,7 +922,7 @@
         private System.Windows.Forms.ErrorProvider cpf_cnpjErrorProvider;
         private System.Windows.Forms.DataGridView tb_contato_empresaDataGridView;
         private System.Windows.Forms.BindingSource tb_contato_empresaBindingSource;
-        private System.Windows.Forms.TextBox fone3TextBox;
+        private System.Windows.Forms.MaskedTextBox fone3TextBox;
         private System.Windows.Forms.TextBox ieTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;

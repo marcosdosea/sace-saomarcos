@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using Negocio;
 using Dados;
 using Dominio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmCartaoCredito : Form
     {
@@ -23,7 +24,7 @@ namespace SACE.Telas
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
             habilitaBotoes(true);
@@ -35,7 +36,7 @@ namespace SACE.Telas
             frmCartaoCreditoPesquisa.ShowDialog();
             if (frmCartaoCreditoPesquisa.getCodCartaoCredito() != -1)
             {
-                tb_cartao_creditoBindingSource.Position = tb_cartao_creditoBindingSource.Find("codCartaoCredito", frmCartaoCreditoPesquisa.getCodCartaoCredito());
+                tb_cartao_creditoBindingSource.Position = tb_cartao_creditoBindingSource.Find("codCartao", frmCartaoCreditoPesquisa.getCodCartaoCredito());
             }
             frmCartaoCreditoPesquisa.Dispose();
         }
@@ -211,6 +212,15 @@ namespace SACE.Telas
         private void codContaBancoComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
+        }
+
+        private void codContaBancoComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codContaBancoComboBox.SelectedValue == null)
+            {
+                codContaBancoComboBox.Focus();
+                throw new TelaException("Uma conta de banco válida precisa ser selecionada.");
+            }
         }
 
     }

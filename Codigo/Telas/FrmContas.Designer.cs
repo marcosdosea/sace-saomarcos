@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmContas
     {
@@ -55,7 +55,7 @@
             this.tb_contasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
             this.tableAdapterManager1 = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_baixa_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter();
+            this.tb_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_pagamentoTableAdapter();
             this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -332,7 +332,6 @@
             // tableAdapterManager1
             // 
             this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.tb_baixa_contaTableAdapter = this.tb_baixa_contaTableAdapter;
             this.tableAdapterManager1.tb_bancoTableAdapter = null;
             this.tableAdapterManager1.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager1.tb_cfopTableAdapter = null;
@@ -348,6 +347,7 @@
             this.tableAdapterManager1.tb_grupoTableAdapter = null;
             this.tableAdapterManager1.tb_lojaTableAdapter = null;
             this.tableAdapterManager1.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager1.tb_pagamentoTableAdapter = this.tb_pagamentoTableAdapter;
             this.tableAdapterManager1.tb_perfil_funcionalidadeTableAdapter = null;
             this.tableAdapterManager1.tb_perfilTableAdapter = null;
             this.tableAdapterManager1.tb_permissaoTableAdapter = null;
@@ -361,9 +361,9 @@
             this.tableAdapterManager1.tb_usuarioTableAdapter = null;
             this.tableAdapterManager1.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tb_baixa_contaTableAdapter
+            // tb_pagamentoTableAdapter
             // 
-            this.tb_baixa_contaTableAdapter.ClearBeforeFill = true;
+            this.tb_pagamentoTableAdapter.ClearBeforeFill = true;
             // 
             // tb_contaTableAdapter
             // 
@@ -502,7 +502,7 @@
             // 
             // baixaContasBindingSource
             // 
-            this.baixaContasBindingSource.DataMember = "tb_baixa_conta";
+            this.baixaContasBindingSource.DataMember = "tb_pagamento";
             this.baixaContasBindingSource.DataSource = this.saceDataSet;
             // 
             // label2
@@ -711,6 +711,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Contas a Pagar e a Receber";
             this.Load += new System.EventHandler(this.FrmContas_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.valorTextBox_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contasBindingNavigator)).EndInit();
@@ -744,7 +745,7 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingNavigator tb_contasBindingNavigator;
         private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private Dados.saceDataSetTableAdapters.tb_baixa_contaTableAdapter tb_baixa_contaTableAdapter;
+        private Dados.saceDataSetTableAdapters.tb_pagamentoTableAdapter tb_pagamentoTableAdapter;
         private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnBuscar;

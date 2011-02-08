@@ -37,12 +37,9 @@ namespace Negocio
                 tb_produtoTA.Insert(produto.Nome, produto.NomeFabricante, produto.Unidade, produto.CodigoBarra,
                     produto.CodGrupo, produto.CodFabricante, temVencimentoByte, produto.Cfop, produto.Icms.ToString(),
                     produto.IcmsSubstituto.ToString(), produto.Simples.ToString(), produto.Ipi.ToString(),
-                    produto.Frete.ToString(), produto.CustoVenda.ToString(), produto.UltimoPrecoCompra.ToString(),
-                    produto.UltimaDataAtualizacao, produto.UltimoPrecoCusto.ToString(), produto.UltimoPrecoMedio.ToString(),
+                    produto.Frete.ToString(), produto.UltimaDataAtualizacao, produto.UltimoPrecoCompra.ToString(), 
                     produto.LucroPrecoVendaVarejo.ToString(), produto.PrecoVendaVarejo.ToString(), produto.QtdProdutoAtacado.ToString(),
-                    produto.LucroPrecoVendaAtacado.ToString(), produto.PrecoVendaAtacado.ToString(), produto.QtdProdutoSuperAtacado.ToString(),
-                    produto.LucroPrecoVendaSuperAtacado.ToString(), produto.PrecoVendaSuperAtacado.ToString(),
-                    exibeNaListagemByte);
+                    produto.LucroPrecoVendaAtacado.ToString(), produto.PrecoVendaAtacado.ToString(), exibeNaListagemByte);
             }
             catch (Exception e)
             {
@@ -54,30 +51,18 @@ namespace Negocio
         {
             try
             {
+                Produto produtoAtual = obterProduto(produto.CodProduto);
+                if ((produto.PrecoVendaVarejo != produtoAtual.PrecoVendaVarejo) || (produto.PrecoVendaAtacado != produtoAtual.PrecoVendaAtacado))
+                {
+                    produto.UltimaDataAtualizacao = DateTime.Now;
+                }
+                
+                
                 tb_produtoTA.Update(produto.Nome, produto.NomeFabricante, produto.Unidade, produto.CodigoBarra,
                     produto.CodGrupo, produto.CodFabricante, produto.TemVencimento, produto.Cfop, produto.Icms,
-                    produto.IcmsSubstituto, produto.Simples, produto.Ipi, produto.Frete, produto.CustoVenda, produto.UltimoPrecoCompra,
-                    produto.UltimaDataAtualizacao, produto.UltimoPrecoCusto, produto.UltimoPrecoMedio,
-                    produto.LucroPrecoVendaVarejo, produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
-                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, produto.QtdProdutoSuperAtacado,
-                    produto.LucroPrecoVendaSuperAtacado, produto.PrecoVendaSuperAtacado,
-                    produto.ExibeNaListagem, produto.CodProduto);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Produto", e.Message, e);
-            }
-        }
-
-        public void atualizarPrecos(Produto produto)
-        {
-            try
-            {
-                tb_produtoTA.UpdatePrecos(produto.Icms, produto.IcmsSubstituto, produto.Simples,
-                    produto.Ipi, produto.Frete, produto.CustoVenda, produto.UltimaDataAtualizacao,
-                    produto.LucroPrecoVendaVarejo, produto.PrecoVendaVarejo,
-                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, produto.LucroPrecoVendaSuperAtacado,
-                    produto.PrecoVendaSuperAtacado, produto.CodProduto);
+                    produto.IcmsSubstituto, produto.Simples, produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao, 
+                    produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo, produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
+                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, produto.ExibeNaListagem, produto.CodProduto);
             }
             catch (Exception e)
             {
@@ -97,19 +82,49 @@ namespace Negocio
             }
         }
 
-        public decimal calculaPrecoCustoNormal(decimal precoCompra, decimal diferencialICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao)
+        public decimal calculaPrecoCusto(Produto produto) 
         {
-            return gPreco.calculaPrecoCustoNormal(precoCompra, diferencialICMS, simples, ipi, frete, manutencao);
-        }
-
-        public decimal calculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao)
-        {
-            return gPreco.calculaPrecoCustoSubstituicao(precoCompra, ICMSSubstituicao, simples, ipi, frete, manutencao);
+            if (produto.Cfop == Global.VENDA_NORMAL)
+                return gPreco.calculaPrecoCustoNormal(produto.UltimoPrecoCompra, produto.Icms, 
+                    produto.Simples, produto.Ipi, produto.Frete, 0);
+            return gPreco.calculaPrecoCustoSubstituicao(produto.UltimoPrecoCompra, produto.IcmsSubstituto,
+                produto.Simples, produto.Ipi, produto.Frete, 0);
         }
 
         public decimal calculaPrecoVenda(decimal precoCusto, decimal lucro)
         {
             return gPreco.calculaPrecoVenda(precoCusto, lucro);
+        }
+        
+        public Produto obterProduto(Int32 codProduto)
+        {
+            Produto produto = new Produto();
+            Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
+            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodProduto(codProduto);
+
+            produto.CodProduto = int.Parse(produtoDT.Rows[0]["codProduto"].ToString());
+            produto.Cfop = int.Parse(produtoDT.Rows[0]["cfop"].ToString());
+            produto.CodFabricante = int.Parse(produtoDT.Rows[0]["codigoFabricante"].ToString());
+            produto.CodGrupo = int.Parse(produtoDT.Rows[0]["codGrupo"].ToString());
+            produto.CodigoBarra = produtoDT.Rows[0]["codigoBarra"].ToString();
+            produto.ExibeNaListagem = bool.Parse(produtoDT.Rows[0]["exibeNaListagem"].ToString());
+            produto.Frete = decimal.Parse(produtoDT.Rows[0]["frete"].ToString());
+            produto.Icms = decimal.Parse(produtoDT.Rows[0]["icms"].ToString());
+            produto.IcmsSubstituto = decimal.Parse(produtoDT.Rows[0]["icms_substituto"].ToString());
+            produto.Ipi = decimal.Parse(produtoDT.Rows[0]["ipi"].ToString());
+            produto.LucroPrecoVendaAtacado = decimal.Parse(produtoDT.Rows[0]["lucroPrecoVendaAtacado"].ToString());
+            produto.LucroPrecoVendaVarejo = decimal.Parse(produtoDT.Rows[0]["lucroPrecoVendaVarejo"].ToString());
+            produto.Nome = produtoDT.Rows[0]["nome"].ToString();
+            produto.NomeFabricante = produtoDT.Rows[0]["nomeFabricante"].ToString();
+            produto.PrecoVendaAtacado = decimal.Parse(produtoDT.Rows[0]["precoVendaAtacado"].ToString());
+            produto.PrecoVendaVarejo = decimal.Parse(produtoDT.Rows[0]["precoVendaVarejo"].ToString());
+            produto.QtdProdutoAtacado = decimal.Parse(produtoDT.Rows[0]["qtdProdutoAtacado"].ToString());
+            produto.Simples = decimal.Parse(produtoDT.Rows[0]["simples"].ToString());
+            produto.TemVencimento = bool.Parse(produtoDT.Rows[0]["temVencimento"].ToString());
+            produto.UltimaDataAtualizacao = DateTime.Parse(produtoDT.Rows[0]["ultimaDataAtualizacao"].ToString());
+            produto.UltimoPrecoCompra = decimal.Parse(produtoDT.Rows[0]["ultimoPrecoCompra"].ToString());
+            produto.Unidade = produtoDT.Rows[0]["unidade"].ToString();
+            return produto;
         }
     }
 }

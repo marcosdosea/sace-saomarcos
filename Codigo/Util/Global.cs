@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SACE.Telas
+namespace Util
 {
-    public static class Funcoes
+    public static class Global
     {
         public static int
         PRODUTOS = 1,
@@ -20,7 +20,7 @@ namespace SACE.Telas
         GRUPOS_DE_PRODUTOS = 9,
         GRUPOS_DE_CONTAS = 10,
         USUARIOS = 11,
-        PREVENDA = 12,
+        SAIDA = 12,
         PEDIDOS = 13,
         ENTRADA_PRODUTOS = 14,
         TRANFORMACOES = 15,
@@ -37,6 +37,25 @@ namespace SACE.Telas
         RELATORIO_ESTOQUE = 26,
         RELATORIO_VENDAS = 27,
         RELATORIO_COMPRAS = 28,
-        RELATORIO_CONTAS = 29;
+        RELATORIO_CONTAS = 29,
+        LOJA_PADRAO = 1,
+        CLIENTE_PADRAO = 1,
+        PROFISSIONAL_PADRAO = 1,
+        VENDA_NORMAL = 5102,
+        VENDA_ST = 5403,
+        SAIDA_PRE_VENDA = 1,
+        SAIDA_ORCAMENTO = 2,
+        SAIDA_DEPOSITO = 3,
+        SAIDA_CONSUMO_INTERNO = 4;
+
+
+
+        public static Char
+            FISCAL = 'F',
+            AUXILIAR = 'A';
+            
+        public static Decimal
+            ACRESCIMO_PADRAO = (decimal) 1.111111,
+            DESCONTO_PADRAO = (decimal) 0.9;
     }
 }

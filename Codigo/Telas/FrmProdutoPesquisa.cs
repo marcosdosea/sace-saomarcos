@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmProdutoPesquisa : Form
     {
         private Int32 codProduto;
+
+        public Int32 CodProduto
+        {
+            get { return codProduto; }
+            set { codProduto = value; }
+        }
 
         public FrmProdutoPesquisa()
         {
@@ -21,7 +27,6 @@ namespace SACE.Telas
 
         private void FrmProdutoPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_produto' table. You can move, or remove it, as needed.
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             cmbBusca.SelectedIndex = 0;
         }
@@ -30,11 +35,10 @@ namespace SACE.Telas
         {
             try
             {
-                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, int.Parse(txtTexto.Text));
-                   
-                //else
-                //    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, txtTexto.Text);
+                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                    this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, int.Parse(txtTexto.Text));
+                else
+                    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, txtTexto.Text);
             }
             catch (System.Exception ex)
             {

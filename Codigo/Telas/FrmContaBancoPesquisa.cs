@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmContaBancoPesquisa : Form
     {
@@ -27,24 +27,17 @@ namespace SACE.Telas
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_conta_banco' table. You can move, or remove it, as needed.
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
-            cmbBusca.SelectedIndex = 0;
+            cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_conta_bancoTableAdapter.FillByDescricao(this.saceDataSet.tb_conta_banco, txtTexto.Text);
-                else
-                    this.tb_conta_bancoTableAdapter.FillByNumeroConta(this.saceDataSet.tb_conta_banco, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
+                this.tb_conta_bancoTableAdapter.FillByNumeroConta(this.saceDataSet.tb_conta_banco, txtTexto.Text);
+            else
+                this.tb_conta_bancoTableAdapter.FillByDescricao(this.saceDataSet.tb_conta_banco, txtTexto.Text);                
+            
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

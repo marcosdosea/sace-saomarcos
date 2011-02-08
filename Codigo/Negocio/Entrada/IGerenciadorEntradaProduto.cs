@@ -9,6 +9,6 @@ namespace Negocio
 {
     public interface IGerenciadorEntradaProduto : IGerenciadorNegocio<EntradaProduto, Int64>
     {
-
+        EntradaProduto obter(Int64 codEntradaProduto);
     }
 }

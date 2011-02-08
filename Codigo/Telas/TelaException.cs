@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SACE.Telas
+namespace Telas
 {
     public class TelaException: SystemException
     {

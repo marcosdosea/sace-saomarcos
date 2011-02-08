@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Util;
 
 namespace Dominio
 {
@@ -105,13 +106,7 @@ namespace Dominio
             get { return frete; }
             set { frete = value; }
         }
-        private Decimal custoVenda;
-
-        public Decimal CustoVenda
-        {
-            get { return custoVenda; }
-            set { custoVenda = value; }
-        }
+        
         private Decimal ultimoPrecoCompra;
 
         public Decimal UltimoPrecoCompra
@@ -126,20 +121,7 @@ namespace Dominio
             get { return ultimaDataAtualizacao; }
             set { ultimaDataAtualizacao = value; }
         }
-        private Decimal ultimoPrecoCusto;
-
-        public Decimal UltimoPrecoCusto
-        {
-            get { return ultimoPrecoCusto; }
-            set { ultimoPrecoCusto = value; }
-        }
-        private Decimal ultimoPrecoMedio;
-
-        public Decimal UltimoPrecoMedio
-        {
-            get { return ultimoPrecoMedio; }
-            set { ultimoPrecoMedio = value; }
-        }
+        
         private Decimal lucroPrecoVendaVarejo;
 
         public Decimal LucroPrecoVendaVarejo
@@ -154,6 +136,12 @@ namespace Dominio
             get { return precoVendaVarejo; }
             set { precoVendaVarejo = value; }
         }
+
+        public Decimal PrecoVendaVarejoSemDesconto
+        {
+            get { return Math.Round((precoVendaVarejo * Global.ACRESCIMO_PADRAO), 2); }
+        }
+
         private Decimal qtdProdutoAtacado;
 
         public Decimal QtdProdutoAtacado
@@ -175,27 +163,11 @@ namespace Dominio
             get { return precoVendaAtacado; }
             set { precoVendaAtacado = value; }
         }
-        private Decimal qtdProdutoSuperAtacado;
-
-        public Decimal QtdProdutoSuperAtacado
+        public Decimal PrecoVendaAtacadoSemDesconto
         {
-            get { return qtdProdutoSuperAtacado; }
-            set { qtdProdutoSuperAtacado = value; }
+            get { return Math.Round((precoVendaAtacado * Global.ACRESCIMO_PADRAO), 2); }
         }
-        private Decimal lucroPrecoVendaSuperAtacado;
-
-        public Decimal LucroPrecoVendaSuperAtacado
-        {
-            get { return lucroPrecoVendaSuperAtacado; }
-            set { lucroPrecoVendaSuperAtacado = value; }
-        }
-        private Decimal precoVendaSuperAtacado;
-
-        public Decimal PrecoVendaSuperAtacado
-        {
-            get { return precoVendaSuperAtacado; }
-            set { precoVendaSuperAtacado = value; }
-        }
+        
         private Boolean exibeNaListagem;
 
         public Boolean ExibeNaListagem

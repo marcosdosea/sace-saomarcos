@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmLojaPesquisa
     {
@@ -34,10 +34,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_lojaDataGridView = new System.Windows.Forms.DataGridView();
-            this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +43,10 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UF = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -118,53 +118,6 @@
             this.tb_lojaDataGridView.Size = new System.Drawing.Size(462, 241);
             this.tb_lojaDataGridView.TabIndex = 5;
             this.tb_lojaDataGridView.TabStop = false;
-            // 
-            // tb_lojaBindingSource
-            // 
-            this.tb_lojaBindingSource.DataMember = "tb_loja";
-            this.tb_lojaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_lojaTableAdapter
-            // 
-            this.tb_lojaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = this.tb_lojaTableAdapter;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -247,6 +200,52 @@
             this.fone.Name = "fone";
             this.fone.ReadOnly = true;
             this.fone.Width = 53;
+            // 
+            // tb_lojaBindingSource
+            // 
+            this.tb_lojaBindingSource.DataMember = "tb_loja";
+            this.tb_lojaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tb_lojaTableAdapter
+            // 
+            this.tb_lojaTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = this.tb_lojaTableAdapter;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // FrmLojaPesquisa
             // 

@@ -31,7 +31,7 @@ namespace Negocio
             try
             {
                 tb_conta_bancoTA.Insert(contaBanco.NumeroConta, contaBanco.Agencia,
-                    contaBanco.Descricao, contaBanco.Saldo, contaBanco.CodBanco);
+                    contaBanco.Descricao, contaBanco.Saldo.ToString(), contaBanco.CodBanco);
             }
             catch (Exception e)
             {

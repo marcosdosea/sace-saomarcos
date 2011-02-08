@@ -8,8 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmContaBanco : Form
     {
@@ -30,7 +31,7 @@ namespace SACE.Telas
 
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
             this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             habilitaBotoes(true);
@@ -215,6 +216,15 @@ namespace SACE.Telas
         private void codBancoComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
+        }
+
+        private void codBancoComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codBancoComboBox.SelectedValue == null)
+            {
+                codBancoComboBox.Focus();
+                throw new TelaException("Um banco válido precisa ser selecionado.");
+            }
         }
     }
 }

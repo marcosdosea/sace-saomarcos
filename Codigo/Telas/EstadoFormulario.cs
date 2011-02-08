@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SACE.Telas
+namespace Telas
 {
     public enum EstadoFormulario
     {
-        INSERIR, ESPERA, ATUALIZAR
+        INSERIR, ESPERA, ATUALIZAR, INSERIR_DETALHE
     }
 }

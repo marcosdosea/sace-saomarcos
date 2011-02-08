@@ -7,10 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
-using SACE.Telas;
-using SACE;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmBaixaConta : Form
     {
@@ -23,10 +22,10 @@ namespace SACE.Telas
 
         private void FrmBaixaConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.BAIXAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BAIXAS, Principal.Autenticacao.CodUsuario);
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet1.tb_conta);
-            this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet1.tb_baixa_conta);
+            this.tb_pagamentoTableAdapter.Fill(this.saceDataSet1.tb_pagamento);
             this.tb_conta_bancoTableAdapter1.Fill(this.saceDataSet1.tb_conta_banco);
             this.tb_forma_pagamentoTableAdapter1.Fill(this.saceDataSet1.tb_forma_pagamento);
         }
@@ -45,7 +44,7 @@ namespace SACE.Telas
                 for (int i = 0; i < contasDataGridView.SelectedRows.Count; i++)
                 {
                     long codConta = Convert.ToInt64(contasDataGridView.SelectedRows[i].Cells["codContaDataGridViewTextBoxColumn"].Value.ToString());
-                    //total += Convert.ToDouble(tb_contaTableAdapter.GetValorTotalConta(codConta)) - Convert.ToDouble(tb_baixa_contaTableAdapter.GetTotalQuitado(codConta));
+                    //total += Convert.ToDouble(tb_contaTableAdapter.GetValorTotalConta(codConta)) - Convert.ToDouble(tb_pagamentoTableAdapter.GetTotalQuitado(codConta));
                     if (tipo != contasDataGridView.SelectedRows[i].Cells["tipoContaDataGridViewTextBoxColumn"].Value.ToString())
                     {
                         ConfirmarButton.Enabled = false;
@@ -130,18 +129,18 @@ namespace SACE.Telas
                 while(i < contasDataGridView.SelectedRows.Count && total>0)
                 {
                     int codConta = Convert.ToInt32(contasDataGridView.SelectedRows[i].Cells["codContaDataGridViewTextBoxColumn"].Value.ToString());
-                    char situacao = 'Q';
-                    double valorQuitado = 0;// Convert.ToDouble(tb_baixa_contaTableAdapter.GetTotalQuitado(codConta));
+                    //char situacao = 'Q';
+                    double valorQuitado = 0;// Convert.ToDouble(tb_pagamentoTableAdapter.GetTotalQuitado(codConta));
                     double valorTotal = 0;// Convert.ToDouble(tb_contaTableAdapter.GetValorTotalConta(codConta));
                     double valorRestante = valorTotal - valorQuitado;
                     if (valor < valorRestante)
                     {
                         valorRestante = valor;
-                        situacao = 'A';
+                        //situacao = 'A';
                     }
                     if (valorRestante > 0)
                     {
-                        //tb_baixa_contaTableAdapter.Insert(formaPgto, long.Parse(valorRestante.ToString()),
+                        //tb_pagamentoTableAdapter.Insert(formaPgto, long.Parse(valorRestante.ToString()),
                         //    codConta.ToString(), "0", contaBanco.ToString(), dataDateTimePicker.Value);
                         //tb_contaTableAdapter.UpdateSituacao(situacao.ToString(), codConta);
                         valor -= valorRestante;
@@ -149,7 +148,7 @@ namespace SACE.Telas
                     i++;
                 }
                 this.tb_contaTableAdapter.Fill(this.saceDataSet1.tb_conta);
-                this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet1.tb_baixa_conta);
+                this.tb_pagamentoTableAdapter.Fill(this.saceDataSet1.tb_pagamento);
                 cancelarButton_Click(sender, e);
             }
             else
@@ -165,20 +164,20 @@ namespace SACE.Telas
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            string tipo = null;
-            if (pagarRadioButton.Checked)
-                tipo = "P";
-            if (receberRadioButton.Checked)
-                tipo = "R";
+            //string tipo = null;
+            //if (pagarRadioButton.Checked)
+            //    tipo = "P";
+            //if (receberRadioButton.Checked)
+            //    tipo = "R";
 
-            if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByConta(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
-            else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByPessoa(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
-            else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByEntrada(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
-            else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillBySaida(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
+        //    if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
+        //        this.tb_contaTableAdapter.FillByConta(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
+        //    else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+        //        this.tb_contaTableAdapter.FillByPessoa(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
+        //    else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+        //        this.tb_contaTableAdapter.FillByEntrada(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
+        //    else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
+        //        this.tb_contaTableAdapter.FillBySaida(this.saceDataSet1.tb_conta, int.Parse(txtTexto.Text), tipo);
         }
     }
 }

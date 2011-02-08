@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmCartaoCreditoPesquisa : Form
     {
@@ -21,23 +21,16 @@ namespace SACE.Telas
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_cartao_credito' table. You can move, or remove it, as needed.
-            this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_cartao_credito' table. You can move, or remove it, as needed.
             this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                //this.tb_cartao_creditoTableAdapter.FillByNome(this.saceDataSet.tb_cartao_credito, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                this.tb_cartao_creditoTableAdapter.FillByCodCartao(this.saceDataSet.tb_cartao_credito, int.Parse(txtTexto.Text));
+            else
+                this.tb_cartao_creditoTableAdapter.FillByNome(this.saceDataSet.tb_cartao_credito, txtTexto.Text);                
         }
 
         private void tb_cartao_creditoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -74,14 +67,6 @@ namespace SACE.Telas
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
-        }
-
-        private void tb_cartao_creditoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_cartao_creditoBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
         }
     }
 }

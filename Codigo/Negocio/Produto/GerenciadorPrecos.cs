@@ -22,13 +22,13 @@ namespace Negocio
 
         public decimal calculaPrecoCustoNormal(decimal precoCompra, decimal diferencialICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao)
         {
-            return precoCompra + (precoCompra *  (1 / ((100-diferencialICMS) / 100)) ) + (precoCompra  * (1 / ((100-simples) / 100)) ) +
+            return precoCompra + (precoCompra *  (1 / (100-diferencialICMS)) * 10 ) + (precoCompra  * (1 / (100-simples)) *10 ) +
                 (precoCompra * ipi / 100) + (precoCompra * frete / 100) + (precoCompra * manutencao / 100);
         }
 
         public decimal calculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao)
         {
-            return precoCompra + (precoCompra * (1 / ((100 - ICMSSubstituicao) / 100))) + (precoCompra * (1 / ((100 - simples) / 100))) +
+            return precoCompra + (precoCompra * (1 / (100 - ICMSSubstituicao)) *10) + (precoCompra * (1 / (100 - simples))*10) +
                 (precoCompra * ipi / 100) + (precoCompra * frete / 100) + (precoCompra * manutencao / 100);
         }
 

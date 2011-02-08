@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SACE;
 using Negocio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmContas : Form
     {
@@ -22,10 +22,10 @@ namespace SACE.Telas
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
-            this.tb_baixa_contaTableAdapter.Fill(this.saceDataSet.tb_baixa_conta);
+            this.tb_pagamentoTableAdapter.Fill(this.saceDataSet.tb_pagamento);
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
             
@@ -77,18 +77,18 @@ namespace SACE.Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                tb_contaTableAdapter.Delete(long.Parse(codContaTextBox.Text));
+                //tb_contaTableAdapter.Delete(long.Parse(codContaTextBox.Text));
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
             }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            char tipo;
-            if (pagarRadioButton.Checked)
-                tipo = 'P';
-            else 
-                tipo = 'R';
+            //char tipo = 'P';
+            //if (pagarRadioButton.Checked)
+            //    tipo = 'P';
+            //else 
+            //    tipo = 'R';
 
             long? codEntrada = null, codSaida = null;
             if (!string.IsNullOrEmpty(codEntradaMaskedTextBox.Text)) codEntrada = Convert.ToInt64(codEntradaMaskedTextBox.Text);
@@ -155,8 +155,8 @@ namespace SACE.Telas
                 situacaoComboBox.SelectedIndex = 0;
             }
 
-            if(!string.IsNullOrEmpty(codContaTextBox.Text))
-                this.tb_baixa_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_baixa_conta, int.Parse(codContaTextBox.Text));
+            //if(!string.IsNullOrEmpty(codContaTextBox.Text))
+                //this.tb_pagamentoTableAdapter.FillByCodConta(this.saceDataSet.tb_pagamento, int.Parse(codContaTextBox.Text));
         }
 
         private void valorTextBox_KeyDown(object sender, KeyEventArgs e)

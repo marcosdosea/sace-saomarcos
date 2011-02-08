@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmContaBancoPesquisa
     {
@@ -34,15 +34,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_conta_bancoDataGridView = new System.Windows.Forms.DataGridView();
-            this.tb_conta_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_conta_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeroConta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_conta_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.tb_conta_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -85,7 +85,7 @@
             this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTexto.Location = new System.Drawing.Point(146, 26);
             this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(308, 20);
+            this.txtTexto.Size = new System.Drawing.Size(450, 20);
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
@@ -107,56 +107,9 @@
             this.tb_conta_bancoDataGridView.Name = "tb_conta_bancoDataGridView";
             this.tb_conta_bancoDataGridView.ReadOnly = true;
             this.tb_conta_bancoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_conta_bancoDataGridView.Size = new System.Drawing.Size(437, 220);
+            this.tb_conta_bancoDataGridView.Size = new System.Drawing.Size(579, 220);
             this.tb_conta_bancoDataGridView.TabIndex = 4;
             this.tb_conta_bancoDataGridView.TabStop = false;
-            // 
-            // tb_conta_bancoBindingSource
-            // 
-            this.tb_conta_bancoBindingSource.DataMember = "tb_conta_banco";
-            this.tb_conta_bancoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "Dados";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_conta_bancoTableAdapter
-            // 
-            this.tb_conta_bancoTableAdapter.ClearBeforeFill = true;
             // 
             // Column1
             // 
@@ -194,11 +147,57 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
+            // tb_conta_bancoBindingSource
+            // 
+            this.tb_conta_bancoBindingSource.DataMember = "tb_conta_banco";
+            this.tb_conta_bancoBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "Dados";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // tb_conta_bancoTableAdapter
+            // 
+            this.tb_conta_bancoTableAdapter.ClearBeforeFill = true;
+            // 
             // FrmContaBancoPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 313);
+            this.ClientSize = new System.Drawing.Size(602, 313);
             this.Controls.Add(this.tb_conta_bancoDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
@@ -229,7 +228,6 @@
         private Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter tb_conta_bancoTableAdapter;
         private System.Windows.Forms.BindingSource tb_conta_bancoBindingSource;
         private System.Windows.Forms.DataGridView tb_conta_bancoDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeroConta;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

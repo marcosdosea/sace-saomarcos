@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmEntradaPesquisa
     {
@@ -126,7 +126,6 @@
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
@@ -248,7 +247,6 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource tb_entradaBindingSource;
         private Dados.saceDataSetTableAdapters.tb_entradaTableAdapter tb_entradaTableAdapter;
@@ -262,8 +260,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-  
+        
     }
 }
