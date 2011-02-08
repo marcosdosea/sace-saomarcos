@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using Negocio;
 using Dados;
 using Dominio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmGrupoConta : Form
     {
@@ -30,7 +31,7 @@ namespace SACE.Telas
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
             this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             habilitaBotoes(true);
         }

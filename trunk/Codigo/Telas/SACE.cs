@@ -10,7 +10,7 @@ using Telas;
 using System.Threading;
 using Dominio;
 
-namespace SACE
+namespace Telas
 {
     public partial class Principal : Form
     {
@@ -39,6 +39,10 @@ namespace SACE
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.F3)
+            {
+                vendaAoConsumidorToolStripMenuItem_Click(sender, e);
+            }
             if (e.KeyCode == Keys.F4)
             {
                 produtosToolStripMenuItem_Click(sender, e);
@@ -127,9 +131,9 @@ namespace SACE
 
         private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Telas.FrmPreVenda frmPreVenda = new Telas.FrmPreVenda();
-            //frmPreVenda.ShowDialog();
-            //frmPreVenda.Dispose();
+            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida();
+            frmPreVenda.ShowDialog();
+            frmPreVenda.Dispose();
         }
 
         private void entradaDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)

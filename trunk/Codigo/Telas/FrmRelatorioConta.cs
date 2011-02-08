@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
-using SACE.Telas;
-using SACE;
 using Microsoft.Reporting.WinForms;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmRelatorioConta : Form
     {
@@ -22,7 +21,7 @@ namespace SACE.Telas
 
         private void FrmRelatorioConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.RELATORIO_CONTAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.RELATORIO_CONTAS, Principal.Autenticacao.CodUsuario);
             this.contasReportViewer.RefreshReport();
         }
 

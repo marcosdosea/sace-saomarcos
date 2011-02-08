@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmEntrada : Form
     {
         private EstadoFormulario estado;
-
+        private Char tipoEntrada = Global.FISCAL;
+        private Produto produto;
+        private Entrada entrada;
+        
         public FrmEntrada()
         {
             InitializeComponent();
@@ -15,10 +20,13 @@ namespace SACE.Telas
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
-            this.tb_entrada_produtoTableAdapter.Fill(this.saceDataSet.tb_entrada_produto);
+            if ((codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0)) {
+                this.tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+            }
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            this.tb_entradaTableAdapter.Fill(this.saceDataSet.tb_entrada);
             habilitaBotoes(true);
         }
 
@@ -68,26 +76,60 @@ namespace SACE.Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            habilitaBotoes(true);
+            entrada = new Entrada();
+            entrada.CodEmpresaFrete = long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString());
+            entrada.CodFornecedor = long.Parse(codigoFornecedorComboBox.SelectedValue.ToString());
+            entrada.DataEntrada = DateTime.Parse(dataEntradaDateTimePicker.Text);
+            entrada.ValorCustoFrete = decimal.Parse(valorCustoFreteTextBox.Text);
+            entrada.ValorICMSSubstituto = decimal.Parse(valorICMSSubstitutoTextBox.Text);
+            entrada.ICMSPadrao = decimal.Parse(icmsTextBox.Text);
+            entrada.NumeroNotaFiscal = numeroNotaFiscalTextBox.Text;
+            entrada.ValorTotal = decimal.Parse(valorTotalTextBox.Text);
+            entrada.TipoEntrada = tipoEntrada;
+
+            
+            IGerenciadorEntrada gEntrada = GerenciadorEntrada.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                //tb_entradaTableAdapter.Insert(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
-                //    long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), valorCustoFreteTextBox.Text,
-                //    DateTime.Parse(dataEntradaDateTimePicker.Text), valorTotalTextBox.Text,
-                //    "F", long.Parse(numeroNotaFiscalTextBox.Text), valorICMSSubstitutoTextBox.Text, icmsTextBox.Text);
+                gEntrada.inserir(entrada);
                 tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                 tb_entradaBindingSource.MoveLast();
+                habilitaBotoes(true);
+                btnProdutos.Focus();
             }
-            else
+            else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                //tb_entradaTableAdapter.Update(long.Parse(codigoFornecedorComboBox.SelectedValue.ToString()),
-                //    long.Parse(codigoEmpresaFreteComboBox.SelectedValue.ToString()), decimal.Parse(valorCustoFreteTextBox.Text), DateTime.Parse(dataEntradaDateTimePicker.Text),
-                //    decimal.Parse(valorTotalTextBox.Text), "F", long.Parse(numeroNotaFiscalTextBox.Text), decimal.Parse(valorICMSSubstitutoTextBox.Text),
-                //    decimal.Parse(icmsTextBox.Text), long.Parse(codEntradaTextBox.Text));
-                tb_entradaBindingSource.EndEdit();
+                IGerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.getInstace();
+                EntradaProduto entradaProduto = new EntradaProduto();
+                entradaProduto.CodEntrada = long.Parse(codEntradaTextBox.Text);
+                entradaProduto.CodProduto = int.Parse(codProdutoComboBox.SelectedValue.ToString());
+                entradaProduto.DataValidade = DateTime.Parse(data_validadeDateTimePicker.Text);
+                entradaProduto.Icms = decimal.Parse(icmsProdutoTextBox.Text);
+                entradaProduto.IcmsSubstituto = decimal.Parse(icms_substitutoTextBox.Text);
+                entradaProduto.Ipi = decimal.Parse(ipiTextBox.Text);
+                entradaProduto.PrecoCusto = decimal.Parse(preco_custoTextBox.Text);
+                entradaProduto.Quantidade = decimal.Parse(quantidadeTextBox.Text);
+                entradaProduto.QuantidadeVendidos = 0;
+                entradaProduto.ValorCompra = decimal.Parse(precoCompraTextBox.Text);
+                entradaProduto.Frete = decimal.Parse(freteTextBox.Text);
+
+                entradaProduto.Simples = decimal.Parse(simplesTextBox.Text);
+                entradaProduto.LucroPrecoVendaAtacado = decimal.Parse(lucroAtacadoTextBox.Text);
+                entradaProduto.LucroPrecoVendaVarejo = decimal.Parse(lucroVarejoTextBox.Text);
+                entradaProduto.PrecoVendaAtacado = decimal.Parse(precoAtacadoTextBox.Text);
+                entradaProduto.PrecoVendaVarejo = decimal.Parse(precoVarejoTextBox.Text);
+                
+                GerenciadorEntradaProduto.getInstace().inserir(entradaProduto);
+                codEntradaTextBox_TextChanged(sender, e);
+                codProdutoComboBox.Focus();
             }
-
-
+            else 
+            {
+                gEntrada.atualizar(entrada);
+                tb_entradaBindingSource.EndEdit();
+                habilitaBotoes(true);
+                btnProdutos.Focus();
+            }
         }
 
         private void excluirProduto(object sender, EventArgs e)
@@ -97,12 +139,10 @@ namespace SACE.Telas
             {
                 if (tb_entrada_produtoDataGridView.Rows.Count > 0)
                 {
-                    long codProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                    long codEntrada = long.Parse(codEntradaTextBox.Text);
-                    //Negocio.GerenciadorEntrada.excluirProdutoEntrada(codEntrada, codProduto);
+                    long codEntradaProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    Negocio.GerenciadorEntradaProduto.getInstace().remover(codEntradaProduto);
                 }
             }
-            tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
             codEntradaTextBox_TextChanged(sender, e);
         }
 
@@ -151,7 +191,7 @@ namespace SACE.Telas
                     this.Close();
                 }
             }
-            else
+            else 
             {
                 if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
                 {
@@ -167,9 +207,20 @@ namespace SACE.Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codigoEmpresa", frmPessoaPesquisa.CodPessoa);
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
                     }
                     frmPessoaPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F3) && (codigoFornecedorComboBox.Focused))
+                {
+                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    frmPessoa.ShowDialog();
+                    if (frmPessoa.CodPessoa > 0)
+                    {
+                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                    }
+                    frmPessoa.Dispose();
                 }
                 else if ((e.KeyCode == Keys.F2) && (codigoEmpresaFreteComboBox.Focused))
                 {
@@ -177,11 +228,43 @@ namespace SACE.Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codigoEmpresa", frmPessoaPesquisa.CodPessoa);
+                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
-
+                else if ((e.KeyCode == Keys.F3) && (codigoEmpresaFreteComboBox.Focused))
+                {
+                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    frmPessoa.ShowDialog();
+                    if (frmPessoa.CodPessoa > 0)
+                    {
+                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoa.CodPessoa);
+                    }
+                    frmPessoa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
+                {
+                    Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
+                    frmProdutoPesquisa.ShowDialog();
+                    if (frmProdutoPesquisa.CodProduto != -1)
+                    {
+                        tbprodutoBindingSource.Position = tbprodutoBindingSource.Find("codProduto", frmProdutoPesquisa.CodProduto);
+                    }
+                    frmProdutoPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
+                {
+                    Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                    frmProduto.ShowDialog();
+                    if (frmProduto.CodProduto > 0)
+                    {
+                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+                        tbprodutoBindingSource.Position = tbprodutoBindingSource.Find("codProduto", frmProduto.CodProduto);
+                    }
+                    frmProduto.Dispose();
+                }
+                
             }
             // Coloca o foco na grid caso ela não possua
             if (e.KeyCode == Keys.F12)
@@ -204,7 +287,10 @@ namespace SACE.Telas
             btnEditar.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
+            btnProdutos.Enabled = habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
+            btnPagamentos.Enabled = habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             tb_entradaBindingNavigator.Enabled = habilita;
+            ProdutosGroupBox.Enabled = !habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
@@ -212,100 +298,91 @@ namespace SACE.Telas
         }
 
 
-        private void btnProdutos_Click(object sender, EventArgs e)
-        {
-            codProdutoTextBox.Focus();
-        }
-
-        private void camposProdutoTextBox_Enter(object sender, EventArgs e)
-        {
-            if (nomeTextBox.Text.Trim().Equals(""))
-            {
-                int posicaoProduto = -1;
-                if (codProdutoTextBox.Text.Trim().Equals(""))
-                {
-                    Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
-                    frmProdutoPesquisa.ShowDialog();
-                    if (frmProdutoPesquisa.getCodProduto() != -1)
-                    {
-                        codProdutoTextBox.Text = frmProdutoPesquisa.getCodProduto().ToString();
-                    }
-                    else
-                    {
-                        codProdutoTextBox.Text = "";
-                    }
-                    frmProdutoPesquisa.Dispose();
-                }
-                else
-                {
-                    posicaoProduto = tbprodutoBindingSource.Find("codProduto", codProdutoTextBox.Text);
-                }
-                if (posicaoProduto <= 0)
-                {
-                    codProdutoTextBox.Focus();
-                }
-                else
-                {
-                    tbprodutoBindingSource.Position = posicaoProduto;
-                }
-                codProdutoTextBox.TabIndex = 37;
-            }
-        }
-
-        private void codProdutoTextBox_Enter(object sender, EventArgs e)
-        {
-            ipiTextBox.Text = "0";
-            nomeTextBox.Text = "";
-            quantidadeTextBox.Text = "0";
-            precoCompraTextBox.Text = "0";
-            codProdutoTextBox.TabIndex = 28;
-        }
-
-        private void precoCompraTextBox_Leave(object sender, EventArgs e)
-        {
-            btnSalvar_Click(sender, e);
-            try
-            {
-                Dados.saceDataSet.tb_produtoRow produto = (Dados.saceDataSet.tb_produtoRow)((System.Data.DataRowView)tbprodutoBindingSource.Current).Row;
-                decimal percIcmsSubstituicao = (decimal.Parse(valorICMSSubstitutoTextBox.Text) > 0) ? decimal.Parse(valorICMSSubstitutoTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100 : 0;
-                decimal percFrete = (decimal.Parse(valorCustoFreteTextBox.Text) > 0) ? decimal.Parse(valorCustoFreteTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100 : 0;
-                //decimal precoCusto = 0;
-                if (produto.cfop == SaceConst.CFOP_NORMAL)
-                {
-                    //precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoNormal(decimal.Parse(precoCompraTextBox.Text),
-                    //    decimal.Parse(icmsTextBox.Text), SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
-                }
-                else
-                {
-                    //precoCusto = Negocio.GerenciadorPrecos.calculaPrecoCustoSubstituicao(decimal.Parse(precoCompraTextBox.Text),
-                    //    percIcmsSubstituicao, SaceConst.SIMPLES, decimal.Parse(ipiTextBox.Text), percFrete);
-                }
-
-                tb_entrada_produtoTableAdapter.Insert(long.Parse(codEntradaTextBox.Text), long.Parse(codProdutoTextBox.Text),
-                    quantidadeTextBox.Text, precoCompraTextBox.Text, ipiTextBox.Text,
-                    icmsTextBox.Text, "0.0", valorICMSSubstitutoTextBox.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-            codProdutoTextBox.Text = "";
-            codEntradaTextBox_TextChanged(sender, e);
-        }
-
-        private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (!codEntradaTextBox.Text.Equals(""))
-            {
-                tb_entrada_produtoTableAdapter.FillByEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-                //totalNotaCalculadoTextBox.Text = tb_entrada_produtoTableAdapter.totalEntrada(tb_entrada_produtoTableAdapter, long.Parse(codEntradaTextBox.Text)).ToString();
-            }
-        }
-
         private void codigoFornecedorComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
         }
+
+        private void btnProdutos_Click(object sender, EventArgs e)
+        {
+            ProdutosGroupBox.Enabled = true;
+            codProdutoComboBox.Focus();
+            habilitaBotoes(false);
+            estado = EstadoFormulario.INSERIR_DETALHE;
+        }
+
+        private void codigoFornecedorComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codigoFornecedorComboBox.SelectedValue == null)
+            {
+                codigoFornecedorComboBox.Focus();
+                throw new TelaException("Um forncedor válido precisa ser selecionado.");
+            }
+        }
+
+        private void codigoEmpresaFreteComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codigoEmpresaFreteComboBox.SelectedValue == null)
+            {
+                codigoEmpresaFreteComboBox.Focus();
+                throw new TelaException("Um Empresa de frete válida precisa ser selecionada.");
+            }
+        }
+
+        private void codProdutoComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codProdutoComboBox.SelectedValue == null)
+            {
+                codProdutoComboBox.Focus();
+                throw new TelaException("Um produto válido precisa ser selecionado.");
+            }
+            else
+            {
+                produto = GerenciadorProduto.getInstace().obterProduto(Int32.Parse(codProdutoComboBox.SelectedValue.ToString()));
+                icmsProdutoTextBox.Text = icmsTextBox.Text;
+                icms_substitutoTextBox.Text = produto.IcmsSubstituto.ToString();
+                ipiTextBox.Text = produto.Ipi.ToString();
+                simplesTextBox.Text = produto.Simples.ToString();
+                precoVarejoTextBox.Text = produto.PrecoVendaVarejo.ToString();
+                precoAtacadoTextBox.Text = produto.PrecoVendaAtacado.ToString();
+                lucroVarejoTextBox.Text = produto.LucroPrecoVendaVarejo.ToString();
+                lucroAtacadoTextBox.Text = produto.LucroPrecoVendaAtacado.ToString();
+                precoCompraTextBox.Text = "0.00";
+                freteTextBox.Text = Math.Round((decimal.Parse(valorCustoFreteTextBox.Text) / decimal.Parse(valorTotalTextBox.Text) * 100),2).ToString();
+            }
+        }
+
+        private void precoCompraTextBox_Leave(object sender, EventArgs e)
+        {
+            produto.Icms = decimal.Parse(icmsProdutoTextBox.Text);
+            produto.IcmsSubstituto = decimal.Parse(icms_substitutoTextBox.Text);
+            produto.Simples = decimal.Parse(simplesTextBox.Text);
+            produto.Ipi = decimal.Parse(ipiTextBox.Text);
+            produto.UltimoPrecoCompra = decimal.Parse(precoCompraTextBox.Text);
+            produto.LucroPrecoVendaVarejo = decimal.Parse(lucroVarejoTextBox.Text);
+            produto.LucroPrecoVendaAtacado = decimal.Parse(lucroAtacadoTextBox.Text);
+            produto.PrecoVendaVarejo = decimal.Parse(precoVarejoTextBox.Text);
+            produto.PrecoVendaAtacado = decimal.Parse(precoAtacadoTextBox.Text);
+            produto.Frete = decimal.Parse(freteTextBox.Text);
+
+            
+            if (!precoCompraTextBox.Text.Trim().Equals(""))
+            {
+                decimal precoCusto = GerenciadorProduto.getInstace().calculaPrecoCusto(produto);
+                preco_custoTextBox.Text = precoCusto.ToString("0,0.00");
+                precoVarejoSugestaoTextBox.Text = GerenciadorProduto.getInstace().calculaPrecoVenda(precoCusto, decimal.Parse(lucroVarejoTextBox.Text)).ToString("0,0.00");
+                precoAtacadoSugestaoTextBox.Text = GerenciadorProduto.getInstace().calculaPrecoVenda(precoCusto, decimal.Parse(lucroAtacadoTextBox.Text)).ToString("0,0.00");
+            }
+        }
+
+        private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
+        {
+            totalNotaCalculadoTextBox.Text = "0,00";
+            if (!codEntradaTextBox.Text.Trim().Equals("")) {
+                tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
+                totalNotaCalculadoTextBox.Text = ((decimal) tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text))).ToString("0,0.00");
+            }
+        }
+
     }
 }

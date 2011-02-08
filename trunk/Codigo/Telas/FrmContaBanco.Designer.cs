@@ -1,4 +1,4 @@
-﻿namespace SACE.Telas
+﻿namespace Telas
 {
     partial class FrmContaBanco
     {
@@ -233,7 +233,7 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_baixa_contaTableAdapter = null;
+            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = this.tb_bancoTableAdapter;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
@@ -254,7 +254,6 @@
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
@@ -407,6 +406,7 @@
             this.codBancoComboBox.Size = new System.Drawing.Size(329, 21);
             this.codBancoComboBox.TabIndex = 32;
             this.codBancoComboBox.ValueMember = "codBanco";
+            this.codBancoComboBox.Leave += new System.EventHandler(this.codBancoComboBox_Leave);
             this.codBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codBancoComboBox_KeyPress);
             // 
             // tbbancoBindingSource

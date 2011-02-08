@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using Negocio;
 using Dados;
 using Dominio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmPlanoConta : Form
     {
@@ -23,7 +24,7 @@ namespace SACE.Telas
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
             this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
             this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
             habilitaBotoes(true);
@@ -197,6 +198,7 @@ namespace SACE.Telas
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
             tb_plano_contaBindingNavigator.Enabled = habilita;
+            codGrupoContaComboBox.Enabled = !habilita;
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;

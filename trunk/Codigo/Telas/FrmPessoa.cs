@@ -10,7 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmPessoa : Form
     {
@@ -31,9 +31,10 @@ namespace SACE.Telas
 
         private void FrmPessoa_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.PESSOAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PESSOAS, Principal.Autenticacao.CodUsuario);
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            this.tb_contato_empresaTableAdapter1.FillByCodEmpresa(saceDataSet.tb_contato_empresa, Int64.Parse(codPessoaTextBox.Text));
+            if (!codPessoaTextBox.Text.Trim().Equals(""))
+                this.tb_contato_empresaTableAdapter1.FillByCodEmpresa(saceDataSet.tb_contato_empresa, Int64.Parse(codPessoaTextBox.Text));
             habilitaBotoes(true);
         }
 

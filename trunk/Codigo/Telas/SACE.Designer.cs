@@ -1,4 +1,4 @@
-﻿namespace SACE
+﻿namespace Telas
 {
     partial class Principal
     {
@@ -62,11 +62,11 @@
             this.estoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vendasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSair = new System.Windows.Forms.Button();
             this.btnEntradas = new System.Windows.Forms.Button();
             this.btnContas = new System.Windows.Forms.Button();
@@ -304,7 +304,7 @@
             // fichaDoClienteToolStripMenuItem
             // 
             this.fichaDoClienteToolStripMenuItem.Name = "fichaDoClienteToolStripMenuItem";
-            this.fichaDoClienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fichaDoClienteToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.fichaDoClienteToolStripMenuItem.Text = "Cliente";
             // 
             // produtosToolStripMenuItem1
@@ -312,7 +312,7 @@
             this.produtosToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.listagemDePreçoToolStripMenuItem});
             this.produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
-            this.produtosToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.produtosToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.produtosToolStripMenuItem1.Text = "Produtos";
             // 
             // listagemDePreçoToolStripMenuItem
@@ -324,20 +324,27 @@
             // estoqueToolStripMenuItem
             // 
             this.estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
-            this.estoqueToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.estoqueToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.estoqueToolStripMenuItem.Text = "Estoque";
             // 
             // vendasToolStripMenuItem
             // 
             this.vendasToolStripMenuItem.Name = "vendasToolStripMenuItem";
-            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.vendasToolStripMenuItem.Text = "Vendas";
             // 
             // comprasToolStripMenuItem
             // 
             this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.comprasToolStripMenuItem.Text = "Compras";
+            // 
+            // contasToolStripMenuItem
+            // 
+            this.contasToolStripMenuItem.Name = "contasToolStripMenuItem";
+            this.contasToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.contasToolStripMenuItem.Text = "Contas";
+            this.contasToolStripMenuItem.Click += new System.EventHandler(this.contasToolStripMenuItem_Click);
             // 
             // ajudaToolStripMenuItem
             // 
@@ -369,13 +376,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(97, 17);
             this.toolStripStatusLabel1.Text = "Usuário: VENDAS";
             // 
-            // contasToolStripMenuItem
-            // 
-            this.contasToolStripMenuItem.Name = "contasToolStripMenuItem";
-            this.contasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.contasToolStripMenuItem.Text = "Contas";
-            this.contasToolStripMenuItem.Click += new System.EventHandler(this.contasToolStripMenuItem_Click);
-            // 
             // btnSair
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -396,7 +396,7 @@
             this.btnEntradas.Location = new System.Drawing.Point(312, 27);
             this.btnEntradas.Name = "btnEntradas";
             this.btnEntradas.Size = new System.Drawing.Size(105, 78);
-            this.btnEntradas.TabIndex = 9;
+            this.btnEntradas.TabIndex = 8;
             this.btnEntradas.Text = "Entradas - F6";
             this.btnEntradas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEntradas.UseVisualStyleBackColor = true;
@@ -409,7 +409,7 @@
             this.btnContas.Location = new System.Drawing.Point(416, 27);
             this.btnContas.Name = "btnContas";
             this.btnContas.Size = new System.Drawing.Size(105, 78);
-            this.btnContas.TabIndex = 7;
+            this.btnContas.TabIndex = 9;
             this.btnContas.Text = "Contas - F7";
             this.btnContas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnContas.UseVisualStyleBackColor = true;

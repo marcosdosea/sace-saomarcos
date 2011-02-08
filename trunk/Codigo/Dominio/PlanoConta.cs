@@ -7,9 +7,8 @@ namespace Dominio
 {
     public class PlanoConta
     {
-        // usando char o compilador fica gerando erros
-        public const String CONTA_PAGAR = "P";
-        public const String CONTA_RECEBER = "R";
+        public const Int32 SAIDA_PRODUTOS = 1;
+        public const Int32 ENTRADA_PRODUTOS = 2;
 
         private Int64 codPlanoConta;
 
@@ -34,9 +33,9 @@ namespace Dominio
             get { return descricao; }
             set { descricao = value; }
         }
-        private String tipoConta;
+        private Char tipoConta;
 
-        public String TipoConta
+        public Char TipoConta
         {
             get { return tipoConta; }
             set { tipoConta = value; }

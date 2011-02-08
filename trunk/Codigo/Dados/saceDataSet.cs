@@ -2,15 +2,12 @@
     
     
     public partial class saceDataSet {
-        partial class tb_pessoaDataTable
+        partial class tb_saidaDataTable
         {
         }
-    }
-}
-
-namespace Dados.saceDataSetTableAdapters {
     
-    
-    public partial class tb_pessoaTableAdapter {
+        partial class tb_produtoDataTable
+        {
+        }
     }
 }

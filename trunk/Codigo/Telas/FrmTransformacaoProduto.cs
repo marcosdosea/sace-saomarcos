@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmTransformacaoProduto : Form
     {
@@ -19,7 +20,7 @@ namespace SACE.Telas
 
         private void FrmTransformacaoProduto_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.TRANFORMACOES, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.TRANFORMACOES, Principal.Autenticacao.CodUsuario);
         }
     }
 }

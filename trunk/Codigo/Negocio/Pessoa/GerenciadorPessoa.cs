@@ -30,9 +30,10 @@ namespace Negocio
         {
             try
             {
-                tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Ie, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.Fone3, pessoa.LimiteCompra.ToString(), 
-                    pessoa.ValorComissao.ToString(), pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.Email);
+                tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
+                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra.ToString(), 
+                    pessoa.ValorComissao.ToString(), pessoa.Observacao, pessoa.Tipo.ToString(), 
+                    pessoa.Ie, pessoa.Fone3, pessoa.Email);
             }
             catch (Exception e)
             {
@@ -44,9 +45,9 @@ namespace Negocio
         {
             try
             {
-                tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Ie, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.Fone3, pessoa.LimiteCompra, pessoa.ValorComissao,
-                    pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.Email, pessoa.CodPessoa);
+                tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
+                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, pessoa.ValorComissao,
+                    pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.Ie, pessoa.Fone3, pessoa.Email, pessoa.CodPessoa);
             }
             catch (Exception e)
             {

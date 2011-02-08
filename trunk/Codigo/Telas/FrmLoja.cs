@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using Negocio;
 using Dados;
 using Dominio;
+using Util;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmLoja : Form
     {
@@ -23,7 +24,7 @@ namespace SACE.Telas
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.LOJAS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.LOJAS, Principal.Autenticacao.CodUsuario);
             this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
             habilitaBotoes(true);
         }

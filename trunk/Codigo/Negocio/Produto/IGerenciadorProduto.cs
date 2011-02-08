@@ -9,9 +9,8 @@ namespace Negocio
 {
     public interface IGerenciadorProduto: IGerenciadorNegocio<Produto, Int32>
     {
-        void atualizarPrecos(Produto produto);
-        decimal calculaPrecoCustoNormal(decimal precoCompra, decimal diferencialICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao);
-        decimal calculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao);
+        Produto obterProduto(Int32 codProduto);
+        decimal calculaPrecoCusto(Produto produto);
         decimal calculaPrecoVenda(decimal precoCusto, decimal lucro);
     }
 }

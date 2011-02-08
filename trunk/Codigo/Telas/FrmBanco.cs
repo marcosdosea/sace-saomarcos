@@ -10,9 +10,10 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Dominio;
 using Negocio;
+using Util;
 
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmBanco : Form
     {
@@ -32,7 +33,7 @@ namespace SACE.Telas
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Funcoes.BANCOS, Principal.Autenticacao.CodUsuario);
+            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
 
             tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);

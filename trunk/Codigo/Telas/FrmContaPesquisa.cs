@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SACE.Telas
+namespace Telas
 {
     public partial class FrmContaPesquisa : Form
     {
@@ -63,14 +63,14 @@ namespace SACE.Telas
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByConta(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
-            else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByPessoa(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
-            else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillByEntrada(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
-            else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                this.tb_contaTableAdapter.FillBySaida(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
+            //if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
+            //    this.tb_contaTableAdapter.FillByConta(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
+            //else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+            //    this.tb_contaTableAdapter.FillByPessoa(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
+            //else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+            //    this.tb_contaTableAdapter.FillByEntrada(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
+            //else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
+            //    this.tb_contaTableAdapter.FillBySaida(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
         }
     }
 }
