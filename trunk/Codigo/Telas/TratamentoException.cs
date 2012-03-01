@@ -17,6 +17,7 @@ namespace Telas
         {
             DialogResult result = DialogResult.Cancel;
             string erro = t.Exception.Message;
+            
 
             if (t.Exception is ApplicationException)
             {
@@ -71,6 +72,8 @@ namespace Telas
             }
 
             result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            
 
             if (result == DialogResult.Abort)
                 Application.Exit();

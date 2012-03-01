@@ -7,6 +7,13 @@ namespace Dominio
 {
     public class Saida
     {
+        public const int TIPO_ORCAMENTO = 1;
+        public const int TIPO_PRE_VENDA = 2;
+        public const int TIPO_VENDA = 3;
+        public const int TIPO_SAIDA_DEPOSITO = 4;
+        public const int TIPO_CONSUMO_INTERNO = 5;
+        public const int TIPO_PRODUTOS_DANIFICADOS = 6;
+        
         private Int64 codSaida;
 
         public Int64 CodSaida
@@ -63,6 +70,16 @@ namespace Dominio
             get { return total; }
             set { total = value; }
         }
+
+        private decimal totalAVista;
+
+        public decimal TotalAVista
+        {
+            get { return totalAVista; }
+            set { totalAVista = value; }
+        }
+
+
         private decimal desconto;
 
         public decimal Desconto
@@ -83,6 +100,36 @@ namespace Dominio
         {
             get { return totalLucro; }
             set { totalLucro = value; }
+        }
+
+        private Int32 codSituacaoPagamentos;
+
+        public Int32 CodSituacaoPagamentos
+        {
+            get { return codSituacaoPagamentos; }
+            set { codSituacaoPagamentos = value; }
+        }
+
+        private Decimal troco;
+
+        public Decimal Troco
+        {
+            get { return troco; }
+            set { troco = value; }
+        }
+        private Boolean entregaRealizada;
+
+        public Boolean EntregaRealizada
+        {
+            get { return entregaRealizada; }
+            set { entregaRealizada = value; }
+        }
+        private String nfe;
+
+        public String Nfe
+        {
+            get { return nfe; }
+            set { nfe = value; }
         }
     }
 }

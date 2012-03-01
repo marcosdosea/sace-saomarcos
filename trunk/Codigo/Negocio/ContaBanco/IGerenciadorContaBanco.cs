@@ -9,6 +9,6 @@ namespace Negocio
 {
     public interface IGerenciadorContaBanco: IGerenciadorNegocio<ContaBanco, Int32>
     {
-
+        void atualizaSaldo(Int32 codContaBanco, Decimal valor);
     }
 }

@@ -18,7 +18,7 @@ namespace Negocio
         /// Inserir dados no meio persistente
         /// </summary>
         /// <param name="t"></param>
-        void inserir(T t);
+        Int64 inserir(T t);
 
         /// <summary>
         /// Remover dados do meio persistente buscando pela chave

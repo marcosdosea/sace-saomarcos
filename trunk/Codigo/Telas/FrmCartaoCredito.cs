@@ -6,10 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Negocio;
+using Dados.saceDataSetTableAdapters;
 using Dados;
 using Dominio;
+using Negocio;
 using Util;
+
 
 namespace Telas
 {
@@ -25,8 +27,9 @@ namespace Telas
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
-            this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
+            this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
+            this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
             habilitaBotoes(true);
         }
 
@@ -43,20 +46,14 @@ namespace Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            if (tbcontabancoBindingSource.Count > 0)
-            {
-                tb_cartao_creditoBindingSource.AddNew();
-                codCartaoTextBox.Enabled = false;
-                nomeTextBox.Focus();
-                habilitaBotoes(false);
-                tbcontabancoBindingSource.MoveFirst();
-                codContaBancoComboBox.SelectedIndex = 0;
-                estado = EstadoFormulario.INSERIR;
-            }
-            else
-            {
-                throw new TelaException("É necessário inserir primeiro uma nova conta/caixa.");
-            }
+            tb_cartao_creditoBindingSource.AddNew();
+            codCartaoTextBox.Enabled = false;
+            nomeTextBox.Focus();
+            habilitaBotoes(false);
+            tbcontabancoBindingSource.MoveFirst();
+            codContaBancoComboBox.SelectedIndex = 0;
+            codPessoaComboBox.SelectedIndex = 0;
+            estado = EstadoFormulario.INSERIR;
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -92,6 +89,7 @@ namespace Telas
                 cartaoCredito.Nome = nomeTextBox.Text;
                 cartaoCredito.DiaBase = int.Parse(diaBaseTextBox.Text);
                 cartaoCredito.CodContaBanco = Int32.Parse(codContaBancoComboBox.SelectedValue.ToString());
+                cartaoCredito.CodPessoa = Int64.Parse(codPessoaComboBox.SelectedValue.ToString());
 
                 IGerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
@@ -189,8 +187,27 @@ namespace Telas
                         tbcontabancoBindingSource.Position = tbcontabancoBindingSource.Find("codContaBanco", frmContaBanco.CodContaBanco);
                     }
                     frmContaBanco.Dispose();
+                } else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
+                {
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    {
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    }
+                    frmPessoaPesquisa.Dispose();
                 }
-
+                else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
+                {
+                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    frmPessoa.ShowDialog();
+                    if (frmPessoa.CodPessoa != -1)
+                    {
+                        this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                    }
+                    frmPessoa.Dispose();
+                }
             }
         }
         private void habilitaBotoes(Boolean habilita)
@@ -211,7 +228,7 @@ namespace Telas
 
         private void codContaBancoComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
+            e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
         }
 
         private void codContaBancoComboBox_Leave(object sender, EventArgs e)
@@ -223,5 +240,27 @@ namespace Telas
             }
         }
 
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void codContaBancoComboBox_Leave_1(object sender, EventArgs e)
+        {
+            if (codContaBancoComboBox.SelectedValue == null)
+            {
+                codContaBancoComboBox.Focus();
+                throw new TelaException("Uma conta de banco válida precisa ser selecionada.");
+            }
+        }
+
+        private void codPessoaComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codPessoaComboBox.SelectedValue == null)
+            {
+                codPessoaComboBox.Focus();
+                throw new TelaException("Uma empresa válida precisa ser selecionada.");
+            }
+        }
     }
 }

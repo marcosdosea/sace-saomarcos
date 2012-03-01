@@ -18,18 +18,27 @@ namespace Telas
         private EstadoFormulario estado;
         private Produto produto;
         private Saida saida;
+        private SaidaProduto saidaProduto;
 
         public FrmSaida()
         {
             InitializeComponent();
             saida = new Saida();
+            saidaProduto = new SaidaProduto();
+            produto = new Produto();
         }
 
         private void FrmSaida_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
+            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
+
+            GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
+
             this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            tb_saidaBindingSource.MoveLast();
+            quantidadeTextBox.Text = "1";
+            precoVendatextBox.Text = "0,00";
             habilitaBotoes(true);
             estado = EstadoFormulario.ESPERA;
         }
@@ -47,30 +56,28 @@ namespace Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_saidaBindingSource.AddNew();
+            saida.CodCliente = Global.CLIENTE_PADRAO;
+            saida.CodProfissional = Global.PROFISSIONAL_PADRAO;
+            saida.DataSaida = DateTime.Now;
+            saida.Desconto = 0;
+            saida.NumeroCartaoVenda = 0;
+            saida.PedidoGerado = null;
+            saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+            saida.Total = 0;
+            saida.TotalLucro = 0;
+            saida.TotalPago = 0;
 
-            try
-            {
-                saida.CodCliente = Global.CLIENTE_PADRAO;
-                saida.CodProfissional = Global.PROFISSIONAL_PADRAO;
-                saida.DataSaida = DateTime.Now;
-                saida.Desconto = 0;
-                saida.NumeroCartaoVenda = 0;
-                saida.PedidoGerado = null;
-                saida.TipoSaida = Global.SAIDA_PRE_VENDA;
-                saida.Total = 0;
-                saida.TotalLucro = 0;
-                saida.TotalPago = 0;
+            saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
+            saida.Troco = 0;
+            saida.Nfe = null;
+            entregaRealizadaCheckBox.Checked = true;
+            saida.EntregaRealizada = true;
                 
-                GerenciadorSaida.getInstace().inserir(saida);
-                tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
-                tb_saidaBindingSource.MoveLast();
-            }
-            catch (DadosException de)
-            {
-                tb_saidaBindingSource.CancelEdit();
-                throw de;
-            }
+                
+            GerenciadorSaida.getInstace().inserir(saida);
+            tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
+            tb_saidaBindingSource.MoveLast();
+                
             codProdutoComboBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR_DETALHE;
@@ -96,6 +103,9 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            tbsaidaprodutoBindingSource.CancelEdit();
+            tbsaidaprodutoBindingSource.EndEdit();
+                
             if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
             {
                 GerenciadorSaida.getInstace().remover(Int32.Parse(codSaidaTextBox.Text));
@@ -105,57 +115,43 @@ namespace Telas
                 estado = EstadoFormulario.ESPERA;
                 btnNovo.Focus();
             }
-            else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
+            else if ((tb_saida_produtoDataGridView.RowCount > 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
             {
-                tb_entrada_produtoBindingSource.CancelEdit();
-                tb_entrada_produtoBindingSource.EndEdit();
-                habilitaBotoes(true);
-                estado = EstadoFormulario.ESPERA;
-                saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
-                FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
-                frmSaidaPagamento.ShowDialog();
-                frmSaidaPagamento.Dispose();
-                
-                btnNovo.Focus();
+                btnEncerrar_Click(sender, e);
             }
             else
             {
-                tb_entrada_produtoBindingSource.CancelEdit();
-                tb_entrada_produtoBindingSource.EndEdit();
                 this.Close();
             }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
+            saidaProduto = new SaidaProduto();
+            saidaProduto.CodProduto = int.Parse(codProdutoTextBox.Text);
+            saidaProduto.CodSaida = long.Parse(codSaidaTextBox.Text);
+            saidaProduto.Desconto = 10;
+            saidaProduto.Quantidade = decimal.Parse(quantidadeTextBox.Text);
+            saidaProduto.ValorVenda = decimal.Parse(precoVendaSemDescontoTextBox.Text);
+            saidaProduto.ValorVendaAVista = decimal.Parse(precoVendatextBox.Text);
+            saidaProduto.DataValidade = Convert.ToDateTime(data_validadeDateTimePicker.Text);
+            
+            IGerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.getInstace();
+            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                SaidaProduto saidaProduto = new SaidaProduto();
-                saidaProduto.CodProduto = long.Parse(codProdutoTextBox.Text);
-                saidaProduto.CodSaida = long.Parse(codSaidaTextBox.Text);
-                saidaProduto.Desconto = decimal.Parse(descontoTextBox.Text);
-                saidaProduto.Quantidade = decimal.Parse(quantidadeTextBox.Text);
-                saidaProduto.Subtotal = decimal.Parse(subtotalTextBox.Text);
-                saidaProduto.ValorVenda = decimal.Parse(valorVendaTextBox.Text);
-                
-                IGerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.getInstace();
-                if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
+                gSaidaProduto.inserir(saidaProduto);
+                codSaidaTextBox_TextChanged(sender, e);
+                tbsaidaprodutoBindingSource.MoveLast();
+
+                if (tb_saida_produtoDataGridView.RowCount > 0)
                 {
-                    gSaidaProduto.inserir(saidaProduto);
-                    codSaidaTextBox_TextChanged(sender, e);
-
-                    saida.Total = decimal.Parse(totalAVistaTextBox.Text);
-                    saida.CodSaida = long.Parse(codSaidaTextBox.Text);
-                    GerenciadorSaida.getInstace().atualizar(saida);
-
-                    tb_saida_produtoBindingSource.MoveLast();
-                    codProdutoComboBox.Focus();
+                    Saida saida = GerenciadorSaida.getInstace().obterSaida(Convert.ToInt64(codSaidaTextBox.Text));
+                    totalTextBox.Text = saida.Total.ToString();
+                    totalAVistaTextBox.Text = saida.TotalAVista.ToString();
                 }
-            }
-            catch (DadosException de)
-            {
-                tb_saida_produtoBindingSource.CancelEdit();
-                throw de;
+
+
+                codProdutoComboBox.Focus();
             }
         }
 
@@ -178,6 +174,10 @@ namespace Telas
                 else if (e.KeyCode == Keys.F5)
                 {
                     btnExcluir_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F8)
+                {
+                    btnImprimir_Click(sender, e);
                 }
                 else if (e.KeyCode == Keys.End)
                 {
@@ -202,6 +202,10 @@ namespace Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F7)
+                {
+                    btnEncerrar_Click(sender, e);
+                }
             }
             if (e.KeyCode == Keys.Escape)
             {
@@ -218,6 +222,28 @@ namespace Telas
             {
                 excluirProduto(sender, e);
             }
+
+            if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
+            {
+                Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco();
+                frmProdutoPesquisaPreco.ShowDialog();
+                if (frmProdutoPesquisaPreco.getCodProduto() != -1)
+                {
+                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
+                }
+                frmProdutoPesquisaPreco.Dispose();
+            }
+            else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
+            {
+                Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                frmProduto.ShowDialog();
+                if (frmProduto.CodProduto > 0)
+                {
+                    this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProduto.CodProduto);
+                }
+                frmProduto.Dispose();
+            }
         }
 
         private void excluirProduto(object sender, EventArgs e)
@@ -227,8 +253,10 @@ namespace Telas
             {
                 if (tb_saida_produtoDataGridView.Rows.Count > 0)
                 {
-                    long codSaidaProduto = long.Parse(tb_saida_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorSaidaProduto.getInstace().remover(codSaidaProduto);
+                    saidaProduto.CodSaidaProduto = long.Parse(tb_saida_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
+                    
+                    Negocio.GerenciadorSaidaProduto.getInstace().remover(saidaProduto);
                 }
             }
             codSaidaTextBox_TextChanged(sender, e);
@@ -237,9 +265,11 @@ namespace Telas
         private void habilitaBotoes(Boolean habilita)
         {
             btnSalvar.Enabled = !(habilita);
+            btnEncerrar.Enabled = !(habilita);
             btnCancelar.Enabled = !(habilita);
             btnBuscar.Enabled = habilita;
             btnNovo.Enabled = habilita;
+            btnImprimir.Enabled = habilita;
             btnEditar.Enabled = habilita;
             btnExcluir.Enabled = habilita;
             tb_saidaBindingNavigator.Enabled = habilita;
@@ -247,49 +277,125 @@ namespace Telas
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            if (codProdutoComboBox.SelectedValue == null)
+            if (estado != EstadoFormulario.ESPERA)
             {
-                codProdutoComboBox.Focus();
-                throw new TelaException("Um produto válido precisa ser selecionado.");
+                if (codProdutoComboBox.SelectedValue == null)
+                {
+                    codProdutoComboBox.Focus();
+                    throw new TelaException("Um produto válido precisa ser selecionado.");
+                }
             }
-            if (!codProdutoComboBox.SelectedValue.ToString().Equals(""))
-            {
-                produto = GerenciadorProduto.getInstace().obterProduto(Int32.Parse(codProdutoComboBox.SelectedValue.ToString()));
-                valorVendaTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString();
-                codProdutoTextBox.Text = produto.CodProduto.ToString();
-                descontoTextBox.Text = "0";
-            }
-            }
+        }
 
         private void quantidadeTextBox_Leave(object sender, EventArgs e)
         {
-            decimal quantidade = decimal.Parse(quantidadeTextBox.Text);
-            if ((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado))
-               valorVendaTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString();
-            else
-               valorVendaTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString();
 
-            subtotalTextBox.Text = Math.Round((decimal.Parse(quantidadeTextBox.Text) * decimal.Parse(valorVendaTextBox.Text)), 2).ToString();
+            FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
+
+            decimal quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
+
+            if (produto != null)
+            {
+                if ((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado))
+                {
+                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString();
+                    precoVendatextBox.Text = produto.PrecoVendaAtacado.ToString();
+                }
+                else
+                {
+                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString();
+                    precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
+                }
+            }
         }
+ 
+
 
         private void codSaidaTextBox_TextChanged(object sender, EventArgs e)
         {
-            totalTextBox.Text = "0,00";
-            totalAVistaTextBox.Text = "0,00";
-            if (!codSaidaTextBox.Text.Trim().Equals("")) {
+            if (!codSaidaTextBox.Text.Trim().Equals(""))
+            {
                 tb_saida_produtoTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida_produto, long.Parse(codSaidaTextBox.Text));
-                if (tb_saida_produtoDataGridView.RowCount > 0)
-                {
-                    decimal totalSaida = (decimal)tb_saida_produtoTableAdapter.totalSaida(long.Parse(codSaidaTextBox.Text));
-                    totalTextBox.Text = totalSaida.ToString();
-                    totalAVistaTextBox.Text = (Math.Round(totalSaida * Global.DESCONTO_PADRAO, 2)).ToString();
-                }
             }
         }
 
         private void codProdutoComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
+        }
+
+        private void precoVendatextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom2CasasDecimais(precoVendatextBox);
+            produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
+            precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
+        }
+
+        private void btnEncerrar_Click(object sender, EventArgs e)
+        {
+            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
+            {
+                habilitaBotoes(true);
+                estado = EstadoFormulario.ESPERA;
+               
+                saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
+                saida.EntregaRealizada = entregaRealizadaCheckBox.Checked;
+
+                FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
+                frmSaidaPagamento.ShowDialog();
+                frmSaidaPagamento.Dispose();
+
+                GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
+                this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
+                tb_saidaBindingSource.MoveLast();
+                btnNovo.Focus();
+            }
+            
+        }
+
+        private void quantidadeTextBox_Enter(object sender, EventArgs e)
+        {
+            quantidadeTextBox.SelectAll();
+        }
+
+        private void descricaoTipoSaidaLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void data_validadeDateTimePicker_Leave(object sender, EventArgs e)
+        {
+            DateTime dataVencimento = Convert.ToDateTime(data_validadeDateTimePicker.Text);
+            if (!GerenciadorSaida.getInstace().dataVencimentoProdutoAceitavel(produto, dataVencimento))
+            {
+                if (MessageBox.Show("Existem Produtos no estoque com data de validade mais antiga. Manter o Produto lançado?", "Confirmar Data Validade", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    data_validadeDateTimePicker.Focus();
+                }
+            }
+        }
+
+        
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma impressão?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Saida saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
+                GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+            }
+        
+        }
+
+        private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!codProdutoTextBox.Text.Trim().Equals(""))
+            {
+                produto = GerenciadorProduto.getInstace().obterProduto(Int32.Parse(codProdutoComboBox.SelectedValue.ToString()));
+                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString();
+                precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
+                codProdutoTextBox.Text = produto.CodProduto.ToString();
+                data_validadeDateTimePicker.Enabled = produto.TemVencimento;
+            }
         }
     }
 }

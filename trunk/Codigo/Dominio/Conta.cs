@@ -12,7 +12,8 @@ namespace Dominio
         public const Char SITUACAO_ABERTA = 'A';
         public const Char SITUACAO_QUITADA = 'Q';
         public const Char SITUACAO_PARCIALMENTE_QUITADA = 'P';
-
+        public const Char SITUACAO_CANCELADA = 'C';
+        
         private Int64 codConta;
 
         public Int64 CodConta
@@ -34,13 +35,14 @@ namespace Dominio
             get { return codSaida; }
             set { codSaida = value; }
         }
-        private String documento;
+        private Int64 codDocumento;
 
-        public String Documento
+        public Int64 CodDocumento
         {
-            get { return documento; }
-            set { documento = value; }
+            get { return codDocumento; }
+            set { codDocumento = value; }
         }
+
         private Int64 codPlanoConta;
 
         public Int64 CodPlanoConta
@@ -69,13 +71,14 @@ namespace Dominio
             get { return valor; }
             set { valor = value; }
         }
-        private Char situacao;
+        private Char codSituacao;
 
-        public Char Situacao
+        public Char CodSituacao
         {
-            get { return situacao; }
-            set { situacao = value; }
+            get { return codSituacao; }
+            set { codSituacao = value; }
         }
+
         private String observacao;
 
         public String Observacao

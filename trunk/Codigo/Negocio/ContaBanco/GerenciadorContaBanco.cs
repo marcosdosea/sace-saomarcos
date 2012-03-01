@@ -26,12 +26,13 @@ namespace Negocio
             return gContaBanco;
         }
 
-        public void inserir(ContaBanco contaBanco)
+        public Int64 inserir(ContaBanco contaBanco)
         {
             try
             {
                 tb_conta_bancoTA.Insert(contaBanco.NumeroConta, contaBanco.Agencia,
                     contaBanco.Descricao, contaBanco.Saldo.ToString(), contaBanco.CodBanco);
+                return 0;
             }
             catch (Exception e)
             {
@@ -54,9 +55,23 @@ namespace Negocio
 
         public void remover(Int32 codcontaBanco)
         {
+            if (codcontaBanco == 1)
+                throw new NegocioException("A conta bancária/Caixa não pode ser excluída.");
             try
             {
                 tb_conta_bancoTA.Delete(codcontaBanco);
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta do Banco", e.Message, e);
+            }
+        }
+
+        public void atualizaSaldo(Int32 codContaBanco, Decimal valor)
+        {
+            try
+            {
+                tb_conta_bancoTA.UpdateSaldoConta(valor, codContaBanco);
             }
             catch (Exception e)
             {

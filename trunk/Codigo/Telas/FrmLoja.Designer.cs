@@ -31,14 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codLojaLabel;
             System.Windows.Forms.Label nomeLabel;
-            System.Windows.Forms.Label cnpjLabel;
+            System.Windows.Forms.Label codPessoaLabel;
+            System.Windows.Forms.Label cpf_CnpjLabel;
             System.Windows.Forms.Label ieLabel;
-            System.Windows.Forms.Label enderecoLabel;
-            System.Windows.Forms.Label bairroLabel;
             System.Windows.Forms.Label cidadeLabel;
-            System.Windows.Forms.Label cepLabel;
-            System.Windows.Forms.Label ufLabel;
-            System.Windows.Forms.Label foneLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -64,29 +60,24 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codLojaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
-            this.cnpjTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.ieTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.enderecoTextBox = new System.Windows.Forms.TextBox();
-            this.bairroTextBox = new System.Windows.Forms.TextBox();
+            this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
+            this.tbpessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
+            this.ieTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
-            this.cepTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.ufTextBox = new System.Windows.Forms.TextBox();
-            this.foneTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             codLojaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
-            cnpjLabel = new System.Windows.Forms.Label();
+            codPessoaLabel = new System.Windows.Forms.Label();
+            cpf_CnpjLabel = new System.Windows.Forms.Label();
             ieLabel = new System.Windows.Forms.Label();
-            enderecoLabel = new System.Windows.Forms.Label();
-            bairroLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
-            cepLabel = new System.Windows.Forms.Label();
-            ufLabel = new System.Windows.Forms.Label();
-            foneLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingNavigator)).BeginInit();
             this.tb_lojaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codLojaLabel
@@ -107,77 +98,41 @@
             nomeLabel.TabIndex = 23;
             nomeLabel.Text = "Nome:";
             // 
-            // cnpjLabel
+            // codPessoaLabel
             // 
-            cnpjLabel.AutoSize = true;
-            cnpjLabel.Location = new System.Drawing.Point(6, 124);
-            cnpjLabel.Name = "cnpjLabel";
-            cnpjLabel.Size = new System.Drawing.Size(37, 13);
-            cnpjLabel.TabIndex = 25;
-            cnpjLabel.Text = "CNPJ:";
+            codPessoaLabel.AutoSize = true;
+            codPessoaLabel.Location = new System.Drawing.Point(6, 124);
+            codPessoaLabel.Name = "codPessoaLabel";
+            codPessoaLabel.Size = new System.Drawing.Size(138, 13);
+            codPessoaLabel.TabIndex = 24;
+            codPessoaLabel.Text = "Pessoa Jurídica Associada:";
+            // 
+            // cpf_CnpjLabel
+            // 
+            cpf_CnpjLabel.AutoSize = true;
+            cpf_CnpjLabel.Location = new System.Drawing.Point(6, 172);
+            cpf_CnpjLabel.Name = "cpf_CnpjLabel";
+            cpf_CnpjLabel.Size = new System.Drawing.Size(31, 13);
+            cpf_CnpjLabel.TabIndex = 26;
+            cpf_CnpjLabel.Text = "Cnpj:";
             // 
             // ieLabel
             // 
             ieLabel.AutoSize = true;
-            ieLabel.Location = new System.Drawing.Point(120, 124);
+            ieLabel.Location = new System.Drawing.Point(173, 172);
             ieLabel.Name = "ieLabel";
             ieLabel.Size = new System.Drawing.Size(97, 13);
             ieLabel.TabIndex = 27;
             ieLabel.Text = "Inscrição Estadual:";
             // 
-            // enderecoLabel
-            // 
-            enderecoLabel.AutoSize = true;
-            enderecoLabel.Location = new System.Drawing.Point(6, 176);
-            enderecoLabel.Name = "enderecoLabel";
-            enderecoLabel.Size = new System.Drawing.Size(56, 13);
-            enderecoLabel.TabIndex = 29;
-            enderecoLabel.Text = "Endereço:";
-            // 
-            // bairroLabel
-            // 
-            bairroLabel.AutoSize = true;
-            bairroLabel.Location = new System.Drawing.Point(6, 224);
-            bairroLabel.Name = "bairroLabel";
-            bairroLabel.Size = new System.Drawing.Size(37, 13);
-            bairroLabel.TabIndex = 31;
-            bairroLabel.Text = "Bairro:";
-            // 
             // cidadeLabel
             // 
             cidadeLabel.AutoSize = true;
-            cidadeLabel.Location = new System.Drawing.Point(237, 124);
+            cidadeLabel.Location = new System.Drawing.Point(299, 172);
             cidadeLabel.Name = "cidadeLabel";
             cidadeLabel.Size = new System.Drawing.Size(43, 13);
-            cidadeLabel.TabIndex = 33;
+            cidadeLabel.TabIndex = 28;
             cidadeLabel.Text = "Cidade:";
-            // 
-            // cepLabel
-            // 
-            cepLabel.AutoSize = true;
-            cepLabel.Location = new System.Drawing.Point(237, 224);
-            cepLabel.Name = "cepLabel";
-            cepLabel.Size = new System.Drawing.Size(31, 13);
-            cepLabel.TabIndex = 35;
-            cepLabel.Text = "CEP:";
-            // 
-            // ufLabel
-            // 
-            ufLabel.AutoSize = true;
-            ufLabel.Location = new System.Drawing.Point(439, 124);
-            ufLabel.Name = "ufLabel";
-            ufLabel.Size = new System.Drawing.Size(24, 13);
-            ufLabel.TabIndex = 37;
-            ufLabel.Text = "UF:";
-            // 
-            // foneLabel
-            // 
-            foneLabel.AutoSize = true;
-            foneLabel.Location = new System.Drawing.Point(362, 224);
-            foneLabel.Name = "foneLabel";
-            foneLabel.Size = new System.Drawing.Size(34, 13);
-            foneLabel.TabIndex = 39;
-            foneLabel.Text = "Fone:";
             // 
             // label1
             // 
@@ -201,7 +156,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(302, 270);
+            this.btnSalvar.Location = new System.Drawing.Point(302, 219);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -211,7 +166,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(2, 270);
+            this.btnBuscar.Location = new System.Drawing.Point(2, 219);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -222,7 +177,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(383, 270);
+            this.btnCancelar.Location = new System.Drawing.Point(383, 219);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -232,7 +187,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(77, 270);
+            this.btnNovo.Location = new System.Drawing.Point(77, 219);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -242,7 +197,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(227, 270);
+            this.btnExcluir.Location = new System.Drawing.Point(227, 219);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -252,7 +207,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(152, 270);
+            this.btnEditar.Location = new System.Drawing.Point(152, 219);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -278,7 +233,6 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
@@ -286,6 +240,9 @@
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_cstTableAdapter = null;
+            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
@@ -299,11 +256,19 @@
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_lojaBindingNavigator
@@ -421,105 +386,81 @@
             this.nomeTextBox.Size = new System.Drawing.Size(342, 20);
             this.nomeTextBox.TabIndex = 24;
             // 
-            // cnpjTextBox
+            // codPessoaComboBox
             // 
-            this.cnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cnpj", true));
-            this.cnpjTextBox.Location = new System.Drawing.Point(7, 141);
-            this.cnpjTextBox.Name = "cnpjTextBox";
-            this.cnpjTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cnpjTextBox.TabIndex = 26;
+            this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "nomePessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_lojaBindingSource, "codPessoa", true));
+            this.codPessoaComboBox.DataSource = this.tbpessoaBindingSource;
+            this.codPessoaComboBox.DisplayMember = "nome";
+            this.codPessoaComboBox.FormattingEnabled = true;
+            this.codPessoaComboBox.Location = new System.Drawing.Point(9, 141);
+            this.codPessoaComboBox.Name = "codPessoaComboBox";
+            this.codPessoaComboBox.Size = new System.Drawing.Size(456, 21);
+            this.codPessoaComboBox.TabIndex = 25;
+            this.codPessoaComboBox.ValueMember = "codPessoa";
+            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
+            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
+            // 
+            // tbpessoaBindingSource
+            // 
+            this.tbpessoaBindingSource.DataMember = "tb_pessoa";
+            this.tbpessoaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // cpf_CnpjTextBox
+            // 
+            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "cpf_Cnpj", true));
+            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(9, 190);
+            this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
+            this.cpf_CnpjTextBox.ReadOnly = true;
+            this.cpf_CnpjTextBox.Size = new System.Drawing.Size(143, 20);
+            this.cpf_CnpjTextBox.TabIndex = 27;
+            this.cpf_CnpjTextBox.TabStop = false;
             // 
             // ieTextBox
             // 
-            this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "ie", true));
-            this.ieTextBox.Location = new System.Drawing.Point(123, 141);
+            this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "ie", true));
+            this.ieTextBox.Location = new System.Drawing.Point(170, 190);
             this.ieTextBox.Name = "ieTextBox";
+            this.ieTextBox.ReadOnly = true;
             this.ieTextBox.Size = new System.Drawing.Size(100, 20);
             this.ieTextBox.TabIndex = 28;
-            // 
-            // enderecoTextBox
-            // 
-            this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "endereco", true));
-            this.enderecoTextBox.Location = new System.Drawing.Point(9, 193);
-            this.enderecoTextBox.MaxLength = 40;
-            this.enderecoTextBox.Name = "enderecoTextBox";
-            this.enderecoTextBox.Size = new System.Drawing.Size(456, 20);
-            this.enderecoTextBox.TabIndex = 34;
-            // 
-            // bairroTextBox
-            // 
-            this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "bairro", true));
-            this.bairroTextBox.Location = new System.Drawing.Point(9, 241);
-            this.bairroTextBox.MaxLength = 40;
-            this.bairroTextBox.Name = "bairroTextBox";
-            this.bairroTextBox.Size = new System.Drawing.Size(214, 20);
-            this.bairroTextBox.TabIndex = 36;
+            this.ieTextBox.TabStop = false;
             // 
             // cidadeTextBox
             // 
-            this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cidade", true));
-            this.cidadeTextBox.Location = new System.Drawing.Point(240, 141);
-            this.cidadeTextBox.MaxLength = 40;
+            this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "cidade", true));
+            this.cidadeTextBox.Location = new System.Drawing.Point(302, 190);
             this.cidadeTextBox.Name = "cidadeTextBox";
-            this.cidadeTextBox.Size = new System.Drawing.Size(196, 20);
-            this.cidadeTextBox.TabIndex = 30;
+            this.cidadeTextBox.ReadOnly = true;
+            this.cidadeTextBox.Size = new System.Drawing.Size(163, 20);
+            this.cidadeTextBox.TabIndex = 29;
+            this.cidadeTextBox.TabStop = false;
             // 
-            // cepTextBox
+            // tb_pessoaTableAdapter
             // 
-            this.cepTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "cep", true));
-            this.cepTextBox.Location = new System.Drawing.Point(240, 241);
-            this.cepTextBox.Name = "cepTextBox";
-            this.cepTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cepTextBox.TabIndex = 38;
-            // 
-            // ufTextBox
-            // 
-            this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "uf", true));
-            this.ufTextBox.Location = new System.Drawing.Point(442, 141);
-            this.ufTextBox.MaxLength = 2;
-            this.ufTextBox.Name = "ufTextBox";
-            this.ufTextBox.Size = new System.Drawing.Size(23, 20);
-            this.ufTextBox.TabIndex = 32;
-            // 
-            // foneTextBox
-            // 
-            this.foneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "fone", true));
-            this.foneTextBox.Location = new System.Drawing.Point(365, 241);
-            this.foneTextBox.Name = "foneTextBox";
-            this.foneTextBox.Size = new System.Drawing.Size(100, 20);
-            this.foneTextBox.TabIndex = 40;
+            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
             // 
             // FrmLoja
             // 
             this.AccessibleDescription = "\'";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 295);
+            this.ClientSize = new System.Drawing.Size(477, 246);
+            this.Controls.Add(cidadeLabel);
+            this.Controls.Add(this.cidadeTextBox);
+            this.Controls.Add(ieLabel);
+            this.Controls.Add(this.ieTextBox);
+            this.Controls.Add(cpf_CnpjLabel);
+            this.Controls.Add(this.cpf_CnpjTextBox);
+            this.Controls.Add(codPessoaLabel);
+            this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(codLojaLabel);
             this.Controls.Add(this.tb_lojaBindingNavigator);
             this.Controls.Add(this.codLojaTextBox);
             this.Controls.Add(nomeLabel);
             this.Controls.Add(this.nomeTextBox);
-            this.Controls.Add(cnpjLabel);
-            this.Controls.Add(this.cnpjTextBox);
-            this.Controls.Add(ieLabel);
-            this.Controls.Add(this.ieTextBox);
-            this.Controls.Add(enderecoLabel);
-            this.Controls.Add(this.enderecoTextBox);
-            this.Controls.Add(bairroLabel);
-            this.Controls.Add(this.bairroTextBox);
-            this.Controls.Add(cidadeLabel);
-            this.Controls.Add(this.cidadeTextBox);
-            this.Controls.Add(cepLabel);
-            this.Controls.Add(this.cepTextBox);
-            this.Controls.Add(ufLabel);
-            this.Controls.Add(this.ufTextBox);
-            this.Controls.Add(foneLabel);
-            this.Controls.Add(this.foneTextBox);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnCancelar);
@@ -530,6 +471,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmLoja";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro Lojas";
@@ -542,6 +484,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingNavigator)).EndInit();
             this.tb_lojaBindingNavigator.ResumeLayout(false);
             this.tb_lojaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -573,13 +516,11 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.MaskedTextBox codLojaTextBox;
         private System.Windows.Forms.TextBox nomeTextBox;
-        private System.Windows.Forms.MaskedTextBox cnpjTextBox;
-        private System.Windows.Forms.MaskedTextBox ieTextBox;
-        private System.Windows.Forms.TextBox enderecoTextBox;
-        private System.Windows.Forms.TextBox bairroTextBox;
+        private System.Windows.Forms.ComboBox codPessoaComboBox;
+        private System.Windows.Forms.TextBox cpf_CnpjTextBox;
+        private System.Windows.Forms.TextBox ieTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
-        private System.Windows.Forms.MaskedTextBox cepTextBox;
-        private System.Windows.Forms.TextBox ufTextBox;
-        private System.Windows.Forms.MaskedTextBox foneTextBox;
+        private System.Windows.Forms.BindingSource tbpessoaBindingSource;
+        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
     }
 }

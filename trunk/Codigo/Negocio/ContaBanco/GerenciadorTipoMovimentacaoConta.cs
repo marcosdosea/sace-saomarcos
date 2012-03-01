@@ -26,11 +26,12 @@ namespace Negocio
             return gTipoMovimentacaoConta;
         }
 
-        public void inserir(TipoMovimentacaoConta tipoMovimentacaoConta)
+        public Int64 inserir(TipoMovimentacaoConta tipoMovimentacaoConta)
         {
             try
             {
-                tb_tipoMovimentacaoContaTA.Insert(tipoMovimentacaoConta.Descricao);
+                tb_tipoMovimentacaoContaTA.Insert(tipoMovimentacaoConta.Descricao, tipoMovimentacaoConta.SomaSaldo);
+                return 0;
             }
             catch (Exception e)
             {
@@ -42,7 +43,7 @@ namespace Negocio
         {
             try
             {
-                tb_tipoMovimentacaoContaTA.Update(tipoMovimentacaoConta.Descricao, tipoMovimentacaoConta.CodTipoMovimentacao);
+                tb_tipoMovimentacaoContaTA.Update(tipoMovimentacaoConta.Descricao, tipoMovimentacaoConta.SomaSaldo, tipoMovimentacaoConta.CodTipoMovimentacao);
             }
             catch (Exception e)
             {
@@ -60,6 +61,20 @@ namespace Negocio
             {
                 throw new DadosException("Tipo Movimentação Conta", e.Message, e);
             }
+        }
+
+        public TipoMovimentacaoConta obterTipoMovimentacaoConta(Int32 codTipoMovimentacaoConta)
+        {
+            TipoMovimentacaoConta tipoMovimentacaoConta = new TipoMovimentacaoConta();
+
+            tb_tipo_movimentacao_contaTableAdapter tb_tipomcTA = new tb_tipo_movimentacao_contaTableAdapter();
+            Dados.saceDataSet.tb_tipo_movimentacao_contaDataTable tipomcDT = tb_tipomcTA.GetDataByCodTipoMovimentacao(codTipoMovimentacaoConta);
+
+            tipoMovimentacaoConta.CodTipoMovimentacao = Convert.ToInt32(tipomcDT.Rows[0]["codTipoMovimentacao"].ToString());
+            tipoMovimentacaoConta.Descricao = tipomcDT.Rows[0]["descricao"].ToString();
+            tipoMovimentacaoConta.SomaSaldo = Convert.ToBoolean(tipomcDT.Rows[0]["somaSaldo"].ToString());
+
+            return tipoMovimentacaoConta;
         }
     }
 }

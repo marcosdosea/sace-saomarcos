@@ -29,6 +29,22 @@ namespace Dominio
             get { return codProduto; }
             set { codProduto = value; }
         }
+        
+        private Int32 cfop;
+
+        public Int32 Cfop
+        {
+            get { return cfop; }
+            set { cfop = value; }
+        }
+        private String unidadeCompra;
+
+        public String UnidadeCompra
+        {
+            get { return unidadeCompra; }
+            set { unidadeCompra = value; }
+        }
+
         private Decimal quantidade;
 
         public Decimal Quantidade
@@ -36,20 +52,82 @@ namespace Dominio
             get { return quantidade; }
             set { quantidade = value; }
         }
-        private Decimal valorCompra;
 
-        public Decimal ValorCompra
-        {
-            get { return valorCompra; }
-            set { valorCompra = value; }
-        }
-        private Decimal ipi;
+        private Decimal quantidadeEmbalagem;
 
-        public Decimal Ipi
+        public Decimal QuantidadeEmbalagem
         {
-            get { return ipi; }
-            set { ipi = value; }
+            get { return quantidadeEmbalagem; }
+            set { quantidadeEmbalagem = value; }
+        }        
+
+        private Decimal valorUnitario;
+
+        public Decimal ValorUnitario
+        {
+            get { return valorUnitario; }
+            set { valorUnitario = value; }
         }
+
+        private Decimal valorTotal;
+
+        public Decimal ValorTotal
+        {
+            get { return valorTotal; }
+            set { valorTotal = value; }
+        }
+        private Decimal baseCalculoICMS;
+
+        public Decimal BaseCalculoICMS
+        {
+            get { return baseCalculoICMS; }
+            set { baseCalculoICMS = value; }
+        }
+        private Decimal baseCalculoICMSST;
+
+        public Decimal BaseCalculoICMSST
+        {
+            get { return baseCalculoICMSST; }
+            set { baseCalculoICMSST = value; }
+        }
+        private Decimal valorICMS;
+
+        public Decimal ValorICMS
+        {
+            get { return valorICMS; }
+            set { valorICMS = value; }
+        }
+        private Decimal valorICMSST;
+
+        public Decimal ValorICMSST
+        {
+            get { return valorICMSST; }
+            set { valorICMSST = value; }
+        }
+        private Decimal valorIPI;
+
+        public Decimal ValorIPI
+        {
+            get { return valorIPI; }
+            set { valorIPI = value; }
+        }
+
+        private Decimal precoCusto;
+
+        public Decimal PrecoCusto
+        {
+            get { return precoCusto; }
+            set { precoCusto = value; }
+        }
+
+        private String ncmsh;
+
+        public String Ncmsh
+        {
+            get { return ncmsh; }
+            set { ncmsh = value; }
+        }
+
         private Decimal icms;
 
         public Decimal Icms
@@ -64,14 +142,15 @@ namespace Dominio
             get { return icmsSubstituto; }
             set { icmsSubstituto = value; }
         }
-        private Decimal precoCusto;
+        
+        private Decimal ipi;
 
-        public Decimal PrecoCusto
+        public Decimal Ipi
         {
-            get { return precoCusto; }
-            set { precoCusto = value; }
+            get { return ipi; }
+            set { ipi = value; }
         }
-
+        
         private Decimal frete;
 
         public Decimal Frete
@@ -80,6 +159,21 @@ namespace Dominio
             set { frete = value; }
         }
 
+        private String codCST;
+
+        public String CodCST
+        {
+            get { return codCST; }
+            set { codCST = value; }
+        }
+
+        private Decimal qtdProdutoAtacado;
+
+        public Decimal QtdProdutoAtacado
+        {
+            get { return qtdProdutoAtacado; }
+            set { qtdProdutoAtacado = value; }
+        }
 
         private DateTime dataValidade;
 
@@ -89,13 +183,15 @@ namespace Dominio
             set { dataValidade = value; }
         }
 
-        private Decimal quantidadeVendidos;
+        private Decimal quantidadeDisponivel;
 
-        public Decimal QuantidadeVendidos
+        public Decimal QuantidadeDisponivel
         {
-            get { return quantidadeVendidos; }
-            set { quantidadeVendidos = value; }
+            get { return quantidadeDisponivel; }
+            set { quantidadeDisponivel = value; }
         }
+
+        
         private Decimal simples;
 
         public Decimal Simples

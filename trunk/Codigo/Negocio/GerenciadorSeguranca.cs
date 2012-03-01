@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Dados.saceDataSetTableAdapters;
 using System.Data;
-using SACE.Excecoes;
 using System.Windows.Forms;
 
 namespace Negocio

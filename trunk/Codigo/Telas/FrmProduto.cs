@@ -15,7 +15,6 @@ namespace Telas
     public partial class FrmProduto : Form
     {
         public EstadoFormulario estado;
-        private decimal precoCusto = 0;
         private Int32 codProduto;
 
         public Int32 CodProduto
@@ -34,13 +33,13 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PRODUTOS, Principal.Autenticacao.CodUsuario);
             this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
+            this.tb_cstTableAdapter.Fill(this.saceDataSet.tb_cst);
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
+            this.tb_situacao_produtoTableAdapter.Fill(this.saceDataSet.tb_situacao_produto);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             
-            if (!codProdutoTextBox.Text.Trim().Equals(""))
-                icmsTextBox_Leave(sender, e);
-            
+            atualizarPrecos();
             habilitaBotoes(true);
         }
 
@@ -50,27 +49,24 @@ namespace Telas
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.getCodProduto() != -1)
             {
-                tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisa.getCodProduto());
+                tbprodutoBindingSource.Position = tbprodutoBindingSource.Find("codProduto", frmProdutoPesquisa.getCodProduto());
             }
             frmProdutoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_produtoBindingSource.AddNew();
+            tbprodutoBindingSource.AddNew();
             codProdutoTextBox.Enabled = false;
             nomeTextBox.Focus();
-            temVencimentoCheckBox.Checked = false;
-            exibeNaListagemCheckBox.Checked = true;
-            qtdProdutoAtacadoTextBox.Text = "0";
             habilitaBotoes(false);
-            tbcfopBindingSource.MoveFirst();
             cfopComboBox.SelectedIndex = 0;
-            tbgrupoBindingSource.MoveFirst();
             codGrupoComboBox.SelectedIndex = 0;
-            tb_pessoaBindingSource.MoveFirst();
             codigoFabricanteComboBox.SelectedIndex = 0;
-            unidadeTextBox.Text = "UND";
+            codSituacaoProdutoComboBox.SelectedIndex = 0;
+            codCSTComboBox.SelectedIndex = 0;
+            simplesTextBox.Text = Global.SIMPLES.ToString();
+            unidadeTextBox.Text = "UN";
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -86,7 +82,7 @@ namespace Telas
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                tb_produtoTableAdapter.Delete(long.Parse(codProdutoTextBox.Text));
+                GerenciadorProduto.getInstace().remover(Int32.Parse(codProdutoTextBox.Text));
                 tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
             }
 
@@ -94,8 +90,8 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_produtoBindingSource.CancelEdit();
-            tb_produtoBindingSource.EndEdit();
+            tbprodutoBindingSource.CancelEdit();
+            tbprodutoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -110,7 +106,7 @@ namespace Telas
             produto.CodGrupo = Int32.Parse(codGrupoComboBox.SelectedValue.ToString());
             produto.CodigoBarra = codigoBarraTextBox.Text;
             produto.CodProduto = Int32.Parse(codProdutoTextBox.Text);
-            produto.ExibeNaListagem = !exibeNaListagemCheckBox.Checked;
+            produto.ExibeNaListagem = exibeNaListagemCheckBox.Checked;
             produto.Frete = (freteTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(freteTextBox.Text);
             produto.Icms = (icmsTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(icmsTextBox.Text);
             produto.IcmsSubstituto = (icms_substitutoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(icms_substitutoTextBox.Text);
@@ -118,29 +114,31 @@ namespace Telas
             produto.LucroPrecoVendaAtacado = (lucroPrecoVendaAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text);
             produto.LucroPrecoVendaVarejo = (lucroPrecoVendaVarejoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(lucroPrecoVendaVarejoTextBox.Text);
             produto.Nome = nomeTextBox.Text.Trim();
-            produto.NomeFabricante = nomeFabricanteTextBox.Text.Trim();
-            produto.UltimoPrecoCompra = decimal.Parse(ultimoPrecoCompraTextBox.Text);
+            produto.NomeProdutoFabricante = nomeFabricanteTextBox.Text.Trim();
+            produto.UltimoPrecoCompra = (ultimoPrecoCompraTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(ultimoPrecoCompraTextBox.Text);
             produto.PrecoVendaAtacado = (precoVendaAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(precoVendaAtacadoTextBox.Text.Trim());
             produto.PrecoVendaVarejo = (precoVendaVarejoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(precoVendaVarejoTextBox.Text.Trim());
             produto.QtdProdutoAtacado = (qtdProdutoAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(qtdProdutoAtacadoTextBox.Text.Trim());
             produto.Simples = (simplesTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(simplesTextBox.Text);
-            produto.TemVencimento = !temVencimentoCheckBox.Checked;
+            produto.TemVencimento = temVencimentoCheckBox.Checked;
             produto.UltimaDataAtualizacao = ultimaDataAtualizacaoDateTimePicker.Value;
             produto.Unidade = unidadeTextBox.Text;
-
+            produto.DataUltimoPedido = dataUltimoPedidoDateTimePicker.Value;
+            produto.CodSituacaoProduto = Byte.Parse(codSituacaoProdutoComboBox.SelectedValue.ToString());
+            produto.ReferenciaFabricante = referenciaFabricanteTextBox.Text;
+            produto.CodCST = codCSTComboBox.SelectedValue.ToString();
+            produto.Ncmsh = ncmshTextBox.Text;
             produtoLoja.CodLoja = Global.LOJA_PADRAO;
-            //produtoLoja.CodProduto = produto.CodProduto;
             produtoLoja.QtdEstoque = 0;
             produtoLoja.QtdEstoqueAux = 0;
-            produtoLoja.PrecoCusto = precoCusto;
-
+            
             IGerenciadorProduto gProduto = GerenciadorProduto.getInstace();
             IGerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 gProduto.inserir(produto);
                 tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
-                tb_produtoBindingSource.MoveLast();
+                tbprodutoBindingSource.MoveLast();
 
                 produtoLoja.CodProduto = Int32.Parse(codProdutoTextBox.Text);
                 gProdutoLoja.inserir(produtoLoja);
@@ -149,7 +147,7 @@ namespace Telas
             else
             {
                 gProduto.atualizar(produto);
-                tb_produtoBindingSource.EndEdit();
+                tbprodutoBindingSource.EndEdit();
             }
 
             habilitaBotoes(true);
@@ -182,19 +180,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_produtoBindingSource.MoveLast();
+                    tbprodutoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_produtoBindingSource.MoveFirst();
+                    tbprodutoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_produtoBindingSource.MovePrevious();
+                    tbprodutoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_produtoBindingSource.MoveNext();
+                    tbprodutoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -238,7 +236,7 @@ namespace Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -249,12 +247,47 @@ namespace Telas
                     if (frmPessoa.CodPessoa > 0)
                     {
                         this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
                     }
                     frmPessoa.Dispose();
                 }
             }
         }
+
+
+        private void atualizarPrecos()
+        {
+            GerenciadorPrecos gPrecos = GerenciadorPrecos.getInstance();
+
+            decimal precoCompra = Convert.ToDecimal(ultimoPrecoCompraTextBox.Text);
+            decimal creditoICMS = Convert.ToDecimal(icmsTextBox.Text);
+            decimal ICMSSubstituicao = Convert.ToDecimal(icms_substitutoTextBox.Text);
+            decimal simples = Convert.ToDecimal(simplesTextBox.Text);
+            decimal ipi = Convert.ToDecimal(ipiTextBox.Text);
+            decimal frete = Convert.ToDecimal(freteTextBox.Text);
+            decimal lucroVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
+            decimal lucroAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
+            decimal manutencao = 0;
+            decimal precoCusto = 0;
+
+            if (codCSTComboBox.SelectedValue != null)
+            {
+                String codCST = codCSTComboBox.SelectedValue.ToString();
+
+
+                if (codCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL))
+                {
+                    precoCusto = gPrecos.calculaPrecoCustoNormal(precoCompra, creditoICMS, simples, ipi, frete, manutencao);
+                }
+                else
+                {
+                    precoCusto = gPrecos.calculaPrecoCustoSubstituicao(precoCompra, ICMSSubstituicao, simples, ipi, frete, manutencao);
+                }
+                precoVarejoSugestaoTextBox.Text = gPrecos.calculaPrecoVenda(precoCusto, lucroVarejo).ToString("N3");
+                precoAtacadoSugestaoTextBox.Text = gPrecos.calculaPrecoVenda(precoCusto, lucroAtacado).ToString("N3");
+            }
+        }
+
         private void habilitaBotoes(Boolean habilita)
         {
             btnSalvar.Enabled = !(habilita);
@@ -294,36 +327,9 @@ namespace Telas
         private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
         {
             this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, Int64.Parse(codProdutoTextBox.Text));
-            icmsTextBox_Leave(sender, e);
             
         }
 
-        private void icmsTextBox_Leave(object sender, EventArgs e)
-        {
-            GerenciadorPrecos gPreco = GerenciadorPrecos.getInstance();
-
-            System.Data.DataRowView produtoRow = (System.Data.DataRowView)tb_produtoBindingSource.Current;
-
-            decimal precoCompra = decimal.Parse(produtoRow.Row["ultimoPrecoCompra"].ToString());
-            decimal frete = decimal.Parse(produtoRow.Row["frete"].ToString());
-            decimal difICMS = decimal.Parse(produtoRow.Row["icms"].ToString());
-            decimal icmsST = decimal.Parse(produtoRow.Row["icms_substituto"].ToString());
-            decimal ipi = decimal.Parse(produtoRow.Row["ipi"].ToString());
-            decimal simples = decimal.Parse(produtoRow.Row["simples"].ToString());
-            decimal lucroVarejo = decimal.Parse(produtoRow.Row["lucroPrecoVendaVarejo"].ToString());
-            decimal lucroAtacado = decimal.Parse(produtoRow.Row["lucroPrecoVendaAtacado"].ToString());
-
-            if (cfopComboBox.ValueMember.Equals(Global.VENDA_NORMAL))
-                precoCusto = gPreco.calculaPrecoCustoNormal(precoCompra,
-                    difICMS, simples, ipi, frete, 0);
-            else
-                precoCusto = gPreco.calculaPrecoCustoSubstituicao(precoCompra,
-                    icmsST, simples, ipi, frete, 0);
-            precoVarejoSugestaoTextBox.Text = gPreco.calculaPrecoVenda(precoCusto, lucroVarejo).ToString("0,0.00");
-            precoAtacadoSugestaoTextBox.Text = gPreco.calculaPrecoVenda(precoCusto, lucroAtacado).ToString("0,0.00");
-        }
-
-        
         private void btnEstoque_Click(object sender, EventArgs e)
         {
             Int32 codProduto = Int32.Parse(codProdutoTextBox.Text);
@@ -337,6 +343,34 @@ namespace Telas
             if (!codProdutoTextBox.Text.Equals(""))
             {
                 codProduto = Int32.Parse(codProdutoTextBox.Text);
+            }
+        }
+
+        private void icmsTextBox_Leave_1(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+            atualizarPrecos();
+            if (Convert.ToDecimal(precoVendaVarejoTextBox.Text) == 0)
+            {
+                precoVendaVarejoTextBox.Text = precoVarejoSugestaoTextBox.Text;
+            }
+            if (Convert.ToDecimal(precoVendaAtacadoTextBox.Text) == 0)
+            {
+                precoVendaAtacadoTextBox.Text = precoAtacadoSugestaoTextBox.Text;
+            }
+
+        }
+
+        private void precoVendaVarejoTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
+        }
+
+        private void tbprodutoBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (!ultimoPrecoCompraTextBox.Text.Equals(""))
+            {
+                atualizarPrecos();
             }
         }
 

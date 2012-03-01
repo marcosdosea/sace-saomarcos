@@ -7,8 +7,8 @@ using Dominio;
 
 namespace Negocio
 {
-    public interface IGerenciadorSaidaProduto: IGerenciadorNegocio<SaidaProduto, Int64>
+    public interface IGerenciadorSaidaProduto : IGerenciadorNegocio<SaidaProduto, SaidaProduto>
     {
-
+        List<SaidaProduto> obterSaidaProdutos(Int64 codSaida);
     }
 }

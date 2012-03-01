@@ -8,6 +8,11 @@ namespace Dominio
 {
     public class Produto
     {
+        public const String ST_TRIBUTADO_INTEGRAL = "000";
+        public const String ST_TRIBUTADO_SUBSTITUICAO = "010";
+        public const String ST_OUTRAS = "999";
+        
+        
         private Int32 codProduto;
 
         public Int32 CodProduto
@@ -22,12 +27,12 @@ namespace Dominio
             get { return nome; }
             set { nome = value; }
         }
-        private String nomeFabricante;
+        private String nomeProdutoFabricante;
 
-        public String NomeFabricante
+        public String NomeProdutoFabricante
         {
-            get { return nomeFabricante; }
-            set { nomeFabricante = value; }
+            get { return nomeProdutoFabricante; }
+            set { nomeProdutoFabricante = value; }
         }
         private String unidade;
 
@@ -43,6 +48,15 @@ namespace Dominio
             get { return codigoBarra; }
             set { codigoBarra = value; }
         }
+
+        private String codCST;
+
+        public String CodCST
+        {
+            get { return codCST; }
+            set { codCST = value; }
+        }
+
         private Int32 codGrupo;
 
         public Int32 CodGrupo
@@ -57,6 +71,15 @@ namespace Dominio
             get { return codFabricante; }
             set { codFabricante = value; }
         }
+
+        private String referenciaFabricante;
+
+        public String ReferenciaFabricante
+        {
+            get { return referenciaFabricante; }
+            set { referenciaFabricante = value; }
+        }
+
         private Boolean temVencimento;
 
         public Boolean TemVencimento
@@ -71,6 +94,15 @@ namespace Dominio
             get { return cfop; }
             set { cfop = value; }
         }
+
+        private String ncmsh;
+
+        public String Ncmsh
+        {
+            get { return ncmsh; }
+            set { ncmsh = value; }
+        }
+
         private Decimal icms;
 
         public Decimal Icms
@@ -176,6 +208,19 @@ namespace Dominio
             set { exibeNaListagem = value; }
         }
 
+        private DateTime dataUltimoPedido;
 
+        public DateTime DataUltimoPedido
+        {
+            get { return dataUltimoPedido; }
+            set { dataUltimoPedido = value; }
+        }
+        private Byte codSituacaoProduto;
+
+        public Byte CodSituacaoProduto
+        {
+            get { return codSituacaoProduto; }
+            set { codSituacaoProduto = value; }
+        }
     }
 }

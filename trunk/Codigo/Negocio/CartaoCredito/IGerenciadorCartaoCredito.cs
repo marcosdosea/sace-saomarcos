@@ -9,7 +9,7 @@ namespace Negocio
 {
     public interface IGerenciadorCartaoCredito: IGerenciadorNegocio<CartaoCredito, Int32>
     {
-        
 
+        CartaoCredito obterCartaoCredito(Int32 codCartaoCredito);
     }
 }

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Negocio
 {
-    public class NegocioException: Exception
+    public class NegocioException : SystemException
     {
         public NegocioException()
-            : base("Erro na excecao")
+            : base("Erro no negócio da aplicação.")
         {
 
         }

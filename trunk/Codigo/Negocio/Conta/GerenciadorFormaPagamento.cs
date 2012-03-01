@@ -26,12 +26,14 @@ namespace Negocio
             return gFormaPagamento;
         }
 
-        public void inserir(FormaPagamento formaPagamento)
+        public Int64 inserir(FormaPagamento formaPagamento)
         {
             try
             {
                 tb_forma_pagamentoTA.Insert(formaPagamento.CodFormaPagamento, formaPagamento.Descricao,
                     formaPagamento.Parcelas, formaPagamento.DescontoAcrescimo.ToString());
+
+                return 0;
             }
             catch (Exception e)
             {

@@ -7,6 +7,10 @@ namespace Dominio
 {
     public class MovimentacaoConta
     {
+        public const int RECEBIMENTO_CLIENTE = 1;
+        public const int PAGAMENTO_FORNECEDOR = 2;
+        public const int TROCO_CLIENTE = 3;
+        
         private Int64 codMovimentacao;
 
         public Int64 CodMovimentacao
@@ -50,12 +54,20 @@ namespace Dominio
             set { codContaBanco = value; }
         }
 
-        private Int64 codPagamento;
+        private Int64 codConta;
 
-        public Int64 CodPagamento
+        public Int64 CodConta
         {
-            get { return codPagamento; }
-            set { codPagamento = value; }
+            get { return codConta; }
+            set { codConta = value; }
+        }
+
+        private Boolean somaSaldo;
+
+        public Boolean SomaSaldo
+        {
+            get { return somaSaldo; }
+            set { somaSaldo = value; }
         }
 
     }

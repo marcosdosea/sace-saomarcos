@@ -26,12 +26,14 @@ namespace Negocio
             return gCartaoCredito;
         }
 
-        public void inserir(CartaoCredito cartaoCredito)
+        public Int64 inserir(CartaoCredito cartaoCredito)
         {
             try
             {
                 tb_cartaoCreditoTA.Insert(cartaoCredito.Nome, cartaoCredito.DiaBase,
-                    cartaoCredito.CodContaBanco);
+                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, Global.MAPEAMENTO_PAGAMENTO_PADRAO);
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -44,7 +46,7 @@ namespace Negocio
             try
             {
                 tb_cartaoCreditoTA.Update(cartaoCredito.Nome, cartaoCredito.DiaBase,
-                    cartaoCredito.CodContaBanco, cartaoCredito.CodCartao);
+                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, Global.MAPEAMENTO_PAGAMENTO_PADRAO, cartaoCredito.CodCartao);
             }
             catch (Exception e)
             {
@@ -62,6 +64,22 @@ namespace Negocio
             {
                 throw new DadosException("Cartão de Crédito", e.Message, e);
             }
+        }
+
+        public CartaoCredito obterCartaoCredito(Int32 codCartaoCredito)
+        {
+            CartaoCredito cartaoCredito = new CartaoCredito();
+            
+            Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter tb_cartaoCreditoTA = new tb_cartao_creditoTableAdapter();
+            Dados.saceDataSet.tb_cartao_creditoDataTable cartaoCreditoDT = tb_cartaoCreditoTA.GetDataByCodCartao(codCartaoCredito);
+
+            cartaoCredito.CodCartao = Convert.ToInt32(cartaoCreditoDT.Rows[0]["codCartao"].ToString());
+            cartaoCredito.CodContaBanco = Convert.ToInt32(cartaoCreditoDT.Rows[0]["codContaBanco"].ToString());
+            cartaoCredito.CodPessoa = Convert.ToInt64(cartaoCreditoDT.Rows[0]["codPessoa"].ToString());
+            cartaoCredito.DiaBase = Convert.ToInt32(cartaoCreditoDT.Rows[0]["diaBase"].ToString());
+            cartaoCredito.Nome = cartaoCreditoDT.Rows[0]["nome"].ToString();
+
+            return cartaoCredito;
         }
     }
 }

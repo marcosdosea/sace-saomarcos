@@ -26,13 +26,14 @@ namespace Negocio
             return gProdutoLoja;
         }
 
-        public void inserir(ProdutoLoja produtoLoja)
+        public Int64 inserir(ProdutoLoja produtoLoja)
         {
             try
             {
                 tb_produto_lojaTA.Insert(produtoLoja.CodLoja, produtoLoja.CodProduto,
-                    produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux, 
-                    produtoLoja.PrecoCusto, produtoLoja.Localizacao);
+                    produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux, produtoLoja.Localizacao);
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -45,8 +46,7 @@ namespace Negocio
             try
             {
                 tb_produto_lojaTA.Update(produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux,
-                    produtoLoja.PrecoCusto, produtoLoja.Localizacao, produtoLoja.CodLoja,
-                    produtoLoja.CodProduto);
+                    produtoLoja.Localizacao, produtoLoja.CodLoja, produtoLoja.CodProduto);
             }
             catch (Exception e)
             {
@@ -75,11 +75,15 @@ namespace Negocio
             produtoLoja.CodProduto = int.Parse(produtoLojaDT.Rows[0]["codProduto"].ToString());
             produtoLoja.CodLoja = int.Parse(produtoLojaDT.Rows[0]["codLoja"].ToString());
             produtoLoja.Localizacao = produtoLojaDT.Rows[0]["localizacao"].ToString();
-            produtoLoja.PrecoCusto = decimal.Parse(produtoLojaDT.Rows[0]["precoCusto"].ToString());
             produtoLoja.QtdEstoque = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoque"].ToString());
             produtoLoja.QtdEstoqueAux = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoqueAux"].ToString());
             
             return produtoLoja;
+        }
+
+        public void adicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, Int32 codProduto)
+        {
+            tb_produto_lojaTA.AdicionaQuantidade(quantidade, quantidadeAux, codLoja, codProduto);
         }
     }
 }

@@ -32,7 +32,6 @@
             System.Windows.Forms.Label codProdutoLabel;
             System.Windows.Forms.Label nomeLojaLabel;
             System.Windows.Forms.Label qtdEstoqueFiscalLabel;
-            System.Windows.Forms.Label precoCustoLabel;
             System.Windows.Forms.Label qtdEstoqueNFiscalLabel;
             System.Windows.Forms.Label localizacaoLabel;
             System.Windows.Forms.Label nomeProdutoLabel;
@@ -56,7 +55,6 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.localizacaoTextBox = new System.Windows.Forms.TextBox();
-            this.precoCustoTextBox = new System.Windows.Forms.TextBox();
             this.qtdEstoqueTextBox = new System.Windows.Forms.TextBox();
             this.qtdEstoqueAuxTextBox = new System.Windows.Forms.TextBox();
             this.codProdutoTextBox = new System.Windows.Forms.TextBox();
@@ -68,7 +66,6 @@
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLojaLabel = new System.Windows.Forms.Label();
             qtdEstoqueFiscalLabel = new System.Windows.Forms.Label();
-            precoCustoLabel = new System.Windows.Forms.Label();
             qtdEstoqueNFiscalLabel = new System.Windows.Forms.Label();
             localizacaoLabel = new System.Windows.Forms.Label();
             nomeProdutoLabel = new System.Windows.Forms.Label();
@@ -101,29 +98,20 @@
             // qtdEstoqueFiscalLabel
             // 
             qtdEstoqueFiscalLabel.AutoSize = true;
-            qtdEstoqueFiscalLabel.Location = new System.Drawing.Point(166, 161);
+            qtdEstoqueFiscalLabel.Location = new System.Drawing.Point(9, 159);
             qtdEstoqueFiscalLabel.Name = "qtdEstoqueFiscalLabel";
-            qtdEstoqueFiscalLabel.Size = new System.Drawing.Size(49, 13);
+            qtdEstoqueFiscalLabel.Size = new System.Drawing.Size(69, 13);
             qtdEstoqueFiscalLabel.TabIndex = 23;
-            qtdEstoqueFiscalLabel.Text = "Estoque:";
-            // 
-            // precoCustoLabel
-            // 
-            precoCustoLabel.AutoSize = true;
-            precoCustoLabel.Location = new System.Drawing.Point(7, 161);
-            precoCustoLabel.Name = "precoCustoLabel";
-            precoCustoLabel.Size = new System.Drawing.Size(68, 13);
-            precoCustoLabel.TabIndex = 24;
-            precoCustoLabel.Text = "Preço Custo:";
+            qtdEstoqueFiscalLabel.Text = "Qtd Estoque:";
             // 
             // qtdEstoqueNFiscalLabel
             // 
             qtdEstoqueNFiscalLabel.AutoSize = true;
-            qtdEstoqueNFiscalLabel.Location = new System.Drawing.Point(325, 161);
+            qtdEstoqueNFiscalLabel.Location = new System.Drawing.Point(240, 161);
             qtdEstoqueNFiscalLabel.Name = "qtdEstoqueNFiscalLabel";
-            qtdEstoqueNFiscalLabel.Size = new System.Drawing.Size(85, 13);
+            qtdEstoqueNFiscalLabel.Size = new System.Drawing.Size(105, 13);
             qtdEstoqueNFiscalLabel.TabIndex = 25;
-            qtdEstoqueNFiscalLabel.Text = "Estoque Auxiliar:";
+            qtdEstoqueNFiscalLabel.Text = "Qtd Estoque Auxiliar:";
             // 
             // localizacaoLabel
             // 
@@ -317,28 +305,20 @@
             this.localizacaoTextBox.TabIndex = 34;
             this.localizacaoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.localizacaoTextBox_KeyPress);
             // 
-            // precoCustoTextBox
-            // 
-            this.precoCustoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "precoCusto", true));
-            this.precoCustoTextBox.Location = new System.Drawing.Point(7, 177);
-            this.precoCustoTextBox.Name = "precoCustoTextBox";
-            this.precoCustoTextBox.Size = new System.Drawing.Size(143, 20);
-            this.precoCustoTextBox.TabIndex = 30;
-            // 
             // qtdEstoqueTextBox
             // 
             this.qtdEstoqueTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "qtdEstoque", true));
-            this.qtdEstoqueTextBox.Location = new System.Drawing.Point(169, 177);
+            this.qtdEstoqueTextBox.Location = new System.Drawing.Point(12, 175);
             this.qtdEstoqueTextBox.Name = "qtdEstoqueTextBox";
-            this.qtdEstoqueTextBox.Size = new System.Drawing.Size(139, 20);
+            this.qtdEstoqueTextBox.Size = new System.Drawing.Size(210, 20);
             this.qtdEstoqueTextBox.TabIndex = 31;
             // 
             // qtdEstoqueAuxTextBox
             // 
             this.qtdEstoqueAuxTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "qtdEstoqueAux", true));
-            this.qtdEstoqueAuxTextBox.Location = new System.Drawing.Point(328, 177);
+            this.qtdEstoqueAuxTextBox.Location = new System.Drawing.Point(243, 177);
             this.qtdEstoqueAuxTextBox.Name = "qtdEstoqueAuxTextBox";
-            this.qtdEstoqueAuxTextBox.Size = new System.Drawing.Size(134, 20);
+            this.qtdEstoqueAuxTextBox.Size = new System.Drawing.Size(219, 20);
             this.qtdEstoqueAuxTextBox.TabIndex = 32;
             // 
             // codProdutoTextBox
@@ -403,12 +383,10 @@
             this.Controls.Add(this.codProdutoTextBox);
             this.Controls.Add(this.qtdEstoqueAuxTextBox);
             this.Controls.Add(this.qtdEstoqueTextBox);
-            this.Controls.Add(this.precoCustoTextBox);
             this.Controls.Add(this.localizacaoTextBox);
             this.Controls.Add(this.tb_produto_lojaBindingNavigator);
             this.Controls.Add(localizacaoLabel);
             this.Controls.Add(qtdEstoqueNFiscalLabel);
-            this.Controls.Add(precoCustoLabel);
             this.Controls.Add(qtdEstoqueFiscalLabel);
             this.Controls.Add(nomeLojaLabel);
             this.Controls.Add(codProdutoLabel);
@@ -420,6 +398,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmProdutoAjusteEstoque";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ajuste Estoque";
@@ -459,7 +438,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox localizacaoTextBox;
-        private System.Windows.Forms.TextBox precoCustoTextBox;
         private System.Windows.Forms.TextBox qtdEstoqueTextBox;
         private System.Windows.Forms.TextBox qtdEstoqueAuxTextBox;
         private System.Windows.Forms.TextBox codProdutoTextBox;

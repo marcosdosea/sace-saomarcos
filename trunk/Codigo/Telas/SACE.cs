@@ -59,6 +59,10 @@ namespace Telas
             {
                 entradaDeProdutosToolStripMenuItem_Click(sender, e);
             }
+            else if (e.KeyCode == Keys.F7)
+            {
+                btnContas_Click(sender, e);
+            }
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -194,9 +198,21 @@ namespace Telas
 
         private void contasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmRelatorioConta frmRelatorioConta = new Telas.FrmRelatorioConta();
-            frmRelatorioConta.ShowDialog();
-            frmRelatorioConta.Dispose();
+            //Telas.FrmRelatorioConta frmRelatorioConta = new Telas.FrmRelatorioConta();
+            //frmRelatorioConta.ShowDialog();
+            //frmRelatorioConta.Dispose();
+        }
+
+        private void documentosDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(0);
+            frmDocumentoPagamento.ShowDialog();
+            frmDocumentoPagamento.Dispose();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
     }
 }

@@ -21,5 +21,13 @@ namespace Dominio
             get { return descricao; }
             set { descricao = value; }
         }
+
+        private Boolean somaSaldo;
+
+        public Boolean SomaSaldo
+        {
+            get { return somaSaldo; }
+            set { somaSaldo = value; }
+        }
     }
 }

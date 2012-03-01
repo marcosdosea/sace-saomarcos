@@ -13,6 +13,12 @@ namespace Telas
     {
         private Int32 codPlanoConta;
 
+        public Int32 CodPlanoConta
+        {
+            get { return codPlanoConta; }
+            set { codPlanoConta = value; }
+        }
+
         public FrmPlanoContaPesquisa()
         {
             InitializeComponent();
