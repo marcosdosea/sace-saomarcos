@@ -7,8 +7,9 @@ namespace Dominio
 {
     public class PlanoConta
     {
-        public const Int32 SAIDA_PRODUTOS = 1;
-        public const Int32 ENTRADA_PRODUTOS = 2;
+        public const Int32 ENTRADA_PRODUTOS = 1;
+        public const Int32 SAIDA_PRODUTOS = 2;
+        
 
         private Int64 codPlanoConta;
 

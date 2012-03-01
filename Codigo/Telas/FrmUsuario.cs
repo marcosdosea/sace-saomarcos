@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 using Util;
 
 namespace Telas
@@ -34,15 +35,15 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
-            frmPessoaPesquisa.ShowDialog();
-            if (frmPessoaPesquisa.CodPessoa != -1)
-            {
-                tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                tb_usuarioBindingSource.Position = tb_usuarioBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                codPessoaTextBox.Text = frmPessoaPesquisa.CodPessoa.ToString();
-            }
-            frmPessoaPesquisa.Dispose();
+            //Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+            //frmPessoaPesquisa.ShowDialog();
+            //if (frmPessoaPesquisa.CodPessoa != -1)
+            //{
+            //    tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+            //    tb_usuarioBindingSource.Position = tb_usuarioBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+            //    codPessoaTextBox.Text = frmPessoaPesquisa.CodPessoa.ToString();
+            //}
+            //frmPessoaPesquisa.Dispose();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -55,7 +56,6 @@ namespace Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            codPessoaTextBox.Enabled = false;
             if (senhaTextBox.Text != confirmarSenhaTextBox.Text)
             {
                 MessageBox.Show("Senha/Usuário inválidos");
@@ -65,15 +65,21 @@ namespace Telas
             habilitaBotoes(true);
             btnBuscar.Focus();
 
+            Usuario usuario = new Usuario();
+            usuario.CodPessoa = Convert.ToInt32(codPessoaComboBox.SelectedValue);
+            usuario.Login = loginTextBox.Text;
+            usuario.Senha = senhaTextBox.Text;
+            usuario.CodPerfil = Convert.ToInt32(perfilComboBox.SelectedValue);
+
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                tb_usuarioTableAdapter.Insert(Convert.ToInt32(codPessoaTextBox.Text), loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue));
+                GerenciadorUsuario.getInstace().inserir(usuario);
                 tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
                 tb_usuarioBindingSource.MoveLast();
             }
             else
             {
-                //tb_usuarioTableAdapter.Update(loginTextBox.Text, senhaTextBox.Text, Convert.ToInt32(perfilComboBox.SelectedValue), Convert.ToInt32(codPessoaTextBox.Text));
+                GerenciadorUsuario.getInstace().atualizar(usuario);
                 tb_usuarioBindingSource.EndEdit();
             }
 
@@ -82,11 +88,12 @@ namespace Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            codPessoaTextBox.Focus();
+            codPessoaComboBox.Focus();
             tb_usuarioBindingSource.AddNew();
-            codPessoaTextBox.Enabled = true;
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
+            codPessoaComboBox.SelectedIndex = 0;
+            perfilComboBox.SelectedIndex = 0;
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -94,7 +101,8 @@ namespace Telas
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                //tb_usuarioTableAdapter.Delete(int.Parse(codPessoaTextBox.Text));
+                
+                GerenciadorUsuario.getInstace().remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
                 tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
             }
 
@@ -122,11 +130,96 @@ namespace Telas
             }
         }
 
-        private void codPessoaTextBox_TextChanged(object sender, EventArgs e)
+        private void perfilComboBox_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(codPessoaTextBox.Text))
+            if (perfilComboBox.SelectedValue == null)
             {
-                tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", Convert.ToInt32(codPessoaTextBox.Text));
+                perfilComboBox.Focus();
+                throw new TelaException("Uma perfil válido precisa ser selecionado.");
+            }
+        }
+
+        private void codPessoaComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codPessoaComboBox.SelectedValue == null)
+            {
+                codPessoaComboBox.Focus();
+                throw new TelaException("Uma pessoa válida precisa ser selecionada.");
+            }
+        }
+
+        private void FrmUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (estado.Equals(EstadoFormulario.ESPERA))
+            {
+                if (e.KeyCode == Keys.F2)
+                {
+                    btnBuscar_Click(sender, e);
+                }
+                if (e.KeyCode == Keys.F3)
+                {
+                    btnNovo_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F4)
+                {
+                    btnEditar_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F5)
+                {
+                    btnExcluir_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.End)
+                {
+                    tb_usuarioBindingSource.MoveLast();
+                }
+                else if (e.KeyCode == Keys.Home)
+                {
+                    tb_usuarioBindingSource.MoveFirst();
+                }
+                else if (e.KeyCode == Keys.PageUp)
+                {
+                    tb_usuarioBindingSource.MovePrevious();
+                }
+                else if (e.KeyCode == Keys.PageDown)
+                {
+                    tb_usuarioBindingSource.MoveNext();
+                }
+                else if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    btnCancelar_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F6)
+                {
+                    btnSalvar_Click(sender, e);
+                }
+                else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
+                {
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    {
+                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    }
+                    frmPessoaPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
+                {
+                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    frmPessoa.ShowDialog();
+                    if (frmPessoa.CodPessoa > 0)
+                    {
+                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                    }
+                    frmPessoa.Dispose();
+                }
             }
         }
     }

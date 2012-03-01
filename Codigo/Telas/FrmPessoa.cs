@@ -53,6 +53,8 @@ namespace Telas
         {
             tb_pessoaBindingSource.AddNew();
             codPessoaTextBox.Enabled = false;
+            cidadeTextBox.Text = "ARACAJU";
+            ufTextBox.Text = "SE";
             nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -85,22 +87,26 @@ namespace Telas
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             Pessoa pessoa = new Pessoa();
+            pessoa.CodPessoa = Int64.Parse(codPessoaTextBox.Text);
+            pessoa.Nome = nomeTextBox.Text;
+            pessoa.Complemento = complementoTextBox.Text;
             pessoa.Bairro = bairroTextBox.Text;
             pessoa.Cep = cepMaskedTextBox.Text;
             pessoa.Cidade = cidadeTextBox.Text;
-            pessoa.CodPessoa = Int64.Parse(codPessoaTextBox.Text);
+            pessoa.Email = emailTextBox.Text;
+            pessoa.IeSubstituto = ieSubstitutoTextBox.Text;
+            pessoa.Numero = numeroTextBox.Text;
             pessoa.CpfCnpj = cpf_cnpjMaskedTextBox.Text;
             pessoa.Endereco = enderecoTextBox.Text;
             pessoa.Fone1 = fone1MaskedTextBox.Text;
             pessoa.Fone2 = fone2MaskedTextBox.Text;
             pessoa.Fone3 = fone3TextBox.Text;
             pessoa.Ie = ieTextBox.Text;
-            pessoa.LimiteCompra = (limiteCompraMaskedTextBox.Text=="")?0:Decimal.Parse(limiteCompraMaskedTextBox.Text);
-            pessoa.Nome = nomeTextBox.Text;
+            pessoa.LimiteCompra = (limiteCompraTextBox.Text=="")?0:Decimal.Parse(limiteCompraTextBox.Text);
             pessoa.Observacao = observacaoTextBox.Text;
             pessoa.Tipo = PfRadioButton.Checked ? 'F' : 'J';
             pessoa.Uf = ufTextBox.Text;
-            pessoa.ValorComissao = (valorComissaoMaskedTextBox.Text=="")?0:Decimal.Parse(valorComissaoMaskedTextBox.Text);
+            pessoa.ValorComissao = (valorComissaoTextBox.Text=="")?0:Decimal.Parse(valorComissaoTextBox.Text);
 
             IGerenciadorPessoa gPessoa = GerenciadorPessoa.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
@@ -263,6 +269,11 @@ namespace Telas
         private void FrmPessoa_FormClosing(object sender, FormClosingEventArgs e)
         {
             CodPessoa = Int32.Parse(codPessoaTextBox.Text);
+        }
+
+        private void limiteCompraTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
         }
     }
 }

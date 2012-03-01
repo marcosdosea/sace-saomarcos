@@ -30,14 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
-            this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.txtTexto = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbBusca = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +39,14 @@
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
+            this.txtTexto = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbBusca = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
+            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -78,92 +78,6 @@
             this.tb_saidaDataGridView.TabIndex = 8;
             this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             this.tb_saidaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
-            // 
-            // tb_saidaBindingSource
-            // 
-            this.tb_saidaBindingSource.DataMember = "tb_saida";
-            this.tb_saidaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // txtTexto
-            // 
-            this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTexto.Location = new System.Drawing.Point(144, 23);
-            this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(539, 20);
-            this.txtTexto.TabIndex = 5;
-            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(141, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Texto:";
-            // 
-            // cmbBusca
-            // 
-            this.cmbBusca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBusca.FormattingEnabled = true;
-            this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.cmbBusca.Items.AddRange(new object[] {
-            "Código"});
-            this.cmbBusca.Location = new System.Drawing.Point(8, 23);
-            this.cmbBusca.Name = "cmbBusca";
-            this.cmbBusca.Size = new System.Drawing.Size(121, 21);
-            this.cmbBusca.TabIndex = 7;
-            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Buscar Por:";
-            // 
-            // tb_saidaTableAdapter
-            // 
-            this.tb_saidaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = this.tb_saidaTableAdapter;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // codSaidaDataGridViewTextBoxColumn
             // 
@@ -228,6 +142,98 @@
             this.totalPago.Name = "totalPago";
             this.totalPago.ReadOnly = true;
             // 
+            // tb_saidaBindingSource
+            // 
+            this.tb_saidaBindingSource.DataMember = "tb_saida";
+            this.tb_saidaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.Prefix = "SACE";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // txtTexto
+            // 
+            this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTexto.Location = new System.Drawing.Point(144, 23);
+            this.txtTexto.Name = "txtTexto";
+            this.txtTexto.Size = new System.Drawing.Size(539, 20);
+            this.txtTexto.TabIndex = 5;
+            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(141, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Texto:";
+            // 
+            // cmbBusca
+            // 
+            this.cmbBusca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBusca.FormattingEnabled = true;
+            this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.cmbBusca.Items.AddRange(new object[] {
+            "Código"});
+            this.cmbBusca.Location = new System.Drawing.Point(8, 23);
+            this.cmbBusca.Name = "cmbBusca";
+            this.cmbBusca.Size = new System.Drawing.Size(121, 21);
+            this.cmbBusca.TabIndex = 7;
+            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Buscar Por:";
+            // 
+            // tb_saidaTableAdapter
+            // 
+            this.tb_saidaTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.tb_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
+            this.tableAdapterManager.tb_cfopTableAdapter = null;
+            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
+            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
+            this.tableAdapterManager.tb_contaTableAdapter = null;
+            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_entradaTableAdapter = null;
+            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_grupoTableAdapter = null;
+            this.tableAdapterManager.tb_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
+            this.tableAdapterManager.tb_perfilTableAdapter = null;
+            this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
+            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
+            this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saidaTableAdapter = this.tb_saidaTableAdapter;
+            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // FrmSaidaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,6 +245,7 @@
             this.Controls.Add(this.cmbBusca);
             this.Controls.Add(this.label1);
             this.Name = "FrmSaidaPesquisa";
+            this.ShowInTaskbar = false;
             this.Text = "FrmSaidaPesquisa";
             this.Load += new System.EventHandler(this.FrmSaidaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaPesquisa_KeyDown);

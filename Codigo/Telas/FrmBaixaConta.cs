@@ -25,7 +25,6 @@ namespace Telas
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BAIXAS, Principal.Autenticacao.CodUsuario);
 
             this.tb_contaTableAdapter.Fill(this.saceDataSet1.tb_conta);
-            this.tb_pagamentoTableAdapter.Fill(this.saceDataSet1.tb_pagamento);
             this.tb_conta_bancoTableAdapter1.Fill(this.saceDataSet1.tb_conta_banco);
             this.tb_forma_pagamentoTableAdapter1.Fill(this.saceDataSet1.tb_forma_pagamento);
         }
@@ -148,7 +147,6 @@ namespace Telas
                     i++;
                 }
                 this.tb_contaTableAdapter.Fill(this.saceDataSet1.tb_conta);
-                this.tb_pagamentoTableAdapter.Fill(this.saceDataSet1.tb_pagamento);
                 cancelarButton_Click(sender, e);
             }
             else

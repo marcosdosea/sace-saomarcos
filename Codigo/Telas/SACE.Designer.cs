@@ -48,6 +48,7 @@
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentosDePagamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.baixasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçãoContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -222,6 +223,7 @@
             this.contasAPagarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contasAPagarToolStripMenuItem1,
             this.contasAReceberToolStripMenuItem,
+            this.documentosDePagamentoToolStripMenuItem,
             this.baixasToolStripMenuItem,
             this.movimentaçãoContasToolStripMenuItem});
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
@@ -231,26 +233,33 @@
             // contasAPagarToolStripMenuItem1
             // 
             this.contasAPagarToolStripMenuItem1.Name = "contasAPagarToolStripMenuItem1";
-            this.contasAPagarToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
+            this.contasAPagarToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
             this.contasAPagarToolStripMenuItem1.Text = "Contas a Pagar";
             // 
             // contasAReceberToolStripMenuItem
             // 
             this.contasAReceberToolStripMenuItem.Name = "contasAReceberToolStripMenuItem";
-            this.contasAReceberToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.contasAReceberToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.contasAReceberToolStripMenuItem.Text = "Contas a Receber";
+            // 
+            // documentosDePagamentoToolStripMenuItem
+            // 
+            this.documentosDePagamentoToolStripMenuItem.Name = "documentosDePagamentoToolStripMenuItem";
+            this.documentosDePagamentoToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.documentosDePagamentoToolStripMenuItem.Text = "Documentos de Pagamento";
+            this.documentosDePagamentoToolStripMenuItem.Click += new System.EventHandler(this.documentosDePagamentoToolStripMenuItem_Click);
             // 
             // baixasToolStripMenuItem
             // 
             this.baixasToolStripMenuItem.Name = "baixasToolStripMenuItem";
-            this.baixasToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.baixasToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.baixasToolStripMenuItem.Text = "Baixas";
             this.baixasToolStripMenuItem.Click += new System.EventHandler(this.baixasToolStripMenuItem_Click);
             // 
             // movimentaçãoContasToolStripMenuItem
             // 
             this.movimentaçãoContasToolStripMenuItem.Name = "movimentaçãoContasToolStripMenuItem";
-            this.movimentaçãoContasToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.movimentaçãoContasToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.movimentaçãoContasToolStripMenuItem.Text = "Movimentação Contas";
             // 
             // utilitáriosToolStripMenuItem
@@ -531,6 +540,7 @@
         private System.Windows.Forms.ToolStripMenuItem transformaçãoDePrToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuárioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem documentosDePagamentoToolStripMenuItem;
 
     }
 }

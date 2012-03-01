@@ -26,11 +26,13 @@ namespace Negocio
             return gGrupoConta;
         }
 
-        public void inserir(GrupoConta grupoConta)
+        public Int64 inserir(GrupoConta grupoConta)
         {
             try
             {
                 tb_grupo_contaTA.Insert(grupoConta.Descricao);
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -52,6 +54,9 @@ namespace Negocio
 
         public void remover(Int32 codGrupoConta)
         {
+            if ( (codGrupoConta == 1) || (codGrupoConta == 2))
+                throw new NegocioException("Esse grupo não pode ser excluído para manter a consistência da base de dados");
+
             try
             {
                 tb_grupo_contaTA.Delete(codGrupoConta);

@@ -52,7 +52,7 @@ namespace Telas
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            precoCustoTextBox.Focus();
+            qtdEstoqueTextBox.Focus();
             habilitaBotoes(false);
             codLojaComboBox.Enabled = false;
             estado = EstadoFormulario.ATUALIZAR;
@@ -73,7 +73,6 @@ namespace Telas
                 ProdutoLoja produtoLoja = new ProdutoLoja();
                 produtoLoja.CodProduto = codProduto;
                 produtoLoja.CodLoja = Int32.Parse(codLojaComboBox.SelectedValue.ToString());
-                produtoLoja.PrecoCusto = decimal.Parse(precoCustoTextBox.Text);
                 produtoLoja.QtdEstoque = decimal.Parse(qtdEstoqueTextBox.Text);
                 produtoLoja.QtdEstoqueAux = decimal.Parse(qtdEstoqueAuxTextBox.Text);
                 produtoLoja.Localizacao = localizacaoTextBox.Text;

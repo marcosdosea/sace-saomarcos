@@ -38,10 +38,15 @@
             System.Windows.Forms.Label subtotalLabel;
             System.Windows.Forms.Label totalLabel;
             System.Windows.Forms.Label pedidoGeradoLabel;
-            System.Windows.Forms.Label descontoLabel;
+            System.Windows.Forms.Label label4;
+            System.Windows.Forms.Label data_validadeLabel;
+            System.Windows.Forms.Label nomeClienteLabel;
+            System.Windows.Forms.Label descricaoTipoSaidaLabel;
+            System.Windows.Forms.Label nfeLabel;
+            System.Windows.Forms.Label descricaoSituacaoPagamentosLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pedidoGeradoTextBox = new System.Windows.Forms.TextBox();
@@ -64,33 +69,40 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codProdutoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_saida_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.quantidadeTextBox = new System.Windows.Forms.TextBox();
-            this.valorVendaTextBox = new System.Windows.Forms.TextBox();
+            this.precoVendaSemDescontoTextBox = new System.Windows.Forms.TextBox();
             this.subtotalTextBox = new System.Windows.Forms.TextBox();
             this.tb_saida_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.codSaidaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datavalidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbsaidaprodutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.totalAVistaTextBox = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.tb_entrada_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
-            this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.tb_saida_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_saida_produtoTableAdapter();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoVendatextBox = new System.Windows.Forms.TextBox();
+            this.data_validadeDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.nomeClienteTextBox = new System.Windows.Forms.TextBox();
+            this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
+            this.btnEncerrar = new System.Windows.Forms.Button();
+            this.nfeTextBox = new System.Windows.Forms.TextBox();
+            this.entregaRealizadaCheckBox = new System.Windows.Forms.CheckBox();
+            this.descricaoSituacaoPagamentosTextBox = new System.Windows.Forms.TextBox();
+            this.btnImprimir = new System.Windows.Forms.Button();
             codSaidaLabel = new System.Windows.Forms.Label();
             codProdutoLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
@@ -100,28 +112,32 @@
             subtotalLabel = new System.Windows.Forms.Label();
             totalLabel = new System.Windows.Forms.Label();
             pedidoGeradoLabel = new System.Windows.Forms.Label();
-            descontoLabel = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            data_validadeLabel = new System.Windows.Forms.Label();
+            nomeClienteLabel = new System.Windows.Forms.Label();
+            descricaoTipoSaidaLabel = new System.Windows.Forms.Label();
+            nfeLabel = new System.Windows.Forms.Label();
+            descricaoSituacaoPagamentosLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingNavigator)).BeginInit();
             this.tb_saidaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbsaidaprodutoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codSaidaLabel
             // 
             codSaidaLabel.AutoSize = true;
             codSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            codSaidaLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            codSaidaLabel.Location = new System.Drawing.Point(298, 3);
+            codSaidaLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            codSaidaLabel.Location = new System.Drawing.Point(309, 428);
             codSaidaLabel.Name = "codSaidaLabel";
-            codSaidaLabel.Size = new System.Drawing.Size(62, 17);
+            codSaidaLabel.Size = new System.Drawing.Size(85, 17);
             codSaidaLabel.TabIndex = 21;
-            codSaidaLabel.Text = "Número:";
+            codSaidaLabel.Text = "Cod Pedido:";
             // 
             // codProdutoLabel
             // 
@@ -129,15 +145,15 @@
             codProdutoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             codProdutoLabel.Location = new System.Drawing.Point(4, 57);
             codProdutoLabel.Name = "codProdutoLabel";
-            codProdutoLabel.Size = new System.Drawing.Size(56, 17);
+            codProdutoLabel.Size = new System.Drawing.Size(91, 17);
             codProdutoLabel.TabIndex = 22;
-            codProdutoLabel.Text = "Código:";
+            codProdutoLabel.Text = "Cod Produto:";
             // 
             // quantidadeLabel
             // 
             quantidadeLabel.AutoSize = true;
             quantidadeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            quantidadeLabel.Location = new System.Drawing.Point(426, 57);
+            quantidadeLabel.Location = new System.Drawing.Point(9, 116);
             quantidadeLabel.Name = "quantidadeLabel";
             quantidadeLabel.Size = new System.Drawing.Size(86, 17);
             quantidadeLabel.TabIndex = 23;
@@ -147,7 +163,7 @@
             // 
             valorVendaLabel.AutoSize = true;
             valorVendaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            valorVendaLabel.Location = new System.Drawing.Point(517, 57);
+            valorVendaLabel.Location = new System.Drawing.Point(14, 187);
             valorVendaLabel.Name = "valorVendaLabel";
             valorVendaLabel.Size = new System.Drawing.Size(81, 17);
             valorVendaLabel.TabIndex = 25;
@@ -157,8 +173,8 @@
             // 
             dataSaidaLabel.AutoSize = true;
             dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataSaidaLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            dataSaidaLabel.Location = new System.Drawing.Point(398, 3);
+            dataSaidaLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataSaidaLabel.Location = new System.Drawing.Point(191, 429);
             dataSaidaLabel.Name = "dataSaidaLabel";
             dataSaidaLabel.Size = new System.Drawing.Size(42, 17);
             dataSaidaLabel.TabIndex = 27;
@@ -168,7 +184,7 @@
             // 
             nomeLabel.AutoSize = true;
             nomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            nomeLabel.Location = new System.Drawing.Point(73, 57);
+            nomeLabel.Location = new System.Drawing.Point(191, 57);
             nomeLabel.Name = "nomeLabel";
             nomeLabel.Size = new System.Drawing.Size(62, 17);
             nomeLabel.TabIndex = 29;
@@ -177,20 +193,20 @@
             // subtotalLabel
             // 
             subtotalLabel.AutoSize = true;
-            subtotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            subtotalLabel.Location = new System.Drawing.Point(672, 57);
+            subtotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            subtotalLabel.Location = new System.Drawing.Point(14, 299);
             subtotalLabel.Name = "subtotalLabel";
-            subtotalLabel.Size = new System.Drawing.Size(64, 17);
+            subtotalLabel.Size = new System.Drawing.Size(108, 20);
             subtotalLabel.TabIndex = 30;
-            subtotalLabel.Text = "Subtotal:";
+            subtotalLabel.Text = "Subtotal (R$):";
             // 
             // totalLabel
             // 
             totalLabel.AutoSize = true;
-            totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            totalLabel.Location = new System.Drawing.Point(559, 444);
+            totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            totalLabel.Location = new System.Drawing.Point(604, 438);
             totalLabel.Name = "totalLabel";
-            totalLabel.Size = new System.Drawing.Size(77, 24);
+            totalLabel.Size = new System.Drawing.Size(131, 37);
             totalLabel.TabIndex = 36;
             totalLabel.Text = "TOTAL:";
             // 
@@ -198,22 +214,73 @@
             // 
             pedidoGeradoLabel.AutoSize = true;
             pedidoGeradoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            pedidoGeradoLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            pedidoGeradoLabel.Location = new System.Drawing.Point(514, 3);
+            pedidoGeradoLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            pedidoGeradoLabel.Location = new System.Drawing.Point(400, 429);
             pedidoGeradoLabel.Name = "pedidoGeradoLabel";
             pedidoGeradoLabel.Size = new System.Drawing.Size(29, 17);
             pedidoGeradoLabel.TabIndex = 27;
             pedidoGeradoLabel.Text = "CF:";
             // 
-            // descontoLabel
+            // label4
             // 
-            descontoLabel.AutoSize = true;
-            descontoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            descontoLabel.Location = new System.Drawing.Point(602, 58);
-            descontoLabel.Name = "descontoLabel";
-            descontoLabel.Size = new System.Drawing.Size(72, 17);
-            descontoLabel.TabIndex = 64;
-            descontoLabel.Text = "Desconto:";
+            label4.AutoSize = true;
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label4.Location = new System.Drawing.Point(14, 247);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(128, 17);
+            label4.TabIndex = 65;
+            label4.Text = "Preço à Vista (R$):";
+            // 
+            // data_validadeLabel
+            // 
+            data_validadeLabel.AutoSize = true;
+            data_validadeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            data_validadeLabel.Location = new System.Drawing.Point(14, 371);
+            data_validadeLabel.Name = "data_validadeLabel";
+            data_validadeLabel.Size = new System.Drawing.Size(101, 17);
+            data_validadeLabel.TabIndex = 66;
+            data_validadeLabel.Text = "Data Validade:";
+            // 
+            // nomeClienteLabel
+            // 
+            nomeClienteLabel.AutoSize = true;
+            nomeClienteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            nomeClienteLabel.Location = new System.Drawing.Point(15, 484);
+            nomeClienteLabel.Name = "nomeClienteLabel";
+            nomeClienteLabel.Size = new System.Drawing.Size(55, 17);
+            nomeClienteLabel.TabIndex = 67;
+            nomeClienteLabel.Text = "Cliente:";
+            // 
+            // descricaoTipoSaidaLabel
+            // 
+            descricaoTipoSaidaLabel.AutoSize = true;
+            descricaoTipoSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            descricaoTipoSaidaLabel.Location = new System.Drawing.Point(14, 431);
+            descricaoTipoSaidaLabel.Name = "descricaoTipoSaidaLabel";
+            descricaoTipoSaidaLabel.Size = new System.Drawing.Size(36, 17);
+            descricaoTipoSaidaLabel.TabIndex = 68;
+            descricaoTipoSaidaLabel.Text = "Tipo";
+            descricaoTipoSaidaLabel.Click += new System.EventHandler(this.descricaoTipoSaidaLabel_Click);
+            // 
+            // nfeLabel
+            // 
+            nfeLabel.AutoSize = true;
+            nfeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            nfeLabel.Location = new System.Drawing.Point(481, 429);
+            nfeLabel.Name = "nfeLabel";
+            nfeLabel.Size = new System.Drawing.Size(34, 17);
+            nfeLabel.TabIndex = 69;
+            nfeLabel.Text = "Nfe:";
+            // 
+            // descricaoSituacaoPagamentosLabel
+            // 
+            descricaoSituacaoPagamentosLabel.AutoSize = true;
+            descricaoSituacaoPagamentosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            descricaoSituacaoPagamentosLabel.Location = new System.Drawing.Point(481, 484);
+            descricaoSituacaoPagamentosLabel.Name = "descricaoSituacaoPagamentosLabel";
+            descricaoSituacaoPagamentosLabel.Size = new System.Drawing.Size(91, 17);
+            descricaoSituacaoPagamentosLabel.TabIndex = 71;
+            descricaoSituacaoPagamentosLabel.Text = "Pagamentos:";
             // 
             // label1
             // 
@@ -222,23 +289,17 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 26);
+            this.label1.Size = new System.Drawing.Size(230, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Saída de Produtos";
+            this.label1.Text = "Orçamentos / Pré-Venda";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(pedidoGeradoLabel);
-            this.panel1.Controls.Add(this.pedidoGeradoTextBox);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.codSaidaTextBox);
-            this.panel1.Controls.Add(codSaidaLabel);
-            this.panel1.Controls.Add(this.dataSaidaDateTimePicker);
-            this.panel1.Controls.Add(dataSaidaLabel);
             this.panel1.Location = new System.Drawing.Point(0, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(793, 48);
+            this.panel1.Size = new System.Drawing.Size(960, 48);
             this.panel1.TabIndex = 20;
             // 
             // pedidoGeradoTextBox
@@ -246,15 +307,16 @@
             this.pedidoGeradoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "pedidoGerado", true));
             this.pedidoGeradoTextBox.Enabled = false;
             this.pedidoGeradoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(517, 23);
+            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(403, 451);
             this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
-            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(68, 23);
-            this.pedidoGeradoTextBox.TabIndex = 28;
+            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(69, 23);
+            this.pedidoGeradoTextBox.TabIndex = 46;
             // 
             // tb_saidaBindingSource
             // 
             this.tb_saidaBindingSource.DataMember = "tb_saida";
             this.tb_saidaBindingSource.DataSource = this.saceDataSet;
+            this.tb_saidaBindingSource.Sort = "codSaida";
             // 
             // saceDataSet
             // 
@@ -266,27 +328,28 @@
             this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "codSaida", true));
             this.codSaidaTextBox.Enabled = false;
             this.codSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaTextBox.Location = new System.Drawing.Point(301, 23);
+            this.codSaidaTextBox.Location = new System.Drawing.Point(311, 451);
             this.codSaidaTextBox.Name = "codSaidaTextBox";
-            this.codSaidaTextBox.Size = new System.Drawing.Size(90, 23);
-            this.codSaidaTextBox.TabIndex = 22;
+            this.codSaidaTextBox.Size = new System.Drawing.Size(83, 23);
+            this.codSaidaTextBox.TabIndex = 44;
             this.codSaidaTextBox.TabStop = false;
             this.codSaidaTextBox.TextChanged += new System.EventHandler(this.codSaidaTextBox_TextChanged);
             // 
             // dataSaidaDateTimePicker
             // 
             this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tb_saidaBindingSource, "dataSaida", true));
+            this.dataSaidaDateTimePicker.Enabled = false;
             this.dataSaidaDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataSaidaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(401, 23);
+            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(194, 449);
             this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
-            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(105, 23);
-            this.dataSaidaDateTimePicker.TabIndex = 24;
+            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(102, 23);
+            this.dataSaidaDateTimePicker.TabIndex = 42;
             this.dataSaidaDateTimePicker.TabStop = false;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(306, 487);
+            this.btnSalvar.Location = new System.Drawing.Point(322, 552);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -296,19 +359,19 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(386, 487);
+            this.btnCancelar.Location = new System.Drawing.Point(564, 552);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(82, 487);
+            this.btnNovo.Location = new System.Drawing.Point(82, 552);
             this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
+            this.btnNovo.Size = new System.Drawing.Size(81, 23);
             this.btnNovo.TabIndex = 1;
             this.btnNovo.Text = "F3 - Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
@@ -316,7 +379,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(231, 487);
+            this.btnExcluir.Location = new System.Drawing.Point(247, 552);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -341,7 +404,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_saidaBindingNavigator.Location = new System.Drawing.Point(588, 22);
+            this.tb_saidaBindingNavigator.Location = new System.Drawing.Point(754, 47);
             this.tb_saidaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_saidaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_saidaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -421,47 +484,51 @@
             // 
             // codProdutoTextBox
             // 
-            this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "codProduto", true));
-            this.codProdutoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codProduto", true));
+            this.codProdutoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codProdutoTextBox.Location = new System.Drawing.Point(7, 77);
             this.codProdutoTextBox.Name = "codProdutoTextBox";
             this.codProdutoTextBox.ReadOnly = true;
-            this.codProdutoTextBox.Size = new System.Drawing.Size(65, 23);
+            this.codProdutoTextBox.Size = new System.Drawing.Size(174, 38);
             this.codProdutoTextBox.TabIndex = 28;
             this.codProdutoTextBox.TabStop = false;
+            this.codProdutoTextBox.TextChanged += new System.EventHandler(this.codProdutoTextBox_TextChanged);
             // 
-            // tb_saida_produtoBindingSource
+            // tb_produtoBindingSource
             // 
-            this.tb_saida_produtoBindingSource.DataMember = "tb_saida_produto";
-            this.tb_saida_produtoBindingSource.DataSource = this.saceDataSet;
+            this.tb_produtoBindingSource.AllowNew = false;
+            this.tb_produtoBindingSource.DataMember = "tb_produto";
+            this.tb_produtoBindingSource.DataSource = this.saceDataSet;
+            this.tb_produtoBindingSource.Sort = "nome";
             // 
             // quantidadeTextBox
             // 
-            this.quantidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "quantidade", true));
-            this.quantidadeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quantidadeTextBox.Location = new System.Drawing.Point(429, 77);
+            this.quantidadeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quantidadeTextBox.Location = new System.Drawing.Point(12, 147);
             this.quantidadeTextBox.Name = "quantidadeTextBox";
-            this.quantidadeTextBox.Size = new System.Drawing.Size(77, 23);
+            this.quantidadeTextBox.Size = new System.Drawing.Size(169, 29);
             this.quantidadeTextBox.TabIndex = 32;
+            this.quantidadeTextBox.Enter += new System.EventHandler(this.quantidadeTextBox_Enter);
             this.quantidadeTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
-            // valorVendaTextBox
+            // precoVendaSemDescontoTextBox
             // 
-            this.valorVendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "valorVenda", true));
-            this.valorVendaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.valorVendaTextBox.Location = new System.Drawing.Point(518, 77);
-            this.valorVendaTextBox.Name = "valorVendaTextBox";
-            this.valorVendaTextBox.Size = new System.Drawing.Size(80, 23);
-            this.valorVendaTextBox.TabIndex = 34;
+            this.precoVendaSemDescontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.precoVendaSemDescontoTextBox.Location = new System.Drawing.Point(12, 207);
+            this.precoVendaSemDescontoTextBox.Name = "precoVendaSemDescontoTextBox";
+            this.precoVendaSemDescontoTextBox.ReadOnly = true;
+            this.precoVendaSemDescontoTextBox.Size = new System.Drawing.Size(169, 29);
+            this.precoVendaSemDescontoTextBox.TabIndex = 36;
+            this.precoVendaSemDescontoTextBox.TabStop = false;
             // 
             // subtotalTextBox
             // 
-            this.subtotalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "subtotal", true));
-            this.subtotalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.subtotalTextBox.Location = new System.Drawing.Point(675, 78);
+            this.subtotalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subtotalTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.subtotalTextBox.Location = new System.Drawing.Point(17, 329);
             this.subtotalTextBox.Name = "subtotalTextBox";
             this.subtotalTextBox.ReadOnly = true;
-            this.subtotalTextBox.Size = new System.Drawing.Size(111, 23);
+            this.subtotalTextBox.Size = new System.Drawing.Size(164, 29);
             this.subtotalTextBox.TabIndex = 36;
             this.subtotalTextBox.TabStop = false;
             // 
@@ -470,80 +537,148 @@
             this.tb_saida_produtoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_produtoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
-            this.tb_saida_produtoDataGridView.DataSource = this.tb_saida_produtoBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(7, 107);
+            this.codSaidaProdutoDataGridViewTextBoxColumn,
+            this.nomeDataGridViewTextBoxColumn,
+            this.quantidadeDataGridViewTextBoxColumn,
+            this.valorVendaDataGridViewTextBoxColumn,
+            this.descontoDataGridViewTextBoxColumn,
+            this.subtotalDataGridViewTextBoxColumn,
+            this.subtotalAVistaDataGridViewTextBoxColumn,
+            this.datavalidadeDataGridViewTextBoxColumn});
+            this.tb_saida_produtoDataGridView.DataSource = this.tbsaidaprodutoBindingSource;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 147);
             this.tb_saida_produtoDataGridView.MultiSelect = false;
             this.tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
             this.tb_saida_produtoDataGridView.ReadOnly = true;
+            this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(779, 328);
+            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(753, 275);
             this.tb_saida_produtoDataGridView.TabIndex = 36;
             this.tb_saida_produtoDataGridView.TabStop = false;
+            // 
+            // codSaidaProdutoDataGridViewTextBoxColumn
+            // 
+            this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "codSaidaProduto";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "codSaidaProduto";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codSaidaProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "nome";
+            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
+            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorVendaDataGridViewTextBoxColumn
+            // 
+            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "valorVenda";
+            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
+            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
+            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descontoDataGridViewTextBoxColumn
+            // 
+            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "desconto";
+            this.descontoDataGridViewTextBoxColumn.HeaderText = "desconto";
+            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
+            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.descontoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // subtotalDataGridViewTextBoxColumn
+            // 
+            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "subtotal";
+            this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
+            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
+            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalAVistaDataGridViewTextBoxColumn
+            // 
+            this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "subtotalAVista";
+            this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "subtotalAVista";
+            this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
+            this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.subtotalAVistaDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // datavalidadeDataGridViewTextBoxColumn
+            // 
+            this.datavalidadeDataGridViewTextBoxColumn.DataPropertyName = "data_validade";
+            this.datavalidadeDataGridViewTextBoxColumn.HeaderText = "data_validade";
+            this.datavalidadeDataGridViewTextBoxColumn.Name = "datavalidadeDataGridViewTextBoxColumn";
+            this.datavalidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.datavalidadeDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // tbsaidaprodutoBindingSource
+            // 
+            this.tbsaidaprodutoBindingSource.DataMember = "tb_saida_produto";
+            this.tbsaidaprodutoBindingSource.DataSource = this.saceDataSet;
             // 
             // totalTextBox
             // 
             this.totalTextBox.BackColor = System.Drawing.Color.Blue;
             this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "total", true));
-            this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalTextBox.Location = new System.Drawing.Point(642, 441);
+            this.totalTextBox.Location = new System.Drawing.Point(738, 435);
             this.totalTextBox.Name = "totalTextBox";
             this.totalTextBox.ReadOnly = true;
-            this.totalTextBox.Size = new System.Drawing.Size(144, 29);
+            this.totalTextBox.Size = new System.Drawing.Size(209, 44);
             this.totalTextBox.TabIndex = 37;
             this.totalTextBox.TabStop = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(563, 483);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(606, 509);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 24);
+            this.label2.Size = new System.Drawing.Size(129, 37);
             this.label2.TabIndex = 38;
             this.label2.Text = "À Vista:";
             // 
             // totalAVistaTextBox
             // 
             this.totalAVistaTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalAVistaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalAVistaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "totalAVista", true));
+            this.totalAVistaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalAVistaTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalAVistaTextBox.Location = new System.Drawing.Point(642, 480);
+            this.totalAVistaTextBox.Location = new System.Drawing.Point(738, 507);
             this.totalAVistaTextBox.Name = "totalAVistaTextBox";
             this.totalAVistaTextBox.ReadOnly = true;
-            this.totalAVistaTextBox.Size = new System.Drawing.Size(144, 29);
+            this.totalAVistaTextBox.Size = new System.Drawing.Size(209, 44);
             this.totalAVistaTextBox.TabIndex = 39;
             this.totalAVistaTextBox.TabStop = false;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(7, 487);
+            this.btnBuscar.Location = new System.Drawing.Point(7, 552);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 40;
@@ -554,7 +689,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(89, 441);
+            this.label3.Location = new System.Drawing.Point(881, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 63;
@@ -564,21 +699,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(8, 441);
+            this.label6.Location = new System.Drawing.Point(800, 130);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 62;
             this.label6.Text = "F12 - Navegar";
-            // 
-            // tb_entrada_produtoBindingSource
-            // 
-            this.tb_entrada_produtoBindingSource.DataMember = "tb_entrada_produto";
-            this.tb_entrada_produtoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_produtoBindingSource
-            // 
-            this.tb_produtoBindingSource.DataMember = "tb_produto";
-            this.tb_produtoBindingSource.DataSource = this.saceDataSet;
             // 
             // tb_saidaTableAdapter
             // 
@@ -588,31 +713,19 @@
             // 
             this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codProdutoComboBox.BackColor = System.Drawing.SystemColors.Window;
             this.codProdutoComboBox.CausesValidation = false;
-            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saida_produtoBindingSource, "codProduto", true));
-            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "nomeProduto", true));
             this.codProdutoComboBox.DataSource = this.tb_produtoBindingSource;
             this.codProdutoComboBox.DisplayMember = "nome";
-            this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codProdutoComboBox.FormattingEnabled = true;
-            this.codProdutoComboBox.Location = new System.Drawing.Point(76, 76);
+            this.codProdutoComboBox.Location = new System.Drawing.Point(194, 77);
             this.codProdutoComboBox.Name = "codProdutoComboBox";
-            this.codProdutoComboBox.Size = new System.Drawing.Size(347, 24);
+            this.codProdutoComboBox.Size = new System.Drawing.Size(753, 39);
             this.codProdutoComboBox.TabIndex = 30;
             this.codProdutoComboBox.ValueMember = "codProduto";
-            this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
-            // 
-            // descontoTextBox
-            // 
-            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_produtoBindingSource, "desconto", true));
-            this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descontoTextBox.Location = new System.Drawing.Point(604, 77);
-            this.descontoTextBox.Name = "descontoTextBox";
-            this.descontoTextBox.ReadOnly = true;
-            this.descontoTextBox.Size = new System.Drawing.Size(65, 23);
-            this.descontoTextBox.TabIndex = 36;
-            this.descontoTextBox.TabStop = false;
+            this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
             // 
             // tb_produtoTableAdapter
             // 
@@ -624,87 +737,135 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(157, 487);
+            this.btnEditar.Location = new System.Drawing.Point(163, 552);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.Size = new System.Drawing.Size(83, 23);
             this.btnEditar.TabIndex = 2;
             this.btnEditar.Text = "F4 - Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // dataGridViewTextBoxColumn1
+            // precoVendatextBox
             // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "codSaidaProduto";
-            this.dataGridViewTextBoxColumn1.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "codSaidaProduto";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 20;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.precoVendatextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "precoVendaVarejo", true));
+            this.precoVendatextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.precoVendatextBox.Location = new System.Drawing.Point(12, 267);
+            this.precoVendatextBox.Name = "precoVendatextBox";
+            this.precoVendatextBox.Size = new System.Drawing.Size(169, 29);
+            this.precoVendatextBox.TabIndex = 34;
+            this.precoVendatextBox.Leave += new System.EventHandler(this.precoVendatextBox_Leave);
             // 
-            // dataGridViewTextBoxColumn2
+            // data_validadeDateTimePicker
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "codProduto";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.data_validadeDateTimePicker.Enabled = false;
+            this.data_validadeDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.data_validadeDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.data_validadeDateTimePicker.Location = new System.Drawing.Point(12, 391);
+            this.data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
+            this.data_validadeDateTimePicker.Size = new System.Drawing.Size(169, 29);
+            this.data_validadeDateTimePicker.TabIndex = 38;
+            this.data_validadeDateTimePicker.Leave += new System.EventHandler(this.data_validadeDateTimePicker_Leave);
             // 
-            // dataGridViewTextBoxColumn3
+            // nomeClienteTextBox
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "codSaida";
-            this.dataGridViewTextBoxColumn3.HeaderText = "codSaida";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Visible = false;
+            this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeCliente", true));
+            this.nomeClienteTextBox.Enabled = false;
+            this.nomeClienteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nomeClienteTextBox.Location = new System.Drawing.Point(17, 507);
+            this.nomeClienteTextBox.Name = "nomeClienteTextBox";
+            this.nomeClienteTextBox.Size = new System.Drawing.Size(455, 23);
+            this.nomeClienteTextBox.TabIndex = 50;
             // 
-            // dataGridViewTextBoxColumn8
+            // descricaoTipoSaidaTextBox
             // 
-            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "nomeProduto";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Produto";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "descricaoTipoSaida", true));
+            this.descricaoTipoSaidaTextBox.Enabled = false;
+            this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(12, 451);
+            this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(169, 23);
+            this.descricaoTipoSaidaTextBox.TabIndex = 40;
             // 
-            // dataGridViewTextBoxColumn4
+            // btnEncerrar
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "quantidade";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Quantidade";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.btnEncerrar.Location = new System.Drawing.Point(403, 552);
+            this.btnEncerrar.Name = "btnEncerrar";
+            this.btnEncerrar.Size = new System.Drawing.Size(81, 23);
+            this.btnEncerrar.TabIndex = 5;
+            this.btnEncerrar.Text = "F7 - Encerrar";
+            this.btnEncerrar.UseVisualStyleBackColor = true;
+            this.btnEncerrar.Click += new System.EventHandler(this.btnEncerrar_Click);
             // 
-            // dataGridViewTextBoxColumn5
+            // nfeTextBox
             // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "valorVenda";
-            this.dataGridViewTextBoxColumn5.FillWeight = 40F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Preço (R$)";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.nfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nfe", true));
+            this.nfeTextBox.Enabled = false;
+            this.nfeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.nfeTextBox.Location = new System.Drawing.Point(478, 451);
+            this.nfeTextBox.Name = "nfeTextBox";
+            this.nfeTextBox.Size = new System.Drawing.Size(100, 23);
+            this.nfeTextBox.TabIndex = 48;
             // 
-            // dataGridViewTextBoxColumn6
+            // entregaRealizadaCheckBox
             // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "desconto";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Desconto";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Visible = false;
+            this.entregaRealizadaCheckBox.Checked = true;
+            this.entregaRealizadaCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.entregaRealizadaCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_saidaBindingSource, "entregaRealizada", true));
+            this.entregaRealizadaCheckBox.Location = new System.Drawing.Point(194, 125);
+            this.entregaRealizadaCheckBox.Name = "entregaRealizadaCheckBox";
+            this.entregaRealizadaCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.entregaRealizadaCheckBox.TabIndex = 71;
+            this.entregaRealizadaCheckBox.TabStop = false;
+            this.entregaRealizadaCheckBox.Text = "Entregue";
+            this.entregaRealizadaCheckBox.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewTextBoxColumn7
+            // descricaoSituacaoPagamentosTextBox
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "subtotal";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Subtotal";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.descricaoSituacaoPagamentosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "descricaoSituacaoPagamentos", true));
+            this.descricaoSituacaoPagamentosTextBox.Enabled = false;
+            this.descricaoSituacaoPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.descricaoSituacaoPagamentosTextBox.Location = new System.Drawing.Point(478, 509);
+            this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
+            this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(100, 23);
+            this.descricaoSituacaoPagamentosTextBox.TabIndex = 52;
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Location = new System.Drawing.Point(484, 552);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(81, 23);
+            this.btnImprimir.TabIndex = 6;
+            this.btnImprimir.Text = "F8 - Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // FrmSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 512);
+            this.ClientSize = new System.Drawing.Size(983, 579);
+            this.Controls.Add(this.btnImprimir);
+            this.Controls.Add(descricaoSituacaoPagamentosLabel);
+            this.Controls.Add(this.descricaoSituacaoPagamentosTextBox);
+            this.Controls.Add(nfeLabel);
+            this.Controls.Add(this.nfeTextBox);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnEncerrar);
+            this.Controls.Add(descricaoTipoSaidaLabel);
+            this.Controls.Add(this.descricaoTipoSaidaTextBox);
+            this.Controls.Add(nomeClienteLabel);
+            this.Controls.Add(this.nomeClienteTextBox);
+            this.Controls.Add(data_validadeLabel);
+            this.Controls.Add(this.data_validadeDateTimePicker);
+            this.Controls.Add(pedidoGeradoLabel);
+            this.Controls.Add(label4);
+            this.Controls.Add(this.pedidoGeradoTextBox);
+            this.Controls.Add(this.precoVendatextBox);
+            this.Controls.Add(this.codSaidaTextBox);
             this.Controls.Add(this.btnEditar);
-            this.Controls.Add(descontoLabel);
-            this.Controls.Add(this.descontoTextBox);
+            this.Controls.Add(codSaidaLabel);
+            this.Controls.Add(this.dataSaidaDateTimePicker);
+            this.Controls.Add(dataSaidaLabel);
             this.Controls.Add(this.codProdutoComboBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label6);
@@ -718,20 +879,21 @@
             this.Controls.Add(this.subtotalTextBox);
             this.Controls.Add(nomeLabel);
             this.Controls.Add(valorVendaLabel);
-            this.Controls.Add(this.valorVendaTextBox);
+            this.Controls.Add(this.precoVendaSemDescontoTextBox);
             this.Controls.Add(quantidadeLabel);
             this.Controls.Add(this.quantidadeTextBox);
             this.Controls.Add(codProdutoLabel);
             this.Controls.Add(this.codProdutoTextBox);
             this.Controls.Add(this.tb_saidaBindingNavigator);
             this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnNovo);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.entregaRealizadaCheckBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmSaida";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Saída de Produtos";
@@ -744,10 +906,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingNavigator)).EndInit();
             this.tb_saidaBindingNavigator.ResumeLayout(false);
             this.tb_saidaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbsaidaprodutoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -774,12 +935,10 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codSaidaTextBox;
-        private System.Windows.Forms.BindingSource tb_saida_produtoBindingSource;
         private System.Windows.Forms.TextBox codProdutoTextBox;
         private System.Windows.Forms.TextBox quantidadeTextBox;
-        private System.Windows.Forms.TextBox valorVendaTextBox;
+        private System.Windows.Forms.TextBox precoVendaSemDescontoTextBox;
         private System.Windows.Forms.DateTimePicker dataSaidaDateTimePicker;
-        private System.Windows.Forms.BindingSource tb_produtoBindingSource;
         private System.Windows.Forms.TextBox subtotalTextBox;
         private System.Windows.Forms.DataGridView tb_saida_produtoDataGridView;
         private System.Windows.Forms.TextBox totalTextBox;
@@ -789,20 +948,29 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.BindingSource tb_entrada_produtoBindingSource;
         private Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
         private System.Windows.Forms.ComboBox codProdutoComboBox;
-        private System.Windows.Forms.TextBox descontoTextBox;
         private Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
         private Dados.saceDataSetTableAdapters.tb_saida_produtoTableAdapter tb_saida_produtoTableAdapter;
         private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.TextBox precoVendatextBox;
+        private System.Windows.Forms.DateTimePicker data_validadeDateTimePicker;
+        private System.Windows.Forms.TextBox nomeClienteTextBox;
+        private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
+        private System.Windows.Forms.Button btnEncerrar;
+        private System.Windows.Forms.BindingSource tbsaidaprodutoBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaProdutoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorVendaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descontoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotalAVistaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datavalidadeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource tb_produtoBindingSource;
+        private System.Windows.Forms.TextBox nfeTextBox;
+        private System.Windows.Forms.CheckBox entregaRealizadaCheckBox;
+        private System.Windows.Forms.TextBox descricaoSituacaoPagamentosTextBox;
+        private System.Windows.Forms.Button btnImprimir;
     }
 }

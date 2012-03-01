@@ -28,18 +28,27 @@ namespace Negocio
             return gProduto;
         }
 
-        public void inserir(Produto produto)
+        public Int64 inserir(Produto produto)
         {
             try
             {
-                byte temVencimentoByte  = (byte) (produto.TemVencimento?0:1);
-                byte exibeNaListagemByte = (byte)(produto.ExibeNaListagem ? 0 : 1);
-                tb_produtoTA.Insert(produto.Nome, produto.NomeFabricante, produto.Unidade, produto.CodigoBarra,
-                    produto.CodGrupo, produto.CodFabricante, temVencimentoByte, produto.Cfop, produto.Icms.ToString(),
-                    produto.IcmsSubstituto.ToString(), produto.Simples.ToString(), produto.Ipi.ToString(),
-                    produto.Frete.ToString(), produto.UltimaDataAtualizacao, produto.UltimoPrecoCompra.ToString(), 
-                    produto.LucroPrecoVendaVarejo.ToString(), produto.PrecoVendaVarejo.ToString(), produto.QtdProdutoAtacado.ToString(),
-                    produto.LucroPrecoVendaAtacado.ToString(), produto.PrecoVendaAtacado.ToString(), exibeNaListagemByte);
+                byte temVencimentoByte  = (byte) (produto.TemVencimento?1:0);
+                byte exibeNaListagemByte = (byte)(produto.ExibeNaListagem ? 1 : 0);
+                tb_produtoTA.Insert(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade, 
+                    produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh, 
+                    produto.CodFabricante, produto.ReferenciaFabricante, 
+                    produto.CodSituacaoProduto, produto.CodGrupo, temVencimentoByte, 
+                    produto.Icms.ToString(), produto.IcmsSubstituto.ToString(), produto.Simples.ToString(), 
+                    produto.Ipi.ToString(), produto.Frete.ToString(), produto.UltimaDataAtualizacao, 
+                    produto.UltimoPrecoCompra.ToString(), produto.LucroPrecoVendaVarejo.ToString(), 
+                    produto.PrecoVendaVarejo.ToString(), produto.QtdProdutoAtacado.ToString(), 
+                    produto.LucroPrecoVendaAtacado.ToString(), produto.PrecoVendaAtacado.ToString(), 
+                    exibeNaListagemByte, produto.DataUltimoPedido);
+                    
+                    
+                    
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -49,6 +58,8 @@ namespace Negocio
 
         public void atualizar(Produto produto)
         {
+            if (produto.CodProduto == 1)
+                throw new NegocioException("Esse produto não pode ser alterado ou removido.");
             try
             {
                 Produto produtoAtual = obterProduto(produto.CodProduto);
@@ -56,13 +67,18 @@ namespace Negocio
                 {
                     produto.UltimaDataAtualizacao = DateTime.Now;
                 }
-                
-                
-                tb_produtoTA.Update(produto.Nome, produto.NomeFabricante, produto.Unidade, produto.CodigoBarra,
-                    produto.CodGrupo, produto.CodFabricante, produto.TemVencimento, produto.Cfop, produto.Icms,
-                    produto.IcmsSubstituto, produto.Simples, produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao, 
-                    produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo, produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
-                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, produto.ExibeNaListagem, produto.CodProduto);
+
+
+                tb_produtoTA.Update(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade,
+                    produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh,
+                    produto.CodFabricante, produto.ReferenciaFabricante,
+                    produto.CodSituacaoProduto, produto.CodGrupo, produto.TemVencimento,
+                    produto.Icms, produto.IcmsSubstituto, produto.Simples,
+                    produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao,
+                    produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
+                    produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
+                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado,
+                    produto.ExibeNaListagem, produto.DataUltimoPedido, produto.CodProduto);
             }
             catch (Exception e)
             {
@@ -72,6 +88,9 @@ namespace Negocio
 
         public void remover(Int32 codproduto)
         {
+            if (codproduto == 1)
+                throw new NegocioException("Esse produto não pode ser alterado ou removido.");
+            
             try
             {
                 tb_produtoTA.Delete(codproduto);
@@ -104,7 +123,7 @@ namespace Negocio
 
             produto.CodProduto = int.Parse(produtoDT.Rows[0]["codProduto"].ToString());
             produto.Cfop = int.Parse(produtoDT.Rows[0]["cfop"].ToString());
-            produto.CodFabricante = int.Parse(produtoDT.Rows[0]["codigoFabricante"].ToString());
+            produto.CodFabricante = int.Parse(produtoDT.Rows[0]["codFabricante"].ToString());
             produto.CodGrupo = int.Parse(produtoDT.Rows[0]["codGrupo"].ToString());
             produto.CodigoBarra = produtoDT.Rows[0]["codigoBarra"].ToString();
             produto.ExibeNaListagem = bool.Parse(produtoDT.Rows[0]["exibeNaListagem"].ToString());
@@ -115,7 +134,7 @@ namespace Negocio
             produto.LucroPrecoVendaAtacado = decimal.Parse(produtoDT.Rows[0]["lucroPrecoVendaAtacado"].ToString());
             produto.LucroPrecoVendaVarejo = decimal.Parse(produtoDT.Rows[0]["lucroPrecoVendaVarejo"].ToString());
             produto.Nome = produtoDT.Rows[0]["nome"].ToString();
-            produto.NomeFabricante = produtoDT.Rows[0]["nomeFabricante"].ToString();
+            produto.NomeProdutoFabricante = produtoDT.Rows[0]["nomeProdutoFabricante"].ToString();
             produto.PrecoVendaAtacado = decimal.Parse(produtoDT.Rows[0]["precoVendaAtacado"].ToString());
             produto.PrecoVendaVarejo = decimal.Parse(produtoDT.Rows[0]["precoVendaVarejo"].ToString());
             produto.QtdProdutoAtacado = decimal.Parse(produtoDT.Rows[0]["qtdProdutoAtacado"].ToString());
@@ -124,6 +143,11 @@ namespace Negocio
             produto.UltimaDataAtualizacao = DateTime.Parse(produtoDT.Rows[0]["ultimaDataAtualizacao"].ToString());
             produto.UltimoPrecoCompra = decimal.Parse(produtoDT.Rows[0]["ultimoPrecoCompra"].ToString());
             produto.Unidade = produtoDT.Rows[0]["unidade"].ToString();
+            produto.DataUltimoPedido = DateTime.Parse(produtoDT.Rows[0]["dataUltimoPedido"].ToString());
+            produto.CodSituacaoProduto = Byte.Parse(produtoDT.Rows[0]["codSituacaoProduto"].ToString());
+            produto.ReferenciaFabricante = produtoDT.Rows[0]["referenciaFabricante"].ToString();
+            produto.CodCST = produtoDT.Rows[0]["codCST"].ToString();
+            produto.Ncmsh = produtoDT.Rows[0]["ncmsh"].ToString();
             return produto;
         }
     }

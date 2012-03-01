@@ -1,4 +1,3 @@
-﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,19 +42,27 @@ namespace Util
         PROFISSIONAL_PADRAO = 1,
         VENDA_NORMAL = 5102,
         VENDA_ST = 5403,
-        SAIDA_PRE_VENDA = 1,
-        SAIDA_ORCAMENTO = 2,
-        SAIDA_DEPOSITO = 3,
-        SAIDA_CONSUMO_INTERNO = 4;
+        VENDA_OUTRAS = 9999,
+        QUANTIDADE_DIAS_CREDIARIO = 30,
+        DOCUMENTO_PADRAO = 1;
 
-
-
-        public static Char
-            FISCAL = 'F',
-            AUXILIAR = 'A';
             
         public static Decimal
             ACRESCIMO_PADRAO = (decimal) 1.111111,
-            DESCONTO_PADRAO = (decimal) 0.9;
+            DESCONTO_PADRAO = (decimal) 0.9,
+            SIMPLES = (decimal) 8.0,
+            ICMS_LOCAL = (decimal)17,
+            CUSTO_MANUTENCAO_LOJA = 0;
+
+        public static String
+            //PASTA_COMUNICACAO_SERVIDOR = "\\\\SERVIDOR\\C\\MKS\\CAIXA\\SACE\\PEDIDOS\\",
+            //PASTA_COMUNICACAO_SERVIDOR_RETORNO = "\\\\Servidor\\c\\MKS\\Caixa\\SACE\\Retorno\\",
+            //PASTA_COMUNICACAO_SERVIDOR_BACKUP = "\\\\SERVIDOR\\C\\MKS\\CAIXA\\SACE\\BACKUP\\",
+
+            PASTA_COMUNICACAO_SERVIDOR = "C:\\MKS\\CAIXA\\SACE\\PEDIDOS\\",
+            PASTA_COMUNICACAO_SERVIDOR_RETORNO = "C:\\MKS\\Caixa\\SACE\\Retorno\\",
+            PASTA_COMUNICACAO_SERVIDOR_BACKUP = "C:\\MKS\\CAIXA\\SACE\\BACKUP\\",
+            
+            MAPEAMENTO_PAGAMENTO_PADRAO = "1";
     }
 }

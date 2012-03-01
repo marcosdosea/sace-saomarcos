@@ -10,5 +10,6 @@ namespace Negocio
     public interface IGerenciadorMovimentacaoConta : IGerenciadorNegocio<MovimentacaoConta, Int64>
     {
 
+        MovimentacaoConta obterMovimentacaoConta(Int64 codMovimentacaoConta);
     }
 }

@@ -9,7 +9,7 @@ namespace Negocio
 {
     public interface IGerenciadorTipoMovimentacaoConta: IGerenciadorNegocio<TipoMovimentacaoConta, Int32>
     {
-        
 
+        TipoMovimentacaoConta obterTipoMovimentacaoConta(Int32 codTipoMovimentacaoConta);
     }
 }

@@ -35,13 +35,7 @@ namespace Dominio
             get { return qtdEstoqueAux; }
             set { qtdEstoqueAux = value; }
         }
-        private decimal precoCusto;
-
-        public decimal PrecoCusto
-        {
-            get { return precoCusto; }
-            set { precoCusto = value; }
-        }
+        
         private String localizacao;
 
         public String Localizacao

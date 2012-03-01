@@ -31,6 +31,15 @@ namespace Dominio
             get { return cpfCnpj; }
             set { cpfCnpj = value; }
         }
+
+        private String ieSubstituto;
+
+        public String IeSubstituto
+        {
+            get { return ieSubstituto; }
+            set { ieSubstituto = value; }
+        }
+
         private String ie;
 
         public String Ie
@@ -45,6 +54,22 @@ namespace Dominio
             get { return endereco; }
             set { endereco = value; }
         }
+
+        private String numero;
+
+        public String Numero
+        {
+            get { return numero; }
+            set { numero = value; }
+        }
+        private String complemento;
+
+        public String Complemento
+        {
+            get { return complemento; }
+            set { complemento = value; }
+        }
+
         private String cep;
 
         public String Cep

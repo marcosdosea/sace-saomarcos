@@ -27,11 +27,12 @@ namespace Negocio
             return gContatoPessoa;
         }
 
-        public void inserir(ContatoPessoa contatoPessoa)
+        public Int64 inserir(ContatoPessoa contatoPessoa)
         {
             try
             {
                 tb_contato_empresaTA.Insert(contatoPessoa.CodPessoa, contatoPessoa.CodPessoaContato);
+                return 0;
             }
             catch (Exception e)
             {

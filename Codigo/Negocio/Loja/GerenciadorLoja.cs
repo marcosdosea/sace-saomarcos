@@ -26,12 +26,13 @@ namespace Negocio
             return gLoja;
         }
 
-        public void inserir(Loja loja)
+        public Int64 inserir(Loja loja)
         {
             try
             {
-                tb_lojaTA.Insert(loja.Nome, loja.Cnpj, loja.Ie, loja.Endereco, loja.Bairro,
-                    loja.Cep, loja.Cidade, loja.Uf, loja.Fone);
+                tb_lojaTA.Insert(loja.Nome, loja.CodPessoa);
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -43,8 +44,7 @@ namespace Negocio
         {
             try
             {
-                tb_lojaTA.Update(loja.Nome, loja.Cnpj, loja.Ie, loja.Endereco, loja.Bairro,
-                    loja.Cep, loja.Cidade, loja.Uf, loja.Fone, loja.CodLoja);
+                tb_lojaTA.Update(loja.Nome, loja.CodPessoa, loja.CodLoja);
             }
             catch (Exception e)
             {
@@ -54,6 +54,9 @@ namespace Negocio
 
         public void remover(Int32 codloja)
         {
+            if (codloja == 1)
+                throw new NegocioException("A loja matriz não pode ser excluída.");
+                
             try
             {
                 tb_lojaTA.Delete(codloja);
@@ -62,6 +65,19 @@ namespace Negocio
             {
                 throw new DadosException("Loja", e.Message, e);
             }
+        }
+
+        public Loja obter(Int32 codLoja)
+        {
+            Loja loja = new Loja();
+
+            Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTA = new tb_lojaTableAdapter();
+            Dados.saceDataSet.tb_lojaDataTable lojaDT = tb_lojaTA.GetDataByCodLoja(codLoja);
+
+            loja.CodLoja  = Convert.ToInt32(lojaDT.Rows[0]["codLoja"].ToString());
+            loja.CodPessoa = Convert.ToInt64(lojaDT.Rows[0]["codPessoa"].ToString());
+            loja.Nome = lojaDT.Rows[0]["nome"].ToString();
+            return loja;
         }
     }
 }

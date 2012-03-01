@@ -70,7 +70,6 @@
             this.dataDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.tableAdapterManager1 = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_pagamentoTableAdapter();
             this.tb_baixaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_forma_pagamentoTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter();
             this.tb_conta_bancoTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
@@ -475,7 +474,6 @@
             // tableAdapterManager1
             // 
             this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.tb_pagamentoTableAdapter = this.tb_pagamentoTableAdapter;
             this.tableAdapterManager1.tb_bancoTableAdapter = null;
             this.tableAdapterManager1.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager1.tb_cfopTableAdapter = null;
@@ -502,10 +500,6 @@
             this.tableAdapterManager1.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager1.tb_usuarioTableAdapter = null;
             this.tableAdapterManager1.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_pagamentoTableAdapter
-            // 
-            this.tb_pagamentoTableAdapter.ClearBeforeFill = true;
             // 
             // tb_baixaBindingSource
             // 
@@ -554,7 +548,6 @@
         private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
         private Dados.saceDataSet saceDataSet1;
         private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private Dados.saceDataSetTableAdapters.tb_pagamentoTableAdapter tb_pagamentoTableAdapter;
         private System.Windows.Forms.Button baixaButton;
         private System.Windows.Forms.Panel pesquisaPanel;
         private System.Windows.Forms.TextBox txtTexto;

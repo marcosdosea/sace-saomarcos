@@ -1,0 +1,34 @@
+// Imagine que tenhamos feito a leitura de um arquivo
+2	string linha = "Kleber|1000000"; // O separador utilizado é o pipe "|"
+3	//crio um array(lista) e nele salvo as duas infomações
+4	//posição do array corresponde ao texto separado por pipe
+5	string[] ranking = linha.Split('|');
+6	// Agora podemos imprimir separados
+7	Console.WriteLine("Nome: " + ranking[0]);
+8	Console.WriteLine("Record: " + ranking[1]);
+
+
+troco, situacao pagamentos, entrega, nfe
+1) Orçamento / Pré-Venda 
+- ler/gravar vendas em arquivo texto
+3) Rever atualização de estoque, Calculo do Lucro e data validade
+5) Troca de Mercadorias
+7) Movimentações Financeiras
+8) Transferências de Estoque
+9) Baixas
+10) Remover da Entrada Inicial duplicados
+11) Porcentagem dos profissionais
+12) Verificar se pedido quitado
+
+6) Relatórios
+11) nf-e
+
+
+se produto estoque ok
+    então buscar entradas ordenadas por datavalidade e disponiveis > 0
+se produto estoque não ok  
+    entao buscar entradas ordenadas por datavalidade e disponiveis > 0
+retornar soma dos precos de custos dos itens
+	
+	
+	

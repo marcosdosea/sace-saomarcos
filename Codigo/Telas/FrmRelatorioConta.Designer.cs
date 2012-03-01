@@ -39,7 +39,6 @@
             this.saceDataSet = new Dados.saceDataSet();
             this.tb_contaTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.tableAdapterManager1 = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_pagamentoTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_pagamentoTableAdapter();
             this.tb_pessoaTableAdapter1 = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.saceRelatoriosDataSet = new Dados.saceRelatoriosDataSet();
             this.dt_RelContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -132,7 +131,6 @@
             // tableAdapterManager1
             // 
             this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.tb_pagamentoTableAdapter = this.tb_pagamentoTableAdapter1;
             this.tableAdapterManager1.tb_bancoTableAdapter = null;
             this.tableAdapterManager1.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager1.tb_cfopTableAdapter = null;
@@ -159,10 +157,6 @@
             this.tableAdapterManager1.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager1.tb_usuarioTableAdapter = null;
             this.tableAdapterManager1.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_pagamentoTableAdapter1
-            // 
-            this.tb_pagamentoTableAdapter1.ClearBeforeFill = true;
             // 
             // tb_pessoaTableAdapter1
             // 
@@ -342,11 +336,8 @@
         private System.Windows.Forms.Button button1;
         private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter1;
         private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private Dados.saceDataSetTableAdapters.tb_pagamentoTableAdapter tb_pagamentoTableAdapter1;
         private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter1;
-        private Dados.saceRelatoriosDataSet saceRelatoriosDataSet;
         private System.Windows.Forms.BindingSource dt_RelContaBindingSource;
-        private Dados.saceRelatoriosDataSetTableAdapters.dt_RelContaTableAdapter dt_RelContaTableAdapter1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

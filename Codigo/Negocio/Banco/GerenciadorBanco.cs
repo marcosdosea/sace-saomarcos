@@ -26,11 +26,13 @@ namespace Negocio
             return gBanco;
         }
 
-        public void inserir(Banco banco)
+        public Int64 inserir(Banco banco)
         {
             try
             {
                 tb_bancoTA.Insert(banco.Nome);
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -52,6 +54,8 @@ namespace Negocio
 
         public void remover(Int32 codBanco)
         {
+            if (codBanco == 1)
+                throw new NegocioException("O banco não pode ser removido.");
             try
             {
                 tb_bancoTA.Delete(codBanco);

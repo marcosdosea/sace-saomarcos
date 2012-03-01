@@ -214,7 +214,6 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
@@ -222,6 +221,8 @@
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
@@ -235,11 +236,19 @@
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = this.tb_plano_contaTableAdapter;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tb_grupo_contaTableAdapter
@@ -375,8 +384,8 @@
             this.codGrupoContaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codGrupoContaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codGrupoContaComboBox.CausesValidation = false;
-            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_plano_contaBindingSource, "codGrupoConta", true));
             this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "descricaoGrupoConta", true));
+            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_plano_contaBindingSource, "codGrupoConta", true));
             this.codGrupoContaComboBox.DataSource = this.tbgrupocontaBindingSource;
             this.codGrupoContaComboBox.DisplayMember = "descricao";
             this.codGrupoContaComboBox.FormattingEnabled = true;
@@ -455,6 +464,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro de Plano de Contas";
             this.Load += new System.EventHandler(this.FrmPlanoConta_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPlanoConta_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPlanoConta_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

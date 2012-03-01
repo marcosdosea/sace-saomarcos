@@ -37,6 +37,20 @@ namespace Dominio
             set { codContaBanco = value; }
         }
 
+        private Int64 codPessoa;
 
+        public Int64 CodPessoa
+        {
+            get { return codPessoa; }
+            set { codPessoa = value; }
+        }
+
+        private string mapeamento;
+
+        public string Mapeamento
+        {
+            get { return mapeamento; }
+            set { mapeamento = value; }
+        }
     }
 }

@@ -30,10 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tb_contaDataGridView = new System.Windows.Forms.DataGridView();
-            this.txtTexto = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codPlanoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,11 +38,13 @@
             this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.situacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.observacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
+            this.txtTexto = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaDataGridView)).BeginInit();
@@ -69,9 +67,7 @@
             this.codContaDataGridViewTextBoxColumn,
             this.dataVencimentoDataGridViewTextBoxColumn,
             this.valorDataGridViewTextBoxColumn,
-            this.situacaoDataGridViewTextBoxColumn,
-            this.observacaoDataGridViewTextBoxColumn,
-            this.tipoContaDataGridViewTextBoxColumn});
+            this.observacaoDataGridViewTextBoxColumn});
             this.tb_contaDataGridView.DataSource = this.tb_contaBindingSource;
             this.tb_contaDataGridView.Location = new System.Drawing.Point(11, 52);
             this.tb_contaDataGridView.Name = "tb_contaDataGridView";
@@ -80,50 +76,6 @@
             this.tb_contaDataGridView.Size = new System.Drawing.Size(561, 220);
             this.tb_contaDataGridView.TabIndex = 10;
             this.tb_contaDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_grupo_contaDataGridView_CellClick);
-            // 
-            // txtTexto
-            // 
-            this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTexto.Location = new System.Drawing.Point(147, 25);
-            this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(425, 20);
-            this.txtTexto.TabIndex = 6;
-            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(144, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Texto:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Buscar Por:";
-            // 
-            // cmbBusca
-            // 
-            this.cmbBusca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBusca.FormattingEnabled = true;
-            this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.cmbBusca.Items.AddRange(new object[] {
-            "Codigo Conta",
-            "Codigo Pessoa",
-            "Codigo Entrada",
-            "Codigo Saída",
-            "Data Vencimento"});
-            this.cmbBusca.Location = new System.Drawing.Point(11, 24);
-            this.cmbBusca.Name = "cmbBusca";
-            this.cmbBusca.Size = new System.Drawing.Size(121, 21);
-            this.cmbBusca.TabIndex = 13;
-            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
             // 
             // codPessoaDataGridViewTextBoxColumn
             // 
@@ -181,26 +133,12 @@
             this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
             this.valorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // situacaoDataGridViewTextBoxColumn
-            // 
-            this.situacaoDataGridViewTextBoxColumn.DataPropertyName = "situacao";
-            this.situacaoDataGridViewTextBoxColumn.HeaderText = "situacao";
-            this.situacaoDataGridViewTextBoxColumn.Name = "situacaoDataGridViewTextBoxColumn";
-            this.situacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // observacaoDataGridViewTextBoxColumn
             // 
             this.observacaoDataGridViewTextBoxColumn.DataPropertyName = "observacao";
             this.observacaoDataGridViewTextBoxColumn.HeaderText = "observacao";
             this.observacaoDataGridViewTextBoxColumn.Name = "observacaoDataGridViewTextBoxColumn";
             this.observacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tipoContaDataGridViewTextBoxColumn
-            // 
-            this.tipoContaDataGridViewTextBoxColumn.DataPropertyName = "tipoConta";
-            this.tipoContaDataGridViewTextBoxColumn.HeaderText = "tipoConta";
-            this.tipoContaDataGridViewTextBoxColumn.Name = "tipoContaDataGridViewTextBoxColumn";
-            this.tipoContaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // tb_contaBindingSource
             // 
@@ -213,6 +151,50 @@
             this.saceDataSet.Prefix = "SACE";
             this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // txtTexto
+            // 
+            this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTexto.Location = new System.Drawing.Point(147, 25);
+            this.txtTexto.Name = "txtTexto";
+            this.txtTexto.Size = new System.Drawing.Size(425, 20);
+            this.txtTexto.TabIndex = 6;
+            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(144, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Texto:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Buscar Por:";
+            // 
+            // cmbBusca
+            // 
+            this.cmbBusca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBusca.FormattingEnabled = true;
+            this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.cmbBusca.Items.AddRange(new object[] {
+            "Codigo Conta",
+            "Codigo Pessoa",
+            "Codigo Entrada",
+            "Codigo Saída",
+            "Data Vencimento"});
+            this.cmbBusca.Location = new System.Drawing.Point(11, 24);
+            this.cmbBusca.Name = "cmbBusca";
+            this.cmbBusca.Size = new System.Drawing.Size(121, 21);
+            this.cmbBusca.TabIndex = 13;
+            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
+            // 
             // tb_contaTableAdapter
             // 
             this.tb_contaTableAdapter.ClearBeforeFill = true;
@@ -220,7 +202,6 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
@@ -228,6 +209,7 @@
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_contaTableAdapter = this.tb_contaTableAdapter;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
             this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
@@ -241,10 +223,16 @@
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
             this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
+            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
@@ -259,6 +247,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FrmContaPesquisa";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pesquisa de Contas";
             this.Load += new System.EventHandler(this.FrmContaPesquisa_Load);
@@ -289,9 +278,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn codContaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimentoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn situacaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn observacaoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tipoContaDataGridViewTextBoxColumn;
         private System.Windows.Forms.ComboBox cmbBusca;
     }
 }

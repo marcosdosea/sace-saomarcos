@@ -1,0 +1,7 @@
+D:\SACE2010\trunk\Codigo\Dominio\bin\Release\Dominio.dll
+D:\SACE2010\trunk\Codigo\Dominio\bin\Release\Dominio.pdb
+D:\SACE2010\trunk\Codigo\Dominio\bin\Release\Util.dll
+D:\SACE2010\trunk\Codigo\Dominio\bin\Release\Util.pdb
+D:\SACE2010\trunk\Codigo\Dominio\obj\Release\ResolveAssemblyReference.cache
+D:\SACE2010\trunk\Codigo\Dominio\obj\Release\Dominio.dll
+D:\SACE2010\trunk\Codigo\Dominio\obj\Release\Dominio.pdb

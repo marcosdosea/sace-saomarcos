@@ -14,13 +14,22 @@ namespace Dominio
             get { return codSaidaProduto; }
             set { codSaidaProduto = value; }
         }
-        private Int64 codProduto;
+        private Int32 codProduto;
 
-        public Int64 CodProduto
+        public Int32 CodProduto
         {
             get { return codProduto; }
             set { codProduto = value; }
         }
+
+        private String nome;
+
+        public String Nome
+        {
+            get { return nome; }
+            set { nome = value; }
+        }
+
         private Int64 codSaida;
 
         public Int64 CodSaida
@@ -42,6 +51,15 @@ namespace Dominio
             get { return valorVenda; }
             set { valorVenda = value; }
         }
+
+        private decimal valorVendaAVista;
+
+        public decimal ValorVendaAVista
+        {
+            get { return valorVendaAVista; }
+            set { valorVendaAVista = value; }
+        }
+
         private decimal desconto;
 
         public decimal Desconto
@@ -49,12 +67,40 @@ namespace Dominio
             get { return desconto; }
             set { desconto = value; }
         }
-        private decimal subtotal;
-
+        
         public decimal Subtotal
         {
-            get { return subtotal; }
-            set { subtotal = value; }
+            get { return ValorVenda * Quantidade; }
+        }
+
+        public decimal SubtotalAVista
+        {
+            get { return ValorVendaAVista * Quantidade; }
+        }
+
+        private DateTime dataValidade;
+
+        public DateTime DataValidade
+        {
+            get { return dataValidade; }
+            set { dataValidade = value; }
+        }
+
+
+        private String codCST;
+
+        public String CodCST
+        {
+            get { return codCST; }
+            set { codCST = value; }
+        }
+
+        private String unidade;
+
+        public String Unidade
+        {
+            get { return unidade; }
+            set { unidade = value; }
         }
     }
 }

@@ -35,6 +35,23 @@ namespace Dominio
             get { return codContaBanco; }
             set { codContaBanco = value; }
         }
+
+        private Int32 codCartaoCredito;
+
+        public Int32 CodCartaoCredito
+        {
+            get { return codCartaoCredito; }
+            set { codCartaoCredito = value; }
+        }
+
+        private Int64 codPessoaResponsavel;
+
+        public Int64 CodPessoaResponsavel
+        {
+            get { return codPessoaResponsavel; }
+            set { codPessoaResponsavel = value; }
+        }
+        
         private decimal valor;
 
         public decimal Valor
@@ -49,5 +66,61 @@ namespace Dominio
             get { return data; }
             set { data = value; }
         }
-    }
+
+        private Int64 codDocumentoPagamento;
+
+        public Int64 CodDocumentoPagamento
+        {
+            get { return codDocumentoPagamento; }
+            set { codDocumentoPagamento = value; }
+        }
+
+        private Int32 parcelas;
+
+        public Int32 Parcelas
+        {
+            get { return parcelas; }
+            set { parcelas = value; }
+        }
+        private Int32 intervaloDias;
+
+        public Int32 IntervaloDias
+        {
+            get { return intervaloDias; }
+            set { intervaloDias = value; }
+        }
+
+        private String mapeamentoFormaPagamento;
+
+        public String MapeamentoFormaPagamento
+        {
+            get { return mapeamentoFormaPagamento; }
+            set { mapeamentoFormaPagamento = value; }
+        }
+
+        private String mapeamentoCartao;
+
+        public String MapeamentoCartao
+        {
+            get { return mapeamentoCartao; }
+            set { mapeamentoCartao = value; }
+        }
+
+        private String descricaoFormaPagamento;
+
+        public String DescricaoFormaPagamento
+        {
+            get { return descricaoFormaPagamento; }
+            set { descricaoFormaPagamento = value; }
+        }
+
+        private String nomeCartaoCredito;
+
+        public String NomeCartaoCredito
+        {
+            get { return nomeCartaoCredito; }
+            set { nomeCartaoCredito = value; }
+        }
+
+    }    
 }

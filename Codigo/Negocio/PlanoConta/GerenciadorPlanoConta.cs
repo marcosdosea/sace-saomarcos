@@ -26,12 +26,14 @@ namespace Negocio
             return gPlanoConta;
         }
 
-        public void inserir(PlanoConta planoConta)
+        public Int64 inserir(PlanoConta planoConta)
         {
             try
             {
-                tb_plano_contaTA.Insert(planoConta.CodGrupoConta, planoConta.Descricao,
-                    planoConta.TipoConta.ToString(), planoConta.DiaBase);
+                tb_plano_contaTA.Insert(planoConta.CodGrupoConta, planoConta.TipoConta.ToString(),
+                    planoConta.Descricao, planoConta.DiaBase);
+
+                return 0;
             }
             catch (Exception e)
             {
@@ -41,10 +43,13 @@ namespace Negocio
 
         public void atualizar(PlanoConta planoConta)
         {
+            if ((planoConta.CodPlanoConta == 1) || (planoConta.CodPlanoConta == 2))
+                throw new NegocioException("O plano de conta não pode ser editado para manter a consitência da base de dados.");
+            
             try
             {
-                tb_plano_contaTA.Update(planoConta.CodGrupoConta, planoConta.Descricao,
-                    planoConta.TipoConta.ToString(), planoConta.DiaBase, planoConta.CodPlanoConta);
+                tb_plano_contaTA.Update(planoConta.CodGrupoConta, planoConta.TipoConta.ToString(), 
+                    planoConta.Descricao, planoConta.DiaBase, planoConta.CodPlanoConta);
             }
             catch (Exception e)
             {
@@ -54,6 +59,8 @@ namespace Negocio
 
         public void remover(Int64 codplanoConta)
         {
+            if ((codplanoConta == 1) || (codplanoConta == 2))
+                throw new NegocioException("O plano de conta não pode ser removido para manter a consitência da base de dados.");
             try
             {
                 tb_plano_contaTA.Delete(codplanoConta);

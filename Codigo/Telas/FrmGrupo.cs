@@ -67,7 +67,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                tb_grupoTableAdapter.Delete(long.Parse(codGrupoTextBox.Text));
+                GerenciadorGrupo.getInstace().remover(Int32.Parse(codGrupoTextBox.Text));
                 tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
             }
         }

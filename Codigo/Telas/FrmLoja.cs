@@ -25,6 +25,7 @@ namespace Telas
         private void FrmLoja_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.LOJAS, Principal.Autenticacao.CodUsuario);
+            this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
             this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
             habilitaBotoes(true);
         }
@@ -44,6 +45,7 @@ namespace Telas
         {
             tb_lojaBindingSource.AddNew();
             codLojaTextBox.Enabled = false;
+            codPessoaComboBox.SelectedIndex = 0;
             nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -81,15 +83,9 @@ namespace Telas
                 Loja loja = new Loja();
                 loja.CodLoja = int.Parse(codLojaTextBox.Text);
                 loja.Nome = nomeTextBox.Text;
-                loja.Cnpj = cnpjTextBox.Text;
-                loja.Ie = ieTextBox.Text;
-                loja.Endereco = enderecoTextBox.Text;
-                loja.Bairro = bairroTextBox.Text;
-                loja.Cep = cepTextBox.Text;
-                loja.Cidade = cidadeTextBox.Text;
-                loja.Uf = ufTextBox.Text;
-                loja.Fone = foneTextBox.Text;
-
+                loja.CodPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
+                    
+                
                 IGerenciadorLoja gLoja = GerenciadorLoja.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
@@ -166,6 +162,28 @@ namespace Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
+
+                else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
+                {
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    {
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    }
+                    frmPessoaPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
+                {
+                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    frmPessoa.ShowDialog();
+                    if (frmPessoa.CodPessoa > 0)
+                    {
+                        this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
+                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                    }
+                    frmPessoa.Dispose();
+                }
             }
         }
         private void habilitaBotoes(Boolean habilita)
@@ -180,6 +198,20 @@ namespace Telas
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
+            }
+        }
+
+        private void codPessoaComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
+        }
+
+        private void codPessoaComboBox_Leave(object sender, EventArgs e)
+        {
+            if (codPessoaComboBox.SelectedValue == null)
+            {
+                codPessoaComboBox.Focus();
+                throw new TelaException("Uma pessoa válida precisa ser selecionada.");
             }
         }
     }
