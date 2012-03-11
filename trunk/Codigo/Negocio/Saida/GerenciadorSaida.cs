@@ -284,15 +284,15 @@ namespace Negocio
                 throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
             }
             
-            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Produto.ST_OUTRAS);
             List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
 
             String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saida.CodSaida + ".txt";
-            StreamWriter arquivo = new StreamWriter(nomeArquivo, true, Encoding.ASCII); 
+            StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII); 
 
             foreach (SaidaProduto saidaProduto in saidaProdutos) {
 
-                String situacaoFiscal = saidaProduto.CodCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL) ? "00" : "FF";
+                String situacaoFiscal = saidaProduto.CodCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL) ? "01" : "FF";
 
                 arquivo.Write(saidaProduto.CodProduto + ";");
                 arquivo.Write(saidaProduto.Nome + ";");
@@ -301,7 +301,7 @@ namespace Negocio
                 arquivo.Write(situacaoFiscal + ";");
                 arquivo.Write("0;");
                 arquivo.Write(saidaProduto.ValorVenda + ";");
-                arquivo.WriteLine(saidaProduto.Unidade);
+                arquivo.WriteLine(saidaProduto.Unidade + ";");
             }
 
             if (saida.CodCliente != Global.CLIENTE_PADRAO)
@@ -361,15 +361,19 @@ namespace Negocio
                         }
                     }
                     reader.Close();
-                    Saida saida = obterSaida(Convert.ToInt64(file.Name.Replace(".TXT", "")));
-                    if (saida != null)
+                    if (sucesso)
                     {
-                        saida.PedidoGerado = numeroCF;
-                        saida.TipoSaida = Saida.TIPO_VENDA;
-                        atualizar(saida);
-                        atualizou = true;
+                        Saida saida = obterSaida(Convert.ToInt64(file.Name.Replace(".TXT", "")));
+                        if (saida != null)
+                        {
+                            saida.PedidoGerado = numeroCF;
+                            saida.TipoSaida = Saida.TIPO_VENDA;
+                            atualizar(saida);
+                            atualizou = true;
+                        }
                     }
-                    file.MoveTo(Global.PASTA_COMUNICACAO_SERVIDOR_BACKUP + file.Name);
+                    file.CopyTo(Global.PASTA_COMUNICACAO_SERVIDOR_BACKUP + file.Name, true);
+                    file.Delete();
                 }
             }
             catch (Exception)

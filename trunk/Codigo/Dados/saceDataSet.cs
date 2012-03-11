@@ -25,6 +25,10 @@
 }
 
 namespace Dados.saceDataSetTableAdapters {
+    partial class tb_saida_produtoTableAdapter
+    {
+    }
+
     partial class tb_contaTableAdapter
     {
     }

@@ -10,7 +10,7 @@ namespace Dominio
     {
         public const String ST_TRIBUTADO_INTEGRAL = "000";
         public const String ST_TRIBUTADO_SUBSTITUICAO = "010";
-        public const String ST_OUTRAS = "999";
+        public const String ST_OUTRAS = "090";
         
         
         private Int32 codProduto;
