@@ -35630,7 +35630,7 @@ WHERE        (codSaidaProduto = @Original_codSaidaProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_saida_produto.codSaidaProduto, tb_saida_produto.codProduto, tb_saida_produto.codSaida, tb_saida_produto.quantidade, tb_saida_produto.valorVenda, 
@@ -35655,6 +35655,30 @@ WHERE        (tb_saida_produto.codSaida = @codSaida)";
             param.IsNullable = true;
             param.SourceColumn = "codSaida";
             this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = @"SELECT        tb_saida_produto.codSaidaProduto, tb_saida_produto.codProduto, tb_saida_produto.codSaida, tb_saida_produto.quantidade, tb_saida_produto.valorVenda, 
+                         tb_saida_produto.desconto, tb_saida_produto.subtotal, tb_saida_produto.subtotalAVista, tb_saida_produto.data_validade, tb_produto.nome, tb_produto.codCST, 
+                         tb_produto.unidade
+FROM            tb_saida_produto INNER JOIN
+                         tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto
+WHERE        (tb_saida_produto.codSaida = @codSaida) AND (tb_produto.codCST <> @codCST)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[2].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codCST";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 3;
+            param.IsNullable = true;
+            param.SourceColumn = "codCST";
+            this._commandCollection[2].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -35702,6 +35726,44 @@ WHERE        (tb_saida_produto.codSaida = @codSaida)";
         public virtual saceDataSet.tb_saida_produtoDataTable GetDataByCodSaida(long codSaida) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
+            saceDataSet.tb_saida_produtoDataTable dataTable = new saceDataSet.tb_saida_produtoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodSaidaSemCodCST(saceDataSet.tb_saida_produtoDataTable dataTable, long codSaida, string codCST) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
+            if ((codCST == null)) {
+                throw new global::System.ArgumentNullException("codCST");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(codCST));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_saida_produtoDataTable GetDataByCodSaidaSemCodCST(long codSaida, string codCST) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
+            if ((codCST == null)) {
+                throw new global::System.ArgumentNullException("codCST");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(codCST));
+            }
             saceDataSet.tb_saida_produtoDataTable dataTable = new saceDataSet.tb_saida_produtoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
