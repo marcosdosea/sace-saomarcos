@@ -44,7 +44,7 @@ namespace Negocio
                     entradaProduto.DataValidade, entradaProduto.PrecoCusto, entradaProduto.QuantidadeDisponivel);
 
                 // Incrementa o estoque na loja principal
-                tb_produto_lojaTA.atualizarEstoqueProdutoLoja(entradaProduto.Quantidade, 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
+                tb_produto_lojaTA.atualizarEstoqueProdutoLoja((entradaProduto.Quantidade*entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
                 Produto produto = GerenciadorProduto.getInstace().obterProduto(entradaProduto.CodProduto);
                 produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;

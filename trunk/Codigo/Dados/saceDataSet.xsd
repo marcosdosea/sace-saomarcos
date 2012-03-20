@@ -2942,7 +2942,7 @@ WHERE        (codEntradaProduto = @Original_codEntradaProduto)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tb_produtoTableAdapter" GeneratorDataComponentClassName="tb_produtoTableAdapter" Name="tb_produto" UserDataComponentName="tb_produtoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM tb_produto
@@ -2992,13 +2992,14 @@ WHERE        (codProduto = @Original_codProduto)</CommandText>
                          tb_produto.icms, tb_produto.icms_substituto, tb_produto.simples, tb_produto.ipi, tb_produto.frete, tb_produto.ultimaDataAtualizacao, tb_produto.ultimoPrecoCompra, 
                          tb_produto.lucroPrecoVendaVarejo, tb_produto.precoVendaVarejo, tb_produto.qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, 
                          tb_produto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grupo.descricao AS descricaoGrupo, 
-                         tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabricante, 
-                         tb_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado AS totalPrecoAtacado
+                         tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, 
+                         (SELECT SUM(tb_produto_loja.qtdEstoque+tb_produto_loja.qtdEstoqueAux) FROM tb_produto_loja WHERE tb_produto_loja.codProduto = tb_produto.codProduto) as quantidadeEstoque
 FROM            tb_produto INNER JOIN
                          tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN
                          tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER JOIN
                          tb_pessoa ON tb_produto.codFabricante = tb_pessoa.codPessoa INNER JOIN
-                         tb_situacao_produto ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto</CommandText>
+                         tb_situacao_produto ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN
+                         tb_produto_loja ON tb_produto.codProduto = tb_produto_loja.codProduto</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -3078,6 +3079,7 @@ WHERE        (codProduto = @Original_codProduto)</CommandText>
               <Mapping SourceColumn="descricaoSituacao" DataSetColumn="descricaoSituacao" />
               <Mapping SourceColumn="nomeFabricante" DataSetColumn="nomeFabricante" />
               <Mapping SourceColumn="totalPrecoAtacado" DataSetColumn="totalPrecoAtacado" />
+              <Mapping SourceColumn="quantidadeEstoque" DataSetColumn="quantidadeEstoque" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByCodProduto" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByCodProduto" GeneratorSourceName="FillByCodProduto" GetMethodModifier="Public" GetMethodName="GetDataByCodProduto" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByCodProduto" UserSourceName="FillByCodProduto">
@@ -4463,6 +4465,7 @@ FROM            tb_banco</CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="totalPrecoAtacado" msprop:Generator_ColumnVarNameInTable="columntotalPrecoAtacado" msprop:Generator_ColumnPropNameInRow="totalPrecoAtacado" msprop:Generator_ColumnPropNameInTable="totalPrecoAtacadoColumn" msprop:Generator_UserColumnName="totalPrecoAtacado" type="xs:decimal" minOccurs="0" />
+              <xs:element name="quantidadeEstoque" msprop:Generator_ColumnVarNameInTable="columnquantidadeEstoque" msprop:Generator_ColumnPropNameInRow="quantidadeEstoque" msprop:Generator_ColumnPropNameInTable="quantidadeEstoqueColumn" msprop:Generator_UserColumnName="quantidadeEstoque" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
