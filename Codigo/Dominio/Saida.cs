@@ -42,6 +42,15 @@ namespace Dominio
             get { return codCliente; }
             set { codCliente = value; }
         }
+
+        private String cpfCnpj;
+
+        public String CpfCnpj
+        {
+            get { return cpfCnpj; }
+            set { cpfCnpj = value; }
+        }
+        
         private Int64 codProfissional;
 
         public Int64 CodProfissional

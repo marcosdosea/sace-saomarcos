@@ -61,7 +61,7 @@ namespace Telas
             }
             else if (e.KeyCode == Keys.F7)
             {
-                btnContas_Click(sender, e);
+                contasAPagarToolStripMenuItem1_Click(sender, e);
             }
         }
 
@@ -182,25 +182,12 @@ namespace Telas
             this.Visible = true;
         }
 
-        private void btnContas_Click(object sender, EventArgs e)
-        {
-            Telas.FrmContas frmConta = new Telas.FrmContas();
-            frmConta.ShowDialog();
-            frmConta.Dispose();
-        }
-
+        
         private void baixasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Telas.FrmBaixaConta frmBaixaConta = new Telas.FrmBaixaConta();
             frmBaixaConta.ShowDialog();
             frmBaixaConta.Dispose();
-        }
-
-        private void contasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Telas.FrmRelatorioConta frmRelatorioConta = new Telas.FrmRelatorioConta();
-            //frmRelatorioConta.ShowDialog();
-            //frmRelatorioConta.Dispose();
         }
 
         private void documentosDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -210,9 +197,22 @@ namespace Telas
             frmDocumentoPagamento.Dispose();
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Telas.FrmContas frmConta = new Telas.FrmContas();
+            frmConta.ShowDialog();
+            frmConta.Dispose();
+        }
+
+        private void movimentaçãoContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void movimentaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

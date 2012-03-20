@@ -46,7 +46,8 @@
             System.Windows.Forms.Label codDocumentoPagamentoLabel;
             System.Windows.Forms.Label intervaloDiasLabel;
             System.Windows.Forms.Label label7;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.Label cpf_CnpjLabel;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
             this.tb_forma_pagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -95,6 +96,7 @@
             this.faltaReceberTextBox = new System.Windows.Forms.TextBox();
             this.totalRecebidoLabel = new System.Windows.Forms.Label();
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
+            this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -112,6 +114,7 @@
             codDocumentoPagamentoLabel = new System.Windows.Forms.Label();
             intervaloDiasLabel = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
+            cpf_CnpjLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_forma_pagamentoBindingSource)).BeginInit();
@@ -159,7 +162,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label2.Location = new System.Drawing.Point(581, 275);
+            label2.Location = new System.Drawing.Point(644, 275);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(146, 24);
             label2.TabIndex = 17;
@@ -169,7 +172,7 @@
             // 
             parcelasLabel.AutoSize = true;
             parcelasLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            parcelasLabel.Location = new System.Drawing.Point(581, 348);
+            parcelasLabel.Location = new System.Drawing.Point(639, 348);
             parcelasLabel.Name = "parcelasLabel";
             parcelasLabel.Size = new System.Drawing.Size(87, 24);
             parcelasLabel.TabIndex = 18;
@@ -269,7 +272,7 @@
             // 
             codDocumentoPagamentoLabel.AutoSize = true;
             codDocumentoPagamentoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            codDocumentoPagamentoLabel.Location = new System.Drawing.Point(583, 204);
+            codDocumentoPagamentoLabel.Location = new System.Drawing.Point(646, 204);
             codDocumentoPagamentoLabel.Name = "codDocumentoPagamentoLabel";
             codDocumentoPagamentoLabel.Size = new System.Drawing.Size(151, 24);
             codDocumentoPagamentoLabel.TabIndex = 74;
@@ -279,7 +282,7 @@
             // 
             intervaloDiasLabel.AutoSize = true;
             intervaloDiasLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            intervaloDiasLabel.Location = new System.Drawing.Point(687, 348);
+            intervaloDiasLabel.Location = new System.Drawing.Point(745, 348);
             intervaloDiasLabel.Name = "intervaloDiasLabel";
             intervaloDiasLabel.Size = new System.Drawing.Size(51, 24);
             intervaloDiasLabel.TabIndex = 74;
@@ -294,6 +297,16 @@
             label7.Size = new System.Drawing.Size(120, 20);
             label7.TabIndex = 69;
             label7.Text = "Total Recebido:";
+            // 
+            // cpf_CnpjLabel
+            // 
+            cpf_CnpjLabel.AutoSize = true;
+            cpf_CnpjLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            cpf_CnpjLabel.Location = new System.Drawing.Point(639, 70);
+            cpf_CnpjLabel.Name = "cpf_CnpjLabel";
+            cpf_CnpjLabel.Size = new System.Drawing.Size(106, 24);
+            cpf_CnpjLabel.TabIndex = 75;
+            cpf_CnpjLabel.Text = "CPF / Cnpj:";
             // 
             // tb_saidaBindingSource
             // 
@@ -334,7 +347,7 @@
             this.valorRecebidoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbdocumentopagamentoBindingSource, "valor", true));
             this.valorRecebidoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.valorRecebidoTextBox.ForeColor = System.Drawing.Color.DarkRed;
-            this.valorRecebidoTextBox.Location = new System.Drawing.Point(580, 304);
+            this.valorRecebidoTextBox.Location = new System.Drawing.Point(643, 304);
             this.valorRecebidoTextBox.Name = "valorRecebidoTextBox";
             this.valorRecebidoTextBox.Size = new System.Drawing.Size(173, 29);
             this.valorRecebidoTextBox.TabIndex = 26;
@@ -351,7 +364,7 @@
             this.parcelasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_forma_pagamentoBindingSource, "parcelas", true));
             this.parcelasTextBox.Enabled = false;
             this.parcelasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.parcelasTextBox.Location = new System.Drawing.Point(585, 379);
+            this.parcelasTextBox.Location = new System.Drawing.Point(643, 379);
             this.parcelasTextBox.Name = "parcelasTextBox";
             this.parcelasTextBox.Size = new System.Drawing.Size(83, 29);
             this.parcelasTextBox.TabIndex = 30;
@@ -411,9 +424,10 @@
             this.codClienteComboBox.FormattingEnabled = true;
             this.codClienteComboBox.Location = new System.Drawing.Point(224, 98);
             this.codClienteComboBox.Name = "codClienteComboBox";
-            this.codClienteComboBox.Size = new System.Drawing.Size(529, 32);
+            this.codClienteComboBox.Size = new System.Drawing.Size(395, 32);
             this.codClienteComboBox.TabIndex = 16;
             this.codClienteComboBox.ValueMember = "codPessoa";
+            this.codClienteComboBox.SelectedIndexChanged += new System.EventHandler(this.codClienteComboBox_SelectedIndexChanged);
             this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codClienteComboBox.Leave += new System.EventHandler(this.codClienteComboBox_Leave);
             // 
@@ -435,7 +449,7 @@
             this.codProfissionalComboBox.FormattingEnabled = true;
             this.codProfissionalComboBox.Location = new System.Drawing.Point(224, 165);
             this.codProfissionalComboBox.Name = "codProfissionalComboBox";
-            this.codProfissionalComboBox.Size = new System.Drawing.Size(529, 32);
+            this.codProfissionalComboBox.Size = new System.Drawing.Size(592, 32);
             this.codProfissionalComboBox.TabIndex = 18;
             this.codProfissionalComboBox.ValueMember = "codPessoa";
             this.codProfissionalComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
@@ -468,17 +482,18 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(495, 564);
+            this.btnSalvar.Location = new System.Drawing.Point(550, 564);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 32;
+            this.btnSalvar.TabIndex = 3;
             this.btnSalvar.Text = "F6 - Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            this.btnSalvar.Leave += new System.EventHandler(this.btnSalvar_Leave);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(669, 564);
+            this.btnCancelar.Location = new System.Drawing.Point(728, 564);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 36;
@@ -493,7 +508,7 @@
             this.codSaidaTextBox.Location = new System.Drawing.Point(637, 34);
             this.codSaidaTextBox.Name = "codSaidaTextBox";
             this.codSaidaTextBox.ReadOnly = true;
-            this.codSaidaTextBox.Size = new System.Drawing.Size(116, 29);
+            this.codSaidaTextBox.Size = new System.Drawing.Size(179, 29);
             this.codSaidaTextBox.TabIndex = 14;
             this.codSaidaTextBox.TabStop = false;
             // 
@@ -537,7 +552,7 @@
             this.codContaBancoComboBox.FormattingEnabled = true;
             this.codContaBancoComboBox.Location = new System.Drawing.Point(223, 304);
             this.codContaBancoComboBox.Name = "codContaBancoComboBox";
-            this.codContaBancoComboBox.Size = new System.Drawing.Size(342, 32);
+            this.codContaBancoComboBox.Size = new System.Drawing.Size(396, 32);
             this.codContaBancoComboBox.TabIndex = 24;
             this.codContaBancoComboBox.ValueMember = "codContaBanco";
             this.codContaBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
@@ -555,7 +570,7 @@
             this.codFormaPagamentoComboBox.FormattingEnabled = true;
             this.codFormaPagamentoComboBox.Location = new System.Drawing.Point(224, 237);
             this.codFormaPagamentoComboBox.Name = "codFormaPagamentoComboBox";
-            this.codFormaPagamentoComboBox.Size = new System.Drawing.Size(343, 32);
+            this.codFormaPagamentoComboBox.Size = new System.Drawing.Size(395, 32);
             this.codFormaPagamentoComboBox.TabIndex = 20;
             this.codFormaPagamentoComboBox.ValueMember = "codFormaPagamento";
             this.codFormaPagamentoComboBox.TextChanged += new System.EventHandler(this.codFormaPagamentoComboBox_TextChanged);
@@ -568,7 +583,7 @@
             // 
             // btnEncerrar
             // 
-            this.btnEncerrar.Location = new System.Drawing.Point(582, 564);
+            this.btnEncerrar.Location = new System.Drawing.Point(637, 564);
             this.btnEncerrar.Name = "btnEncerrar";
             this.btnEncerrar.Size = new System.Drawing.Size(81, 23);
             this.btnEncerrar.TabIndex = 34;
@@ -588,7 +603,7 @@
             this.codCartaoComboBox.FormattingEnabled = true;
             this.codCartaoComboBox.Location = new System.Drawing.Point(225, 376);
             this.codCartaoComboBox.Name = "codCartaoComboBox";
-            this.codCartaoComboBox.Size = new System.Drawing.Size(342, 32);
+            this.codCartaoComboBox.Size = new System.Drawing.Size(394, 32);
             this.codCartaoComboBox.TabIndex = 28;
             this.codCartaoComboBox.ValueMember = "codCartao";
             this.codCartaoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
@@ -618,7 +633,7 @@
             this.codDocumentoPagamentoComboBox.Enabled = false;
             this.codDocumentoPagamentoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codDocumentoPagamentoComboBox.FormattingEnabled = true;
-            this.codDocumentoPagamentoComboBox.Location = new System.Drawing.Point(580, 237);
+            this.codDocumentoPagamentoComboBox.Location = new System.Drawing.Point(643, 237);
             this.codDocumentoPagamentoComboBox.Name = "codDocumentoPagamentoComboBox";
             this.codDocumentoPagamentoComboBox.Size = new System.Drawing.Size(173, 32);
             this.codDocumentoPagamentoComboBox.TabIndex = 22;
@@ -635,14 +650,14 @@
             this.tb_saida_forma_pagamentoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_forma_pagamentoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_forma_pagamentoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_forma_pagamentoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -660,7 +675,7 @@
             this.tb_saida_forma_pagamentoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_forma_pagamentoDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.tb_saida_forma_pagamentoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saida_forma_pagamentoDataGridView.Size = new System.Drawing.Size(733, 138);
+            this.tb_saida_forma_pagamentoDataGridView.Size = new System.Drawing.Size(792, 138);
             this.tb_saida_forma_pagamentoDataGridView.TabIndex = 68;
             this.tb_saida_forma_pagamentoDataGridView.TabStop = false;
             // 
@@ -723,7 +738,7 @@
             this.intervaloDiasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saida_pagamentoBindingSource, "intervaloDias", true));
             this.intervaloDiasTextBox.Enabled = false;
             this.intervaloDiasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.intervaloDiasTextBox.Location = new System.Drawing.Point(691, 379);
+            this.intervaloDiasTextBox.Location = new System.Drawing.Point(749, 379);
             this.intervaloDiasTextBox.Name = "intervaloDiasTextBox";
             this.intervaloDiasTextBox.Size = new System.Drawing.Size(62, 29);
             this.intervaloDiasTextBox.TabIndex = 32;
@@ -763,11 +778,23 @@
             this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(396, 29);
             this.descricaoTipoSaidaTextBox.TabIndex = 12;
             // 
+            // cpf_CnpjTextBox
+            // 
+            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "cpf_Cnpj", true));
+            this.cpf_CnpjTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(637, 101);
+            this.cpf_CnpjTextBox.MaxLength = 14;
+            this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
+            this.cpf_CnpjTextBox.Size = new System.Drawing.Size(179, 29);
+            this.cpf_CnpjTextBox.TabIndex = 17;
+            // 
             // FrmSaidaPagamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 607);
+            this.ClientSize = new System.Drawing.Size(821, 607);
+            this.Controls.Add(cpf_CnpjLabel);
+            this.Controls.Add(this.cpf_CnpjTextBox);
             this.Controls.Add(this.descricaoTipoSaidaTextBox);
             this.Controls.Add(this.faltaReceberTextBox);
             this.Controls.Add(this.intervaloDiasTextBox);
@@ -882,5 +909,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.Label totalRecebidoLabel;
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
+        private System.Windows.Forms.TextBox cpf_CnpjTextBox;
     }
 }

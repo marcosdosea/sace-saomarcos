@@ -35,7 +35,7 @@ namespace Negocio
                 tb_SaidaTA.Insert(saida.DataSaida, saida.CodCliente, saida.TipoSaida, saida.CodProfissional,
                     saida.NumeroCartaoVenda, saida.PedidoGerado, saida.Total, saida.TotalAVista, saida.Desconto,
                     saida.TotalPago, saida.TotalLucro, saida.CodSituacaoPagamentos, saida.Troco, saida.EntregaRealizada,
-                    saida.Nfe);
+                    saida.Nfe, saida.CpfCnpj);
 
 
                 return (Int64)tb_SaidaTA.getUltimoCodSaida();
@@ -55,7 +55,7 @@ namespace Negocio
                 tb_SaidaTA.Update(saida.DataSaida, saida.CodCliente, saida.TipoSaida, saida.CodProfissional,
                     saida.NumeroCartaoVenda, saida.PedidoGerado, saida.Total,saida.TotalAVista, saida.Desconto,
                     saida.TotalPago, saida.TotalLucro, saida.CodSituacaoPagamentos, saida.Troco, saida.EntregaRealizada,
-                    saida.Nfe, saida.CodSaida);
+                    saida.Nfe, saida.CpfCnpj, saida.CodSaida);
 
 
             }
@@ -109,6 +109,7 @@ namespace Negocio
             saida.EntregaRealizada = Convert.ToBoolean(saidaDT.Rows[0]["entregaRealizada"].ToString());
             saida.Nfe = saidaDT.Rows[0]["nfe"].ToString();
             saida.Troco = Convert.ToDecimal(saidaDT.Rows[0]["troco"].ToString());
+            saida.CpfCnpj = saidaDT.Rows[0]["cpf_cnpj"].ToString();
             return saida;
         }
 
@@ -288,6 +289,14 @@ namespace Negocio
             List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
 
             String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saida.CodSaida + ".txt";
+
+            DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
+            if (!pastaECF.Exists)
+            {
+                throw new NegocioException("Não foi possível imprimir o cupom ECF. Verifique se a rede está acessível.");
+            }
+                
+            
             StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII); 
 
             foreach (SaidaProduto saidaProduto in saidaProdutos) {
@@ -304,16 +313,19 @@ namespace Negocio
                 arquivo.WriteLine(saidaProduto.Unidade + ";");
             }
 
-            if (saida.CodCliente != Global.CLIENTE_PADRAO)
-            {
-                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoa(saida.CodCliente);
-                if (!pessoa.Nome.Trim().Equals(""))
-                    arquivo.WriteLine("<NOME>"+pessoa.Nome);
-                if (!pessoa.Endereco.Trim().Equals(""))
-                    arquivo.WriteLine("<ENDERECO>"+pessoa.Endereco);
-                if (!pessoa.CpfCnpj.Trim().Equals(""))
-                    arquivo.WriteLine("<CPF>"+pessoa.CpfCnpj);
-            }
+                if (!saida.CpfCnpj.Trim().Equals(""))
+                    arquivo.WriteLine("<CPF>"+saida.CpfCnpj);
+            
+            //if (saida.CodCliente != Global.CLIENTE_PADRAO)
+            //{
+            //    Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoa(saida.CodCliente);
+            //    if (!pessoa.Nome.Trim().Equals(""))
+            //        arquivo.WriteLine("<NOME>"+pessoa.Nome);
+            //    if (!pessoa.Endereco.Trim().Equals(""))
+            //        arquivo.WriteLine("<ENDERECO>"+pessoa.Endereco);
+            //    if (!pessoa.CpfCnpj.Trim().Equals(""))
+            //        arquivo.WriteLine("<CPF>"+pessoa.CpfCnpj);
+            //}
             if (saida.Desconto > 0)
                 arquivo.WriteLine("<DESCONTO>" + (saida.Total - saida.TotalPago));
 
@@ -378,7 +390,8 @@ namespace Negocio
             }
             catch (Exception)
             {
-                throw new NegocioException("Ocorreram problemas na recuperação dos dados dos cupons fiscais. Favor contactar o administrador");
+                // Essa exceção não precisa ser tratada. Apenas os cupons fiscais não são recuperados.
+                //throw new NegocioException("Ocorreram problemas na recuperação dos dados dos cupons fiscais. Favor contactar o administrador");
             }
             return atualizou;
         }

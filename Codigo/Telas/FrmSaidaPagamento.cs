@@ -46,6 +46,7 @@ namespace Telas
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString(); 
             
             atualizaValores();
+            btnSalvar.Focus();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace Telas
             saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
             saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
             saida.Desconto = decimal.Parse(descontoTextBox.Text);
-            //saida.TipoSaida = int.Parse(codTipoSaidaComboBox.SelectedValue.ToString());
+            saida.CpfCnpj = cpf_CnpjTextBox.Text;
             saida.Total = decimal.Parse(totalTextBox.Text);
             saida.TotalPago = Convert.ToDecimal(totalRecebidoLabel.Text);
             saida.Troco = Convert.ToDecimal(trocoTextBox.Text);
@@ -205,7 +206,15 @@ namespace Telas
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
                     Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento);
                     this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
+
+                    codCartaoComboBox.SelectedIndex = 0;
+                    codFormaPagamentoComboBox.SelectedIndex = 0;
+                    codDocumentoPagamentoComboBox.SelectedIndex = 0;
+                    codContaBancoComboBox.SelectedIndex = 0;
+                    intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString(); 
+
                     atualizaValores();
+                    codFormaPagamentoComboBox.Focus();
                 }
             }
         }
@@ -377,6 +386,19 @@ namespace Telas
         {
             faltaReceber = Convert.ToDecimal(faltaReceberTextBox.Text);
             btnEncerrar.Enabled = (faltaReceber == 0);
+        }
+
+        private void codClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ( codClienteComboBox.SelectedValue != null) 
+            {
+                cpf_CnpjTextBox.Enabled = Convert.ToInt64(codClienteComboBox.SelectedValue.ToString()) == 1;
+            }
+        }
+
+        private void btnSalvar_Leave(object sender, EventArgs e)
+        {
+            btnSalvar.TabIndex = 32;
         }
     }
 }

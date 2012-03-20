@@ -210,7 +210,8 @@ namespace Telas
             if (e.KeyCode == Keys.Escape)
             {
                 btnCancelar_Click(sender, e);
-            }
+            } 
+
             // Coloca o foco na grid caso ela não possua
             if (e.KeyCode == Keys.F12)
             {
@@ -230,6 +231,11 @@ namespace Telas
                 if (frmProdutoPesquisaPreco.getCodProduto() != -1)
                 {
                     tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
+                    produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
+                    codProdutoTextBox.Text = produto.CodProduto.ToString();
+                    precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString("N3");
+                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N3");
+                    
                 }
                 frmProdutoPesquisaPreco.Dispose();
             }

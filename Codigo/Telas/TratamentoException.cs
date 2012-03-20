@@ -47,12 +47,26 @@ namespace Telas
                     erro = "Não é possivel divisão por zero ";
                 else if (t.Exception is NullReferenceException)
                     erro = "Referência para um objeto não encontrado.";
-                if (t.Exception is DadosException)
+                if (t.Exception is MySqlException)
+                {
+                    MySqlException exception = (MySqlException) t.Exception;
+                    // Tratamento de banco de dados inacessível
+                    if (exception.Number == 1042)
+                    {
+                        erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede.";
+                    }
+                }
+                else if (t.Exception is DadosException)
                 {
                     DadosException de = (DadosException)t.Exception;
                     if (de.InnerException is MySqlException)
                     {
-                        MySqlException exception = (MySqlException) de.InnerException;
+                        MySqlException exception = (MySqlException)de.InnerException;
+                        // Tratamento de chaves únicas
+                        if (exception.Number == 1042)
+                        {
+                            erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede.";
+                        }
                         // Tratamento de chaves únicas
                         if (exception.Number == 1062)
                         {
@@ -67,6 +81,8 @@ namespace Telas
                         {
                             erro = "Erro " + exception.Number + ": Favor contactar administrador do sistema.";
                         }
+
+
                     }
                 }
             }
