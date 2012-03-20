@@ -45,8 +45,8 @@
             System.Windows.Forms.Label nfeLabel;
             System.Windows.Forms.Label descricaoSituacaoPagamentosLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pedidoGeradoTextBox = new System.Windows.Forms.TextBox();
@@ -133,7 +133,7 @@
             codSaidaLabel.AutoSize = true;
             codSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             codSaidaLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            codSaidaLabel.Location = new System.Drawing.Point(309, 428);
+            codSaidaLabel.Location = new System.Drawing.Point(10, 439);
             codSaidaLabel.Name = "codSaidaLabel";
             codSaidaLabel.Size = new System.Drawing.Size(85, 17);
             codSaidaLabel.TabIndex = 21;
@@ -174,7 +174,7 @@
             dataSaidaLabel.AutoSize = true;
             dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataSaidaLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataSaidaLabel.Location = new System.Drawing.Point(191, 429);
+            dataSaidaLabel.Location = new System.Drawing.Point(193, 500);
             dataSaidaLabel.Name = "dataSaidaLabel";
             dataSaidaLabel.Size = new System.Drawing.Size(42, 17);
             dataSaidaLabel.TabIndex = 27;
@@ -204,7 +204,7 @@
             // 
             totalLabel.AutoSize = true;
             totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            totalLabel.Location = new System.Drawing.Point(604, 438);
+            totalLabel.Location = new System.Drawing.Point(655, 516);
             totalLabel.Name = "totalLabel";
             totalLabel.Size = new System.Drawing.Size(131, 37);
             totalLabel.TabIndex = 36;
@@ -215,7 +215,7 @@
             pedidoGeradoLabel.AutoSize = true;
             pedidoGeradoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pedidoGeradoLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            pedidoGeradoLabel.Location = new System.Drawing.Point(400, 429);
+            pedidoGeradoLabel.Location = new System.Drawing.Point(348, 500);
             pedidoGeradoLabel.Name = "pedidoGeradoLabel";
             pedidoGeradoLabel.Size = new System.Drawing.Size(29, 17);
             pedidoGeradoLabel.TabIndex = 27;
@@ -245,7 +245,7 @@
             // 
             nomeClienteLabel.AutoSize = true;
             nomeClienteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            nomeClienteLabel.Location = new System.Drawing.Point(15, 484);
+            nomeClienteLabel.Location = new System.Drawing.Point(15, 555);
             nomeClienteLabel.Name = "nomeClienteLabel";
             nomeClienteLabel.Size = new System.Drawing.Size(55, 17);
             nomeClienteLabel.TabIndex = 67;
@@ -255,7 +255,7 @@
             // 
             descricaoTipoSaidaLabel.AutoSize = true;
             descricaoTipoSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            descricaoTipoSaidaLabel.Location = new System.Drawing.Point(14, 431);
+            descricaoTipoSaidaLabel.Location = new System.Drawing.Point(15, 500);
             descricaoTipoSaidaLabel.Name = "descricaoTipoSaidaLabel";
             descricaoTipoSaidaLabel.Size = new System.Drawing.Size(36, 17);
             descricaoTipoSaidaLabel.TabIndex = 68;
@@ -266,7 +266,7 @@
             // 
             nfeLabel.AutoSize = true;
             nfeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            nfeLabel.Location = new System.Drawing.Point(481, 429);
+            nfeLabel.Location = new System.Drawing.Point(452, 498);
             nfeLabel.Name = "nfeLabel";
             nfeLabel.Size = new System.Drawing.Size(34, 17);
             nfeLabel.TabIndex = 69;
@@ -276,7 +276,7 @@
             // 
             descricaoSituacaoPagamentosLabel.AutoSize = true;
             descricaoSituacaoPagamentosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            descricaoSituacaoPagamentosLabel.Location = new System.Drawing.Point(481, 484);
+            descricaoSituacaoPagamentosLabel.Location = new System.Drawing.Point(446, 555);
             descricaoSituacaoPagamentosLabel.Name = "descricaoSituacaoPagamentosLabel";
             descricaoSituacaoPagamentosLabel.Size = new System.Drawing.Size(91, 17);
             descricaoSituacaoPagamentosLabel.TabIndex = 71;
@@ -299,7 +299,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(960, 48);
+            this.panel1.Size = new System.Drawing.Size(1009, 48);
             this.panel1.TabIndex = 20;
             // 
             // pedidoGeradoTextBox
@@ -307,9 +307,9 @@
             this.pedidoGeradoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "pedidoGerado", true));
             this.pedidoGeradoTextBox.Enabled = false;
             this.pedidoGeradoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(403, 451);
+            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(351, 522);
             this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
-            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(69, 23);
+            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(94, 23);
             this.pedidoGeradoTextBox.TabIndex = 46;
             // 
             // tb_saidaBindingSource
@@ -328,9 +328,9 @@
             this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "codSaida", true));
             this.codSaidaTextBox.Enabled = false;
             this.codSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaTextBox.Location = new System.Drawing.Point(311, 451);
+            this.codSaidaTextBox.Location = new System.Drawing.Point(12, 462);
             this.codSaidaTextBox.Name = "codSaidaTextBox";
-            this.codSaidaTextBox.Size = new System.Drawing.Size(83, 23);
+            this.codSaidaTextBox.Size = new System.Drawing.Size(169, 23);
             this.codSaidaTextBox.TabIndex = 44;
             this.codSaidaTextBox.TabStop = false;
             this.codSaidaTextBox.TextChanged += new System.EventHandler(this.codSaidaTextBox_TextChanged);
@@ -341,15 +341,15 @@
             this.dataSaidaDateTimePicker.Enabled = false;
             this.dataSaidaDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataSaidaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(194, 449);
+            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(196, 520);
             this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
-            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(102, 23);
+            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(140, 23);
             this.dataSaidaDateTimePicker.TabIndex = 42;
             this.dataSaidaDateTimePicker.TabStop = false;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(322, 552);
+            this.btnSalvar.Location = new System.Drawing.Point(322, 613);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -359,7 +359,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(564, 552);
+            this.btnCancelar.Location = new System.Drawing.Point(564, 613);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 7;
@@ -369,7 +369,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(82, 552);
+            this.btnNovo.Location = new System.Drawing.Point(82, 613);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(81, 23);
             this.btnNovo.TabIndex = 1;
@@ -379,7 +379,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(247, 552);
+            this.btnExcluir.Location = new System.Drawing.Point(247, 613);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -404,7 +404,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_saidaBindingNavigator.Location = new System.Drawing.Point(754, 47);
+            this.tb_saidaBindingNavigator.Location = new System.Drawing.Point(806, 47);
             this.tb_saidaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_saidaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_saidaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -537,14 +537,14 @@
             this.tb_saida_produtoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_produtoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaProdutoDataGridViewTextBoxColumn,
@@ -556,21 +556,21 @@
             this.subtotalAVistaDataGridViewTextBoxColumn,
             this.datavalidadeDataGridViewTextBoxColumn});
             this.tb_saida_produtoDataGridView.DataSource = this.tbsaidaprodutoBindingSource;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
-            this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 147);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 150);
             this.tb_saida_produtoDataGridView.MultiSelect = false;
             this.tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
             this.tb_saida_produtoDataGridView.ReadOnly = true;
             this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(753, 275);
+            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 335);
             this.tb_saida_produtoDataGridView.TabIndex = 36;
             this.tb_saida_produtoDataGridView.TabStop = false;
             // 
@@ -646,10 +646,10 @@
             this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "total", true));
             this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalTextBox.Location = new System.Drawing.Point(738, 435);
+            this.totalTextBox.Location = new System.Drawing.Point(792, 509);
             this.totalTextBox.Name = "totalTextBox";
             this.totalTextBox.ReadOnly = true;
-            this.totalTextBox.Size = new System.Drawing.Size(209, 44);
+            this.totalTextBox.Size = new System.Drawing.Size(208, 44);
             this.totalTextBox.TabIndex = 37;
             this.totalTextBox.TabStop = false;
             // 
@@ -657,7 +657,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(606, 509);
+            this.label2.Location = new System.Drawing.Point(657, 588);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(129, 37);
             this.label2.TabIndex = 38;
@@ -669,16 +669,16 @@
             this.totalAVistaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "totalAVista", true));
             this.totalAVistaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalAVistaTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalAVistaTextBox.Location = new System.Drawing.Point(738, 507);
+            this.totalAVistaTextBox.Location = new System.Drawing.Point(792, 581);
             this.totalAVistaTextBox.Name = "totalAVistaTextBox";
             this.totalAVistaTextBox.ReadOnly = true;
-            this.totalAVistaTextBox.Size = new System.Drawing.Size(209, 44);
+            this.totalAVistaTextBox.Size = new System.Drawing.Size(208, 44);
             this.totalAVistaTextBox.TabIndex = 39;
             this.totalAVistaTextBox.TabStop = false;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(7, 552);
+            this.btnBuscar.Location = new System.Drawing.Point(7, 613);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 40;
@@ -689,7 +689,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(881, 130);
+            this.label3.Location = new System.Drawing.Point(934, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 63;
@@ -699,7 +699,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(800, 130);
+            this.label6.Location = new System.Drawing.Point(853, 130);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 62;
@@ -717,11 +717,12 @@
             this.codProdutoComboBox.CausesValidation = false;
             this.codProdutoComboBox.DataSource = this.tb_produtoBindingSource;
             this.codProdutoComboBox.DisplayMember = "nome";
+            this.codProdutoComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codProdutoComboBox.FormattingEnabled = true;
             this.codProdutoComboBox.Location = new System.Drawing.Point(194, 77);
             this.codProdutoComboBox.Name = "codProdutoComboBox";
-            this.codProdutoComboBox.Size = new System.Drawing.Size(753, 39);
+            this.codProdutoComboBox.Size = new System.Drawing.Size(805, 39);
             this.codProdutoComboBox.TabIndex = 30;
             this.codProdutoComboBox.ValueMember = "codProduto";
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
@@ -737,7 +738,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(163, 552);
+            this.btnEditar.Location = new System.Drawing.Point(163, 613);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(83, 23);
             this.btnEditar.TabIndex = 2;
@@ -771,9 +772,9 @@
             this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeCliente", true));
             this.nomeClienteTextBox.Enabled = false;
             this.nomeClienteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nomeClienteTextBox.Location = new System.Drawing.Point(17, 507);
+            this.nomeClienteTextBox.Location = new System.Drawing.Point(17, 578);
             this.nomeClienteTextBox.Name = "nomeClienteTextBox";
-            this.nomeClienteTextBox.Size = new System.Drawing.Size(455, 23);
+            this.nomeClienteTextBox.Size = new System.Drawing.Size(428, 23);
             this.nomeClienteTextBox.TabIndex = 50;
             // 
             // descricaoTipoSaidaTextBox
@@ -781,14 +782,14 @@
             this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "descricaoTipoSaida", true));
             this.descricaoTipoSaidaTextBox.Enabled = false;
             this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(12, 451);
+            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(13, 520);
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(169, 23);
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(168, 23);
             this.descricaoTipoSaidaTextBox.TabIndex = 40;
             // 
             // btnEncerrar
             // 
-            this.btnEncerrar.Location = new System.Drawing.Point(403, 552);
+            this.btnEncerrar.Location = new System.Drawing.Point(403, 613);
             this.btnEncerrar.Name = "btnEncerrar";
             this.btnEncerrar.Size = new System.Drawing.Size(81, 23);
             this.btnEncerrar.TabIndex = 5;
@@ -801,9 +802,9 @@
             this.nfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nfe", true));
             this.nfeTextBox.Enabled = false;
             this.nfeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.nfeTextBox.Location = new System.Drawing.Point(478, 451);
+            this.nfeTextBox.Location = new System.Drawing.Point(449, 520);
             this.nfeTextBox.Name = "nfeTextBox";
-            this.nfeTextBox.Size = new System.Drawing.Size(100, 23);
+            this.nfeTextBox.Size = new System.Drawing.Size(173, 23);
             this.nfeTextBox.TabIndex = 48;
             // 
             // entregaRealizadaCheckBox
@@ -824,14 +825,14 @@
             this.descricaoSituacaoPagamentosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "descricaoSituacaoPagamentos", true));
             this.descricaoSituacaoPagamentosTextBox.Enabled = false;
             this.descricaoSituacaoPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.descricaoSituacaoPagamentosTextBox.Location = new System.Drawing.Point(478, 509);
+            this.descricaoSituacaoPagamentosTextBox.Location = new System.Drawing.Point(449, 578);
             this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
-            this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(100, 23);
+            this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(173, 23);
             this.descricaoSituacaoPagamentosTextBox.TabIndex = 52;
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(484, 552);
+            this.btnImprimir.Location = new System.Drawing.Point(484, 613);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(81, 23);
             this.btnImprimir.TabIndex = 6;
@@ -843,7 +844,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(983, 579);
+            this.ClientSize = new System.Drawing.Size(1011, 641);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(descricaoSituacaoPagamentosLabel);
             this.Controls.Add(this.descricaoSituacaoPagamentosTextBox);
