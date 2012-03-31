@@ -58,8 +58,9 @@ namespace Negocio
                 produto.Ncmsh = entradaProduto.Ncmsh;
                 produto.QtdProdutoAtacado = entradaProduto.QtdProdutoAtacado;
                 produto.UltimaDataAtualizacao = DateTime.Now;
-                produto.UltimoPrecoCompra = entradaProduto.ValorUnitario;
+                produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
                 produto.Cfop = entradaProduto.Cfop;
+                produto.CodCST = entradaProduto.CodCST;
                 
                 GerenciadorProduto.getInstace().atualizar(produto);
                 return 0;
@@ -97,7 +98,7 @@ namespace Negocio
                 tb_entrada_produtoTA.Delete(codEntradaProduto);
                 
                 // Decrementa o estoque na loja principal
-                tb_produto_lojaTA.atualizarEstoqueProdutoLoja((entradaProduto.Quantidade*(-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
+                tb_produto_lojaTA.atualizarEstoqueProdutoLoja((entradaProduto.Quantidade *entradaProduto.QuantidadeEmbalagem*(-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
             }
             catch (Exception e)
             {
@@ -216,13 +217,23 @@ namespace Negocio
             tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
             Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetDataByCodEntradaProduto(codEntradaProduto);
             
-            entradaProduto.CodEntrada = int.Parse(entradaProdutoDT.Rows[0]["codEntrada"].ToString());
             entradaProduto.CodEntradaProduto = long.Parse(entradaProdutoDT.Rows[0]["codEntradaProduto"].ToString());
+            entradaProduto.CodEntrada = int.Parse(entradaProdutoDT.Rows[0]["codEntrada"].ToString());
             entradaProduto.CodProduto = int.Parse(entradaProdutoDT.Rows[0]["codProduto"].ToString());
             entradaProduto.DataValidade = DateTime.Parse(entradaProdutoDT.Rows[0]["data_validade"].ToString());
             entradaProduto.PrecoCusto = decimal.Parse(entradaProdutoDT.Rows[0]["preco_custo"].ToString());
             entradaProduto.Quantidade = decimal.Parse(entradaProdutoDT.Rows[0]["quantidade"].ToString());
             entradaProduto.QuantidadeDisponivel = decimal.Parse(entradaProdutoDT.Rows[0]["quantidade_disponivel"].ToString());
+            entradaProduto.BaseCalculoICMS = Convert.ToDecimal(entradaProdutoDT.Rows[0]["baseCalculoICMS"].ToString());
+            entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(entradaProdutoDT.Rows[0]["baseCalculoICMSST"].ToString());
+            entradaProduto.Cfop = Convert.ToInt32(entradaProdutoDT.Rows[0]["cfop"].ToString());
+            entradaProduto.QuantidadeEmbalagem = Convert.ToDecimal(entradaProdutoDT.Rows[0]["quantidadeEmbalagem"].ToString());
+            entradaProduto.UnidadeCompra = entradaProdutoDT.Rows[0]["unidadeCompra"].ToString();
+            entradaProduto.ValorICMS = Convert.ToDecimal(entradaProdutoDT.Rows[0]["valorICMS"].ToString());
+            entradaProduto.ValorICMSST = Convert.ToDecimal(entradaProdutoDT.Rows[0]["valorICMSST"].ToString());
+            entradaProduto.ValorIPI = Convert.ToDecimal(entradaProdutoDT.Rows[0]["valorIPI"].ToString());
+            entradaProduto.ValorTotal = Convert.ToDecimal(entradaProdutoDT.Rows[0]["valorTotal"].ToString());
+            entradaProduto.ValorUnitario = Convert.ToDecimal(entradaProdutoDT.Rows[0]["valorUnitario"].ToString());
                       
             return entradaProduto;
         }

@@ -12,7 +12,8 @@ namespace Telas
     public partial class FrmPessoaPesquisa : Form
     {
         private Int32 codPessoa;
-        private String filtroTipoPessoa;
+        private Char? filtroTipoPessoa;
+        private String filtroNome;
 
         public Int32 CodPessoa
         {
@@ -25,23 +26,38 @@ namespace Telas
             InitializeComponent();
             codPessoa = -1;
             filtroTipoPessoa = null;
+            filtroNome = null;
         }
 
-        public FrmPessoaPesquisa(String tipoPessoa)
+        public FrmPessoaPesquisa(Char tipoPessoa)
         {
             InitializeComponent();
             codPessoa = -1;
             filtroTipoPessoa = tipoPessoa;
+            filtroNome = null;
+        }
+
+        public FrmPessoaPesquisa(String nomePessoa)
+        {
+            InitializeComponent();
+            codPessoa = -1;
+            filtroTipoPessoa = null;
+            filtroNome = nomePessoa;
         }
 
         private void FrmPessoaPesquisa_Load(object sender, EventArgs e)
         {
-            if (filtroTipoPessoa == null) 
-                this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            else
-                this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, filtroTipoPessoa);
             cmbBusca.SelectedIndex = 0;
-        }
+            if (filtroNome != null) {
+                txtTexto.Text = filtroNome;
+                txtTexto.Select(filtroNome.Length+1, filtroNome.Length+1);
+            } else if (filtroTipoPessoa != null) 
+            {
+                this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, filtroTipoPessoa.ToString());
+            } else {
+                this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            } 
+         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {

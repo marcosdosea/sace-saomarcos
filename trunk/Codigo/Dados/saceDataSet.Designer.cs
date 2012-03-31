@@ -29473,7 +29473,7 @@ WHERE        (codPessoa = @Original_codPessoa)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[7];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[8];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        codPessoa, nome, cpf_Cnpj, endereco, cep, bairro, cidade, uf, fone1" +
@@ -29563,6 +29563,21 @@ WHERE        (bairro LIKE CONCAT(@bairro, '%'))";
             param.IsNullable = true;
             param.SourceColumn = "Tipo";
             this._commandCollection[6].Parameters.Add(param);
+            this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[7].Connection = this.Connection;
+            this._commandCollection[7].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, cep, bairro, cidade, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, fone3, email, numero, complemento, 
+                         ieSubstituto
+FROM            tb_pessoa
+WHERE nome = @nome";
+            this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 50;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            this._commandCollection[7].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -29708,6 +29723,23 @@ WHERE        (bairro LIKE CONCAT(@bairro, '%'))";
             }
             int returnValue = this.Adapter.Fill(dataTable);
             return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_pessoaDataTable GetDataByEqualsName(string nome) {
+            this.Adapter.SelectCommand = this.CommandCollection[7];
+            if ((nome == null)) {
+                throw new global::System.ArgumentNullException("nome");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
+            }
+            saceDataSet.tb_pessoaDataTable dataTable = new saceDataSet.tb_pessoaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -40151,11 +40183,11 @@ WHERE        (tb_entrada_produto.codEntrada = @codEntrada)";
                          tb_entrada_produto.unidadeCompra, tb_entrada_produto.quantidade, tb_entrada_produto.quantidadeEmbalagem, tb_entrada_produto.valorUnitario, 
                          tb_entrada_produto.valorTotal, tb_entrada_produto.baseCalculoICMS, tb_entrada_produto.baseCalculoICMSST, tb_entrada_produto.valorICMS, 
                          tb_entrada_produto.valorICMSST, tb_entrada_produto.valorIPI, tb_entrada_produto.data_validade, tb_entrada_produto.preco_custo, 
-                         tb_entrada_produto.quantidade_vendidos, tb_produto.nome AS nomeProduto, tb_cfop.descricao AS descricaoCFOP
+                         tb_produto.nome AS nomeProduto, tb_cfop.descricao AS descricaoCFOP, tb_entrada_produto.quantidade_disponivel
 FROM            tb_entrada_produto INNER JOIN
                          tb_produto ON tb_entrada_produto.codProduto = tb_produto.codProduto INNER JOIN
                          tb_cfop ON tb_entrada_produto.cfop = tb_cfop.cfop AND tb_produto.cfop = tb_cfop.cfop
-WHERE  tb_entrada_produto.codEntradaProduto = @codEntradaProduto";
+WHERE        (tb_entrada_produto.codEntradaProduto = @codEntradaProduto)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codEntradaProduto";
@@ -41635,7 +41667,7 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        tb_produto.codProduto, tb_produto.nome, tb_produto.nomeProdutoFabri" +
@@ -41722,6 +41754,37 @@ WHERE        (codProduto = @Original_codProduto)";
             param.IsNullable = true;
             param.SourceColumn = "nome";
             this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT        tb_produto.codProduto, tb_produto.nome, tb_produto.nomeProdutoFabri" +
+                "cante, tb_produto.unidade, tb_produto.codigoBarra, tb_produto.codCST, tb_produto" +
+                ".cfop, \r\n                         tb_produto.ncmsh, tb_produto.codFabricante, tb" +
+                "_produto.referenciaFabricante, tb_produto.codSituacaoProduto, tb_produto.codGrup" +
+                "o, tb_produto.temVencimento, \r\n                         tb_produto.icms, tb_prod" +
+                "uto.icms_substituto, tb_produto.simples, tb_produto.ipi, tb_produto.frete, tb_pr" +
+                "oduto.ultimaDataAtualizacao, tb_produto.ultimoPrecoCompra, \r\n                   " +
+                "      tb_produto.lucroPrecoVendaVarejo, tb_produto.precoVendaVarejo, tb_produto." +
+                "qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, \r\n                        " +
+                " tb_produto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimo" +
+                "Pedido, tb_cst.descricaoCST, tb_grupo.descricao AS descricaoGrupo, \r\n           " +
+                "              tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabri" +
+                "cante, \r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdP" +
+                "rodutoAtacado AS totalPrecoAtacado\r\nFROM            tb_produto INNER JOIN\r\n     " +
+                "                    tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN\r\n    " +
+                "                     tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER J" +
+                "OIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_pessoa." +
+                "codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_produto" +
+                ".codSituacaoProduto = tb_situacao_produto.codSituacaoProduto\r\nWHERE        (tb_p" +
+                "roduto.nome = @nome)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nome";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 50;
+            param.IsNullable = true;
+            param.SourceColumn = "nome";
+            this._commandCollection[3].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -41791,6 +41854,23 @@ WHERE        (codProduto = @Original_codProduto)";
             }
             int returnValue = this.Adapter.Fill(dataTable);
             return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_produtoDataTable GetDataByExactNome(string nome) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((nome == null)) {
+                throw new global::System.ArgumentNullException("nome");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
+            }
+            saceDataSet.tb_produtoDataTable dataTable = new saceDataSet.tb_produtoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

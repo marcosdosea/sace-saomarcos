@@ -356,6 +356,7 @@
             this.codContaBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_cartao_creditoBindingSource, "codContaBanco", true));
             this.codContaBancoComboBox.DataSource = this.tbcontabancoBindingSource;
             this.codContaBancoComboBox.DisplayMember = "descricao";
+            this.codContaBancoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codContaBancoComboBox.FormattingEnabled = true;
             this.codContaBancoComboBox.Location = new System.Drawing.Point(11, 168);
             this.codContaBancoComboBox.Name = "codContaBancoComboBox";

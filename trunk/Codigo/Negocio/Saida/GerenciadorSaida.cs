@@ -301,16 +301,19 @@ namespace Negocio
 
             foreach (SaidaProduto saidaProduto in saidaProdutos) {
 
-                String situacaoFiscal = saidaProduto.CodCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL) ? "01" : "FF";
+                if (saidaProduto.CodCST != Produto.ST_OUTRAS)
+                {
+                    String situacaoFiscal = saidaProduto.CodCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL) ? "01" : "FF";
 
-                arquivo.Write(saidaProduto.CodProduto + ";");
-                arquivo.Write(saidaProduto.Nome + ";");
-                arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
-                arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
-                arquivo.Write(situacaoFiscal + ";");
-                arquivo.Write("0;");
-                arquivo.Write(saidaProduto.ValorVenda + ";");
-                arquivo.WriteLine(saidaProduto.Unidade + ";");
+                    arquivo.Write(saidaProduto.CodProduto + ";");
+                    arquivo.Write(saidaProduto.Nome + ";");
+                    arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
+                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
+                    arquivo.Write(situacaoFiscal + ";");
+                    arquivo.Write("0;");
+                    arquivo.Write(saidaProduto.ValorVenda + ";");
+                    arquivo.WriteLine(saidaProduto.Unidade + ";");
+                }
             }
 
                 if (!saida.CpfCnpj.Trim().Equals(""))

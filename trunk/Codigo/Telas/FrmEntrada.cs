@@ -28,6 +28,8 @@ namespace Telas
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
             this.tb_entradaTableAdapter.Fill(this.saceDataSet.tb_entrada);
+            this.tb_situacao_pagamentosTableAdapter.Fill(this.saceDataSet.tb_situacao_pagamentos);
+            this.tb_cstTableAdapter.Fill(this.saceDataSet.tb_cst);
             tb_entradaBindingSource.MoveLast();
             tipoEntrada = Entrada.TIPO_ENTRADA;
             entrada = new Entrada();
@@ -53,6 +55,7 @@ namespace Telas
             numeroNotaFiscalTextBox.Focus();
             codEmpresaFreteComboBox.SelectedIndex = 0;
             codFornecedorComboBox.SelectedIndex = 0;
+            codSituacaoPagamentosComboBox.SelectedIndex = 0;
             fretePagoEmitenteCheckBox.Checked = true;
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -77,6 +80,7 @@ namespace Telas
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             habilitaBotoes(true);
+            ProdutosGroupBox.Enabled = false;
             btnBuscar.Focus();
             tb_entradaBindingSource.CancelEdit();
             tb_entradaBindingSource.EndEdit();
@@ -106,6 +110,7 @@ namespace Telas
             entrada.ValorFrete = Convert.ToDecimal(valorFreteTextBox.Text);
             entrada.ValorSeguro = Convert.ToDecimal(valorSeguroTextBox.Text);
             entrada.FretePagoEmitente = fretePagoEmitenteCheckBox.Checked;
+            entrada.CodSituacaoPagamentos = Convert.ToInt32(codSituacaoPagamentosComboBox.SelectedValue.ToString());
                         
             IGerenciadorEntrada gEntrada = GerenciadorEntrada.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
@@ -126,6 +131,7 @@ namespace Telas
                 entradaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
                 entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(baseCalculoICMSSTTextBox.Text);
                 entradaProduto.Cfop = Convert.ToInt32(cfopComboBox.SelectedValue.ToString());
+                entradaProduto.CodCST = codCSTComboBox.SelectedValue.ToString();
                 entradaProduto.CodEntrada = entrada.CodEntrada;
                 entradaProduto.DataValidade = Convert.ToDateTime(data_validadeDateTimePicker.Text);
                 entradaProduto.Frete = Convert.ToDecimal(freteTextBox.Text);
@@ -295,13 +301,13 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
-                    frmProdutoPesquisa.ShowDialog();
-                    if (frmProdutoPesquisa.CodProduto != -1)
+                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco();
+                    frmProdutoPesquisaPreco.ShowDialog();
+                    if (frmProdutoPesquisaPreco.getCodProduto() != -1)
                     {
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisa.CodProduto);
+                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
                     }
-                    frmProdutoPesquisa.Dispose();
+                    frmProdutoPesquisaPreco.Dispose();
                 }
                 else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
                 {
@@ -340,7 +346,7 @@ namespace Telas
             btnProdutos.Enabled = habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             btnPagamentos.Enabled = habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             tb_entradaBindingNavigator.Enabled = habilita;
-            ProdutosGroupBox.Enabled = !habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
+            //ProdutosGroupBox.Enabled = !habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
@@ -391,6 +397,7 @@ namespace Telas
                 codProdutoComboBox.Focus();
                 throw new TelaException("Um produto válido precisa ser selecionado.");
             }
+            data_validadeDateTimePicker.Enabled = temVencimentoCheckBox.Checked;
         }
 
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
@@ -454,12 +461,12 @@ namespace Telas
             freteTextBox.Text = entradaProduto.Frete.ToString("N2");
 
             valorICMSTextBox.Text = (entradaProduto.BaseCalculoICMS * entradaProduto.Icms / 100).ToString("N2");
-            valorIPITextBox.Text = (entradaProduto.ValorTotal * entradaProduto.Ipi).ToString("N2");
+            valorIPITextBox.Text = (entradaProduto.ValorTotal * entradaProduto.Ipi / 100).ToString("N2");
 
             entradaProduto.LucroPrecoVendaVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
             entradaProduto.LucroPrecoVendaAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
 
-            entradaProduto.CodCST = codCSTTextBox.Text;
+            entradaProduto.CodCST = codCSTComboBox.SelectedValue.ToString();
             entradaProduto.QuantidadeEmbalagem = Convert.ToDecimal(quantidadeEmbalagemTextBox.Text);
 
             if (entradaProduto.QuantidadeEmbalagem <= 0)
@@ -498,11 +505,11 @@ namespace Telas
             //icmsTextBox.ReadOnly = codCSTTextBox.Text.Equals(Produto.ST_TRIBUTADO_SUBSTITUICAO);
             //icmsTextBox.TabStop = !icmsTextBox.ReadOnly;
 
-            valorICMSSTTextBox.ReadOnly = codCSTTextBox.Text.Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+            valorICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
             valorICMSSTTextBox.TabStop = !valorICMSSTTextBox.ReadOnly;
-            baseCalculoICMSSTTextBox.ReadOnly = codCSTTextBox.Text.Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+            baseCalculoICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
             baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
-            icms_substitutoTextBox.ReadOnly = codCSTTextBox.Text.Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+            icms_substitutoTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
             icms_substitutoTextBox.TabStop = !icms_substitutoTextBox.ReadOnly;
         }
 
@@ -537,7 +544,5 @@ namespace Telas
                 btnNovo.Focus();
             }
         }
-
-        
     }
 }
