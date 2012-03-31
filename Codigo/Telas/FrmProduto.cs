@@ -45,7 +45,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisa frmProdutoPesquisa = new Telas.FrmProdutoPesquisa();
+            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco();
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.getCodProduto() != -1)
             {

@@ -102,5 +102,39 @@ namespace Negocio
 
             return pessoa;
         }
+
+        public Pessoa obterPessoaNomeIgual(String nome)
+        {
+            Pessoa pessoa = null;
+            Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTA = new tb_pessoaTableAdapter();
+            Dados.saceDataSet.tb_pessoaDataTable pessoaDT = tb_pessoaTA.GetDataByEqualsName(nome);
+
+            if (pessoaDT.Count > 0)
+            {
+                pessoa = new Pessoa();
+                pessoa.CodPessoa = int.Parse(pessoaDT.Rows[0]["codPessoa"].ToString());
+                pessoa.Bairro = pessoaDT.Rows[0]["bairro"].ToString();
+                pessoa.Cep = pessoaDT.Rows[0]["cep"].ToString();
+                pessoa.Cidade = pessoaDT.Rows[0]["cidade"].ToString();
+                pessoa.Complemento = pessoaDT.Rows[0]["complemento"].ToString();
+                pessoa.CpfCnpj = pessoaDT.Rows[0]["cpf_cnpj"].ToString();
+                pessoa.Email = pessoaDT.Rows[0]["email"].ToString();
+                pessoa.Endereco = pessoaDT.Rows[0]["endereco"].ToString();
+                pessoa.Fone1 = pessoaDT.Rows[0]["fone1"].ToString();
+                pessoa.Fone2 = pessoaDT.Rows[0]["fone2"].ToString();
+                pessoa.Fone3 = pessoaDT.Rows[0]["fone3"].ToString();
+                pessoa.Ie = pessoaDT.Rows[0]["ie"].ToString();
+                pessoa.IeSubstituto = pessoaDT.Rows[0]["ieSubstituto"].ToString();
+                pessoa.LimiteCompra = Convert.ToDecimal(pessoaDT.Rows[0]["limiteCompra"].ToString());
+                pessoa.Nome = pessoaDT.Rows[0]["nome"].ToString();
+                pessoa.Numero = pessoaDT.Rows[0]["numero"].ToString();
+                pessoa.Observacao = pessoaDT.Rows[0]["observacao"].ToString();
+                pessoa.Tipo = Convert.ToChar(pessoaDT.Rows[0]["tipo"].ToString());
+                pessoa.Uf = pessoaDT.Rows[0]["uf"].ToString();
+                pessoa.ValorComissao = Convert.ToDecimal(pessoaDT.Rows[0]["valorComissao"].ToString());
+            }
+
+            return pessoa;
+        }
     }
 }

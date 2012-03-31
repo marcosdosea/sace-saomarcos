@@ -11,5 +11,6 @@ namespace Negocio
     {
         Pessoa obterPessoa(Int64 codPessoa);
 
+        Pessoa obterPessoaNomeIgual(String nome);
     }
 }

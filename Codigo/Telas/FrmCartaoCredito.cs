@@ -159,7 +159,14 @@ namespace Telas
             }
             else
             {
-                if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
+                if (e.KeyCode == Keys.Enter)
+                {
+
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
+                
+                if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
                 }
@@ -187,15 +194,6 @@ namespace Telas
                         tbcontabancoBindingSource.Position = tbcontabancoBindingSource.Find("codContaBanco", frmContaBanco.CodContaBanco);
                     }
                     frmContaBanco.Dispose();
-                } else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
-                {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
-                    frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
-                    {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    }
-                    frmPessoaPesquisa.Dispose();
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
@@ -240,11 +238,6 @@ namespace Telas
             }
         }
 
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void codContaBancoComboBox_Leave_1(object sender, EventArgs e)
         {
             if (codContaBancoComboBox.SelectedValue == null)
@@ -256,11 +249,21 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            if (codPessoaComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codPessoaComboBox.Text);
+            if (pessoa == null)
             {
-                codPessoaComboBox.Focus();
-                throw new TelaException("Uma empresa válida precisa ser selecionada.");
-            }
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                }                    
+                else
+                {
+                    codPessoaComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
+            } 
         }
     }
 }

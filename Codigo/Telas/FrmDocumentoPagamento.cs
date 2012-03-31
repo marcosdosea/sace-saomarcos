@@ -31,6 +31,7 @@ namespace Telas
         {
             InitializeComponent();
             this.codTipoDocumento = codTipoDocumento;
+            codTipoDocumentoComboBox.Enabled = false;
         }
 
         private void FrmDocumentoPagamento_Load(object sender, EventArgs e)

@@ -89,10 +89,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.totalNotaCalculadoTextBox = new System.Windows.Forms.TextBox();
             this.ProdutosGroupBox = new System.Windows.Forms.GroupBox();
+            this.codCSTComboBox = new System.Windows.Forms.ComboBox();
+            this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saceDataSet = new Dados.saceDataSet();
+            this.tbcstBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
             this.tb_entrada_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbcfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.preco_custoTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -109,7 +111,6 @@
             this.ipiTextBox = new System.Windows.Forms.TextBox();
             this.icms_substitutoTextBox = new System.Windows.Forms.TextBox();
             this.icmsTextBox = new System.Windows.Forms.TextBox();
-            this.codCSTTextBox = new System.Windows.Forms.TextBox();
             this.ncmshTextBox = new System.Windows.Forms.TextBox();
             this.data_validadeDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
@@ -123,6 +124,7 @@
             this.quantidadeTextBox = new System.Windows.Forms.TextBox();
             this.unidadeCompraTextBox = new System.Windows.Forms.TextBox();
             this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
+            this.temVencimentoCheckBox = new System.Windows.Forms.CheckBox();
             this.tb_entradaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_entradaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -167,8 +169,11 @@
             this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tb_entradaTableAdapter = new Dados.saceDataSetTableAdapters.tb_entradaTableAdapter();
             this.tb_cfopTableAdapter = new Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
-            this.descricaoSituacaoPagamentosTextBox = new System.Windows.Forms.TextBox();
             this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
+            this.codSituacaoPagamentosComboBox = new System.Windows.Forms.ComboBox();
+            this.tbsituacaopagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_situacao_pagamentosTableAdapter = new Dados.saceDataSetTableAdapters.tb_situacao_pagamentosTableAdapter();
+            this.tb_cstTableAdapter = new Dados.saceDataSetTableAdapters.tb_cstTableAdapter();
             codEntradaLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -215,9 +220,10 @@
             descricaoSituacaoPagamentosLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ProdutosGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcfopBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingNavigator)).BeginInit();
@@ -225,6 +231,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbsituacaopagamentosBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codEntradaLabel
@@ -509,7 +516,7 @@
             // codCSTLabel
             // 
             codCSTLabel.AutoSize = true;
-            codCSTLabel.Location = new System.Drawing.Point(452, 16);
+            codCSTLabel.Location = new System.Drawing.Point(443, 16);
             codCSTLabel.Name = "codCSTLabel";
             codCSTLabel.Size = new System.Drawing.Size(31, 13);
             codCSTLabel.TabIndex = 28;
@@ -645,7 +652,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(307, 568);
+            this.btnSalvar.Location = new System.Drawing.Point(307, 583);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -655,7 +662,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(7, 568);
+            this.btnBuscar.Location = new System.Drawing.Point(7, 583);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -666,7 +673,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(572, 568);
+            this.btnCancelar.Location = new System.Drawing.Point(572, 583);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 7;
@@ -676,7 +683,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(82, 568);
+            this.btnNovo.Location = new System.Drawing.Point(82, 583);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -686,7 +693,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(232, 568);
+            this.btnExcluir.Location = new System.Drawing.Point(232, 583);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -696,7 +703,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(157, 568);
+            this.btnEditar.Location = new System.Drawing.Point(157, 583);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -706,7 +713,7 @@
             // 
             // btnProdutos
             // 
-            this.btnProdutos.Location = new System.Drawing.Point(388, 568);
+            this.btnProdutos.Location = new System.Drawing.Point(388, 583);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(84, 23);
             this.btnProdutos.TabIndex = 5;
@@ -736,7 +743,7 @@
             // 
             // btnPagamentos
             // 
-            this.btnPagamentos.Location = new System.Drawing.Point(472, 568);
+            this.btnPagamentos.Location = new System.Drawing.Point(472, 583);
             this.btnPagamentos.Name = "btnPagamentos";
             this.btnPagamentos.Size = new System.Drawing.Size(100, 23);
             this.btnPagamentos.TabIndex = 6;
@@ -770,6 +777,7 @@
             // 
             // ProdutosGroupBox
             // 
+            this.ProdutosGroupBox.Controls.Add(this.codCSTComboBox);
             this.ProdutosGroupBox.Controls.Add(this.cfopComboBox);
             this.ProdutosGroupBox.Controls.Add(preco_custoLabel);
             this.ProdutosGroupBox.Controls.Add(this.preco_custoTextBox);
@@ -797,7 +805,6 @@
             this.ProdutosGroupBox.Controls.Add(this.icms_substitutoTextBox);
             this.ProdutosGroupBox.Controls.Add(this.icmsTextBox);
             this.ProdutosGroupBox.Controls.Add(codCSTLabel);
-            this.ProdutosGroupBox.Controls.Add(this.codCSTTextBox);
             this.ProdutosGroupBox.Controls.Add(ncmshLabel);
             this.ProdutosGroupBox.Controls.Add(this.ncmshTextBox);
             this.ProdutosGroupBox.Controls.Add(data_validadeLabel);
@@ -826,13 +833,43 @@
             this.ProdutosGroupBox.Controls.Add(codProdutoLabel);
             this.ProdutosGroupBox.Controls.Add(this.codProdutoComboBox);
             this.ProdutosGroupBox.Controls.Add(icmsLabel);
+            this.ProdutosGroupBox.Controls.Add(this.temVencimentoCheckBox);
             this.ProdutosGroupBox.Enabled = false;
             this.ProdutosGroupBox.Location = new System.Drawing.Point(6, 412);
             this.ProdutosGroupBox.Name = "ProdutosGroupBox";
-            this.ProdutosGroupBox.Size = new System.Drawing.Size(818, 150);
+            this.ProdutosGroupBox.Size = new System.Drawing.Size(832, 168);
             this.ProdutosGroupBox.TabIndex = 76;
             this.ProdutosGroupBox.TabStop = false;
             this.ProdutosGroupBox.Text = "Produtos da Nota Fiscal";
+            // 
+            // codCSTComboBox
+            // 
+            this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codCST", true));
+            this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codCST", true));
+            this.codCSTComboBox.DataSource = this.tbcstBindingSource;
+            this.codCSTComboBox.DisplayMember = "codCST";
+            this.codCSTComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codCSTComboBox.FormattingEnabled = true;
+            this.codCSTComboBox.Location = new System.Drawing.Point(443, 33);
+            this.codCSTComboBox.Name = "codCSTComboBox";
+            this.codCSTComboBox.Size = new System.Drawing.Size(51, 21);
+            this.codCSTComboBox.TabIndex = 54;
+            this.codCSTComboBox.ValueMember = "codCST";
+            // 
+            // tb_produtoBindingSource
+            // 
+            this.tb_produtoBindingSource.DataMember = "tb_produto";
+            this.tb_produtoBindingSource.DataSource = this.saceDataSet;
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tbcstBindingSource
+            // 
+            this.tbcstBindingSource.DataMember = "tb_cst";
+            this.tbcstBindingSource.DataSource = this.saceDataSet;
             // 
             // cfopComboBox
             // 
@@ -852,16 +889,6 @@
             // 
             this.tb_entrada_produtoBindingSource.DataMember = "tb_entrada_produto";
             this.tb_entrada_produtoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_produtoBindingSource
-            // 
-            this.tb_produtoBindingSource.DataMember = "tb_produto";
-            this.tb_produtoBindingSource.DataSource = this.saceDataSet;
             // 
             // tbcfopBindingSource
             // 
@@ -1010,24 +1037,13 @@
             this.icmsTextBox.TabIndex = 70;
             this.icmsTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
-            // codCSTTextBox
-            // 
-            this.codCSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codCST", true));
-            this.codCSTTextBox.Location = new System.Drawing.Point(454, 33);
-            this.codCSTTextBox.Name = "codCSTTextBox";
-            this.codCSTTextBox.ReadOnly = true;
-            this.codCSTTextBox.Size = new System.Drawing.Size(40, 20);
-            this.codCSTTextBox.TabIndex = 54;
-            this.codCSTTextBox.TabStop = false;
-            this.codCSTTextBox.TextChanged += new System.EventHandler(this.codCSTTextBox_TextChanged);
-            // 
             // ncmshTextBox
             // 
             this.ncmshTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "ncmsh", true));
             this.ncmshTextBox.Location = new System.Drawing.Point(378, 34);
             this.ncmshTextBox.MaxLength = 8;
             this.ncmshTextBox.Name = "ncmshTextBox";
-            this.ncmshTextBox.Size = new System.Drawing.Size(70, 20);
+            this.ncmshTextBox.Size = new System.Drawing.Size(59, 20);
             this.ncmshTextBox.TabIndex = 52;
             // 
             // data_validadeDateTimePicker
@@ -1151,6 +1167,15 @@
             this.codProdutoComboBox.ValueMember = "codProduto";
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
             this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
+            // 
+            // temVencimentoCheckBox
+            // 
+            this.temVencimentoCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_produtoBindingSource, "temVencimento", true));
+            this.temVencimentoCheckBox.Location = new System.Drawing.Point(41, 124);
+            this.temVencimentoCheckBox.Name = "temVencimentoCheckBox";
+            this.temVencimentoCheckBox.Size = new System.Drawing.Size(18, 24);
+            this.temVencimentoCheckBox.TabIndex = 117;
+            this.temVencimentoCheckBox.UseVisualStyleBackColor = true;
             // 
             // tb_entradaBindingSource
             // 
@@ -1538,15 +1563,6 @@
             // 
             this.tb_cfopTableAdapter.ClearBeforeFill = true;
             // 
-            // descricaoSituacaoPagamentosTextBox
-            // 
-            this.descricaoSituacaoPagamentosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "descricaoSituacaoPagamentos", true));
-            this.descricaoSituacaoPagamentosTextBox.Enabled = false;
-            this.descricaoSituacaoPagamentosTextBox.Location = new System.Drawing.Point(496, 167);
-            this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
-            this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(100, 20);
-            this.descricaoSituacaoPagamentosTextBox.TabIndex = 112;
-            // 
             // fretePagoEmitenteCheckBox
             // 
             this.fretePagoEmitenteCheckBox.Checked = true;
@@ -1559,14 +1575,41 @@
             this.fretePagoEmitenteCheckBox.Text = "Pago Emitente";
             this.fretePagoEmitenteCheckBox.UseVisualStyleBackColor = true;
             // 
+            // codSituacaoPagamentosComboBox
+            // 
+            this.codSituacaoPagamentosComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codSituacaoPagamentos", true));
+            this.codSituacaoPagamentosComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "descricaoSituacaoPagamentos", true));
+            this.codSituacaoPagamentosComboBox.DataSource = this.tbsituacaopagamentosBindingSource;
+            this.codSituacaoPagamentosComboBox.DisplayMember = "descricaoSituacaoPagamentos";
+            this.codSituacaoPagamentosComboBox.Enabled = false;
+            this.codSituacaoPagamentosComboBox.FormattingEnabled = true;
+            this.codSituacaoPagamentosComboBox.Location = new System.Drawing.Point(496, 166);
+            this.codSituacaoPagamentosComboBox.Name = "codSituacaoPagamentosComboBox";
+            this.codSituacaoPagamentosComboBox.Size = new System.Drawing.Size(103, 21);
+            this.codSituacaoPagamentosComboBox.TabIndex = 112;
+            this.codSituacaoPagamentosComboBox.ValueMember = "codSituacaoPagamentos";
+            // 
+            // tbsituacaopagamentosBindingSource
+            // 
+            this.tbsituacaopagamentosBindingSource.DataMember = "tb_situacao_pagamentos";
+            this.tbsituacaopagamentosBindingSource.DataSource = this.saceDataSet;
+            // 
+            // tb_situacao_pagamentosTableAdapter
+            // 
+            this.tb_situacao_pagamentosTableAdapter.ClearBeforeFill = true;
+            // 
+            // tb_cstTableAdapter
+            // 
+            this.tb_cstTableAdapter.ClearBeforeFill = true;
+            // 
             // FrmEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 611);
+            this.ClientSize = new System.Drawing.Size(825, 611);
+            this.Controls.Add(this.codSituacaoPagamentosComboBox);
             this.Controls.Add(this.fretePagoEmitenteCheckBox);
             this.Controls.Add(descricaoSituacaoPagamentosLabel);
-            this.Controls.Add(this.descricaoSituacaoPagamentosTextBox);
             this.Controls.Add(this.tb_entrada_produtoDataGridView);
             this.Controls.Add(codEntradaLabel);
             this.Controls.Add(this.tb_entradaBindingNavigator);
@@ -1630,9 +1673,10 @@
             this.panel1.PerformLayout();
             this.ProdutosGroupBox.ResumeLayout(false);
             this.ProdutosGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcfopBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingNavigator)).EndInit();
@@ -1641,6 +1685,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbsituacaopagamentosBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1716,7 +1761,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.TextBox icmsTextBox;
         private System.Windows.Forms.BindingSource tb_produtoBindingSource;
-        private System.Windows.Forms.TextBox codCSTTextBox;
         private System.Windows.Forms.TextBox ncmshTextBox;
         private System.Windows.Forms.TextBox precoVendaAtacadoTextBox;
         private System.Windows.Forms.TextBox qtdProdutoAtacadoTextBox;
@@ -1741,7 +1785,13 @@
         private System.Windows.Forms.ComboBox cfopComboBox;
         private System.Windows.Forms.BindingSource tbcfopBindingSource;
         private Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
-        private System.Windows.Forms.TextBox descricaoSituacaoPagamentosTextBox;
         private System.Windows.Forms.CheckBox fretePagoEmitenteCheckBox;
+        private System.Windows.Forms.ComboBox codSituacaoPagamentosComboBox;
+        private System.Windows.Forms.BindingSource tbsituacaopagamentosBindingSource;
+        private Dados.saceDataSetTableAdapters.tb_situacao_pagamentosTableAdapter tb_situacao_pagamentosTableAdapter;
+        private System.Windows.Forms.CheckBox temVencimentoCheckBox;
+        private System.Windows.Forms.ComboBox codCSTComboBox;
+        private System.Windows.Forms.BindingSource tbcstBindingSource;
+        private Dados.saceDataSetTableAdapters.tb_cstTableAdapter tb_cstTableAdapter;
     }
 }

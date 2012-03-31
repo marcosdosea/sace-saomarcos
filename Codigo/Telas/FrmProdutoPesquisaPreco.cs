@@ -12,6 +12,7 @@ namespace Telas
     public partial class FrmProdutoPesquisaPreco : Form
     {
         private Int32 codProduto;
+        private String filtroNome;
 
         public Int32 CodProduto
         {
@@ -23,27 +24,38 @@ namespace Telas
         {
             InitializeComponent();
             codProduto = -1;
+            filtroNome = null;
+        }
+
+        public FrmProdutoPesquisaPreco(String nome)
+        {
+            InitializeComponent();
+            codProduto = -1;
+            filtroNome = nome;
         }
 
         private void FrmProdutoPesquisaPreco_Load(object sender, EventArgs e)
         {
-            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
             cmbBusca.SelectedIndex = 0;
+
+            if (filtroNome != null)
+            {
+                txtTexto.Text = filtroNome;
+                txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
+            }
+            else
+            {
+                this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            }
+            
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, int.Parse(txtTexto.Text));
-                else
-                    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+               this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, int.Parse(txtTexto.Text));
+            else
+               this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, txtTexto.Text);
         }
 
         private void tb_produtoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

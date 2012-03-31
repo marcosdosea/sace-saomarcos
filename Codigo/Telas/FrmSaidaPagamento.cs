@@ -46,7 +46,6 @@ namespace Telas
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString(); 
             
             atualizaValores();
-            btnSalvar.Focus();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -120,17 +119,12 @@ namespace Telas
             {
                 excluirPagamento(sender, e);
             }
-
-            if ((e.KeyCode == Keys.F2) && (codClienteComboBox.Focused))
+            if (e.KeyCode == Keys.Enter)
             {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
-                {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                }
-                frmPessoaPesquisa.Dispose();
+                e.Handled = true;
+                SendKeys.Send("{tab}");
             }
+
             else if ((e.KeyCode == Keys.F3) && (codClienteComboBox.Focused))
             {
                 Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
@@ -143,16 +137,6 @@ namespace Telas
                 frmPessoa.Dispose();
             }
 
-            if ((e.KeyCode == Keys.F2) && (codProfissionalComboBox.Focused))
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_FISICA);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
-                {
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                }
-                frmPessoaPesquisa.Dispose();
-            }
             else if ((e.KeyCode == Keys.F3) && (codProfissionalComboBox.Focused))
             {
                 Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
@@ -259,19 +243,39 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            if (codClienteComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codClienteComboBox.Text);
+            if (pessoa == null)
             {
-                codClienteComboBox.Focus();
-                throw new TelaException("Um cliente válido precisa ser selecionado.");
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                }
+                else
+                {
+                    codClienteComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
             }
         }
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            if (codProfissionalComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codProfissionalComboBox.Text);
+            if (pessoa == null)
             {
-                codProfissionalComboBox.Focus();
-                throw new TelaException("Um profissional válido precisa ser selecionado.");
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codProfissionalComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                }
+                else
+                {
+                    codProfissionalComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
             }
         }
 

@@ -492,7 +492,6 @@
             this.codProdutoTextBox.Size = new System.Drawing.Size(174, 38);
             this.codProdutoTextBox.TabIndex = 28;
             this.codProdutoTextBox.TabStop = false;
-            this.codProdutoTextBox.TextChanged += new System.EventHandler(this.codProdutoTextBox_TextChanged);
             // 
             // tb_produtoBindingSource
             // 

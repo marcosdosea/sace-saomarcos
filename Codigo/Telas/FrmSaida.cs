@@ -162,8 +162,8 @@ namespace Telas
                 if (e.KeyCode == Keys.F3)
                 {
                     btnNovo_Click(sender, e);
-                } else 
-                if (e.KeyCode == Keys.F2)
+                }
+                else if (e.KeyCode == Keys.F2)
                 {
                     btnBuscar_Click(sender, e);
                 }
@@ -195,9 +195,29 @@ namespace Telas
                 {
                     tb_saidaBindingSource.MoveNext();
                 }
+                // Coloca o foco na grid caso ela não possua
+                if (e.KeyCode == Keys.F12)
+                {
+                    tb_saida_produtoDataGridView.Focus();
+                }
+
+                // permite excluir um contato quando o foco está na grid
+                if ((e.KeyCode == Keys.Delete) && (tb_saida_produtoDataGridView.Focused == true))
+                {
+                    excluirProduto(sender, e);
+                }
+                if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
             }
             else
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if (e.KeyCode == Keys.F6)
                 {
                     btnSalvar_Click(sender, e);
@@ -206,49 +226,23 @@ namespace Telas
                 {
                     btnEncerrar_Click(sender, e);
                 }
-            }
-            if (e.KeyCode == Keys.Escape)
-            {
-                btnCancelar_Click(sender, e);
-            } 
 
-            // Coloca o foco na grid caso ela não possua
-            if (e.KeyCode == Keys.F12)
-            {
-                tb_saida_produtoDataGridView.Focus();
-            }
-
-            // permite excluir um contato quando o foco está na grid
-            if ((e.KeyCode == Keys.Delete) && (tb_saida_produtoDataGridView.Focused == true))
-            {
-                excluirProduto(sender, e);
-            }
-
-            if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
-            {
-                Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco();
-                frmProdutoPesquisaPreco.ShowDialog();
-                if (frmProdutoPesquisaPreco.getCodProduto() != -1)
+                if (e.KeyCode == Keys.Escape)
                 {
-                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
-                    produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
-                    codProdutoTextBox.Text = produto.CodProduto.ToString();
-                    precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString("N3");
-                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N3");
-                    
+                    btnCancelar_Click(sender, e);
                 }
-                frmProdutoPesquisaPreco.Dispose();
-            }
-            else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
-            {
-                Telas.FrmProduto frmProduto = new Telas.FrmProduto();
-                frmProduto.ShowDialog();
-                if (frmProduto.CodProduto > 0)
+
+                else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
                 {
-                    this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
-                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProduto.CodProduto);
+                    Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                    frmProduto.ShowDialog();
+                    if (frmProduto.CodProduto > 0)
+                    {
+                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProduto.CodProduto);
+                    }
+                    frmProduto.Dispose();
                 }
-                frmProduto.Dispose();
             }
         }
 
@@ -285,10 +279,27 @@ namespace Telas
         {
             if (estado != EstadoFormulario.ESPERA)
             {
-                if (codProdutoComboBox.SelectedValue == null)
+                produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
+                if (produto == null)
                 {
-                    codProdutoComboBox.Focus();
-                    throw new TelaException("Um produto válido precisa ser selecionado.");
+                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(codProdutoComboBox.Text);
+                    frmProdutoPesquisaPreco.ShowDialog();
+                    if (frmProdutoPesquisaPreco.getCodProduto() != -1)
+                    {
+                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
+                        produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
+                    }
+                    else
+                    {
+                        codProdutoComboBox.Focus();
+                    }
+                    frmProdutoPesquisaPreco.Dispose();
+                }
+                if (produto != null)
+                {
+                    codProdutoTextBox.Text = produto.CodProduto.ToString();
+                    precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString("N3");
+                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N3");
                 }
             }
         }
@@ -390,18 +401,6 @@ namespace Telas
                 GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
             }
         
-        }
-
-        private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (!codProdutoTextBox.Text.Trim().Equals(""))
-            {
-                produto = GerenciadorProduto.getInstace().obterProduto(Int32.Parse(codProdutoComboBox.SelectedValue.ToString()));
-                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString();
-                precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
-                codProdutoTextBox.Text = produto.CodProduto.ToString();
-                data_validadeDateTimePicker.Enabled = produto.TemVencimento;
-            }
         }
     }
 }
