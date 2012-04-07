@@ -103,8 +103,8 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tbsaidaprodutoBindingSource.CancelEdit();
-            tbsaidaprodutoBindingSource.EndEdit();
+            //tbsaidaprodutoBindingSource.CancelEdit();
+            //tbsaidaprodutoBindingSource.EndEdit();
                 
             if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
             {
@@ -286,8 +286,10 @@ namespace Telas
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.getCodProduto() != -1)
                     {
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
                         produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
+                        codProdutoComboBox.Text = produto.Nome;
+                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
+                        
                     }
                     else
                     {

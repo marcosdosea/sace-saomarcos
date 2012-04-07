@@ -68,7 +68,6 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codProdutoTextBox = new System.Windows.Forms.TextBox();
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.quantidadeTextBox = new System.Windows.Forms.TextBox();
             this.precoVendaSemDescontoTextBox = new System.Windows.Forms.TextBox();
@@ -103,6 +102,7 @@
             this.entregaRealizadaCheckBox = new System.Windows.Forms.CheckBox();
             this.descricaoSituacaoPagamentosTextBox = new System.Windows.Forms.TextBox();
             this.btnImprimir = new System.Windows.Forms.Button();
+            this.codProdutoTextBox = new System.Windows.Forms.TextBox();
             codSaidaLabel = new System.Windows.Forms.Label();
             codProdutoLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
@@ -482,17 +482,6 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // codProdutoTextBox
-            // 
-            this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codProduto", true));
-            this.codProdutoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codProdutoTextBox.Location = new System.Drawing.Point(7, 77);
-            this.codProdutoTextBox.Name = "codProdutoTextBox";
-            this.codProdutoTextBox.ReadOnly = true;
-            this.codProdutoTextBox.Size = new System.Drawing.Size(174, 38);
-            this.codProdutoTextBox.TabIndex = 28;
-            this.codProdutoTextBox.TabStop = false;
-            // 
             // tb_produtoBindingSource
             // 
             this.tb_produtoBindingSource.AllowNew = false;
@@ -839,6 +828,17 @@
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // codProdutoTextBox
+            // 
+            this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codProduto", true));
+            this.codProdutoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codProdutoTextBox.Location = new System.Drawing.Point(7, 77);
+            this.codProdutoTextBox.Name = "codProdutoTextBox";
+            this.codProdutoTextBox.ReadOnly = true;
+            this.codProdutoTextBox.Size = new System.Drawing.Size(174, 38);
+            this.codProdutoTextBox.TabIndex = 28;
+            this.codProdutoTextBox.TabStop = false;
+            // 
             // FrmSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -935,7 +935,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox codSaidaTextBox;
-        private System.Windows.Forms.TextBox codProdutoTextBox;
         private System.Windows.Forms.TextBox quantidadeTextBox;
         private System.Windows.Forms.TextBox precoVendaSemDescontoTextBox;
         private System.Windows.Forms.DateTimePicker dataSaidaDateTimePicker;
@@ -972,5 +971,6 @@
         private System.Windows.Forms.CheckBox entregaRealizadaCheckBox;
         private System.Windows.Forms.TextBox descricaoSituacaoPagamentosTextBox;
         private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.TextBox codProdutoTextBox;
     }
 }
