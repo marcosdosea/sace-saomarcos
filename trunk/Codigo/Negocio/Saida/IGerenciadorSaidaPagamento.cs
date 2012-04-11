@@ -7,7 +7,7 @@ using Dominio;
 
 namespace Negocio
 {
-    public interface IGerenciadorSaidaPagamento: IGerenciadorNegocio<SaidaPagamento, Int64>
+    public interface IGerenciadorSaidaPagamento
     {
         decimal totalPagamentos(Int64 codSaida);
 
@@ -15,5 +15,8 @@ namespace Negocio
 
         List<SaidaPagamento> obterSaidaPagamentosPorFormaPagamento(Int64 codSaida, Int32 codFormaPagamento);
 
+        Int64 inserir(SaidaPagamento saidaPagamento);
+        void atualizar(SaidaPagamento saidaPagamento);
+        void remover(Int64 codSaidaPagamento, Saida saida);
     }
 }

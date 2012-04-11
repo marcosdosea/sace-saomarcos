@@ -160,8 +160,8 @@ namespace Telas
             {
                 if (tb_entrada_forma_pagamentoDataGridView.Rows.Count > 0)
                 {
-                    long codSaidaPagamento = long.Parse(tb_entrada_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento);
+                    long codEntradaPagamento = long.Parse(tb_entrada_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    Negocio.GerenciadorEntradaPagamento.getInstace().remover(codEntradaPagamento);
                     this.tb_entrada_forma_pagamentoTableAdapter.FillByCodEntrada(saceDataSet.tb_entrada_forma_pagamento, entrada.CodEntrada);
                     atualizaValores();
                 }

@@ -11309,6 +11309,8 @@ namespace Dados {
             
             private global::System.Data.DataColumn columndescricaoTipoDocumento;
             
+            private global::System.Data.DataColumn columncodPagamento;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tb_contaDataTable() {
@@ -11480,6 +11482,14 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn codPagamentoColumn {
+                get {
+                    return this.columncodPagamento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -11531,7 +11541,8 @@ namespace Dados {
                         int codTipoDocumento, 
                         string numeroDocumento, 
                         string codTipoConta, 
-                        string descricaoTipoDocumento) {
+                        string descricaoTipoDocumento, 
+                        long codPagamento) {
                 tb_contaRow rowtb_contaRow = ((tb_contaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -11550,7 +11561,8 @@ namespace Dados {
                         codTipoDocumento,
                         numeroDocumento,
                         codTipoConta,
-                        descricaoTipoDocumento};
+                        descricaoTipoDocumento,
+                        codPagamento};
                 if ((parenttb_pessoaRowByfk_conta_pagar_codpessoa != null)) {
                     columnValuesArray[2] = parenttb_pessoaRowByfk_conta_pagar_codpessoa[0];
                 }
@@ -11606,6 +11618,7 @@ namespace Dados {
                 this.columnnumeroDocumento = base.Columns["numeroDocumento"];
                 this.columncodTipoConta = base.Columns["codTipoConta"];
                 this.columndescricaoTipoDocumento = base.Columns["descricaoTipoDocumento"];
+                this.columncodPagamento = base.Columns["codPagamento"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11645,6 +11658,8 @@ namespace Dados {
                 base.Columns.Add(this.columncodTipoConta);
                 this.columndescricaoTipoDocumento = new global::System.Data.DataColumn("descricaoTipoDocumento", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndescricaoTipoDocumento);
+                this.columncodPagamento = new global::System.Data.DataColumn("codPagamento", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncodPagamento);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodConta}, true));
                 this.columncodConta.AutoIncrement = true;
@@ -14065,7 +14080,9 @@ namespace Dados {
             
             private global::System.Data.DataColumn columntotalPrecoAtacado;
             
-            private global::System.Data.DataColumn columnquantidadeEstoque;
+            private global::System.Data.DataColumn columnprecoVendaVarejoSemDesconto;
+            
+            private global::System.Data.DataColumn columntotalPrecoAtacadoSemDesconto;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -14358,9 +14375,17 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn quantidadeEstoqueColumn {
+            public global::System.Data.DataColumn precoVendaVarejoSemDescontoColumn {
                 get {
-                    return this.columnquantidadeEstoque;
+                    return this.columnprecoVendaVarejoSemDesconto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn totalPrecoAtacadoSemDescontoColumn {
+                get {
+                    return this.columntotalPrecoAtacadoSemDesconto;
                 }
             }
             
@@ -14433,7 +14458,8 @@ namespace Dados {
                         string descricaoSituacao, 
                         string nomeFabricante, 
                         decimal totalPrecoAtacado, 
-                        decimal quantidadeEstoque) {
+                        double precoVendaVarejoSemDesconto, 
+                        double totalPrecoAtacadoSemDesconto) {
                 tb_produtoRow rowtb_produtoRow = ((tb_produtoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -14468,7 +14494,8 @@ namespace Dados {
                         descricaoSituacao,
                         nomeFabricante,
                         totalPrecoAtacado,
-                        quantidadeEstoque};
+                        precoVendaVarejoSemDesconto,
+                        totalPrecoAtacadoSemDesconto};
                 if ((parenttb_cstRowByfk_tb_produto_tb_cst1 != null)) {
                     columnValuesArray[5] = parenttb_cstRowByfk_tb_produto_tb_cst1[0];
                 }
@@ -14533,7 +14560,8 @@ namespace Dados {
                 this.columndescricaoSituacao = base.Columns["descricaoSituacao"];
                 this.columnnomeFabricante = base.Columns["nomeFabricante"];
                 this.columntotalPrecoAtacado = base.Columns["totalPrecoAtacado"];
-                this.columnquantidadeEstoque = base.Columns["quantidadeEstoque"];
+                this.columnprecoVendaVarejoSemDesconto = base.Columns["precoVendaVarejoSemDesconto"];
+                this.columntotalPrecoAtacadoSemDesconto = base.Columns["totalPrecoAtacadoSemDesconto"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14603,8 +14631,10 @@ namespace Dados {
                 base.Columns.Add(this.columnnomeFabricante);
                 this.columntotalPrecoAtacado = new global::System.Data.DataColumn("totalPrecoAtacado", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntotalPrecoAtacado);
-                this.columnquantidadeEstoque = new global::System.Data.DataColumn("quantidadeEstoque", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnquantidadeEstoque);
+                this.columnprecoVendaVarejoSemDesconto = new global::System.Data.DataColumn("precoVendaVarejoSemDesconto", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprecoVendaVarejoSemDesconto);
+                this.columntotalPrecoAtacadoSemDesconto = new global::System.Data.DataColumn("totalPrecoAtacadoSemDesconto", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotalPrecoAtacadoSemDesconto);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnnome}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
@@ -19730,6 +19760,22 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long codPagamento {
+                get {
+                    try {
+                        return ((long)(this[this.tabletb_conta.codPagamentoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'codPagamento\' in table \'tb_conta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_conta.codPagamentoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tb_pessoaRow tb_pessoaRow {
                 get {
                     return ((tb_pessoaRow)(this.GetParentRow(this.Table.ParentRelations["fk_conta_pagar_codpessoa"])));
@@ -19819,6 +19865,18 @@ namespace Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetdescricaoTipoDocumentoNull() {
                 this[this.tabletb_conta.descricaoTipoDocumentoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscodPagamentoNull() {
+                return this.IsNull(this.tabletb_conta.codPagamentoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcodPagamentoNull() {
+                this[this.tabletb_conta.codPagamentoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21767,17 +21825,35 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal quantidadeEstoque {
+            public double precoVendaVarejoSemDesconto {
                 get {
                     try {
-                        return ((decimal)(this[this.tabletb_produto.quantidadeEstoqueColumn]));
+                        return ((double)(this[this.tabletb_produto.precoVendaVarejoSemDescontoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'quantidadeEstoque\' in table \'tb_produto\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'precoVendaVarejoSemDesconto\' in table \'tb_produto\' is DBNul" +
+                                "l.", e);
                     }
                 }
                 set {
-                    this[this.tabletb_produto.quantidadeEstoqueColumn] = value;
+                    this[this.tabletb_produto.precoVendaVarejoSemDescontoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double totalPrecoAtacadoSemDesconto {
+                get {
+                    try {
+                        return ((double)(this[this.tabletb_produto.totalPrecoAtacadoSemDescontoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'totalPrecoAtacadoSemDesconto\' in table \'tb_produto\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_produto.totalPrecoAtacadoSemDescontoColumn] = value;
                 }
             }
             
@@ -22070,14 +22146,26 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsquantidadeEstoqueNull() {
-                return this.IsNull(this.tabletb_produto.quantidadeEstoqueColumn);
+            public bool IsprecoVendaVarejoSemDescontoNull() {
+                return this.IsNull(this.tabletb_produto.precoVendaVarejoSemDescontoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetquantidadeEstoqueNull() {
-                this[this.tabletb_produto.quantidadeEstoqueColumn] = global::System.Convert.DBNull;
+            public void SetprecoVendaVarejoSemDescontoNull() {
+                this[this.tabletb_produto.precoVendaVarejoSemDescontoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IstotalPrecoAtacadoSemDescontoNull() {
+                return this.IsNull(this.tabletb_produto.totalPrecoAtacadoSemDescontoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SettotalPrecoAtacadoSemDescontoNull() {
+                this[this.tabletb_produto.totalPrecoAtacadoSemDescontoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37217,6 +37305,7 @@ WHERE        (tb_entrada_forma_pagamento.codEntrada = @codEntrada)";
             tableMapping.ColumnMappings.Add("numeroDocumento", "numeroDocumento");
             tableMapping.ColumnMappings.Add("codTipoConta", "codTipoConta");
             tableMapping.ColumnMappings.Add("descricaoTipoDocumento", "descricaoTipoDocumento");
+            tableMapping.ColumnMappings.Add("codPagamento", "codPagamento");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -37232,7 +37321,10 @@ WHERE        (tb_entrada_forma_pagamento.codEntrada = @codEntrada)";
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `tb_conta` (`codPlanoConta`, `codPessoa`, `codSituacao`, `codDocumentoPagamento`, `codEntrada`, `codSaida`, `dataVencimento`, `valor`, `observacao`) VALUES (@codPlanoConta, @codPessoa, @codSituacao, @codDocumentoPagamento, @codEntrada, @codSaida, @dataVencimento, @valor, @observacao)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO tb_conta
+                         (codPlanoConta, codPessoa, codSituacao, codDocumentoPagamento, codEntrada, codSaida, dataVencimento, valor, observacao, codPagamento)
+VALUES        (@codPlanoConta, @codPessoa, @codSituacao, @codDocumentoPagamento, @codEntrada, @codSaida, @dataVencimento, @valor, @observacao, 
+                         @codPagamento)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codPlanoConta";
@@ -37250,8 +37342,9 @@ WHERE        (tb_entrada_forma_pagamento.codEntrada = @codEntrada)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSituacao";
-            param.DbType = global::System.Data.DbType.StringFixedLength;
+            param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
             param.IsNullable = true;
             param.SourceColumn = "codSituacao";
             this._adapter.InsertCommand.Parameters.Add(param);
@@ -37278,13 +37371,14 @@ WHERE        (tb_entrada_forma_pagamento.codEntrada = @codEntrada)";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@dataVencimento";
-            param.DbType = global::System.Data.DbType.Date;
+            param.DbType = global::System.Data.DbType.DateTime;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Date;
             param.IsNullable = true;
             param.SourceColumn = "dataVencimento";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@valor";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "valor";
@@ -37293,14 +37387,23 @@ WHERE        (tb_entrada_forma_pagamento.codEntrada = @codEntrada)";
             param.ParameterName = "@observacao";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 200;
             param.IsNullable = true;
             param.SourceColumn = "observacao";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPagamento";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codPagamento";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_conta
 SET                codPlanoConta = @codPlanoConta, codPessoa = @codPessoa, codSituacao = @codSituacao, codDocumentoPagamento = @codDocumentoPagamento, 
-                         codEntrada = @codEntrada, codSaida = @codSaida, dataVencimento = @dataVencimento, valor = @valor, observacao = @observacao
+                         codEntrada = @codEntrada, codSaida = @codSaida, dataVencimento = @dataVencimento, valor = @valor, observacao = @observacao, 
+                         codPagamento = @codPagamento
 WHERE        (codConta = @Original_codConta)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
@@ -37369,6 +37472,13 @@ WHERE        (codConta = @Original_codConta)";
             param.SourceColumn = "observacao";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPagamento";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codPagamento";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codConta";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
@@ -37394,7 +37504,8 @@ WHERE        (codConta = @Original_codConta)";
             this._commandCollection[0].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
                          tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.valor, tb_conta.observacao, tb_plano_conta.descricao AS descricaoPlanoConta, 
                          tb_situacao_conta.descricaoSituacao, tb_pessoa.nome AS nomePessoa, tb_documento_pagamento.codTipoDocumento, 
-                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento
+                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento, 
+                         tb_conta.codPagamento
 FROM            tb_conta INNER JOIN
                          tb_plano_conta ON tb_conta.codPlanoConta = tb_plano_conta.codPlanoConta INNER JOIN
                          tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa INNER JOIN
@@ -37407,14 +37518,15 @@ FROM            tb_conta INNER JOIN
             this._commandCollection[1].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
                          tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.valor, tb_conta.observacao, tb_plano_conta.descricao AS descricaoPlanoConta, 
                          tb_situacao_conta.descricaoSituacao, tb_pessoa.nome AS nomePessoa, tb_documento_pagamento.codTipoDocumento, 
-                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento
+                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento, 
+                         tb_conta.codPagamento
 FROM            tb_conta INNER JOIN
                          tb_plano_conta ON tb_conta.codPlanoConta = tb_plano_conta.codPlanoConta INNER JOIN
                          tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
                          tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
-WHERE tb_conta.codEntrada = @codEntrada";
+WHERE        (tb_conta.codEntrada = @codEntrada)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codEntrada";
@@ -37428,14 +37540,15 @@ WHERE tb_conta.codEntrada = @codEntrada";
             this._commandCollection[2].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
                          tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.valor, tb_conta.observacao, tb_plano_conta.descricao AS descricaoPlanoConta, 
                          tb_situacao_conta.descricaoSituacao, tb_pessoa.nome AS nomePessoa, tb_documento_pagamento.codTipoDocumento, 
-                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento
+                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento, 
+                         tb_conta.codPagamento
 FROM            tb_conta INNER JOIN
                          tb_plano_conta ON tb_conta.codPlanoConta = tb_plano_conta.codPlanoConta INNER JOIN
                          tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
                          tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
-WHERE tb_conta.codSaida = @codSaida";
+WHERE        (tb_conta.codSaida = @codSaida)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSaida";
@@ -37601,7 +37714,7 @@ WHERE tb_conta.codSaida = @codSaida";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long codPlanoConta, long codPessoa, string codSituacao, long codDocumentoPagamento, global::System.Nullable<long> codEntrada, global::System.Nullable<long> codSaida, System.DateTime dataVencimento, string valor, string observacao) {
+        public virtual int Insert(long codPlanoConta, long codPessoa, string codSituacao, long codDocumentoPagamento, global::System.Nullable<long> codEntrada, global::System.Nullable<long> codSaida, System.DateTime dataVencimento, decimal valor, string observacao, global::System.Nullable<long> codPagamento) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(codPlanoConta));
             this.Adapter.InsertCommand.Parameters[1].Value = ((long)(codPessoa));
             if ((codSituacao == null)) {
@@ -37624,17 +37737,18 @@ WHERE tb_conta.codSaida = @codSaida";
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(dataVencimento));
-            if ((valor == null)) {
-                throw new global::System.ArgumentNullException("valor");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(valor));
-            }
+            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(valor));
             if ((observacao == null)) {
                 this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = ((string)(observacao));
+            }
+            if ((codPagamento.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((long)(codPagamento.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -37656,7 +37770,7 @@ WHERE tb_conta.codSaida = @codSaida";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long codPlanoConta, long codPessoa, string codSituacao, long codDocumentoPagamento, global::System.Nullable<long> codEntrada, global::System.Nullable<long> codSaida, System.DateTime dataVencimento, decimal valor, string observacao, long Original_codConta) {
+        public virtual int Update(long codPlanoConta, long codPessoa, string codSituacao, long codDocumentoPagamento, global::System.Nullable<long> codEntrada, global::System.Nullable<long> codSaida, System.DateTime dataVencimento, decimal valor, string observacao, global::System.Nullable<long> codPagamento, long Original_codConta) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(codPlanoConta));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(codPessoa));
             if ((codSituacao == null)) {
@@ -37686,7 +37800,13 @@ WHERE tb_conta.codSaida = @codSaida";
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(observacao));
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(Original_codConta));
+            if ((codPagamento.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(codPagamento.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((long)(Original_codConta));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -41255,7 +41375,8 @@ ORDER BY tb_entrada_produto.data_validade";
             tableMapping.ColumnMappings.Add("descricaoSituacao", "descricaoSituacao");
             tableMapping.ColumnMappings.Add("nomeFabricante", "nomeFabricante");
             tableMapping.ColumnMappings.Add("totalPrecoAtacado", "totalPrecoAtacado");
-            tableMapping.ColumnMappings.Add("quantidadeEstoque", "quantidadeEstoque");
+            tableMapping.ColumnMappings.Add("precoVendaVarejoSemDesconto", "precoVendaVarejoSemDesconto");
+            tableMapping.ColumnMappings.Add("totalPrecoAtacadoSemDesconto", "totalPrecoAtacadoSemDesconto");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -41678,22 +41799,29 @@ WHERE        (codProduto = @Original_codProduto)";
                 "uto.icms_substituto, tb_produto.simples, tb_produto.ipi, tb_produto.frete, tb_pr" +
                 "oduto.ultimaDataAtualizacao, tb_produto.ultimoPrecoCompra, \r\n                   " +
                 "      tb_produto.lucroPrecoVendaVarejo, tb_produto.precoVendaVarejo, tb_produto." +
-                "qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, \r\n                        " +
-                " tb_produto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimo" +
-                "Pedido, tb_cst.descricaoCST, tb_grupo.descricao AS descricaoGrupo, \r\n           " +
-                "              tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabri" +
-                "cante, tb_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado AS totalPreco" +
-                "Atacado, \r\n                         (SELECT SUM(tb_produto_loja.qtdEstoque+tb_pr" +
-                "oduto_loja.qtdEstoqueAux) FROM tb_produto_loja WHERE tb_produto_loja.codProduto " +
-                "= tb_produto.codProduto) as quantidadeEstoque\r\nFROM            tb_produto INNER " +
-                "JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER" +
-                " JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGr" +
-                "upo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante =" +
-                " tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON" +
-                " tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JO" +
-                "IN\r\n                         tb_produto_loja ON tb_produto.codProduto = tb_produ" +
-                "to_loja.codProduto";
+                "precoVendaVarejo * @acrescimo AS precoVendaVarejoSemDesconto, \r\n                " +
+                "         tb_produto.qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, tb_pro" +
+                "duto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimoPedido," +
+                " \r\n                         tb_cst.descricaoCST, tb_grupo.descricao AS descricao" +
+                "Grupo, tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabricante, " +
+                "\r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdProdutoA" +
+                "tacado AS totalPrecoAtacado, \r\n                         tb_produto.precoVendaAta" +
+                "cado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAtacadoSemDesconto" +
+                "\r\nFROM            tb_produto INNER JOIN\r\n                         tb_cst ON tb_p" +
+                "roduto.codCST = tb_cst.codCST INNER JOIN\r\n                         tb_grupo ON t" +
+                "b_produto.codGrupo = tb_grupo.codGrupo INNER JOIN\r\n                         tb_p" +
+                "essoa ON tb_produto.codFabricante = tb_pessoa.codPessoa INNER JOIN\r\n            " +
+                "             tb_situacao_produto ON tb_produto.codSituacaoProduto = tb_situacao_" +
+                "produto.codSituacaoProduto";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@acrescimo";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Decimal;
+            param.Size = 1024;
+            param.IsNullable = true;
+            param.SourceColumn = "";
+            this._commandCollection[0].Parameters.Add(param);
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT        tb_produto.codProduto, tb_produto.nome, tb_produto.nomeProdutoFabri" +
@@ -41704,20 +41832,30 @@ WHERE        (codProduto = @Original_codProduto)";
                 "uto.icms_substituto, tb_produto.simples, tb_produto.ipi, tb_produto.frete, tb_pr" +
                 "oduto.ultimaDataAtualizacao, tb_produto.ultimoPrecoCompra, \r\n                   " +
                 "      tb_produto.lucroPrecoVendaVarejo, tb_produto.precoVendaVarejo, tb_produto." +
-                "qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, \r\n                        " +
-                " tb_produto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimo" +
-                "Pedido, tb_cst.descricaoCST, tb_grupo.descricao AS descricaoGrupo, \r\n           " +
-                "              tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabri" +
-                "cante, \r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdP" +
-                "rodutoAtacado AS totalPrecoAtacado\r\nFROM            tb_produto INNER JOIN\r\n     " +
-                "                    tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN\r\n    " +
-                "                     tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER J" +
-                "OIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_pessoa." +
-                "codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_produto" +
-                ".codSituacaoProduto = tb_situacao_produto.codSituacaoProduto\r\nWHERE        (tb_p" +
-                "roduto.codProduto = @codProduto)";
+                "precoVendaVarejo * @acrescimo AS precoVendaVarejoSemDesconto, \r\n                " +
+                "         tb_produto.qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, tb_pro" +
+                "duto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimoPedido," +
+                " \r\n                         tb_cst.descricaoCST, tb_grupo.descricao AS descricao" +
+                "Grupo, tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabricante, " +
+                "\r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdProdutoA" +
+                "tacado AS totalPrecoAtacado, \r\n                         tb_produto.precoVendaAta" +
+                "cado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAtacadoSemDesconto" +
+                "\r\nFROM            tb_produto INNER JOIN\r\n                         tb_cst ON tb_p" +
+                "roduto.codCST = tb_cst.codCST INNER JOIN\r\n                         tb_grupo ON t" +
+                "b_produto.codGrupo = tb_grupo.codGrupo INNER JOIN\r\n                         tb_p" +
+                "essoa ON tb_produto.codFabricante = tb_pessoa.codPessoa INNER JOIN\r\n            " +
+                "             tb_situacao_produto ON tb_produto.codSituacaoProduto = tb_situacao_" +
+                "produto.codSituacaoProduto\r\nWHERE        (tb_produto.codProduto = @codProduto)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@acrescimo";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Decimal;
+            param.Size = 1024;
+            param.IsNullable = true;
+            param.SourceColumn = "";
+            this._commandCollection[1].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codProduto";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
@@ -41734,19 +41872,30 @@ WHERE        (codProduto = @Original_codProduto)";
                 "uto.icms_substituto, tb_produto.simples, tb_produto.ipi, tb_produto.frete, tb_pr" +
                 "oduto.ultimaDataAtualizacao, tb_produto.ultimoPrecoCompra, \r\n                   " +
                 "      tb_produto.lucroPrecoVendaVarejo, tb_produto.precoVendaVarejo, tb_produto." +
-                "qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, \r\n                        " +
-                " tb_produto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimo" +
-                "Pedido, tb_cst.descricaoCST, tb_grupo.descricao AS descricaoGrupo, \r\n           " +
-                "              tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabri" +
-                "cante, \r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdP" +
-                "rodutoAtacado AS totalPrecoAtacado\r\nFROM            tb_produto INNER JOIN\r\n     " +
-                "                    tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN\r\n    " +
-                "                     tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER J" +
-                "OIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_pessoa." +
-                "codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_produto" +
-                ".codSituacaoProduto = tb_situacao_produto.codSituacaoProduto\r\nWHERE        (tb_p" +
-                "roduto.nome LIKE CONCAT(@nome, \'%\'))";
+                "precoVendaVarejo * @acrescimo AS precoVendaVarejoSemDesconto, \r\n                " +
+                "         tb_produto.qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, tb_pro" +
+                "duto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimoPedido," +
+                " \r\n                         tb_cst.descricaoCST, tb_grupo.descricao AS descricao" +
+                "Grupo, tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabricante, " +
+                "\r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdProdutoA" +
+                "tacado AS totalPrecoAtacado, \r\n                         tb_produto.precoVendaAta" +
+                "cado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAtacadoSemDesconto" +
+                "\r\nFROM            tb_produto INNER JOIN\r\n                         tb_cst ON tb_p" +
+                "roduto.codCST = tb_cst.codCST INNER JOIN\r\n                         tb_grupo ON t" +
+                "b_produto.codGrupo = tb_grupo.codGrupo INNER JOIN\r\n                         tb_p" +
+                "essoa ON tb_produto.codFabricante = tb_pessoa.codPessoa INNER JOIN\r\n            " +
+                "             tb_situacao_produto ON tb_produto.codSituacaoProduto = tb_situacao_" +
+                "produto.codSituacaoProduto\r\nWHERE        (tb_produto.nome LIKE CONCAT(@nome, \'%\'" +
+                "))";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@acrescimo";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Decimal;
+            param.Size = 1024;
+            param.IsNullable = true;
+            param.SourceColumn = "";
+            this._commandCollection[2].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
@@ -41764,19 +41913,29 @@ WHERE        (codProduto = @Original_codProduto)";
                 "uto.icms_substituto, tb_produto.simples, tb_produto.ipi, tb_produto.frete, tb_pr" +
                 "oduto.ultimaDataAtualizacao, tb_produto.ultimoPrecoCompra, \r\n                   " +
                 "      tb_produto.lucroPrecoVendaVarejo, tb_produto.precoVendaVarejo, tb_produto." +
-                "qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, \r\n                        " +
-                " tb_produto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimo" +
-                "Pedido, tb_cst.descricaoCST, tb_grupo.descricao AS descricaoGrupo, \r\n           " +
-                "              tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabri" +
-                "cante, \r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdP" +
-                "rodutoAtacado AS totalPrecoAtacado\r\nFROM            tb_produto INNER JOIN\r\n     " +
-                "                    tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN\r\n    " +
-                "                     tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER J" +
-                "OIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_pessoa." +
-                "codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_produto" +
-                ".codSituacaoProduto = tb_situacao_produto.codSituacaoProduto\r\nWHERE        (tb_p" +
-                "roduto.nome = @nome)";
+                "precoVendaVarejo * @acrescimo AS precoVendaVarejoSemDesconto, \r\n                " +
+                "         tb_produto.qtdProdutoAtacado, tb_produto.lucroPrecoVendaAtacado, tb_pro" +
+                "duto.precoVendaAtacado, tb_produto.exibeNaListagem, tb_produto.dataUltimoPedido," +
+                " \r\n                         tb_cst.descricaoCST, tb_grupo.descricao AS descricao" +
+                "Grupo, tb_situacao_produto.descricaoSituacao, tb_pessoa.nome AS nomeFabricante, " +
+                "\r\n                         tb_produto.precoVendaAtacado * tb_produto.qtdProdutoA" +
+                "tacado AS totalPrecoAtacado, \r\n                         tb_produto.precoVendaAta" +
+                "cado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAtacadoSemDesconto" +
+                "\r\nFROM            tb_produto INNER JOIN\r\n                         tb_cst ON tb_p" +
+                "roduto.codCST = tb_cst.codCST INNER JOIN\r\n                         tb_grupo ON t" +
+                "b_produto.codGrupo = tb_grupo.codGrupo INNER JOIN\r\n                         tb_p" +
+                "essoa ON tb_produto.codFabricante = tb_pessoa.codPessoa INNER JOIN\r\n            " +
+                "             tb_situacao_produto ON tb_produto.codSituacaoProduto = tb_situacao_" +
+                "produto.codSituacaoProduto\r\nWHERE        (tb_produto.nome = @nome)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@acrescimo";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Decimal;
+            param.Size = 1024;
+            param.IsNullable = true;
+            param.SourceColumn = "";
+            this._commandCollection[3].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
             param.DbType = global::System.Data.DbType.String;
@@ -41791,8 +41950,9 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(saceDataSet.tb_produtoDataTable dataTable) {
+        public virtual int Fill(saceDataSet.tb_produtoDataTable dataTable, decimal acrescimo) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(acrescimo));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -41804,8 +41964,9 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual saceDataSet.tb_produtoDataTable GetData() {
+        public virtual saceDataSet.tb_produtoDataTable GetData(decimal acrescimo) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(acrescimo));
             saceDataSet.tb_produtoDataTable dataTable = new saceDataSet.tb_produtoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -41815,9 +41976,10 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByCodProduto(saceDataSet.tb_produtoDataTable dataTable, long codProduto) {
+        public virtual int FillByCodProduto(saceDataSet.tb_produtoDataTable dataTable, decimal acrescimo, long codProduto) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codProduto));
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(acrescimo));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((long)(codProduto));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -41829,9 +41991,10 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual saceDataSet.tb_produtoDataTable GetDataByCodProduto(long codProduto) {
+        public virtual saceDataSet.tb_produtoDataTable GetDataByCodProduto(decimal acrescimo, long codProduto) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codProduto));
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(acrescimo));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((long)(codProduto));
             saceDataSet.tb_produtoDataTable dataTable = new saceDataSet.tb_produtoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -41841,13 +42004,14 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByNome(saceDataSet.tb_produtoDataTable dataTable, string nome) {
+        public virtual int FillByNome(saceDataSet.tb_produtoDataTable dataTable, decimal acrescimo, string nome) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(acrescimo));
             if ((nome == null)) {
                 throw new global::System.ArgumentNullException("nome");
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(nome));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -41860,13 +42024,14 @@ WHERE        (codProduto = @Original_codProduto)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual saceDataSet.tb_produtoDataTable GetDataByExactNome(string nome) {
+        public virtual saceDataSet.tb_produtoDataTable GetDataByExactNome(decimal acrescimo, string nome) {
             this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(acrescimo));
             if ((nome == null)) {
                 throw new global::System.ArgumentNullException("nome");
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(nome));
             }
             saceDataSet.tb_produtoDataTable dataTable = new saceDataSet.tb_produtoDataTable();
             this.Adapter.Fill(dataTable);

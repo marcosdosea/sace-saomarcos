@@ -35,7 +35,7 @@ namespace Telas
             GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
 
             this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             tb_saidaBindingSource.MoveLast();
             quantidadeTextBox.Text = "1";
             precoVendatextBox.Text = "0,00";
@@ -128,7 +128,7 @@ namespace Telas
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             saidaProduto = new SaidaProduto();
-            saidaProduto.CodProduto = int.Parse(codProdutoTextBox.Text);
+            saidaProduto.CodProduto = produto.CodProduto;
             saidaProduto.CodSaida = long.Parse(codSaidaTextBox.Text);
             saidaProduto.Desconto = 10;
             saidaProduto.Quantidade = decimal.Parse(quantidadeTextBox.Text);
@@ -238,7 +238,7 @@ namespace Telas
                     frmProduto.ShowDialog();
                     if (frmProduto.CodProduto > 0)
                     {
-                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
                         tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProduto.CodProduto);
                     }
                     frmProduto.Dispose();
@@ -264,6 +264,8 @@ namespace Telas
 
         private void habilitaBotoes(Boolean habilita)
         {
+            panelBalcao.Visible = habilita;
+            lblBalcao.Visible = habilita;
             btnSalvar.Enabled = !(habilita);
             btnEncerrar.Enabled = !(habilita);
             btnCancelar.Enabled = !(habilita);
@@ -279,7 +281,16 @@ namespace Telas
         {
             if (estado != EstadoFormulario.ESPERA)
             {
-                produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
+                quantidadeTextBox.Text = "1";
+                if (Convert.ToInt32(codProdutoComboBox.SelectedValue) == 1)
+                {
+                    produto = null;
+                    codProdutoComboBox.Text = "";
+                }
+                else
+                {
+                    produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
+                }
                 if (produto == null)
                 {
                     Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(codProdutoComboBox.Text);
@@ -289,17 +300,15 @@ namespace Telas
                         produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
                         codProdutoComboBox.Text = produto.Nome;
                         tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
-                        
                     }
                     else
                     {
                         codProdutoComboBox.Focus();
                     }
                     frmProdutoPesquisaPreco.Dispose();
-                }
-                if (produto != null)
+                } else 
                 {
-                    codProdutoTextBox.Text = produto.CodProduto.ToString();
+                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
                     precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString("N3");
                     precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N3");
                 }
@@ -367,6 +376,7 @@ namespace Telas
                 GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
                 this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
                 tb_saidaBindingSource.MoveLast();
+                tb_produtoBindingSource.MoveFirst();
                 btnNovo.Focus();
             }
             

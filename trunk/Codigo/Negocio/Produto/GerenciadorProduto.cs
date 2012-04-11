@@ -119,7 +119,7 @@ namespace Negocio
         {
             Produto produto = new Produto();
             Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
-            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodProduto(codProduto);
+            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodProduto(Global.ACRESCIMO_PADRAO, codProduto);
 
             produto.CodProduto = int.Parse(produtoDT.Rows[0]["codProduto"].ToString());
             produto.Cfop = int.Parse(produtoDT.Rows[0]["cfop"].ToString());
@@ -155,7 +155,7 @@ namespace Negocio
         {
             Produto produto = null;
             Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
-            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByExactNome(nomeProduto);
+            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByExactNome(Global.ACRESCIMO_PADRAO, nomeProduto);
 
             if (produtoDT.Count > 0)
             {

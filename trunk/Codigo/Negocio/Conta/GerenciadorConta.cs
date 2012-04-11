@@ -32,7 +32,7 @@ namespace Negocio
             {
                 tb_contaTA.Insert(conta.CodPlanoConta, conta.CodPessoa, conta.CodSituacao.ToString(), 
                     conta.CodDocumento, conta.CodEntrada, conta.CodSaida,  conta.DataVencimento,
-                    conta.Valor.ToString(), conta.Observacao);
+                    conta.Valor, conta.Observacao, conta.CodPagamento);
 
                 return (Int64) tb_contaTA.getMaxCodConta();
             }
@@ -51,7 +51,7 @@ namespace Negocio
             {
                 tb_contaTA.Update(conta.CodPlanoConta, conta.CodPessoa, conta.CodSituacao.ToString(),
                     conta.CodDocumento, conta.CodEntrada, conta.CodSaida, conta.DataVencimento,
-                    conta.Valor, conta.Observacao, conta.CodConta);
+                    conta.Valor, conta.Observacao, conta.CodConta, conta.CodPagamento);
             }
             catch (Exception e)
             {

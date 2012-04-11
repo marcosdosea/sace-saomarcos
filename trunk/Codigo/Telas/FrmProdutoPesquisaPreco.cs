@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Util;
 
 namespace Telas
 {
@@ -45,7 +46,7 @@ namespace Telas
             }
             else
             {
-                this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+                this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             }
             
         }
@@ -53,9 +54,9 @@ namespace Telas
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-               this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, int.Parse(txtTexto.Text));
+                this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
             else
-               this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, txtTexto.Text);
+                this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
         }
 
         private void tb_produtoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -81,6 +82,14 @@ namespace Telas
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
                 tb_produtoBindingSource.MovePrevious();
+            }
+            else if ((e.KeyCode == Keys.PageDown) && (txtTexto.Focused))
+            {
+                tb_produtoBindingSource.Position += 18;
+            }
+            else if ((e.KeyCode == Keys.PageUp) && (txtTexto.Focused))
+            {
+                tb_produtoBindingSource.Position -= 18;
             }
         }
 

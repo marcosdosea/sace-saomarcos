@@ -119,8 +119,19 @@ namespace Telas
             {
                 excluirPagamento(sender, e);
             }
+            
+            
             if (e.KeyCode == Keys.Enter)
             {
+                if (codClienteComboBox.Focused)
+                {
+                    codClienteComboBox_Leave(sender, e);
+                }
+                else if (codProfissionalComboBox.Focused)
+                {
+                    codProfissionalComboBox_Leave(sender, e);
+                }
+                
                 e.Handled = true;
                 SendKeys.Send("{tab}");
             }
@@ -188,7 +199,7 @@ namespace Telas
                 if (tb_saida_forma_pagamentoDataGridView.Rows.Count > 0)
                 {
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento);
+                    Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento, saida);
                     this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
 
                     codCartaoComboBox.SelectedIndex = 0;
@@ -258,6 +269,10 @@ namespace Telas
                 }
                 frmPessoaPesquisa.Dispose();
             }
+            else
+            {
+                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+            }
         }
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
@@ -269,13 +284,17 @@ namespace Telas
                 frmPessoaPesquisa.ShowDialog();
                 if (frmPessoaPesquisa.CodPessoa != -1)
                 {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
                 }
                 else
                 {
                     codProfissionalComboBox.Focus();
                 }
                 frmPessoaPesquisa.Dispose();
+            }
+            else
+            {
+                tbpessoaBindingSource1.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
             }
         }
 
@@ -286,6 +305,8 @@ namespace Telas
 
         private void btnEncerrar_Click(object sender, EventArgs e)
         {
+            this.Close();
+
             long codSaida = Int64.Parse(codSaidaTextBox.Text);
             Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
 
@@ -311,7 +332,6 @@ namespace Telas
                     GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
                 }
             }
-            this.Close();
         }
 
         private void descontoTextBox_Leave(object sender, EventArgs e)
@@ -400,9 +420,5 @@ namespace Telas
             }
         }
 
-        private void btnSalvar_Leave(object sender, EventArgs e)
-        {
-            btnSalvar.TabIndex = 32;
-        }
     }
 }
