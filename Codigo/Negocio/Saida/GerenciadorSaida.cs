@@ -134,7 +134,6 @@ namespace Negocio
                 {
                     throw new NegocioException("Existem contas associadas a essa saída. Ela não pode ser encerrada novamente.");
                 }
-            
             }
 
             
@@ -148,8 +147,6 @@ namespace Negocio
 
         private void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
         {
-
-
             decimal totalRegistrado = 0;
 
             foreach(SaidaPagamento pagamento in pagamentos) {
@@ -160,6 +157,7 @@ namespace Negocio
                 conta.CodSaida = saida.CodSaida;
                 conta.CodEntrada = 1; // entrada não válida
                 conta.CodPessoa = saida.CodCliente;
+                conta.CodPagamento = pagamento.CodSaidaPagamento;
 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserida quitada
                 if ( pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
@@ -280,7 +278,7 @@ namespace Negocio
                 saida = obterSaida(saida.CodSaida);
             }
 
-            if (!saida.PedidoGerado.Trim().Equals(""))
+            if (saida.TipoSaida == Saida.TIPO_VENDA)
             {
                 throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
             }
@@ -318,17 +316,7 @@ namespace Negocio
 
                 if (!saida.CpfCnpj.Trim().Equals(""))
                     arquivo.WriteLine("<CPF>"+saida.CpfCnpj);
-            
-            //if (saida.CodCliente != Global.CLIENTE_PADRAO)
-            //{
-            //    Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoa(saida.CodCliente);
-            //    if (!pessoa.Nome.Trim().Equals(""))
-            //        arquivo.WriteLine("<NOME>"+pessoa.Nome);
-            //    if (!pessoa.Endereco.Trim().Equals(""))
-            //        arquivo.WriteLine("<ENDERECO>"+pessoa.Endereco);
-            //    if (!pessoa.CpfCnpj.Trim().Equals(""))
-            //        arquivo.WriteLine("<CPF>"+pessoa.CpfCnpj);
-            //}
+
             if (saida.Desconto > 0)
                 arquivo.WriteLine("<DESCONTO>" + (saida.Total - saida.TotalPago));
 

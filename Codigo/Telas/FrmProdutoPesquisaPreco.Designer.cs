@@ -35,6 +35,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,9 +50,10 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoVendaVarejoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.qtdProdutoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPrecoAtacadoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPrecoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -168,9 +172,10 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.unidade,
+            this.precoVendaVarejoSemDesconto,
             this.dataGridViewTextBoxColumn20,
-            this.dataGridViewTextBoxColumn22,
             this.qtdProdutoAtacado,
+            this.totalPrecoAtacadoSemDesconto,
             this.totalPrecoAtacado,
             this.dataGridViewTextBoxColumn17});
             this.tb_produtoDataGridView.DataSource = this.tb_produtoBindingSource;
@@ -184,20 +189,21 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn2.DataPropertyName = "codProduto";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewTextBoxColumn2.FillWeight = 50F;
             this.dataGridViewTextBoxColumn2.HeaderText = "Código";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 50;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 65;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn3.FillWeight = 400F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Produto";
@@ -207,59 +213,83 @@
             // 
             // unidade
             // 
-            this.unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.unidade.DataPropertyName = "unidade";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.unidade.DefaultCellStyle = dataGridViewCellStyle3;
+            this.unidade.FillWeight = 30F;
             this.unidade.HeaderText = "Unid";
+            this.unidade.MinimumWidth = 40;
             this.unidade.Name = "unidade";
             this.unidade.ReadOnly = true;
-            this.unidade.Width = 54;
+            // 
+            // precoVendaVarejoSemDesconto
+            // 
+            this.precoVendaVarejoSemDesconto.DataPropertyName = "precoVendaVarejoSemDesconto";
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.precoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle4;
+            this.precoVendaVarejoSemDesconto.HeaderText = "Varejo";
+            this.precoVendaVarejoSemDesconto.Name = "precoVendaVarejoSemDesconto";
+            this.precoVendaVarejoSemDesconto.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn20
             // 
             this.dataGridViewTextBoxColumn20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn20.DataPropertyName = "precoVendaVarejo";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Red;
-            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Green;
+            dataGridViewCellStyle5.Format = "C2";
+            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewTextBoxColumn20.FillWeight = 200F;
-            this.dataGridViewTextBoxColumn20.HeaderText = "Varejo (R$)";
+            this.dataGridViewTextBoxColumn20.HeaderText = "Varejo à Vista";
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
-            this.dataGridViewTextBoxColumn20.Width = 85;
-            // 
-            // dataGridViewTextBoxColumn22
-            // 
-            this.dataGridViewTextBoxColumn22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn22.DataPropertyName = "precoVendaAtacado";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
-            this.dataGridViewTextBoxColumn22.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTextBoxColumn22.HeaderText = "Atacado (R$)";
-            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
-            this.dataGridViewTextBoxColumn22.ReadOnly = true;
-            this.dataGridViewTextBoxColumn22.Width = 95;
+            this.dataGridViewTextBoxColumn20.Width = 97;
             // 
             // qtdProdutoAtacado
             // 
+            this.qtdProdutoAtacado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.qtdProdutoAtacado.DataPropertyName = "qtdProdutoAtacado";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.qtdProdutoAtacado.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle6.Format = "N0";
+            dataGridViewCellStyle6.NullValue = null;
+            this.qtdProdutoAtacado.DefaultCellStyle = dataGridViewCellStyle6;
+            this.qtdProdutoAtacado.FillWeight = 40F;
             this.qtdProdutoAtacado.HeaderText = "Qtd Atacado";
+            this.qtdProdutoAtacado.MinimumWidth = 50;
             this.qtdProdutoAtacado.Name = "qtdProdutoAtacado";
             this.qtdProdutoAtacado.ReadOnly = true;
+            // 
+            // totalPrecoAtacadoSemDesconto
+            // 
+            this.totalPrecoAtacadoSemDesconto.DataPropertyName = "totalPrecoAtacadoSemDesconto";
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle7.Format = "C2";
+            this.totalPrecoAtacadoSemDesconto.DefaultCellStyle = dataGridViewCellStyle7;
+            this.totalPrecoAtacadoSemDesconto.HeaderText = "Atacado";
+            this.totalPrecoAtacadoSemDesconto.Name = "totalPrecoAtacadoSemDesconto";
+            this.totalPrecoAtacadoSemDesconto.ReadOnly = true;
             // 
             // totalPrecoAtacado
             // 
             this.totalPrecoAtacado.DataPropertyName = "totalPrecoAtacado";
-            this.totalPrecoAtacado.HeaderText = "Total Atacado (R$)";
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Green;
+            dataGridViewCellStyle8.Format = "C2";
+            this.totalPrecoAtacado.DefaultCellStyle = dataGridViewCellStyle8;
+            this.totalPrecoAtacado.HeaderText = "Atacado à Vista";
             this.totalPrecoAtacado.Name = "totalPrecoAtacado";
             this.totalPrecoAtacado.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn17
             // 
             this.dataGridViewTextBoxColumn17.DataPropertyName = "ultimaDataAtualizacao";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewTextBoxColumn17.HeaderText = "Data Atualização";
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             this.dataGridViewTextBoxColumn17.ReadOnly = true;
@@ -303,9 +333,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn unidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoVendaVarejoSemDesconto;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
         private System.Windows.Forms.DataGridViewTextBoxColumn qtdProdutoAtacado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalPrecoAtacadoSemDesconto;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPrecoAtacado;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
   

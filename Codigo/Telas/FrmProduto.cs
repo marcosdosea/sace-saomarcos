@@ -37,7 +37,7 @@ namespace Telas
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
             this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
             this.tb_situacao_produtoTableAdapter.Fill(this.saceDataSet.tb_situacao_produto);
-            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             
             atualizarPrecos();
             habilitaBotoes(true);
@@ -83,7 +83,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorProduto.getInstace().remover(Int32.Parse(codProdutoTextBox.Text));
-                tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
+                tb_produtoTableAdapter.Fill(saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             }
 
         }
@@ -137,7 +137,7 @@ namespace Telas
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 gProduto.inserir(produto);
-                tb_produtoTableAdapter.Fill(saceDataSet.tb_produto);
+                tb_produtoTableAdapter.Fill(saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
                 tbprodutoBindingSource.MoveLast();
 
                 produtoLoja.CodProduto = Int32.Parse(codProdutoTextBox.Text);

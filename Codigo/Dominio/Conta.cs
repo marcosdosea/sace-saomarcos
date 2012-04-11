@@ -93,5 +93,7 @@ namespace Dominio
             get { return tipoConta; }
             set { tipoConta = value; }
         }
+
+        public Int64 CodPagamento { get; set; }
     }
 }

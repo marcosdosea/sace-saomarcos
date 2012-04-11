@@ -107,6 +107,7 @@ namespace Negocio
                 conta.CodPlanoConta = PlanoConta.ENTRADA_PRODUTOS;
                 conta.CodEntrada = entrada.CodEntrada;
                 conta.CodSaida = 1; // saída não válida
+                conta.CodPagamento = pagamento.CodEntradaFormaPagamento;
                 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserido quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)

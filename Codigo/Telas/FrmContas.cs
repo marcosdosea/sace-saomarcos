@@ -104,6 +104,7 @@ namespace Telas
             conta.DataVencimento = Convert.ToDateTime(dataVencimentoDateTimePicker.Value.ToString());
             conta.Observacao = observacaoTextBox.Text;
             conta.Valor = Convert.ToDecimal(valorTextBox.Text);
+            conta.CodPagamento = 0;
      
 
             if (estado.Equals(EstadoFormulario.INSERIR))

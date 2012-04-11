@@ -306,9 +306,9 @@
             this.codDocumentoPagamentoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codDocumentoPagamentoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codDocumentoPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entrada_forma_pagamentoBindingSource, "codDocumentoPagamento", true));
-            this.codDocumentoPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entrada_forma_pagamentoBindingSource, "numeroDocumento", true));
+            this.codDocumentoPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entrada_forma_pagamentoBindingSource, "codDocumentoPagamento", true));
             this.codDocumentoPagamentoComboBox.DataSource = this.tbdocumentopagamentoBindingSource;
-            this.codDocumentoPagamentoComboBox.DisplayMember = "numeroDocumento";
+            this.codDocumentoPagamentoComboBox.DisplayMember = "codDocumentoPagamento";
             this.codDocumentoPagamentoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.codDocumentoPagamentoComboBox.FormattingEnabled = true;
             this.codDocumentoPagamentoComboBox.Location = new System.Drawing.Point(15, 207);

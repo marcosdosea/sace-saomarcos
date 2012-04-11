@@ -84,11 +84,19 @@ namespace Negocio
             }
         }
 
-        public void remover(Int64 codSaidaPagamento)
+        public void remover(Int64 codSaidaPagamento, Saida saida)
         {
             try
             {
                 tb_SaidaPagamentoTA.Delete(codSaidaPagamento);
+
+                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
+                {
+
+                }
+
+
+
             }
             catch (Exception e)
             {

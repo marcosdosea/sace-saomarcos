@@ -21,7 +21,7 @@ namespace Telas
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             if ((codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 1)) {
                 this.tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
             }
@@ -315,7 +315,7 @@ namespace Telas
                     frmProduto.ShowDialog();
                     if (frmProduto.CodProduto > 0)
                     {
-                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto);
+                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
                         tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProduto.CodProduto);
                     }
                     frmProduto.Dispose();
