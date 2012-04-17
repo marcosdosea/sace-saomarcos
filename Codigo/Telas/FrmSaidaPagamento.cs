@@ -62,7 +62,7 @@ namespace Telas
             saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
             saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
             
-            GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento);
+            GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
 
             atualizaValores();
             
@@ -91,7 +91,19 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            decimal totalPagamentos = GerenciadorSaidaPagamento.getInstace().totalPagamentos(saida.CodSaida);
+            if (totalPagamentos < saida.TotalAVista)
+            {
+                if (MessageBox.Show("Deseja sair sem lançar os pagamentos?", "Confirmar Saída", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
+
         }
 
         private void FrmSaidaPagamento_KeyDown(object sender, KeyEventArgs e)
@@ -181,7 +193,9 @@ namespace Telas
                 else
                     codTipoDocumento = DocumentoPagamento.TIPO_PROMISSORIA;
 
-                Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(codTipoDocumento);
+                Int32 codPessoa = Convert.ToInt32(codClienteComboBox.SelectedValue);
+
+                Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(codTipoDocumento, codPessoa);
                 frmDocumentoPagamento.ShowDialog();
                 if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
                 {
@@ -233,8 +247,11 @@ namespace Telas
                 trocoTextBox.Text = troco.ToString("N2");
             }
 
-                        
-            valorRecebidoTextBox.Text = faltaReceberTextBox.Text;
+            Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
+            if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
+            {
+                valorRecebidoTextBox.Text = faltaReceberTextBox.Text;
+            }
             saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
             descontoTextBox.Text = saida.Desconto.ToString("N2");
         }
@@ -305,8 +322,6 @@ namespace Telas
 
         private void btnEncerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
-
             long codSaida = Int64.Parse(codSaidaTextBox.Text);
             Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
 
@@ -322,6 +337,7 @@ namespace Telas
                     {
                         GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
                     }
+                    this.Close();
                 }
 
             } else {
@@ -330,6 +346,7 @@ namespace Telas
                 {
                     GerenciadorSaida.getInstace().encerrar(saida);
                     GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+                    this.Close();
                 }
             }
         }
@@ -342,25 +359,25 @@ namespace Telas
             totalPagarTextBox.Text = saida.TotalAVista.ToString("N2");
         }
 
-        private void codFormaPagamentoComboBox_TextChanged(object sender, EventArgs e)
-        {
-            if (codFormaPagamentoComboBox.SelectedValue != null)
-            {
-                int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
-                parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO) || (formaPagamento == FormaPagamento.PROMISSORIA);
-                codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
-                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
-                codDocumentoPagamentoComboBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO);
-                intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CREDIARIO) || (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
-            }
-        }
-
         private void codFormaPagamentoComboBox_Leave(object sender, EventArgs e)
         {
             if (codFormaPagamentoComboBox.SelectedValue == null)
             {
                 codFormaPagamentoComboBox.Focus();
                 throw new TelaException("Uma forma de pagamento válida precisa ser selecionada.");
+            }
+            else {
+                Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
+                Int32 codCliente = Convert.ToInt32(codClienteComboBox.SelectedValue);
+
+                if (((codFormaPagamento == FormaPagamento.BOLETO) || (codFormaPagamento == FormaPagamento.CHEQUE) ||
+                (codFormaPagamento== FormaPagamento.CREDIARIO)) && (codCliente == Global.CLIENTE_PADRAO) )
+                {
+                    codFormaPagamentoComboBox.Focus();
+                    codFormaPagamentoComboBox.SelectedIndex = 0;
+                    throw new TelaException("Para utilizar essa forma de pagamento é necessário selecionar um cliente.");
+                    
+                }
             }
         }
 
@@ -386,7 +403,6 @@ namespace Telas
 
             valorRecebidoTextBox.Text = documento.Valor.ToString();
             valorRecebidoTextBox.Enabled = false;
-            btnSalvar.Focus();
         }
 
         private void codContaBancoComboBox_Leave(object sender, EventArgs e)
@@ -417,6 +433,20 @@ namespace Telas
             if ( codClienteComboBox.SelectedValue != null) 
             {
                 cpf_CnpjTextBox.Enabled = Convert.ToInt64(codClienteComboBox.SelectedValue.ToString()) == 1;
+            }
+        }
+
+        private void codFormaPagamentoComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (codFormaPagamentoComboBox.SelectedValue != null)
+            {
+                int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
+                parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO) || (formaPagamento == FormaPagamento.PROMISSORIA);
+                codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
+                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
+                codDocumentoPagamentoComboBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO);
+                valorRecebidoTextBox.Enabled = !((formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO));
+                intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CREDIARIO) || (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
             }
         }
 

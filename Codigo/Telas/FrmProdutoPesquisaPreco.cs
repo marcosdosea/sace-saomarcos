@@ -14,6 +14,8 @@ namespace Telas
     {
         private Int32 codProduto;
         private String filtroNome;
+        private String textoAtual;
+        private DateTime horaUltimaDigitacao;
 
         public Int32 CodProduto
         {
@@ -39,24 +41,30 @@ namespace Telas
         {
             cmbBusca.SelectedIndex = 0;
 
-            if (filtroNome != null)
+            if ((filtroNome != null) && (filtroNome.Length > 0))
             {
+                textoAtual = filtroNome;
                 txtTexto.Text = filtroNome;
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
+                this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
             }
             else
             {
-                this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
+                textoAtual = "";
             }
-            
+           
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
-            else
-                this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+            if (txtTexto.Text.Length > textoAtual.Length)
+            {
+                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                    this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
+                else
+                    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+            }
+            textoAtual = txtTexto.Text;
         }
 
         private void tb_produtoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -85,11 +93,11 @@ namespace Telas
             }
             else if ((e.KeyCode == Keys.PageDown) && (txtTexto.Focused))
             {
-                tb_produtoBindingSource.Position += 18;
+                tb_produtoBindingSource.Position += 15;
             }
             else if ((e.KeyCode == Keys.PageUp) && (txtTexto.Focused))
             {
-                tb_produtoBindingSource.Position -= 18;
+                tb_produtoBindingSource.Position -= 15;
             }
         }
 
@@ -108,6 +116,11 @@ namespace Telas
             this.Validate();
             this.tb_produtoBindingSource.EndEdit();
             this.tableAdapterManager.UpdateAll(this.saceDataSet);
+
+        }
+
+        private void tb_produtoDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

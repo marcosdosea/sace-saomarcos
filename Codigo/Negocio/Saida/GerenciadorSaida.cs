@@ -118,24 +118,12 @@ namespace Negocio
             if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
             {
                 saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-                saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-
-                List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
-                registrarPagamentosSaida(saidaPagamentos, saida);
             }
-            else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-            {
-                if (GerenciadorConta.getInstace().obterContasPorSaida(saida.CodSaida).Count == 0)
-                {
-                    List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
-                    registrarPagamentosSaida(saidaPagamentos, saida);
-                }
-                else
-                {
-                    throw new NegocioException("Existem contas associadas a essa saída. Ela não pode ser encerrada novamente.");
-                }
-            }
-
+            
+            saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+            
+            List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
+            registrarPagamentosSaida(saidaPagamentos, saida);
             
             List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
             Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
@@ -145,11 +133,18 @@ namespace Negocio
 
         }
 
-        private void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
+        public void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
         {
             decimal totalRegistrado = 0;
 
             foreach(SaidaPagamento pagamento in pagamentos) {
+
+                List<Conta> contas = GerenciadorConta.getInstace().obterContasSaidaPorCodPagamento(saida.CodSaida, pagamento.CodSaidaPagamento);
+
+                if (contas.Count > 0)
+                {
+                    continue;
+                }
                 // Para cada pagamento é criada uma nova conta
                 Conta conta = new Conta();
                 conta.CodPessoa = saida.CodCliente;

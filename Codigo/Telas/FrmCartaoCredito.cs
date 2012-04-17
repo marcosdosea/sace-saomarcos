@@ -90,6 +90,7 @@ namespace Telas
                 cartaoCredito.DiaBase = int.Parse(diaBaseTextBox.Text);
                 cartaoCredito.CodContaBanco = Int32.Parse(codContaBancoComboBox.SelectedValue.ToString());
                 cartaoCredito.CodPessoa = Int64.Parse(codPessoaComboBox.SelectedValue.ToString());
+                cartaoCredito.Mapeamento = mapeamentoTextBox.Text;
 
                 IGerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))

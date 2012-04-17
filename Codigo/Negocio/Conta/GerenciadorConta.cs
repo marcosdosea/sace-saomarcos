@@ -86,6 +86,21 @@ namespace Negocio
             return converterListaConta(contaDT);
         }
 
+        public List<Conta> obterContasEntradaPorCodPagamento(Int64 codEntrada, Int64 codPagamento)
+        {
+            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
+            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodEntradaCodPagamento(codEntrada, codPagamento);
+
+            return converterListaConta(contaDT);
+        }
+        public List<Conta> obterContasSaidaPorCodPagamento(Int64 codSaida, Int64 codPagamento)
+        {
+            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
+            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodSaidaCodPagamento(codSaida, codPagamento);
+
+            return converterListaConta(contaDT);
+        }
+
         private List<Conta> converterListaConta(Dados.saceDataSet.tb_contaDataTable contaDT)
         {
             List<Conta> contas = new List<Conta>();

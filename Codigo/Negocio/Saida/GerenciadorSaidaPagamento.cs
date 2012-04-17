@@ -26,7 +26,7 @@ namespace Negocio
             return gSaidaPagamento;
         }
 
-        public Int64 inserir(SaidaPagamento saidaPagamento)
+        public Int64 inserir(SaidaPagamento saidaPagamento, Saida saida)
         {
             try
             {
@@ -61,6 +61,12 @@ namespace Negocio
                     saidaPagamento.CodFormaPagamento, saidaPagamento.CodContaBanco, saidaPagamento.CodCartaoCredito,
                     saidaPagamento.Valor, saidaPagamento.Data, saidaPagamento.CodDocumentoPagamento, 
                     saidaPagamento.Parcelas, saidaPagamento.IntervaloDias);
+
+                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
+                {
+                    GerenciadorSaida.getInstace().encerrar(saida);
+                }
+
             }
             catch (Exception e)
             {
@@ -88,15 +94,17 @@ namespace Negocio
         {
             try
             {
-                tb_SaidaPagamentoTA.Delete(codSaidaPagamento);
-
                 if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
                 {
+                    List<Conta> contas = GerenciadorConta.getInstace().obterContasSaidaPorCodPagamento(saida.CodSaida, codSaidaPagamento);
 
-                }
-
-
-
+                    foreach (Conta conta in contas)
+                    {
+                        GerenciadorMovimentacaoConta.getInstace().removerMovimentacoesConta(conta);
+                        GerenciadorConta.getInstace().remover(conta.CodConta);
+                    }
+               }
+               tb_SaidaPagamentoTA.Delete(codSaidaPagamento); 
             }
             catch (Exception e)
             {

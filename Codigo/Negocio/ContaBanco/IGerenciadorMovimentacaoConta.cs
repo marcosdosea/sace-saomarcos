@@ -11,5 +11,7 @@ namespace Negocio
     {
 
         MovimentacaoConta obterMovimentacaoConta(Int64 codMovimentacaoConta);
+        List<MovimentacaoConta> obterMovimentacaoConta(Conta conta);
+        void removerMovimentacoesConta(Conta conta);
     }
 }

@@ -18,6 +18,7 @@ namespace Util
             catch (Exception)
             {
                 textBox.Focus();
+                textBox.Text = "1,00";
                 throw new UtilException("O valor digitado não é um número válido.");
             }
         }

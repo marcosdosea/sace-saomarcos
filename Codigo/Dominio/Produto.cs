@@ -6,7 +6,7 @@ using Util;
 
 namespace Dominio
 {
-    public class Produto
+    public class Produto: ICloneable
     {
         public const String ST_TRIBUTADO_INTEGRAL = "000";
         public const String ST_TRIBUTADO_SUBSTITUICAO = "010";
@@ -221,6 +221,39 @@ namespace Dominio
         {
             get { return codSituacaoProduto; }
             set { codSituacaoProduto = value; }
+        }
+
+        public Object Clone()
+        {
+            Produto produto = new Produto();
+            produto.Cfop = Cfop;
+            produto.CodCST = CodCST;
+            produto.CodFabricante = CodFabricante;
+            produto.CodGrupo = CodGrupo;
+            produto.CodigoBarra = CodigoBarra;
+            produto.CodProduto = CodProduto;
+            produto.CodSituacaoProduto = CodSituacaoProduto;
+            produto.DataUltimoPedido = DataUltimoPedido;
+            produto.ExibeNaListagem = ExibeNaListagem;
+            produto.Frete = Frete;
+            produto.Icms = Icms;
+            produto.IcmsSubstituto = IcmsSubstituto;
+            produto.Ipi = Ipi;
+            produto.LucroPrecoVendaAtacado = LucroPrecoVendaAtacado;
+            produto.LucroPrecoVendaVarejo = LucroPrecoVendaVarejo;
+            produto.Ncmsh = Ncmsh;
+            produto.Nome = Nome;
+            produto.NomeProdutoFabricante = NomeProdutoFabricante;
+            produto.PrecoVendaAtacado = PrecoVendaAtacado;
+            produto.PrecoVendaVarejo = PrecoVendaVarejo;
+            produto.QtdProdutoAtacado = QtdProdutoAtacado;
+            produto.ReferenciaFabricante = ReferenciaFabricante;
+            produto.Simples = Simples;
+            produto.TemVencimento = TemVencimento;
+            produto.UltimaDataAtualizacao = UltimaDataAtualizacao;
+            produto.UltimoPrecoCompra = UltimoPrecoCompra;
+            produto.Unidade = Unidade;
+            return produto;
         }
     }
 }

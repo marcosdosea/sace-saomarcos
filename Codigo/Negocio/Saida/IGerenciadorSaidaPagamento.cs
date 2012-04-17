@@ -15,8 +15,7 @@ namespace Negocio
 
         List<SaidaPagamento> obterSaidaPagamentosPorFormaPagamento(Int64 codSaida, Int32 codFormaPagamento);
 
-        Int64 inserir(SaidaPagamento saidaPagamento);
-        void atualizar(SaidaPagamento saidaPagamento);
+        Int64 inserir(SaidaPagamento saidaPagamento, Saida saida);
         void remover(Int64 codSaidaPagamento, Saida saida);
     }
 }

@@ -7,9 +7,11 @@ using Dominio;
 
 namespace Negocio
 {
-    public interface IGerenciadorSaidaProduto : IGerenciadorNegocio<SaidaProduto, SaidaProduto>
+    public interface IGerenciadorSaidaProduto 
     {
         List<SaidaProduto> obterSaidaProdutos(Int64 codSaida);
         List<SaidaProduto> obterSaidaProdutosSemCST(Int64 codSaida, String codCST);
+        Int64 inserir(SaidaProduto saidaProduto, Saida saida);
+        void remover(SaidaProduto saidaProduto, Saida saida);
     }
 }

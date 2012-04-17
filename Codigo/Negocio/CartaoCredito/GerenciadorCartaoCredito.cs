@@ -31,7 +31,7 @@ namespace Negocio
             try
             {
                 tb_cartaoCreditoTA.Insert(cartaoCredito.Nome, cartaoCredito.DiaBase,
-                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, Global.MAPEAMENTO_PAGAMENTO_PADRAO);
+                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, cartaoCredito.Mapeamento);
 
                 return 0;
             }
@@ -46,7 +46,7 @@ namespace Negocio
             try
             {
                 tb_cartaoCreditoTA.Update(cartaoCredito.Nome, cartaoCredito.DiaBase,
-                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, Global.MAPEAMENTO_PAGAMENTO_PADRAO, cartaoCredito.CodCartao);
+                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, cartaoCredito.Mapeamento, cartaoCredito.CodCartao);
             }
             catch (Exception e)
             {
@@ -78,6 +78,7 @@ namespace Negocio
             cartaoCredito.CodPessoa = Convert.ToInt64(cartaoCreditoDT.Rows[0]["codPessoa"].ToString());
             cartaoCredito.DiaBase = Convert.ToInt32(cartaoCreditoDT.Rows[0]["diaBase"].ToString());
             cartaoCredito.Nome = cartaoCreditoDT.Rows[0]["nome"].ToString();
+            cartaoCredito.Mapeamento = cartaoCreditoDT.Rows[0]["mapeamento"].ToString();
 
             return cartaoCredito;
         }

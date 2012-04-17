@@ -91,23 +91,50 @@ namespace Negocio
             }
         }
 
+        public void removerMovimentacoesConta(Conta conta)
+        {
+            List<MovimentacaoConta> movimentosConta = obterMovimentacaoConta(conta);
+
+            foreach (MovimentacaoConta movimento in movimentosConta)
+            {
+                remover(movimento.CodMovimentacao);
+            }
+        }
+
+        public List<MovimentacaoConta> obterMovimentacaoConta(Conta conta)
+        {
+            tb_movimentacao_contaTableAdapter tb_movimentacaoTA = new tb_movimentacao_contaTableAdapter();
+            Dados.saceDataSet.tb_movimentacao_contaDataTable movimentacaoDT = tb_movimentacaoTA.GetDataByCodConta(conta.CodConta);
+
+            return converterListaMovimentacaoConta(movimentacaoDT);
+        }
         public MovimentacaoConta obterMovimentacaoConta(Int64 codMovimentacaoConta)
         {
-            MovimentacaoConta movimentacaoConta = new MovimentacaoConta();
-
             tb_movimentacao_contaTableAdapter tb_movimentacaoTA = new tb_movimentacao_contaTableAdapter();
             Dados.saceDataSet.tb_movimentacao_contaDataTable movimentacaoDT = tb_movimentacaoTA.GetDataByCodMovimentacao(codMovimentacaoConta);
 
-            movimentacaoConta.CodConta = Convert.ToInt32(movimentacaoDT.Rows[0]["codConta"].ToString());
-            movimentacaoConta.CodContaBanco = Convert.ToInt32(movimentacaoDT.Rows[0]["codContaBanco"].ToString());
-            movimentacaoConta.CodMovimentacao = Convert.ToInt64(movimentacaoDT.Rows[0]["codMovimentacao"].ToString());
-            movimentacaoConta.CodResponsavel = Convert.ToInt32(movimentacaoDT.Rows[0]["codResponsavel"].ToString());
-            movimentacaoConta.CodTipoMovimentacao = Convert.ToInt32(movimentacaoDT.Rows[0]["codTipoMovimentacao"].ToString());
-            movimentacaoConta.DataHora = Convert.ToDateTime(movimentacaoDT.Rows[0]["dataHora"].ToString());
-            movimentacaoConta.SomaSaldo = Convert.ToBoolean(movimentacaoDT.Rows[0]["somaSaldo"].ToString());
-            movimentacaoConta.Valor = Convert.ToDecimal(movimentacaoDT.Rows[0]["valor"].ToString());
-            return movimentacaoConta;
+            return converterListaMovimentacaoConta(movimentacaoDT)[0];
         }
 
+        private List<MovimentacaoConta> converterListaMovimentacaoConta(Dados.saceDataSet.tb_movimentacao_contaDataTable movimentacaoDT)
+        {
+            List<MovimentacaoConta> contas = new List<MovimentacaoConta>();
+            for (int i = 0; i < movimentacaoDT.Rows.Count; i++)
+            {
+                MovimentacaoConta movimentacaoConta = new MovimentacaoConta();
+                movimentacaoConta.CodConta = Convert.ToInt32(movimentacaoDT.Rows[0]["codConta"].ToString());
+                movimentacaoConta.CodContaBanco = Convert.ToInt32(movimentacaoDT.Rows[0]["codContaBanco"].ToString());
+                movimentacaoConta.CodMovimentacao = Convert.ToInt64(movimentacaoDT.Rows[0]["codMovimentacao"].ToString());
+                movimentacaoConta.CodResponsavel = Convert.ToInt32(movimentacaoDT.Rows[0]["codResponsavel"].ToString());
+                movimentacaoConta.CodTipoMovimentacao = Convert.ToInt32(movimentacaoDT.Rows[0]["codTipoMovimentacao"].ToString());
+                movimentacaoConta.DataHora = Convert.ToDateTime(movimentacaoDT.Rows[0]["dataHora"].ToString());
+                movimentacaoConta.SomaSaldo = Convert.ToBoolean(movimentacaoDT.Rows[0]["somaSaldo"].ToString());
+                movimentacaoConta.Valor = Convert.ToDecimal(movimentacaoDT.Rows[0]["valor"].ToString());
+
+                contas.Add(movimentacaoConta);
+            }
+
+            return contas;
+        }
     }
 }
