@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -166,7 +166,18 @@
             // 
             this.tb_produtoDataGridView.AllowUserToAddRows = false;
             this.tb_produtoDataGridView.AllowUserToDeleteRows = false;
+            this.tb_produtoDataGridView.AllowUserToResizeColumns = false;
+            this.tb_produtoDataGridView.AllowUserToResizeRows = false;
             this.tb_produtoDataGridView.AutoGenerateColumns = false;
+            this.tb_produtoDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tb_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
@@ -179,44 +190,54 @@
             this.totalPrecoAtacado,
             this.dataGridViewTextBoxColumn17});
             this.tb_produtoDataGridView.DataSource = this.tb_produtoBindingSource;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
             this.tb_produtoDataGridView.Location = new System.Drawing.Point(12, 83);
             this.tb_produtoDataGridView.MultiSelect = false;
             this.tb_produtoDataGridView.Name = "tb_produtoDataGridView";
             this.tb_produtoDataGridView.ReadOnly = true;
+            this.tb_produtoDataGridView.RowHeadersWidth = 7;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.tb_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.tb_produtoDataGridView.RowTemplate.Height = 30;
             this.tb_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_produtoDataGridView.Size = new System.Drawing.Size(977, 536);
             this.tb_produtoDataGridView.TabIndex = 5;
+            this.tb_produtoDataGridView.TabStop = false;
+            this.tb_produtoDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_CellContentClick);
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn2.DataPropertyName = "codProduto";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn2.FillWeight = 50F;
             this.dataGridViewTextBoxColumn2.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 50;
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 60;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn3.FillWeight = 400F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Produto";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 420;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 400;
+            this.dataGridViewTextBoxColumn3.Width = 420;
             // 
             // unidade
             // 
             this.unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.unidade.DataPropertyName = "unidade";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.unidade.DefaultCellStyle = dataGridViewCellStyle3;
             this.unidade.FillWeight = 30F;
             this.unidade.HeaderText = "Unid";
             this.unidade.MinimumWidth = 40;
@@ -225,72 +246,82 @@
             // 
             // precoVendaVarejoSemDesconto
             // 
+            this.precoVendaVarejoSemDesconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.precoVendaVarejoSemDesconto.DataPropertyName = "precoVendaVarejoSemDesconto";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.precoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.precoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle2;
             this.precoVendaVarejoSemDesconto.HeaderText = "Varejo";
+            this.precoVendaVarejoSemDesconto.MinimumWidth = 90;
             this.precoVendaVarejoSemDesconto.Name = "precoVendaVarejoSemDesconto";
             this.precoVendaVarejoSemDesconto.ReadOnly = true;
+            this.precoVendaVarejoSemDesconto.Width = 90;
             // 
             // dataGridViewTextBoxColumn20
             // 
             this.dataGridViewTextBoxColumn20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn20.DataPropertyName = "precoVendaVarejo";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Green;
-            dataGridViewCellStyle5.Format = "C2";
-            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle3.Format = "C2";
+            this.dataGridViewTextBoxColumn20.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn20.FillWeight = 200F;
             this.dataGridViewTextBoxColumn20.HeaderText = "Varejo à Vista";
+            this.dataGridViewTextBoxColumn20.MinimumWidth = 90;
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
-            this.dataGridViewTextBoxColumn20.Width = 97;
+            this.dataGridViewTextBoxColumn20.Width = 90;
             // 
             // qtdProdutoAtacado
             // 
             this.qtdProdutoAtacado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.qtdProdutoAtacado.DataPropertyName = "qtdProdutoAtacado";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle6.Format = "N0";
-            dataGridViewCellStyle6.NullValue = null;
-            this.qtdProdutoAtacado.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = null;
+            this.qtdProdutoAtacado.DefaultCellStyle = dataGridViewCellStyle4;
             this.qtdProdutoAtacado.FillWeight = 40F;
-            this.qtdProdutoAtacado.HeaderText = "Qtd Atacado";
-            this.qtdProdutoAtacado.MinimumWidth = 50;
+            this.qtdProdutoAtacado.HeaderText = "Qtd Atcd";
+            this.qtdProdutoAtacado.MinimumWidth = 45;
             this.qtdProdutoAtacado.Name = "qtdProdutoAtacado";
             this.qtdProdutoAtacado.ReadOnly = true;
             // 
             // totalPrecoAtacadoSemDesconto
             // 
+            this.totalPrecoAtacadoSemDesconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.totalPrecoAtacadoSemDesconto.DataPropertyName = "totalPrecoAtacadoSemDesconto";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle7.Format = "C2";
-            this.totalPrecoAtacadoSemDesconto.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle5.Format = "C2";
+            this.totalPrecoAtacadoSemDesconto.DefaultCellStyle = dataGridViewCellStyle5;
             this.totalPrecoAtacadoSemDesconto.HeaderText = "Atacado";
+            this.totalPrecoAtacadoSemDesconto.MinimumWidth = 90;
             this.totalPrecoAtacadoSemDesconto.Name = "totalPrecoAtacadoSemDesconto";
             this.totalPrecoAtacadoSemDesconto.ReadOnly = true;
+            this.totalPrecoAtacadoSemDesconto.Width = 90;
             // 
             // totalPrecoAtacado
             // 
+            this.totalPrecoAtacado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.totalPrecoAtacado.DataPropertyName = "totalPrecoAtacado";
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Green;
-            dataGridViewCellStyle8.Format = "C2";
-            this.totalPrecoAtacado.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle6.Format = "C2";
+            this.totalPrecoAtacado.DefaultCellStyle = dataGridViewCellStyle6;
             this.totalPrecoAtacado.HeaderText = "Atacado à Vista";
+            this.totalPrecoAtacado.MinimumWidth = 90;
             this.totalPrecoAtacado.Name = "totalPrecoAtacado";
             this.totalPrecoAtacado.ReadOnly = true;
+            this.totalPrecoAtacado.Width = 93;
             // 
             // dataGridViewTextBoxColumn17
             // 
+            this.dataGridViewTextBoxColumn17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn17.DataPropertyName = "ultimaDataAtualizacao";
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn17.HeaderText = "Data Atualização";
+            this.dataGridViewTextBoxColumn17.MinimumWidth = 100;
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             this.dataGridViewTextBoxColumn17.ReadOnly = true;
             // 

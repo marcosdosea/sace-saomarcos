@@ -21,6 +21,7 @@ namespace Telas
         
         private Int32 codDocumentoPagamento;
         private Int32 codTipoDocumento;
+        private Int32 codPessoaResponsavel;
 
         public Int32 CodDocumentoPagamento
         {
@@ -34,6 +35,15 @@ namespace Telas
             codTipoDocumentoComboBox.Enabled = false;
         }
 
+        public FrmDocumentoPagamento(Int32 codTipoDocumento, Int32 codPessoa)
+        {
+            InitializeComponent();
+            this.codTipoDocumento = codTipoDocumento;
+            this.codPessoaResponsavel = codPessoa;
+            codTipoDocumentoComboBox.Enabled = false;
+            codPessoaResponsavelComboBox.Enabled = false;
+        }
+
         private void FrmDocumentoPagamento_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
@@ -44,6 +54,11 @@ namespace Telas
             this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
 
             habilitaBotoes(true);
+
+            if (codPessoaResponsavel != Global.CLIENTE_PADRAO)
+            {
+                btnNovo_Click(sender, e);
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -75,7 +90,16 @@ namespace Telas
 
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
-            codPessoaResponsavelComboBox.Focus();
+            if (codPessoaResponsavel > 1)
+            {
+                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", codPessoaResponsavel);
+                codPessoaResponsavelComboBox.Enabled = false;
+                numeroDocumentoTextBox.Focus();
+            }
+            else
+            {
+                codPessoaResponsavelComboBox.Focus();
+            }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)

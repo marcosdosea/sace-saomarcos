@@ -28,10 +28,15 @@ namespace Negocio
             return gSaidaProduto;
         }
 
-        public Int64 inserir(SaidaProduto saidaProduto)
+        public Int64 inserir(SaidaProduto saidaProduto, Saida saida)
         {
             try
             {
+                if (saida.TipoSaida == Saida.TIPO_VENDA)
+                {
+                    throw new NegocioException("Não é possível inserir produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
+                }
+
                 tb_SaidaProdutoTA.Insert(saidaProduto.CodProduto, saidaProduto.CodSaida, 
                     saidaProduto.Quantidade.ToString(), saidaProduto.ValorVenda.ToString(), 
                     saidaProduto.Desconto.ToString(), saidaProduto.Subtotal.ToString(), 
@@ -46,26 +51,15 @@ namespace Negocio
             }
         }
 
-        public void atualizar(SaidaProduto saidaProduto)
+        
+        public void remover(SaidaProduto saidaProduto, Saida saida)
         {
             try
             {
-                tb_SaidaProdutoTA.Update(saidaProduto.CodProduto, saidaProduto.CodSaida,
-                    saidaProduto.Quantidade, saidaProduto.ValorVenda, saidaProduto.Desconto,
-                    saidaProduto.Subtotal, saidaProduto.SubtotalAVista,
-                    saidaProduto.DataValidade, saidaProduto.CodSaidaProduto);
-                tb_SaidaTA.UpdateTotais(saidaProduto.CodSaida);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Saída de Produtos", e.Message, e);
-            }
-        }
-
-        public void remover(SaidaProduto saidaProduto)
-        {
-            try
-            {
+                if (saida.TipoSaida == Saida.TIPO_VENDA)
+                {
+                    throw new NegocioException("Não é possível remover produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
+                }
                 tb_SaidaProdutoTA.Delete(saidaProduto.CodSaidaProduto);
                 tb_SaidaTA.UpdateTotais(saidaProduto.CodSaida);
             }

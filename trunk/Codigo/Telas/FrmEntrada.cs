@@ -405,7 +405,10 @@ namespace Telas
             totalNotaCalculadoTextBox.Text = "0,00";
             if ((!codEntradaTextBox.Text.Trim().Equals("")) /*&& (long.Parse(codEntradaTextBox.Text) > 1)*/) {
                 tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-                totalNotaCalculadoTextBox.Text = ((decimal) tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text))).ToString("0,0.00");
+                decimal? total = tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text));
+                if (total != null) {
+                    totalNotaCalculadoTextBox.Text = ((decimal) total).ToString("N2");
+                }
             }
         }
 

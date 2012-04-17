@@ -55,14 +55,16 @@ namespace Util
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String
-            PASTA_COMUNICACAO_SERVIDOR = "\\\\SERVIDOR\\C\\MKS\\PEDIDOS\\",
-            PASTA_COMUNICACAO_SERVIDOR_RETORNO = "\\\\SERVIDOR\\c\\MKS\\CAIXA\\Retorno\\",
-            PASTA_COMUNICACAO_SERVIDOR_BACKUP = "\\\\SERVIDOR\\C\\MKS\\CAIXA\\BACKUP\\",
-
-            //PASTA_COMUNICACAO_SERVIDOR = "C:\\MKS\\CAIXA\\SACE\\PEDIDOS\\",
-            //PASTA_COMUNICACAO_SERVIDOR_RETORNO = "C:\\MKS\\Caixa\\SACE\\Retorno\\",
-            //PASTA_COMUNICACAO_SERVIDOR_BACKUP = "C:\\MKS\\CAIXA\\SACE\\BACKUP\\",
-            
-            MAPEAMENTO_PAGAMENTO_PADRAO = "1";
+            ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+            PASTA_COMUNICACAO_SERVIDOR = ENDERECO_SERVIDOR+"MKS\\PEDIDOS\\",
+            PASTA_COMUNICACAO_SERVIDOR_RETORNO = ENDERECO_SERVIDOR +"MKS\\CAIXA\\Retorno\\",
+            PASTA_COMUNICACAO_SERVIDOR_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
+            PASTA_BACKUP = "C:\\BACKUP_SACE\\",
+            PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
+            NOME_SERVIDOR = "SERVIDOR",
+            SGBD_NOME = "sace",
+            SGBD_USUARIO = "sace",
+            SGBD_SENHA = "sace",
+            SGBD_IP = "192.168.0.3";
     }
 }

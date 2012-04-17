@@ -67,7 +67,11 @@ namespace Telas
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("Confirma saída do Sistema?", "Confirmar Saída", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Negocio.GerenciadorSeguranca.getInstance().Backup();
+                this.Close();
+            }
         }
 
         private void gruposDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -212,6 +216,27 @@ namespace Telas
         private void movimentaçãoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void produtosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void produtosToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            Relatorios.Produtos.FrmRelProdutos relatorio = new Relatorios.Produtos.FrmRelProdutos();
+            relatorio.ShowDialog();
+            relatorio.Dispose();
+        }
+
+        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Negocio.GerenciadorSeguranca.getInstance().Backup();
+
+            }
         }
 
     }

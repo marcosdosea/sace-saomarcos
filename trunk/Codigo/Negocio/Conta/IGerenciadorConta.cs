@@ -12,5 +12,7 @@ namespace Negocio
 
         List<Conta> obterContasPorEntada(Int64 codEntrada);
         List<Conta> obterContasPorSaida(Int64 codSaida);
+        List<Conta> obterContasEntradaPorCodPagamento(Int64 codEntrada, Int64 codPagamento);
+        List<Conta> obterContasSaidaPorCodPagamento(Int64 codSaida, Int64 codPagamento);
     }
 }
