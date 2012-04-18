@@ -57,14 +57,28 @@ namespace Negocio
                     saidaPagamento.CodDocumentoPagamento = Global.DOCUMENTO_PADRAO;
                 }
 
-                tb_SaidaPagamentoTA.Insert(saidaPagamento.CodSaida,
-                    saidaPagamento.CodFormaPagamento, saidaPagamento.CodContaBanco, saidaPagamento.CodCartaoCredito,
-                    saidaPagamento.Valor, saidaPagamento.Data, saidaPagamento.CodDocumentoPagamento, 
-                    saidaPagamento.Parcelas, saidaPagamento.IntervaloDias);
 
-                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
+                decimal total = totalPagamentos(saida.CodSaida);
+
+                if (saida.TotalAVista > saida.TotalPago)
                 {
-                    GerenciadorSaida.getInstace().encerrar(saida);
+
+                    tb_SaidaPagamentoTA.Insert(saidaPagamento.CodSaida,
+                        saidaPagamento.CodFormaPagamento, saidaPagamento.CodContaBanco, saidaPagamento.CodCartaoCredito,
+                        saidaPagamento.Valor, saidaPagamento.Data, saidaPagamento.CodDocumentoPagamento,
+                        saidaPagamento.Parcelas, saidaPagamento.IntervaloDias);
+
+                    saida.TotalPago = totalPagamentos(saida.CodSaida);
+                    saida.Troco = saida.TotalPago - saida.TotalAVista;
+                    saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
+                    GerenciadorSaida.getInstace().atualizar(saida);
+
+
+                    if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
+                    {
+                        List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
+                        GerenciadorSaida.getInstace().registrarPagamentosSaida(saidaPagamentos, saida);
+                    }
                 }
 
             }
@@ -90,6 +104,16 @@ namespace Negocio
             }
         }
 
+        public void removerPagamentos(Saida saida)
+        {
+            List<SaidaPagamento> pagamentos = obterSaidaPagamentos(saida.CodSaida);
+
+            foreach (SaidaPagamento pagamento in pagamentos)
+            {
+                remover(pagamento.CodSaidaPagamento, saida);
+            }
+
+        }
         public void remover(Int64 codSaidaPagamento, Saida saida)
         {
             try
@@ -104,7 +128,14 @@ namespace Negocio
                         GerenciadorConta.getInstace().remover(conta.CodConta);
                     }
                }
-               tb_SaidaPagamentoTA.Delete(codSaidaPagamento); 
+               tb_SaidaPagamentoTA.Delete(codSaidaPagamento);
+
+               saida.TotalPago = totalPagamentos(saida.CodSaida);
+               saida.Troco = saida.TotalPago - saida.TotalAVista;
+               saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
+               GerenciadorSaida.getInstace().atualizar(saida);
+
+
             }
             catch (Exception e)
             {

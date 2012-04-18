@@ -106,6 +106,52 @@ namespace Negocio
             }
         }
 
+        public void estornarItensVendidosEstoque(Produto produto, DateTime dataValidade, Decimal quantidadeDevolvida)
+        {
+            List<EntradaProduto> entradaProdutos = obterDisponiveisPorValidade(produto.CodProduto);
+
+            if (entradaProdutos.Count > 0)
+            {
+                Decimal quantidadeRetornada = 0;
+                foreach (EntradaProduto entradaProduto in entradaProdutos)
+                {
+                    if ((entradaProduto.DataValidade.Date.Equals(dataValidade.Date)) && (quantidadeRetornada < quantidadeDevolvida))
+                    {
+                        if (entradaProduto.Quantidade <= (entradaProduto.QuantidadeDisponivel +(quantidadeDevolvida - quantidadeRetornada)))
+                        {
+                            entradaProduto.QuantidadeDisponivel += quantidadeDevolvida - quantidadeRetornada;
+                            quantidadeRetornada += quantidadeDevolvida - quantidadeRetornada;
+                        }
+                        else
+                        {
+                            quantidadeRetornada += entradaProduto.Quantidade - entradaProduto.QuantidadeDisponivel;
+                            entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade;
+                        }
+                        atualizar(entradaProduto);
+                    }
+                }
+
+                // acontece quando uma data de validade não existe no estoque
+                foreach (EntradaProduto entradaProduto in entradaProdutos)
+                {
+                    if (quantidadeRetornada < quantidadeDevolvida)
+                    {
+                         if (entradaProduto.Quantidade <= (entradaProduto.QuantidadeDisponivel +(quantidadeDevolvida - quantidadeRetornada)))
+                        {
+                            entradaProduto.QuantidadeDisponivel += quantidadeDevolvida - quantidadeRetornada;
+                            quantidadeRetornada += quantidadeDevolvida - quantidadeRetornada;
+                        }
+                        else
+                        {
+                            quantidadeRetornada += entradaProduto.Quantidade - entradaProduto.QuantidadeDisponivel;
+                            entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade;
+                        }
+                        atualizar(entradaProduto);
+                    }
+                }
+            }
+        }
+
         public Decimal baixaItensVendidosEstoque(Produto produto, DateTime dataValidade, Decimal quantidadeVendida) {
             List<EntradaProduto> entradaProdutos = obterDisponiveisPorValidade(produto.CodProduto);
 
@@ -158,8 +204,6 @@ namespace Negocio
             }
 
             return somaPrecosCusto;
-
-            
         }
 
         public DateTime getDataProdutoMaisAntigoEstoque(Produto produto)

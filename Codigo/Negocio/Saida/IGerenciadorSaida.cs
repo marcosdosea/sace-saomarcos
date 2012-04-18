@@ -7,8 +7,23 @@ using Dominio;
 
 namespace Negocio
 {
-    public interface IGerenciadorSaida: IGerenciadorNegocio<Saida, Int32>
+    public interface IGerenciadorSaida
     {
+
+        Int64 inserir(Saida saida);
+
+        /// <summary>
+        /// Remover dados do meio persistente buscando pela chave
+        /// </summary>
+        /// <param name="c"></param>
+        void remover(Saida saida);
+
+        /// <summary>
+        /// Atualizar dados do meio persistente
+        /// </summary>
+        /// <param name="t"></param>
+        void atualizar(Saida saida);
+        
         Saida obterSaida(Int64 codSaida);
 
         void encerrar(Saida saida);
@@ -19,5 +34,8 @@ namespace Negocio
 
         Boolean atualizarPedidosComDocumentosFiscais();
         void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida);
+
+        void imprimirOrcamento(Saida saida);
+        void imprimirPreVenda(Saida saida);
     }
 }

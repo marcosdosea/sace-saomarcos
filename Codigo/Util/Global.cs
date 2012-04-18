@@ -65,6 +65,9 @@ namespace Util
             SGBD_NOME = "sace",
             SGBD_USUARIO = "sace",
             SGBD_SENHA = "sace",
-            SGBD_IP = "192.168.0.3";
+            SGBD_IP = "192.168.0.3",
+            SERIAL_IMPRESSORA = "COM3:",
+            PORTA_IMPRESSORA = "LPT1";
+            
     }
 }

@@ -14,6 +14,7 @@ namespace Negocio
         List<EntradaProduto> obterDisponiveisPorValidade(Int64 codProduto);
 
         Decimal baixaItensVendidosEstoque(Produto produto, DateTime dataValidade, Decimal quantidadeVendida);
+        void estornarItensVendidosEstoque(Produto produto, DateTime dataValidade, Decimal quantidadeDevolvida);
 
         DateTime getDataProdutoMaisAntigoEstoque(Produto produto);
     }
