@@ -31,6 +31,7 @@ namespace Telas
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
 
+            Cursor.Current = Cursors.WaitCursor;
             GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
 
             this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
@@ -40,6 +41,8 @@ namespace Telas
             precoVendatextBox.Text = "0,00";
             habilitaBotoes(true);
             estado = EstadoFormulario.ESPERA;
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -102,7 +105,13 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.getInstace().remover(Int32.Parse(codSaidaTextBox.Text));
+                Saida saida = GerenciadorSaida.getInstace().obterSaida(Int64.Parse(codSaidaTextBox.Text));
+                if  ( (saida.TipoSaida == Saida.TIPO_VENDA) && (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes) )
+                {
+                    GerenciadorSaida.getInstace().remover(saida);
+                } else {
+                    GerenciadorSaida.getInstace().remover(saida);
+                }
                 tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
                 tb_saidaBindingSource.MoveLast(); 
             }
@@ -116,7 +125,8 @@ namespace Telas
             {
                 if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
                 {
-                    GerenciadorSaida.getInstace().remover(Int32.Parse(codSaidaTextBox.Text));
+                    Saida saida = GerenciadorSaida.getInstace().obterSaida(Int64.Parse(codSaidaTextBox.Text));
+                    GerenciadorSaida.getInstace().remover(saida);
                     tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
                     tb_saidaBindingSource.MoveLast();
                     habilitaBotoes(true);
@@ -411,6 +421,7 @@ namespace Telas
 
         private void btnEncerrar_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
                 habilitaBotoes(true);
@@ -425,11 +436,12 @@ namespace Telas
 
                 GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
                 this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
+                descricaoTipoSaidaTextBox.Text = ((saceDataSet.tb_saidaRow) ((DataRowView)tb_saidaBindingSource.Current).Row).descricaoTipoSaida;
                 tb_saidaBindingSource.MoveLast();
                 tb_produtoBindingSource.MoveFirst();
                 btnNovo.Focus();
             }
-            
+            Cursor.Current = Cursors.Default;
         }
 
         private void quantidadeTextBox_Enter(object sender, EventArgs e)
@@ -454,7 +466,19 @@ namespace Telas
             if (MessageBox.Show("Confirma impressão?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Saida saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
-                GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+
+                if (saida.TipoSaida == Saida.TIPO_VENDA)
+                {
+                    GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+                }
+                else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                {
+                    GerenciadorSaida.getInstace().imprimirPreVenda(saida);
+                }
+                else if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
+                {
+                    GerenciadorSaida.getInstace().imprimirOrcamento(saida);
+                }
             }
         
         }

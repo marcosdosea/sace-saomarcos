@@ -17,5 +17,6 @@ namespace Negocio
 
         Int64 inserir(SaidaPagamento saidaPagamento, Saida saida);
         void remover(Int64 codSaidaPagamento, Saida saida);
+        void removerPagamentos(Saida saida);
     }
 }

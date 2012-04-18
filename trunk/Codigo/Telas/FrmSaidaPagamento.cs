@@ -61,21 +61,18 @@ namespace Telas
             saidaPagamento.CodPessoaResponsavel = long.Parse(codClienteComboBox.SelectedValue.ToString());
             saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
             saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
-            
-            GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
 
-            atualizaValores();
-            
             saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
             saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
             saida.Desconto = decimal.Parse(descontoTextBox.Text);
             saida.CpfCnpj = cpf_CnpjTextBox.Text;
             saida.Total = decimal.Parse(totalTextBox.Text);
             saida.TotalPago = Convert.ToDecimal(totalRecebidoLabel.Text);
-            saida.Troco = Convert.ToDecimal(trocoTextBox.Text);
             
+            GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
 
-            GerenciadorSaida.getInstace().atualizar(saida);
+            atualizaValores();
+            
             this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, long.Parse(codSaidaTextBox.Text));
             
             if (faltaReceber <= 0)
@@ -112,28 +109,32 @@ namespace Telas
             {
                 btnSalvar_Click(sender, e);
             }
-            if (e.KeyCode == Keys.F7)
+            else if (e.KeyCode == Keys.F7)
             {
                 btnEncerrar_Click(sender, e);
             }
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
             {
                 btnCancelar_Click(sender, e);
             }
             // Coloca o foco na grid caso ela não possua
-            if (e.KeyCode == Keys.F12)
+            else if ((e.KeyCode == Keys.F12) && (tb_saida_forma_pagamentoDataGridView.Focused))
+            {
+                codFormaPagamentoComboBox.Focus();
+            }
+            else if (e.KeyCode == Keys.F12)
             {
                 tb_saida_forma_pagamentoDataGridView.Focus();
             }
 
             // permite excluir um contato quando o foco está na grid
-            if ((e.KeyCode == Keys.Delete) && (tb_saida_forma_pagamentoDataGridView.Focused == true))
+            else if ((e.KeyCode == Keys.Delete) && (tb_saida_forma_pagamentoDataGridView.Focused == true))
             {
                 excluirPagamento(sender, e);
             }
             
             
-            if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Enter)
             {
                 if (codClienteComboBox.Focused)
                 {
@@ -171,7 +172,7 @@ namespace Telas
                 }
                 frmPessoa.Dispose();
             }
-            if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
+            else if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
             {
                 Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
                 frmDocumentoPagamentoPesquisa.ShowDialog();
@@ -213,6 +214,10 @@ namespace Telas
                 if (tb_saida_forma_pagamentoDataGridView.Rows.Count > 0)
                 {
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    
+                    
+                    
+                    
                     Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento, saida);
                     this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
 
@@ -223,6 +228,7 @@ namespace Telas
                     intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString(); 
 
                     atualizaValores();
+
                     codFormaPagamentoComboBox.Focus();
                 }
             }
@@ -230,29 +236,27 @@ namespace Telas
 
         private void atualizaValores()
         {  
-            saida.TotalPago = GerenciadorSaidaPagamento.getInstace().totalPagamentos(saida.CodSaida);
             totalRecebidoLabel.Text = saida.TotalPago.ToString("N2"); 
-
-
-
             faltaReceber = saida.TotalAVista - saida.TotalPago;
             if (faltaReceber > 0)
                 faltaReceberTextBox.Text = faltaReceber.ToString("N2");
             else
                 faltaReceberTextBox.Text = "0";
-            
-            decimal troco = saida.TotalPago - saida.TotalAVista;
-            if (troco > 0)
+            if (saida.Troco > 0)
             {
-                trocoTextBox.Text = troco.ToString("N2");
+                trocoTextBox.Text = saida.Troco.ToString("N2");
             }
+            else
+            {
+                trocoTextBox.Text = "0,00";
+            }
+
 
             Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
             if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
             {
                 valorRecebidoTextBox.Text = faltaReceberTextBox.Text;
             }
-            saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
             descontoTextBox.Text = saida.Desconto.ToString("N2");
         }
         
@@ -374,6 +378,7 @@ namespace Telas
                 (codFormaPagamento== FormaPagamento.CREDIARIO)) && (codCliente == Global.CLIENTE_PADRAO) )
                 {
                     codFormaPagamentoComboBox.Focus();
+                    this.tb_forma_pagamentoTableAdapter.Fill(this.saceDataSet.tb_forma_pagamento);
                     codFormaPagamentoComboBox.SelectedIndex = 0;
                     throw new TelaException("Para utilizar essa forma de pagamento é necessário selecionar um cliente.");
                     

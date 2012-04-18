@@ -9,6 +9,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using System.IO.Ports;
 
 
 namespace Negocio
@@ -32,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                saida.Desconto = (1 - Global.DESCONTO_PADRAO) * 100;
+
                 tb_SaidaTA.Insert(saida.DataSaida, saida.CodCliente, saida.TipoSaida, saida.CodProfissional,
                     saida.NumeroCartaoVenda, saida.PedidoGerado, saida.Total, saida.TotalAVista, saida.Desconto,
                     saida.TotalPago, saida.TotalLucro, saida.CodSituacaoPagamentos, saida.Troco, saida.EntregaRealizada,
@@ -65,11 +68,28 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codSaida)
+        public void remover(Saida saida)
         {
             try
             {
-                tb_SaidaTA.Delete(codSaida);
+                if (saida.TipoSaida == Saida.TIPO_ORCAMENTO) 
+                {
+                    GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
+                } 
+                else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                {
+                    excluirDocumentoFiscal(saida);
+                    GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                    registrarEstornoEstoque(saidaProdutos);
+                }
+                else if (saida.TipoSaida == Saida.TIPO_VENDA)
+                {
+                    GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                    registrarEstornoEstoque(saidaProdutos);
+                }
+                tb_SaidaTA.Delete(saida.CodSaida);
             }
             catch (Exception e)
             {
@@ -118,18 +138,18 @@ namespace Negocio
             if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
             {
                 saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-            }
-            
-            saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-            
-            List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
-            registrarPagamentosSaida(saidaPagamentos, saida);
-            
-            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
-            Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
 
-            saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
-            atualizar(saida);
+                saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+
+                List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
+                registrarPagamentosSaida(saidaPagamentos, saida);
+
+                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
+
+                saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
+                atualizar(saida);
+            }
 
         }
 
@@ -143,6 +163,7 @@ namespace Negocio
 
                 if (contas.Count > 0)
                 {
+                    totalRegistrado += pagamento.Valor;
                     continue;
                 }
                 // Para cada pagamento é criada uma nova conta
@@ -168,7 +189,7 @@ namespace Negocio
                 conta.CodDocumento = pagamento.CodDocumentoPagamento;
                 conta.TipoConta = Conta.CONTA_RECEBER;
 
-                if ((totalRegistrado + pagamento.Valor) > saida.TotalAVista)
+                if ( ((totalRegistrado + pagamento.Valor) > saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO) )
                 {
                     conta.Valor = (saida.TotalAVista - totalRegistrado) / pagamento.Parcelas;
                 }
@@ -219,22 +240,35 @@ namespace Negocio
                     movimentacao.CodResponsavel = saida.CodCliente;
                     movimentacao.CodTipoMovimentacao = MovimentacaoConta.RECEBIMENTO_CLIENTE;
                     movimentacao.DataHora = DateTime.Now;
-                    movimentacao.Valor = pagamento.Valor;
+                    if (totalRegistrado > saida.TotalAVista)
+                    {
+                        movimentacao.Valor = pagamento.Valor - saida.Troco;
+                    } 
+                    else 
+                    {
+                        movimentacao.Valor = pagamento.Valor;
+                    }
                     GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao);
                 }
+             }
+        }
 
-
-                if (totalRegistrado > saida.TotalAVista)
+        private void registrarEstornoEstoque(List<SaidaProduto> saidaProdutos)
+        {
+            foreach (SaidaProduto saidaProduto in saidaProdutos)
+            {
+                Produto produto = GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto);
+            
+                if (produto.CodCST != Produto.ST_OUTRAS)
                 {
-                    MovimentacaoConta movimentacao = new MovimentacaoConta();
-                    movimentacao.CodContaBanco = pagamento.CodContaBanco;
-                    movimentacao.CodConta = codConta;
-                    movimentacao.CodResponsavel = saida.CodCliente;
-                    movimentacao.DataHora = DateTime.Now;
-                    movimentacao.CodTipoMovimentacao = MovimentacaoConta.TROCO_CLIENTE;
-                    movimentacao.Valor = saida.Troco;
-                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao);
+                    GerenciadorProdutoLoja.getInstace().adicionaQuantidade(saidaProduto.Quantidade, 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
+                else
+                {
+                    GerenciadorProdutoLoja.getInstace().adicionaQuantidade(0, saidaProduto.Quantidade, Global.LOJA_PADRAO, saidaProduto.CodProduto);
+                }
+
+                GerenciadorEntradaProduto.getInstace().estornarItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
             }
         }
 
@@ -284,6 +318,7 @@ namespace Negocio
             String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saida.CodSaida + ".txt";
 
             DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
+           
             if (!pastaECF.Exists)
             {
                 throw new NegocioException("Não foi possível imprimir o cupom ECF. Verifique se a rede está acessível.");
@@ -291,7 +326,8 @@ namespace Negocio
                 
             
             StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII); 
-
+            
+            
             foreach (SaidaProduto saidaProduto in saidaProdutos) {
 
                 if (saidaProduto.CodCST != Produto.ST_OUTRAS)
@@ -334,6 +370,32 @@ namespace Negocio
             }
             arquivo.Close();
         }
+
+
+        private void excluirDocumentoFiscal(Saida saida)
+        {
+            
+            String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saida.CodSaida + ".txt";
+
+            DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
+
+            FileInfo cupomFiscal = new FileInfo(pastaECF + nomeArquivo);
+
+            try
+            {
+                if (cupomFiscal.Exists)
+                {
+                    cupomFiscal.Delete();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new NegocioException("Problemas na exclusão do Cupom Fiscal. É provável que ele esteja sendo impresso.");
+            }
+
+        }
+
 
         public Boolean atualizarPedidosComDocumentosFiscais()
         {
@@ -381,5 +443,69 @@ namespace Negocio
             }
             return atualizou;
         }
+
+
+        public void imprimirOrcamento(Saida saida)
+        {
+            try
+            {
+                SerialPort serial = null;
+                serial = new SerialPort(Global.SERIAL_IMPRESSORA, 9600);
+                serial.ReadTimeout = 1000;
+                serial.WriteTimeout = 1000;
+                serial.Encoding = Encoding.GetEncoding(1250);
+                serial.Open();
+
+                serial.WriteLine("^XA");
+                serial.WriteLine("^FO10,15,^AO,25,25^SAO MARCOS MATERIAIS DE CONSTRUCAO LTDA^FS");
+                serial.WriteLine("^FO0,40,^AO,12,12^FD================================================================^FS");
+                serial.WriteLine("^FO10,70,^AO,12,12^FDCod/Matricula: " + saida.CodCliente + "^FS");
+
+                GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+
+
+                serial.Close();
+            }
+            catch (Exception)
+            {
+                throw new NegocioException("Problemas na impressão do orçamento.");
+            }
+        }
+
+        public void imprimirPreVenda(Saida saida)
+        {
+                
+            try
+	        {	                
+                //quem vai imprimir
+	            Reporter mr = new Reporter();
+	            //quem vai colocar em italico e talz
+	            EpsonCodes me = new EpsonCodes();
+
+                if (File.Exists(Global.PORTA_IMPRESSORA))   /// e.g. LPT1, PRN, \\Machine01\Printer1
+	            {
+                    File.Delete(Global.PORTA_IMPRESSORA);
+	            }
+
+                mr.Output = Global.PORTA_IMPRESSORA;
+	 
+	            mr.StartJob();
+	            mr.PrintText(01, 01, "========================================");
+	            //o \n serve como paper feed na impressora...
+	            mr.PrintText(02, 01, "========================================\n");
+	 
+	            mr.EndJob();
+	            //numero de copias
+	            mr.Copies = 2;
+	 
+	            mr.PrintJob();
+	        }
+	        catch (ExceptioN)
+	        {
+                throw new NegocioException("Problema na impressao matricial");
+	        }
+        }
     }
+
+
 }

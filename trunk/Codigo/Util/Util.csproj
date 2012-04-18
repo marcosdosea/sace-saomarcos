@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatrixReporter.cs" />
     <Compile Include="UtilException.cs" />
     <Compile Include="FormatTextBox.cs" />
     <Compile Include="Global.cs" />
