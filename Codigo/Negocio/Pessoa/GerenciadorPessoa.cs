@@ -45,6 +45,9 @@ namespace Negocio
 
         public void atualizar(Pessoa pessoa)
         {
+
+            if (pessoa.CodPessoa == Global.CLIENTE_PADRAO)
+                throw new NegocioException("Os dados dessa pessoa não podem ser alterados ou removidos");
             
             try
             {
@@ -60,7 +63,7 @@ namespace Negocio
 
         public void remover(Int64 codpessoa)
         {
-            if (codpessoa == 1)
+            if (codpessoa == Global.CLIENTE_PADRAO)
                 throw new NegocioException("Essa pessoa não pode ser removida.");
 
             try

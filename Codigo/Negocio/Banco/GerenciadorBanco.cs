@@ -14,25 +14,29 @@ namespace Negocio
     public class GerenciadorBanco : IGerenciadorBanco
     {
         private static IGerenciadorBanco gBanco;
-        private static tb_bancoTableAdapter tb_bancoTA;
+        private static RepositorioGenerico<BancoE, SaceEntities> repBanco;
         
         public static IGerenciadorBanco getInstace()
         {
             if (gBanco == null)
             {
                 gBanco = new GerenciadorBanco();
-                tb_bancoTA = new tb_bancoTableAdapter();
+                repBanco = new RepositorioGenerico<BancoE,SaceEntities>("chave");
             }
             return gBanco;
         }
+        public IEnumerable<Dados.BancoE> obterTodos()
+        {
+            return repBanco.ObterTodos();
+        }
 
-        public Int64 inserir(Banco banco)
+        public Int64 inserir(BancoE banco)
         {
             try
             {
-                tb_bancoTA.Insert(banco.Nome);
-
-                return 0;
+                BancoE _banco = repBanco.Inserir(banco);
+                repBanco.SaveChanges();
+                return _banco.codBanco;
             }
             catch (Exception e)
             {
@@ -40,11 +44,14 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Banco banco)
+        public void atualizar(BancoE banco)
         {
             try
             {
-                tb_bancoTA.Update(banco.Nome, banco.CodBanco);
+                BancoE _banco = repBanco.ObterEntidade(b => b.codBanco == banco.codBanco);
+                _banco.nome = banco.nome;
+
+                repBanco.SaveChanges();
             }
             catch (Exception e)
             {
@@ -58,7 +65,7 @@ namespace Negocio
                 throw new NegocioException("O banco não pode ser removido.");
             try
             {
-                tb_bancoTA.Delete(codBanco);
+                repBanco.Remover(b => b.codBanco == codBanco);
             }
             catch (Exception e)
             {

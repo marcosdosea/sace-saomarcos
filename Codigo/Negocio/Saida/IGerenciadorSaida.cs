@@ -35,7 +35,10 @@ namespace Negocio
         Boolean atualizarPedidosComDocumentosFiscais();
         void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida);
 
-        void imprimirOrcamento(Saida saida);
-        void imprimirPreVenda(Saida saida);
+        void imprimirDAV(Saida saida, bool comprimido);
+
+        void imprimirNotaFiscal(Saida saida);
+
+        void removerPreVenda(Saida saida);
     }
 }
