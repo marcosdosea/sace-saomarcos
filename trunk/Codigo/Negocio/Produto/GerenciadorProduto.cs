@@ -37,14 +37,14 @@ namespace Negocio
                 tb_produtoTA.Insert(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade, 
                     produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh, 
                     produto.CodFabricante, produto.ReferenciaFabricante, 
-                    produto.CodSituacaoProduto, produto.CodGrupo, temVencimentoByte, 
-                    produto.Icms.ToString(), produto.IcmsSubstituto.ToString(), produto.Simples.ToString(), 
-                    produto.Ipi.ToString(), produto.Frete.ToString(), produto.UltimaDataAtualizacao, 
-                    produto.UltimoPrecoCompra.ToString(), produto.LucroPrecoVendaVarejo.ToString(), 
-                    produto.PrecoVendaVarejo.ToString(), produto.QtdProdutoAtacado.ToString(), 
+                    produto.CodSituacaoProduto, produto.CodGrupo, produto.CodSubgrupo, temVencimentoByte,
+                    produto.Icms.ToString(), produto.IcmsSubstituto.ToString(), produto.Simples.ToString(),
+                    produto.Ipi.ToString(), produto.Frete.ToString(), produto.UltimaDataAtualizacao,
+                    produto.UltimoPrecoCompra.ToString(), produto.LucroPrecoVendaVarejo.ToString(),
+                    produto.PrecoVendaVarejo.ToString(), produto.QtdProdutoAtacado.ToString(),
                     produto.LucroPrecoVendaAtacado.ToString(), produto.PrecoVendaAtacado.ToString(), 
                     exibeNaListagemByte, produto.DataUltimoPedido);
-                    
+               
                 return 0;
             }
             catch (Exception e)
@@ -69,7 +69,7 @@ namespace Negocio
                 tb_produtoTA.Update(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade,
                     produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh,
                     produto.CodFabricante, produto.ReferenciaFabricante,
-                    produto.CodSituacaoProduto, produto.CodGrupo, produto.TemVencimento,
+                    produto.CodSituacaoProduto, produto.CodGrupo, produto.CodSubgrupo, produto.TemVencimento,
                     produto.Icms, produto.IcmsSubstituto, produto.Simples,
                     produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao,
                     produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
@@ -115,7 +115,7 @@ namespace Negocio
         public Produto obterProdutoPorCodBarra(String codBarra)
         {
             Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
-            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodBarra(Global.ACRESCIMO_PADRAO.ToString(), codBarra);
+            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodBarra(Global.ACRESCIMO_PADRAO, codBarra);
             return converterProduto(produtoDT);
         }
         
@@ -142,7 +142,8 @@ namespace Negocio
                 produto.CodProduto = int.Parse(produtoDT.Rows[0]["codProduto"].ToString());
                 produto.Cfop = int.Parse(produtoDT.Rows[0]["cfop"].ToString());
                 produto.CodFabricante = int.Parse(produtoDT.Rows[0]["codFabricante"].ToString());
-                produto.CodGrupo = int.Parse(produtoDT.Rows[0]["codGrupo"].ToString());
+                produto.CodGrupo  = int.Parse(produtoDT.Rows[0]["codGrupo"].ToString());
+                produto.CodSubgrupo = int.Parse(produtoDT.Rows[0]["codSubgrupo"].ToString());
                 produto.CodigoBarra = produtoDT.Rows[0]["codigoBarra"].ToString();
                 produto.ExibeNaListagem = bool.Parse(produtoDT.Rows[0]["exibeNaListagem"].ToString());
                 produto.Frete = decimal.Parse(produtoDT.Rows[0]["frete"].ToString());

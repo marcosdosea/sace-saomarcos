@@ -32,7 +32,11 @@ namespace Negocio
             try
             {
                 tb_grupoTA.Insert(grupo.Descricao);
-                return 0;
+                Subgrupo subgrupo = new Subgrupo();
+                subgrupo.CodGrupo = Convert.ToInt32(tb_grupoTA.GetMaxCodGrupo());  
+                subgrupo.Descricao = "---- NAO DEFINIDO ----";
+                GerenciadorSubgrupo.getInstace().inserir(subgrupo);
+                return subgrupo.CodGrupo;
             }
             catch (Exception e)
             {

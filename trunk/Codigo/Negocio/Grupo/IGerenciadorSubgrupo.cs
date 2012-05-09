@@ -7,9 +7,8 @@ using Dominio;
 
 namespace Negocio
 {
-    public interface IGerenciadorBanco: IGerenciadorNegocio<Dados.BancoE, Int32>
+    public interface IGerenciadorSubgrupo: IGerenciadorNegocio<Subgrupo, Int32>
     {
-        IEnumerable<Dados.BancoE> obterTodos();
 
     }
 }

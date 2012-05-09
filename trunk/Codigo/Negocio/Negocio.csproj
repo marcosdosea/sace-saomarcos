@@ -43,6 +43,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -79,6 +80,8 @@
     <Compile Include="Entrada\IGerenciadorEntrada.cs" />
     <Compile Include="Entrada\IGerenciadorEntradaProduto.cs" />
     <Compile Include="Entrada\IGerenciadorEntradaPagamento.cs" />
+    <Compile Include="Grupo\GerenciadorSubgrupo.cs" />
+    <Compile Include="Grupo\IGerenciadorSubgrupo.cs" />
     <Compile Include="Produto\GerenciadorProdutoLoja.cs" />
     <Compile Include="Produto\IGerenciadorProdutoLoja.cs" />
     <Compile Include="Produto\GerenciadorPrecos.cs" />
