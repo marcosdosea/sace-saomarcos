@@ -162,7 +162,10 @@ namespace Telas
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-
+                    if (codPessoaComboBox.Focused)
+                    {
+                        codPessoaComboBox_Leave(sender, e);
+                    }
                     e.Handled = true;
                     SendKeys.Send("{tab}");
                 }
@@ -239,14 +242,6 @@ namespace Telas
             }
         }
 
-        private void codContaBancoComboBox_Leave_1(object sender, EventArgs e)
-        {
-            if (codContaBancoComboBox.SelectedValue == null)
-            {
-                codContaBancoComboBox.Focus();
-                throw new TelaException("Uma conta de banco válida precisa ser selecionada.");
-            }
-        }
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
@@ -258,6 +253,7 @@ namespace Telas
                 if (frmPessoaPesquisa.CodPessoa != -1)
                 {
                     tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    codPessoaComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
                 }                    
                 else
                 {

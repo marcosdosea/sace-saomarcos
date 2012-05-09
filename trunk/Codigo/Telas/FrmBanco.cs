@@ -19,13 +19,8 @@ namespace Telas
     {
         private EstadoFormulario estado;
         
-        private Int32 codBanco;
+        public Int32 CodBanco;
 
-        public Int32 CodBanco
-        {
-            get { return codBanco; }
-            set { codBanco = value; }
-        }
         public FrmBanco()
         {
             InitializeComponent();
@@ -35,7 +30,11 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
 
-            tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            //SaceEntities se = new SaceEntities();
+
+
+            tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos().ToList();
+            //tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
             habilitaBotoes(true);
         }
 
@@ -71,7 +70,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorBanco.getInstace().remover(int.Parse(codBancoTextBox.Text));
-                tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
+                //tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
             }
         }
 
@@ -87,15 +86,15 @@ namespace Telas
         {
             try
             {
-                Banco banco = new Banco();
-                banco.CodBanco = Int32.Parse(codBancoTextBox.Text);
-                banco.Nome = nomeTextBox.Text;
+                BancoE banco = new BancoE();
+                banco.codBanco = Int32.Parse(codBancoTextBox.Text);
+                banco.nome = nomeTextBox.Text;
 
                 IGerenciadorBanco gBanco = GerenciadorBanco.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gBanco.inserir(banco);
-                    tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
+                    //tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
                     tb_bancoBindingSource.MoveLast();
                 }
                 else
@@ -159,7 +158,11 @@ namespace Telas
             }
             else
             {
-                if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                } else if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
                 {
                     btnCancelar_Click(sender, e);
                 }
@@ -182,11 +185,6 @@ namespace Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
-        }
-
-        private void FrmBanco_Leave(object sender, EventArgs e)
-        {
-            
         }
 
         private void FrmBanco_FormClosing(object sender, FormClosingEventArgs e)

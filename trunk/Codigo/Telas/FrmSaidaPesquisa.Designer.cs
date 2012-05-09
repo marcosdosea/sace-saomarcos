@@ -30,15 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codProfissional = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numeroCartaoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
             this.txtTexto = new System.Windows.Forms.TextBox();
@@ -47,6 +38,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -61,13 +57,9 @@
             this.tb_saidaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaDataGridViewTextBoxColumn,
             this.dataSaida,
-            this.codCliente,
-            this.codProfissional,
-            this.numeroCartaoVenda,
+            this.nomeCliente,
             this.pedidoGerado,
-            this.total,
-            this.desconto,
-            this.totalPago});
+            this.totalAVista});
             this.tb_saidaDataGridView.DataSource = this.tb_saidaBindingSource;
             this.tb_saidaDataGridView.Location = new System.Drawing.Point(8, 50);
             this.tb_saidaDataGridView.MultiSelect = false;
@@ -76,71 +68,8 @@
             this.tb_saidaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_saidaDataGridView.Size = new System.Drawing.Size(673, 260);
             this.tb_saidaDataGridView.TabIndex = 8;
-            this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             this.tb_saidaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataSaida
-            // 
-            this.dataSaida.DataPropertyName = "dataSaida";
-            this.dataSaida.HeaderText = "dataSaida";
-            this.dataSaida.Name = "dataSaida";
-            this.dataSaida.ReadOnly = true;
-            // 
-            // codCliente
-            // 
-            this.codCliente.DataPropertyName = "codCliente";
-            this.codCliente.HeaderText = "codCliente";
-            this.codCliente.Name = "codCliente";
-            this.codCliente.ReadOnly = true;
-            // 
-            // codProfissional
-            // 
-            this.codProfissional.DataPropertyName = "codProfissional";
-            this.codProfissional.HeaderText = "codProfissional";
-            this.codProfissional.Name = "codProfissional";
-            this.codProfissional.ReadOnly = true;
-            // 
-            // numeroCartaoVenda
-            // 
-            this.numeroCartaoVenda.DataPropertyName = "numeroCartaoVenda";
-            this.numeroCartaoVenda.HeaderText = "numeroCartaoVenda";
-            this.numeroCartaoVenda.Name = "numeroCartaoVenda";
-            this.numeroCartaoVenda.ReadOnly = true;
-            // 
-            // pedidoGerado
-            // 
-            this.pedidoGerado.DataPropertyName = "pedidoGerado";
-            this.pedidoGerado.HeaderText = "pedidoGerado";
-            this.pedidoGerado.Name = "pedidoGerado";
-            this.pedidoGerado.ReadOnly = true;
-            // 
-            // total
-            // 
-            this.total.DataPropertyName = "total";
-            this.total.HeaderText = "total";
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            // 
-            // desconto
-            // 
-            this.desconto.DataPropertyName = "desconto";
-            this.desconto.HeaderText = "desconto";
-            this.desconto.Name = "desconto";
-            this.desconto.ReadOnly = true;
-            // 
-            // totalPago
-            // 
-            this.totalPago.DataPropertyName = "totalPago";
-            this.totalPago.HeaderText = "totalPago";
-            this.totalPago.Name = "totalPago";
-            this.totalPago.ReadOnly = true;
+            this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             // 
             // tb_saidaBindingSource
             // 
@@ -177,7 +106,8 @@
             this.cmbBusca.FormattingEnabled = true;
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
-            "Código"});
+            "Código",
+            "Cupom Fiscal"});
             this.cmbBusca.Location = new System.Drawing.Point(8, 23);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(121, 21);
@@ -207,6 +137,8 @@
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_cstTableAdapter = null;
+            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -227,12 +159,52 @@
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = this.tb_saidaTableAdapter;
             this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
             this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Código";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataSaida
+            // 
+            this.dataSaida.DataPropertyName = "dataSaida";
+            this.dataSaida.HeaderText = "Data";
+            this.dataSaida.Name = "dataSaida";
+            this.dataSaida.ReadOnly = true;
+            // 
+            // nomeCliente
+            // 
+            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeCliente.DataPropertyName = "nomeCliente";
+            this.nomeCliente.HeaderText = "Cliente";
+            this.nomeCliente.Name = "nomeCliente";
+            this.nomeCliente.ReadOnly = true;
+            // 
+            // pedidoGerado
+            // 
+            this.pedidoGerado.DataPropertyName = "pedidoGerado";
+            this.pedidoGerado.HeaderText = "CF";
+            this.pedidoGerado.Name = "pedidoGerado";
+            this.pedidoGerado.ReadOnly = true;
+            // 
+            // totalAVista
+            // 
+            this.totalAVista.DataPropertyName = "totalAVista";
+            this.totalAVista.HeaderText = "Total a Vista";
+            this.totalAVista.Name = "totalAVista";
+            this.totalAVista.ReadOnly = true;
             // 
             // FrmSaidaPesquisa
             // 
@@ -270,13 +242,9 @@
         private System.Windows.Forms.BindingSource tb_saidaBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSaida;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codProfissional;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numeroCartaoVenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn pedidoGerado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
-        private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalAVista;
 
     }
 }

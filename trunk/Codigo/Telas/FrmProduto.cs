@@ -15,18 +15,13 @@ namespace Telas
     public partial class FrmProduto : Form
     {
         public EstadoFormulario estado;
-        private Int32 codProduto;
+        public Int32 CodProduto { get; set; }
 
-        public Int32 CodProduto
-        {
-            get { return codProduto; }
-            set { codProduto = value; }
-        }
 
         public FrmProduto()
         {
             InitializeComponent();
-            codProduto = -1;
+            CodProduto = -1;
         }
 
         private void FrmProduto_Load(object sender, EventArgs e)
@@ -104,6 +99,7 @@ namespace Telas
             produto.Cfop = int.Parse(cfopComboBox.SelectedValue.ToString());
             produto.CodFabricante = Int32.Parse(codigoFabricanteComboBox.SelectedValue.ToString());
             produto.CodGrupo = Int32.Parse(codGrupoComboBox.SelectedValue.ToString());
+            produto.CodSubgrupo = Int32.Parse(codSubgrupoComboBox.SelectedValue.ToString());
             produto.CodigoBarra = codigoBarraTextBox.Text;
             produto.CodProduto = Int32.Parse(codProdutoTextBox.Text);
             produto.ExibeNaListagem = exibeNaListagemCheckBox.Checked;
@@ -201,6 +197,15 @@ namespace Telas
             }
             else
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (codigoFabricanteComboBox.Focused)
+                    {
+                        codigoFabricanteComboBox_Leave(sender, e);
+                    }
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
@@ -213,9 +218,9 @@ namespace Telas
                 {
                     Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
-                    if (frmGrupoPesquisa.getCodGrupo() != -1)
+                    if (frmGrupoPesquisa.CodGrupo != -1)
                     {
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.getCodGrupo());
+                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.CodGrupo);
                     }
                     frmGrupoPesquisa.Dispose();
                 }
@@ -312,11 +317,23 @@ namespace Telas
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
         {
-            if (codigoFabricanteComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codigoFabricanteComboBox.Text);
+            if (pessoa == null)
             {
-                codigoFabricanteComboBox.Focus();
-                throw new TelaException("Um fabricante válido precisa ser selecionado.");
-            }
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codigoFabricanteComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    codigoFabricanteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
+                }
+                else
+                {
+                    codigoFabricanteComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
+            } 
+
         }
 
         private void codigoFabricanteComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -326,7 +343,8 @@ namespace Telas
 
         private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
         {
-            this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, Int64.Parse(codProdutoTextBox.Text));
+            if ((codProdutoTextBox.Text != null) && (codProdutoTextBox.Text != ""))
+                this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, Int64.Parse(codProdutoTextBox.Text));
             
         }
 
@@ -342,7 +360,7 @@ namespace Telas
         {
             if (!codProdutoTextBox.Text.Equals(""))
             {
-                codProduto = Int32.Parse(codProdutoTextBox.Text);
+                CodProduto = Int32.Parse(codProdutoTextBox.Text);
             }
         }
 
@@ -371,6 +389,22 @@ namespace Telas
             if (!ultimoPrecoCompraTextBox.Text.Equals(""))
             {
                 atualizarPrecos();
+            }
+        }
+
+        private void codGrupoComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (codGrupoComboBox.SelectedValue != null)
+            {
+                Int32 codGrupo = Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString());
+                this.tb_subgrupoTableAdapter.FillByCodGrupo(this.saceDataSet.tb_subgrupo, codGrupo);
+
+                codSubgrupoComboBox.SelectedValue = ((Dados.saceDataSet.tb_produtoRow) ((DataRowView) tbprodutoBindingSource.Current).Row).codSubgrupo;
+                if (codSubgrupoComboBox.SelectedIndex < 0)
+                {
+                    codSubgrupoComboBox.SelectedIndex = 0;
+                }
+
             }
         }
 

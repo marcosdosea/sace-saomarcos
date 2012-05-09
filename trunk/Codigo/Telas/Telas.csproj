@@ -80,6 +80,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmSaidaDAV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaDAV.Designer.cs">
+      <DependentUpon>FrmSaidaDAV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSubgrupoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSubgrupoPesquisa.Designer.cs">
+      <DependentUpon>FrmSubgrupoPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSubgrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSubgrupo.Designer.cs">
+      <DependentUpon>FrmSubgrupo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmDocumentoPagamentoPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +307,17 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmSaidaDAV.resx">
+      <DependentUpon>FrmSaidaDAV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSubgrupoPesquisa.resx">
+      <DependentUpon>FrmSubgrupoPesquisa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSubgrupo.resx">
+      <DependentUpon>FrmSubgrupo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmDocumentoPagamentoPesquisa.resx">
       <DependentUpon>FrmDocumentoPagamentoPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -439,7 +468,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\Dados.BancoE.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
+    <None Include="Properties\DataSources\saceEntities1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -34,8 +34,8 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
             GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
 
-            this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
+            this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
             tb_saidaBindingSource.MoveLast();
             quantidadeTextBox.Text = "1";
             precoVendatextBox.Text = "0,00";
@@ -43,17 +43,6 @@ namespace Telas
             estado = EstadoFormulario.ESPERA;
 
             Cursor.Current = Cursors.Default;
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            //Telas.FrmPreVendaPesquisa FrmPreVendaPesquisa = new Telas.FrmPreVendaPesquisa();
-            //FrmPreVendaPesquisa.ShowDialog();
-            //if (FrmPreVendaPesquisa.getCodGrupo() != -1)
-            //{
-            //    tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", FrmPreVendaPesquisa.getCodGrupo());
-            //}
-            //FrmPreVendaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -95,6 +84,8 @@ namespace Telas
         private void btnEditar_Click(object sender, EventArgs e)
         {
             saida = GerenciadorSaida.getInstace().obterSaida( Convert.ToInt64(codSaidaTextBox.Text) );
+            GerenciadorSaida.getInstace().removerPreVenda(saida);
+            
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
             habilitaBotoes(false);
@@ -203,6 +194,10 @@ namespace Telas
                 {
                     btnImprimir_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F9)
+                {
+                    btnCfNfe_Click(sender, e);
+                }
                 else if (e.KeyCode == Keys.End)
                 {
                     tb_saidaBindingSource.MoveLast();
@@ -278,6 +273,10 @@ namespace Telas
                     saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
                     
                     Negocio.GerenciadorSaidaProduto.getInstace().remover(saidaProduto, saida);
+
+                    saida = GerenciadorSaida.getInstace().obterSaida(Convert.ToInt64(codSaidaTextBox.Text));
+                    totalTextBox.Text = saida.Total.ToString();
+                    totalAVistaTextBox.Text = saida.TotalAVista.ToString();
                 }
             }
             estado = EstadoFormulario.INSERIR_DETALHE;
@@ -463,31 +462,38 @@ namespace Telas
  
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Confirma impressão?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV( Convert.ToInt64(codSaidaTextBox.Text) );
+            frmSaidaDav.ShowDialog();
+            frmSaidaDav.Dispose();
+        }
+
+        private void btnCfNfe_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma impressão do CF ou NF-e?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Saida saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
 
-                if (saida.TipoSaida == Saida.TIPO_VENDA)
-                {
-                    GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
-                }
-                else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-                {
-                    GerenciadorSaida.getInstace().imprimirPreVenda(saida);
-                }
-                else if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
-                {
-                    GerenciadorSaida.getInstace().imprimirOrcamento(saida);
-                }
+                GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
             }
-        
         }
 
+      
         private void tb_saida_produtoDataGridView_Leave(object sender, EventArgs e)
         {
             estado = EstadoFormulario.INSERIR_DETALHE;
         }
 
-      
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            //Telas.FrmPreVendaPesquisa FrmPreVendaPesquisa = new Telas.FrmPreVendaPesquisa();
+            //FrmPreVendaPesquisa.ShowDialog();
+            //if (FrmPreVendaPesquisa.getCodGrupo() != -1)
+            //{
+            //    tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", FrmPreVendaPesquisa.getCodGrupo());
+            //}
+            //FrmPreVendaPesquisa.Dispose();
+        }
+
+
     }
 }

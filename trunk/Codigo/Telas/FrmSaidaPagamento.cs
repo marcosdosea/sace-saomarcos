@@ -43,7 +43,12 @@ namespace Telas
             codFormaPagamentoComboBox.SelectedIndex = 0;
             codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
-            intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString(); 
+            intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
+
+
+            saida.Desconto = (1 - (saida.TotalAVista / saida.Total)) * 100;
+            descontoTextBox.Text = saida.Desconto.ToString("N3");  
+
             
             atualizaValores();
         }
@@ -357,9 +362,17 @@ namespace Telas
 
         private void descontoTextBox_Leave(object sender, EventArgs e)
         {
+            const decimal ERRO = 0.02M;
+            
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
-            saida.TotalAVista = saida.Total * (1 - (saida.Desconto / 100));
+            decimal totalCalculado = saida.Total * (1 - (saida.Desconto / 100));
+
+            if ( ((totalCalculado - saida.TotalAVista) > ERRO) || ((totalCalculado - saida.TotalAVista) < ERRO))
+            {
+                saida.TotalAVista = totalCalculado;
+            }
+            
             totalPagarTextBox.Text = saida.TotalAVista.ToString("N2");
         }
 

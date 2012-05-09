@@ -27,7 +27,9 @@ namespace Telas
             cmbBusca.SelectedIndex = 0;
         }
 
-        private void txtTexto_TextChanged(object sender, EventArgs e)
+
+
+          private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             try
             {

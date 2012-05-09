@@ -62,6 +62,20 @@ namespace Telas
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
                     this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
+                else if ((cmbBusca.SelectedIndex == 2) && (txtTexto.Text.Length > 9))
+                {
+                    try
+                    {
+                        DateTime data = Convert.ToDateTime(txtTexto.Text);
+                        // se conseguir converter para uma data válida ele faz a busca
+                        this.tb_produtoTableAdapter.FillByDataAtualizacao(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, data);
+                    }
+                    catch (Exception)
+                    {
+                        // qualquer problema a busca não é realizada
+                    }
+                    
+                }
                 else
                     this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
             }
@@ -110,6 +124,18 @@ namespace Telas
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbBusca.SelectedIndex == 0)
+            {
+                label2.Text = "Descrição do Produto";
+            }
+            else if (cmbBusca.SelectedIndex == 1)
+            {
+                label2.Text = "Código do Produto:";
+            }
+            else if (cmbBusca.SelectedIndex == 2)
+            {
+                label2.Text = "Data de Atualizacão Maior que (aaaa-mm-dd):";
+            }
             txtTexto.Text = "";
         }
 

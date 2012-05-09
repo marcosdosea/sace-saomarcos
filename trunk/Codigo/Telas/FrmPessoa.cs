@@ -15,14 +15,7 @@ namespace Telas
     public partial class FrmPessoa : Form
     {
         private EstadoFormulario estado;
-        private Int32 codPessoa;
-
-        public Int32 CodPessoa
-        {
-            get { return codPessoa; }
-            set { codPessoa = value; }
-        }
-
+        public Int32 CodPessoa { get; set; }
 
         public FrmPessoa()
         {
@@ -160,7 +153,8 @@ namespace Telas
 
         private void codPessoaTextBox_TextChanged(object sender, EventArgs e)
         {
-            this.tb_contato_empresaTableAdapter1.FillByCodEmpresa(saceDataSet.tb_contato_empresa, Int64.Parse(codPessoaTextBox.Text));
+            if ((codPessoaTextBox.Text != null) && (codPessoaTextBox.Text != ""))
+                this.tb_contato_empresaTableAdapter1.FillByCodEmpresa(saceDataSet.tb_contato_empresa, Int64.Parse(codPessoaTextBox.Text));
         }
 
         private void btnAdicionarContato_Click(object sender, EventArgs e)
@@ -228,6 +222,11 @@ namespace Telas
             }
             else
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
                 {
                     btnCancelar_Click(sender, e);
