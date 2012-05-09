@@ -33,5 +33,16 @@ namespace Dados.Properties {
                 return ((string)(this["saceConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=sace;password=sace;Persist Security Info=True;database=s" +
+            "ace")]
+        public string saceConnectionString1 {
+            get {
+                return ((string)(this["saceConnectionString1"]));
+            }
+        }
     }
 }
