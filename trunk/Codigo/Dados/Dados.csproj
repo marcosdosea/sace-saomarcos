@@ -85,7 +85,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DadosException.cs" />
+    <Compile Include="IRepositorioGenerico.cs" />
+    <Compile Include="ModelSace.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSace.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositorioGenerico.cs" />
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,6 +108,10 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <EntityDeploy Include="ModelSace.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelSace.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,6 +127,7 @@
     <None Include="saceDataSet.xss">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </None>
+    <None Include="SaceEntities.datasource" />
     <None Include="saceRelatoriosDataSet.xsc">
       <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
     </None>
