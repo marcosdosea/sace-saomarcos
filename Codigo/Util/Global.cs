@@ -46,28 +46,33 @@ namespace Util
         QUANTIDADE_DIAS_CREDIARIO = 30,
         DOCUMENTO_PADRAO = 1;
 
-            
+
         public static Decimal
-            ACRESCIMO_PADRAO = (decimal) 1.111111,
-            DESCONTO_PADRAO = (decimal) 0.9,
-            SIMPLES = (decimal) 8.0,
+            ACRESCIMO_PADRAO = (decimal)1.111111,
+            DESCONTO_PADRAO = (decimal)0.9,
+            SIMPLES = (decimal)8.0,
             ICMS_LOCAL = (decimal)19,
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String
+
+
             ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-            PASTA_COMUNICACAO_SERVIDOR = ENDERECO_SERVIDOR+"MKS\\PEDIDOS\\",
-            PASTA_COMUNICACAO_SERVIDOR_RETORNO = ENDERECO_SERVIDOR +"MKS\\CAIXA\\Retorno\\",
-            PASTA_COMUNICACAO_SERVIDOR_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
-            PASTA_BACKUP = "C:\\BACKUP_SACE\\",
-            PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
-            NOME_SERVIDOR = "SERVIDOR",
-            SGBD_NOME = "sace",
-            SGBD_USUARIO = "sace",
-            SGBD_SENHA = "sace",
-            SGBD_IP = "192.168.0.3",
-            SERIAL_IMPRESSORA = "COM3:",
-            PORTA_IMPRESSORA = "LPT1";
-            
+            //ENDERECO_SERVIDOR = "c:\\",
+         PASTA_COMUNICACAO_SERVIDOR = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
+         PASTA_COMUNICACAO_SERVIDOR_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
+         PASTA_COMUNICACAO_SERVIDOR_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
+         PASTA_BACKUP = "C:\\BACKUP_SACE\\",
+         PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
+         NOME_SERVIDOR = "SERVIDOR",
+         SGBD_NOME = "sace",
+         SGBD_USUARIO = "sace",
+         SGBD_SENHA = "sace",
+         SGBD_IP = "192.168.0.3",
+         PORTA_IMPRESSORA = "LPT1",
+         //PORTA_IMPRESSORA = "sace-teste.txt",
+         LINHA = "================================================================================",
+         LINHA_COMPRIMIDA = "============================================================";
+
     }
 }
