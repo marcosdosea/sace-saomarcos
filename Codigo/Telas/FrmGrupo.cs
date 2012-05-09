@@ -40,9 +40,9 @@ namespace Telas
         {
             Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
             frmGrupoPesquisa.ShowDialog();
-            if (frmGrupoPesquisa.getCodGrupo() != -1)
+            if (frmGrupoPesquisa.CodGrupo != -1)
             {
-                tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", frmGrupoPesquisa.getCodGrupo());
+                tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", frmGrupoPesquisa.CodGrupo);
             }
             frmGrupoPesquisa.Dispose();
         }

@@ -367,7 +367,6 @@
             this.codContaBancoComboBox.TabIndex = 31;
             this.codContaBancoComboBox.ValueMember = "codContaBanco";
             this.codContaBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
-            this.codContaBancoComboBox.Leave += new System.EventHandler(this.codContaBancoComboBox_Leave_1);
             // 
             // codPessoaComboBox
             // 

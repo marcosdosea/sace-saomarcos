@@ -855,6 +855,7 @@
             this.codCSTComboBox.Size = new System.Drawing.Size(51, 21);
             this.codCSTComboBox.TabIndex = 54;
             this.codCSTComboBox.ValueMember = "codCST";
+            this.codCSTComboBox.SelectedIndexChanged += new System.EventHandler(this.codCSTComboBox_SelectedIndexChanged);
             // 
             // tb_produtoBindingSource
             // 
@@ -924,7 +925,7 @@
             this.precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
             this.precoVendaAtacadoTextBox.Size = new System.Drawing.Size(99, 20);
             this.precoVendaAtacadoTextBox.TabIndex = 102;
-            this.precoVendaAtacadoTextBox.Leave += new System.EventHandler(this.precoVendaVarejoTextBox_Leave);
+            this.precoVendaAtacadoTextBox.Leave += new System.EventHandler(this.precoVendaAtacadoTextBox_Leave);
             // 
             // precoAtacadoSugestaoTextBox
             // 
@@ -1123,7 +1124,7 @@
             // 
             // valorUnitarioTextBox
             // 
-            this.valorUnitarioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entrada_produtoBindingSource, "valorUnitario", true));
+            this.valorUnitarioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "ultimoPrecoCompra", true));
             this.valorUnitarioTextBox.Location = new System.Drawing.Point(653, 34);
             this.valorUnitarioTextBox.Name = "valorUnitarioTextBox";
             this.valorUnitarioTextBox.Size = new System.Drawing.Size(67, 20);
@@ -1148,7 +1149,6 @@
             this.unidadeCompraTextBox.Name = "unidadeCompraTextBox";
             this.unidadeCompraTextBox.Size = new System.Drawing.Size(31, 20);
             this.unidadeCompraTextBox.TabIndex = 58;
-            this.unidadeCompraTextBox.TextChanged += new System.EventHandler(this.unidadeCompraTextBox_TextChanged);
             // 
             // codProdutoComboBox
             // 

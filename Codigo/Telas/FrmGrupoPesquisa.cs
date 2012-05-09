@@ -11,12 +11,12 @@ namespace Telas
 {
     public partial class FrmGrupoPesquisa : Form
     {
-        private Int32 codGrupo;
+        public Int32 CodGrupo { get; set; }
 
         public FrmGrupoPesquisa()
         {
             InitializeComponent();
-            codGrupo = -1;
+            CodGrupo = -1;
         }
 
         private void FrmGrupoPesquisa_Load(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace Telas
 
         private void tb_grupoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codGrupo = int.Parse(tb_grupoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            CodGrupo = int.Parse(tb_grupoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
             this.Close();
         }
 
@@ -58,11 +58,6 @@ namespace Telas
             {
                 tb_grupoBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodGrupo()
-        {
-            return codGrupo;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)

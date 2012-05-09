@@ -47,7 +47,7 @@
             System.Windows.Forms.Label intervaloDiasLabel;
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label cpf_CnpjLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
             this.tb_forma_pagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -372,10 +372,10 @@
             // 
             // descontoTextBox
             // 
-            this.descontoTextBox.BackColor = System.Drawing.Color.Blue;
+            this.descontoTextBox.BackColor = System.Drawing.Color.White;
             this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "desconto", true));
             this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descontoTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.descontoTextBox.ForeColor = System.Drawing.Color.Red;
             this.descontoTextBox.Location = new System.Drawing.Point(12, 124);
             this.descontoTextBox.Name = "descontoTextBox";
             this.descontoTextBox.Size = new System.Drawing.Size(185, 38);
@@ -400,10 +400,10 @@
             // 
             // trocoTextBox
             // 
-            this.trocoTextBox.BackColor = System.Drawing.Color.Blue;
+            this.trocoTextBox.BackColor = System.Drawing.Color.White;
             this.trocoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "troco", true));
             this.trocoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.trocoTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.trocoTextBox.ForeColor = System.Drawing.Color.Red;
             this.trocoTextBox.Location = new System.Drawing.Point(13, 364);
             this.trocoTextBox.Name = "trocoTextBox";
             this.trocoTextBox.Size = new System.Drawing.Size(189, 45);
@@ -654,14 +654,14 @@
             this.tb_saida_forma_pagamentoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_forma_pagamentoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_forma_pagamentoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_forma_pagamentoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -749,10 +749,10 @@
             // 
             // faltaReceberTextBox
             // 
-            this.faltaReceberTextBox.BackColor = System.Drawing.Color.Blue;
+            this.faltaReceberTextBox.BackColor = System.Drawing.Color.White;
             this.faltaReceberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "totalAVista", true));
             this.faltaReceberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.faltaReceberTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.faltaReceberTextBox.ForeColor = System.Drawing.Color.Black;
             this.faltaReceberTextBox.Location = new System.Drawing.Point(13, 282);
             this.faltaReceberTextBox.Name = "faltaReceberTextBox";
             this.faltaReceberTextBox.Size = new System.Drawing.Size(189, 45);

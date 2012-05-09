@@ -81,6 +81,13 @@ namespace Telas
             frmGrupo.Dispose();
         }
 
+        private void subgrupoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo();
+            frmSubgrupo.ShowDialog();
+            frmSubgrupo.Dispose();
+        }
+
         private void lojasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Telas.FrmLoja frmLoja = new Telas.FrmLoja();

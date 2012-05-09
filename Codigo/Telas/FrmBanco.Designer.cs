@@ -40,7 +40,6 @@
              this.btnNovo = new System.Windows.Forms.Button();
              this.btnExcluir = new System.Windows.Forms.Button();
              this.btnEditar = new System.Windows.Forms.Button();
-             this.saceDataSet = new Dados.saceDataSet();
              this.tb_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
              this.tb_bancoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
              this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -54,11 +53,9 @@
              this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
              this.codBancoTextBox = new System.Windows.Forms.TextBox();
              this.nomeTextBox = new System.Windows.Forms.TextBox();
-             this.tb_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
              codBancoLabel = new System.Windows.Forms.Label();
              nomeLabel = new System.Windows.Forms.Label();
              this.panel1.SuspendLayout();
-             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
              ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).BeginInit();
              ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).BeginInit();
              this.tb_bancoBindingNavigator.SuspendLayout();
@@ -163,16 +160,9 @@
              this.btnEditar.UseVisualStyleBackColor = true;
              this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
              // 
-             // saceDataSet
-             // 
-             this.saceDataSet.DataSetName = "saceDataSet";
-             this.saceDataSet.Prefix = "SACE";
-             this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-             // 
              // tb_bancoBindingSource
              // 
-             this.tb_bancoBindingSource.DataMember = "tb_banco";
-             this.tb_bancoBindingSource.DataSource = this.saceDataSet;
+             this.tb_bancoBindingSource.DataSource = typeof(Dados.BancoE);
              this.tb_bancoBindingSource.Sort = "codBanco";
              // 
              // tb_bancoBindingNavigator
@@ -288,15 +278,11 @@
              this.nomeTextBox.Size = new System.Drawing.Size(339, 20);
              this.nomeTextBox.TabIndex = 23;
              // 
-             // tb_bancoTableAdapter
-             // 
-             this.tb_bancoTableAdapter.ClearBeforeFill = true;
-             // 
              // FrmBanco
              // 
              this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
              this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-             this.ClientSize = new System.Drawing.Size(474, 152);
+             this.ClientSize = new System.Drawing.Size(473, 158);
              this.Controls.Add(nomeLabel);
              this.Controls.Add(this.tb_bancoBindingNavigator);
              this.Controls.Add(this.nomeTextBox);
@@ -316,13 +302,11 @@
              this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
              this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
              this.Text = "Cadastro de Bancos";
-             this.Load += new System.EventHandler(this.FrmBanco_Load);
-             this.Leave += new System.EventHandler(this.FrmBanco_Leave);
              this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmBanco_FormClosing);
+             this.Load += new System.EventHandler(this.FrmBanco_Load);
              this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmBanco_KeyDown);
              this.panel1.ResumeLayout(false);
              this.panel1.PerformLayout();
-             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
              ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).EndInit();
              ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).EndInit();
              this.tb_bancoBindingNavigator.ResumeLayout(false);
@@ -342,7 +326,6 @@
          private System.Windows.Forms.Button btnNovo;
          private System.Windows.Forms.Button btnExcluir;
          private System.Windows.Forms.Button btnEditar;
-         private Dados.saceDataSet saceDataSet;
          private System.Windows.Forms.BindingSource tb_bancoBindingSource;
          private System.Windows.Forms.BindingNavigator tb_bancoBindingNavigator;
          private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -356,6 +339,5 @@
          private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
          private System.Windows.Forms.TextBox codBancoTextBox;
          private System.Windows.Forms.TextBox nomeTextBox;
-         private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
      }
  }

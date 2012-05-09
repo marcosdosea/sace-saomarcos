@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 using Util;
+using System.Data;
 
 namespace Telas
 {
@@ -249,6 +250,24 @@ namespace Telas
             }
             else 
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (codFornecedorComboBox.Focused)
+                    {
+                        codFornecedorComboBox_Leave(sender, e);
+                    }
+                    else if (codEmpresaFreteComboBox.Focused)
+                    {
+                        codEmpresaFreteComboBox_Leave(sender, e);
+                    }
+                    else if (codProdutoComboBox.Focused)
+                    {
+                        codProdutoComboBox_Leave(sender, e);
+                    } 
+                    
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
                 {
                     btnCancelar_Click(sender, e);
@@ -374,30 +393,67 @@ namespace Telas
 
         private void codFornecedorComboBox_Leave(object sender, EventArgs e)
         {
-            if (codFornecedorComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codFornecedorComboBox.Text);
+            if (pessoa == null)
             {
-                codFornecedorComboBox.Focus();
-                throw new TelaException("Um forncedor válido precisa ser selecionado.");
-            }
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    codFornecedorComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
+                }
+                else
+                {
+                    codFornecedorComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
+            } 
         }
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            if (codEmpresaFreteComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codEmpresaFreteComboBox.Text);
+            if (pessoa == null)
             {
-                codEmpresaFreteComboBox.Focus();
-                throw new TelaException("Um Empresa de frete válida precisa ser selecionada.");
-            }
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    codEmpresaFreteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource1.Current).Row).nome;
+                }
+                else
+                {
+                    codEmpresaFreteComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
+            } 
         }
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            if (codProdutoComboBox.SelectedValue == null)
+            Produto produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
+            if (produto == null)
             {
-                codProdutoComboBox.Focus();
-                throw new TelaException("Um produto válido precisa ser selecionado.");
+                Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(codProdutoComboBox.Text);
+                frmProdutoPesquisa.ShowDialog();
+                if (frmProdutoPesquisa.CodProduto != -1)
+                {
+                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisa.CodProduto);
+                    codProdutoComboBox.Text = ((Dados.saceDataSet.tb_produtoRow)((DataRowView)tb_produtoBindingSource.Current).Row).nome;
+                }
+                else
+                {
+                    codProdutoComboBox.Focus();
+                }
+                frmProdutoPesquisa.Dispose();
             }
-            data_validadeDateTimePicker.Enabled = temVencimentoCheckBox.Checked;
+            else
+            {
+                tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
+            }
+            codCSTComboBox_SelectedIndexChanged(sender, e);
         }
 
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
@@ -501,21 +557,6 @@ namespace Telas
             precoAtacadoSugestaoTextBox.Text = entradaProduto.PrecoVendaAtacado.ToString("N3");
         }
 
-        private void codCSTTextBox_TextChanged(object sender, EventArgs e)
-        {
-            //baseCalculoICMSTextBox.ReadOnly = codCSTTextBox.Text.Equals(Produto.ST_TRIBUTADO_SUBSTITUICAO);
-            //baseCalculoICMSTextBox.TabStop = !baseCalculoICMSTextBox.ReadOnly;
-            //icmsTextBox.ReadOnly = codCSTTextBox.Text.Equals(Produto.ST_TRIBUTADO_SUBSTITUICAO);
-            //icmsTextBox.TabStop = !icmsTextBox.ReadOnly;
-
-            valorICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
-            valorICMSSTTextBox.TabStop = !valorICMSSTTextBox.ReadOnly;
-            baseCalculoICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
-            baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
-            icms_substitutoTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
-            icms_substitutoTextBox.TabStop = !icms_substitutoTextBox.ReadOnly;
-        }
-
         private void precoVendaVarejoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
@@ -524,11 +565,6 @@ namespace Telas
         private void qtdProdutoAtacadoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
-        }
-
-        private void unidadeCompraTextBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnPagamentos_Click(object sender, EventArgs e)
@@ -547,5 +583,35 @@ namespace Telas
                 btnNovo.Focus();
             }
         }
+
+        private void precoVendaAtacadoTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
+            btnSalvar.Focus();
+        }
+
+        private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (codCSTComboBox.SelectedValue != null)
+            {
+                valorICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                valorICMSSTTextBox.TabStop = !valorICMSSTTextBox.ReadOnly;
+                baseCalculoICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
+                icms_substitutoTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                icms_substitutoTextBox.TabStop = !icms_substitutoTextBox.ReadOnly;
+
+
+                valorICMSTextBox.ReadOnly = !codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                valorICMSTextBox.TabStop = !valorICMSTextBox.ReadOnly;
+                baseCalculoICMSTextBox.ReadOnly = !codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                baseCalculoICMSTextBox.TabStop = !baseCalculoICMSTextBox.ReadOnly;
+                icmsTextBox.ReadOnly = !codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                icmsTextBox.TabStop = !icmsTextBox.ReadOnly; 
+
+
+            }
+        }
+
     }
 }
