@@ -7353,6 +7353,10 @@ namespace Dados {
                 this.columndataSaida.AllowDBNull = false;
                 this.columncodCliente.AllowDBNull = false;
                 this.columnpedidoGerado.MaxLength = 10;
+                this.columntotal.DefaultValue = ((decimal)(0m));
+                this.columndesconto.DefaultValue = ((decimal)(0m));
+                this.columntotalPago.DefaultValue = ((decimal)(0m));
+                this.columntotalLucro.DefaultValue = ((decimal)(0m));
                 this.columnnomeCliente.AllowDBNull = false;
                 this.columnnomeCliente.MaxLength = 50;
                 this.columnnomeProfissional.AllowDBNull = false;
@@ -7360,9 +7364,11 @@ namespace Dados {
                 this.columncodTipoSaida.AllowDBNull = false;
                 this.columndescricaoTipoSaida.AllowDBNull = false;
                 this.columndescricaoTipoSaida.MaxLength = 45;
+                this.columntotalAVista.DefaultValue = ((decimal)(0m));
                 this.columncodSituacaoPagamentos.AllowDBNull = false;
                 this.columndescricaoSituacaoPagamentos.AllowDBNull = false;
                 this.columndescricaoSituacaoPagamentos.MaxLength = 30;
+                this.columntroco.DefaultValue = ((decimal)(0m));
                 this.columnentregaRealizada.AllowDBNull = false;
                 this.columnnfe.MaxLength = 20;
                 this.columncpf_cnpj.MaxLength = 14;
@@ -15743,7 +15749,9 @@ namespace Dados {
                 this.columnreferenciaFabricante.MaxLength = 20;
                 this.columncodSituacaoProduto.AllowDBNull = false;
                 this.columncodGrupo.AllowDBNull = false;
+                this.columncodGrupo.DefaultValue = ((long)(1));
                 this.columncodSubgrupo.AllowDBNull = false;
+                this.columncodSubgrupo.DefaultValue = ((int)(1));
                 this.columndescricaoCST.MaxLength = 45;
                 this.columndescricaoGrupo.AllowDBNull = false;
                 this.columndescricaoGrupo.MaxLength = 40;
@@ -32213,11 +32221,10 @@ FROM            tb_saida INNER JOIN
                          tb_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN
                          tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNER JOIN
                          tb_situacao_pagamentos ON tb_saida.codSituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos
-WHERE tb_saida.pedidoGerado = @pedidoGerado";
+WHERE tb_saida.pedidoGerado like concat(@pedidoGerado, '%')";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@pedidoGerado";
-            param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
             param.Size = 10;
             param.IsNullable = true;
