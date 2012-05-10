@@ -127,7 +127,6 @@
     <None Include="saceDataSet.xss">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </None>
-    <None Include="SaceEntities.datasource" />
     <None Include="saceRelatoriosDataSet.xsc">
       <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
     </None>

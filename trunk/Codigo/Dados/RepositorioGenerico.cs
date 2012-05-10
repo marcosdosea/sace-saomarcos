@@ -32,7 +32,7 @@ namespace Dados
         /// <param name="chave"> Identifica o contexto criado </param>
         public RepositorioGenerico(string chave)
         {
-            _context = new SaceEntities();//ObjectContextFactory<IObjectContext>.Singleton.GetOrCreateContext(chave);
+            _context = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
             _objectSet = _context.CreateObjectSet<T>();
         }
 

@@ -2,6 +2,10 @@
     
     
     public partial class saceDataSet {
+        partial class tb_entrada_produtoDataTable
+        {
+        }
+    
         partial class tb_contaDataTable
         {
         }
@@ -25,6 +29,10 @@
 }
 
 namespace Dados.saceDataSetTableAdapters {
+    partial class tb_produtoTableAdapter
+    {
+    }
+
     partial class tb_saida_produtoTableAdapter
     {
     }
