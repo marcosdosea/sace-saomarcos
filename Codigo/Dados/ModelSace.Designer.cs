@@ -129,18 +129,18 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<BancoE> BancoESet
+        public ObjectSet<BancoE> BancoSet
         {
             get
             {
-                if ((_BancoESet == null))
+                if ((_BancoSet == null))
                 {
-                    _BancoESet = base.CreateObjectSet<BancoE>("BancoESet");
+                    _BancoSet = base.CreateObjectSet<BancoE>("BancoSet");
                 }
-                return _BancoESet;
+                return _BancoSet;
             }
         }
-        private ObjectSet<BancoE> _BancoESet;
+        private ObjectSet<BancoE> _BancoSet;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -706,11 +706,11 @@ namespace Dados
         #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the BancoESet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the BancoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToBancoESet(BancoE bancoE)
+        public void AddToBancoSet(BancoE bancoE)
         {
-            base.AddObject("BancoESet", bancoE);
+            base.AddObject("BancoSet", bancoE);
         }
     
         /// <summary>

@@ -1422,7 +1422,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SaceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="SaceEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BancoESet" EntityType="SaceModel.BancoE" />
+          <EntitySet Name="BancoSet" EntityType="SaceModel.BancoE" />
           <EntitySet Name="tb_cartao_credito" EntityType="SaceModel.tb_cartao_credito" />
           <EntitySet Name="tb_cfop" EntityType="SaceModel.tb_cfop" />
           <EntitySet Name="tb_configuracao_sistema" EntityType="SaceModel.tb_configuracao_sistema" />
@@ -1459,11 +1459,11 @@
           <EntitySet Name="tb_usuario" EntityType="SaceModel.tb_usuario" />
           <EntitySet Name="tp_tipo_entrada" EntityType="SaceModel.tp_tipo_entrada" />
           <AssociationSet Name="fk_tb_conta_banco_codbanco" Association="SaceModel.fk_tb_conta_banco_codbanco">
-            <End Role="tb_banco" EntitySet="BancoESet" />
+            <End Role="tb_banco" EntitySet="BancoSet" />
             <End Role="tb_conta_banco" EntitySet="tb_conta_banco" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_documento_pagamento_tb_banco1" Association="SaceModel.fk_tb_documento_pagamento_tb_banco1">
-            <End Role="tb_banco" EntitySet="BancoESet" />
+            <End Role="tb_banco" EntitySet="BancoSet" />
             <End Role="tb_documento_pagamento" EntitySet="tb_documento_pagamento" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_cartao_credito_codcontabanco" Association="SaceModel.fk_tb_cartao_credito_codcontabanco">
@@ -2884,7 +2884,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SaceModelStoreContainer" CdmEntityContainer="SaceEntities">
-          <EntitySetMapping Name="BancoESet"><EntityTypeMapping TypeName="SaceModel.BancoE"><MappingFragment StoreEntitySet="tb_banco">
+          <EntitySetMapping Name="BancoSet"><EntityTypeMapping TypeName="SaceModel.BancoE"><MappingFragment StoreEntitySet="tb_banco">
             <ScalarProperty Name="codBanco" ColumnName="codBanco" />
             <ScalarProperty Name="nome" ColumnName="nome" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
