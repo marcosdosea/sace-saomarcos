@@ -56,21 +56,19 @@ namespace Telas
             saida.PedidoGerado = null;
             saida.TipoSaida = Saida.TIPO_ORCAMENTO;
             saida.Total = 0;
+            saida.TotalAVista = 0;
             saida.TotalLucro = 0;
             saida.TotalPago = 0;
-            subtotalTextBox.Text = "0,00";
-            subtotalAVistatextBox.Text = "0,00";
-            totalAVistaTextBox.Text = "0,00";
-            precoVendaSemDescontoTextBox.Text = "0,00";
-            precoVendatextBox.Text = "0,00";
-
             saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
             saida.Troco = 0;
             saida.Nfe = null;
-            entregaRealizadaCheckBox.Checked = true;
             saida.EntregaRealizada = true;
-                
-                
+            
+            subtotalTextBox.Text = "0,00";
+            subtotalAVistatextBox.Text = "0,00";
+            precoVendaSemDescontoTextBox.Text = "0,00";
+            precoVendatextBox.Text = "0,00";
+
             GerenciadorSaida.getInstace().inserir(saida);
             tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
             tb_saidaBindingSource.MoveLast();
@@ -485,13 +483,13 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            //Telas.FrmPreVendaPesquisa FrmPreVendaPesquisa = new Telas.FrmPreVendaPesquisa();
-            //FrmPreVendaPesquisa.ShowDialog();
-            //if (FrmPreVendaPesquisa.getCodGrupo() != -1)
-            //{
-            //    tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", FrmPreVendaPesquisa.getCodGrupo());
-            //}
-            //FrmPreVendaPesquisa.Dispose();
+            Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
+            frmSaidaPesquisa.ShowDialog();
+            if (frmSaidaPesquisa.CodSaida != -1)
+            {
+                tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", frmSaidaPesquisa.CodSaida);
+            }
+            frmSaidaPesquisa.Dispose();
         }
 
 

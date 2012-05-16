@@ -218,6 +218,11 @@ namespace Telas
             }
             else
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
                 {
                     btnCancelar_Click(sender, e);

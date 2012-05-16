@@ -45,17 +45,17 @@
             System.Windows.Forms.Label descricaoSituacaoPagamentosLabel;
             System.Windows.Forms.Label label5;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pedidoGeradoTextBox = new System.Windows.Forms.TextBox();
@@ -324,7 +324,7 @@
             this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
             this.pedidoGeradoTextBox.ReadOnly = true;
             this.pedidoGeradoTextBox.Size = new System.Drawing.Size(122, 26);
-            this.pedidoGeradoTextBox.TabIndex = 46;
+            this.pedidoGeradoTextBox.TabIndex = 50;
             this.pedidoGeradoTextBox.TabStop = false;
             // 
             // tb_saidaBindingSource
@@ -359,7 +359,7 @@
             this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(108, 521);
             this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
             this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(109, 26);
-            this.dataSaidaDateTimePicker.TabIndex = 42;
+            this.dataSaidaDateTimePicker.TabIndex = 46;
             this.dataSaidaDateTimePicker.TabStop = false;
             // 
             // btnSalvar
@@ -367,7 +367,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(322, 613);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 4;
+            this.btnSalvar.TabIndex = 5;
             this.btnSalvar.Text = "F6 - Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -377,7 +377,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(652, 613);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -387,7 +387,7 @@
             this.btnNovo.Location = new System.Drawing.Point(82, 613);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(81, 23);
-            this.btnNovo.TabIndex = 1;
+            this.btnNovo.TabIndex = 2;
             this.btnNovo.Text = "F3 - Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
@@ -397,7 +397,7 @@
             this.btnExcluir.Location = new System.Drawing.Point(247, 613);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 3;
+            this.btnExcluir.TabIndex = 4;
             this.btnExcluir.Text = "F5 - Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
@@ -523,7 +523,7 @@
             this.precoVendaSemDescontoTextBox.Name = "precoVendaSemDescontoTextBox";
             this.precoVendaSemDescontoTextBox.ReadOnly = true;
             this.precoVendaSemDescontoTextBox.Size = new System.Drawing.Size(169, 29);
-            this.precoVendaSemDescontoTextBox.TabIndex = 36;
+            this.precoVendaSemDescontoTextBox.TabIndex = 34;
             this.precoVendaSemDescontoTextBox.TabStop = false;
             // 
             // subtotalTextBox
@@ -542,14 +542,14 @@
             this.tb_saida_produtoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_produtoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaProdutoDataGridViewTextBoxColumn,
@@ -561,20 +561,20 @@
             this.subtotalAVistaDataGridViewTextBoxColumn,
             this.datavalidadeDataGridViewTextBoxColumn});
             this.tb_saida_produtoDataGridView.DataSource = this.tbsaidaprodutoBindingSource;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle10;
             this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 150);
             this.tb_saida_produtoDataGridView.MultiSelect = false;
             this.tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
             this.tb_saida_produtoDataGridView.ReadOnly = true;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 335);
@@ -585,8 +585,8 @@
             // codSaidaProdutoDataGridViewTextBoxColumn
             // 
             this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "codSaidaProduto";
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaProdutoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codSaidaProdutoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "codSaidaProduto";
             this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
             this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
@@ -596,8 +596,8 @@
             // 
             this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.nomeDataGridViewTextBoxColumn.DataPropertyName = "nome";
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.nomeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.nomeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
             this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
             this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
@@ -606,8 +606,8 @@
             // 
             this.quantidadeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.quantidadeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.quantidadeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
             this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
             this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
@@ -616,10 +616,10 @@
             // valorVendaDataGridViewTextBoxColumn
             // 
             this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "valorVenda";
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle16.Format = "C2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
             this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
             this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -627,8 +627,8 @@
             // descontoDataGridViewTextBoxColumn
             // 
             this.descontoDataGridViewTextBoxColumn.DataPropertyName = "desconto";
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.descontoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.descontoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
             this.descontoDataGridViewTextBoxColumn.HeaderText = "desconto";
             this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
             this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
@@ -637,9 +637,9 @@
             // subtotalDataGridViewTextBoxColumn
             // 
             this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "subtotal";
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle18.Format = "C2";
-            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle7.Format = "C2";
+            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
             this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
             this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
@@ -647,9 +647,9 @@
             // subtotalAVistaDataGridViewTextBoxColumn
             // 
             this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "subtotalAVista";
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.Format = "C2";
-            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.Format = "C2";
+            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
             this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
             this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -657,8 +657,8 @@
             // datavalidadeDataGridViewTextBoxColumn
             // 
             this.datavalidadeDataGridViewTextBoxColumn.DataPropertyName = "data_validade";
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datavalidadeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datavalidadeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
             this.datavalidadeDataGridViewTextBoxColumn.HeaderText = "data_validade";
             this.datavalidadeDataGridViewTextBoxColumn.Name = "datavalidadeDataGridViewTextBoxColumn";
             this.datavalidadeDataGridViewTextBoxColumn.ReadOnly = true;
@@ -710,7 +710,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(7, 613);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 40;
+            this.btnBuscar.TabIndex = 10;
             this.btnBuscar.Text = "F2 - Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -718,20 +718,22 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(934, 130);
+            this.label3.Location = new System.Drawing.Point(905, 130);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 13);
+            this.label3.Size = new System.Drawing.Size(94, 18);
             this.label3.TabIndex = 63;
             this.label3.Text = "DEL - Excluir";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(853, 130);
+            this.label6.Location = new System.Drawing.Point(792, 130);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(75, 13);
+            this.label6.Size = new System.Drawing.Size(101, 18);
             this.label6.TabIndex = 62;
             this.label6.Text = "F12 - Navegar";
             // 
@@ -750,7 +752,11 @@
             this.codProdutoComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codProdutoComboBox.FormattingEnabled = true;
+            this.codProdutoComboBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.codProdutoComboBox.IntegralHeight = false;
+            this.codProdutoComboBox.ItemHeight = 31;
             this.codProdutoComboBox.Location = new System.Drawing.Point(12, 77);
+            this.codProdutoComboBox.MaxDropDownItems = 5;
             this.codProdutoComboBox.Name = "codProdutoComboBox";
             this.codProdutoComboBox.Size = new System.Drawing.Size(987, 39);
             this.codProdutoComboBox.TabIndex = 30;
@@ -771,7 +777,7 @@
             this.btnEditar.Location = new System.Drawing.Point(163, 613);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(83, 23);
-            this.btnEditar.TabIndex = 2;
+            this.btnEditar.TabIndex = 3;
             this.btnEditar.Text = "F4 - Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
@@ -783,7 +789,7 @@
             this.precoVendatextBox.Location = new System.Drawing.Point(13, 330);
             this.precoVendatextBox.Name = "precoVendatextBox";
             this.precoVendatextBox.Size = new System.Drawing.Size(169, 29);
-            this.precoVendatextBox.TabIndex = 34;
+            this.precoVendatextBox.TabIndex = 38;
             this.precoVendatextBox.Leave += new System.EventHandler(this.precoVendatextBox_Leave);
             // 
             // data_validadeDateTimePicker
@@ -794,7 +800,7 @@
             this.data_validadeDateTimePicker.Location = new System.Drawing.Point(13, 456);
             this.data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
             this.data_validadeDateTimePicker.Size = new System.Drawing.Size(169, 29);
-            this.data_validadeDateTimePicker.TabIndex = 38;
+            this.data_validadeDateTimePicker.TabIndex = 42;
             this.data_validadeDateTimePicker.Leave += new System.EventHandler(this.data_validadeDateTimePicker_Leave);
             // 
             // nomeClienteTextBox
@@ -805,7 +811,7 @@
             this.nomeClienteTextBox.Name = "nomeClienteTextBox";
             this.nomeClienteTextBox.ReadOnly = true;
             this.nomeClienteTextBox.Size = new System.Drawing.Size(460, 26);
-            this.nomeClienteTextBox.TabIndex = 50;
+            this.nomeClienteTextBox.TabIndex = 54;
             this.nomeClienteTextBox.TabStop = false;
             // 
             // descricaoTipoSaidaTextBox
@@ -816,7 +822,7 @@
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
             this.descricaoTipoSaidaTextBox.ReadOnly = true;
             this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(122, 26);
-            this.descricaoTipoSaidaTextBox.TabIndex = 40;
+            this.descricaoTipoSaidaTextBox.TabIndex = 48;
             this.descricaoTipoSaidaTextBox.TabStop = false;
             // 
             // btnEncerrar
@@ -824,7 +830,7 @@
             this.btnEncerrar.Location = new System.Drawing.Point(403, 613);
             this.btnEncerrar.Name = "btnEncerrar";
             this.btnEncerrar.Size = new System.Drawing.Size(81, 23);
-            this.btnEncerrar.TabIndex = 5;
+            this.btnEncerrar.TabIndex = 6;
             this.btnEncerrar.Text = "F7 - Encerrar";
             this.btnEncerrar.UseVisualStyleBackColor = true;
             this.btnEncerrar.Click += new System.EventHandler(this.btnEncerrar_Click);
@@ -837,7 +843,7 @@
             this.nfeTextBox.Name = "nfeTextBox";
             this.nfeTextBox.ReadOnly = true;
             this.nfeTextBox.Size = new System.Drawing.Size(165, 26);
-            this.nfeTextBox.TabIndex = 48;
+            this.nfeTextBox.TabIndex = 52;
             this.nfeTextBox.TabStop = false;
             // 
             // entregaRealizadaCheckBox
@@ -861,7 +867,7 @@
             this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
             this.descricaoSituacaoPagamentosTextBox.ReadOnly = true;
             this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(164, 26);
-            this.descricaoSituacaoPagamentosTextBox.TabIndex = 52;
+            this.descricaoSituacaoPagamentosTextBox.TabIndex = 56;
             this.descricaoSituacaoPagamentosTextBox.TabStop = false;
             // 
             // btnImprimir
@@ -869,7 +875,7 @@
             this.btnImprimir.Location = new System.Drawing.Point(484, 613);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(81, 23);
-            this.btnImprimir.TabIndex = 6;
+            this.btnImprimir.TabIndex = 7;
             this.btnImprimir.Text = "F8 - Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
@@ -882,7 +888,7 @@
             this.subtotalAVistatextBox.Name = "subtotalAVistatextBox";
             this.subtotalAVistatextBox.ReadOnly = true;
             this.subtotalAVistatextBox.Size = new System.Drawing.Size(169, 29);
-            this.subtotalAVistatextBox.TabIndex = 74;
+            this.subtotalAVistatextBox.TabIndex = 40;
             this.subtotalAVistatextBox.TabStop = false;
             // 
             // lblBalcao
@@ -901,7 +907,7 @@
             this.panelBalcao.Controls.Add(this.lblBalcao);
             this.panelBalcao.Location = new System.Drawing.Point(0, 47);
             this.panelBalcao.Name = "panelBalcao";
-            this.panelBalcao.Size = new System.Drawing.Size(1009, 98);
+            this.panelBalcao.Size = new System.Drawing.Size(1009, 102);
             this.panelBalcao.TabIndex = 72;
             // 
             // btnCfNfe
@@ -909,7 +915,7 @@
             this.btnCfNfe.Location = new System.Drawing.Point(565, 613);
             this.btnCfNfe.Name = "btnCfNfe";
             this.btnCfNfe.Size = new System.Drawing.Size(88, 23);
-            this.btnCfNfe.TabIndex = 7;
+            this.btnCfNfe.TabIndex = 8;
             this.btnCfNfe.Text = "F9 - CF / NF-e";
             this.btnCfNfe.UseVisualStyleBackColor = true;
             this.btnCfNfe.Click += new System.EventHandler(this.btnCfNfe_Click);
@@ -946,8 +952,6 @@
             this.Controls.Add(this.dataSaidaDateTimePicker);
             this.Controls.Add(dataSaidaLabel);
             this.Controls.Add(this.codProdutoComboBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.totalAVistaTextBox);
             this.Controls.Add(this.label2);
@@ -967,8 +971,12 @@
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.entregaRealizadaCheckBox);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmSaida";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

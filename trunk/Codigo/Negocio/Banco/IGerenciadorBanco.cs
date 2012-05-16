@@ -10,6 +10,6 @@ namespace Negocio
     public interface IGerenciadorBanco: IGerenciadorNegocio<Dados.BancoE, Int32>
     {
         IEnumerable<Dados.BancoE> obterTodos();
-
+        IQueryable<Dados.BancoE> GetDataSource();
     }
 }

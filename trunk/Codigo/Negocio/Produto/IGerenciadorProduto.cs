@@ -14,6 +14,7 @@ namespace Negocio
         Produto obterProdutoNomeIgual(String nomeProduto);
         decimal calculaPrecoCusto(Produto produto);
         decimal calculaPrecoVenda(decimal precoCusto, decimal lucro);
-
+        bool ehProdututoTributadoIntegral(String codCST);
+       
     }
 }

@@ -30,6 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
             this.txtTexto = new System.Windows.Forms.TextBox();
@@ -38,11 +43,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -68,8 +68,45 @@
             this.tb_saidaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_saidaDataGridView.Size = new System.Drawing.Size(673, 260);
             this.tb_saidaDataGridView.TabIndex = 8;
+            this.tb_saidaDataGridView.TabStop = false;
             this.tb_saidaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Código";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataSaida
+            // 
+            this.dataSaida.DataPropertyName = "dataSaida";
+            this.dataSaida.HeaderText = "Data";
+            this.dataSaida.Name = "dataSaida";
+            this.dataSaida.ReadOnly = true;
+            // 
+            // nomeCliente
+            // 
+            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeCliente.DataPropertyName = "nomeCliente";
+            this.nomeCliente.HeaderText = "Cliente";
+            this.nomeCliente.Name = "nomeCliente";
+            this.nomeCliente.ReadOnly = true;
+            // 
+            // pedidoGerado
+            // 
+            this.pedidoGerado.DataPropertyName = "pedidoGerado";
+            this.pedidoGerado.HeaderText = "CF";
+            this.pedidoGerado.Name = "pedidoGerado";
+            this.pedidoGerado.ReadOnly = true;
+            // 
+            // totalAVista
+            // 
+            this.totalAVista.DataPropertyName = "totalAVista";
+            this.totalAVista.HeaderText = "Total a Vista";
+            this.totalAVista.Name = "totalAVista";
+            this.totalAVista.ReadOnly = true;
             // 
             // tb_saidaBindingSource
             // 
@@ -170,42 +207,6 @@
             this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Código";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataSaida
-            // 
-            this.dataSaida.DataPropertyName = "dataSaida";
-            this.dataSaida.HeaderText = "Data";
-            this.dataSaida.Name = "dataSaida";
-            this.dataSaida.ReadOnly = true;
-            // 
-            // nomeCliente
-            // 
-            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeCliente.DataPropertyName = "nomeCliente";
-            this.nomeCliente.HeaderText = "Cliente";
-            this.nomeCliente.Name = "nomeCliente";
-            this.nomeCliente.ReadOnly = true;
-            // 
-            // pedidoGerado
-            // 
-            this.pedidoGerado.DataPropertyName = "pedidoGerado";
-            this.pedidoGerado.HeaderText = "CF";
-            this.pedidoGerado.Name = "pedidoGerado";
-            this.pedidoGerado.ReadOnly = true;
-            // 
-            // totalAVista
-            // 
-            this.totalAVista.DataPropertyName = "totalAVista";
-            this.totalAVista.HeaderText = "Total a Vista";
-            this.totalAVista.Name = "totalAVista";
-            this.totalAVista.ReadOnly = true;
-            // 
             // FrmSaidaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,8 +217,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbBusca);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmSaidaPesquisa";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FrmSaidaPesquisa";
             this.Load += new System.EventHandler(this.FrmSaidaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaPesquisa_KeyDown);

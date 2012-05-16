@@ -80,6 +80,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmSaidaNF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaNF.Designer.cs">
+      <DependentUpon>FrmSaidaNF.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSaidaDAV.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +313,9 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmSaidaNF.resx">
+      <DependentUpon>FrmSaidaNF.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmSaidaDAV.resx">
       <DependentUpon>FrmSaidaDAV.cs</DependentUpon>
     </EmbeddedResource>

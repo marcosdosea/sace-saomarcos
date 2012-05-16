@@ -35,16 +35,19 @@ namespace Negocio
         {
             try
             {
-                tb_entrada_produtoTA.Insert(entradaProduto.CodEntrada, entradaProduto.CodProduto, 
-                    entradaProduto.Cfop, entradaProduto.UnidadeCompra, entradaProduto.Quantidade,
-                    entradaProduto.QuantidadeEmbalagem, entradaProduto.ValorUnitario, 
-                    entradaProduto.ValorTotal, entradaProduto.BaseCalculoICMS,
-                    entradaProduto.BaseCalculoICMSST, entradaProduto.ValorICMS,
-                    entradaProduto.ValorICMSST, entradaProduto.ValorIPI, 
-                    entradaProduto.DataValidade, entradaProduto.PrecoCusto, entradaProduto.QuantidadeDisponivel);
+                if (entradaProduto.Quantidade > 0)
+                {
+                    tb_entrada_produtoTA.Insert(entradaProduto.CodEntrada, entradaProduto.CodProduto,
+                        entradaProduto.Cfop, entradaProduto.UnidadeCompra, entradaProduto.Quantidade,
+                        entradaProduto.QuantidadeEmbalagem, entradaProduto.ValorUnitario,
+                        entradaProduto.ValorTotal, entradaProduto.BaseCalculoICMS,
+                        entradaProduto.BaseCalculoICMSST, entradaProduto.ValorICMS,
+                        entradaProduto.ValorICMSST, entradaProduto.ValorIPI,
+                        entradaProduto.DataValidade, entradaProduto.PrecoCusto, entradaProduto.QuantidadeDisponivel);
 
-                // Incrementa o estoque na loja principal
-                tb_produto_lojaTA.atualizarEstoqueProdutoLoja((entradaProduto.Quantidade*entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
+                    // Incrementa o estoque na loja principal
+                    tb_produto_lojaTA.atualizarEstoqueProdutoLoja((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
+                }
 
                 Produto produto = GerenciadorProduto.getInstace().obterProduto(entradaProduto.CodProduto);
                 produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;

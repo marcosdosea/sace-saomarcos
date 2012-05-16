@@ -34,10 +34,12 @@ namespace Telas
         {
             try
             {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
-                else
-                    this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
+                if (!txtTexto.Text.Trim().Equals("") ) {
+                    if (cmbBusca.SelectedIndex == 0)
+                        this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
+                    else if (cmbBusca.SelectedIndex == 1) 
+                        this.tb_saidaTableAdapter.FillByPedidoGerado(this.saceDataSet.tb_saida, txtTexto.Text);
+                }
             }
             catch (System.Exception ex)
             {

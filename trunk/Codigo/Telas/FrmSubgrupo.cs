@@ -16,11 +16,16 @@ namespace Telas
     {
         private EstadoFormulario estado;
 
-        public String CodSubgrupo { get; set; }
+        public Int32 CodSubgrupo { get; set; }
+        public Int32 CodGrupo { get; set; }
+        public Int32 CodGrupoOriginal { get; set; }
 
-        public FrmSubgrupo()
+        public FrmSubgrupo(Int32 codGrupo)
         {
             InitializeComponent();
+            CodGrupoOriginal = codGrupo;
+            CodGrupo = -1;
+            CodSubgrupo = -1;
         }
 
         private void FrmSubgrupo_Load(object sender, EventArgs e)
@@ -45,6 +50,7 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             tb_subgrupoBindingSource.AddNew();
+            tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", CodGrupoOriginal);
             descricaoTextBox.Focus();
             habilitaBotoes(false);
             codGrupoComboBox.SelectedIndex = 0;
@@ -153,6 +159,11 @@ namespace Telas
             }
             else
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if ((e.KeyCode == Keys.F7) || (e.KeyCode == Keys.Escape))
                 {
                     btnCancelar_Click(sender, e);
@@ -202,7 +213,8 @@ namespace Telas
 
         private void FrmSubgrupo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodSubgrupo = codSubgrupoTextBox.Text;
+            CodSubgrupo = Convert.ToInt32(codSubgrupoTextBox.Text);
+            CodGrupo = Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString());
         }
 
         private void codGrupoComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -215,8 +227,13 @@ namespace Telas
             if (codGrupoComboBox.SelectedValue == null)
             {
                 codGrupoComboBox.Focus();
-                throw new TelaException("Um banco válido precisa ser selecionado.");
+                throw new TelaException("Um grupo válido precisa ser selecionado.");
             }
+        }
+
+        private void descricaoTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -671,6 +671,7 @@
             // precoVendaAtacadoTextBox
             // 
             this.precoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "precoVendaAtacado", true));
+            this.precoVendaAtacadoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaAtacadoTextBox.Location = new System.Drawing.Point(429, 440);
             this.precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
             this.precoVendaAtacadoTextBox.Size = new System.Drawing.Size(167, 20);
@@ -689,6 +690,7 @@
             // precoVendaVarejoTextBox
             // 
             this.precoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "precoVendaVarejo", true));
+            this.precoVendaVarejoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaVarejoTextBox.Location = new System.Drawing.Point(429, 399);
             this.precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
             this.precoVendaVarejoTextBox.Size = new System.Drawing.Size(167, 20);
@@ -1064,6 +1066,7 @@
             // 
             // codSubgrupoComboBox
             // 
+            this.codSubgrupoComboBox.CausesValidation = false;
             this.codSubgrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "codSubgrupo", true));
             this.codSubgrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tbprodutoBindingSource, "codSubgrupo", true));
             this.codSubgrupoComboBox.DataSource = this.tbsubgrupoBindingSource;
@@ -1073,7 +1076,7 @@
             this.codSubgrupoComboBox.Location = new System.Drawing.Point(153, 258);
             this.codSubgrupoComboBox.Name = "codSubgrupoComboBox";
             this.codSubgrupoComboBox.Size = new System.Drawing.Size(443, 21);
-            this.codSubgrupoComboBox.TabIndex = 90;
+            this.codSubgrupoComboBox.TabIndex = 28;
             this.codSubgrupoComboBox.ValueMember = "codSubgrupo";
             // 
             // FrmProduto

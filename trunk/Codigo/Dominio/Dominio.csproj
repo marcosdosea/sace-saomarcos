@@ -102,6 +102,7 @@
     <Compile Include="SaidaProduto.cs" />
     <Compile Include="SituacaoPagamentos.cs" />
     <Compile Include="SituacaoProduto.cs" />
+    <Compile Include="Subgrupo.cs" />
     <Compile Include="TipoMovimentacaoConta.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>

@@ -12,11 +12,13 @@ namespace Telas
     public partial class FrmSubgrupoPesquisa : Form
     {
         public Int32 CodSubgrupo { get; set; }
+        public Int32 CodGrupo { get; set; }
 
         public FrmSubgrupoPesquisa()
         {
             InitializeComponent();
             CodSubgrupo = -1;
+            CodGrupo = -1;
         }
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)
@@ -37,6 +39,7 @@ namespace Telas
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             CodSubgrupo = Convert.ToInt32(tb_subgrupoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            CodGrupo = Convert.ToInt32(tb_subgrupoDataGridView.SelectedRows[0].Cells[2].Value.ToString());
             this.Close();
         }
 

@@ -170,5 +170,17 @@ namespace Negocio
             }
             return produto;
         }
+
+        public bool ehProdututoTributadoIntegral(String codCST)
+        {
+            if (codCST != null)
+            {
+                return !(codCST.Equals(Produto.ST_SUBSTITUICAO) ||
+                    codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_COBRADO) ||
+                    codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_REDUCAO_BC) ||
+                    codCST.Equals(Produto.ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA));
+            }
+            return false;
+        }
     }
 }
