@@ -325,10 +325,6 @@ namespace Negocio
 
             if (saidaProdutos.Count > 0)
             {
-
-
-
-
                 List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
 
                 String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saida.CodSaida + ".txt";
@@ -349,7 +345,12 @@ namespace Negocio
 
                     if (saidaProduto.CodCST != Produto.ST_OUTRAS)
                     {
-                        String situacaoFiscal = saidaProduto.CodCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL) ? "01" : "FF";
+                        String situacaoFiscal = "01";
+                        if (saidaProduto.CodCST.Equals(Produto.ST_SUBSTITUICAO) || saidaProduto.CodCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_COBRADO) ||
+                            saidaProduto.CodCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_REDUCAO_BC) || saidaProduto.CodCST.Equals(Produto.ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA))
+                        {
+                             situacaoFiscal = "FF";
+                        }
 
                         arquivo.Write(saidaProduto.CodProduto + ";");
                         arquivo.Write(saidaProduto.Nome + ";");
@@ -684,7 +685,7 @@ namespace Negocio
                         imp.ImpCol(68, produto.CodCST);
                         imp.ImpCol(75, produto.Unidade);
                         imp.ImpColDireita(80, 86, produto.Quantidade.ToString());
-                        imp.ImpColDireita(80, 106, produto.ValorVenda.ToString());
+                        imp.ImpColDireita(80, 103, produto.ValorVenda.ToString());
                         imp.ImpColDireita(115, 130, produto.Subtotal.ToString("N2"));
                         if (produto.CodCST == Produto.ST_TRIBUTADO_INTEGRAL)
                             imp.ImpCol(133, "17%");
@@ -697,7 +698,7 @@ namespace Negocio
                         
                     }
 
-                    imp.Pula(22 - numeroProdutosImpressos);
+                    imp.Pula(20 - numeroProdutosImpressos);
 
 
                     imprimirNotaFiscalRodape(saida, cliente, imp, numeroPaginas, subtotal, true);
@@ -717,9 +718,9 @@ namespace Negocio
             imp.Imp(imp.Normal);
             imp.Pula(3);
             // linha 4
-            imp.ImpCol(49, "XX");
+            imp.ImpCol(52, "XX");
             imp.ImpCol(75, saida.Nfe);
-            imp.Pula(4);
+            imp.Pula(5);
 
             // linha 8
             imp.ImpCol(2, "VENDA TRIBUTADA PELA ECF");
@@ -731,7 +732,7 @@ namespace Negocio
             imp.ImpCol(2, cliente.Nome);
             imp.ImpCol(52, cliente.CpfCnpj);
             imp.ImpCol(71, DateTime.Now.ToShortDateString());
-            imp.Pula(2);
+            imp.Pula(1);
 
             // linha 12
             imp.ImpCol(2, cliente.Endereco + ", " + cliente.Numero);
@@ -746,7 +747,7 @@ namespace Negocio
             imp.ImpCol(45, cliente.Uf);
             imp.ImpCol(54, cliente.Ie);
             imp.ImpCol(74, saida.DataSaida.ToShortTimeString());
-            imp.Pula(10);
+            imp.Pula(5);
         }
 
         private void imprimirNotaFiscalRodape(Saida saida, Pessoa cliente, ImprimeTexto imp, int numeroPagina, decimal subtotal, bool ultimaPagina)

@@ -24,16 +24,16 @@ namespace Telas
 
         private void btnNotmal_Click(object sender, EventArgs e)
         {
+            this.Close();
             Saida saida = GerenciadorSaida.getInstace().obterSaida(CodSaida);
             GerenciadorSaida.getInstace().imprimirDAV(saida, false);
-            this.Close();
         }
 
         private void btnReduzido_Click(object sender, EventArgs e)
         {
+            this.Close();
             Saida saida = GerenciadorSaida.getInstace().obterSaida(CodSaida);
             GerenciadorSaida.getInstace().imprimirDAV(saida, true);
-            this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

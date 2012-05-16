@@ -83,7 +83,7 @@ namespace Telas
 
         private void subgrupoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo();
+            Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo(1);
             frmSubgrupo.ShowDialog();
             frmSubgrupo.Dispose();
         }

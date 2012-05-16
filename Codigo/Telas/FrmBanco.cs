@@ -30,11 +30,7 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
 
-            //SaceEntities se = new SaceEntities();
-
-
-            tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos().ToList();
-            //tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos(); 
             habilitaBotoes(true);
         }
 
@@ -70,7 +66,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorBanco.getInstace().remover(int.Parse(codBancoTextBox.Text));
-                //tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
+                tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos();
             }
         }
 
@@ -94,7 +90,7 @@ namespace Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gBanco.inserir(banco);
-                    //tb_bancoTableAdapter.Fill(saceDataSet.tb_banco);
+                    tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos();
                     tb_bancoBindingSource.MoveLast();
                 }
                 else

@@ -58,7 +58,7 @@ namespace Telas
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            if (txtTexto.Text.Length > textoAtual.Length)
+            if ((txtTexto.Text.Trim().Length > 0) && (txtTexto.Text.Length > textoAtual.Length))
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
                     this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
@@ -74,10 +74,12 @@ namespace Telas
                     {
                         // qualquer problema a busca não é realizada
                     }
-                    
+
                 }
                 else
+                {
                     this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                }
             }
             textoAtual = txtTexto.Text;
             Cursor.Current = Cursors.Default;
@@ -85,7 +87,11 @@ namespace Telas
 
         private void tb_produtoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codProduto = int.Parse(tb_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            codProduto = -1;
+            if (tb_produtoDataGridView.RowCount > 0)
+            {
+                codProduto = int.Parse(tb_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            }
             this.Close();
         }
 

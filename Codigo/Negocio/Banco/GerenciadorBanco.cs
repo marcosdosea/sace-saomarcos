@@ -8,6 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using MySql.Data;
 
 namespace Negocio
 {
@@ -25,6 +26,12 @@ namespace Negocio
             }
             return gBanco;
         }
+
+        public IQueryable<Dados.BancoE> GetDataSource()
+        {
+            return repBanco.GetQueryable();
+        }
+
         public IEnumerable<Dados.BancoE> obterTodos()
         {
             return repBanco.ObterTodos();

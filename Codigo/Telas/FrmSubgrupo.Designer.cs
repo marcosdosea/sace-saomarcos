@@ -187,6 +187,7 @@
             // 
             this.tb_subgrupoBindingSource.DataMember = "tb_subgrupo";
             this.tb_subgrupoBindingSource.DataSource = this.saceDataSet;
+            this.tb_subgrupoBindingSource.Sort = "codSubgrupo";
             // 
             // tb_subgrupoBindingNavigator
             // 
@@ -302,6 +303,7 @@
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(346, 20);
             this.descricaoTextBox.TabIndex = 23;
+            this.descricaoTextBox.TextChanged += new System.EventHandler(this.descricaoTextBox_TextChanged);
             // 
             // codGrupoComboBox
             // 

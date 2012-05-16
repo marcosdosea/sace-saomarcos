@@ -159,6 +159,8 @@ namespace Telas
                 
                 GerenciadorEntradaProduto.getInstace().inserir(entradaProduto);
                 codEntradaTextBox_TextChanged(sender, e);
+                tb_entrada_produtoBindingSource.AddNew();
+                codProdutoComboBox.SelectedIndex = 0;
                 codProdutoComboBox.Focus();
             }
             else 
@@ -167,6 +169,7 @@ namespace Telas
                 tb_entradaBindingSource.EndEdit();
                 tb_entradaTableAdapter.Fill(saceDataSet.tb_entrada);
                 tb_entradaBindingSource.Position = tb_entradaBindingSource.Find("codEntrada", entrada.CodEntrada);
+                tb_produtoBindingSource.Position = 0;
                 habilitaBotoes(true);
                 btnProdutos.Focus();
             }
@@ -452,6 +455,7 @@ namespace Telas
             else
             {
                 tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
+                data_validadeDateTimePicker.Enabled = produto.TemVencimento;
             }
             codCSTComboBox_SelectedIndexChanged(sender, e);
         }
@@ -533,7 +537,7 @@ namespace Telas
                 throw new TelaException("A quantidade de produtos da embalagem deve ser maior ou igual a 1.");
             }
 
-            if (entradaProduto.CodCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL))
+            if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(codCSTComboBox.SelectedValue.ToString() ) )
             {
                 entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoNormal(entradaProduto.ValorUnitario, entradaProduto.Icms,
                     entradaProduto.Simples, entradaProduto.Ipi, entradaProduto.Frete, Global.CUSTO_MANUTENCAO_LOJA) / entradaProduto.QuantidadeEmbalagem;
@@ -592,26 +596,26 @@ namespace Telas
 
         private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (codCSTComboBox.SelectedValue != null)
             {
-                valorICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                bool ehTributadoIntegral = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(codCSTComboBox.SelectedValue.ToString());
+            
+                valorICMSSTTextBox.ReadOnly = ehTributadoIntegral;
                 valorICMSSTTextBox.TabStop = !valorICMSSTTextBox.ReadOnly;
-                baseCalculoICMSSTTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                baseCalculoICMSSTTextBox.ReadOnly = ehTributadoIntegral;
                 baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
-                icms_substitutoTextBox.ReadOnly = codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                icms_substitutoTextBox.ReadOnly = ehTributadoIntegral;
                 icms_substitutoTextBox.TabStop = !icms_substitutoTextBox.ReadOnly;
 
 
-                valorICMSTextBox.ReadOnly = !codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                valorICMSTextBox.ReadOnly = !ehTributadoIntegral;
                 valorICMSTextBox.TabStop = !valorICMSTextBox.ReadOnly;
-                baseCalculoICMSTextBox.ReadOnly = !codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                baseCalculoICMSTextBox.ReadOnly = !ehTributadoIntegral;
                 baseCalculoICMSTextBox.TabStop = !baseCalculoICMSTextBox.ReadOnly;
-                icmsTextBox.ReadOnly = !codCSTComboBox.SelectedValue.ToString().Equals(Produto.ST_TRIBUTADO_INTEGRAL);
+                icmsTextBox.ReadOnly = !ehTributadoIntegral;
                 icmsTextBox.TabStop = !icmsTextBox.ReadOnly; 
-
-
             }
         }
-
     }
 }

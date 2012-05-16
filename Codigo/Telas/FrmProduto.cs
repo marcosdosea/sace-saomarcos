@@ -235,6 +235,29 @@ namespace Telas
                     }
                     frmGrupo.Dispose();
                 }
+                else if ((e.KeyCode == Keys.F2) && (codSubgrupoComboBox.Focused))
+                {
+                    Telas.FrmSubgrupoPesquisa frmSubGrupoPesquisa = new Telas.FrmSubgrupoPesquisa();
+                    frmSubGrupoPesquisa.ShowDialog();
+                    if (frmSubGrupoPesquisa.CodSubgrupo != -1)
+                    {
+                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmSubGrupoPesquisa.CodGrupo);
+                        tbsubgrupoBindingSource.Position = tbsubgrupoBindingSource.Find("codSubgrupo", frmSubGrupoPesquisa.CodSubgrupo);
+                    }
+                    frmSubGrupoPesquisa.Dispose();
+                }
+                else if ((e.KeyCode == Keys.F3) && (codSubgrupoComboBox.Focused))
+                {
+                    Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo( Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString() ) );
+                    frmSubgrupo.ShowDialog();
+                    if (frmSubgrupo.CodSubgrupo > 0)
+                    {
+                        this.tb_subgrupoTableAdapter.Fill(this.saceDataSet.tb_subgrupo);
+                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmSubgrupo.CodGrupo);
+                        tbsubgrupoBindingSource.Position = tbsubgrupoBindingSource.Find("codSubgrupo", frmSubgrupo.CodSubgrupo);
+                    }
+                    frmSubgrupo.Dispose();
+                }
                 else if ((e.KeyCode == Keys.F2) && (codigoFabricanteComboBox.Focused))
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
@@ -280,7 +303,7 @@ namespace Telas
                 String codCST = codCSTComboBox.SelectedValue.ToString();
 
 
-                if (codCST.Equals(Produto.ST_TRIBUTADO_INTEGRAL))
+                if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(codCST))
                 {
                     precoCusto = gPrecos.calculaPrecoCustoNormal(precoCompra, creditoICMS, simples, ipi, frete, manutencao);
                 }
@@ -312,7 +335,10 @@ namespace Telas
 
         private void nomeTextBox_Leave(object sender, EventArgs e)
         {
-            nomeFabricanteTextBox.Text = nomeTextBox.Text;
+            if (nomeFabricanteTextBox.Text.Trim().Equals(""))
+            {
+                nomeFabricanteTextBox.Text = nomeTextBox.Text;
+            }
         }
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
@@ -332,8 +358,11 @@ namespace Telas
                     codigoFabricanteComboBox.Focus();
                 }
                 frmPessoaPesquisa.Dispose();
-            } 
-
+            }
+            else
+            {
+                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+            }
         }
 
         private void codigoFabricanteComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -407,6 +436,5 @@ namespace Telas
 
             }
         }
-
     }
 }
