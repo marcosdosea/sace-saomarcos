@@ -96,8 +96,10 @@
     <Compile Include="PlanoConta.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="ProdutoLoja.cs" />
+    <Compile Include="ProdutoVendido.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saida.cs" />
+    <Compile Include="SaidaEntradaProduto.cs" />
     <Compile Include="SaidaPagamento.cs" />
     <Compile Include="SaidaProduto.cs" />
     <Compile Include="SituacaoPagamentos.cs" />

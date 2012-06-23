@@ -30,10 +30,12 @@ namespace Negocio
         {
             try
             {
-                tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, 
-                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(), 
-                    pessoa.Ie, pessoa.Fone3, pessoa.Email, pessoa.Numero, pessoa.Complemento, pessoa.IeSubstituto);
+                byte ehFabricanteByte = (byte)(pessoa.EhFabricante ? 1 : 0);
+
+                tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
+                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, 
+                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
+                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte);
 
                 return 0;
             }
@@ -51,9 +53,12 @@ namespace Negocio
             
             try
             {
-                tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Cep, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, pessoa.ValorComissao,
-                    pessoa.Observacao, pessoa.Tipo.ToString(), pessoa.Ie, pessoa.Fone3, pessoa.Email, pessoa.Numero, pessoa.Complemento, pessoa.IeSubstituto, pessoa.CodPessoa);
+                byte ehFabricanteByte = (byte)(pessoa.EhFabricante ? 1 : 0);
+
+                tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
+                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra,
+                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
+                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, pessoa.CodPessoa);
             }
             catch (Exception e)
             {

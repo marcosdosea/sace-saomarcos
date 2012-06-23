@@ -31,12 +31,14 @@ namespace Negocio
         {
             try
             {
+                byte fretePagoEmitenteByte = (byte)(entrada.FretePagoEmitente ? 1 : 0);
+
                 tb_entradaTA.Insert(entrada.NumeroNotaFiscal, entrada.CodEmpresaFrete, entrada.CodFornecedor,
-                    entrada.CodTipoEntrada, entrada.DataEmissao, entrada.DataEntrada, entrada.TotalBaseCalculo,
-                    entrada.TotalICMS, entrada.TotalBaseSubstituicao, entrada.TotalSubstituicao,
-                    entrada.TotalProdutos, entrada.ValorFrete, entrada.ValorSeguro,
-                    entrada.Desconto, entrada.OutrasDespesas, entrada.TotalIPI,
-                    entrada.TotalNota, entrada.CodSituacaoPagamentos, entrada.FretePagoEmitente);
+                    entrada.CodTipoEntrada, entrada.DataEmissao, entrada.DataEntrada, entrada.TotalBaseCalculo.ToString(),
+                    entrada.TotalICMS.ToString(), entrada.TotalBaseSubstituicao.ToString(), entrada.TotalSubstituicao.ToString(),
+                    entrada.TotalProdutos.ToString(), entrada.TotalProdutosST.ToString(), entrada.ValorFrete.ToString(), entrada.ValorSeguro.ToString(),
+                    entrada.Desconto.ToString(), entrada.OutrasDespesas.ToString(), entrada.TotalIPI.ToString(),
+                    entrada.TotalNota.ToString(), entrada.CodSituacaoPagamentos, fretePagoEmitenteByte);
 
                 return (Int64) tb_entradaTA.getMaxCodEntrada();
             }
@@ -50,12 +52,15 @@ namespace Negocio
         {
             try
             {
+                byte fretePagoEmitenteByte = (byte)(entrada.FretePagoEmitente ? 1 : 0);
+
                 tb_entradaTA.Update(entrada.NumeroNotaFiscal, entrada.CodEmpresaFrete, entrada.CodFornecedor,
                     entrada.CodTipoEntrada, entrada.DataEmissao, entrada.DataEntrada, entrada.TotalBaseCalculo,
                     entrada.TotalICMS, entrada.TotalBaseSubstituicao, entrada.TotalSubstituicao,
                     entrada.TotalProdutos, entrada.ValorFrete, entrada.ValorSeguro,
                     entrada.Desconto, entrada.OutrasDespesas, entrada.TotalIPI,
-                    entrada.TotalNota, entrada.CodSituacaoPagamentos, entrada.FretePagoEmitente, entrada.CodEntrada);
+                    entrada.TotalNota, entrada.CodSituacaoPagamentos, fretePagoEmitenteByte, entrada.TotalProdutosST,
+                    entrada.CodEntrada);
             }
             catch (Exception e)
             {

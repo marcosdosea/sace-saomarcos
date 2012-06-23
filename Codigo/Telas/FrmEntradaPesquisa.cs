@@ -22,8 +22,7 @@ namespace Telas
         private void FrmEntradaPesquisa_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'saceDataSet.tb_entrada' table. You can move, or remove it, as needed.
-            this.tb_entradaTableAdapter.Fill(this.saceDataSet.tb_entrada);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_entrada' table. You can move, or remove it, as needed.
+            //this.tb_entradaTableAdapter.Fill(this.saceDataSet.tb_entrada);
             cmbBusca.SelectedIndex = 0;
         }
 
@@ -33,11 +32,14 @@ namespace Telas
         {
             try
             {
-                //if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                //    this.tb_entradaTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada, int.Parse(txtTexto.Text));
-                   
-                //else
-                //    this.tb_entradaTableAdapter.FillByNome(this.saceDataSet.tb_entrada, txtTexto.Text);
+                if (!txtTexto.Text.Equals("")) {
+                    if (cmbBusca.SelectedIndex == 0) 
+                        this.tb_entradaTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada, int.Parse(txtTexto.Text));
+                    else if (cmbBusca.SelectedIndex == 1)
+                        this.tb_entradaTableAdapter.FillByNumeroNotaFiscal(this.saceDataSet.tb_entrada, txtTexto.Text);
+                    else 
+                        this.tb_entradaTableAdapter.FillByNomeFornecedor(this.saceDataSet.tb_entrada, txtTexto.Text);
+                }
             }
             catch (System.Exception ex)
             {
@@ -47,7 +49,10 @@ namespace Telas
 
         private void tb_entradaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codEntrada = int.Parse(tb_entradaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            if (tb_entradaDataGridView.SelectedRows.Count > 0)
+            {
+                codEntrada = int.Parse(tb_entradaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            }
             this.Close();
         }
 

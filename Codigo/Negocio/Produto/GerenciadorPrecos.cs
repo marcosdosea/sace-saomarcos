@@ -21,7 +21,7 @@ namespace Negocio
             return gerenciadorPrecos;
         }
 
-        public decimal calculaPrecoCustoNormal(decimal precoCompra, decimal creditoICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao)
+        public decimal calculaPrecoCustoNormal(decimal precoCompra, decimal creditoICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
         {
             // return precoCompra + (precoCompra * (1 / (100 - (Global.ICMS_LOCAL - creditoICMS))) * 10) + (precoCompra * (1 / (100 - simples)) * 10) +
             //    (precoCompra * ipi / 100) + (precoCompra * frete / 100) + (precoCompra * manutencao / 100);
@@ -31,11 +31,11 @@ namespace Negocio
             precoCalculado = precoCalculado + (precoCalculado * ipi / 100);
             precoCalculado = precoCalculado + (precoCalculado * frete / 100);
             precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
-            
+            precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
             return precoCalculado;
         }
 
-        public decimal calculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao)
+        public decimal calculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
         {
             // return precoCompra + (precoCompra * (1 / (100 - ICMSSubstituicao)) *10) + (precoCompra * (1 / (100 - simples))*10) +
             //    (precoCompra * ipi / 100) + (precoCompra * frete / 100) + (precoCompra * manutencao / 100);
@@ -45,7 +45,7 @@ namespace Negocio
             precoCalculado = precoCalculado + (precoCalculado * ipi / 100);
             precoCalculado = precoCalculado + (precoCalculado * frete / 100);
             precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
-
+            precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
             return precoCalculado;
         }
 

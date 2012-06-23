@@ -38,12 +38,12 @@ namespace Negocio
                     produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh, 
                     produto.CodFabricante, produto.ReferenciaFabricante, 
                     produto.CodSituacaoProduto, produto.CodGrupo, produto.CodSubgrupo, temVencimentoByte,
-                    produto.Icms.ToString(), produto.IcmsSubstituto.ToString(), produto.Simples.ToString(),
-                    produto.Ipi.ToString(), produto.Frete.ToString(), produto.UltimaDataAtualizacao,
-                    produto.UltimoPrecoCompra.ToString(), produto.LucroPrecoVendaVarejo.ToString(),
-                    produto.PrecoVendaVarejo.ToString(), produto.QtdProdutoAtacado.ToString(),
-                    produto.LucroPrecoVendaAtacado.ToString(), produto.PrecoVendaAtacado.ToString(), 
-                    exibeNaListagemByte, produto.DataUltimoPedido);
+                    produto.Icms, produto.IcmsSubstituto, produto.Simples,
+                    produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao,
+                    produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
+                    produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
+                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, 
+                    exibeNaListagemByte, produto.DataUltimoPedido, produto.Desconto);
                
                 return 0;
             }
@@ -75,7 +75,7 @@ namespace Negocio
                     produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
                     produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
                     produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado,
-                    produto.ExibeNaListagem, produto.DataUltimoPedido, produto.CodProduto);
+                    produto.ExibeNaListagem, produto.DataUltimoPedido, produto.Desconto, produto.CodProduto);
             }
             catch (Exception e)
             {
@@ -102,9 +102,9 @@ namespace Negocio
         {
             if (produto.Cfop == Global.VENDA_NORMAL)
                 return gPreco.calculaPrecoCustoNormal(produto.UltimoPrecoCompra, produto.Icms, 
-                    produto.Simples, produto.Ipi, produto.Frete, 0);
+                    produto.Simples, produto.Ipi, produto.Frete, 0, 0);
             return gPreco.calculaPrecoCustoSubstituicao(produto.UltimoPrecoCompra, produto.IcmsSubstituto,
-                produto.Simples, produto.Ipi, produto.Frete, 0);
+                produto.Simples, produto.Ipi, produto.Frete, 0, 0);
         }
 
         public decimal calculaPrecoVenda(decimal precoCusto, decimal lucro)
@@ -175,6 +175,8 @@ namespace Negocio
         {
             if (codCST != null)
             {
+                codCST = codCST.Substring(1, 2);
+                
                 return !(codCST.Equals(Produto.ST_SUBSTITUICAO) ||
                     codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_COBRADO) ||
                     codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_REDUCAO_BC) ||

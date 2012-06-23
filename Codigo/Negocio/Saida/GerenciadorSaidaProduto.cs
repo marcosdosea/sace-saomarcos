@@ -30,17 +30,24 @@ namespace Negocio
 
         public Int64 inserir(SaidaProduto saidaProduto, Saida saida)
         {
+            if (saidaProduto.Quantidade == 0)
+                throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
+
+            if (saidaProduto.ValorVendaAVista <= 0)
+                throw new NegocioException("O preço de venda do produto deve ser maior que zero.");
+
+            if (saida.TipoSaida == Saida.TIPO_VENDA)
+                throw new NegocioException("Não é possível inserir produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
+
+            if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                throw new NegocioException("Não é possível inserir produtos numa transferência para depósito cuja nota fiscal já foi emitida.");
+            
             try
             {
-                if (saida.TipoSaida == Saida.TIPO_VENDA)
-                {
-                    throw new NegocioException("Não é possível inserir produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
-                }
-
                 tb_SaidaProdutoTA.Insert(saidaProduto.CodProduto, saidaProduto.CodSaida, 
-                    saidaProduto.Quantidade.ToString(), saidaProduto.ValorVenda.ToString(), 
-                    saidaProduto.Desconto.ToString(), saidaProduto.Subtotal.ToString(), 
-                    saidaProduto.SubtotalAVista.ToString(), saidaProduto.DataValidade);
+                    saidaProduto.Quantidade, saidaProduto.ValorVenda, 
+                    saidaProduto.Desconto, saidaProduto.Subtotal, 
+                    saidaProduto.SubtotalAVista, saidaProduto.DataValidade);
                 tb_SaidaTA.UpdateTotais(saidaProduto.CodSaida);
                 return 0;
                 
@@ -60,6 +67,11 @@ namespace Negocio
                 {
                     throw new NegocioException("Não é possível remover produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
                 }
+                else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                {
+                    throw new NegocioException("Não é possível remover produtos de uma Saída para Deposito com Nota Fiscal já emitida.");
+                }
+
                 tb_SaidaProdutoTA.Delete(saidaProduto.CodSaidaProduto);
                 tb_SaidaTA.UpdateTotais(saidaProduto.CodSaida);
             }

@@ -40,6 +40,7 @@ namespace Util
         LOJA_PADRAO = 1,
         CLIENTE_PADRAO = 1,
         PROFISSIONAL_PADRAO = 1,
+        ENTRADA_PADRAO = 1,
         VENDA_NORMAL = 5102,
         VENDA_ST = 5403,
         VENDA_OUTRAS = 9999,
@@ -56,9 +57,8 @@ namespace Util
 
         public static String
 
-
-            ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-            //ENDERECO_SERVIDOR = "c:\\",
+         ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+         //ENDERECO_SERVIDOR = "c:\\",
          PASTA_COMUNICACAO_SERVIDOR = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_SERVIDOR_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_SERVIDOR_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
@@ -69,10 +69,10 @@ namespace Util
          SGBD_USUARIO = "sace",
          SGBD_SENHA = "sace",
          SGBD_IP = "192.168.0.3",
-         PORTA_IMPRESSORA = "LPT1",
+         PORTA_IMPRESSORA_NORMAL = "LPT1",
+         PORTA_IMPRESSORA_REDUZIDA = "LPT2",
          //PORTA_IMPRESSORA = "sace-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================";
-
     }
 }

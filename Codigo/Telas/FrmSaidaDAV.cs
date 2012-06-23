@@ -41,5 +41,17 @@ namespace Telas
             this.Close();
         }
 
+        private void FrmSaidaDAV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                SendKeys.Send("{tab}");
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnCancelar_Click(sender, e);
+            }
+        }
     }
 }

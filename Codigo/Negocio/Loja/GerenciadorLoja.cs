@@ -67,7 +67,7 @@ namespace Negocio
             }
         }
 
-        public Loja obter(Int32 codLoja)
+        public Loja obter(int codLoja)
         {
             Loja loja = new Loja();
 
@@ -75,6 +75,19 @@ namespace Negocio
             Dados.saceDataSet.tb_lojaDataTable lojaDT = tb_lojaTA.GetDataByCodLoja(codLoja);
 
             loja.CodLoja  = Convert.ToInt32(lojaDT.Rows[0]["codLoja"].ToString());
+            loja.CodPessoa = Convert.ToInt64(lojaDT.Rows[0]["codPessoa"].ToString());
+            loja.Nome = lojaDT.Rows[0]["nome"].ToString();
+            return loja;
+        }
+
+        public Loja obterByCodPessoa(long codPessoa)
+        {
+            Loja loja = new Loja();
+
+            Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTA = new tb_lojaTableAdapter();
+            Dados.saceDataSet.tb_lojaDataTable lojaDT = tb_lojaTA.GetDataByCodPessoa(codPessoa);
+
+            loja.CodLoja = Convert.ToInt32(lojaDT.Rows[0]["codLoja"].ToString());
             loja.CodPessoa = Convert.ToInt64(lojaDT.Rows[0]["codPessoa"].ToString());
             loja.Nome = lojaDT.Rows[0]["nome"].ToString();
             return loja;

@@ -40,7 +40,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco();
+            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.getCodProduto() != -1)
             {
@@ -107,6 +107,7 @@ namespace Telas
             produto.Icms = (icmsTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(icmsTextBox.Text);
             produto.IcmsSubstituto = (icms_substitutoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(icms_substitutoTextBox.Text);
             produto.Ipi = (ipiTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(ipiTextBox.Text);
+            produto.Desconto = (descontoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(descontoTextBox.Text);
             produto.LucroPrecoVendaAtacado = (lucroPrecoVendaAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text);
             produto.LucroPrecoVendaVarejo = (lucroPrecoVendaVarejoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(lucroPrecoVendaVarejoTextBox.Text);
             produto.Nome = nomeTextBox.Text.Trim();
@@ -142,8 +143,13 @@ namespace Telas
             }
             else
             {
+                String descricaoGrupo = codGrupoComboBox.Text;
+
                 gProduto.atualizar(produto);
                 tbprodutoBindingSource.EndEdit();
+
+                
+                codGrupoComboBox.SelectedIndex = tbgrupoBindingSource.Find("descricao", descricaoGrupo);
             }
 
             habilitaBotoes(true);
@@ -205,8 +211,8 @@ namespace Telas
                     }
                     e.Handled = true;
                     SendKeys.Send("{tab}");
-                }
-                if (e.KeyCode == Keys.Escape)
+                } 
+                else if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
                 }
@@ -295,6 +301,7 @@ namespace Telas
             decimal frete = Convert.ToDecimal(freteTextBox.Text);
             decimal lucroVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
             decimal lucroAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
+            decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
             decimal manutencao = 0;
             decimal precoCusto = 0;
 
@@ -305,12 +312,13 @@ namespace Telas
 
                 if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(codCST))
                 {
-                    precoCusto = gPrecos.calculaPrecoCustoNormal(precoCompra, creditoICMS, simples, ipi, frete, manutencao);
+                    precoCusto = gPrecos.calculaPrecoCustoNormal(precoCompra, creditoICMS, simples, ipi, frete, manutencao, desconto);
                 }
                 else
                 {
-                    precoCusto = gPrecos.calculaPrecoCustoSubstituicao(precoCompra, ICMSSubstituicao, simples, ipi, frete, manutencao);
+                    precoCusto = gPrecos.calculaPrecoCustoSubstituicao(precoCompra, ICMSSubstituicao, simples, ipi, frete, manutencao, desconto);
                 }
+                precoCustoTextBox.Text = precoCusto.ToString("N3");
                 precoVarejoSugestaoTextBox.Text = gPrecos.calculaPrecoVenda(precoCusto, lucroVarejo).ToString("N3");
                 precoAtacadoSugestaoTextBox.Text = gPrecos.calculaPrecoVenda(precoCusto, lucroAtacado).ToString("N3");
             }
@@ -428,13 +436,17 @@ namespace Telas
                 Int32 codGrupo = Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString());
                 this.tb_subgrupoTableAdapter.FillByCodGrupo(this.saceDataSet.tb_subgrupo, codGrupo);
 
-                codSubgrupoComboBox.SelectedValue = ((Dados.saceDataSet.tb_produtoRow) ((DataRowView) tbprodutoBindingSource.Current).Row).codSubgrupo;
-                if (codSubgrupoComboBox.SelectedIndex < 0)
+
+                Int32 codSubgrupo = ((Dados.saceDataSet.tb_produtoRow)((DataRowView)tbprodutoBindingSource.Current).Row).codSubgrupo;
+
+                tbsubgrupoBindingSource.Position = tbsubgrupoBindingSource.Find("codSubgrupo", codSubgrupo);
+
+                if (tbsubgrupoBindingSource.Position == 0)
                 {
                     codSubgrupoComboBox.SelectedIndex = 0;
                 }
-
             }
         }
+
     }
 }

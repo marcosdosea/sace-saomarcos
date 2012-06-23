@@ -146,7 +146,7 @@ namespace Telas
 
         private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida();
+            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_PRE_VENDA);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
@@ -244,6 +244,20 @@ namespace Telas
                 Negocio.GerenciadorSeguranca.getInstance().Backup();
 
             }
+        }
+
+        private void transferênciaEntreLojasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_SAIDA_DEPOSITO);
+            frmSaida.ShowDialog();
+            frmSaida.Dispose();
+        }
+
+        private void pedidoDeCompraÀFornecedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmEntradaPedido frmEntradaPedido = new FrmEntradaPedido();
+            frmEntradaPedido.ShowDialog();
+            frmEntradaPedido.Dispose();
         }
 
     }

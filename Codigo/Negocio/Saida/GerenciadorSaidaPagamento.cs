@@ -30,11 +30,20 @@ namespace Negocio
         {
             try
             {
-                if (saidaPagamento.Valor <= 0)
+                if ((saidaPagamento.Valor == 0) && ((saida.TotalAVista-saida.TotalPago) != 0)) 
                 {
-                    throw new NegocioException("O valor recebido deve ser maior que zero e não deve ultrapassar o valor da venda.");
+                    throw new NegocioException("O valor recebido não pode ser igual a zero.");
                 }
 
+                if ( (saida.TotalAVista < 0) && (Math.Abs(saidaPagamento.Valor) > Math.Abs(saida.TotalAVista - saida.TotalPago)) )
+                {
+                    throw new NegocioException("O valor da devolução não pode ser maior que o valor dos produtos.");
+                }
+
+                if (Math.Abs(saida.TotalAVista) < Math.Abs(saida.TotalPago))
+                {
+                    throw new NegocioException("Não é necessário registrar mais outro pagamento.");
+                }
 
                 if ((saidaPagamento.CodFormaPagamento != FormaPagamento.DINHEIRO) && (saidaPagamento.CodFormaPagamento != FormaPagamento.CARTAO)
                     && (saidaPagamento.CodPessoaResponsavel == Util.Global.CLIENTE_PADRAO))
@@ -58,9 +67,9 @@ namespace Negocio
                 }
 
 
-                decimal total = totalPagamentos(saida.CodSaida);
+                //decimal total = totalPagamentos(saida.CodSaida);
 
-                if (saida.TotalAVista > saida.TotalPago)
+                if (Math.Abs(saida.TotalAVista - saida.TotalPago) > 0)
                 {
 
                     tb_SaidaPagamentoTA.Insert(saidaPagamento.CodSaida,
@@ -79,6 +88,11 @@ namespace Negocio
                         List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
                         GerenciadorSaida.getInstace().registrarPagamentosSaida(saidaPagamentos, saida);
                     }
+                }
+                // quando é necessário apenas atualizar os dados do cliente
+                else
+                {
+                    GerenciadorSaida.getInstace().atualizar(saida);
                 }
 
             }

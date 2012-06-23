@@ -23,6 +23,11 @@ namespace Telas
             this.saida = saida;
         }
 
+        /// <summary>
+        /// Carrega dados para informar as formas de pagamento
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmSaidaPagamento_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
@@ -34,78 +39,217 @@ namespace Telas
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
             this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-
             this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-
             tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
 
+            inicializaVariaveis();
+            atualizaValores();
+        }
+
+        private void inicializaVariaveis()
+        {
             codCartaoComboBox.SelectedIndex = 0;
             codFormaPagamentoComboBox.SelectedIndex = 0;
             codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
-
-
-            saida.Desconto = (1 - (saida.TotalAVista / saida.Total)) * 100;
-            descontoTextBox.Text = saida.Desconto.ToString("N3");  
-
-            
-            atualizaValores();
         }
-
+        /// <summary>
+        /// Salva uma forma de pagamento 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            SaidaPagamento saidaPagamento = new SaidaPagamento();
-            saidaPagamento.CodContaBanco = int.Parse(codContaBancoComboBox.SelectedValue.ToString());
-            saidaPagamento.CodFormaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
-            saidaPagamento.CodCartaoCredito = int.Parse(codCartaoComboBox.SelectedValue.ToString());
-            saidaPagamento.Data = DateTime.Now;
-            saidaPagamento.Valor = decimal.Parse(valorRecebidoTextBox.Text);
-            saidaPagamento.CodSaida = saida.CodSaida;
-            saidaPagamento.CodDocumentoPagamento = int.Parse(codDocumentoPagamentoComboBox.SelectedValue.ToString());
-            saidaPagamento.CodPessoaResponsavel = long.Parse(codClienteComboBox.SelectedValue.ToString());
-            saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
-            saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
-
-            saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
-            saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
-            saida.Desconto = decimal.Parse(descontoTextBox.Text);
-            saida.CpfCnpj = cpf_CnpjTextBox.Text;
-            saida.Total = decimal.Parse(totalTextBox.Text);
-            saida.TotalPago = Convert.ToDecimal(totalRecebidoLabel.Text);
-            
-            GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
-
-            atualizaValores();
-            
-            this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, long.Parse(codSaidaTextBox.Text));
-            
-            if (faltaReceber <= 0)
+            if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
             {
-                btnEncerrar_Click(sender, e);
+                encerrarLancamentosPagamentos(sender, e);
             }
             else
             {
+                SaidaPagamento saidaPagamento = new SaidaPagamento();
+                saidaPagamento.CodContaBanco = int.Parse(codContaBancoComboBox.SelectedValue.ToString());
+                saidaPagamento.CodFormaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
+                saidaPagamento.CodCartaoCredito = int.Parse(codCartaoComboBox.SelectedValue.ToString());
+                saidaPagamento.Data = DateTime.Now;
+                saidaPagamento.Valor = decimal.Parse(valorRecebidoTextBox.Text);
+                saidaPagamento.CodSaida = saida.CodSaida;
+                saidaPagamento.CodDocumentoPagamento = int.Parse(codDocumentoPagamentoComboBox.SelectedValue.ToString());
+                saidaPagamento.CodPessoaResponsavel = long.Parse(codClienteComboBox.SelectedValue.ToString());
+                saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
+                saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
+
+                saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
+                saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
+                saida.Desconto = decimal.Parse(descontoTextBox.Text);
+                saida.CpfCnpj = cpf_CnpjTextBox.Text;
+                saida.Total = decimal.Parse(totalTextBox.Text);
+                saida.TotalPago = Convert.ToDecimal(totalRecebidoLabel.Text);
+
                 codFormaPagamentoComboBox.Focus();
+                GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
+
+                atualizaValores();
+
+                this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, long.Parse(codSaidaTextBox.Text));
+
+                if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
+                {
+                    encerrarLancamentosPagamentos(sender, e);
+                }
+                else
+                {
+                    codFormaPagamentoComboBox.Focus();
+                }
             }
             valorRecebidoTextBox.Enabled = true;
         }
 
+        /// <summary>
+        /// Cancelar os pagamento chama o encerramento.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            decimal totalPagamentos = GerenciadorSaidaPagamento.getInstace().totalPagamentos(saida.CodSaida);
-            if (totalPagamentos < saida.TotalAVista)
+            encerrarLancamentosPagamentos(sender, e);
+        }
+
+        
+        /// <summary>
+        /// Encerra o lançamento de pagamentos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void encerrarLancamentosPagamentos(object sender, EventArgs e)
+        {
+            long codSaida = Int64.Parse(codSaidaTextBox.Text);
+            Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
+
+            if ((saida.PedidoGerado == null) || saida.PedidoGerado.Equals(""))
             {
-                if (MessageBox.Show("Deseja sair sem lançar os pagamentos?", "Confirmar Saída", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(codSaida, FormaPagamento.CREDIARIO).Count > 0;
+
+                if (temPagamentoCrediario)
                 {
-                    this.Close();
+                    FrmSaidaConfirma frmSaidaConfirma = new FrmSaidaConfirma(saida);
+                    frmSaidaConfirma.ShowDialog();
+
+                    if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
+                    {
+                        if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
+                        {
+                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_PRE_VENDA);
+                            if (MessageBox.Show("Gerar Documento Fiscal?", "Gerar Documento", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+                            }
+                        }
+                        else if (frmSaidaConfirma.Opcao == Saida.TIPO_ORCAMENTO)
+                        {
+                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_ORCAMENTO);
+                        }
+
+                        this.Close();
+                    }
+                    frmSaidaConfirma.Dispose();
+                }
+                else
+                {
+                    FrmSaidaConfirma frmSaidaConfirma = new FrmSaidaConfirma(saida);
+                    frmSaidaConfirma.ShowDialog();
+                    if (frmSaidaConfirma.Opcao != 0) // Opção 0 é quando pressiona o botão Cancelar
+                    {
+                        if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
+                        {
+                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_PRE_VENDA);
+                            GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+                        }
+                        else if (frmSaidaConfirma.Opcao == Saida.TIPO_ORCAMENTO)
+                        {
+                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_ORCAMENTO);
+                        }
+
+                        this.Close();
+                    }
+                    frmSaidaConfirma.Dispose();
                 }
             }
             else
             {
                 this.Close();
             }
+        }
 
+        /// <summary>
+        /// Exclui os dados de um pagamento selecionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void excluirPagamento(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma exclusão do pagamento?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (tb_saida_forma_pagamentoDataGridView.Rows.Count > 0)
+                {
+                    // Exclui os dados do pagamento
+                    long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento, saida);
+                    this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
+
+                    inicializaVariaveis();
+                    atualizaValores();
+                    codFormaPagamentoComboBox.Focus();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Atualiza os valores dos campos a medida que valores são digitados
+        /// </summary>
+        private void atualizaValores()
+        {
+            totalRecebidoLabel.Text = saida.TotalPago.ToString("N2");
+            
+            // Cálculo de quanto falta receber
+            faltaReceber = saida.TotalAVista - saida.TotalPago;
+            if (faltaReceber > 0)
+                faltaReceberTextBox.Text = faltaReceber.ToString("N2");
+            else
+                faltaReceberTextBox.Text = "0";
+            
+            // Cálculo do troco em relação aos pagamento efetuados
+            if (saida.Troco > 0)
+            {
+                trocoTextBox.Text = saida.Troco.ToString("N2");
+            }
+            else
+            {
+                trocoTextBox.Text = "0,00";
+            }
+
+
+            //Preenche de forma automática o valor recebido com o valor que falta receber
+            Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
+            if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
+            {
+                //if ((saida.TotalAVista - saida.TotalPago) > 0)
+                if (Math.Abs(saida.TotalAVista) > Math.Abs(saida.TotalPago))
+                {
+                    valorRecebidoTextBox.Text = (saida.TotalAVista - saida.TotalPago).ToString("N2");
+                }
+            }
+
+            // Ajusta o valor do desconto que está sendo exibido de acordo com o total a vista
+            if (saida.TotalAVista != 0)
+            {
+                saida.Desconto = ((1 - (saida.TotalAVista / saida.Total)) * 100);
+            }
+            else
+            {
+                saida.Desconto = 0;
+            }
+            descontoTextBox.Text = saida.Desconto.ToString("N2");
         }
 
         private void FrmSaidaPagamento_KeyDown(object sender, KeyEventArgs e)
@@ -113,10 +257,6 @@ namespace Telas
             if (e.KeyCode == Keys.F6)
             {
                 btnSalvar_Click(sender, e);
-            }
-            else if (e.KeyCode == Keys.F7)
-            {
-                btnEncerrar_Click(sender, e);
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -212,58 +352,6 @@ namespace Telas
             }
         }
 
-        private void excluirPagamento(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Confirma exclusão do pagamento?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                if (tb_saida_forma_pagamentoDataGridView.Rows.Count > 0)
-                {
-                    long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    
-                    
-                    
-                    
-                    Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento, saida);
-                    this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
-
-                    codCartaoComboBox.SelectedIndex = 0;
-                    codFormaPagamentoComboBox.SelectedIndex = 0;
-                    codDocumentoPagamentoComboBox.SelectedIndex = 0;
-                    codContaBancoComboBox.SelectedIndex = 0;
-                    intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString(); 
-
-                    atualizaValores();
-
-                    codFormaPagamentoComboBox.Focus();
-                }
-            }
-        }
-
-        private void atualizaValores()
-        {  
-            totalRecebidoLabel.Text = saida.TotalPago.ToString("N2"); 
-            faltaReceber = saida.TotalAVista - saida.TotalPago;
-            if (faltaReceber > 0)
-                faltaReceberTextBox.Text = faltaReceber.ToString("N2");
-            else
-                faltaReceberTextBox.Text = "0";
-            if (saida.Troco > 0)
-            {
-                trocoTextBox.Text = saida.Troco.ToString("N2");
-            }
-            else
-            {
-                trocoTextBox.Text = "0,00";
-            }
-
-
-            Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
-            if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
-            {
-                valorRecebidoTextBox.Text = faltaReceberTextBox.Text;
-            }
-            descontoTextBox.Text = saida.Desconto.ToString("N2");
-        }
         
         private void codTipoSaidaComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -288,6 +376,7 @@ namespace Telas
                 if (frmPessoaPesquisa.CodPessoa != -1)
                 {
                     tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    codClienteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
                 }
                 else
                 {
@@ -311,6 +400,7 @@ namespace Telas
                 if (frmPessoaPesquisa.CodPessoa != -1)
                 {
                     tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                    codProfissionalComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource1.Current).Row).nome;
                 }
                 else
                 {
@@ -329,37 +419,7 @@ namespace Telas
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
         }
 
-        private void btnEncerrar_Click(object sender, EventArgs e)
-        {
-            long codSaida = Int64.Parse(codSaidaTextBox.Text);
-            Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
-
-            bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(codSaida, FormaPagamento.CREDIARIO).Count > 0;
-
-            if (temPagamentoCrediario)
-            {
-                if (MessageBox.Show("Confirma formas de pagamento?", "Confirmar Pagamentos", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorSaida.getInstace().encerrar(saida);
-
-                    if (MessageBox.Show("Deseja gerar documento Fiscal?", "Gerar Documento", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
-                    }
-                    this.Close();
-                }
-
-            } else {
-
-                if (MessageBox.Show("Confirma formas de pagamentos e impressão fiscal?", "Confirmar Pagamentos", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorSaida.getInstace().encerrar(saida);
-                    GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
-                    this.Close();
-                }
-            }
-        }
-
+        
         private void descontoTextBox_Leave(object sender, EventArgs e)
         {
             const decimal ERRO = 0.02M;
@@ -443,7 +503,6 @@ namespace Telas
         private void faltaReceberTextBox_TextChanged(object sender, EventArgs e)
         {
             faltaReceber = Convert.ToDecimal(faltaReceberTextBox.Text);
-            btnEncerrar.Enabled = (faltaReceber == 0);
         }
 
         private void codClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)

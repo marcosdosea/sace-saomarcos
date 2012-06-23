@@ -17,24 +17,28 @@ namespace Telas
         private String textoAtual;
         private DateTime horaUltimaDigitacao;
 
+        public bool ExibirTodos { get; set;}
+
         public Int32 CodProduto
         {
             get { return codProduto; }
             set { codProduto = value; }
         }
 
-        public FrmProdutoPesquisaPreco()
+        public FrmProdutoPesquisaPreco(bool exibirTodos)
         {
             InitializeComponent();
             codProduto = -1;
             filtroNome = null;
+            ExibirTodos = exibirTodos;
         }
 
-        public FrmProdutoPesquisaPreco(String nome)
+        public FrmProdutoPesquisaPreco(String nome, bool exibirTodos)
         {
             InitializeComponent();
             codProduto = -1;
             filtroNome = nome;
+            ExibirTodos = exibirTodos;
         }
 
         private void FrmProdutoPesquisaPreco_Load(object sender, EventArgs e)
@@ -46,7 +50,14 @@ namespace Telas
                 textoAtual = filtroNome;
                 txtTexto.Text = filtroNome;
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
-                this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                if (ExibirTodos)
+                {
+                    this.tb_produtoTableAdapter.FillByNomeTodos(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                }
+                else
+                {
+                    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                }
             }
             else
             {
@@ -62,7 +73,15 @@ namespace Telas
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
                     this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
-                else if ((cmbBusca.SelectedIndex == 2) && (txtTexto.Text.Length > 9))
+                else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+                {
+                    this.tb_produtoTableAdapter.FillByReferenciaFabricante(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                }
+                else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
+                {
+                    this.tb_produtoTableAdapter.FillByNomeProdutoFabricante(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                }
+                else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Length > 9))
                 {
                     try
                     {
@@ -78,7 +97,19 @@ namespace Telas
                 }
                 else
                 {
-                    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                    if (ExibirTodos)
+                    {
+                        if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2)) || (txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)))
+                        {
+                            this.tb_produtoTableAdapter.FillByNomeTodos(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                        }
+                    }
+                    else
+                    {
+                        if ( !txtTexto.Text.StartsWith("%") || (txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)))  {
+                            this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                        }
+                    }
                 }
             }
             textoAtual = txtTexto.Text;
@@ -130,6 +161,11 @@ namespace Telas
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // coluna do nome
+            tb_produtoDataGridView.Columns[1].Visible = true;
+            // coluna do nome conforme fabricante
+            tb_produtoDataGridView.Columns[2].Visible = false;
+                
             if (cmbBusca.SelectedIndex == 0)
             {
                 label2.Text = "Descrição do Produto";
@@ -139,6 +175,19 @@ namespace Telas
                 label2.Text = "Código do Produto:";
             }
             else if (cmbBusca.SelectedIndex == 2)
+            {
+                label2.Text = "Referência do Fabricante:";
+            
+            }
+            else if (cmbBusca.SelectedIndex == 3)
+            {
+                label2.Text = "Nome do Produto conforme Fabricante:";
+                // coluna do nome
+                tb_produtoDataGridView.Columns[1].Visible = false;
+                // coluna do nome conforme fabricante
+                tb_produtoDataGridView.Columns[2].Visible = true;
+            }
+            else if (cmbBusca.SelectedIndex == 4)
             {
                 label2.Text = "Data de Atualizacão Maior que (aaaa-mm-dd):";
             }
