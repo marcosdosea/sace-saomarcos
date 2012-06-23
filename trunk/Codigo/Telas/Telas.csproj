@@ -67,6 +67,7 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -80,6 +81,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmEntradaPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEntradaPedido.Designer.cs">
+      <DependentUpon>FrmEntradaPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSaidaConfirma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaConfirma.Designer.cs">
+      <DependentUpon>FrmSaidaConfirma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSaidaDeposito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaDeposito.Designer.cs">
+      <DependentUpon>FrmSaidaDeposito.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSaidaNF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,6 +332,17 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmEntradaPedido.resx">
+      <DependentUpon>FrmEntradaPedido.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSaidaConfirma.resx">
+      <DependentUpon>FrmSaidaConfirma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSaidaDeposito.resx">
+      <DependentUpon>FrmSaidaDeposito.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmSaidaNF.resx">
       <DependentUpon>FrmSaidaNF.cs</DependentUpon>
     </EmbeddedResource>
@@ -478,6 +508,10 @@
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\DataSources\Dados.BancoE.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetConsultas.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />
     <None Include="Properties\Settings.settings">
@@ -578,7 +612,19 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\caixa.png" />
+    <Content Include="Resources\caixa2.png" />
+    <Content Include="Resources\calendario.png" />
+    <Content Include="Resources\carteira.png" />
+    <Content Include="Resources\dados.png" />
+    <Content Include="Resources\ferramentas.png" />
+    <None Include="Resources\fundo.PNG" />
+    <None Include="Resources\fundo1.PNG" />
+    <None Include="Resources\fundo2.PNG" />
+    <Content Include="Resources\grafico.png" />
+    <Content Include="Resources\Jellyfish.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

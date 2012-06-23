@@ -10,7 +10,8 @@ namespace Dominio
         public const int RECEBIMENTO_CLIENTE = 1;
         public const int PAGAMENTO_FORNECEDOR = 2;
         public const int TROCO_CLIENTE = 3;
-        
+        public const int DEVOLUCAO_CLIENTE = 4;
+
         private Int64 codMovimentacao;
 
         public Int64 CodMovimentacao

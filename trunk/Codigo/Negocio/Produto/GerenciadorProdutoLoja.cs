@@ -32,7 +32,7 @@ namespace Negocio
             {
                 tb_produto_lojaTA.Insert(produtoLoja.CodLoja, produtoLoja.CodProduto,
                     produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux, produtoLoja.Localizacao);
-
+                ajustarEstoqueEntradasProduto(produtoLoja.CodProduto);
                 return 0;
             }
             catch (Exception e)
@@ -47,6 +47,7 @@ namespace Negocio
             {
                 tb_produto_lojaTA.Update(produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux,
                     produtoLoja.Localizacao, produtoLoja.CodLoja, produtoLoja.CodProduto);
+                ajustarEstoqueEntradasProduto(produtoLoja.CodProduto);
             }
             catch (Exception e)
             {
@@ -59,6 +60,7 @@ namespace Negocio
             try
             {
                 tb_produto_lojaTA.Delete(produtoLojaPK.CodLoja, produtoLojaPK.CodProduto);
+                ajustarEstoqueEntradasProduto(produtoLojaPK.CodProduto);
             }
             catch (Exception e)
             {
@@ -68,22 +70,121 @@ namespace Negocio
 
         public ProdutoLoja obterProdutoLoja(ProdutoLojaPK produtoLojaPK)
         {
-            ProdutoLoja produtoLoja = new ProdutoLoja();
+            ProdutoLoja produtoLoja = null;
             Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_pLojaTA = new tb_produto_lojaTableAdapter();
             Dados.saceDataSet.tb_produto_lojaDataTable produtoLojaDT = tb_pLojaTA.GetDataByCodProdutoCodLoja(produtoLojaPK.CodLoja, produtoLojaPK.CodProduto);
 
-            produtoLoja.CodProduto = int.Parse(produtoLojaDT.Rows[0]["codProduto"].ToString());
-            produtoLoja.CodLoja = int.Parse(produtoLojaDT.Rows[0]["codLoja"].ToString());
-            produtoLoja.Localizacao = produtoLojaDT.Rows[0]["localizacao"].ToString();
-            produtoLoja.QtdEstoque = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoque"].ToString());
-            produtoLoja.QtdEstoqueAux = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoqueAux"].ToString());
-            
+            if (produtoLojaDT.Count > 0)
+            {
+                produtoLoja = new ProdutoLoja();
+                produtoLoja.CodProduto = int.Parse(produtoLojaDT.Rows[0]["codProduto"].ToString());
+                produtoLoja.CodLoja = int.Parse(produtoLojaDT.Rows[0]["codLoja"].ToString());
+                produtoLoja.Localizacao = produtoLojaDT.Rows[0]["localizacao"].ToString();
+                produtoLoja.QtdEstoque = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoque"].ToString());
+                produtoLoja.QtdEstoqueAux = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoqueAux"].ToString());
+            }
             return produtoLoja;
         }
 
         public void adicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, Int32 codProduto)
         {
-            tb_produto_lojaTA.AdicionaQuantidade(quantidade, quantidadeAux, codLoja, codProduto);
+            ProdutoLojaPK chave = new ProdutoLojaPK();
+            chave.CodLoja = codLoja;
+            chave.CodProduto = codProduto;
+
+            ProdutoLoja produtoLoja = obterProdutoLoja(chave);
+            if (produtoLoja != null)
+            {
+                tb_produto_lojaTA.AdicionaQuantidade(quantidade, quantidadeAux, codLoja, codProduto);
+            }
+            else
+            {
+                tb_produto_lojaTA.Insert(codLoja, codProduto, quantidade, quantidadeAux, "");
+            }
+        }
+
+        private decimal obterEstoquePrincipal(long codProduto)
+        {
+            Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_pLojaTA = new tb_produto_lojaTableAdapter();
+            decimal? estoque = tb_pLojaTA.ObterEstoqueProdutoPrincipal(codProduto);
+            return (estoque == null) ? 0 : (decimal)estoque;
+        }
+
+        private decimal obterEstoqueAux(long codProduto)
+        {
+            Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_pLojaTA = new tb_produto_lojaTableAdapter();
+            decimal? estoque = tb_pLojaTA.ObterEstoqueProdutoAux(codProduto);
+            return (estoque == null) ? 0 : (decimal)estoque;
+        }
+
+        private void ajustarEstoqueEntradasProduto(long codProduto)
+        {
+            decimal quantidadeEstoquePrincipalLojas = obterEstoquePrincipal(codProduto);
+            decimal quantidadeEstoqueAuxLojas = obterEstoqueAux(codProduto);
+            
+            decimal quantidadeEstoquePrincipalEntradaProduto = GerenciadorEntradaProduto.getInstace().ObterEstoquePrincipalDisponivel(codProduto);
+            decimal quantidadeEstoqueAuxEntradaProduto = GerenciadorEntradaProduto.getInstace().ObterEstoqueAuxDisponivel(codProduto);
+            
+            // Atualiza as entradas principais com os valores do estoque totais dos produto / loja
+            if (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto)
+            {
+                List<EntradaProduto> entradasProduto = GerenciadorEntradaProduto.getInstace().ObterEntradasPrincipais(codProduto);
+
+                for (int i = 0; (entradasProduto != null) && (i < entradasProduto.Count); i++)
+                {
+                    // Vai decremetar o contador até organizar a quantidade disponível dos lotes de entrada
+                    if (quantidadeEstoquePrincipalLojas > 0)
+                    {
+                        if (entradasProduto[i].Quantidade < quantidadeEstoquePrincipalLojas)
+                        {
+                            entradasProduto[i].QuantidadeDisponivel = entradasProduto[i].Quantidade;
+                            quantidadeEstoquePrincipalLojas -= entradasProduto[i].Quantidade;
+                        }
+                        else
+                        {
+                            entradasProduto[i].QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
+                            quantidadeEstoquePrincipalLojas = 0;
+                        }
+                    }
+                    else
+                    {
+                        entradasProduto[i].QuantidadeDisponivel = 0;
+                    }
+                    GerenciadorEntradaProduto.getInstace().atualizar(entradasProduto[i]);
+                }
+
+            }
+
+
+            // Atualiza as entradas auxiliares com os valores do estoque totais dos produto / loja
+            if (quantidadeEstoqueAuxLojas != quantidadeEstoqueAuxEntradaProduto)
+            {
+                List<EntradaProduto> entradasProduto = GerenciadorEntradaProduto.getInstace().ObterEntradasAuxiliar(codProduto);
+
+                for (int i = 0; (entradasProduto != null) && (i < entradasProduto.Count); i++)
+                {
+                    // Vai decremetar o contador até organizar a quantidade disponível dos lotes de entrada
+                    if (quantidadeEstoqueAuxLojas > 0)
+                    {
+                        if (entradasProduto[i].Quantidade < quantidadeEstoqueAuxLojas)
+                        {
+                            entradasProduto[i].QuantidadeDisponivel = entradasProduto[i].Quantidade;
+                            quantidadeEstoqueAuxLojas -= entradasProduto[i].Quantidade;
+                        }
+                        else
+                        {
+                            entradasProduto[i].QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
+                            quantidadeEstoqueAuxLojas = 0;
+                        }
+                    }
+                    else
+                    {
+                        entradasProduto[i].QuantidadeDisponivel = 0;
+                    }
+                    GerenciadorEntradaProduto.getInstace().atualizar(entradasProduto[i]);
+                }
+
+            }
         }
     }
 }

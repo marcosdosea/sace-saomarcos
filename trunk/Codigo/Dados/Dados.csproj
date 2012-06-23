@@ -85,6 +85,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DadosException.cs" />
+    <Compile Include="saceDataSetConsultas.cs">
+      <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="saceDataSetConsultas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="IRepositorioGenerico.cs" />
     <Compile Include="ModelSace.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,6 +121,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelSace.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="saceDataSetConsultas.xsc">
+      <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
+    </None>
+    <None Include="saceDataSetConsultas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>saceDataSetConsultas.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="saceDataSetConsultas.xss">
+      <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,6 +147,7 @@
     <None Include="saceDataSet.xss">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </None>
+    <None Include="SaceEntities1.datasource" />
     <None Include="saceRelatoriosDataSet.xsc">
       <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
     </None>

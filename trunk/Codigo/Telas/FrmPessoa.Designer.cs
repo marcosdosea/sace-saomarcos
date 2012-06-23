@@ -79,7 +79,6 @@
             this.PfRadioButton = new System.Windows.Forms.RadioButton();
             this.nomeLabel = new System.Windows.Forms.Label();
             this.cpfLabel = new System.Windows.Forms.Label();
-            this.cpf_cnpjMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.cepMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.fone1MaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.fone2MaskedTextBox = new System.Windows.Forms.MaskedTextBox();
@@ -105,6 +104,8 @@
             this.complementoTextBox = new System.Windows.Forms.TextBox();
             this.limiteCompraTextBox = new System.Windows.Forms.TextBox();
             this.valorComissaoTextBox = new System.Windows.Forms.TextBox();
+            this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
+            this.ehFabricanteCheckBox = new System.Windows.Forms.CheckBox();
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             bairroLabel = new System.Windows.Forms.Label();
@@ -551,9 +552,9 @@
             // 
             this.groupBox1.Controls.Add(this.PjRadioButton);
             this.groupBox1.Controls.Add(this.PfRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(511, 72);
+            this.groupBox1.Location = new System.Drawing.Point(511, 65);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(101, 74);
+            this.groupBox1.Size = new System.Drawing.Size(101, 56);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tipo:";
@@ -561,7 +562,7 @@
             // PjRadioButton
             // 
             this.PjRadioButton.AutoSize = true;
-            this.PjRadioButton.Location = new System.Drawing.Point(7, 41);
+            this.PjRadioButton.Location = new System.Drawing.Point(7, 34);
             this.PjRadioButton.Name = "PjRadioButton";
             this.PjRadioButton.Size = new System.Drawing.Size(63, 17);
             this.PjRadioButton.TabIndex = 1;
@@ -572,7 +573,7 @@
             // 
             this.PfRadioButton.AutoSize = true;
             this.PfRadioButton.Checked = true;
-            this.PfRadioButton.Location = new System.Drawing.Point(7, 14);
+            this.PfRadioButton.Location = new System.Drawing.Point(7, 12);
             this.PfRadioButton.Name = "PfRadioButton";
             this.PfRadioButton.Size = new System.Drawing.Size(54, 17);
             this.PfRadioButton.TabIndex = 0;
@@ -597,15 +598,6 @@
             this.cpfLabel.Size = new System.Drawing.Size(68, 13);
             this.cpfLabel.TabIndex = 49;
             this.cpfLabel.Text = "CNPJ / CPF:";
-            // 
-            // cpf_cnpjMaskedTextBox
-            // 
-            this.cpf_cnpjMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf_Cnpj", true));
-            this.cpf_cnpjMaskedTextBox.Location = new System.Drawing.Point(7, 127);
-            this.cpf_cnpjMaskedTextBox.Name = "cpf_cnpjMaskedTextBox";
-            this.cpf_cnpjMaskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cpf_cnpjMaskedTextBox.TabIndex = 28;
-            this.cpf_cnpjMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // cepMaskedTextBox
             // 
@@ -803,7 +795,9 @@
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
             this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
@@ -864,11 +858,32 @@
             this.valorComissaoTextBox.TabIndex = 58;
             this.valorComissaoTextBox.Leave += new System.EventHandler(this.limiteCompraTextBox_Leave);
             // 
+            // cpf_CnpjTextBox
+            // 
+            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf_Cnpj", true));
+            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(7, 126);
+            this.cpf_CnpjTextBox.MaxLength = 14;
+            this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
+            this.cpf_CnpjTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cpf_CnpjTextBox.TabIndex = 28;
+            // 
+            // ehFabricanteCheckBox
+            // 
+            this.ehFabricanteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_pessoaBindingSource, "ehFabricante", true));
+            this.ehFabricanteCheckBox.Location = new System.Drawing.Point(516, 127);
+            this.ehFabricanteCheckBox.Name = "ehFabricanteCheckBox";
+            this.ehFabricanteCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.ehFabricanteCheckBox.TabIndex = 35;
+            this.ehFabricanteCheckBox.Text = "É Fabricante";
+            this.ehFabricanteCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 519);
+            this.ClientSize = new System.Drawing.Size(622, 504);
+            this.Controls.Add(this.ehFabricanteCheckBox);
+            this.Controls.Add(this.cpf_CnpjTextBox);
             this.Controls.Add(this.valorComissaoTextBox);
             this.Controls.Add(this.limiteCompraTextBox);
             this.Controls.Add(complementoLabel);
@@ -890,7 +905,6 @@
             this.Controls.Add(this.fone2MaskedTextBox);
             this.Controls.Add(this.fone1MaskedTextBox);
             this.Controls.Add(this.cepMaskedTextBox);
-            this.Controls.Add(this.cpf_cnpjMaskedTextBox);
             this.Controls.Add(this.cpfLabel);
             this.Controls.Add(this.nomeLabel);
             this.Controls.Add(this.groupBox1);
@@ -983,7 +997,6 @@
         private System.Windows.Forms.RadioButton PfRadioButton;
         private System.Windows.Forms.Label nomeLabel;
         private System.Windows.Forms.Label cpfLabel;
-        private System.Windows.Forms.MaskedTextBox cpf_cnpjMaskedTextBox;
         private System.Windows.Forms.MaskedTextBox cepMaskedTextBox;
         private System.Windows.Forms.MaskedTextBox fone1MaskedTextBox;
         private System.Windows.Forms.MaskedTextBox fone2MaskedTextBox;
@@ -1007,5 +1020,7 @@
         private System.Windows.Forms.TextBox complementoTextBox;
         private System.Windows.Forms.TextBox valorComissaoTextBox;
         private System.Windows.Forms.TextBox limiteCompraTextBox;
+        private System.Windows.Forms.TextBox cpf_CnpjTextBox;
+        private System.Windows.Forms.CheckBox ehFabricanteCheckBox;
     }
 }

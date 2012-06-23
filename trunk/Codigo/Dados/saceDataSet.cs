@@ -2,6 +2,10 @@
     
     
     public partial class saceDataSet {
+        partial class tb_entradaDataTable
+        {
+        }
+    
         partial class tb_entrada_produtoDataTable
         {
         }

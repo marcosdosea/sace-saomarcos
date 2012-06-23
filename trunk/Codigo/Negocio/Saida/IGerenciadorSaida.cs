@@ -26,7 +26,7 @@ namespace Negocio
         
         Saida obterSaida(Int64 codSaida);
 
-        void encerrar(Saida saida);
+        void encerrar(Saida saida, int tipoSaidaEncerramento);
 
         Boolean dataVencimentoProdutoAceitavel(Produto produto, DateTime dataVencimento);
 
@@ -35,10 +35,14 @@ namespace Negocio
         Boolean atualizarPedidosComDocumentosFiscais();
         void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida);
 
+
         void imprimirDAV(Saida saida, bool comprimido);
 
         void imprimirNotaFiscal(Saida saida);
 
         void removerPreVenda(Saida saida);
+        void registrarEstornoEstoque(List<SaidaProduto> saidaProdutos);
+        
+        Int64 ObterNumeroUltimaNotaFiscal();
     }
 }

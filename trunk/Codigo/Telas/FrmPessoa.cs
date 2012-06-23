@@ -89,7 +89,7 @@ namespace Telas
             pessoa.Email = emailTextBox.Text;
             pessoa.IeSubstituto = ieSubstitutoTextBox.Text;
             pessoa.Numero = numeroTextBox.Text;
-            pessoa.CpfCnpj = cpf_cnpjMaskedTextBox.Text;
+            pessoa.CpfCnpj = cpf_CnpjTextBox.Text;
             pessoa.Endereco = enderecoTextBox.Text;
             pessoa.Fone1 = fone1MaskedTextBox.Text;
             pessoa.Fone2 = fone2MaskedTextBox.Text;
@@ -100,6 +100,7 @@ namespace Telas
             pessoa.Tipo = PfRadioButton.Checked ? 'F' : 'J';
             pessoa.Uf = ufTextBox.Text;
             pessoa.ValorComissao = (valorComissaoTextBox.Text=="")?0:Decimal.Parse(valorComissaoTextBox.Text);
+            pessoa.EhFabricante = ehFabricanteCheckBox.Checked;
 
             IGerenciadorPessoa gPessoa = GerenciadorPessoa.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))

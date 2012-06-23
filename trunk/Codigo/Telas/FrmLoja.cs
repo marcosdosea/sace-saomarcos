@@ -213,11 +213,26 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            if (codPessoaComboBox.SelectedValue == null)
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codPessoaComboBox.Text);
+            if (pessoa == null)
             {
-                codPessoaComboBox.Focus();
-                throw new TelaException("Uma pessoa válida precisa ser selecionada.");
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                }
+                else
+                {
+                    codPessoaComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
             }
+            else
+            {
+                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+            }
+            
         }
     }
 }

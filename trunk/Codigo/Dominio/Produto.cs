@@ -8,12 +8,12 @@ namespace Dominio
 {
     public class Produto: ICloneable
     {
-        public const String ST_TRIBUTADO_INTEGRAL = "000";
-        public const String ST_SUBSTITUICAO = "010";
-        public const String ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA = "030";
-        public const String ST_SUBSTITUICAO_ICMS_COBRADO = "060";
-        public const String ST_SUBSTITUICAO_ICMS_REDUCAO_BC = "070";
-        public const String ST_OUTRAS = "090";
+        public const String ST_TRIBUTADO_INTEGRAL = "00";
+        public const String ST_SUBSTITUICAO = "10";
+        public const String ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA = "30";
+        public const String ST_SUBSTITUICAO_ICMS_COBRADO = "60";
+        public const String ST_SUBSTITUICAO_ICMS_REDUCAO_BC = "70";
+        public const String ST_OUTRAS = "90";
         
         
         public Int32 CodProduto { get; set; }
@@ -24,7 +24,7 @@ namespace Dominio
         public String CodCST { get; set; }
         public Int32 CodGrupo { get; set; }
         public Int32 CodSubgrupo { get; set; }
-        public Int32 CodFabricante { get; set; }
+        public long CodFabricante { get; set; }
         public String ReferenciaFabricante { get; set; }
         public Boolean TemVencimento { get; set; }
         public Int32 Cfop { get; set; }
@@ -34,6 +34,7 @@ namespace Dominio
         public Decimal Simples { get; set; }
         public Decimal Ipi { get; set; }
         public Decimal Frete { get; set; }
+        public Decimal Desconto { get; set; }
         public Decimal UltimoPrecoCompra { get; set; }
         public DateTime UltimaDataAtualizacao { get; set; }
         public Decimal LucroPrecoVendaVarejo { get; set; }
