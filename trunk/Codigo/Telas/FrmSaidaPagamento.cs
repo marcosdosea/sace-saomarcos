@@ -422,17 +422,22 @@ namespace Telas
         
         private void descontoTextBox_Leave(object sender, EventArgs e)
         {
-            const decimal ERRO = 0.02M;
             
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+            calcularDesconto();
+        }
+
+        private void calcularDesconto()
+        {
+            const decimal ERRO = 0.02M;
             saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
             decimal totalCalculado = saida.Total * (1 - (saida.Desconto / 100));
 
-            if ( ((totalCalculado - saida.TotalAVista) > ERRO) || ((totalCalculado - saida.TotalAVista) < ERRO))
+            if (((totalCalculado - saida.TotalAVista) > ERRO) || ((totalCalculado - saida.TotalAVista) < ERRO))
             {
                 saida.TotalAVista = totalCalculado;
             }
-            
+
             totalPagarTextBox.Text = saida.TotalAVista.ToString("N2");
         }
 
@@ -455,6 +460,12 @@ namespace Telas
                     codFormaPagamentoComboBox.SelectedIndex = 0;
                     throw new TelaException("Para utilizar essa forma de pagamento é necessário selecionar um cliente.");
                     
+                }
+                if (codFormaPagamento == FormaPagamento.CREDIARIO)
+                {
+                    descontoTextBox.Text = "0";
+                    calcularDesconto();
+                    atualizaValores();
                 }
             }
         }

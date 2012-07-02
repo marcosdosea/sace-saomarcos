@@ -151,6 +151,13 @@ namespace Telas.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap carteira2 {
+            get {
+                object obj = ResourceManager.GetObject("carteira2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap dados {
             get {
                 object obj = ResourceManager.GetObject("dados", resourceCulture);

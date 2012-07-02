@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmReceberPagamentoPessoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReceberPagamentoPessoa.Designer.cs">
+      <DependentUpon>FrmReceberPagamentoPessoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmEntradaPedido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,6 +338,10 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmReceberPagamentoPessoa.resx">
+      <DependentUpon>FrmReceberPagamentoPessoa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmEntradaPedido.resx">
       <DependentUpon>FrmEntradaPedido.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -617,6 +627,7 @@
     <Content Include="Resources\caixa2.png" />
     <Content Include="Resources\calendario.png" />
     <Content Include="Resources\carteira.png" />
+    <None Include="Resources\carteira2.png" />
     <Content Include="Resources\dados.png" />
     <Content Include="Resources\ferramentas.png" />
     <None Include="Resources\fundo.PNG" />

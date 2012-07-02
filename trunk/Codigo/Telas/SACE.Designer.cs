@@ -49,6 +49,7 @@
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.documentosDePagamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.receberPagamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +64,7 @@
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnVenda = new System.Windows.Forms.Button();
+            this.btnReceber = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -221,7 +223,8 @@
             // 
             this.contasAPagarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contasAPagarToolStripMenuItem1,
-            this.documentosDePagamentoToolStripMenuItem});
+            this.documentosDePagamentoToolStripMenuItem,
+            this.receberPagamentosToolStripMenuItem});
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
             this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.contasAPagarToolStripMenuItem.Text = "&Financeiro";
@@ -239,6 +242,13 @@
             this.documentosDePagamentoToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.documentosDePagamentoToolStripMenuItem.Text = "Documentos de Pagamento";
             this.documentosDePagamentoToolStripMenuItem.Click += new System.EventHandler(this.documentosDePagamentoToolStripMenuItem_Click);
+            // 
+            // receberPagamentosToolStripMenuItem
+            // 
+            this.receberPagamentosToolStripMenuItem.Name = "receberPagamentosToolStripMenuItem";
+            this.receberPagamentosToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.receberPagamentosToolStripMenuItem.Text = "Receber Pagamentos";
+            this.receberPagamentosToolStripMenuItem.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
             // 
             // utilitáriosToolStripMenuItem
             // 
@@ -303,10 +313,10 @@
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSair.Image = global::Telas.Properties.Resources._118;
-            this.btnSair.Location = new System.Drawing.Point(520, 27);
+            this.btnSair.Location = new System.Drawing.Point(624, 27);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(105, 78);
-            this.btnSair.TabIndex = 10;
+            this.btnSair.TabIndex = 12;
             this.btnSair.Text = "Sair - ESC";
             this.btnSair.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnSair.UseVisualStyleBackColor = true;
@@ -315,7 +325,7 @@
             // btnEntradas
             // 
             this.btnEntradas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEntradas.Image = global::Telas.Properties.Resources._761;
+            this.btnEntradas.Image = global::Telas.Properties.Resources._66;
             this.btnEntradas.Location = new System.Drawing.Point(312, 27);
             this.btnEntradas.Name = "btnEntradas";
             this.btnEntradas.Size = new System.Drawing.Size(105, 78);
@@ -354,7 +364,7 @@
             // btnProdutos
             // 
             this.btnProdutos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProdutos.Image = global::Telas.Properties.Resources._66;
+            this.btnProdutos.Image = global::Telas.Properties.Resources._68;
             this.btnProdutos.Location = new System.Drawing.Point(104, 27);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(105, 78);
@@ -377,12 +387,26 @@
             this.btnVenda.UseVisualStyleBackColor = true;
             this.btnVenda.Click += new System.EventHandler(this.vendaAoConsumidorToolStripMenuItem_Click);
             // 
+            // btnReceber
+            // 
+            this.btnReceber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReceber.Image = global::Telas.Properties.Resources.carteira2;
+            this.btnReceber.Location = new System.Drawing.Point(520, 27);
+            this.btnReceber.Name = "btnReceber";
+            this.btnReceber.Size = new System.Drawing.Size(105, 78);
+            this.btnReceber.TabIndex = 10;
+            this.btnReceber.Text = "Receber - F8";
+            this.btnReceber.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnReceber.UseVisualStyleBackColor = true;
+            this.btnReceber.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Telas.Properties.Resources.fundo;
             this.ClientSize = new System.Drawing.Size(784, 534);
+            this.Controls.Add(this.btnReceber);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.btnEntradas);
             this.Controls.Add(this.btnContas);
@@ -446,6 +470,8 @@
         private System.Windows.Forms.ToolStripMenuItem subgrupoDeProdutosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transferênciaEntreLojasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pedidoDeCompraÀFornecedoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem receberPagamentosToolStripMenuItem;
+        private System.Windows.Forms.Button btnReceber;
 
     }
 }

@@ -107,7 +107,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 169);
+            this.ClientSize = new System.Drawing.Size(379, 165);
             this.ControlBox = false;
             this.Controls.Add(this.trocoTextBox);
             this.Controls.Add(this.label2);
@@ -120,7 +120,6 @@
             this.MaximizeBox = false;
             this.Name = "FrmSaidaConfirma";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Finalizar Orçamento / Pré-Venda";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaConfirma_KeyDown);

@@ -48,6 +48,7 @@ namespace Telas
             codPessoaTextBox.Enabled = false;
             cidadeTextBox.Text = "ARACAJU";
             ufTextBox.Text = "SE";
+            ehFabricanteCheckBox.Checked = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;

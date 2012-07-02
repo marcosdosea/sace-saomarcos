@@ -167,6 +167,7 @@ namespace Telas
                 tb_saidaBindingSource.MoveLast(); 
             }
             estado = EstadoFormulario.ESPERA;
+            btnNovo.Focus();
         }
 
         /// <summary>

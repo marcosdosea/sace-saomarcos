@@ -57,9 +57,9 @@ namespace Negocio
                 tb_entradaTA.Update(entrada.NumeroNotaFiscal, entrada.CodEmpresaFrete, entrada.CodFornecedor,
                     entrada.CodTipoEntrada, entrada.DataEmissao, entrada.DataEntrada, entrada.TotalBaseCalculo,
                     entrada.TotalICMS, entrada.TotalBaseSubstituicao, entrada.TotalSubstituicao,
-                    entrada.TotalProdutos, entrada.ValorFrete, entrada.ValorSeguro,
+                    entrada.TotalProdutos, entrada.TotalProdutosST, entrada.ValorFrete, entrada.ValorSeguro,
                     entrada.Desconto, entrada.OutrasDespesas, entrada.TotalIPI,
-                    entrada.TotalNota, entrada.CodSituacaoPagamentos, fretePagoEmitenteByte, entrada.TotalProdutosST,
+                    entrada.TotalNota, entrada.CodSituacaoPagamentos, fretePagoEmitenteByte,
                     entrada.CodEntrada);
             }
             catch (Exception e)

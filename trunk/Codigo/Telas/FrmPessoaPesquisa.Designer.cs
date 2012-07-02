@@ -219,6 +219,8 @@
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_cstTableAdapter = null;
+            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
             this.tableAdapterManager.tb_entradaTableAdapter = null;
@@ -239,11 +241,15 @@
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
             this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
+            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
             this.tableAdapterManager.tb_usuarioTableAdapter = null;
+            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // FrmPessoaPesquisa
@@ -258,7 +264,6 @@
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
             this.Name = "FrmPessoaPesquisa";
-            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pesquisa Pessoas";

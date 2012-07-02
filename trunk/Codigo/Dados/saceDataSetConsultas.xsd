@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProdutosVendidosTableAdapter" GeneratorDataComponentClassName="ProdutosVendidosTableAdapter" Name="ProdutosVendidos" UserDataComponentName="ProdutosVendidosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillQuantidadeProdutosVenvidosMesAnoDesc" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" GeneratorSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc" GetMethodModifier="Public" GetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" UserSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_produto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillQuantidadeProdutosVenvidosMesAnoDesc" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" GeneratorSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc" GetMethodModifier="Public" GetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" UserSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
@@ -87,6 +87,33 @@ ORDER BY tb_entrada_produto.codEntradaProduto DESC</CommandText>
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ContasPessoaTableAdapter" GeneratorDataComponentClassName="ContasPessoaTableAdapter" Name="ContasPessoa" UserDataComponentName="ContasPessoaTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, 
+                         tb_saida.pedidoGerado AS CF, tb_conta.codPessoa
+FROM            tb_conta INNER JOIN
+                         tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
+                         tb_saida ON tb_conta.codSaida = tb_saida.codSaida</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="codConta" DataSetColumn="codConta" />
+              <Mapping SourceColumn="codSaida" DataSetColumn="codSaida" />
+              <Mapping SourceColumn="dataVencimento" DataSetColumn="dataVencimento" />
+              <Mapping SourceColumn="descricaoSituacao" DataSetColumn="descricaoSituacao" />
+              <Mapping SourceColumn="valor" DataSetColumn="valor" />
+              <Mapping SourceColumn="codSituacao" DataSetColumn="codSituacao" />
+              <Mapping SourceColumn="CF" DataSetColumn="CF" />
+              <Mapping SourceColumn="codPessoa" DataSetColumn="codPessoa" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -143,11 +170,47 @@ ORDER BY tb_entrada_produto.codEntradaProduto DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="ContasPessoa" msprop:Generator_TableClassName="ContasPessoaDataTable" msprop:Generator_TableVarName="tableContasPessoa" msprop:Generator_TablePropName="ContasPessoa" msprop:Generator_RowDeletingName="ContasPessoaRowDeleting" msprop:Generator_UserTableName="ContasPessoa" msprop:Generator_RowChangingName="ContasPessoaRowChanging" msprop:Generator_RowEvHandlerName="ContasPessoaRowChangeEventHandler" msprop:Generator_RowDeletedName="ContasPessoaRowDeleted" msprop:Generator_RowEvArgName="ContasPessoaRowChangeEvent" msprop:Generator_RowChangedName="ContasPessoaRowChanged" msprop:Generator_RowClassName="ContasPessoaRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codConta" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columncodConta" msprop:Generator_ColumnPropNameInRow="codConta" msprop:Generator_ColumnPropNameInTable="codContaColumn" msprop:Generator_UserColumnName="codConta" type="xs:long" />
+              <xs:element name="codSaida" msprop:Generator_ColumnVarNameInTable="columncodSaida" msprop:Generator_ColumnPropNameInRow="codSaida" msprop:Generator_ColumnPropNameInTable="codSaidaColumn" msprop:Generator_UserColumnName="codSaida" type="xs:long" minOccurs="0" />
+              <xs:element name="dataVencimento" msprop:Generator_ColumnVarNameInTable="columndataVencimento" msprop:Generator_ColumnPropNameInRow="dataVencimento" msprop:Generator_ColumnPropNameInTable="dataVencimentoColumn" msprop:Generator_UserColumnName="dataVencimento" type="xs:dateTime" />
+              <xs:element name="descricaoSituacao" msprop:Generator_ColumnVarNameInTable="columndescricaoSituacao" msprop:Generator_ColumnPropNameInRow="descricaoSituacao" msprop:Generator_ColumnPropNameInTable="descricaoSituacaoColumn" msprop:Generator_UserColumnName="descricaoSituacao" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:decimal" />
+              <xs:element name="codSituacao" msprop:Generator_ColumnVarNameInTable="columncodSituacao" msprop:Generator_ColumnPropNameInRow="codSituacao" msprop:Generator_ColumnPropNameInTable="codSituacaoColumn" msprop:Generator_UserColumnName="codSituacao">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CF" msprop:Generator_ColumnVarNameInTable="columnCF" msprop:Generator_ColumnPropNameInRow="CF" msprop:Generator_ColumnPropNameInTable="CFColumn" msprop:Generator_UserColumnName="CF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="codPessoa" msprop:Generator_ColumnVarNameInTable="columncodPessoa" msprop:Generator_ColumnPropNameInRow="codPessoa" msprop:Generator_ColumnPropNameInTable="codPessoaColumn" msprop:Generator_UserColumnName="codPessoa" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EntradasPorProduto" />
       <xs:field xpath="mstns:codEntradaProduto" />
+    </xs:unique>
+    <xs:unique name="ContasPessoa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ContasPessoa" />
+      <xs:field xpath="mstns:codConta" />
     </xs:unique>
   </xs:element>
 </xs:schema>
