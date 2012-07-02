@@ -221,7 +221,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmSaidaPesquisa";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FrmSaidaPesquisa";
             this.Load += new System.EventHandler(this.FrmSaidaPesquisa_Load);

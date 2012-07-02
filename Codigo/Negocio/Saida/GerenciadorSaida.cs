@@ -444,7 +444,7 @@ namespace Negocio
                         }
                         else
                         {
-                            arquivo.WriteLine("<DESCONTO>" + (saida.Total - saida.TotalPago));
+                            arquivo.WriteLine("<DESCONTO>" + (saida.Total - saida.TotalAVista));
                         }
                     }
 

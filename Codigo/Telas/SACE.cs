@@ -63,6 +63,10 @@ namespace Telas
             {
                 contasAPagarToolStripMenuItem1_Click(sender, e);
             }
+            else if (e.KeyCode == Keys.F8)
+            {
+                receberPagamentosToolStripMenuItem_Click(sender, e);
+            }
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -258,6 +262,13 @@ namespace Telas
             FrmEntradaPedido frmEntradaPedido = new FrmEntradaPedido();
             frmEntradaPedido.ShowDialog();
             frmEntradaPedido.Dispose();
+        }
+
+        private void receberPagamentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa();
+            frmReceberPagamento.ShowDialog();
+            frmReceberPagamento.Dispose();
         }
 
     }

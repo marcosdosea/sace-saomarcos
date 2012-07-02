@@ -79,7 +79,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 103);
+            this.ClientSize = new System.Drawing.Size(289, 99);
             this.ControlBox = false;
             this.Controls.Add(this.numeroNFText);
             this.Controls.Add(this.btnCancelar);
@@ -91,7 +91,6 @@
             this.MinimizeBox = false;
             this.Name = "FrmSaidaNF";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Emissão da NF";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaNF_KeyDown);
