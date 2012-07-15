@@ -173,26 +173,21 @@ namespace Telas
             else
             {
                 tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
-                buscarContas();
+                buscarContas(pessoa.CodPessoa);
             }
         }
 
-        private void buscarContas()
+        private void buscarContas(long codPessoa)
         {
-            String situacao1  = abertaCheckBox.Checked ? "A": "";
-            String situacao2 = abertaCheckBox.Checked ? "P": "";
-            String situacao3 = quitadaCheckBox.Checked ? "Q": "";
+            //String situacao1  = abertaCheckBox.Checked ? "A": "";
+            //String situacao2 = abertaCheckBox.Checked ? "P": "";
+            //String situacao3 = quitadaCheckBox.Checked ? "Q": "";
 
-            //this.saceDataSetConsultas.ContasPessoa contasDT = new this.saceDataSetConsultas.ContasPessoa ();
+            //this.saceDataSetConsultas.ContasPessoaDataTable contasDT = new this.saceDataSetConsultas.ContasPessoaDataTable();
 
-            //DataRow[] rows = this.saceDataSetConsultas.ContasPessoa.Where(("(codPessoa =" + pessoa.CodPessoa + ")");// AND (codSituacao in ('A'))");
-
-
-            //int resultado = rows.Count();
-
-            //Console.WriteLine(resultado);
             //this.contasPessoaTableAdapter.Fill(this.saceDataSetConsultas.ContasPessoa);
             
+            contasPessoaDataGridView.DataSource = GerenciadorConta.getInstace().obterContasPorPessoaSituacaoDataTable(codPessoa);
             //DataRow[] rows = contasDT.Select
            //contasPessoaDataGridView.Rows = rows;
 

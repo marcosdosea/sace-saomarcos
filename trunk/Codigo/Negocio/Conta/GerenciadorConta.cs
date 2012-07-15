@@ -8,6 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
@@ -78,6 +79,31 @@ namespace Negocio
 
             return converterListaConta(contaDT);
         }
+
+        public saceDataSetConsultas.ContasPessoaDataTable obterContasPorPessoaSituacaoDataTable(Int64 codPessoa)
+        {
+
+            //Dados.saceDataSetConsultasTableAdapters.ContasPessoaTableAdapter adapter = new Dados.saceDataSetConsultasTableAdapters.ContasPessoaTableAdapter();
+            //adapter.
+            StringBuilder comando_sql = new StringBuilder();
+            comando_sql.Append("SELECT tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, tb_saida.pedidoGerado AS CF, tb_conta.codPessoa ");
+            comando_sql.Append("FROM tb_conta INNER JOIN  tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN tb_saida ON tb_conta.codSaida = tb_saida.codSaida ");
+            comando_sql.Append("WHERE tb_conta.codPessoa = " + codPessoa.ToString()); 
+            
+            
+            // create a new data adapter based on the specified query.
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            adapter.SelectCommand = new MySqlCommand(comando_sql.ToString(), new MySqlConnection(Dados.Properties.Settings.Default.saceConnectionString));
+
+            
+            saceDataSetConsultas.ContasPessoaDataTable contaDT = new saceDataSetConsultas.ContasPessoaDataTable();
+            adapter.Fill(contaDT);
+            return contaDT;
+        }
+
+
+
         public List<Conta> obterContasPorSaida(Int64 codSaida)
         {
             Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();

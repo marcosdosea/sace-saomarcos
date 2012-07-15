@@ -454,7 +454,6 @@ namespace Telas
 
                 if ((estado != EstadoFormulario.ESPERA) && (estado != EstadoFormulario.ATUALIZAR_DETALHE))
                 {
-                    quantidadeTextBox.Text = "1";
                     if (Convert.ToInt32(codProdutoComboBox.SelectedValue) == 1)
                     {
                         produto = null;
@@ -526,6 +525,7 @@ namespace Telas
                 }
                 if (produto != null)
                 {
+                    quantidadeTextBox.Text = "0";
                     codCSTComboBox_SelectedIndexChanged(sender, e);
                     preencherDadosEstatisticos(produto);
                     atualizaValores();
@@ -691,6 +691,13 @@ namespace Telas
         private void quantidadeTextBox_Leave(object sender, EventArgs e)
         {
             valorUnitarioTextBox_Leave(sender, e);
+            decimal quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
+            if (quantidade <= 0)
+            {
+                quantidadeTextBox.Focus();
+                throw new TelaException("A quantidade de produtos do pedido deve ser maior que zero.");
+            }
+
             btnSalvar.Focus();
         }
 
