@@ -74,6 +74,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_tipo_saida), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_pessoa), "tb_pessoa1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_pessoa))]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_funcionalidade), "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_perfil))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_cst), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_entrada_produto), true)]
 
 #endregion
 
@@ -91,8 +92,7 @@ namespace Dados
         /// <summary>
         /// Initializes a new SaceEntities object using the connection string found in the 'SaceEntities' section of the application configuration file.
         /// </summary>
-        public SaceEntities()
-            : base("name=SaceEntities", "SaceEntities")
+        public SaceEntities() : base("name=SaceEntities", "SaceEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -2606,6 +2606,28 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_entrada_produto")]
+        public EntityCollection<tb_entrada_produto> tb_entrada_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_entrada_produto>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_entrada_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_entrada_produto>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_entrada_produto", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -3640,6 +3662,30 @@ namespace Dados
         private global::System.Boolean _fretePagoEmitente;
         partial void OnfretePagoEmitenteChanging(global::System.Boolean value);
         partial void OnfretePagoEmitenteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> totalProdutosST
+        {
+            get
+            {
+                return _totalProdutosST;
+            }
+            set
+            {
+                OntotalProdutosSTChanging(value);
+                ReportPropertyChanging("totalProdutosST");
+                _totalProdutosST = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("totalProdutosST");
+                OntotalProdutosSTChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _totalProdutosST;
+        partial void OntotalProdutosSTChanging(Nullable<global::System.Decimal> value);
+        partial void OntotalProdutosSTChanged();
 
         #endregion
     
@@ -4269,13 +4315,15 @@ namespace Dados
         /// <param name="codEntrada">Initial value of the codEntrada property.</param>
         /// <param name="codProduto">Initial value of the codProduto property.</param>
         /// <param name="cfop">Initial value of the cfop property.</param>
-        public static tb_entrada_produto Createtb_entrada_produto(global::System.Int64 codEntradaProduto, global::System.Int64 codEntrada, global::System.Int64 codProduto, global::System.Int32 cfop)
+        /// <param name="codCST">Initial value of the codCST property.</param>
+        public static tb_entrada_produto Createtb_entrada_produto(global::System.Int64 codEntradaProduto, global::System.Int64 codEntrada, global::System.Int64 codProduto, global::System.Int32 cfop, global::System.String codCST)
         {
             tb_entrada_produto tb_entrada_produto = new tb_entrada_produto();
             tb_entrada_produto.codEntradaProduto = codEntradaProduto;
             tb_entrada_produto.codEntrada = codEntrada;
             tb_entrada_produto.codProduto = codProduto;
             tb_entrada_produto.cfop = cfop;
+            tb_entrada_produto.codCST = codCST;
             return tb_entrada_produto;
         }
 
@@ -4692,6 +4740,54 @@ namespace Dados
         private Nullable<global::System.Decimal> _quantidade_disponivel;
         partial void Onquantidade_disponivelChanging(Nullable<global::System.Decimal> value);
         partial void Onquantidade_disponivelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> desconto
+        {
+            get
+            {
+                return _desconto;
+            }
+            set
+            {
+                OndescontoChanging(value);
+                ReportPropertyChanging("desconto");
+                _desconto = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("desconto");
+                OndescontoChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _desconto;
+        partial void OndescontoChanging(Nullable<global::System.Decimal> value);
+        partial void OndescontoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String codCST
+        {
+            get
+            {
+                return _codCST;
+            }
+            set
+            {
+                OncodCSTChanging(value);
+                ReportPropertyChanging("codCST");
+                _codCST = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("codCST");
+                OncodCSTChanged();
+            }
+        }
+        private global::System.String _codCST;
+        partial void OncodCSTChanging(global::System.String value);
+        partial void OncodCSTChanged();
 
         #endregion
     
@@ -4807,6 +4903,44 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_produto>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst")]
+        public tb_cst tb_cst
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_cst>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_cst").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_cst>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_cst").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_cst> tb_cstReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_cst>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_cst");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_cst>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_cst", value);
                 }
             }
         }
@@ -6247,12 +6381,14 @@ namespace Dados
         /// <param name="codPessoa">Initial value of the codPessoa property.</param>
         /// <param name="nome">Initial value of the nome property.</param>
         /// <param name="tipo">Initial value of the Tipo property.</param>
-        public static tb_pessoa Createtb_pessoa(global::System.Int64 codPessoa, global::System.String nome, global::System.String tipo)
+        /// <param name="ehFabricante">Initial value of the ehFabricante property.</param>
+        public static tb_pessoa Createtb_pessoa(global::System.Int64 codPessoa, global::System.String nome, global::System.String tipo, global::System.Boolean ehFabricante)
         {
             tb_pessoa tb_pessoa = new tb_pessoa();
             tb_pessoa.codPessoa = codPessoa;
             tb_pessoa.nome = nome;
             tb_pessoa.Tipo = tipo;
+            tb_pessoa.ehFabricante = ehFabricante;
             return tb_pessoa;
         }
 
@@ -6741,6 +6877,30 @@ namespace Dados
         private global::System.String _email;
         partial void OnemailChanging(global::System.String value);
         partial void OnemailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ehFabricante
+        {
+            get
+            {
+                return _ehFabricante;
+            }
+            set
+            {
+                OnehFabricanteChanging(value);
+                ReportPropertyChanging("ehFabricante");
+                _ehFabricante = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ehFabricante");
+                OnehFabricanteChanged();
+            }
+        }
+        private global::System.Boolean _ehFabricante;
+        partial void OnehFabricanteChanging(global::System.Boolean value);
+        partial void OnehFabricanteChanged();
 
         #endregion
     
@@ -8021,6 +8181,30 @@ namespace Dados
         private Nullable<global::System.DateTime> _dataUltimoPedido;
         partial void OndataUltimoPedidoChanging(Nullable<global::System.DateTime> value);
         partial void OndataUltimoPedidoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> desconto
+        {
+            get
+            {
+                return _desconto;
+            }
+            set
+            {
+                OndescontoChanging(value);
+                ReportPropertyChanging("desconto");
+                _desconto = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("desconto");
+                OndescontoChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _desconto;
+        partial void OndescontoChanging(Nullable<global::System.Decimal> value);
+        partial void OndescontoChanged();
 
         #endregion
     
