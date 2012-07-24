@@ -65,6 +65,12 @@
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnVenda = new System.Windows.Forms.Button();
             this.btnReceber = new System.Windows.Forms.Button();
+            this.fiscalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aberturaDeCaixaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fechamentoCaixaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapaResumoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.emissãoDeCupomFiscalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cuponsFiscaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -74,6 +80,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastrosToolStripMenuItem,
             this.movimentaçãoToolStripMenuItem,
+            this.fiscalToolStripMenuItem,
             this.contasAPagarToolStripMenuItem,
             this.utilitáriosToolStripMenuItem,
             this.relatóriosToolStripMenuItem,
@@ -283,7 +290,7 @@
             // produtosToolStripMenuItem1
             // 
             this.produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
-            this.produtosToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.produtosToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.produtosToolStripMenuItem1.Text = "Produtos";
             this.produtosToolStripMenuItem1.Click += new System.EventHandler(this.produtosToolStripMenuItem1_Click_1);
             // 
@@ -400,6 +407,48 @@
             this.btnReceber.UseVisualStyleBackColor = true;
             this.btnReceber.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
             // 
+            // fiscalToolStripMenuItem
+            // 
+            this.fiscalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aberturaDeCaixaToolStripMenuItem,
+            this.emissãoDeCupomFiscalToolStripMenuItem,
+            this.cuponsFiscaisToolStripMenuItem,
+            this.mapaResumoToolStripMenuItem,
+            this.fechamentoCaixaToolStripMenuItem});
+            this.fiscalToolStripMenuItem.Name = "fiscalToolStripMenuItem";
+            this.fiscalToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.fiscalToolStripMenuItem.Text = "Caixa";
+            // 
+            // aberturaDeCaixaToolStripMenuItem
+            // 
+            this.aberturaDeCaixaToolStripMenuItem.Name = "aberturaDeCaixaToolStripMenuItem";
+            this.aberturaDeCaixaToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.aberturaDeCaixaToolStripMenuItem.Text = "Abertura de Caixa";
+            // 
+            // fechamentoCaixaToolStripMenuItem
+            // 
+            this.fechamentoCaixaToolStripMenuItem.Name = "fechamentoCaixaToolStripMenuItem";
+            this.fechamentoCaixaToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.fechamentoCaixaToolStripMenuItem.Text = "Fechamento Caixa";
+            // 
+            // mapaResumoToolStripMenuItem
+            // 
+            this.mapaResumoToolStripMenuItem.Name = "mapaResumoToolStripMenuItem";
+            this.mapaResumoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.mapaResumoToolStripMenuItem.Text = "Mapa Resumo";
+            // 
+            // emissãoDeCupomFiscalToolStripMenuItem
+            // 
+            this.emissãoDeCupomFiscalToolStripMenuItem.Name = "emissãoDeCupomFiscalToolStripMenuItem";
+            this.emissãoDeCupomFiscalToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.emissãoDeCupomFiscalToolStripMenuItem.Text = "Emissão de Cupom Fiscal";
+            // 
+            // cuponsFiscaisToolStripMenuItem
+            // 
+            this.cuponsFiscaisToolStripMenuItem.Name = "cuponsFiscaisToolStripMenuItem";
+            this.cuponsFiscaisToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.cuponsFiscaisToolStripMenuItem.Text = "Comprovantes Fiscais";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -472,6 +521,12 @@
         private System.Windows.Forms.ToolStripMenuItem pedidoDeCompraÀFornecedoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem receberPagamentosToolStripMenuItem;
         private System.Windows.Forms.Button btnReceber;
+        private System.Windows.Forms.ToolStripMenuItem fiscalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aberturaDeCaixaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem emissãoDeCupomFiscalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cuponsFiscaisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mapaResumoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fechamentoCaixaToolStripMenuItem;
 
     }
 }

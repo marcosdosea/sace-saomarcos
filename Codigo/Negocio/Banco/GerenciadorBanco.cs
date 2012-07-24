@@ -73,6 +73,7 @@ namespace Negocio
             try
             {
                 repBanco.Remover(b => b.codBanco == codBanco);
+                repBanco.SaveChanges();
             }
             catch (Exception e)
             {
