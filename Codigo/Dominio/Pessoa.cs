@@ -31,6 +31,5 @@ namespace Dominio
         public String Observacao { get; set; }
         public Char Tipo { get; set; }
         public bool EhFabricante { get; set; }
-        
     }
 }

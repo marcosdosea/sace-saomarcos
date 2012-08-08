@@ -7,41 +7,12 @@ namespace Dominio
 {
     public class ProdutoLoja
     {
-        private Int32 codLoja;
-
-        public Int32 CodLoja
-        {
-            get { return codLoja; }
-            set { codLoja = value; }
-        }
-        private Int32 codProduto;
-
-        public Int32 CodProduto
-        {
-            get { return codProduto; }
-            set { codProduto = value; }
-        }
-        private decimal qtdEstoque;
-
-        public decimal QtdEstoque
-        {
-            get { return qtdEstoque; }
-            set { qtdEstoque = value; }
-        }
-        private decimal qtdEstoqueAux;
-
-        public decimal QtdEstoqueAux
-        {
-            get { return qtdEstoqueAux; }
-            set { qtdEstoqueAux = value; }
-        }
+        public Int32 CodLoja { get; set; }
+        public Int32 CodProduto { get; set; }
+        public decimal QtdEstoque { get; set; }
+        public decimal QtdEstoqueAux { get; set; }
+        public String Localizacao { get; set; }
+        public String Localizacao2 { get; set; }
         
-        private String localizacao;
-
-        public String Localizacao
-        {
-            get { return localizacao; }
-            set { localizacao = value; }
-        }
     }
 }

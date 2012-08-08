@@ -271,5 +271,12 @@ namespace Telas
             frmReceberPagamento.Dispose();
         }
 
+        private void devoluçãoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+            frmSaida.ShowDialog();
+            frmSaida.Dispose();
+        }
+
     }
 }

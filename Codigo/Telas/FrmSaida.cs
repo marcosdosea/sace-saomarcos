@@ -47,16 +47,8 @@ namespace Telas
             GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
 
             this.tb_produtoTableAdapter.FillExibiveis(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
-            if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
-            {
-                lblSaidaProdutos.Text = "Saída para Depósito";
-                this.Text = "Saída para Depósito";
-                this.tb_saidaTableAdapter.FillSaidasDeposito(this.saceDataSet.tb_saida);
-            }
-            else
-            {
-                this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-            }
+
+            ObterSaidas();
                         
             tb_saidaBindingSource.MoveLast();
             quantidadeTextBox.Text = "1";
@@ -94,6 +86,7 @@ namespace Telas
         {
             saida.CodCliente = Global.CLIENTE_PADRAO;
             saida.CodProfissional = Global.PROFISSIONAL_PADRAO;
+            saida.CodEmpresaFrete = Global.CLIENTE_PADRAO;
             saida.DataSaida = DateTime.Now;
             saida.Desconto = 0;
             saida.NumeroCartaoVenda = 0;
@@ -106,13 +99,25 @@ namespace Telas
             saida.Troco = 0;
             saida.Nfe = null;
             saida.EntregaRealizada = true;
+            saida.BaseCalculoICMS = 0;
+            saida.BaseCalculoICMSSubst = 0;
+            saida.EspecieVolumes = "";
+            saida.Marca = "";
+            saida.Numero = 0;
+            saida.OutrasDespesas = 0;
+            saida.PesoBruto = 0;
+            saida.PesoLiquido = 0;
+            saida.QuantidadeVolumes = 0;
+            saida.TotalNotaFiscal = 0;
+            saida.ValorFrete = 0;
+            saida.ValorICMS = 0;
+            saida.ValorICMSSubst = 0;
+            saida.ValorIPI = 0;
+            saida.ValorSeguro = 0;
+            saida.TipoSaida = Saida.TIPO_ORCAMENTO;
             
-            subtotalTextBox.Text = "0,00";
-            subtotalAVistatextBox.Text = "0,00";
-            precoVendaSemDescontoTextBox.Text = "0,00";
-            precoVendatextBox.Text = "0,00";
-
-            GerenciadorSaida.getInstace().inserir(saida);
+            
+            saida.CodSaida = GerenciadorSaida.getInstace().inserir(saida);
             tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
             tb_saidaBindingSource.MoveLast();
                 
@@ -132,7 +137,7 @@ namespace Telas
         private void btnEditar_Click(object sender, EventArgs e)
         {
             saida = GerenciadorSaida.getInstace().obterSaida( Convert.ToInt64(codSaidaTextBox.Text) );
-            if (saida.TipoSaida == Saida.TIPO_PRE_VENDA) {
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) {
                 GerenciadorSaida.getInstace().removerPreVenda(saida);
                 GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
@@ -163,8 +168,8 @@ namespace Telas
                 } else {
                     GerenciadorSaida.getInstace().remover(saida);
                 }
-                tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
-                tb_saidaBindingSource.MoveLast(); 
+
+                ObterSaidas();
             }
             estado = EstadoFormulario.ESPERA;
             btnNovo.Focus();
@@ -177,7 +182,6 @@ namespace Telas
         /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
             if (codProdutoComboBox.Focused)
             {
                 if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
@@ -205,16 +209,26 @@ namespace Telas
             }
         }
 
+        /// <summary>
+        /// Salva os dados de um produto inserido na saída
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             saidaProduto = new SaidaProduto();
             saidaProduto.CodProduto = produto.CodProduto;
-            saidaProduto.CodSaida = long.Parse(codSaidaTextBox.Text);
-            saidaProduto.Desconto = 10;
-            saidaProduto.Quantidade = decimal.Parse(quantidadeTextBox.Text);
-            saidaProduto.ValorVenda = decimal.Parse(precoVendaSemDescontoTextBox.Text);
-            saidaProduto.ValorVendaAVista = decimal.Parse(precoVendatextBox.Text);
+            saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
+            saidaProduto.Desconto = Global.DESCONTO_PADRAO;
+            saidaProduto.Quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
+            saidaProduto.ValorVenda = Convert.ToDecimal(precoVendaSemDescontoTextBox.Text);
+            saidaProduto.ValorVendaAVista = Convert.ToDecimal(precoVendatextBox.Text);
             saidaProduto.DataValidade = Convert.ToDateTime(data_validadeDateTimePicker.Text);
+            saidaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
+            saidaProduto.ValorICMS = Convert.ToDecimal(valorICMSTextBox.Text);
+            saidaProduto.BaseCalculoICMSSubst = Convert.ToDecimal(baseCalculoICMSSubstTextBox.Text);
+            saidaProduto.ValorICMSSubst = Convert.ToDecimal(valorICMSSubstTextBox.Text);
+            saidaProduto.ValorIPI = Convert.ToDecimal(valorIPITextBox.Text);
 
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
@@ -261,7 +275,40 @@ namespace Telas
             codProdutoComboBox.Focus();
         }
 
-        
+        /// <summary>
+        /// Obter saídas e armazenar e disponibilizar em tela de acordo com o tipo
+        /// </summary>
+        private void ObterSaidas()
+        {
+            if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO))
+            {
+                lblSaidaProdutos.Text = "Saída para Depósito";
+                this.Text = "Saída para Depósito";
+                lblBalcao.Text = "Saída para Depósito";
+                
+                this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_SAIDA_DEPOSITO);
+                tb_saida_produtoDataGridView.Height = 370;
+            }
+            else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            {
+                lblSaidaProdutos.Text = "Devolução de Produtos para Fornecedor";
+                this.Text = "Devolução de Produtos para Fornecedor";
+                lblBalcao.Text = "Devolução de Produtos";
+                this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+                baseCalculoICMSSubstTextBox.ReadOnly = false;
+                baseCalculoICMSTextBox.ReadOnly = false;
+                baseCalculoICMSTextBox.TabStop = true;
+                baseCalculoICMSSubstTextBox.TabStop = true;
+                tb_saida_produtoDataGridView.Height = 300;
+            }
+            else
+            {
+                this.tb_saidaTableAdapter.FillOrcamentosVendas(this.saceDataSet.tb_saida);
+                tb_saida_produtoDataGridView.Height = 370;
+            }
+            tb_saidaBindingSource.MoveLast();
+        }
+
         /// <summary>
         /// Permite escolher um produto pela descrição, código ou código de barra.
         /// </summary>
@@ -341,19 +388,9 @@ namespace Telas
                     codProdutoComboBox.Text = produto.Nome;
                     produtoOriginal = (Produto)produto.Clone();
                     tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
-                    if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
-                    {
-                        precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
-                        precoVendaSemDescontoTextBox.Text = "0.00";
-                    }
-                    else
-                    {
-                        precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString("N3");
-                        precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N3");
-                        data_validadeDateTimePicker.Enabled = produto.TemVencimento;
-                        data_validadeDateTimePicker.TabStop = produto.TemVencimento;
-                    }
+                    
                     buscaPrecos();
+                    
                     atualizarSubTotal();
                     if (entradaViaCodigoBarra && (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA)))
                     {
@@ -371,19 +408,42 @@ namespace Telas
         /// <param name="e"></param>
         private void quantidadeTextBox_Leave(object sender, EventArgs e)
         {
-
             FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
             buscaPrecos();
             atualizarSubTotal();
         }
 
+        /// <summary>
+        /// Atualiza o preço de venda a prazo com o acréscimo padrão
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void precoVendatextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom2CasasDecimais(precoVendatextBox);
+            produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
+
+            if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            {
+                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N2");
+            }
+            else
+            {
+                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
+            }
+            atualizarSubTotal();
+        }
+
+        /// <summary>
+        /// Busca os preços que serão exibidos de acordo com o tipo de saída
+        /// </summary>
         private void buscaPrecos()
         {
             decimal quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
 
             if (produto != null)
             {
-                if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
                 {
                     precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
                     precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
@@ -400,10 +460,15 @@ namespace Telas
                         precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaVarejoSemDesconto.ToString();
                         precoVendatextBox.Text = produtoOriginal.PrecoVendaVarejo.ToString();
                     }
+                    data_validadeDateTimePicker.Enabled = produto.TemVencimento;
+                    data_validadeDateTimePicker.TabStop = produto.TemVencimento;
                 }
             }
         }
 
+        /// <summary>
+        /// Atualiza os subtotais do produto
+        /// </summary>
         private void atualizarSubTotal()
         {
             decimal quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
@@ -411,6 +476,25 @@ namespace Telas
             decimal precoAVista = Convert.ToDecimal(precoVendatextBox.Text);
             subtotalTextBox.Text = (quantidade * preco).ToString("N2");
             subtotalAVistatextBox.Text = (quantidade * precoAVista).ToString("N2");
+
+            baseCalculoICMSTextBox.Text = (precoAVista * quantidade).ToString("N2");
+            baseCalculoICMSSubstTextBox.Text = (precoAVista * quantidade).ToString("N2");
+
+            calculaICMSIPI();
+        }
+        
+        /// <summary>
+        /// Faz o cálculo de ICMS e IPI do produto baseando-se sempre no preço a vista
+        /// Valores são mais utilzados para devolução de produtos.
+        /// </summary>
+        private void calculaICMSIPI() {
+
+            decimal baseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
+            decimal baseCalculoICMSSubst = Convert.ToDecimal(baseCalculoICMSSubstTextBox.Text);
+            
+            valorICMSTextBox.Text = (baseCalculoICMS * produto.Icms / 100).ToString("N2");
+            valorICMSSubstTextBox.Text = (baseCalculoICMSSubst * produto.IcmsSubstituto / 100).ToString("N2");
+            valorIPITextBox.Text = (baseCalculoICMS * produto.Ipi / 100).ToString("N2");
         }
 
         /// <summary>
@@ -431,21 +515,7 @@ namespace Telas
             e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
         }
 
-        private void precoVendatextBox_Leave(object sender, EventArgs e)
-        {
-            FormatTextBox.NumeroCom2CasasDecimais(precoVendatextBox);
-            produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
-            if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
-            {
-                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N2");
-            }
-            else
-            {
-                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
-            }
-            atualizarSubTotal();
-        }
-
+        
         private void btnEncerrar_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -462,7 +532,14 @@ namespace Telas
                     FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
-                    this.tb_saidaTableAdapter.FillSaidasDeposito(this.saceDataSet.tb_saida);
+                    this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_SAIDA_DEPOSITO);
+                }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                {
+                    FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
+                    frmSaidaDevolucao.ShowDialog();
+                    frmSaidaDevolucao.Dispose();
+                    this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
                 }
                 else
                 {
@@ -481,11 +558,55 @@ namespace Telas
             Cursor.Current = Cursors.Default;
         }
 
-        private void quantidadeTextBox_Enter(object sender, EventArgs e)
+        /// <summary>
+        /// Permite a impressão de DAV
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnImprimir_Click(object sender, EventArgs e)
         {
-            quantidadeTextBox.SelectAll();
+            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(Convert.ToInt64(codSaidaTextBox.Text));
+            frmSaidaDav.ShowDialog();
+            frmSaidaDav.Dispose();
         }
 
+        /// <summary>
+        /// Permite realizar a impressão de Cupons Fiscais e NF-e
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCfNfe_Click(object sender, EventArgs e)
+        {
+            Saida saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
+
+            if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+            {
+                if (MessageBox.Show("Confirma impressão do Cupom Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
+                }
+            }
+            else if (saida.TipoSaida == Saida.TIPO_VENDA)
+            {
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                frmSaidaNF.ShowDialog();
+                frmSaidaNF.Dispose();
+            }
+            else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            {
+                GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
+            }
+            else
+            {
+                throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e a partir de um ORÇAMENTO. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");
+            }
+        }
+
+        /// <summary>
+        /// Verifica se existem produtos com data de valida menor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void data_validadeDateTimePicker_Leave(object sender, EventArgs e)
         {
             DateTime dataVencimento = Convert.ToDateTime(data_validadeDateTimePicker.Text);
@@ -497,35 +618,24 @@ namespace Telas
                 }
             }
         }
- 
-        private void btnImprimir_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Refaz os cálculos de ICMS e IPI
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void baseCalculoICMSTextBox_Leave(object sender, EventArgs e)
         {
-            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV( Convert.ToInt64(codSaidaTextBox.Text) );
-            frmSaidaDav.ShowDialog();
-            frmSaidaDav.Dispose();
+            FormatTextBox.NumeroCom2CasasDecimais(precoVendatextBox);
+            calculaICMSIPI();
         }
 
-        private void btnCfNfe_Click(object sender, EventArgs e)
+        private void quantidadeTextBox_Enter(object sender, EventArgs e)
         {
-            Saida saida = GerenciadorSaida.getInstace().obterSaida(long.Parse(codSaidaTextBox.Text));
-
-            if (saida.TipoSaida == Saida.TIPO_PRE_VENDA) {
-                if (MessageBox.Show("Confirma impressão do Cupom Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
-                }
-            }
-            else if (saida.TipoSaida == Saida.TIPO_VENDA)
-            {
-                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
-                frmSaidaNF.ShowDialog();
-                frmSaidaNF.Dispose();
-            } else if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) {
-                GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
-            } else {
-                throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e a partir de um ORÇAMENTO. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");
-            }
+            quantidadeTextBox.SelectAll();
         }
+
+        
         
         private void tb_saida_produtoDataGridView_Leave(object sender, EventArgs e)
         {
@@ -645,8 +755,6 @@ namespace Telas
             btnExcluir.Enabled = habilita;
             tb_saidaBindingNavigator.Enabled = habilita;
         }
-
-
 
     }
 }

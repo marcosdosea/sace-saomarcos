@@ -30,6 +30,8 @@ namespace Dados {
         
         private ContasPessoaDataTable tableContasPessoa;
         
+        private SumSaidaProdutoDataTable tableSumSaidaProduto;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -66,6 +68,9 @@ namespace Dados {
                 }
                 if ((ds.Tables["ContasPessoa"] != null)) {
                     base.Tables.Add(new ContasPessoaDataTable(ds.Tables["ContasPessoa"]));
+                }
+                if ((ds.Tables["SumSaidaProduto"] != null)) {
+                    base.Tables.Add(new SumSaidaProdutoDataTable(ds.Tables["SumSaidaProduto"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -112,6 +117,16 @@ namespace Dados {
         public ContasPessoaDataTable ContasPessoa {
             get {
                 return this.tableContasPessoa;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public SumSaidaProdutoDataTable SumSaidaProduto {
+            get {
+                return this.tableSumSaidaProduto;
             }
         }
         
@@ -191,6 +206,9 @@ namespace Dados {
                 if ((ds.Tables["ContasPessoa"] != null)) {
                     base.Tables.Add(new ContasPessoaDataTable(ds.Tables["ContasPessoa"]));
                 }
+                if ((ds.Tables["SumSaidaProduto"] != null)) {
+                    base.Tables.Add(new SumSaidaProdutoDataTable(ds.Tables["SumSaidaProduto"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -242,6 +260,12 @@ namespace Dados {
                     this.tableContasPessoa.InitVars();
                 }
             }
+            this.tableSumSaidaProduto = ((SumSaidaProdutoDataTable)(base.Tables["SumSaidaProduto"]));
+            if ((initTable == true)) {
+                if ((this.tableSumSaidaProduto != null)) {
+                    this.tableSumSaidaProduto.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -258,6 +282,8 @@ namespace Dados {
             base.Tables.Add(this.tableEntradasPorProduto);
             this.tableContasPessoa = new ContasPessoaDataTable();
             base.Tables.Add(this.tableContasPessoa);
+            this.tableSumSaidaProduto = new SumSaidaProdutoDataTable();
+            base.Tables.Add(this.tableSumSaidaProduto);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -275,6 +301,12 @@ namespace Dados {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeContasPessoa() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeSumSaidaProduto() {
             return false;
         }
         
@@ -341,6 +373,9 @@ namespace Dados {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void ContasPessoaRowChangeEventHandler(object sender, ContasPessoaRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void SumSaidaProdutoRowChangeEventHandler(object sender, SumSaidaProdutoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1368,6 +1403,337 @@ namespace Dados {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class SumSaidaProdutoDataTable : global::System.Data.TypedTableBase<SumSaidaProdutoRow> {
+            
+            private global::System.Data.DataColumn columnsumSubtotal;
+            
+            private global::System.Data.DataColumn columnsumSubtotalAVista;
+            
+            private global::System.Data.DataColumn columnsumBaseCalculoICMS;
+            
+            private global::System.Data.DataColumn columnsumValorICMS;
+            
+            private global::System.Data.DataColumn columnsumBaseCalculoICMSSubst;
+            
+            private global::System.Data.DataColumn columnsumValorICMSSubst;
+            
+            private global::System.Data.DataColumn columnsumvalorIPI;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SumSaidaProdutoDataTable() {
+                this.TableName = "SumSaidaProduto";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal SumSaidaProdutoDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected SumSaidaProdutoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumSubtotalColumn {
+                get {
+                    return this.columnsumSubtotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumSubtotalAVistaColumn {
+                get {
+                    return this.columnsumSubtotalAVista;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumBaseCalculoICMSColumn {
+                get {
+                    return this.columnsumBaseCalculoICMS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumValorICMSColumn {
+                get {
+                    return this.columnsumValorICMS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumBaseCalculoICMSSubstColumn {
+                get {
+                    return this.columnsumBaseCalculoICMSSubst;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumValorICMSSubstColumn {
+                get {
+                    return this.columnsumValorICMSSubst;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn sumvalorIPIColumn {
+                get {
+                    return this.columnsumvalorIPI;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SumSaidaProdutoRow this[int index] {
+                get {
+                    return ((SumSaidaProdutoRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SumSaidaProdutoRowChangeEventHandler SumSaidaProdutoRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SumSaidaProdutoRowChangeEventHandler SumSaidaProdutoRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SumSaidaProdutoRowChangeEventHandler SumSaidaProdutoRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SumSaidaProdutoRowChangeEventHandler SumSaidaProdutoRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddSumSaidaProdutoRow(SumSaidaProdutoRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SumSaidaProdutoRow AddSumSaidaProdutoRow(decimal sumSubtotal, decimal sumSubtotalAVista, decimal sumBaseCalculoICMS, decimal sumValorICMS, decimal sumBaseCalculoICMSSubst, decimal sumValorICMSSubst, decimal sumvalorIPI) {
+                SumSaidaProdutoRow rowSumSaidaProdutoRow = ((SumSaidaProdutoRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        sumSubtotal,
+                        sumSubtotalAVista,
+                        sumBaseCalculoICMS,
+                        sumValorICMS,
+                        sumBaseCalculoICMSSubst,
+                        sumValorICMSSubst,
+                        sumvalorIPI};
+                rowSumSaidaProdutoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSumSaidaProdutoRow);
+                return rowSumSaidaProdutoRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                SumSaidaProdutoDataTable cln = ((SumSaidaProdutoDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new SumSaidaProdutoDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnsumSubtotal = base.Columns["sumSubtotal"];
+                this.columnsumSubtotalAVista = base.Columns["sumSubtotalAVista"];
+                this.columnsumBaseCalculoICMS = base.Columns["sumBaseCalculoICMS"];
+                this.columnsumValorICMS = base.Columns["sumValorICMS"];
+                this.columnsumBaseCalculoICMSSubst = base.Columns["sumBaseCalculoICMSSubst"];
+                this.columnsumValorICMSSubst = base.Columns["sumValorICMSSubst"];
+                this.columnsumvalorIPI = base.Columns["sumvalorIPI"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnsumSubtotal = new global::System.Data.DataColumn("sumSubtotal", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumSubtotal);
+                this.columnsumSubtotalAVista = new global::System.Data.DataColumn("sumSubtotalAVista", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumSubtotalAVista);
+                this.columnsumBaseCalculoICMS = new global::System.Data.DataColumn("sumBaseCalculoICMS", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumBaseCalculoICMS);
+                this.columnsumValorICMS = new global::System.Data.DataColumn("sumValorICMS", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumValorICMS);
+                this.columnsumBaseCalculoICMSSubst = new global::System.Data.DataColumn("sumBaseCalculoICMSSubst", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumBaseCalculoICMSSubst);
+                this.columnsumValorICMSSubst = new global::System.Data.DataColumn("sumValorICMSSubst", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumValorICMSSubst);
+                this.columnsumvalorIPI = new global::System.Data.DataColumn("sumvalorIPI", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsumvalorIPI);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SumSaidaProdutoRow NewSumSaidaProdutoRow() {
+                return ((SumSaidaProdutoRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new SumSaidaProdutoRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(SumSaidaProdutoRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.SumSaidaProdutoRowChanged != null)) {
+                    this.SumSaidaProdutoRowChanged(this, new SumSaidaProdutoRowChangeEvent(((SumSaidaProdutoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.SumSaidaProdutoRowChanging != null)) {
+                    this.SumSaidaProdutoRowChanging(this, new SumSaidaProdutoRowChangeEvent(((SumSaidaProdutoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.SumSaidaProdutoRowDeleted != null)) {
+                    this.SumSaidaProdutoRowDeleted(this, new SumSaidaProdutoRowChangeEvent(((SumSaidaProdutoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.SumSaidaProdutoRowDeleting != null)) {
+                    this.SumSaidaProdutoRowDeleting(this, new SumSaidaProdutoRowChangeEvent(((SumSaidaProdutoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveSumSaidaProdutoRow(SumSaidaProdutoRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                saceDataSetConsultas ds = new saceDataSetConsultas();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "SumSaidaProdutoDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class ProdutosVendidosRow : global::System.Data.DataRow {
@@ -1786,6 +2152,218 @@ namespace Dados {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class SumSaidaProdutoRow : global::System.Data.DataRow {
+            
+            private SumSaidaProdutoDataTable tableSumSaidaProduto;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal SumSaidaProdutoRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableSumSaidaProduto = ((SumSaidaProdutoDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumSubtotal {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumSubtotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumSubtotal\' in table \'SumSaidaProduto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumSubtotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumSubtotalAVista {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumSubtotalAVistaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumSubtotalAVista\' in table \'SumSaidaProduto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumSubtotalAVistaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumBaseCalculoICMS {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumBaseCalculoICMSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumBaseCalculoICMS\' in table \'SumSaidaProduto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumBaseCalculoICMSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumValorICMS {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumValorICMSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumValorICMS\' in table \'SumSaidaProduto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumValorICMSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumBaseCalculoICMSSubst {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumBaseCalculoICMSSubstColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumBaseCalculoICMSSubst\' in table \'SumSaidaProduto\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumBaseCalculoICMSSubstColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumValorICMSSubst {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumValorICMSSubstColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumValorICMSSubst\' in table \'SumSaidaProduto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumValorICMSSubstColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal sumvalorIPI {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSumSaidaProduto.sumvalorIPIColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sumvalorIPI\' in table \'SumSaidaProduto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSumSaidaProduto.sumvalorIPIColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumSubtotalNull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumSubtotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumSubtotalNull() {
+                this[this.tableSumSaidaProduto.sumSubtotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumSubtotalAVistaNull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumSubtotalAVistaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumSubtotalAVistaNull() {
+                this[this.tableSumSaidaProduto.sumSubtotalAVistaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumBaseCalculoICMSNull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumBaseCalculoICMSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumBaseCalculoICMSNull() {
+                this[this.tableSumSaidaProduto.sumBaseCalculoICMSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumValorICMSNull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumValorICMSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumValorICMSNull() {
+                this[this.tableSumSaidaProduto.sumValorICMSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumBaseCalculoICMSSubstNull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumBaseCalculoICMSSubstColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumBaseCalculoICMSSubstNull() {
+                this[this.tableSumSaidaProduto.sumBaseCalculoICMSSubstColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumValorICMSSubstNull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumValorICMSSubstColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumValorICMSSubstNull() {
+                this[this.tableSumSaidaProduto.sumValorICMSSubstColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IssumvalorIPINull() {
+                return this.IsNull(this.tableSumSaidaProduto.sumvalorIPIColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetsumvalorIPINull() {
+                this[this.tableSumSaidaProduto.sumvalorIPIColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1873,6 +2451,40 @@ namespace Dados {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ContasPessoaRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class SumSaidaProdutoRowChangeEvent : global::System.EventArgs {
+            
+            private SumSaidaProdutoRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SumSaidaProdutoRowChangeEvent(SumSaidaProdutoRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SumSaidaProdutoRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -2486,6 +3098,178 @@ FROM            tb_conta INNER JOIN
         public virtual saceDataSetConsultas.ContasPessoaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             saceDataSetConsultas.ContasPessoaDataTable dataTable = new saceDataSetConsultas.ContasPessoaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class SumSaidaProdutoTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
+        
+        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
+        
+        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
+        
+        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public SumSaidaProdutoTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "SumSaidaProduto";
+            tableMapping.ColumnMappings.Add("sumSubtotal", "sumSubtotal");
+            tableMapping.ColumnMappings.Add("sumSubtotalAVista", "sumSubtotalAVista");
+            tableMapping.ColumnMappings.Add("sumBaseCalculoICMS", "sumBaseCalculoICMS");
+            tableMapping.ColumnMappings.Add("sumValorICMS", "sumValorICMS");
+            tableMapping.ColumnMappings.Add("sumBaseCalculoICMSSubst", "sumBaseCalculoICMSSubst");
+            tableMapping.ColumnMappings.Add("sumValorICMSSubst", "sumValorICMSSubst");
+            tableMapping.ColumnMappings.Add("sumvalorIPI", "sumvalorIPI");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
+            this._connection.ConnectionString = global::Dados.Properties.Settings.Default.saceConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"SELECT        SUM(subtotal) AS sumSubtotal, SUM(subtotalAVista) AS sumSubtotalAVista, SUM(baseCalculoICMS) AS sumBaseCalculoICMS, SUM(valorICMS) AS sumValorICMS, 
+                         SUM(baseCalculoICMSSubst) AS sumBaseCalculoICMSSubst, SUM(valorICMSSubst) AS sumValorICMSSubst, SUM(valorIPI) AS sumvalorIPI
+FROM            tb_saida_produto
+GROUP BY codSaida
+HAVING        (codSaida = @codSaida)";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[0].Parameters.Add(param);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual saceDataSetConsultas.SumSaidaProdutoDataTable GetSumTotaisByCodSaida(long codSaida) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
+            saceDataSetConsultas.SumSaidaProdutoDataTable dataTable = new saceDataSetConsultas.SumSaidaProdutoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

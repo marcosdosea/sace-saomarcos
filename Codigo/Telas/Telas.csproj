@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmSaidaDevolucao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaDevolucao.Designer.cs">
+      <DependentUpon>FrmSaidaDevolucao.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmReceberPagamentoPessoa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,6 +344,10 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmSaidaDevolucao.resx">
+      <DependentUpon>FrmSaidaDevolucao.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmReceberPagamentoPessoa.resx">
       <DependentUpon>FrmReceberPagamentoPessoa.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -517,7 +527,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="Properties\DataSources\Dados.BancoE.datasource" />
+    <None Include="Properties\DataSources\Dados.CartaoCreditoE.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultas.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />

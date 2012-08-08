@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Dominio;
 using Dados.saceDataSetTableAdapters;
+using Dados.saceDataSetConsultasTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
@@ -47,8 +48,10 @@ namespace Negocio
                 tb_SaidaProdutoTA.Insert(saidaProduto.CodProduto, saidaProduto.CodSaida, 
                     saidaProduto.Quantidade, saidaProduto.ValorVenda, 
                     saidaProduto.Desconto, saidaProduto.Subtotal, 
-                    saidaProduto.SubtotalAVista, saidaProduto.DataValidade);
-                tb_SaidaTA.UpdateTotais(saidaProduto.CodSaida);
+                    saidaProduto.SubtotalAVista, saidaProduto.DataValidade, saidaProduto.BaseCalculoICMS,
+                    saidaProduto.ValorICMS, saidaProduto.BaseCalculoICMSSubst, saidaProduto.ValorICMSSubst,
+                    saidaProduto.ValorIPI);
+                atualizaTotaisSaida(saida);
                 return 0;
                 
             }
@@ -73,12 +76,28 @@ namespace Negocio
                 }
 
                 tb_SaidaProdutoTA.Delete(saidaProduto.CodSaidaProduto);
-                tb_SaidaTA.UpdateTotais(saidaProduto.CodSaida);
+                atualizaTotaisSaida(saida);
             }
             catch (Exception e)
             {
                 throw new DadosException("Saída de Produtos", e.Message, e);
             }
+        }
+
+        private void atualizaTotaisSaida(Saida saida)
+        {
+            SumSaidaProdutoTableAdapter sumSaidaTA = new SumSaidaProdutoTableAdapter();
+            saceDataSetConsultas.SumSaidaProdutoDataTable sumSaidaProdutoDT = sumSaidaTA.GetSumTotaisByCodSaida(saida.CodSaida);
+
+            saida.Total = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumSubtotal"].ToString());
+            saida.TotalAVista = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumSubtotalAVista"].ToString());
+            saida.BaseCalculoICMS = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumBaseCalculoICMS"].ToString());
+            saida.ValorICMS = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumValorICMS"].ToString());
+            saida.BaseCalculoICMSSubst = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumBaseCalculoICMSSubst"].ToString());
+            saida.ValorICMSSubst = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumValorICMSSubst"].ToString());
+            saida.ValorIPI = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumvalorIPI"].ToString());
+
+            GerenciadorSaida.getInstace().atualizar(saida);
         }
 
         public List<SaidaProduto> obterSaidaProdutosSemCST(Int64 codSaida, String codCST)

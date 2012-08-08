@@ -44,5 +44,7 @@ namespace Negocio
         void registrarEstornoEstoque(List<SaidaProduto> saidaProdutos);
         
         Int64 ObterNumeroUltimaNotaFiscal();
+
+        decimal ObterTotalNotaFiscal(Saida saida);
     }
 }

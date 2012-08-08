@@ -27,5 +27,10 @@ namespace Dominio
         public DateTime DataValidade { get; set; }
         public String CodCST { get; set; }
         public String Unidade { get; set; }
+        public decimal BaseCalculoICMS { get; set; }
+        public decimal ValorICMS { get; set; }
+        public decimal BaseCalculoICMSSubst { get; set; }
+        public decimal ValorICMSSubst { get; set; }
+        public decimal ValorIPI { get; set; }
     }
 }

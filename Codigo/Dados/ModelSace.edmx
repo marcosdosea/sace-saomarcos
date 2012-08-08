@@ -353,7 +353,7 @@
           <Key>
             <PropertyRef Name="codCST" />
           </Key>
-          <Property Name="codCST" Type="char" Nullable="false" MaxLength="3" />
+          <Property Name="codCST" Type="char" Nullable="false" MaxLength="4" />
           <Property Name="descricaoCST" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="tb_documento_pagamento">
@@ -591,6 +591,7 @@
           <Property Name="qtdEstoque" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="qtdEstoqueAux" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="localizacao" Type="varchar" MaxLength="30" />
+          <Property Name="localizacao2" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="tb_saida">
           <Key>
@@ -613,6 +614,21 @@
           <Property Name="troco" Type="decimal" Scale="2" />
           <Property Name="entregaRealizada" Type="bool" Nullable="false" />
           <Property Name="nfe" Type="varchar" MaxLength="30" />
+          <Property Name="baseCalculoICMS" Type="decimal" Scale="2" />
+          <Property Name="valorICMS" Type="decimal" Scale="2" />
+          <Property Name="baseCalculoICMSSubst" Type="decimal" Scale="2" />
+          <Property Name="valorICMSSubst" Type="decimal" Scale="2" />
+          <Property Name="valorFrete" Type="decimal" Scale="2" />
+          <Property Name="valorSeguro" Type="decimal" Scale="2" />
+          <Property Name="outrasDespesas" Type="decimal" Scale="2" />
+          <Property Name="valorIPI" Type="decimal" Scale="2" />
+          <Property Name="totalNotaFiscal" Type="decimal" Scale="2" />
+          <Property Name="quantidadeVolumes" Type="decimal" Scale="2" />
+          <Property Name="especieVolumes" Type="varchar" MaxLength="30" />
+          <Property Name="marca" Type="varchar" MaxLength="30" />
+          <Property Name="numero" Type="decimal" Scale="2" />
+          <Property Name="pesoBruto" Type="decimal" Scale="2" />
+          <Property Name="pesoLiquido" Type="decimal" Scale="2" />
         </EntityType>
         <EntityType Name="tb_saida_forma_pagamento">
           <Key>
@@ -642,6 +658,11 @@
           <Property Name="subtotal" Type="decimal" Scale="2" />
           <Property Name="subtotalAVista" Type="decimal" Scale="2" />
           <Property Name="data_validade" Type="datetime" />
+          <Property Name="baseCalculoICMS" Type="decimal" Scale="2" />
+          <Property Name="valorICMS" Type="decimal" Scale="2" />
+          <Property Name="baseCalculoICMSSubst" Type="decimal" Scale="2" />
+          <Property Name="valorICMSSubst" Type="decimal" Scale="2" />
+          <Property Name="valorIPI" Type="decimal" Scale="2" />
         </EntityType>
         <EntityType Name="tb_situacao_conta">
           <Key>
@@ -1441,7 +1462,7 @@
       <Schema Namespace="SaceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="SaceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BancoSet" EntityType="SaceModel.BancoE" />
-          <EntitySet Name="tb_cartao_credito" EntityType="SaceModel.tb_cartao_credito" />
+          <EntitySet Name="CartaoCreditoSet" EntityType="SaceModel.CartaoCreditoE" />
           <EntitySet Name="tb_cfop" EntityType="SaceModel.tb_cfop" />
           <EntitySet Name="tb_configuracao_sistema" EntityType="SaceModel.tb_configuracao_sistema" />
           <EntitySet Name="tb_conta" EntityType="SaceModel.tb_conta" />
@@ -1486,14 +1507,14 @@
           </AssociationSet>
           <AssociationSet Name="fk_tb_cartao_credito_codcontabanco" Association="SaceModel.fk_tb_cartao_credito_codcontabanco">
             <End Role="tb_conta_banco" EntitySet="tb_conta_banco" />
-            <End Role="tb_cartao_credito" EntitySet="tb_cartao_credito" />
+            <End Role="tb_cartao_credito" EntitySet="CartaoCreditoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_cartao_credito_tb_pessoa1" Association="SaceModel.fk_tb_cartao_credito_tb_pessoa1">
             <End Role="tb_pessoa" EntitySet="tb_pessoa" />
-            <End Role="tb_cartao_credito" EntitySet="tb_cartao_credito" />
+            <End Role="tb_cartao_credito" EntitySet="CartaoCreditoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_pagamento_tb_cartao_credito1" Association="SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1">
-            <End Role="tb_cartao_credito" EntitySet="tb_cartao_credito" />
+            <End Role="tb_cartao_credito" EntitySet="CartaoCreditoSet" />
             <End Role="tb_saida_forma_pagamento" EntitySet="tb_saida_forma_pagamento" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_produto_tb_cfop1" Association="SaceModel.fk_tb_entrada_produto_tb_cfop1">
@@ -1714,7 +1735,7 @@
           <NavigationProperty Name="tb_conta_banco" Relationship="SaceModel.fk_tb_conta_banco_codbanco" FromRole="tb_banco" ToRole="tb_conta_banco" />
           <NavigationProperty Name="tb_documento_pagamento" Relationship="SaceModel.fk_tb_documento_pagamento_tb_banco1" FromRole="tb_banco" ToRole="tb_documento_pagamento" />
         </EntityType>
-        <EntityType Name="tb_cartao_credito">
+        <EntityType Name="CartaoCreditoE">
           <Key>
             <PropertyRef Name="codCartao" />
           </Key>
@@ -2085,6 +2106,7 @@
           <Property Name="localizacao" Type="String" />
           <NavigationProperty Name="tb_loja" Relationship="SaceModel.fk_tb_produto_loja_codloja" FromRole="tb_produto_loja" ToRole="tb_loja" />
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_produto_loja_codproduto" FromRole="tb_produto_loja" ToRole="tb_produto" />
+          <Property Type="String" Name="localizacao2" />
         </EntityType>
         <EntityType Name="tb_saida">
           <Key>
@@ -2114,6 +2136,21 @@
           <NavigationProperty Name="tb_saida_produto" Relationship="SaceModel.fk_tb_saida_produto_codsaida" FromRole="tb_saida" ToRole="tb_saida_produto" />
           <NavigationProperty Name="tb_situacao_pagamentos" Relationship="SaceModel.fk_tb_saida_tb_situacao_pagamentos1" FromRole="tb_saida" ToRole="tb_situacao_pagamentos" />
           <NavigationProperty Name="tb_tipo_saida" Relationship="SaceModel.fk_tb_saida_tb_tipo_saida1" FromRole="tb_saida" ToRole="tb_tipo_saida" />
+          <Property Type="Decimal" Name="baseCalculoICMS" />
+          <Property Type="Decimal" Name="valorICMS" />
+          <Property Type="Decimal" Name="baseCalculoICMSSubst" />
+          <Property Type="Decimal" Name="valorICMSSubst" />
+          <Property Type="Decimal" Name="valorFrete" />
+          <Property Type="Decimal" Name="valorSeguro" />
+          <Property Type="Decimal" Name="outrasDespesas" />
+          <Property Type="Decimal" Name="valorIPI" />
+          <Property Type="Decimal" Name="totalNotaFiscal" />
+          <Property Type="Decimal" Name="quantidadeVolumes" />
+          <Property Type="String" Name="especieVolumes" />
+          <Property Type="String" Name="marca" />
+          <Property Type="Decimal" Name="numero" />
+          <Property Type="Decimal" Name="pesoBruto" />
+          <Property Type="Decimal" Name="pesoLiquido" />
         </EntityType>
         <EntityType Name="tb_saida_forma_pagamento">
           <Key>
@@ -2150,6 +2187,11 @@
           <Property Name="data_validade" Type="DateTime" />
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_saida_produto_codproduto" FromRole="tb_saida_produto" ToRole="tb_produto" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.fk_tb_saida_produto_codsaida" FromRole="tb_saida_produto" ToRole="tb_saida" />
+          <Property Type="Decimal" Name="baseCalculoICMS" />
+          <Property Type="Decimal" Name="valorICMS" />
+          <Property Type="Decimal" Name="baseCalculoICMSSubst" />
+          <Property Type="Decimal" Name="valorICMSSubst" />
+          <Property Type="Decimal" Name="valorIPI" />
         </EntityType>
         <EntityType Name="tb_situacao_conta">
           <Key>
@@ -2265,7 +2307,7 @@
         </Association>
         <Association Name="fk_tb_cartao_credito_codcontabanco">
           <End Role="tb_conta_banco" Type="SaceModel.tb_conta_banco" Multiplicity="1" />
-          <End Role="tb_cartao_credito" Type="SaceModel.tb_cartao_credito" Multiplicity="*" />
+          <End Role="tb_cartao_credito" Type="SaceModel.CartaoCreditoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_conta_banco">
               <PropertyRef Name="codContaBanco" />
@@ -2277,7 +2319,7 @@
         </Association>
         <Association Name="fk_tb_cartao_credito_tb_pessoa1">
           <End Role="tb_pessoa" Type="SaceModel.tb_pessoa" Multiplicity="1" />
-          <End Role="tb_cartao_credito" Type="SaceModel.tb_cartao_credito" Multiplicity="*" />
+          <End Role="tb_cartao_credito" Type="SaceModel.CartaoCreditoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2288,7 +2330,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_pagamento_tb_cartao_credito1">
-          <End Role="tb_cartao_credito" Type="SaceModel.tb_cartao_credito" Multiplicity="1" />
+          <End Role="tb_cartao_credito" Type="SaceModel.CartaoCreditoE" Multiplicity="1" />
           <End Role="tb_saida_forma_pagamento" Type="SaceModel.tb_saida_forma_pagamento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cartao_credito">
@@ -2929,7 +2971,7 @@
             <ScalarProperty Name="codBanco" ColumnName="codBanco" />
             <ScalarProperty Name="nome" ColumnName="nome" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_cartao_credito"><EntityTypeMapping TypeName="SaceModel.tb_cartao_credito"><MappingFragment StoreEntitySet="tb_cartao_credito">
+          <EntitySetMapping Name="CartaoCreditoSet"><EntityTypeMapping TypeName="SaceModel.CartaoCreditoE"><MappingFragment StoreEntitySet="tb_cartao_credito">
             <ScalarProperty Name="codCartao" ColumnName="codCartao" />
             <ScalarProperty Name="nome" ColumnName="nome" />
             <ScalarProperty Name="diaBase" ColumnName="diaBase" />
@@ -3143,14 +3185,30 @@
             <ScalarProperty Name="dataUltimoPedido" ColumnName="dataUltimoPedido" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="tb_produto_loja"><EntityTypeMapping TypeName="SaceModel.tb_produto_loja"><MappingFragment StoreEntitySet="tb_produto_loja">
-            <ScalarProperty Name="codLoja" ColumnName="codLoja" />
+            <ScalarProperty Name="localizacao2" ColumnName="localizacao2" />
+                <ScalarProperty Name="codLoja" ColumnName="codLoja" />
             <ScalarProperty Name="codProduto" ColumnName="codProduto" />
             <ScalarProperty Name="qtdEstoque" ColumnName="qtdEstoque" />
             <ScalarProperty Name="qtdEstoqueAux" ColumnName="qtdEstoqueAux" />
             <ScalarProperty Name="localizacao" ColumnName="localizacao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="tb_saida"><EntityTypeMapping TypeName="SaceModel.tb_saida"><MappingFragment StoreEntitySet="tb_saida">
-            <ScalarProperty Name="codSaida" ColumnName="codSaida" />
+            <ScalarProperty Name="pesoLiquido" ColumnName="pesoLiquido" />
+                <ScalarProperty Name="pesoBruto" ColumnName="pesoBruto" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="especieVolumes" ColumnName="especieVolumes" />
+                <ScalarProperty Name="quantidadeVolumes" ColumnName="quantidadeVolumes" />
+                <ScalarProperty Name="totalNotaFiscal" ColumnName="totalNotaFiscal" />
+                <ScalarProperty Name="valorIPI" ColumnName="valorIPI" />
+                <ScalarProperty Name="outrasDespesas" ColumnName="outrasDespesas" />
+                <ScalarProperty Name="valorSeguro" ColumnName="valorSeguro" />
+                <ScalarProperty Name="valorFrete" ColumnName="valorFrete" />
+                <ScalarProperty Name="valorICMSSubst" ColumnName="valorICMSSubst" />
+                <ScalarProperty Name="baseCalculoICMSSubst" ColumnName="baseCalculoICMSSubst" />
+                <ScalarProperty Name="valorICMS" ColumnName="valorICMS" />
+                <ScalarProperty Name="baseCalculoICMS" ColumnName="baseCalculoICMS" />
+                <ScalarProperty Name="codSaida" ColumnName="codSaida" />
             <ScalarProperty Name="dataSaida" ColumnName="dataSaida" />
             <ScalarProperty Name="codCliente" ColumnName="codCliente" />
             <ScalarProperty Name="codTipoSaida" ColumnName="codTipoSaida" />
@@ -3181,7 +3239,12 @@
             <ScalarProperty Name="intervaloDias" ColumnName="intervaloDias" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="tb_saida_produto"><EntityTypeMapping TypeName="SaceModel.tb_saida_produto"><MappingFragment StoreEntitySet="tb_saida_produto">
-            <ScalarProperty Name="codSaidaProduto" ColumnName="codSaidaProduto" />
+            <ScalarProperty Name="valorIPI" ColumnName="valorIPI" />
+                <ScalarProperty Name="valorICMSSubst" ColumnName="valorICMSSubst" />
+                <ScalarProperty Name="baseCalculoICMSSubst" ColumnName="baseCalculoICMSSubst" />
+                <ScalarProperty Name="valorICMS" ColumnName="valorICMS" />
+                <ScalarProperty Name="baseCalculoICMS" ColumnName="baseCalculoICMS" />
+                <ScalarProperty Name="codSaidaProduto" ColumnName="codSaidaProduto" />
             <ScalarProperty Name="codProduto" ColumnName="codProduto" />
             <ScalarProperty Name="codSaida" ColumnName="codSaida" />
             <ScalarProperty Name="quantidade" ColumnName="quantidade" />
@@ -3273,7 +3336,7 @@
     <Diagrams>
       <Diagram Name="ModelSace">
         <EntityTypeShape EntityType="SaceModel.BancoE" Width="1.5" PointX="0.75" PointY="17.25" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_cartao_credito" Width="1.5" PointX="3" PointY="23" Height="2.749492187499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.CartaoCreditoE" Width="1.5" PointX="3" PointY="23" Height="2.749492187499996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_cfop" Width="1.5" PointX="6.75" PointY="12.375" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_configuracao_sistema" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583335" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_conta" Width="1.5" PointX="6" PointY="22.125" Height="4.4802050781250031" IsExpanded="true" />

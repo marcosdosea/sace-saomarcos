@@ -100,11 +100,6 @@
             this.precoAtacadoSugestaoTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
-            this.nomeLoja = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbprodutolojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataUltimoPedidoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.referenciaFabricanteTextBox = new System.Windows.Forms.TextBox();
@@ -134,6 +129,12 @@
             this.precoCustoTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
+            this.nomeLoja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacao2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -842,6 +843,7 @@
             this.qtdEstoqueDataGridViewTextBoxColumn,
             this.qtdEstoqueAuxDataGridViewTextBoxColumn,
             this.localizacaoDataGridViewTextBoxColumn,
+            this.localizacao2,
             this.nomeProdutoDataGridViewTextBoxColumn});
             this.tb_produto_lojaDataGridView.DataSource = this.tbprodutolojaBindingSource;
             this.tb_produto_lojaDataGridView.Location = new System.Drawing.Point(12, 467);
@@ -853,43 +855,6 @@
             this.tb_produto_lojaDataGridView.Size = new System.Drawing.Size(584, 79);
             this.tb_produto_lojaDataGridView.TabIndex = 69;
             this.tb_produto_lojaDataGridView.TabStop = false;
-            // 
-            // nomeLoja
-            // 
-            this.nomeLoja.DataPropertyName = "nomeLoja";
-            this.nomeLoja.HeaderText = "Loja";
-            this.nomeLoja.Name = "nomeLoja";
-            this.nomeLoja.ReadOnly = true;
-            // 
-            // qtdEstoqueDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
-            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // qtdEstoqueAuxDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoqueAux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Estoque Aux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // localizacaoDataGridViewTextBoxColumn
-            // 
-            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "localizacao";
-            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localização";
-            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
-            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nomeProdutoDataGridViewTextBoxColumn
-            // 
-            this.nomeProdutoDataGridViewTextBoxColumn.DataPropertyName = "nomeProduto";
-            this.nomeProdutoDataGridViewTextBoxColumn.HeaderText = "nomeProduto";
-            this.nomeProdutoDataGridViewTextBoxColumn.Name = "nomeProdutoDataGridViewTextBoxColumn";
-            this.nomeProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nomeProdutoDataGridViewTextBoxColumn.Visible = false;
             // 
             // tbprodutolojaBindingSource
             // 
@@ -1120,6 +1085,50 @@
             this.descontoTextBox.TabIndex = 47;
             this.descontoTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
+            // nomeLoja
+            // 
+            this.nomeLoja.DataPropertyName = "nomeLoja";
+            this.nomeLoja.HeaderText = "Loja";
+            this.nomeLoja.Name = "nomeLoja";
+            this.nomeLoja.ReadOnly = true;
+            // 
+            // qtdEstoqueDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
+            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueAuxDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Estoque Aux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacaoDataGridViewTextBoxColumn
+            // 
+            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localização";
+            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
+            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacao2
+            // 
+            this.localizacao2.DataPropertyName = "localizacao2";
+            this.localizacao2.HeaderText = "Localização 2";
+            this.localizacao2.Name = "localizacao2";
+            this.localizacao2.ReadOnly = true;
+            // 
+            // nomeProdutoDataGridViewTextBoxColumn
+            // 
+            this.nomeProdutoDataGridViewTextBoxColumn.DataPropertyName = "nomeProduto";
+            this.nomeProdutoDataGridViewTextBoxColumn.HeaderText = "nomeProduto";
+            this.nomeProdutoDataGridViewTextBoxColumn.Name = "nomeProdutoDataGridViewTextBoxColumn";
+            this.nomeProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nomeProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1294,12 +1303,7 @@
         private Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_produto_lojaTableAdapter;
         private System.Windows.Forms.BindingSource tbsituacaoprodutoBindingSource;
         private System.Windows.Forms.BindingSource tbcstBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomeLoja;
-        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueAuxDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn precoCustoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn localizacaoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomeProdutoDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource tbprodutolojaBindingSource;
         private System.Windows.Forms.BindingSource tbsubgrupoBindingSource;
         private Dados.saceDataSetTableAdapters.tb_subgrupoTableAdapter tb_subgrupoTableAdapter;
@@ -1307,5 +1311,11 @@
         private System.Windows.Forms.TextBox precoCustoTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox descontoTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeLoja;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueAuxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localizacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localizacao2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeProdutoDataGridViewTextBoxColumn;
     }
 }

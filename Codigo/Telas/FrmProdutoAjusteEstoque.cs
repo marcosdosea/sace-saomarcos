@@ -76,6 +76,7 @@ namespace Telas
                 produtoLoja.QtdEstoque = decimal.Parse(qtdEstoqueTextBox.Text);
                 produtoLoja.QtdEstoqueAux = decimal.Parse(qtdEstoqueAuxTextBox.Text);
                 produtoLoja.Localizacao = localizacaoTextBox.Text;
+                produtoLoja.Localizacao2 = localizacao2TextBox.Text;
 
                 
                 IGerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.getInstace();

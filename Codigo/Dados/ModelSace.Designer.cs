@@ -20,9 +20,9 @@ using System.Runtime.Serialization;
 
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_banco_codbanco", "tb_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.BancoE), "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_conta_banco), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_documento_pagamento_tb_banco1", "tb_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.BancoE), "tb_documento_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_documento_pagamento), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_codcontabanco", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_conta_banco), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_cartao_credito), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_pessoa), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_cartao_credito), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_cartao_credito), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida_forma_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_codcontabanco", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_conta_banco), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.CartaoCreditoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_pessoa), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.CartaoCreditoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida_forma_pagamento), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_cfop), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_entrada_produto), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_cfop", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.tb_cfop), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_produto), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_pessoa), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_conta), true)]
@@ -145,18 +145,18 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_cartao_credito> tb_cartao_credito
+        public ObjectSet<CartaoCreditoE> CartaoCreditoSet
         {
             get
             {
-                if ((_tb_cartao_credito == null))
+                if ((_CartaoCreditoSet == null))
                 {
-                    _tb_cartao_credito = base.CreateObjectSet<tb_cartao_credito>("tb_cartao_credito");
+                    _CartaoCreditoSet = base.CreateObjectSet<CartaoCreditoE>("CartaoCreditoSet");
                 }
-                return _tb_cartao_credito;
+                return _CartaoCreditoSet;
             }
         }
-        private ObjectSet<tb_cartao_credito> _tb_cartao_credito;
+        private ObjectSet<CartaoCreditoE> _CartaoCreditoSet;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -714,11 +714,11 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_cartao_credito EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the CartaoCreditoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTotb_cartao_credito(tb_cartao_credito tb_cartao_credito)
+        public void AddToCartaoCreditoSet(CartaoCreditoE cartaoCreditoE)
         {
-            base.AddObject("tb_cartao_credito", tb_cartao_credito);
+            base.AddObject("CartaoCreditoSet", cartaoCreditoE);
         }
     
         /// <summary>
@@ -1132,28 +1132,28 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_cartao_credito")]
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="CartaoCreditoE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class tb_cartao_credito : EntityObject
+    public partial class CartaoCreditoE : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new tb_cartao_credito object.
+        /// Create a new CartaoCreditoE object.
         /// </summary>
         /// <param name="codCartao">Initial value of the codCartao property.</param>
         /// <param name="nome">Initial value of the nome property.</param>
         /// <param name="codContaBanco">Initial value of the codContaBanco property.</param>
         /// <param name="codPessoa">Initial value of the codPessoa property.</param>
-        public static tb_cartao_credito Createtb_cartao_credito(global::System.Int32 codCartao, global::System.String nome, global::System.Int32 codContaBanco, global::System.Int64 codPessoa)
+        public static CartaoCreditoE CreateCartaoCreditoE(global::System.Int32 codCartao, global::System.String nome, global::System.Int32 codContaBanco, global::System.Int64 codPessoa)
         {
-            tb_cartao_credito tb_cartao_credito = new tb_cartao_credito();
-            tb_cartao_credito.codCartao = codCartao;
-            tb_cartao_credito.nome = nome;
-            tb_cartao_credito.codContaBanco = codContaBanco;
-            tb_cartao_credito.codPessoa = codPessoa;
-            return tb_cartao_credito;
+            CartaoCreditoE cartaoCreditoE = new CartaoCreditoE();
+            cartaoCreditoE.codCartao = codCartao;
+            cartaoCreditoE.nome = nome;
+            cartaoCreditoE.codContaBanco = codContaBanco;
+            cartaoCreditoE.codPessoa = codPessoa;
+            return cartaoCreditoE;
         }
 
         #endregion
@@ -2422,17 +2422,17 @@ namespace Dados
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_cartao_credito_codcontabanco", "tb_cartao_credito")]
-        public EntityCollection<tb_cartao_credito> tb_cartao_credito
+        public EntityCollection<CartaoCreditoE> tb_cartao_credito
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_cartao_credito>("SaceModel.fk_tb_cartao_credito_codcontabanco", "tb_cartao_credito");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_codcontabanco", "tb_cartao_credito");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_cartao_credito>("SaceModel.fk_tb_cartao_credito_codcontabanco", "tb_cartao_credito", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_codcontabanco", "tb_cartao_credito", value);
                 }
             }
         }
@@ -6913,17 +6913,17 @@ namespace Dados
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito")]
-        public EntityCollection<tb_cartao_credito> tb_cartao_credito
+        public EntityCollection<CartaoCreditoE> tb_cartao_credito
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_cartao_credito>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_cartao_credito>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito", value);
                 }
             }
         }
@@ -8662,6 +8662,30 @@ namespace Dados
         private global::System.String _localizacao;
         partial void OnlocalizacaoChanging(global::System.String value);
         partial void OnlocalizacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String localizacao2
+        {
+            get
+            {
+                return _localizacao2;
+            }
+            set
+            {
+                Onlocalizacao2Changing(value);
+                ReportPropertyChanging("localizacao2");
+                _localizacao2 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("localizacao2");
+                Onlocalizacao2Changed();
+            }
+        }
+        private global::System.String _localizacao2;
+        partial void Onlocalizacao2Changing(global::System.String value);
+        partial void Onlocalizacao2Changed();
 
         #endregion
     
@@ -9190,6 +9214,366 @@ namespace Dados
         private global::System.String _nfe;
         partial void OnnfeChanging(global::System.String value);
         partial void OnnfeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> baseCalculoICMS
+        {
+            get
+            {
+                return _baseCalculoICMS;
+            }
+            set
+            {
+                OnbaseCalculoICMSChanging(value);
+                ReportPropertyChanging("baseCalculoICMS");
+                _baseCalculoICMS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("baseCalculoICMS");
+                OnbaseCalculoICMSChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _baseCalculoICMS;
+        partial void OnbaseCalculoICMSChanging(Nullable<global::System.Decimal> value);
+        partial void OnbaseCalculoICMSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorICMS
+        {
+            get
+            {
+                return _valorICMS;
+            }
+            set
+            {
+                OnvalorICMSChanging(value);
+                ReportPropertyChanging("valorICMS");
+                _valorICMS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorICMS");
+                OnvalorICMSChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorICMS;
+        partial void OnvalorICMSChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorICMSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> baseCalculoICMSSubst
+        {
+            get
+            {
+                return _baseCalculoICMSSubst;
+            }
+            set
+            {
+                OnbaseCalculoICMSSubstChanging(value);
+                ReportPropertyChanging("baseCalculoICMSSubst");
+                _baseCalculoICMSSubst = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("baseCalculoICMSSubst");
+                OnbaseCalculoICMSSubstChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _baseCalculoICMSSubst;
+        partial void OnbaseCalculoICMSSubstChanging(Nullable<global::System.Decimal> value);
+        partial void OnbaseCalculoICMSSubstChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorICMSSubst
+        {
+            get
+            {
+                return _valorICMSSubst;
+            }
+            set
+            {
+                OnvalorICMSSubstChanging(value);
+                ReportPropertyChanging("valorICMSSubst");
+                _valorICMSSubst = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorICMSSubst");
+                OnvalorICMSSubstChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorICMSSubst;
+        partial void OnvalorICMSSubstChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorICMSSubstChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorFrete
+        {
+            get
+            {
+                return _valorFrete;
+            }
+            set
+            {
+                OnvalorFreteChanging(value);
+                ReportPropertyChanging("valorFrete");
+                _valorFrete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorFrete");
+                OnvalorFreteChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorFrete;
+        partial void OnvalorFreteChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorFreteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorSeguro
+        {
+            get
+            {
+                return _valorSeguro;
+            }
+            set
+            {
+                OnvalorSeguroChanging(value);
+                ReportPropertyChanging("valorSeguro");
+                _valorSeguro = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorSeguro");
+                OnvalorSeguroChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorSeguro;
+        partial void OnvalorSeguroChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorSeguroChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> outrasDespesas
+        {
+            get
+            {
+                return _outrasDespesas;
+            }
+            set
+            {
+                OnoutrasDespesasChanging(value);
+                ReportPropertyChanging("outrasDespesas");
+                _outrasDespesas = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("outrasDespesas");
+                OnoutrasDespesasChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _outrasDespesas;
+        partial void OnoutrasDespesasChanging(Nullable<global::System.Decimal> value);
+        partial void OnoutrasDespesasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorIPI
+        {
+            get
+            {
+                return _valorIPI;
+            }
+            set
+            {
+                OnvalorIPIChanging(value);
+                ReportPropertyChanging("valorIPI");
+                _valorIPI = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorIPI");
+                OnvalorIPIChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorIPI;
+        partial void OnvalorIPIChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorIPIChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> totalNotaFiscal
+        {
+            get
+            {
+                return _totalNotaFiscal;
+            }
+            set
+            {
+                OntotalNotaFiscalChanging(value);
+                ReportPropertyChanging("totalNotaFiscal");
+                _totalNotaFiscal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("totalNotaFiscal");
+                OntotalNotaFiscalChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _totalNotaFiscal;
+        partial void OntotalNotaFiscalChanging(Nullable<global::System.Decimal> value);
+        partial void OntotalNotaFiscalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> quantidadeVolumes
+        {
+            get
+            {
+                return _quantidadeVolumes;
+            }
+            set
+            {
+                OnquantidadeVolumesChanging(value);
+                ReportPropertyChanging("quantidadeVolumes");
+                _quantidadeVolumes = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quantidadeVolumes");
+                OnquantidadeVolumesChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _quantidadeVolumes;
+        partial void OnquantidadeVolumesChanging(Nullable<global::System.Decimal> value);
+        partial void OnquantidadeVolumesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String especieVolumes
+        {
+            get
+            {
+                return _especieVolumes;
+            }
+            set
+            {
+                OnespecieVolumesChanging(value);
+                ReportPropertyChanging("especieVolumes");
+                _especieVolumes = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("especieVolumes");
+                OnespecieVolumesChanged();
+            }
+        }
+        private global::System.String _especieVolumes;
+        partial void OnespecieVolumesChanging(global::System.String value);
+        partial void OnespecieVolumesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String marca
+        {
+            get
+            {
+                return _marca;
+            }
+            set
+            {
+                OnmarcaChanging(value);
+                ReportPropertyChanging("marca");
+                _marca = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("marca");
+                OnmarcaChanged();
+            }
+        }
+        private global::System.String _marca;
+        partial void OnmarcaChanging(global::System.String value);
+        partial void OnmarcaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> numero
+        {
+            get
+            {
+                return _numero;
+            }
+            set
+            {
+                OnnumeroChanging(value);
+                ReportPropertyChanging("numero");
+                _numero = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("numero");
+                OnnumeroChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _numero;
+        partial void OnnumeroChanging(Nullable<global::System.Decimal> value);
+        partial void OnnumeroChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> pesoBruto
+        {
+            get
+            {
+                return _pesoBruto;
+            }
+            set
+            {
+                OnpesoBrutoChanging(value);
+                ReportPropertyChanging("pesoBruto");
+                _pesoBruto = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("pesoBruto");
+                OnpesoBrutoChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _pesoBruto;
+        partial void OnpesoBrutoChanging(Nullable<global::System.Decimal> value);
+        partial void OnpesoBrutoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> pesoLiquido
+        {
+            get
+            {
+                return _pesoLiquido;
+            }
+            set
+            {
+                OnpesoLiquidoChanging(value);
+                ReportPropertyChanging("pesoLiquido");
+                _pesoLiquido = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("pesoLiquido");
+                OnpesoLiquidoChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _pesoLiquido;
+        partial void OnpesoLiquidoChanging(Nullable<global::System.Decimal> value);
+        partial void OnpesoLiquidoChanged();
 
         #endregion
     
@@ -9704,15 +10088,15 @@ namespace Dados
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito")]
-        public tb_cartao_credito tb_cartao_credito
+        public CartaoCreditoE tb_cartao_credito
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_cartao_credito>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CartaoCreditoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_cartao_credito>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CartaoCreditoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito").Value = value;
             }
         }
         /// <summary>
@@ -9720,17 +10104,17 @@ namespace Dados
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<tb_cartao_credito> tb_cartao_creditoReference
+        public EntityReference<CartaoCreditoE> tb_cartao_creditoReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_cartao_credito>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CartaoCreditoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_cartao_credito>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CartaoCreditoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito", value);
                 }
             }
         }
@@ -10136,6 +10520,126 @@ namespace Dados
         private Nullable<global::System.DateTime> _data_validade;
         partial void Ondata_validadeChanging(Nullable<global::System.DateTime> value);
         partial void Ondata_validadeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> baseCalculoICMS
+        {
+            get
+            {
+                return _baseCalculoICMS;
+            }
+            set
+            {
+                OnbaseCalculoICMSChanging(value);
+                ReportPropertyChanging("baseCalculoICMS");
+                _baseCalculoICMS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("baseCalculoICMS");
+                OnbaseCalculoICMSChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _baseCalculoICMS;
+        partial void OnbaseCalculoICMSChanging(Nullable<global::System.Decimal> value);
+        partial void OnbaseCalculoICMSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorICMS
+        {
+            get
+            {
+                return _valorICMS;
+            }
+            set
+            {
+                OnvalorICMSChanging(value);
+                ReportPropertyChanging("valorICMS");
+                _valorICMS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorICMS");
+                OnvalorICMSChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorICMS;
+        partial void OnvalorICMSChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorICMSChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> baseCalculoICMSSubst
+        {
+            get
+            {
+                return _baseCalculoICMSSubst;
+            }
+            set
+            {
+                OnbaseCalculoICMSSubstChanging(value);
+                ReportPropertyChanging("baseCalculoICMSSubst");
+                _baseCalculoICMSSubst = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("baseCalculoICMSSubst");
+                OnbaseCalculoICMSSubstChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _baseCalculoICMSSubst;
+        partial void OnbaseCalculoICMSSubstChanging(Nullable<global::System.Decimal> value);
+        partial void OnbaseCalculoICMSSubstChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorICMSSubst
+        {
+            get
+            {
+                return _valorICMSSubst;
+            }
+            set
+            {
+                OnvalorICMSSubstChanging(value);
+                ReportPropertyChanging("valorICMSSubst");
+                _valorICMSSubst = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorICMSSubst");
+                OnvalorICMSSubstChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorICMSSubst;
+        partial void OnvalorICMSSubstChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorICMSSubstChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valorIPI
+        {
+            get
+            {
+                return _valorIPI;
+            }
+            set
+            {
+                OnvalorIPIChanging(value);
+                ReportPropertyChanging("valorIPI");
+                _valorIPI = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valorIPI");
+                OnvalorIPIChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valorIPI;
+        partial void OnvalorIPIChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorIPIChanged();
 
         #endregion
     
