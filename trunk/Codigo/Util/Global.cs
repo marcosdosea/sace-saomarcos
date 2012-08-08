@@ -50,7 +50,7 @@ namespace Util
 
         public static Decimal
             ACRESCIMO_PADRAO = (decimal)1.111111,
-            DESCONTO_PADRAO = (decimal)0.9,
+            DESCONTO_PADRAO = (decimal) 10,
             SIMPLES = (decimal)8.0,
             ICMS_LOCAL = (decimal)19,
             CUSTO_MANUTENCAO_LOJA = 0;

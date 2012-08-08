@@ -31,7 +31,7 @@ namespace Negocio
             try
             {
                 tb_produto_lojaTA.Insert(produtoLoja.CodLoja, produtoLoja.CodProduto,
-                    produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux, produtoLoja.Localizacao);
+                    produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux, produtoLoja.Localizacao, produtoLoja.Localizacao2);
                 ajustarEstoqueEntradasProduto(produtoLoja.CodProduto);
                 return 0;
             }
@@ -46,7 +46,7 @@ namespace Negocio
             try
             {
                 tb_produto_lojaTA.Update(produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux,
-                    produtoLoja.Localizacao, produtoLoja.CodLoja, produtoLoja.CodProduto);
+                    produtoLoja.Localizacao, produtoLoja.Localizacao2, produtoLoja.CodLoja, produtoLoja.CodProduto);
                 ajustarEstoqueEntradasProduto(produtoLoja.CodProduto);
             }
             catch (Exception e)
@@ -99,7 +99,7 @@ namespace Negocio
             }
             else
             {
-                tb_produto_lojaTA.Insert(codLoja, codProduto, quantidade, quantidadeAux, "");
+                tb_produto_lojaTA.Insert(codLoja, codProduto, quantidade, quantidadeAux, "", "");
             }
         }
 

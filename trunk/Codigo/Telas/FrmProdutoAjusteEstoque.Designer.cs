@@ -36,6 +36,7 @@
             System.Windows.Forms.Label localizacaoLabel;
             System.Windows.Forms.Label nomeProdutoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoAjusteEstoque));
+            System.Windows.Forms.Label localizacao2Label;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -63,12 +64,14 @@
             this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codLojaComboBox = new System.Windows.Forms.ComboBox();
             this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
+            this.localizacao2TextBox = new System.Windows.Forms.TextBox();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLojaLabel = new System.Windows.Forms.Label();
             qtdEstoqueFiscalLabel = new System.Windows.Forms.Label();
             qtdEstoqueNFiscalLabel = new System.Windows.Forms.Label();
             localizacaoLabel = new System.Windows.Forms.Label();
             nomeProdutoLabel = new System.Windows.Forms.Label();
+            localizacao2Label = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingSource)).BeginInit();
@@ -118,9 +121,9 @@
             localizacaoLabel.AutoSize = true;
             localizacaoLabel.Location = new System.Drawing.Point(6, 200);
             localizacaoLabel.Name = "localizacaoLabel";
-            localizacaoLabel.Size = new System.Drawing.Size(67, 13);
+            localizacaoLabel.Size = new System.Drawing.Size(76, 13);
             localizacaoLabel.TabIndex = 26;
-            localizacaoLabel.Text = "Localização:";
+            localizacaoLabel.Text = "Localização 1:";
             // 
             // nomeProdutoLabel
             // 
@@ -301,7 +304,7 @@
             this.localizacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "localizacao", true));
             this.localizacaoTextBox.Location = new System.Drawing.Point(9, 216);
             this.localizacaoTextBox.Name = "localizacaoTextBox";
-            this.localizacaoTextBox.Size = new System.Drawing.Size(453, 20);
+            this.localizacaoTextBox.Size = new System.Drawing.Size(213, 20);
             this.localizacaoTextBox.TabIndex = 34;
             this.localizacaoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.localizacaoTextBox_KeyPress);
             // 
@@ -372,11 +375,31 @@
             // 
             this.tb_lojaTableAdapter.ClearBeforeFill = true;
             // 
+            // localizacao2Label
+            // 
+            localizacao2Label.AutoSize = true;
+            localizacao2Label.Location = new System.Drawing.Point(240, 200);
+            localizacao2Label.Name = "localizacao2Label";
+            localizacao2Label.Size = new System.Drawing.Size(76, 13);
+            localizacao2Label.TabIndex = 34;
+            localizacao2Label.Text = "Localizaçao 2:";
+            // 
+            // localizacao2TextBox
+            // 
+            this.localizacao2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.localizacao2TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "localizacao2", true));
+            this.localizacao2TextBox.Location = new System.Drawing.Point(243, 216);
+            this.localizacao2TextBox.Name = "localizacao2TextBox";
+            this.localizacao2TextBox.Size = new System.Drawing.Size(219, 20);
+            this.localizacao2TextBox.TabIndex = 35;
+            // 
             // FrmProdutoAjusteEstoque
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 276);
+            this.ClientSize = new System.Drawing.Size(477, 277);
+            this.Controls.Add(localizacao2Label);
+            this.Controls.Add(this.localizacao2TextBox);
             this.Controls.Add(this.codLojaComboBox);
             this.Controls.Add(nomeProdutoLabel);
             this.Controls.Add(this.nomeProdutoTextBox);
@@ -445,5 +468,6 @@
         private System.Windows.Forms.BindingSource tb_lojaBindingSource;
         private System.Windows.Forms.ComboBox codLojaComboBox;
         private Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTableAdapter;
+        private System.Windows.Forms.TextBox localizacao2TextBox;
     }
 }

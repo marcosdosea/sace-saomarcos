@@ -44,6 +44,11 @@
             System.Windows.Forms.Label nfeLabel;
             System.Windows.Forms.Label descricaoSituacaoPagamentosLabel;
             System.Windows.Forms.Label label5;
+            System.Windows.Forms.Label baseCalculoICMSLabel;
+            System.Windows.Forms.Label valorICMSLabel;
+            System.Windows.Forms.Label baseCalculoICMSSubstLabel;
+            System.Windows.Forms.Label valorICMSSubstLabel;
+            System.Windows.Forms.Label valorIPILabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -116,6 +121,11 @@
             this.lblBalcao = new System.Windows.Forms.Label();
             this.panelBalcao = new System.Windows.Forms.Panel();
             this.btnCfNfe = new System.Windows.Forms.Button();
+            this.baseCalculoICMSTextBox = new System.Windows.Forms.TextBox();
+            this.valorICMSTextBox = new System.Windows.Forms.TextBox();
+            this.baseCalculoICMSSubstTextBox = new System.Windows.Forms.TextBox();
+            this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
+            this.valorIPITextBox = new System.Windows.Forms.TextBox();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -131,6 +141,11 @@
             nfeLabel = new System.Windows.Forms.Label();
             descricaoSituacaoPagamentosLabel = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
+            baseCalculoICMSLabel = new System.Windows.Forms.Label();
+            valorICMSLabel = new System.Windows.Forms.Label();
+            baseCalculoICMSSubstLabel = new System.Windows.Forms.Label();
+            valorICMSSubstLabel = new System.Windows.Forms.Label();
+            valorIPILabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
@@ -297,6 +312,56 @@
             label5.TabIndex = 73;
             label5.Text = "Subtotal à Vista(R$):";
             // 
+            // baseCalculoICMSLabel
+            // 
+            baseCalculoICMSLabel.AutoSize = true;
+            baseCalculoICMSLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            baseCalculoICMSLabel.Location = new System.Drawing.Point(197, 463);
+            baseCalculoICMSLabel.Name = "baseCalculoICMSLabel";
+            baseCalculoICMSLabel.Size = new System.Drawing.Size(114, 20);
+            baseCalculoICMSLabel.TabIndex = 73;
+            baseCalculoICMSLabel.Text = "BC ICMS (R$):";
+            // 
+            // valorICMSLabel
+            // 
+            valorICMSLabel.AutoSize = true;
+            valorICMSLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            valorICMSLabel.Location = new System.Drawing.Point(348, 461);
+            valorICMSLabel.Name = "valorICMSLabel";
+            valorICMSLabel.Size = new System.Drawing.Size(129, 20);
+            valorICMSLabel.TabIndex = 74;
+            valorICMSLabel.Text = "Valor ICMS (R$):";
+            // 
+            // baseCalculoICMSSubstLabel
+            // 
+            baseCalculoICMSSubstLabel.AutoSize = true;
+            baseCalculoICMSSubstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            baseCalculoICMSSubstLabel.Location = new System.Drawing.Point(511, 461);
+            baseCalculoICMSSubstLabel.Name = "baseCalculoICMSSubstLabel";
+            baseCalculoICMSSubstLabel.Size = new System.Drawing.Size(160, 20);
+            baseCalculoICMSSubstLabel.TabIndex = 75;
+            baseCalculoICMSSubstLabel.Text = "BC ICMS Subst (R$):";
+            // 
+            // valorICMSSubstLabel
+            // 
+            valorICMSSubstLabel.AutoSize = true;
+            valorICMSSubstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            valorICMSSubstLabel.Location = new System.Drawing.Point(673, 461);
+            valorICMSSubstLabel.Name = "valorICMSSubstLabel";
+            valorICMSSubstLabel.Size = new System.Drawing.Size(175, 20);
+            valorICMSSubstLabel.TabIndex = 76;
+            valorICMSSubstLabel.Text = "Valor ICMS Subst (R$):";
+            // 
+            // valorIPILabel
+            // 
+            valorIPILabel.AutoSize = true;
+            valorIPILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            valorIPILabel.Location = new System.Drawing.Point(853, 461);
+            valorIPILabel.Name = "valorIPILabel";
+            valorIPILabel.Size = new System.Drawing.Size(109, 20);
+            valorIPILabel.TabIndex = 77;
+            valorIPILabel.Text = "Valor IPI (R$):";
+            // 
             // lblSaidaProdutos
             // 
             this.lblSaidaProdutos.AutoSize = true;
@@ -337,7 +402,7 @@
             this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
             this.pedidoGeradoTextBox.ReadOnly = true;
             this.pedidoGeradoTextBox.Size = new System.Drawing.Size(122, 26);
-            this.pedidoGeradoTextBox.TabIndex = 50;
+            this.pedidoGeradoTextBox.TabIndex = 60;
             this.pedidoGeradoTextBox.TabStop = false;
             // 
             // tb_saidaBindingSource
@@ -360,7 +425,7 @@
             this.codSaidaTextBox.Name = "codSaidaTextBox";
             this.codSaidaTextBox.ReadOnly = true;
             this.codSaidaTextBox.Size = new System.Drawing.Size(87, 26);
-            this.codSaidaTextBox.TabIndex = 44;
+            this.codSaidaTextBox.TabIndex = 54;
             this.codSaidaTextBox.TabStop = false;
             this.codSaidaTextBox.TextChanged += new System.EventHandler(this.codSaidaTextBox_TextChanged);
             // 
@@ -372,7 +437,7 @@
             this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(108, 560);
             this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
             this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(109, 26);
-            this.dataSaidaDateTimePicker.TabIndex = 46;
+            this.dataSaidaDateTimePicker.TabIndex = 56;
             this.dataSaidaDateTimePicker.TabStop = false;
             // 
             // btnSalvar
@@ -590,7 +655,7 @@
             this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 370);
+            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 300);
             this.tb_saida_produtoDataGridView.TabIndex = 36;
             this.tb_saida_produtoDataGridView.TabStop = false;
             this.tb_saida_produtoDataGridView.Leave += new System.EventHandler(this.tb_saida_produtoDataGridView_Leave);
@@ -824,7 +889,7 @@
             this.nomeClienteTextBox.Name = "nomeClienteTextBox";
             this.nomeClienteTextBox.ReadOnly = true;
             this.nomeClienteTextBox.Size = new System.Drawing.Size(460, 26);
-            this.nomeClienteTextBox.TabIndex = 54;
+            this.nomeClienteTextBox.TabIndex = 64;
             this.nomeClienteTextBox.TabStop = false;
             // 
             // descricaoTipoSaidaTextBox
@@ -835,7 +900,7 @@
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
             this.descricaoTipoSaidaTextBox.ReadOnly = true;
             this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(122, 26);
-            this.descricaoTipoSaidaTextBox.TabIndex = 48;
+            this.descricaoTipoSaidaTextBox.TabIndex = 58;
             this.descricaoTipoSaidaTextBox.TabStop = false;
             // 
             // btnEncerrar
@@ -856,7 +921,7 @@
             this.nfeTextBox.Name = "nfeTextBox";
             this.nfeTextBox.ReadOnly = true;
             this.nfeTextBox.Size = new System.Drawing.Size(165, 26);
-            this.nfeTextBox.TabIndex = 52;
+            this.nfeTextBox.TabIndex = 62;
             this.nfeTextBox.TabStop = false;
             // 
             // entregaRealizadaCheckBox
@@ -880,7 +945,7 @@
             this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
             this.descricaoSituacaoPagamentosTextBox.ReadOnly = true;
             this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(164, 26);
-            this.descricaoSituacaoPagamentosTextBox.TabIndex = 56;
+            this.descricaoSituacaoPagamentosTextBox.TabIndex = 66;
             this.descricaoSituacaoPagamentosTextBox.TabStop = false;
             // 
             // btnImprimir
@@ -909,7 +974,7 @@
             this.lblBalcao.AutoSize = true;
             this.lblBalcao.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBalcao.ForeColor = System.Drawing.Color.Red;
-            this.lblBalcao.Location = new System.Drawing.Point(304, 8);
+            this.lblBalcao.Location = new System.Drawing.Point(303, 8);
             this.lblBalcao.Name = "lblBalcao";
             this.lblBalcao.Size = new System.Drawing.Size(397, 73);
             this.lblBalcao.TabIndex = 0;
@@ -933,12 +998,80 @@
             this.btnCfNfe.UseVisualStyleBackColor = true;
             this.btnCfNfe.Click += new System.EventHandler(this.btnCfNfe_Click);
             // 
+            // baseCalculoICMSTextBox
+            // 
+            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "baseCalculoICMS", true));
+            this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(201, 487);
+            this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
+            this.baseCalculoICMSTextBox.ReadOnly = true;
+            this.baseCalculoICMSTextBox.Size = new System.Drawing.Size(135, 29);
+            this.baseCalculoICMSTextBox.TabIndex = 44;
+            this.baseCalculoICMSTextBox.TabStop = false;
+            this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.baseCalculoICMSTextBox_Leave);
+            // 
+            // valorICMSTextBox
+            // 
+            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "valorICMS", true));
+            this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.valorICMSTextBox.Location = new System.Drawing.Point(352, 487);
+            this.valorICMSTextBox.Name = "valorICMSTextBox";
+            this.valorICMSTextBox.ReadOnly = true;
+            this.valorICMSTextBox.Size = new System.Drawing.Size(157, 29);
+            this.valorICMSTextBox.TabIndex = 46;
+            this.valorICMSTextBox.TabStop = false;
+            // 
+            // baseCalculoICMSSubstTextBox
+            // 
+            this.baseCalculoICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "baseCalculoICMSSubst", true));
+            this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(515, 487);
+            this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
+            this.baseCalculoICMSSubstTextBox.ReadOnly = true;
+            this.baseCalculoICMSSubstTextBox.Size = new System.Drawing.Size(156, 29);
+            this.baseCalculoICMSSubstTextBox.TabIndex = 48;
+            this.baseCalculoICMSSubstTextBox.TabStop = false;
+            this.baseCalculoICMSSubstTextBox.Leave += new System.EventHandler(this.baseCalculoICMSTextBox_Leave);
+            // 
+            // valorICMSSubstTextBox
+            // 
+            this.valorICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "valorICMSSubst", true));
+            this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.valorICMSSubstTextBox.Location = new System.Drawing.Point(677, 487);
+            this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
+            this.valorICMSSubstTextBox.ReadOnly = true;
+            this.valorICMSSubstTextBox.Size = new System.Drawing.Size(171, 29);
+            this.valorICMSSubstTextBox.TabIndex = 50;
+            this.valorICMSSubstTextBox.TabStop = false;
+            // 
+            // valorIPITextBox
+            // 
+            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "valorIPI", true));
+            this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.valorIPITextBox.Location = new System.Drawing.Point(855, 487);
+            this.valorIPITextBox.Name = "valorIPITextBox";
+            this.valorIPITextBox.ReadOnly = true;
+            this.valorIPITextBox.Size = new System.Drawing.Size(142, 29);
+            this.valorIPITextBox.TabIndex = 52;
+            this.valorIPITextBox.TabStop = false;
+            // 
             // FrmSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1011, 691);
+            this.ClientSize = new System.Drawing.Size(1009, 686);
             this.ControlBox = false;
+            this.Controls.Add(this.tb_saida_produtoDataGridView);
+            this.Controls.Add(valorIPILabel);
+            this.Controls.Add(this.valorIPITextBox);
+            this.Controls.Add(valorICMSSubstLabel);
+            this.Controls.Add(this.valorICMSSubstTextBox);
+            this.Controls.Add(baseCalculoICMSSubstLabel);
+            this.Controls.Add(this.baseCalculoICMSSubstTextBox);
+            this.Controls.Add(valorICMSLabel);
+            this.Controls.Add(this.valorICMSTextBox);
+            this.Controls.Add(baseCalculoICMSLabel);
+            this.Controls.Add(this.baseCalculoICMSTextBox);
             this.Controls.Add(this.btnCfNfe);
             this.Controls.Add(this.panelBalcao);
             this.Controls.Add(label5);
@@ -971,7 +1104,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(totalLabel);
             this.Controls.Add(this.totalTextBox);
-            this.Controls.Add(this.tb_saida_produtoDataGridView);
             this.Controls.Add(subtotalLabel);
             this.Controls.Add(this.subtotalTextBox);
             this.Controls.Add(nomeLabel);
@@ -1076,5 +1208,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn datavalidadeDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnCfNfe;
         private System.Windows.Forms.Label lblFormaEntrada;
+        private System.Windows.Forms.TextBox baseCalculoICMSTextBox;
+        private System.Windows.Forms.TextBox valorICMSTextBox;
+        private System.Windows.Forms.TextBox baseCalculoICMSSubstTextBox;
+        private System.Windows.Forms.TextBox valorICMSSubstTextBox;
+        private System.Windows.Forms.TextBox valorIPITextBox;
     }
 }

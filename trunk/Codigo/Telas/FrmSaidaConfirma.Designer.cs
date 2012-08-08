@@ -50,7 +50,7 @@
             // 
             this.btnPreVenda.FlatAppearance.BorderSize = 3;
             this.btnPreVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreVenda.Location = new System.Drawing.Point(32, 137);
+            this.btnPreVenda.Location = new System.Drawing.Point(28, 137);
             this.btnPreVenda.Name = "btnPreVenda";
             this.btnPreVenda.Size = new System.Drawing.Size(112, 29);
             this.btnPreVenda.TabIndex = 1;
@@ -61,7 +61,7 @@
             // btnOrcamento
             // 
             this.btnOrcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrcamento.Location = new System.Drawing.Point(150, 137);
+            this.btnOrcamento.Location = new System.Drawing.Point(146, 137);
             this.btnOrcamento.Name = "btnOrcamento";
             this.btnOrcamento.Size = new System.Drawing.Size(121, 29);
             this.btnOrcamento.TabIndex = 2;
@@ -72,7 +72,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(276, 136);
+            this.btnCancelar.Location = new System.Drawing.Point(272, 136);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 29);
             this.btnCancelar.TabIndex = 3;
@@ -97,7 +97,7 @@
             this.trocoTextBox.ForeColor = System.Drawing.Color.Red;
             this.trocoTextBox.Location = new System.Drawing.Point(6, 40);
             this.trocoTextBox.Name = "trocoTextBox";
-            this.trocoTextBox.Size = new System.Drawing.Size(373, 45);
+            this.trocoTextBox.Size = new System.Drawing.Size(357, 45);
             this.trocoTextBox.TabIndex = 11;
             this.trocoTextBox.TabStop = false;
             this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -107,7 +107,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 165);
+            this.ClientSize = new System.Drawing.Size(375, 171);
             this.ControlBox = false;
             this.Controls.Add(this.trocoTextBox);
             this.Controls.Add(this.label2);

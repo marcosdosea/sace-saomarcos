@@ -81,6 +81,7 @@ namespace Telas
 
                 saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
                 saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
+                saida.CodEmpresaFrete = saida.CodCliente;
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
                 saida.Total = decimal.Parse(totalTextBox.Text);

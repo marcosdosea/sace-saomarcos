@@ -13,132 +13,41 @@ namespace Dominio
         public const int TIPO_SAIDA_DEPOSITO = 4;
         public const int TIPO_CONSUMO_INTERNO = 5;
         public const int TIPO_PRODUTOS_DANIFICADOS = 6;
+        public const int TIPO_DEVOLUCAO_FRONECEDOR = 7;
         
-        private Int64 codSaida;
+        public Int64 CodSaida { get; set; }
+        public DateTime DataSaida { get; set; }
+        public Int32 TipoSaida { get; set; }
+        public Int64 CodCliente { get; set; }
+        public String CpfCnpj { get; set; }
+        public Int64 CodProfissional { get; set; }
+        public Int32 NumeroCartaoVenda { get; set; }
+        public String PedidoGerado { get; set; }
+        public decimal Total { get; set; }
+        public decimal TotalAVista { get; set; }
+        public decimal Desconto { get; set; }
+        public decimal TotalPago { get; set; }
+        public decimal TotalLucro { get; set; }
+        public Int32 CodSituacaoPagamentos { get; set; }
+        public Decimal Troco { get; set; }
+        public Boolean EntregaRealizada { get; set; }
+        public String Nfe { get; set; }
+        public decimal BaseCalculoICMS { get; set; }
+        public decimal ValorICMS { get; set; }
+        public decimal BaseCalculoICMSSubst { get; set; }
+        public decimal ValorICMSSubst { get; set; }
+        public decimal ValorFrete { get; set; }
+        public decimal ValorSeguro { get; set; }
+        public decimal OutrasDespesas { get; set; }
+        public decimal ValorIPI { get; set; }
+        public decimal TotalNotaFiscal { get; set; }
+        public decimal QuantidadeVolumes { get; set; }
+        public string EspecieVolumes { get; set; }
+        public string Marca { get; set; }
+        public decimal Numero { get; set; }
+        public decimal PesoBruto { get; set; }
+        public decimal PesoLiquido { get; set; }
+        public long CodEmpresaFrete { get; set; }
 
-        public Int64 CodSaida
-        {
-            get { return codSaida; }
-            set { codSaida = value; }
-        }
-        private DateTime dataSaida;
-
-        public DateTime DataSaida
-        {
-            get { return dataSaida; }
-            set { dataSaida = value; }
-        }
-        private Int32 tipoSaida;
-
-        public Int32 TipoSaida
-        {
-            get { return tipoSaida; }
-            set { tipoSaida = value; }
-        }
-        private Int64 codCliente;
-
-        public Int64 CodCliente
-        {
-            get { return codCliente; }
-            set { codCliente = value; }
-        }
-
-        private String cpfCnpj;
-
-        public String CpfCnpj
-        {
-            get { return cpfCnpj; }
-            set { cpfCnpj = value; }
-        }
-        
-        private Int64 codProfissional;
-
-        public Int64 CodProfissional
-        {
-            get { return codProfissional; }
-            set { codProfissional = value; }
-        }
-        private Int32 numeroCartaoVenda;
-
-        public Int32 NumeroCartaoVenda
-        {
-            get { return numeroCartaoVenda; }
-            set { numeroCartaoVenda = value; }
-        }
-        private String pedidoGerado;
-
-        public String PedidoGerado
-        {
-            get { return pedidoGerado; }
-            set { pedidoGerado = value; }
-        }
-        private decimal total;
-
-        public decimal Total
-        {
-            get { return total; }
-            set { total = value; }
-        }
-
-        private decimal totalAVista;
-
-        public decimal TotalAVista
-        {
-            get { return totalAVista; }
-            set { totalAVista = value; }
-        }
-
-
-        private decimal desconto;
-
-        public decimal Desconto
-        {
-            get { return desconto; }
-            set { desconto = value; }
-        }
-        private decimal totalPago;
-
-        public decimal TotalPago
-        {
-            get { return totalPago; }
-            set { totalPago = value; }
-        }
-        private decimal totalLucro;
-
-        public decimal TotalLucro
-        {
-            get { return totalLucro; }
-            set { totalLucro = value; }
-        }
-
-        private Int32 codSituacaoPagamentos;
-
-        public Int32 CodSituacaoPagamentos
-        {
-            get { return codSituacaoPagamentos; }
-            set { codSituacaoPagamentos = value; }
-        }
-
-        private Decimal troco;
-
-        public Decimal Troco
-        {
-            get { return troco; }
-            set { troco = value; }
-        }
-        private Boolean entregaRealizada;
-
-        public Boolean EntregaRealizada
-        {
-            get { return entregaRealizada; }
-            set { entregaRealizada = value; }
-        }
-        private String nfe;
-
-        public String Nfe
-        {
-            get { return nfe; }
-            set { nfe = value; }
-        }
     }
 }
