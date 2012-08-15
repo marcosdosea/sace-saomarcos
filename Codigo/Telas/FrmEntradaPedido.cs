@@ -415,6 +415,7 @@ namespace Telas
                 }
 
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
@@ -443,6 +444,7 @@ namespace Telas
                     tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoa.CodPessoa);
                 }
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
@@ -531,6 +533,7 @@ namespace Telas
                     atualizaValores();
                 }
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void preencherDadosEstatisticos(Produto produto) {
@@ -610,6 +613,7 @@ namespace Telas
                 freteTextBox.Text = valorFreteTextBox.Text;
                 simplesTextBox.Text = produto.Simples.ToString("N2");
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
@@ -632,6 +636,7 @@ namespace Telas
                 inicializaVariaveis();
                 atualizaValores();
            }
+           codEntradaTextBox_Leave(sender, e);
         }
 
         private void atualizaValores()
@@ -697,7 +702,7 @@ namespace Telas
                 quantidadeTextBox.Focus();
                 throw new TelaException("A quantidade de produtos do pedido deve ser maior que zero.");
             }
-
+            codEntradaTextBox_Leave(sender, e);
             btnSalvar.Focus();
         }
 
@@ -738,6 +743,7 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void qtdProdutoAtacadoTextBox_Leave(object sender, EventArgs e)
@@ -746,6 +752,7 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void descontoTextBox_Leave(object sender, EventArgs e)
@@ -754,7 +761,26 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             }
+            codEntradaTextBox_Leave(sender, e);
             btnSalvar.Focus();
+        }
+
+        private void codEntradaTextBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codEntradaTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            }
         }
 
     }

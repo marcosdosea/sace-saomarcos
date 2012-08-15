@@ -347,6 +347,7 @@ namespace Telas
             {
                 nomeFabricanteTextBox.Text = nomeTextBox.Text;
             }
+            codProdutoTextBox_Leave(sender, e);
         }
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
@@ -371,6 +372,7 @@ namespace Telas
             {
                 tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
             }
+            codProdutoTextBox_Leave(sender, e);
         }
 
         private void codigoFabricanteComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -413,12 +415,13 @@ namespace Telas
             {
                 precoVendaAtacadoTextBox.Text = precoAtacadoSugestaoTextBox.Text;
             }
-
+            codProdutoTextBox_Leave(sender, e);
         }
 
         private void precoVendaVarejoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
+            codProdutoTextBox_Leave(sender, e);
         }
 
         private void tbprodutoBindingSource_CurrentItemChanged(object sender, EventArgs e)
@@ -445,6 +448,24 @@ namespace Telas
                 {
                     codSubgrupoComboBox.SelectedIndex = 0;
                 }
+            }
+        }
+
+        private void codProdutoTextBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codProdutoTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
         }
 

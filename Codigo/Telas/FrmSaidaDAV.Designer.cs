@@ -38,7 +38,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.label1.Location = new System.Drawing.Point(12, 27);
+            this.label1.Location = new System.Drawing.Point(4, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(232, 22);
             this.label1.TabIndex = 0;
@@ -82,7 +82,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 99);
+            this.ClientSize = new System.Drawing.Size(297, 106);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnReduzido);

@@ -245,22 +245,35 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codPessoaComboBox.Text);
-            if (pessoa == null)
+
+        }
+
+        private void codCartaoTextBox_Enter(object sender, EventArgs e)
+        {
+            if (sender is TextBox)
             {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
-                {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    codPessoaComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
-                }                    
-                else
-                {
-                    codPessoaComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            } 
+                TextBox textbox = (TextBox)sender;
+                textbox.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+            else if (sender is ComboBox)
+            {
+                ComboBox combobox = (ComboBox) sender;
+                combobox.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codCartaoTextBox_Leave(object sender, EventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                TextBox textbox = (TextBox)sender;
+                textbox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            }
+            else if (sender is ComboBox)
+            {
+                ComboBox combobox = (ComboBox)sender;
+                combobox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            }
         }
     }
 }

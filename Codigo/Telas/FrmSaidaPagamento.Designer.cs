@@ -353,6 +353,7 @@
             this.valorRecebidoTextBox.Size = new System.Drawing.Size(173, 45);
             this.valorRecebidoTextBox.TabIndex = 26;
             this.valorRecebidoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valorRecebidoTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.valorRecebidoTextBox.Leave += new System.EventHandler(this.valorRecebidoTextBox_Leave);
             // 
             // tbdocumentopagamentoBindingSource
@@ -369,6 +370,7 @@
             this.parcelasTextBox.Name = "parcelasTextBox";
             this.parcelasTextBox.Size = new System.Drawing.Size(83, 29);
             this.parcelasTextBox.TabIndex = 30;
+            this.parcelasTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.parcelasTextBox.Leave += new System.EventHandler(this.parcelasTextBox_Leave);
             // 
             // descontoTextBox
@@ -382,6 +384,7 @@
             this.descontoTextBox.Size = new System.Drawing.Size(185, 48);
             this.descontoTextBox.TabIndex = 4;
             this.descontoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.descontoTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.descontoTextBox.Leave += new System.EventHandler(this.descontoTextBox_Leave);
             // 
             // totalTextBox
@@ -416,6 +419,7 @@
             this.codClienteComboBox.TabIndex = 16;
             this.codClienteComboBox.ValueMember = "codPessoa";
             this.codClienteComboBox.SelectedIndexChanged += new System.EventHandler(this.codClienteComboBox_SelectedIndexChanged);
+            this.codClienteComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codClienteComboBox.Leave += new System.EventHandler(this.codClienteComboBox_Leave);
             // 
@@ -440,6 +444,7 @@
             this.codProfissionalComboBox.Size = new System.Drawing.Size(592, 32);
             this.codProfissionalComboBox.TabIndex = 18;
             this.codProfissionalComboBox.ValueMember = "codPessoa";
+            this.codProfissionalComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codProfissionalComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codProfissionalComboBox.Leave += new System.EventHandler(this.codProfissionalComboBox_Leave);
             // 
@@ -498,6 +503,8 @@
             this.codSaidaTextBox.Size = new System.Drawing.Size(179, 29);
             this.codSaidaTextBox.TabIndex = 14;
             this.codSaidaTextBox.TabStop = false;
+            this.codSaidaTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.codSaidaTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
             // tb_tipo_saidaBindingSource
             // 
@@ -724,6 +731,8 @@
             this.intervaloDiasTextBox.Name = "intervaloDiasTextBox";
             this.intervaloDiasTextBox.Size = new System.Drawing.Size(62, 29);
             this.intervaloDiasTextBox.TabIndex = 32;
+            this.intervaloDiasTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.intervaloDiasTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
             // faltaReceberTextBox
             // 
@@ -739,6 +748,8 @@
             this.faltaReceberTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.faltaReceberTextBox.Visible = false;
             this.faltaReceberTextBox.TextChanged += new System.EventHandler(this.faltaReceberTextBox_TextChanged);
+            this.faltaReceberTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.faltaReceberTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
             // totalRecebidoLabel
             // 
@@ -770,6 +781,8 @@
             this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
             this.cpf_CnpjTextBox.Size = new System.Drawing.Size(179, 29);
             this.cpf_CnpjTextBox.TabIndex = 17;
+            this.cpf_CnpjTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.cpf_CnpjTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
             // trocoTextBox
             // 

@@ -37,23 +37,9 @@ namespace Telas
             habilitaBotoes(true);
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            //Telas.FrmReceberPagamentoPessoaPesquisa FrmReceberPagamentoPessoaPesquisa = new Telas.FrmReceberPagamentoPessoaPesquisa();
-            //FrmReceberPagamentoPessoaPesquisa.ShowDialog();
-            //if (FrmReceberPagamentoPessoaPesquisa.CodBanco != -1)
-            //{
-            //    tb_bancoBindingSource.Position = tb_bancoBindingSource.Find("codBanco", FrmReceberPagamentoPessoaPesquisa.CodBanco);
-            //}
-            //FrmReceberPagamentoPessoaPesquisa.Dispose();
-        }
-
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            //tb_bancoBindingSource.AddNew();
             codClienteComboBox.Focus();
-            //codBancoTextBox.Enabled = false;
-            //nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -63,7 +49,7 @@ namespace Telas
             //tb_bancoBindingSource.CancelEdit();
             //tb_bancoBindingSource.EndEdit();
             habilitaBotoes(true);
-            btnBuscar.Focus();
+            btnNovo.Focus();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -95,7 +81,7 @@ namespace Telas
             //finally
             //{
                 habilitaBotoes(true);
-                btnBuscar.Focus();
+                btnNovo.Focus();
             //}
         }
 
@@ -103,10 +89,6 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.ESPERA))
             {
-                if (e.KeyCode == Keys.F2)
-                {
-                    btnBuscar_Click(sender, e);
-                }
                 if (e.KeyCode == Keys.F3)
                 {
                     btnNovo_Click(sender, e);
@@ -136,7 +118,6 @@ namespace Telas
         {
             btnSalvar.Enabled = !(habilita);
             btnCancelar.Enabled = !(habilita);
-            btnBuscar.Enabled = habilita;
             btnImprimir.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnCFNfe.Enabled = habilita;
@@ -179,15 +160,21 @@ namespace Telas
 
         private void buscarContas(long codPessoa)
         {
-            //String situacao1  = abertaCheckBox.Checked ? "A": "";
-            //String situacao2 = abertaCheckBox.Checked ? "P": "";
-            //String situacao3 = quitadaCheckBox.Checked ? "Q": "";
-
-            //this.saceDataSetConsultas.ContasPessoaDataTable contasDT = new this.saceDataSetConsultas.ContasPessoaDataTable();
-
-            //this.contasPessoaTableAdapter.Fill(this.saceDataSetConsultas.ContasPessoa);
+            List<char> situacoes = new List<char>();
             
-            contasPessoaDataGridView.DataSource = GerenciadorConta.getInstace().obterContasPorPessoaSituacaoDataTable(codPessoa);
+            if (abertaCheckBox.Checked) {
+                situacoes.Add(Conta.SITUACAO_ABERTA);
+            }
+            if (quitadaCheckBox.Checked)
+            {
+                situacoes.Add(Conta.SITUACAO_QUITADA);
+            }
+
+            DateTime dataInicio = dataInicioDateTimePicker.Value;
+            DateTime dataFinal = dataFinalDateTimePicker.Value;
+
+
+            contasPessoaDataGridView.DataSource = GerenciadorConta.getInstace().ObterContasPorPessoaSituacaoPeriodo(codPessoa, situacoes, dataInicio, dataFinal);
             //DataRow[] rows = contasDT.Select
            //contasPessoaDataGridView.Rows = rows;
 

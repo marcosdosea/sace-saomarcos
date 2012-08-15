@@ -113,6 +113,12 @@ namespace Telas
                 }
             }
             textoAtual = txtTexto.Text;
+
+            if ((tb_produtoDataGridView.RowCount > 0) )
+            {
+                Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[0].Cells[0].Value.ToString());
+                this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
+            }
             Cursor.Current = Cursors.Default;
         }
 
@@ -151,6 +157,17 @@ namespace Telas
             else if ((e.KeyCode == Keys.PageUp) && (txtTexto.Focused))
             {
                 tb_produtoBindingSource.Position -= 15;
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                if (tb_produtoDataGridView.RowCount > 0)
+                {
+                    Int32 codProduto = int.Parse(tb_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(codProduto);
+                    frmAjuste.ShowDialog();
+                    frmAjuste.Dispose();
+                    tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
+                }
             }
         }
 
@@ -199,12 +216,16 @@ namespace Telas
             this.Validate();
             this.tb_produtoBindingSource.EndEdit();
             this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
         }
 
-        private void tb_produtoDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        
+        private void tb_produtoDataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-
+            if ((tb_produtoDataGridView.RowCount > 0) && (tb_produtoDataGridView.SelectedRows.Count > 0))
+            {
+                Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
+                this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
+            }
         }
     }
 }

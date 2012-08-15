@@ -35,8 +35,8 @@
             System.Windows.Forms.Label qtdEstoqueNFiscalLabel;
             System.Windows.Forms.Label localizacaoLabel;
             System.Windows.Forms.Label nomeProdutoLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoAjusteEstoque));
             System.Windows.Forms.Label localizacao2Label;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoAjusteEstoque));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -133,6 +133,15 @@
             nomeProdutoLabel.Size = new System.Drawing.Size(47, 13);
             nomeProdutoLabel.TabIndex = 33;
             nomeProdutoLabel.Text = "Produto:";
+            // 
+            // localizacao2Label
+            // 
+            localizacao2Label.AutoSize = true;
+            localizacao2Label.Location = new System.Drawing.Point(240, 200);
+            localizacao2Label.Name = "localizacao2Label";
+            localizacao2Label.Size = new System.Drawing.Size(76, 13);
+            localizacao2Label.TabIndex = 34;
+            localizacao2Label.Text = "Localizaçao 2:";
             // 
             // label1
             // 
@@ -306,7 +315,9 @@
             this.localizacaoTextBox.Name = "localizacaoTextBox";
             this.localizacaoTextBox.Size = new System.Drawing.Size(213, 20);
             this.localizacaoTextBox.TabIndex = 34;
+            this.localizacaoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.localizacaoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.localizacaoTextBox_KeyPress);
+            this.localizacaoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // qtdEstoqueTextBox
             // 
@@ -315,6 +326,8 @@
             this.qtdEstoqueTextBox.Name = "qtdEstoqueTextBox";
             this.qtdEstoqueTextBox.Size = new System.Drawing.Size(210, 20);
             this.qtdEstoqueTextBox.TabIndex = 31;
+            this.qtdEstoqueTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
+            this.qtdEstoqueTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // qtdEstoqueAuxTextBox
             // 
@@ -323,6 +336,8 @@
             this.qtdEstoqueAuxTextBox.Name = "qtdEstoqueAuxTextBox";
             this.qtdEstoqueAuxTextBox.Size = new System.Drawing.Size(219, 20);
             this.qtdEstoqueAuxTextBox.TabIndex = 32;
+            this.qtdEstoqueAuxTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
+            this.qtdEstoqueAuxTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // codProdutoTextBox
             // 
@@ -333,6 +348,8 @@
             this.codProdutoTextBox.Size = new System.Drawing.Size(100, 20);
             this.codProdutoTextBox.TabIndex = 33;
             this.codProdutoTextBox.TabStop = false;
+            this.codProdutoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
+            this.codProdutoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // nomeProdutoTextBox
             // 
@@ -343,6 +360,8 @@
             this.nomeProdutoTextBox.Size = new System.Drawing.Size(328, 20);
             this.nomeProdutoTextBox.TabIndex = 34;
             this.nomeProdutoTextBox.TabStop = false;
+            this.nomeProdutoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
+            this.nomeProdutoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // tb_produto_lojaTableAdapter
             // 
@@ -369,20 +388,13 @@
             this.codLojaComboBox.Size = new System.Drawing.Size(450, 21);
             this.codLojaComboBox.TabIndex = 28;
             this.codLojaComboBox.ValueMember = "codLoja";
+            this.codLojaComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codLojaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.localizacaoTextBox_KeyPress);
+            this.codLojaComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // tb_lojaTableAdapter
             // 
             this.tb_lojaTableAdapter.ClearBeforeFill = true;
-            // 
-            // localizacao2Label
-            // 
-            localizacao2Label.AutoSize = true;
-            localizacao2Label.Location = new System.Drawing.Point(240, 200);
-            localizacao2Label.Name = "localizacao2Label";
-            localizacao2Label.Size = new System.Drawing.Size(76, 13);
-            localizacao2Label.TabIndex = 34;
-            localizacao2Label.Text = "Localizaçao 2:";
             // 
             // localizacao2TextBox
             // 
@@ -392,6 +404,8 @@
             this.localizacao2TextBox.Name = "localizacao2TextBox";
             this.localizacao2TextBox.Size = new System.Drawing.Size(219, 20);
             this.localizacao2TextBox.TabIndex = 35;
+            this.localizacao2TextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
+            this.localizacao2TextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
             // FrmProdutoAjusteEstoque
             // 

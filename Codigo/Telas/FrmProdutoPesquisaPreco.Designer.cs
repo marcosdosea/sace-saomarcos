@@ -39,6 +39,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridView tb_produto_lojaDataGridView;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,9 +62,21 @@
             this.saceDataSet = new Dados.saceDataSet();
             this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nomeLojaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacao2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbprodutolojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tb_produto_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter();
+            this.label3 = new System.Windows.Forms.Label();
+            tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(tb_produto_lojaDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbprodutolojaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -154,14 +170,14 @@
             this.tb_produtoDataGridView.Name = "tb_produtoDataGridView";
             this.tb_produtoDataGridView.ReadOnly = true;
             this.tb_produtoDataGridView.RowHeadersWidth = 7;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
             this.tb_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.tb_produtoDataGridView.RowTemplate.Height = 30;
             this.tb_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_produtoDataGridView.Size = new System.Drawing.Size(1041, 536);
+            this.tb_produtoDataGridView.Size = new System.Drawing.Size(1041, 418);
             this.tb_produtoDataGridView.TabIndex = 5;
             this.tb_produtoDataGridView.TabStop = false;
-            this.tb_produtoDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_CellContentClick);
+            this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -170,8 +186,8 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn2.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 60;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Códgo";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 50;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
@@ -179,12 +195,12 @@
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "nome";
-            this.dataGridViewTextBoxColumn3.FillWeight = 400F;
+            this.dataGridViewTextBoxColumn3.FillWeight = 380F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Produto";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 420;
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 400;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 420;
+            this.dataGridViewTextBoxColumn3.Width = 400;
             // 
             // nomeProdutoFabricante
             // 
@@ -283,8 +299,9 @@
             this.dataGridViewTextBoxColumn17.DataPropertyName = "ultimaDataAtualizacao";
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn17.FillWeight = 80F;
             this.dataGridViewTextBoxColumn17.HeaderText = "Atualização";
-            this.dataGridViewTextBoxColumn17.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn17.MinimumWidth = 80;
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             this.dataGridViewTextBoxColumn17.ReadOnly = true;
             this.dataGridViewTextBoxColumn17.Width = 106;
@@ -346,12 +363,132 @@
             this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(13, 622);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(219, 13);
+            this.label6.TabIndex = 61;
+            this.label6.Text = "F7 - Ajustar Estoque do Produto Selecionado";
+            // 
+            // tb_produto_lojaDataGridView
+            // 
+            tb_produto_lojaDataGridView.AllowUserToAddRows = false;
+            tb_produto_lojaDataGridView.AllowUserToDeleteRows = false;
+            tb_produto_lojaDataGridView.AllowUserToResizeColumns = false;
+            tb_produto_lojaDataGridView.AllowUserToResizeRows = false;
+            tb_produto_lojaDataGridView.AutoGenerateColumns = false;
+            tb_produto_lojaDataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            tb_produto_lojaDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            tb_produto_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tb_produto_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nomeLojaDataGridViewTextBoxColumn,
+            this.qtdEstoqueDataGridViewTextBoxColumn,
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn,
+            this.localizacaoDataGridViewTextBoxColumn,
+            this.localizacao2DataGridViewTextBoxColumn});
+            tb_produto_lojaDataGridView.DataSource = this.tbprodutolojaBindingSource;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            tb_produto_lojaDataGridView.DefaultCellStyle = dataGridViewCellStyle12;
+            tb_produto_lojaDataGridView.Enabled = false;
+            tb_produto_lojaDataGridView.EnableHeadersVisualStyles = false;
+            tb_produto_lojaDataGridView.ImeMode = System.Windows.Forms.ImeMode.Off;
+            tb_produto_lojaDataGridView.Location = new System.Drawing.Point(12, 540);
+            tb_produto_lojaDataGridView.MultiSelect = false;
+            tb_produto_lojaDataGridView.Name = "tb_produto_lojaDataGridView";
+            tb_produto_lojaDataGridView.ReadOnly = true;
+            tb_produto_lojaDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
+            tb_produto_lojaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle13;
+            tb_produto_lojaDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            tb_produto_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            tb_produto_lojaDataGridView.Size = new System.Drawing.Size(1041, 79);
+            tb_produto_lojaDataGridView.TabIndex = 70;
+            tb_produto_lojaDataGridView.TabStop = false;
+            // 
+            // nomeLojaDataGridViewTextBoxColumn
+            // 
+            this.nomeLojaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeLojaDataGridViewTextBoxColumn.DataPropertyName = "nomeLoja";
+            this.nomeLojaDataGridViewTextBoxColumn.HeaderText = "Loja";
+            this.nomeLojaDataGridViewTextBoxColumn.Name = "nomeLojaDataGridViewTextBoxColumn";
+            this.nomeLojaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
+            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueAuxDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Auxiliar";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacaoDataGridViewTextBoxColumn
+            // 
+            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localização";
+            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
+            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacao2DataGridViewTextBoxColumn
+            // 
+            this.localizacao2DataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.localizacao2DataGridViewTextBoxColumn.DataPropertyName = "localizacao2";
+            this.localizacao2DataGridViewTextBoxColumn.HeaderText = "Localização 2";
+            this.localizacao2DataGridViewTextBoxColumn.Name = "localizacao2DataGridViewTextBoxColumn";
+            this.localizacao2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tbprodutolojaBindingSource
+            // 
+            this.tbprodutolojaBindingSource.DataMember = "tb_produto_loja";
+            this.tbprodutolojaBindingSource.DataSource = this.saceDataSet;
+            // 
+            // tb_produto_lojaTableAdapter
+            // 
+            this.tb_produto_lojaTableAdapter.ClearBeforeFill = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 515);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(247, 20);
+            this.label3.TabIndex = 71;
+            this.label3.Text = "Estoque do Produto Selecionado:";
+            // 
             // FrmProdutoPesquisaPreco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1058, 631);
+            this.ClientSize = new System.Drawing.Size(1058, 642);
             this.ControlBox = false;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(tb_produto_lojaDataGridView);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.tb_produtoDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
@@ -368,6 +505,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(tb_produto_lojaDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbprodutolojaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,6 +522,9 @@
         private Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
         private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView tb_produtoDataGridView;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.BindingSource tbprodutolojaBindingSource;
+        private Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_produto_lojaTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeProdutoFabricante;
@@ -393,6 +535,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPrecoAtacadoSemDesconto;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPrecoAtacado;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeLojaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueAuxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localizacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localizacao2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label3;
   
     }
 }

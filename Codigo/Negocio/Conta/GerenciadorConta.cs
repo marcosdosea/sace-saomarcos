@@ -80,7 +80,7 @@ namespace Negocio
             return converterListaConta(contaDT);
         }
 
-        public saceDataSetConsultas.ContasPessoaDataTable obterContasPorPessoaSituacaoDataTable(Int64 codPessoa)
+        public saceDataSetConsultas.ContasPessoaDataTable ObterContasPorPessoaSituacaoPeriodo(Int64 codPessoa, List<char> situacoes, DateTime dataInicial, DateTime dataFinal)
         {
 
             //Dados.saceDataSetConsultasTableAdapters.ContasPessoaTableAdapter adapter = new Dados.saceDataSetConsultasTableAdapters.ContasPessoaTableAdapter();
@@ -90,7 +90,7 @@ namespace Negocio
             comando_sql.Append("FROM tb_conta INNER JOIN  tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN tb_saida ON tb_conta.codSaida = tb_saida.codSaida ");
             comando_sql.Append("WHERE tb_conta.codPessoa = " + codPessoa.ToString()); 
             
-            
+            //if (situacoes.
             // create a new data adapter based on the specified query.
             MySqlDataAdapter adapter = new MySqlDataAdapter();
 

@@ -428,6 +428,8 @@
             this.codSaidaTextBox.TabIndex = 54;
             this.codSaidaTextBox.TabStop = false;
             this.codSaidaTextBox.TextChanged += new System.EventHandler(this.codSaidaTextBox_TextChanged);
+            this.codSaidaTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.codSaidaTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
             // dataSaidaDateTimePicker
             // 
@@ -452,7 +454,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(652, 661);
+            this.btnCancelar.Location = new System.Drawing.Point(653, 661);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 9;
@@ -839,6 +841,7 @@
             this.codProdutoComboBox.Size = new System.Drawing.Size(987, 39);
             this.codProdutoComboBox.TabIndex = 30;
             this.codProdutoComboBox.ValueMember = "codProduto";
+            this.codProdutoComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
             this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
             // 
@@ -868,6 +871,7 @@
             this.precoVendatextBox.Name = "precoVendatextBox";
             this.precoVendatextBox.Size = new System.Drawing.Size(169, 29);
             this.precoVendatextBox.TabIndex = 38;
+            this.precoVendatextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.precoVendatextBox.Leave += new System.EventHandler(this.precoVendatextBox_Leave);
             // 
             // data_validadeDateTimePicker
@@ -879,6 +883,7 @@
             this.data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
             this.data_validadeDateTimePicker.Size = new System.Drawing.Size(169, 29);
             this.data_validadeDateTimePicker.TabIndex = 42;
+            this.data_validadeDateTimePicker.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.data_validadeDateTimePicker.Leave += new System.EventHandler(this.data_validadeDateTimePicker_Leave);
             // 
             // nomeClienteTextBox
