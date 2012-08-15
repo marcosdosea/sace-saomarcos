@@ -26,20 +26,26 @@ namespace Telas
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
+            this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
             cmbBusca.SelectedIndex = 0;
-        }
+         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if (!txtTexto.Text.Trim().Equals("") ) {
-                    if (cmbBusca.SelectedIndex == 0)
-                        this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
-                    else if (cmbBusca.SelectedIndex == 1) 
-                        this.tb_saidaTableAdapter.FillByPedidoGerado(this.saceDataSet.tb_saida, txtTexto.Text);
+                if (cmbBusca.SelectedIndex == 0)
+                {
+                    this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
                 }
+                else
+                    if (!txtTexto.Text.Trim().Equals(""))
+                    {
+                        if (cmbBusca.SelectedIndex == 1)
+                            this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
+                        else if (cmbBusca.SelectedIndex == 2)
+                            this.tb_saidaTableAdapter.FillByPedidoGerado(this.saceDataSet.tb_saida, txtTexto.Text);
+                    }
             }
             catch (System.Exception ex)
             {
@@ -76,6 +82,10 @@ namespace Telas
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
+            if (cmbBusca.SelectedIndex == 0)
+            {
+                this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
+            }
         }
 
         private void tb_saidaBindingNavigatorSaveItem_Click(object sender, EventArgs e)

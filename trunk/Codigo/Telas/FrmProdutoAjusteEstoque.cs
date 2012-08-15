@@ -171,5 +171,23 @@ namespace Telas
         {
             e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
         }
+
+        private void codProdutoTextBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codProdutoTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ namespace Util
         DOCUMENTO_PADRAO = 1;
 
 
+        public static System.Drawing.Color
+            BACKCOLOR_FOCUS = System.Drawing.Color.LightYellow,
+            BACKCOLOR_FOCUS_LEAVE = System.Drawing.Color.White;
+
         public static Decimal
             ACRESCIMO_PADRAO = (decimal)1.111111,
             DESCONTO_PADRAO = (decimal) 10,

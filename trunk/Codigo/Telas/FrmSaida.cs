@@ -68,6 +68,8 @@ namespace Telas
         /// <param name="e"></param>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
+
             Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.CodSaida != -1)
@@ -114,9 +116,15 @@ namespace Telas
             saida.ValorICMSSubst = 0;
             saida.ValorIPI = 0;
             saida.ValorSeguro = 0;
-            saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-            
-            
+            saida.Marca = "DIVERSAS";
+            saida.EspecieVolumes = "VOLUMES";
+
+            DataRowView saidaR = (DataRowView) tb_saidaBindingSource.AddNew();
+            saceDataSet.tb_saidaRow saidaRow = (saceDataSet.tb_saidaRow)saidaR.Row;
+
+            saidaRow.codCliente = Global.CLIENTE_PADRAO;
+
+
             saida.CodSaida = GerenciadorSaida.getInstace().inserir(saida);
             tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
             tb_saidaBindingSource.MoveLast();
@@ -284,7 +292,7 @@ namespace Telas
             {
                 lblSaidaProdutos.Text = "Saída para Depósito";
                 this.Text = "Saída para Depósito";
-                lblBalcao.Text = "Saída para Depósito";
+                lblBalcao.Text = "Saída Depósito";
                 
                 this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_SAIDA_DEPOSITO);
                 tb_saida_produtoDataGridView.Height = 370;
@@ -293,7 +301,7 @@ namespace Telas
             {
                 lblSaidaProdutos.Text = "Devolução de Produtos para Fornecedor";
                 this.Text = "Devolução de Produtos para Fornecedor";
-                lblBalcao.Text = "Devolução de Produtos";
+                lblBalcao.Text = "Devolução";
                 this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
                 baseCalculoICMSSubstTextBox.ReadOnly = false;
                 baseCalculoICMSTextBox.ReadOnly = false;
@@ -399,6 +407,7 @@ namespace Telas
                     }
                 }
             }
+            codSaidaTextBox_Leave(sender, e);
         }
 
         /// <summary>
@@ -411,6 +420,7 @@ namespace Telas
             FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
             buscaPrecos();
             atualizarSubTotal();
+            codSaidaTextBox_Leave(sender, e);
         }
 
         /// <summary>
@@ -432,6 +442,7 @@ namespace Telas
                 precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
             }
             atualizarSubTotal();
+            codSaidaTextBox_Leave(sender, e);
         }
 
         /// <summary>
@@ -617,6 +628,7 @@ namespace Telas
                     data_validadeDateTimePicker.Focus();
                 }
             }
+            codSaidaTextBox_Leave(sender, e);
         }
 
         /// <summary>
@@ -633,6 +645,7 @@ namespace Telas
         private void quantidadeTextBox_Enter(object sender, EventArgs e)
         {
             quantidadeTextBox.SelectAll();
+            codSaidaTextBox_Enter(sender, e);
         }
 
         
@@ -754,6 +767,24 @@ namespace Telas
             btnEditar.Enabled = habilita;
             btnExcluir.Enabled = habilita;
             tb_saidaBindingNavigator.Enabled = habilita;
+        }
+
+        private void codSaidaTextBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control) sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codSaidaTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            }
         }
 
     }

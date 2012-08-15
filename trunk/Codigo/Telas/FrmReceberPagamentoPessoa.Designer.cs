@@ -38,7 +38,6 @@
              this.label1 = new System.Windows.Forms.Label();
              this.panel1 = new System.Windows.Forms.Panel();
              this.btnSalvar = new System.Windows.Forms.Button();
-             this.btnBuscar = new System.Windows.Forms.Button();
              this.btnCancelar = new System.Windows.Forms.Button();
              this.btnNovo = new System.Windows.Forms.Button();
              this.codClienteComboBox = new System.Windows.Forms.ComboBox();
@@ -50,7 +49,7 @@
              this.dataInicioDateTimePicker = new System.Windows.Forms.DateTimePicker();
              this.label2 = new System.Windows.Forms.Label();
              this.label3 = new System.Windows.Forms.Label();
-             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+             this.dataFinalDateTimePicker = new System.Windows.Forms.DateTimePicker();
              this.saceDataSetConsultas = new Dados.saceDataSetConsultas();
              this.contasPessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
              this.contasPessoaDataGridView = new System.Windows.Forms.DataGridView();
@@ -198,7 +197,7 @@
              // 
              // btnSalvar
              // 
-             this.btnSalvar.Location = new System.Drawing.Point(157, 537);
+             this.btnSalvar.Location = new System.Drawing.Point(83, 537);
              this.btnSalvar.Name = "btnSalvar";
              this.btnSalvar.Size = new System.Drawing.Size(81, 23);
              this.btnSalvar.TabIndex = 4;
@@ -206,20 +205,9 @@
              this.btnSalvar.UseVisualStyleBackColor = true;
              this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
              // 
-             // btnBuscar
-             // 
-             this.btnBuscar.Location = new System.Drawing.Point(7, 537);
-             this.btnBuscar.Name = "btnBuscar";
-             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-             this.btnBuscar.TabIndex = 0;
-             this.btnBuscar.Text = "F2 - Buscar";
-             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-             this.btnBuscar.UseVisualStyleBackColor = true;
-             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-             // 
              // btnCancelar
              // 
-             this.btnCancelar.Location = new System.Drawing.Point(414, 537);
+             this.btnCancelar.Location = new System.Drawing.Point(340, 537);
              this.btnCancelar.Name = "btnCancelar";
              this.btnCancelar.Size = new System.Drawing.Size(84, 23);
              this.btnCancelar.TabIndex = 5;
@@ -229,7 +217,7 @@
              // 
              // btnNovo
              // 
-             this.btnNovo.Location = new System.Drawing.Point(82, 537);
+             this.btnNovo.Location = new System.Drawing.Point(8, 537);
              this.btnNovo.Name = "btnNovo";
              this.btnNovo.Size = new System.Drawing.Size(75, 23);
              this.btnNovo.TabIndex = 1;
@@ -327,14 +315,14 @@
              this.label3.TabIndex = 32;
              this.label3.Text = "Data Final:";
              // 
-             // dateTimePicker1
+             // dataFinalDateTimePicker
              // 
-             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-             this.dateTimePicker1.Location = new System.Drawing.Point(665, 113);
-             this.dateTimePicker1.Name = "dateTimePicker1";
-             this.dateTimePicker1.Size = new System.Drawing.Size(117, 24);
-             this.dateTimePicker1.TabIndex = 29;
+             this.dataFinalDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+             this.dataFinalDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+             this.dataFinalDateTimePicker.Location = new System.Drawing.Point(665, 113);
+             this.dataFinalDateTimePicker.Name = "dataFinalDateTimePicker";
+             this.dataFinalDateTimePicker.Size = new System.Drawing.Size(117, 24);
+             this.dataFinalDateTimePicker.TabIndex = 29;
              // 
              // saceDataSetConsultas
              // 
@@ -718,7 +706,7 @@
              // 
              // btnImprimir
              // 
-             this.btnImprimir.Location = new System.Drawing.Point(238, 537);
+             this.btnImprimir.Location = new System.Drawing.Point(164, 537);
              this.btnImprimir.Name = "btnImprimir";
              this.btnImprimir.Size = new System.Drawing.Size(88, 23);
              this.btnImprimir.TabIndex = 55;
@@ -727,7 +715,7 @@
              // 
              // btnCFNfe
              // 
-             this.btnCFNfe.Location = new System.Drawing.Point(326, 537);
+             this.btnCFNfe.Location = new System.Drawing.Point(252, 537);
              this.btnCFNfe.Name = "btnCFNfe";
              this.btnCFNfe.Size = new System.Drawing.Size(88, 23);
              this.btnCFNfe.TabIndex = 56;
@@ -768,14 +756,13 @@
              this.Controls.Add(this.tb_movimentacao_contaDataGridView);
              this.Controls.Add(this.contasPessoaDataGridView);
              this.Controls.Add(this.label3);
-             this.Controls.Add(this.dateTimePicker1);
+             this.Controls.Add(this.dataFinalDateTimePicker);
              this.Controls.Add(this.label2);
              this.Controls.Add(this.dataInicioDateTimePicker);
              this.Controls.Add(this.groupBox2);
              this.Controls.Add(codClienteLabel);
              this.Controls.Add(this.codClienteComboBox);
              this.Controls.Add(this.btnSalvar);
-             this.Controls.Add(this.btnBuscar);
              this.Controls.Add(this.btnCancelar);
              this.Controls.Add(this.btnNovo);
              this.Controls.Add(this.panel1);
@@ -810,7 +797,6 @@
          private System.Windows.Forms.Label label1;
          private System.Windows.Forms.Panel panel1;
          private System.Windows.Forms.Button btnSalvar;
-         private System.Windows.Forms.Button btnBuscar;
          private System.Windows.Forms.Button btnCancelar;
          private System.Windows.Forms.Button btnNovo;
          private System.Windows.Forms.ComboBox codClienteComboBox;
@@ -819,7 +805,7 @@
          private System.Windows.Forms.DateTimePicker dataInicioDateTimePicker;
          private System.Windows.Forms.Label label2;
          private System.Windows.Forms.Label label3;
-         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+         private System.Windows.Forms.DateTimePicker dataFinalDateTimePicker;
          private System.Windows.Forms.CheckBox quitadaCheckBox;
          private Dados.saceDataSetConsultas saceDataSetConsultas;
          private System.Windows.Forms.BindingSource contasPessoaBindingSource;

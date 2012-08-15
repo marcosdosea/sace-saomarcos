@@ -9340,7 +9340,7 @@ namespace Dados {
                 this.columnnome.AllowDBNull = false;
                 this.columnnome.MaxLength = 50;
                 this.columncodCST.AllowDBNull = false;
-                this.columncodCST.MaxLength = 3;
+                this.columncodCST.MaxLength = 4;
                 this.columnunidade.MaxLength = 2;
                 this.columnbaseCalculoICMS.DefaultValue = ((decimal)(0m));
                 this.columnvalorICMS.DefaultValue = ((decimal)(0m));
@@ -11603,7 +11603,7 @@ namespace Dados {
                                 this.columncodCST}, true));
                 this.columncodCST.AllowDBNull = false;
                 this.columncodCST.Unique = true;
-                this.columncodCST.MaxLength = 3;
+                this.columncodCST.MaxLength = 4;
                 this.columndescricaoCST.MaxLength = 45;
             }
             
@@ -13445,7 +13445,7 @@ namespace Dados {
                 this.columnunidade.MaxLength = 2;
                 this.columncodigoBarra.MaxLength = 40;
                 this.columncodCST.AllowDBNull = false;
-                this.columncodCST.MaxLength = 3;
+                this.columncodCST.MaxLength = 4;
                 this.columnncmsh.AllowDBNull = false;
                 this.columnncmsh.MaxLength = 8;
                 this.columncodFabricante.AllowDBNull = false;
@@ -14683,7 +14683,7 @@ namespace Dados {
                 this.columnquantidade_disponivel.DefaultValue = ((decimal)(0m));
                 this.columndesconto.DefaultValue = ((decimal)(0m));
                 this.columncodCST.AllowDBNull = false;
-                this.columncodCST.MaxLength = 3;
+                this.columncodCST.MaxLength = 4;
                 this.columnnomeProduto.AllowDBNull = false;
                 this.columnnomeProduto.MaxLength = 50;
                 this.columndescricaoCFOP.MaxLength = 40;
@@ -26516,9 +26516,7 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `tb_cfop` WHERE ((`cfop` = @Original_cfop) AND ((@IsNull_descricao = " +
-                "1 AND `descricao` IS NULL) OR (`descricao` = @Original_descricao)) AND ((@IsNull" +
-                "_icms = 1 AND `icms` IS NULL) OR (`icms` = @Original_icms)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_cfop\r\nWHERE        (cfop = @Original_cfop)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_cfop";
@@ -26526,39 +26524,6 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "cfop";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_descricao";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "descricao";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_descricao";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "descricao";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_icms";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "icms";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_icms";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "icms";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
@@ -26588,7 +26553,8 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `tb_cfop` SET `cfop` = @cfop, `descricao` = @descricao, `icms` = @icms WHERE ((`cfop` = @Original_cfop) AND ((@IsNull_descricao = 1 AND `descricao` IS NULL) OR (`descricao` = @Original_descricao)) AND ((@IsNull_icms = 1 AND `icms` IS NULL) OR (`icms` = @Original_icms)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE       tb_cfop\r\nSET                cfop = @cfop, descricao = @descricao, ic" +
+                "ms = @icms\r\nWHERE        (cfop = @Original_cfop)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@cfop";
@@ -26601,11 +26567,13 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             param.ParameterName = "@descricao";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 40;
             param.IsNullable = true;
             param.SourceColumn = "descricao";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@icms";
+            param.DbType = global::System.Data.DbType.Decimal;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
             param.IsNullable = true;
             param.SourceColumn = "icms";
@@ -26616,39 +26584,6 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "cfop";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_descricao";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "descricao";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_descricao";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "descricao";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@IsNull_icms";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "icms";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            param.SourceColumnNullMapping = true;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_icms";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
-            param.IsNullable = true;
-            param.SourceColumn = "icms";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
         }
@@ -26663,11 +26598,34 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `cfop`, `descricao`, `icms` FROM `tb_cfop`";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT `cfop`, `descricao`, `icms` FROM `tb_cfop`\r\nwhere cfop = @cfop";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@cfop";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "cfop";
+            this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT `cfop`, `descricao`, `icms` FROM `tb_cfop`\r\nwhere descricao like concat(@d" +
+                "ecricao, \'%\')";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@decricao";
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 40;
+            param.IsNullable = true;
+            param.SourceColumn = "descricao";
+            this._commandCollection[2].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -26692,6 +26650,39 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             saceDataSet.tb_cfopDataTable dataTable = new saceDataSet.tb_cfopDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodCfop(saceDataSet.tb_cfopDataTable dataTable, int cfop) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(cfop));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByDescricao(saceDataSet.tb_cfopDataTable dataTable, string decricao) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((decricao == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(decricao));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -26727,24 +26718,8 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_cfop, string Original_descricao, string Original_icms) {
+        public virtual int Delete(int Original_cfop) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_cfop));
-            if ((Original_descricao == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_descricao));
-            }
-            if ((Original_icms == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_icms));
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -26799,7 +26774,7 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int cfop, string descricao, string icms, int Original_cfop, string Original_descricao, string Original_icms) {
+        public virtual int Update(int cfop, string descricao, global::System.Nullable<decimal> icms, int Original_cfop) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(cfop));
             if ((descricao == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -26807,29 +26782,13 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(descricao));
             }
-            if ((icms == null)) {
+            if ((icms.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(icms.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(icms));
-            }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_cfop));
-            if ((Original_descricao == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_descricao));
-            }
-            if ((Original_icms == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_icms));
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -26850,8 +26809,8 @@ WHERE        (tb_cartao_credito.nome LIKE CONCAT(@nome, '%'))";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string descricao, string icms, int Original_cfop, string Original_descricao, string Original_icms) {
-            return this.Update(Original_cfop, descricao, icms, Original_cfop, Original_descricao, Original_icms);
+        public virtual int Update(string descricao, global::System.Nullable<decimal> icms, int Original_cfop) {
+            return this.Update(Original_cfop, descricao, icms, Original_cfop);
         }
     }
     
@@ -46172,7 +46131,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[7];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[8];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
@@ -46321,12 +46280,37 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "SELECT        MAX(codSaida) AS Expr1\r\nFROM            tb_saida";
+            this._commandCollection[5].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
+                "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
+                "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
+                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
+                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
+                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
+                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
+                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
+                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
+                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
+                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
+                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
+                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
+                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
+                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
+                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
+                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
+                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
+                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
+                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
+                "dPessoa\r\nWHERE (tb_saida.codTipoSaida = 2) AND (tb_saida.pedidoGerado = \'\')";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[6] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "SELECT        MAX(nfe) AS numeroNFE\r\nFROM            tb_saida";
+            this._commandCollection[6].CommandText = "SELECT        MAX(codSaida) AS Expr1\r\nFROM            tb_saida";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[7].Connection = this.Connection;
+            this._commandCollection[7].CommandText = "SELECT        MAX(nfe) AS numeroNFE\r\nFROM            tb_saida";
+            this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -46418,6 +46402,19 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillOrcamentosVendas(saceDataSet.tb_saidaDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[4];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillPreVendasPendentes(saceDataSet.tb_saidaDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[5];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -46917,7 +46914,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<long> GetUltimoCodSaida() {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[5];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[6];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -46945,7 +46942,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual string GetUltimoNumeroNF() {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[6];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[7];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {

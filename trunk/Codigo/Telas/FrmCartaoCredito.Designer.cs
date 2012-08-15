@@ -34,8 +34,8 @@
             System.Windows.Forms.Label codContaBancoLabel;
             System.Windows.Forms.Label diaBaseLabel;
             System.Windows.Forms.Label codPessoaLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCartaoCredito));
             System.Windows.Forms.Label mapeamentoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCartaoCredito));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -126,6 +126,15 @@
             codPessoaLabel.Size = new System.Drawing.Size(116, 13);
             codPessoaLabel.TabIndex = 31;
             codPessoaLabel.Text = "Empresa Responsável:";
+            // 
+            // mapeamentoLabel
+            // 
+            mapeamentoLabel.AutoSize = true;
+            mapeamentoLabel.Location = new System.Drawing.Point(366, 150);
+            mapeamentoLabel.Name = "mapeamentoLabel";
+            mapeamentoLabel.Size = new System.Drawing.Size(72, 13);
+            mapeamentoLabel.TabIndex = 33;
+            mapeamentoLabel.Text = "Mapeamento:";
             // 
             // label1
             // 
@@ -320,6 +329,8 @@
             this.codCartaoTextBox.Name = "codCartaoTextBox";
             this.codCartaoTextBox.Size = new System.Drawing.Size(113, 20);
             this.codCartaoTextBox.TabIndex = 25;
+            this.codCartaoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
+            this.codCartaoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // nomeTextBox
             // 
@@ -329,6 +340,8 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(336, 20);
             this.nomeTextBox.TabIndex = 27;
+            this.nomeTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
+            this.nomeTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // diaBaseTextBox
             // 
@@ -337,6 +350,8 @@
             this.diaBaseTextBox.Name = "diaBaseTextBox";
             this.diaBaseTextBox.Size = new System.Drawing.Size(128, 20);
             this.diaBaseTextBox.TabIndex = 33;
+            this.diaBaseTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
+            this.diaBaseTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // tbcontabancoBindingSource
             // 
@@ -366,7 +381,9 @@
             this.codContaBancoComboBox.Size = new System.Drawing.Size(218, 21);
             this.codContaBancoComboBox.TabIndex = 31;
             this.codContaBancoComboBox.ValueMember = "codContaBanco";
+            this.codContaBancoComboBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.codContaBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
+            this.codContaBancoComboBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // codPessoaComboBox
             // 
@@ -382,8 +399,9 @@
             this.codPessoaComboBox.Size = new System.Drawing.Size(457, 21);
             this.codPessoaComboBox.TabIndex = 29;
             this.codPessoaComboBox.ValueMember = "codPessoa";
+            this.codPessoaComboBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
-            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
+            this.codPessoaComboBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // tbpessoaBindingSource
             // 
@@ -394,15 +412,6 @@
             // 
             this.tb_pessoaTableAdapter.ClearBeforeFill = true;
             // 
-            // mapeamentoLabel
-            // 
-            mapeamentoLabel.AutoSize = true;
-            mapeamentoLabel.Location = new System.Drawing.Point(366, 150);
-            mapeamentoLabel.Name = "mapeamentoLabel";
-            mapeamentoLabel.Size = new System.Drawing.Size(72, 13);
-            mapeamentoLabel.TabIndex = 33;
-            mapeamentoLabel.Text = "Mapeamento:";
-            // 
             // mapeamentoTextBox
             // 
             this.mapeamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cartao_creditoBindingSource, "mapeamento", true));
@@ -410,6 +419,8 @@
             this.mapeamentoTextBox.Name = "mapeamentoTextBox";
             this.mapeamentoTextBox.Size = new System.Drawing.Size(100, 20);
             this.mapeamentoTextBox.TabIndex = 34;
+            this.mapeamentoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
+            this.mapeamentoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // FrmCartaoCredito
             // 

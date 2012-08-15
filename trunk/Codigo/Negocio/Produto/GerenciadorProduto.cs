@@ -173,7 +173,8 @@ namespace Negocio
 
         public bool ehProdututoTributadoIntegral(String codCST)
         {
-            if (codCST != null)
+            // acontece para os CST da tabela antiga de tributacao
+            if ((codCST != null) && (codCST.Trim().Length == 3))
             {
                 codCST = codCST.Substring(1, 2);
                 
@@ -182,6 +183,14 @@ namespace Negocio
                     codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_REDUCAO_BC) ||
                     codCST.Equals(Produto.ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA));
             }
+            else if ((codCST != null) && (codCST.Trim().Length == 4))
+            {
+                codCST = codCST.Substring(1, 3);
+
+                return !(codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
+                    codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO));
+            }
+            
             return false;
         }
     }

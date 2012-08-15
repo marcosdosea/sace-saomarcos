@@ -389,6 +389,7 @@ namespace Telas
             {
                 tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
             }
+            codSaidaTextBox_Leave(sender, e);
         }
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
@@ -413,11 +414,13 @@ namespace Telas
             {
                 tbpessoaBindingSource1.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
             }
+            codSaidaTextBox_Leave(sender, e);
         }
 
         private void valorRecebidoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+            codSaidaTextBox_Leave(sender, e);
         }
 
         
@@ -426,6 +429,7 @@ namespace Telas
             
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             calcularDesconto();
+            codSaidaTextBox_Leave(sender, e);
         }
 
         private void calcularDesconto()
@@ -510,6 +514,7 @@ namespace Telas
             {
                 intervaloDiasTextBox.TabStop = true;
             }
+            codSaidaTextBox_Leave(sender, e);
         }
 
         private void faltaReceberTextBox_TextChanged(object sender, EventArgs e)
@@ -536,6 +541,24 @@ namespace Telas
                 codDocumentoPagamentoComboBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO);
                 valorRecebidoTextBox.Enabled = !((formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO));
                 intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CREDIARIO) || (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
+            }
+        }
+
+        private void codSaidaTextBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codSaidaTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
         }
 

@@ -441,6 +441,7 @@ namespace Telas
                     tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
                 }
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
@@ -468,6 +469,7 @@ namespace Telas
                     tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoa.CodPessoa);
                 }
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
@@ -553,6 +555,7 @@ namespace Telas
 
                 codCSTComboBox_SelectedIndexChanged(sender, e);
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
@@ -573,6 +576,7 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void quantidadeTextBox_Leave(object sender, EventArgs e)
@@ -641,6 +645,7 @@ namespace Telas
                 precoVarejoSugestaoTextBox.Text = entradaProduto.PrecoVendaVarejo.ToString("N3");
                 precoAtacadoSugestaoTextBox.Text = entradaProduto.PrecoVendaAtacado.ToString("N3");
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void inicializaVariaveis()
@@ -677,6 +682,7 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void qtdProdutoAtacadoTextBox_Leave(object sender, EventArgs e)
@@ -685,6 +691,7 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             }
+            codEntradaTextBox_Leave(sender, e);
         }
 
         private void btnPagamentos_Click(object sender, EventArgs e)
@@ -710,7 +717,8 @@ namespace Telas
             {
                 FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
             }
-           btnSalvar.Focus();
+            codEntradaTextBox_Leave(sender, e);
+            btnSalvar.Focus();
         }
 
         private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -756,6 +764,25 @@ namespace Telas
                     entradaProduto.Desconto = (entrada.Desconto / entrada.TotalProdutos) * 100;
                     descontoProdutoTextBox.Text = entradaProduto.Desconto.ToString("N2");
                 }
+            }
+            codEntradaTextBox_Leave(sender, e);
+        }
+
+        private void codEntradaTextBox_Enter(object sender, EventArgs e)
+        {
+            if ( (sender is Control) && !(sender is Form) )
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codEntradaTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
         }
     }

@@ -111,6 +111,19 @@ namespace Negocio
                         tb_SaidaTA.Delete(saida.CodSaida);
                     }
                 }
+                else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                {
+                    // para garantir que nenhuma outra estãção emitiu a nota de transferência
+                    saida = GerenciadorSaida.getInstace().obterSaida(saida.CodSaida);
+                    if ((saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                    {
+                        throw new NegocioException("Não é possível remover uma devolução para fornecedor cuja nota fiscal de transferência já foi emitida.");
+                    }
+                    else
+                    {
+                        tb_SaidaTA.Delete(saida.CodSaida);
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -797,7 +810,10 @@ namespace Negocio
                         }
                         
                         imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
-                        imp.ImpCol(15, saidaProduto.Nome);
+                        if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                            imp.ImpCol(15, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
+                        else
+                            imp.ImpCol(15, saidaProduto.Nome);
                         if ( saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO )
                             imp.ImpCol(71, "041");
                         else
@@ -812,7 +828,7 @@ namespace Negocio
                         }
                         else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
                         {
-                           imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString());
+                           imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString("N1"));
                         }
                         else
                         {
@@ -853,8 +869,8 @@ namespace Negocio
 
             // linha 8
             if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-            {
-                imp.ImpCol(2, "DEVOLUCAO DE COMPRA PARA COMERCIALIZACAO");
+            {                   
+                imp.ImpCol(2, "DEVOLUCAO DE COMPRA P/COM.");
                 imp.ImpCol(28, "6.202");
                 imp.Pula(2);
             }
@@ -915,13 +931,20 @@ namespace Negocio
                 }
                 imp.Imp(imp.Normal);
                 // linha 45
-                imp.ImpColLFDireita(65, 78, saida.TotalAVista.ToString("N2"));
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                {
+                    imp.ImpColDireita(35, 47, saida.BaseCalculoICMSSubst.ToString("N2")); 
+                    imp.ImpColDireita(50, 62, saida.ValorICMSSubst.ToString("N2")); //valor do icms substituto
+                }
+                imp.ImpColLFDireita(65, 78, saida.TotalAVista.ToString("N2")); // total produtos
                 imp.Pula(1);
 
                 // linha 46
-                imp.ImpColDireita(10, 15, "0.00");
-                imp.ImpColDireita(50, 62, "0.00");
-                imp.ImpColDireita(65, 78, saida.TotalAVista.ToString("N2"));
+                imp.ImpColDireita(05, 15, saida.ValorFrete.ToString("N2") ); // frete
+                imp.ImpColDireita(18, 30, saida.ValorSeguro.ToString("N2")); // seguro
+                imp.ImpColDireita(33, 45, saida.OutrasDespesas.ToString("N2")); // outras despesas
+                imp.ImpColDireita(50, 62, saida.ValorIPI.ToString("N2")); //ipi
+                imp.ImpColDireita(65, 78, saida.TotalAVista.ToString("N2")); //total nota
                 imp.Pula(2);
 
                 Pessoa empresaFrete = GerenciadorPessoa.getInstace().obterPessoa(saida.CodEmpresaFrete);
@@ -944,8 +967,14 @@ namespace Negocio
                 imp.ImpCol(2, empresaFrete.Endereco + ", " + empresaFrete.Numero);
                 imp.ImpCol(40, empresaFrete.Cidade);
                 imp.ImpCol(61, empresaFrete.Uf);
-                imp.ImpCol(65, empresaFrete.Ie);
-                imp.Pula(5);
+                imp.ImpColLF(65, empresaFrete.Ie);
+                imp.ImpCol(2, saida.QuantidadeVolumes.ToString("N2"));
+                imp.ImpCol(15, saida.EspecieVolumes);
+                imp.ImpCol(29, saida.Marca);
+                imp.ImpCol(40, saida.Numero.ToString());
+                imp.ImpColDireita(55, 64, saida.PesoBruto.ToString("N2"));
+                imp.ImpColDireita(69, 78, saida.PesoLiquido.ToString("N2"));
+                imp.Pula(4);
 
                 // linha 56
                 if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)

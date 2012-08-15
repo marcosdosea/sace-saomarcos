@@ -876,6 +876,7 @@
             this.descontoProdutoTextBox.Name = "descontoProdutoTextBox";
             this.descontoProdutoTextBox.Size = new System.Drawing.Size(45, 20);
             this.descontoProdutoTextBox.TabIndex = 81;
+            this.descontoProdutoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.descontoProdutoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // tb_entrada_produtoBindingSource
@@ -903,6 +904,7 @@
             this.codCSTComboBox.TabIndex = 54;
             this.codCSTComboBox.ValueMember = "codCST";
             this.codCSTComboBox.SelectedIndexChanged += new System.EventHandler(this.codCSTComboBox_SelectedIndexChanged);
+            this.codCSTComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codCSTComboBox.Leave += new System.EventHandler(this.codCSTComboBox_SelectedIndexChanged);
             // 
             // tb_produtoBindingSource
@@ -928,6 +930,8 @@
             this.cfopComboBox.Size = new System.Drawing.Size(52, 21);
             this.cfopComboBox.TabIndex = 56;
             this.cfopComboBox.ValueMember = "cfop";
+            this.cfopComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.cfopComboBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // tbcfopBindingSource
             // 
@@ -943,6 +947,7 @@
             this.preco_custoTextBox.Size = new System.Drawing.Size(86, 20);
             this.preco_custoTextBox.TabIndex = 116;
             this.preco_custoTextBox.TabStop = false;
+            this.preco_custoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.preco_custoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // label3
@@ -963,6 +968,7 @@
             this.precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
             this.precoVendaAtacadoTextBox.Size = new System.Drawing.Size(99, 20);
             this.precoVendaAtacadoTextBox.TabIndex = 102;
+            this.precoVendaAtacadoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.precoVendaAtacadoTextBox.Leave += new System.EventHandler(this.precoVendaAtacadoTextBox_Leave);
             // 
             // precoAtacadoSugestaoTextBox
@@ -973,6 +979,8 @@
             this.precoAtacadoSugestaoTextBox.Size = new System.Drawing.Size(93, 20);
             this.precoAtacadoSugestaoTextBox.TabIndex = 100;
             this.precoAtacadoSugestaoTextBox.TabStop = false;
+            this.precoAtacadoSugestaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.precoAtacadoSugestaoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // qtdProdutoAtacadoTextBox
             // 
@@ -981,6 +989,7 @@
             this.qtdProdutoAtacadoTextBox.Name = "qtdProdutoAtacadoTextBox";
             this.qtdProdutoAtacadoTextBox.Size = new System.Drawing.Size(67, 20);
             this.qtdProdutoAtacadoTextBox.TabIndex = 96;
+            this.qtdProdutoAtacadoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.qtdProdutoAtacadoTextBox.Leave += new System.EventHandler(this.qtdProdutoAtacadoTextBox_Leave);
             // 
             // precoVarejoSugestaoTextBox
@@ -991,6 +1000,8 @@
             this.precoVarejoSugestaoTextBox.Size = new System.Drawing.Size(93, 20);
             this.precoVarejoSugestaoTextBox.TabIndex = 92;
             this.precoVarejoSugestaoTextBox.TabStop = false;
+            this.precoVarejoSugestaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.precoVarejoSugestaoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // precoVendaVarejoTextBox
             // 
@@ -1001,6 +1012,7 @@
             this.precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
             this.precoVendaVarejoTextBox.Size = new System.Drawing.Size(93, 20);
             this.precoVendaVarejoTextBox.TabIndex = 94;
+            this.precoVendaVarejoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.precoVendaVarejoTextBox.Leave += new System.EventHandler(this.precoVendaVarejoTextBox_Leave);
             // 
             // label4
@@ -1019,6 +1031,7 @@
             this.lucroPrecoVendaVarejoTextBox.Name = "lucroPrecoVendaVarejoTextBox";
             this.lucroPrecoVendaVarejoTextBox.Size = new System.Drawing.Size(63, 20);
             this.lucroPrecoVendaVarejoTextBox.TabIndex = 90;
+            this.lucroPrecoVendaVarejoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.lucroPrecoVendaVarejoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // lucroPrecoVendaAtacadoTextBox
@@ -1028,6 +1041,7 @@
             this.lucroPrecoVendaAtacadoTextBox.Name = "lucroPrecoVendaAtacadoTextBox";
             this.lucroPrecoVendaAtacadoTextBox.Size = new System.Drawing.Size(69, 20);
             this.lucroPrecoVendaAtacadoTextBox.TabIndex = 98;
+            this.lucroPrecoVendaAtacadoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.lucroPrecoVendaAtacadoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // simplesTextBox
@@ -1039,6 +1053,8 @@
             this.simplesTextBox.Size = new System.Drawing.Size(46, 20);
             this.simplesTextBox.TabIndex = 84;
             this.simplesTextBox.TabStop = false;
+            this.simplesTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.simplesTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // freteTextBox
             // 
@@ -1049,6 +1065,8 @@
             this.freteTextBox.Size = new System.Drawing.Size(36, 20);
             this.freteTextBox.TabIndex = 82;
             this.freteTextBox.TabStop = false;
+            this.freteTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.freteTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // ipiTextBox
             // 
@@ -1057,6 +1075,7 @@
             this.ipiTextBox.Name = "ipiTextBox";
             this.ipiTextBox.Size = new System.Drawing.Size(46, 20);
             this.ipiTextBox.TabIndex = 78;
+            this.ipiTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.ipiTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // icms_substitutoTextBox
@@ -1066,6 +1085,7 @@
             this.icms_substitutoTextBox.Name = "icms_substitutoTextBox";
             this.icms_substitutoTextBox.Size = new System.Drawing.Size(61, 20);
             this.icms_substitutoTextBox.TabIndex = 74;
+            this.icms_substitutoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.icms_substitutoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // icmsTextBox
@@ -1075,6 +1095,7 @@
             this.icmsTextBox.Name = "icmsTextBox";
             this.icmsTextBox.Size = new System.Drawing.Size(63, 20);
             this.icmsTextBox.TabIndex = 68;
+            this.icmsTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.icmsTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // ncmshTextBox
@@ -1085,6 +1106,8 @@
             this.ncmshTextBox.Name = "ncmshTextBox";
             this.ncmshTextBox.Size = new System.Drawing.Size(59, 20);
             this.ncmshTextBox.TabIndex = 52;
+            this.ncmshTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.ncmshTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // data_validadeDateTimePicker
             // 
@@ -1094,6 +1117,8 @@
             this.data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
             this.data_validadeDateTimePicker.Size = new System.Drawing.Size(98, 20);
             this.data_validadeDateTimePicker.TabIndex = 86;
+            this.data_validadeDateTimePicker.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.data_validadeDateTimePicker.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // valorIPITextBox
             // 
@@ -1104,6 +1129,8 @@
             this.valorIPITextBox.Size = new System.Drawing.Size(52, 20);
             this.valorIPITextBox.TabIndex = 80;
             this.valorIPITextBox.TabStop = false;
+            this.valorIPITextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.valorIPITextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorICMSSTTextBox
             // 
@@ -1114,6 +1141,7 @@
             this.valorICMSSTTextBox.Size = new System.Drawing.Size(80, 20);
             this.valorICMSSTTextBox.TabIndex = 76;
             this.valorICMSSTTextBox.TabStop = false;
+            this.valorICMSSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.valorICMSSTTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorICMSTextBox
@@ -1125,6 +1153,8 @@
             this.valorICMSTextBox.Size = new System.Drawing.Size(80, 20);
             this.valorICMSTextBox.TabIndex = 70;
             this.valorICMSTextBox.TabStop = false;
+            this.valorICMSTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.valorICMSTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // baseCalculoICMSSTTextBox
             // 
@@ -1133,6 +1163,7 @@
             this.baseCalculoICMSSTTextBox.Name = "baseCalculoICMSSTTextBox";
             this.baseCalculoICMSSTTextBox.Size = new System.Drawing.Size(77, 20);
             this.baseCalculoICMSSTTextBox.TabIndex = 72;
+            this.baseCalculoICMSSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.baseCalculoICMSSTTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // baseCalculoICMSTextBox
@@ -1142,6 +1173,7 @@
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
             this.baseCalculoICMSTextBox.Size = new System.Drawing.Size(80, 20);
             this.baseCalculoICMSTextBox.TabIndex = 66;
+            this.baseCalculoICMSTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // quantidadeEmbalagemTextBox
@@ -1151,6 +1183,7 @@
             this.quantidadeEmbalagemTextBox.Name = "quantidadeEmbalagemTextBox";
             this.quantidadeEmbalagemTextBox.Size = new System.Drawing.Size(77, 20);
             this.quantidadeEmbalagemTextBox.TabIndex = 88;
+            this.quantidadeEmbalagemTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.quantidadeEmbalagemTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorTotalTextBox
@@ -1160,6 +1193,7 @@
             this.valorTotalTextBox.Name = "valorTotalTextBox";
             this.valorTotalTextBox.Size = new System.Drawing.Size(86, 20);
             this.valorTotalTextBox.TabIndex = 64;
+            this.valorTotalTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.valorTotalTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorUnitarioTextBox
@@ -1169,6 +1203,7 @@
             this.valorUnitarioTextBox.Name = "valorUnitarioTextBox";
             this.valorUnitarioTextBox.Size = new System.Drawing.Size(67, 20);
             this.valorUnitarioTextBox.TabIndex = 62;
+            this.valorUnitarioTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.valorUnitarioTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // quantidadeTextBox
@@ -1178,6 +1213,7 @@
             this.quantidadeTextBox.Name = "quantidadeTextBox";
             this.quantidadeTextBox.Size = new System.Drawing.Size(55, 20);
             this.quantidadeTextBox.TabIndex = 60;
+            this.quantidadeTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.quantidadeTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // unidadeCompraTextBox
@@ -1189,6 +1225,8 @@
             this.unidadeCompraTextBox.Name = "unidadeCompraTextBox";
             this.unidadeCompraTextBox.Size = new System.Drawing.Size(31, 20);
             this.unidadeCompraTextBox.TabIndex = 58;
+            this.unidadeCompraTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.unidadeCompraTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // codProdutoComboBox
             // 
@@ -1205,6 +1243,7 @@
             this.codProdutoComboBox.Size = new System.Drawing.Size(363, 21);
             this.codProdutoComboBox.TabIndex = 50;
             this.codProdutoComboBox.ValueMember = "codProduto";
+            this.codProdutoComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
             this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
             // 
@@ -1327,6 +1366,8 @@
             this.codEntradaTextBox.Size = new System.Drawing.Size(75, 20);
             this.codEntradaTextBox.TabIndex = 12;
             this.codEntradaTextBox.TextChanged += new System.EventHandler(this.codEntradaTextBox_TextChanged);
+            this.codEntradaTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.codEntradaTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // numeroNotaFiscalTextBox
             // 
@@ -1335,6 +1376,8 @@
             this.numeroNotaFiscalTextBox.Name = "numeroNotaFiscalTextBox";
             this.numeroNotaFiscalTextBox.Size = new System.Drawing.Size(100, 20);
             this.numeroNotaFiscalTextBox.TabIndex = 14;
+            this.numeroNotaFiscalTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.numeroNotaFiscalTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // codEmpresaFreteComboBox
             // 
@@ -1350,8 +1393,9 @@
             this.codEmpresaFreteComboBox.Size = new System.Drawing.Size(295, 21);
             this.codEmpresaFreteComboBox.TabIndex = 22;
             this.codEmpresaFreteComboBox.ValueMember = "codPessoa";
+            this.codEmpresaFreteComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codEmpresaFreteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
-            this.codEmpresaFreteComboBox.Leave += new System.EventHandler(this.codFornecedorComboBox_Leave);
+            this.codEmpresaFreteComboBox.Leave += new System.EventHandler(this.codEmpresaFreteComboBox_Leave);
             // 
             // tbpessoaBindingSource1
             // 
@@ -1377,6 +1421,7 @@
             this.codFornecedorComboBox.Size = new System.Drawing.Size(399, 21);
             this.codFornecedorComboBox.TabIndex = 16;
             this.codFornecedorComboBox.ValueMember = "codPessoa";
+            this.codFornecedorComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codFornecedorComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
             this.codFornecedorComboBox.Leave += new System.EventHandler(this.codFornecedorComboBox_Leave);
             // 
@@ -1388,6 +1433,8 @@
             this.dataEmissaoDateTimePicker.Name = "dataEmissaoDateTimePicker";
             this.dataEmissaoDateTimePicker.Size = new System.Drawing.Size(101, 20);
             this.dataEmissaoDateTimePicker.TabIndex = 18;
+            this.dataEmissaoDateTimePicker.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.dataEmissaoDateTimePicker.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // dataEntradaDateTimePicker
             // 
@@ -1397,6 +1444,8 @@
             this.dataEntradaDateTimePicker.Name = "dataEntradaDateTimePicker";
             this.dataEntradaDateTimePicker.Size = new System.Drawing.Size(95, 20);
             this.dataEntradaDateTimePicker.TabIndex = 20;
+            this.dataEntradaDateTimePicker.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.dataEntradaDateTimePicker.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalBaseCalculoTextBox
             // 
@@ -1405,6 +1454,7 @@
             this.totalBaseCalculoTextBox.Name = "totalBaseCalculoTextBox";
             this.totalBaseCalculoTextBox.Size = new System.Drawing.Size(104, 20);
             this.totalBaseCalculoTextBox.TabIndex = 24;
+            this.totalBaseCalculoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalBaseCalculoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // totalICMSTextBox
@@ -1414,6 +1464,7 @@
             this.totalICMSTextBox.Name = "totalICMSTextBox";
             this.totalICMSTextBox.Size = new System.Drawing.Size(104, 20);
             this.totalICMSTextBox.TabIndex = 26;
+            this.totalICMSTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalICMSTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // totalBaseSubstituicaoTextBox
@@ -1423,6 +1474,7 @@
             this.totalBaseSubstituicaoTextBox.Name = "totalBaseSubstituicaoTextBox";
             this.totalBaseSubstituicaoTextBox.Size = new System.Drawing.Size(101, 20);
             this.totalBaseSubstituicaoTextBox.TabIndex = 28;
+            this.totalBaseSubstituicaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalBaseSubstituicaoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // totalSubstituicaoTextBox
@@ -1432,6 +1484,7 @@
             this.totalSubstituicaoTextBox.Name = "totalSubstituicaoTextBox";
             this.totalSubstituicaoTextBox.Size = new System.Drawing.Size(95, 20);
             this.totalSubstituicaoTextBox.TabIndex = 30;
+            this.totalSubstituicaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalSubstituicaoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // totalProdutosTextBox
@@ -1441,6 +1494,7 @@
             this.totalProdutosTextBox.Name = "totalProdutosTextBox";
             this.totalProdutosTextBox.Size = new System.Drawing.Size(99, 20);
             this.totalProdutosTextBox.TabIndex = 42;
+            this.totalProdutosTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalProdutosTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // valorFreteTextBox
@@ -1450,6 +1504,7 @@
             this.valorFreteTextBox.Name = "valorFreteTextBox";
             this.valorFreteTextBox.Size = new System.Drawing.Size(104, 20);
             this.valorFreteTextBox.TabIndex = 32;
+            this.valorFreteTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.valorFreteTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // valorSeguroTextBox
@@ -1459,6 +1514,7 @@
             this.valorSeguroTextBox.Name = "valorSeguroTextBox";
             this.valorSeguroTextBox.Size = new System.Drawing.Size(104, 20);
             this.valorSeguroTextBox.TabIndex = 34;
+            this.valorSeguroTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.valorSeguroTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // descontoTextBox
@@ -1468,6 +1524,7 @@
             this.descontoTextBox.Name = "descontoTextBox";
             this.descontoTextBox.Size = new System.Drawing.Size(80, 20);
             this.descontoTextBox.TabIndex = 36;
+            this.descontoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.descontoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // outrasDespesasTextBox
@@ -1477,6 +1534,7 @@
             this.outrasDespesasTextBox.Name = "outrasDespesasTextBox";
             this.outrasDespesasTextBox.Size = new System.Drawing.Size(88, 20);
             this.outrasDespesasTextBox.TabIndex = 38;
+            this.outrasDespesasTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.outrasDespesasTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // totalIPITextBox
@@ -1486,6 +1544,7 @@
             this.totalIPITextBox.Name = "totalIPITextBox";
             this.totalIPITextBox.Size = new System.Drawing.Size(72, 20);
             this.totalIPITextBox.TabIndex = 40;
+            this.totalIPITextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalIPITextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // totalNotaTextBox
@@ -1495,6 +1554,7 @@
             this.totalNotaTextBox.Name = "totalNotaTextBox";
             this.totalNotaTextBox.Size = new System.Drawing.Size(95, 20);
             this.totalNotaTextBox.TabIndex = 44;
+            this.totalNotaTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalNotaTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // tb_entrada_produtoDataGridView
@@ -1520,6 +1580,8 @@
             this.tb_entrada_produtoDataGridView.Size = new System.Drawing.Size(806, 182);
             this.tb_entrada_produtoDataGridView.TabIndex = 46;
             this.tb_entrada_produtoDataGridView.TabStop = false;
+            this.tb_entrada_produtoDataGridView.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.tb_entrada_produtoDataGridView.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -1655,6 +1717,7 @@
             this.totalProdutosSTTextBox.Name = "totalProdutosSTTextBox";
             this.totalProdutosSTTextBox.Size = new System.Drawing.Size(103, 20);
             this.totalProdutosSTTextBox.TabIndex = 41;
+            this.totalProdutosSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalProdutosSTTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // FrmEntrada

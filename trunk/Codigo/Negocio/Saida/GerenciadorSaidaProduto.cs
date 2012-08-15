@@ -10,6 +10,7 @@ using Dados;
 using Util;
 using System.Data.Common;
 
+
 namespace Negocio
 {
     public class GerenciadorSaidaProduto : IGerenciadorSaidaProduto
@@ -42,6 +43,9 @@ namespace Negocio
 
             if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                 throw new NegocioException("Não é possível inserir produtos numa transferência para depósito cuja nota fiscal já foi emitida.");
+
+            if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                throw new NegocioException("Não é possível inserir produtos numa devolução para fornecedor cuja nota fiscal já foi emitida.");
             
             try
             {
@@ -73,6 +77,10 @@ namespace Negocio
                 else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                 {
                     throw new NegocioException("Não é possível remover produtos de uma Saída para Deposito com Nota Fiscal já emitida.");
+                }
+                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                {
+                    throw new NegocioException("Não é possível remover produtos de uma Devolução para Fornecedor com Nota Fiscal já emitida.");
                 }
 
                 tb_SaidaProdutoTA.Delete(saidaProduto.CodSaidaProduto);

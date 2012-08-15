@@ -72,6 +72,8 @@
     <Compile Include="Conta\IGerenciadorFormaPagamento.cs" />
     <Compile Include="Conta\GerenciadorConta.cs" />
     <Compile Include="Conta\IGerenciadorConta.cs" />
+    <Compile Include="Cfop\GerenciadorCfop.cs" />
+    <Compile Include="Cfop\IGerenciadorCfop.cs" />
     <Compile Include="DocumentoPagamento\GerenciadorDocumentoPagamento.cs" />
     <Compile Include="DocumentoPagamento\IGerenciadorDocumentoPagamento.cs" />
     <Compile Include="Entrada\GerenciadorEntrada.cs" />

@@ -150,7 +150,7 @@ namespace Telas
 
         private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_PRE_VENDA);
+            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_ORCAMENTO);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
@@ -276,6 +276,13 @@ namespace Telas
             FrmSaida frmSaida = new FrmSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
+        }
+
+        private void códigoFiscalDeOperaçãoCFOPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCfop frmCfop = new FrmCfop();
+            frmCfop.ShowDialog();
+            frmCfop.Dispose();
         }
 
     }

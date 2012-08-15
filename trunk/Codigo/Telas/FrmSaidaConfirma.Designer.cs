@@ -97,6 +97,7 @@
             this.trocoTextBox.ForeColor = System.Drawing.Color.Red;
             this.trocoTextBox.Location = new System.Drawing.Point(6, 40);
             this.trocoTextBox.Name = "trocoTextBox";
+            this.trocoTextBox.ReadOnly = true;
             this.trocoTextBox.Size = new System.Drawing.Size(357, 45);
             this.trocoTextBox.TabIndex = 11;
             this.trocoTextBox.TabStop = false;
@@ -107,7 +108,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 171);
+            this.ClientSize = new System.Drawing.Size(377, 171);
             this.ControlBox = false;
             this.Controls.Add(this.trocoTextBox);
             this.Controls.Add(this.label2);

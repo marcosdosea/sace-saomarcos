@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autenticacao.cs" />
+    <Compile Include="Cfop.cs" />
     <Compile Include="DocumentoPagamento.cs" />
     <Compile Include="EntradaPagamento.cs" />
     <Compile Include="Pagamento.cs" />
