@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssembliesMetrics>
+  <Assembly Assembly="Dados v1.0.0.0" NTypes="151" NAbstractTypes="0" NILInstructionInAsm="101797" NbLinesOfCodeInAsm="15248" NbLinesOfCommentInAsm="479" PercentageCommentInAsm="3" AfferentCoupling="41" EfferentCoupling="130" RelationalCohesion="3.63" Instability="0.76" Abstractness="0" DistFrMainSeq="0.17" NormDistFrMainSeq="0.24" />
+  <Assembly Assembly="Dominio v1.0.0.0" NTypes="11" NAbstractTypes="0" NILInstructionInAsm="993" NbLinesOfCodeInAsm="160" NbLinesOfCommentInAsm="18" PercentageCommentInAsm="10" AfferentCoupling="28" EfferentCoupling="10" RelationalCohesion="0.09" Instability="0.26" Abstractness="0" DistFrMainSeq="0.52" NormDistFrMainSeq="0.74" />
+  <Assembly Assembly="Negocio v1.0.0.0" NTypes="29" NAbstractTypes="12" NILInstructionInAsm="1538" NbLinesOfCodeInAsm="170" NbLinesOfCommentInAsm="77" PercentageCommentInAsm="31" AfferentCoupling="16" EfferentCoupling="47" RelationalCohesion="1.17" Instability="0.75" Abstractness="0.41" DistFrMainSeq="0.11" NormDistFrMainSeq="0.16" />
+  <Assembly Assembly="Telas v1.0.0.0" NTypes="37" NAbstractTypes="0" NILInstructionInAsm="57860" NbLinesOfCodeInAsm="10188" NbLinesOfCommentInAsm="3462" PercentageCommentInAsm="25" AfferentCoupling="0" EfferentCoupling="248" RelationalCohesion="2.46" Instability="1" Abstractness="0" DistFrMainSeq="0" NormDistFrMainSeq="0" />
+  <Assembly Assembly="Util v1.0.0.0" NTypes="3" NAbstractTypes="0" NILInstructionInAsm="525" NbLinesOfCodeInAsm="81" NbLinesOfCommentInAsm="49" PercentageCommentInAsm="37" AfferentCoupling="0" EfferentCoupling="18" RelationalCohesion="0.33" Instability="1" Abstractness="0" DistFrMainSeq="0" NormDistFrMainSeq="0" />
+</AssembliesMetrics>

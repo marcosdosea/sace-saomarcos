@@ -1,0 +1,7 @@
+1) Instalar Banco de Dados MySQL
+2) Instalar o MySQL Workbench
+2) Rodar Scripts de Preenchimento na Rede
+3) Gerar Executável da Aplicação
+   - atualizar String de conexão no projeto Dados
+   - atualizar caminhos das pastas de comunicação no Global.cs
+4) 
