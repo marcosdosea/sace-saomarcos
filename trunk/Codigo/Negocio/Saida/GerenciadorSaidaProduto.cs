@@ -97,14 +97,26 @@ namespace Negocio
             SumSaidaProdutoTableAdapter sumSaidaTA = new SumSaidaProdutoTableAdapter();
             saceDataSetConsultas.SumSaidaProdutoDataTable sumSaidaProdutoDT = sumSaidaTA.GetSumTotaisByCodSaida(saida.CodSaida);
 
-            saida.Total = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumSubtotal"].ToString());
-            saida.TotalAVista = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumSubtotalAVista"].ToString());
-            saida.BaseCalculoICMS = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumBaseCalculoICMS"].ToString());
-            saida.ValorICMS = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumValorICMS"].ToString());
-            saida.BaseCalculoICMSSubst = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumBaseCalculoICMSSubst"].ToString());
-            saida.ValorICMSSubst = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumValorICMSSubst"].ToString());
-            saida.ValorIPI = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumvalorIPI"].ToString());
-
+            if (sumSaidaProdutoDT.Rows.Count > 0)
+            {
+                saida.Total = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumSubtotal"].ToString());
+                saida.TotalAVista = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumSubtotalAVista"].ToString());
+                saida.BaseCalculoICMS = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumBaseCalculoICMS"].ToString());
+                saida.ValorICMS = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumValorICMS"].ToString());
+                saida.BaseCalculoICMSSubst = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumBaseCalculoICMSSubst"].ToString());
+                saida.ValorICMSSubst = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumValorICMSSubst"].ToString());
+                saida.ValorIPI = Convert.ToDecimal(sumSaidaProdutoDT.Rows[0]["sumvalorIPI"].ToString());
+            }
+            else
+            {
+                saida.Total = 0;
+                saida.TotalAVista = 0;
+                saida.BaseCalculoICMS = 0;
+                saida.ValorICMS = 0;
+                saida.BaseCalculoICMSSubst = 0;
+                saida.ValorICMSSubst = 0;
+                saida.ValorIPI = 0;
+            }
             GerenciadorSaida.getInstace().atualizar(saida);
         }
 

@@ -13,87 +13,18 @@ namespace Dominio
         public const Char SITUACAO_QUITADA = 'Q';
         public const Char SITUACAO_PARCIALMENTE_QUITADA = 'P';
         public const Char SITUACAO_CANCELADA = 'C';
-        
-        private Int64 codConta;
 
-        public Int64 CodConta
-        {
-            get { return codConta; }
-            set { codConta = value; }
-        }
-        private Int64 codEntrada;
-
-        public Int64 CodEntrada
-        {
-            get { return codEntrada; }
-            set { codEntrada = value; }
-        }
-        private Int64 codSaida;
-
-        public Int64 CodSaida
-        {
-            get { return codSaida; }
-            set { codSaida = value; }
-        }
-        private Int64 codDocumento;
-
-        public Int64 CodDocumento
-        {
-            get { return codDocumento; }
-            set { codDocumento = value; }
-        }
-
-        private Int64 codPlanoConta;
-
-        public Int64 CodPlanoConta
-        {
-            get { return codPlanoConta; }
-            set { codPlanoConta = value; }
-        }
-        private Int64 codPessoa;
-
-        public Int64 CodPessoa
-        {
-            get { return codPessoa; }
-            set { codPessoa = value; }
-        }
-        private DateTime dataVencimento;
-
-        public DateTime DataVencimento
-        {
-            get { return dataVencimento; }
-            set { dataVencimento = value; }
-        }
-        private decimal valor;
-
-        public decimal Valor
-        {
-            get { return valor; }
-            set { valor = value; }
-        }
-        private Char codSituacao;
-
-        public Char CodSituacao
-        {
-            get { return codSituacao; }
-            set { codSituacao = value; }
-        }
-
-        private String observacao;
-
-        public String Observacao
-        {
-            get { return observacao; }
-            set { observacao = value; }
-        }
-        private Char tipoConta;
-
-        public Char TipoConta
-        {
-            get { return tipoConta; }
-            set { tipoConta = value; }
-        }
-
-        public Int64 CodPagamento { get; set; }
+        private Int64 CodConta { get; set; }
+        public Int64 CodEntrada { get; set; }
+        public Int64 CodSaida { get; set; }
+        public Int64 CodDocumento { get; set; }
+        public Int64 CodPlanoConta { get; set; }
+        public Int64 CodPessoa { get; set; }
+        public DateTime DataVencimento { get; set; }
+        public decimal Valor { get; set; }
+        public Char CodSituacao { get; set; }
+        public String Observacao { get; set; }
+        public Char TipoConta { get; set; }
+        public decimal Desconto { get; set; }
     }
 }

@@ -14,10 +14,12 @@ namespace Dominio
         public const String ST_SUBSTITUICAO_ICMS_COBRADO = "60";
         public const String ST_SUBSTITUICAO_ICMS_REDUCAO_BC = "70";
         public const String ST_OUTRAS = "90";
-
+        public const String ST_NAO_TRIBUTADA = "41";
+        
         public const String ST_SIMPLES_TRIBUTADA_PERM_CREDITO = "101";
         public const String ST_SIMPLES_TRIBUTADA_SEM_PERM_CREDITO = "102";
         public const String ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
+        public const String ST_SIMPLES_NAO_TRIBUTADA = "400";
         public const String ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
         public const String ST_SIMPLES_OUTRAS = "900";
 

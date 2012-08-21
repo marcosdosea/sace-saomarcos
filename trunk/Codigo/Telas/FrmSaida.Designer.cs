@@ -126,6 +126,7 @@
             this.baseCalculoICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
+            this.backgroundWorkerRecuperaCupons = new System.ComponentModel.BackgroundWorker();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -1005,7 +1006,6 @@
             // 
             // baseCalculoICMSTextBox
             // 
-            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "baseCalculoICMS", true));
             this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(201, 487);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
@@ -1017,7 +1017,6 @@
             // 
             // valorICMSTextBox
             // 
-            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "valorICMS", true));
             this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorICMSTextBox.Location = new System.Drawing.Point(352, 487);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
@@ -1028,7 +1027,6 @@
             // 
             // baseCalculoICMSSubstTextBox
             // 
-            this.baseCalculoICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "baseCalculoICMSSubst", true));
             this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(515, 487);
             this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
@@ -1040,7 +1038,6 @@
             // 
             // valorICMSSubstTextBox
             // 
-            this.valorICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "valorICMSSubst", true));
             this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorICMSSubstTextBox.Location = new System.Drawing.Point(677, 487);
             this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
@@ -1051,7 +1048,6 @@
             // 
             // valorIPITextBox
             // 
-            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbsaidaprodutoBindingSource, "valorIPI", true));
             this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorIPITextBox.Location = new System.Drawing.Point(855, 487);
             this.valorIPITextBox.Name = "valorIPITextBox";
@@ -1059,6 +1055,10 @@
             this.valorIPITextBox.Size = new System.Drawing.Size(142, 29);
             this.valorIPITextBox.TabIndex = 52;
             this.valorIPITextBox.TabStop = false;
+            // 
+            // backgroundWorkerRecuperaCupons
+            // 
+            this.backgroundWorkerRecuperaCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerRecuperaCupons_DoWork);
             // 
             // FrmSaida
             // 
@@ -1218,5 +1218,6 @@
         private System.Windows.Forms.TextBox baseCalculoICMSSubstTextBox;
         private System.Windows.Forms.TextBox valorICMSSubstTextBox;
         private System.Windows.Forms.TextBox valorIPITextBox;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerRecuperaCupons;
     }
 }

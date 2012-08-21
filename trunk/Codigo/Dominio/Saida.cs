@@ -48,6 +48,9 @@ namespace Dominio
         public decimal PesoBruto { get; set; }
         public decimal PesoLiquido { get; set; }
         public long CodEmpresaFrete { get; set; }
+        public string DescricaoTipoSaida { get; set; }
+        public string NomeCliente { get; set; }
+        public string DescricaoSituacaoPagamentos { get; set; }
 
     }
 }
