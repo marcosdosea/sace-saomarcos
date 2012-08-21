@@ -176,6 +176,9 @@ namespace Negocio
                 saida.PesoBruto = Convert.ToDecimal(saidaDT.Rows[0]["pesoBruto"].ToString());
                 saida.PesoLiquido = Convert.ToDecimal(saidaDT.Rows[0]["pesoLiquido"].ToString());
                 saida.CodEmpresaFrete = Convert.ToInt64(saidaDT.Rows[0]["codEmpresaFrete"].ToString());
+                saida.DescricaoTipoSaida = saidaDT.Rows[0]["descricaoTipoSaida"].ToString();
+                saida.NomeCliente = saidaDT.Rows[0]["nomeCliente"].ToString();
+                saida.DescricaoSituacaoPagamentos = saidaDT.Rows[0]["descricaoSituacaoPagamentos"].ToString();
             }
             return saida;
         }
@@ -186,7 +189,7 @@ namespace Negocio
             {
                 saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 atualizar(saida);
-            } 
+            }
             else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipoSaidaEncerramento.Equals(Saida.TIPO_PRE_VENDA))
             {
                 saida.TipoSaida = Saida.TIPO_PRE_VENDA;
@@ -229,7 +232,6 @@ namespace Negocio
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                     registrarBaixaEstoque(saidaProdutos);
                 }
-                atualizar(saida);
             }
         }
 
@@ -547,37 +549,40 @@ namespace Negocio
             try
             {
                 DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR_RETORNO);
-                // Busca automaticamente todos os arquivos em todos os subdiretórios
-                FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
-                foreach (FileInfo file in Files)
+                if (Dir.Exists)
                 {
-                    bool sucesso = false;
-                    String numeroCF = null;
-                    String linha = null;
-                    StreamReader reader = new StreamReader(file.FullName);
+                    // Busca automaticamente todos os arquivos em todos os subdiretórios
+                    FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
+                    foreach (FileInfo file in Files)
+                    {
+                        bool sucesso = false;
+                        String numeroCF = null;
+                        String linha = null;
+                        StreamReader reader = new StreamReader(file.FullName);
 
-                    if ((linha = reader.ReadLine()) != null)
-                    {
-                        sucesso = linha.Equals("OK");
-                        if (sucesso && ((linha = reader.ReadLine()) != null))
+                        if ((linha = reader.ReadLine()) != null)
                         {
-                            numeroCF = linha;
+                            sucesso = linha.Equals("OK");
+                            if (sucesso && ((linha = reader.ReadLine()) != null))
+                            {
+                                numeroCF = linha;
+                            }
                         }
-                    }
-                    reader.Close();
-                    if (sucesso)
-                    {
-                        Saida saida = obterSaida(Convert.ToInt64(file.Name.Replace(".TXT", "")));
-                        if (saida != null)
+                        reader.Close();
+                        if (sucesso)
                         {
-                            saida.PedidoGerado = numeroCF;
-                            saida.TipoSaida = Saida.TIPO_VENDA;
-                            atualizar(saida);
-                            atualizou = true;
+                            Saida saida = obterSaida(Convert.ToInt64(file.Name.Replace(".TXT", "")));
+                            if (saida != null)
+                            {
+                                saida.PedidoGerado = numeroCF;
+                                saida.TipoSaida = Saida.TIPO_VENDA;
+                                atualizar(saida);
+                                atualizou = true;
+                            }
                         }
+                        file.CopyTo(Global.PASTA_COMUNICACAO_SERVIDOR_BACKUP + file.Name, true);
+                        file.Delete();
                     }
-                    file.CopyTo(Global.PASTA_COMUNICACAO_SERVIDOR_BACKUP + file.Name, true);
-                    file.Delete();
                 }
             }
             catch (Exception e)
@@ -637,6 +642,7 @@ namespace Negocio
                 imp.ImpColLF(39, "CPF/CNPF: " + cliente.CpfCnpj);
                 imp.Imp("No do Documento: " + saida.CodSaida);
                 imp.ImpColLF(30, "No do Documento Fiscal: " + saida.PedidoGerado);
+                imp.ImpLF("Data: " + saida.DataSaida.ToShortDateString());
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpLF("Cod  Produto                                   Qtdade    UN ");
                 imp.ImpLF("                                      Preco(R$) Subtotal(R$)");
@@ -666,6 +672,10 @@ namespace Negocio
                 imp.ImpColLFDireita(30, 59, imp.NegritoOn + "Total Pagar:" + saida.TotalAVista + imp.NegritoOff);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
+                if (!saida.PedidoGerado.Equals(""))
+                {
+                    imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
+                }
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
 
                 imp.Pula(8);
@@ -704,6 +714,7 @@ namespace Negocio
                 imp.ImpLF(Global.LINHA);
                 imp.ImpColLFCentralizado(0, 79, imp.NegritoOn + pessoaLoja.Nome + imp.NegritoOff);
                 imp.ImpColLFCentralizado(0, 79, pessoaLoja.Endereco + "                                     Fone: " + pessoaLoja.Fone1);
+                imp.ImpLF("Data : " + saida.DataSaida.ToShortDateString());
                 imp.ImpLF(Global.LINHA);
 
                 Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saida.CodCliente);

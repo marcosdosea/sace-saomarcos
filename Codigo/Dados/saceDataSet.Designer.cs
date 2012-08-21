@@ -16087,26 +16087,37 @@ namespace Dados {
                 this.columncodSaida.AutoIncrementStep = -1;
                 this.columncodSaida.AllowDBNull = false;
                 this.columncodSaida.Unique = true;
-                this.columndataSaida.AllowDBNull = false;
+                this.columndataSaida.DateTimeMode = global::System.Data.DataSetDateTime.Local;
                 this.columncodCliente.AllowDBNull = false;
+                this.columncodCliente.DefaultValue = ((long)(1));
                 this.columncodTipoSaida.AllowDBNull = false;
+                this.columncodTipoSaida.DefaultValue = ((int)(1));
+                this.columncodProfissional.DefaultValue = ((long)(1));
                 this.columnpedidoGerado.MaxLength = 10;
                 this.columncpf_cnpj.MaxLength = 14;
                 this.columncodSituacaoPagamentos.AllowDBNull = false;
+                this.columncodSituacaoPagamentos.DefaultValue = ((int)(1));
                 this.columnentregaRealizada.AllowDBNull = false;
+                this.columnentregaRealizada.DefaultValue = ((bool)(true));
                 this.columnnfe.MaxLength = 30;
                 this.columnespecieVolumes.MaxLength = 30;
                 this.columnmarca.MaxLength = 30;
                 this.columnnomeCliente.AllowDBNull = false;
+                this.columnnomeCliente.DefaultValue = ((string)(""));
                 this.columnnomeCliente.MaxLength = 50;
                 this.columnnomeProfissional.AllowDBNull = false;
+                this.columnnomeProfissional.DefaultValue = ((string)(""));
                 this.columnnomeProfissional.MaxLength = 50;
                 this.columndescricaoTipoSaida.AllowDBNull = false;
+                this.columndescricaoTipoSaida.DefaultValue = ((string)(""));
                 this.columndescricaoTipoSaida.MaxLength = 45;
                 this.columndescricaoSituacaoPagamentos.AllowDBNull = false;
+                this.columndescricaoSituacaoPagamentos.DefaultValue = ((string)(""));
                 this.columndescricaoSituacaoPagamentos.MaxLength = 20;
                 this.columncodEmpresaFrete.AllowDBNull = false;
+                this.columncodEmpresaFrete.DefaultValue = ((long)(1));
                 this.columnnomeEmpresaFrete.AllowDBNull = false;
+                this.columnnomeEmpresaFrete.DefaultValue = ((string)(""));
                 this.columnnomeEmpresaFrete.MaxLength = 50;
             }
             
@@ -22975,7 +22986,12 @@ namespace Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime dataSaida {
                 get {
-                    return ((global::System.DateTime)(this[this.tabletb_saida.dataSaidaColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tabletb_saida.dataSaidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'dataSaida\' in table \'tb_saida\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tabletb_saida.dataSaidaColumn] = value;
@@ -23506,6 +23522,18 @@ namespace Dados {
                 set {
                     this[this.tabletb_saida.nomeEmpresaFreteColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsdataSaidaNull() {
+                return this.IsNull(this.tabletb_saida.dataSaidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetdataSaidaNull() {
+                this[this.tabletb_saida.dataSaidaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -46478,7 +46506,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(
-                    System.DateTime dataSaida, 
+                    global::System.Nullable<global::System.DateTime> dataSaida, 
                     long codCliente, 
                     int codTipoSaida, 
                     global::System.Nullable<long> codProfissional, 
@@ -46510,7 +46538,12 @@ WHERE        (codSaida = @Original_codSaida)";
                     global::System.Nullable<decimal> pesoBruto, 
                     global::System.Nullable<decimal> pesoLiquido, 
                     long codEmpresaFrete) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(dataSaida));
+            if ((dataSaida.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(dataSaida.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             this.Adapter.InsertCommand.Parameters[1].Value = ((long)(codCliente));
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(codTipoSaida));
             if ((codProfissional.HasValue == true)) {
@@ -46693,7 +46726,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    System.DateTime dataSaida, 
+                    global::System.Nullable<global::System.DateTime> dataSaida, 
                     long codCliente, 
                     int codTipoSaida, 
                     global::System.Nullable<long> codProfissional, 
@@ -46726,7 +46759,12 @@ WHERE        (codSaida = @Original_codSaida)";
                     global::System.Nullable<decimal> pesoLiquido, 
                     long codEmpresaFrete, 
                     long Original_codSaida) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(dataSaida));
+            if ((dataSaida.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(dataSaida.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((long)(codCliente));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(codTipoSaida));
             if ((codProfissional.HasValue == true)) {

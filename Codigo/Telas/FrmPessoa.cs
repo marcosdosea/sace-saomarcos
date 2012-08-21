@@ -48,6 +48,8 @@ namespace Telas
             codPessoaTextBox.Enabled = false;
             cidadeTextBox.Text = "ARACAJU";
             ufTextBox.Text = "SE";
+            limiteCompraTextBox.Text = "0";
+            valorComissaoTextBox.Text = "0";
             ehFabricanteCheckBox.Checked = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);

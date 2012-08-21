@@ -32,7 +32,6 @@ namespace Telas
         {
             TratamentoException eh = new TratamentoException();
             Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarException);
-
             Application.Run(new Principal());
             
         }
@@ -229,10 +228,6 @@ namespace Telas
 
         }
 
-        private void produtosToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void produtosToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {

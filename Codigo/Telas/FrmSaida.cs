@@ -22,13 +22,14 @@ namespace Telas
         private Saida saida;
         private SaidaProduto saidaProduto;
         private String ultimoCodigoBarraLido = "";
+        private int tipoSaidaFormulario;
 
 
         public FrmSaida(int tipoSaida)
         {
             InitializeComponent();
             saida = new Saida();
-            saida.TipoSaida = tipoSaida;
+            tipoSaidaFormulario = tipoSaida;
             saidaProduto = new SaidaProduto();
             produto = new Produto();
         }
@@ -44,7 +45,7 @@ namespace Telas
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
 
             Cursor.Current = Cursors.WaitCursor;
-            GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
+            backgroundWorkerRecuperaCupons.RunWorkerAsync();
 
             this.tb_produtoTableAdapter.FillExibiveis(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
 
@@ -68,12 +69,13 @@ namespace Telas
         /// <param name="e"></param>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
+            backgroundWorkerRecuperaCupons.RunWorkerAsync();
 
             Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.CodSaida != -1)
             {
+                tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
                 tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", frmSaidaPesquisa.CodSaida);
             }
             frmSaidaPesquisa.Dispose();
@@ -86,6 +88,7 @@ namespace Telas
         /// <param name="e"></param>
         private void btnNovo_Click(object sender, EventArgs e)
         {
+            saida.CodSaida = -1;
             saida.CodCliente = Global.CLIENTE_PADRAO;
             saida.CodProfissional = Global.PROFISSIONAL_PADRAO;
             saida.CodEmpresaFrete = Global.CLIENTE_PADRAO;
@@ -117,18 +120,22 @@ namespace Telas
             saida.ValorIPI = 0;
             saida.ValorSeguro = 0;
             saida.Marca = "DIVERSAS";
+            saida.TipoSaida = tipoSaidaFormulario;
             saida.EspecieVolumes = "VOLUMES";
 
             DataRowView saidaR = (DataRowView) tb_saidaBindingSource.AddNew();
-            saceDataSet.tb_saidaRow saidaRow = (saceDataSet.tb_saidaRow)saidaR.Row;
+            //saceDataSet.tb_saidaRow saidaRow = (saceDataSet.tb_saidaRow)saidaR.Row;
 
-            saidaRow.codCliente = Global.CLIENTE_PADRAO;
+            //saidaRow.codCliente = Global.CLIENTE_PADRAO;
+
+            baseCalculoICMSTextBox.Text = "0.00";
+            valorICMSTextBox.Text = "0.00";
+            baseCalculoICMSSubstTextBox.Text = "0.00";
+            valorICMSSubstTextBox.Text = "0.00";
+            valorIPITextBox.Text = "0.00";
+            dataSaidaDateTimePicker.Text = saida.DataSaida.ToShortDateString();
 
 
-            saida.CodSaida = GerenciadorSaida.getInstace().inserir(saida);
-            tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
-            tb_saidaBindingSource.MoveLast();
-                
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
             habilitaBotoes(false);
@@ -192,7 +199,16 @@ namespace Telas
         {
             if (codProdutoComboBox.Focused)
             {
-                if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
+                long codSaida = Int64.Parse(codSaidaTextBox.Text);
+
+                if ((tb_saida_produtoDataGridView.RowCount == 0) && (codSaida <= 0) ) {
+                    tb_saidaBindingSource.CancelEdit();
+                    tb_saidaBindingSource.EndEdit();
+                    tb_saidaBindingSource.MoveLast();
+                    habilitaBotoes(true);
+                    estado = EstadoFormulario.ESPERA;
+                    btnNovo.Focus();
+                } else if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)) && (codSaida > 0) )
                 {
                     Saida saida = GerenciadorSaida.getInstace().obterSaida(Int64.Parse(codSaidaTextBox.Text));
                     GerenciadorSaida.getInstace().remover(saida);
@@ -224,6 +240,12 @@ namespace Telas
         /// <param name="e"></param>
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            if (saida.CodSaida < 0)
+            {
+                saida.CodSaida = GerenciadorSaida.getInstace().inserir(saida);
+                codSaidaTextBox.Text = saida.CodSaida.ToString();
+            }
+                        
             saidaProduto = new SaidaProduto();
             saidaProduto.CodProduto = produto.CodProduto;
             saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
@@ -247,13 +269,6 @@ namespace Telas
                 gSaidaProduto.inserir(saidaProduto, saida);
                 codSaidaTextBox_TextChanged(sender, e);
                 tbsaidaprodutoBindingSource.MoveLast();
-
-                if (tb_saida_produtoDataGridView.RowCount > 0)
-                {
-                    saida = GerenciadorSaida.getInstace().obterSaida(Convert.ToInt64(codSaidaTextBox.Text));
-                    totalTextBox.Text = saida.Total.ToString();
-                    totalAVistaTextBox.Text = saida.TotalAVista.ToString();
-                }
             }
         }
 
@@ -288,7 +303,7 @@ namespace Telas
         /// </summary>
         private void ObterSaidas()
         {
-            if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO))
+            if (tipoSaidaFormulario.Equals(Saida.TIPO_SAIDA_DEPOSITO))
             {
                 lblSaidaProdutos.Text = "Saída para Depósito";
                 this.Text = "Saída para Depósito";
@@ -297,7 +312,7 @@ namespace Telas
                 this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_SAIDA_DEPOSITO);
                 tb_saida_produtoDataGridView.Height = 370;
             }
-            else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            else if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
             {
                 lblSaidaProdutos.Text = "Devolução de Produtos para Fornecedor";
                 this.Text = "Devolução de Produtos para Fornecedor";
@@ -517,7 +532,9 @@ namespace Telas
         {
             if (!codSaidaTextBox.Text.Trim().Equals(""))
             {
-                tb_saida_produtoTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida_produto, long.Parse(codSaidaTextBox.Text));
+                saida.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
+                tb_saida_produtoTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida_produto, saida.CodSaida);
+                atualizarTelaDadosSaida(saida.CodSaida);
             }
         }
 
@@ -557,16 +574,29 @@ namespace Telas
                     FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
-                    GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
-                    this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
+                    backgroundWorkerRecuperaCupons.RunWorkerAsync();
                 }
-                descricaoTipoSaidaTextBox.Text = ((saceDataSet.tb_saidaRow) ((DataRowView)tb_saidaBindingSource.Current).Row).descricaoTipoSaida;
-                tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
-                //tb_saidaBindingSource.MoveLast();
+                atualizarTelaDadosSaida(saida.CodSaida);
                 tb_produtoBindingSource.MoveFirst();
                 btnNovo.Focus();
             }
             Cursor.Current = Cursors.Default;
+        }
+
+        private void atualizarTelaDadosSaida(long codSaida)
+        {
+            if (codSaida > 0)
+            {
+                saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
+
+                descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
+                pedidoGeradoTextBox.Text = saida.PedidoGerado;
+                nfeTextBox.Text = saida.Nfe;
+                nomeClienteTextBox.Text = saida.NomeCliente;
+                descricaoSituacaoPagamentosTextBox.Text = saida.DescricaoSituacaoPagamentos;
+                totalTextBox.Text = saida.Total.ToString();
+                totalAVistaTextBox.Text = saida.TotalAVista.ToString();
+            }
         }
 
         /// <summary>
@@ -605,7 +635,11 @@ namespace Telas
             }
             else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
             {
-                GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
+                if (MessageBox.Show("Confirma impressão da Nota Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+
+                    GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
+                }
             }
             else
             {
@@ -742,14 +776,16 @@ namespace Telas
                 {
                     excluirProduto(sender, e);
                 } else if (e.KeyCode == Keys.F1) {
-                    if (lblFormaEntrada.Text.Equals(ENTRADA_MANUAL)) {
+                    if (lblFormaEntrada.Text.Equals(ENTRADA_MANUAL))
+                    {
                         lblFormaEntrada.Text = ENTRADA_AUTOMATICA;
                         lblFormaEntrada.ForeColor = Color.Lime;
-                    } else {
+                    }
+                    else
+                    {
                         lblFormaEntrada.Text = ENTRADA_MANUAL;
                         lblFormaEntrada.ForeColor = Color.Red;
                     }
-
                 }
             }
         }
@@ -785,6 +821,11 @@ namespace Telas
                 Control control = (Control)sender;
                 control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
+        }
+
+        private void backgroundWorkerRecuperaCupons_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
         }
 
     }

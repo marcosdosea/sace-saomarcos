@@ -181,14 +181,16 @@ namespace Negocio
                 return !(codCST.Equals(Produto.ST_SUBSTITUICAO) ||
                     codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_COBRADO) ||
                     codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_REDUCAO_BC) ||
-                    codCST.Equals(Produto.ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA));
+                    codCST.Equals(Produto.ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA) ||
+                    codCST.Equals(Produto.ST_NAO_TRIBUTADA) ) ;
             }
             else if ((codCST != null) && (codCST.Trim().Length == 4))
             {
                 codCST = codCST.Substring(1, 3);
 
                 return !(codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
-                    codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO));
+                    codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO) ||
+                    codCST.Equals(Produto.ST_SIMPLES_NAO_TRIBUTADA) );
             }
             
             return false;

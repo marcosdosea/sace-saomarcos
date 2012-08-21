@@ -33,6 +33,7 @@ namespace Negocio
         void gerarDocumentoFiscal(Saida saida);
 
         Boolean atualizarPedidosComDocumentosFiscais();
+
         void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida);
 
 
