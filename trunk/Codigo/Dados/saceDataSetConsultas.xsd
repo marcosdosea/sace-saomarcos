@@ -91,9 +91,9 @@ ORDER BY tb_entrada_produto.codEntradaProduto DESC</CommandText>
             <MainSource>
               <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT        tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, 
-                         tb_saida.pedidoGerado AS CF, tb_conta.codPessoa
+                         tb_saida.pedidoGerado AS CF, tb_conta.codPessoa, tb_conta.desconto, tb_conta.valor - tb_conta.desconto AS valorPagar
 FROM            tb_conta INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_saida ON tb_conta.codSaida = tb_saida.codSaida</CommandText>
@@ -111,6 +111,8 @@ FROM            tb_conta INNER JOIN
               <Mapping SourceColumn="codSituacao" DataSetColumn="codSituacao" />
               <Mapping SourceColumn="CF" DataSetColumn="CF" />
               <Mapping SourceColumn="codPessoa" DataSetColumn="codPessoa" />
+              <Mapping SourceColumn="desconto" DataSetColumn="desconto" />
+              <Mapping SourceColumn="valorPagar" DataSetColumn="valorPagar" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -227,6 +229,8 @@ HAVING        (codSaida = @codSaida)</CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="codPessoa" msprop:Generator_ColumnVarNameInTable="columncodPessoa" msprop:Generator_ColumnPropNameInRow="codPessoa" msprop:Generator_ColumnPropNameInTable="codPessoaColumn" msprop:Generator_UserColumnName="codPessoa" type="xs:long" />
+              <xs:element name="desconto" msprop:Generator_ColumnVarNameInTable="columndesconto" msprop:Generator_ColumnPropNameInRow="desconto" msprop:Generator_ColumnPropNameInTable="descontoColumn" msprop:Generator_UserColumnName="desconto" type="xs:decimal" />
+              <xs:element name="valorPagar" msprop:Generator_ColumnVarNameInTable="columnvalorPagar" msprop:Generator_ColumnPropNameInRow="valorPagar" msprop:Generator_ColumnPropNameInTable="valorPagarColumn" msprop:Generator_UserColumnName="valorPagar" type="xs:decimal" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

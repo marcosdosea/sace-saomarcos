@@ -1059,6 +1059,10 @@ namespace Dados {
             
             private global::System.Data.DataColumn columncodPessoa;
             
+            private global::System.Data.DataColumn columndesconto;
+            
+            private global::System.Data.DataColumn columnvalorPagar;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ContasPessoaDataTable() {
@@ -1158,6 +1162,22 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn descontoColumn {
+                get {
+                    return this.columndesconto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn valorPagarColumn {
+                get {
+                    return this.columnvalorPagar;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1193,7 +1213,7 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContasPessoaRow AddContasPessoaRow(long codSaida, System.DateTime dataVencimento, string descricaoSituacao, decimal valor, string codSituacao, string CF, long codPessoa) {
+            public ContasPessoaRow AddContasPessoaRow(long codSaida, System.DateTime dataVencimento, string descricaoSituacao, decimal valor, string codSituacao, string CF, long codPessoa, decimal desconto, decimal valorPagar) {
                 ContasPessoaRow rowContasPessoaRow = ((ContasPessoaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1203,7 +1223,9 @@ namespace Dados {
                         valor,
                         codSituacao,
                         CF,
-                        codPessoa};
+                        codPessoa,
+                        desconto,
+                        valorPagar};
                 rowContasPessoaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowContasPessoaRow);
                 return rowContasPessoaRow;
@@ -1241,6 +1263,8 @@ namespace Dados {
                 this.columncodSituacao = base.Columns["codSituacao"];
                 this.columnCF = base.Columns["CF"];
                 this.columncodPessoa = base.Columns["codPessoa"];
+                this.columndesconto = base.Columns["desconto"];
+                this.columnvalorPagar = base.Columns["valorPagar"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1262,6 +1286,10 @@ namespace Dados {
                 base.Columns.Add(this.columnCF);
                 this.columncodPessoa = new global::System.Data.DataColumn("codPessoa", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncodPessoa);
+                this.columndesconto = new global::System.Data.DataColumn("desconto", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndesconto);
+                this.columnvalorPagar = new global::System.Data.DataColumn("valorPagar", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvalorPagar);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncodConta}, true));
                 this.columncodConta.AutoIncrement = true;
@@ -1276,6 +1304,8 @@ namespace Dados {
                 this.columncodSituacao.MaxLength = 1;
                 this.columnCF.MaxLength = 10;
                 this.columncodPessoa.AllowDBNull = false;
+                this.columndesconto.AllowDBNull = false;
+                this.columnvalorPagar.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2111,6 +2141,28 @@ namespace Dados {
                 }
                 set {
                     this[this.tableContasPessoa.codPessoaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal desconto {
+                get {
+                    return ((decimal)(this[this.tableContasPessoa.descontoColumn]));
+                }
+                set {
+                    this[this.tableContasPessoa.descontoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal valorPagar {
+                get {
+                    return ((decimal)(this[this.tableContasPessoa.valorPagarColumn]));
+                }
+                set {
+                    this[this.tableContasPessoa.valorPagarColumn] = value;
                 }
             }
             
@@ -3054,6 +3106,8 @@ ORDER BY tb_entrada_produto.codEntradaProduto DESC";
             tableMapping.ColumnMappings.Add("codSituacao", "codSituacao");
             tableMapping.ColumnMappings.Add("CF", "CF");
             tableMapping.ColumnMappings.Add("codPessoa", "codPessoa");
+            tableMapping.ColumnMappings.Add("desconto", "desconto");
+            tableMapping.ColumnMappings.Add("valorPagar", "valorPagar");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -3071,7 +3125,7 @@ ORDER BY tb_entrada_produto.codEntradaProduto DESC";
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, 
-                         tb_saida.pedidoGerado AS CF, tb_conta.codPessoa
+                         tb_saida.pedidoGerado AS CF, tb_conta.codPessoa, tb_conta.desconto, tb_conta.valor - tb_conta.desconto AS valorPagar
 FROM            tb_conta INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_saida ON tb_conta.codSaida = tb_saida.codSaida";

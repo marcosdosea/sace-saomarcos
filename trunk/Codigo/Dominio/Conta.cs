@@ -12,19 +12,20 @@ namespace Dominio
         public const Char SITUACAO_ABERTA = 'A';
         public const Char SITUACAO_QUITADA = 'Q';
         public const Char SITUACAO_PARCIALMENTE_QUITADA = 'P';
-        public const Char SITUACAO_CANCELADA = 'C';
+        public const char SITUACAO_CANCELADA = 'C';
 
-        private Int64 CodConta { get; set; }
-        public Int64 CodEntrada { get; set; }
-        public Int64 CodSaida { get; set; }
-        public Int64 CodDocumento { get; set; }
-        public Int64 CodPlanoConta { get; set; }
-        public Int64 CodPessoa { get; set; }
+        public long CodConta { get; set; }
+        public long CodEntrada { get; set; }
+        public long CodSaida { get; set; }
+        public long CodDocumento { get; set; }
+        public long CodPlanoConta { get; set; }
+        public long CodPessoa { get; set; }
         public DateTime DataVencimento { get; set; }
         public decimal Valor { get; set; }
-        public Char CodSituacao { get; set; }
-        public String Observacao { get; set; }
-        public Char TipoConta { get; set; }
+        public char CodSituacao { get; set; }
+        public string Observacao { get; set; }
+        public char TipoConta { get; set; }
+        public long CodPagamento { get; set; }
         public decimal Desconto { get; set; }
     }
 }

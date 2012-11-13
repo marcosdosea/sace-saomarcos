@@ -13,5 +13,7 @@ namespace Negocio
         MovimentacaoConta obterMovimentacaoConta(Int64 codMovimentacaoConta);
         List<MovimentacaoConta> obterMovimentacaoConta(Conta conta);
         void removerMovimentacoesConta(Conta conta);
+        Dados.saceDataSet.tb_movimentacao_contaDataTable ObterMovimentacaoPorContas(List<Int64> listaCodContas);
+        
     }
 }

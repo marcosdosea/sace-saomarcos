@@ -16,6 +16,7 @@ namespace Negocio
         List<Conta> obterContasSaidaPorCodPagamento(Int64 codSaida, Int64 codPagamento);
 
 
+        Dados.saceDataSetConsultas.ContasPessoaDataTable ObterContasPorPessoaAberta(Int64 codPessoa);
         Dados.saceDataSetConsultas.ContasPessoaDataTable ObterContasPorPessoaSituacaoPeriodo(Int64 codPessoa, List<char> situacoes, DateTime dataInicial, DateTime dataFinal);
         
     }

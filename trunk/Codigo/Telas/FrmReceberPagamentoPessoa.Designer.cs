@@ -59,6 +59,8 @@
              this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
              this.CF = new System.Windows.Forms.DataGridViewTextBoxColumn();
              this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+             this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+             this.valorPagar = new System.Windows.Forms.DataGridViewTextBoxColumn();
              this.tb_movimentacao_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
              this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
              this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,12 +85,11 @@
              this.tb_forma_pagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
              this.codFormaPagamentoComboBox = new System.Windows.Forms.ComboBox();
              this.tb_documento_pagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-             this.codDocumentoPagamentoTextBox = new System.Windows.Forms.TextBox();
              this.descontoTextBox = new System.Windows.Forms.TextBox();
-             this.textBox1 = new System.Windows.Forms.TextBox();
+             this.totalPagarTextBox = new System.Windows.Forms.TextBox();
              this.label10 = new System.Windows.Forms.Label();
              this.dataPagamentoTimePicker = new System.Windows.Forms.DateTimePicker();
-             this.textBox2 = new System.Windows.Forms.TextBox();
+             this.valorPagamentoTextBox = new System.Windows.Forms.TextBox();
              this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
              this.tb_forma_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter();
              this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
@@ -96,6 +97,7 @@
              this.btnImprimir = new System.Windows.Forms.Button();
              this.btnCFNfe = new System.Windows.Forms.Button();
              this.contasPessoaTableAdapter = new Dados.saceDataSetConsultasTableAdapters.ContasPessoaTableAdapter();
+             this.codDocumentoPagamentoComboBox = new System.Windows.Forms.ComboBox();
              codClienteLabel = new System.Windows.Forms.Label();
              codFormaPagamentoLabel = new System.Windows.Forms.Label();
              codDocumentoPagamentoLabel = new System.Windows.Forms.Label();
@@ -159,7 +161,7 @@
              // 
              label11.AutoSize = true;
              label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             label11.Location = new System.Drawing.Point(564, 474);
+             label11.Location = new System.Drawing.Point(632, 474);
              label11.Name = "label11";
              label11.Size = new System.Drawing.Size(123, 18);
              label11.TabIndex = 48;
@@ -169,7 +171,7 @@
              // 
              label12.AutoSize = true;
              label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             label12.Location = new System.Drawing.Point(706, 474);
+             label12.Location = new System.Drawing.Point(769, 472);
              label12.Name = "label12";
              label12.Size = new System.Drawing.Size(159, 18);
              label12.TabIndex = 50;
@@ -192,7 +194,7 @@
              this.panel1.Controls.Add(this.label1);
              this.panel1.Location = new System.Drawing.Point(0, -1);
              this.panel1.Name = "panel1";
-             this.panel1.Size = new System.Drawing.Size(952, 41);
+             this.panel1.Size = new System.Drawing.Size(1000, 41);
              this.panel1.TabIndex = 20;
              // 
              // btnSalvar
@@ -236,7 +238,7 @@
              this.codClienteComboBox.FormattingEnabled = true;
              this.codClienteComboBox.Location = new System.Drawing.Point(7, 104);
              this.codClienteComboBox.Name = "codClienteComboBox";
-             this.codClienteComboBox.Size = new System.Drawing.Size(647, 33);
+             this.codClienteComboBox.Size = new System.Drawing.Size(732, 33);
              this.codClienteComboBox.TabIndex = 25;
              this.codClienteComboBox.ValueMember = "codPessoa";
              this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codClienteComboBox_KeyPress);
@@ -257,9 +259,9 @@
              this.groupBox2.Controls.Add(this.quitadaCheckBox);
              this.groupBox2.Controls.Add(this.abertaCheckBox);
              this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-             this.groupBox2.Location = new System.Drawing.Point(794, 46);
+             this.groupBox2.Location = new System.Drawing.Point(882, 46);
              this.groupBox2.Name = "groupBox2";
-             this.groupBox2.Size = new System.Drawing.Size(143, 91);
+             this.groupBox2.Size = new System.Drawing.Size(118, 91);
              this.groupBox2.TabIndex = 30;
              this.groupBox2.TabStop = false;
              this.groupBox2.Text = "Situação Conta";
@@ -273,6 +275,7 @@
              this.quitadaCheckBox.TabIndex = 1;
              this.quitadaCheckBox.Text = "Quitada";
              this.quitadaCheckBox.UseVisualStyleBackColor = true;
+             this.quitadaCheckBox.CheckedChanged += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
              // 
              // abertaCheckBox
              // 
@@ -285,21 +288,23 @@
              this.abertaCheckBox.TabIndex = 0;
              this.abertaCheckBox.Text = "Aberta";
              this.abertaCheckBox.UseVisualStyleBackColor = true;
+             this.abertaCheckBox.CheckedChanged += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
              // 
              // dataInicioDateTimePicker
              // 
              this.dataInicioDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
              this.dataInicioDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-             this.dataInicioDateTimePicker.Location = new System.Drawing.Point(665, 65);
+             this.dataInicioDateTimePicker.Location = new System.Drawing.Point(753, 65);
              this.dataInicioDateTimePicker.Name = "dataInicioDateTimePicker";
              this.dataInicioDateTimePicker.Size = new System.Drawing.Size(117, 24);
              this.dataInicioDateTimePicker.TabIndex = 27;
+             this.dataInicioDateTimePicker.Leave += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
              // 
              // label2
              // 
              this.label2.AutoSize = true;
              this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             this.label2.Location = new System.Drawing.Point(662, 43);
+             this.label2.Location = new System.Drawing.Point(750, 43);
              this.label2.Name = "label2";
              this.label2.Size = new System.Drawing.Size(77, 18);
              this.label2.TabIndex = 30;
@@ -309,7 +314,7 @@
              // 
              this.label3.AutoSize = true;
              this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             this.label3.Location = new System.Drawing.Point(662, 91);
+             this.label3.Location = new System.Drawing.Point(750, 91);
              this.label3.Name = "label3";
              this.label3.Size = new System.Drawing.Size(78, 18);
              this.label3.TabIndex = 32;
@@ -319,10 +324,11 @@
              // 
              this.dataFinalDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
              this.dataFinalDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-             this.dataFinalDateTimePicker.Location = new System.Drawing.Point(665, 113);
+             this.dataFinalDateTimePicker.Location = new System.Drawing.Point(753, 113);
              this.dataFinalDateTimePicker.Name = "dataFinalDateTimePicker";
              this.dataFinalDateTimePicker.Size = new System.Drawing.Size(117, 24);
              this.dataFinalDateTimePicker.TabIndex = 29;
+             this.dataFinalDateTimePicker.Leave += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
              // 
              // saceDataSetConsultas
              // 
@@ -346,15 +352,19 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.CF,
-            this.dataGridViewTextBoxColumn5});
+            this.dataGridViewTextBoxColumn5,
+            this.desconto,
+            this.valorPagar});
              this.contasPessoaDataGridView.DataSource = this.contasPessoaBindingSource;
              this.contasPessoaDataGridView.Location = new System.Drawing.Point(7, 176);
              this.contasPessoaDataGridView.Name = "contasPessoaDataGridView";
              this.contasPessoaDataGridView.ReadOnly = true;
              this.contasPessoaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-             this.contasPessoaDataGridView.Size = new System.Drawing.Size(548, 193);
+             this.contasPessoaDataGridView.Size = new System.Drawing.Size(732, 193);
+             this.contasPessoaDataGridView.StandardTab = true;
              this.contasPessoaDataGridView.TabIndex = 32;
              this.contasPessoaDataGridView.TabStop = false;
+             this.contasPessoaDataGridView.SelectionChanged += new System.EventHandler(this.ContasPessoaDataGridView_SelectionChanged);
              // 
              // dataGridViewTextBoxColumn1
              // 
@@ -383,7 +393,9 @@
              // 
              // dataGridViewTextBoxColumn4
              // 
+             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
              this.dataGridViewTextBoxColumn4.DataPropertyName = "descricaoSituacao";
+             this.dataGridViewTextBoxColumn4.FillWeight = 70F;
              this.dataGridViewTextBoxColumn4.HeaderText = "Situaçao";
              this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
              this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -405,6 +417,22 @@
              this.dataGridViewTextBoxColumn5.HeaderText = "Valor (R$)";
              this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
              this.dataGridViewTextBoxColumn5.ReadOnly = true;
+             // 
+             // desconto
+             // 
+             this.desconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+             this.desconto.DataPropertyName = "desconto";
+             this.desconto.FillWeight = 70F;
+             this.desconto.HeaderText = "Descto (R$)";
+             this.desconto.Name = "desconto";
+             this.desconto.ReadOnly = true;
+             // 
+             // valorPagar
+             // 
+             this.valorPagar.DataPropertyName = "valorPagar";
+             this.valorPagar.HeaderText = "Total (R$)";
+             this.valorPagar.Name = "valorPagar";
+             this.valorPagar.ReadOnly = true;
              // 
              // tb_movimentacao_contaBindingSource
              // 
@@ -430,10 +458,10 @@
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewCheckBoxColumn1});
              this.tb_movimentacao_contaDataGridView.DataSource = this.tb_movimentacao_contaBindingSource;
-             this.tb_movimentacao_contaDataGridView.Location = new System.Drawing.Point(561, 176);
+             this.tb_movimentacao_contaDataGridView.Location = new System.Drawing.Point(756, 176);
              this.tb_movimentacao_contaDataGridView.Name = "tb_movimentacao_contaDataGridView";
              this.tb_movimentacao_contaDataGridView.ReadOnly = true;
-             this.tb_movimentacao_contaDataGridView.Size = new System.Drawing.Size(376, 193);
+             this.tb_movimentacao_contaDataGridView.Size = new System.Drawing.Size(244, 193);
              this.tb_movimentacao_contaDataGridView.TabIndex = 34;
              this.tb_movimentacao_contaDataGridView.TabStop = false;
              // 
@@ -443,6 +471,7 @@
              this.dataGridViewTextBoxColumn6.HeaderText = "Movimento";
              this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
              this.dataGridViewTextBoxColumn6.ReadOnly = true;
+             this.dataGridViewTextBoxColumn6.Visible = false;
              // 
              // dataGridViewTextBoxColumn7
              // 
@@ -536,7 +565,7 @@
              // 
              this.label5.AutoSize = true;
              this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             this.label5.Location = new System.Drawing.Point(558, 153);
+             this.label5.Location = new System.Drawing.Point(753, 153);
              this.label5.Name = "label5";
              this.label5.Size = new System.Drawing.Size(96, 18);
              this.label5.TabIndex = 34;
@@ -546,7 +575,7 @@
              // 
              this.label7.AutoSize = true;
              this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             this.label7.Location = new System.Drawing.Point(259, 383);
+             this.label7.Location = new System.Drawing.Point(443, 383);
              this.label7.Name = "label7";
              this.label7.Size = new System.Drawing.Size(97, 18);
              this.label7.TabIndex = 36;
@@ -556,7 +585,7 @@
              // 
              this.label6.AutoSize = true;
              this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-             this.label6.Location = new System.Drawing.Point(606, 379);
+             this.label6.Location = new System.Drawing.Point(753, 375);
              this.label6.Name = "label6";
              this.label6.Size = new System.Drawing.Size(133, 18);
              this.label6.TabIndex = 37;
@@ -577,7 +606,7 @@
              this.totalContasTextBox.BackColor = System.Drawing.Color.Blue;
              this.totalContasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
              this.totalContasTextBox.ForeColor = System.Drawing.Color.Yellow;
-             this.totalContasTextBox.Location = new System.Drawing.Point(362, 375);
+             this.totalContasTextBox.Location = new System.Drawing.Point(546, 375);
              this.totalContasTextBox.Name = "totalContasTextBox";
              this.totalContasTextBox.ReadOnly = true;
              this.totalContasTextBox.Size = new System.Drawing.Size(193, 32);
@@ -590,10 +619,10 @@
              this.totalPagamentosTextBox.BackColor = System.Drawing.Color.Blue;
              this.totalPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
              this.totalPagamentosTextBox.ForeColor = System.Drawing.Color.Yellow;
-             this.totalPagamentosTextBox.Location = new System.Drawing.Point(745, 375);
+             this.totalPagamentosTextBox.Location = new System.Drawing.Point(888, 375);
              this.totalPagamentosTextBox.Name = "totalPagamentosTextBox";
              this.totalPagamentosTextBox.ReadOnly = true;
-             this.totalPagamentosTextBox.Size = new System.Drawing.Size(192, 32);
+             this.totalPagamentosTextBox.Size = new System.Drawing.Size(112, 32);
              this.totalPagamentosTextBox.TabIndex = 40;
              this.totalPagamentosTextBox.TabStop = false;
              this.totalPagamentosTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -620,6 +649,7 @@
              this.codFormaPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_forma_pagamentoBindingSource, "codFormaPagamento", true));
              this.codFormaPagamentoComboBox.DataSource = this.tb_forma_pagamentoBindingSource;
              this.codFormaPagamentoComboBox.DisplayMember = "descricao";
+             this.codFormaPagamentoComboBox.Enabled = false;
              this.codFormaPagamentoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
              this.codFormaPagamentoComboBox.FormattingEnabled = true;
              this.codFormaPagamentoComboBox.Location = new System.Drawing.Point(7, 496);
@@ -634,15 +664,6 @@
              this.tb_documento_pagamentoBindingSource.DataMember = "tb_documento_pagamento";
              this.tb_documento_pagamentoBindingSource.DataSource = this.saceDataSet;
              // 
-             // codDocumentoPagamentoTextBox
-             // 
-             this.codDocumentoPagamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_documento_pagamentoBindingSource, "codDocumentoPagamento", true));
-             this.codDocumentoPagamentoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-             this.codDocumentoPagamentoTextBox.Location = new System.Drawing.Point(362, 496);
-             this.codDocumentoPagamentoTextBox.Name = "codDocumentoPagamentoTextBox";
-             this.codDocumentoPagamentoTextBox.Size = new System.Drawing.Size(193, 26);
-             this.codDocumentoPagamentoTextBox.TabIndex = 50;
-             // 
              // descontoTextBox
              // 
              this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -650,15 +671,19 @@
              this.descontoTextBox.Name = "descontoTextBox";
              this.descontoTextBox.Size = new System.Drawing.Size(136, 26);
              this.descontoTextBox.TabIndex = 44;
+             this.descontoTextBox.Leave += new System.EventHandler(this.DescontoTextBox_Leave);
              // 
-             // textBox1
+             // totalPagarTextBox
              // 
-             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-             this.textBox1.ForeColor = System.Drawing.Color.Red;
-             this.textBox1.Location = new System.Drawing.Point(362, 435);
-             this.textBox1.Name = "textBox1";
-             this.textBox1.Size = new System.Drawing.Size(193, 26);
-             this.textBox1.TabIndex = 46;
+             this.totalPagarTextBox.BackColor = System.Drawing.Color.Blue;
+             this.totalPagarTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+             this.totalPagarTextBox.ForeColor = System.Drawing.Color.Yellow;
+             this.totalPagarTextBox.Location = new System.Drawing.Point(362, 435);
+             this.totalPagarTextBox.Name = "totalPagarTextBox";
+             this.totalPagarTextBox.ReadOnly = true;
+             this.totalPagarTextBox.Size = new System.Drawing.Size(157, 26);
+             this.totalPagarTextBox.TabIndex = 46;
+             this.totalPagarTextBox.TabStop = false;
              // 
              // label10
              // 
@@ -674,19 +699,19 @@
              // 
              this.dataPagamentoTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
              this.dataPagamentoTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-             this.dataPagamentoTimePicker.Location = new System.Drawing.Point(567, 498);
+             this.dataPagamentoTimePicker.Location = new System.Drawing.Point(635, 498);
              this.dataPagamentoTimePicker.Name = "dataPagamentoTimePicker";
              this.dataPagamentoTimePicker.Size = new System.Drawing.Size(124, 26);
              this.dataPagamentoTimePicker.TabIndex = 52;
              // 
-             // textBox2
+             // valorPagamentoTextBox
              // 
-             this.textBox2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_documento_pagamentoBindingSource, "codDocumentoPagamento", true));
-             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-             this.textBox2.Location = new System.Drawing.Point(709, 498);
-             this.textBox2.Name = "textBox2";
-             this.textBox2.Size = new System.Drawing.Size(228, 26);
-             this.textBox2.TabIndex = 54;
+             this.valorPagamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_documento_pagamentoBindingSource, "codDocumentoPagamento", true));
+             this.valorPagamentoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+             this.valorPagamentoTextBox.Location = new System.Drawing.Point(772, 496);
+             this.valorPagamentoTextBox.Name = "valorPagamentoTextBox";
+             this.valorPagamentoTextBox.Size = new System.Drawing.Size(228, 26);
+             this.valorPagamentoTextBox.TabIndex = 54;
              // 
              // tb_pessoaTableAdapter
              // 
@@ -726,23 +751,35 @@
              // 
              this.contasPessoaTableAdapter.ClearBeforeFill = true;
              // 
+             // codDocumentoPagamentoComboBox
+             // 
+             this.codDocumentoPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_documento_pagamentoBindingSource, "codDocumentoPagamento", true));
+             this.codDocumentoPagamentoComboBox.Enabled = false;
+             this.codDocumentoPagamentoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+             this.codDocumentoPagamentoComboBox.FormattingEnabled = true;
+             this.codDocumentoPagamentoComboBox.Location = new System.Drawing.Point(362, 496);
+             this.codDocumentoPagamentoComboBox.Name = "codDocumentoPagamentoComboBox";
+             this.codDocumentoPagamentoComboBox.Size = new System.Drawing.Size(267, 28);
+             this.codDocumentoPagamentoComboBox.TabIndex = 50;
+             // 
              // FrmReceberPagamentoPessoa
              // 
              this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
              this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-             this.ClientSize = new System.Drawing.Size(951, 566);
+             this.AutoScroll = true;
+             this.ClientSize = new System.Drawing.Size(1007, 571);
+             this.Controls.Add(this.codDocumentoPagamentoComboBox);
              this.Controls.Add(this.btnCFNfe);
              this.Controls.Add(this.btnImprimir);
              this.Controls.Add(label12);
-             this.Controls.Add(this.textBox2);
+             this.Controls.Add(this.valorPagamentoTextBox);
              this.Controls.Add(this.dataPagamentoTimePicker);
              this.Controls.Add(label11);
-             this.Controls.Add(this.textBox1);
+             this.Controls.Add(this.totalPagarTextBox);
              this.Controls.Add(this.label10);
              this.Controls.Add(this.descontoTextBox);
              this.Controls.Add(label9);
              this.Controls.Add(codDocumentoPagamentoLabel);
-             this.Controls.Add(this.codDocumentoPagamentoTextBox);
              this.Controls.Add(codFormaPagamentoLabel);
              this.Controls.Add(this.codFormaPagamentoComboBox);
              this.Controls.Add(this.faltaReceberTextBox);
@@ -813,17 +850,6 @@
          private Dados.saceDataSet saceDataSet;
          private System.Windows.Forms.BindingSource tb_movimentacao_contaBindingSource;
          private System.Windows.Forms.DataGridView tb_movimentacao_contaDataGridView;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
          private System.Windows.Forms.Label label4;
          private System.Windows.Forms.Label label5;
          private System.Windows.Forms.Label label7;
@@ -835,12 +861,11 @@
          private System.Windows.Forms.BindingSource tb_forma_pagamentoBindingSource;
          private System.Windows.Forms.ComboBox codFormaPagamentoComboBox;
          private System.Windows.Forms.BindingSource tb_documento_pagamentoBindingSource;
-         private System.Windows.Forms.TextBox codDocumentoPagamentoTextBox;
          private System.Windows.Forms.TextBox descontoTextBox;
-         private System.Windows.Forms.TextBox textBox1;
+         private System.Windows.Forms.TextBox totalPagarTextBox;
          private System.Windows.Forms.Label label10;
          private System.Windows.Forms.DateTimePicker dataPagamentoTimePicker;
-         private System.Windows.Forms.TextBox textBox2;
+         private System.Windows.Forms.TextBox valorPagamentoTextBox;
          private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
          private Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter tb_forma_pagamentoTableAdapter;
          private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
@@ -855,5 +880,19 @@
          private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
          private System.Windows.Forms.DataGridViewTextBoxColumn CF;
          private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+         private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
+         private System.Windows.Forms.DataGridViewTextBoxColumn valorPagar;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+         private System.Windows.Forms.ComboBox codDocumentoPagamentoComboBox;
      }
  }

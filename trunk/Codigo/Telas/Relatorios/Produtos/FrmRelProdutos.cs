@@ -20,19 +20,6 @@ namespace Telas.Relatorios.Produtos
         {
             tb_produtoTableAdapter.FillByNome(saceDataSet.tb_produto, Util.Global.ACRESCIMO_PADRAO, "");  
             this.reportViewer1.RefreshReport();
-            //this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
-            //tbprodutoBindingSource.
-            this.reportViewer1.RefreshReport();
-        }
-
-        private void tbprodutoBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void reportViewer1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

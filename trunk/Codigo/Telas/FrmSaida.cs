@@ -17,6 +17,10 @@ namespace Telas
         private const string ENTRADA_MANUAL = "F1-MANUAL";
         private const string ENTRADA_AUTOMATICA = "F1-AUTOMÁTICA";
 
+        private const string PRECO_VAREJO = "CTRL+P - Preço Varejo";
+        private const string PRECO_ATACADO = "CTRL+P - Preço Atacado";
+        private const string PRECO_VAREJO_DESCONTO = "CTRL+P - Varejo+Desc 10%";
+
         private EstadoFormulario estado;
         private Produto produto, produtoOriginal;
         private Saida saida;
@@ -135,7 +139,9 @@ namespace Telas
             valorIPITextBox.Text = "0.00";
             dataSaidaDateTimePicker.Text = saida.DataSaida.ToShortDateString();
 
-
+            lblPreco.Text = PRECO_VAREJO;
+            lblPreco.ForeColor = Color.Red;
+            
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
             habilitaBotoes(false);
@@ -320,8 +326,10 @@ namespace Telas
                 this.tb_saidaTableAdapter.FillByCodTipoSaida(this.saceDataSet.tb_saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
                 baseCalculoICMSSubstTextBox.ReadOnly = false;
                 baseCalculoICMSTextBox.ReadOnly = false;
+                valorICMSSubstTextBox.ReadOnly = false;
                 baseCalculoICMSTextBox.TabStop = true;
                 baseCalculoICMSSubstTextBox.TabStop = true;
+                valorICMSSubstTextBox.TabStop = true;
                 tb_saida_produtoDataGridView.Height = 300;
             }
             else
@@ -476,15 +484,20 @@ namespace Telas
                 }
                 else
                 {
-                    if ((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado))
+                    if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)) || (lblPreco.Text.Equals(PRECO_ATACADO)))
                     {
                         precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaAtacadoSemDesconto.ToString();
                         precoVendatextBox.Text = produtoOriginal.PrecoVendaAtacado.ToString();
                     }
-                    else
+                    else if (lblPreco.Text.Equals(PRECO_VAREJO))
                     {
                         precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaVarejoSemDesconto.ToString();
                         precoVendatextBox.Text = produtoOriginal.PrecoVendaVarejo.ToString();
+                    }
+                    else if (lblPreco.Text.Equals(PRECO_VAREJO_DESCONTO))
+                    {
+                        precoVendaSemDescontoTextBox.Text = (produtoOriginal.PrecoVendaVarejoSemDesconto * Convert.ToDecimal(0.9)).ToString("N2");
+                        precoVendatextBox.Text = ( produtoOriginal.PrecoVendaVarejo * Convert.ToDecimal(0.9)).ToString("N2");
                     }
                     data_validadeDateTimePicker.Enabled = produto.TemVencimento;
                     data_validadeDateTimePicker.TabStop = produto.TemVencimento;
@@ -786,6 +799,22 @@ namespace Telas
                         lblFormaEntrada.Text = ENTRADA_MANUAL;
                         lblFormaEntrada.ForeColor = Color.Red;
                     }
+                } else if ((Control.ModifierKeys == Keys.Control) && (e.KeyCode == Keys.P)) {
+                    if (lblPreco.Text.Equals(PRECO_VAREJO))
+                    {
+                        lblPreco.Text = PRECO_ATACADO;
+                        lblPreco.ForeColor = Color.Green;
+                    }
+                    else if (lblPreco.Text.Equals(PRECO_ATACADO))
+                    {
+                        lblPreco.Text = PRECO_VAREJO_DESCONTO;
+                        lblPreco.ForeColor = Color.DarkMagenta;
+                    }
+                    else
+                    {
+                        lblPreco.Text = PRECO_VAREJO;
+                        lblPreco.ForeColor = Color.Red;
+                    }
                 }
             }
         }
@@ -826,6 +855,11 @@ namespace Telas
         private void backgroundWorkerRecuperaCupons_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
+        }
+
+        private void valorICMSSubstTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
         }
 
     }
