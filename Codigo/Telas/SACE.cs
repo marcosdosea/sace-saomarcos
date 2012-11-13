@@ -196,13 +196,6 @@ namespace Telas
             this.Visible = true;
         }
 
-        
-        private void baixasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Telas.FrmBaixaConta frmBaixaConta = new Telas.FrmBaixaConta();
-            frmBaixaConta.ShowDialog();
-            frmBaixaConta.Dispose();
-        }
 
         private void documentosDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
         {

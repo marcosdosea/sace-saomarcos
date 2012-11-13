@@ -30,15 +30,26 @@
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tbprodutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.saceDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // tbprodutoBindingSource
+            // 
+            this.tbprodutoBindingSource.DataMember = "tb_produto";
+            this.tbprodutoBindingSource.DataSource = this.saceDataSet;
+            this.tbprodutoBindingSource.Sort = "nome";
+            // 
+            // saceDataSet
+            // 
+            this.saceDataSet.DataSetName = "saceDataSet";
+            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // reportViewer1
             // 
@@ -51,18 +62,6 @@
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.Size = new System.Drawing.Size(472, 262);
             this.reportViewer1.TabIndex = 0;
-            this.reportViewer1.Load += new System.EventHandler(this.reportViewer1_Load);
-            // 
-            // tbprodutoBindingSource
-            // 
-            this.tbprodutoBindingSource.DataMember = "tb_produto";
-            this.tbprodutoBindingSource.DataSource = this.saceDataSet;
-            this.tbprodutoBindingSource.Sort = "nome";
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tb_produtoTableAdapter
             // 
@@ -80,7 +79,9 @@
             this.ClientSize = new System.Drawing.Size(472, 262);
             this.Controls.Add(this.reportViewer1);
             this.Name = "FrmRelProdutos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FrmRelProdutos";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmRelProdutos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();

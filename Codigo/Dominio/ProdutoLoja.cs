@@ -13,6 +13,7 @@ namespace Dominio
         public decimal QtdEstoqueAux { get; set; }
         public String Localizacao { get; set; }
         public String Localizacao2 { get; set; }
+        public decimal EstoqueMaximo { get; set; }
         
     }
 }

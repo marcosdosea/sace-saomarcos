@@ -60,6 +60,7 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            CodProduto = Convert.ToInt32(codProdutoTextBox.Text);
             tb_produto_lojaBindingSource.CancelEdit();
             tb_produto_lojaBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -75,6 +76,7 @@ namespace Telas
                 produtoLoja.CodLoja = Int32.Parse(codLojaComboBox.SelectedValue.ToString());
                 produtoLoja.QtdEstoque = decimal.Parse(qtdEstoqueTextBox.Text);
                 produtoLoja.QtdEstoqueAux = decimal.Parse(qtdEstoqueAuxTextBox.Text);
+                produtoLoja.EstoqueMaximo = decimal.Parse(estoqueMaximoTextBox.Text);
                 produtoLoja.Localizacao = localizacaoTextBox.Text;
                 produtoLoja.Localizacao2 = localizacao2TextBox.Text;
 
@@ -100,7 +102,7 @@ namespace Telas
             finally
             {
                 habilitaBotoes(true);
-                btnEditar.Focus();
+                btnBuscar.Focus();
             }
         }
 
@@ -108,7 +110,11 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.ESPERA))
             {
-                if (e.KeyCode == Keys.F3)
+                if (e.KeyCode == Keys.F2)
+                {
+                    btnBuscar_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F3)
                 {
                     btnNovo_Click(sender, e);
                 }
@@ -155,6 +161,7 @@ namespace Telas
         }
         private void habilitaBotoes(Boolean habilita)
         {
+            btnBuscar.Enabled = habilita;
             btnSalvar.Enabled = !(habilita);
             btnCancelar.Enabled = !(habilita);
             btnEditar.Enabled = habilita;
@@ -188,6 +195,34 @@ namespace Telas
                 Control control = (Control)sender;
                 control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
+        }
+
+        private void qtdEstoqueTextBox_Leave(object sender, EventArgs e)
+        {
+            codProdutoTextBox_Leave(sender, e);
+            Util.FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            frmProdutoPesquisa.ShowDialog();
+            if (frmProdutoPesquisa.getCodProduto() != -1)
+            {
+                Produto produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisa.getCodProduto());
+                codProduto = produto.CodProduto;
+                nomeProdutoTextBox.Text = produto.Nome;
+                codProdutoTextBox.Text = produto.CodProduto.ToString();
+                this.tb_produto_lojaTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto_loja, produto.CodProduto);
+                habilitaBotoes(true);
+            }
+            frmProdutoPesquisa.Dispose();
+            btnEditar.Focus();
+        }
+
+        private void FrmProdutoAjusteEstoque_Shown(object sender, EventArgs e)
+        {
+            btnEditar.Focus();
         }
     }
 }

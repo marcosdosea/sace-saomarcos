@@ -45,6 +45,8 @@ namespace Telas
                             this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
                         else if (cmbBusca.SelectedIndex == 2)
                             this.tb_saidaTableAdapter.FillByPedidoGerado(this.saceDataSet.tb_saida, txtTexto.Text);
+                        else if (cmbBusca.SelectedIndex == 3)
+                            this.tb_saidaTableAdapter.FillByNomeCliente(this.saceDataSet.tb_saida, txtTexto.Text);
                     }
             }
             catch (System.Exception ex)

@@ -39,11 +39,11 @@ namespace Telas
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
             this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-            this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-            tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
+            //this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
+            //tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
 
             inicializaVariaveis();
-            atualizaValores();
+            AtualizaValores();
         }
 
         private void inicializaVariaveis()
@@ -63,7 +63,7 @@ namespace Telas
         {
             if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
             {
-                encerrarLancamentosPagamentos(sender, e);
+                EncerrarLancamentosPagamentos(sender, e);
             }
             else
             {
@@ -90,13 +90,13 @@ namespace Telas
                 codFormaPagamentoComboBox.Focus();
                 GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
 
-                atualizaValores();
+                AtualizaValores();
 
                 this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, long.Parse(codSaidaTextBox.Text));
 
                 if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
                 {
-                    encerrarLancamentosPagamentos(sender, e);
+                    EncerrarLancamentosPagamentos(sender, e);
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace Telas
         /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            encerrarLancamentosPagamentos(sender, e);
+            EncerrarLancamentosPagamentos(sender, e);
         }
 
         
@@ -122,7 +122,7 @@ namespace Telas
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void encerrarLancamentosPagamentos(object sender, EventArgs e)
+        private void EncerrarLancamentosPagamentos(object sender, EventArgs e)
         {
             long codSaida = Int64.Parse(codSaidaTextBox.Text);
             Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
@@ -133,31 +133,24 @@ namespace Telas
 
                 if (temPagamentoCrediario)
                 {
-                    FrmSaidaConfirma frmSaidaConfirma = new FrmSaidaConfirma(saida);
+                    var frmSaidaConfirma = new FrmSaidaConfirma(saida);
                     frmSaidaConfirma.ShowDialog();
 
                     if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                     {
-                        if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
-                        {
-                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_PRE_VENDA);
-                            if (MessageBox.Show("Gerar Documento Fiscal?", "Gerar Documento", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
-                            }
-                        }
-                        else if (frmSaidaConfirma.Opcao == Saida.TIPO_ORCAMENTO)
-                        {
-                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_ORCAMENTO);
-                        }
-
+                        GerenciadorSaida.getInstace().encerrar(saida, frmSaidaConfirma.Opcao);
+                        GerenciadorSaida.getInstace().imprimirDAV(saida, true);
+                        this.Close();
+                    }
+                    else
+                    {
                         this.Close();
                     }
                     frmSaidaConfirma.Dispose();
                 }
                 else
                 {
-                    FrmSaidaConfirma frmSaidaConfirma = new FrmSaidaConfirma(saida);
+                    var frmSaidaConfirma = new FrmSaidaConfirma(saida);
                     frmSaidaConfirma.ShowDialog();
                     if (frmSaidaConfirma.Opcao != 0) // Opção 0 é quando pressiona o botão Cancelar
                     {
@@ -171,6 +164,10 @@ namespace Telas
                             GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_ORCAMENTO);
                         }
 
+                        this.Close();
+                    }
+                    else
+                    {
                         this.Close();
                     }
                     frmSaidaConfirma.Dispose();
@@ -187,7 +184,7 @@ namespace Telas
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void excluirPagamento(object sender, EventArgs e)
+        private void ExcluirPagamento(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma exclusão do pagamento?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -199,7 +196,7 @@ namespace Telas
                     this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
 
                     inicializaVariaveis();
-                    atualizaValores();
+                    AtualizaValores();
                     codFormaPagamentoComboBox.Focus();
                 }
             }
@@ -208,7 +205,7 @@ namespace Telas
         /// <summary>
         /// Atualiza os valores dos campos a medida que valores são digitados
         /// </summary>
-        private void atualizaValores()
+        private void AtualizaValores()
         {
             totalRecebidoLabel.Text = saida.TotalPago.ToString("N2");
             
@@ -276,7 +273,7 @@ namespace Telas
             // permite excluir um contato quando o foco está na grid
             else if ((e.KeyCode == Keys.Delete) && (tb_saida_forma_pagamentoDataGridView.Focused == true))
             {
-                excluirPagamento(sender, e);
+                ExcluirPagamento(sender, e);
             }
             
             
@@ -297,7 +294,7 @@ namespace Telas
 
             else if ((e.KeyCode == Keys.F3) && (codClienteComboBox.Focused))
             {
-                Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                FrmPessoa frmPessoa = new FrmPessoa();
                 frmPessoa.ShowDialog();
                 if (frmPessoa.CodPessoa > 0)
                 {
@@ -309,7 +306,7 @@ namespace Telas
 
             else if ((e.KeyCode == Keys.F3) && (codProfissionalComboBox.Focused))
             {
-                Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                FrmPessoa frmPessoa = new FrmPessoa();
                 frmPessoa.ShowDialog();
                 if (frmPessoa.CodPessoa > 0)
                 {
@@ -364,7 +361,7 @@ namespace Telas
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             saida.TotalAVista = Convert.ToDecimal(totalPagarTextBox.Text);
-            atualizaValores();
+            AtualizaValores();
         }
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
@@ -464,13 +461,6 @@ namespace Telas
                     this.tb_forma_pagamentoTableAdapter.Fill(this.saceDataSet.tb_forma_pagamento);
                     codFormaPagamentoComboBox.SelectedIndex = 0;
                     throw new TelaException("Para utilizar essa forma de pagamento é necessário selecionar um cliente.");
-                    
-                }
-                if (codFormaPagamento == FormaPagamento.CREDIARIO)
-                {
-                    descontoTextBox.Text = "0";
-                    calcularDesconto();
-                    atualizaValores();
                 }
             }
         }
@@ -540,7 +530,7 @@ namespace Telas
                 codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
                 codDocumentoPagamentoComboBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO);
                 valorRecebidoTextBox.Enabled = !((formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO));
-                intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CREDIARIO) || (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
+                intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
             }
         }
 

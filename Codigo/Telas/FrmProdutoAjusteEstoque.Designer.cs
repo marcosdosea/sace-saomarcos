@@ -37,6 +37,7 @@
             System.Windows.Forms.Label nomeProdutoLabel;
             System.Windows.Forms.Label localizacao2Label;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoAjusteEstoque));
+            System.Windows.Forms.Label estoqueMaximoLabel;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -65,6 +66,8 @@
             this.codLojaComboBox = new System.Windows.Forms.ComboBox();
             this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
             this.localizacao2TextBox = new System.Windows.Forms.TextBox();
+            this.estoqueMaximoTextBox = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLojaLabel = new System.Windows.Forms.Label();
             qtdEstoqueFiscalLabel = new System.Windows.Forms.Label();
@@ -72,6 +75,7 @@
             localizacaoLabel = new System.Windows.Forms.Label();
             nomeProdutoLabel = new System.Windows.Forms.Label();
             localizacao2Label = new System.Windows.Forms.Label();
+            estoqueMaximoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingSource)).BeginInit();
@@ -110,7 +114,7 @@
             // qtdEstoqueNFiscalLabel
             // 
             qtdEstoqueNFiscalLabel.AutoSize = true;
-            qtdEstoqueNFiscalLabel.Location = new System.Drawing.Point(240, 161);
+            qtdEstoqueNFiscalLabel.Location = new System.Drawing.Point(180, 159);
             qtdEstoqueNFiscalLabel.Name = "qtdEstoqueNFiscalLabel";
             qtdEstoqueNFiscalLabel.Size = new System.Drawing.Size(105, 13);
             qtdEstoqueNFiscalLabel.TabIndex = 25;
@@ -165,7 +169,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(160, 245);
+            this.btnSalvar.Location = new System.Drawing.Point(234, 245);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 23;
@@ -175,7 +179,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(243, 245);
+            this.btnCancelar.Location = new System.Drawing.Point(317, 245);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 24;
@@ -185,7 +189,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(83, 245);
+            this.btnEditar.Location = new System.Drawing.Point(157, 245);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 22;
@@ -195,7 +199,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(7, 245);
+            this.btnNovo.Location = new System.Drawing.Point(81, 245);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 21;
@@ -324,20 +328,20 @@
             this.qtdEstoqueTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "qtdEstoque", true));
             this.qtdEstoqueTextBox.Location = new System.Drawing.Point(12, 175);
             this.qtdEstoqueTextBox.Name = "qtdEstoqueTextBox";
-            this.qtdEstoqueTextBox.Size = new System.Drawing.Size(210, 20);
+            this.qtdEstoqueTextBox.Size = new System.Drawing.Size(146, 20);
             this.qtdEstoqueTextBox.TabIndex = 31;
             this.qtdEstoqueTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
-            this.qtdEstoqueTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
+            this.qtdEstoqueTextBox.Leave += new System.EventHandler(this.qtdEstoqueTextBox_Leave);
             // 
             // qtdEstoqueAuxTextBox
             // 
             this.qtdEstoqueAuxTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "qtdEstoqueAux", true));
-            this.qtdEstoqueAuxTextBox.Location = new System.Drawing.Point(243, 177);
+            this.qtdEstoqueAuxTextBox.Location = new System.Drawing.Point(183, 175);
             this.qtdEstoqueAuxTextBox.Name = "qtdEstoqueAuxTextBox";
-            this.qtdEstoqueAuxTextBox.Size = new System.Drawing.Size(219, 20);
+            this.qtdEstoqueAuxTextBox.Size = new System.Drawing.Size(138, 20);
             this.qtdEstoqueAuxTextBox.TabIndex = 32;
             this.qtdEstoqueAuxTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
-            this.qtdEstoqueAuxTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
+            this.qtdEstoqueAuxTextBox.Leave += new System.EventHandler(this.qtdEstoqueTextBox_Leave);
             // 
             // codProdutoTextBox
             // 
@@ -407,11 +411,43 @@
             this.localizacao2TextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.localizacao2TextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
+            // estoqueMaximoLabel
+            // 
+            estoqueMaximoLabel.AutoSize = true;
+            estoqueMaximoLabel.Location = new System.Drawing.Point(340, 159);
+            estoqueMaximoLabel.Name = "estoqueMaximoLabel";
+            estoqueMaximoLabel.Size = new System.Drawing.Size(108, 13);
+            estoqueMaximoLabel.TabIndex = 35;
+            estoqueMaximoLabel.Text = "Qtd Máxima Estoque:";
+            // 
+            // estoqueMaximoTextBox
+            // 
+            this.estoqueMaximoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "estoqueMaximo", true));
+            this.estoqueMaximoTextBox.Location = new System.Drawing.Point(343, 175);
+            this.estoqueMaximoTextBox.Name = "estoqueMaximoTextBox";
+            this.estoqueMaximoTextBox.Size = new System.Drawing.Size(119, 20);
+            this.estoqueMaximoTextBox.TabIndex = 33;
+            this.estoqueMaximoTextBox.Leave += new System.EventHandler(this.qtdEstoqueTextBox_Leave);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(6, 245);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 20;
+            this.btnBuscar.Text = "F2 - Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // FrmProdutoAjusteEstoque
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 277);
+            this.ClientSize = new System.Drawing.Size(476, 276);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(estoqueMaximoLabel);
+            this.Controls.Add(this.estoqueMaximoTextBox);
             this.Controls.Add(localizacao2Label);
             this.Controls.Add(this.localizacao2TextBox);
             this.Controls.Add(this.codLojaComboBox);
@@ -439,6 +475,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ajuste Estoque";
             this.Load += new System.EventHandler(this.FrmProdutoAjusteEstoque_Load);
+            this.Shown += new System.EventHandler(this.FrmProdutoAjusteEstoque_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoAjusteEstoque_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -483,5 +520,7 @@
         private System.Windows.Forms.ComboBox codLojaComboBox;
         private Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTableAdapter;
         private System.Windows.Forms.TextBox localizacao2TextBox;
+        private System.Windows.Forms.TextBox estoqueMaximoTextBox;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

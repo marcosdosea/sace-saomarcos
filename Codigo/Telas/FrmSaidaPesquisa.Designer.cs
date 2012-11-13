@@ -175,7 +175,8 @@
             this.cmbBusca.Items.AddRange(new object[] {
             "Pré-Vendas Pendentes",
             "Código",
-            "Cupom Fiscal"});
+            "Cupom Fiscal",
+            "Nome Cliente"});
             this.cmbBusca.Location = new System.Drawing.Point(8, 27);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(268, 26);

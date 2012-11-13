@@ -127,6 +127,7 @@
             this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.backgroundWorkerRecuperaCupons = new System.ComponentModel.BackgroundWorker();
+            this.lblPreco = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -1045,6 +1046,7 @@
             this.valorICMSSubstTextBox.Size = new System.Drawing.Size(171, 29);
             this.valorICMSSubstTextBox.TabIndex = 50;
             this.valorICMSSubstTextBox.TabStop = false;
+            this.valorICMSSubstTextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
             // 
             // valorIPITextBox
             // 
@@ -1059,6 +1061,17 @@
             // backgroundWorkerRecuperaCupons
             // 
             this.backgroundWorkerRecuperaCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerRecuperaCupons_DoWork);
+            // 
+            // lblPreco
+            // 
+            this.lblPreco.AutoSize = true;
+            this.lblPreco.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.lblPreco.ForeColor = System.Drawing.Color.Red;
+            this.lblPreco.Location = new System.Drawing.Point(598, 131);
+            this.lblPreco.Name = "lblPreco";
+            this.lblPreco.Size = new System.Drawing.Size(165, 18);
+            this.lblPreco.TabIndex = 78;
+            this.lblPreco.Text = "CTRL+P - Preço Varejo";
             // 
             // FrmSaida
             // 
@@ -1124,6 +1137,7 @@
             this.Controls.Add(this.entregaRealizadaCheckBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblPreco);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -1219,5 +1233,6 @@
         private System.Windows.Forms.TextBox valorICMSSubstTextBox;
         private System.Windows.Forms.TextBox valorIPITextBox;
         private System.ComponentModel.BackgroundWorker backgroundWorkerRecuperaCupons;
+        private System.Windows.Forms.Label lblPreco;
     }
 }

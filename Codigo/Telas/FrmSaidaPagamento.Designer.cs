@@ -437,12 +437,14 @@
             this.codProfissionalComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeProfissional", true));
             this.codProfissionalComboBox.DataSource = this.tbpessoaBindingSource1;
             this.codProfissionalComboBox.DisplayMember = "nome";
+            this.codProfissionalComboBox.Enabled = false;
             this.codProfissionalComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codProfissionalComboBox.FormattingEnabled = true;
             this.codProfissionalComboBox.Location = new System.Drawing.Point(224, 165);
             this.codProfissionalComboBox.Name = "codProfissionalComboBox";
             this.codProfissionalComboBox.Size = new System.Drawing.Size(592, 32);
             this.codProfissionalComboBox.TabIndex = 18;
+            this.codProfissionalComboBox.TabStop = false;
             this.codProfissionalComboBox.ValueMember = "codPessoa";
             this.codProfissionalComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codProfissionalComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);

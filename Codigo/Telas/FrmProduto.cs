@@ -392,7 +392,10 @@ namespace Telas
             Int32 codProduto = Int32.Parse(codProdutoTextBox.Text);
             FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(codProduto);
             frmAjuste.ShowDialog();
-            tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto); 
+            if (frmAjuste.CodProduto != -1)
+            {
+                tbprodutoBindingSource.Position = tbprodutoBindingSource.Find("codProduto", frmAjuste.CodProduto);
+            }
         }
 
         private void FrmProduto_FormClosing(object sender, FormClosingEventArgs e)

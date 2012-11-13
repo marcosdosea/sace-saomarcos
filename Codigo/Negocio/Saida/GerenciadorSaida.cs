@@ -267,6 +267,7 @@ namespace Negocio
                 conta.CodEntrada = 1; // entrada não válida
                 conta.CodPessoa = saida.CodCliente;
                 conta.CodPagamento = pagamento.CodSaidaPagamento;
+                conta.Desconto = 0;
 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserida quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
@@ -282,9 +283,13 @@ namespace Negocio
                 conta.CodDocumento = pagamento.CodDocumentoPagamento;
                 conta.TipoConta = Conta.CONTA_RECEBER;
 
-                if (((totalRegistrado + pagamento.Valor) > saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO))
+                if (((totalRegistrado + pagamento.Valor) >= saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO))
                 {
                     conta.Valor = (saida.TotalAVista - totalRegistrado) / pagamento.Parcelas;
+                }
+                else if (((totalRegistrado + pagamento.Valor) >= saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)) {
+                    conta.Valor = (pagamento.Valor / pagamento.Parcelas) * Global.ACRESCIMO_PADRAO;
+                    conta.Desconto = conta.Valor - (pagamento.Valor / pagamento.Parcelas); 
                 }
                 else
                 {
@@ -440,6 +445,12 @@ namespace Negocio
                 {
                     throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
                 }
+                DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
+
+                if (!pastaECF.Exists)
+                {
+                    throw new NegocioException("Não foi possível imprimir o cupom ECF. Verifique se a rede está acessível.");
+                }
 
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Produto.ST_OUTRAS);
 
@@ -448,14 +459,6 @@ namespace Negocio
                     List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
 
                     String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saida.CodSaida + ".txt";
-
-                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
-
-                    if (!pastaECF.Exists)
-                    {
-                        throw new NegocioException("Não foi possível imprimir o cupom ECF. Verifique se a rede está acessível.");
-                    }
-
 
                     StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
 
@@ -483,6 +486,11 @@ namespace Negocio
                         arquivo.WriteLine(saidaProduto.Unidade + ";");
 
                         totalProdutos += saidaProduto.Subtotal;
+                    }
+                    if (!saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
+                    {
+                        arquivo.WriteLine("<NOME> Cliente: " + saida.NomeCliente);
+                        arquivo.WriteLine("<CPF> CPF/CNPJ: " + saida.CpfCnpj);
                     }
 
                     if (saida.Desconto >= 0)
@@ -677,6 +685,14 @@ namespace Negocio
                     imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
                 }
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
+                if (!saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
+                {
+                    imp.Pula(1);
+                    imp.ImpColLF(0, "Recebido por:");
+                    imp.ImpLF(Global.LINHA_COMPRIMIDA);
+                }
+                
+
 
                 imp.Pula(8);
                 imp.Imp(imp.Normal);
@@ -951,13 +967,20 @@ namespace Negocio
                 imp.Pula(1);
 
                 // linha 46
-                imp.ImpColDireita(05, 15, saida.ValorFrete.ToString("N2") ); // frete
-                imp.ImpColDireita(18, 30, saida.ValorSeguro.ToString("N2")); // seguro
-                imp.ImpColDireita(33, 45, saida.OutrasDespesas.ToString("N2")); // outras despesas
-                imp.ImpColDireita(50, 62, saida.ValorIPI.ToString("N2")); //ipi
-                imp.ImpColDireita(65, 78, saida.TotalAVista.ToString("N2")); //total nota
-                imp.Pula(2);
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                {
 
+                    imp.ImpColDireita(05, 15, saida.ValorFrete.ToString("N2")); // frete
+                    imp.ImpColDireita(18, 30, saida.ValorSeguro.ToString("N2")); // seguro
+                    imp.ImpColDireita(33, 45, saida.OutrasDespesas.ToString("N2")); // outras despesas
+                    imp.ImpColDireita(50, 62, saida.ValorIPI.ToString("N2")); //ipi
+                    imp.ImpColDireita(65, 78, (saida.TotalAVista + saida.ValorIPI + saida.ValorICMSSubst + saida.ValorFrete).ToString("N2")); //total nota
+                }
+                else
+                {
+                    imp.ImpColDireita(65, 78, (saida.TotalAVista).ToString("N2")); //total nota
+                }
+                imp.Pula(2);
                 Pessoa empresaFrete = GerenciadorPessoa.getInstace().obterPessoa(saida.CodEmpresaFrete);
 
                 // linha 49
@@ -995,6 +1018,11 @@ namespace Negocio
                     imp.ImpColLF(3, "XI do RICMS/SE");
                     imp.Pula(2);
                     imp.ImpCol(75, saida.Nfe);
+                } else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                {
+                    imp.ImpColLF(3, "Devolução de compra referente a ");
+                    imp.ImpColLF(3, "nota fiscal 75731 emitida em    ");
+                    imp.ImpColLF(3, "17/04/2012 no valor de R$ 313,07");
                 }
                 else
                 {

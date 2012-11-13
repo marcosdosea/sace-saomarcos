@@ -8,6 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
@@ -101,6 +102,49 @@ namespace Negocio
             }
         }
 
+        /// <summary>
+        /// Obter todas as contas em aberto da pessoa
+        /// </summary>
+        /// <param name="codPessoa"> código da pessoa </param>
+        /// <returns> Datatable com todas as contas </returns>
+        public Dados.saceDataSet.tb_movimentacao_contaDataTable ObterMovimentacaoPorContas(List<Int64> listaCodContas)
+        {
+            saceDataSet.tb_movimentacao_contaDataTable movimentacaoContaDT = new saceDataSet.tb_movimentacao_contaDataTable();
+
+            if (listaCodContas.Count > 0)
+            {
+                StringBuilder comando_sql = new StringBuilder();
+                comando_sql.Append("SELECT        tb_movimentacao_conta.codMovimentacao, tb_movimentacao_conta.codContaBanco, tb_movimentacao_conta.codResponsavel, ");
+                comando_sql.Append(" tb_movimentacao_conta.codTipoMovimentacao, tb_movimentacao_conta.codConta, tb_movimentacao_conta.valor, tb_movimentacao_conta.dataHora, ");
+
+                comando_sql.Append(" tb_conta_banco.descricao AS descricaoConta, tb_tipo_movimentacao_conta.descricao AS descricaoTipoMovimento, tb_pessoa.nome AS nomeResponsavel, ");
+                comando_sql.Append(" tb_tipo_movimentacao_conta.somaSaldo ");
+                comando_sql.Append(" FROM            tb_movimentacao_conta ");
+
+                comando_sql.Append(" INNER JOIN tb_conta_banco ON tb_movimentacao_conta.codContaBanco = tb_conta_banco.codContaBanco ");
+                comando_sql.Append(" INNER JOIN tb_tipo_movimentacao_conta ON tb_movimentacao_conta.codTipoMovimentacao = tb_tipo_movimentacao_conta.codTipoMovimentacao ");
+                comando_sql.Append(" INNER JOIN tb_pessoa ON tb_movimentacao_conta.codResponsavel = tb_pessoa.codPessoa ");
+                comando_sql.Append(" WHERE tb_movimentacao_conta.codConta IN ('");
+                for (int i = 0; i < listaCodContas.Count; i++)
+                {
+                    comando_sql.Append(listaCodContas[i] + "'");
+                    if (i + 1 < listaCodContas.Count)
+                    {
+                        comando_sql.Append(", '");
+                    }
+                }
+                comando_sql.Append(")");
+                // cria novo adapter para executar a consulta
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = new MySqlCommand(comando_sql.ToString(), new MySqlConnection(Dados.Properties.Settings.Default.saceConnectionString));
+
+                // preencher data table com os dados da consulta
+                adapter.Fill(movimentacaoContaDT);
+                
+            }
+            return movimentacaoContaDT; 
+        }
+        
         public List<MovimentacaoConta> obterMovimentacaoConta(Conta conta)
         {
             tb_movimentacao_contaTableAdapter tb_movimentacaoTA = new tb_movimentacao_contaTableAdapter();
