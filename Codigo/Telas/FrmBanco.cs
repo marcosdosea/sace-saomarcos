@@ -86,7 +86,7 @@ namespace Telas
                 banco.codBanco = Int32.Parse(codBancoTextBox.Text);
                 banco.nome = nomeTextBox.Text;
 
-                IGerenciadorBanco gBanco = GerenciadorBanco.getInstace();
+                GerenciadorBanco gBanco = GerenciadorBanco.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gBanco.inserir(banco);

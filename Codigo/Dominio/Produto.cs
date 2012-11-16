@@ -29,6 +29,8 @@ namespace Dominio
         public String Nome { get; set; }
         public String NomeProdutoFabricante { get; set; }
         public String Unidade { get; set; }
+        public String UnidadeCompra { get; set; }
+        public Decimal QuantidadeEmbalagem { get; set; }
         public String CodigoBarra { get; set; }
         public String CodCST { get; set; }
         public Int32 CodGrupo { get; set; }

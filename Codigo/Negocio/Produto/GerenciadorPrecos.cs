@@ -6,14 +6,10 @@ using Util;
 
 namespace Negocio
 {
-    public class GerenciadorPrecos : Negocio.IGerenciadorPrecos
+    public class GerenciadorPrecos 
     {
         static GerenciadorPrecos gerenciadorPrecos = null;
         
-        private GerenciadorPrecos()
-        {
-        }
-
         public static GerenciadorPrecos getInstance()
         {
             if (gerenciadorPrecos == null)

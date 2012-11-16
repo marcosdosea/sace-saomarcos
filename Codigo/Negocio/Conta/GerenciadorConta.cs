@@ -12,12 +12,12 @@ using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
-    public class GerenciadorConta : IGerenciadorConta
+    public class GerenciadorConta
     {
-        private static IGerenciadorConta gConta;
+        private static GerenciadorConta gConta;
         private static tb_contaTableAdapter tb_contaTA;
         
-        public static IGerenciadorConta getInstace()
+        public static GerenciadorConta getInstace()
         {
             if (gConta == null)
             {

@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorLoja : IGerenciadorLoja
+    public class GerenciadorLoja
     {
-        private static IGerenciadorLoja gLoja;
+        private static GerenciadorLoja gLoja;
         private static tb_lojaTableAdapter tb_lojaTA;
         
-        public static IGerenciadorLoja getInstace()
+        public static GerenciadorLoja getInstace()
         {
             if (gLoja == null)
             {

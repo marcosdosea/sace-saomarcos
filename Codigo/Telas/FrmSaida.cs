@@ -159,15 +159,16 @@ namespace Telas
         {
             saida = GerenciadorSaida.getInstace().obterSaida( Convert.ToInt64(codSaidaTextBox.Text) );
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) {
-                GerenciadorSaida.getInstace().removerPreVenda(saida);
+                GerenciadorSaida.getInstace().excluirDocumentoFiscal(saida);
                 GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                 GerenciadorSaida.getInstace().registrarEstornoEstoque(saidaProdutos);
                 saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 saida.PedidoGerado = "";
                 GerenciadorSaida.getInstace().atualizar(saida);
-                this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-                tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
+                descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
+                //this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
+                //tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
             }
             
             codProdutoComboBox.Focus();
@@ -269,7 +270,7 @@ namespace Telas
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
 
-            IGerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.getInstace();
+            GerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
                 gSaidaProduto.inserir(saidaProduto, saida);

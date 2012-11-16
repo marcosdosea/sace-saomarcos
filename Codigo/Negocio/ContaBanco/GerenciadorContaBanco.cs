@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorContaBanco : IGerenciadorContaBanco
+    public class GerenciadorContaBanco 
     {
-        private static IGerenciadorContaBanco gContaBanco;
+        private static GerenciadorContaBanco gContaBanco;
         private static tb_conta_bancoTableAdapter tb_conta_bancoTA;
         
-        public static IGerenciadorContaBanco getInstace()
+        public static GerenciadorContaBanco getInstace()
         {
             if (gContaBanco == null)
             {

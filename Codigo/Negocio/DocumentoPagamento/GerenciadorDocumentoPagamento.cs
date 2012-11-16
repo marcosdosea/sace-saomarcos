@@ -11,13 +11,13 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorDocumentoPagamento : IGerenciadorDocumentoPagamento
+    public class GerenciadorDocumentoPagamento 
     {
-        private static IGerenciadorDocumentoPagamento gDocumentoPagamento;
+        private static GerenciadorDocumentoPagamento gDocumentoPagamento;
         private static tb_documento_pagamentoTableAdapter tb_documento_pagamentoTA;
         
         
-        public static IGerenciadorDocumentoPagamento getInstace()
+        public static GerenciadorDocumentoPagamento getInstace()
         {
             if (gDocumentoPagamento == null)
             {

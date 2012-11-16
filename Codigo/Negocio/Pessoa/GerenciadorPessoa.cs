@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorPessoa : IGerenciadorPessoa
+    public class GerenciadorPessoa
     {
-        private static IGerenciadorPessoa gPessoa;
+        private static GerenciadorPessoa gPessoa;
         private static tb_pessoaTableAdapter tb_pessoaTA;
         
-        public static IGerenciadorPessoa getInstace()
+        public static GerenciadorPessoa getInstace()
         {
             if (gPessoa == null)
             {
@@ -31,11 +31,14 @@ namespace Negocio
             try
             {
                 byte ehFabricanteByte = (byte)(pessoa.EhFabricante ? 1 : 0);
+                byte imprimirCFByte = (byte)(pessoa.ImprimirCF ? 1 : 0);
+                byte imprimirDAVByte = (byte)(pessoa.ImprimirDAV ? 1 : 0);
+
 
                 tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
                     pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, 
                     pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
-                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte);
+                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte);
 
                 return 0;
             }
@@ -54,11 +57,13 @@ namespace Negocio
             try
             {
                 byte ehFabricanteByte = (byte)(pessoa.EhFabricante ? 1 : 0);
+                byte imprimirCFByte = (byte)(pessoa.ImprimirCF ? 1 : 0);
+                byte imprimirDAVByte = (byte)(pessoa.ImprimirDAV ? 1 : 0);
 
                 tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
                     pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra,
                     pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
-                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, pessoa.CodPessoa);
+                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.CodPessoa);
             }
             catch (Exception e)
             {

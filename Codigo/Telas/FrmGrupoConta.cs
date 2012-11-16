@@ -89,7 +89,7 @@ namespace Telas
                 grupoConta.CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
                 grupoConta.Descricao = descricaoTextBox.Text;
 
-                IGerenciadorGrupoConta gGrupoConta = GerenciadorGrupoConta.getInstace();
+                GerenciadorGrupoConta gGrupoConta = GerenciadorGrupoConta.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gGrupoConta.inserir(grupoConta);

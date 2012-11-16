@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorTipoMovimentacaoConta: IGerenciadorTipoMovimentacaoConta
+    public class GerenciadorTipoMovimentacaoConta
     {
-        private static IGerenciadorTipoMovimentacaoConta gTipoMovimentacaoConta;
+        private static GerenciadorTipoMovimentacaoConta gTipoMovimentacaoConta;
         private static tb_tipo_movimentacao_contaTableAdapter tb_tipoMovimentacaoContaTA;
         
-        public static IGerenciadorTipoMovimentacaoConta getInstace()
+        public static GerenciadorTipoMovimentacaoConta getInstace()
         {
             if (gTipoMovimentacaoConta == null)
             {

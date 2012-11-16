@@ -129,8 +129,8 @@ namespace Telas
             produtoLoja.QtdEstoque = 0;
             produtoLoja.QtdEstoqueAux = 0;
             
-            IGerenciadorProduto gProduto = GerenciadorProduto.getInstace();
-            IGerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.getInstace();
+            GerenciadorProduto gProduto = GerenciadorProduto.getInstace();
+            GerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 gProduto.inserir(produto);

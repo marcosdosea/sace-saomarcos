@@ -51,6 +51,9 @@ namespace Telas
             limiteCompraTextBox.Text = "0";
             valorComissaoTextBox.Text = "0";
             ehFabricanteCheckBox.Checked = false;
+            imprimirCFCheckBox.Checked = false;
+            imprimirDAVCheckBox.Checked = true;
+            PfRadioButton.Select();
             nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -104,8 +107,10 @@ namespace Telas
             pessoa.Uf = ufTextBox.Text;
             pessoa.ValorComissao = (valorComissaoTextBox.Text=="")?0:Decimal.Parse(valorComissaoTextBox.Text);
             pessoa.EhFabricante = ehFabricanteCheckBox.Checked;
+            pessoa.ImprimirCF = imprimirCFCheckBox.Checked;
+            pessoa.ImprimirDAV = imprimirDAVCheckBox.Checked;
 
-            IGerenciadorPessoa gPessoa = GerenciadorPessoa.getInstace();
+            GerenciadorPessoa gPessoa = GerenciadorPessoa.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 gPessoa.inserir(pessoa);

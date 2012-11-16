@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorCartaoCredito : IGerenciadorCartaoCredito
+    public class GerenciadorCartaoCredito
     {
-        private static IGerenciadorCartaoCredito gCartaoCredito;
+        private static GerenciadorCartaoCredito gCartaoCredito;
         private static tb_cartao_creditoTableAdapter tb_cartaoCreditoTA;
         
-        public static IGerenciadorCartaoCredito getInstace()
+        public static GerenciadorCartaoCredito getInstace()
         {
             if (gCartaoCredito == null)
             {

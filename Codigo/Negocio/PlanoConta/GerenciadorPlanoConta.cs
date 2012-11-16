@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorPlanoConta : IGerenciadorPlanoConta
+    public class GerenciadorPlanoConta 
     {
-        private static IGerenciadorPlanoConta gPlanoConta;
+        private static GerenciadorPlanoConta gPlanoConta;
         private static tb_plano_contaTableAdapter tb_plano_contaTA;
         
-        public static IGerenciadorPlanoConta getInstace()
+        public static GerenciadorPlanoConta getInstace()
         {
             if (gPlanoConta == null)
             {

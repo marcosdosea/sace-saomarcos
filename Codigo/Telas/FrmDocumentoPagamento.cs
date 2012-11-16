@@ -148,7 +148,7 @@ namespace Telas
 
 
 
-                IGerenciadorDocumentoPagamento gDocumentoPagamento = GerenciadorDocumentoPagamento.getInstace();
+                GerenciadorDocumentoPagamento gDocumentoPagamento = GerenciadorDocumentoPagamento.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gDocumentoPagamento.inserir(documento);

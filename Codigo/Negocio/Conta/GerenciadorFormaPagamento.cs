@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorFormaPagamento : IGerenciadorFormaPagamento
+    public class GerenciadorFormaPagamento 
     {
-        private static IGerenciadorFormaPagamento gFormaPagamento;
+        private static GerenciadorFormaPagamento gFormaPagamento;
         private static tb_forma_pagamentoTableAdapter tb_forma_pagamentoTA;
         
-        public static IGerenciadorFormaPagamento getInstace()
+        public static GerenciadorFormaPagamento getInstace()
         {
             if (gFormaPagamento == null)
             {

@@ -124,7 +124,7 @@ namespace Telas
                 entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
             }
                         
-            IGerenciadorEntrada gEntrada = GerenciadorEntrada.getInstace();
+            GerenciadorEntrada gEntrada = GerenciadorEntrada.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
@@ -137,7 +137,7 @@ namespace Telas
             }
             else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                IGerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.getInstace();
+                GerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.getInstace();
                 entradaProduto = new EntradaProduto();
                 entradaProduto.CodTipoEntrada = entrada.CodTipoEntrada;
                 entradaProduto.CodProduto = Convert.ToInt32(codProdutoComboBox.SelectedValue.ToString());

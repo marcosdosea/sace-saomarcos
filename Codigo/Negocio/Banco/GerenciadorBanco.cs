@@ -12,12 +12,12 @@ using MySql.Data;
 
 namespace Negocio
 {
-    public class GerenciadorBanco : IGerenciadorBanco
-    {
-        private static IGerenciadorBanco gBanco;
+    public class GerenciadorBanco {
+
+        private static GerenciadorBanco gBanco;
         private static RepositorioGenerico<BancoE, SaceEntities> repBanco;
         
-        public static IGerenciadorBanco getInstace()
+        public static GerenciadorBanco getInstace()
         {
             if (gBanco == null)
             {

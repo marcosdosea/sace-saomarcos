@@ -88,7 +88,7 @@ namespace Telas
                 cfop.CodCfop = Int32.Parse(cfopTextBox.Text);
                 cfop.Icms = 0;
 
-                IGerenciadorCfop gCfop = GerenciadorCfop.getInstace();
+                GerenciadorCfop gCfop = GerenciadorCfop.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gCfop.inserir(cfop);

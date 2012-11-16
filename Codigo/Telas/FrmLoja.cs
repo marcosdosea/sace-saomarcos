@@ -86,7 +86,7 @@ namespace Telas
                 loja.CodPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
                     
                 
-                IGerenciadorLoja gLoja = GerenciadorLoja.getInstace();
+                GerenciadorLoja gLoja = GerenciadorLoja.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gLoja.inserir(loja);

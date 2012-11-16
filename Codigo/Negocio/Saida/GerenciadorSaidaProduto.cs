@@ -13,13 +13,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorSaidaProduto : IGerenciadorSaidaProduto
-    {
-        private static IGerenciadorSaidaProduto gSaidaProduto;
+    public class GerenciadorSaidaProduto {
+        private static GerenciadorSaidaProduto gSaidaProduto;
         private static tb_saida_produtoTableAdapter tb_SaidaProdutoTA;
         private static tb_saidaTableAdapter tb_SaidaTA;
         
-        public static IGerenciadorSaidaProduto getInstace()
+        public static GerenciadorSaidaProduto getInstace()
         {
             if (gSaidaProduto == null)
             {
