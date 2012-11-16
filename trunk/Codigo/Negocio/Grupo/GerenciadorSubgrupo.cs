@@ -11,13 +11,13 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorSubgrupo : IGerenciadorSubgrupo
+    public class GerenciadorSubgrupo 
     {
-        private static IGerenciadorSubgrupo gSubgrupo;
+        private static GerenciadorSubgrupo gSubgrupo;
         private static tb_subgrupoTableAdapter tb_subgrupoTA;
         
         
-        public static IGerenciadorSubgrupo getInstace()
+        public static GerenciadorSubgrupo getInstace()
         {
             if (gSubgrupo == null)
             {

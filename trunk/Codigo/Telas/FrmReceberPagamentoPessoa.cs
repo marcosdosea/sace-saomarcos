@@ -195,12 +195,20 @@ namespace Telas
         
         private void CalcularDescontos() {
             decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
-            for (int i = 0; i < contasPessoaDataGridView.SelectedRows.Count; i++)
+            for (int i = 0; i < contasPessoaDataGridView.Rows.Count; i++)
             {
-                decimal valor = (decimal)contasPessoaDataGridView.Rows[i].Cells[5].Value; //total
-                decimal descontoValorConta = valor * (desconto / 100);
-                contasPessoaDataGridView.SelectedRows[i].Cells[6].Value = descontoValorConta.ToString("N2"); // desconto
-                contasPessoaDataGridView.SelectedRows[i].Cells[7].Value = (valor - descontoValorConta).ToString("N2"); //totalPagar
+                if (contasPessoaDataGridView.Rows[i].Selected)
+                {
+                    decimal valor = (decimal)contasPessoaDataGridView.Rows[i].Cells[5].Value; //total
+                    decimal descontoValorConta = valor * (desconto / 100);
+                    contasPessoaDataGridView.Rows[i].Cells[6].Value = descontoValorConta.ToString("N2"); // desconto
+                    contasPessoaDataGridView.Rows[i].Cells[7].Value = (valor - descontoValorConta).ToString("N2"); //totalPagar
+                }
+                else
+                {
+                    contasPessoaDataGridView.Rows[i].Cells[6].Value = 0; // desconto
+                    contasPessoaDataGridView.Rows[i].Cells[7].Value = contasPessoaDataGridView.Rows[i].Cells[5].Value; //totalPagar
+                }
             }
             CalcularTotalContasSelecionadas();
         }

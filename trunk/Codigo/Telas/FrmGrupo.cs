@@ -88,7 +88,7 @@ namespace Telas
                 grupo.Descricao = descricaoTextBox.Text;
                 grupo.CodGrupo = Int32.Parse(codGrupoTextBox.Text);
 
-                IGerenciadorGrupo gGrupo = GerenciadorGrupo.getInstace();
+                GerenciadorGrupo gGrupo = GerenciadorGrupo.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gGrupo.inserir(grupo);

@@ -11,13 +11,13 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorCfop : IGerenciadorCfop
+    public class GerenciadorCfop 
     {
-        private static IGerenciadorCfop gCfop;
+        private static GerenciadorCfop gCfop;
         private static tb_cfopTableAdapter tb_cfopTA;
 
 
-        public static IGerenciadorCfop getInstace()
+        public static GerenciadorCfop getInstace()
         {
             if (gCfop == null)
             {

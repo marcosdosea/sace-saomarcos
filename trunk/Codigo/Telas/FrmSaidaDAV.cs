@@ -26,14 +26,14 @@ namespace Telas
         {
             this.Close();
             Saida saida = GerenciadorSaida.getInstace().obterSaida(CodSaida);
-            GerenciadorSaida.getInstace().imprimirDAV(saida, false);
+            GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>(){saida}, saida.Total, saida.TotalAVista, saida.Desconto, false);
         }
 
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
             Saida saida = GerenciadorSaida.getInstace().obterSaida(CodSaida);
-            GerenciadorSaida.getInstace().imprimirDAV(saida, true);
+            GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

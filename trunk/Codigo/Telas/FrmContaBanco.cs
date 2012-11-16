@@ -93,7 +93,7 @@ namespace Telas
                 contaBanco.Saldo = decimal.Parse(saldoTextBox.Text);
                 contaBanco.CodBanco = Int32.Parse(codBancoComboBox.SelectedValue.ToString());
 
-                IGerenciadorContaBanco gContaBanco = GerenciadorContaBanco.getInstace();
+                GerenciadorContaBanco gContaBanco = GerenciadorContaBanco.getInstace();
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {

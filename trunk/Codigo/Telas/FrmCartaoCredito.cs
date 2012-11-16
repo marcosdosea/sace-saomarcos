@@ -92,7 +92,7 @@ namespace Telas
                 cartaoCredito.CodPessoa = Int64.Parse(codPessoaComboBox.SelectedValue.ToString());
                 cartaoCredito.Mapeamento = mapeamentoTextBox.Text;
 
-                IGerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.getInstace();
+                GerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gCartaoCredito.inserir(cartaoCredito);

@@ -81,7 +81,7 @@ namespace Telas
                 produtoLoja.Localizacao2 = localizacao2TextBox.Text;
 
                 
-                IGerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.getInstace();
+                GerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gProdutoLoja.inserir(produtoLoja);

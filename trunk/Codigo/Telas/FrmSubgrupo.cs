@@ -91,7 +91,7 @@ namespace Telas
                 subgrupo.CodSubgrupo = Convert.ToInt32(codSubgrupoTextBox.Text);
                 subgrupo.Descricao = descricaoTextBox.Text;
 
-                IGerenciadorSubgrupo gSubgrupo = GerenciadorSubgrupo.getInstace();
+                GerenciadorSubgrupo gSubgrupo = GerenciadorSubgrupo.getInstace();
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {

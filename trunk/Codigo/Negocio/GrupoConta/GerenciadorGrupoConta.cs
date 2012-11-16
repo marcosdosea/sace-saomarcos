@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorGrupoConta : IGerenciadorGrupoConta
+    public class GerenciadorGrupoConta 
     {
-        private static IGerenciadorGrupoConta gGrupoConta;
+        private static GerenciadorGrupoConta gGrupoConta;
         private static tb_grupo_contaTableAdapter tb_grupo_contaTA;
         
-        public static IGerenciadorGrupoConta getInstace()
+        public static GerenciadorGrupoConta getInstace()
         {
             if (gGrupoConta == null)
             {

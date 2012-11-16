@@ -11,15 +11,15 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorEntradaProduto : IGerenciadorEntradaProduto
+    public class GerenciadorEntradaProduto 
     {
-        private static IGerenciadorEntradaProduto gEntradaProduto;
+        private static GerenciadorEntradaProduto gEntradaProduto;
         private static tb_entrada_produtoTableAdapter tb_entrada_produtoTA;
         private static tb_produto_lojaTableAdapter tb_produto_lojaTA;
         private static tb_produtoTableAdapter tb_produtoTA;
         
         
-        public static IGerenciadorEntradaProduto getInstace()
+        public static GerenciadorEntradaProduto getInstace()
         {
             if (gEntradaProduto == null)
             {

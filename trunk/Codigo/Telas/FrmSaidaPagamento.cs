@@ -39,14 +39,16 @@ namespace Telas
             this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
             this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
             this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-            //this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-            //tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
-
-            inicializaVariaveis();
+            this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, saida.CodSaida);
+            
+            InicializaVariaveis();
             AtualizaValores();
         }
 
-        private void inicializaVariaveis()
+        /// <summary>
+        /// Inicializar variáveis com valores padrões
+        /// </summary>
+        private void InicializaVariaveis()
         {
             codCartaoComboBox.SelectedIndex = 0;
             codFormaPagamentoComboBox.SelectedIndex = 0;
@@ -54,6 +56,7 @@ namespace Telas
             codContaBancoComboBox.SelectedIndex = 0;
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
         }
+
         /// <summary>
         /// Salva uma forma de pagamento 
         /// </summary>
@@ -124,59 +127,33 @@ namespace Telas
         /// <param name="e"></param>
         private void EncerrarLancamentosPagamentos(object sender, EventArgs e)
         {
-            long codSaida = Int64.Parse(codSaidaTextBox.Text);
-            Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
-
             if ((saida.PedidoGerado == null) || saida.PedidoGerado.Equals(""))
             {
-                bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(codSaida, FormaPagamento.CREDIARIO).Count > 0;
 
-                if (temPagamentoCrediario)
-                {
-                    var frmSaidaConfirma = new FrmSaidaConfirma(saida);
-                    frmSaidaConfirma.ShowDialog();
+                var frmSaidaConfirma = new FrmSaidaConfirma(saida);
+                frmSaidaConfirma.ShowDialog();
 
-                    if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
-                    {
-                        GerenciadorSaida.getInstace().encerrar(saida, frmSaidaConfirma.Opcao);
-                        GerenciadorSaida.getInstace().imprimirDAV(saida, true);
-                        this.Close();
-                    }
-                    else
-                    {
-                        this.Close();
-                    }
-                    frmSaidaConfirma.Dispose();
-                }
-                else
+                if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
-                    var frmSaidaConfirma = new FrmSaidaConfirma(saida);
-                    frmSaidaConfirma.ShowDialog();
-                    if (frmSaidaConfirma.Opcao != 0) // Opção 0 é quando pressiona o botão Cancelar
+                    GerenciadorSaida.getInstace().encerrar(saida, frmSaidaConfirma.Opcao);
+                    if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                     {
-                        if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
+                        // quando tem pagamento crediário imprime o DAV
+                        bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).Count > 0;
+                        if (temPagamentoCrediario)
                         {
-                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_PRE_VENDA);
+                            GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                        }
+                        else
+                        {
                             GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
                         }
-                        else if (frmSaidaConfirma.Opcao == Saida.TIPO_ORCAMENTO)
-                        {
-                            GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_ORCAMENTO);
-                        }
-
-                        this.Close();
                     }
-                    else
-                    {
-                        this.Close();
-                    }
-                    frmSaidaConfirma.Dispose();
                 }
+                frmSaidaConfirma.Close();
+                frmSaidaConfirma.Dispose();
             }
-            else
-            {
-                this.Close();
-            }
+            this.Close();
         }
 
         /// <summary>
@@ -195,7 +172,7 @@ namespace Telas
                     Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento, saida);
                     this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
 
-                    inicializaVariaveis();
+                    InicializaVariaveis();
                     AtualizaValores();
                     codFormaPagamentoComboBox.Focus();
                 }

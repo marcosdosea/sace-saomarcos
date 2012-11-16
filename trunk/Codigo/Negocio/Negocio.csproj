@@ -59,50 +59,27 @@
   <ItemGroup>
     <Compile Include="Banco\GerenciadorBanco.cs" />
     <Compile Include="CartaoCredito\GerenciadorCartaoCredito.cs" />
-    <Compile Include="CartaoCredito\IGerenciadorCartaoCredito.cs" />
     <Compile Include="ContaBanco\GerenciadorTipoMovimentacaoConta.cs" />
     <Compile Include="ContaBanco\GerenciadorMovimentacaoConta.cs" />
-    <Compile Include="ContaBanco\IGerenciadorTipoMovimentacao.cs" />
-    <Compile Include="ContaBanco\IGerenciadorMovimentacaoConta.cs" />
     <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
-    <Compile Include="ContaBanco\IGerenciadorContaBanco.cs" />
     <Compile Include="ContatoPessoa\GerenciadorContatoPessoa.cs" />
-    <Compile Include="ContatoPessoa\IGerenciadorContatoPessoa.cs" />
     <Compile Include="Conta\GerenciadorFormaPagamento.cs" />
-    <Compile Include="Conta\IGerenciadorFormaPagamento.cs" />
     <Compile Include="Conta\GerenciadorConta.cs" />
-    <Compile Include="Conta\IGerenciadorConta.cs" />
     <Compile Include="Cfop\GerenciadorCfop.cs" />
-    <Compile Include="Cfop\IGerenciadorCfop.cs" />
     <Compile Include="DocumentoPagamento\GerenciadorDocumentoPagamento.cs" />
-    <Compile Include="DocumentoPagamento\IGerenciadorDocumentoPagamento.cs" />
     <Compile Include="Entrada\GerenciadorEntrada.cs" />
     <Compile Include="Entrada\GerenciadorEntradaProduto.cs" />
     <Compile Include="Entrada\GerenciadorEntradaPagamento.cs" />
-    <Compile Include="Entrada\IGerenciadorEntrada.cs" />
-    <Compile Include="Entrada\IGerenciadorEntradaProduto.cs" />
-    <Compile Include="Entrada\IGerenciadorEntradaPagamento.cs" />
     <Compile Include="Grupo\GerenciadorSubgrupo.cs" />
-    <Compile Include="Grupo\IGerenciadorSubgrupo.cs" />
     <Compile Include="Produto\GerenciadorProdutoLoja.cs" />
-    <Compile Include="Produto\IGerenciadorProdutoLoja.cs" />
     <Compile Include="Produto\GerenciadorPrecos.cs" />
-    <Compile Include="Banco\IGerenciadorBanco.cs" />
     <Compile Include="GrupoConta\GerenciadorGrupoConta.cs" />
-    <Compile Include="GrupoConta\IGerenciadorGrupoConta.cs" />
     <Compile Include="Grupo\GerenciadorGrupo.cs" />
-    <Compile Include="Grupo\IGerenciadorGrupo.cs" />
-    <Compile Include="IGerenciadorNegocio.cs" />
     <Compile Include="Loja\GerenciadorLoja.cs" />
-    <Compile Include="Loja\IGerenciadorLoja.cs" />
     <Compile Include="NegocioException.cs" />
     <Compile Include="Pessoa\GerenciadorPessoa.cs" />
-    <Compile Include="Pessoa\IGerenciadorPessoa.cs" />
     <Compile Include="PlanoConta\GerenciadorPlanoConta.cs" />
-    <Compile Include="PlanoConta\IGerenciadorPlanoConta.cs" />
     <Compile Include="Produto\GerenciadorProduto.cs" />
-    <Compile Include="Produto\IGerenciadorPrecos.cs" />
-    <Compile Include="Produto\IGerenciadorProduto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -130,13 +107,9 @@
     <Compile Include="GerenciadorSeguranca.cs" />
     <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />
     <Compile Include="Saida\GerenciadorSaidaPagamento.cs" />
-    <Compile Include="Saida\IGerenciadorSaidaPagamento.cs" />
     <Compile Include="Saida\GerenciadorSaidaProduto.cs" />
-    <Compile Include="Saida\IGerenciadorSaidaProduto.cs" />
     <Compile Include="Saida\GerenciadorSaida.cs" />
-    <Compile Include="Saida\IGerenciadorSaida.cs" />
     <Compile Include="Usuario\GerenciadorUsuario.cs" />
-    <Compile Include="Usuario\IGerenciadorUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dados\Dados.csproj">

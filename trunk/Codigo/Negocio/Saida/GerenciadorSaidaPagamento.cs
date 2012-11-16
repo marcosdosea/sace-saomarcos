@@ -11,12 +11,12 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorSaidaPagamento : IGerenciadorSaidaPagamento
-    {
-        private static IGerenciadorSaidaPagamento gSaidaPagamento;
+    public class GerenciadorSaidaPagamento {
+        
+        private static GerenciadorSaidaPagamento gSaidaPagamento;
         private static tb_saida_forma_pagamentoTableAdapter tb_SaidaPagamentoTA;
         
-        public static IGerenciadorSaidaPagamento getInstace()
+        public static GerenciadorSaidaPagamento getInstace()
         {
             if (gSaidaPagamento == null)
             {
@@ -148,8 +148,6 @@ namespace Negocio
                saida.Troco = saida.TotalPago - saida.TotalAVista;
                saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
                GerenciadorSaida.getInstace().atualizar(saida);
-
-
             }
             catch (Exception e)
             {

@@ -11,13 +11,13 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorEntrada : IGerenciadorEntrada
+    public class GerenciadorEntrada 
     {
-        private static IGerenciadorEntrada gEntrada;
+        private static GerenciadorEntrada gEntrada;
         private static tb_entradaTableAdapter tb_entradaTA;
         
         
-        public static IGerenciadorEntrada getInstace()
+        public static GerenciadorEntrada getInstace()
         {
             if (gEntrada == null)
             {

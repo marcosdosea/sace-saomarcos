@@ -95,7 +95,7 @@ namespace Telas
                 planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
                 planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
 
-                IGerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.getInstace();
+                GerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.getInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gPlanoConta.inserir(planoConta);

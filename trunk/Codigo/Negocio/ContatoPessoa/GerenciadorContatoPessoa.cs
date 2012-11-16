@@ -11,13 +11,13 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorContatoPessoa : IGerenciadorContatoPessoa
+    public class GerenciadorContatoPessoa 
     {
-        private static IGerenciadorContatoPessoa gContatoPessoa;
+        private static GerenciadorContatoPessoa gContatoPessoa;
         private static tb_contato_empresaTableAdapter tb_contato_empresaTA;
         
         
-        public static IGerenciadorContatoPessoa getInstace()
+        public static GerenciadorContatoPessoa getInstace()
         {
             if (gContatoPessoa == null)
             {

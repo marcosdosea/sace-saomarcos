@@ -11,13 +11,13 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorProduto : IGerenciadorProduto
-    {
-        private static IGerenciadorProduto gProduto;
-        private static IGerenciadorPrecos gPreco;
+    public class GerenciadorProduto {
+
+        private static GerenciadorProduto gProduto;
+        private static GerenciadorPrecos gPreco;
         private static tb_produtoTableAdapter tb_produtoTA;
         
-        public static IGerenciadorProduto getInstace()
+        public static GerenciadorProduto getInstace()
         {
             if (gProduto == null)
             {
@@ -43,7 +43,8 @@ namespace Negocio
                     produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
                     produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
                     produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, 
-                    exibeNaListagemByte, produto.DataUltimoPedido, produto.Desconto);
+                    exibeNaListagemByte, produto.DataUltimoPedido, produto.Desconto,
+                    produto.UnidadeCompra, produto.QuantidadeEmbalagem);
                
                 return 0;
             }
@@ -75,7 +76,8 @@ namespace Negocio
                     produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
                     produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
                     produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado,
-                    produto.ExibeNaListagem, produto.DataUltimoPedido, produto.Desconto, produto.CodProduto);
+                    produto.ExibeNaListagem, produto.DataUltimoPedido, produto.Desconto, 
+                    produto.UnidadeCompra, produto.QuantidadeEmbalagem,  produto.CodProduto);
             }
             catch (Exception e)
             {
