@@ -54,14 +54,14 @@ namespace Telas
             imprimirCFCheckBox.Checked = false;
             imprimirDAVCheckBox.Checked = true;
             PfRadioButton.Select();
-            nomeTextBox.Focus();
+            nomeFantasiaTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            nomeTextBox.Focus();
+            nomeFantasiaTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.ATUALIZAR;
         }
@@ -88,6 +88,7 @@ namespace Telas
             Pessoa pessoa = new Pessoa();
             pessoa.CodPessoa = Int64.Parse(codPessoaTextBox.Text);
             pessoa.Nome = nomeTextBox.Text;
+            pessoa.NomeFantasia = nomeFantasiaTextBox.Text;
             pessoa.Complemento = complementoTextBox.Text;
             pessoa.Bairro = bairroTextBox.Text;
             pessoa.Cep = cepMaskedTextBox.Text;
@@ -282,6 +283,14 @@ namespace Telas
         private void limiteCompraTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+        }
+
+        private void nomeFantasiaTextBox_Leave(object sender, EventArgs e)
+        {
+            if (nomeTextBox.Text.Trim().Equals(""))
+            {
+                nomeTextBox.Text = nomeFantasiaTextBox.Text;
+            }
         }
     }
 }

@@ -18,10 +18,12 @@ namespace Dominio
         public decimal Subtotal
         {
             get { return ValorVenda * Quantidade; }
+            set { ValorVenda = value / Quantidade; } 
         }
         public decimal SubtotalAVista
         {
             get { return ValorVendaAVista * Quantidade; }
+            set { ValorVendaAVista = value / Quantidade; }
         }
 
         public DateTime DataValidade { get; set; }

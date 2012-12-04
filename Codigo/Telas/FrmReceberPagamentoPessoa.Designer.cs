@@ -202,7 +202,7 @@
              this.btnSalvar.Location = new System.Drawing.Point(83, 537);
              this.btnSalvar.Name = "btnSalvar";
              this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-             this.btnSalvar.TabIndex = 4;
+             this.btnSalvar.TabIndex = 56;
              this.btnSalvar.Text = "F6 - Salvar";
              this.btnSalvar.UseVisualStyleBackColor = true;
              this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -212,7 +212,7 @@
              this.btnCancelar.Location = new System.Drawing.Point(340, 537);
              this.btnCancelar.Name = "btnCancelar";
              this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-             this.btnCancelar.TabIndex = 5;
+             this.btnCancelar.TabIndex = 62;
              this.btnCancelar.Text = "Esc - Cancelar";
              this.btnCancelar.UseVisualStyleBackColor = true;
              this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -666,11 +666,13 @@
              // 
              // descontoTextBox
              // 
+             this.descontoTextBox.Enabled = false;
              this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
              this.descontoTextBox.Location = new System.Drawing.Point(217, 435);
              this.descontoTextBox.Name = "descontoTextBox";
              this.descontoTextBox.Size = new System.Drawing.Size(136, 26);
              this.descontoTextBox.TabIndex = 44;
+             this.descontoTextBox.TabStop = false;
              this.descontoTextBox.Leave += new System.EventHandler(this.DescontoTextBox_Leave);
              // 
              // totalPagarTextBox
@@ -697,12 +699,14 @@
              // 
              // dataPagamentoTimePicker
              // 
+             this.dataPagamentoTimePicker.Enabled = false;
              this.dataPagamentoTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
              this.dataPagamentoTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
              this.dataPagamentoTimePicker.Location = new System.Drawing.Point(635, 498);
              this.dataPagamentoTimePicker.Name = "dataPagamentoTimePicker";
              this.dataPagamentoTimePicker.Size = new System.Drawing.Size(124, 26);
              this.dataPagamentoTimePicker.TabIndex = 52;
+             this.dataPagamentoTimePicker.TabStop = false;
              // 
              // valorPagamentoTextBox
              // 
@@ -734,18 +738,20 @@
              this.btnImprimir.Location = new System.Drawing.Point(164, 537);
              this.btnImprimir.Name = "btnImprimir";
              this.btnImprimir.Size = new System.Drawing.Size(88, 23);
-             this.btnImprimir.TabIndex = 55;
+             this.btnImprimir.TabIndex = 58;
              this.btnImprimir.Text = "F7 - Imprimir";
              this.btnImprimir.UseVisualStyleBackColor = true;
+             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
              // 
              // btnCFNfe
              // 
              this.btnCFNfe.Location = new System.Drawing.Point(252, 537);
              this.btnCFNfe.Name = "btnCFNfe";
              this.btnCFNfe.Size = new System.Drawing.Size(88, 23);
-             this.btnCFNfe.TabIndex = 56;
+             this.btnCFNfe.TabIndex = 60;
              this.btnCFNfe.Text = "F8 - CF / NF-e";
              this.btnCFNfe.UseVisualStyleBackColor = true;
+             this.btnCFNfe.Click += new System.EventHandler(this.btnCFNfe_Click);
              // 
              // contasPessoaTableAdapter
              // 

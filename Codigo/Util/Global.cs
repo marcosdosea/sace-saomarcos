@@ -41,11 +41,14 @@ namespace Util
         CLIENTE_PADRAO = 1,
         PROFISSIONAL_PADRAO = 1,
         ENTRADA_PADRAO = 1,
+        SAIDA_PADRAO = 1,
         VENDA_NORMAL = 5102,
         VENDA_ST = 5403,
         VENDA_OUTRAS = 9999,
         QUANTIDADE_DIAS_CREDIARIO = 30,
-        DOCUMENTO_PADRAO = 1;
+        DOCUMENTO_PADRAO = 1,
+        CAIXA_PADRAO = 1,
+        QUANTIDADE_EXIBIR_PEDIDOS = 100;
 
 
         public static System.Drawing.Color
@@ -61,22 +64,23 @@ namespace Util
 
         public static String
 
-         ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-         //ENDERECO_SERVIDOR = "c:\\",
+         //ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+         ENDERECO_SERVIDOR = "c:\\",
          PASTA_COMUNICACAO_SERVIDOR = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_SERVIDOR_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_SERVIDOR_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
-         PASTA_BACKUP = "C:\\BACKUP_SACE\\",
+         PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          NOME_SERVIDOR = "SERVIDOR",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",
          SGBD_SENHA = "sace",
          SGBD_IP = "192.168.0.3",
-         PORTA_IMPRESSORA_NORMAL = "LPT1",
+         //PORTA_IMPRESSORA_NORMAL = "LPT1",
          PORTA_IMPRESSORA_REDUZIDA = "LPT2",
-         //PORTA_IMPRESSORA = "sace-teste.txt",
+         PORTA_IMPRESSORA_NORMAL = "sace-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================";
+        
     }
 }

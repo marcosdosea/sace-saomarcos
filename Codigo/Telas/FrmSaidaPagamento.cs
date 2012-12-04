@@ -15,6 +15,7 @@ namespace Telas
     public partial class FrmSaidaPagamento : Form
     {
         private Saida saida;
+        private Pessoa pessoa = null;
         private decimal faltaReceber = 0;
 
         public FrmSaidaPagamento(Saida saida)
@@ -142,11 +143,14 @@ namespace Telas
                         bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).Count > 0;
                         if (temPagamentoCrediario)
                         {
-                            GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                            if (pessoa.ImprimirDAV)
+                            {
+                                GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                            }
                         }
                         else
                         {
-                            GerenciadorSaida.getInstace().gerarDocumentoFiscal(saida);
+                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, null);
                         }
                     }
                 }
@@ -218,7 +222,7 @@ namespace Telas
             // Ajusta o valor do desconto que está sendo exibido de acordo com o total a vista
             if (saida.TotalAVista != 0)
             {
-                saida.Desconto = ((1 - (saida.TotalAVista / saida.Total)) * 100);
+                saida.Desconto = (saida.Total - saida.TotalAVista) / saida.Total * 100;
             }
             else
             {
@@ -343,7 +347,7 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codClienteComboBox.Text);
+            pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codClienteComboBox.Text);
             if (pessoa == null)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);

@@ -135,6 +135,8 @@ namespace Negocio
                 saidaProduto.Desconto = Convert.ToDecimal(tbsaidaProduto.Rows[i]["desconto"].ToString());
                 saidaProduto.Quantidade = Convert.ToDecimal(tbsaidaProduto.Rows[i]["quantidade"].ToString());
                 saidaProduto.ValorVenda = Convert.ToDecimal(tbsaidaProduto.Rows[i]["valorVenda"].ToString());
+                saidaProduto.Subtotal = Convert.ToDecimal(tbsaidaProduto.Rows[i]["subtotal"].ToString());
+                saidaProduto.SubtotalAVista = Convert.ToDecimal(tbsaidaProduto.Rows[i]["subtotalavista"].ToString());
                 saidaProduto.Nome = tbsaidaProduto.Rows[i]["nome"].ToString();
                 saidaProduto.CodCST = tbsaidaProduto.Rows[i]["codCST"].ToString();
                 saidaProduto.Unidade = tbsaidaProduto.Rows[i]["unidade"].ToString();
@@ -159,6 +161,34 @@ namespace Negocio
                 saidaProduto.Desconto = Convert.ToDecimal(tbsaidaProduto.Rows[i]["desconto"].ToString());
                 saidaProduto.Quantidade = Convert.ToDecimal(tbsaidaProduto.Rows[i]["quantidade"].ToString());
                 saidaProduto.ValorVenda = Convert.ToDecimal(tbsaidaProduto.Rows[i]["valorVenda"].ToString());
+                saidaProduto.Subtotal = Convert.ToDecimal(tbsaidaProduto.Rows[i]["subtotal"].ToString());
+                saidaProduto.SubtotalAVista = Convert.ToDecimal(tbsaidaProduto.Rows[i]["subtotalavista"].ToString());
+                saidaProduto.Nome = tbsaidaProduto.Rows[i]["nome"].ToString();
+                saidaProduto.CodCST = tbsaidaProduto.Rows[i]["codCST"].ToString();
+                saidaProduto.Unidade = tbsaidaProduto.Rows[i]["unidade"].ToString();
+                saidaProdutos.Add(saidaProduto);
+            }
+            return saidaProdutos;
+        }
+
+        public List<SaidaProduto> obterSaidaProdutosPorPedido(string codPedido)
+        {
+            List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
+
+            saceDataSet.tb_saida_produtoDataTable tbsaidaProduto = tb_SaidaProdutoTA.GetDataByPedidoGerado(codPedido);
+
+            for (int i = 0; i < tbsaidaProduto.Count; i++)
+            {
+                SaidaProduto saidaProduto = new SaidaProduto();
+                saidaProduto.CodProduto = Convert.ToInt32(tbsaidaProduto.Rows[i]["codProduto"].ToString());
+                saidaProduto.CodSaida = Convert.ToInt64(tbsaidaProduto.Rows[i]["codSaida"].ToString());
+                saidaProduto.CodSaidaProduto = Convert.ToInt32(tbsaidaProduto.Rows[i]["codSaidaProduto"].ToString());
+                saidaProduto.DataValidade = Convert.ToDateTime(tbsaidaProduto.Rows[i]["data_validade"].ToString());
+                saidaProduto.Desconto = Convert.ToDecimal(tbsaidaProduto.Rows[i]["desconto"].ToString());
+                saidaProduto.Quantidade = Convert.ToDecimal(tbsaidaProduto.Rows[i]["quantidade"].ToString());
+                saidaProduto.ValorVenda = Convert.ToDecimal(tbsaidaProduto.Rows[i]["valorVenda"].ToString());
+                saidaProduto.Subtotal = Convert.ToDecimal(tbsaidaProduto.Rows[i]["subtotal"].ToString());
+                saidaProduto.SubtotalAVista = Convert.ToDecimal(tbsaidaProduto.Rows[i]["subtotalavista"].ToString());
                 saidaProduto.Nome = tbsaidaProduto.Rows[i]["nome"].ToString();
                 saidaProduto.CodCST = tbsaidaProduto.Rows[i]["codCST"].ToString();
                 saidaProduto.Unidade = tbsaidaProduto.Rows[i]["unidade"].ToString();

@@ -36,9 +36,9 @@ namespace Negocio
 
 
                 tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, 
-                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
-                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte);
+                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra.ToString(), 
+                    pessoa.ValorComissao.ToString(), pessoa.Observacao, pessoa.Tipo.ToString(),
+                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.NomeFantasia);
 
                 return 0;
             }
@@ -63,7 +63,7 @@ namespace Negocio
                 tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
                     pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra,
                     pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
-                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.CodPessoa);
+                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.NomeFantasia, pessoa.CodPessoa);
             }
             catch (Exception e)
             {
@@ -107,20 +107,24 @@ namespace Negocio
             pessoa.IeSubstituto = pessoaDT.Rows[0]["ieSubstituto"].ToString();
             pessoa.LimiteCompra = Convert.ToDecimal(pessoaDT.Rows[0]["limiteCompra"].ToString());
             pessoa.Nome = pessoaDT.Rows[0]["nome"].ToString();
+            pessoa.NomeFantasia = pessoaDT.Rows[0]["nomeFantasia"].ToString();
             pessoa.Numero = pessoaDT.Rows[0]["numero"].ToString();
             pessoa.Observacao = pessoaDT.Rows[0]["observacao"].ToString();
             pessoa.Tipo = Convert.ToChar(pessoaDT.Rows[0]["tipo"].ToString());
             pessoa.Uf = pessoaDT.Rows[0]["uf"].ToString();
             pessoa.ValorComissao = Convert.ToDecimal(pessoaDT.Rows[0]["valorComissao"].ToString());
+            pessoa.EhFabricante = Convert.ToBoolean(pessoaDT.Rows[0]["ehFabricante"].ToString());
+            pessoa.ImprimirCF = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirCF"].ToString());
+            pessoa.ImprimirDAV = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirDAV"].ToString());
 
             return pessoa;
         }
 
-        public Pessoa obterPessoaNomeIgual(String nome)
+        public Pessoa obterPessoaNomeFantasiaIgual(String nome)
         {
             Pessoa pessoa = null;
             Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTA = new tb_pessoaTableAdapter();
-            Dados.saceDataSet.tb_pessoaDataTable pessoaDT = tb_pessoaTA.GetDataByEqualsName(nome);
+            Dados.saceDataSet.tb_pessoaDataTable pessoaDT = tb_pessoaTA.GetDataByEqualsNomeFantasia(nome);
 
             if (pessoaDT.Count > 0)
             {
@@ -140,11 +144,15 @@ namespace Negocio
                 pessoa.IeSubstituto = pessoaDT.Rows[0]["ieSubstituto"].ToString();
                 pessoa.LimiteCompra = Convert.ToDecimal(pessoaDT.Rows[0]["limiteCompra"].ToString());
                 pessoa.Nome = pessoaDT.Rows[0]["nome"].ToString();
+                pessoa.NomeFantasia = pessoaDT.Rows[0]["nomeFantasia"].ToString();
                 pessoa.Numero = pessoaDT.Rows[0]["numero"].ToString();
                 pessoa.Observacao = pessoaDT.Rows[0]["observacao"].ToString();
                 pessoa.Tipo = Convert.ToChar(pessoaDT.Rows[0]["tipo"].ToString());
                 pessoa.Uf = pessoaDT.Rows[0]["uf"].ToString();
                 pessoa.ValorComissao = Convert.ToDecimal(pessoaDT.Rows[0]["valorComissao"].ToString());
+                pessoa.EhFabricante = Convert.ToBoolean(pessoaDT.Rows[0]["ehFabricante"].ToString());
+                pessoa.ImprimirCF = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirCF"].ToString());
+                pessoa.ImprimirDAV = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirDAV"].ToString());
             }
 
             return pessoa;

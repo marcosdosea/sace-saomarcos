@@ -97,16 +97,14 @@ namespace Telas
                 }
                 else
                 {
-                    if (ExibirTodos)
+                    if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
                     {
-                        if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2)) || (txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)))
+                        if (ExibirTodos)
                         {
-                            this.tb_produtoTableAdapter.FillByNomeTodos(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
-                        }
-                    }
-                    else
-                    {
-                        if ( !txtTexto.Text.StartsWith("%") || (txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)))  {
+                           this.tb_produtoTableAdapter.FillByNomeTodos(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                        } 
+                        else 
+                        {
                             this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
                         }
                     }

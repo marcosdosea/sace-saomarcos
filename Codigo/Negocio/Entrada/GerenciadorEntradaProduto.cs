@@ -75,6 +75,8 @@ namespace Negocio
                     produto.Cfop = entradaProduto.Cfop;
                     produto.CodCST = entradaProduto.CodCST;
                     produto.Desconto = entradaProduto.Desconto;
+                    produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
+                    produto.UnidadeCompra = entradaProduto.UnidadeCompra;
 
                     if (entradaProduto.FornecedorEhFabricante)
                         produto.CodFabricante = entradaProduto.CodFornecedor;

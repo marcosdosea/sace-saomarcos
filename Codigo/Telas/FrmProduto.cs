@@ -62,6 +62,7 @@ namespace Telas
             codCSTComboBox.SelectedIndex = 0;
             simplesTextBox.Text = Global.SIMPLES.ToString();
             unidadeTextBox.Text = "UN";
+            unidadeCompraTextBox.Text = "UN";
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -120,6 +121,8 @@ namespace Telas
             produto.TemVencimento = temVencimentoCheckBox.Checked;
             produto.UltimaDataAtualizacao = ultimaDataAtualizacaoDateTimePicker.Value;
             produto.Unidade = unidadeTextBox.Text;
+            produto.UnidadeCompra = unidadeCompraTextBox.Text;
+            produto.QuantidadeEmbalagem = (quantidadeEmbalagemTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(quantidadeEmbalagemTextBox.Text.Trim());
             produto.DataUltimoPedido = dataUltimoPedidoDateTimePicker.Value;
             produto.CodSituacaoProduto = Byte.Parse(codSituacaoProdutoComboBox.SelectedValue.ToString());
             produto.ReferenciaFabricante = referenciaFabricanteTextBox.Text;

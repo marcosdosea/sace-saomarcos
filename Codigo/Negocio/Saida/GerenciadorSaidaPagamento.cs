@@ -8,6 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
@@ -218,5 +219,57 @@ namespace Negocio
             }
             return pagamentos;
         }
+
+
+        public List<SaidaPagamento> obterSaidaPagamentos(List<long> listaCodSaidas)
+        {
+            StringBuilder comando_sql = new StringBuilder();
+            comando_sql.Append("SELECT tb_saida_forma_pagamento.codSaidaFormaPagamento, tb_saida_forma_pagamento.codSaida, tb_saida_forma_pagamento.codFormaPagamento, ");
+            comando_sql.Append("tb_saida_forma_pagamento.codContaBanco, tb_saida_forma_pagamento.codCartao, SUM(tb_saida_forma_pagamento.valor) as somaValor, tb_saida_forma_pagamento.data, tb_forma_pagamento.descricao AS descricaoFormaPagamento, tb_conta_banco.descricao AS descricaoContaBanco, tb_cartao_credito.nome AS nomeCartaoCredito, tb_saida_forma_pagamento.codDocumentoPagamento, tb_documento_pagamento.numeroDocumento, tb_saida_forma_pagamento.parcelas, tb_saida_forma_pagamento.intervaloDias, tb_cartao_credito.mapeamento AS mapeamentoCartao, tb_forma_pagamento.mapeamento AS mapeamentoFormaPagamento");
+            comando_sql.Append(" FROM            tb_saida_forma_pagamento INNER JOIN ");
+            comando_sql.Append(" tb_forma_pagamento ON tb_saida_forma_pagamento.codFormaPagamento = tb_forma_pagamento.codFormaPagamento INNER JOIN");
+            comando_sql.Append(" tb_conta_banco ON tb_saida_forma_pagamento.codContaBanco = tb_conta_banco.codContaBanco INNER JOIN");
+            comando_sql.Append(" tb_cartao_credito ON tb_saida_forma_pagamento.codCartao = tb_cartao_credito.codCartao INNER JOIN");
+            comando_sql.Append(" tb_documento_pagamento ON tb_saida_forma_pagamento.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento");
+            comando_sql.Append(" WHERE        (tb_saida_forma_pagamento.codSaida IN (");
+            for (int i = 0; i < listaCodSaidas.Count; i++) {
+                comando_sql.Append(listaCodSaidas[i]);
+                if (i + 1 < listaCodSaidas.Count)
+                    comando_sql.Append(",");
+            }
+            comando_sql.Append(")) GROUP BY codFormaPagamento, codCartao;");
+
+            // cria novo adapter para executar a consulta
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            adapter.SelectCommand = new MySqlCommand(comando_sql.ToString(), new MySqlConnection(Dados.Properties.Settings.Default.saceConnectionString));
+
+            // preencher data table com os dados da consulta
+            saceDataSet.tb_saida_forma_pagamentoDataTable tbsaidaPagamento = new saceDataSet.tb_saida_forma_pagamentoDataTable();
+            adapter.Fill(tbsaidaPagamento);
+            List<SaidaPagamento> pagamentos = new List<SaidaPagamento>();
+            for (int i = 0; i < tbsaidaPagamento.Count; i++)
+            {
+                SaidaPagamento saidaPagamento = new SaidaPagamento();
+                saidaPagamento.CodContaBanco = Convert.ToInt32(tbsaidaPagamento.Rows[i]["codContaBanco"].ToString());
+                saidaPagamento.CodCartaoCredito = Convert.ToInt32(tbsaidaPagamento.Rows[i]["codCartao"].ToString());
+                saidaPagamento.CodFormaPagamento = Convert.ToInt32(tbsaidaPagamento.Rows[i]["codFormaPagamento"].ToString());
+                saidaPagamento.CodSaida = Convert.ToInt64(tbsaidaPagamento.Rows[i]["codSaida"].ToString());
+                saidaPagamento.CodSaidaPagamento = Convert.ToInt64(tbsaidaPagamento.Rows[i]["codSaidaFormaPagamento"].ToString());
+                saidaPagamento.Data = Convert.ToDateTime(tbsaidaPagamento.Rows[i]["data"].ToString());
+                saidaPagamento.Valor = Convert.ToDecimal(tbsaidaPagamento.Rows[i]["somaValor"].ToString());
+                saidaPagamento.CodDocumentoPagamento = Convert.ToInt64(tbsaidaPagamento.Rows[i]["codDocumentoPagamento"].ToString());
+                saidaPagamento.IntervaloDias = Convert.ToInt32(tbsaidaPagamento.Rows[i]["intervaloDias"].ToString());
+                saidaPagamento.Parcelas = Convert.ToInt32(tbsaidaPagamento.Rows[i]["parcelas"].ToString());
+                saidaPagamento.MapeamentoFormaPagamento = tbsaidaPagamento.Rows[i]["mapeamentoFormaPagamento"].ToString();
+                saidaPagamento.MapeamentoCartao = tbsaidaPagamento.Rows[i]["mapeamentoCartao"].ToString();
+                saidaPagamento.DescricaoFormaPagamento = tbsaidaPagamento.Rows[i]["descricaoFormaPagamento"].ToString();
+                saidaPagamento.NomeCartaoCredito = tbsaidaPagamento.Rows[i]["nomeCartaoCredito"].ToString();
+
+                pagamentos.Add(saidaPagamento);
+            }
+            return pagamentos;
+        }
+
+        
     }
 }

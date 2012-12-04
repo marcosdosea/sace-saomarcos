@@ -27,7 +27,39 @@ namespace Negocio
             return gMovimentacaoConta;
         }
 
-        public Int64 inserir(MovimentacaoConta movimentacaoConta)
+        public Int64 inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas, decimal descontoPorConta)
+        {
+            // Verifica existência de tentativa de movimentação em contas quitadas
+            //if (GerenciadorConta.getInstace().ObterContasPorSituacao(listaContas, Conta.SITUACAO_QUITADA).Count > 0) {
+              //  throw new NegocioException("Existem contas QUITADAS na seleção que não podem ser baixadas novamente. Favor excluí-las da seleção.");
+            //}
+            decimal totalMovimentacao = movimentacaoConta.Valor;
+            foreach(long codConta in listaContas)
+            {
+                if (totalMovimentacao > 0)
+                {
+                    Conta conta = GerenciadorConta.getInstace().obterContaPorCodConta(codConta);
+                    if (!conta.CodSituacao.Equals(Conta.SITUACAO_QUITADA))
+                    {
+                        movimentacaoConta.CodConta = codConta;
+                        decimal valorPagar = Math.Round(conta.Valor * (1 - descontoPorConta / 100), 2);
+                        if (valorPagar <= totalMovimentacao)
+                        {
+                            movimentacaoConta.Valor = valorPagar;
+                        }
+                        else
+                        {
+                            movimentacaoConta.Valor = totalMovimentacao;
+                        }
+                        totalMovimentacao -= movimentacaoConta.Valor;
+                        inserir(movimentacaoConta, conta, descontoPorConta);
+                    }
+                }
+            }
+            return 0;
+        }
+       
+        public Int64 inserir(MovimentacaoConta movimentacaoConta, Conta conta, decimal desconto)
         {
             try
             {
@@ -45,6 +77,36 @@ namespace Negocio
                 {
                     GerenciadorContaBanco.getInstace().atualizaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor * (-1));
                 }
+
+                if (!conta.CodSituacao.Equals(Conta.SITUACAO_QUITADA)) {
+
+                    decimal valorConta = Math.Round(conta.Valor * (1 - desconto / 100), 2);
+                    if (valorConta <= tb_movimentacao_contaTA.GetSomaMovimentosByCodConta(conta.CodConta))
+                    {
+                        GerenciadorConta.getInstace().atualizar(Conta.SITUACAO_QUITADA, (conta.Valor - valorConta), conta.CodConta);
+                    }
+                }
+
+                if (!conta.CodEntrada.Equals(Global.ENTRADA_PADRAO) || !conta.CodSaida.Equals(Global.SAIDA_PADRAO))
+                {
+                    if (!conta.CodEntrada.Equals(Global.ENTRADA_PADRAO))
+                    {
+                        if (GerenciadorConta.getInstace().obterCountContasNaoQuitadasEntrada(conta.CodEntrada) == 0)
+                        {
+                            GerenciadorEntrada.getInstace().atualizar(SituacaoPagamentos.QUITADA, conta.CodEntrada);
+                        }
+                    }
+                    else
+                    {
+                        if (GerenciadorConta.getInstace().obterCountContasNaoQuitadasSaida(conta.CodSaida) == 0)
+                        {
+                            GerenciadorSaida.getInstace().atualizar(SituacaoPagamentos.QUITADA, conta.CodSaida);
+                        }
+                    }
+
+                }
+
+                
 
                 return 0;
             }

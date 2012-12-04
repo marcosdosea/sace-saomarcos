@@ -53,7 +53,7 @@ namespace Telas
 
             this.tb_produtoTableAdapter.FillExibiveis(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
 
-            ObterSaidas();
+            ObterSaidas(true);
                         
             tb_saidaBindingSource.MoveLast();
             quantidadeTextBox.Text = "1";
@@ -79,7 +79,7 @@ namespace Telas
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.CodSaida != -1)
             {
-                tb_saidaTableAdapter.Fill(saceDataSet.tb_saida);
+                ObterSaidas(false);
                 tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", frmSaidaPesquisa.CodSaida);
             }
             frmSaidaPesquisa.Dispose();
@@ -159,11 +159,12 @@ namespace Telas
         {
             saida = GerenciadorSaida.getInstace().obterSaida( Convert.ToInt64(codSaidaTextBox.Text) );
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) {
-                GerenciadorSaida.getInstace().excluirDocumentoFiscal(saida);
+                GerenciadorSaida.getInstace().ExcluirDocumentoFiscal(saida.CodSaida);
                 GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                 GerenciadorSaida.getInstace().registrarEstornoEstoque(saidaProdutos);
                 saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
                 saida.PedidoGerado = "";
                 GerenciadorSaida.getInstace().atualizar(saida);
                 descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
@@ -191,7 +192,7 @@ namespace Telas
                     GerenciadorSaida.getInstace().remover(saida);
                 }
 
-                ObterSaidas();
+                ObterSaidas(true);
             }
             estado = EstadoFormulario.ESPERA;
             btnNovo.Focus();
@@ -308,7 +309,7 @@ namespace Telas
         /// <summary>
         /// Obter saídas e armazenar e disponibilizar em tela de acordo com o tipo
         /// </summary>
-        private void ObterSaidas()
+        private void ObterSaidas(bool somenteUltimosPedidos)
         {
             if (tipoSaidaFormulario.Equals(Saida.TIPO_SAIDA_DEPOSITO))
             {
@@ -335,7 +336,15 @@ namespace Telas
             }
             else
             {
-                this.tb_saidaTableAdapter.FillOrcamentosVendas(this.saceDataSet.tb_saida);
+                if (somenteUltimosPedidos)
+                {
+                    long codSaida = (long)this.tb_saidaTableAdapter.GetUltimoCodSaida();
+                    this.tb_saidaTableAdapter.FillLastOrcamentosVendas(this.saceDataSet.tb_saida, codSaida - Global.QUANTIDADE_EXIBIR_PEDIDOS);
+                }
+                else
+                {
+                    this.tb_saidaTableAdapter.FillOrcamentosVendas(this.saceDataSet.tb_saida);
+                }
                 tb_saida_produtoDataGridView.Height = 370;
             }
             tb_saidaBindingSource.MoveLast();
@@ -620,7 +629,12 @@ namespace Telas
         /// <param name="e"></param>
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(Convert.ToInt64(codSaidaTextBox.Text));
+            decimal total = Convert.ToDecimal(totalTextBox.Text);
+            decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
+            decimal desconto = (1 - (totalAVista / total)) * 100;
+            long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
+            
+            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>(){codSaida} , total, totalAVista, desconto);
             frmSaidaDav.ShowDialog();
             frmSaidaDav.Dispose();
         }
