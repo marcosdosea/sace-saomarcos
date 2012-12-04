@@ -31,22 +31,23 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codPessoaLabel;
             System.Windows.Forms.Label enderecoLabel;
-            System.Windows.Forms.Label bairroLabel;
             System.Windows.Forms.Label cidadeLabel;
             System.Windows.Forms.Label fone1Label;
             System.Windows.Forms.Label fone2Label;
             System.Windows.Forms.Label limiteCompraLabel;
             System.Windows.Forms.Label valorComissaoLabel;
             System.Windows.Forms.Label observacaoLabel;
-            System.Windows.Forms.Label cepLabel;
             System.Windows.Forms.Label ufLabel;
             System.Windows.Forms.Label ieLabel;
             System.Windows.Forms.Label fone3Label;
             System.Windows.Forms.Label emailLabel;
             System.Windows.Forms.Label ieSubstitutoLabel;
-            System.Windows.Forms.Label numeroLabel;
             System.Windows.Forms.Label complementoLabel;
+            System.Windows.Forms.Label nomeLabel1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPessoa));
+            System.Windows.Forms.Label bairroLabel;
+            System.Windows.Forms.Label cepLabel;
+            System.Windows.Forms.Label numeroLabel;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -68,7 +69,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codPessoaTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.nomeTextBox = new System.Windows.Forms.TextBox();
+            this.nomeFantasiaTextBox = new System.Windows.Forms.TextBox();
             this.bairroTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
@@ -79,7 +80,6 @@
             this.PfRadioButton = new System.Windows.Forms.RadioButton();
             this.nomeLabel = new System.Windows.Forms.Label();
             this.cpfLabel = new System.Windows.Forms.Label();
-            this.cepMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.fone1MaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.fone2MaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.cpf_cnpjErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -108,23 +108,26 @@
             this.ehFabricanteCheckBox = new System.Windows.Forms.CheckBox();
             this.imprimirDAVCheckBox = new System.Windows.Forms.CheckBox();
             this.imprimirCFCheckBox = new System.Windows.Forms.CheckBox();
+            this.nomeTextBox = new System.Windows.Forms.TextBox();
+            this.cepMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
-            bairroLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
             fone1Label = new System.Windows.Forms.Label();
             fone2Label = new System.Windows.Forms.Label();
             limiteCompraLabel = new System.Windows.Forms.Label();
             valorComissaoLabel = new System.Windows.Forms.Label();
             observacaoLabel = new System.Windows.Forms.Label();
-            cepLabel = new System.Windows.Forms.Label();
             ufLabel = new System.Windows.Forms.Label();
             ieLabel = new System.Windows.Forms.Label();
             fone3Label = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
             ieSubstitutoLabel = new System.Windows.Forms.Label();
-            numeroLabel = new System.Windows.Forms.Label();
             complementoLabel = new System.Windows.Forms.Label();
+            nomeLabel1 = new System.Windows.Forms.Label();
+            bairroLabel = new System.Windows.Forms.Label();
+            cepLabel = new System.Windows.Forms.Label();
+            numeroLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).BeginInit();
             this.tb_pessoaBindingNavigator.SuspendLayout();
@@ -148,25 +151,16 @@
             // enderecoLabel
             // 
             enderecoLabel.AutoSize = true;
-            enderecoLabel.Location = new System.Drawing.Point(7, 156);
+            enderecoLabel.Location = new System.Drawing.Point(7, 201);
             enderecoLabel.Name = "enderecoLabel";
             enderecoLabel.Size = new System.Drawing.Size(56, 13);
             enderecoLabel.TabIndex = 25;
             enderecoLabel.Text = "Endereço:";
             // 
-            // bairroLabel
-            // 
-            bairroLabel.AutoSize = true;
-            bairroLabel.Location = new System.Drawing.Point(489, 155);
-            bairroLabel.Name = "bairroLabel";
-            bairroLabel.Size = new System.Drawing.Size(37, 13);
-            bairroLabel.TabIndex = 31;
-            bairroLabel.Text = "Bairro:";
-            // 
             // cidadeLabel
             // 
             cidadeLabel.AutoSize = true;
-            cidadeLabel.Location = new System.Drawing.Point(252, 204);
+            cidadeLabel.Location = new System.Drawing.Point(252, 249);
             cidadeLabel.Name = "cidadeLabel";
             cidadeLabel.Size = new System.Drawing.Size(43, 13);
             cidadeLabel.TabIndex = 33;
@@ -175,7 +169,7 @@
             // fone1Label
             // 
             fone1Label.AutoSize = true;
-            fone1Label.Location = new System.Drawing.Point(7, 248);
+            fone1Label.Location = new System.Drawing.Point(7, 293);
             fone1Label.Name = "fone1Label";
             fone1Label.Size = new System.Drawing.Size(40, 13);
             fone1Label.TabIndex = 35;
@@ -184,7 +178,7 @@
             // fone2Label
             // 
             fone2Label.AutoSize = true;
-            fone2Label.Location = new System.Drawing.Point(132, 248);
+            fone2Label.Location = new System.Drawing.Point(132, 293);
             fone2Label.Name = "fone2Label";
             fone2Label.Size = new System.Drawing.Size(40, 13);
             fone2Label.TabIndex = 37;
@@ -193,7 +187,7 @@
             // limiteCompraLabel
             // 
             limiteCompraLabel.AutoSize = true;
-            limiteCompraLabel.Location = new System.Drawing.Point(363, 248);
+            limiteCompraLabel.Location = new System.Drawing.Point(363, 293);
             limiteCompraLabel.Name = "limiteCompraLabel";
             limiteCompraLabel.Size = new System.Drawing.Size(76, 13);
             limiteCompraLabel.TabIndex = 39;
@@ -202,7 +196,7 @@
             // valorComissaoLabel
             // 
             valorComissaoLabel.AutoSize = true;
-            valorComissaoLabel.Location = new System.Drawing.Point(473, 248);
+            valorComissaoLabel.Location = new System.Drawing.Point(473, 293);
             valorComissaoLabel.Name = "valorComissaoLabel";
             valorComissaoLabel.Size = new System.Drawing.Size(66, 13);
             valorComissaoLabel.TabIndex = 41;
@@ -211,25 +205,16 @@
             // observacaoLabel
             // 
             observacaoLabel.AutoSize = true;
-            observacaoLabel.Location = new System.Drawing.Point(4, 290);
+            observacaoLabel.Location = new System.Drawing.Point(4, 335);
             observacaoLabel.Name = "observacaoLabel";
             observacaoLabel.Size = new System.Drawing.Size(68, 13);
             observacaoLabel.TabIndex = 43;
             observacaoLabel.Text = "Observação:";
             // 
-            // cepLabel
-            // 
-            cepLabel.AutoSize = true;
-            cepLabel.Location = new System.Drawing.Point(405, 111);
-            cepLabel.Name = "cepLabel";
-            cepLabel.Size = new System.Drawing.Size(31, 13);
-            cepLabel.TabIndex = 44;
-            cepLabel.Text = "CEP:";
-            // 
             // ufLabel
             // 
             ufLabel.AutoSize = true;
-            ufLabel.Location = new System.Drawing.Point(363, 204);
+            ufLabel.Location = new System.Drawing.Point(363, 249);
             ufLabel.Name = "ufLabel";
             ufLabel.Size = new System.Drawing.Size(24, 13);
             ufLabel.TabIndex = 46;
@@ -238,7 +223,7 @@
             // ieLabel
             // 
             ieLabel.AutoSize = true;
-            ieLabel.Location = new System.Drawing.Point(118, 110);
+            ieLabel.Location = new System.Drawing.Point(118, 155);
             ieLabel.Name = "ieLabel";
             ieLabel.Size = new System.Drawing.Size(98, 13);
             ieLabel.TabIndex = 49;
@@ -247,7 +232,7 @@
             // fone3Label
             // 
             fone3Label.AutoSize = true;
-            fone3Label.Location = new System.Drawing.Point(255, 248);
+            fone3Label.Location = new System.Drawing.Point(255, 293);
             fone3Label.Name = "fone3Label";
             fone3Label.Size = new System.Drawing.Size(40, 13);
             fone3Label.TabIndex = 50;
@@ -256,7 +241,7 @@
             // emailLabel
             // 
             emailLabel.AutoSize = true;
-            emailLabel.Location = new System.Drawing.Point(401, 204);
+            emailLabel.Location = new System.Drawing.Point(401, 249);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new System.Drawing.Size(35, 13);
             emailLabel.TabIndex = 63;
@@ -265,29 +250,29 @@
             // ieSubstitutoLabel
             // 
             ieSubstitutoLabel.AutoSize = true;
-            ieSubstitutoLabel.Location = new System.Drawing.Point(252, 110);
+            ieSubstitutoLabel.Location = new System.Drawing.Point(252, 155);
             ieSubstitutoLabel.Name = "ieSubstitutoLabel";
             ieSubstitutoLabel.Size = new System.Drawing.Size(98, 13);
             ieSubstitutoLabel.TabIndex = 63;
             ieSubstitutoLabel.Text = "Insc Est Substituto:";
             // 
-            // numeroLabel
-            // 
-            numeroLabel.AutoSize = true;
-            numeroLabel.Location = new System.Drawing.Point(405, 155);
-            numeroLabel.Name = "numeroLabel";
-            numeroLabel.Size = new System.Drawing.Size(47, 13);
-            numeroLabel.TabIndex = 64;
-            numeroLabel.Text = "Número:";
-            // 
             // complementoLabel
             // 
             complementoLabel.AutoSize = true;
-            complementoLabel.Location = new System.Drawing.Point(7, 204);
+            complementoLabel.Location = new System.Drawing.Point(7, 249);
             complementoLabel.Name = "complementoLabel";
             complementoLabel.Size = new System.Drawing.Size(74, 13);
             complementoLabel.TabIndex = 65;
             complementoLabel.Text = "Complemento:";
+            // 
+            // nomeLabel1
+            // 
+            nomeLabel1.AutoSize = true;
+            nomeLabel1.Location = new System.Drawing.Point(7, 109);
+            nomeLabel1.Name = "nomeLabel1";
+            nomeLabel1.Size = new System.Drawing.Size(38, 13);
+            nomeLabel1.TabIndex = 68;
+            nomeLabel1.Text = "Nome:";
             // 
             // label1
             // 
@@ -311,7 +296,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(307, 476);
+            this.btnSalvar.Location = new System.Drawing.Point(307, 521);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -321,7 +306,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(7, 476);
+            this.btnBuscar.Location = new System.Drawing.Point(7, 521);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -332,7 +317,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(388, 476);
+            this.btnCancelar.Location = new System.Drawing.Point(388, 521);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -342,7 +327,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(82, 476);
+            this.btnNovo.Location = new System.Drawing.Point(82, 521);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -352,7 +337,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(232, 476);
+            this.btnExcluir.Location = new System.Drawing.Point(232, 521);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -362,7 +347,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(157, 476);
+            this.btnEditar.Location = new System.Drawing.Point(157, 521);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -489,21 +474,22 @@
             this.codPessoaTextBox.TabStop = false;
             this.codPessoaTextBox.TextChanged += new System.EventHandler(this.codPessoaTextBox_TextChanged);
             // 
-            // nomeTextBox
+            // nomeFantasiaTextBox
             // 
-            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
-            this.nomeTextBox.Location = new System.Drawing.Point(117, 86);
-            this.nomeTextBox.MaxLength = 50;
-            this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(388, 20);
-            this.nomeTextBox.TabIndex = 24;
+            this.nomeFantasiaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.nomeFantasiaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nomeFantasia", true));
+            this.nomeFantasiaTextBox.Location = new System.Drawing.Point(117, 86);
+            this.nomeFantasiaTextBox.MaxLength = 50;
+            this.nomeFantasiaTextBox.Name = "nomeFantasiaTextBox";
+            this.nomeFantasiaTextBox.Size = new System.Drawing.Size(388, 20);
+            this.nomeFantasiaTextBox.TabIndex = 24;
+            this.nomeFantasiaTextBox.Leave += new System.EventHandler(this.nomeFantasiaTextBox_Leave);
             // 
             // bairroTextBox
             // 
             this.bairroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.bairroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "bairro", true));
-            this.bairroTextBox.Location = new System.Drawing.Point(492, 172);
+            this.bairroTextBox.Location = new System.Drawing.Point(492, 217);
             this.bairroTextBox.MaxLength = 40;
             this.bairroTextBox.Name = "bairroTextBox";
             this.bairroTextBox.Size = new System.Drawing.Size(145, 20);
@@ -513,7 +499,7 @@
             // 
             this.cidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cidade", true));
-            this.cidadeTextBox.Location = new System.Drawing.Point(255, 221);
+            this.cidadeTextBox.Location = new System.Drawing.Point(255, 266);
             this.cidadeTextBox.MaxLength = 40;
             this.cidadeTextBox.Name = "cidadeTextBox";
             this.cidadeTextBox.Size = new System.Drawing.Size(103, 20);
@@ -523,7 +509,7 @@
             // 
             this.observacaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "observacao", true));
-            this.observacaoTextBox.Location = new System.Drawing.Point(7, 307);
+            this.observacaoTextBox.Location = new System.Drawing.Point(7, 352);
             this.observacaoTextBox.MaxLength = 300;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
@@ -534,7 +520,7 @@
             // 
             this.enderecoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.enderecoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "endereco", true));
-            this.enderecoTextBox.Location = new System.Drawing.Point(10, 172);
+            this.enderecoTextBox.Location = new System.Drawing.Point(10, 217);
             this.enderecoTextBox.MaxLength = 50;
             this.enderecoTextBox.Name = "enderecoTextBox";
             this.enderecoTextBox.Size = new System.Drawing.Size(385, 20);
@@ -544,7 +530,7 @@
             // 
             this.ufTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ufTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "uf", true));
-            this.ufTextBox.Location = new System.Drawing.Point(366, 221);
+            this.ufTextBox.Location = new System.Drawing.Point(366, 266);
             this.ufTextBox.MaxLength = 2;
             this.ufTextBox.Name = "ufTextBox";
             this.ufTextBox.Size = new System.Drawing.Size(21, 20);
@@ -554,7 +540,7 @@
             // 
             this.groupBox1.Controls.Add(this.PjRadioButton);
             this.groupBox1.Controls.Add(this.PfRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(511, 77);
+            this.groupBox1.Location = new System.Drawing.Point(511, 68);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(131, 41);
             this.groupBox1.TabIndex = 26;
@@ -595,27 +581,16 @@
             // cpfLabel
             // 
             this.cpfLabel.AutoSize = true;
-            this.cpfLabel.Location = new System.Drawing.Point(7, 111);
+            this.cpfLabel.Location = new System.Drawing.Point(7, 156);
             this.cpfLabel.Name = "cpfLabel";
             this.cpfLabel.Size = new System.Drawing.Size(68, 13);
             this.cpfLabel.TabIndex = 49;
             this.cpfLabel.Text = "CNPJ / CPF:";
             // 
-            // cepMaskedTextBox
-            // 
-            this.cepMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cep", true));
-            this.cepMaskedTextBox.Location = new System.Drawing.Point(404, 126);
-            this.cepMaskedTextBox.Mask = "99.999-000";
-            this.cepMaskedTextBox.Name = "cepMaskedTextBox";
-            this.cepMaskedTextBox.Size = new System.Drawing.Size(102, 20);
-            this.cepMaskedTextBox.TabIndex = 34;
-            this.cepMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cepMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
             // fone1MaskedTextBox
             // 
             this.fone1MaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "fone1", true));
-            this.fone1MaskedTextBox.Location = new System.Drawing.Point(10, 264);
+            this.fone1MaskedTextBox.Location = new System.Drawing.Point(10, 309);
             this.fone1MaskedTextBox.Mask = "(99) 9999-9999";
             this.fone1MaskedTextBox.Name = "fone1MaskedTextBox";
             this.fone1MaskedTextBox.Size = new System.Drawing.Size(110, 20);
@@ -625,7 +600,7 @@
             // fone2MaskedTextBox
             // 
             this.fone2MaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "fone2", true));
-            this.fone2MaskedTextBox.Location = new System.Drawing.Point(135, 264);
+            this.fone2MaskedTextBox.Location = new System.Drawing.Point(135, 309);
             this.fone2MaskedTextBox.Mask = "(99) 9999-9999";
             this.fone2MaskedTextBox.Name = "fone2MaskedTextBox";
             this.fone2MaskedTextBox.Size = new System.Drawing.Size(104, 20);
@@ -640,7 +615,7 @@
             // 
             this.ieTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "ie", true));
-            this.ieTextBox.Location = new System.Drawing.Point(117, 127);
+            this.ieTextBox.Location = new System.Drawing.Point(117, 172);
             this.ieTextBox.MaxLength = 20;
             this.ieTextBox.Name = "ieTextBox";
             this.ieTextBox.Size = new System.Drawing.Size(122, 20);
@@ -649,7 +624,7 @@
             // fone3TextBox
             // 
             this.fone3TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "fone3", true));
-            this.fone3TextBox.Location = new System.Drawing.Point(255, 264);
+            this.fone3TextBox.Location = new System.Drawing.Point(255, 309);
             this.fone3TextBox.Mask = "(99) 9999-9999";
             this.fone3TextBox.Name = "fone3TextBox";
             this.fone3TextBox.Size = new System.Drawing.Size(103, 20);
@@ -669,7 +644,7 @@
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
             this.tb_contato_empresaDataGridView.DataSource = this.tb_contato_empresaBindingSource;
-            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 379);
+            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 424);
             this.tb_contato_empresaDataGridView.Name = "tb_contato_empresaDataGridView";
             this.tb_contato_empresaDataGridView.ReadOnly = true;
             this.tb_contato_empresaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -725,7 +700,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(88, 362);
+            this.label2.Location = new System.Drawing.Point(88, 407);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 63;
@@ -735,7 +710,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(7, 362);
+            this.label6.Location = new System.Drawing.Point(7, 407);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 62;
@@ -743,7 +718,7 @@
             // 
             // btnAdicionarContato
             // 
-            this.btnAdicionarContato.Location = new System.Drawing.Point(523, 352);
+            this.btnAdicionarContato.Location = new System.Drawing.Point(523, 397);
             this.btnAdicionarContato.Name = "btnAdicionarContato";
             this.btnAdicionarContato.Size = new System.Drawing.Size(114, 23);
             this.btnAdicionarContato.TabIndex = 66;
@@ -755,7 +730,7 @@
             // 
             this.emailTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "email", true));
-            this.emailTextBox.Location = new System.Drawing.Point(401, 221);
+            this.emailTextBox.Location = new System.Drawing.Point(401, 266);
             this.emailTextBox.MaxLength = 40;
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(236, 20);
@@ -817,7 +792,7 @@
             // 
             this.ieSubstitutoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ieSubstitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "ieSubstituto", true));
-            this.ieSubstitutoTextBox.Location = new System.Drawing.Point(255, 127);
+            this.ieSubstitutoTextBox.Location = new System.Drawing.Point(255, 172);
             this.ieSubstitutoTextBox.MaxLength = 20;
             this.ieSubstitutoTextBox.Name = "ieSubstitutoTextBox";
             this.ieSubstitutoTextBox.Size = new System.Drawing.Size(140, 20);
@@ -827,7 +802,7 @@
             // 
             this.numeroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.numeroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "numero", true));
-            this.numeroTextBox.Location = new System.Drawing.Point(408, 172);
+            this.numeroTextBox.Location = new System.Drawing.Point(408, 217);
             this.numeroTextBox.MaxLength = 10;
             this.numeroTextBox.Name = "numeroTextBox";
             this.numeroTextBox.Size = new System.Drawing.Size(64, 20);
@@ -837,7 +812,7 @@
             // 
             this.complementoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.complementoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "complemento", true));
-            this.complementoTextBox.Location = new System.Drawing.Point(10, 221);
+            this.complementoTextBox.Location = new System.Drawing.Point(10, 266);
             this.complementoTextBox.MaxLength = 40;
             this.complementoTextBox.Name = "complementoTextBox";
             this.complementoTextBox.Size = new System.Drawing.Size(229, 20);
@@ -846,7 +821,7 @@
             // limiteCompraTextBox
             // 
             this.limiteCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "limiteCompra", true));
-            this.limiteCompraTextBox.Location = new System.Drawing.Point(366, 264);
+            this.limiteCompraTextBox.Location = new System.Drawing.Point(366, 309);
             this.limiteCompraTextBox.Name = "limiteCompraTextBox";
             this.limiteCompraTextBox.Size = new System.Drawing.Size(104, 20);
             this.limiteCompraTextBox.TabIndex = 56;
@@ -855,7 +830,7 @@
             // valorComissaoTextBox
             // 
             this.valorComissaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "valorComissao", true));
-            this.valorComissaoTextBox.Location = new System.Drawing.Point(476, 264);
+            this.valorComissaoTextBox.Location = new System.Drawing.Point(476, 309);
             this.valorComissaoTextBox.Name = "valorComissaoTextBox";
             this.valorComissaoTextBox.Size = new System.Drawing.Size(63, 20);
             this.valorComissaoTextBox.TabIndex = 58;
@@ -864,7 +839,7 @@
             // cpf_CnpjTextBox
             // 
             this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cpf_Cnpj", true));
-            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(7, 126);
+            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(7, 171);
             this.cpf_CnpjTextBox.MaxLength = 14;
             this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
             this.cpf_CnpjTextBox.Size = new System.Drawing.Size(100, 20);
@@ -873,7 +848,7 @@
             // ehFabricanteCheckBox
             // 
             this.ehFabricanteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_pessoaBindingSource, "ehFabricante", true));
-            this.ehFabricanteCheckBox.Location = new System.Drawing.Point(516, 127);
+            this.ehFabricanteCheckBox.Location = new System.Drawing.Point(516, 172);
             this.ehFabricanteCheckBox.Name = "ehFabricanteCheckBox";
             this.ehFabricanteCheckBox.Size = new System.Drawing.Size(104, 24);
             this.ehFabricanteCheckBox.TabIndex = 35;
@@ -883,7 +858,7 @@
             // imprimirDAVCheckBox
             // 
             this.imprimirDAVCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_pessoaBindingSource, "imprimirDAV", true));
-            this.imprimirDAVCheckBox.Location = new System.Drawing.Point(545, 247);
+            this.imprimirDAVCheckBox.Location = new System.Drawing.Point(545, 292);
             this.imprimirDAVCheckBox.Name = "imprimirDAVCheckBox";
             this.imprimirDAVCheckBox.Size = new System.Drawing.Size(92, 24);
             this.imprimirDAVCheckBox.TabIndex = 60;
@@ -893,18 +868,68 @@
             // imprimirCFCheckBox
             // 
             this.imprimirCFCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.tb_pessoaBindingSource, "imprimirCF", true));
-            this.imprimirCFCheckBox.Location = new System.Drawing.Point(545, 273);
+            this.imprimirCFCheckBox.Location = new System.Drawing.Point(545, 318);
             this.imprimirCFCheckBox.Name = "imprimirCFCheckBox";
             this.imprimirCFCheckBox.Size = new System.Drawing.Size(92, 24);
             this.imprimirCFCheckBox.TabIndex = 62;
             this.imprimirCFCheckBox.Text = "Imprimir CF";
             this.imprimirCFCheckBox.UseVisualStyleBackColor = true;
             // 
+            // nomeTextBox
+            // 
+            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "nome", true));
+            this.nomeTextBox.Location = new System.Drawing.Point(7, 128);
+            this.nomeTextBox.MaxLength = 50;
+            this.nomeTextBox.Name = "nomeTextBox";
+            this.nomeTextBox.Size = new System.Drawing.Size(630, 20);
+            this.nomeTextBox.TabIndex = 27;
+            // 
+            // bairroLabel
+            // 
+            bairroLabel.AutoSize = true;
+            bairroLabel.Location = new System.Drawing.Point(489, 200);
+            bairroLabel.Name = "bairroLabel";
+            bairroLabel.Size = new System.Drawing.Size(37, 13);
+            bairroLabel.TabIndex = 31;
+            bairroLabel.Text = "Bairro:";
+            // 
+            // cepLabel
+            // 
+            cepLabel.AutoSize = true;
+            cepLabel.Location = new System.Drawing.Point(405, 156);
+            cepLabel.Name = "cepLabel";
+            cepLabel.Size = new System.Drawing.Size(31, 13);
+            cepLabel.TabIndex = 44;
+            cepLabel.Text = "CEP:";
+            // 
+            // cepMaskedTextBox
+            // 
+            this.cepMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_pessoaBindingSource, "cep", true));
+            this.cepMaskedTextBox.Location = new System.Drawing.Point(404, 171);
+            this.cepMaskedTextBox.Mask = "99.999-000";
+            this.cepMaskedTextBox.Name = "cepMaskedTextBox";
+            this.cepMaskedTextBox.Size = new System.Drawing.Size(102, 20);
+            this.cepMaskedTextBox.TabIndex = 34;
+            this.cepMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cepMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // numeroLabel
+            // 
+            numeroLabel.AutoSize = true;
+            numeroLabel.Location = new System.Drawing.Point(405, 200);
+            numeroLabel.Name = "numeroLabel";
+            numeroLabel.Size = new System.Drawing.Size(47, 13);
+            numeroLabel.TabIndex = 64;
+            numeroLabel.Text = "Número:";
+            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 501);
+            this.ClientSize = new System.Drawing.Size(642, 552);
+            this.Controls.Add(nomeLabel1);
+            this.Controls.Add(this.nomeTextBox);
             this.Controls.Add(this.imprimirCFCheckBox);
             this.Controls.Add(this.imprimirDAVCheckBox);
             this.Controls.Add(this.ehFabricanteCheckBox);
@@ -940,7 +965,7 @@
             this.Controls.Add(codPessoaLabel);
             this.Controls.Add(this.tb_pessoaBindingNavigator);
             this.Controls.Add(this.codPessoaTextBox);
-            this.Controls.Add(this.nomeTextBox);
+            this.Controls.Add(this.nomeFantasiaTextBox);
             this.Controls.Add(enderecoLabel);
             this.Controls.Add(bairroLabel);
             this.Controls.Add(this.bairroTextBox);
@@ -1010,7 +1035,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.MaskedTextBox codPessoaTextBox;
-        private System.Windows.Forms.TextBox nomeTextBox;
+        private System.Windows.Forms.TextBox nomeFantasiaTextBox;
         private System.Windows.Forms.TextBox bairroTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
         private System.Windows.Forms.TextBox observacaoTextBox;
@@ -1021,7 +1046,6 @@
         private System.Windows.Forms.RadioButton PfRadioButton;
         private System.Windows.Forms.Label nomeLabel;
         private System.Windows.Forms.Label cpfLabel;
-        private System.Windows.Forms.MaskedTextBox cepMaskedTextBox;
         private System.Windows.Forms.MaskedTextBox fone1MaskedTextBox;
         private System.Windows.Forms.MaskedTextBox fone2MaskedTextBox;
         private System.Windows.Forms.ErrorProvider cpf_cnpjErrorProvider;
@@ -1048,5 +1072,7 @@
         private System.Windows.Forms.CheckBox ehFabricanteCheckBox;
         private System.Windows.Forms.CheckBox imprimirCFCheckBox;
         private System.Windows.Forms.CheckBox imprimirDAVCheckBox;
+        private System.Windows.Forms.TextBox nomeTextBox;
+        private System.Windows.Forms.MaskedTextBox cepMaskedTextBox;
     }
 }

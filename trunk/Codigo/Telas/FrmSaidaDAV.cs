@@ -14,26 +14,40 @@ namespace Telas
     public partial class FrmSaidaDAV : Form
     {
 
-        public Int64 CodSaida { get; set; }
+        private HashSet<Int64> ListaCodSaidas { get; set; }
+        private decimal Total { get; set; }
+        private decimal TotalAVista { get; set; }
+        private decimal Desconto { get; set; }
         
-        public FrmSaidaDAV(Int64 codSaida)
+        public FrmSaidaDAV(HashSet<Int64> listaCodSaida, decimal total, decimal totalAVista, decimal desconto)
         {
             InitializeComponent();
-            CodSaida = codSaida;
+            ListaCodSaidas = listaCodSaida;
+            Total = total;
+            TotalAVista = totalAVista;
+            Desconto = desconto;
         }
 
         private void btnNotmal_Click(object sender, EventArgs e)
         {
             this.Close();
-            Saida saida = GerenciadorSaida.getInstace().obterSaida(CodSaida);
-            GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>(){saida}, saida.Total, saida.TotalAVista, saida.Desconto, false);
+            GerenciadorSaida.getInstace().imprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, false);
         }
 
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            Saida saida = GerenciadorSaida.getInstace().obterSaida(CodSaida);
-            GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+            GerenciadorSaida.getInstace().imprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, true);
+        }
+
+        private List<Saida> obterSaidas(List<long> listaCodSaidas)
+        {
+            List<Saida> saidas = new List<Saida>();
+            foreach (Int64 codSaida in listaCodSaidas)
+            {
+                saidas.Add(GerenciadorSaida.getInstace().obterSaida(codSaida));
+            }
+            return saidas;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

@@ -68,6 +68,18 @@ namespace Negocio
             }
         }
 
+        public void atualizar(int codSituacaoPagamentos, long codEntrada)
+        {
+            try
+            {
+                tb_entradaTA.UpdateSituacaoPagamentos(codSituacaoPagamentos, codEntrada);
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Entrada", e.Message, e);
+            }
+        }
+
         public void remover(Int64 codEntrada)
         {
             try
@@ -111,7 +123,7 @@ namespace Negocio
 
                 conta.CodPlanoConta = PlanoConta.ENTRADA_PRODUTOS;
                 conta.CodEntrada = entrada.CodEntrada;
-                conta.CodSaida = 1; // saída não válida
+                conta.CodSaida = Global.SAIDA_PADRAO; // saída não válida
                 conta.CodPagamento = pagamento.CodEntradaFormaPagamento;
                 conta.Desconto = 0;
                 
@@ -138,20 +150,20 @@ namespace Negocio
                      conta.DataVencimento = pagamento.Data;
                  }
                 
-                Int64 codConta = GerenciadorConta.getInstace().inserir(conta);
+                conta.CodConta = GerenciadorConta.getInstace().inserir(conta);
                 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
                 {
                     MovimentacaoConta movimentacao = new MovimentacaoConta();
                     movimentacao.CodContaBanco = pagamento.CodContaBanco;
-                    movimentacao.CodConta = codConta;
+                    movimentacao.CodConta = conta.CodConta;
                     movimentacao.CodResponsavel = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO).CodPessoa;
 
                     movimentacao.CodTipoMovimentacao = MovimentacaoConta.PAGAMENTO_FORNECEDOR;
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = pagamento.Valor;
 
-                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao);
+                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta, 0);
                 }
             }
         }

@@ -14963,6 +14963,8 @@ namespace Dados {
             
             private global::System.Data.DataColumn columnimprimirCF;
             
+            private global::System.Data.DataColumn columnnomeFantasia;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tb_pessoaDataTable() {
@@ -15182,6 +15184,14 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn nomeFantasiaColumn {
+                get {
+                    return this.columnnomeFantasia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -15239,7 +15249,8 @@ namespace Dados {
                         string email, 
                         bool ehFabricante, 
                         bool imprimirDAV, 
-                        bool imprimirCF) {
+                        bool imprimirCF, 
+                        string nomeFantasia) {
                 tb_pessoaRow rowtb_pessoaRow = ((tb_pessoaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -15264,7 +15275,8 @@ namespace Dados {
                         email,
                         ehFabricante,
                         imprimirDAV,
-                        imprimirCF};
+                        imprimirCF,
+                        nomeFantasia};
                 rowtb_pessoaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_pessoaRow);
                 return rowtb_pessoaRow;
@@ -15317,6 +15329,7 @@ namespace Dados {
                 this.columnehFabricante = base.Columns["ehFabricante"];
                 this.columnimprimirDAV = base.Columns["imprimirDAV"];
                 this.columnimprimirCF = base.Columns["imprimirCF"];
+                this.columnnomeFantasia = base.Columns["nomeFantasia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15368,6 +15381,8 @@ namespace Dados {
                 base.Columns.Add(this.columnimprimirDAV);
                 this.columnimprimirCF = new global::System.Data.DataColumn("imprimirCF", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnimprimirCF);
+                this.columnnomeFantasia = new global::System.Data.DataColumn("nomeFantasia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnomeFantasia);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnnome}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
@@ -15400,6 +15415,7 @@ namespace Dados {
                 this.columnehFabricante.AllowDBNull = false;
                 this.columnimprimirDAV.AllowDBNull = false;
                 this.columnimprimirCF.AllowDBNull = false;
+                this.columnnomeFantasia.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23257,6 +23273,22 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string nomeFantasia {
+                get {
+                    try {
+                        return ((string)(this[this.tabletb_pessoa.nomeFantasiaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'nomeFantasia\' in table \'tb_pessoa\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletb_pessoa.nomeFantasiaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Iscpf_CnpjNull() {
                 return this.IsNull(this.tabletb_pessoa.cpf_CnpjColumn);
             }
@@ -23457,6 +23489,18 @@ namespace Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetemailNull() {
                 this[this.tabletb_pessoa.emailColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnomeFantasiaNull() {
+                return this.IsNull(this.tabletb_pessoa.nomeFantasiaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnomeFantasiaNull() {
+                this[this.tabletb_pessoa.nomeFantasiaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -34286,7 +34330,7 @@ WHERE        (codMovimentacao = @Original_codMovimentacao)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_movimentacao_conta.codMovimentacao, tb_movimentacao_conta.codContaBanco, tb_movimentacao_conta.codResponsavel, 
@@ -34335,6 +34379,20 @@ WHERE        (tb_movimentacao_conta.codMovimentacao = @codMovimentacao)";
             param.IsNullable = true;
             param.SourceColumn = "codMovimentacao";
             this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = @"SELECT SUM(tb_movimentacao_conta.valor)
+FROM   tb_movimentacao_conta INNER JOIN
+       tb_tipo_movimentacao_conta ON tb_movimentacao_conta.codTipoMovimentacao = tb_tipo_movimentacao_conta.codTipoMovimentacao 
+WHERE (tb_movimentacao_conta.codConta = @codConta)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codConta";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codConta";
+            this._commandCollection[3].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -34541,6 +34599,40 @@ WHERE        (tb_movimentacao_conta.codMovimentacao = @codMovimentacao)";
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<decimal> GetSomaMovimentosByCodConta(global::System.Nullable<long> codConta) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[3];
+            if ((codConta.HasValue == true)) {
+                command.Parameters[0].Value = ((long)(codConta.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<decimal>();
+            }
+            else {
+                return new global::System.Nullable<decimal>(((decimal)(returnValue)));
             }
         }
     }
@@ -35431,12 +35523,25 @@ WHERE        (tb_saida_forma_pagamento.codSaida = @codSaida)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[2];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        codFormaPagamento, descricao, parcelas, descontoAcrescimo, mapeamen" +
                 "to\r\nFROM            tb_forma_pagamento";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        codFormaPagamento, descricao, parcelas, descontoAcrescimo, mapeamen" +
+                "to\r\nFROM            tb_forma_pagamento\r\nWHERE codFormaPagamento = @codFormaPagam" +
+                "ento";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codFormaPagamento";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codFormaPagamento";
+            this._commandCollection[1].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -35458,6 +35563,32 @@ WHERE        (tb_saida_forma_pagamento.codSaida = @codSaida)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual saceDataSet.tb_forma_pagamentoDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            saceDataSet.tb_forma_pagamentoDataTable dataTable = new saceDataSet.tb_forma_pagamentoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodFormaPagamento(saceDataSet.tb_forma_pagamentoDataTable dataTable, int codFormaPagamento) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(codFormaPagamento));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_forma_pagamentoDataTable GetDataByCodFormaPagamento(int codFormaPagamento) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(codFormaPagamento));
             saceDataSet.tb_forma_pagamentoDataTable dataTable = new saceDataSet.tb_forma_pagamentoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -35959,7 +36090,7 @@ WHERE        (codSaidaProduto = @Original_codSaidaProduto)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_saida_produto.codSaidaProduto, tb_saida_produto.codProduto, tb_saida_produto.codSaida, tb_saida_produto.quantidade, tb_saida_produto.valorVenda, 
@@ -36010,6 +36141,25 @@ WHERE        (tb_saida_produto.codSaida = @codSaida) AND (tb_produto.codCST NOT 
             param.IsNullable = true;
             param.SourceColumn = "codCST";
             this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = @"SELECT        tb_saida_produto.codSaidaProduto, tb_saida_produto.codProduto, tb_saida_produto.codSaida, tb_saida_produto.quantidade, tb_saida_produto.valorVenda, 
+                         tb_saida_produto.desconto, tb_saida_produto.subtotal, tb_saida_produto.subtotalAVista, tb_saida_produto.data_validade, tb_produto.nome, tb_produto.codCST, 
+                         tb_produto.unidade, tb_saida_produto.baseCalculoICMS, tb_saida_produto.valorICMS, tb_saida_produto.baseCalculoICMSSubst, tb_saida_produto.valorICMSSubst, 
+                         tb_saida_produto.valorIPI
+FROM            tb_saida_produto INNER JOIN
+                         tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
+                         tb_saida ON tb_saida.codSaida = tb_saida_produto.codSaida 
+WHERE        (tb_saida.pedidoGerado = @pedidoGerado)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@pedidoGerado";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 10;
+            param.IsNullable = true;
+            param.SourceColumn = "pedidoGerado";
+            this._commandCollection[3].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -36094,6 +36244,42 @@ WHERE        (tb_saida_produto.codSaida = @codSaida) AND (tb_produto.codCST NOT 
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(codCST));
+            }
+            saceDataSet.tb_saida_produtoDataTable dataTable = new saceDataSet.tb_saida_produtoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByPedidoGerado(saceDataSet.tb_saida_produtoDataTable dataTable, string pedidoGerado) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((pedidoGerado == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(pedidoGerado));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_saida_produtoDataTable GetDataByPedidoGerado(string pedidoGerado) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((pedidoGerado == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(pedidoGerado));
             }
             saceDataSet.tb_saida_produtoDataTable dataTable = new saceDataSet.tb_saida_produtoDataTable();
             this.Adapter.Fill(dataTable);
@@ -37608,7 +37794,7 @@ WHERE        (codConta = @Original_codConta)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[6];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[10];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
@@ -37625,25 +37811,22 @@ FROM            tb_conta INNER JOIN
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
-                         tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.valor, tb_conta.observacao, tb_plano_conta.descricao AS descricaoPlanoConta, 
-                         tb_situacao_conta.descricaoSituacao, tb_pessoa.nome AS nomePessoa, tb_documento_pagamento.codTipoDocumento, 
-                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento, tb_conta.desconto, 
-                         tb_conta.codPagamento
-FROM            tb_conta INNER JOIN
-                         tb_plano_conta ON tb_conta.codPlanoConta = tb_plano_conta.codPlanoConta INNER JOIN
-                         tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa INNER JOIN
-                         tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
-                         tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
-                         tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
-WHERE        (tb_conta.codEntrada = @codEntrada)";
+            this._commandCollection[1].CommandText = @"SELECT        tb_movimentacao_conta.codMovimentacao, tb_movimentacao_conta.codContaBanco, tb_movimentacao_conta.codResponsavel, 
+                         tb_movimentacao_conta.codTipoMovimentacao, tb_movimentacao_conta.codConta, tb_movimentacao_conta.valor, tb_movimentacao_conta.dataHora, 
+                         tb_conta_banco.descricao AS descricaoConta, tb_tipo_movimentacao_conta.descricao AS descricaoTipoMovimento, tb_pessoa.nome AS nomeResponsavel, 
+                         tb_tipo_movimentacao_conta.somaSaldo
+FROM            tb_movimentacao_conta INNER JOIN
+                         tb_conta_banco ON tb_movimentacao_conta.codContaBanco = tb_conta_banco.codContaBanco INNER JOIN
+                         tb_tipo_movimentacao_conta ON tb_movimentacao_conta.codTipoMovimentacao = tb_tipo_movimentacao_conta.codTipoMovimentacao INNER JOIN
+                         tb_pessoa ON tb_movimentacao_conta.codResponsavel = tb_pessoa.codPessoa
+WHERE        (tb_movimentacao_conta.codConta = @codConta)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codEntrada";
+            param.ParameterName = "@codConta";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
-            param.SourceColumn = "codEntrada";
+            param.SourceColumn = "codConta";
             this._commandCollection[1].Parameters.Add(param);
             this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[2].Connection = this.Connection;
@@ -37658,7 +37841,7 @@ FROM            tb_conta INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
                          tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
-WHERE        (tb_conta.codEntrada = @codEntrada) AND (tb_conta.codPagamento = @codPagamento)";
+WHERE        (tb_conta.codEntrada = @codEntrada)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codEntrada";
@@ -37666,13 +37849,6 @@ WHERE        (tb_conta.codEntrada = @codEntrada) AND (tb_conta.codPagamento = @c
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codEntrada";
-            this._commandCollection[2].Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codPagamento";
-            param.DbType = global::System.Data.DbType.Int64;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
-            param.IsNullable = true;
-            param.SourceColumn = "codPagamento";
             this._commandCollection[2].Parameters.Add(param);
             this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[3].Connection = this.Connection;
@@ -37687,14 +37863,21 @@ FROM            tb_conta INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
                          tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
-WHERE        (tb_conta.codSaida = @codSaida)";
+WHERE        (tb_conta.codEntrada = @codEntrada) AND (tb_conta.codPagamento = @codPagamento)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codSaida";
+            param.ParameterName = "@codEntrada";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
-            param.SourceColumn = "codSaida";
+            param.SourceColumn = "codEntrada";
+            this._commandCollection[3].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codPagamento";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codPagamento";
             this._commandCollection[3].Parameters.Add(param);
             this._commandCollection[4] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[4].Connection = this.Connection;
@@ -37709,7 +37892,7 @@ FROM            tb_conta INNER JOIN
                          tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
                          tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
                          tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
-WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPagamento)";
+WHERE        (tb_conta.codSaida = @codSaida)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSaida";
@@ -37718,17 +37901,91 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
             param.IsNullable = true;
             param.SourceColumn = "codSaida";
             this._commandCollection[4].Parameters.Add(param);
+            this._commandCollection[5] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[5].Connection = this.Connection;
+            this._commandCollection[5].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
+                         tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.valor, tb_conta.observacao, tb_plano_conta.descricao AS descricaoPlanoConta, 
+                         tb_situacao_conta.descricaoSituacao, tb_pessoa.nome AS nomePessoa, tb_documento_pagamento.codTipoDocumento, 
+                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento, tb_conta.desconto, 
+                         tb_conta.codPagamento
+FROM            tb_conta INNER JOIN
+                         tb_plano_conta ON tb_conta.codPlanoConta = tb_plano_conta.codPlanoConta INNER JOIN
+                         tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa INNER JOIN
+                         tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
+                         tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
+                         tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
+WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPagamento)";
+            this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[5].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codPagamento";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codPagamento";
-            this._commandCollection[4].Parameters.Add(param);
-            this._commandCollection[5] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "SELECT MAX(codConta) FROM tb_conta";
-            this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[5].Parameters.Add(param);
+            this._commandCollection[6] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[6].Connection = this.Connection;
+            this._commandCollection[6].CommandText = "SELECT Count(*) \r\nFROM   tb_conta \r\nWHERE tb_conta.codSituacao = \'Q\' AND tb_conta" +
+                ".codEntrada = @codEntrada";
+            this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codEntrada";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codEntrada";
+            this._commandCollection[6].Parameters.Add(param);
+            this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[7].Connection = this.Connection;
+            this._commandCollection[7].CommandText = "SELECT Count(*) \r\nFROM   tb_conta \r\nWHERE tb_conta.codSituacao = \'Q\' AND tb_conta" +
+                ".codSaida = @codSaida";
+            this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[7].Parameters.Add(param);
+            this._commandCollection[8] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[8].Connection = this.Connection;
+            this._commandCollection[8].CommandText = "SELECT MAX(codConta) FROM tb_conta";
+            this._commandCollection[8].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[9] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[9].Connection = this.Connection;
+            this._commandCollection[9].CommandText = "UPDATE       tb_conta\r\nSET                codSituacao = @codSituacao, desconto = " +
+                "@desconto\r\nWHERE        (codConta = @Original_codConta)";
+            this._commandCollection[9].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSituacao";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.String;
+            param.Size = 1;
+            param.IsNullable = true;
+            param.SourceColumn = "codSituacao";
+            this._commandCollection[9].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@desconto";
+            param.DbType = global::System.Data.DbType.Decimal;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.NewDecimal;
+            param.IsNullable = true;
+            param.SourceColumn = "desconto";
+            this._commandCollection[9].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codConta";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codConta";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[9].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37759,8 +38016,44 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByCodEntrada(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codEntrada) {
+        public virtual int FillByCodConta(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codConta) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((codConta.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_contaDataTable GetDataByCodConta(global::System.Nullable<long> codConta) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((codConta.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodEntrada(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codEntrada) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             if ((codEntrada.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada.Value));
             }
@@ -37779,7 +38072,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual saceDataSet.tb_contaDataTable GetDataByCodEntrada(global::System.Nullable<long> codEntrada) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             if ((codEntrada.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada.Value));
             }
@@ -37796,7 +38089,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByCodEntradaCodPagamento(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codEntrada, global::System.Nullable<long> codPagamento) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[3];
             if ((codEntrada.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada.Value));
             }
@@ -37821,7 +38114,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual saceDataSet.tb_contaDataTable GetDataByCodEntradaCodPagamento(global::System.Nullable<long> codEntrada, global::System.Nullable<long> codPagamento) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[3];
             if ((codEntrada.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codEntrada.Value));
             }
@@ -37844,7 +38137,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByCodSaida(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codSaida) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand = this.CommandCollection[4];
             if ((codSaida.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida.Value));
             }
@@ -37863,7 +38156,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual saceDataSet.tb_contaDataTable GetDataByCodSaida(global::System.Nullable<long> codSaida) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand = this.CommandCollection[4];
             if ((codSaida.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida.Value));
             }
@@ -37880,7 +38173,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByCodSaidaCodPagamento(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codSaida, global::System.Nullable<long> codPagamento) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand = this.CommandCollection[5];
             if ((codSaida.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida.Value));
             }
@@ -37905,7 +38198,7 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual saceDataSet.tb_contaDataTable GetDataByCodSaidaCodPagamento(global::System.Nullable<long> codSaida, global::System.Nullable<long> codPagamento) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand = this.CommandCollection[5];
             if ((codSaida.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida.Value));
             }
@@ -38092,8 +38385,14 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<long> getMaxCodConta() {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[5];
+        public virtual global::System.Nullable<long> GetCountNaoQuitadasByCodEntrada(global::System.Nullable<long> codEntrada) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[6];
+            if ((codEntrada.HasValue == true)) {
+                command.Parameters[0].Value = ((long)(codEntrada.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -38115,6 +38414,99 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
             else {
                 return new global::System.Nullable<long>(((long)(returnValue)));
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<long> GetCountNaoQuitadasByCodSaida(global::System.Nullable<long> codSaida) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[7];
+            if ((codSaida.HasValue == true)) {
+                command.Parameters[0].Value = ((long)(codSaida.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<long>();
+            }
+            else {
+                return new global::System.Nullable<long>(((long)(returnValue)));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<long> getMaxCodConta() {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[8];
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<long>();
+            }
+            else {
+                return new global::System.Nullable<long>(((long)(returnValue)));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateSituacaoDescontoConta(string codSituacao, decimal desconto, long Original_codConta) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[9];
+            if ((codSituacao == null)) {
+                throw new global::System.ArgumentNullException("codSituacao");
+            }
+            else {
+                command.Parameters[0].Value = ((string)(codSituacao));
+            }
+            command.Parameters[1].Value = ((decimal)(desconto));
+            command.Parameters[2].Value = ((long)(Original_codConta));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -41562,19 +41954,19 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41598,20 +41990,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto." +
-                "codigoBarra = @codBarra)";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_" +
+                "produto.codigoBarra = @codBarra)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41643,20 +42035,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto." +
-                "codProduto = @codProduto)";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_" +
+                "produto.codProduto = @codProduto)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41687,20 +42079,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto." +
-                "ultimaDataAtualizacao >= @dataAtualizacao)\r\nORDER BY tb_produto.nome";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_" +
+                "produto.ultimaDataAtualizacao >= @dataAtualizacao)\r\nORDER BY tb_produto.nome";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41731,20 +42123,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto." +
-                "nome = @nome)";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_" +
+                "produto.nome = @nome)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41776,20 +42168,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         ROUND(tb_produto.precoVendaAtacado * t" +
-                "b_produto.qtdProdutoAtacado, 2) AS totalPrecoAtacado, \r\n                        " +
-                " tb_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS tot" +
-                "alPrecoAtacadoSemDesconto, tb_produto.desconto\r\nFROM            tb_produto INNER" +
-                " JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNE" +
-                "R JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codG" +
-                "rupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante " +
-                "= tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto O" +
-                "N tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER J" +
-                "OIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrup" +
-                "o.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_pro" +
-                "duto.exibeNaListagem = 1) AND (tb_produto.nome LIKE CONCAT(@nome, \'%\'))\r\nORDER B" +
-                "Y tb_produto.nome";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         ROUND(tb_produto.precoVendaAta" +
+                "cado * tb_produto.qtdProdutoAtacado, 2) AS totalPrecoAtacado, \r\n                " +
+                "         tb_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescim" +
+                "o AS totalPrecoAtacadoSemDesconto, tb_produto.desconto\r\nFROM            tb_produ" +
+                "to INNER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.cod" +
+                "CST INNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_gr" +
+                "upo.codGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFab" +
+                "ricante = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_p" +
+                "roduto ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto" +
+                " INNER JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb" +
+                "_subgrupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE       " +
+                " (tb_produto.exibeNaListagem = 1) AND (tb_produto.nome LIKE CONCAT(@nome, \'%\'))\r" +
+                "\nORDER BY tb_produto.nome";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41820,19 +42212,19 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto\r\nFROM            tb_produto INNER JOIN\r\n   " +
-                "                      tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN\r\n  " +
-                "                       tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER" +
-                " JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_pesso" +
-                "a.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_produ" +
-                "to.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n     " +
-                "                    tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.codSubgr" +
-                "upo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE  tb_produto.nomeProdutoF" +
-                "abricante LIKE CONCAT(@nomeProdutoFabricante, \'%\')";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto\r\nFROM            tb_produto INNER J" +
+                "OIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER " +
+                "JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGru" +
+                "po INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = " +
+                "tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON " +
+                "tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOI" +
+                "N\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo." +
+                "codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE  tb_produto.nome" +
+                "ProdutoFabricante LIKE CONCAT(@nomeProdutoFabricante, \'%\')";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41863,19 +42255,19 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto\r\nFROM            tb_produto INNER JOIN\r\n   " +
-                "                      tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOIN\r\n  " +
-                "                       tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo INNER" +
-                " JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_pesso" +
-                "a.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_produ" +
-                "to.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n     " +
-                "                    tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.codSubgr" +
-                "upo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto.nome " +
-                "LIKE CONCAT(@nome, \'%\'))\r\nORDER BY tb_produto.nome";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto\r\nFROM            tb_produto INNER J" +
+                "OIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER " +
+                "JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGru" +
+                "po INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = " +
+                "tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON " +
+                "tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOI" +
+                "N\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo." +
+                "codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produ" +
+                "to.nome LIKE CONCAT(@nome, \'%\'))\r\nORDER BY tb_produto.nome";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41906,20 +42298,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto." +
-                "referenciaFabricante LIKE CONCAT(@referenciaFabricante, \'%\'))";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_" +
+                "produto.referenciaFabricante LIKE CONCAT(@referenciaFabricante, \'%\'))";
             this._commandCollection[8].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -41950,20 +42342,20 @@ WHERE        (codProduto = @Original_codProduto)";
                 "recoVendaAtacado, \r\n                         tb_produto.precoVendaAtacado, tb_pr" +
                 "oduto.exibeNaListagem, tb_produto.dataUltimoPedido, tb_cst.descricaoCST, tb_grup" +
                 "o.descricao AS descricaoGrupo, \r\n                         tb_situacao_produto.de" +
-                "scricaoSituacao, tb_pessoa.nome AS nomeFabricante, tb_subgrupo.descricao AS desc" +
-                "ricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado * tb_prod" +
-                "uto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         tb_produt" +
-                "o.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS totalPrecoAta" +
-                "cadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n              " +
-                "           tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto INNER JOIN" +
-                "\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST INNER JOI" +
-                "N\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.codGrupo " +
-                "INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabricante = tb_" +
-                "pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produto ON tb_" +
-                "produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNER JOIN\r\n" +
-                "                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subgrupo.cod" +
-                "Subgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_produto." +
-                "exibeNaListagem = 1)";
+                "scricaoSituacao, tb_pessoa.nomeFantasia AS nomeFabricante, tb_subgrupo.descricao" +
+                " AS descricaoSubgrupo, \r\n                         tb_produto.precoVendaAtacado *" +
+                " tb_produto.qtdProdutoAtacado AS totalPrecoAtacado, \r\n                         t" +
+                "b_produto.precoVendaAtacado * tb_produto.qtdProdutoAtacado * @acrescimo AS total" +
+                "PrecoAtacadoSemDesconto, tb_produto.desconto, tb_produto.unidadeCompra, \r\n      " +
+                "                   tb_produto.quantidadeEmbalagem\r\nFROM            tb_produto IN" +
+                "NER JOIN\r\n                         tb_cst ON tb_produto.codCST = tb_cst.codCST I" +
+                "NNER JOIN\r\n                         tb_grupo ON tb_produto.codGrupo = tb_grupo.c" +
+                "odGrupo INNER JOIN\r\n                         tb_pessoa ON tb_produto.codFabrican" +
+                "te = tb_pessoa.codPessoa INNER JOIN\r\n                         tb_situacao_produt" +
+                "o ON tb_produto.codSituacaoProduto = tb_situacao_produto.codSituacaoProduto INNE" +
+                "R JOIN\r\n                         tb_subgrupo ON tb_produto.codSubgrupo = tb_subg" +
+                "rupo.codSubgrupo AND tb_grupo.codGrupo = tb_subgrupo.codGrupo\r\nWHERE        (tb_" +
+                "produto.exibeNaListagem = 1)";
             this._commandCollection[9].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@acrescimo";
@@ -43184,7 +43576,7 @@ WHERE        (codEntrada = @Original_codEntrada)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[7];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[8];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
@@ -43287,6 +43679,26 @@ WHERE tb_entrada.codTipoEntrada = 3";
             this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "SELECT        MAX(tb_entrada.codEntrada)\r\nFROM            tb_entrada";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[7].Connection = this.Connection;
+            this._commandCollection[7].CommandText = "UPDATE       tb_entrada\r\nSET                codSituacaoPagamentos = @codSituacaoP" +
+                "agamentos\r\nWHERE        (codEntrada = @Original_codEntrada)";
+            this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSituacaoPagamentos";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codSituacaoPagamentos";
+            this._commandCollection[7].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codEntrada";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codEntrada";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[7].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -43776,6 +44188,31 @@ WHERE tb_entrada.codTipoEntrada = 3";
             else {
                 return ((object)(returnValue));
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateSituacaoPagamentos(int codSituacaoPagamentos, long Original_codEntrada) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[7];
+            command.Parameters[0].Value = ((int)(codSituacaoPagamentos));
+            command.Parameters[1].Value = ((long)(Original_codEntrada));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -45182,6 +45619,7 @@ WHERE        (tb_entrada_produto.codProduto = @codProduto) AND (tb_entrada.codTi
             tableMapping.ColumnMappings.Add("ehFabricante", "ehFabricante");
             tableMapping.ColumnMappings.Add("imprimirDAV", "imprimirDAV");
             tableMapping.ColumnMappings.Add("imprimirCF", "imprimirCF");
+            tableMapping.ColumnMappings.Add("nomeFantasia", "nomeFantasia");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -45584,7 +46022,7 @@ WHERE        (codPessoa = @Original_codPessoa)";
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
-                         fone3, email, ehFabricante, imprimirDAV, imprimirCF
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
 FROM            tb_pessoa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
@@ -45642,14 +46080,14 @@ WHERE endereco LIKE CONCAT(@endereco, '%')";
             this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`, imprimirDAV, imprimirCF
 FROM `tb_pessoa`
-WHERE nome LIKE CONCAT(@nome, '%')";
+WHERE nomeFantasia LIKE CONCAT(@nome, '%')";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
             param.Size = 50;
             param.IsNullable = true;
-            param.SourceColumn = "nome";
+            param.SourceColumn = "nomeFantasia";
             this._commandCollection[5].Parameters.Add(param);
             this._commandCollection[6] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[6].Connection = this.Connection;
@@ -45670,7 +46108,7 @@ WHERE        (Tipo = @tipo)";
             this._commandCollection[7].Connection = this.Connection;
             this._commandCollection[7].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`, imprimirDAV, imprimirCF
  FROM `tb_pessoa`
-WHERE nome = @nome";
+WHERE nomeFantasia = @nome";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
@@ -45678,7 +46116,7 @@ WHERE nome = @nome";
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
             param.Size = 50;
             param.IsNullable = true;
-            param.SourceColumn = "nome";
+            param.SourceColumn = "nomeFantasia";
             this._commandCollection[7].Parameters.Add(param);
         }
         
@@ -45793,10 +46231,10 @@ WHERE nome = @nome";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByNome(saceDataSet.tb_pessoaDataTable dataTable, string nome) {
+        public virtual int FillByNomeFantasia(saceDataSet.tb_pessoaDataTable dataTable, string nome) {
             this.Adapter.SelectCommand = this.CommandCollection[5];
             if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
@@ -45848,10 +46286,10 @@ WHERE nome = @nome";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual saceDataSet.tb_pessoaDataTable GetDataByEqualsName(string nome) {
+        public virtual saceDataSet.tb_pessoaDataTable GetDataByEqualsNomeFantasia(string nome) {
             this.Adapter.SelectCommand = this.CommandCollection[7];
             if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
@@ -46928,7 +47366,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[9];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[12];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
@@ -47105,8 +47543,16 @@ WHERE        (codSaida = @Original_codSaida)";
                 "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
                 "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
                 "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3)";
+                "dPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3) AND (tb_saida.codSaida > @codS" +
+                "aida)";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[5].Parameters.Add(param);
             this._commandCollection[6] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
@@ -47130,16 +47576,89 @@ WHERE        (codSaida = @Original_codSaida)";
                 "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
                 "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
                 "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE (tb_saida.codTipoSaida = 2) AND (tb_saida.pedidoGerado = \'\')";
+                "dPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3)";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[7].Connection = this.Connection;
-            this._commandCollection[7].CommandText = "SELECT        MAX(codSaida) AS Expr1\r\nFROM            tb_saida";
+            this._commandCollection[7].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
+                "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
+                "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
+                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
+                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
+                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
+                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
+                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
+                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
+                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
+                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
+                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
+                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
+                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
+                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
+                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
+                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
+                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
+                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
+                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
+                "dPessoa\r\nWHERE (tb_saida.codTipoSaida = 2) AND (tb_saida.pedidoGerado = \'\')";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[8] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[8].Connection = this.Connection;
-            this._commandCollection[8].CommandText = "SELECT        MAX(nfe) AS numeroNFE\r\nFROM            tb_saida";
+            this._commandCollection[8].CommandText = "SELECT        MAX(codSaida) AS Expr1\r\nFROM            tb_saida";
             this._commandCollection[8].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[9] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[9].Connection = this.Connection;
+            this._commandCollection[9].CommandText = "SELECT        MAX(nfe) AS numeroNFE\r\nFROM            tb_saida";
+            this._commandCollection[9].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[10] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[10].Connection = this.Connection;
+            this._commandCollection[10].CommandText = "UPDATE       tb_saida\r\nSET                codTipoSaida = @codTipoSaida, pedidoGer" +
+                "ado = @pedidoGerado\r\nWHERE        (codSaida = @Original_codSaida)";
+            this._commandCollection[10].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codTipoSaida";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codTipoSaida";
+            this._commandCollection[10].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@pedidoGerado";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 10;
+            param.IsNullable = true;
+            param.SourceColumn = "pedidoGerado";
+            this._commandCollection[10].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[10].Parameters.Add(param);
+            this._commandCollection[11] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[11].Connection = this.Connection;
+            this._commandCollection[11].CommandText = "UPDATE       tb_saida\r\nSET                codSituacaoPagamentos = @codSituacaoPag" +
+                "amentos\r\nWHERE        (codSaida = @Original_codSaida)";
+            this._commandCollection[11].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSituacaoPagamentos";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codSituacaoPagamentos";
+            this._commandCollection[11].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@Original_codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[11].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -47248,8 +47767,22 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillOrcamentosVendas(saceDataSet.tb_saidaDataTable dataTable) {
+        public virtual int FillLastOrcamentosVendas(saceDataSet.tb_saidaDataTable dataTable, long codSaida) {
             this.Adapter.SelectCommand = this.CommandCollection[5];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillOrcamentosVendas(saceDataSet.tb_saidaDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[6];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -47262,7 +47795,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillPreVendasPendentes(saceDataSet.tb_saidaDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[6];
+            this.Adapter.SelectCommand = this.CommandCollection[7];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -47772,7 +48305,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<long> GetUltimoCodSaida() {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[7];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[8];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -47800,7 +48333,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual string GetUltimoNumeroNF() {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[8];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[9];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -47822,6 +48355,62 @@ WHERE        (codSaida = @Original_codSaida)";
             else {
                 return ((string)(returnValue));
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdatePedidoGerado(int codTipoSaida, string pedidoGerado, long Original_codSaida) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[10];
+            command.Parameters[0].Value = ((int)(codTipoSaida));
+            if ((pedidoGerado == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(pedidoGerado));
+            }
+            command.Parameters[2].Value = ((long)(Original_codSaida));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateSituacaoPagamentos(int codSituacaoPagamentos, long Original_codSaida) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[11];
+            command.Parameters[0].Value = ((int)(codSituacaoPagamentos));
+            command.Parameters[1].Value = ((long)(Original_codSaida));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -48037,7 +48626,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `codSaida`, `codPedidoGerado` FROM `tb_saida_pedido`";
@@ -48067,6 +48656,18 @@ WHERE        (codSaida = @Original_codSaida)";
             param.IsNullable = true;
             param.SourceColumn = "codPedidoGerado";
             this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT `codSaida`, `codPedidoGerado` FROM `tb_saida_pedido`\r\nWHERE codSaida = @co" +
+                "dSaida";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaida";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaida";
+            this._commandCollection[3].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -48114,6 +48715,32 @@ WHERE        (codSaida = @Original_codSaida)";
         public virtual saceDataSet.tb_saida_pedidoDataTable GetDataByCodPedido(long codPedidoGerado) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codPedidoGerado));
+            saceDataSet.tb_saida_pedidoDataTable dataTable = new saceDataSet.tb_saida_pedidoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodSaida(saceDataSet.tb_saida_pedidoDataTable dataTable, long codSaida) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_saida_pedidoDataTable GetDataByCodSaida(long codSaida) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
             saceDataSet.tb_saida_pedidoDataTable dataTable = new saceDataSet.tb_saida_pedidoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

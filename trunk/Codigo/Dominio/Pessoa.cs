@@ -12,6 +12,7 @@ namespace Dominio
 
         public Int64 CodPessoa { get; set; }
         public String Nome { get; set; }
+        public String NomeFantasia { get; set; }
         public String CpfCnpj { get; set; }
         public String IeSubstituto { get; set; }
         public String Ie { get; set; }

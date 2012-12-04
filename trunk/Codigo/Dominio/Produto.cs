@@ -97,6 +97,8 @@ namespace Dominio
             produto.UltimaDataAtualizacao = UltimaDataAtualizacao;
             produto.UltimoPrecoCompra = UltimoPrecoCompra;
             produto.Unidade = Unidade;
+            produto.UnidadeCompra = UnidadeCompra;
+            produto.QuantidadeEmbalagem = QuantidadeEmbalagem;
             return produto;
         }
     }

@@ -550,6 +550,11 @@ namespace Telas
                         produtoOriginal = (Produto)produto.Clone();
                         tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
                         data_validadeDateTimePicker.Enabled = produto.TemVencimento;
+                        if (Convert.ToDecimal(quantidadeEmbalagemTextBox.Text) <= 0)
+                        {
+                            quantidadeEmbalagemTextBox.Text = "1";
+                        }
+
                     }
                 }
 

@@ -27,7 +27,7 @@ namespace Telas
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
         {
             this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
-            cmbBusca.SelectedIndex = 0;
+            cmbBusca.SelectedIndex = 1;
          }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)

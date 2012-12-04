@@ -60,6 +60,18 @@ namespace Negocio
             }
         }
 
+        public void atualizar(char codSituacao, decimal valorDesconto, long codConta)
+        {
+            try
+            {
+                tb_contaTA.UpdateSituacaoDescontoConta(codSituacao.ToString(), valorDesconto, codConta);
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
+        }
+
         public void remover(Int64 codconta)
         {
             try
@@ -70,6 +82,24 @@ namespace Negocio
             {
                 throw new DadosException("Conta", e.Message, e);
             }
+        }
+
+        public Conta obterContaPorCodConta(long codConta)
+        {
+            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
+            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodConta(codConta);
+            List<Conta> contas = converterListaConta(contaDT);
+            return contas.Count > 0 ? contas[0] : null;
+        }
+
+        public int obterCountContasNaoQuitadasEntrada(long codEntrada)
+        {
+            return (int) tb_contaTA.GetCountNaoQuitadasByCodEntrada(codEntrada);
+        }
+
+        public int obterCountContasNaoQuitadasSaida(long codSaida)
+        {
+            return (int)tb_contaTA.GetCountNaoQuitadasByCodSaida(codSaida);
         }
 
         public List<Conta> obterContasPorEntada(Int64 codEntrada)
@@ -90,7 +120,7 @@ namespace Negocio
             StringBuilder comando_sql = new StringBuilder();
             comando_sql.Append("SELECT tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, tb_saida.pedidoGerado AS CF, tb_conta.codPessoa, tb_conta.desconto, (tb_conta.valor - tb_conta.desconto) AS valorPagar ");
             comando_sql.Append("FROM tb_conta INNER JOIN  tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN tb_saida ON tb_conta.codSaida = tb_saida.codSaida ");
-            comando_sql.Append("WHERE tb_conta.codPessoa = " + codPessoa.ToString());
+            comando_sql.Append("WHERE tb_conta.codSituacao = 'A' and tb_conta.codPessoa = " + codPessoa.ToString());
             comando_sql.Append(" ORDER BY tb_conta.dataVencimento, tb_conta.codSaida");
             
             // cria novo adapter para executar a consulta
@@ -103,6 +133,14 @@ namespace Negocio
             return contaDT;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <param name="situacoes"></param>
+        /// <param name="dataInicial"></param>
+        /// <param name="dataFinal"></param>
+        /// <returns></returns>
         public Dados.saceDataSetConsultas.ContasPessoaDataTable ObterContasPorPessoaSituacaoPeriodo(Int64 codPessoa, List<char> situacoes, DateTime dataInicial, DateTime dataFinal)
         {
             StringBuilder comando_sql = new StringBuilder();

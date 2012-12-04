@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Util;
+using Ionic.Zip;
 
 namespace Negocio
 {
@@ -47,7 +48,7 @@ namespace Negocio
             {
                 // recupera o nome do computador
                 String computerName = System.Windows.Forms.SystemInformation.ComputerName;
-                if (computerName.Equals(Util.Global.NOME_SERVIDOR))
+                if (computerName.Equals(Global.NOME_SERVIDOR))
                 {
                     DirectoryInfo dir = new DirectoryInfo(Global.PASTA_BACKUP);
                     if (!dir.Exists)
@@ -78,9 +79,18 @@ namespace Negocio
                     Process process = Process.Start(psi);
 
                     string output = process.StandardOutput.ReadToEnd();
+
                     file.WriteLine(output);
                     process.WaitForExit();
                     file.Close();
+                    using (ZipFile zip = new ZipFile())
+                    {
+                        // add this map file into the "images" directory in the zip archive
+                        zip.AddFile(path);
+                        // add the report into a different directory in the archive
+                        zip.Save(path + ".zip");
+                    }
+                    File.Delete(path);
                     process.Close();
                 }
             }

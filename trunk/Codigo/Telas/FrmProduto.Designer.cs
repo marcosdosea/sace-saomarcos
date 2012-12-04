@@ -56,6 +56,8 @@
             System.Windows.Forms.Label dataUltimoPedidoLabel;
             System.Windows.Forms.Label codSubgrupoLabel;
             System.Windows.Forms.Label descontoLabel;
+            System.Windows.Forms.Label unidadeCompraLabel;
+            System.Windows.Forms.Label quantidadeEmbalagemLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -100,6 +102,13 @@
             this.precoAtacadoSugestaoTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
+            this.nomeLoja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacao2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estoqueMaximo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbprodutolojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataUltimoPedidoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.referenciaFabricanteTextBox = new System.Windows.Forms.TextBox();
@@ -129,13 +138,8 @@
             this.precoCustoTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
-            this.nomeLoja = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.localizacao2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estoqueMaximo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unidadeCompraTextBox = new System.Windows.Forms.TextBox();
+            this.quantidadeEmbalagemTextBox = new System.Windows.Forms.TextBox();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -163,6 +167,8 @@
             dataUltimoPedidoLabel = new System.Windows.Forms.Label();
             codSubgrupoLabel = new System.Windows.Forms.Label();
             descontoLabel = new System.Windows.Forms.Label();
+            unidadeCompraLabel = new System.Windows.Forms.Label();
+            quantidadeEmbalagemLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutoBindingSource)).BeginInit();
@@ -201,9 +207,9 @@
             unidadeLabel.AutoSize = true;
             unidadeLabel.Location = new System.Drawing.Point(6, 155);
             unidadeLabel.Name = "unidadeLabel";
-            unidadeLabel.Size = new System.Drawing.Size(47, 13);
+            unidadeLabel.Size = new System.Drawing.Size(81, 13);
             unidadeLabel.TabIndex = 25;
-            unidadeLabel.Text = "Unidade";
+            unidadeLabel.Text = "Unidade Venda";
             // 
             // codigoBarraLabel
             // 
@@ -217,7 +223,7 @@
             // codGrupoLabel
             // 
             codGrupoLabel.AutoSize = true;
-            codGrupoLabel.Location = new System.Drawing.Point(150, 196);
+            codGrupoLabel.Location = new System.Drawing.Point(8, 239);
             codGrupoLabel.Name = "codGrupoLabel";
             codGrupoLabel.Size = new System.Drawing.Size(39, 13);
             codGrupoLabel.TabIndex = 29;
@@ -253,7 +259,7 @@
             // codSituacaoProdutoLabel
             // 
             codSituacaoProdutoLabel.AutoSize = true;
-            codSituacaoProdutoLabel.Location = new System.Drawing.Point(466, 196);
+            codSituacaoProdutoLabel.Location = new System.Drawing.Point(419, 196);
             codSituacaoProdutoLabel.Name = "codSituacaoProdutoLabel";
             codSituacaoProdutoLabel.Size = new System.Drawing.Size(92, 13);
             codSituacaoProdutoLabel.TabIndex = 86;
@@ -271,7 +277,7 @@
             // ncmshLabel
             // 
             ncmshLabel.AutoSize = true;
-            ncmshLabel.Location = new System.Drawing.Point(468, 283);
+            ncmshLabel.Location = new System.Drawing.Point(161, 282);
             ncmshLabel.Name = "ncmshLabel";
             ncmshLabel.Size = new System.Drawing.Size(54, 13);
             ncmshLabel.TabIndex = 87;
@@ -280,7 +286,7 @@
             // codCSTLabel
             // 
             codCSTLabel.AutoSize = true;
-            codCSTLabel.Location = new System.Drawing.Point(153, 282);
+            codCSTLabel.Location = new System.Drawing.Point(285, 282);
             codCSTLabel.Name = "codCSTLabel";
             codCSTLabel.Size = new System.Drawing.Size(31, 13);
             codCSTLabel.TabIndex = 88;
@@ -406,7 +412,7 @@
             // codSubgrupoLabel
             // 
             codSubgrupoLabel.AutoSize = true;
-            codSubgrupoLabel.Location = new System.Drawing.Point(149, 239);
+            codSubgrupoLabel.Location = new System.Drawing.Point(285, 238);
             codSubgrupoLabel.Name = "codSubgrupoLabel";
             codSubgrupoLabel.Size = new System.Drawing.Size(56, 13);
             codSubgrupoLabel.TabIndex = 89;
@@ -420,6 +426,24 @@
             descontoLabel.Size = new System.Drawing.Size(67, 13);
             descontoLabel.TabIndex = 91;
             descontoLabel.Text = "% Desconto:";
+            // 
+            // unidadeCompraLabel
+            // 
+            unidadeCompraLabel.AutoSize = true;
+            unidadeCompraLabel.Location = new System.Drawing.Point(150, 196);
+            unidadeCompraLabel.Name = "unidadeCompraLabel";
+            unidadeCompraLabel.Size = new System.Drawing.Size(89, 13);
+            unidadeCompraLabel.TabIndex = 91;
+            unidadeCompraLabel.Text = "Unidade Compra:";
+            // 
+            // quantidadeEmbalagemLabel
+            // 
+            quantidadeEmbalagemLabel.AutoSize = true;
+            quantidadeEmbalagemLabel.Location = new System.Drawing.Point(284, 195);
+            quantidadeEmbalagemLabel.Name = "quantidadeEmbalagemLabel";
+            quantidadeEmbalagemLabel.Size = new System.Drawing.Size(123, 13);
+            quantidadeEmbalagemLabel.TabIndex = 92;
+            quantidadeEmbalagemLabel.Text = "Quantidade Embalagem:";
             // 
             // label1
             // 
@@ -574,10 +598,10 @@
             this.codGrupoComboBox.DisplayMember = "descricao";
             this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoComboBox.FormattingEnabled = true;
-            this.codGrupoComboBox.Location = new System.Drawing.Point(150, 213);
+            this.codGrupoComboBox.Location = new System.Drawing.Point(7, 258);
             this.codGrupoComboBox.Name = "codGrupoComboBox";
-            this.codGrupoComboBox.Size = new System.Drawing.Size(312, 21);
-            this.codGrupoComboBox.TabIndex = 23;
+            this.codGrupoComboBox.Size = new System.Drawing.Size(274, 21);
+            this.codGrupoComboBox.TabIndex = 29;
             this.codGrupoComboBox.ValueMember = "codGrupo";
             this.codGrupoComboBox.SelectedIndexChanged += new System.EventHandler(this.codGrupoComboBox_SelectedIndexChanged);
             this.codGrupoComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
@@ -616,10 +640,10 @@
             // temVencimentoCheckBox
             // 
             this.temVencimentoCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.tbprodutoBindingSource, "temVencimento", true));
-            this.temVencimentoCheckBox.Location = new System.Drawing.Point(7, 251);
+            this.temVencimentoCheckBox.Location = new System.Drawing.Point(7, 281);
             this.temVencimentoCheckBox.Name = "temVencimentoCheckBox";
             this.temVencimentoCheckBox.Size = new System.Drawing.Size(125, 24);
-            this.temVencimentoCheckBox.TabIndex = 27;
+            this.temVencimentoCheckBox.TabIndex = 33;
             this.temVencimentoCheckBox.Text = "Possui Vencimento";
             this.temVencimentoCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -628,10 +652,10 @@
             this.exibeNaListagemCheckBox.Checked = true;
             this.exibeNaListagemCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.exibeNaListagemCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.tbprodutoBindingSource, "exibeNaListagem", true));
-            this.exibeNaListagemCheckBox.Location = new System.Drawing.Point(7, 294);
+            this.exibeNaListagemCheckBox.Location = new System.Drawing.Point(7, 304);
             this.exibeNaListagemCheckBox.Name = "exibeNaListagemCheckBox";
             this.exibeNaListagemCheckBox.Size = new System.Drawing.Size(101, 24);
-            this.exibeNaListagemCheckBox.TabIndex = 29;
+            this.exibeNaListagemCheckBox.TabIndex = 35;
             this.exibeNaListagemCheckBox.Text = "Exibir Listagem";
             this.exibeNaListagemCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -687,10 +711,10 @@
             this.codSituacaoProdutoComboBox.DisplayMember = "descricaoSituacao";
             this.codSituacaoProdutoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codSituacaoProdutoComboBox.FormattingEnabled = true;
-            this.codSituacaoProdutoComboBox.Location = new System.Drawing.Point(468, 213);
+            this.codSituacaoProdutoComboBox.Location = new System.Drawing.Point(422, 213);
             this.codSituacaoProdutoComboBox.Name = "codSituacaoProdutoComboBox";
-            this.codSituacaoProdutoComboBox.Size = new System.Drawing.Size(128, 21);
-            this.codSituacaoProdutoComboBox.TabIndex = 25;
+            this.codSituacaoProdutoComboBox.Size = new System.Drawing.Size(172, 21);
+            this.codSituacaoProdutoComboBox.TabIndex = 27;
             this.codSituacaoProdutoComboBox.ValueMember = "codSituacaoProduto";
             this.codSituacaoProdutoComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codSituacaoProdutoComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -707,7 +731,7 @@
             this.precoVendaAtacadoTextBox.Location = new System.Drawing.Point(467, 440);
             this.precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
             this.precoVendaAtacadoTextBox.Size = new System.Drawing.Size(127, 20);
-            this.precoVendaAtacadoTextBox.TabIndex = 67;
+            this.precoVendaAtacadoTextBox.TabIndex = 74;
             this.precoVendaAtacadoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.precoVendaAtacadoTextBox.Leave += new System.EventHandler(this.precoVendaVarejoTextBox_Leave);
             // 
@@ -717,7 +741,7 @@
             this.lucroPrecoVendaAtacadoTextBox.Location = new System.Drawing.Point(238, 440);
             this.lucroPrecoVendaAtacadoTextBox.Name = "lucroPrecoVendaAtacadoTextBox";
             this.lucroPrecoVendaAtacadoTextBox.Size = new System.Drawing.Size(82, 20);
-            this.lucroPrecoVendaAtacadoTextBox.TabIndex = 63;
+            this.lucroPrecoVendaAtacadoTextBox.TabIndex = 70;
             this.lucroPrecoVendaAtacadoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.lucroPrecoVendaAtacadoTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -728,7 +752,7 @@
             this.precoVendaVarejoTextBox.Location = new System.Drawing.Point(467, 399);
             this.precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
             this.precoVendaVarejoTextBox.Size = new System.Drawing.Size(127, 20);
-            this.precoVendaVarejoTextBox.TabIndex = 57;
+            this.precoVendaVarejoTextBox.TabIndex = 64;
             this.precoVendaVarejoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.precoVendaVarejoTextBox.Leave += new System.EventHandler(this.precoVendaVarejoTextBox_Leave);
             // 
@@ -738,7 +762,7 @@
             this.lucroPrecoVendaVarejoTextBox.Location = new System.Drawing.Point(237, 397);
             this.lucroPrecoVendaVarejoTextBox.Name = "lucroPrecoVendaVarejoTextBox";
             this.lucroPrecoVendaVarejoTextBox.Size = new System.Drawing.Size(83, 20);
-            this.lucroPrecoVendaVarejoTextBox.TabIndex = 53;
+            this.lucroPrecoVendaVarejoTextBox.TabIndex = 60;
             this.lucroPrecoVendaVarejoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.lucroPrecoVendaVarejoTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -750,7 +774,7 @@
             this.ultimaDataAtualizacaoDateTimePicker.Location = new System.Drawing.Point(10, 440);
             this.ultimaDataAtualizacaoDateTimePicker.Name = "ultimaDataAtualizacaoDateTimePicker";
             this.ultimaDataAtualizacaoDateTimePicker.Size = new System.Drawing.Size(112, 20);
-            this.ultimaDataAtualizacaoDateTimePicker.TabIndex = 59;
+            this.ultimaDataAtualizacaoDateTimePicker.TabIndex = 66;
             this.ultimaDataAtualizacaoDateTimePicker.TabStop = false;
             this.ultimaDataAtualizacaoDateTimePicker.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.ultimaDataAtualizacaoDateTimePicker.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -761,7 +785,7 @@
             this.ultimoPrecoCompraTextBox.Location = new System.Drawing.Point(10, 397);
             this.ultimoPrecoCompraTextBox.Name = "ultimoPrecoCompraTextBox";
             this.ultimoPrecoCompraTextBox.Size = new System.Drawing.Size(106, 20);
-            this.ultimoPrecoCompraTextBox.TabIndex = 49;
+            this.ultimoPrecoCompraTextBox.TabIndex = 56;
             this.ultimoPrecoCompraTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.ultimoPrecoCompraTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -771,7 +795,7 @@
             this.freteTextBox.Location = new System.Drawing.Point(464, 349);
             this.freteTextBox.Name = "freteTextBox";
             this.freteTextBox.Size = new System.Drawing.Size(60, 20);
-            this.freteTextBox.TabIndex = 45;
+            this.freteTextBox.TabIndex = 52;
             this.freteTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.freteTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -781,7 +805,7 @@
             this.ipiTextBox.Location = new System.Drawing.Point(395, 349);
             this.ipiTextBox.Name = "ipiTextBox";
             this.ipiTextBox.Size = new System.Drawing.Size(60, 20);
-            this.ipiTextBox.TabIndex = 43;
+            this.ipiTextBox.TabIndex = 50;
             this.ipiTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.ipiTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -791,7 +815,7 @@
             this.simplesTextBox.Location = new System.Drawing.Point(307, 349);
             this.simplesTextBox.Name = "simplesTextBox";
             this.simplesTextBox.Size = new System.Drawing.Size(73, 20);
-            this.simplesTextBox.TabIndex = 41;
+            this.simplesTextBox.TabIndex = 48;
             this.simplesTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.simplesTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -801,7 +825,7 @@
             this.icmsTextBox.Location = new System.Drawing.Point(150, 350);
             this.icmsTextBox.Name = "icmsTextBox";
             this.icmsTextBox.Size = new System.Drawing.Size(65, 20);
-            this.icmsTextBox.TabIndex = 37;
+            this.icmsTextBox.TabIndex = 44;
             this.icmsTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.icmsTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -812,7 +836,7 @@
             this.qtdProdutoAtacadoTextBox.MaxLength = 8;
             this.qtdProdutoAtacadoTextBox.Name = "qtdProdutoAtacadoTextBox";
             this.qtdProdutoAtacadoTextBox.Size = new System.Drawing.Size(106, 20);
-            this.qtdProdutoAtacadoTextBox.TabIndex = 61;
+            this.qtdProdutoAtacadoTextBox.TabIndex = 68;
             this.qtdProdutoAtacadoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.qtdProdutoAtacadoTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -822,7 +846,7 @@
             this.icms_substitutoTextBox.Location = new System.Drawing.Point(225, 349);
             this.icms_substitutoTextBox.Name = "icms_substitutoTextBox";
             this.icms_substitutoTextBox.Size = new System.Drawing.Size(74, 20);
-            this.icms_substitutoTextBox.TabIndex = 39;
+            this.icms_substitutoTextBox.TabIndex = 46;
             this.icms_substitutoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.icms_substitutoTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
@@ -841,7 +865,7 @@
             this.precoVarejoSugestaoTextBox.Name = "precoVarejoSugestaoTextBox";
             this.precoVarejoSugestaoTextBox.ReadOnly = true;
             this.precoVarejoSugestaoTextBox.Size = new System.Drawing.Size(129, 20);
-            this.precoVarejoSugestaoTextBox.TabIndex = 55;
+            this.precoVarejoSugestaoTextBox.TabIndex = 62;
             this.precoVarejoSugestaoTextBox.TabStop = false;
             this.precoVarejoSugestaoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.precoVarejoSugestaoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -852,7 +876,7 @@
             this.precoAtacadoSugestaoTextBox.Name = "precoAtacadoSugestaoTextBox";
             this.precoAtacadoSugestaoTextBox.ReadOnly = true;
             this.precoAtacadoSugestaoTextBox.Size = new System.Drawing.Size(129, 20);
-            this.precoAtacadoSugestaoTextBox.TabIndex = 65;
+            this.precoAtacadoSugestaoTextBox.TabIndex = 72;
             this.precoAtacadoSugestaoTextBox.TabStop = false;
             this.precoAtacadoSugestaoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.precoAtacadoSugestaoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -888,8 +912,68 @@
             this.tb_produto_lojaDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_produto_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_produto_lojaDataGridView.Size = new System.Drawing.Size(584, 79);
-            this.tb_produto_lojaDataGridView.TabIndex = 69;
+            this.tb_produto_lojaDataGridView.TabIndex = 76;
             this.tb_produto_lojaDataGridView.TabStop = false;
+            // 
+            // nomeLoja
+            // 
+            this.nomeLoja.DataPropertyName = "nomeLoja";
+            this.nomeLoja.HeaderText = "Loja";
+            this.nomeLoja.Name = "nomeLoja";
+            this.nomeLoja.ReadOnly = true;
+            // 
+            // qtdEstoqueDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.MinimumWidth = 70;
+            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
+            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueAuxDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.FillWeight = 92F;
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Estoque Aux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.MinimumWidth = 92;
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacaoDataGridViewTextBoxColumn
+            // 
+            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localização";
+            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
+            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacao2
+            // 
+            this.localizacao2.DataPropertyName = "localizacao2";
+            this.localizacao2.HeaderText = "Localização 2";
+            this.localizacao2.Name = "localizacao2";
+            this.localizacao2.ReadOnly = true;
+            // 
+            // nomeProdutoDataGridViewTextBoxColumn
+            // 
+            this.nomeProdutoDataGridViewTextBoxColumn.DataPropertyName = "nomeProduto";
+            this.nomeProdutoDataGridViewTextBoxColumn.HeaderText = "nomeProduto";
+            this.nomeProdutoDataGridViewTextBoxColumn.Name = "nomeProdutoDataGridViewTextBoxColumn";
+            this.nomeProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nomeProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // estoqueMaximo
+            // 
+            this.estoqueMaximo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.estoqueMaximo.DataPropertyName = "estoqueMaximo";
+            this.estoqueMaximo.FillWeight = 95F;
+            this.estoqueMaximo.HeaderText = "Estoque Max";
+            this.estoqueMaximo.MinimumWidth = 95;
+            this.estoqueMaximo.Name = "estoqueMaximo";
+            this.estoqueMaximo.ReadOnly = true;
             // 
             // tbprodutolojaBindingSource
             // 
@@ -904,7 +988,7 @@
             this.dataUltimoPedidoDateTimePicker.Location = new System.Drawing.Point(9, 350);
             this.dataUltimoPedidoDateTimePicker.Name = "dataUltimoPedidoDateTimePicker";
             this.dataUltimoPedidoDateTimePicker.Size = new System.Drawing.Size(113, 20);
-            this.dataUltimoPedidoDateTimePicker.TabIndex = 35;
+            this.dataUltimoPedidoDateTimePicker.TabIndex = 42;
             this.dataUltimoPedidoDateTimePicker.TabStop = false;
             this.dataUltimoPedidoDateTimePicker.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.dataUltimoPedidoDateTimePicker.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -923,11 +1007,11 @@
             // ncmshTextBox
             // 
             this.ncmshTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "ncmsh", true));
-            this.ncmshTextBox.Location = new System.Drawing.Point(469, 300);
+            this.ncmshTextBox.Location = new System.Drawing.Point(160, 299);
             this.ncmshTextBox.MaxLength = 8;
             this.ncmshTextBox.Name = "ncmshTextBox";
-            this.ncmshTextBox.Size = new System.Drawing.Size(127, 20);
-            this.ncmshTextBox.TabIndex = 33;
+            this.ncmshTextBox.Size = new System.Drawing.Size(119, 20);
+            this.ncmshTextBox.TabIndex = 38;
             this.ncmshTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.ncmshTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
@@ -941,10 +1025,10 @@
             this.codCSTComboBox.DisplayMember = "descricaoCST";
             this.codCSTComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codCSTComboBox.FormattingEnabled = true;
-            this.codCSTComboBox.Location = new System.Drawing.Point(153, 299);
+            this.codCSTComboBox.Location = new System.Drawing.Point(285, 299);
             this.codCSTComboBox.Name = "codCSTComboBox";
             this.codCSTComboBox.Size = new System.Drawing.Size(309, 21);
-            this.codCSTComboBox.TabIndex = 31;
+            this.codCSTComboBox.TabIndex = 40;
             this.codCSTComboBox.ValueMember = "codCST";
             this.codCSTComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codCSTComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -1095,10 +1179,10 @@
             this.codSubgrupoComboBox.DisplayMember = "descricao";
             this.codSubgrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codSubgrupoComboBox.FormattingEnabled = true;
-            this.codSubgrupoComboBox.Location = new System.Drawing.Point(153, 258);
+            this.codSubgrupoComboBox.Location = new System.Drawing.Point(287, 258);
             this.codSubgrupoComboBox.Name = "codSubgrupoComboBox";
-            this.codSubgrupoComboBox.Size = new System.Drawing.Size(443, 21);
-            this.codSubgrupoComboBox.TabIndex = 28;
+            this.codSubgrupoComboBox.Size = new System.Drawing.Size(309, 21);
+            this.codSubgrupoComboBox.TabIndex = 31;
             this.codSubgrupoComboBox.ValueMember = "codSubgrupo";
             this.codSubgrupoComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codSubgrupoComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -1109,7 +1193,7 @@
             this.precoCustoTextBox.Name = "precoCustoTextBox";
             this.precoCustoTextBox.ReadOnly = true;
             this.precoCustoTextBox.Size = new System.Drawing.Size(108, 20);
-            this.precoCustoTextBox.TabIndex = 51;
+            this.precoCustoTextBox.TabIndex = 58;
             this.precoCustoTextBox.TabStop = false;
             this.precoCustoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.precoCustoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
@@ -1129,76 +1213,37 @@
             this.descontoTextBox.Location = new System.Drawing.Point(531, 350);
             this.descontoTextBox.Name = "descontoTextBox";
             this.descontoTextBox.Size = new System.Drawing.Size(65, 20);
-            this.descontoTextBox.TabIndex = 47;
+            this.descontoTextBox.TabIndex = 54;
             this.descontoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.descontoTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
             // 
-            // nomeLoja
+            // unidadeCompraTextBox
             // 
-            this.nomeLoja.DataPropertyName = "nomeLoja";
-            this.nomeLoja.HeaderText = "Loja";
-            this.nomeLoja.Name = "nomeLoja";
-            this.nomeLoja.ReadOnly = true;
+            this.unidadeCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "unidadeCompra", true));
+            this.unidadeCompraTextBox.Location = new System.Drawing.Point(150, 213);
+            this.unidadeCompraTextBox.MaxLength = 2;
+            this.unidadeCompraTextBox.Name = "unidadeCompraTextBox";
+            this.unidadeCompraTextBox.Size = new System.Drawing.Size(131, 20);
+            this.unidadeCompraTextBox.TabIndex = 23;
             // 
-            // qtdEstoqueDataGridViewTextBoxColumn
+            // quantidadeEmbalagemTextBox
             // 
-            this.qtdEstoqueDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.MinimumWidth = 70;
-            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
-            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // qtdEstoqueAuxDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "qtdEstoqueAux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.FillWeight = 92F;
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Estoque Aux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.MinimumWidth = 92;
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // localizacaoDataGridViewTextBoxColumn
-            // 
-            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "localizacao";
-            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localização";
-            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
-            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // localizacao2
-            // 
-            this.localizacao2.DataPropertyName = "localizacao2";
-            this.localizacao2.HeaderText = "Localização 2";
-            this.localizacao2.Name = "localizacao2";
-            this.localizacao2.ReadOnly = true;
-            // 
-            // nomeProdutoDataGridViewTextBoxColumn
-            // 
-            this.nomeProdutoDataGridViewTextBoxColumn.DataPropertyName = "nomeProduto";
-            this.nomeProdutoDataGridViewTextBoxColumn.HeaderText = "nomeProduto";
-            this.nomeProdutoDataGridViewTextBoxColumn.Name = "nomeProdutoDataGridViewTextBoxColumn";
-            this.nomeProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nomeProdutoDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // estoqueMaximo
-            // 
-            this.estoqueMaximo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.estoqueMaximo.DataPropertyName = "estoqueMaximo";
-            this.estoqueMaximo.FillWeight = 95F;
-            this.estoqueMaximo.HeaderText = "Estoque Max";
-            this.estoqueMaximo.MinimumWidth = 95;
-            this.estoqueMaximo.Name = "estoqueMaximo";
-            this.estoqueMaximo.ReadOnly = true;
+            this.quantidadeEmbalagemTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "quantidadeEmbalagem", true));
+            this.quantidadeEmbalagemTextBox.Location = new System.Drawing.Point(288, 212);
+            this.quantidadeEmbalagemTextBox.Name = "quantidadeEmbalagemTextBox";
+            this.quantidadeEmbalagemTextBox.Size = new System.Drawing.Size(119, 20);
+            this.quantidadeEmbalagemTextBox.TabIndex = 25;
             // 
             // FrmProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 575);
+            this.ClientSize = new System.Drawing.Size(608, 578);
             this.ControlBox = false;
+            this.Controls.Add(quantidadeEmbalagemLabel);
+            this.Controls.Add(this.quantidadeEmbalagemTextBox);
+            this.Controls.Add(unidadeCompraLabel);
+            this.Controls.Add(this.unidadeCompraTextBox);
             this.Controls.Add(descontoLabel);
             this.Controls.Add(this.descontoTextBox);
             this.Controls.Add(this.precoCustoTextBox);
@@ -1382,5 +1427,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn localizacao2;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeProdutoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn estoqueMaximo;
+        private System.Windows.Forms.TextBox unidadeCompraTextBox;
+        private System.Windows.Forms.TextBox quantidadeEmbalagemTextBox;
     }
 }

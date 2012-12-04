@@ -72,7 +72,7 @@ namespace Telas
                 else if ((cmbBusca.SelectedIndex == 4) && !txtTexto.Text.Equals(""))
                     this.tb_pessoaTableAdapter.FillByBairro(this.saceDataSet.tb_pessoa, txtTexto.Text);          
                 else
-                    this.tb_pessoaTableAdapter.FillByNome(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                    this.tb_pessoaTableAdapter.FillByNomeFantasia(this.saceDataSet.tb_pessoa, txtTexto.Text);
             }
             catch (System.Exception ex)
             {
