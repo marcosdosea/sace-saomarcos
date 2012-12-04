@@ -355,7 +355,7 @@ namespace Telas
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codigoFabricanteComboBox.Text);
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codigoFabricanteComboBox.Text);
             if (pessoa == null)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codigoFabricanteComboBox.Text);

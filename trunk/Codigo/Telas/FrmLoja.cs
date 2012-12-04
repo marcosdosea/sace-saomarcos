@@ -213,7 +213,7 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codPessoaComboBox.Text);
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codPessoaComboBox.Text);
             if (pessoa == null)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);

@@ -507,12 +507,12 @@ namespace Negocio
 
                 if ((totalAVista > 0) && (saidas.Count > 0))
                 {
-                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
+                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
 
                     if (pastaECF.Exists)
                     {
                         // nome do arquivo é igual ao primeiro da lista
-                        String nomeArquivo = Global.PASTA_COMUNICACAO_SERVIDOR + saidas[0].CodSaida + ".txt";
+                        String nomeArquivo = Global.PASTA_COMUNICACAO_FRENTE_LOJA + saidas[0].CodSaida + ".txt";
                         StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
 
                         // imprime dados do cliente no cupom fiscal
@@ -619,9 +619,9 @@ namespace Negocio
         {
             try
             {
-                String arquivo = Global.PASTA_COMUNICACAO_SERVIDOR + codPedido + ".txt";
+                String arquivo = Global.PASTA_COMUNICACAO_FRENTE_LOJA + codPedido + ".txt";
 
-                DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR);
+                DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
                 if (pastaECF.Exists)
                 {
                     FileInfo cupomFiscal = new FileInfo(arquivo);
@@ -645,7 +645,7 @@ namespace Negocio
             Boolean atualizou = false;
             try
             {
-                DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_SERVIDOR_RETORNO);
+                DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
                 //string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
                 if (Dir.Exists)
                 {
@@ -704,7 +704,7 @@ namespace Negocio
                                 }
                                 tb_saida_pedidoTA.DeleteByCodPedido(codPedido);
                             }
-                            file.CopyTo(Global.PASTA_COMUNICACAO_SERVIDOR_BACKUP + file.Name, true);
+                            file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
                             file.Delete();
                         }
                     }

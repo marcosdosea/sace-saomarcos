@@ -347,7 +347,7 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codClienteComboBox.Text);
+            pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codClienteComboBox.Text);
             if (pessoa == null)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
@@ -372,7 +372,7 @@ namespace Telas
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codProfissionalComboBox.Text);
+            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codProfissionalComboBox.Text);
             if (pessoa == null)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codProfissionalComboBox.Text);

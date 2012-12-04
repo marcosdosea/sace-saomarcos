@@ -393,7 +393,7 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codFornecedorComboBox.Text);
+                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codFornecedorComboBox.Text);
                 if (pessoa == null)
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
@@ -423,7 +423,7 @@ namespace Telas
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
 
-                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeIgual(codEmpresaFreteComboBox.Text);
+                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codEmpresaFreteComboBox.Text);
                 if (pessoa == null)
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);

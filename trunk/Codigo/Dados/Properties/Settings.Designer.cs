@@ -38,8 +38,8 @@ namespace Dados.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=sace;database=sace;password=sace;Persist Security Info=T" +
-            "rue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=192.168.0.3;User Id=sace;database=sace;password=sace;Persist Security Info" +
+            "=True")]
         public string saceConnectionString {
             get {
                 return ((string)(this["saceConnectionString"]));

@@ -36,8 +36,8 @@ namespace Negocio
 
 
                 tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra.ToString(), 
-                    pessoa.ValorComissao.ToString(), pessoa.Observacao, pessoa.Tipo.ToString(),
+                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, 
+                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
                     pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.NomeFantasia);
 
                 return 0;
