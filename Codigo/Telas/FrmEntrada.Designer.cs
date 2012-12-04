@@ -1386,7 +1386,7 @@
             this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "nomeEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataSource = this.tbpessoaBindingSource1;
-            this.codEmpresaFreteComboBox.DisplayMember = "nome";
+            this.codEmpresaFreteComboBox.DisplayMember = "nomeFantasia";
             this.codEmpresaFreteComboBox.FormattingEnabled = true;
             this.codEmpresaFreteComboBox.Location = new System.Drawing.Point(5, 125);
             this.codEmpresaFreteComboBox.Name = "codEmpresaFreteComboBox";
@@ -1414,7 +1414,7 @@
             this.codFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "nomeFornecedor", true));
             this.codFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codFornecedor", true));
             this.codFornecedorComboBox.DataSource = this.tbpessoaBindingSource;
-            this.codFornecedorComboBox.DisplayMember = "nome";
+            this.codFornecedorComboBox.DisplayMember = "nomeFantasia";
             this.codFornecedorComboBox.FormattingEnabled = true;
             this.codFornecedorComboBox.Location = new System.Drawing.Point(199, 84);
             this.codFornecedorComboBox.Name = "codFornecedorComboBox";

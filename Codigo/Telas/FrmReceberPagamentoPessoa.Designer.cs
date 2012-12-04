@@ -233,7 +233,7 @@
              this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
              this.codClienteComboBox.CausesValidation = false;
              this.codClienteComboBox.DataSource = this.tbpessoaBindingSource;
-             this.codClienteComboBox.DisplayMember = "nome";
+             this.codClienteComboBox.DisplayMember = "nomeFantasia";
              this.codClienteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
              this.codClienteComboBox.FormattingEnabled = true;
              this.codClienteComboBox.Location = new System.Drawing.Point(7, 104);

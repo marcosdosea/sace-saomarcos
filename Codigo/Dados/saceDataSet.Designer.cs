@@ -43582,7 +43582,7 @@ WHERE        (codEntrada = @Original_codEntrada)";
             this._commandCollection[0].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
                          tb_entrada.dataEntrada, tb_entrada.totalBaseCalculo, tb_entrada.totalICMS, tb_entrada.totalBaseSubstituicao, tb_entrada.totalSubstituicao, tb_entrada.totalProdutos, 
                          tb_entrada.valorFrete, tb_entrada.valorSeguro, tb_entrada.desconto, tb_entrada.outrasDespesas, tb_entrada.totalIPI, tb_entrada.totalNota, 
-                         tb_pessoa.nome AS nomeEmpresaFrete, tb_pessoa_1.nome AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
+                         tb_pessoa.nomeFantasia AS nomeEmpresaFrete, tb_pessoa_1.nomeFantasia AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
                          tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_entrada.fretePagoEmitente, tb_entrada.totalProdutosST
 FROM            tb_entrada INNER JOIN
                          tb_pessoa ON tb_entrada.codEmpresaFrete = tb_pessoa.codPessoa INNER JOIN
@@ -43594,7 +43594,7 @@ FROM            tb_entrada INNER JOIN
             this._commandCollection[1].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
                          tb_entrada.dataEntrada, tb_entrada.totalBaseCalculo, tb_entrada.totalICMS, tb_entrada.totalBaseSubstituicao, tb_entrada.totalSubstituicao, tb_entrada.totalProdutos, 
                          tb_entrada.valorFrete, tb_entrada.valorSeguro, tb_entrada.desconto, tb_entrada.outrasDespesas, tb_entrada.totalIPI, tb_entrada.totalNota, 
-                         tb_pessoa.nome AS nomeEmpresaFrete, tb_pessoa_1.nome AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
+                         tb_pessoa.nomeFantasia AS nomeEmpresaFrete, tb_pessoa_1.nomeFantasia AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
                          tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_entrada.fretePagoEmitente, tb_entrada.totalProdutosST
 FROM            tb_entrada INNER JOIN
                          tb_pessoa ON tb_entrada.codEmpresaFrete = tb_pessoa.codPessoa INNER JOIN
@@ -43614,7 +43614,7 @@ WHERE   tb_entrada.codEntrada = @codEntrada";
             this._commandCollection[2].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
                          tb_entrada.dataEntrada, tb_entrada.totalBaseCalculo, tb_entrada.totalICMS, tb_entrada.totalBaseSubstituicao, tb_entrada.totalSubstituicao, tb_entrada.totalProdutos, 
                          tb_entrada.valorFrete, tb_entrada.valorSeguro, tb_entrada.desconto, tb_entrada.outrasDespesas, tb_entrada.totalIPI, tb_entrada.totalNota, 
-                         tb_pessoa.nome AS nomeEmpresaFrete, tb_pessoa_1.nome AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
+                         tb_pessoa.nomeFantasia AS nomeEmpresaFrete, tb_pessoa_1.nomeFantasia AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
                          tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_entrada.fretePagoEmitente, tb_entrada.totalProdutosST
 FROM            tb_entrada INNER JOIN
                          tb_pessoa ON tb_entrada.codEmpresaFrete = tb_pessoa.codPessoa INNER JOIN
@@ -43634,7 +43634,7 @@ WHERE tb_pessoa_1.nome like concat(@nomeFornecedor, '%')";
             this._commandCollection[3].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
                          tb_entrada.dataEntrada, tb_entrada.totalBaseCalculo, tb_entrada.totalICMS, tb_entrada.totalBaseSubstituicao, tb_entrada.totalSubstituicao, tb_entrada.totalProdutos, 
                          tb_entrada.valorFrete, tb_entrada.valorSeguro, tb_entrada.desconto, tb_entrada.outrasDespesas, tb_entrada.totalIPI, tb_entrada.totalNota, 
-                         tb_pessoa.nome AS nomeEmpresaFrete, tb_pessoa_1.nome AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
+                         tb_pessoa.nomeFantasia AS nomeEmpresaFrete, tb_pessoa_1.nomeFantasia AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
                          tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_entrada.fretePagoEmitente, tb_entrada.totalProdutosST
 FROM            tb_entrada INNER JOIN
                          tb_pessoa ON tb_entrada.codEmpresaFrete = tb_pessoa.codPessoa INNER JOIN
@@ -43654,7 +43654,7 @@ WHERE tb_entrada.numeroNotaFiscal like concat(@numeroNotaFiscal, '%')";
             this._commandCollection[4].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
                          tb_entrada.dataEntrada, tb_entrada.totalBaseCalculo, tb_entrada.totalICMS, tb_entrada.totalBaseSubstituicao, tb_entrada.totalSubstituicao, tb_entrada.totalProdutos, 
                          tb_entrada.valorFrete, tb_entrada.valorSeguro, tb_entrada.desconto, tb_entrada.outrasDespesas, tb_entrada.totalIPI, tb_entrada.totalNota, 
-                         tb_pessoa.nome AS nomeEmpresaFrete, tb_pessoa_1.nome AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
+                         tb_pessoa.nomeFantasia AS nomeEmpresaFrete, tb_pessoa_1.nomeFantasia AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
                          tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_entrada.fretePagoEmitente, tb_entrada.totalProdutosST
 FROM            tb_entrada INNER JOIN
                          tb_pessoa ON tb_entrada.codEmpresaFrete = tb_pessoa.codPessoa INNER JOIN
@@ -43667,7 +43667,7 @@ WHERE  tb_entrada.codTipoEntrada IN (1, 2)";
             this._commandCollection[5].CommandText = @"SELECT        tb_entrada.codEntrada, tb_entrada.numeroNotaFiscal, tb_entrada.codEmpresaFrete, tb_entrada.codFornecedor, tb_entrada.codTipoEntrada, tb_entrada.dataEmissao, 
                          tb_entrada.dataEntrada, tb_entrada.totalBaseCalculo, tb_entrada.totalICMS, tb_entrada.totalBaseSubstituicao, tb_entrada.totalSubstituicao, tb_entrada.totalProdutos, 
                          tb_entrada.valorFrete, tb_entrada.valorSeguro, tb_entrada.desconto, tb_entrada.outrasDespesas, tb_entrada.totalIPI, tb_entrada.totalNota, 
-                         tb_pessoa.nome AS nomeEmpresaFrete, tb_pessoa_1.nome AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
+                         tb_pessoa.nomeFantasia AS nomeEmpresaFrete, tb_pessoa_1.nomeFantasia AS nomeFornecedor, tb_entrada.codSituacaoPagamentos, 
                          tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_entrada.fretePagoEmitente, tb_entrada.totalProdutosST
 FROM            tb_entrada INNER JOIN
                          tb_pessoa ON tb_entrada.codEmpresaFrete = tb_pessoa.codPessoa INNER JOIN
@@ -45623,7 +45623,7 @@ WHERE        (tb_entrada_produto.codProduto = @codProduto) AND (tb_entrada.codTi
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_pessoa\r\nWHERE        (codPessoa = @Original_codPessoa)";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_pessoa \r\nWHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codPessoa";
@@ -45637,9 +45637,9 @@ WHERE        (tb_entrada_produto.codProduto = @codProduto) AND (tb_entrada.codTi
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = @"INSERT INTO tb_pessoa
                          (nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, fone3, 
-                         email, ehFabricante, imprimirDAV, imprimirCF)
+                         email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia)
 VALUES        (@nome, @cpf_Cnpj, @endereco, @numero, @bairro, @cidade, @complemento, @cep, @uf, @fone1, @fone2, @limiteCompra, @valorComissao, @observacao, 
-                         @Tipo, @ie, @ieSubstituto, @fone3, @email, @ehFabricante, @imprimirDAV, @imprimirCF)";
+                         @Tipo, @ie, @ieSubstituto, @fone3, @email, @ehFabricante, @imprimirDAV, @imprimirCF, @nomeFantasia)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
@@ -45815,13 +45815,21 @@ VALUES        (@nome, @cpf_Cnpj, @endereco, @numero, @bairro, @cidade, @compleme
             param.IsNullable = true;
             param.SourceColumn = "imprimirCF";
             this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nomeFantasia";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 50;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFantasia";
+            this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE       tb_pessoa
 SET                nome = @nome, cpf_Cnpj = @cpf_Cnpj, endereco = @endereco, numero = @numero, bairro = @bairro, cidade = @cidade, complemento = @complemento, 
                          cep = @cep, uf = @uf, fone1 = @fone1, fone2 = @fone2, limiteCompra = @limiteCompra, valorComissao = @valorComissao, observacao = @observacao, 
                          Tipo = @Tipo, ie = @ie, ieSubstituto = @ieSubstituto, fone3 = @fone3, email = @email, ehFabricante = @ehFabricante, imprimirDAV = @imprimirDAV, 
-                         imprimirCF = @imprimirCF
+                         imprimirCF = @imprimirCF, nomeFantasia = @nomeFantasia
 WHERE        (codPessoa = @Original_codPessoa)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
@@ -45999,6 +46007,14 @@ WHERE        (codPessoa = @Original_codPessoa)";
             param.SourceColumn = "imprimirCF";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@nomeFantasia";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 50;
+            param.IsNullable = true;
+            param.SourceColumn = "nomeFantasia";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codPessoa";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
@@ -46027,8 +46043,10 @@ FROM            tb_pessoa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante` FROM `tb_pessoa`
-WHERE bairro LIKE CONCAT(@bairro, '%')";
+            this._commandCollection[1].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
+FROM            tb_pessoa
+WHERE        (bairro LIKE CONCAT(@bairro, '%'))";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@bairro";
@@ -46039,9 +46057,10 @@ WHERE bairro LIKE CONCAT(@bairro, '%')";
             this._commandCollection[1].Parameters.Add(param);
             this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`,  imprimirDAV, imprimirCF
-FROM `tb_pessoa`
-WHERE codPessoa = @codPessoa";
+            this._commandCollection[2].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
+FROM            tb_pessoa
+WHERE        (codPessoa = @codPessoa)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codPessoa";
@@ -46052,9 +46071,10 @@ WHERE codPessoa = @codPessoa";
             this._commandCollection[2].Parameters.Add(param);
             this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`, imprimirDAV, imprimirCF
- FROM `tb_pessoa`
-WHERE cpf_Cnpj like concat(@cpf_Cnpj, '%')";
+            this._commandCollection[3].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
+FROM            tb_pessoa
+WHERE        (cpf_Cnpj LIKE CONCAT(@cpf_Cnpj, '%'))";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@cpf_Cnpj";
@@ -46065,9 +46085,10 @@ WHERE cpf_Cnpj like concat(@cpf_Cnpj, '%')";
             this._commandCollection[3].Parameters.Add(param);
             this._commandCollection[4] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`, imprimirDAV, imprimirCF
-FROM `tb_pessoa`
-WHERE endereco LIKE CONCAT(@endereco, '%')";
+            this._commandCollection[4].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
+FROM            tb_pessoa
+WHERE        (endereco LIKE CONCAT(@endereco, '%'))";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@endereco";
@@ -46078,9 +46099,10 @@ WHERE endereco LIKE CONCAT(@endereco, '%')";
             this._commandCollection[4].Parameters.Add(param);
             this._commandCollection[5] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`, imprimirDAV, imprimirCF
-FROM `tb_pessoa`
-WHERE nomeFantasia LIKE CONCAT(@nome, '%')";
+            this._commandCollection[5].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
+FROM            tb_pessoa
+WHERE        (nomeFantasia LIKE CONCAT(@nome, '%'))";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
@@ -46092,7 +46114,7 @@ WHERE nomeFantasia LIKE CONCAT(@nome, '%')";
             this._commandCollection[6] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = @"SELECT        Tipo, bairro, cep, cidade, codPessoa, complemento, cpf_Cnpj, email, endereco, fone1, fone2, fone3, ie, ieSubstituto, limiteCompra, nome, numero, observacao, uf, 
-                         valorComissao, ehFabricante, imprimirDAV, imprimirCF
+                         valorComissao, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
 FROM            tb_pessoa
 WHERE        (Tipo = @tipo)";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
@@ -46106,12 +46128,13 @@ WHERE        (Tipo = @tipo)";
             this._commandCollection[6].Parameters.Add(param);
             this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[7].Connection = this.Connection;
-            this._commandCollection[7].CommandText = @"SELECT `codPessoa`, `nome`, `cpf_Cnpj`, `endereco`, `numero`, `bairro`, `cidade`, `complemento`, `cep`, `uf`, `fone1`, `fone2`, `limiteCompra`, `valorComissao`, `observacao`, `Tipo`, `ie`, `ieSubstituto`, `fone3`, `email`, `ehFabricante`, imprimirDAV, imprimirCF
- FROM `tb_pessoa`
-WHERE nomeFantasia = @nome";
+            this._commandCollection[7].CommandText = @"SELECT        codPessoa, nome, cpf_Cnpj, endereco, numero, bairro, cidade, complemento, cep, uf, fone1, fone2, limiteCompra, valorComissao, observacao, Tipo, ie, ieSubstituto, 
+                         fone3, email, ehFabricante, imprimirDAV, imprimirCF, nomeFantasia
+FROM            tb_pessoa
+WHERE        (nomeFantasia = @nomeFantasia)";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@nome";
+            param.ParameterName = "@nomeFantasia";
             param.DbType = global::System.Data.DbType.String;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
             param.Size = 50;
@@ -46286,13 +46309,13 @@ WHERE nomeFantasia = @nome";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual saceDataSet.tb_pessoaDataTable GetDataByEqualsNomeFantasia(string nome) {
+        public virtual saceDataSet.tb_pessoaDataTable GetDataByEqualsNomeFantasia(string nomeFantasia) {
             this.Adapter.SelectCommand = this.CommandCollection[7];
-            if ((nome == null)) {
+            if ((nomeFantasia == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nomeFantasia));
             }
             saceDataSet.tb_pessoaDataTable dataTable = new saceDataSet.tb_pessoaDataTable();
             this.Adapter.Fill(dataTable);
@@ -46376,7 +46399,8 @@ WHERE nomeFantasia = @nome";
                     string email, 
                     object ehFabricante, 
                     object imprimirDAV, 
-                    object imprimirCF) {
+                    object imprimirCF, 
+                    string nomeFantasia) {
             if ((nome == null)) {
                 throw new global::System.ArgumentNullException("nome");
             }
@@ -46509,6 +46533,12 @@ WHERE nomeFantasia = @nome";
             else {
                 this.Adapter.InsertCommand.Parameters[21].Value = ((object)(imprimirCF));
             }
+            if ((nomeFantasia == null)) {
+                this.Adapter.InsertCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[22].Value = ((string)(nomeFantasia));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -46552,6 +46582,7 @@ WHERE nomeFantasia = @nome";
                     object ehFabricante, 
                     object imprimirDAV, 
                     object imprimirCF, 
+                    string nomeFantasia, 
                     long Original_codPessoa) {
             if ((nome == null)) {
                 throw new global::System.ArgumentNullException("nome");
@@ -46685,7 +46716,13 @@ WHERE nomeFantasia = @nome";
             else {
                 this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(imprimirCF));
             }
-            this.Adapter.UpdateCommand.Parameters[22].Value = ((long)(Original_codPessoa));
+            if ((nomeFantasia == null)) {
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((string)(nomeFantasia));
+            }
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((long)(Original_codPessoa));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -47372,50 +47409,50 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[0].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE tb_saida.codSaida = @codSaida";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWHERE tb_saida.codSaida = @codSaida";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSaida";
@@ -47429,25 +47466,25 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[2].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWhere tb_saida.codTipoSaida = @codTipoSaida";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWhere tb_saida.codTipoSaida = @codTipoSaida";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codTipoSaida";
@@ -47461,25 +47498,25 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[3].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE tb_pessoa_1.nome like concat(@nome, \'%\')";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWHERE tb_pessoa_1.nome like concat(@nome, \'%\')";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@nome";
@@ -47493,25 +47530,26 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[4].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE        (tb_saida.pedidoGerado LIKE CONCAT(@pedidoGerado, \'%\'))";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWHERE        (tb_saida.pedidoGerado LIKE CONCAT(@pedidoGerado, " +
+                "\'%\'))";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@pedidoGerado";
@@ -47525,26 +47563,26 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[5].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3) AND (tb_saida.codSaida > @codS" +
-                "aida)";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3) AND (tb_saida.codSaida" +
+                " > @codSaida)";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSaida";
@@ -47558,50 +47596,51 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[6].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3)";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWHERE tb_saida.codTipoSaida in (1, 2, 3)";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[7] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[7].Connection = this.Connection;
             this._commandCollection[7].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
                 "a.codTipoSaida, tb_saida.codProfissional, tb_saida.numeroCartaoVenda, \r\n        " +
                 "                 tb_saida.pedidoGerado, tb_saida.total, tb_saida.totalAVista, tb" +
-                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nome AS no" +
-                "meCliente, \r\n                         tb_pessoa.nome AS nomeProfissional, tb_tip" +
-                "o_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n                  " +
-                "       tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troco, tb_sa" +
-                "ida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalculoICMS," +
-                " \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMSSubst, t" +
-                "b_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_saida.outr" +
-                "asDespesas, \r\n                         tb_saida.valorIPI, tb_saida.totalNotaFisc" +
-                "al, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca, tb_said" +
-                "a.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLiquido, t" +
-                "b_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM            t" +
-                "b_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb_saida.c" +
-                "odCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         tb_pessoa" +
-                " ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n                 " +
-                "        tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSaida INNE" +
-                "R JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codSituacaoP" +
-                "agamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n           " +
-                "              tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pessoa_2.co" +
-                "dPessoa\r\nWHERE (tb_saida.codTipoSaida = 2) AND (tb_saida.pedidoGerado = \'\')";
+                "_saida.desconto, tb_saida.totalPago, tb_saida.totalLucro, tb_pessoa_1.nomeFantas" +
+                "ia AS nomeCliente, \r\n                         tb_pessoa.nome AS nomeProfissional" +
+                ", tb_tipo_saida.descricaoTipoSaida, tb_saida.codSituacaoPagamentos, \r\n          " +
+                "               tb_situacao_pagamentos.descricaoSituacaoPagamentos, tb_saida.troc" +
+                "o, tb_saida.entregaRealizada, tb_saida.nfe, tb_saida.cpf_cnpj, tb_saida.baseCalc" +
+                "uloICMS, \r\n                         tb_saida.valorICMS, tb_saida.baseCalculoICMS" +
+                "Subst, tb_saida.valorICMSSubst, tb_saida.valorFrete, tb_saida.valorSeguro, tb_sa" +
+                "ida.outrasDespesas, \r\n                         tb_saida.valorIPI, tb_saida.total" +
+                "NotaFiscal, tb_saida.quantidadeVolumes, tb_saida.especieVolumes, tb_saida.marca," +
+                " tb_saida.numero, tb_saida.pesoBruto, \r\n                         tb_saida.pesoLi" +
+                "quido, tb_saida.codEmpresaFrete, tb_pessoa_2.nome AS nomeEmpresaFrete\r\nFROM     " +
+                "       tb_saida INNER JOIN\r\n                         tb_pessoa tb_pessoa_1 ON tb" +
+                "_saida.codCliente = tb_pessoa_1.codPessoa INNER JOIN\r\n                         t" +
+                "b_pessoa ON tb_saida.codProfissional = tb_pessoa.codPessoa INNER JOIN\r\n         " +
+                "                tb_tipo_saida ON tb_saida.codTipoSaida = tb_tipo_saida.codTipoSa" +
+                "ida INNER JOIN\r\n                         tb_situacao_pagamentos ON tb_saida.codS" +
+                "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
+                "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
+                "soa_2.codPessoa\r\nWHERE (tb_saida.codTipoSaida = 2) AND (tb_saida.pedidoGerado = " +
+                "\'\')";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[8] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[8].Connection = this.Connection;

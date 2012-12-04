@@ -7,6 +7,7 @@ namespace Util
 {
     public static class Global
     {
+       
         public static int
         PRODUTOS = 1,
         PESSOAS = 2,
@@ -64,11 +65,11 @@ namespace Util
 
         public static String
 
-         //ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-         ENDERECO_SERVIDOR = "c:\\",
-         PASTA_COMUNICACAO_SERVIDOR = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
-         PASTA_COMUNICACAO_SERVIDOR_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
-         PASTA_COMUNICACAO_SERVIDOR_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
+         ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+         //ENDERECO_SERVIDOR = "c:\\",
+         PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
+         PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
+         PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          NOME_SERVIDOR = "SERVIDOR",
@@ -76,9 +77,9 @@ namespace Util
          SGBD_USUARIO = "sace",
          SGBD_SENHA = "sace",
          SGBD_IP = "192.168.0.3",
-         //PORTA_IMPRESSORA_NORMAL = "LPT1",
+         PORTA_IMPRESSORA_NORMAL = "LPT1",
          PORTA_IMPRESSORA_REDUZIDA = "LPT2",
-         PORTA_IMPRESSORA_NORMAL = "sace-teste.txt",
+         //PORTA_IMPRESSORA_NORMAL = "sace-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================";
         

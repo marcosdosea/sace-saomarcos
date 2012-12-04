@@ -621,7 +621,7 @@
             this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tbprodutoBindingSource, "codFabricante", true));
             this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "nomeFabricante", true));
             this.codigoFabricanteComboBox.DataSource = this.tbpessoaBindingSource;
-            this.codigoFabricanteComboBox.DisplayMember = "nome";
+            this.codigoFabricanteComboBox.DisplayMember = "nomeFantasia";
             this.codigoFabricanteComboBox.FormattingEnabled = true;
             this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 170);
             this.codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
