@@ -26,7 +26,7 @@ namespace Telas
             } 
             else 
             {
-                numeroNFText.Text = GerenciadorSaida.getInstace().ObterNumeroUltimaNotaFiscal().ToString();
+                numeroNFText.Text = GerenciadorSaida.getInstace().ObterNumeroProximaNotaFiscal().ToString();
             }
         }
 

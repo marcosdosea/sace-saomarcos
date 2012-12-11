@@ -50,6 +50,8 @@ namespace Telas
             codClienteComboBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
+
+            //GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -109,13 +111,12 @@ namespace Telas
 
             if (!pedidoGerado.Trim().Equals(""))
             {
-                if (MessageBox.Show("Confirma emisssão da Nota Fiscal?", "Confirmar Impressão Nota Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-
-                    long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                    Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
-                    GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
-                }
+                long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
+                Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
+                    
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                frmSaidaNF.ShowDialog();
+                frmSaidaNF.Dispose();
             }
             else
             {

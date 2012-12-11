@@ -49,7 +49,7 @@ namespace Telas
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
 
             Cursor.Current = Cursors.WaitCursor;
-            backgroundWorkerRecuperaCupons.RunWorkerAsync();
+            //backgroundWorkerRecuperaCupons.RunWorkerAsync();
 
             this.tb_produtoTableAdapter.FillExibiveis(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
 
@@ -73,7 +73,7 @@ namespace Telas
         /// <param name="e"></param>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            backgroundWorkerRecuperaCupons.RunWorkerAsync();
+            //backgroundWorkerRecuperaCupons.RunWorkerAsync();
 
             Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
@@ -597,7 +597,7 @@ namespace Telas
                     FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
-                    backgroundWorkerRecuperaCupons.RunWorkerAsync();
+                    //backgroundWorkerRecuperaCupons.RunWorkerAsync();
                 }
                 atualizarTelaDadosSaida(saida.CodSaida);
                 tb_produtoBindingSource.MoveFirst();
@@ -865,11 +865,6 @@ namespace Telas
                 Control control = (Control)sender;
                 control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
-        }
-
-        private void backgroundWorkerRecuperaCupons_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
         }
 
         private void valorICMSSubstTextBox_Leave(object sender, EventArgs e)

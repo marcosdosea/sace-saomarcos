@@ -126,7 +126,6 @@
             this.baseCalculoICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
-            this.backgroundWorkerRecuperaCupons = new System.ComponentModel.BackgroundWorker();
             this.lblPreco = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
@@ -1058,10 +1057,6 @@
             this.valorIPITextBox.TabIndex = 52;
             this.valorIPITextBox.TabStop = false;
             // 
-            // backgroundWorkerRecuperaCupons
-            // 
-            this.backgroundWorkerRecuperaCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerRecuperaCupons_DoWork);
-            // 
             // lblPreco
             // 
             this.lblPreco.AutoSize = true;
@@ -1232,7 +1227,6 @@
         private System.Windows.Forms.TextBox baseCalculoICMSSubstTextBox;
         private System.Windows.Forms.TextBox valorICMSSubstTextBox;
         private System.Windows.Forms.TextBox valorIPITextBox;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerRecuperaCupons;
         private System.Windows.Forms.Label lblPreco;
     }
 }

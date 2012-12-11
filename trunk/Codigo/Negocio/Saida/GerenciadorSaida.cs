@@ -225,7 +225,7 @@ namespace Negocio
                 Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
 
                 saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
-                atualizar(saida);
+                                atualizar(saida);
 
                 List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
                 registrarPagamentosSaida(saidaPagamentos, saida);
@@ -245,7 +245,7 @@ namespace Negocio
                 }
 
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
-                saida.Nfe = ObterNumeroUltimaNotaFiscal().ToString();
+                saida.Nfe = ObterNumeroProximaNotaFiscal().ToString();
                 atualizar(saida);
                 registrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
             }
@@ -254,7 +254,7 @@ namespace Negocio
                 saida.TipoSaida = Saida.TIPO_DEVOLUCAO_FRONECEDOR;
                 if ((saida.Nfe == null) || (saida.Nfe.Equals("")))
                 {
-                    saida.Nfe = ObterNumeroUltimaNotaFiscal().ToString();
+                    saida.Nfe = ObterNumeroProximaNotaFiscal().ToString();
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                     registrarBaixaEstoque(saidaProdutos);
                 }
@@ -491,8 +491,8 @@ namespace Negocio
 
         public void GerarDocumentoFiscal(HashSet<long> listaCodSaidas, decimal total, decimal totalAVista, List<SaidaPagamento> saidaPagamentos)
         {
-            if (GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais())
-            {
+            //if (GerenciadorSaida.getInstace().AtualizarPedidosComDocumentosFiscais())
+            //{
 
                 List<Saida> saidas = new List<Saida>();
                 foreach (long codSaida in listaCodSaidas)
@@ -518,7 +518,7 @@ namespace Negocio
                         // imprime dados do cliente no cupom fiscal
                         if (!saidas[0].CpfCnpj.Trim().Equals(""))
                             arquivo.WriteLine("<CPF>" + saidas[0].CpfCnpj);
-
+                        decimal desconto = 0;
                         decimal precoTotalProdutosVendidos = 0;
                         decimal precoTotalProdutosVendidosAVista = 0;
                         int quantidadeProdutosImpressos = 0;
@@ -554,9 +554,14 @@ namespace Negocio
                                         arquivo.Write("0;");
                                         arquivo.Write(saidaProduto.ValorVenda + ";");
                                         arquivo.WriteLine(saidaProduto.Unidade + ";");
+
                                         precoTotalProdutosVendidos += saidaProduto.Subtotal;
-                                        precoTotalProdutosVendidosAVista += saidaProduto.Quantidade * saidaProduto.ValorVendaAVista;
+                                        precoTotalProdutosVendidosAVista += saidaProduto.SubtotalAVista;
                                         quantidadeProdutosImpressos++;
+                                    }
+                                    else
+                                    {
+                                        desconto += Math.Abs(saidaProduto.SubtotalAVista);
                                     }
                                 }
                             }
@@ -575,7 +580,7 @@ namespace Negocio
                             }
 
                             // imprime desconto
-                            decimal desconto = (precoTotalProdutosVendidos - precoTotalProdutosVendidosAVista);
+                            desconto += (precoTotalProdutosVendidos - precoTotalProdutosVendidosAVista);
                             if (desconto > 0)
                             {
                                 arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
@@ -611,7 +616,7 @@ namespace Negocio
                         }
                     }
                 }
-            }
+           ////; }
         }
 
                
@@ -640,14 +645,14 @@ namespace Negocio
         }
 
 
-        public Boolean atualizarPedidosComDocumentosFiscais()
+        public Boolean AtualizarPedidosComDocumentosFiscais()
         {
             Boolean atualizou = false;
             try
             {
                 DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
-                //string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-                if (Dir.Exists)
+                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+                if (Dir.Exists && nomeComputador.Equals(Global.NOME_SERVIDOR))
                 {
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
                     FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
@@ -757,7 +762,7 @@ namespace Negocio
 
                 Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saidas[0].CodCliente);
                 imp.ImpLF("Cliente: " + cliente.NomeFantasia);
-                //imp.ImpColLF(39, "CPF/CNPF: " + cliente.CpfCnpj);
+                //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
                 {
                     imp.Imp("No do Documento: " + saidas[0].CodSaida);
@@ -790,7 +795,7 @@ namespace Negocio
 
                         imp.ImpColDireita(46, 52, produto.Quantidade.ToString());
                         imp.ImpColLFDireita(57, 58, produto.Unidade);
-                        imp.ImpColDireita(38, 46, produto.ValorVenda.ToString());
+                        imp.ImpColDireita(38, 46, produto.ValorVenda.ToString("N2"));
                         imp.ImpColLFDireita(48, 59, produto.Subtotal.ToString("N2"));
                     }
                 }
@@ -854,7 +859,7 @@ namespace Negocio
 
                 Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saidas[0].CodCliente);
                 imp.Imp("Cliente: " + cliente.NomeFantasia);
-                imp.ImpColLF(50, "CPF/CNPF: " + cliente.CpfCnpj);
+                imp.ImpColLF(50, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
                 {
                     imp.ImpLF("Data : " + saidas[0].DataSaida.ToShortDateString());
@@ -887,7 +892,7 @@ namespace Negocio
 
                         imp.ImpColDireita(46, 52, produto.Quantidade.ToString());
                         imp.ImpColDireita(55, 56, produto.Unidade);
-                        imp.ImpColDireita(58, 66, produto.ValorVenda.ToString());
+                        imp.ImpColDireita(58, 66, produto.ValorVenda.ToString("N2"));
                         imp.ImpColLFDireita(68, 79, produto.Subtotal.ToString("N2"));
                     }
 
@@ -945,16 +950,17 @@ namespace Negocio
                         int numeroProdutosImpressos = 0;
                     int numeroPaginas = 1;
                     decimal subtotal = 0;
+                    decimal subtotalAVista = 0;
 
                     imp.Imp(imp.Comprimido);
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
-                     {
+                    {
                         if (numeroProdutosImpressos >= 17)
                         {
                             numeroProdutosImpressos = 0;
                             numeroPaginas++;
 
-                            imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, false);
+                            imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, false);
                             imp.Eject();
                             imprimirNotaFiscalCabecalho(saida, cliente, imp);
                         }
@@ -977,17 +983,17 @@ namespace Negocio
                         
                         imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
                         if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-                            imp.ImpCol(15, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
+                            imp.ImpCol(14, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
                         else
-                            imp.ImpCol(15, saidaProduto.Nome);
+                            imp.ImpCol(14, saidaProduto.Nome);
                         if ( saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO )
-                            imp.ImpCol(71, "041");
+                            imp.ImpCol(70, "041");
                         else
-                            imp.ImpCol(71, saidaProduto.CodCST);
-                        imp.ImpCol(77, saidaProduto.Unidade);
-                        imp.ImpColDireita(83, 89, saidaProduto.Quantidade.ToString());
-                        imp.ImpColDireita(84, 107, saidaProduto.ValorVenda.ToString());
-                        imp.ImpColDireita(115, 130, saidaProduto.Subtotal.ToString("N2"));
+                            imp.ImpCol(70, saidaProduto.CodCST);
+                        imp.ImpCol(75, saidaProduto.Unidade);
+                        imp.ImpColDireita(81, 87, saidaProduto.Quantidade.ToString("N2"));
+                        imp.ImpColDireita(89, 105, saidaProduto.ValorVenda.ToString("N2"));
+                        imp.ImpColDireita(115, 128, saidaProduto.Subtotal.ToString("N2"));
                         if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
                         {
                             imp.ImpCol(133, "0%");
@@ -1006,13 +1012,14 @@ namespace Negocio
                         imp.Pula(1);
 
                         subtotal += saidaProduto.Subtotal;
+                        subtotalAVista += saidaProduto.SubtotalAVista;
                         numeroProdutosImpressos++;
                      }
 
                     imp.Pula(17 - numeroProdutosImpressos);
 
 
-                    imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, true);
+                    imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, true);
 
                     imp.Eject();
                     imp.Fim();
@@ -1075,7 +1082,7 @@ namespace Negocio
             imp.Pula(7);
         }
 
-        private void imprimirNotaFiscalRodape(Saida saida, ImprimeTexto imp, int numeroPagina, decimal subtotal, bool ultimaPagina)
+        private void imprimirNotaFiscalRodape(Saida saida, ImprimeTexto imp, int numeroPagina, decimal subtotal, decimal subtotalAvista, bool ultimaPagina)
         {
             if (ultimaPagina)
             {
@@ -1087,7 +1094,7 @@ namespace Negocio
                 {
 
                     imp.Imp(imp.Comprimido);
-                    imp.ImpCol(13, "DESCONTO PROMOCIONAL ---------> R$" + (saida.Total - saida.TotalAVista).ToString("N2"));
+                    imp.ImpCol(13, "DESCONTO PROMOCIONAL ---------> R$" + (subtotal - subtotalAvista).ToString("N2"));
 
                     imp.Pula(1);
                     imp.Imp(imp.Normal);
@@ -1102,7 +1109,7 @@ namespace Negocio
                     imp.ImpColDireita(35, 47, saida.BaseCalculoICMSSubst.ToString("N2")); 
                     imp.ImpColDireita(50, 62, saida.ValorICMSSubst.ToString("N2")); //valor do icms substituto
                 }
-                imp.ImpColLFDireita(65, 78, saida.TotalAVista.ToString("N2")); // total produtos
+                imp.ImpColLFDireita(65, 78, subtotalAvista.ToString("N2")); // total produtos
                 imp.Pula(1);
 
                 // linha 46
@@ -1117,7 +1124,7 @@ namespace Negocio
                 }
                 else
                 {
-                    imp.ImpColDireita(65, 78, (saida.TotalAVista).ToString("N2")); //total nota
+                    imp.ImpColDireita(65, 78, (subtotalAvista).ToString("N2")); //total nota
                 }
                 imp.Pula(2);
                 Pessoa empresaFrete = GerenciadorPessoa.getInstace().obterPessoa(saida.CodEmpresaFrete);
@@ -1178,7 +1185,7 @@ namespace Negocio
             imp.Imp(imp.Normal);
         }
 
-        public Int64 ObterNumeroUltimaNotaFiscal()
+        public Int64 ObterNumeroProximaNotaFiscal()
         {
             String ultimoNumero = tb_SaidaTA.GetUltimoNumeroNF();
             if ( (ultimoNumero != null) && (!ultimoNumero.Trim().Equals("")))
@@ -1188,6 +1195,4 @@ namespace Negocio
             return 1;
         }
     }
-
-
 }

@@ -37811,15 +37811,18 @@ FROM            tb_conta INNER JOIN
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT        tb_movimentacao_conta.codMovimentacao, tb_movimentacao_conta.codContaBanco, tb_movimentacao_conta.codResponsavel, 
-                         tb_movimentacao_conta.codTipoMovimentacao, tb_movimentacao_conta.codConta, tb_movimentacao_conta.valor, tb_movimentacao_conta.dataHora, 
-                         tb_conta_banco.descricao AS descricaoConta, tb_tipo_movimentacao_conta.descricao AS descricaoTipoMovimento, tb_pessoa.nome AS nomeResponsavel, 
-                         tb_tipo_movimentacao_conta.somaSaldo
-FROM            tb_movimentacao_conta INNER JOIN
-                         tb_conta_banco ON tb_movimentacao_conta.codContaBanco = tb_conta_banco.codContaBanco INNER JOIN
-                         tb_tipo_movimentacao_conta ON tb_movimentacao_conta.codTipoMovimentacao = tb_tipo_movimentacao_conta.codTipoMovimentacao INNER JOIN
-                         tb_pessoa ON tb_movimentacao_conta.codResponsavel = tb_pessoa.codPessoa
-WHERE        (tb_movimentacao_conta.codConta = @codConta)";
+            this._commandCollection[1].CommandText = @"SELECT        tb_conta.codConta, tb_conta.codPlanoConta, tb_conta.codPessoa, tb_conta.codSituacao, tb_conta.codDocumentoPagamento, tb_conta.codEntrada, 
+                         tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.valor, tb_conta.observacao, tb_plano_conta.descricao AS descricaoPlanoConta, 
+                         tb_situacao_conta.descricaoSituacao, tb_pessoa.nome AS nomePessoa, tb_documento_pagamento.codTipoDocumento, 
+                         tb_documento_pagamento.numeroDocumento, tb_plano_conta.codTipoConta, tb_tipo_documento.descricao AS descricaoTipoDocumento, tb_conta.desconto, 
+                         tb_conta.codPagamento
+FROM            tb_conta INNER JOIN
+                         tb_plano_conta ON tb_conta.codPlanoConta = tb_plano_conta.codPlanoConta INNER JOIN
+                         tb_pessoa ON tb_conta.codPessoa = tb_pessoa.codPessoa INNER JOIN
+                         tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN
+                         tb_documento_pagamento ON tb_conta.codDocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento INNER JOIN
+                         tb_tipo_documento ON tb_documento_pagamento.codTipoDocumento = tb_tipo_documento.codTipoDocumento
+WHERE        (tb_conta.codConta = @codConta)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codConta";
@@ -38016,14 +38019,9 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByCodConta(saceDataSet.tb_contaDataTable dataTable, global::System.Nullable<long> codConta) {
+        public virtual int FillByCodConta(saceDataSet.tb_contaDataTable dataTable, long codConta) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((codConta.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -38035,14 +38033,9 @@ WHERE        (tb_conta.codSaida = @codSaida) AND (tb_conta.codPagamento = @codPa
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual saceDataSet.tb_contaDataTable GetDataByCodConta(global::System.Nullable<long> codConta) {
+        public virtual saceDataSet.tb_contaDataTable GetDataByCodConta(long codConta) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((codConta.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codConta));
             saceDataSet.tb_contaDataTable dataTable = new saceDataSet.tb_contaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

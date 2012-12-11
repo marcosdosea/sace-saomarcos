@@ -133,7 +133,7 @@ namespace Telas
 
                 var frmSaidaConfirma = new FrmSaidaConfirma(saida);
                 frmSaidaConfirma.ShowDialog();
-
+                
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
                     GerenciadorSaida.getInstace().encerrar(saida, frmSaidaConfirma.Opcao);
@@ -154,7 +154,7 @@ namespace Telas
                         }
                     }
                 }
-                frmSaidaConfirma.Close();
+                frmSaidaConfirma.Close();               
                 frmSaidaConfirma.Dispose();
             }
             this.Close();
