@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Telas;
 using System.Threading;
 using Dominio;
+using Negocio;
 
 namespace Telas
 {
@@ -271,6 +272,16 @@ namespace Telas
             FrmCfop frmCfop = new FrmCfop();
             frmCfop.ShowDialog();
             frmCfop.Dispose();
+        }
+
+        private void timerAtualizaCuponsFiscais_Tick(object sender, EventArgs e)
+        {
+            backgroundWorkerAtualizarCupons.RunWorkerAsync();
+        }
+
+        private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
+        {
+            GerenciadorSaida.getInstace().AtualizarPedidosComDocumentosFiscais();
         }
 
     }

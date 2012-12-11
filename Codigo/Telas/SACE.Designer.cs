@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,8 @@
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnVenda = new System.Windows.Forms.Button();
             this.btnReceber = new System.Windows.Forms.Button();
+            this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -467,6 +470,16 @@
             this.btnReceber.UseVisualStyleBackColor = true;
             this.btnReceber.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
             // 
+            // timerAtualizaCuponsFiscais
+            // 
+            this.timerAtualizaCuponsFiscais.Enabled = true;
+            this.timerAtualizaCuponsFiscais.Interval = 7000;
+            this.timerAtualizaCuponsFiscais.Tick += new System.EventHandler(this.timerAtualizaCuponsFiscais_Tick);
+            // 
+            // backgroundWorkerAtualizarCupons
+            // 
+            this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -547,6 +560,8 @@
         private System.Windows.Forms.ToolStripMenuItem fechamentoCaixaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeProdutosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem códigoFiscalDeOperaçãoCFOPToolStripMenuItem;
+        private System.Windows.Forms.Timer timerAtualizaCuponsFiscais;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerAtualizarCupons;
 
     }
 }
