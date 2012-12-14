@@ -14,16 +14,16 @@ namespace Dominio
         public const int DEVOLUCAO_CLIENTE = 4;
         public const int RECEBIMENTO_CREDIARIO = 5;
 
-        private Int32 codTipoMovimentacao;
+        private int codTipoMovimentacao;
 
-        public Int32 CodTipoMovimentacao
+        public int CodTipoMovimentacao
         {
             get { return codTipoMovimentacao; }
             set { codTipoMovimentacao = value; }
         }
-        private String descricao;
+        private string descricao;
 
-        public String Descricao
+        public string Descricao
         {
             get { return descricao; }
             set { descricao = value; }

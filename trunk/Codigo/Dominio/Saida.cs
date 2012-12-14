@@ -15,23 +15,23 @@ namespace Dominio
         public const int TIPO_PRODUTOS_DANIFICADOS = 6;
         public const int TIPO_DEVOLUCAO_FRONECEDOR = 7;
         
-        public Int64 CodSaida { get; set; }
+        public long CodSaida { get; set; }
         public DateTime DataSaida { get; set; }
-        public Int32 TipoSaida { get; set; }
-        public Int64 CodCliente { get; set; }
-        public String CpfCnpj { get; set; }
-        public Int64 CodProfissional { get; set; }
-        public Int32 NumeroCartaoVenda { get; set; }
-        public String PedidoGerado { get; set; }
+        public int TipoSaida { get; set; }
+        public long CodCliente { get; set; }
+        public string CpfCnpj { get; set; }
+        public long CodProfissional { get; set; }
+        public int NumeroCartaoVenda { get; set; }
+        public string PedidoGerado { get; set; }
         public decimal Total { get; set; }
         public decimal TotalAVista { get; set; }
         public decimal Desconto { get; set; }
         public decimal TotalPago { get; set; }
         public decimal TotalLucro { get; set; }
-        public Int32 CodSituacaoPagamentos { get; set; }
-        public Decimal Troco { get; set; }
+        public int CodSituacaoPagamentos { get; set; }
+        public decimal Troco { get; set; }
         public Boolean EntregaRealizada { get; set; }
-        public String Nfe { get; set; }
+        public string Nfe { get; set; }
         public decimal BaseCalculoICMS { get; set; }
         public decimal ValorICMS { get; set; }
         public decimal BaseCalculoICMSSubst { get; set; }

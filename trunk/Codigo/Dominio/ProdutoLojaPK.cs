@@ -7,16 +7,16 @@ namespace Dominio
 {
     public class ProdutoLojaPK
     {
-        private Int32 codLoja;
+        private int codLoja;
 
-        public Int32 CodLoja
+        public int CodLoja
         {
             get { return codLoja; }
             set { codLoja = value; }
         }
-        private Int32 codProduto;
+        private int codProduto;
 
-        public Int32 CodProduto
+        public int CodProduto
         {
             get { return codProduto; }
             set { codProduto = value; }

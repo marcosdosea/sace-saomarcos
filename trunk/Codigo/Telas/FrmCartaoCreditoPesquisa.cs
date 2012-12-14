@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace Telas
 {
@@ -21,16 +22,16 @@ namespace Telas
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_cartao_creditoTableAdapter.FillByCodCartao(this.saceDataSet.tb_cartao_credito, int.Parse(txtTexto.Text));
+                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().Obter(int.Parse(txtTexto.Text));
             else
-                this.tb_cartao_creditoTableAdapter.FillByNome(this.saceDataSet.tb_cartao_credito, txtTexto.Text);                
+                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterPorNome(txtTexto.Text);                
         }
 
         private void tb_cartao_creditoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -51,11 +52,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_cartao_creditoBindingSource.MoveNext();
+                cartaoCreditoBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_cartao_creditoBindingSource.MovePrevious();
+                cartaoCreditoBindingSource.MovePrevious();
             }
         }
 

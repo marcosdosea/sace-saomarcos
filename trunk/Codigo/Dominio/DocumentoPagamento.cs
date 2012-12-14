@@ -13,23 +13,23 @@ namespace Dominio
         public const Byte TIPO_PROMISSORIA = 3;
 
 
-        private Int64 codDocumentoPagamento;
+        private long codDocumentoPagamento;
 
-        public Int64 CodDocumentoPagamento
+        public long CodDocumentoPagamento
         {
             get { return codDocumentoPagamento; }
             set { codDocumentoPagamento = value; }
         }
-        private Int64 codPessoaResponsavel;
+        private long codPessoaResponsavel;
 
-        public Int64 CodPessoaResponsavel
+        public long CodPessoaResponsavel
         {
             get { return codPessoaResponsavel; }
             set { codPessoaResponsavel = value; }
         }
-        private Int32 codBanco;
+        private int codBanco;
 
-        public Int32 CodBanco
+        public int CodBanco
         {
             get { return codBanco; }
             set { codBanco = value; }
@@ -41,9 +41,9 @@ namespace Dominio
             get { return codTipoDocumento; }
             set { codTipoDocumento = value; }
         }
-        private String numeroDocumento;
+        private string numeroDocumento;
 
-        public String NumeroDocumento
+        public string NumeroDocumento
         {
             get { return numeroDocumento; }
             set { numeroDocumento = value; }
@@ -62,37 +62,37 @@ namespace Dominio
             get { return dataVencimento; }
             set { dataVencimento = value; }
         }
-        private Decimal valor;
+        private decimal valor;
 
-        public Decimal Valor
+        public decimal Valor
         {
             get { return valor; }
             set { valor = value; }
         }
-        private String agencia;
+        private string agencia;
 
-        public String Agencia
+        public string Agencia
         {
             get { return agencia; }
             set { agencia = value; }
         }
-        private String conta;
+        private string conta;
 
-        public String Conta
+        public string Conta
         {
             get { return conta; }
             set { conta = value; }
         }
-        private String emitente;
+        private string emitente;
 
-        public String Emitente
+        public string Emitente
         {
             get { return emitente; }
             set { emitente = value; }
         }
-        private String observacao;
+        private string observacao;
 
-        public String Observacao
+        public string Observacao
         {
             get { return observacao; }
             set { observacao = value; }

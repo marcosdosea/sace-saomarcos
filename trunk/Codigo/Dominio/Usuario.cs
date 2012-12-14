@@ -7,44 +7,44 @@ namespace Dominio
 {
     public class Usuario
     {
-        private Int32 codPessoa;
+        private int codPessoa;
 
-        public Int32 CodPessoa
+        public int CodPessoa
         {
             get { return codPessoa; }
             set { codPessoa = value; }
         }
-        private String nomePessoa;
+        private string nomePessoa;
 
-        public String NomePessoa
+        public string NomePessoa
         {
             get { return nomePessoa; }
             set { nomePessoa = value; }
         }
-        private String login;
+        private string login;
 
-        public String Login
+        public string Login
         {
             get { return login; }
             set { login = value; }
         }
-        private String senha;
+        private string senha;
 
-        public String Senha
+        public string Senha
         {
             get { return senha; }
             set { senha = value; }
         }
-        private Int32 codPerfil;
+        private int codPerfil;
 
-        public Int32 CodPerfil
+        public int CodPerfil
         {
             get { return codPerfil; }
             set { codPerfil = value; }
         }
-        private String nomePerfil;
+        private string nomePerfil;
 
-        public String NomePerfil
+        public string NomePerfil
         {
             get { return nomePerfil; }
             set { nomePerfil = value; }

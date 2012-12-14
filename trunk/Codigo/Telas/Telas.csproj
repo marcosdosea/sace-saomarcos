@@ -405,6 +405,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEntradaPagamento.resx">
       <DependentUpon>FrmEntradaPagamento.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProdutoPesquisaPreco.resx">
       <DependentUpon>FrmProdutoPesquisaPreco.cs</DependentUpon>
@@ -537,11 +538,17 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\Dados.BancoE.datasource" />
     <None Include="Properties\DataSources\Dados.CartaoCreditoE.datasource" />
+    <None Include="Properties\DataSources\Dados.ContaBancoE.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultas.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager.datasource" />
+    <None Include="Properties\DataSources\Dominio.Banco.datasource" />
+    <None Include="Properties\DataSources\Dominio.CartaoCredito.datasource" />
+    <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
+    <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />
     <None Include="Properties\Settings.settings">

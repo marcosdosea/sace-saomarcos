@@ -7,8 +7,8 @@ namespace Dominio
 {
     public class Subgrupo
     {
-        public Int32 CodSubgrupo { get; set; }
-        public String Descricao { get; set; }
-        public Int32 CodGrupo { get; set; }
+        public int CodSubgrupo { get; set; }
+        public string Descricao { get; set; }
+        public int CodGrupo { get; set; }
     }
 }

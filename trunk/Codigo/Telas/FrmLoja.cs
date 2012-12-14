@@ -213,8 +213,8 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codPessoaComboBox.Text);
-            if (pessoa == null)
+            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codPessoaComboBox.Text);
+            if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
@@ -230,7 +230,7 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
             }
             
         }

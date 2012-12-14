@@ -26,8 +26,6 @@ namespace Dados {
         
         private tb_usuarioDataTable tabletb_usuario;
         
-        private tb_bancoDataTable tabletb_banco;
-        
         private tb_cartao_creditoDataTable tabletb_cartao_credito;
         
         private tb_cfopDataTable tabletb_cfop;
@@ -106,8 +104,6 @@ namespace Dados {
         
         private global::System.Data.DataRelation relationfk_tb_cartao_credito_codcontabanco;
         
-        private global::System.Data.DataRelation relationfk_tb_conta_banco_codbanco;
-        
         private global::System.Data.DataRelation relationfk_tb_perfil_funcionalidade_codfuncionalidade;
         
         private global::System.Data.DataRelation relationfk_tb_perfil_funcionalidade_codperfil;
@@ -135,8 +131,6 @@ namespace Dados {
         private global::System.Data.DataRelation relationfk_tb_entrada_forma_pagamento_tb_documento_pagamento1;
         
         private global::System.Data.DataRelation relationfk_tb_conta_tb_documento_pagamento1;
-        
-        private global::System.Data.DataRelation relationfk_tb_documento_pagamento_tb_banco1;
         
         private global::System.Data.DataRelation relationfk_tb_produto_tb_subgrupo1;
         
@@ -170,9 +164,6 @@ namespace Dados {
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
                 if ((ds.Tables["tb_usuario"] != null)) {
                     base.Tables.Add(new tb_usuarioDataTable(ds.Tables["tb_usuario"]));
-                }
-                if ((ds.Tables["tb_banco"] != null)) {
-                    base.Tables.Add(new tb_bancoDataTable(ds.Tables["tb_banco"]));
                 }
                 if ((ds.Tables["tb_cartao_credito"] != null)) {
                     base.Tables.Add(new tb_cartao_creditoDataTable(ds.Tables["tb_cartao_credito"]));
@@ -310,16 +301,6 @@ namespace Dados {
         public tb_usuarioDataTable tb_usuario {
             get {
                 return this.tabletb_usuario;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public tb_bancoDataTable tb_banco {
-            get {
-                return this.tabletb_banco;
             }
         }
         
@@ -763,9 +744,6 @@ namespace Dados {
                 if ((ds.Tables["tb_usuario"] != null)) {
                     base.Tables.Add(new tb_usuarioDataTable(ds.Tables["tb_usuario"]));
                 }
-                if ((ds.Tables["tb_banco"] != null)) {
-                    base.Tables.Add(new tb_bancoDataTable(ds.Tables["tb_banco"]));
-                }
                 if ((ds.Tables["tb_cartao_credito"] != null)) {
                     base.Tables.Add(new tb_cartao_creditoDataTable(ds.Tables["tb_cartao_credito"]));
                 }
@@ -914,12 +892,6 @@ namespace Dados {
             if ((initTable == true)) {
                 if ((this.tabletb_usuario != null)) {
                     this.tabletb_usuario.InitVars();
-                }
-            }
-            this.tabletb_banco = ((tb_bancoDataTable)(base.Tables["tb_banco"]));
-            if ((initTable == true)) {
-                if ((this.tabletb_banco != null)) {
-                    this.tabletb_banco.InitVars();
                 }
             }
             this.tabletb_cartao_credito = ((tb_cartao_creditoDataTable)(base.Tables["tb_cartao_credito"]));
@@ -1146,7 +1118,6 @@ namespace Dados {
             }
             this.relationfk_tb_usuario_acodperfil = this.Relations["fk_tb_usuario_acodperfil"];
             this.relationfk_tb_cartao_credito_codcontabanco = this.Relations["fk_tb_cartao_credito_codcontabanco"];
-            this.relationfk_tb_conta_banco_codbanco = this.Relations["fk_tb_conta_banco_codbanco"];
             this.relationfk_tb_perfil_funcionalidade_codfuncionalidade = this.Relations["fk_tb_perfil_funcionalidade_codfuncionalidade"];
             this.relationfk_tb_perfil_funcionalidade_codperfil = this.Relations["fk_tb_perfil_funcionalidade_codperfil"];
             this.relationfk_tb_permissao_codfuncionalidade = this.Relations["fk_tb_permissao_codfuncionalidade"];
@@ -1161,7 +1132,6 @@ namespace Dados {
             this.relationfk_tb_conta_tb_situacao_conta1 = this.Relations["fk_tb_conta_tb_situacao_conta1"];
             this.relationfk_tb_entrada_forma_pagamento_tb_documento_pagamento1 = this.Relations["fk_tb_entrada_forma_pagamento_tb_documento_pagamento1"];
             this.relationfk_tb_conta_tb_documento_pagamento1 = this.Relations["fk_tb_conta_tb_documento_pagamento1"];
-            this.relationfk_tb_documento_pagamento_tb_banco1 = this.Relations["fk_tb_documento_pagamento_tb_banco1"];
             this.relationfk_tb_produto_tb_subgrupo1 = this.Relations["fk_tb_produto_tb_subgrupo1"];
         }
         
@@ -1175,8 +1145,6 @@ namespace Dados {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tabletb_usuario = new tb_usuarioDataTable();
             base.Tables.Add(this.tabletb_usuario);
-            this.tabletb_banco = new tb_bancoDataTable();
-            base.Tables.Add(this.tabletb_banco);
             this.tabletb_cartao_credito = new tb_cartao_creditoDataTable();
             base.Tables.Add(this.tabletb_cartao_credito);
             this.tabletb_cfop = new tb_cfopDataTable();
@@ -1259,10 +1227,6 @@ namespace Dados {
                         this.tabletb_conta_banco.codContaBancoColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_cartao_credito.codContaBancoColumn}, false);
             this.Relations.Add(this.relationfk_tb_cartao_credito_codcontabanco);
-            this.relationfk_tb_conta_banco_codbanco = new global::System.Data.DataRelation("fk_tb_conta_banco_codbanco", new global::System.Data.DataColumn[] {
-                        this.tabletb_banco.codBancoColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_conta_banco.codBancoColumn}, false);
-            this.Relations.Add(this.relationfk_tb_conta_banco_codbanco);
             this.relationfk_tb_perfil_funcionalidade_codfuncionalidade = new global::System.Data.DataRelation("fk_tb_perfil_funcionalidade_codfuncionalidade", new global::System.Data.DataColumn[] {
                         this.tabletb_funcionalidade.codFuncionalidadeColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_perfil_funcionalidade.codFuncionalidadeColumn}, false);
@@ -1319,10 +1283,6 @@ namespace Dados {
                         this.tabletb_documento_pagamento.codDocumentoPagamentoColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_conta.codDocumentoPagamentoColumn}, false);
             this.Relations.Add(this.relationfk_tb_conta_tb_documento_pagamento1);
-            this.relationfk_tb_documento_pagamento_tb_banco1 = new global::System.Data.DataRelation("fk_tb_documento_pagamento_tb_banco1", new global::System.Data.DataColumn[] {
-                        this.tabletb_banco.codBancoColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletb_documento_pagamento.codBancoColumn}, false);
-            this.Relations.Add(this.relationfk_tb_documento_pagamento_tb_banco1);
             this.relationfk_tb_produto_tb_subgrupo1 = new global::System.Data.DataRelation("fk_tb_produto_tb_subgrupo1", new global::System.Data.DataColumn[] {
                         this.tabletb_subgrupo.codSubgrupoColumn}, new global::System.Data.DataColumn[] {
                         this.tabletb_produto.codSubgrupoColumn}, false);
@@ -1332,12 +1292,6 @@ namespace Dados {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializetb_usuario() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializetb_banco() {
             return false;
         }
         
@@ -1620,9 +1574,6 @@ namespace Dados {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void tb_usuarioRowChangeEventHandler(object sender, tb_usuarioRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void tb_bancoRowChangeEventHandler(object sender, tb_bancoRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void tb_cartao_creditoRowChangeEventHandler(object sender, tb_cartao_creditoRowChangeEvent e);
@@ -2033,286 +1984,6 @@ namespace Dados {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "tb_usuarioDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class tb_bancoDataTable : global::System.Data.TypedTableBase<tb_bancoRow> {
-            
-            private global::System.Data.DataColumn columncodBanco;
-            
-            private global::System.Data.DataColumn columnnome;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoDataTable() {
-                this.TableName = "tb_banco";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal tb_bancoDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected tb_bancoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn codBancoColumn {
-                get {
-                    return this.columncodBanco;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn nomeColumn {
-                get {
-                    return this.columnnome;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow this[int index] {
-                get {
-                    return ((tb_bancoRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event tb_bancoRowChangeEventHandler tb_bancoRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event tb_bancoRowChangeEventHandler tb_bancoRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event tb_bancoRowChangeEventHandler tb_bancoRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event tb_bancoRowChangeEventHandler tb_bancoRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Addtb_bancoRow(tb_bancoRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow Addtb_bancoRow(string nome) {
-                tb_bancoRow rowtb_bancoRow = ((tb_bancoRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        null,
-                        nome};
-                rowtb_bancoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowtb_bancoRow);
-                return rowtb_bancoRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow FindBycodBanco(int codBanco) {
-                return ((tb_bancoRow)(this.Rows.Find(new object[] {
-                            codBanco})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                tb_bancoDataTable cln = ((tb_bancoDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new tb_bancoDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columncodBanco = base.Columns["codBanco"];
-                this.columnnome = base.Columns["nome"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columncodBanco = new global::System.Data.DataColumn("codBanco", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodBanco);
-                this.columnnome = new global::System.Data.DataColumn("nome", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnnome);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnnome}, false));
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
-                                this.columncodBanco}, true));
-                this.columncodBanco.AutoIncrement = true;
-                this.columncodBanco.AutoIncrementSeed = -1;
-                this.columncodBanco.AutoIncrementStep = -1;
-                this.columncodBanco.AllowDBNull = false;
-                this.columncodBanco.Unique = true;
-                this.columnnome.AllowDBNull = false;
-                this.columnnome.Unique = true;
-                this.columnnome.MaxLength = 30;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow Newtb_bancoRow() {
-                return ((tb_bancoRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new tb_bancoRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(tb_bancoRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.tb_bancoRowChanged != null)) {
-                    this.tb_bancoRowChanged(this, new tb_bancoRowChangeEvent(((tb_bancoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.tb_bancoRowChanging != null)) {
-                    this.tb_bancoRowChanging(this, new tb_bancoRowChangeEvent(((tb_bancoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.tb_bancoRowDeleted != null)) {
-                    this.tb_bancoRowDeleted(this, new tb_bancoRowChangeEvent(((tb_bancoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.tb_bancoRowDeleting != null)) {
-                    this.tb_bancoRowDeleting(this, new tb_bancoRowChangeEvent(((tb_bancoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Removetb_bancoRow(tb_bancoRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                saceDataSet ds = new saceDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "tb_bancoDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -3432,7 +3103,7 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_conta_bancoRow Addtb_conta_bancoRow(string numeroconta, string agencia, string descricao, decimal saldo, tb_bancoRow parenttb_bancoRowByfk_tb_conta_banco_codbanco, string nomeBanco) {
+            public tb_conta_bancoRow Addtb_conta_bancoRow(string numeroconta, string agencia, string descricao, decimal saldo, int codBanco, string nomeBanco) {
                 tb_conta_bancoRow rowtb_conta_bancoRow = ((tb_conta_bancoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3440,11 +3111,8 @@ namespace Dados {
                         agencia,
                         descricao,
                         saldo,
-                        null,
+                        codBanco,
                         nomeBanco};
-                if ((parenttb_bancoRowByfk_tb_conta_banco_codbanco != null)) {
-                    columnValuesArray[5] = parenttb_bancoRowByfk_tb_conta_banco_codbanco[0];
-                }
                 rowtb_conta_bancoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_conta_bancoRow);
                 return rowtb_conta_bancoRow;
@@ -11001,12 +10669,12 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_documento_pagamentoRow Addtb_documento_pagamentoRow(long codPessoaResponsavel, tb_bancoRow parenttb_bancoRowByfk_tb_documento_pagamento_tb_banco1, int codTipoDocumento, string numeroDocumento, System.DateTime dataDocumento, System.DateTime dataVencimento, decimal valor, string agencia, string conta, string emitente, string observacao, string nomePessoaResponsavel, string nomeBanco, string descricaoTipoDocumento) {
+            public tb_documento_pagamentoRow Addtb_documento_pagamentoRow(long codPessoaResponsavel, int codBanco, int codTipoDocumento, string numeroDocumento, System.DateTime dataDocumento, System.DateTime dataVencimento, decimal valor, string agencia, string conta, string emitente, string observacao, string nomePessoaResponsavel, string nomeBanco, string descricaoTipoDocumento) {
                 tb_documento_pagamentoRow rowtb_documento_pagamentoRow = ((tb_documento_pagamentoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         codPessoaResponsavel,
-                        null,
+                        codBanco,
                         codTipoDocumento,
                         numeroDocumento,
                         dataDocumento,
@@ -11019,9 +10687,6 @@ namespace Dados {
                         nomePessoaResponsavel,
                         nomeBanco,
                         descricaoTipoDocumento};
-                if ((parenttb_bancoRowByfk_tb_documento_pagamento_tb_banco1 != null)) {
-                    columnValuesArray[2] = parenttb_bancoRowByfk_tb_documento_pagamento_tb_banco1[0];
-                }
                 rowtb_documento_pagamentoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtb_documento_pagamentoRow);
                 return rowtb_documento_pagamentoRow;
@@ -16855,65 +16520,6 @@ namespace Dados {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class tb_bancoRow : global::System.Data.DataRow {
-            
-            private tb_bancoDataTable tabletb_banco;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal tb_bancoRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tabletb_banco = ((tb_bancoDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int codBanco {
-                get {
-                    return ((int)(this[this.tabletb_banco.codBancoColumn]));
-                }
-                set {
-                    this[this.tabletb_banco.codBancoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string nome {
-                get {
-                    return ((string)(this[this.tabletb_banco.nomeColumn]));
-                }
-                set {
-                    this[this.tabletb_banco.nomeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_conta_bancoRow[] Gettb_conta_bancoRows() {
-                if ((this.Table.ChildRelations["fk_tb_conta_banco_codbanco"] == null)) {
-                    return new tb_conta_bancoRow[0];
-                }
-                else {
-                    return ((tb_conta_bancoRow[])(base.GetChildRows(this.Table.ChildRelations["fk_tb_conta_banco_codbanco"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_documento_pagamentoRow[] Gettb_documento_pagamentoRows() {
-                if ((this.Table.ChildRelations["fk_tb_documento_pagamento_tb_banco1"] == null)) {
-                    return new tb_documento_pagamentoRow[0];
-                }
-                else {
-                    return ((tb_documento_pagamentoRow[])(base.GetChildRows(this.Table.ChildRelations["fk_tb_documento_pagamento_tb_banco1"])));
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
         public partial class tb_cartao_creditoRow : global::System.Data.DataRow {
             
             private tb_cartao_creditoDataTable tabletb_cartao_credito;
@@ -17332,17 +16938,6 @@ namespace Dados {
                 }
                 set {
                     this[this.tabletb_conta_banco.nomeBancoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow tb_bancoRow {
-                get {
-                    return ((tb_bancoRow)(this.GetParentRow(this.Table.ParentRelations["fk_tb_conta_banco_codbanco"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["fk_tb_conta_banco_codbanco"]);
                 }
             }
             
@@ -20296,17 +19891,6 @@ namespace Dados {
                 }
                 set {
                     this[this.tabletb_documento_pagamento.descricaoTipoDocumentoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow tb_bancoRow {
-                get {
-                    return ((tb_bancoRow)(this.GetParentRow(this.Table.ParentRelations["fk_tb_documento_pagamento_tb_banco1"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["fk_tb_documento_pagamento_tb_banco1"]);
                 }
             }
             
@@ -24471,40 +24055,6 @@ namespace Dados {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class tb_bancoRowChangeEvent : global::System.EventArgs {
-            
-            private tb_bancoRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRowChangeEvent(tb_bancoRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tb_bancoRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public class tb_cartao_creditoRowChangeEvent : global::System.EventArgs {
             
             private tb_cartao_creditoRow eventRow;
@@ -26164,379 +25714,6 @@ FROM            tb_usuario INNER JOIN
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string login, string senha, global::System.Nullable<int> codPerfil, long Original_codPessoa) {
             return this.Update(Original_codPessoa, login, senha, codPerfil, Original_codPessoa);
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class tb_bancoTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
-        
-        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
-        
-        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
-        
-        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public tb_bancoTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "tb_banco";
-            tableMapping.ColumnMappings.Add("codBanco", "codBanco");
-            tableMapping.ColumnMappings.Add("nome", "nome");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM tb_banco\r\nWHERE        (codBanco = @Original_codBanco)";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codBanco";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "codBanco";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.DeleteCommand.Parameters.Add(param);
-            this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `tb_banco` (`nome`) VALUES (@nome)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@nome";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.IsNullable = true;
-            param.SourceColumn = "nome";
-            this._adapter.InsertCommand.Parameters.Add(param);
-            this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE       tb_banco\r\nSET                nome = @nome\r\nWHERE        (codBanco = " +
-                "@Original_codBanco)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@nome";
-            param.DbType = global::System.Data.DbType.String;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 30;
-            param.IsNullable = true;
-            param.SourceColumn = "nome";
-            this._adapter.UpdateCommand.Parameters.Add(param);
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@Original_codBanco";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "codBanco";
-            param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._adapter.UpdateCommand.Parameters.Add(param);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Dados.Properties.Settings.Default.saceConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[3];
-            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `codBanco`, `nome` FROM `tb_banco`";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT `codBanco`, `nome` FROM `tb_banco`\r\nWHERE codBanco = @codBanco";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codBanco";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
-            param.IsNullable = true;
-            param.SourceColumn = "codBanco";
-            this._commandCollection[1].Parameters.Add(param);
-            this._commandCollection[2] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT `codBanco`, `nome` FROM `tb_banco`\r\nWHERE nome like concat(@nome, \'%\')";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@nome";
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
-            param.Size = 30;
-            param.IsNullable = true;
-            param.SourceColumn = "nome";
-            this._commandCollection[2].Parameters.Add(param);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(saceDataSet.tb_bancoDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual saceDataSet.tb_bancoDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            saceDataSet.tb_bancoDataTable dataTable = new saceDataSet.tb_bancoDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByCodBanco(saceDataSet.tb_bancoDataTable dataTable, int codBanco) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(codBanco));
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByNome(saceDataSet.tb_bancoDataTable dataTable, string nome) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(nome));
-            }
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(saceDataSet.tb_bancoDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(saceDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "tb_banco");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_codBanco) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_codBanco));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string nome) {
-            if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(nome));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string nome, int Original_codBanco) {
-            if ((nome == null)) {
-                throw new global::System.ArgumentNullException("nome");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(nome));
-            }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_codBanco));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
         }
     }
     
@@ -47633,7 +46810,9 @@ WHERE        (codSaida = @Original_codSaida)";
                 "ituacaoPagamentos = tb_situacao_pagamentos.codSituacaoPagamentos INNER JOIN\r\n   " +
                 "                      tb_pessoa tb_pessoa_2 ON tb_saida.codEmpresaFrete = tb_pes" +
                 "soa_2.codPessoa\r\nWHERE (tb_saida.codTipoSaida = 2) AND (tb_saida.pedidoGerado = " +
-                "\'\')";
+                "\'\') AND (tb_saida.pedidoGerado = \'\') AND (2 NOT IN (SELECT codFormaPagamento FRO" +
+                "M tb_saida_forma_pagamento WHERE  tb_saida_forma_pagamento.codSaida = tb_saida.c" +
+                "odSaida))";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[8] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[8].Connection = this.Connection;
@@ -49030,8 +48209,6 @@ WHERE        (codSaida = @Original_codSaida)";
         
         private tb_usuarioTableAdapter _tb_usuarioTableAdapter;
         
-        private tb_bancoTableAdapter _tb_bancoTableAdapter;
-        
         private tb_cartao_creditoTableAdapter _tb_cartao_creditoTableAdapter;
         
         private tb_cfopTableAdapter _tb_cfopTableAdapter;
@@ -49132,20 +48309,6 @@ WHERE        (codSaida = @Original_codSaida)";
             }
             set {
                 this._tb_usuarioTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public tb_bancoTableAdapter tb_bancoTableAdapter {
-            get {
-                return this._tb_bancoTableAdapter;
-            }
-            set {
-                this._tb_bancoTableAdapter = value;
             }
         }
         
@@ -49690,10 +48853,6 @@ WHERE        (codSaida = @Original_codSaida)";
                             && (this._tb_usuarioTableAdapter.Connection != null))) {
                     return this._tb_usuarioTableAdapter.Connection;
                 }
-                if (((this._tb_bancoTableAdapter != null) 
-                            && (this._tb_bancoTableAdapter.Connection != null))) {
-                    return this._tb_bancoTableAdapter.Connection;
-                }
                 if (((this._tb_cartao_creditoTableAdapter != null) 
                             && (this._tb_cartao_creditoTableAdapter.Connection != null))) {
                     return this._tb_cartao_creditoTableAdapter.Connection;
@@ -49858,9 +49017,6 @@ WHERE        (codSaida = @Original_codSaida)";
                 if ((this._tb_usuarioTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._tb_bancoTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 if ((this._tb_cartao_creditoTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -49983,15 +49139,6 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateUpdatedRows(saceDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._tb_conta_bancoTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -50344,14 +49491,6 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateInsertedRows(saceDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._tb_conta_bancoTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tb_conta_banco.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -50970,14 +50109,6 @@ WHERE        (codSaida = @Original_codSaida)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._tb_bancoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tb_banco.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tb_bancoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             return result;
         }
         
@@ -51019,11 +50150,6 @@ WHERE        (codSaida = @Original_codSaida)";
             }
             if (((this._tb_usuarioTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._tb_usuarioTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
-            if (((this._tb_bancoTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._tb_bancoTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -51251,15 +50377,6 @@ WHERE        (codSaida = @Original_codSaida)";
                     if (this._tb_usuarioTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._tb_usuarioTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._tb_usuarioTableAdapter.Adapter);
-                    }
-                }
-                if ((this._tb_bancoTableAdapter != null)) {
-                    revertConnections.Add(this._tb_bancoTableAdapter, this._tb_bancoTableAdapter.Connection);
-                    this._tb_bancoTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(workConnection));
-                    this._tb_bancoTableAdapter.Transaction = ((global::MySql.Data.MySqlClient.MySqlTransaction)(workTransaction));
-                    if (this._tb_bancoTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._tb_bancoTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._tb_bancoTableAdapter.Adapter);
                     }
                 }
                 if ((this._tb_cartao_creditoTableAdapter != null)) {
@@ -51656,10 +50773,6 @@ WHERE        (codSaida = @Original_codSaida)";
                 if ((this._tb_usuarioTableAdapter != null)) {
                     this._tb_usuarioTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_usuarioTableAdapter]));
                     this._tb_usuarioTableAdapter.Transaction = null;
-                }
-                if ((this._tb_bancoTableAdapter != null)) {
-                    this._tb_bancoTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_bancoTableAdapter]));
-                    this._tb_bancoTableAdapter.Transaction = null;
                 }
                 if ((this._tb_cartao_creditoTableAdapter != null)) {
                     this._tb_cartao_creditoTableAdapter.Connection = ((global::MySql.Data.MySqlClient.MySqlConnection)(revertConnections[this._tb_cartao_creditoTableAdapter]));

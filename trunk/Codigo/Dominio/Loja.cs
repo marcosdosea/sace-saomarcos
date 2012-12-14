@@ -7,24 +7,24 @@ namespace Dominio
 {
     public class Loja
     {
-        private Int32 codLoja;
+        private int codLoja;
 
-        public Int32 CodLoja
+        public int CodLoja
         {
             get { return codLoja; }
             set { codLoja = value; }
         }
-        private String nome;
+        private string nome;
 
-        public String Nome
+        public string Nome
         {
             get { return nome; }
             set { nome = value; }
         }
 
-        private Int64 codPessoa;
+        private long codPessoa;
 
-        public Int64 CodPessoa
+        public long CodPessoa
         {
             get { return codPessoa; }
             set { codPessoa = value; }

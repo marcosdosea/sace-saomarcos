@@ -27,9 +27,10 @@ namespace Telas
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CARTÕES_DE_CREDITO, Principal.Autenticacao.CodUsuario);
-            this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
-            this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
-            this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            
             habilitaBotoes(true);
         }
 
@@ -39,18 +40,19 @@ namespace Telas
             frmCartaoCreditoPesquisa.ShowDialog();
             if (frmCartaoCreditoPesquisa.getCodCartaoCredito() != -1)
             {
-                tb_cartao_creditoBindingSource.Position = tb_cartao_creditoBindingSource.Find("codCartao", frmCartaoCreditoPesquisa.getCodCartaoCredito());
+                CartaoCredito _cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(frmCartaoCreditoPesquisa.getCodCartaoCredito()).ElementAt(0);
+                cartaoCreditoBindingSource.Position = cartaoCreditoBindingSource.List.IndexOf(_cartaoCredito);
             }
             frmCartaoCreditoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_cartao_creditoBindingSource.AddNew();
+            cartaoCreditoBindingSource.AddNew();
             codCartaoTextBox.Enabled = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);
-            tbcontabancoBindingSource.MoveFirst();
+            contaBancoBindingSource.MoveFirst();
             codContaBancoComboBox.SelectedIndex = 0;
             codPessoaComboBox.SelectedIndex = 0;
             estado = EstadoFormulario.INSERIR;
@@ -67,15 +69,15 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorCartaoCredito.getInstace().remover(int.Parse(codCartaoTextBox.Text));
-                tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
+                GerenciadorCartaoCredito.GetInstance().Remover(int.Parse(codCartaoTextBox.Text));
+                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_cartao_creditoBindingSource.CancelEdit();
-            tb_cartao_creditoBindingSource.EndEdit();
+            cartaoCreditoBindingSource.CancelEdit();
+            cartaoCreditoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -84,30 +86,30 @@ namespace Telas
         {
             try
             {
-                CartaoCredito cartaoCredito = new CartaoCredito();
-                cartaoCredito.CodCartao = int.Parse(codCartaoTextBox.Text);
-                cartaoCredito.Nome = nomeTextBox.Text;
-                cartaoCredito.DiaBase = int.Parse(diaBaseTextBox.Text);
-                cartaoCredito.CodContaBanco = Int32.Parse(codContaBancoComboBox.SelectedValue.ToString());
-                cartaoCredito.CodPessoa = Int64.Parse(codPessoaComboBox.SelectedValue.ToString());
-                cartaoCredito.Mapeamento = mapeamentoTextBox.Text;
+                CartaoCredito _cartaoCredito = new CartaoCredito();
+                _cartaoCredito.CodCartao = int.Parse(codCartaoTextBox.Text);
+                _cartaoCredito.Nome = nomeTextBox.Text;
+                _cartaoCredito.DiaBase = int.Parse(diaBaseTextBox.Text);
+                _cartaoCredito.CodContaBanco = Int32.Parse(codContaBancoComboBox.SelectedValue.ToString());
+                _cartaoCredito.CodPessoa = Int64.Parse(codPessoaComboBox.SelectedValue.ToString());
+                _cartaoCredito.Mapeamento = mapeamentoTextBox.Text;
 
-                GerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.getInstace();
+                GerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gCartaoCredito.inserir(cartaoCredito);
-                    tb_cartao_creditoTableAdapter.Fill(saceDataSet.tb_cartao_credito);
-                    tb_cartao_creditoBindingSource.MoveLast();
+                    gCartaoCredito.Inserir(_cartaoCredito);
+                    cartaoCreditoBindingSource.DataSource = gCartaoCredito.ObterTodos();
+                    cartaoCreditoBindingSource.MoveLast();
                 }
                 else
                 {
-                    gCartaoCredito.atualizar(cartaoCredito);
-                    tb_cartao_creditoBindingSource.EndEdit();
+                    gCartaoCredito.Atualizar(_cartaoCredito);
+                    cartaoCreditoBindingSource.EndEdit();
                 }
             }
             catch (DadosException de)
             {
-                tb_cartao_creditoBindingSource.CancelEdit();
+                cartaoCreditoBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -139,19 +141,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_cartao_creditoBindingSource.MoveLast();
+                    cartaoCreditoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_cartao_creditoBindingSource.MoveFirst();
+                    cartaoCreditoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_cartao_creditoBindingSource.MovePrevious();
+                    cartaoCreditoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_cartao_creditoBindingSource.MoveNext();
+                    cartaoCreditoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -184,7 +186,8 @@ namespace Telas
                     frmContaBancoPesquisa.ShowDialog();
                     if (frmContaBancoPesquisa.CodContaBanco != "")
                     {
-                        tbcontabancoBindingSource.Position = tbcontabancoBindingSource.Find("codContaBanco", frmContaBancoPesquisa.CodContaBanco);
+                        ContaBanco contaBanco = GerenciadorContaBanco.GetInstance().Obter(int.Parse(frmContaBancoPesquisa.CodContaBanco)).ElementAt(0);
+                        contaBancoBindingSource.Position = contaBancoBindingSource.List.IndexOf(contaBanco);
                     }
                     frmContaBancoPesquisa.Dispose();
                 }
@@ -194,8 +197,9 @@ namespace Telas
                     frmContaBanco.ShowDialog();
                     if (frmContaBanco.CodContaBanco != "")
                     {
-                        this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
-                        tbcontabancoBindingSource.Position = tbcontabancoBindingSource.Find("codContaBanco", frmContaBanco.CodContaBanco);
+                        contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+                        ContaBanco contaBanco = GerenciadorContaBanco.GetInstance().Obter(int.Parse(frmContaBanco.CodContaBanco)).ElementAt(0);
+                        contaBancoBindingSource.Position = contaBancoBindingSource.List.IndexOf(contaBanco);
                     }
                     frmContaBanco.Dispose();
                 }
@@ -205,8 +209,9 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.CodPessoa != -1)
                     {
-                        this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+                        Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoa.CodPessoa).ElementAt(0);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
                     }
                     frmPessoa.Dispose();
                 }
@@ -245,7 +250,27 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-
+            List<Pessoa> pessoas = (List<Pessoa>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codPessoaComboBox.Text);
+            if (pessoas.Count == 0)
+            {
+                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
+                frmPessoaPesquisa.ShowDialog();
+                if (frmPessoaPesquisa.CodPessoa != -1)
+                {
+                    Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
+                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                    codPessoaComboBox.Text = pessoa.NomeFantasia;
+                }
+                else
+                {
+                    codPessoaComboBox.Focus();
+                }
+                frmPessoaPesquisa.Dispose();
+            }
+            else
+            {
+                pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoas[0]);
+            }
         }
 
         private void codCartaoTextBox_Enter(object sender, EventArgs e)

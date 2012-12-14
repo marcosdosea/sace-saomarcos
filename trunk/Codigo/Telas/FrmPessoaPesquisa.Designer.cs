@@ -34,21 +34,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_pessoaDataGridView = new System.Windows.Forms.DataGridView();
-            this.tb_pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeFantasiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cpfCnpjDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Endereco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bairroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ufDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -66,7 +61,7 @@
             this.cmbBusca.FormattingEnabled = true;
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
-            "Nome",
+            "Nome Fantasia",
             "Código",
             "CPF",
             "Endereço",
@@ -91,7 +86,7 @@
             this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTexto.Location = new System.Drawing.Point(146, 26);
             this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(326, 20);
+            this.txtTexto.Size = new System.Drawing.Size(598, 20);
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
@@ -102,162 +97,90 @@
             this.tb_pessoaDataGridView.AutoGenerateColumns = false;
             this.tb_pessoaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_pessoaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9});
-            this.tb_pessoaDataGridView.DataSource = this.tb_pessoaBindingSource;
+            this.codPessoaDataGridViewTextBoxColumn,
+            this.nomeFantasiaDataGridViewTextBoxColumn,
+            this.cpfCnpjDataGridViewTextBoxColumn,
+            this.Endereco,
+            this.bairroDataGridViewTextBoxColumn,
+            this.Cidade,
+            this.ufDataGridViewTextBoxColumn});
+            this.tb_pessoaDataGridView.DataSource = this.pessoaBindingSource;
             this.tb_pessoaDataGridView.Location = new System.Drawing.Point(10, 64);
             this.tb_pessoaDataGridView.MultiSelect = false;
             this.tb_pessoaDataGridView.Name = "tb_pessoaDataGridView";
             this.tb_pessoaDataGridView.ReadOnly = true;
             this.tb_pessoaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_pessoaDataGridView.Size = new System.Drawing.Size(470, 259);
+            this.tb_pessoaDataGridView.Size = new System.Drawing.Size(734, 259);
             this.tb_pessoaDataGridView.TabIndex = 5;
             this.tb_pessoaDataGridView.TabStop = false;
+            this.tb_pessoaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_pessoaDataGridView_CellClick);
             // 
-            // tb_pessoaBindingSource
+            // pessoaBindingSource
             // 
-            this.tb_pessoaBindingSource.DataMember = "tb_pessoa";
-            this.tb_pessoaBindingSource.DataSource = this.saceDataSet;
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
-            // saceDataSet
+            // codPessoaDataGridViewTextBoxColumn
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.codPessoaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.codPessoaDataGridViewTextBoxColumn.DataPropertyName = "CodPessoa";
+            this.codPessoaDataGridViewTextBoxColumn.HeaderText = "Código";
+            this.codPessoaDataGridViewTextBoxColumn.Name = "codPessoaDataGridViewTextBoxColumn";
+            this.codPessoaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codPessoaDataGridViewTextBoxColumn.Width = 65;
             // 
-            // tb_pessoaTableAdapter
+            // nomeFantasiaDataGridViewTextBoxColumn
             // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
+            this.nomeFantasiaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeFantasiaDataGridViewTextBoxColumn.DataPropertyName = "NomeFantasia";
+            this.nomeFantasiaDataGridViewTextBoxColumn.HeaderText = "NomeFantasia";
+            this.nomeFantasiaDataGridViewTextBoxColumn.MinimumWidth = 80;
+            this.nomeFantasiaDataGridViewTextBoxColumn.Name = "nomeFantasiaDataGridViewTextBoxColumn";
+            this.nomeFantasiaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // tableAdapterManager
+            // cpfCnpjDataGridViewTextBoxColumn
             // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = this.tb_pessoaTableAdapter;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pedidoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.cpfCnpjDataGridViewTextBoxColumn.DataPropertyName = "CpfCnpj";
+            this.cpfCnpjDataGridViewTextBoxColumn.HeaderText = "CpfCnpj";
+            this.cpfCnpjDataGridViewTextBoxColumn.Name = "cpfCnpjDataGridViewTextBoxColumn";
+            this.cpfCnpjDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // Endereco
             // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "nomeFantasia";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nome Fantasia";
-            this.dataGridViewTextBoxColumn2.MaxInputLength = 50;
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Endereco.DataPropertyName = "Endereco";
+            this.Endereco.HeaderText = "Endereco";
+            this.Endereco.Name = "Endereco";
+            this.Endereco.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn10
+            // bairroDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "limiteCompra";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Limite Compra";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 90;
+            this.bairroDataGridViewTextBoxColumn.DataPropertyName = "Bairro";
+            this.bairroDataGridViewTextBoxColumn.HeaderText = "Bairro";
+            this.bairroDataGridViewTextBoxColumn.Name = "bairroDataGridViewTextBoxColumn";
+            this.bairroDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn1
+            // Cidade
             // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "codPessoa";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 65;
+            this.Cidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Cidade.DataPropertyName = "Cidade";
+            this.Cidade.HeaderText = "Cidade";
+            this.Cidade.Name = "Cidade";
+            this.Cidade.ReadOnly = true;
+            this.Cidade.Width = 65;
             // 
-            // dataGridViewTextBoxColumn3
+            // ufDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "endereco";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Endereço";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 78;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "bairro";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Bairro";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 59;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "cidade";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Cidade";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "fone1";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Fone1";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 62;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "fone2";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Fone2";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 62;
+            this.ufDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ufDataGridViewTextBoxColumn.DataPropertyName = "Uf";
+            this.ufDataGridViewTextBoxColumn.HeaderText = "Uf";
+            this.ufDataGridViewTextBoxColumn.Name = "ufDataGridViewTextBoxColumn";
+            this.ufDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ufDataGridViewTextBoxColumn.Width = 43;
             // 
             // FrmPessoaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 330);
+            this.ClientSize = new System.Drawing.Size(756, 330);
             this.Controls.Add(this.tb_pessoaDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
@@ -271,8 +194,7 @@
             this.Load += new System.EventHandler(this.FrmPessoaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPessoaPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,19 +205,15 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_pessoaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView tb_pessoaDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.BindingSource pessoaBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codPessoaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeFantasiaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cpfCnpjDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Endereco;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bairroDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ufDataGridViewTextBoxColumn;
   
     }
 }

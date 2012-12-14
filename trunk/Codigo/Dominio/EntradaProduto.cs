@@ -9,38 +9,38 @@ namespace Dominio
     {
 
 
-        public Int64 CodEntradaProduto { get; set; }
-        public Int64 CodEntrada { get; set; }
+        public long CodEntradaProduto { get; set; }
+        public long CodEntrada { get; set; }
         public DateTime DataEntrada { get; set; }
-        public Int32 CodProduto { get; set; }
-        public Int32 Cfop { get; set; }
-        public String UnidadeCompra { get; set; }
-        public Decimal Quantidade { get; set; }
-        public Decimal QuantidadeEmbalagem { get; set; }
-        public Decimal ValorUnitario { get; set; }
-        public Decimal ValorTotal { get; set; }
-        public Decimal BaseCalculoICMS { get; set; }
-        public Decimal BaseCalculoICMSST { get; set; }
-        public Decimal ValorICMS { get; set; }
-        public Decimal ValorICMSST { get; set; }
-        public Decimal ValorIPI { get; set; }
-        public Decimal ValorDesconto { get; set; }
-        public Decimal PrecoCusto { get; set; }
-        public String Ncmsh { get; set; }
-        public Decimal Icms { get; set; }
-        public Decimal IcmsSubstituto { get; set; }
-        public Decimal Ipi { get; set; }
-        public Decimal Frete { get; set; }
-        public Decimal Desconto { get; set; }
-        public String CodCST { get; set; }
-        public Decimal QtdProdutoAtacado { get; set; }
+        public int CodProduto { get; set; }
+        public int Cfop { get; set; }
+        public string UnidadeCompra { get; set; }
+        public decimal Quantidade { get; set; }
+        public decimal QuantidadeEmbalagem { get; set; }
+        public decimal ValorUnitario { get; set; }
+        public decimal ValorTotal { get; set; }
+        public decimal BaseCalculoICMS { get; set; }
+        public decimal BaseCalculoICMSST { get; set; }
+        public decimal ValorICMS { get; set; }
+        public decimal ValorICMSST { get; set; }
+        public decimal ValorIPI { get; set; }
+        public decimal ValorDesconto { get; set; }
+        public decimal PrecoCusto { get; set; }
+        public string Ncmsh { get; set; }
+        public decimal Icms { get; set; }
+        public decimal IcmsSubstituto { get; set; }
+        public decimal Ipi { get; set; }
+        public decimal Frete { get; set; }
+        public decimal Desconto { get; set; }
+        public string CodCST { get; set; }
+        public decimal QtdProdutoAtacado { get; set; }
         public DateTime DataValidade { get; set; }
-        public Decimal QuantidadeDisponivel { get; set; }
-        public Decimal Simples { get; set; }
-        public Decimal LucroPrecoVendaVarejo { get; set; }
-        public Decimal PrecoVendaVarejo { get; set; }
-        public Decimal LucroPrecoVendaAtacado { get; set; }
-        public Decimal PrecoVendaAtacado { get; set; }
+        public decimal QuantidadeDisponivel { get; set; }
+        public decimal Simples { get; set; }
+        public decimal LucroPrecoVendaVarejo { get; set; }
+        public decimal PrecoVendaVarejo { get; set; }
+        public decimal LucroPrecoVendaAtacado { get; set; }
+        public decimal PrecoVendaAtacado { get; set; }
 
         public bool FornecedorEhFabricante { get; set; }
         public long CodFornecedor { get; set; }

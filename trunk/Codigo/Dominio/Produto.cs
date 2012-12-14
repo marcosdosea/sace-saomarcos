@@ -8,57 +8,57 @@ namespace Dominio
 {
     public class Produto: ICloneable
     {
-        public const String ST_TRIBUTADO_INTEGRAL = "00";
-        public const String ST_SUBSTITUICAO = "10";
-        public const String ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA = "30";
-        public const String ST_SUBSTITUICAO_ICMS_COBRADO = "60";
-        public const String ST_SUBSTITUICAO_ICMS_REDUCAO_BC = "70";
-        public const String ST_OUTRAS = "90";
-        public const String ST_NAO_TRIBUTADA = "41";
+        public const string ST_TRIBUTADO_INTEGRAL = "00";
+        public const string ST_SUBSTITUICAO = "10";
+        public const string ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA = "30";
+        public const string ST_SUBSTITUICAO_ICMS_COBRADO = "60";
+        public const string ST_SUBSTITUICAO_ICMS_REDUCAO_BC = "70";
+        public const string ST_OUTRAS = "90";
+        public const string ST_NAO_TRIBUTADA = "41";
         
-        public const String ST_SIMPLES_TRIBUTADA_PERM_CREDITO = "101";
-        public const String ST_SIMPLES_TRIBUTADA_SEM_PERM_CREDITO = "102";
-        public const String ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
-        public const String ST_SIMPLES_NAO_TRIBUTADA = "400";
-        public const String ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
-        public const String ST_SIMPLES_OUTRAS = "900";
+        public const string ST_SIMPLES_TRIBUTADA_PERM_CREDITO = "101";
+        public const string ST_SIMPLES_TRIBUTADA_SEM_PERM_CREDITO = "102";
+        public const string ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
+        public const string ST_SIMPLES_NAO_TRIBUTADA = "400";
+        public const string ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
+        public const string ST_SIMPLES_OUTRAS = "900";
 
 
         
-        public Int32 CodProduto { get; set; }
-        public String Nome { get; set; }
-        public String NomeProdutoFabricante { get; set; }
-        public String Unidade { get; set; }
-        public String UnidadeCompra { get; set; }
-        public Decimal QuantidadeEmbalagem { get; set; }
-        public String CodigoBarra { get; set; }
-        public String CodCST { get; set; }
-        public Int32 CodGrupo { get; set; }
-        public Int32 CodSubgrupo { get; set; }
+        public int CodProduto { get; set; }
+        public string Nome { get; set; }
+        public string NomeProdutoFabricante { get; set; }
+        public string Unidade { get; set; }
+        public string UnidadeCompra { get; set; }
+        public decimal QuantidadeEmbalagem { get; set; }
+        public string CodigoBarra { get; set; }
+        public string CodCST { get; set; }
+        public int CodGrupo { get; set; }
+        public int CodSubgrupo { get; set; }
         public long CodFabricante { get; set; }
-        public String ReferenciaFabricante { get; set; }
+        public string ReferenciaFabricante { get; set; }
         public Boolean TemVencimento { get; set; }
-        public Int32 Cfop { get; set; }
-        public String Ncmsh { get; set; }
-        public Decimal Icms { get; set; }
-        public Decimal IcmsSubstituto { get; set; }
-        public Decimal Simples { get; set; }
-        public Decimal Ipi { get; set; }
-        public Decimal Frete { get; set; }
-        public Decimal Desconto { get; set; }
-        public Decimal UltimoPrecoCompra { get; set; }
+        public int Cfop { get; set; }
+        public string Ncmsh { get; set; }
+        public decimal Icms { get; set; }
+        public decimal IcmsSubstituto { get; set; }
+        public decimal Simples { get; set; }
+        public decimal Ipi { get; set; }
+        public decimal Frete { get; set; }
+        public decimal Desconto { get; set; }
+        public decimal UltimoPrecoCompra { get; set; }
         public DateTime UltimaDataAtualizacao { get; set; }
-        public Decimal LucroPrecoVendaVarejo { get; set; }
-        public Decimal PrecoVendaVarejo { get; set; }
-        public Decimal PrecoVendaVarejoSemDesconto
+        public decimal LucroPrecoVendaVarejo { get; set; }
+        public decimal PrecoVendaVarejo { get; set; }
+        public decimal PrecoVendaVarejoSemDesconto
         {
             get { return Math.Round((PrecoVendaVarejo * Global.ACRESCIMO_PADRAO), 2); }
         }
 
-        public Decimal QtdProdutoAtacado { get; set; }
-        public Decimal LucroPrecoVendaAtacado { get; set; }
-        public Decimal PrecoVendaAtacado { get; set; }
-        public Decimal PrecoVendaAtacadoSemDesconto
+        public decimal QtdProdutoAtacado { get; set; }
+        public decimal LucroPrecoVendaAtacado { get; set; }
+        public decimal PrecoVendaAtacado { get; set; }
+        public decimal PrecoVendaAtacadoSemDesconto
         {
             get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 2); }
         }

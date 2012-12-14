@@ -326,7 +326,7 @@ namespace Negocio
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {
-                    conta.CodPessoa = GerenciadorCartaoCredito.getInstace().obterCartaoCredito(pagamento.CodCartaoCredito).CodPessoa;
+                    conta.CodPessoa = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.CodCartaoCredito).ElementAt(0).CodPessoa;
                 }
 
                 conta.CodDocumento = pagamento.CodDocumentoPagamento;
@@ -351,8 +351,8 @@ namespace Negocio
                 {
                     if (pagamento.CodFormaPagamento == (FormaPagamento.CARTAO))
                     {
-                        CartaoCredito cartaoCredito = GerenciadorCartaoCredito.getInstace().obterCartaoCredito(pagamento.CodCartaoCredito);
-                        pagamento.Data = pagamento.Data.AddDays(cartaoCredito.DiaBase);
+                        CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.CodCartaoCredito).ElementAt(0);
+                        pagamento.Data = pagamento.Data.AddDays((double) cartaoCredito.DiaBase);
                         conta.DataVencimento = pagamento.Data;
                     }
                     else if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
@@ -527,7 +527,7 @@ namespace Negocio
                         {
 
                             List<SaidaProduto> saidaProdutos= new List<SaidaProduto>();
-                            Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saida.CodCliente);
+                            Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
                             if (cliente.ImprimirCF) 
                                 saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                             else 
@@ -736,7 +736,7 @@ namespace Negocio
             try
             {
                 Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
-                Pessoa pessoaLoja = GerenciadorPessoa.getInstace().obterPessoa(loja.CodPessoa);
+                Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
                 ImprimeTexto imp = new ImprimeTexto();
 
@@ -760,7 +760,7 @@ namespace Negocio
                 imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
 
-                Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saidas[0].CodCliente);
+                Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
                 imp.ImpLF("Cliente: " + cliente.NomeFantasia);
                 //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
@@ -834,7 +834,7 @@ namespace Negocio
             try
             {
                 Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
-                Pessoa pessoaLoja = GerenciadorPessoa.getInstace().obterPessoa(loja.CodPessoa);
+                Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
                 ImprimeTexto imp = new ImprimeTexto();
 
@@ -857,7 +857,7 @@ namespace Negocio
                 imp.ImpColLFCentralizado(0, 79, pessoaLoja.Endereco + "                                     Fone: " + pessoaLoja.Fone1);
                 imp.ImpLF(Global.LINHA);
 
-                Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saidas[0].CodCliente);
+                Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
                 imp.Imp("Cliente: " + cliente.NomeFantasia);
                 imp.ImpColLF(50, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
@@ -933,7 +933,7 @@ namespace Negocio
 
                     imp.Inicio(Global.PORTA_IMPRESSORA_NORMAL);
 
-                    Pessoa cliente = GerenciadorPessoa.getInstace().obterPessoa(saida.CodCliente);
+                    Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
 
                     imprimirNotaFiscalCabecalho(saida, cliente, imp);
 
@@ -1127,7 +1127,7 @@ namespace Negocio
                     imp.ImpColDireita(65, 78, (subtotalAvista).ToString("N2")); //total nota
                 }
                 imp.Pula(2);
-                Pessoa empresaFrete = GerenciadorPessoa.getInstace().obterPessoa(saida.CodEmpresaFrete);
+                Pessoa empresaFrete = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodEmpresaFrete).ElementAt(0);
 
                 // linha 49
                 if (empresaFrete.Nome.Length > 35)

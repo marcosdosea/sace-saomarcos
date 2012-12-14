@@ -7,19 +7,10 @@ namespace Dominio
 {
     public class ContatoPessoa
     {
-        private Int64 codPessoa;
-
-        public Int64 CodPessoa
-        {
-            get { return codPessoa; }
-            set { codPessoa = value; }
-        }
-        private Int64 codPessoaContato;
-
-        public Int64 CodPessoaContato
-        {
-            get { return codPessoaContato; }
-            set { codPessoaContato = value; }
-        }
+        public long CodPessoa { get; set; }
+        public long CodPessoaContato { get; set; }
+        public string nomeContato { get; set; }
+        public string fone1Contato { get; set; }
+        public string fone2Contato { get; set; }
     }
 }

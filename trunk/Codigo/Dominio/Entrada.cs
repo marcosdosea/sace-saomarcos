@@ -12,29 +12,29 @@ namespace Dominio
         public const int TIPO_PEDIDO_COMPRA = 3;
         public const int TIPO_TRANSFERENCIA = 4;
 
-        public Int64 CodEntrada { get; set; }
-        public String NumeroNotaFiscal { get; set; }
-        public Int64 CodEmpresaFrete { get; set; }
-        public String NomeEmpresaFrete { get; set; }
-        public Int64 CodFornecedor { get; set; }
-        public String NomeFornecedor { get; set; }
-        public Int32 CodTipoEntrada { get; set; }
+        public long CodEntrada { get; set; }
+        public string NumeroNotaFiscal { get; set; }
+        public long CodEmpresaFrete { get; set; }
+        public string NomeEmpresaFrete { get; set; }
+        public long CodFornecedor { get; set; }
+        public string NomeFornecedor { get; set; }
+        public int CodTipoEntrada { get; set; }
         public DateTime DataEmissao { get; set; }
         public DateTime DataEntrada { get; set; }
-        public Decimal TotalPago { get; set; }
-        public Decimal TotalBaseCalculo { get; set; }
-        public Decimal TotalICMS { get; set; }
-        public Decimal TotalBaseSubstituicao { get; set; }
-        public Decimal TotalSubstituicao { get; set; }
-        public Decimal TotalProdutos { get; set; }
-        public Decimal TotalProdutosST { get; set; }
-        public Decimal ValorFrete { get; set; }
-        public Decimal ValorSeguro { get; set; }
-        public Decimal Desconto { get; set; }
-        public Decimal OutrasDespesas { get; set; }
-        public Decimal TotalIPI { get; set; }
-        public Decimal TotalNota { get; set; }
-        public Int32 CodSituacaoPagamentos { get; set; }
+        public decimal TotalPago { get; set; }
+        public decimal TotalBaseCalculo { get; set; }
+        public decimal TotalICMS { get; set; }
+        public decimal TotalBaseSubstituicao { get; set; }
+        public decimal TotalSubstituicao { get; set; }
+        public decimal TotalProdutos { get; set; }
+        public decimal TotalProdutosST { get; set; }
+        public decimal ValorFrete { get; set; }
+        public decimal ValorSeguro { get; set; }
+        public decimal Desconto { get; set; }
+        public decimal OutrasDespesas { get; set; }
+        public decimal TotalIPI { get; set; }
+        public decimal TotalNota { get; set; }
+        public int CodSituacaoPagamentos { get; set; }
         public Boolean FretePagoEmitente { get; set; }
     }
 }

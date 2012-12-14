@@ -33,15 +33,11 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_bancoDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).BeginInit();
+            this.codBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.bancoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_bancoDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,57 +82,9 @@
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
-            // saceDataSet
+            // bancoBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "Dados";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_bancoBindingSource
-            // 
-            this.tb_bancoBindingSource.DataMember = "tb_banco";
-            this.tb_bancoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_bancoTableAdapter
-            // 
-            this.tb_bancoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_bancoTableAdapter = this.tb_bancoTableAdapter;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.bancoBindingSource.DataSource = typeof(Dominio.Banco);
             // 
             // tb_bancoDataGridView
             // 
@@ -145,9 +93,9 @@
             this.tb_bancoDataGridView.AutoGenerateColumns = false;
             this.tb_bancoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_bancoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            this.tb_bancoDataGridView.DataSource = this.tb_bancoBindingSource;
+            this.codBancoDataGridViewTextBoxColumn,
+            this.nomeDataGridViewTextBoxColumn});
+            this.tb_bancoDataGridView.DataSource = this.bancoBindingSource;
             this.tb_bancoDataGridView.Location = new System.Drawing.Point(10, 64);
             this.tb_bancoDataGridView.MultiSelect = false;
             this.tb_bancoDataGridView.Name = "tb_bancoDataGridView";
@@ -156,27 +104,23 @@
             this.tb_bancoDataGridView.Size = new System.Drawing.Size(444, 237);
             this.tb_bancoDataGridView.TabIndex = 5;
             this.tb_bancoDataGridView.TabStop = false;
-            this.tb_bancoDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_bancoDataGridView_CellClick);
             this.tb_bancoDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_bancoDataGridView_CellClick);
+            this.tb_bancoDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_bancoDataGridView_CellClick);
             // 
-            // dataGridViewTextBoxColumn1
+            // codBancoDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "codBanco";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn1.MaxInputLength = 150;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 65;
+            this.codBancoDataGridViewTextBoxColumn.DataPropertyName = "CodBanco";
+            this.codBancoDataGridViewTextBoxColumn.HeaderText = "Codigo";
+            this.codBancoDataGridViewTextBoxColumn.Name = "codBancoDataGridViewTextBoxColumn";
+            this.codBancoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // nomeDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "nome";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nome";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            this.nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
+            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmBancoPesquisa
             // 
@@ -196,8 +140,7 @@
             this.Text = "Pesquisa Bancos";
             this.Load += new System.EventHandler(this.FrmBancoPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmBancoPesquisa_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bancoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_bancoDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -209,13 +152,13 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_bancoBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource bancoBindingSource;
+        //private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
         private System.Windows.Forms.DataGridView tb_bancoDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codBancoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
   
     }
 }
