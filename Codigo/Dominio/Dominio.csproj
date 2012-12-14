@@ -76,11 +76,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autenticacao.cs" />
+    <Compile Include="Banco.cs" />
     <Compile Include="Cfop.cs" />
     <Compile Include="DocumentoPagamento.cs" />
     <Compile Include="EntradaPagamento.cs" />
     <Compile Include="Pagamento.cs" />
-    <Compile Include="Banco.cs" />
     <Compile Include="CartaoCredito.cs" />
     <Compile Include="Conta.cs" />
     <Compile Include="ContaBanco.cs" />

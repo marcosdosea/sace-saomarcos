@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
-using Dominio;
 using Util;
+using Dominio;
 
 namespace Telas
 {
@@ -32,8 +32,8 @@ namespace Telas
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
-            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
-            this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
+            codBancoComboBox.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -43,14 +43,15 @@ namespace Telas
             frmContaBancoPesquisa.ShowDialog();
             if (frmContaBancoPesquisa.CodContaBanco != "")
             {
-                tb_conta_bancoBindingSource.Position = tb_conta_bancoBindingSource.Find("codContaBanco", frmContaBancoPesquisa.CodContaBanco);
+                ContaBanco contaBanco = GerenciadorContaBanco.GetInstance().Obter(int.Parse(frmContaBancoPesquisa.CodContaBanco)).ElementAt(0);
+                contaBancoBindingSource.Position = contaBancoBindingSource.List.IndexOf( contaBanco );
             }
             frmContaBancoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_conta_bancoBindingSource.AddNew();
+            contaBancoBindingSource.AddNew();
             numerocontaTextBox.Focus();
             habilitaBotoes(false);
             codBancoComboBox.SelectedIndex = 0;
@@ -68,15 +69,16 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorContaBanco.getInstace().remover(Int32.Parse(codContaBancoTextBox.Text));
-                tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
+                GerenciadorContaBanco.GetInstance().Remover(Int32.Parse(codContaBancoTextBox.Text));
+
+                contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_conta_bancoBindingSource.CancelEdit();
-            tb_conta_bancoBindingSource.EndEdit();
+            contaBancoBindingSource.CancelEdit();
+            contaBancoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -85,31 +87,31 @@ namespace Telas
         {
             try
             {
-                ContaBanco contaBanco = new ContaBanco();
-                contaBanco.CodContaBanco = Int32.Parse(codContaBancoTextBox.Text);
-                contaBanco.NumeroConta = numerocontaTextBox.Text;
-                contaBanco.Agencia = agenciaTextBox.Text;
-                contaBanco.Descricao = descricaoTextBox.Text;
-                contaBanco.Saldo = decimal.Parse(saldoTextBox.Text);
-                contaBanco.CodBanco = Int32.Parse(codBancoComboBox.SelectedValue.ToString());
+                ContaBanco _contaBanco = new ContaBanco();
+                _contaBanco.CodContaBanco = Int32.Parse(codContaBancoTextBox.Text);
+                _contaBanco.NumeroConta = numerocontaTextBox.Text;
+                _contaBanco.Agencia = agenciaTextBox.Text;
+                _contaBanco.Descricao = descricaoTextBox.Text;
+                _contaBanco.Saldo = decimal.Parse(saldoTextBox.Text);
+                _contaBanco.CodBanco = Int32.Parse(codBancoComboBox.SelectedValue.ToString());
 
-                GerenciadorContaBanco gContaBanco = GerenciadorContaBanco.getInstace();
+                GerenciadorContaBanco gContaBanco = GerenciadorContaBanco.GetInstance();
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gContaBanco.inserir(contaBanco);
-                    tb_conta_bancoTableAdapter.Fill(saceDataSet.tb_conta_banco);
-                    tb_conta_bancoBindingSource.MoveLast();
+                    gContaBanco.Inserir(_contaBanco);
+                    contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+                    contaBancoBindingSource.MoveLast();
                 }
                 else
                 {
-                    gContaBanco.atualizar(contaBanco);
-                    tb_conta_bancoBindingSource.EndEdit();
+                    gContaBanco.Atualizar(_contaBanco);
+                    contaBancoBindingSource.EndEdit();
                 }
             }
             catch (Dados.DadosException de)
             {
-                tb_conta_bancoBindingSource.CancelEdit();
+                contaBancoBindingSource.CancelEdit();
                 throw de;
             }
             finally {
@@ -140,19 +142,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_conta_bancoBindingSource.MoveLast();
+                    contaBancoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_conta_bancoBindingSource.MoveFirst();
+                    contaBancoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_conta_bancoBindingSource.MovePrevious();
+                    contaBancoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_conta_bancoBindingSource.MoveNext();
+                    contaBancoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -180,7 +182,7 @@ namespace Telas
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.CodBanco != -1)
                     {
-                        tbbancoBindingSource.Position = tbbancoBindingSource.Find("codBanco", frmBancoPesquisa.CodBanco);
+                        bancoBindingSource.Position = bancoBindingSource.Find("codBanco", frmBancoPesquisa.CodBanco);
                     }
                     frmBancoPesquisa.Dispose();
                 }
@@ -190,8 +192,8 @@ namespace Telas
                     frmBanco.ShowDialog();
                     if (frmBanco.CodBanco != -1)
                     {
-                        this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
-                        tbbancoBindingSource.Position = tbbancoBindingSource.Find("codBanco", frmBanco.CodBanco);
+                        codBancoComboBox.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+                        bancoBindingSource.Position = bancoBindingSource.Find("CodBanco", frmBanco.CodBanco);
                     }
                     frmBanco.Dispose();
                 }

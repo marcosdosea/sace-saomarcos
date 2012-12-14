@@ -7,49 +7,25 @@ namespace Dominio
 {
     public class ContaBanco
     {
-        private Int32 codContaBanco;
+        public int CodContaBanco { get; set;}
+        public string NumeroConta { get; set; }
+        public string Agencia { get; set; }
+        public string Descricao{ get; set; }
+        public decimal Saldo { get; set; }
+        public int CodBanco { get; set; }
+        public string NomeBanco { get; set; }
 
-        public Int32 CodContaBanco
+        // override object.Equals
+        public override bool Equals(object obj)
         {
-            get { return codContaBanco; }
-            set { codContaBanco = value; }
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodContaBanco == ((ContaBanco) obj).CodContaBanco;    
         }
 
-        private String numeroConta;
-
-        public String NumeroConta
-        {
-            get { return numeroConta; }
-            set { numeroConta = value; }
-        }
-
-        private String agencia;
-
-        public String Agencia
-        {
-            get { return agencia; }
-            set { agencia = value; }
-        }
-        private String descricao;
-
-        public String Descricao
-        {
-            get { return descricao; }
-            set { descricao = value; }
-        }
-        private Decimal saldo;
-
-        public Decimal Saldo
-        {
-            get { return saldo; }
-            set { saldo = value; }
-        }
-        private Int32 codBanco;
-
-        public Int32 CodBanco
-        {
-            get { return codBanco; }
-            set { codBanco = value; }
-        }
+        
     }
 }

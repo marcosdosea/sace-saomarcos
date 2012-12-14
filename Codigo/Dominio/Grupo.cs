@@ -7,16 +7,16 @@ namespace Dominio
 {
     public class Grupo
     {
-        private Int32 codGrupo;
+        private int codGrupo;
 
-        public Int32 CodGrupo
+        public int CodGrupo
         {
             get { return codGrupo; }
             set { codGrupo = value; }
         }
-        private String descricao;
+        private string descricao;
 
-        public String Descricao
+        public string Descricao
         {
             get { return descricao; }
             set { descricao = value; }

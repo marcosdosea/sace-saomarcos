@@ -12,38 +12,39 @@ using MySql.Data;
 
 namespace Negocio
 {
-    public class GerenciadorBanco {
+    public class GerenciadorBanco
+    {
 
         private static GerenciadorBanco gBanco;
         private static RepositorioGenerico<BancoE, SaceEntities> repBanco;
-        
-        public static GerenciadorBanco getInstace()
+
+        public static GerenciadorBanco GetInstace()
         {
             if (gBanco == null)
             {
                 gBanco = new GerenciadorBanco();
-                repBanco = new RepositorioGenerico<BancoE,SaceEntities>("chave");
+                repBanco = new RepositorioGenerico<BancoE, SaceEntities>("chave");
             }
             return gBanco;
         }
 
-        public IQueryable<Dados.BancoE> GetDataSource()
-        {
-            return repBanco.GetQueryable();
-        }
-
-        public IEnumerable<Dados.BancoE> obterTodos()
-        {
-            return repBanco.ObterTodos();
-        }
-
-        public Int64 inserir(BancoE banco)
+        /// <summary>
+        /// Insere dados do banco
+        /// </summary>
+        /// <param name="banco"></param>
+        /// <returns></returns>
+        public Int64 inserir(Banco banco)
         {
             try
             {
-                BancoE _banco = repBanco.Inserir(banco);
+                BancoE _bancoE = new BancoE();
+                _bancoE.codBanco = banco.CodBanco;
+                _bancoE.nome = banco.Nome;
+
+                repBanco.Inserir(_bancoE);
                 repBanco.SaveChanges();
-                return _banco.codBanco;
+
+                return _bancoE.codBanco;
             }
             catch (Exception e)
             {
@@ -51,12 +52,16 @@ namespace Negocio
             }
         }
 
-        public void atualizar(BancoE banco)
+        /// <summary>
+        /// Atualiza dados do banco
+        /// </summary>
+        /// <param name="banco"></param>
+        public void atualizar(Banco banco)
         {
             try
             {
-                BancoE _banco = repBanco.ObterEntidade(b => b.codBanco == banco.codBanco);
-                _banco.nome = banco.nome;
+                BancoE _bancoE = repBanco.ObterEntidade(b => b.codBanco == banco.CodBanco);
+                _bancoE.nome = banco.Nome;
 
                 repBanco.SaveChanges();
             }
@@ -66,6 +71,10 @@ namespace Negocio
             }
         }
 
+        /// <summary>
+        /// Remove dados do banco
+        /// </summary>
+        /// <param name="codBanco"></param>
         public void remover(Int32 codBanco)
         {
             if (codBanco == 1)
@@ -79,6 +88,47 @@ namespace Negocio
             {
                 throw new DadosException("Banco", e.Message, e);
             }
+        }
+
+        private IQueryable<Banco> GetQuery()
+        {
+            var saceEntities = (SaceEntities)repBanco.ObterContexto();
+            var query = from banco in saceEntities.BancoSet
+                        select new Banco
+                        {
+                            CodBanco = banco.codBanco,
+                            Nome = banco.nome
+                        };
+            return query;
+        }
+
+        /// <summary>
+        /// Obtém todos os banco cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Banco> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
+
+        /// <summary>
+        /// Obtém banco com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Banco> Obter(int codBanco)
+        {
+            return GetQuery().Where(banco => banco.CodBanco == codBanco).ToList();
+        }
+
+        /// <summary>
+        /// Obtém bancos que iniciam com o nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<Banco> ObterPorNome(string nome)
+        {
+            return GetQuery().Where(banco => banco.Nome.StartsWith(nome)).ToList();
         }
     }
 }

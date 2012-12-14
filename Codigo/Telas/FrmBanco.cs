@@ -30,7 +30,7 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
 
-            tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos(); 
+            bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos(); 
             habilitaBotoes(true);
         }
 
@@ -40,14 +40,15 @@ namespace Telas
             frmBancoPesquisa.ShowDialog();
             if (frmBancoPesquisa.CodBanco != -1)
             {
-                tb_bancoBindingSource.Position = tb_bancoBindingSource.Find("codBanco", frmBancoPesquisa.CodBanco);
+                Banco _banco = GerenciadorBanco.GetInstace().Obter(frmBancoPesquisa.CodBanco).ElementAt(0);
+                bancoBindingSource.Position = bancoBindingSource.List.IndexOf(_banco);
             }
             frmBancoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_bancoBindingSource.AddNew();
+            bancoBindingSource.AddNew();
             codBancoTextBox.Enabled = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);
@@ -65,15 +66,15 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorBanco.getInstace().remover(int.Parse(codBancoTextBox.Text));
-                tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos();
+                GerenciadorBanco.GetInstace().remover(int.Parse(codBancoTextBox.Text));
+                bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_bancoBindingSource.CancelEdit();
-            tb_bancoBindingSource.EndEdit();
+            bancoBindingSource.CancelEdit();
+            bancoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -82,26 +83,26 @@ namespace Telas
         {
             try
             {
-                BancoE banco = new BancoE();
-                banco.codBanco = Int32.Parse(codBancoTextBox.Text);
-                banco.nome = nomeTextBox.Text;
+                Banco banco = new Banco();
+                banco.CodBanco = Int32.Parse(codBancoTextBox.Text);
+                banco.Nome = nomeTextBox.Text;
 
-                GerenciadorBanco gBanco = GerenciadorBanco.getInstace();
+                GerenciadorBanco gBanco = GerenciadorBanco.GetInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gBanco.inserir(banco);
-                    tb_bancoBindingSource.DataSource = GerenciadorBanco.getInstace().obterTodos();
-                    tb_bancoBindingSource.MoveLast();
+                    bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+                    bancoBindingSource.MoveLast();
                 }
                 else
                 {
                     gBanco.atualizar(banco);
-                    tb_bancoBindingSource.EndEdit();
+                    bancoBindingSource.EndEdit();
                 }
             }
             catch (DadosException de)
             {
-                tb_bancoBindingSource.CancelEdit();
+                bancoBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -133,19 +134,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_bancoBindingSource.MoveLast();
+                    bancoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_bancoBindingSource.MoveFirst();
+                    bancoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_bancoBindingSource.MovePrevious();
+                    bancoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_bancoBindingSource.MoveNext();
+                    bancoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {

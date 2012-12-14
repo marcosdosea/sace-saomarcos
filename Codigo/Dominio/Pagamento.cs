@@ -7,23 +7,23 @@ namespace Dominio
 {
     public class Pagamento
     {
-        private Int64 codPagamento;
+        private long codPagamento;
 
-        public Int64 CodPagamento
+        public long CodPagamento
         {
             get { return codPagamento; }
             set { codPagamento = value; }
         }
-        private Int32 codFormaPagamento;
+        private int codFormaPagamento;
 
-        public Int32 CodFormaPagamento
+        public int CodFormaPagamento
         {
             get { return codFormaPagamento; }
             set { codFormaPagamento = value; }
         }
-        private Int64 codConta;
+        private long codConta;
 
-        public Int64 CodConta
+        public long CodConta
         {
             get { return codConta; }
             set { codConta = value; }
@@ -42,9 +42,9 @@ namespace Dominio
             get { return valorDiferenca; }
             set { valorDiferenca = value; }
         }
-        private Int32 codContaBanco;
+        private int codContaBanco;
 
-        public Int32 CodContaBanco
+        public int CodContaBanco
         {
             get { return codContaBanco; }
             set { codContaBanco = value; }

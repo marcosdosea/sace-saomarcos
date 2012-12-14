@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace Telas
 {
@@ -27,16 +28,16 @@ namespace Telas
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                this.tb_conta_bancoTableAdapter.FillByNumeroConta(this.saceDataSet.tb_conta_banco, txtTexto.Text);
+                contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterPorNumero(txtTexto.Text);
             else
-                this.tb_conta_bancoTableAdapter.FillByDescricao(this.saceDataSet.tb_conta_banco, txtTexto.Text);                
+                contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterPorDescricao(txtTexto.Text);              
             
         }
 
@@ -58,11 +59,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_conta_bancoBindingSource.MoveNext();
+                contaBancoBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_conta_bancoBindingSource.MovePrevious();
+                contaBancoBindingSource.MovePrevious();
             }
         }
 

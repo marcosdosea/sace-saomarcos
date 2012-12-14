@@ -20,6 +20,7 @@ namespace Dados
         IEnumerable<T> Obter(Func<T, Boolean> where);
         IEnumerable<T> ObterTodos();
         IQueryable<T> GetQueryable();
+        ObjectContext ObterContexto();
         int SaveChanges();
         int SaveChanges(SaveOptions options);
     }

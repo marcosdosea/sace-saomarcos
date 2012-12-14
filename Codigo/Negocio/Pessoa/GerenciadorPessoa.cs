@@ -14,33 +14,33 @@ namespace Negocio
     public class GerenciadorPessoa
     {
         private static GerenciadorPessoa gPessoa;
-        private static tb_pessoaTableAdapter tb_pessoaTA;
+        private static RepositorioGenerico<PessoaE, SaceEntities> repPessoa;
         
-        public static GerenciadorPessoa getInstace()
+        public static GerenciadorPessoa GetInstance()
         {
             if (gPessoa == null)
             {
                 gPessoa = new GerenciadorPessoa();
-                tb_pessoaTA = new tb_pessoaTableAdapter();
+                repPessoa = new RepositorioGenerico<PessoaE, SaceEntities>("chave");
             }
             return gPessoa;
         }
 
-        public Int64 inserir(Pessoa pessoa)
+        /// <summary>
+        /// Insere uma pessoa no banco de dados
+        /// </summary>
+        /// <param name="pessoa"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Pessoa pessoa)
         {
             try
             {
-                byte ehFabricanteByte = (byte)(pessoa.EhFabricante ? 1 : 0);
-                byte imprimirCFByte = (byte)(pessoa.ImprimirCF ? 1 : 0);
-                byte imprimirDAVByte = (byte)(pessoa.ImprimirDAV ? 1 : 0);
-
-
-                tb_pessoaTA.Insert(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra, 
-                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
-                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.NomeFantasia);
-
-                return 0;
+                PessoaE _pessoa = new PessoaE(); 
+                Atribuir(pessoa, _pessoa);
+               
+                repPessoa.Inserir(_pessoa);
+                repPessoa.SaveChanges();
+                return _pessoa.codPessoa;
             }
             catch (Exception e)
             {
@@ -48,7 +48,11 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Pessoa pessoa)
+        /// <summary>
+        /// Atualiza os dados de um pessoa
+        /// </summary>
+        /// <param name="pessoa"></param>
+        public void Atualizar(Pessoa pessoa)
         {
 
             if (pessoa.CodPessoa == Global.CLIENTE_PADRAO)
@@ -56,14 +60,9 @@ namespace Negocio
             
             try
             {
-                byte ehFabricanteByte = (byte)(pessoa.EhFabricante ? 1 : 0);
-                byte imprimirCFByte = (byte)(pessoa.ImprimirCF ? 1 : 0);
-                byte imprimirDAVByte = (byte)(pessoa.ImprimirDAV ? 1 : 0);
-
-                tb_pessoaTA.Update(pessoa.Nome, pessoa.CpfCnpj, pessoa.Endereco, pessoa.Numero, pessoa.Bairro,
-                    pessoa.Cidade, pessoa.Complemento, pessoa.Cep, pessoa.Uf, pessoa.Fone1, pessoa.Fone2, pessoa.LimiteCompra,
-                    pessoa.ValorComissao, pessoa.Observacao, pessoa.Tipo.ToString(),
-                    pessoa.Ie, pessoa.IeSubstituto, pessoa.Fone3, pessoa.Email, ehFabricanteByte, imprimirDAVByte, imprimirCFByte, pessoa.NomeFantasia, pessoa.CodPessoa);
+                PessoaE _pessoa = repPessoa.ObterEntidade(p => p.codPessoa == pessoa.CodPessoa);
+                Atribuir(pessoa, _pessoa);
+                repPessoa.SaveChanges();
             }
             catch (Exception e)
             {
@@ -71,14 +70,19 @@ namespace Negocio
             }
         }
 
-        public void remover(Int64 codpessoa)
+        /// <summary>
+        /// Remove os dados de uma pessoa
+        /// </summary>
+        /// <param name="codpessoa"></param>
+        public void Remover(Int64 codpessoa)
         {
             if (codpessoa == Global.CLIENTE_PADRAO)
                 throw new NegocioException("Essa pessoa não pode ser removida.");
 
             try
             {
-                tb_pessoaTA.Delete(codpessoa);
+                repPessoa.Remover(pessoa => pessoa.codPessoa == codpessoa);
+                repPessoa.SaveChanges();
             }
             catch (Exception e)
             {
@@ -86,76 +90,244 @@ namespace Negocio
             }
         }
 
-        public Pessoa obterPessoa(Int64 codPessoa)
+        /// <summary>
+        /// Associa um contato a uma pessoa
+        /// </summary>
+        /// <param name="contatoPessoa"></param>
+        /// <returns></returns>
+        public Int64 InserirContato(ContatoPessoa contatoPessoa)
         {
-            Pessoa pessoa = new Pessoa();
-            Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTA = new tb_pessoaTableAdapter();
-            Dados.saceDataSet.tb_pessoaDataTable pessoaDT = tb_pessoaTA.GetDataByCodPessoa(codPessoa);
+            try
+            {
 
-            pessoa.CodPessoa = int.Parse(pessoaDT.Rows[0]["codPessoa"].ToString());
-            pessoa.Bairro = pessoaDT.Rows[0]["bairro"].ToString();
-            pessoa.Cep = pessoaDT.Rows[0]["cep"].ToString();
-            pessoa.Cidade = pessoaDT.Rows[0]["cidade"].ToString();
-            pessoa.Complemento = pessoaDT.Rows[0]["complemento"].ToString();
-            pessoa.CpfCnpj = pessoaDT.Rows[0]["cpf_cnpj"].ToString();
-            pessoa.Email = pessoaDT.Rows[0]["email"].ToString();
-            pessoa.Endereco = pessoaDT.Rows[0]["endereco"].ToString();
-            pessoa.Fone1 = pessoaDT.Rows[0]["fone1"].ToString();
-            pessoa.Fone2 = pessoaDT.Rows[0]["fone2"].ToString();
-            pessoa.Fone3 = pessoaDT.Rows[0]["fone3"].ToString();
-            pessoa.Ie = pessoaDT.Rows[0]["ie"].ToString();
-            pessoa.IeSubstituto = pessoaDT.Rows[0]["ieSubstituto"].ToString();
-            pessoa.LimiteCompra = Convert.ToDecimal(pessoaDT.Rows[0]["limiteCompra"].ToString());
-            pessoa.Nome = pessoaDT.Rows[0]["nome"].ToString();
-            pessoa.NomeFantasia = pessoaDT.Rows[0]["nomeFantasia"].ToString();
-            pessoa.Numero = pessoaDT.Rows[0]["numero"].ToString();
-            pessoa.Observacao = pessoaDT.Rows[0]["observacao"].ToString();
-            pessoa.Tipo = Convert.ToChar(pessoaDT.Rows[0]["tipo"].ToString());
-            pessoa.Uf = pessoaDT.Rows[0]["uf"].ToString();
-            pessoa.ValorComissao = Convert.ToDecimal(pessoaDT.Rows[0]["valorComissao"].ToString());
-            pessoa.EhFabricante = Convert.ToBoolean(pessoaDT.Rows[0]["ehFabricante"].ToString());
-            pessoa.ImprimirCF = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirCF"].ToString());
-            pessoa.ImprimirDAV = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirDAV"].ToString());
+                PessoaE pessoa = repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoa);
+                pessoa.tb_pessoa2.Add(repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoaContato));
 
-            return pessoa;
+                repPessoa.Attach(pessoa);
+                repPessoa.SaveChanges();
+                return 0;
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Contato Pessoa", e.Message, e);
+            }
         }
 
-        public Pessoa obterPessoaNomeFantasiaIgual(String nome)
+        /// <summary>
+        /// Remove contato de uma pessoa
+        /// </summary>
+        /// <param name="contatoPessoa"></param>
+        public void RemoverContato(ContatoPessoa contatoPessoa)
         {
-            Pessoa pessoa = null;
-            Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTA = new tb_pessoaTableAdapter();
-            Dados.saceDataSet.tb_pessoaDataTable pessoaDT = tb_pessoaTA.GetDataByEqualsNomeFantasia(nome);
-
-            if (pessoaDT.Count > 0)
+            try
             {
-                pessoa = new Pessoa();
-                pessoa.CodPessoa = int.Parse(pessoaDT.Rows[0]["codPessoa"].ToString());
-                pessoa.Bairro = pessoaDT.Rows[0]["bairro"].ToString();
-                pessoa.Cep = pessoaDT.Rows[0]["cep"].ToString();
-                pessoa.Cidade = pessoaDT.Rows[0]["cidade"].ToString();
-                pessoa.Complemento = pessoaDT.Rows[0]["complemento"].ToString();
-                pessoa.CpfCnpj = pessoaDT.Rows[0]["cpf_cnpj"].ToString();
-                pessoa.Email = pessoaDT.Rows[0]["email"].ToString();
-                pessoa.Endereco = pessoaDT.Rows[0]["endereco"].ToString();
-                pessoa.Fone1 = pessoaDT.Rows[0]["fone1"].ToString();
-                pessoa.Fone2 = pessoaDT.Rows[0]["fone2"].ToString();
-                pessoa.Fone3 = pessoaDT.Rows[0]["fone3"].ToString();
-                pessoa.Ie = pessoaDT.Rows[0]["ie"].ToString();
-                pessoa.IeSubstituto = pessoaDT.Rows[0]["ieSubstituto"].ToString();
-                pessoa.LimiteCompra = Convert.ToDecimal(pessoaDT.Rows[0]["limiteCompra"].ToString());
-                pessoa.Nome = pessoaDT.Rows[0]["nome"].ToString();
-                pessoa.NomeFantasia = pessoaDT.Rows[0]["nomeFantasia"].ToString();
-                pessoa.Numero = pessoaDT.Rows[0]["numero"].ToString();
-                pessoa.Observacao = pessoaDT.Rows[0]["observacao"].ToString();
-                pessoa.Tipo = Convert.ToChar(pessoaDT.Rows[0]["tipo"].ToString());
-                pessoa.Uf = pessoaDT.Rows[0]["uf"].ToString();
-                pessoa.ValorComissao = Convert.ToDecimal(pessoaDT.Rows[0]["valorComissao"].ToString());
-                pessoa.EhFabricante = Convert.ToBoolean(pessoaDT.Rows[0]["ehFabricante"].ToString());
-                pessoa.ImprimirCF = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirCF"].ToString());
-                pessoa.ImprimirDAV = Convert.ToBoolean(pessoaDT.Rows[0]["imprimirDAV"].ToString());
-            }
+                PessoaE pessoa = repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoa);
+                PessoaE contato = repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoaContato);
 
-            return pessoa;
+                pessoa.tb_pessoa2.Remove(contato);
+                repPessoa.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Contato Pessoa", e.Message, e);
+            }
+        }
+
+        private IQueryable<Pessoa> GetQuery()
+        {
+            var saceEntities = (SaceEntities)repPessoa.ObterContexto();
+            var query = from pessoa in saceEntities.PessoaSet
+                        select new Pessoa
+                        {
+                            Bairro = pessoa.bairro,
+                            Cep = pessoa.cep,
+                            Cidade = pessoa.cidade,
+                            CodPessoa = pessoa.codPessoa,
+                            Complemento = pessoa.complemento,
+                            CpfCnpj = pessoa.cpf_Cnpj,
+                            EhFabricante = pessoa.ehFabricante,
+                            Email = pessoa.email,
+                            Endereco = pessoa.endereco,
+                            Fone1 = pessoa.fone1,
+                            Fone2 = pessoa.fone2,
+                            Fone3 = pessoa.fone3,
+                            Ie = pessoa.ie,
+                            IeSubstituto = pessoa.ieSubstituto,
+                            ImprimirCF = pessoa.imprimirCF,
+                            ImprimirDAV = pessoa.imprimirDAV,
+                            LimiteCompra = (decimal) pessoa.limiteCompra,
+                            Nome = pessoa.nome,
+                            NomeFantasia = pessoa.nomeFantasia,
+                            Numero = pessoa.numero,
+                            Observacao = pessoa.observacao,
+                            Tipo = pessoa.Tipo,
+                            Uf = pessoa.uf,
+                            ValorComissao = (decimal) pessoa.valorComissao
+
+                        };
+            return query;
+        }
+
+        /// <summary>
+        /// Obtém todos as pessoas cadastradas
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo código da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> Obter(Int64 codPessoa)
+        {
+            return GetQuery().Where(pessoa => pessoa.CodPessoa == codPessoa).ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo tipo da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorTipoPessoa(string tipoPessoa)
+        {
+            return GetQuery().Where(pessoa => pessoa.Tipo.Equals(tipoPessoa)).OrderBy(p=> p.NomeFantasia).ToList();
+        }
+
+
+        /// <summary>
+        /// Obter pelo código da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorNome(string nome)
+        {
+            return GetQuery().Where(pessoa => pessoa.Nome.StartsWith(nome)).OrderBy(p => p.Nome).ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo código da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorNomeFantasia(string nomefantasia)
+        {
+            return GetQuery().Where(pessoa => pessoa.NomeFantasia.StartsWith(nomefantasia)).OrderBy(p => p.NomeFantasia).ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo cpf/cnpj da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorCpfCnpj(string CpfCnpj)
+        {
+            return GetQuery().Where(pessoa => pessoa.CpfCnpj.StartsWith(CpfCnpj)).OrderBy(p => p.NomeFantasia).ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo endereco da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorEndereco(string endereco)
+        {
+            return GetQuery().Where(pessoa => pessoa.Endereco.StartsWith(endereco)).OrderBy(p => p.NomeFantasia).ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo bairro da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorBairro(string bairro)
+        {
+            return GetQuery().Where(pessoa => pessoa.Bairro.StartsWith(bairro)).OrderBy(p => p.NomeFantasia).ToList();
+        }
+
+        /// <summary>
+        /// Obter contatos de uma pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterContatos(long codPessoa)
+        {
+            var saceEntities = (SaceEntities)repPessoa.ObterContexto();
+            PessoaE _pessoa = repPessoa.ObterPrimeiro(p => p.codPessoa == codPessoa);
+
+            if (_pessoa == null)
+            {
+                return new List<Pessoa>();
+            }
+            var query = from pessoa in _pessoa.tb_pessoa2
+                        orderby pessoa.nomeFantasia
+                        select new Pessoa
+                        {
+                            Bairro = pessoa.bairro,
+                            Cep = pessoa.cep,
+                            Cidade = pessoa.cidade,
+                            CodPessoa = pessoa.codPessoa,
+                            Complemento = pessoa.complemento,
+                            CpfCnpj = pessoa.cpf_Cnpj,
+                            EhFabricante = pessoa.ehFabricante,
+                            Email = pessoa.email,
+                            Endereco = pessoa.endereco,
+                            Fone1 = pessoa.fone1,
+                            Fone2 = pessoa.fone2,
+                            Fone3 = pessoa.fone3,
+                            Ie = pessoa.ie,
+                            IeSubstituto = pessoa.ieSubstituto,
+                            ImprimirCF = pessoa.imprimirCF,
+                            ImprimirDAV = pessoa.imprimirDAV,
+                            LimiteCompra = (decimal) pessoa.limiteCompra,
+                            Nome = pessoa.nome,
+                            NomeFantasia = pessoa.nomeFantasia,
+                            Numero = pessoa.numero,
+                            Observacao = pessoa.observacao,
+                            Tipo = pessoa.Tipo,
+                            Uf = pessoa.uf,
+                            ValorComissao = (decimal) pessoa.valorComissao
+                        };
+            return query;
+        
+        }
+
+        /// <summary>
+        /// Atribui os dados de pessoa à entidade Pessoa
+        /// </summary>
+        /// <param name="pessoa"></param>
+        /// <param name="_pessoa"></param>
+        /// <returns></returns>
+        private PessoaE Atribuir(Pessoa pessoa, PessoaE _pessoa)
+        {
+            _pessoa.bairro = pessoa.Bairro;
+            _pessoa.cep = pessoa.Cep;
+            _pessoa.cidade = pessoa.Cidade;
+            _pessoa.codPessoa = pessoa.CodPessoa;
+            _pessoa.complemento = pessoa.Complemento;
+            _pessoa.cpf_Cnpj = pessoa.CpfCnpj;
+            _pessoa.ehFabricante = pessoa.EhFabricante;
+            _pessoa.email = pessoa.Email;
+            _pessoa.endereco = pessoa.Endereco;
+            _pessoa.fone1 = pessoa.Fone1;
+            _pessoa.fone2 = pessoa.Fone2;
+            _pessoa.fone3 = pessoa.Fone3;
+            _pessoa.ie = pessoa.Ie;
+            _pessoa.ieSubstituto = pessoa.IeSubstituto;
+            _pessoa.imprimirCF = pessoa.ImprimirCF;
+            _pessoa.imprimirDAV = pessoa.ImprimirDAV;
+            _pessoa.limiteCompra = pessoa.LimiteCompra;
+            _pessoa.nome = pessoa.Nome;
+            _pessoa.nomeFantasia = pessoa.NomeFantasia;
+            _pessoa.numero = pessoa.Numero;
+            _pessoa.observacao = pessoa.Observacao;
+            _pessoa.Tipo = pessoa.Tipo;
+            _pessoa.uf = pessoa.Uf;
+            _pessoa.valorComissao = pessoa.ValorComissao;
+            return _pessoa;
         }
     }
 }

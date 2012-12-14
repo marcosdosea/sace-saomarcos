@@ -14,25 +14,34 @@ namespace Negocio
     public class GerenciadorContaBanco 
     {
         private static GerenciadorContaBanco gContaBanco;
-        private static tb_conta_bancoTableAdapter tb_conta_bancoTA;
+        private static RepositorioGenerico<ContaBancoE, SaceEntities> repContaBanco;
         
-        public static GerenciadorContaBanco getInstace()
+        public static GerenciadorContaBanco GetInstance()
         {
             if (gContaBanco == null)
             {
                 gContaBanco = new GerenciadorContaBanco();
-                tb_conta_bancoTA = new tb_conta_bancoTableAdapter();
+                repContaBanco = new RepositorioGenerico<ContaBancoE, SaceEntities>("chave");
             }
             return gContaBanco;
         }
 
-        public Int64 inserir(ContaBanco contaBanco)
+        /// <summary>
+        /// Insere os dados de uma conta bancária
+        /// </summary>
+        /// <param name="contaBanco"></param>
+        /// <returns></returns>
+        public Int64 Inserir(ContaBanco contaBanco)
         {
             try
             {
-                tb_conta_bancoTA.Insert(contaBanco.NumeroConta, contaBanco.Agencia,
-                    contaBanco.Descricao, contaBanco.Saldo.ToString(), contaBanco.CodBanco);
-                return 0;
+                ContaBancoE _contaBanco = new ContaBancoE();
+                Atribuir(contaBanco, _contaBanco);
+                repContaBanco.Inserir(_contaBanco);
+                
+                repContaBanco.SaveChanges();
+                
+                return _contaBanco.codContaBanco;
             }
             catch (Exception e)
             {
@@ -40,12 +49,18 @@ namespace Negocio
             }
         }
 
-        public void atualizar(ContaBanco contaBanco)
+        /// <summary>
+        /// Atualiza os dados de uma conta bancária
+        /// </summary>
+        /// <param name="contaBanco"></param>
+        public void Atualizar(ContaBanco contaBanco)
         {
             try
             {
-                tb_conta_bancoTA.Update(contaBanco.NumeroConta, contaBanco.Agencia, contaBanco.Descricao, contaBanco.Saldo,
-                    contaBanco.CodBanco, contaBanco.CodContaBanco);
+                ContaBancoE _contaBanco = repContaBanco.ObterEntidade(c => c.codContaBanco == contaBanco.CodContaBanco);
+                Atribuir(contaBanco, _contaBanco);
+
+                repContaBanco.SaveChanges();
             }
             catch (Exception e)
             {
@@ -53,13 +68,18 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codcontaBanco)
+        /// <summary>
+        /// Remove os dados de uma conta bancária
+        /// </summary>
+        /// <param name="codcontaBanco"></param>
+        public void Remover(Int32 codcontaBanco)
         {
             if (codcontaBanco == 1)
                 throw new NegocioException("A conta bancária/Caixa não pode ser excluída.");
             try
             {
-                tb_conta_bancoTA.Delete(codcontaBanco);
+                repContaBanco.Remover(c => c.codContaBanco == codcontaBanco);
+                repContaBanco.SaveChanges();
             }
             catch (Exception e)
             {
@@ -67,16 +87,97 @@ namespace Negocio
             }
         }
 
-        public void atualizaSaldo(Int32 codContaBanco, Decimal valor)
+        /// <summary>
+        /// Atualiza o saldo da conta bancária
+        /// </summary>
+        /// <param name="codContaBanco"></param>
+        /// <param name="valor"></param>
+        public void IncrementaSaldo(Int32 codContaBanco, Decimal valor)
         {
             try
             {
-                tb_conta_bancoTA.UpdateSaldoConta(valor, codContaBanco);
+                ContaBancoE _contaBanco = repContaBanco.ObterEntidade(c => c.codContaBanco == codContaBanco);
+                _contaBanco.saldo += valor;
+
+                repContaBanco.SaveChanges();
             }
             catch (Exception e)
             {
                 throw new DadosException("Conta do Banco", e.Message, e);
             }
+        }
+
+        /// <summary>
+        /// Query Geral para obter dados das contas
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<ContaBanco> GetQuery()
+        {
+            var saceEntities = (SaceEntities)repContaBanco.ObterContexto();
+            var query = from contaBanco in saceEntities.ContaBancoSet
+                        join banco in saceEntities.BancoSet
+                        on contaBanco.codBanco equals banco.codBanco
+                        select new ContaBanco
+                        {
+                            CodContaBanco = contaBanco.codContaBanco,
+                            NumeroConta = contaBanco.numeroconta,
+                            Agencia = contaBanco.agencia,
+                            Descricao = contaBanco.descricao,
+                            Saldo = (decimal)contaBanco.saldo,
+                            CodBanco = (int)contaBanco.codBanco,
+                            NomeBanco = contaBanco.tb_banco.nome
+                        };
+            return query;
+        }
+        
+        
+        /// <summary>
+        /// Obtém todos as contas bancárias
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ContaBanco> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
+
+        /// <summary>
+        /// Obtém contas bancárias com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<ContaBanco> Obter(int codContaBanco)
+        {
+            return GetQuery().Where(contaBanco => contaBanco.CodContaBanco == codContaBanco).ToList();
+        }
+
+        /// <summary>
+        /// Obtém contas bancárias que iniciam com o numero
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<ContaBanco> ObterPorNumero(string numero)
+        {
+            return GetQuery().Where(contaBanco => contaBanco.NumeroConta.StartsWith(numero)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém contas bancárias que iniciam com a descricao
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<ContaBanco> ObterPorDescricao(string descricao)
+        {
+            return GetQuery().Where(contaBanco => contaBanco.Descricao.StartsWith(descricao)).ToList();
+        }
+
+        private void Atribuir(ContaBanco contaBanco, ContaBancoE _contaBanco)
+        {
+            _contaBanco.agencia = contaBanco.Agencia;
+            _contaBanco.codBanco = contaBanco.CodBanco;
+            _contaBanco.codContaBanco = contaBanco.CodContaBanco;
+            _contaBanco.descricao = contaBanco.Descricao;
+            _contaBanco.numeroconta = contaBanco.NumeroConta;
+            _contaBanco.saldo = contaBanco.Saldo;
         }
     }
 }

@@ -7,29 +7,29 @@ namespace Dominio
 {
     public class PlanoConta
     {
-        public const Int32 ENTRADA_PRODUTOS = 1;
-        public const Int32 SAIDA_PRODUTOS = 2;
+        public const int ENTRADA_PRODUTOS = 1;
+        public const int SAIDA_PRODUTOS = 2;
         
 
-        private Int64 codPlanoConta;
+        private long codPlanoConta;
 
-        public Int64 CodPlanoConta
+        public long CodPlanoConta
         {
             get { return codPlanoConta; }
             set { codPlanoConta = value; }
         }
 
-        private Int32 codGrupoConta;
+        private int codGrupoConta;
 
-        public Int32 CodGrupoConta
+        public int CodGrupoConta
         {
             get { return codGrupoConta; }
             set { codGrupoConta = value; }
         }
 
-        private String descricao;
+        private string descricao;
 
-        public String Descricao
+        public string Descricao
         {
             get { return descricao; }
             set { descricao = value; }

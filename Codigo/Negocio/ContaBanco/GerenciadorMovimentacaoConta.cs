@@ -71,11 +71,11 @@ namespace Negocio
 
                 if (tipoMovimentacaoConta.SomaSaldo)
                 {
-                    GerenciadorContaBanco.getInstace().atualizaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor);
+                    GerenciadorContaBanco.GetInstance().IncrementaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor);
                 }
                 else
                 {
-                    GerenciadorContaBanco.getInstace().atualizaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor * (-1));
+                    GerenciadorContaBanco.GetInstance().IncrementaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor * (-1));
                 }
 
                 if (!conta.CodSituacao.Equals(Conta.SITUACAO_QUITADA)) {
@@ -140,11 +140,11 @@ namespace Negocio
 
                 if (movimentacaoConta.SomaSaldo)
                 {
-                    GerenciadorContaBanco.getInstace().atualizaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor * (-1));
+                    GerenciadorContaBanco.GetInstance().IncrementaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor * (-1));
                 }
                 else
                 {
-                    GerenciadorContaBanco.getInstace().atualizaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor);
+                    GerenciadorContaBanco.GetInstance().IncrementaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor);
                 }
 
             }

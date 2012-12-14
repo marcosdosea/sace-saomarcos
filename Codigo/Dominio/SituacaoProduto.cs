@@ -7,20 +7,20 @@ namespace Dominio
 {
     public class SituacaoProduto
     {
-        public const Int32 DISPONIVEL = 1;
-        public const Int32 COMPRA_NECESSARIA = 2;
-        public const Int32 COMPRADO = 3;
+        public const int DISPONIVEL = 1;
+        public const int COMPRA_NECESSARIA = 2;
+        public const int COMPRADO = 3;
 
-        private Int32 codSituacaoProduto;
+        private int codSituacaoProduto;
 
-        public Int32 CodSituacaoProduto
+        public int CodSituacaoProduto
         {
             get { return codSituacaoProduto; }
             set { codSituacaoProduto = value; }
         }
-        private String descricaoSituacao;
+        private string descricaoSituacao;
 
-        public String DescricaoSituacao
+        public string DescricaoSituacao
         {
             get { return descricaoSituacao; }
             set { descricaoSituacao = value; }

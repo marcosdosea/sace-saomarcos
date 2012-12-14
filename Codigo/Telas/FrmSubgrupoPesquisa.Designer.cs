@@ -98,7 +98,6 @@
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.Connection = null;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
             this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
             this.tableAdapterManager.tb_cfopTableAdapter = null;
             this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;

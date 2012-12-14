@@ -203,8 +203,8 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codClienteComboBox.Text);
-            if (pessoa == null)
+            List<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text).ToList();
+            if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();

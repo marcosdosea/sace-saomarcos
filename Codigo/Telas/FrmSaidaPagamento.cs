@@ -9,6 +9,7 @@ using Dominio;
 using Negocio;
 using Util;
 using System.Windows.Forms;
+using Dados;
 
 namespace Telas
 {
@@ -347,8 +348,8 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codClienteComboBox.Text);
-            if (pessoa == null)
+            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text);
+            if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
@@ -372,8 +373,8 @@ namespace Telas
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codProfissionalComboBox.Text);
-            if (pessoa == null)
+            List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codProfissionalComboBox.Text);
+            if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codProfissionalComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();

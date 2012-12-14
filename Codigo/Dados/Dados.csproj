@@ -148,17 +148,6 @@
       <DependentUpon>saceDataSet.xsd</DependentUpon>
     </None>
     <None Include="SaceEntities1.datasource" />
-    <None Include="saceRelatoriosDataSet.xsc">
-      <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="saceRelatoriosDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>saceRelatoriosDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="saceRelatoriosDataSet.xss">
-      <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
-    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -172,15 +161,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>saceDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="saceRelatoriosDataSet.cs">
-      <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="saceRelatoriosDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>saceRelatoriosDataSet.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

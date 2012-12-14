@@ -44,12 +44,8 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_conta_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_conta_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
             this.tb_conta_bancoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -63,7 +59,7 @@
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
             this.saldoTextBox = new System.Windows.Forms.TextBox();
             this.codBancoComboBox = new System.Windows.Forms.ComboBox();
-            this.tbbancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.numerocontaTextBox = new System.Windows.Forms.TextBox();
             this.codContaBancoTextBox = new System.Windows.Forms.TextBox();
             agenciaLabel = new System.Windows.Forms.Label();
@@ -73,11 +69,10 @@
             numerocontaLabel = new System.Windows.Forms.Label();
             codContaBancoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingNavigator)).BeginInit();
             this.tb_conta_bancoBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbbancoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bancoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // agenciaLabel
@@ -215,66 +210,10 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_conta_bancoBindingSource
-            // 
-            this.tb_conta_bancoBindingSource.DataMember = "tb_conta_banco";
-            this.tb_conta_bancoBindingSource.DataSource = this.saceDataSet;
-            this.tb_conta_bancoBindingSource.Sort = "codContaBanco";
-            // 
-            // tb_conta_bancoTableAdapter
-            // 
-            this.tb_conta_bancoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_bancoTableAdapter = this.tb_bancoTableAdapter;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_bancoTableAdapter
-            // 
-            this.tb_bancoTableAdapter.ClearBeforeFill = true;
-            // 
             // tb_conta_bancoBindingNavigator
             // 
             this.tb_conta_bancoBindingNavigator.AddNewItem = null;
-            this.tb_conta_bancoBindingNavigator.BindingSource = this.tb_conta_bancoBindingSource;
+            this.tb_conta_bancoBindingNavigator.BindingSource = this.contaBancoBindingSource;
             this.tb_conta_bancoBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_conta_bancoBindingNavigator.DeleteItem = null;
             this.tb_conta_bancoBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -298,6 +237,10 @@
             this.tb_conta_bancoBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_conta_bancoBindingNavigator.TabIndex = 21;
             this.tb_conta_bancoBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // contaBancoBindingSource
+            // 
+            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
             // 
             // bindingNavigatorCountItem
             // 
@@ -369,7 +312,7 @@
             // agenciaTextBox
             // 
             this.agenciaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.agenciaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "agencia", true));
+            this.agenciaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "Agencia", true));
             this.agenciaTextBox.Location = new System.Drawing.Point(304, 96);
             this.agenciaTextBox.MaxLength = 20;
             this.agenciaTextBox.Name = "agenciaTextBox";
@@ -379,7 +322,7 @@
             // descricaoTextBox
             // 
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "descricao", true));
+            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "Descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(7, 143);
             this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
@@ -389,7 +332,7 @@
             // saldoTextBox
             // 
             this.saldoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "saldo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.saldoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "Saldo", true));
             this.saldoTextBox.Enabled = false;
             this.saldoTextBox.Location = new System.Drawing.Point(7, 185);
             this.saldoTextBox.MaxLength = 12;
@@ -402,28 +345,26 @@
             this.codBancoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codBancoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codBancoComboBox.CausesValidation = false;
-            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_conta_bancoBindingSource, "codBanco", true));
-            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "nomeBanco", true));
-            this.codBancoComboBox.DataSource = this.tbbancoBindingSource;
-            this.codBancoComboBox.DisplayMember = "nome";
+            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "NomeBanco", true));
+            this.codBancoComboBox.DataSource = this.bancoBindingSource;
+            this.codBancoComboBox.DisplayMember = "Nome";
             this.codBancoComboBox.FormattingEnabled = true;
             this.codBancoComboBox.Location = new System.Drawing.Point(133, 185);
             this.codBancoComboBox.Name = "codBancoComboBox";
             this.codBancoComboBox.Size = new System.Drawing.Size(329, 21);
             this.codBancoComboBox.TabIndex = 32;
             this.codBancoComboBox.ValueMember = "codBanco";
-            this.codBancoComboBox.Leave += new System.EventHandler(this.codBancoComboBox_Leave);
             this.codBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codBancoComboBox_KeyPress);
+            this.codBancoComboBox.Leave += new System.EventHandler(this.codBancoComboBox_Leave);
             // 
-            // tbbancoBindingSource
+            // bancoBindingSource
             // 
-            this.tbbancoBindingSource.DataMember = "tb_banco";
-            this.tbbancoBindingSource.DataSource = this.saceDataSet;
+            this.bancoBindingSource.DataSource = typeof(Dominio.Banco);
             // 
             // numerocontaTextBox
             // 
             this.numerocontaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.numerocontaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "numeroconta", true));
+            this.numerocontaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "NumeroConta", true));
             this.numerocontaTextBox.Location = new System.Drawing.Point(137, 96);
             this.numerocontaTextBox.Name = "numerocontaTextBox";
             this.numerocontaTextBox.Size = new System.Drawing.Size(147, 20);
@@ -431,7 +372,7 @@
             // 
             // codContaBancoTextBox
             // 
-            this.codContaBancoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_conta_bancoBindingSource, "codContaBanco", true));
+            this.codContaBancoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "CodContaBanco", true));
             this.codContaBancoTextBox.Location = new System.Drawing.Point(7, 96);
             this.codContaBancoTextBox.Name = "codContaBancoTextBox";
             this.codContaBancoTextBox.ReadOnly = true;
@@ -471,17 +412,16 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro de Contas Bancárias / Caixas";
-            this.Load += new System.EventHandler(this.FrmContaBanco_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmContaBanco_FormClosing);
+            this.Load += new System.EventHandler(this.FrmContaBanco_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmContaBanco_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingNavigator)).EndInit();
             this.tb_conta_bancoBindingNavigator.ResumeLayout(false);
             this.tb_conta_bancoBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbbancoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bancoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -497,10 +437,6 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_conta_bancoBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter tb_conta_bancoTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingNavigator tb_conta_bancoBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -514,10 +450,10 @@
         private System.Windows.Forms.TextBox agenciaTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.TextBox saldoTextBox;
-        private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
         private System.Windows.Forms.ComboBox codBancoComboBox;
-        private System.Windows.Forms.BindingSource tbbancoBindingSource;
         private System.Windows.Forms.TextBox numerocontaTextBox;
         private System.Windows.Forms.TextBox codContaBancoTextBox;
+        private System.Windows.Forms.BindingSource contaBancoBindingSource;
+        private System.Windows.Forms.BindingSource bancoBindingSource;
     }
 }

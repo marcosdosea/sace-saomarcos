@@ -7,17 +7,17 @@ namespace Dominio
 {
     public class GrupoConta
     {
-        private Int32 codGrupoConta;
+        private int codGrupoConta;
 
-        public Int32 CodGrupoConta
+        public int CodGrupoConta
         {
             get { return codGrupoConta; }
             set { codGrupoConta = value; }
         }
 
-        private String descricao;
+        private string descricao;
 
-        public String Descricao
+        public string Descricao
         {
             get { return descricao; }
             set { descricao = value; }

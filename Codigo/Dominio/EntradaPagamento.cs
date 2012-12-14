@@ -7,44 +7,44 @@ namespace Dominio
 {
     public class EntradaPagamento
     {
-        private Int64 codEntradaFormaPagamento;
-        public Int64 CodEntradaFormaPagamento
+        private long codEntradaFormaPagamento;
+        public long CodEntradaFormaPagamento
         {
             get { return codEntradaFormaPagamento; }
             set { codEntradaFormaPagamento = value; }
         }
 
-        private Int64 codEntrada;
+        private long codEntrada;
 
-        public Int64 CodEntrada
+        public long CodEntrada
         {
             get { return codEntrada; }
             set { codEntrada = value; }
         }
-        private Int32 codFormaPagamento;
+        private int codFormaPagamento;
 
-        public Int32 CodFormaPagamento
+        public int CodFormaPagamento
         {
             get { return codFormaPagamento; }
             set { codFormaPagamento = value; }
         }
-        private Int32 codContaBanco;
+        private int codContaBanco;
 
-        public Int32 CodContaBanco
+        public int CodContaBanco
         {
             get { return codContaBanco; }
             set { codContaBanco = value; }
         }
-        private Int64 codDocumentoPagamento;
+        private long codDocumentoPagamento;
 
-        public Int64 CodDocumentoPagamento
+        public long CodDocumentoPagamento
         {
             get { return codDocumentoPagamento; }
             set { codDocumentoPagamento = value; }
         }
-        private Decimal valor;
+        private decimal valor;
 
-        public Decimal Valor
+        public decimal Valor
         {
             get { return valor; }
             set { valor = value; }

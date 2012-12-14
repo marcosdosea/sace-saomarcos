@@ -7,10 +7,10 @@ namespace Dominio
 {
     public class SaidaProduto
     {
-        public Int64 CodSaidaProduto { get; set; }
-        public Int32 CodProduto { get; set; }
-        public String Nome { get; set; }
-        public Int64 CodSaida { get; set; }
+        public long CodSaidaProduto { get; set; }
+        public int CodProduto { get; set; }
+        public string Nome { get; set; }
+        public long CodSaida { get; set; }
         public decimal Quantidade { get; set; }
         public decimal ValorVenda { get; set; }
         public decimal ValorVendaAVista { get; set; }
@@ -27,8 +27,8 @@ namespace Dominio
         }
 
         public DateTime DataValidade { get; set; }
-        public String CodCST { get; set; }
-        public String Unidade { get; set; }
+        public string CodCST { get; set; }
+        public string Unidade { get; set; }
         public decimal BaseCalculoICMS { get; set; }
         public decimal ValorICMS { get; set; }
         public decimal BaseCalculoICMSSubst { get; set; }

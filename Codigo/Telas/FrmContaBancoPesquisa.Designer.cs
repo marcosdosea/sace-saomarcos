@@ -34,18 +34,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_conta_bancoDataGridView = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numeroConta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tb_conta_bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_conta_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
+            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codContaBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.agenciaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -96,12 +92,12 @@
             this.tb_conta_bancoDataGridView.AutoGenerateColumns = false;
             this.tb_conta_bancoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_conta_bancoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.numeroConta,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.tb_conta_bancoDataGridView.DataSource = this.tb_conta_bancoBindingSource;
+            this.codContaBancoDataGridViewTextBoxColumn,
+            this.descricaoDataGridViewTextBoxColumn,
+            this.numeroContaDataGridViewTextBoxColumn,
+            this.agenciaDataGridViewTextBoxColumn,
+            this.nomeBancoDataGridViewTextBoxColumn});
+            this.tb_conta_bancoDataGridView.DataSource = this.contaBancoBindingSource;
             this.tb_conta_bancoDataGridView.Location = new System.Drawing.Point(17, 61);
             this.tb_conta_bancoDataGridView.MultiSelect = false;
             this.tb_conta_bancoDataGridView.Name = "tb_conta_bancoDataGridView";
@@ -111,93 +107,45 @@
             this.tb_conta_bancoDataGridView.TabIndex = 4;
             this.tb_conta_bancoDataGridView.TabStop = false;
             // 
-            // Column1
+            // contaBancoBindingSource
             // 
-            this.Column1.DataPropertyName = "codContaBanco";
-            this.Column1.HeaderText = "Código";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
             // 
-            // numeroConta
+            // codContaBancoDataGridViewTextBoxColumn
             // 
-            this.numeroConta.DataPropertyName = "numeroconta";
-            this.numeroConta.HeaderText = "Número Conta";
-            this.numeroConta.Name = "numeroConta";
-            this.numeroConta.ReadOnly = true;
+            this.codContaBancoDataGridViewTextBoxColumn.DataPropertyName = "CodContaBanco";
+            this.codContaBancoDataGridViewTextBoxColumn.HeaderText = "Código";
+            this.codContaBancoDataGridViewTextBoxColumn.Name = "codContaBancoDataGridViewTextBoxColumn";
+            this.codContaBancoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn3
+            // descricaoDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "agencia";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Agência";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.descricaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
+            this.descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
+            this.descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
+            this.descricaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // numeroContaDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "descricao";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Descrição";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.numeroContaDataGridViewTextBoxColumn.DataPropertyName = "NumeroConta";
+            this.numeroContaDataGridViewTextBoxColumn.HeaderText = "Número Conta";
+            this.numeroContaDataGridViewTextBoxColumn.Name = "numeroContaDataGridViewTextBoxColumn";
+            this.numeroContaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn5
+            // agenciaDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "saldo";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Saldo";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.agenciaDataGridViewTextBoxColumn.DataPropertyName = "Agencia";
+            this.agenciaDataGridViewTextBoxColumn.HeaderText = "Agencia";
+            this.agenciaDataGridViewTextBoxColumn.Name = "agenciaDataGridViewTextBoxColumn";
+            this.agenciaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // tb_conta_bancoBindingSource
+            // nomeBancoDataGridViewTextBoxColumn
             // 
-            this.tb_conta_bancoBindingSource.DataMember = "tb_conta_banco";
-            this.tb_conta_bancoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "Dados";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = this.tb_conta_bancoTableAdapter;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_conta_bancoTableAdapter
-            // 
-            this.tb_conta_bancoTableAdapter.ClearBeforeFill = true;
+            this.nomeBancoDataGridViewTextBoxColumn.DataPropertyName = "NomeBanco";
+            this.nomeBancoDataGridViewTextBoxColumn.HeaderText = "NomeBanco";
+            this.nomeBancoDataGridViewTextBoxColumn.Name = "nomeBancoDataGridViewTextBoxColumn";
+            this.nomeBancoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmContaBancoPesquisa
             // 
@@ -218,8 +166,7 @@
             this.Load += new System.EventHandler(this.FrmBancoPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmBancoPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,16 +177,13 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private Dados.saceDataSet saceDataSet;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter tb_conta_bancoTableAdapter;
-        private System.Windows.Forms.BindingSource tb_conta_bancoBindingSource;
         private System.Windows.Forms.DataGridView tb_conta_bancoDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numeroConta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codContaBancoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroContaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn agenciaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeBancoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource contaBancoBindingSource;
   
     }
 }

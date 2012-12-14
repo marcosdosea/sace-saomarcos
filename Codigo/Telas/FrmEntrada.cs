@@ -4,6 +4,8 @@ using Negocio;
 using Dominio;
 using Util;
 using System.Data;
+using Dados;
+using System.Collections.Generic;
 
 namespace Telas
 {
@@ -420,8 +422,8 @@ namespace Telas
         private void codFornecedorComboBox_Leave(object sender, EventArgs e)
         {
             if (estado.Equals(EstadoFormulario.INSERIR)) {
-                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codFornecedorComboBox.Text);
-                if (pessoa == null)
+                List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codFornecedorComboBox.Text);
+                if (pessoas.Count == 0)
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
@@ -438,7 +440,7 @@ namespace Telas
                 }
                 else
                 {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
                 }
             }
             codEntradaTextBox_Leave(sender, e);
@@ -448,8 +450,8 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codEmpresaFreteComboBox.Text);
-                if (pessoa == null)
+                List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
+                if (pessoas.Count == 0)
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
@@ -466,7 +468,7 @@ namespace Telas
                 }
                 else
                 {
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoa.CodPessoa);
+                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoas[0].codPessoa);
                 }
             }
             codEntradaTextBox_Leave(sender, e);

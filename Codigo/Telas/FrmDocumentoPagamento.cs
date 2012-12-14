@@ -49,7 +49,7 @@ namespace Telas
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
 
             this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            codBancoComboBox.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
             this.tb_tipo_documentoTableAdapter.Fill(this.saceDataSet.tb_tipo_documento);
             this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
 
@@ -269,7 +269,7 @@ namespace Telas
                     frmBanco.ShowDialog();
                     if (frmBanco.CodBanco > 0)
                     {
-                        this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+                        codBancoComboBox.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
                         tbbancoBindingSource.Position = tbbancoBindingSource.Find("codBanco", frmBanco.CodBanco);
                     }
                     frmBanco.Dispose();

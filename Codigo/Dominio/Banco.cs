@@ -7,19 +7,18 @@ namespace Dominio
 {
     public class Banco
     {
-        private int codBanco;
+        public int CodBanco { get; set; }
+        public string Nome { get; set; }
 
-        public int CodBanco
+     
+        public override bool Equals(object obj)
         {
-            get { return codBanco; }
-            set { codBanco = value; }
-        }
-        private String nome;
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
 
-        public String Nome
-        {
-            get { return nome; }
-            set { nome = value; }
+            return this.CodBanco.Equals(((Banco) obj).CodBanco);
         }
     }
 }

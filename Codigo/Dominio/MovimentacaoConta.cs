@@ -12,16 +12,16 @@ namespace Dominio
         public const int TROCO_CLIENTE = 3;
         public const int DEVOLUCAO_CLIENTE = 4;
 
-        private Int64 codMovimentacao;
+        private long codMovimentacao;
 
-        public Int64 CodMovimentacao
+        public long CodMovimentacao
         {
             get { return codMovimentacao; }
             set { codMovimentacao = value; }
         }
-        private Int32 codTipoMovimentacao;
+        private int codTipoMovimentacao;
 
-        public Int32 CodTipoMovimentacao
+        public int CodTipoMovimentacao
         {
             get { return codTipoMovimentacao; }
             set { codTipoMovimentacao = value; }
@@ -40,24 +40,24 @@ namespace Dominio
             get { return dataHora; }
             set { dataHora = value; }
         }
-        private Int64 codResponsavel;
+        private long codResponsavel;
 
-        public Int64 CodResponsavel
+        public long CodResponsavel
         {
             get { return codResponsavel; }
             set { codResponsavel = value; }
         }
-        private Int32 codContaBanco;
+        private int codContaBanco;
 
-        public Int32 CodContaBanco
+        public int CodContaBanco
         {
             get { return codContaBanco; }
             set { codContaBanco = value; }
         }
 
-        private Int64 codConta;
+        private long codConta;
 
-        public Int64 CodConta
+        public long CodConta
         {
             get { return codConta; }
             set { codConta = value; }

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace Telas
 {
@@ -53,9 +54,9 @@ namespace Telas
                 txtTexto.Select(filtroNome.Length+1, filtroNome.Length+1);
             } else if (filtroTipoPessoa != null) 
             {
-                this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, filtroTipoPessoa.ToString());
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(filtroTipoPessoa.ToString());
             } else {
-                this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             } 
          }
 
@@ -64,15 +65,15 @@ namespace Telas
             try
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_pessoaTableAdapter.FillByCodPessoa(this.saceDataSet.tb_pessoa, int.Parse(txtTexto.Text));
+                    pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(long.Parse(txtTexto.Text));
                 else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                    this.tb_pessoaTableAdapter.FillByCpfCnpj(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                    pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(txtTexto.Text);
                 else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                    this.tb_pessoaTableAdapter.FillByEndereco(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                    pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorEndereco(txtTexto.Text);
                 else if ((cmbBusca.SelectedIndex == 4) && !txtTexto.Text.Equals(""))
-                    this.tb_pessoaTableAdapter.FillByBairro(this.saceDataSet.tb_pessoa, txtTexto.Text);          
+                    pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorBairro(txtTexto.Text);         
                 else
-                    this.tb_pessoaTableAdapter.FillByNomeFantasia(this.saceDataSet.tb_pessoa, txtTexto.Text);
+                    pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(txtTexto.Text);
             }
             catch (System.Exception ex)
             {
@@ -82,7 +83,7 @@ namespace Telas
 
         private void tb_pessoaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codPessoa = int.Parse(tb_pessoaDataGridView.SelectedRows[0].Cells[2].Value.ToString());
+            codPessoa = int.Parse(tb_pessoaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
             this.Close();
         }
 
@@ -98,11 +99,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_pessoaBindingSource.MoveNext();
+                pessoaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_pessoaBindingSource.MovePrevious();
+                pessoaBindingSource.MovePrevious();
             }
         }
 

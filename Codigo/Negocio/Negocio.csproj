@@ -65,7 +65,6 @@
     <Compile Include="ContaBanco\GerenciadorTipoMovimentacaoConta.cs" />
     <Compile Include="ContaBanco\GerenciadorMovimentacaoConta.cs" />
     <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
-    <Compile Include="ContatoPessoa\GerenciadorContatoPessoa.cs" />
     <Compile Include="Conta\GerenciadorFormaPagamento.cs" />
     <Compile Include="Conta\GerenciadorConta.cs" />
     <Compile Include="Cfop\GerenciadorCfop.cs" />

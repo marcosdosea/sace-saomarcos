@@ -8,20 +8,20 @@ namespace Dominio
     public class SituacaoPagamentos
     {
 
-        public const Int32 ABERTA = 1;
-        public const Int32 LANCADOS = 2;
-        public const Int32 QUITADA = 3;
+        public const int ABERTA = 1;
+        public const int LANCADOS = 2;
+        public const int QUITADA = 3;
 
-        private Int32 codSituacaoPagamentos;
+        private int codSituacaoPagamentos;
 
-        public Int32 CodSituacaoPagamentos
+        public int CodSituacaoPagamentos
         {
             get { return codSituacaoPagamentos; }
             set { codSituacaoPagamentos = value; }
         }
-        private String descricaoSituacaoPagamentos;
+        private string descricaoSituacaoPagamentos;
 
-        public String DescricaoSituacaoPagamentos
+        public string DescricaoSituacaoPagamentos
         {
             get { return descricaoSituacaoPagamentos; }
             set { descricaoSituacaoPagamentos = value; }

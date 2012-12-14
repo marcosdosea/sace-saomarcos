@@ -7,32 +7,46 @@ namespace Dominio
 {
     public class Pessoa
     {
-        public const String PESSOA_FISICA = "F";
-        public const String PESSOA_JURIDICA = "J";
+        public const string PESSOA_FISICA = "F";
+        public const string PESSOA_JURIDICA = "J";
 
-        public Int64 CodPessoa { get; set; }
-        public String Nome { get; set; }
-        public String NomeFantasia { get; set; }
-        public String CpfCnpj { get; set; }
-        public String IeSubstituto { get; set; }
-        public String Ie { get; set; }
-        public String Endereco { get; set; }
-        public String Numero { get; set; }
-        public String Complemento { get; set; }
-        public String Cep { get; set; }
-        public String Bairro { get; set; }
-        public String Cidade { get; set; }
-        public String Uf { get; set; }
-        public String Email { get; set; }
-        public String Fone1 { get; set; }
-        public String Fone2 { get; set; }
-        public String Fone3 { get; set; }
-        public Decimal LimiteCompra { get; set; }
-        public Decimal ValorComissao { get; set; }
-        public String Observacao { get; set; }
-        public Char Tipo { get; set; }
+        public long CodPessoa { get; set; }
+        public string Nome { get; set; }
+        public string NomeFantasia { get; set; }
+        public string CpfCnpj { get; set; }
+        public string IeSubstituto { get; set; }
+        public string Ie { get; set; }
+        public string Endereco { get; set; }
+        public string Numero { get; set; }
+        public string Complemento { get; set; }
+        public string Cep { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Uf { get; set; }
+        public string Email { get; set; }
+        public string Fone1 { get; set; }
+        public string Fone2 { get; set; }
+        public string Fone3 { get; set; }
+        public decimal LimiteCompra { get; set; }
+        public decimal ValorComissao { get; set; }
+        public string Observacao { get; set; }
+        public string Tipo { get; set; }
         public bool EhFabricante { get; set; }
         public bool ImprimirCF { get; set; }
         public bool ImprimirDAV { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodPessoa == ((Pessoa)obj).CodPessoa;    
+        }
+
+      
     }
 }

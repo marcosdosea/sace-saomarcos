@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace Telas
 {
@@ -27,16 +28,16 @@ namespace Telas
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_bancoTableAdapter.Fill(this.saceDataSet.tb_banco);
+            bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_bancoTableAdapter.FillByCodBanco(this.saceDataSet.tb_banco, int.Parse(txtTexto.Text));
+                bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().Obter(int.Parse(txtTexto.Text));
             else
-                this.tb_bancoTableAdapter.FillByNome(this.saceDataSet.tb_banco, txtTexto.Text);
+                bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterPorNome(txtTexto.Text);
 
         }
 
@@ -58,11 +59,11 @@ namespace Telas
             }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_bancoBindingSource.MoveNext();
+                bancoBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_bancoBindingSource.MovePrevious();
+                bancoBindingSource.MovePrevious();
             }
         }
 

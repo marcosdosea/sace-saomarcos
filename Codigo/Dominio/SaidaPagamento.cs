@@ -7,46 +7,46 @@ namespace Dominio
 {
     public class SaidaPagamento
     {
-        private Int64 codSaidaPagamento;
+        private long codSaidaPagamento;
 
-        public Int64 CodSaidaPagamento
+        public long CodSaidaPagamento
         {
             get { return codSaidaPagamento; }
             set { codSaidaPagamento = value; }
         }
-        private Int64 codSaida;
+        private long codSaida;
 
-        public Int64 CodSaida
+        public long CodSaida
         {
             get { return codSaida; }
             set { codSaida = value; }
         }
-        private Int32 codFormaPagamento;
+        private int codFormaPagamento;
 
-        public Int32 CodFormaPagamento
+        public int CodFormaPagamento
         {
             get { return codFormaPagamento; }
             set { codFormaPagamento = value; }
         }
-        private Int32 codContaBanco;
+        private int codContaBanco;
 
-        public Int32 CodContaBanco
+        public int CodContaBanco
         {
             get { return codContaBanco; }
             set { codContaBanco = value; }
         }
 
-        private Int32 codCartaoCredito;
+        private int codCartaoCredito;
 
-        public Int32 CodCartaoCredito
+        public int CodCartaoCredito
         {
             get { return codCartaoCredito; }
             set { codCartaoCredito = value; }
         }
 
-        private Int64 codPessoaResponsavel;
+        private long codPessoaResponsavel;
 
-        public Int64 CodPessoaResponsavel
+        public long CodPessoaResponsavel
         {
             get { return codPessoaResponsavel; }
             set { codPessoaResponsavel = value; }
@@ -67,56 +67,56 @@ namespace Dominio
             set { data = value; }
         }
 
-        private Int64 codDocumentoPagamento;
+        private long codDocumentoPagamento;
 
-        public Int64 CodDocumentoPagamento
+        public long CodDocumentoPagamento
         {
             get { return codDocumentoPagamento; }
             set { codDocumentoPagamento = value; }
         }
 
-        private Int32 parcelas;
+        private int parcelas;
 
-        public Int32 Parcelas
+        public int Parcelas
         {
             get { return parcelas; }
             set { parcelas = value; }
         }
-        private Int32 intervaloDias;
+        private int intervaloDias;
 
-        public Int32 IntervaloDias
+        public int IntervaloDias
         {
             get { return intervaloDias; }
             set { intervaloDias = value; }
         }
 
-        private String mapeamentoFormaPagamento;
+        private string mapeamentoFormaPagamento;
 
-        public String MapeamentoFormaPagamento
+        public string MapeamentoFormaPagamento
         {
             get { return mapeamentoFormaPagamento; }
             set { mapeamentoFormaPagamento = value; }
         }
 
-        private String mapeamentoCartao;
+        private string mapeamentoCartao;
 
-        public String MapeamentoCartao
+        public string MapeamentoCartao
         {
             get { return mapeamentoCartao; }
             set { mapeamentoCartao = value; }
         }
 
-        private String descricaoFormaPagamento;
+        private string descricaoFormaPagamento;
 
-        public String DescricaoFormaPagamento
+        public string DescricaoFormaPagamento
         {
             get { return descricaoFormaPagamento; }
             set { descricaoFormaPagamento = value; }
         }
 
-        private String nomeCartaoCredito;
+        private string nomeCartaoCredito;
 
-        public String NomeCartaoCredito
+        public string NomeCartaoCredito
         {
             get { return nomeCartaoCredito; }
             set { nomeCartaoCredito = value; }

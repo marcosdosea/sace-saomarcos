@@ -14,26 +14,63 @@ namespace Negocio
     public class GerenciadorCartaoCredito
     {
         private static GerenciadorCartaoCredito gCartaoCredito;
-        private static tb_cartao_creditoTableAdapter tb_cartaoCreditoTA;
+        private static RepositorioGenerico<CartaoCreditoE, SaceEntities> repCartaoCredito;
         
-        public static GerenciadorCartaoCredito getInstace()
+        public static GerenciadorCartaoCredito GetInstance()
         {
             if (gCartaoCredito == null)
             {
                 gCartaoCredito = new GerenciadorCartaoCredito();
-                tb_cartaoCreditoTA = new tb_cartao_creditoTableAdapter();
+                repCartaoCredito = new RepositorioGenerico<CartaoCreditoE, SaceEntities>("chave");
             }
             return gCartaoCredito;
         }
 
-        public Int64 inserir(CartaoCredito cartaoCredito)
+        /// <summary>
+        /// Insere os dados de um cartão de crédito
+        /// </summary>
+        /// <param name="cartaoCredito"></param>
+        /// <returns></returns>
+        public Int64 Inserir(CartaoCredito cartaoCredito)
         {
             try
             {
-                tb_cartaoCreditoTA.Insert(cartaoCredito.Nome, cartaoCredito.DiaBase,
-                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, cartaoCredito.Mapeamento);
+                CartaoCreditoE _cartaoCredito = new CartaoCreditoE();
+                _cartaoCredito.codCartao = cartaoCredito.CodCartao;
+                _cartaoCredito.codContaBanco = cartaoCredito.CodContaBanco;
+                _cartaoCredito.codPessoa = cartaoCredito.CodPessoa;
+                _cartaoCredito.diaBase = cartaoCredito.DiaBase;
+                _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
+                _cartaoCredito.nome = cartaoCredito.Nome;
+                
+                repCartaoCredito.Inserir(_cartaoCredito);
+                repCartaoCredito.SaveChanges();
+                
+                return _cartaoCredito.codCartao;
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Cartão de Crédito", e.Message, e);
+            }
+        }
+        
+        /// <summary>
+        /// Atualiza os dados de um cartão de crédito
+        /// </summary>
+        /// <param name="cartaoCredito"></param>
+        public void Atualizar(CartaoCredito cartaoCredito)
+        {
+            try
+            {
+                CartaoCreditoE _cartaoCredito = repCartaoCredito.ObterEntidade(cartao => cartao.codCartao == cartaoCredito.CodCartao);
+                _cartaoCredito.codCartao = cartaoCredito.CodCartao;
+                _cartaoCredito.codContaBanco = cartaoCredito.CodContaBanco;
+                _cartaoCredito.codPessoa = cartaoCredito.CodPessoa;
+                _cartaoCredito.diaBase = cartaoCredito.DiaBase;
+                _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
+                _cartaoCredito.nome = cartaoCredito.Nome;
 
-                return 0;
+                repCartaoCredito.SaveChanges();
             }
             catch (Exception e)
             {
@@ -41,12 +78,20 @@ namespace Negocio
             }
         }
 
-        public void atualizar(CartaoCredito cartaoCredito)
+        /// <summary>
+        /// Remove os dados de um cartão de crédito
+        /// </summary>
+        /// <param name="codCartaoCredito"></param>
+        public void Remover(int codCartaoCredito)
         {
             try
             {
-                tb_cartaoCreditoTA.Update(cartaoCredito.Nome, cartaoCredito.DiaBase,
-                    cartaoCredito.CodContaBanco, cartaoCredito.CodPessoa, cartaoCredito.Mapeamento, cartaoCredito.CodCartao);
+                if (codCartaoCredito == 1)
+                {
+                    throw new NegocioException("Esse cartão de crédito não pode ser removido");
+                }
+                repCartaoCredito.Remover(cartao => cartao.codCartao == codCartaoCredito);
+                repCartaoCredito.SaveChanges();
             }
             catch (Exception e)
             {
@@ -54,33 +99,55 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codCartaoCredito)
+        private IQueryable<CartaoCredito> GetQuery()
         {
-            try
-            {
-                tb_cartaoCreditoTA.Delete(codCartaoCredito);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Cartão de Crédito", e.Message, e);
-            }
+            var saceEntities = (SaceEntities)repCartaoCredito.ObterContexto();
+            var query = from cartao in saceEntities.CartaoCreditoSet
+                        join contaBanco in saceEntities.ContaBancoSet on cartao.codContaBanco equals contaBanco.codContaBanco
+                        join pessoa in saceEntities.PessoaSet on cartao.codPessoa equals pessoa.codPessoa
+
+                        select new CartaoCredito
+                        {
+                            CodCartao = cartao.codCartao,
+                            CodContaBanco = cartao.codContaBanco,
+                            CodPessoa = (int) cartao.codPessoa,
+                            DiaBase = (int) cartao.diaBase,
+                            Mapeamento = cartao.mapeamento,
+                            Nome = cartao.nome,
+                            DescricaoContaBanco = contaBanco.descricao,
+                            NomePessoa = pessoa.nomeFantasia
+                        };
+            return query;
+         
         }
 
-        public CartaoCredito obterCartaoCredito(Int32 codCartaoCredito)
+        /// <summary>
+        /// Obtém todos os cartões de crédito cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CartaoCredito> ObterTodos()
         {
-            CartaoCredito cartaoCredito = new CartaoCredito();
-            
-            Dados.saceDataSetTableAdapters.tb_cartao_creditoTableAdapter tb_cartaoCreditoTA = new tb_cartao_creditoTableAdapter();
-            Dados.saceDataSet.tb_cartao_creditoDataTable cartaoCreditoDT = tb_cartaoCreditoTA.GetDataByCodCartao(codCartaoCredito);
+            return GetQuery().ToList();
+        }
 
-            cartaoCredito.CodCartao = Convert.ToInt32(cartaoCreditoDT.Rows[0]["codCartao"].ToString());
-            cartaoCredito.CodContaBanco = Convert.ToInt32(cartaoCreditoDT.Rows[0]["codContaBanco"].ToString());
-            cartaoCredito.CodPessoa = Convert.ToInt64(cartaoCreditoDT.Rows[0]["codPessoa"].ToString());
-            cartaoCredito.DiaBase = Convert.ToInt32(cartaoCreditoDT.Rows[0]["diaBase"].ToString());
-            cartaoCredito.Nome = cartaoCreditoDT.Rows[0]["nome"].ToString();
-            cartaoCredito.Mapeamento = cartaoCreditoDT.Rows[0]["mapeamento"].ToString();
+        /// <summary>
+        /// Obtém os dados do cartão pelo código
+        /// </summary>
+        /// <param name="codCartaoCredito"></param>
+        /// <returns>código do cartão</returns>
+        public IEnumerable<CartaoCredito> Obter(Int32 codCartaoCredito)
+        {
+            return GetQuery().Where(cartao => cartao.CodCartao == codCartaoCredito).ToList();
+        }
 
-            return cartaoCredito;
+        /// <summary>
+        /// Obtém os dados do cartão pelo nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns>nome do cartão</returns>
+        public IEnumerable<CartaoCredito> ObterPorNome(string nome)
+        {
+            return GetQuery().Where(cartao => cartao.Nome.StartsWith(nome)).ToList();
         }
     }
 }

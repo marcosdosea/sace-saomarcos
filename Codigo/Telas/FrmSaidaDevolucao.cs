@@ -9,6 +9,7 @@ using Dominio;
 using Negocio;
 using Util;
 using System.Windows.Forms;
+using Dados;
 
 namespace Telas
 {
@@ -123,8 +124,8 @@ namespace Telas
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codEmpresaFreteComboBox.Text);
-            if (pessoa == null)
+            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
+            if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
@@ -141,15 +142,15 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
             }
             codSaidaTextBox_Leave(sender, e);
         }
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa pessoa = GerenciadorPessoa.getInstace().obterPessoaNomeFantasiaIgual(codClienteComboBox.Text);
-            if (pessoa == null)
+            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text);
+            if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
@@ -166,7 +167,7 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoa.CodPessoa);
+                tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoas[0].codPessoa);
             }
             codSaidaTextBox_Leave(sender, e);
         }

@@ -79,7 +79,6 @@
              this.tbpessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
              this.tb_documento_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_documento_pagamentoTableAdapter();
              this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
-             this.tb_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_bancoTableAdapter();
              this.tb_tipo_documentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_tipo_documentoTableAdapter();
              codDocumentoPagamentoLabel = new System.Windows.Forms.Label();
              codPessoaResponsavelLabel = new System.Windows.Forms.Label();
@@ -567,10 +566,6 @@
              // 
              this.tb_pessoaTableAdapter.ClearBeforeFill = true;
              // 
-             // tb_bancoTableAdapter
-             // 
-             this.tb_bancoTableAdapter.ClearBeforeFill = true;
-             // 
              // tb_tipo_documentoTableAdapter
              // 
              this.tb_tipo_documentoTableAdapter.ClearBeforeFill = true;
@@ -675,7 +670,6 @@
          private System.Windows.Forms.BindingSource tbpessoaBindingSource;
          private System.Windows.Forms.BindingSource tbbancoBindingSource;
          private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
-         private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
          private System.Windows.Forms.BindingSource tbtipodocumentoBindingSource;
          private Dados.saceDataSetTableAdapters.tb_tipo_documentoTableAdapter tb_tipo_documentoTableAdapter;
      }

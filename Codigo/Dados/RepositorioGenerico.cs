@@ -37,6 +37,15 @@ namespace Dados
         }
 
         /// <summary>
+        /// Retorna contexto para criação de consultas específicas
+        /// </summary>
+        /// <returns></returns>
+        public ObjectContext ObterContexto()
+        {
+            return _context;
+        }
+
+        /// <summary>
         /// Insere uma nova entidade no contexto
         /// </summary>
         /// <param name="entity"></param>
@@ -108,7 +117,7 @@ namespace Dados
         /// <returns>conjunto de entidades</returns>
         public IEnumerable<T> Obter(Func<T, bool> where)
         {
-            return _objectSet.Where(where).ToList();
+            return _objectSet.Where(where);
         }
 
         /// <summary>

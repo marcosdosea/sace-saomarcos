@@ -7,41 +7,41 @@ namespace Dominio
 {
     public class FormaPagamento
     {
-        public const Int32 DINHEIRO = 1;
-        public const Int32 CREDIARIO = 2;
-        public const Int32 CARTAO = 3;
-        public const Int32 BOLETO = 4;
-        public const Int32 CHEQUE = 5;
-        public const Int32 DEPOSITO = 6;
-        public const Int32 PROMISSORIA = 7;
+        public const int DINHEIRO = 1;
+        public const int CREDIARIO = 2;
+        public const int CARTAO = 3;
+        public const int BOLETO = 4;
+        public const int CHEQUE = 5;
+        public const int DEPOSITO = 6;
+        public const int PROMISSORIA = 7;
 
-        public const String MAPEAMENTO_DINHEIRO = "1";
-        public const String MAPEAMENTO_CHEQUE = "2";
-        public const String MAPEAMENTO_TROCA = "4";
-        public const String MAPEAMENTO_PRAZO = "5";
-        public const String MAPEAMENTO_FINANCEIRA = "6";
-        public const String MAPEAMENTO_VISA_MASTER = "7";
-        public const String MAPEAMENTO_BANESE = "8";
-        public const String MAPEAMENTO_HIPER = "9";
+        public const string MAPEAMENTO_DINHEIRO = "1";
+        public const string MAPEAMENTO_CHEQUE = "2";
+        public const string MAPEAMENTO_TROCA = "4";
+        public const string MAPEAMENTO_PRAZO = "5";
+        public const string MAPEAMENTO_FINANCEIRA = "6";
+        public const string MAPEAMENTO_VISA_MASTER = "7";
+        public const string MAPEAMENTO_BANESE = "8";
+        public const string MAPEAMENTO_HIPER = "9";
 
 
-        private Int32 codFormaPagamento;
+        private int codFormaPagamento;
 
-        public Int32 CodFormaPagamento
+        public int CodFormaPagamento
         {
             get { return codFormaPagamento; }
             set { codFormaPagamento = value; }
         }
-        private String descricao;
+        private string descricao;
 
-        public String Descricao
+        public string Descricao
         {
             get { return descricao; }
             set { descricao = value; }
         }
-        private Int32 parcelas;
+        private int parcelas;
 
-        public Int32 Parcelas
+        public int Parcelas
         {
             get { return parcelas; }
             set { parcelas = value; }
