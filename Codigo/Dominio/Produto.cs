@@ -52,7 +52,7 @@ namespace Dominio
         public decimal PrecoVendaVarejo { get; set; }
         public decimal PrecoVendaVarejoSemDesconto
         {
-            get { return Math.Round((PrecoVendaVarejo * Global.ACRESCIMO_PADRAO), 2); }
+            get { return Math.Round((PrecoVendaVarejo * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }
         }
 
         public decimal QtdProdutoAtacado { get; set; }
@@ -60,7 +60,7 @@ namespace Dominio
         public decimal PrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacadoSemDesconto
         {
-            get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 2); }
+            get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
         }
         
         public Boolean ExibeNaListagem { get; set; }

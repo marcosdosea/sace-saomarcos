@@ -32,6 +32,10 @@ namespace Negocio
         {
             try
             {
+                if (produto.Nome.Trim().Equals(""))
+                    throw new NegocioException("O nome do produto não pode ficar em branco.");
+                
+                
                 byte temVencimentoByte  = (byte) (produto.TemVencimento?1:0);
                 byte exibeNaListagemByte = (byte)(produto.ExibeNaListagem ? 1 : 0);
                 tb_produtoTA.Insert(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade, 
@@ -58,6 +62,9 @@ namespace Negocio
         {
             if (produto.CodProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
+            else if (produto.Nome.Trim().Equals(""))
+                throw new NegocioException("O nome do produto não pode ficar em branco.");
+               
             try
             {
                 Produto produtoAtual = obterProduto(produto.CodProduto);

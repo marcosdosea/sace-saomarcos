@@ -25,21 +25,27 @@ namespace Telas
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             if ((codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 1)) {
                 this.tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
             }
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
+
+            fornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            empresaFreteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
+            cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
             this.tb_entradaTableAdapter.FillEntradas(this.saceDataSet.tb_entrada);
             this.tb_situacao_pagamentosTableAdapter.Fill(this.saceDataSet.tb_situacao_pagamentos);
-            this.tb_cstTableAdapter.Fill(this.saceDataSet.tb_cst);
             tb_entradaBindingSource.MoveLast();
             entrada = new Entrada();
             entradaProduto = new EntradaProduto();
             tipoEntrada = Entrada.TIPO_ENTRADA;
             habilitaBotoes(true);
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -173,8 +179,8 @@ namespace Telas
                 entradaProduto.QtdProdutoAtacado = Convert.ToDecimal(qtdProdutoAtacadoTextBox.Text);
                 entradaProduto.Desconto = Convert.ToDecimal(descontoProdutoTextBox.Text);
 
-                entradaProduto.FornecedorEhFabricante = ((Dados.saceDataSet.tb_pessoaRow) ((System.Data.DataRowView) tbpessoaBindingSource.Current).Row).ehFabricante;
-                entradaProduto.CodFornecedor = ((Dados.saceDataSet.tb_pessoaRow)((System.Data.DataRowView)tbpessoaBindingSource.Current).Row).codPessoa;
+                entradaProduto.FornecedorEhFabricante = ((Dados.saceDataSet.tb_pessoaRow) ((System.Data.DataRowView) fornecedorBindingSource.Current).Row).ehFabricante;
+                entradaProduto.CodFornecedor = ((Dados.saceDataSet.tb_pessoaRow)((System.Data.DataRowView)fornecedorBindingSource.Current).Row).codPessoa;
 
                 GerenciadorEntradaProduto.getInstace().inserir(entradaProduto);
                 codEntradaTextBox_TextChanged(sender, e);
@@ -302,7 +308,9 @@ namespace Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        Pessoa fornecedor = new Pessoa();
+                        fornecedor.CodPessoa = frmPessoaPesquisa.CodPessoa;
+                        fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(fornecedor);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -312,8 +320,10 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.CodPessoa > 0)
                     {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        codFornecedorComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                        Pessoa fornecedor = new Pessoa();
+                        fornecedor.CodPessoa = frmPessoa.CodPessoa;
+                        fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(fornecedor);
                     }
                     frmPessoa.Dispose();
                 }
@@ -323,7 +333,9 @@ namespace Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.CodPessoa != -1)
                     {
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        Pessoa transportadora = new Pessoa();
+                        transportadora.CodPessoa = frmPessoaPesquisa.CodPessoa;
+                        empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(transportadora);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -333,8 +345,10 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.CodPessoa > 0)
                     {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoa.CodPessoa);
+                        codEmpresaFreteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                        Pessoa transportadora = new Pessoa();
+                        transportadora.CodPessoa = frmPessoa.CodPessoa;
+                        empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(transportadora);
                     }
                     frmPessoa.Dispose();
                 }
@@ -421,56 +435,13 @@ namespace Telas
 
         private void codFornecedorComboBox_Leave(object sender, EventArgs e)
         {
-            if (estado.Equals(EstadoFormulario.INSERIR)) {
-                List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codFornecedorComboBox.Text);
-                if (pessoas.Count == 0)
-                {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
-                    frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
-                    {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                        codFornecedorComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
-                    }
-                    else
-                    {
-                        codFornecedorComboBox.Focus();
-                    }
-                    frmPessoaPesquisa.Dispose();
-                }
-                else
-                {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
-                }
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false);
             codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            if (estado.Equals(EstadoFormulario.INSERIR))
-            {
-                List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
-                if (pessoas.Count == 0)
-                {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
-                    frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
-                    {
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                        codEmpresaFreteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource1.Current).Row).nome;
-                    }
-                    else
-                    {
-                        codEmpresaFreteComboBox.Focus();
-                    }
-                    frmPessoaPesquisa.Dispose();
-                }
-                else
-                {
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoas[0].codPessoa);
-                }
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false);
             codEntradaTextBox_Leave(sender, e);
         }
 

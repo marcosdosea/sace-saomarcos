@@ -94,8 +94,10 @@ namespace Negocio
 
         public void encerrar(Entrada entrada)
         {
+            
 
-            if (GerenciadorConta.getInstace().obterContasPorEntada(entrada.CodEntrada).Count == 0)
+
+            if (GerenciadorConta.GetInstance().ObterPorEntrada(entrada.CodEntrada).ToList().Count == 0)
             {
                 List<EntradaPagamento> entradaPagamentos = GerenciadorEntradaPagamento.getInstace().obterEntradaPagamentos(entrada.CodEntrada);
                 registrarPagamentosEntrada(entradaPagamentos, entrada);
@@ -129,12 +131,12 @@ namespace Negocio
                 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserido quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
-                    conta.CodSituacao = Conta.SITUACAO_QUITADA;
+                    conta.CodSituacao = Conta.SITUACAO_QUITADA.ToString();
                 else
-                    conta.CodSituacao = Conta.SITUACAO_ABERTA;
+                    conta.CodSituacao = Conta.SITUACAO_ABERTA.ToString();
 
                 conta.CodDocumento = pagamento.CodDocumentoPagamento;
-                conta.TipoConta = Conta.CONTA_PAGAR;
+                conta.TipoConta = Conta.CONTA_PAGAR.ToString();
 
                 
                 conta.Valor = pagamento.Valor;
@@ -150,7 +152,7 @@ namespace Negocio
                      conta.DataVencimento = pagamento.Data;
                  }
                 
-                conta.CodConta = GerenciadorConta.getInstace().inserir(conta);
+                conta.CodConta = GerenciadorConta.GetInstance().Inserir(conta);
                 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
                 {
@@ -163,7 +165,7 @@ namespace Negocio
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = pagamento.Valor;
 
-                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta, 0);
+                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta);
                 }
             }
         }

@@ -96,9 +96,9 @@
             this.saceDataSet = new Dados.saceDataSet();
             this.codCSTComboBox = new System.Windows.Forms.ComboBox();
             this.tb_produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tbcstBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cstBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
-            this.tbcfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.preco_custoTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.precoVendaAtacadoTextBox = new System.Windows.Forms.TextBox();
@@ -142,8 +142,8 @@
             this.codEntradaTextBox = new System.Windows.Forms.TextBox();
             this.numeroNotaFiscalTextBox = new System.Windows.Forms.TextBox();
             this.codEmpresaFreteComboBox = new System.Windows.Forms.ComboBox();
-            this.tbpessoaBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.tbpessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.empresaFreteBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fornecedorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codFornecedorComboBox = new System.Windows.Forms.ComboBox();
             this.dataEmissaoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.dataEntradaDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -169,14 +169,11 @@
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             this.tb_entrada_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_entrada_produtoTableAdapter();
-            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             this.tb_entradaTableAdapter = new Dados.saceDataSetTableAdapters.tb_entradaTableAdapter();
-            this.tb_cfopTableAdapter = new Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
             this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
             this.codSituacaoPagamentosComboBox = new System.Windows.Forms.ComboBox();
             this.tbsituacaopagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_situacao_pagamentosTableAdapter = new Dados.saceDataSetTableAdapters.tb_situacao_pagamentosTableAdapter();
-            this.tb_cstTableAdapter = new Dados.saceDataSetTableAdapters.tb_cstTableAdapter();
             this.totalProdutosSTTextBox = new System.Windows.Forms.TextBox();
             codEntradaLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
@@ -229,13 +226,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcfopBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cstBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingNavigator)).BeginInit();
             this.tb_entradaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empresaFreteBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fornecedorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbsituacaopagamentosBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -894,15 +891,15 @@
             // 
             this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produtoBindingSource, "codCST", true));
             this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "codCST", true));
-            this.codCSTComboBox.DataSource = this.tbcstBindingSource;
-            this.codCSTComboBox.DisplayMember = "codCST";
+            this.codCSTComboBox.DataSource = this.cstBindingSource;
+            this.codCSTComboBox.DisplayMember = "CodCST";
             this.codCSTComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codCSTComboBox.FormattingEnabled = true;
             this.codCSTComboBox.Location = new System.Drawing.Point(443, 33);
             this.codCSTComboBox.Name = "codCSTComboBox";
             this.codCSTComboBox.Size = new System.Drawing.Size(51, 21);
             this.codCSTComboBox.TabIndex = 54;
-            this.codCSTComboBox.ValueMember = "codCST";
+            this.codCSTComboBox.ValueMember = "CodCST";
             this.codCSTComboBox.SelectedIndexChanged += new System.EventHandler(this.codCSTComboBox_SelectedIndexChanged);
             this.codCSTComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codCSTComboBox.Leave += new System.EventHandler(this.codCSTComboBox_SelectedIndexChanged);
@@ -912,31 +909,29 @@
             this.tb_produtoBindingSource.DataMember = "tb_produto";
             this.tb_produtoBindingSource.DataSource = this.saceDataSet;
             // 
-            // tbcstBindingSource
+            // cstBindingSource
             // 
-            this.tbcstBindingSource.DataMember = "tb_cst";
-            this.tbcstBindingSource.DataSource = this.saceDataSet;
+            this.cstBindingSource.DataSource = typeof(Dominio.Cst);
             // 
             // cfopComboBox
             // 
             this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entrada_produtoBindingSource, "cfop", true));
             this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produtoBindingSource, "cfop", true));
-            this.cfopComboBox.DataSource = this.tbcfopBindingSource;
-            this.cfopComboBox.DisplayMember = "cfop";
+            this.cfopComboBox.DataSource = this.cfopBindingSource;
+            this.cfopComboBox.DisplayMember = "CodCfop";
             this.cfopComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cfopComboBox.FormattingEnabled = true;
             this.cfopComboBox.Location = new System.Drawing.Point(500, 33);
             this.cfopComboBox.Name = "cfopComboBox";
             this.cfopComboBox.Size = new System.Drawing.Size(52, 21);
             this.cfopComboBox.TabIndex = 56;
-            this.cfopComboBox.ValueMember = "cfop";
+            this.cfopComboBox.ValueMember = "CodCfop";
             this.cfopComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.cfopComboBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
-            // tbcfopBindingSource
+            // cfopBindingSource
             // 
-            this.tbcfopBindingSource.DataMember = "tb_cfop";
-            this.tbcfopBindingSource.DataSource = this.saceDataSet;
+            this.cfopBindingSource.DataSource = typeof(Dominio.Cfop);
             // 
             // preco_custoTextBox
             // 
@@ -1385,27 +1380,25 @@
             this.codEmpresaFreteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "nomeEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codEmpresaFrete", true));
-            this.codEmpresaFreteComboBox.DataSource = this.tbpessoaBindingSource1;
-            this.codEmpresaFreteComboBox.DisplayMember = "nomeFantasia";
+            this.codEmpresaFreteComboBox.DataSource = this.empresaFreteBindingSource;
+            this.codEmpresaFreteComboBox.DisplayMember = "Nome";
             this.codEmpresaFreteComboBox.FormattingEnabled = true;
             this.codEmpresaFreteComboBox.Location = new System.Drawing.Point(5, 125);
             this.codEmpresaFreteComboBox.Name = "codEmpresaFreteComboBox";
             this.codEmpresaFreteComboBox.Size = new System.Drawing.Size(295, 21);
             this.codEmpresaFreteComboBox.TabIndex = 22;
-            this.codEmpresaFreteComboBox.ValueMember = "codPessoa";
+            this.codEmpresaFreteComboBox.ValueMember = "CodPessoa";
             this.codEmpresaFreteComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codEmpresaFreteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
             this.codEmpresaFreteComboBox.Leave += new System.EventHandler(this.codEmpresaFreteComboBox_Leave);
             // 
-            // tbpessoaBindingSource1
+            // empresaFreteBindingSource
             // 
-            this.tbpessoaBindingSource1.DataMember = "tb_pessoa";
-            this.tbpessoaBindingSource1.DataSource = this.saceDataSet;
+            this.empresaFreteBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
-            // tbpessoaBindingSource
+            // fornecedorBindingSource
             // 
-            this.tbpessoaBindingSource.DataMember = "tb_pessoa";
-            this.tbpessoaBindingSource.DataSource = this.saceDataSet;
+            this.fornecedorBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // codFornecedorComboBox
             // 
@@ -1413,14 +1406,14 @@
             this.codFornecedorComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "nomeFornecedor", true));
             this.codFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entradaBindingSource, "codFornecedor", true));
-            this.codFornecedorComboBox.DataSource = this.tbpessoaBindingSource;
-            this.codFornecedorComboBox.DisplayMember = "nomeFantasia";
+            this.codFornecedorComboBox.DataSource = this.fornecedorBindingSource;
+            this.codFornecedorComboBox.DisplayMember = "Nome";
             this.codFornecedorComboBox.FormattingEnabled = true;
             this.codFornecedorComboBox.Location = new System.Drawing.Point(199, 84);
             this.codFornecedorComboBox.Name = "codFornecedorComboBox";
             this.codFornecedorComboBox.Size = new System.Drawing.Size(399, 21);
             this.codFornecedorComboBox.TabIndex = 16;
-            this.codFornecedorComboBox.ValueMember = "codPessoa";
+            this.codFornecedorComboBox.ValueMember = "CodPessoa";
             this.codFornecedorComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codFornecedorComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
             this.codFornecedorComboBox.Leave += new System.EventHandler(this.codFornecedorComboBox_Leave);
@@ -1658,17 +1651,9 @@
             // 
             this.tb_entrada_produtoTableAdapter.ClearBeforeFill = true;
             // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
-            // 
             // tb_entradaTableAdapter
             // 
             this.tb_entradaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_cfopTableAdapter
-            // 
-            this.tb_cfopTableAdapter.ClearBeforeFill = true;
             // 
             // fretePagoEmitenteCheckBox
             // 
@@ -1705,10 +1690,6 @@
             // tb_situacao_pagamentosTableAdapter
             // 
             this.tb_situacao_pagamentosTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_cstTableAdapter
-            // 
-            this.tb_cstTableAdapter.ClearBeforeFill = true;
             // 
             // totalProdutosSTTextBox
             // 
@@ -1796,14 +1777,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcfopBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cstBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingNavigator)).EndInit();
             this.tb_entradaBindingNavigator.ResumeLayout(false);
             this.tb_entradaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empresaFreteBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fornecedorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_produtoDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbsituacaopagamentosBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -1887,24 +1868,21 @@
         private System.Windows.Forms.TextBox precoAtacadoSugestaoTextBox;
         private System.Windows.Forms.TextBox precoVarejoSugestaoTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.BindingSource tbpessoaBindingSource;
-        private System.Windows.Forms.BindingSource tbpessoaBindingSource1;
+        private System.Windows.Forms.BindingSource fornecedorBindingSource;
+        private System.Windows.Forms.BindingSource empresaFreteBindingSource;
         private Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
         private Dados.saceDataSetTableAdapters.tb_entrada_produtoTableAdapter tb_entrada_produtoTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
         private Dados.saceDataSetTableAdapters.tb_entradaTableAdapter tb_entradaTableAdapter;
         private System.Windows.Forms.TextBox preco_custoTextBox;
         private System.Windows.Forms.ComboBox cfopComboBox;
-        private System.Windows.Forms.BindingSource tbcfopBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
+        private System.Windows.Forms.BindingSource cfopBindingSource;
         private System.Windows.Forms.CheckBox fretePagoEmitenteCheckBox;
         private System.Windows.Forms.ComboBox codSituacaoPagamentosComboBox;
         private System.Windows.Forms.BindingSource tbsituacaopagamentosBindingSource;
         private Dados.saceDataSetTableAdapters.tb_situacao_pagamentosTableAdapter tb_situacao_pagamentosTableAdapter;
         private System.Windows.Forms.CheckBox temVencimentoCheckBox;
         private System.Windows.Forms.ComboBox codCSTComboBox;
-        private System.Windows.Forms.BindingSource tbcstBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_cstTableAdapter tb_cstTableAdapter;
+        private System.Windows.Forms.BindingSource cstBindingSource;
         private System.Windows.Forms.TextBox descontoProdutoTextBox;
         private System.Windows.Forms.TextBox totalProdutosSTTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

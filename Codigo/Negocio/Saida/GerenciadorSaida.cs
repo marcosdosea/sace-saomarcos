@@ -301,7 +301,7 @@ namespace Negocio
             foreach (SaidaPagamento pagamento in pagamentos)
             {
 
-                List<Conta> contas = GerenciadorConta.getInstace().obterContasSaidaPorCodPagamento(saida.CodSaida, pagamento.CodSaidaPagamento);
+                List<Conta> contas = GerenciadorConta.GetInstance().ObterPorSaidaPagamento(saida.CodSaida, pagamento.CodSaidaPagamento).ToList();
 
                 if (contas.Count > 0)
                 {
@@ -320,9 +320,9 @@ namespace Negocio
 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserida quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
-                    conta.CodSituacao = Conta.SITUACAO_QUITADA;
+                    conta.CodSituacao = Conta.SITUACAO_QUITADA.ToString();
                 else
-                    conta.CodSituacao = Conta.SITUACAO_ABERTA;
+                    conta.CodSituacao = Conta.SITUACAO_ABERTA.ToString();
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {
@@ -330,7 +330,7 @@ namespace Negocio
                 }
 
                 conta.CodDocumento = pagamento.CodDocumentoPagamento;
-                conta.TipoConta = Conta.CONTA_RECEBER;
+                conta.TipoConta = Conta.CONTA_RECEBER.ToString();
 
                 if (((totalRegistrado + pagamento.Valor) >= saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO))
                 {
@@ -371,7 +371,7 @@ namespace Negocio
                         conta.DataVencimento = pagamento.Data;
                     }
 
-                    conta.CodConta = GerenciadorConta.getInstace().inserir(conta);
+                    conta.CodConta = GerenciadorConta.GetInstance().Inserir(conta);
                 }
 
                 totalRegistrado += pagamento.Valor;
@@ -396,7 +396,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
                     
-                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta, 0);
+                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta);
                 }
             }
         }

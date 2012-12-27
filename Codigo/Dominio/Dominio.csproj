@@ -78,6 +78,7 @@
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
     <Compile Include="Cfop.cs" />
+    <Compile Include="Cst.cs" />
     <Compile Include="DocumentoPagamento.cs" />
     <Compile Include="EntradaPagamento.cs" />
     <Compile Include="Pagamento.cs" />

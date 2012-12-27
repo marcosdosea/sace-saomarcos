@@ -16,7 +16,7 @@ namespace Telas
     public partial class FrmSaidaPagamento : Form
     {
         private Saida saida;
-        private Pessoa pessoa = null;
+        private Pessoa cliente = null;
         private decimal faltaReceber = 0;
 
         public FrmSaidaPagamento(Saida saida)
@@ -36,10 +36,12 @@ namespace Telas
 
             this.tb_tipo_saidaTableAdapter.Fill(this.saceDataSet.tb_tipo_saida);
             this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
-            this.tb_forma_pagamentoTableAdapter.Fill(this.saceDataSet.tb_forma_pagamento);
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            this.tb_conta_bancoTableAdapter.Fill(this.saceDataSet.tb_conta_banco);
-            this.tb_cartao_creditoTableAdapter.Fill(this.saceDataSet.tb_cartao_credito);
+
+            codFormaPagamentoComboBox.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
+            codClienteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            codProfissionalComboBox.DataSource = GerenciadorPessoa.GetInstance().Obter(1);
+            codContaBancoComboBox.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+            codCartaoComboBox.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
             this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, saida.CodSaida);
             
@@ -57,6 +59,7 @@ namespace Telas
             codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
+            parcelasTextBox.Text = "1";
         }
 
         /// <summary>
@@ -84,8 +87,8 @@ namespace Telas
                 saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
                 saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
 
-                saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
                 saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
+                saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
                 saida.CodEmpresaFrete = saida.CodCliente;
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
@@ -144,7 +147,7 @@ namespace Telas
                         bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).Count > 0;
                         if (temPagamentoCrediario)
                         {
-                            if (pessoa.ImprimirDAV)
+                            if (cliente.ImprimirDAV)
                             {
                                 GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
                             }
@@ -280,8 +283,9 @@ namespace Telas
                 frmPessoa.ShowDialog();
                 if (frmPessoa.CodPessoa > 0)
                 {
-                    this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                    codClienteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                    Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoa.CodPessoa).ElementAt(0);
+                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(pessoa);
                 }
                 frmPessoa.Dispose();
             }
@@ -292,8 +296,9 @@ namespace Telas
                 frmPessoa.ShowDialog();
                 if (frmPessoa.CodPessoa > 0)
                 {
-                    this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoa.CodPessoa);
+                    codProfissionalComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                    Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoa.CodPessoa).ElementAt(0);
+                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(pessoa);
                 }
                 frmPessoa.Dispose();
             }
@@ -348,15 +353,16 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text);
+            List<Pessoa> pessoas = (List<Pessoa>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text);
             if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
                 if (frmPessoaPesquisa.CodPessoa != -1)
                 {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    codClienteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
+                    cliente = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
+                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(cliente);
+                    codClienteComboBox.Text = cliente.NomeFantasia;
                 }
                 else
                 {
@@ -366,22 +372,25 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+                cliente = pessoas[0];
+                clienteBindingSource.Position = clienteBindingSource.List.IndexOf(cliente);
+                codClienteComboBox.Text = cliente.NomeFantasia;
             }
             codSaidaTextBox_Leave(sender, e);
         }
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codProfissionalComboBox.Text);
+            List<Pessoa> pessoas = (List<Pessoa>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codProfissionalComboBox.Text);
             if (pessoas.Count == 0)
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codProfissionalComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
                 if (frmPessoaPesquisa.CodPessoa != -1)
                 {
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    codProfissionalComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource1.Current).Row).nome;
+                    Pessoa profissional = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
+                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(profissional);
+                    codProfissionalComboBox.Text = profissional.NomeFantasia;
                 }
                 else
                 {
@@ -391,7 +400,9 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource1.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
+                Pessoa profissional = pessoas[0];
+                profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(profissional);
+                codProfissionalComboBox.Text = profissional.NomeFantasia;
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -440,7 +451,6 @@ namespace Telas
                 (codFormaPagamento== FormaPagamento.CREDIARIO)) && (codCliente == Global.CLIENTE_PADRAO) )
                 {
                     codFormaPagamentoComboBox.Focus();
-                    this.tb_forma_pagamentoTableAdapter.Fill(this.saceDataSet.tb_forma_pagamento);
                     codFormaPagamentoComboBox.SelectedIndex = 0;
                     throw new TelaException("Para utilizar essa forma de pagamento é necessário selecionar um cliente.");
                 }

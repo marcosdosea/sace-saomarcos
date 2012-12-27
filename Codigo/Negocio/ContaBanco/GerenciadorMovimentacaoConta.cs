@@ -27,7 +27,7 @@ namespace Negocio
             return gMovimentacaoConta;
         }
 
-        public Int64 inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas, decimal descontoPorConta)
+        public Int64 inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas)
         {
             // Verifica existência de tentativa de movimentação em contas quitadas
             //if (GerenciadorConta.getInstace().ObterContasPorSituacao(listaContas, Conta.SITUACAO_QUITADA).Count > 0) {
@@ -38,11 +38,11 @@ namespace Negocio
             {
                 if (totalMovimentacao > 0)
                 {
-                    Conta conta = GerenciadorConta.getInstace().obterContaPorCodConta(codConta);
+                    Conta conta = GerenciadorConta.GetInstance().Obter(codConta).ElementAt(0);
                     if (!conta.CodSituacao.Equals(Conta.SITUACAO_QUITADA))
                     {
                         movimentacaoConta.CodConta = codConta;
-                        decimal valorPagar = Math.Round(conta.Valor * (1 - descontoPorConta / 100), 2);
+                        decimal valorPagar = Math.Round(conta.Valor - conta.Desconto, 2);
                         if (valorPagar <= totalMovimentacao)
                         {
                             movimentacaoConta.Valor = valorPagar;
@@ -52,14 +52,14 @@ namespace Negocio
                             movimentacaoConta.Valor = totalMovimentacao;
                         }
                         totalMovimentacao -= movimentacaoConta.Valor;
-                        inserir(movimentacaoConta, conta, descontoPorConta);
+                        inserir(movimentacaoConta, conta);
                     }
                 }
             }
             return 0;
         }
        
-        public Int64 inserir(MovimentacaoConta movimentacaoConta, Conta conta, decimal desconto)
+        public Int64 inserir(MovimentacaoConta movimentacaoConta, Conta conta)
         {
             try
             {
@@ -80,10 +80,10 @@ namespace Negocio
 
                 if (!conta.CodSituacao.Equals(Conta.SITUACAO_QUITADA)) {
 
-                    decimal valorConta = Math.Round(conta.Valor * (1 - desconto / 100), 2);
+                    decimal valorConta = Math.Round(conta.Valor - conta.Desconto, 2);
                     if (valorConta <= tb_movimentacao_contaTA.GetSomaMovimentosByCodConta(conta.CodConta))
                     {
-                        GerenciadorConta.getInstace().atualizar(Conta.SITUACAO_QUITADA, (conta.Valor - valorConta), conta.CodConta);
+                        GerenciadorConta.GetInstance().Atualizar(Conta.SITUACAO_QUITADA.ToString(), (conta.Valor - valorConta), conta.CodConta);
                     }
                 }
 
@@ -91,22 +91,20 @@ namespace Negocio
                 {
                     if (!conta.CodEntrada.Equals(Global.ENTRADA_PADRAO))
                     {
-                        if (GerenciadorConta.getInstace().obterCountContasNaoQuitadasEntrada(conta.CodEntrada) == 0)
+                        if (GerenciadorConta.GetInstance().ObterPorSituacaoEntrada(Conta.SITUACAO_ABERTA.ToString(), conta.CodEntrada).ToList().Count == 0)
                         {
                             GerenciadorEntrada.getInstace().atualizar(SituacaoPagamentos.QUITADA, conta.CodEntrada);
                         }
                     }
                     else
                     {
-                        if (GerenciadorConta.getInstace().obterCountContasNaoQuitadasSaida(conta.CodSaida) == 0)
+                        if (GerenciadorConta.GetInstance().ObterPorSituacaoSaida(Conta.SITUACAO_ABERTA.ToString(), conta.CodSaida).ToList().Count == 0)
                         {
                             GerenciadorSaida.getInstace().atualizar(SituacaoPagamentos.QUITADA, conta.CodSaida);
                         }
                     }
 
                 }
-
-                
 
                 return 0;
             }
@@ -147,6 +145,15 @@ namespace Negocio
                     GerenciadorContaBanco.GetInstance().IncrementaSaldo(movimentacaoConta.CodContaBanco, movimentacaoConta.Valor);
                 }
 
+                GerenciadorConta.GetInstance().Atualizar(Conta.SITUACAO_ABERTA.ToString(), 0, movimentacaoConta.CodConta);
+
+                Conta conta = GerenciadorConta.GetInstance().Obter(movimentacaoConta.CodConta).ElementAt(0);
+                if (!conta.CodEntrada.Equals(Global.ENTRADA_PADRAO)) {
+                    GerenciadorEntrada.getInstace().atualizar(SituacaoPagamentos.LANCADOS, conta.CodEntrada);
+                } else if (!conta.CodSaida.Equals(Global.SAIDA_PADRAO)) {
+                    GerenciadorSaida.getInstace().atualizar(SituacaoPagamentos.LANCADOS, conta.CodSaida);
+                    GerenciadorSaidaPagamento.getInstace().o
+                }
             }
             catch (Exception e)
             {

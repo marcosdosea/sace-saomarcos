@@ -26,6 +26,8 @@ namespace Telas
         private DateTime dataFim;
         private bool abertaChecked;
         private bool quitadaChecked;
+        private decimal descontoCalculado;
+        private bool alterouDesconto;
 
         public FrmReceberPagamentoPessoa()
         {
@@ -34,8 +36,10 @@ namespace Telas
 
         private void FrmReceberPagamentoPessoa_Load(object sender, EventArgs e)
         {
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            this.tb_forma_pagamentoTableAdapter.Fill(this.saceDataSet.tb_forma_pagamento);
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
+            codCartaoComboBox.SelectedIndex = 1;
             habilitaBotoes(true);
         }
 
@@ -45,13 +49,11 @@ namespace Telas
             totalPagamentosTextBox.Text = "0,00";
             faltaReceberTextBox.Text = "0,00";
             descontoTextBox.Text = "0,00";
-            totalPagarTextBox.Text = "0,00";
+            totalAVistaTextBox.Text = "0,00";
             valorPagamentoTextBox.Text = "0,00";
             codClienteComboBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
-
-            //GerenciadorSaida.getInstace().atualizarPedidosComDocumentosFiscais();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -68,18 +70,39 @@ namespace Telas
                 List<long> listaContas = new List<long>();
                 for (int i = contasPessoaDataGridView.SelectedRows.Count-1; i >= 0 ; i--)
                 {
+                    if (alterouDesconto)
+                    {
+                        // atualiza descontos das contas de acordo com o especificado
+                        decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
+                        long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
+                        Conta conta = GerenciadorConta.GetInstance().Obter(codConta).ElementAt(0);
+                        if (conta.CodSituacao.Equals(Conta.SITUACAO_ABERTA))
+                        {
+                            GerenciadorConta.GetInstance().Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
+                        }
+                    }
                     listaContas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[0].Value.ToString())); //codConta 
                 }
-                MovimentacaoConta movimentacao = new MovimentacaoConta();
-                movimentacao.CodConta = listaContas.ElementAt(0); // valor é irrelevante
-                movimentacao.CodContaBanco = Global.CAIXA_PADRAO;
-                movimentacao.CodResponsavel = pessoa.CodPessoa;
-                movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
-                movimentacao.DataHora = DateTime.Now;
-                movimentacao.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
-                decimal descontoPorConta = Convert.ToDecimal(descontoTextBox.Text);
-                GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, listaContas, descontoPorConta);
-                codClienteComboBox_Leave(sender, e);
+
+                int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
+                if (formaPagamento.Equals(FormaPagamento.DINHEIRO))
+                {
+
+                    MovimentacaoConta movimentacao = new MovimentacaoConta();
+                    movimentacao.CodConta = listaContas.ElementAt(0); // valor é irrelevante
+                    movimentacao.CodContaBanco = Global.CAIXA_PADRAO;
+                    movimentacao.CodResponsavel = pessoa.CodPessoa;
+                    movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
+                    movimentacao.DataHora = DateTime.Now;
+                    movimentacao.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
+                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, listaContas);
+                    codClienteComboBox_Leave(sender, e);
+                }
+                else if (formaPagamento.Equals(FormaPagamento.CARTAO))
+                {
+
+
+                }
             }
             habilitaBotoes(true);
             btnNovo.Focus();
@@ -95,7 +118,7 @@ namespace Telas
             }
 
             decimal total = Convert.ToDecimal(totalContasTextBox.Text);
-            decimal totalAVista = Convert.ToDecimal(totalPagarTextBox.Text);
+            decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
             decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
 
             FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto);
@@ -127,12 +150,12 @@ namespace Telas
                 }
 
                 decimal total = Convert.ToDecimal(totalContasTextBox.Text);
-                decimal totalAVista = Convert.ToDecimal(totalPagarTextBox.Text);
+                decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
 
                 if (MessageBox.Show("Confirma emisssão do Cupom Fiscal das Contas Selecionadas?", "Confirmar Impressão Cupom Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     SaidaPagamento saidaPagamento = new SaidaPagamento();
-                    FormaPagamento dinheiro = GerenciadorFormaPagamento.getInstace().obterFormaPagamento(FormaPagamento.DINHEIRO);
+                    FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
                     saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
@@ -179,7 +202,30 @@ namespace Telas
                     btnCancelar_Click(sender, e);
                 }
             }
+            if (e.KeyCode == Keys.F12)
+            {
+                tb_movimentacao_contaDataGridView.Focus();
+            }
+            else if ((e.KeyCode == Keys.Delete) && (tb_movimentacao_contaDataGridView.Focused == true))
+            {
+                ExcluirMovimentacao(sender, e);
+            }
         }
+
+        private void ExcluirMovimentacao(object sender, KeyEventArgs e)
+        {
+            if (MessageBox.Show("Confirma exclusão do pagamento?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (tb_movimentacao_contaDataGridView.Rows.Count > 0)
+                {
+                    long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    Negocio.GerenciadorMovimentacaoConta.getInstace().remover(codMovimentacaoConta);
+                }
+                ListarContasPessoa();
+            }
+        }
+
+
         private void habilitaBotoes(Boolean habilita)
         {
             btnSalvar.Enabled = !(habilita);
@@ -203,55 +249,65 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            List<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text).ToList();
-            if (pessoas.Count == 0)
+            if (estado != EstadoFormulario.ESPERA)
             {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
+                List<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text).ToList();
+                if ((pessoas.Count == 0) || (pessoas.Count > 1))
                 {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    codClienteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
+                    frmPessoaPesquisa.ShowDialog();
+                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    {
+                        pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                        codClienteComboBox.Text = pessoa.NomeFantasia;
+                    }
+                    else
+                    {
+                        codClienteComboBox.Focus();
+                    }
+                    frmPessoaPesquisa.Dispose();
                 }
                 else
                 {
-                    codClienteComboBox.Focus();
+                    pessoa = pessoas[0];
+                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
                 }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoa.CodPessoa);
-                // Obter todas as contas da pessoa em aberto
-                contasPessoaDataGridView.DataSource = GerenciadorConta.getInstace().ObterContasPorPessoaAberta(pessoa.CodPessoa);
-                descontoTextBox.Text = "0";
-                if (contasPessoaDataGridView.RowCount > 0)
+
+                if (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO))
                 {
-                    //Obter maior e menor data de vencimento para preencher corrretamente
-                    dataInicioDateTimePicker.Text = contasPessoaDataGridView.Rows[0].Cells[2].Value.ToString();
-                    int ultimaLinha = contasPessoaDataGridView.RowCount - 1;
-                    dataFinalDateTimePicker.Text = contasPessoaDataGridView.Rows[ultimaLinha].Cells[2].Value.ToString();
+                    // Obter todas as contas da pessoa em aberto
+                    contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(Conta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
+                    descontoTextBox.Text = "0";
+                    if (contasPessoaDataGridView.RowCount > 0)
+                    {
+                        //Obter maior e menor data de vencimento para preencher corrretamente
+                        dataInicioDateTimePicker.Text = contasPessoaDataGridView.Rows[0].Cells[2].Value.ToString();
+                        int ultimaLinha = contasPessoaDataGridView.RowCount - 1;
+                        dataFinalDateTimePicker.Text = contasPessoaDataGridView.Rows[ultimaLinha].Cells[2].Value.ToString();
 
-                    // Guarda os dados das variáveis para verificar se há necessidade de uma nova consulta
-                    dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
-                    dataFim = Convert.ToDateTime(dataFinalDateTimePicker.Text);
-                    abertaChecked = abertaCheckBox.Checked;
-                    quitadaChecked = quitadaCheckBox.Checked;
+                        // Guarda os dados das variáveis para verificar se há necessidade de uma nova consulta
+                        dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
+                        dataFim = Convert.ToDateTime(dataFinalDateTimePicker.Text);
+                        abertaChecked = abertaCheckBox.Checked;
+                        quitadaChecked = quitadaCheckBox.Checked;
+                    }
+
+                    contasPessoaDataGridView.SelectAll();
+                    habilitaBotoes(false);
                 }
-
-                contasPessoaDataGridView.SelectAll();
             }
-            habilitaBotoes(false);
+            alterouDesconto = false;
         }
 
         private string obterListaSituacao()
         {
             if (abertaCheckBox.Checked && quitadaCheckBox.Checked)
-                return Conta.SITUACAO_ABERTA + "," + Conta.SITUACAO_PARCIALMENTE_QUITADA + "," + Conta.SITUACAO_QUITADA;
+                return Conta.SITUACAO_ABERTA + "," + "," + Conta.SITUACAO_QUITADA;
             else if (abertaCheckBox.Checked)
-                return Conta.SITUACAO_ABERTA + "," + Conta.SITUACAO_PARCIALMENTE_QUITADA;
+                return Conta.SITUACAO_ABERTA;
             else if (quitadaCheckBox.Checked)
-                return Conta.SITUACAO_QUITADA.ToString();
+                return Conta.SITUACAO_QUITADA;
             else
                 return "";
         }
@@ -262,33 +318,68 @@ namespace Telas
             if (!dataInicioDateTimePicker.Value.Equals(dataInicio) || !dataFinalDateTimePicker.Value.Equals(dataFim) ||
                 (abertaCheckBox.Checked != abertaChecked) || (quitadaCheckBox.Checked != quitadaChecked) )
             {
-                List<char> situacoes = new List<char>();
-
-                if (abertaCheckBox.Checked)
-                {
-                    situacoes.Add(Conta.SITUACAO_ABERTA);
-                }
-                if (quitadaCheckBox.Checked)
-                {
-                    situacoes.Add(Conta.SITUACAO_QUITADA);
-                }
-
-                dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
-                dataFim = Convert.ToDateTime(dataFinalDateTimePicker.Text);
-                abertaChecked = abertaCheckBox.Checked;
-                quitadaChecked = quitadaCheckBox.Checked;
-
-                contasPessoaDataGridView.DataSource = GerenciadorConta.getInstace().ObterContasPorPessoaSituacaoPeriodo(pessoa.CodPessoa, situacoes, dataInicio, dataFim);
-                contasPessoaDataGridView.SelectAll();
+                ListarContasPessoa();
+                
             }
 
+        }
+
+        private void ListarContasPessoa()
+        {
+            List<string> situacoes = new List<string>();
+
+            if (abertaCheckBox.Checked)
+            {
+                situacoes.Add(Conta.SITUACAO_ABERTA.ToString());
+            }
+            if (quitadaCheckBox.Checked)
+            {
+                situacoes.Add(Conta.SITUACAO_QUITADA.ToString());
+            }
+
+            dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
+            dataFim = Convert.ToDateTime(dataFinalDateTimePicker.Text);
+            abertaChecked = abertaCheckBox.Checked;
+            quitadaChecked = quitadaCheckBox.Checked;
+            if (situacoes.Count == 2)
+            {
+                contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[1], pessoa.CodPessoa, dataInicio, dataFim);
+            }
+            else if (situacoes.Count == 1)
+            {
+                contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[0], pessoa.CodPessoa, dataInicio, dataFim);
+            }
+            else
+            {
+                contasPessoaDataGridView.DataSource = null;
+            }
+            contasPessoaDataGridView.SelectAll();
         }
 
         private void DescontoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
-            //CalcularDescontos();
-            valorPagamentoTextBox.Text = totalPagarTextBox.Text;
+            CalcularDescontos();
+        }
+
+        private void CalcularDescontos()
+        {
+            decimal descontoAtual = Convert.ToDecimal(descontoTextBox.Text);
+            if (descontoAtual != descontoCalculado)
+            {
+                alterouDesconto = true;
+                for (int i = 0; i < contasPessoaDataGridView.SelectedRows.Count; i++)
+                {
+                    decimal valorConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[5].Value;
+                    // valor do desconto
+                    contasPessoaDataGridView.SelectedRows[i].Cells[6].Value = (valorConta * (descontoAtual / 100)).ToString("N2");
+                    decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
+                    // valor da conta a vista
+                    contasPessoaDataGridView.SelectedRows[i].Cells[7].Value = valorConta - valorDescontoConta;
+                }
+                CalcularTotalContasSelecionadas();
+            }
+
         }
         
         private void ListarPagamentosContasSelecionadas()
@@ -318,20 +409,49 @@ namespace Telas
                 totalPagamentos += Convert.ToDecimal(tb_movimentacao_contaDataGridView.Rows[i].Cells[6].Value.ToString());
             }
             totalContasTextBox.Text = totalContas.ToString("N2");
+            totalAVistaTextBox.Text = (totalContas - totalDesconto).ToString("N2");
             totalPagamentosTextBox.Text = totalPagamentos.ToString("N2");
-            faltaReceberTextBox.Text = (totalContas - totalPagamentos).ToString("N2");
-            totalPagarTextBox.Text = (totalContas - totalDesconto - totalPagamentos).ToString("N2");
+            faltaReceberTextBox.Text = (totalContas - totalDesconto - totalPagamentos).ToString("N2");
             if (totalDesconto > 0)
             {
                 descontoTextBox.Text = ((totalDesconto / totalContas) * 100).ToString("N2");
             }
-            valorPagamentoTextBox.Text = totalPagarTextBox.Text;
+            else
+            {
+                descontoTextBox.Text = "0,00";
+            }
+            valorPagamentoTextBox.Text = faltaReceberTextBox.Text;
+            descontoCalculado = Convert.ToDecimal(descontoTextBox.Text);
         }
 
         private void ContasPessoaDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             ListarPagamentosContasSelecionadas();
             CalcularTotalContasSelecionadas();
+        }
+
+        private void codFormaPagamentoComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (codFormaPagamentoComboBox.SelectedValue != null)
+            {
+                int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
+                codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
+             }
+        }
+
+        private void codFormaPagamentoComboBox_Leave(object sender, EventArgs e)
+        {
+            int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
+            if ((formaPagamento != FormaPagamento.DINHEIRO) && (formaPagamento != FormaPagamento.CARTAO)) {
+                codFormaPagamentoComboBox.Focus();
+                throw new TelaException("Essa forma de pagamento não pode ser utilizada no recebimento de contas.");
+            }
+
+        }
+
+        private void faltaReceberTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
         }
 
 

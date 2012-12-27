@@ -36,12 +36,7 @@ namespace Negocio
             try
             {
                 CartaoCreditoE _cartaoCredito = new CartaoCreditoE();
-                _cartaoCredito.codCartao = cartaoCredito.CodCartao;
-                _cartaoCredito.codContaBanco = cartaoCredito.CodContaBanco;
-                _cartaoCredito.codPessoa = cartaoCredito.CodPessoa;
-                _cartaoCredito.diaBase = cartaoCredito.DiaBase;
-                _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
-                _cartaoCredito.nome = cartaoCredito.Nome;
+                Atribuir(cartaoCredito, _cartaoCredito);
                 
                 repCartaoCredito.Inserir(_cartaoCredito);
                 repCartaoCredito.SaveChanges();
@@ -63,12 +58,7 @@ namespace Negocio
             try
             {
                 CartaoCreditoE _cartaoCredito = repCartaoCredito.ObterEntidade(cartao => cartao.codCartao == cartaoCredito.CodCartao);
-                _cartaoCredito.codCartao = cartaoCredito.CodCartao;
-                _cartaoCredito.codContaBanco = cartaoCredito.CodContaBanco;
-                _cartaoCredito.codPessoa = cartaoCredito.CodPessoa;
-                _cartaoCredito.diaBase = cartaoCredito.DiaBase;
-                _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
-                _cartaoCredito.nome = cartaoCredito.Nome;
+                Atribuir(cartaoCredito, _cartaoCredito);
 
                 repCartaoCredito.SaveChanges();
             }
@@ -99,6 +89,11 @@ namespace Negocio
             }
         }
 
+
+        /// <summary>
+        /// Consulta padrão para retornar dados do cartão de crédito
+        /// </summary>
+        /// <returns></returns>
         private IQueryable<CartaoCredito> GetQuery()
         {
             var saceEntities = (SaceEntities)repCartaoCredito.ObterContexto();
@@ -149,5 +144,21 @@ namespace Negocio
         {
             return GetQuery().Where(cartao => cartao.Nome.StartsWith(nome)).ToList();
         }
+
+        /// <summary>
+        /// Atribuição ente entidade e entidade persistente
+        /// </summary>
+        /// <param name="cartaoCredito"></param>
+        /// <param name="_cartaoCredito"></param>
+        private void Atribuir(CartaoCredito cartaoCredito, CartaoCreditoE _cartaoCredito)
+        {
+            _cartaoCredito.codCartao = cartaoCredito.CodCartao;
+            _cartaoCredito.codContaBanco = cartaoCredito.CodContaBanco;
+            _cartaoCredito.codPessoa = cartaoCredito.CodPessoa;
+            _cartaoCredito.diaBase = cartaoCredito.DiaBase;
+            _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
+            _cartaoCredito.nome = cartaoCredito.Nome;
+        }
+        
     }
 }

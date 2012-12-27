@@ -66,7 +66,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorCfop.getInstace().remover(Int32.Parse(cfopTextBox.Text));
+                GerenciadorCfop.GetInstance().Remover(Int32.Parse(cfopTextBox.Text));
                 tb_cfopTableAdapter.Fill(saceDataSet.tb_cfop);
             }
         }
@@ -88,16 +88,16 @@ namespace Telas
                 cfop.CodCfop = Int32.Parse(cfopTextBox.Text);
                 cfop.Icms = 0;
 
-                GerenciadorCfop gCfop = GerenciadorCfop.getInstace();
+                GerenciadorCfop gCfop = GerenciadorCfop.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gCfop.inserir(cfop);
+                    gCfop.Inserir(cfop);
                     tb_cfopTableAdapter.Fill(saceDataSet.tb_cfop);
                     tb_cfopBindingSource.MoveLast();
                 }
                 else
                 {
-                    gCfop.atualizar(cfop);
+                    gCfop.Atualizar(cfop);
                     tb_cfopBindingSource.EndEdit();
                 }
             }
