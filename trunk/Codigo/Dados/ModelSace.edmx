@@ -1513,35 +1513,35 @@
         <EntityContainer Name="SaceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BancoSet" EntityType="SaceModel.BancoE" />
           <EntitySet Name="CartaoCreditoSet" EntityType="SaceModel.CartaoCreditoE" />
-          <EntitySet Name="tb_cfop" EntityType="SaceModel.tb_cfop" />
+          <EntitySet Name="CfopSet" EntityType="SaceModel.CfopE" />
           <EntitySet Name="tb_configuracao_sistema" EntityType="SaceModel.tb_configuracao_sistema" />
-          <EntitySet Name="tb_conta" EntityType="SaceModel.tb_conta" />
+          <EntitySet Name="ContaSet" EntityType="SaceModel.ContaE" />
           <EntitySet Name="ContaBancoSet" EntityType="SaceModel.ContaBancoE" />
           <EntitySet Name="CstSet" EntityType="SaceModel.CstE" />
           <EntitySet Name="tb_documento_pagamento" EntityType="SaceModel.tb_documento_pagamento" />
-          <EntitySet Name="tb_entrada" EntityType="SaceModel.tb_entrada" />
-          <EntitySet Name="tb_entrada_forma_pagamento" EntityType="SaceModel.tb_entrada_forma_pagamento" />
-          <EntitySet Name="tb_entrada_produto" EntityType="SaceModel.tb_entrada_produto" />
-          <EntitySet Name="tb_forma_pagamento" EntityType="SaceModel.tb_forma_pagamento" />
+          <EntitySet Name="EntradaSet" EntityType="SaceModel.EntradaE" />
+          <EntitySet Name="EntradaFormaPagamentoSet" EntityType="SaceModel.EntradaFormaPagamentoE" />
+          <EntitySet Name="EntradaProdutoSet" EntityType="SaceModel.EntradaProdutoE" />
+          <EntitySet Name="FormaPagamentoSet" EntityType="SaceModel.FormaPagamentoE" />
           <EntitySet Name="tb_funcionalidade" EntityType="SaceModel.tb_funcionalidade" />
-          <EntitySet Name="tb_grupo" EntityType="SaceModel.tb_grupo" />
-          <EntitySet Name="tb_grupo_conta" EntityType="SaceModel.tb_grupo_conta" />
-          <EntitySet Name="tb_loja" EntityType="SaceModel.tb_loja" />
-          <EntitySet Name="tb_movimentacao_conta" EntityType="SaceModel.tb_movimentacao_conta" />
+          <EntitySet Name="GrupoSet" EntityType="SaceModel.GrupoE" />
+          <EntitySet Name="GrupoContaSet" EntityType="SaceModel.GrupoContaE" />
+          <EntitySet Name="LojaSet" EntityType="SaceModel.LojaE" />
+          <EntitySet Name="MovimentacaoContaSet" EntityType="SaceModel.MovimentacaoContaE" />
           <EntitySet Name="tb_perfil" EntityType="SaceModel.tb_perfil" />
           <EntitySet Name="tb_permissao" EntityType="SaceModel.tb_permissao" />
           <EntitySet Name="PessoaSet" EntityType="SaceModel.PessoaE" />
-          <EntitySet Name="tb_plano_conta" EntityType="SaceModel.tb_plano_conta" />
-          <EntitySet Name="tb_produto" EntityType="SaceModel.tb_produto" />
-          <EntitySet Name="tb_produto_loja" EntityType="SaceModel.tb_produto_loja" />
-          <EntitySet Name="tb_saida" EntityType="SaceModel.tb_saida" />
-          <EntitySet Name="tb_saida_forma_pagamento" EntityType="SaceModel.tb_saida_forma_pagamento" />
-          <EntitySet Name="tb_saida_produto" EntityType="SaceModel.tb_saida_produto" />
-          <EntitySet Name="tb_situacao_conta" EntityType="SaceModel.tb_situacao_conta" />
+          <EntitySet Name="PlanoContaSet" EntityType="SaceModel.PlanoContaE" />
+          <EntitySet Name="ProdutoSet" EntityType="SaceModel.ProdutoE" />
+          <EntitySet Name="ProdutoLojaSet" EntityType="SaceModel.ProdutoLojaE" />
+          <EntitySet Name="SaidaSet" EntityType="SaceModel.SaidaE" />
+          <EntitySet Name="SaidaFormaPagamentoSet" EntityType="SaceModel.SaidaFormaPagamentoE" />
+          <EntitySet Name="SaidaProdutoSet" EntityType="SaceModel.SaidaProdutoE" />
+          <EntitySet Name="SituacaoContaSet" EntityType="SaceModel.SituacaoContaE" />
           <EntitySet Name="tb_situacao_pagamentos" EntityType="SaceModel.tb_situacao_pagamentos" />
           <EntitySet Name="tb_situacao_produto" EntityType="SaceModel.tb_situacao_produto" />
-          <EntitySet Name="tb_subgrupo" EntityType="SaceModel.tb_subgrupo" />
-          <EntitySet Name="tb_tipo_conta" EntityType="SaceModel.tb_tipo_conta" />
+          <EntitySet Name="SubgrupoSet" EntityType="SaceModel.SubgrupoE" />
+          <EntitySet Name="TipoContaSet" EntityType="SaceModel.TipoContaE" />
           <EntitySet Name="tb_tipo_documento" EntityType="SaceModel.tb_tipo_documento" />
           <EntitySet Name="tb_tipo_movimentacao_conta" EntityType="SaceModel.tb_tipo_movimentacao_conta" />
           <EntitySet Name="tb_tipo_saida" EntityType="SaceModel.tb_tipo_saida" />
@@ -1565,59 +1565,59 @@
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_pagamento_tb_cartao_credito1" Association="SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1">
             <End Role="tb_cartao_credito" EntitySet="CartaoCreditoSet" />
-            <End Role="tb_saida_forma_pagamento" EntitySet="tb_saida_forma_pagamento" />
+            <End Role="tb_saida_forma_pagamento" EntitySet="SaidaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_produto_tb_cfop1" Association="SaceModel.fk_tb_entrada_produto_tb_cfop1">
-            <End Role="tb_cfop" EntitySet="tb_cfop" />
-            <End Role="tb_entrada_produto" EntitySet="tb_entrada_produto" />
+            <End Role="tb_cfop" EntitySet="CfopSet" />
+            <End Role="tb_entrada_produto" EntitySet="EntradaProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_cfop" Association="SaceModel.fk_tb_produto_cfop">
-            <End Role="tb_cfop" EntitySet="tb_cfop" />
-            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_cfop" EntitySet="CfopSet" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_conta_pagar_codpessoa" Association="SaceModel.fk_conta_pagar_codpessoa">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_conta" EntitySet="tb_conta" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_conta_pagar_codplanoconta" Association="SaceModel.fk_conta_pagar_codplanoconta">
-            <End Role="tb_plano_conta" EntitySet="tb_plano_conta" />
-            <End Role="tb_conta" EntitySet="tb_conta" />
+            <End Role="tb_plano_conta" EntitySet="PlanoContaSet" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_conta_pagar_codentrada" Association="SaceModel.fk_tb_conta_pagar_codentrada">
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
-            <End Role="tb_conta" EntitySet="tb_conta" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_conta_pagar_codsaida" Association="SaceModel.fk_tb_conta_pagar_codsaida">
-            <End Role="tb_saida" EntitySet="tb_saida" />
-            <End Role="tb_conta" EntitySet="tb_conta" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_conta_tb_documento_pagamento1" Association="SaceModel.fk_tb_conta_tb_documento_pagamento1">
             <End Role="tb_documento_pagamento" EntitySet="tb_documento_pagamento" />
-            <End Role="tb_conta" EntitySet="tb_conta" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_conta_tb_situacao_conta1" Association="SaceModel.fk_tb_conta_tb_situacao_conta1">
-            <End Role="tb_situacao_conta" EntitySet="tb_situacao_conta" />
-            <End Role="tb_conta" EntitySet="tb_conta" />
+            <End Role="tb_situacao_conta" EntitySet="SituacaoContaSet" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_movimentacao_conta_tb_conta1" Association="SaceModel.fk_tb_movimentacao_conta_tb_conta1">
-            <End Role="tb_conta" EntitySet="tb_conta" />
-            <End Role="tb_movimentacao_conta" EntitySet="tb_movimentacao_conta" />
+            <End Role="tb_conta" EntitySet="ContaSet" />
+            <End Role="tb_movimentacao_conta" EntitySet="MovimentacaoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_forma_pagamento_tb_conta_banco1" Association="SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1">
             <End Role="tb_conta_banco" EntitySet="ContaBancoSet" />
-            <End Role="tb_entrada_forma_pagamento" EntitySet="tb_entrada_forma_pagamento" />
+            <End Role="tb_entrada_forma_pagamento" EntitySet="EntradaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_movimentacao_conta_codcontabanco" Association="SaceModel.fk_tb_movimentacao_conta_codcontabanco">
             <End Role="tb_conta_banco" EntitySet="ContaBancoSet" />
-            <End Role="tb_movimentacao_conta" EntitySet="tb_movimentacao_conta" />
+            <End Role="tb_movimentacao_conta" EntitySet="MovimentacaoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_pagamento_tb_conta_banco1" Association="SaceModel.fk_tb_saida_pagamento_tb_conta_banco1">
             <End Role="tb_conta_banco" EntitySet="ContaBancoSet" />
-            <End Role="tb_saida_forma_pagamento" EntitySet="tb_saida_forma_pagamento" />
+            <End Role="tb_saida_forma_pagamento" EntitySet="SaidaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_tb_cst1" Association="SaceModel.fk_tb_produto_tb_cst1">
             <End Role="tb_cst" EntitySet="CstSet" />
-            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_documento_pagamento_tb_pessoa1" Association="SaceModel.fk_tb_documento_pagamento_tb_pessoa1">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
@@ -1629,79 +1629,79 @@
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_forma_pagamento_tb_documento_pagamento1" Association="SaceModel.fk_tb_entrada_forma_pagamento_tb_documento_pagamento1">
             <End Role="tb_documento_pagamento" EntitySet="tb_documento_pagamento" />
-            <End Role="tb_entrada_forma_pagamento" EntitySet="tb_entrada_forma_pagamento" />
+            <End Role="tb_entrada_forma_pagamento" EntitySet="EntradaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_forma_pagamento_tb_documento_pagamento1" Association="SaceModel.fk_tb_saida_forma_pagamento_tb_documento_pagamento1">
             <End Role="tb_documento_pagamento" EntitySet="tb_documento_pagamento" />
-            <End Role="tb_saida_forma_pagamento" EntitySet="tb_saida_forma_pagamento" />
+            <End Role="tb_saida_forma_pagamento" EntitySet="SaidaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_codempresafrete" Association="SaceModel.fk_tb_entrada_codempresafrete">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_codfornecedor" Association="SaceModel.fk_tb_entrada_codfornecedor">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1" Association="SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1">
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
-            <End Role="tb_entrada_forma_pagamento" EntitySet="tb_entrada_forma_pagamento" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
+            <End Role="tb_entrada_forma_pagamento" EntitySet="EntradaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_produto_codentrada" Association="SaceModel.fk_tb_entrada_produto_codentrada">
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
-            <End Role="tb_entrada_produto" EntitySet="tb_entrada_produto" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
+            <End Role="tb_entrada_produto" EntitySet="EntradaProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_tb_situacao_pagamentos1" Association="SaceModel.fk_tb_entrada_tb_situacao_pagamentos1">
             <End Role="tb_situacao_pagamentos" EntitySet="tb_situacao_pagamentos" />
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_tp_tipo_entrada1" Association="SaceModel.fk_tb_entrada_tp_tipo_entrada1">
             <End Role="tp_tipo_entrada" EntitySet="tp_tipo_entrada" />
-            <End Role="tb_entrada" EntitySet="tb_entrada" />
+            <End Role="tb_entrada" EntitySet="EntradaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1" Association="SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1">
-            <End Role="tb_forma_pagamento" EntitySet="tb_forma_pagamento" />
-            <End Role="tb_entrada_forma_pagamento" EntitySet="tb_entrada_forma_pagamento" />
+            <End Role="tb_forma_pagamento" EntitySet="FormaPagamentoSet" />
+            <End Role="tb_entrada_forma_pagamento" EntitySet="EntradaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_produto_codproduto" Association="SaceModel.fk_tb_entrada_produto_codproduto">
-            <End Role="tb_produto" EntitySet="tb_produto" />
-            <End Role="tb_entrada_produto" EntitySet="tb_entrada_produto" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
+            <End Role="tb_entrada_produto" EntitySet="EntradaProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_pagamento_tb_forma_pagamento1" Association="SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1">
-            <End Role="tb_forma_pagamento" EntitySet="tb_forma_pagamento" />
-            <End Role="tb_saida_forma_pagamento" EntitySet="tb_saida_forma_pagamento" />
+            <End Role="tb_forma_pagamento" EntitySet="FormaPagamentoSet" />
+            <End Role="tb_saida_forma_pagamento" EntitySet="SaidaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_permissao_codfuncionalidade" Association="SaceModel.fk_tb_permissao_codfuncionalidade">
             <End Role="tb_funcionalidade" EntitySet="tb_funcionalidade" />
             <End Role="tb_permissao" EntitySet="tb_permissao" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_codgrupo" Association="SaceModel.fk_tb_produto_codgrupo">
-            <End Role="tb_grupo" EntitySet="tb_grupo" />
-            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_grupo" EntitySet="GrupoSet" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_subgrupo_tb_grupo1" Association="SaceModel.fk_tb_subgrupo_tb_grupo1">
-            <End Role="tb_grupo" EntitySet="tb_grupo" />
-            <End Role="tb_subgrupo" EntitySet="tb_subgrupo" />
+            <End Role="tb_grupo" EntitySet="GrupoSet" />
+            <End Role="tb_subgrupo" EntitySet="SubgrupoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_plano_conta_codgrupoconta" Association="SaceModel.fk_tb_plano_conta_codgrupoconta">
-            <End Role="tb_grupo_conta" EntitySet="tb_grupo_conta" />
-            <End Role="tb_plano_conta" EntitySet="tb_plano_conta" />
+            <End Role="tb_grupo_conta" EntitySet="GrupoContaSet" />
+            <End Role="tb_plano_conta" EntitySet="PlanoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_loja_tb_pessoa1" Association="SaceModel.fk_tb_loja_tb_pessoa1">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_loja" EntitySet="tb_loja" />
+            <End Role="tb_loja" EntitySet="LojaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_loja_codloja" Association="SaceModel.fk_tb_produto_loja_codloja">
-            <End Role="tb_loja" EntitySet="tb_loja" />
-            <End Role="tb_produto_loja" EntitySet="tb_produto_loja" />
+            <End Role="tb_loja" EntitySet="LojaSet" />
+            <End Role="tb_produto_loja" EntitySet="ProdutoLojaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_movimentacao_conta_codresponsavel" Association="SaceModel.fk_movimentacao_conta_codresponsavel">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_movimentacao_conta" EntitySet="tb_movimentacao_conta" />
+            <End Role="tb_movimentacao_conta" EntitySet="MovimentacaoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_movimentacao_conta_codtipomovimentacao" Association="SaceModel.fk_movimentacao_conta_codtipomovimentacao">
             <End Role="tb_tipo_movimentacao_conta" EntitySet="tb_tipo_movimentacao_conta" />
-            <End Role="tb_movimentacao_conta" EntitySet="tb_movimentacao_conta" />
+            <End Role="tb_movimentacao_conta" EntitySet="MovimentacaoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_usuario_acodperfil" Association="SaceModel.fk_tb_usuario_acodperfil">
             <End Role="tb_perfil" EntitySet="tb_perfil" />
@@ -1713,55 +1713,55 @@
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_tb_pessoa1" Association="SaceModel.fk_tb_produto_tb_pessoa1">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_codcliente" Association="SaceModel.fk_tb_saida_codcliente">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_saida" EntitySet="tb_saida" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_codprofissional" Association="SaceModel.fk_tb_saida_codprofissional">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_saida" EntitySet="tb_saida" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_usuario_codpessoa" Association="SaceModel.fk_tb_usuario_codpessoa">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
             <End Role="tb_usuario" EntitySet="tb_usuario" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_plano_conta_tb_tipo_conta1" Association="SaceModel.fk_tb_plano_conta_tb_tipo_conta1">
-            <End Role="tb_tipo_conta" EntitySet="tb_tipo_conta" />
-            <End Role="tb_plano_conta" EntitySet="tb_plano_conta" />
+            <End Role="tb_tipo_conta" EntitySet="TipoContaSet" />
+            <End Role="tb_plano_conta" EntitySet="PlanoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_loja_codproduto" Association="SaceModel.fk_tb_produto_loja_codproduto">
-            <End Role="tb_produto" EntitySet="tb_produto" />
-            <End Role="tb_produto_loja" EntitySet="tb_produto_loja" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
+            <End Role="tb_produto_loja" EntitySet="ProdutoLojaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_tb_situacao_produto1" Association="SaceModel.fk_tb_produto_tb_situacao_produto1">
             <End Role="tb_situacao_produto" EntitySet="tb_situacao_produto" />
-            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_tb_subgrupo1" Association="SaceModel.fk_tb_produto_tb_subgrupo1">
-            <End Role="tb_subgrupo" EntitySet="tb_subgrupo" />
-            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_subgrupo" EntitySet="SubgrupoSet" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_produto_codproduto" Association="SaceModel.fk_tb_saida_produto_codproduto">
-            <End Role="tb_produto" EntitySet="tb_produto" />
-            <End Role="tb_saida_produto" EntitySet="tb_saida_produto" />
+            <End Role="tb_produto" EntitySet="ProdutoSet" />
+            <End Role="tb_saida_produto" EntitySet="SaidaProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_pagamento_tb_saida1" Association="SaceModel.fk_tb_saida_pagamento_tb_saida1">
-            <End Role="tb_saida" EntitySet="tb_saida" />
-            <End Role="tb_saida_forma_pagamento" EntitySet="tb_saida_forma_pagamento" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
+            <End Role="tb_saida_forma_pagamento" EntitySet="SaidaFormaPagamentoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_produto_codsaida" Association="SaceModel.fk_tb_saida_produto_codsaida">
-            <End Role="tb_saida" EntitySet="tb_saida" />
-            <End Role="tb_saida_produto" EntitySet="tb_saida_produto" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
+            <End Role="tb_saida_produto" EntitySet="SaidaProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_tb_situacao_pagamentos1" Association="SaceModel.fk_tb_saida_tb_situacao_pagamentos1">
             <End Role="tb_situacao_pagamentos" EntitySet="tb_situacao_pagamentos" />
-            <End Role="tb_saida" EntitySet="tb_saida" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_tb_tipo_saida1" Association="SaceModel.fk_tb_saida_tb_tipo_saida1">
             <End Role="tb_tipo_saida" EntitySet="tb_tipo_saida" />
-            <End Role="tb_saida" EntitySet="tb_saida" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
           <AssociationSet Name="ContatoEmpresaSet" Association="SaceModel.ContatoEmpresaE">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
@@ -1773,17 +1773,17 @@
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_produto_tb_cst1" Association="SaceModel.fk_tb_entrada_produto_tb_cst1">
             <End Role="tb_cst" EntitySet="CstSet" />
-            <End Role="tb_entrada_produto" EntitySet="tb_entrada_produto" />
+            <End Role="tb_entrada_produto" EntitySet="EntradaProdutoSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_tipo_saida_tb_cfop1" Association="SaceModel.fk_tb_tipo_saida_tb_cfop1">
-            <End Role="tb_cfop" EntitySet="tb_cfop" />
+            <End Role="tb_cfop" EntitySet="CfopSet" />
             <End Role="tb_tipo_saida" EntitySet="tb_tipo_saida" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_saida_tb_pessoa1" Association="SaceModel.fk_tb_saida_tb_pessoa1">
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
-            <End Role="tb_saida" EntitySet="tb_saida" />
+            <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
-          <EntitySet Name="tb_saida_pedido" EntityType="SaceModel.tb_saida_pedido" />
+          <EntitySet Name="SaidaPedidoSet" EntityType="SaceModel.SaidaPedidoE" />
         </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -1808,7 +1808,7 @@
           <NavigationProperty Name="tb_pessoa" Relationship="SaceModel.fk_tb_cartao_credito_tb_pessoa1" FromRole="tb_cartao_credito" ToRole="tb_pessoa" />
           <NavigationProperty Name="tb_saida_forma_pagamento" Relationship="SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1" FromRole="tb_cartao_credito" ToRole="tb_saida_forma_pagamento" />
         </EntityType>
-        <EntityType Name="tb_cfop">
+        <EntityType Name="CfopE">
           <Key>
             <PropertyRef Name="cfop" />
           </Key>
@@ -1826,7 +1826,7 @@
           <Property Name="codigo" Type="Int32" Nullable="false" />
           <Property Name="lucro_minimo" Type="Decimal" />
         </EntityType>
-        <EntityType Name="tb_conta">
+        <EntityType Name="ContaE">
           <Key>
             <PropertyRef Name="codConta" />
           </Key>
@@ -1898,7 +1898,7 @@
           <NavigationProperty Name="tb_entrada_forma_pagamento" Relationship="SaceModel.fk_tb_entrada_forma_pagamento_tb_documento_pagamento1" FromRole="tb_documento_pagamento" ToRole="tb_entrada_forma_pagamento" />
           <NavigationProperty Name="tb_saida_forma_pagamento" Relationship="SaceModel.fk_tb_saida_forma_pagamento_tb_documento_pagamento1" FromRole="tb_documento_pagamento" ToRole="tb_saida_forma_pagamento" />
         </EntityType>
-        <EntityType Name="tb_entrada">
+        <EntityType Name="EntradaE">
           <Key>
             <PropertyRef Name="codEntrada" />
           </Key>
@@ -1931,7 +1931,7 @@
           <NavigationProperty Name="tp_tipo_entrada" Relationship="SaceModel.fk_tb_entrada_tp_tipo_entrada1" FromRole="tb_entrada" ToRole="tp_tipo_entrada" />
           <Property Type="Decimal" Name="totalProdutosST" />
         </EntityType>
-        <EntityType Name="tb_entrada_forma_pagamento">
+        <EntityType Name="EntradaFormaPagamentoE">
           <Key>
             <PropertyRef Name="codEntradaFormaPagamento" />
           </Key>
@@ -1948,7 +1948,7 @@
           <NavigationProperty Name="tb_entrada" Relationship="SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1" FromRole="tb_entrada_forma_pagamento" ToRole="tb_entrada" />
           <NavigationProperty Name="tb_forma_pagamento" Relationship="SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1" FromRole="tb_entrada_forma_pagamento" ToRole="tb_forma_pagamento" />
         </EntityType>
-        <EntityType Name="tb_entrada_produto">
+        <EntityType Name="EntradaProdutoE">
           <Key>
             <PropertyRef Name="codEntradaProduto" />
           </Key>
@@ -1976,7 +1976,7 @@
           <Property Type="String" Name="codCST" Nullable="false" />
           <NavigationProperty Name="tb_cst" Relationship="SaceModel.fk_tb_entrada_produto_tb_cst1" FromRole="tb_entrada_produto" ToRole="tb_cst" />
         </EntityType>
-        <EntityType Name="tb_forma_pagamento">
+        <EntityType Name="FormaPagamentoE">
           <Key>
             <PropertyRef Name="codFormaPagamento" />
           </Key>
@@ -1997,7 +1997,7 @@
           <NavigationProperty Name="tb_permissao" Relationship="SaceModel.fk_tb_permissao_codfuncionalidade" FromRole="tb_funcionalidade" ToRole="tb_permissao" />
           <NavigationProperty Name="tb_perfil" Relationship="SaceModel.tb_perfil_funcionalidade" FromRole="tb_funcionalidade" ToRole="tb_perfil" />
         </EntityType>
-        <EntityType Name="tb_grupo">
+        <EntityType Name="GrupoE">
           <Key>
             <PropertyRef Name="codGrupo" />
           </Key>
@@ -2006,7 +2006,7 @@
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_produto_codgrupo" FromRole="tb_grupo" ToRole="tb_produto" />
           <NavigationProperty Name="tb_subgrupo" Relationship="SaceModel.fk_tb_subgrupo_tb_grupo1" FromRole="tb_grupo" ToRole="tb_subgrupo" />
         </EntityType>
-        <EntityType Name="tb_grupo_conta">
+        <EntityType Name="GrupoContaE">
           <Key>
             <PropertyRef Name="codGrupoConta" />
           </Key>
@@ -2014,7 +2014,7 @@
           <Property Name="descricao" Type="String" Nullable="false" />
           <NavigationProperty Name="tb_plano_conta" Relationship="SaceModel.fk_tb_plano_conta_codgrupoconta" FromRole="tb_grupo_conta" ToRole="tb_plano_conta" />
         </EntityType>
-        <EntityType Name="tb_loja">
+        <EntityType Name="LojaE">
           <Key>
             <PropertyRef Name="codLoja" />
           </Key>
@@ -2024,7 +2024,7 @@
           <NavigationProperty Name="tb_pessoa" Relationship="SaceModel.fk_tb_loja_tb_pessoa1" FromRole="tb_loja" ToRole="tb_pessoa" />
           <NavigationProperty Name="tb_produto_loja" Relationship="SaceModel.fk_tb_produto_loja_codloja" FromRole="tb_loja" ToRole="tb_produto_loja" />
         </EntityType>
-        <EntityType Name="tb_movimentacao_conta">
+        <EntityType Name="MovimentacaoContaE">
           <Key>
             <PropertyRef Name="codMovimentacao" />
           </Key>
@@ -2103,7 +2103,7 @@
           <Property Type="String" Name="nomeFantasia" />
           <NavigationProperty Name="tb_saida2" Relationship="SaceModel.fk_tb_saida_tb_pessoa1" FromRole="tb_pessoa" ToRole="tb_saida" />
         </EntityType>
-        <EntityType Name="tb_plano_conta">
+        <EntityType Name="PlanoContaE">
           <Key>
             <PropertyRef Name="codPlanoConta" />
           </Key>
@@ -2116,7 +2116,7 @@
           <NavigationProperty Name="tb_grupo_conta" Relationship="SaceModel.fk_tb_plano_conta_codgrupoconta" FromRole="tb_plano_conta" ToRole="tb_grupo_conta" />
           <NavigationProperty Name="tb_tipo_conta" Relationship="SaceModel.fk_tb_plano_conta_tb_tipo_conta1" FromRole="tb_plano_conta" ToRole="tb_tipo_conta" />
         </EntityType>
-        <EntityType Name="tb_produto">
+        <EntityType Name="ProdutoE">
           <Key>
             <PropertyRef Name="codProduto" />
           </Key>
@@ -2161,7 +2161,7 @@
           <Property Type="String" Name="unidadeCompra" />
           <Property Type="Decimal" Name="quantidadeEmbalagem" />
         </EntityType>
-        <EntityType Name="tb_produto_loja">
+        <EntityType Name="ProdutoLojaE">
           <Key>
             <PropertyRef Name="codLoja" />
             <PropertyRef Name="codProduto" />
@@ -2176,7 +2176,7 @@
           <Property Type="String" Name="localizacao2" />
           <Property Type="Decimal" Name="estoqueMaximo" Nullable="false" />
         </EntityType>
-        <EntityType Name="tb_saida">
+        <EntityType Name="SaidaE">
           <Key>
             <PropertyRef Name="codSaida" />
           </Key>
@@ -2222,7 +2222,7 @@
           <Property Type="Int64" Name="codEmpresaFrete" Nullable="false" />
           <NavigationProperty Name="tb_pessoa2" Relationship="SaceModel.fk_tb_saida_tb_pessoa1" FromRole="tb_saida" ToRole="tb_pessoa" />
         </EntityType>
-        <EntityType Name="tb_saida_forma_pagamento">
+        <EntityType Name="SaidaFormaPagamentoE">
           <Key>
             <PropertyRef Name="codSaidaFormaPagamento" />
           </Key>
@@ -2242,7 +2242,7 @@
           <NavigationProperty Name="tb_forma_pagamento" Relationship="SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1" FromRole="tb_saida_forma_pagamento" ToRole="tb_forma_pagamento" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.fk_tb_saida_pagamento_tb_saida1" FromRole="tb_saida_forma_pagamento" ToRole="tb_saida" />
         </EntityType>
-        <EntityType Name="tb_saida_produto">
+        <EntityType Name="SaidaProdutoE">
           <Key>
             <PropertyRef Name="codSaidaProduto" />
           </Key>
@@ -2263,7 +2263,7 @@
           <Property Type="Decimal" Name="valorICMSSubst" />
           <Property Type="Decimal" Name="valorIPI" />
         </EntityType>
-        <EntityType Name="tb_situacao_conta">
+        <EntityType Name="SituacaoContaE">
           <Key>
             <PropertyRef Name="codSituacao" />
           </Key>
@@ -2288,7 +2288,7 @@
           <Property Name="descricaoSituacao" Type="String" Nullable="false" />
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_produto_tb_situacao_produto1" FromRole="tb_situacao_produto" ToRole="tb_produto" />
         </EntityType>
-        <EntityType Name="tb_subgrupo">
+        <EntityType Name="SubgrupoE">
           <Key>
             <PropertyRef Name="codSubgrupo" />
           </Key>
@@ -2298,7 +2298,7 @@
           <NavigationProperty Name="tb_grupo" Relationship="SaceModel.fk_tb_subgrupo_tb_grupo1" FromRole="tb_subgrupo" ToRole="tb_grupo" />
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_produto_tb_subgrupo1" FromRole="tb_subgrupo" ToRole="tb_produto" />
         </EntityType>
-        <EntityType Name="tb_tipo_conta">
+        <EntityType Name="TipoContaE">
           <Key>
             <PropertyRef Name="codTipoConta" />
           </Key>
@@ -2403,7 +2403,7 @@
         </Association>
         <Association Name="fk_tb_saida_pagamento_tb_cartao_credito1">
           <End Role="tb_cartao_credito" Type="SaceModel.CartaoCreditoE" Multiplicity="1" />
-          <End Role="tb_saida_forma_pagamento" Type="SaceModel.tb_saida_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_saida_forma_pagamento" Type="SaceModel.SaidaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cartao_credito">
               <PropertyRef Name="codCartao" />
@@ -2414,8 +2414,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_entrada_produto_tb_cfop1">
-          <End Role="tb_cfop" Type="SaceModel.tb_cfop" Multiplicity="1" />
-          <End Role="tb_entrada_produto" Type="SaceModel.tb_entrada_produto" Multiplicity="*" />
+          <End Role="tb_cfop" Type="SaceModel.CfopE" Multiplicity="1" />
+          <End Role="tb_entrada_produto" Type="SaceModel.EntradaProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cfop">
               <PropertyRef Name="cfop" />
@@ -2426,8 +2426,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_produto_cfop">
-          <End Role="tb_cfop" Type="SaceModel.tb_cfop" Multiplicity="0..1" />
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="*" />
+          <End Role="tb_cfop" Type="SaceModel.CfopE" Multiplicity="0..1" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cfop">
               <PropertyRef Name="cfop" />
@@ -2439,7 +2439,7 @@
         </Association>
         <Association Name="fk_conta_pagar_codpessoa">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="*" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2450,8 +2450,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_conta_pagar_codplanoconta">
-          <End Role="tb_plano_conta" Type="SaceModel.tb_plano_conta" Multiplicity="1" />
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="*" />
+          <End Role="tb_plano_conta" Type="SaceModel.PlanoContaE" Multiplicity="1" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_plano_conta">
               <PropertyRef Name="codPlanoConta" />
@@ -2462,10 +2462,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_conta_pagar_codentrada">
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="0..1">
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="*" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_entrada">
               <PropertyRef Name="codEntrada" />
@@ -2476,10 +2476,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_conta_pagar_codsaida">
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="0..1">
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="*" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_saida">
               <PropertyRef Name="codSaida" />
@@ -2491,7 +2491,7 @@
         </Association>
         <Association Name="fk_tb_conta_tb_documento_pagamento1">
           <End Role="tb_documento_pagamento" Type="SaceModel.tb_documento_pagamento" Multiplicity="1" />
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="*" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_documento_pagamento">
               <PropertyRef Name="codDocumentoPagamento" />
@@ -2502,8 +2502,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_conta_tb_situacao_conta1">
-          <End Role="tb_situacao_conta" Type="SaceModel.tb_situacao_conta" Multiplicity="1" />
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="*" />
+          <End Role="tb_situacao_conta" Type="SaceModel.SituacaoContaE" Multiplicity="1" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_situacao_conta">
               <PropertyRef Name="codSituacao" />
@@ -2514,8 +2514,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_movimentacao_conta_tb_conta1">
-          <End Role="tb_conta" Type="SaceModel.tb_conta" Multiplicity="0..1" />
-          <End Role="tb_movimentacao_conta" Type="SaceModel.tb_movimentacao_conta" Multiplicity="*" />
+          <End Role="tb_conta" Type="SaceModel.ContaE" Multiplicity="0..1" />
+          <End Role="tb_movimentacao_conta" Type="SaceModel.MovimentacaoContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_conta">
               <PropertyRef Name="codConta" />
@@ -2527,7 +2527,7 @@
         </Association>
         <Association Name="fk_tb_entrada_forma_pagamento_tb_conta_banco1">
           <End Role="tb_conta_banco" Type="SaceModel.ContaBancoE" Multiplicity="1" />
-          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.tb_entrada_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.EntradaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_conta_banco">
               <PropertyRef Name="codContaBanco" />
@@ -2539,7 +2539,7 @@
         </Association>
         <Association Name="fk_tb_movimentacao_conta_codcontabanco">
           <End Role="tb_conta_banco" Type="SaceModel.ContaBancoE" Multiplicity="1" />
-          <End Role="tb_movimentacao_conta" Type="SaceModel.tb_movimentacao_conta" Multiplicity="*" />
+          <End Role="tb_movimentacao_conta" Type="SaceModel.MovimentacaoContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_conta_banco">
               <PropertyRef Name="codContaBanco" />
@@ -2551,7 +2551,7 @@
         </Association>
         <Association Name="fk_tb_saida_pagamento_tb_conta_banco1">
           <End Role="tb_conta_banco" Type="SaceModel.ContaBancoE" Multiplicity="1" />
-          <End Role="tb_saida_forma_pagamento" Type="SaceModel.tb_saida_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_saida_forma_pagamento" Type="SaceModel.SaidaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_conta_banco">
               <PropertyRef Name="codContaBanco" />
@@ -2563,7 +2563,7 @@
         </Association>
         <Association Name="fk_tb_produto_tb_cst1">
           <End Role="tb_cst" Type="SaceModel.CstE" Multiplicity="1" />
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="*" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cst">
               <PropertyRef Name="codCST" />
@@ -2599,7 +2599,7 @@
         </Association>
         <Association Name="fk_tb_entrada_forma_pagamento_tb_documento_pagamento1">
           <End Role="tb_documento_pagamento" Type="SaceModel.tb_documento_pagamento" Multiplicity="1" />
-          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.tb_entrada_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.EntradaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_documento_pagamento">
               <PropertyRef Name="codDocumentoPagamento" />
@@ -2611,7 +2611,7 @@
         </Association>
         <Association Name="fk_tb_saida_forma_pagamento_tb_documento_pagamento1">
           <End Role="tb_documento_pagamento" Type="SaceModel.tb_documento_pagamento" Multiplicity="1" />
-          <End Role="tb_saida_forma_pagamento" Type="SaceModel.tb_saida_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_saida_forma_pagamento" Type="SaceModel.SaidaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_documento_pagamento">
               <PropertyRef Name="codDocumentoPagamento" />
@@ -2623,7 +2623,7 @@
         </Association>
         <Association Name="fk_tb_entrada_codempresafrete">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="*" />
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2635,7 +2635,7 @@
         </Association>
         <Association Name="fk_tb_entrada_codfornecedor">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="*" />
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2646,8 +2646,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1">
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="1" />
-          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.tb_entrada_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="1" />
+          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.EntradaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_entrada">
               <PropertyRef Name="codEntrada" />
@@ -2658,10 +2658,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_entrada_produto_codentrada">
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="1">
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tb_entrada_produto" Type="SaceModel.tb_entrada_produto" Multiplicity="*" />
+          <End Role="tb_entrada_produto" Type="SaceModel.EntradaProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_entrada">
               <PropertyRef Name="codEntrada" />
@@ -2673,7 +2673,7 @@
         </Association>
         <Association Name="fk_tb_entrada_tb_situacao_pagamentos1">
           <End Role="tb_situacao_pagamentos" Type="SaceModel.tb_situacao_pagamentos" Multiplicity="1" />
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="*" />
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_situacao_pagamentos">
               <PropertyRef Name="codSituacaoPagamentos" />
@@ -2685,7 +2685,7 @@
         </Association>
         <Association Name="fk_tb_entrada_tp_tipo_entrada1">
           <End Role="tp_tipo_entrada" Type="SaceModel.tp_tipo_entrada" Multiplicity="1" />
-          <End Role="tb_entrada" Type="SaceModel.tb_entrada" Multiplicity="*" />
+          <End Role="tb_entrada" Type="SaceModel.EntradaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tp_tipo_entrada">
               <PropertyRef Name="codTipoEntrada" />
@@ -2696,8 +2696,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1">
-          <End Role="tb_forma_pagamento" Type="SaceModel.tb_forma_pagamento" Multiplicity="1" />
-          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.tb_entrada_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_forma_pagamento" Type="SaceModel.FormaPagamentoE" Multiplicity="1" />
+          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.EntradaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_forma_pagamento">
               <PropertyRef Name="codFormaPagamento" />
@@ -2708,8 +2708,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_entrada_produto_codproduto">
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="1" />
-          <End Role="tb_entrada_produto" Type="SaceModel.tb_entrada_produto" Multiplicity="*" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="1" />
+          <End Role="tb_entrada_produto" Type="SaceModel.EntradaProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_produto">
               <PropertyRef Name="codProduto" />
@@ -2720,8 +2720,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_pagamento_tb_forma_pagamento1">
-          <End Role="tb_forma_pagamento" Type="SaceModel.tb_forma_pagamento" Multiplicity="1" />
-          <End Role="tb_saida_forma_pagamento" Type="SaceModel.tb_saida_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_forma_pagamento" Type="SaceModel.FormaPagamentoE" Multiplicity="1" />
+          <End Role="tb_saida_forma_pagamento" Type="SaceModel.SaidaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_forma_pagamento">
               <PropertyRef Name="codFormaPagamento" />
@@ -2744,8 +2744,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_produto_codgrupo">
-          <End Role="tb_grupo" Type="SaceModel.tb_grupo" Multiplicity="1" />
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="*" />
+          <End Role="tb_grupo" Type="SaceModel.GrupoE" Multiplicity="1" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_grupo">
               <PropertyRef Name="codGrupo" />
@@ -2756,8 +2756,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_subgrupo_tb_grupo1">
-          <End Role="tb_grupo" Type="SaceModel.tb_grupo" Multiplicity="1" />
-          <End Role="tb_subgrupo" Type="SaceModel.tb_subgrupo" Multiplicity="*" />
+          <End Role="tb_grupo" Type="SaceModel.GrupoE" Multiplicity="1" />
+          <End Role="tb_subgrupo" Type="SaceModel.SubgrupoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_grupo">
               <PropertyRef Name="codGrupo" />
@@ -2768,8 +2768,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_plano_conta_codgrupoconta">
-          <End Role="tb_grupo_conta" Type="SaceModel.tb_grupo_conta" Multiplicity="1" />
-          <End Role="tb_plano_conta" Type="SaceModel.tb_plano_conta" Multiplicity="*" />
+          <End Role="tb_grupo_conta" Type="SaceModel.GrupoContaE" Multiplicity="1" />
+          <End Role="tb_plano_conta" Type="SaceModel.PlanoContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_grupo_conta">
               <PropertyRef Name="codGrupoConta" />
@@ -2781,7 +2781,7 @@
         </Association>
         <Association Name="fk_tb_loja_tb_pessoa1">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_loja" Type="SaceModel.tb_loja" Multiplicity="*" />
+          <End Role="tb_loja" Type="SaceModel.LojaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2792,8 +2792,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_produto_loja_codloja">
-          <End Role="tb_loja" Type="SaceModel.tb_loja" Multiplicity="1" />
-          <End Role="tb_produto_loja" Type="SaceModel.tb_produto_loja" Multiplicity="*" />
+          <End Role="tb_loja" Type="SaceModel.LojaE" Multiplicity="1" />
+          <End Role="tb_produto_loja" Type="SaceModel.ProdutoLojaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_loja">
               <PropertyRef Name="codLoja" />
@@ -2805,7 +2805,7 @@
         </Association>
         <Association Name="fk_movimentacao_conta_codresponsavel">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_movimentacao_conta" Type="SaceModel.tb_movimentacao_conta" Multiplicity="*" />
+          <End Role="tb_movimentacao_conta" Type="SaceModel.MovimentacaoContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2817,7 +2817,7 @@
         </Association>
         <Association Name="fk_movimentacao_conta_codtipomovimentacao">
           <End Role="tb_tipo_movimentacao_conta" Type="SaceModel.tb_tipo_movimentacao_conta" Multiplicity="1" />
-          <End Role="tb_movimentacao_conta" Type="SaceModel.tb_movimentacao_conta" Multiplicity="*" />
+          <End Role="tb_movimentacao_conta" Type="SaceModel.MovimentacaoContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_tipo_movimentacao_conta">
               <PropertyRef Name="codTipoMovimentacao" />
@@ -2853,7 +2853,7 @@
         </Association>
         <Association Name="fk_tb_produto_tb_pessoa1">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="*" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2865,7 +2865,7 @@
         </Association>
         <Association Name="fk_tb_saida_codcliente">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="1" />
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="*" />
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2877,7 +2877,7 @@
         </Association>
         <Association Name="fk_tb_saida_codprofissional">
           <End Role="tb_pessoa" Type="SaceModel.PessoaE" Multiplicity="0..1" />
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="*" />
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -2900,8 +2900,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_plano_conta_tb_tipo_conta1">
-          <End Role="tb_tipo_conta" Type="SaceModel.tb_tipo_conta" Multiplicity="1" />
-          <End Role="tb_plano_conta" Type="SaceModel.tb_plano_conta" Multiplicity="*" />
+          <End Role="tb_tipo_conta" Type="SaceModel.TipoContaE" Multiplicity="1" />
+          <End Role="tb_plano_conta" Type="SaceModel.PlanoContaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_tipo_conta">
               <PropertyRef Name="codTipoConta" />
@@ -2912,10 +2912,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_produto_loja_codproduto">
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="1">
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tb_produto_loja" Type="SaceModel.tb_produto_loja" Multiplicity="*" />
+          <End Role="tb_produto_loja" Type="SaceModel.ProdutoLojaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_produto">
               <PropertyRef Name="codProduto" />
@@ -2927,7 +2927,7 @@
         </Association>
         <Association Name="fk_tb_produto_tb_situacao_produto1">
           <End Role="tb_situacao_produto" Type="SaceModel.tb_situacao_produto" Multiplicity="1" />
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="*" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_situacao_produto">
               <PropertyRef Name="codSituacaoProduto" />
@@ -2938,8 +2938,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_produto_tb_subgrupo1">
-          <End Role="tb_subgrupo" Type="SaceModel.tb_subgrupo" Multiplicity="1" />
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="*" />
+          <End Role="tb_subgrupo" Type="SaceModel.SubgrupoE" Multiplicity="1" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_subgrupo">
               <PropertyRef Name="codSubgrupo" />
@@ -2950,8 +2950,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_produto_codproduto">
-          <End Role="tb_produto" Type="SaceModel.tb_produto" Multiplicity="1" />
-          <End Role="tb_saida_produto" Type="SaceModel.tb_saida_produto" Multiplicity="*" />
+          <End Role="tb_produto" Type="SaceModel.ProdutoE" Multiplicity="1" />
+          <End Role="tb_saida_produto" Type="SaceModel.SaidaProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_produto">
               <PropertyRef Name="codProduto" />
@@ -2962,10 +2962,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_pagamento_tb_saida1">
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="1">
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tb_saida_forma_pagamento" Type="SaceModel.tb_saida_forma_pagamento" Multiplicity="*" />
+          <End Role="tb_saida_forma_pagamento" Type="SaceModel.SaidaFormaPagamentoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_saida">
               <PropertyRef Name="codSaida" />
@@ -2976,10 +2976,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_produto_codsaida">
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="1">
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="tb_saida_produto" Type="SaceModel.tb_saida_produto" Multiplicity="*" />
+          <End Role="tb_saida_produto" Type="SaceModel.SaidaProdutoE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_saida">
               <PropertyRef Name="codSaida" />
@@ -2991,7 +2991,7 @@
         </Association>
         <Association Name="fk_tb_saida_tb_situacao_pagamentos1">
           <End Role="tb_situacao_pagamentos" Type="SaceModel.tb_situacao_pagamentos" Multiplicity="1" />
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="*" />
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_situacao_pagamentos">
               <PropertyRef Name="codSituacaoPagamentos" />
@@ -3003,7 +3003,7 @@
         </Association>
         <Association Name="fk_tb_saida_tb_tipo_saida1">
           <End Role="tb_tipo_saida" Type="SaceModel.tb_tipo_saida" Multiplicity="1" />
-          <End Role="tb_saida" Type="SaceModel.tb_saida" Multiplicity="*" />
+          <End Role="tb_saida" Type="SaceModel.SaidaE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_tipo_saida">
               <PropertyRef Name="codTipoSaida" />
@@ -3023,7 +3023,7 @@
         </Association>
         <Association Name="fk_tb_entrada_produto_tb_cst1">
           <End Type="SaceModel.CstE" Role="tb_cst" Multiplicity="1" />
-          <End Type="SaceModel.tb_entrada_produto" Role="tb_entrada_produto" Multiplicity="*" />
+          <End Type="SaceModel.EntradaProdutoE" Role="tb_entrada_produto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cst">
               <PropertyRef Name="codCST" />
@@ -3034,7 +3034,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_tipo_saida_tb_cfop1">
-          <End Type="SaceModel.tb_cfop" Role="tb_cfop" Multiplicity="1" />
+          <End Type="SaceModel.CfopE" Role="tb_cfop" Multiplicity="1" />
           <End Type="SaceModel.tb_tipo_saida" Role="tb_tipo_saida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_cfop">
@@ -3047,7 +3047,7 @@
         </Association>
         <Association Name="fk_tb_saida_tb_pessoa1">
           <End Type="SaceModel.PessoaE" Role="tb_pessoa" Multiplicity="1" />
-          <End Type="SaceModel.tb_saida" Role="tb_saida" Multiplicity="*" />
+          <End Type="SaceModel.SaidaE" Role="tb_saida" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_pessoa">
               <PropertyRef Name="codPessoa" />
@@ -3057,7 +3057,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tb_saida_pedido">
+        <EntityType Name="SaidaPedidoE">
           <Key>
             <PropertyRef Name="codSaida" />
             <PropertyRef Name="codPedidoGerado" />
@@ -3083,7 +3083,7 @@
             <ScalarProperty Name="mapeamento" ColumnName="mapeamento" />
             <ScalarProperty Name="codPessoa" ColumnName="codPessoa" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_cfop"><EntityTypeMapping TypeName="SaceModel.tb_cfop"><MappingFragment StoreEntitySet="tb_cfop">
+          <EntitySetMapping Name="CfopSet"><EntityTypeMapping TypeName="SaceModel.CfopE"><MappingFragment StoreEntitySet="tb_cfop">
             <ScalarProperty Name="cfop" ColumnName="cfop" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
             <ScalarProperty Name="icms" ColumnName="icms" />
@@ -3092,7 +3092,7 @@
             <ScalarProperty Name="codigo" ColumnName="codigo" />
             <ScalarProperty Name="lucro_minimo" ColumnName="lucro_minimo" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_conta"><EntityTypeMapping TypeName="SaceModel.tb_conta"><MappingFragment StoreEntitySet="tb_conta">
+          <EntitySetMapping Name="ContaSet"><EntityTypeMapping TypeName="SaceModel.ContaE"><MappingFragment StoreEntitySet="tb_conta">
             <ScalarProperty Name="desconto" ColumnName="desconto" />
                 <ScalarProperty Name="codConta" ColumnName="codConta" />
             <ScalarProperty Name="codPlanoConta" ColumnName="codPlanoConta" />
@@ -3132,7 +3132,7 @@
             <ScalarProperty Name="emitente" ColumnName="emitente" />
             <ScalarProperty Name="observacao" ColumnName="observacao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_entrada"><EntityTypeMapping TypeName="SaceModel.tb_entrada"><MappingFragment StoreEntitySet="tb_entrada">
+          <EntitySetMapping Name="EntradaSet"><EntityTypeMapping TypeName="SaceModel.EntradaE"><MappingFragment StoreEntitySet="tb_entrada">
             <ScalarProperty Name="totalProdutosST" ColumnName="totalProdutosST" />
                 <ScalarProperty Name="codEntrada" ColumnName="codEntrada" />
             <ScalarProperty Name="numeroNotaFiscal" ColumnName="numeroNotaFiscal" />
@@ -3155,7 +3155,7 @@
             <ScalarProperty Name="codSituacaoPagamentos" ColumnName="codSituacaoPagamentos" />
             <ScalarProperty Name="fretePagoEmitente" ColumnName="fretePagoEmitente" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_entrada_forma_pagamento"><EntityTypeMapping TypeName="SaceModel.tb_entrada_forma_pagamento"><MappingFragment StoreEntitySet="tb_entrada_forma_pagamento">
+          <EntitySetMapping Name="EntradaFormaPagamentoSet"><EntityTypeMapping TypeName="SaceModel.EntradaFormaPagamentoE"><MappingFragment StoreEntitySet="tb_entrada_forma_pagamento">
             <ScalarProperty Name="codEntradaFormaPagamento" ColumnName="codEntradaFormaPagamento" />
             <ScalarProperty Name="codEntrada" ColumnName="codEntrada" />
             <ScalarProperty Name="codFormaPagamento" ColumnName="codFormaPagamento" />
@@ -3165,7 +3165,7 @@
             <ScalarProperty Name="data" ColumnName="data" />
             <ScalarProperty Name="pagamentoDoFrete" ColumnName="pagamentoDoFrete" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_entrada_produto"><EntityTypeMapping TypeName="SaceModel.tb_entrada_produto"><MappingFragment StoreEntitySet="tb_entrada_produto">
+          <EntitySetMapping Name="EntradaProdutoSet"><EntityTypeMapping TypeName="SaceModel.EntradaProdutoE"><MappingFragment StoreEntitySet="tb_entrada_produto">
             <ScalarProperty Name="codCST" ColumnName="codCST" />
                 <ScalarProperty Name="desconto" ColumnName="desconto" />
                 <ScalarProperty Name="codEntradaProduto" ColumnName="codEntradaProduto" />
@@ -3186,7 +3186,7 @@
             <ScalarProperty Name="preco_custo" ColumnName="preco_custo" />
             <ScalarProperty Name="quantidade_disponivel" ColumnName="quantidade_disponivel" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_forma_pagamento"><EntityTypeMapping TypeName="SaceModel.tb_forma_pagamento"><MappingFragment StoreEntitySet="tb_forma_pagamento">
+          <EntitySetMapping Name="FormaPagamentoSet"><EntityTypeMapping TypeName="SaceModel.FormaPagamentoE"><MappingFragment StoreEntitySet="tb_forma_pagamento">
             <ScalarProperty Name="codFormaPagamento" ColumnName="codFormaPagamento" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
             <ScalarProperty Name="parcelas" ColumnName="parcelas" />
@@ -3197,20 +3197,20 @@
             <ScalarProperty Name="codFuncionalidade" ColumnName="codFuncionalidade" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_grupo"><EntityTypeMapping TypeName="SaceModel.tb_grupo"><MappingFragment StoreEntitySet="tb_grupo">
+          <EntitySetMapping Name="GrupoSet"><EntityTypeMapping TypeName="SaceModel.GrupoE"><MappingFragment StoreEntitySet="tb_grupo">
             <ScalarProperty Name="codGrupo" ColumnName="codGrupo" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_grupo_conta"><EntityTypeMapping TypeName="SaceModel.tb_grupo_conta"><MappingFragment StoreEntitySet="tb_grupo_conta">
+          <EntitySetMapping Name="GrupoContaSet"><EntityTypeMapping TypeName="SaceModel.GrupoContaE"><MappingFragment StoreEntitySet="tb_grupo_conta">
             <ScalarProperty Name="codGrupoConta" ColumnName="codGrupoConta" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_loja"><EntityTypeMapping TypeName="SaceModel.tb_loja"><MappingFragment StoreEntitySet="tb_loja">
+          <EntitySetMapping Name="LojaSet"><EntityTypeMapping TypeName="SaceModel.LojaE"><MappingFragment StoreEntitySet="tb_loja">
             <ScalarProperty Name="codLoja" ColumnName="codLoja" />
             <ScalarProperty Name="nome" ColumnName="nome" />
             <ScalarProperty Name="codPessoa" ColumnName="codPessoa" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_movimentacao_conta"><EntityTypeMapping TypeName="SaceModel.tb_movimentacao_conta"><MappingFragment StoreEntitySet="tb_movimentacao_conta">
+          <EntitySetMapping Name="MovimentacaoContaSet"><EntityTypeMapping TypeName="SaceModel.MovimentacaoContaE"><MappingFragment StoreEntitySet="tb_movimentacao_conta">
             <ScalarProperty Name="codMovimentacao" ColumnName="codMovimentacao" />
             <ScalarProperty Name="codContaBanco" ColumnName="codContaBanco" />
             <ScalarProperty Name="codResponsavel" ColumnName="codResponsavel" />
@@ -3254,14 +3254,14 @@
             <ScalarProperty Name="fone3" ColumnName="fone3" />
             <ScalarProperty Name="email" ColumnName="email" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_plano_conta"><EntityTypeMapping TypeName="SaceModel.tb_plano_conta"><MappingFragment StoreEntitySet="tb_plano_conta">
+          <EntitySetMapping Name="PlanoContaSet"><EntityTypeMapping TypeName="SaceModel.PlanoContaE"><MappingFragment StoreEntitySet="tb_plano_conta">
             <ScalarProperty Name="codPlanoConta" ColumnName="codPlanoConta" />
             <ScalarProperty Name="codGrupoConta" ColumnName="codGrupoConta" />
             <ScalarProperty Name="codTipoConta" ColumnName="codTipoConta" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
             <ScalarProperty Name="diaBase" ColumnName="diaBase" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_produto"><EntityTypeMapping TypeName="SaceModel.tb_produto"><MappingFragment StoreEntitySet="tb_produto">
+          <EntitySetMapping Name="ProdutoSet"><EntityTypeMapping TypeName="SaceModel.ProdutoE"><MappingFragment StoreEntitySet="tb_produto">
             <ScalarProperty Name="quantidadeEmbalagem" ColumnName="quantidadeEmbalagem" />
                 <ScalarProperty Name="unidadeCompra" ColumnName="unidadeCompra" />
                 <ScalarProperty Name="desconto" ColumnName="desconto" />
@@ -3294,7 +3294,7 @@
             <ScalarProperty Name="exibeNaListagem" ColumnName="exibeNaListagem" />
             <ScalarProperty Name="dataUltimoPedido" ColumnName="dataUltimoPedido" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_produto_loja"><EntityTypeMapping TypeName="SaceModel.tb_produto_loja"><MappingFragment StoreEntitySet="tb_produto_loja">
+          <EntitySetMapping Name="ProdutoLojaSet"><EntityTypeMapping TypeName="SaceModel.ProdutoLojaE"><MappingFragment StoreEntitySet="tb_produto_loja">
             <ScalarProperty Name="estoqueMaximo" ColumnName="estoqueMaximo" />
                 <ScalarProperty Name="localizacao2" ColumnName="localizacao2" />
                 <ScalarProperty Name="codLoja" ColumnName="codLoja" />
@@ -3303,7 +3303,7 @@
             <ScalarProperty Name="qtdEstoqueAux" ColumnName="qtdEstoqueAux" />
             <ScalarProperty Name="localizacao" ColumnName="localizacao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_saida"><EntityTypeMapping TypeName="SaceModel.tb_saida"><MappingFragment StoreEntitySet="tb_saida">
+          <EntitySetMapping Name="SaidaSet"><EntityTypeMapping TypeName="SaceModel.SaidaE"><MappingFragment StoreEntitySet="tb_saida">
             <ScalarProperty Name="codEmpresaFrete" ColumnName="codEmpresaFrete" />
                 <ScalarProperty Name="pesoLiquido" ColumnName="pesoLiquido" />
                 <ScalarProperty Name="pesoBruto" ColumnName="pesoBruto" />
@@ -3338,7 +3338,7 @@
             <ScalarProperty Name="entregaRealizada" ColumnName="entregaRealizada" />
             <ScalarProperty Name="nfe" ColumnName="nfe" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_saida_forma_pagamento"><EntityTypeMapping TypeName="SaceModel.tb_saida_forma_pagamento"><MappingFragment StoreEntitySet="tb_saida_forma_pagamento">
+          <EntitySetMapping Name="SaidaFormaPagamentoSet"><EntityTypeMapping TypeName="SaceModel.SaidaFormaPagamentoE"><MappingFragment StoreEntitySet="tb_saida_forma_pagamento">
             <ScalarProperty Name="codSaidaFormaPagamento" ColumnName="codSaidaFormaPagamento" />
             <ScalarProperty Name="codSaida" ColumnName="codSaida" />
             <ScalarProperty Name="codFormaPagamento" ColumnName="codFormaPagamento" />
@@ -3350,7 +3350,7 @@
             <ScalarProperty Name="parcelas" ColumnName="parcelas" />
             <ScalarProperty Name="intervaloDias" ColumnName="intervaloDias" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_saida_produto"><EntityTypeMapping TypeName="SaceModel.tb_saida_produto"><MappingFragment StoreEntitySet="tb_saida_produto">
+          <EntitySetMapping Name="SaidaProdutoSet"><EntityTypeMapping TypeName="SaceModel.SaidaProdutoE"><MappingFragment StoreEntitySet="tb_saida_produto">
             <ScalarProperty Name="valorIPI" ColumnName="valorIPI" />
                 <ScalarProperty Name="valorICMSSubst" ColumnName="valorICMSSubst" />
                 <ScalarProperty Name="baseCalculoICMSSubst" ColumnName="baseCalculoICMSSubst" />
@@ -3366,7 +3366,7 @@
             <ScalarProperty Name="subtotalAVista" ColumnName="subtotalAVista" />
             <ScalarProperty Name="data_validade" ColumnName="data_validade" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_situacao_conta"><EntityTypeMapping TypeName="SaceModel.tb_situacao_conta"><MappingFragment StoreEntitySet="tb_situacao_conta">
+          <EntitySetMapping Name="SituacaoContaSet"><EntityTypeMapping TypeName="SaceModel.SituacaoContaE"><MappingFragment StoreEntitySet="tb_situacao_conta">
             <ScalarProperty Name="codSituacao" ColumnName="codSituacao" />
             <ScalarProperty Name="descricaoSituacao" ColumnName="descricaoSituacao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -3378,12 +3378,12 @@
             <ScalarProperty Name="codSituacaoProduto" ColumnName="codSituacaoProduto" />
             <ScalarProperty Name="descricaoSituacao" ColumnName="descricaoSituacao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_subgrupo"><EntityTypeMapping TypeName="SaceModel.tb_subgrupo"><MappingFragment StoreEntitySet="tb_subgrupo">
+          <EntitySetMapping Name="SubgrupoSet"><EntityTypeMapping TypeName="SaceModel.SubgrupoE"><MappingFragment StoreEntitySet="tb_subgrupo">
             <ScalarProperty Name="codSubgrupo" ColumnName="codSubgrupo" />
             <ScalarProperty Name="descricao" ColumnName="descricao" />
             <ScalarProperty Name="codGrupo" ColumnName="codGrupo" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_tipo_conta"><EntityTypeMapping TypeName="SaceModel.tb_tipo_conta"><MappingFragment StoreEntitySet="tb_tipo_conta">
+          <EntitySetMapping Name="TipoContaSet"><EntityTypeMapping TypeName="SaceModel.TipoContaE"><MappingFragment StoreEntitySet="tb_tipo_conta">
             <ScalarProperty Name="codTipoConta" ColumnName="codTipoConta" />
             <ScalarProperty Name="descricaoTipoConta" ColumnName="descricaoTipoConta" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -3427,8 +3427,8 @@
               <ScalarProperty Name="codPerfil" ColumnName="codPerfil" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="tb_saida_pedido">
-            <EntityTypeMapping TypeName="SaceModel.tb_saida_pedido">
+          <EntitySetMapping Name="SaidaPedidoSet">
+            <EntityTypeMapping TypeName="SaceModel.SaidaPedidoE">
               <MappingFragment StoreEntitySet="tb_saida_pedido">
                 <ScalarProperty Name="codPedidoGerado" ColumnName="codPedidoGerado" />
                 <ScalarProperty Name="codSaida" ColumnName="codSaida" />
@@ -3458,35 +3458,35 @@
       <Diagram Name="ModelSace">
         <EntityTypeShape EntityType="SaceModel.BancoE" Width="1.5" PointX="0.75" PointY="17.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CartaoCreditoE" Width="1.5" PointX="3" PointY="23" Height="2.749492187499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_cfop" Width="1.5" PointX="6.75" PointY="12.375" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.CfopE" Width="1.5" PointX="6.75" PointY="12.375" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_configuracao_sistema" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583335" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_conta" Width="1.5" PointX="5" PointY="22.125" Height="4.6725065104166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.ContaE" Width="1.5" PointX="5" PointY="22.125" Height="4.6725065104166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.ContaBancoE" Width="1.5" PointX="9" PointY="16" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CstE" Width="1.5" PointX="6.75" PointY="32.125" Height="1.595683593749996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_documento_pagamento" Width="1.5" PointX="3" PointY="17.125" Height="4.480205078124996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_entrada" Width="1.5" PointX="3" PointY="27.25" Height="6.2109179687500067" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_entrada_forma_pagamento" Width="1.5" PointX="11.25" PointY="23.625" Height="3.3263964843750031" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_entrada_produto" Width="1.5" PointX="14.25" PointY="24.5" Height="4.8648079427083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_forma_pagamento" Width="1.5" PointX="9" PointY="32.875" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.EntradaE" Width="1.5" PointX="3" PointY="27.25" Height="6.2109179687500067" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.EntradaFormaPagamentoE" Width="1.5" PointX="11.25" PointY="23.625" Height="3.3263964843750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.EntradaProdutoE" Width="1.5" PointX="14.25" PointY="24.5" Height="4.8648079427083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.FormaPagamentoE" Width="1.5" PointX="9" PointY="32.875" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_funcionalidade" Width="1.5" PointX="1.5" PointY="41.5" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_grupo" Width="1.5" PointX="6.75" PointY="34.5" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_grupo_conta" Width="1.5" PointX="1.5" PointY="34.25" Height="1.5956835937500102" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_loja" Width="1.5" PointX="3" PointY="44.25" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_movimentacao_conta" Width="1.5" PointX="11.25" PointY="27.75" Height="3.1340950520833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.GrupoE" Width="1.5" PointX="6.75" PointY="34.5" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.GrupoContaE" Width="1.5" PointX="1.5" PointY="34.25" Height="1.5956835937500102" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.LojaE" Width="1.5" PointX="3" PointY="44.25" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.MovimentacaoContaE" Width="1.5" PointX="11.25" PointY="27.75" Height="3.1340950520833388" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_perfil" Width="1.5" PointX="3.75" PointY="41.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_permissao" Width="1.5" PointX="8.25" PointY="29.375" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.PessoaE" Width="1.5" PointX="0.5" PointY="21.125" Height="8.3262337239583388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_plano_conta" Width="1.5" PointX="3.75" PointY="34.875" Height="2.5571907552083388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_produto" Width="1.5" PointX="9" PointY="20.25" Height="8.1339322916666674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_produto_loja" Width="1.5" PointX="5.25" PointY="44.125" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_saida" Width="1.5" PointX="6.625" PointY="15.125" Height="8.9031380208333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_saida_forma_pagamento" Width="1.5" PointX="11.25" PointY="18.75" Height="3.9033007812500102" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_saida_produto" Width="1.5" PointX="14.25" PointY="20.375" Height="3.1340950520833388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_situacao_conta" Width="1.5" PointX="3.75" PointY="38.875" Height="1.595683593749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.PlanoContaE" Width="1.5" PointX="3.75" PointY="34.875" Height="2.5571907552083388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.ProdutoE" Width="1.5" PointX="9" PointY="20.25" Height="8.1339322916666674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.ProdutoLojaE" Width="1.5" PointX="5.25" PointY="44.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.SaidaE" Width="1.5" PointX="6.625" PointY="15.125" Height="8.9031380208333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.SaidaFormaPagamentoE" Width="1.5" PointX="11.25" PointY="18.75" Height="3.9033007812500102" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.SaidaProdutoE" Width="1.5" PointX="14.25" PointY="20.375" Height="3.1340950520833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.SituacaoContaE" Width="1.5" PointX="3.75" PointY="38.875" Height="1.595683593749996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_situacao_pagamentos" Width="1.5" PointX="3.75" PointY="14.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_situacao_produto" Width="1.5" PointX="6.75" PointY="37" Height="1.595683593749996" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_subgrupo" Width="1.5" PointX="6.75" PointY="39.375" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_tipo_conta" Width="1.5" PointX="1.5" PointY="36.625" Height="1.595683593749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.SubgrupoE" Width="1.5" PointX="6.75" PointY="39.375" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.TipoContaE" Width="1.5" PointX="1.5" PointY="36.625" Height="1.595683593749996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_tipo_documento" Width="1.5" PointX="0.75" PointY="14.875" Height="1.595683593749996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_tipo_movimentacao_conta" Width="1.5" PointX="9" PointY="36.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_tipo_saida" Width="1.5" PointX="3.75" PointY="11.875" Height="1.595683593749996" IsExpanded="true" />
@@ -4046,7 +4046,7 @@
           <ConnectorPoint PointX="7.65107476928711" PointY="27.000634010416661" />
           <ConnectorPoint PointX="7.65107476928711" PointY="24.028138020833339" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="SaceModel.tb_saida_pedido" Width="1.5" PointX="3.375" PointY="0.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="SaceModel.SaidaPedidoE" Width="1.5" PointX="3.375" PointY="0.75" Height="1.4033821614583246" />
       </Diagram>
     </Diagrams>
   </Designer>

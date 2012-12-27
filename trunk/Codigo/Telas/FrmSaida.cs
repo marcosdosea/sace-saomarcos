@@ -27,6 +27,7 @@ namespace Telas
         private SaidaProduto saidaProduto;
         private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
+        private int posicaoUltimoProduto;
 
 
         public FrmSaida(int tipoSaida)
@@ -49,10 +50,9 @@ namespace Telas
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
 
             Cursor.Current = Cursors.WaitCursor;
-            //backgroundWorkerRecuperaCupons.RunWorkerAsync();
-
+           
             this.tb_produtoTableAdapter.FillExibiveis(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
-
+            
             ObterSaidas(true);
                         
             tb_saidaBindingSource.MoveLast();
@@ -73,8 +73,6 @@ namespace Telas
         /// <param name="e"></param>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            //backgroundWorkerRecuperaCupons.RunWorkerAsync();
-
             Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.CodSaida != -1)
@@ -269,8 +267,9 @@ namespace Telas
             saidaProduto.ValorIPI = Convert.ToDecimal(valorIPITextBox.Text);
 
             codProdutoComboBox.Focus();
+            posicaoUltimoProduto = codProdutoComboBox.SelectedIndex;
             codProdutoComboBox.Text = "";
-
+            
             GerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.getInstace();
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
@@ -463,7 +462,7 @@ namespace Telas
         /// <param name="e"></param>
         private void precoVendatextBox_Leave(object sender, EventArgs e)
         {
-            FormatTextBox.NumeroCom2CasasDecimais(precoVendatextBox);
+            FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
             produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
 
             if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
@@ -489,19 +488,19 @@ namespace Telas
             {
                 if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
                 {
-                    precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
-                    precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
+                    precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
+                    precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
                 }
                 else
                 {
                     if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)) || (lblPreco.Text.Equals(PRECO_ATACADO)))
                     {
-                        precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaAtacadoSemDesconto.ToString();
+                        precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaAtacadoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produtoOriginal.PrecoVendaAtacado.ToString();
                     }
                     else if (lblPreco.Text.Equals(PRECO_VAREJO))
                     {
-                        precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaVarejoSemDesconto.ToString();
+                        precoVendaSemDescontoTextBox.Text = produtoOriginal.PrecoVendaVarejoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produtoOriginal.PrecoVendaVarejo.ToString();
                     }
                     else if (lblPreco.Text.Equals(PRECO_VAREJO_DESCONTO))
@@ -803,7 +802,19 @@ namespace Telas
                 else if ((e.KeyCode == Keys.Delete) && (tb_saida_produtoDataGridView.Focused == true))
                 {
                     excluirProduto(sender, e);
-                } else if (e.KeyCode == Keys.F1) {
+                }
+                else if ((e.KeyCode == Keys.Down) && (codProdutoComboBox.Focused) && (posicaoUltimoProduto < (codProdutoComboBox.Items.Count-1)))
+                {
+                    codProdutoComboBox.SelectedIndex = posicaoUltimoProduto;
+                    posicaoUltimoProduto++;
+                }
+                else if ((e.KeyCode == Keys.Up) && (codProdutoComboBox.Focused) && (posicaoUltimoProduto > 0))
+                {
+                    codProdutoComboBox.SelectedIndex = posicaoUltimoProduto;
+                    posicaoUltimoProduto--;
+                }
+                else if (e.KeyCode == Keys.F1)
+                {
                     if (lblFormaEntrada.Text.Equals(ENTRADA_MANUAL))
                     {
                         lblFormaEntrada.Text = ENTRADA_AUTOMATICA;
@@ -814,7 +825,9 @@ namespace Telas
                         lblFormaEntrada.Text = ENTRADA_MANUAL;
                         lblFormaEntrada.ForeColor = Color.Red;
                     }
-                } else if ((Control.ModifierKeys == Keys.Control) && (e.KeyCode == Keys.P)) {
+                }
+                else if ((Control.ModifierKeys == Keys.Control) && (e.KeyCode == Keys.P))
+                {
                     if (lblPreco.Text.Equals(PRECO_VAREJO))
                     {
                         lblPreco.Text = PRECO_ATACADO;
@@ -870,6 +883,11 @@ namespace Telas
         private void valorICMSSubstTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
+        }
+
+        private void tb_saida_produtoDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
     }

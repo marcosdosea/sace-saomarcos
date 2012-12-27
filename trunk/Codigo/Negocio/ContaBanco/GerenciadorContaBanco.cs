@@ -170,6 +170,11 @@ namespace Negocio
             return GetQuery().Where(contaBanco => contaBanco.Descricao.StartsWith(descricao)).ToList();
         }
 
+        /// <summary>
+        /// Atribui a classe Conta Banco às entidade persistente correpondente
+        /// </summary>
+        /// <param name="contaBanco"></param>
+        /// <param name="_contaBanco"></param>
         private void Atribuir(ContaBanco contaBanco, ContaBancoE _contaBanco)
         {
             _contaBanco.agencia = contaBanco.Agencia;

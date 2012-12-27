@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentesLeave.cs" />
     <Compile Include="FrmCfopPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -547,7 +548,11 @@
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\DataSources\Dominio.Banco.datasource" />
     <None Include="Properties\DataSources\Dominio.CartaoCredito.datasource" />
+    <None Include="Properties\DataSources\Dominio.Cfop.datasource" />
+    <None Include="Properties\DataSources\Dominio.Conta.datasource" />
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
+    <None Include="Properties\DataSources\Dominio.Cst.datasource" />
+    <None Include="Properties\DataSources\Dominio.FormaPagamento.datasource" />
     <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />

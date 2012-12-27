@@ -91,7 +91,7 @@ namespace Telas
                 PlanoConta planoConta = new PlanoConta();
                 planoConta.CodGrupoConta = int.Parse(codGrupoContaComboBox.SelectedValue.ToString());
                 planoConta.Descricao = descricaoTextBox.Text;
-                planoConta.TipoConta = (rbPagar.Checked) ? Conta.CONTA_PAGAR : Conta.CONTA_RECEBER;
+                planoConta.TipoConta = (rbPagar.Checked) ? Conta.CONTA_PAGAR.ToString() : Conta.CONTA_RECEBER.ToString();
                 planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
                 planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
 

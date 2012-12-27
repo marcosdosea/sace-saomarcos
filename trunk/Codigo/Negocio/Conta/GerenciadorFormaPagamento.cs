@@ -14,26 +14,53 @@ namespace Negocio
     public class GerenciadorFormaPagamento 
     {
         private static GerenciadorFormaPagamento gFormaPagamento;
-        private static tb_forma_pagamentoTableAdapter tb_forma_pagamentoTA;
+        private static RepositorioGenerico<FormaPagamentoE, SaceEntities> repFormaPagamento;
         
-        public static GerenciadorFormaPagamento getInstace()
+        public static GerenciadorFormaPagamento GetInstance()
         {
             if (gFormaPagamento == null)
             {
                 gFormaPagamento = new GerenciadorFormaPagamento();
-                tb_forma_pagamentoTA = new tb_forma_pagamentoTableAdapter();
+                repFormaPagamento = new RepositorioGenerico<FormaPagamentoE, SaceEntities>("chave");
             }
             return gFormaPagamento;
         }
 
-        public Int64 inserir(FormaPagamento formaPagamento)
+        /// <summary>
+        /// Insere uma nova forma de pagamento
+        /// </summary>
+        /// <param name="formaPagamento"></param>
+        /// <returns></returns>
+        public Int64 Inserir(FormaPagamento formaPagamento)
         {
             try
             {
-                tb_forma_pagamentoTA.Insert(formaPagamento.CodFormaPagamento, formaPagamento.Descricao,
-                    formaPagamento.Parcelas, formaPagamento.DescontoAcrescimo.ToString());
+                FormaPagamentoE _formaPagamento = new FormaPagamentoE();
+                Atribuir(formaPagamento, _formaPagamento);
 
-                return 0;
+                repFormaPagamento.Inserir(_formaPagamento);
+                repFormaPagamento.SaveChanges();
+                
+                return _formaPagamento.codFormaPagamento;
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("FormaPagamento", e.Message, e);
+            }
+        }
+       
+        /// <summary>
+        /// Atualiza forma de pagamento
+        /// </summary>
+        /// <param name="formaPagamento"></param>
+        public void Atualizar(FormaPagamento formaPagamento)
+        {
+            try
+            {
+                FormaPagamentoE _formaPagamento = repFormaPagamento.Obter(f => f.codFormaPagamento == formaPagamento.CodFormaPagamento).ElementAt(0) ;
+                Atribuir(formaPagamento, _formaPagamento);
+
+                repFormaPagamento.SaveChanges();
             }
             catch (Exception e)
             {
@@ -41,12 +68,16 @@ namespace Negocio
             }
         }
 
-        public void atualizar(FormaPagamento formaPagamento)
+        /// <summary>
+        /// Remove uma forma de pagamento
+        /// </summary>
+        /// <param name="codformaPagamento"></param>
+        public void Remover(Int32 codformaPagamento)
         {
             try
             {
-                tb_forma_pagamentoTA.Update(formaPagamento.Descricao, formaPagamento.Parcelas,
-                    formaPagamento.DescontoAcrescimo, formaPagamento.CodFormaPagamento);
+                repFormaPagamento.Remover(f => f.codFormaPagamento == codformaPagamento);
+                repFormaPagamento.SaveChanges();
             }
             catch (Exception e)
             {
@@ -54,30 +85,57 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codformaPagamento)
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<FormaPagamento> GetQuery()
         {
-            try
-            {
-                tb_forma_pagamentoTA.Delete(codformaPagamento);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("FormaPagamento", e.Message, e);
-            }
+            var saceEntities = (SaceEntities)repFormaPagamento.ObterContexto();
+            var query = from formaPagamento in saceEntities.FormaPagamentoSet
+                        select new FormaPagamento
+                        {
+                            CodFormaPagamento = formaPagamento.codFormaPagamento,
+                            DescontoAcrescimo = formaPagamento.descontoAcrescimo,
+                            Descricao = formaPagamento.descricao,
+                            Mapeamento = formaPagamento.mapeamento,
+                            Parcelas = formaPagamento.parcelas
+                        };
+            return query;
         }
 
-        public FormaPagamento obterFormaPagamento(int codFormaPagamento)
+        /// <summary>
+        /// Obtém todos as formas de pagamento cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<FormaPagamento> ObterTodos()
         {
-            FormaPagamento formaPagamento = new FormaPagamento();
-            Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter tb_forma_pagamentoTA = new tb_forma_pagamentoTableAdapter();
-            Dados.saceDataSet.tb_forma_pagamentoDataTable formaPagamentoDT = tb_forma_pagamentoTA.GetDataByCodFormaPagamento(codFormaPagamento);
-
-            formaPagamento.CodFormaPagamento = Convert.ToInt32(formaPagamentoDT.Rows[0]["codFormaPagamento"].ToString());
-            formaPagamento.Descricao = formaPagamentoDT.Rows[0]["codFormaPagamento"].ToString();
-            formaPagamento.Parcelas = Convert.ToInt32(formaPagamentoDT.Rows[0]["codFormaPagamento"].ToString());
-            formaPagamento.DescontoAcrescimo = Convert.ToDecimal(formaPagamentoDT.Rows[0]["codFormaPagamento"].ToString());
-            formaPagamento.Mapeamento = formaPagamentoDT.Rows[0]["codFormaPagamento"].ToString();
-            return formaPagamento;
+            return GetQuery().ToList();
         }
+
+        /// <summary>
+        /// Obtém formas de pagamento com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<FormaPagamento> Obter(int codFormaPagamento)
+        {
+            return GetQuery().Where(formaPagamento => formaPagamento.CodFormaPagamento == codFormaPagamento).ToList();
+        }
+
+        /// <summary>
+        /// Atribuição entre entidade e entidade persistente
+        /// </summary>
+        /// <param name="formaPagamento"></param>
+        /// <param name="_formaPagamento"></param>
+        private void Atribuir(FormaPagamento formaPagamento, FormaPagamentoE _formaPagamento)
+        {
+            _formaPagamento.codFormaPagamento = formaPagamento.CodFormaPagamento;
+            _formaPagamento.descontoAcrescimo = formaPagamento.DescontoAcrescimo;
+            _formaPagamento.descricao = formaPagamento.Descricao;
+            _formaPagamento.mapeamento = formaPagamento.Mapeamento;
+            _formaPagamento.parcelas = formaPagamento.Parcelas;
+        }
+
     }
 }

@@ -90,6 +90,10 @@ namespace Negocio
             }
         }
 
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
         private IQueryable<Banco> GetQuery()
         {
             var saceEntities = (SaceEntities)repBanco.ObterContexto();

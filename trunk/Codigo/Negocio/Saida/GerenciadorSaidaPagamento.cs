@@ -135,12 +135,12 @@ namespace Negocio
             {
                 if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
                 {
-                    List<Conta> contas = GerenciadorConta.getInstace().obterContasSaidaPorCodPagamento(saida.CodSaida, codSaidaPagamento);
+                    List<Conta> contas = GerenciadorConta.GetInstance().ObterPorSaidaPagamento(saida.CodSaida, codSaidaPagamento).ToList();
 
                     foreach (Conta conta in contas)
                     {
                         GerenciadorMovimentacaoConta.getInstace().removerMovimentacoesConta(conta);
-                        GerenciadorConta.getInstace().remover(conta.CodConta);
+                        GerenciadorConta.GetInstance().Remover(conta.CodConta);
                     }
                }
                tb_SaidaPagamentoTA.Delete(codSaidaPagamento);
@@ -154,6 +154,36 @@ namespace Negocio
             {
                 throw new DadosException("Pagamentos", e.Message, e);
             }
+        }
+
+
+        public SaidaPagamento obterSaidaPagamento(long codSaidaPagamento)
+        {
+            List<SaidaPagamento> pagamentos = new List<SaidaPagamento>();
+
+            saceDataSet.tb_saida_forma_pagamentoDataTable tbsaidaPagamento = tb_SaidaPagamentoTA.GetDataByCodSaidaPagamento(codSaidaPagamento);
+
+            for (int i = 0; i < tbsaidaPagamento.Count; i++)
+            {
+                SaidaPagamento saidaPagamento = new SaidaPagamento();
+                saidaPagamento.CodContaBanco = Convert.ToInt32(tbsaidaPagamento.Rows[i]["codContaBanco"].ToString());
+                saidaPagamento.CodCartaoCredito = Convert.ToInt32(tbsaidaPagamento.Rows[i]["codCartao"].ToString());
+                saidaPagamento.CodFormaPagamento = Convert.ToInt32(tbsaidaPagamento.Rows[i]["codFormaPagamento"].ToString());
+                saidaPagamento.CodSaida = Convert.ToInt64(tbsaidaPagamento.Rows[i]["codSaida"].ToString());
+                saidaPagamento.CodSaidaPagamento = Convert.ToInt64(tbsaidaPagamento.Rows[i]["codSaidaFormaPagamento"].ToString());
+                saidaPagamento.Data = Convert.ToDateTime(tbsaidaPagamento.Rows[i]["data"].ToString());
+                saidaPagamento.Valor = Convert.ToDecimal(tbsaidaPagamento.Rows[i]["valor"].ToString());
+                saidaPagamento.CodDocumentoPagamento = Convert.ToInt64(tbsaidaPagamento.Rows[i]["codDocumentoPagamento"].ToString());
+                saidaPagamento.IntervaloDias = Convert.ToInt32(tbsaidaPagamento.Rows[i]["intervaloDias"].ToString());
+                saidaPagamento.Parcelas = Convert.ToInt32(tbsaidaPagamento.Rows[i]["parcelas"].ToString());
+                saidaPagamento.MapeamentoFormaPagamento = tbsaidaPagamento.Rows[i]["mapeamentoFormaPagamento"].ToString();
+                saidaPagamento.MapeamentoCartao = tbsaidaPagamento.Rows[i]["mapeamentoCartao"].ToString();
+                saidaPagamento.DescricaoFormaPagamento = tbsaidaPagamento.Rows[i]["descricaoFormaPagamento"].ToString();
+                saidaPagamento.NomeCartaoCredito = tbsaidaPagamento.Rows[i]["nomeCartaoCredito"].ToString();
+
+                pagamentos.Add(saidaPagamento);
+            }
+            return pagamentos[0];
         }
 
         public List<SaidaPagamento> obterSaidaPagamentosPorFormaPagamento(Int64 codSaida, Int32 codFormaPagamento)

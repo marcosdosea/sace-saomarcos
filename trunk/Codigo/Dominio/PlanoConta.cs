@@ -34,9 +34,9 @@ namespace Dominio
             get { return descricao; }
             set { descricao = value; }
         }
-        private Char tipoConta;
+        private String tipoConta;
 
-        public Char TipoConta
+        public String TipoConta
         {
             get { return tipoConta; }
             set { tipoConta = value; }

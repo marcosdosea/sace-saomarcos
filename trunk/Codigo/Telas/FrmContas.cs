@@ -86,7 +86,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorConta.getInstace().remover(long.Parse(codContaTextBox.Text));
+                GerenciadorConta.GetInstance().Remover(long.Parse(codContaTextBox.Text));
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
             }
         }
@@ -100,7 +100,7 @@ namespace Telas
             conta.CodPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
             conta.CodPlanoConta = Convert.ToInt32(codPlanoContaComboBox.SelectedValue.ToString());
             conta.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
-            conta.CodSituacao = Convert.ToChar(codSituacaoComboBox.SelectedValue.ToString());
+            conta.CodSituacao = codSituacaoComboBox.SelectedValue.ToString();
             conta.DataVencimento = Convert.ToDateTime(dataVencimentoDateTimePicker.Value.ToString());
             conta.Observacao = observacaoTextBox.Text;
             conta.Valor = Convert.ToDecimal(valorTextBox.Text);
@@ -109,13 +109,13 @@ namespace Telas
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                GerenciadorConta.getInstace().inserir(conta);
+                GerenciadorConta.GetInstance().Inserir(conta);
                 tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
                 tb_contaBindingSource.MoveLast();
             }
             else
             {
-                GerenciadorConta.getInstace().atualizar(conta);
+                GerenciadorConta.GetInstance().Atualizar(conta);
                 tb_contaBindingSource.EndEdit();
                 tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
                 tb_contaBindingSource.Position = tb_contaBindingSource.Find("codConta", conta.CodConta);

@@ -15,27 +15,34 @@ namespace Negocio
     public class GerenciadorConta
     {
         private static GerenciadorConta gConta;
-        private static tb_contaTableAdapter tb_contaTA;
+        private static RepositorioGenerico<ContaE, SaceEntities> repConta;
         
-        public static GerenciadorConta getInstace()
+        public static GerenciadorConta GetInstance()
         {
             if (gConta == null)
             {
                 gConta = new GerenciadorConta();
-                tb_contaTA = new tb_contaTableAdapter();
+                repConta = new RepositorioGenerico<ContaE, SaceEntities>("chave");
             }
             return gConta;
         }
 
-        public Int64 inserir(Conta conta)
+        /// <summary>
+        /// Insere conta na base de dados
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Conta conta)
         {
             try
             {
-                tb_contaTA.Insert(conta.CodPlanoConta, conta.CodPessoa, conta.CodSituacao.ToString(), 
-                    conta.CodDocumento, conta.CodEntrada, conta.CodSaida,  conta.DataVencimento,
-                    conta.Valor, conta.Observacao, conta.Desconto, conta.CodPagamento);
+                ContaE _conta = new ContaE();
+                Atribuir(conta, _conta);
 
-                return (Int64) tb_contaTA.getMaxCodConta();
+                repConta.Inserir(_conta);
+                repConta.SaveChanges();
+                
+                return _conta.codConta;
             }
             catch (Exception e)
             {
@@ -43,186 +50,266 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Conta conta)
+        /// <summary>
+        /// Atualiza dados da conta no banco de dados
+        /// </summary>
+        /// <param name="conta"></param>
+        public void Atualizar(Conta conta)
         {
             if ( (conta.CodEntrada != 1) || (conta.CodSaida != 1) )
                 throw new NegocioException("Essa conta não pode ser alterada por estar associada a uma entrada / saída.");
 
             try
             {
-                tb_contaTA.Update(conta.CodPlanoConta, conta.CodPessoa, conta.CodSituacao.ToString(),
-                    conta.CodDocumento, conta.CodEntrada, conta.CodSaida, conta.DataVencimento,
-                    conta.Valor, conta.Observacao, conta.Desconto, conta.CodPagamento, conta.CodConta);
+                ContaE _conta = repConta.ObterEntidade(c => c.codConta == conta.CodConta);
+                Atribuir(conta, _conta);
+
+                repConta.SaveChanges();
             }
             catch (Exception e)
             {
                 throw new DadosException("Conta", e.Message, e);
             }
-        }
-
-        public void atualizar(char codSituacao, decimal valorDesconto, long codConta)
-        {
-            try
-            {
-                tb_contaTA.UpdateSituacaoDescontoConta(codSituacao.ToString(), valorDesconto, codConta);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Conta", e.Message, e);
-            }
-        }
-
-        public void remover(Int64 codconta)
-        {
-            try
-            {
-                tb_contaTA.Delete(codconta);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Conta", e.Message, e);
-            }
-        }
-
-        public Conta obterContaPorCodConta(long codConta)
-        {
-            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
-            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodConta(codConta);
-            List<Conta> contas = converterListaConta(contaDT);
-            return contas.Count > 0 ? contas[0] : null;
-        }
-
-        public int obterCountContasNaoQuitadasEntrada(long codEntrada)
-        {
-            return (int) tb_contaTA.GetCountNaoQuitadasByCodEntrada(codEntrada);
-        }
-
-        public int obterCountContasNaoQuitadasSaida(long codSaida)
-        {
-            return (int)tb_contaTA.GetCountNaoQuitadasByCodSaida(codSaida);
-        }
-
-        public List<Conta> obterContasPorEntada(Int64 codEntrada)
-        {
-            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
-            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodEntrada(codEntrada);
-
-            return converterListaConta(contaDT);
         }
 
         /// <summary>
-        /// Obter todas as contas em aberto da pessoa
+        /// Atualizar dados da conta no banco de dados.
         /// </summary>
-        /// <param name="codPessoa"> código da pessoa </param>
-        /// <returns> Datatable com todas as contas </returns>
-        public Dados.saceDataSetConsultas.ContasPessoaDataTable ObterContasPorPessoaAberta(Int64 codPessoa)
+        /// <param name="codSituacao">nova situação da conta</param>
+        /// <param name="valorDesconto">novo valor de desconto</param>
+        /// <param name="codConta">conta pesquisada</param>
+        public void Atualizar(string codSituacao, decimal desconto, long codConta)
         {
-            StringBuilder comando_sql = new StringBuilder();
-            comando_sql.Append("SELECT tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, tb_saida.pedidoGerado AS CF, tb_conta.codPessoa, tb_conta.desconto, (tb_conta.valor - tb_conta.desconto) AS valorPagar ");
-            comando_sql.Append("FROM tb_conta INNER JOIN  tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN tb_saida ON tb_conta.codSaida = tb_saida.codSaida ");
-            comando_sql.Append("WHERE tb_conta.codSituacao = 'A' and tb_conta.codPessoa = " + codPessoa.ToString());
-            comando_sql.Append(" ORDER BY tb_conta.dataVencimento, tb_conta.codSaida");
-            
-            // cria novo adapter para executar a consulta
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            adapter.SelectCommand = new MySqlCommand(comando_sql.ToString(), new MySqlConnection(Dados.Properties.Settings.Default.saceConnectionString));
+            try
+            {
+                ContaE _conta = repConta.ObterEntidade(c => c.codConta == codConta);
+                _conta.codSituacao = codSituacao;
+                _conta.desconto = desconto;
 
-            // preencher data table com os dados da consulta
-            saceDataSetConsultas.ContasPessoaDataTable contaDT = new saceDataSetConsultas.ContasPessoaDataTable();
-            adapter.Fill(contaDT);
-            return contaDT;
+                repConta.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Remove conta da base de dados
         /// </summary>
-        /// <param name="codPessoa"></param>
-        /// <param name="situacoes"></param>
-        /// <param name="dataInicial"></param>
-        /// <param name="dataFinal"></param>
+        /// <param name="codConta"></param>
+        public void Remover(Int64 codConta)
+        {
+            try
+            {
+                repConta.Remover(c => c.codConta == codConta);
+                repConta.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
         /// <returns></returns>
-        public Dados.saceDataSetConsultas.ContasPessoaDataTable ObterContasPorPessoaSituacaoPeriodo(Int64 codPessoa, List<char> situacoes, DateTime dataInicial, DateTime dataFinal)
+        private IQueryable<Conta> GetQuery()
         {
-            StringBuilder comando_sql = new StringBuilder();
-            comando_sql.Append("SELECT tb_conta.codConta, tb_conta.codSaida, tb_conta.dataVencimento, tb_conta.codSituacao, tb_situacao_conta.descricaoSituacao, tb_conta.valor, tb_saida.pedidoGerado AS CF, tb_conta.codPessoa, tb_conta.desconto, (tb_conta.valor - tb_conta.desconto) AS valorPagar  ");
-            comando_sql.Append("FROM tb_conta INNER JOIN  tb_situacao_conta ON tb_conta.codSituacao = tb_situacao_conta.codSituacao INNER JOIN tb_saida ON tb_conta.codSaida = tb_saida.codSaida ");
-            comando_sql.Append("WHERE tb_conta.codPessoa = " + codPessoa.ToString());
-            if (situacoes.Count > 0)
-            {
-                comando_sql.Append(" AND (");
-                for (int i = 0; i < situacoes.Count; i++)
-                {
-                    comando_sql.Append("tb_conta.codSituacao = '" + situacoes[i] + "'");
-                    if (i + 1 < situacoes.Count)
-                    {
-                        comando_sql.Append(" OR ");
-                    }
-                }
-                comando_sql.Append(")");
-            }
-
-
-            comando_sql.Append(" AND tb_conta.dataVencimento >= STR_TO_DATE('" + dataInicial.ToShortDateString() + "' , '%d/%m/%Y')");
-            comando_sql.Append(" AND tb_conta.dataVencimento <= STR_TO_DATE('" + dataFinal.ToShortDateString() + "' , '%d/%m/%Y')");
-
-            comando_sql.Append(" ORDER BY tb_conta.dataVencimento, tb_conta.codSaida");
-
-            // cria novo adapter para executar a consulta
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            adapter.SelectCommand = new MySqlCommand(comando_sql.ToString(), new MySqlConnection(Dados.Properties.Settings.Default.saceConnectionString));
-
-            // preencher data table com os dados da consulta
-            saceDataSetConsultas.ContasPessoaDataTable contaDT = new saceDataSetConsultas.ContasPessoaDataTable();
-            adapter.Fill(contaDT);
-            return contaDT;
-        }
-        
-
-        public List<Conta> obterContasPorSaida(Int64 codSaida)
-        {
-            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
-            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodSaida(codSaida);
-
-            return converterListaConta(contaDT);
+            var saceEntities = (SaceEntities)repConta.ObterContexto();
+            var query = from conta in saceEntities.ContaSet
+                        join planoConta in saceEntities.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
+                        join situacaoConta in saceEntities.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
+                        join pessoa in saceEntities.PessoaSet on conta.codPessoa equals pessoa.codPessoa
+                        orderby conta.dataVencimento, conta.codConta
+                        select new Conta
+                        {
+                            CodConta = conta.codConta,
+                            CodDocumento = conta.codDocumentoPagamento,
+                            CodEntrada = (long) conta.codEntrada,
+                            CodPagamento = conta.codPagamento,
+                            CodPessoa = conta.codPessoa,
+                            NomePessoa = pessoa.nomeFantasia,
+                            CodPlanoConta = conta.codPlanoConta,
+                            CodSaida = (long) conta.codSaida,
+                            CodSituacao = conta.codSituacao,
+                            DescricaoSituacao = situacaoConta.descricaoSituacao,
+                            DataVencimento = conta.dataVencimento,
+                            Desconto = conta.desconto,
+                            Observacao = conta.observacao,
+                            TipoConta = planoConta.codTipoConta,
+                            Valor = conta.valor
+                        };
+            return query;
         }
 
-        public List<Conta> obterContasEntradaPorCodPagamento(Int64 codEntrada, Int64 codPagamento)
+        /// <summary>
+        /// Consulta para retornar dados da entidade quando houver saídas associadas
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<Conta> GetQuerySaida()
         {
-            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
-            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodEntradaCodPagamento(codEntrada, codPagamento);
-
-            return converterListaConta(contaDT);
+            var saceEntities = (SaceEntities)repConta.ObterContexto();
+            var query = from conta in saceEntities.ContaSet
+                        join planoConta in saceEntities.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
+                        join situacaoConta in saceEntities.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
+                        join saida in saceEntities.SaidaSet on conta.codSaida equals saida.codSaida
+                        orderby conta.dataVencimento, conta.codConta
+                        select new Conta
+                        {
+                            CodConta = conta.codConta,
+                            CodDocumento = conta.codDocumentoPagamento,
+                            CodEntrada = (long)conta.codEntrada,
+                            CodPagamento = conta.codPagamento,
+                            CodPessoa = conta.codPessoa,
+                            CF = saida.pedidoGerado,
+                            CodPlanoConta = conta.codPlanoConta,
+                            CodSaida = (long)conta.codSaida,
+                            CodSituacao = conta.codSituacao,
+                            DescricaoSituacao = situacaoConta.descricaoSituacao,
+                            DataVencimento = conta.dataVencimento,
+                            Desconto = conta.desconto,
+                            Observacao = conta.observacao,
+                            TipoConta = planoConta.codTipoConta,
+                            Valor = conta.valor
+                        };
+            return query;
         }
-        public List<Conta> obterContasSaidaPorCodPagamento(Int64 codSaida, Int64 codPagamento)
+
+        /// <summary>
+        /// Obtém todas as contas cadastradas
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterTodos()
         {
-            Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTA = new tb_contaTableAdapter();
-            Dados.saceDataSet.tb_contaDataTable contaDT = tb_contaTA.GetDataByCodSaidaCodPagamento(codSaida, codPagamento);
-
-            return converterListaConta(contaDT);
+            return GetQuery().ToList();
         }
 
-        private List<Conta> converterListaConta(Dados.saceDataSet.tb_contaDataTable contaDT)
+        /// <summary>
+        /// Obtém os dados da conta pelo código
+        /// </summary>
+        /// <param name="codCartaoCredito"></param>
+        /// <returns>código do cartão</returns>
+        public IEnumerable<Conta> Obter(long codConta)
         {
-            List<Conta> contas = new List<Conta>();
-            for (int i = 0; i < contaDT.Rows.Count; i++)
-            {
-                Conta conta = new Conta();
-                conta.CodConta = Convert.ToInt64(contaDT.Rows[i]["codConta"].ToString());
-                conta.CodDocumento = Convert.ToInt64(contaDT.Rows[i]["codDocumentoPagamento"].ToString());
-                conta.CodEntrada = Convert.ToInt64(contaDT.Rows[i]["codEntrada"].ToString());
-                conta.CodPessoa = Convert.ToInt64(contaDT.Rows[i]["codPessoa"].ToString());
-                conta.CodPlanoConta = Convert.ToInt32(contaDT.Rows[i]["codPlanoConta"].ToString());
-                conta.CodSaida = Convert.ToInt64(contaDT.Rows[i]["codSaida"].ToString());
-                conta.CodSituacao = Convert.ToChar(contaDT.Rows[i]["codSituacao"].ToString());
-                conta.DataVencimento = Convert.ToDateTime(contaDT.Rows[i]["dataVencimento"].ToString());
-                conta.Observacao = contaDT.Rows[i]["observacao"].ToString();
-                conta.Valor = Convert.ToDecimal(contaDT.Rows[i]["valor"].ToString());
-                conta.CodPagamento = Convert.ToInt64(contaDT.Rows[i]["codPagamento"].ToString());
-                conta.Desconto = Convert.ToDecimal(contaDT.Rows[i]["desconto"].ToString());
-                contas.Add(conta);
-            }
-
-            return contas;
+            return GetQuery().Where(conta => conta.CodConta == codConta).ToList();
         }
+
+        /// <summary>
+        /// Obtém os dados da conta pela entrada
+        /// </summary>
+        /// <param name="codEntrada"></param>
+        /// <returns>código da entrada</returns>
+        public IEnumerable<Conta> ObterPorEntrada(long codEntrada)
+        {
+            return GetQuery().Where(conta => conta.CodEntrada == codEntrada).ToList();
+        }
+
+        /// <summary>
+        /// Obtém os dados da conta pela saída
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns>código da saida</returns>
+        public IEnumerable<Conta> ObterPorSaida(long codSaida)
+        {
+            
+            return GetQuery().Where(conta => conta.CodSaida == codSaida).ToList();
+        }
+
+    
+        /// <summary>
+        /// Obter contas por entrada e pagamento da entrada
+        /// </summary>
+        /// <param name="codEntrada">código da entrada</param>
+        /// <param name="codPagamento">código do pagamento</param>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterPorEntradaPagamento(long codEntrada, long codPagamento)
+        {
+            return GetQuery().Where(conta => conta.CodEntrada == codEntrada && conta.CodPagamento == codPagamento).ToList();
+        }
+
+    
+        /// <summary>
+        /// Obter contas pela saída e pagamento da saída
+        /// </summary>
+        /// <param name="codSaida">Código da Saída</param>
+        /// <param name="codPagamento">Código do Pagamento</param>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterPorSaidaPagamento(long codSaida, long codPagamento)
+        {
+            return GetQuery().Where(conta => conta.CodSaida == codSaida && conta.CodPagamento == codPagamento).ToList();
+        }
+
+        /// <summary>
+        /// Obter contas de uma determinada entrada numa situação
+        /// </summary>
+        /// <param name="codSituacao">situação das contas</param>
+        /// <param name="codEntrada">código da entrada</param>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterPorSituacaoEntrada(string codSituacao, long codEntrada)
+        {
+            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodEntrada == codEntrada).ToList();
+        }
+
+        /// <summary>
+        /// Obter contas de uma determinada saida na situação
+        /// </summary>
+        /// <param name="codSituacao">situação das contas</param>
+        /// <param name="codSaida">código da saída</param>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterPorSituacaoSaida(string codSituacao, long codSaida)
+        {
+            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodSaida == codSaida).ToList();
+        }
+
+
+        /// <summary>
+        /// Obter contas de uma determinada pessoa na situação especificada
+        /// </summary>
+        /// <param name="codSituacao">situação das contas</param>
+        /// <param name="codPessoa">código da pessoa</param>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterPorSituacaoPessoa(string codSituacao, long codPessoa)
+        {
+            return GetQuerySaida().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).ToList();
+        }
+
+        /// <summary>
+        /// Obter contas de uma determinada pessoa na situação especificada num determinado período
+        /// </summary>
+        /// <param name="codSituacao">situação das contas</param>
+        /// <param name="codPessoa">código da pessoa</param>
+        /// <param name="dataInicial">data inicial</param>
+        /// <param name="dataFinal">data final</param>
+        /// <returns></returns>
+        public IEnumerable<Conta> ObterPorSituacaoPessoaPeriodo(string situacao1, string situacao2, long codPessoa, DateTime dataInicial, DateTime dataFinal)
+        {
+            return GetQuerySaida().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) && 
+                  conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).ToList();
+        }
+
+       
+        /// <summary>
+        /// Atribui entidade à entidade persistente
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <param name="_conta"></param>
+        private void Atribuir(Conta conta, ContaE _conta)
+        {
+            _conta.codConta = conta.CodConta;
+            _conta.codDocumentoPagamento = conta.CodDocumento;
+            _conta.codEntrada = conta.CodEntrada;
+            _conta.codPagamento = conta.CodPagamento;
+            _conta.codPessoa = conta.CodPessoa;
+            _conta.codPlanoConta = conta.CodPlanoConta;
+            _conta.codSaida = conta.CodSaida;
+            _conta.codSituacao = conta.CodSituacao.ToString();
+            _conta.dataVencimento = conta.DataVencimento;
+            _conta.desconto = conta.Desconto;
+            _conta.observacao = conta.Observacao;
+            _conta.valor = conta.Valor;
+        }
+
     }
 }

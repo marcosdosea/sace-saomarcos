@@ -24,11 +24,13 @@ namespace Telas
 
         private void FrmPessoa_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PESSOAS, Principal.Autenticacao.CodUsuario);
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             if (!codPessoaTextBox.Text.Trim().Equals(""))
                 contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterContatos(long.Parse(codPessoaTextBox.Text));
             habilitaBotoes(true);
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

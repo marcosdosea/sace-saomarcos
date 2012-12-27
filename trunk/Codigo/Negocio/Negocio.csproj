@@ -68,6 +68,7 @@
     <Compile Include="Conta\GerenciadorFormaPagamento.cs" />
     <Compile Include="Conta\GerenciadorConta.cs" />
     <Compile Include="Cfop\GerenciadorCfop.cs" />
+    <Compile Include="Cst\GerenciadorCst.cs" />
     <Compile Include="DocumentoPagamento\GerenciadorDocumentoPagamento.cs" />
     <Compile Include="Entrada\GerenciadorEntrada.cs" />
     <Compile Include="Entrada\GerenciadorEntradaProduto.cs" />
@@ -127,6 +128,7 @@
       <Name>Util</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
