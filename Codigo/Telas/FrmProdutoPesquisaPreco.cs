@@ -15,7 +15,6 @@ namespace Telas
         private Int32 codProduto;
         private String filtroNome;
         private String textoAtual;
-        private DateTime horaUltimaDigitacao;
 
         public bool ExibirTodos { get; set;}
 

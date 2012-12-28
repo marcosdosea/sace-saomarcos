@@ -152,7 +152,8 @@ namespace Negocio
                     GerenciadorEntrada.getInstace().atualizar(SituacaoPagamentos.LANCADOS, conta.CodEntrada);
                 } else if (!conta.CodSaida.Equals(Global.SAIDA_PADRAO)) {
                     GerenciadorSaida.getInstace().atualizar(SituacaoPagamentos.LANCADOS, conta.CodSaida);
-                    GerenciadorSaidaPagamento.getInstace().o
+                    SaidaPagamento saidaPagamento = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamento((long)conta.CodPagamento);
+                    GerenciadorConta.GetInstance().Atualizar(conta.CodSituacao, (conta.Valor - saidaPagamento.Valor) / saidaPagamento.Parcelas, conta.CodConta);
                 }
             }
             catch (Exception e)

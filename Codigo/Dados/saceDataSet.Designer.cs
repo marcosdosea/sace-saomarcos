@@ -34124,7 +34124,7 @@ WHERE        (codSaidaFormaPagamento = @Original_codSaidaFormaPagamento)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[4];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[5];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        tb_saida_forma_pagamento.codSaidaFormaPagamento, tb_saida_forma_pagamento.codSaida, tb_saida_forma_pagamento.codFormaPagamento, 
@@ -34200,16 +34200,45 @@ WHERE        (tb_saida_forma_pagamento.codSaida = @codSaida)";
             this._commandCollection[2].Parameters.Add(param);
             this._commandCollection[3] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT        SUM(valor) AS total\r\nFROM            tb_saida_forma_pagamento\r\nWHER" +
-                "E        (codSaida = @codSaida)";
+            this._commandCollection[3].CommandText = "SELECT        tb_saida_forma_pagamento.codSaidaFormaPagamento, tb_saida_forma_pag" +
+                "amento.codSaida, tb_saida_forma_pagamento.codFormaPagamento, \r\n                 " +
+                "        tb_saida_forma_pagamento.codContaBanco, tb_saida_forma_pagamento.codCart" +
+                "ao, tb_saida_forma_pagamento.valor, tb_saida_forma_pagamento.data, \r\n           " +
+                "              tb_forma_pagamento.descricao AS descricaoFormaPagamento, tb_conta_" +
+                "banco.descricao AS descricaoContaBanco, tb_cartao_credito.nome AS nomeCartaoCred" +
+                "ito, \r\n                         tb_saida_forma_pagamento.codDocumentoPagamento, " +
+                "tb_documento_pagamento.numeroDocumento, tb_saida_forma_pagamento.parcelas, \r\n   " +
+                "                      tb_saida_forma_pagamento.intervaloDias, tb_cartao_credito." +
+                "mapeamento AS mapeamentoCartao, \r\n                         tb_forma_pagamento.ma" +
+                "peamento AS mapeamentoFormaPagamento\r\nFROM            tb_saida_forma_pagamento I" +
+                "NNER JOIN\r\n                         tb_forma_pagamento ON tb_saida_forma_pagamen" +
+                "to.codFormaPagamento = tb_forma_pagamento.codFormaPagamento INNER JOIN\r\n        " +
+                "                 tb_conta_banco ON tb_saida_forma_pagamento.codContaBanco = tb_c" +
+                "onta_banco.codContaBanco INNER JOIN\r\n                         tb_cartao_credito " +
+                "ON tb_saida_forma_pagamento.codCartao = tb_cartao_credito.codCartao INNER JOIN\r\n" +
+                "                         tb_documento_pagamento ON tb_saida_forma_pagamento.codD" +
+                "ocumentoPagamento = tb_documento_pagamento.codDocumentoPagamento\r\nWHERE tb_saida" +
+                "_forma_pagamento.codSaidaFormaPagamento = @codSaidaFormaPagamento";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codSaidaFormaPagamento";
+            param.DbType = global::System.Data.DbType.Int64;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
+            param.IsNullable = true;
+            param.SourceColumn = "codSaidaFormaPagamento";
+            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "SELECT        SUM(valor) AS total\r\nFROM            tb_saida_forma_pagamento\r\nWHER" +
+                "E        (codSaida = @codSaida)";
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSaida";
             param.DbType = global::System.Data.DbType.Int64;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int64;
             param.IsNullable = true;
             param.SourceColumn = "codSaida";
-            this._commandCollection[3].Parameters.Add(param);
+            this._commandCollection[4].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -34285,6 +34314,32 @@ WHERE        (tb_saida_forma_pagamento.codSaida = @codSaida)";
             this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaida));
             this.Adapter.SelectCommand.Parameters[1].Value = ((int)(codFormaPagamento));
+            saceDataSet.tb_saida_forma_pagamentoDataTable dataTable = new saceDataSet.tb_saida_forma_pagamentoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByCodSaidaPagamento(saceDataSet.tb_saida_forma_pagamentoDataTable dataTable, long codSaidaFormaPagamento) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaidaFormaPagamento));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual saceDataSet.tb_saida_forma_pagamentoDataTable GetDataByCodSaidaPagamento(long codSaidaFormaPagamento) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(codSaidaFormaPagamento));
             saceDataSet.tb_saida_forma_pagamentoDataTable dataTable = new saceDataSet.tb_saida_forma_pagamentoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -34446,7 +34501,7 @@ WHERE        (tb_saida_forma_pagamento.codSaida = @codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> TotalPagamentosByCodSaida(long codSaida) {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[3];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[4];
             command.Parameters[0].Value = ((long)(codSaida));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 

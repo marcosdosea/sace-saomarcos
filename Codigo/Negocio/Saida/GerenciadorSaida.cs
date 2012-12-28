@@ -225,7 +225,7 @@ namespace Negocio
                 Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
 
                 saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
-                                atualizar(saida);
+                 atualizar(saida);
 
                 List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
                 registrarPagamentosSaida(saidaPagamentos, saida);
@@ -489,7 +489,7 @@ namespace Negocio
             }
         }
 
-        public void GerarDocumentoFiscal(HashSet<long> listaCodSaidas, decimal total, decimal totalAVista, List<SaidaPagamento> saidaPagamentos)
+        public void GerarDocumentoFiscal(HashSet<long> listaCodSaidas, List<SaidaPagamento> saidaPagamentos)
         {
             //if (GerenciadorSaida.getInstace().AtualizarPedidosComDocumentosFiscais())
             //{
@@ -505,7 +505,7 @@ namespace Negocio
                     saidas.Add(saida);
                 }
 
-                if ((totalAVista > 0) && (saidas.Count > 0))
+                if (saidas.Count > 0)
                 {
                     DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
 
@@ -525,7 +525,6 @@ namespace Negocio
                         // imprime produtos dos cupons fiscais
                         foreach (Saida saida in saidas)
                         {
-
                             List<SaidaProduto> saidaProdutos= new List<SaidaProduto>();
                             Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
                             if (cliente.ImprimirCF) 
@@ -725,22 +724,25 @@ namespace Negocio
 
         public void imprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, bool comprimido)
         {
+
             if (comprimido)
                 imprimirDAVComprimido(saidas, total, totalAVista, desconto);
             else
                 imprimirDAVNormal(saidas, total, totalAVista, desconto);
         }
 
-        private void imprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool imprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
             {
-                Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
-                Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
-
                 ImprimeTexto imp = new ImprimeTexto();
+                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA))
+                {
+                    return false;
+                }
 
-                imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA);
+                Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
+                Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
                 imp.Imp(imp.Comprimido);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
@@ -822,6 +824,7 @@ namespace Negocio
                 imp.Pula(8);
                 imp.Imp(imp.Normal);
                 imp.Fim();
+                return true;
             }
             catch (Exception)
             {
@@ -829,17 +832,21 @@ namespace Negocio
             }
         }
 
-        private void imprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool imprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
             {
+                ImprimeTexto imp = new ImprimeTexto();
+
+                if (!imp.Inicio(Global.PORTA_IMPRESSORA_NORMAL))
+                {
+                    return false;
+                }
+
                 Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
                 Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
-                ImprimeTexto imp = new ImprimeTexto();
-
-                imp.Inicio(Global.PORTA_IMPRESSORA_NORMAL);
-
+                
                 imp.ImpLF(Global.LINHA);
                 if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
                 {
@@ -906,6 +913,7 @@ namespace Negocio
 
                 imp.Pula(2);
                 imp.Fim();
+                return true;
             }
             catch (Exception)
             {
@@ -925,7 +933,7 @@ namespace Negocio
             {
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
-                    GerarDocumentoFiscal(new HashSet<long>() {saida.CodSaida}, saida.Total, saida.TotalAVista, null);
+                    GerarDocumentoFiscal(new HashSet<long>() {saida.CodSaida}, null);
                 }
                 else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) )
                 {
@@ -1022,7 +1030,7 @@ namespace Negocio
                     imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, true);
 
                     imp.Eject();
-                    imp.Fim();
+                    imp.Fim(); 
                 }
             }
             catch (Exception)

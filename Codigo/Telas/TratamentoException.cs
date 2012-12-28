@@ -16,7 +16,7 @@ namespace Telas
         public void TratarException(object sender, ThreadExceptionEventArgs t)
         {
             DialogResult result = DialogResult.Cancel;
-            string erro = t.Exception.Message;
+            string erro = t.Exception.Message + t.Exception.StackTrace;
             
 
             if (t.Exception is ApplicationException)

@@ -18,7 +18,7 @@ namespace Dominio
         public long CodDocumento { get; set; }
         public long CodPlanoConta { get; set; }
         public long CodPessoa { get; set; }
-        public string NomePessoa { get; set; }
+        //public string NomePessoa { get; set; }
         public DateTime DataVencimento { get; set; }
         public decimal Valor { get; set; }
         public string CodSituacao { get; set; }

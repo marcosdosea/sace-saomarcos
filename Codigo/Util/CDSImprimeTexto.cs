@@ -139,18 +139,18 @@ namespace Util
                 GeraArquivoLPT = sPortaInicio;
                 fileWriter = new StreamWriter(sPortaInicio);
                 lOK = true;
-                //hPort = CreateFileA(sPorta, GENERIC_WRITE, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
-                //if (hPort != -1)
-                //{
-                //    hPortP = new IntPtr(hPort);
-                //    outFile = new FileStream(hPortP, FileAccess.Write);
-                //    fileWriter = new StreamWriter(outFile);
-                //    lOK = true;
-                //}
-                //else
-                //{
-                //    lOK = false;
-                //}
+                hPort = CreateFileA(sPorta, GENERIC_WRITE, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
+                if (hPort != -1)
+                {
+                    hPortP = new IntPtr(hPort);
+                    outFile = new FileStream(hPortP, FileAccess.Write);
+                    fileWriter = new StreamWriter(outFile);
+                    lOK = true;
+                }
+                else
+                {
+                    lOK = false;
+                }
             }
             else
             {
@@ -159,6 +159,24 @@ namespace Util
             }
 			return lOK;
 		}
+
+        //public void VisualizarImpressao()
+        //{
+        //    try
+        //    {
+        //        string texto = this.richTextBox1.Text;
+        //        leitor = new StringReader(texto);
+        //        PrintPreviewDialog printPreviewDialog1 = new PrintPreviewDialog();
+        //        printPreviewDialog1.Document = this.printDocument1;
+        //        printPreviewDialog1.FormBorderStyle = FormBorderStyle.Fixed3D;
+        //        printPreviewDialog1.ShowDialog();
+        //    }
+        //    catch (Exception exp)
+        //    {
+        //        MessageBox.Show(" Erro : " + exp.Message.ToString());
+        //    }
+        //}
+
 
 		/// <summary>
 		/// Finaliza a Impressao.

@@ -154,7 +154,7 @@ namespace Telas
                         }
                         else
                         {
-                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, null);
+                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null);
                         }
                     }
                 }
@@ -509,6 +509,10 @@ namespace Telas
             if ( codClienteComboBox.SelectedValue != null) 
             {
                 cpf_CnpjTextBox.Enabled = Convert.ToInt64(codClienteComboBox.SelectedValue.ToString()) == 1;
+            }
+            if (codClienteComboBox.SelectedIndex != 0)
+            {
+                codFormaPagamentoComboBox.SelectedIndex = 1;
             }
         }
 

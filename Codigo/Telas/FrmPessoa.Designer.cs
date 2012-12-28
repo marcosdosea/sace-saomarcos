@@ -57,6 +57,7 @@
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.tb_pessoaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -84,6 +85,11 @@
             this.ieTextBox = new System.Windows.Forms.TextBox();
             this.fone3TextBox = new System.Windows.Forms.MaskedTextBox();
             this.tb_contato_empresaDataGridView = new System.Windows.Forms.DataGridView();
+            this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeFantasiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fone1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fone2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contatosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnAdicionarContato = new System.Windows.Forms.Button();
@@ -99,12 +105,6 @@
             this.imprimirCFCheckBox = new System.Windows.Forms.CheckBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.cepMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.contatosBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeFantasiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fone1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fone2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
@@ -126,10 +126,10 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).BeginInit();
             this.tb_pessoaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cpf_cnpjErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contatosBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -404,6 +404,11 @@
             this.tb_pessoaBindingNavigator.TabIndex = 21;
             this.tb_pessoaBindingNavigator.Text = "bindingNavigator1";
             // 
+            // pessoaBindingSource
+            // 
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            this.pessoaBindingSource.PositionChanged += new System.EventHandler(this.pessoaBindingSource_PositionChanged);
+            // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
@@ -659,6 +664,40 @@
             this.tb_contato_empresaDataGridView.TabIndex = 68;
             this.tb_contato_empresaDataGridView.TabStop = false;
             // 
+            // codPessoaDataGridViewTextBoxColumn
+            // 
+            this.codPessoaDataGridViewTextBoxColumn.DataPropertyName = "CodPessoa";
+            this.codPessoaDataGridViewTextBoxColumn.HeaderText = "CodPessoa";
+            this.codPessoaDataGridViewTextBoxColumn.Name = "codPessoaDataGridViewTextBoxColumn";
+            this.codPessoaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codPessoaDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nomeFantasiaDataGridViewTextBoxColumn
+            // 
+            this.nomeFantasiaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeFantasiaDataGridViewTextBoxColumn.DataPropertyName = "NomeFantasia";
+            this.nomeFantasiaDataGridViewTextBoxColumn.HeaderText = "Nome Fantasia";
+            this.nomeFantasiaDataGridViewTextBoxColumn.Name = "nomeFantasiaDataGridViewTextBoxColumn";
+            this.nomeFantasiaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fone1DataGridViewTextBoxColumn
+            // 
+            this.fone1DataGridViewTextBoxColumn.DataPropertyName = "Fone1";
+            this.fone1DataGridViewTextBoxColumn.HeaderText = "Fone1";
+            this.fone1DataGridViewTextBoxColumn.Name = "fone1DataGridViewTextBoxColumn";
+            this.fone1DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fone2DataGridViewTextBoxColumn
+            // 
+            this.fone2DataGridViewTextBoxColumn.DataPropertyName = "Fone2";
+            this.fone2DataGridViewTextBoxColumn.HeaderText = "Fone2";
+            this.fone2DataGridViewTextBoxColumn.Name = "fone2DataGridViewTextBoxColumn";
+            this.fone2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // contatosBindingSource
+            // 
+            this.contatosBindingSource.DataSource = typeof(Dominio.Pessoa);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -807,45 +846,6 @@
             this.cepMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.cepMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
-            // pessoaBindingSource
-            // 
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
-            this.pessoaBindingSource.PositionChanged += new System.EventHandler(this.pessoaBindingSource_PositionChanged);
-            // 
-            // contatosBindingSource
-            // 
-            this.contatosBindingSource.DataSource = typeof(Dominio.Pessoa);
-            // 
-            // codPessoaDataGridViewTextBoxColumn
-            // 
-            this.codPessoaDataGridViewTextBoxColumn.DataPropertyName = "CodPessoa";
-            this.codPessoaDataGridViewTextBoxColumn.HeaderText = "CodPessoa";
-            this.codPessoaDataGridViewTextBoxColumn.Name = "codPessoaDataGridViewTextBoxColumn";
-            this.codPessoaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codPessoaDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // nomeFantasiaDataGridViewTextBoxColumn
-            // 
-            this.nomeFantasiaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeFantasiaDataGridViewTextBoxColumn.DataPropertyName = "NomeFantasia";
-            this.nomeFantasiaDataGridViewTextBoxColumn.HeaderText = "Nome Fantasia";
-            this.nomeFantasiaDataGridViewTextBoxColumn.Name = "nomeFantasiaDataGridViewTextBoxColumn";
-            this.nomeFantasiaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fone1DataGridViewTextBoxColumn
-            // 
-            this.fone1DataGridViewTextBoxColumn.DataPropertyName = "Fone1";
-            this.fone1DataGridViewTextBoxColumn.HeaderText = "Fone1";
-            this.fone1DataGridViewTextBoxColumn.Name = "fone1DataGridViewTextBoxColumn";
-            this.fone1DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fone2DataGridViewTextBoxColumn
-            // 
-            this.fone2DataGridViewTextBoxColumn.DataPropertyName = "Fone2";
-            this.fone2DataGridViewTextBoxColumn.HeaderText = "Fone2";
-            this.fone2DataGridViewTextBoxColumn.Name = "fone2DataGridViewTextBoxColumn";
-            this.fone2DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -921,11 +921,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaBindingNavigator)).EndInit();
             this.tb_pessoaBindingNavigator.ResumeLayout(false);
             this.tb_pessoaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cpf_cnpjErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contato_empresaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.contatosBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
