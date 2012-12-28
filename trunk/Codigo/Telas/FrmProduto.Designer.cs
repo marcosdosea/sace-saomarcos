@@ -1404,7 +1404,6 @@
         private Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_produto_lojaTableAdapter;
         private System.Windows.Forms.BindingSource tbsituacaoprodutoBindingSource;
         private System.Windows.Forms.BindingSource tbcstBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoCustoDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource tbprodutolojaBindingSource;
         private System.Windows.Forms.BindingSource tbsubgrupoBindingSource;
         private Dados.saceDataSetTableAdapters.tb_subgrupoTableAdapter tb_subgrupoTableAdapter;

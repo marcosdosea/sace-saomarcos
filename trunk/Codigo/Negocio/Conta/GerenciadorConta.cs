@@ -112,43 +112,10 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Consulta para retornar dados da entidade
-        /// </summary>
-        /// <returns></returns>
-        private IQueryable<Conta> GetQuery()
-        {
-            var saceEntities = (SaceEntities)repConta.ObterContexto();
-            var query = from conta in saceEntities.ContaSet
-                        join planoConta in saceEntities.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
-                        join situacaoConta in saceEntities.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
-                        join pessoa in saceEntities.PessoaSet on conta.codPessoa equals pessoa.codPessoa
-                        orderby conta.dataVencimento, conta.codConta
-                        select new Conta
-                        {
-                            CodConta = conta.codConta,
-                            CodDocumento = conta.codDocumentoPagamento,
-                            CodEntrada = (long) conta.codEntrada,
-                            CodPagamento = conta.codPagamento,
-                            CodPessoa = conta.codPessoa,
-                            NomePessoa = pessoa.nomeFantasia,
-                            CodPlanoConta = conta.codPlanoConta,
-                            CodSaida = (long) conta.codSaida,
-                            CodSituacao = conta.codSituacao,
-                            DescricaoSituacao = situacaoConta.descricaoSituacao,
-                            DataVencimento = conta.dataVencimento,
-                            Desconto = conta.desconto,
-                            Observacao = conta.observacao,
-                            TipoConta = planoConta.codTipoConta,
-                            Valor = conta.valor
-                        };
-            return query;
-        }
-
-        /// <summary>
         /// Consulta para retornar dados da entidade quando houver saídas associadas
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Conta> GetQuerySaida()
+        private IQueryable<Conta> GetQuery()
         {
             var saceEntities = (SaceEntities)repConta.ObterContexto();
             var query = from conta in saceEntities.ContaSet
@@ -272,7 +239,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Conta> ObterPorSituacaoPessoa(string codSituacao, long codPessoa)
         {
-            return GetQuerySaida().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).ToList();
+            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).ToList();
         }
 
         /// <summary>
@@ -285,7 +252,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Conta> ObterPorSituacaoPessoaPeriodo(string situacao1, string situacao2, long codPessoa, DateTime dataInicial, DateTime dataFinal)
         {
-            return GetQuerySaida().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) && 
+            return GetQuery().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) && 
                   conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).ToList();
         }
 
@@ -311,5 +278,34 @@ namespace Negocio
             _conta.valor = conta.Valor;
         }
 
+
+        public void Baixar(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
+        {
+            string observacao = "Substituiu as contas: ";
+            foreach (long codConta in listaContas)
+            {
+                GerenciadorConta.GetInstance().Atualizar(Conta.SITUACAO_QUITADA, 0, codConta);
+                observacao += codConta + ", ";
+            }
+            DateTime dataVecimento = DateTime.Now;
+
+            for (int i = 0; i < parcelas; i++)
+            {
+                Conta conta = new Conta();    
+                conta.CodDocumento = 1;
+                conta.CodEntrada = 1;
+                conta.CodPagamento = 1;
+                conta.CodPessoa = cartaoCredito.CodPessoa;
+                conta.CodPlanoConta = PlanoConta.RECEBIMENTO_CREDIARIO;
+                conta.CodSaida = 1;
+                conta.CodSituacao = Conta.SITUACAO_ABERTA;
+                dataVecimento = dataVecimento.AddDays(cartaoCredito.DiaBase);
+                conta.DataVencimento = dataVecimento;
+                conta.Desconto = 0;
+                conta.Valor = valorPagamento/parcelas;
+                conta.Observacao = observacao;
+                Inserir(conta);
+            }
+        }
     }
 }

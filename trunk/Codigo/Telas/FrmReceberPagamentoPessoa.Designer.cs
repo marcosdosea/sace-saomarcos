@@ -92,7 +92,7 @@
             this.btnCFNfe = new System.Windows.Forms.Button();
             this.codCartaoComboBox = new System.Windows.Forms.ComboBox();
             this.cartaoCreditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.parcelasTextBox = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             codClienteLabel = new System.Windows.Forms.Label();
@@ -578,9 +578,9 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label6.Location = new System.Drawing.Point(753, 436);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(133, 18);
+            this.label6.Size = new System.Drawing.Size(84, 18);
             this.label6.TabIndex = 37;
-            this.label6.Text = "Total Pagamentos:";
+            this.label6.Text = "Total Pago:";
             // 
             // label8
             // 
@@ -610,10 +610,10 @@
             this.totalPagamentosTextBox.BackColor = System.Drawing.Color.Blue;
             this.totalPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             this.totalPagamentosTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalPagamentosTextBox.Location = new System.Drawing.Point(888, 436);
+            this.totalPagamentosTextBox.Location = new System.Drawing.Point(843, 436);
             this.totalPagamentosTextBox.Name = "totalPagamentosTextBox";
             this.totalPagamentosTextBox.ReadOnly = true;
-            this.totalPagamentosTextBox.Size = new System.Drawing.Size(112, 32);
+            this.totalPagamentosTextBox.Size = new System.Drawing.Size(157, 32);
             this.totalPagamentosTextBox.TabIndex = 40;
             this.totalPagamentosTextBox.TabStop = false;
             this.totalPagamentosTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -690,6 +690,7 @@
             this.valorPagamentoTextBox.Name = "valorPagamentoTextBox";
             this.valorPagamentoTextBox.Size = new System.Drawing.Size(167, 32);
             this.valorPagamentoTextBox.TabIndex = 54;
+            this.valorPagamentoTextBox.Leave += new System.EventHandler(this.faltaReceberTextBox_Leave);
             // 
             // tb_movimentacao_contaTableAdapter
             // 
@@ -733,16 +734,15 @@
             // 
             this.cartaoCreditoBindingSource.DataSource = typeof(Dominio.CartaoCredito);
             // 
-            // textBox1
+            // parcelasTextBox
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.textBox1.Location = new System.Drawing.Point(752, 496);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(67, 32);
-            this.textBox1.TabIndex = 64;
-            this.textBox1.TabStop = false;
-            this.textBox1.Text = "1";
+            this.parcelasTextBox.Enabled = false;
+            this.parcelasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.parcelasTextBox.Location = new System.Drawing.Point(752, 496);
+            this.parcelasTextBox.Name = "parcelasTextBox";
+            this.parcelasTextBox.Size = new System.Drawing.Size(67, 32);
+            this.parcelasTextBox.TabIndex = 52;
+            this.parcelasTextBox.Text = "1";
             // 
             // label14
             // 
@@ -772,7 +772,7 @@
             this.ClientSize = new System.Drawing.Size(1008, 561);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.parcelasTextBox);
             this.Controls.Add(label13);
             this.Controls.Add(codCartaoLabel);
             this.Controls.Add(this.codCartaoComboBox);
@@ -883,7 +883,7 @@
          private System.Windows.Forms.BindingSource pessoaBindingSource;
          private System.Windows.Forms.BindingSource formaPagamentoBindingSource;
          private System.Windows.Forms.BindingSource cartaoCreditoBindingSource;
-         private System.Windows.Forms.TextBox textBox1;
+         private System.Windows.Forms.TextBox parcelasTextBox;
          private System.Windows.Forms.Label label14;
          private System.Windows.Forms.Label label15;
          private System.Windows.Forms.DataGridViewTextBoxColumn codContaDataGridViewTextBoxColumn;

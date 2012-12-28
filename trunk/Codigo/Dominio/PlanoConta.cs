@@ -9,6 +9,7 @@ namespace Dominio
     {
         public const int ENTRADA_PRODUTOS = 1;
         public const int SAIDA_PRODUTOS = 2;
+        public const int RECEBIMENTO_CREDIARIO = 3;
         
 
         private long codPlanoConta;

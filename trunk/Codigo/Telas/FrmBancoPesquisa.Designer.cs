@@ -153,10 +153,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
         private System.Windows.Forms.BindingSource bancoBindingSource;
-        //private Dados.saceDataSetTableAdapters.tb_bancoTableAdapter tb_bancoTableAdapter;
         private System.Windows.Forms.DataGridView tb_bancoDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn codBancoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
   

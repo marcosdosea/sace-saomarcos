@@ -96,7 +96,6 @@
     </Compile>
     <None Include="Properties\DataSources\SACE.Dados.saceDataSet.datasource" />
     <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.datasource" />
-    <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.tb_bancoTableAdapter.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

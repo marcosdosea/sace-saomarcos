@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Telas</RootNamespace>
-    <AssemblyName>Telas</AssemblyName>
+    <AssemblyName>SACE</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -598,7 +598,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\Dados.saceDataSet.datasource" />
-    <None Include="Properties\DataSources\SACE.Dados.saceRelatoriosDataSet.datasource" />
     <None Include="Resources\86.png" />
   </ItemGroup>
   <ItemGroup>
