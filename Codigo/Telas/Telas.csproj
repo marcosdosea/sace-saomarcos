@@ -226,7 +226,6 @@
     <Compile Include="Relatorios\Produtos\FrmRelProdutos.Designer.cs">
       <DependentUpon>FrmRelProdutos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="TelaException.cs" />
     <Compile Include="TratamentoException.cs" />
     <Compile Include="FrmBanco.cs">
@@ -557,7 +556,7 @@
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">

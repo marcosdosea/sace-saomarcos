@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 using Dados;
+using System.Data;
 
 namespace Telas
 {
@@ -16,15 +17,14 @@ namespace Telas
         public void TratarException(object sender, ThreadExceptionEventArgs t)
         {
             DialogResult result = DialogResult.Cancel;
-            string erro = t.Exception.Message + t.Exception.StackTrace;
+            string erro = t.Exception.Message;
             
 
             if (t.Exception is ApplicationException)
             {
                 erro = "Erro fatal!/n Entre em contato com o administrador/nErro: " + t.Exception.Message;
-            }
-
-            if (t.Exception is SystemException)
+            } 
+            else if (t.Exception is SystemException)
             {
 
                 if (t.Exception is ArgumentOutOfRangeException)
@@ -56,41 +56,60 @@ namespace Telas
                         erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede.";
                     }
                 }
-                else if (t.Exception is DadosException)
+                else if ((t.Exception is DadosException) || (t.Exception is System.Data.EntityException))
                 {
-                    DadosException de = (DadosException)t.Exception;
-                    if (de.InnerException is MySqlException)
+
+                    MySqlException exception = null;
+                    if (t.Exception.InnerException is MySqlException ) {
+                        exception = (MySqlException)t.Exception.InnerException; 
+                    } else if (t.Exception.InnerException.InnerException is MySqlException ) {
+                        exception = (MySqlException)t.Exception.InnerException.InnerException; 
+                    }
+                    
+                    if (exception != null)
                     {
-                        MySqlException exception = (MySqlException)de.InnerException;
                         // Tratamento de chaves únicas
                         if (exception.Number == 1042)
                         {
                             erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede.";
                         }
                         // Tratamento de chaves únicas
-                        if (exception.Number == 1062)
+                        else if (exception.Number == 1062)
                         {
-                            erro = "O " + de.Entidade + " já foi inserido na base de dados.";
+                            if (t.Exception is DadosException)
+                            {
+                                DadosException de = (DadosException)t.Exception;
+                                erro = "O " + de.Entidade + " já foi inserido na base de dados.";
+                            }
+                            else
+                            {
+                                erro = "A entidade já foi inserida na base de dados.";
+                            }
                         }
                         // Tratamento de chaves estrangeiras
                         else if (exception.Number == 1451)
                         {
-                            erro = "O " + de.Entidade + " não pode ser excluído por estar associado a outro registro na base de dados.";
+                            if (t.Exception is DadosException)
+                            {
+                                DadosException de = (DadosException)t.Exception;
+                                erro = "O " + de.Entidade + " não pode ser excluído por estar associado a outro registro na base de dados.";
+                            }
+                            else
+                            {
+                                erro = "A entidade não pode ser excluída por estar associada a outro registro na base de dados.";
+                            }
                         }
                         else
                         {
-                            erro = "Erro " + exception.Number + ": Favor contactar administrador do sistema.";
+                            erro = "Erro da Base de Dados Número " + exception.Number + ": Favor contactar administrador do sistema.";
                         }
-
-
                     }
+
                 }
+               
             }
-
-            result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
             
-
+            result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             if (result == DialogResult.Abort)
                 Application.Exit();
         }

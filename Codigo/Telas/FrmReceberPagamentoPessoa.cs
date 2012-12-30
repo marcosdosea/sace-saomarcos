@@ -85,12 +85,12 @@ namespace Telas
                     listaSaidas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString())); //codSaida
                 }
 
-                
+
                 // cupom fiscal pode ser impresso quando todas as contas associadas a uma saída estiverem selecionadas
                 bool podeImprimirCF = true;
                 foreach (long codSaida in listaSaidas)
                 {
-                    List<Conta> contas = (List<Conta>) GerenciadorConta.GetInstance().ObterPorSaida(codSaida);
+                    List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance().ObterPorSaida(codSaida);
                     foreach (Conta conta in contas)
                     {
                         if (!listaContas.Contains(conta.CodConta) || !conta.CF.Trim().Equals(""))
@@ -103,7 +103,8 @@ namespace Telas
                         break;
                 }
 
-                if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF) {
+                if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF)
+                {
                     throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se algum cupom referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
                 }
 
@@ -134,45 +135,45 @@ namespace Telas
                         movimentacao.DataHora = DateTime.Now;
                         movimentacao.Valor = valorPagamento;
                         GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, listaContas);
-                        if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                        if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();
                             FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
-                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, new List<SaidaPagamento>() { saidaPagamento }); 
+                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, new List<SaidaPagamento>() { saidaPagamento }, valorPagamento);
                         }
                     }
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
                     {
-                        if (MessageBox.Show("Confirma Emissão do Cupom Fiscal para pagamento com Cartão de Crédito?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
+                        if (totalPago > 0)
                         {
+                            SaidaPagamento saidaPagamentoDinheiro = new SaidaPagamento();
+                            FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+                            saidaPagamentoDinheiro.CodFormaPagamento = FormaPagamento.DINHEIRO;
+                            saidaPagamentoDinheiro.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
+                            saidaPagamentoDinheiro.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
+                            saidaPagamentoDinheiro.Valor = valorPagamento - totalPago;
+                            listaSaidaPagamento.Add(saidaPagamentoDinheiro);
+                        }
 
-                            List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
-                            if (totalPago > 0)
-                            {
-                                SaidaPagamento saidaPagamentoDinheiro = new SaidaPagamento();
-                                FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
-                                saidaPagamentoDinheiro.CodFormaPagamento = FormaPagamento.DINHEIRO;
-                                saidaPagamentoDinheiro.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
-                                saidaPagamentoDinheiro.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
-                                saidaPagamentoDinheiro.Valor = valorPagamento - totalPago;
-                                listaSaidaPagamento.Add(saidaPagamentoDinheiro);
-                            }
+                        SaidaPagamento saidaPagamentoCartao = new SaidaPagamento();
 
-                            SaidaPagamento saidaPagamentoCartao = new SaidaPagamento();
-
-                            int codCartao = Convert.ToInt32(codCartaoComboBox.SelectedValue.ToString());
-                            int parcelas = Convert.ToInt32(parcelasTextBox.Text);
-                            CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(codCartao).ElementAt(0);
-                            saidaPagamentoCartao.CodFormaPagamento = FormaPagamento.CARTAO;
-                            saidaPagamentoCartao.MapeamentoFormaPagamento = cartaoCredito.Mapeamento;
-                            saidaPagamentoCartao.MapeamentoCartao = cartaoCredito.Mapeamento;
-                            saidaPagamentoCartao.NomeCartaoCredito = cartaoCredito.Nome;
-                            saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
-                            saidaPagamentoCartao.Valor = valorPagamento;
-                            listaSaidaPagamento.Add(saidaPagamentoCartao);
-                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, listaSaidaPagamento);
+                        int codCartao = Convert.ToInt32(codCartaoComboBox.SelectedValue.ToString());
+                        int parcelas = Convert.ToInt32(parcelasTextBox.Text);
+                        CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(codCartao).ElementAt(0);
+                        saidaPagamentoCartao.CodFormaPagamento = FormaPagamento.CARTAO;
+                        saidaPagamentoCartao.MapeamentoFormaPagamento = cartaoCredito.Mapeamento;
+                        saidaPagamentoCartao.MapeamentoCartao = cartaoCredito.Mapeamento;
+                        saidaPagamentoCartao.NomeCartaoCredito = cartaoCredito.Nome;
+                        saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
+                        saidaPagamentoCartao.Valor = valorPagamento;
+                        listaSaidaPagamento.Add(saidaPagamentoCartao);
+                        GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, listaSaidaPagamento, valorPagamento);
+                        if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
                             GerenciadorConta.GetInstance().Baixar(listaContas, valorPagamento, cartaoCredito, parcelas);
                         }
                     }
@@ -235,7 +236,7 @@ namespace Telas
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
-                    GerenciadorSaida.getInstace().GerarDocumentoFiscal(codSaidas, new List<SaidaPagamento>() { saidaPagamento });
+                    GerenciadorSaida.getInstace().GerarDocumentoFiscal(codSaidas, new List<SaidaPagamento>() { saidaPagamento }, saidaPagamento.Valor);
                 }
             }
         }

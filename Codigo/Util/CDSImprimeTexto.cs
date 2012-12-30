@@ -139,18 +139,18 @@ namespace Util
                 GeraArquivoLPT = sPortaInicio;
                 fileWriter = new StreamWriter(sPortaInicio);
                 lOK = true;
-                hPort = CreateFileA(sPorta, GENERIC_WRITE, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
-                if (hPort != -1)
-                {
-                    hPortP = new IntPtr(hPort);
-                    outFile = new FileStream(hPortP, FileAccess.Write);
-                    fileWriter = new StreamWriter(outFile);
-                    lOK = true;
-                }
-                else
-                {
-                    lOK = false;
-                }
+                //hPort = CreateFileA(sPorta, GENERIC_WRITE, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
+                //if (hPort != -1)
+                //{
+                //    hPortP = new IntPtr(hPort);
+                //    outFile = new FileStream(hPortP, FileAccess.Write);
+                //    fileWriter = new StreamWriter(outFile);
+                //    lOK = true;
+                //}
+                //else
+                //{
+                //    lOK = false;
+                //}
             }
             else
             {

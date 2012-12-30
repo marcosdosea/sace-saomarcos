@@ -35,6 +35,10 @@
             System.Windows.Forms.Label label12;
             System.Windows.Forms.Label codCartaoLabel;
             System.Windows.Forms.Label label13;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -52,14 +56,6 @@
             this.dataFinalDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.contasPessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contasPessoaDataGridView = new System.Windows.Forms.DataGridView();
-            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoSituacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorPagar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_movimentacao_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,6 +91,14 @@
             this.parcelasTextBox = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoSituacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorPagar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codClienteLabel = new System.Windows.Forms.Label();
             codFormaPagamentoLabel = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
@@ -229,7 +233,7 @@
             this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codClienteComboBox.CausesValidation = false;
             this.codClienteComboBox.DataSource = this.pessoaBindingSource;
-            this.codClienteComboBox.DisplayMember = "Nome";
+            this.codClienteComboBox.DisplayMember = "NomeFantasia";
             this.codClienteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.codClienteComboBox.FormattingEnabled = true;
             this.codClienteComboBox.Location = new System.Drawing.Point(7, 104);
@@ -354,75 +358,6 @@
             this.contasPessoaDataGridView.TabIndex = 32;
             this.contasPessoaDataGridView.TabStop = false;
             this.contasPessoaDataGridView.SelectionChanged += new System.EventHandler(this.ContasPessoaDataGridView_SelectionChanged);
-            // 
-            // codContaDataGridViewTextBoxColumn
-            // 
-            this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
-            this.codContaDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
-            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
-            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataVencimentoDataGridViewTextBoxColumn
-            // 
-            this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
-            this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
-            this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
-            this.dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // CF
-            // 
-            this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CF.DataPropertyName = "CF";
-            this.CF.FillWeight = 40F;
-            this.CF.HeaderText = "CF";
-            this.CF.MinimumWidth = 40;
-            this.CF.Name = "CF";
-            this.CF.ReadOnly = true;
-            // 
-            // descricaoSituacaoDataGridViewTextBoxColumn
-            // 
-            this.descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorDataGridViewTextBoxColumn
-            // 
-            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
-            this.valorDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
-            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // desconto
-            // 
-            this.desconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.desconto.DataPropertyName = "Desconto";
-            this.desconto.FillWeight = 70F;
-            this.desconto.HeaderText = "Descto (R$)";
-            this.desconto.Name = "desconto";
-            this.desconto.ReadOnly = true;
-            // 
-            // valorPagar
-            // 
-            this.valorPagar.DataPropertyName = "ValorPagar";
-            this.valorPagar.HeaderText = "À Vista (R$)";
-            this.valorPagar.Name = "valorPagar";
-            this.valorPagar.ReadOnly = true;
             // 
             // tb_movimentacao_contaBindingSource
             // 
@@ -763,6 +698,83 @@
             this.label15.Size = new System.Drawing.Size(75, 13);
             this.label15.TabIndex = 65;
             this.label15.Text = "F12 - Navegar";
+            // 
+            // codContaDataGridViewTextBoxColumn
+            // 
+            this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.codContaDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
+            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
+            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataVencimentoDataGridViewTextBoxColumn
+            // 
+            this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
+            this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
+            this.dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // CF
+            // 
+            this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CF.DataPropertyName = "CF";
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CF.DefaultCellStyle = dataGridViewCellStyle8;
+            this.CF.FillWeight = 40F;
+            this.CF.HeaderText = "CF";
+            this.CF.MinimumWidth = 40;
+            this.CF.Name = "CF";
+            this.CF.ReadOnly = true;
+            // 
+            // descricaoSituacaoDataGridViewTextBoxColumn
+            // 
+            this.descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            this.valorDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
+            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // desconto
+            // 
+            this.desconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.desconto.DataPropertyName = "Desconto";
+            this.desconto.FillWeight = 70F;
+            this.desconto.HeaderText = "Dcto (R$)";
+            this.desconto.Name = "desconto";
+            this.desconto.ReadOnly = true;
+            // 
+            // valorPagar
+            // 
+            this.valorPagar.DataPropertyName = "ValorPagar";
+            this.valorPagar.HeaderText = "À Vista (R$)";
+            this.valorPagar.Name = "valorPagar";
+            this.valorPagar.ReadOnly = true;
             // 
             // FrmReceberPagamentoPessoa
             // 
