@@ -71,6 +71,7 @@ namespace Dados
                 return _storage[chave];
             }
 
+
             var dbContext = new TObjectContext();
             _storage.Add(chave, dbContext);
             return dbContext;

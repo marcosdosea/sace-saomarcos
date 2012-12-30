@@ -408,6 +408,7 @@ namespace Telas
             {
                 tbprodutoBindingSource.Position = tbprodutoBindingSource.Find("codProduto", frmAjuste.CodProduto);
             }
+            codProdutoTextBox_TextChanged(sender, e);
         }
 
         private void FrmProduto_FormClosing(object sender, FormClosingEventArgs e)

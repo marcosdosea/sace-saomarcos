@@ -154,7 +154,7 @@ namespace Telas
                         }
                         else
                         {
-                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null);
+                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null, saida.TotalAVista);
                         }
                     }
                 }

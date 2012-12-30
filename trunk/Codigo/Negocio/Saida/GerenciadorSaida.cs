@@ -46,7 +46,7 @@ namespace Negocio
                     saida.Nfe, saida.BaseCalculoICMS, saida.ValorICMS, saida.BaseCalculoICMSSubst, saida.ValorICMSSubst,
                     saida.ValorFrete, saida.ValorSeguro, saida.OutrasDespesas, saida.ValorIPI, saida.TotalNotaFiscal,
                     saida.QuantidadeVolumes, saida.EspecieVolumes, saida.Marca, saida.Numero, saida.PesoBruto, saida.PesoLiquido, saida.CodEmpresaFrete);
-                
+
                 return (Int64)tb_SaidaTA.GetUltimoCodSaida();
 
 
@@ -108,7 +108,7 @@ namespace Negocio
                     GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
                     tb_SaidaTA.Delete(saida.CodSaida);
                 }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA) )
+                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
                     GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
@@ -121,9 +121,12 @@ namespace Negocio
                 {
                     // para garantir que nenhuma outra estãção emitiu a nota de transferência
                     saida = GerenciadorSaida.getInstace().obterSaida(saida.CodSaida);
-                    if ((saida.Nfe != null) && (!saida.Nfe.Equals(""))) { 
+                    if ((saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                    {
                         throw new NegocioException("Não é possível remover uma saída para depósito cuja nota fiscal de trasnferência já foi emitida.");
-                    } else {
+                    }
+                    else
+                    {
                         tb_SaidaTA.Delete(saida.CodSaida);
                     }
                 }
@@ -225,7 +228,7 @@ namespace Negocio
                 Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
 
                 saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
-                 atualizar(saida);
+                atualizar(saida);
 
                 List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
                 registrarPagamentosSaida(saidaPagamentos, saida);
@@ -272,7 +275,7 @@ namespace Negocio
             else
                 return saida.Total + saida.ValorICMS + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
         }
-        
+
         /// <summary>
         /// Verifica na saída se produto tem data de vencimento aceitável.
         /// </summary>
@@ -336,9 +339,10 @@ namespace Negocio
                 {
                     conta.Valor = (saida.TotalAVista - totalRegistrado) / pagamento.Parcelas;
                 }
-                else if (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO) {
-                        conta.Valor = (saida.Total / pagamento.Parcelas);
-                        conta.Desconto = (saida.Total - saida.TotalAVista) / pagamento.Parcelas;
+                else if (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
+                {
+                    conta.Valor = (saida.Total / pagamento.Parcelas);
+                    conta.Desconto = (saida.Total - saida.TotalAVista) / pagamento.Parcelas;
                 }
                 else
                 {
@@ -352,7 +356,7 @@ namespace Negocio
                     if (pagamento.CodFormaPagamento == (FormaPagamento.CARTAO))
                     {
                         CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.CodCartaoCredito).ElementAt(0);
-                        pagamento.Data = pagamento.Data.AddDays((double) cartaoCredito.DiaBase);
+                        pagamento.Data = pagamento.Data.AddDays((double)cartaoCredito.DiaBase);
                         conta.DataVencimento = pagamento.Data;
                     }
                     else if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
@@ -395,7 +399,7 @@ namespace Negocio
                     }
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
-                    
+
                     GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta);
                 }
             }
@@ -450,21 +454,30 @@ namespace Negocio
 
                 decimal custoEstoque = GerenciadorEntradaProduto.getInstace().baixaItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
                 // Se não houver preço de custo do produto
-                if (custoAtual <= 0){
-                   custoAtual = Convert.ToDecimal(0.8) * produto.PrecoVendaVarejo * saidaProduto.Quantidade;
-                } else if (custoAtual >= (produto.PrecoVendaVarejo * saidaProduto.Quantidade)) {
+                if (custoAtual <= 0)
+                {
+                    custoAtual = Convert.ToDecimal(0.8) * produto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                }
+                else if (custoAtual >= (produto.PrecoVendaVarejo * saidaProduto.Quantidade))
+                {
                     custoAtual = produto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
-                
-                if (custoEstoque <= 0) {
+
+                if (custoEstoque <= 0)
+                {
                     custoEstoque = Convert.ToDecimal(0.8) * produto.PrecoVendaVarejo * saidaProduto.Quantidade;
-                } else if (custoEstoque >= (produto.PrecoVendaVarejo * saidaProduto.Quantidade)) {
+                }
+                else if (custoEstoque >= (produto.PrecoVendaVarejo * saidaProduto.Quantidade))
+                {
                     custoEstoque = produto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
-                
-                if ((Convert.ToDecimal(0.8) * custoAtual) > custoEstoque) {
+
+                if ((Convert.ToDecimal(0.8) * custoAtual) > custoEstoque)
+                {
                     somaPrecosCusto += custoAtual;
-                } else {
+                }
+                else
+                {
                     somaPrecosCusto += custoEstoque;
                 }
             }
@@ -489,136 +502,134 @@ namespace Negocio
             }
         }
 
-        public void GerarDocumentoFiscal(HashSet<long> listaCodSaidas, List<SaidaPagamento> saidaPagamentos)
+        public void GerarDocumentoFiscal(HashSet<long> listaCodSaidas, List<SaidaPagamento> saidaPagamentos, decimal valorTotalComDesconto)
         {
-            //if (GerenciadorSaida.getInstace().AtualizarPedidosComDocumentosFiscais())
-            //{
-
-                List<Saida> saidas = new List<Saida>();
-                foreach (long codSaida in listaCodSaidas)
+            List<Saida> saidas = new List<Saida>();
+            foreach (long codSaida in listaCodSaidas)
+            {
+                Saida saida = obterSaida(codSaida);
+                if (saida.TipoSaida == Saida.TIPO_VENDA)
                 {
-                    Saida saida = obterSaida(codSaida);
-                    if (saida.TipoSaida == Saida.TIPO_VENDA)
-                    {
-                        throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
-                    }
-                    saidas.Add(saida);
+                    throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
                 }
+                saidas.Add(saida);
+            }
 
-                if (saidas.Count > 0)
+            if (saidas.Count > 0)
+            {
+                DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
+
+                if (pastaECF.Exists)
                 {
-                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
+                    // nome do arquivo é igual ao primeiro da lista
+                    String nomeArquivo = Global.PASTA_COMUNICACAO_FRENTE_LOJA + saidas[0].CodSaida + ".txt";
+                    StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
 
-                    if (pastaECF.Exists)
+                    // imprime dados do cliente no cupom fiscal
+                    if (!saidas[0].CpfCnpj.Trim().Equals(""))
+                        arquivo.WriteLine("<CPF>" + saidas[0].CpfCnpj);
+                    decimal desconto = 0;
+                    decimal precoTotalProdutosVendidos = 0;
+                    //decimal precoTotalProdutosVendidosAVista = 0;
+                    int quantidadeProdutosImpressos = 0;
+                    // imprime produtos dos cupons fiscais
+                    foreach (Saida saida in saidas)
                     {
-                        // nome do arquivo é igual ao primeiro da lista
-                        String nomeArquivo = Global.PASTA_COMUNICACAO_FRENTE_LOJA + saidas[0].CodSaida + ".txt";
-                        StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
+                        List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
+                        Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
+                        if (cliente.ImprimirCF)
+                            saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                        else
+                            saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Produto.ST_OUTRAS);
 
-                        // imprime dados do cliente no cupom fiscal
-                        if (!saidas[0].CpfCnpj.Trim().Equals(""))
-                            arquivo.WriteLine("<CPF>" + saidas[0].CpfCnpj);
-                        decimal desconto = 0;
-                        decimal precoTotalProdutosVendidos = 0;
-                        decimal precoTotalProdutosVendidosAVista = 0;
-                        int quantidadeProdutosImpressos = 0;
-                        // imprime produtos dos cupons fiscais
-                        foreach (Saida saida in saidas)
+                        if (saidaProdutos.Count > 0)
                         {
-                            List<SaidaProduto> saidaProdutos= new List<SaidaProduto>();
-                            Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
-                            if (cliente.ImprimirCF) 
-                                saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
-                            else 
-                                saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Produto.ST_OUTRAS);
-                               
-                            if (saidaProdutos.Count > 0)
+                            // associa as saídas ao pedido que foi gerado para emissão do cupom fiscal
+                            if (tb_saida_pedidoTA.GetDataByCodSaida(saida.CodSaida).Rows.Count == 0)
                             {
-                                // associa as saídas ao pedido que foi gerado para emissão do cupom fiscal
-                                if (tb_saida_pedidoTA.GetDataByCodSaida(saida.CodSaida).Rows.Count == 0)
+                                tb_saida_pedidoTA.Insert(saida.CodSaida, saidas[0].CodSaida);
+                            }
+                            foreach (SaidaProduto saidaProduto in saidaProdutos)
+                            {
+                                if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
                                 {
-                                    tb_saida_pedidoTA.Insert(saida.CodSaida, saidas[0].CodSaida);
-                                }
-                                foreach (SaidaProduto saidaProduto in saidaProdutos)
-                                {
-                                    if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
-                                    {
-                                        String situacaoFiscal = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST) ? "01" : "FF";
+                                    String situacaoFiscal = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST) ? "01" : "FF";
 
-                                        arquivo.Write(saidaProduto.CodProduto + ";");
-                                        arquivo.Write(saidaProduto.Nome + ";");
-                                        arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
-                                        arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
-                                        arquivo.Write(situacaoFiscal + ";");
-                                        arquivo.Write("0;");
-                                        arquivo.Write(saidaProduto.ValorVenda + ";");
-                                        arquivo.WriteLine(saidaProduto.Unidade + ";");
+                                    arquivo.Write(saidaProduto.CodProduto + ";");
+                                    arquivo.Write(saidaProduto.Nome + ";");
+                                    arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
+                                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
+                                    arquivo.Write(situacaoFiscal + ";");
+                                    arquivo.Write("0;");
+                                    arquivo.Write(saidaProduto.ValorVenda + ";");
+                                    arquivo.WriteLine(saidaProduto.Unidade + ";");
 
-                                        precoTotalProdutosVendidos += saidaProduto.Subtotal;
-                                        precoTotalProdutosVendidosAVista += saidaProduto.SubtotalAVista;
-                                        quantidadeProdutosImpressos++;
-                                    }
-                                    else
-                                    {
-                                        desconto += Math.Abs(saidaProduto.SubtotalAVista);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                tb_SaidaTA.UpdatePedidoGerado(Saida.TIPO_VENDA, "", saida.CodSaida);
-                            }
-                        }
-                        if (quantidadeProdutosImpressos > 0)
-                        {
-                            // imprime detalhes do cliente
-                            if (!saidas[0].CodCliente.Equals(Global.CLIENTE_PADRAO))
-                            {
-                                arquivo.WriteLine("<NOME> Cliente: " + saidas[0].NomeCliente);
-                                arquivo.WriteLine("<CPF> CPF/CNPJ: " + saidas[0].CpfCnpj);
-                            }
-
-                            // imprime desconto
-                            desconto += (precoTotalProdutosVendidos - precoTotalProdutosVendidosAVista);
-                            if (desconto > 0)
-                            {
-                                arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
-                            }
-
-                            if ((saidaPagamentos == null) || (saidaPagamentos.Count == 0))
-                            {
-                                saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(listaCodSaidas.ToList());
-                            }
-                            foreach (SaidaPagamento saidaPagamento in saidaPagamentos)
-                            {
-                                if (saidaPagamento.CodFormaPagamento != FormaPagamento.CARTAO)
-                                {
-                                    arquivo.Write("<PGTO>" + saidaPagamento.MapeamentoFormaPagamento + ";");
-                                    arquivo.Write(saidaPagamento.DescricaoFormaPagamento + ";");
-                                    arquivo.Write(saidaPagamento.Valor + ";");
-                                    arquivo.WriteLine("N;"); //N ou V
+                                    precoTotalProdutosVendidos += saidaProduto.Subtotal;
+                                    //precoTotalProdutosVendidosAVista += saidaProduto.SubtotalAVista;
+                                    quantidadeProdutosImpressos++;
                                 }
                                 else
                                 {
-                                    arquivo.Write("<PGTO>" + saidaPagamento.MapeamentoCartao + ";");
-                                    arquivo.Write(saidaPagamento.NomeCartaoCredito + ";");
-                                    arquivo.Write(saidaPagamento.Valor + ";");
-                                    arquivo.WriteLine("V;"); //N ou V vinculado ao TEF
+                                    desconto += Math.Abs(saidaProduto.SubtotalAVista);
                                 }
                             }
-                            arquivo.Close();
                         }
                         else
                         {
-                            arquivo.Close();
-                            ExcluirDocumentoFiscal(saidas[0].CodSaida);
+                            tb_SaidaTA.UpdatePedidoGerado(Saida.TIPO_VENDA, "", saida.CodSaida);
                         }
                     }
+                    if (quantidadeProdutosImpressos > 0)
+                    {
+                        // imprime detalhes do cliente
+                        if (!saidas[0].CodCliente.Equals(Global.CLIENTE_PADRAO))
+                        {
+                            arquivo.WriteLine("<NOME> Cliente: " + saidas[0].NomeCliente);
+                            arquivo.WriteLine("<CPF> CPF/CNPJ: " + saidas[0].CpfCnpj);
+                        }
+
+                        // Buscar pagamentos quando não foram passados por parâmetro
+                        if ((saidaPagamentos == null) || (saidaPagamentos.Count == 0))
+                        {
+                            saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(listaCodSaidas.ToList());
+                        }
+                        
+                        // imprime desconto
+                        desconto += (precoTotalProdutosVendidos - valorTotalComDesconto);
+                        if (desconto >= 0)
+                        {
+                            arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
+                        }
+
+                        foreach (SaidaPagamento saidaPagamento in saidaPagamentos)
+                        {
+                            if (saidaPagamento.CodFormaPagamento != FormaPagamento.CARTAO)
+                            {
+                                arquivo.Write("<PGTO>" + saidaPagamento.MapeamentoFormaPagamento + ";");
+                                arquivo.Write(saidaPagamento.DescricaoFormaPagamento + ";");
+                                arquivo.Write(saidaPagamento.Valor + ";");
+                                arquivo.WriteLine("N;"); //N ou V
+                            }
+                            else
+                            {
+                                arquivo.Write("<PGTO>" + saidaPagamento.MapeamentoCartao + ";");
+                                arquivo.Write(saidaPagamento.NomeCartaoCredito + ";");
+                                arquivo.Write(saidaPagamento.Valor + ";");
+                                arquivo.WriteLine("V;"); //N ou V vinculado ao TEF
+                            }
+                        }
+                        arquivo.Close();
+                    }
+                    else
+                    {
+                        arquivo.Close();
+                        ExcluirDocumentoFiscal(saidas[0].CodSaida);
+                    }
                 }
-           ////; }
+            }
         }
 
-               
+
         public void ExcluirDocumentoFiscal(long codPedido)
         {
             try
@@ -667,7 +678,7 @@ namespace Negocio
                             String numeroCF = null;
                             String linha = null;
                             StreamReader reader = new StreamReader(file.FullName);
-                            
+
                             // sucesso = true quando cupum fiscal foi impresso
                             if ((linha = reader.ReadLine()) != null)
                             {
@@ -678,14 +689,15 @@ namespace Negocio
                                 }
                             }
                             reader.Close();
-                            
+
                             // quando cupom fiscal impresso com sucesso atualiza saidas
                             if (sucesso)
                             {
                                 long codPedido = Convert.ToInt64(file.Name.Replace(".TXT", ""));
                                 saceDataSet.tb_saida_pedidoDataTable tb_saida_pedidoDT = tb_saida_pedidoTA.GetDataByCodPedido(codPedido);
 
-                                for (int i = 0; i < tb_saida_pedidoDT.Count; i++) {
+                                for (int i = 0; i < tb_saida_pedidoDT.Count; i++)
+                                {
                                     long codSaida = Convert.ToInt64(tb_saida_pedidoDT.Rows[i]["codSaida"].ToString());
                                     tb_SaidaTA.UpdatePedidoGerado(Saida.TIPO_VENDA, numeroCF, codSaida);
                                     atualizou = true;
@@ -714,7 +726,7 @@ namespace Negocio
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Essa exceção não precisa ser tratada. Apenas os cupons fiscais não são recuperados.
                 //throw new NegocioException("Ocorreram problemas na recuperação dos dados dos cupons fiscais. Favor contactar o administrador informando o erro " + e.Message);
@@ -762,7 +774,7 @@ namespace Negocio
                 imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
 
-                Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
+                Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
                 imp.ImpLF("Cliente: " + cliente.NomeFantasia);
                 //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
@@ -778,7 +790,7 @@ namespace Negocio
                 {
                     if (saidas.Count > 1)
                     {
-                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() +"     CF: " + saida.PedidoGerado);
+                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.PedidoGerado);
                     }
 
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
@@ -818,7 +830,7 @@ namespace Negocio
                     imp.ImpColLF(0, "Recebido por:");
                     imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 }
-                
+
 
 
                 imp.Pula(8);
@@ -844,9 +856,9 @@ namespace Negocio
                 }
 
                 Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
-                Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
+                Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
-                
+
                 imp.ImpLF(Global.LINHA);
                 if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
                 {
@@ -864,7 +876,7 @@ namespace Negocio
                 imp.ImpColLFCentralizado(0, 79, pessoaLoja.Endereco + "                                     Fone: " + pessoaLoja.Fone1);
                 imp.ImpLF(Global.LINHA);
 
-                Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
+                Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
                 imp.Imp("Cliente: " + cliente.NomeFantasia);
                 imp.ImpColLF(50, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
@@ -928,20 +940,20 @@ namespace Negocio
             {
                 throw new NegocioException("O Documento Fiscal não pode ser impresso a partir de um ORÇAMENTO. É necessário transformá-lo numa PRÉ-VENDA.");
             }
-                
+
             try
             {
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
-                    GerarDocumentoFiscal(new HashSet<long>() {saida.CodSaida}, null);
+                    GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null, saida.TotalAVista);
                 }
-                else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) )
+                else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
                 {
                     ImprimeTexto imp = new ImprimeTexto();
 
                     imp.Inicio(Global.PORTA_IMPRESSORA_NORMAL);
 
-                    Pessoa cliente = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
+                    Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
 
                     imprimirNotaFiscalCabecalho(saida, cliente, imp);
 
@@ -955,7 +967,7 @@ namespace Negocio
                     {
                         saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                     }
-                        int numeroProdutosImpressos = 0;
+                    int numeroProdutosImpressos = 0;
                     int numeroPaginas = 1;
                     decimal subtotal = 0;
                     decimal subtotalAVista = 0;
@@ -988,13 +1000,13 @@ namespace Negocio
                                 imp.Pula(3);
                             }
                         }
-                        
+
                         imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
                         if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
                             imp.ImpCol(14, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
                         else
                             imp.ImpCol(14, saidaProduto.Nome);
-                        if ( saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO )
+                        if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
                             imp.ImpCol(70, "041");
                         else
                             imp.ImpCol(70, saidaProduto.CodCST);
@@ -1008,7 +1020,7 @@ namespace Negocio
                         }
                         else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
                         {
-                           imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString("N1"));
+                            imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString("N1"));
                         }
                         else
                         {
@@ -1022,7 +1034,7 @@ namespace Negocio
                         subtotal += saidaProduto.Subtotal;
                         subtotalAVista += saidaProduto.SubtotalAVista;
                         numeroProdutosImpressos++;
-                     }
+                    }
 
                     imp.Pula(17 - numeroProdutosImpressos);
 
@@ -1030,7 +1042,7 @@ namespace Negocio
                     imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, true);
 
                     imp.Eject();
-                    imp.Fim(); 
+                    imp.Fim();
                 }
             }
             catch (Exception)
@@ -1050,7 +1062,7 @@ namespace Negocio
 
             // linha 8
             if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-            {                   
+            {
                 imp.ImpCol(2, "DEVOLUCAO DE COMPRA P/COM.");
                 imp.ImpCol(28, "6.202");
                 imp.Pula(2);
@@ -1067,13 +1079,13 @@ namespace Negocio
                 imp.ImpCol(28, "5.929");
                 imp.Pula(2);
             }
-            
+
             // linha 10
             imp.ImpCol(2, cliente.Nome);
             imp.ImpCol(55, cliente.CpfCnpj);
             imp.ImpCol(70, DateTime.Now.ToShortDateString());
             imp.Pula(1);
-            
+
             // linha 12
             imp.ImpCol(2, cliente.Endereco + ", " + cliente.Numero);
             imp.ImpCol(35, cliente.Bairro);
@@ -1094,7 +1106,7 @@ namespace Negocio
         {
             if (ultimaPagina)
             {
-                if ( (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
                 {
                     imp.Pula(3);
                 }
@@ -1114,7 +1126,7 @@ namespace Negocio
                 // linha 45
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
                 {
-                    imp.ImpColDireita(35, 47, saida.BaseCalculoICMSSubst.ToString("N2")); 
+                    imp.ImpColDireita(35, 47, saida.BaseCalculoICMSSubst.ToString("N2"));
                     imp.ImpColDireita(50, 62, saida.ValorICMSSubst.ToString("N2")); //valor do icms substituto
                 }
                 imp.ImpColLFDireita(65, 78, subtotalAvista.ToString("N2")); // total produtos
@@ -1135,7 +1147,7 @@ namespace Negocio
                     imp.ImpColDireita(65, 78, (subtotalAvista).ToString("N2")); //total nota
                 }
                 imp.Pula(2);
-                Pessoa empresaFrete = (Pessoa) GerenciadorPessoa.GetInstance().Obter(saida.CodEmpresaFrete).ElementAt(0);
+                Pessoa empresaFrete = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodEmpresaFrete).ElementAt(0);
 
                 // linha 49
                 if (empresaFrete.Nome.Length > 35)
@@ -1172,19 +1184,19 @@ namespace Negocio
                     imp.ImpColLF(3, "XI do RICMS/SE");
                     imp.Pula(2);
                     imp.ImpCol(75, saida.Nfe);
-                } 
+                }
                 else
                 {
                     imp.ImpCol(3, "VEND:   0   CLI: " + saida.CodCliente);
                     imp.Pula(5);
                     imp.ImpCol(75, saida.Nfe);
                 }
-                
+
             }
             else
             {
                 imp.Imp(imp.Comprimido);
-                imp.ImpCol(13, "VALOR A TRASNPORTAR P/PAG    " + numeroPagina + " -->" );
+                imp.ImpCol(13, "VALOR A TRASNPORTAR P/PAG    " + numeroPagina + " -->");
                 imp.ImpColDireita(100, 116, subtotal.ToString("N2"));
                 imp.Imp(imp.Normal);
                 imp.Pula(10);
@@ -1196,7 +1208,7 @@ namespace Negocio
         public Int64 ObterNumeroProximaNotaFiscal()
         {
             String ultimoNumero = tb_SaidaTA.GetUltimoNumeroNF();
-            if ( (ultimoNumero != null) && (!ultimoNumero.Trim().Equals("")))
+            if ((ultimoNumero != null) && (!ultimoNumero.Trim().Equals("")))
             {
                 return Convert.ToInt64(ultimoNumero) + 1;
             }

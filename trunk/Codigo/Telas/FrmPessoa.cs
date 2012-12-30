@@ -142,8 +142,7 @@ namespace Telas
                     GerenciadorPessoa.GetInstance().RemoverContato(cp);
                 }
             }
-
-            contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(long.Parse(codPessoaTextBox.Text));
+            contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterContatos(long.Parse(codPessoaTextBox.Text));
         }
 
         private void pessoaBindingSource_PositionChanged(object sender, EventArgs e)
@@ -291,7 +290,8 @@ namespace Telas
         {
             if (nomeTextBox.Text.Trim().Equals(""))
             {
-                nomeTextBox.Text = nomeFantasiaTextBox.Text;
+                //nomeTextBox.Text = nomeFantasiaTextBox.Text;
+                ((Pessoa)pessoaBindingSource.Current).Nome = nomeFantasiaTextBox.Text; 
             }
         }
     }
