@@ -46628,7 +46628,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[12];
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[13];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        tb_saida.codSaida, tb_saida.dataSaida, tb_saida.codCliente, tb_said" +
@@ -46879,15 +46879,16 @@ WHERE        (codSaida = @Original_codSaida)";
             this._commandCollection[9].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[10] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[10].Connection = this.Connection;
-            this._commandCollection[10].CommandText = "UPDATE       tb_saida\r\nSET                codTipoSaida = @codTipoSaida, pedidoGer" +
-                "ado = @pedidoGerado\r\nWHERE        (codSaida = @Original_codSaida)";
+            this._commandCollection[10].CommandText = "UPDATE       tb_saida\r\nSET                nfe = @nfe\r\nWHERE        (pedidoGerado " +
+                "= @pedidoGerado)";
             this._commandCollection[10].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@codTipoSaida";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.ParameterName = "@nfe";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 30;
             param.IsNullable = true;
-            param.SourceColumn = "codTipoSaida";
+            param.SourceColumn = "nfe";
             this._commandCollection[10].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@pedidoGerado";
@@ -46896,7 +46897,28 @@ WHERE        (codSaida = @Original_codSaida)";
             param.Size = 10;
             param.IsNullable = true;
             param.SourceColumn = "pedidoGerado";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._commandCollection[10].Parameters.Add(param);
+            this._commandCollection[11] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[11].Connection = this.Connection;
+            this._commandCollection[11].CommandText = "UPDATE       tb_saida\r\nSET                codTipoSaida = @codTipoSaida, pedidoGer" +
+                "ado = @pedidoGerado\r\nWHERE        (codSaida = @Original_codSaida)";
+            this._commandCollection[11].CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@codTipoSaida";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "codTipoSaida";
+            this._commandCollection[11].Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@pedidoGerado";
+            param.DbType = global::System.Data.DbType.String;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.VarChar;
+            param.Size = 10;
+            param.IsNullable = true;
+            param.SourceColumn = "pedidoGerado";
+            this._commandCollection[11].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codSaida";
             param.DbType = global::System.Data.DbType.Int64;
@@ -46904,19 +46926,19 @@ WHERE        (codSaida = @Original_codSaida)";
             param.IsNullable = true;
             param.SourceColumn = "codSaida";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._commandCollection[10].Parameters.Add(param);
-            this._commandCollection[11] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[11].Connection = this.Connection;
-            this._commandCollection[11].CommandText = "UPDATE       tb_saida\r\nSET                codSituacaoPagamentos = @codSituacaoPag" +
+            this._commandCollection[11].Parameters.Add(param);
+            this._commandCollection[12] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[12].Connection = this.Connection;
+            this._commandCollection[12].CommandText = "UPDATE       tb_saida\r\nSET                codSituacaoPagamentos = @codSituacaoPag" +
                 "amentos\r\nWHERE        (codSaida = @Original_codSaida)";
-            this._commandCollection[11].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[12].CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@codSituacaoPagamentos";
             param.DbType = global::System.Data.DbType.Int32;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "codSituacaoPagamentos";
-            this._commandCollection[11].Parameters.Add(param);
+            this._commandCollection[12].Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_codSaida";
             param.DbType = global::System.Data.DbType.Int64;
@@ -46924,7 +46946,7 @@ WHERE        (codSaida = @Original_codSaida)";
             param.IsNullable = true;
             param.SourceColumn = "codSaida";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
-            this._commandCollection[11].Parameters.Add(param);
+            this._commandCollection[12].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -47627,8 +47649,43 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
-        public virtual int UpdatePedidoGerado(int codTipoSaida, string pedidoGerado, long Original_codSaida) {
+        public virtual int UpdateNfe(string nfe, string pedidoGerado) {
             global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[10];
+            if ((nfe == null)) {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[0].Value = ((string)(nfe));
+            }
+            if ((pedidoGerado == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(pedidoGerado));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdatePedidoGerado(int codTipoSaida, string pedidoGerado, long Original_codSaida) {
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[11];
             command.Parameters[0].Value = ((int)(codTipoSaida));
             if ((pedidoGerado == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
@@ -47659,7 +47716,7 @@ WHERE        (codSaida = @Original_codSaida)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateSituacaoPagamentos(int codSituacaoPagamentos, long Original_codSaida) {
-            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[11];
+            global::MySql.Data.MySqlClient.MySqlCommand command = this.CommandCollection[12];
             command.Parameters[0].Value = ((int)(codSituacaoPagamentos));
             command.Parameters[1].Value = ((long)(Original_codSaida));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
