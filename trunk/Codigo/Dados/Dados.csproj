@@ -85,6 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DadosException.cs" />
+    <Compile Include="saceDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>saceDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="saceDataSetConsultas.cs">
       <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -156,11 +161,6 @@
     <Compile Include="saceDataSet.cs">
       <DependentUpon>saceDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="saceDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

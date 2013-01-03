@@ -35,10 +35,10 @@
             System.Windows.Forms.Label label12;
             System.Windows.Forms.Label codCartaoLabel;
             System.Windows.Forms.Label label13;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -703,9 +703,9 @@
             // 
             this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.codContaDataGridViewTextBoxColumn.FillWeight = 70F;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.codContaDataGridViewTextBoxColumn.FillWeight = 60F;
             this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
             this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
             this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -714,9 +714,9 @@
             // 
             this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 70F;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 60F;
             this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
             this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
             this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -725,8 +725,8 @@
             // 
             this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
             this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
             this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
@@ -736,11 +736,11 @@
             // 
             this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.CF.DataPropertyName = "CF";
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CF.DefaultCellStyle = dataGridViewCellStyle8;
-            this.CF.FillWeight = 40F;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CF.DefaultCellStyle = dataGridViewCellStyle4;
+            this.CF.FillWeight = 60F;
             this.CF.HeaderText = "CF";
-            this.CF.MinimumWidth = 40;
+            this.CF.MinimumWidth = 60;
             this.CF.Name = "CF";
             this.CF.ReadOnly = true;
             // 
