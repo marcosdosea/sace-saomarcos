@@ -376,6 +376,7 @@ namespace Telas
                 clienteBindingSource.Position = clienteBindingSource.List.IndexOf(cliente);
                 codClienteComboBox.Text = cliente.NomeFantasia;
             }
+            cpf_CnpjTextBox.Text = cliente.CpfCnpj;
             codSaidaTextBox_Leave(sender, e);
         }
 

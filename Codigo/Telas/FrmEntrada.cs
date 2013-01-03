@@ -179,8 +179,8 @@ namespace Telas
                 entradaProduto.QtdProdutoAtacado = Convert.ToDecimal(qtdProdutoAtacadoTextBox.Text);
                 entradaProduto.Desconto = Convert.ToDecimal(descontoProdutoTextBox.Text);
 
-                entradaProduto.FornecedorEhFabricante = ((Dados.saceDataSet.tb_pessoaRow) ((System.Data.DataRowView) fornecedorBindingSource.Current).Row).ehFabricante;
-                entradaProduto.CodFornecedor = ((Dados.saceDataSet.tb_pessoaRow)((System.Data.DataRowView)fornecedorBindingSource.Current).Row).codPessoa;
+                entradaProduto.FornecedorEhFabricante = ((Pessoa) fornecedorBindingSource.Current).EhFabricante;
+                entradaProduto.CodFornecedor = ((Pessoa) fornecedorBindingSource.Current).CodPessoa;
 
                 GerenciadorEntradaProduto.getInstace().inserir(entradaProduto);
                 codEntradaTextBox_TextChanged(sender, e);

@@ -95,6 +95,18 @@ namespace Negocio
             }
         }
 
+        public void Atualizar(string codPedidoGerado, string nfe)
+        {
+            try
+            {
+                tb_SaidaTA.UpdateNfe(nfe, codPedidoGerado);
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
+        }
+
         /// <summary>
         /// Remove os dados de uma saída. No caso de vendas e pré-vendas transforma em orçamento.
         /// </summary>
@@ -528,15 +540,15 @@ namespace Negocio
                     // imprime dados do cliente no cupom fiscal
                     if (!saidas[0].CpfCnpj.Trim().Equals(""))
                         arquivo.WriteLine("<CPF>" + saidas[0].CpfCnpj);
-                    decimal desconto = 0;
                     decimal precoTotalProdutosVendidos = 0;
-                    //decimal precoTotalProdutosVendidosAVista = 0;
-                    int quantidadeProdutosImpressos = 0;
+                    
                     // imprime produtos dos cupons fiscais
+                    List<SaidaProduto> listaSaidaProdutos = new List<SaidaProduto>();
+
                     foreach (Saida saida in saidas)
                     {
-                        List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
                         Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
+                        List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
                         if (cliente.ImprimirCF)
                             saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                         else
@@ -549,36 +561,16 @@ namespace Negocio
                             {
                                 tb_saida_pedidoTA.Insert(saida.CodSaida, saidas[0].CodSaida);
                             }
-                            foreach (SaidaProduto saidaProduto in saidaProdutos)
-                            {
-                                if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
-                                {
-                                    String situacaoFiscal = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST) ? "01" : "FF";
-
-                                    arquivo.Write(saidaProduto.CodProduto + ";");
-                                    arquivo.Write(saidaProduto.Nome + ";");
-                                    arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
-                                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
-                                    arquivo.Write(situacaoFiscal + ";");
-                                    arquivo.Write("0;");
-                                    arquivo.Write(saidaProduto.ValorVenda + ";");
-                                    arquivo.WriteLine(saidaProduto.Unidade + ";");
-
-                                    precoTotalProdutosVendidos += saidaProduto.Subtotal;
-                                    //precoTotalProdutosVendidosAVista += saidaProduto.SubtotalAVista;
-                                    quantidadeProdutosImpressos++;
-                                }
-                                else
-                                {
-                                    desconto += Math.Abs(saidaProduto.SubtotalAVista);
-                                }
-                            }
+                            listaSaidaProdutos.AddRange(saidaProdutos);
                         }
                         else
                         {
                             tb_SaidaTA.UpdatePedidoGerado(Saida.TIPO_VENDA, "", saida.CodSaida);
                         }
                     }
+
+                    int quantidadeProdutosImpressos = ImprimirProdutosCupomFiscal(arquivo, ref precoTotalProdutosVendidos, listaSaidaProdutos);
+
                     if (quantidadeProdutosImpressos > 0)
                     {
                         // imprime detalhes do cliente
@@ -595,7 +587,7 @@ namespace Negocio
                         }
                         
                         // imprime desconto
-                        desconto += (precoTotalProdutosVendidos - valorTotalComDesconto);
+                        decimal desconto = (precoTotalProdutosVendidos - valorTotalComDesconto);
                         if (desconto >= 0)
                         {
                             arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
@@ -628,6 +620,90 @@ namespace Negocio
                 }
             }
         }
+
+
+
+        private static int ImprimirProdutosCupomFiscal(StreamWriter arquivo, ref decimal precoTotalProdutosVendidos, List<SaidaProduto> saidaProdutos)
+        {
+            int quantidadeProdutosImpressos = 0;
+            saidaProdutos = ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
+            foreach (SaidaProduto saidaProduto in saidaProdutos)
+            {
+                if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
+                {
+                    String situacaoFiscal = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST) ? "01" : "FF";
+
+                    arquivo.Write(saidaProduto.CodProduto + ";");
+                    arquivo.Write(saidaProduto.Nome + ";");
+                    arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
+                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
+                    arquivo.Write(situacaoFiscal + ";");
+                    arquivo.Write("0;");
+                    arquivo.Write(saidaProduto.ValorVenda + ";");
+                    arquivo.WriteLine(saidaProduto.Unidade + ";");
+
+                    precoTotalProdutosVendidos += saidaProduto.Subtotal;
+                    quantidadeProdutosImpressos++;
+                }
+            }
+
+            return quantidadeProdutosImpressos;
+        }
+
+        private static List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
+        {
+            List<SaidaProduto> listaSemDevolucoes = new List<SaidaProduto>();
+            List<SaidaProduto> listaDevolucoes = new List<SaidaProduto>();
+            List<SaidaProduto> listaNaoConseguiuDevolver = new List<SaidaProduto>(); 
+
+            foreach (SaidaProduto saidaProduto in saidaProdutos)
+            {
+                if (saidaProduto.Quantidade > 0)
+                {
+                    listaSemDevolucoes.Add(saidaProduto);
+                }
+                else
+                {
+                    listaDevolucoes.Add(saidaProduto);
+                }
+            }
+
+            if (listaDevolucoes.Count > 0)
+            {
+                foreach (SaidaProduto devolvido in listaDevolucoes)
+                {
+                    decimal quantidadeDevolvida = Math.Abs(devolvido.Quantidade);
+                    foreach (SaidaProduto naoDevolvido in listaSemDevolucoes)
+                    {
+                        if ((naoDevolvido.CodProduto == devolvido.CodProduto) && (naoDevolvido.ValorVenda == devolvido.ValorVenda))
+                        {
+                            if (quantidadeDevolvida < naoDevolvido.Quantidade)
+                            {
+                                naoDevolvido.Quantidade -= quantidadeDevolvida;
+                                quantidadeDevolvida = 0;
+                                break;
+                            }
+                            else
+                            {
+                                quantidadeDevolvida -= naoDevolvido.Quantidade;
+                                devolvido.Quantidade += naoDevolvido.Quantidade;
+                                naoDevolvido.Quantidade = 0;
+                                //listaSemDevolucoes.Remove(naoDevolvido);
+                            }
+                        }
+                    }
+                    if (quantidadeDevolvida > 0)
+                    {
+                        listaNaoConseguiuDevolver.Add(devolvido);
+                    }
+                }
+                if (listaNaoConseguiuDevolver.Count > 0)
+                {
+                    listaSemDevolucoes.AddRange(listaNaoConseguiuDevolver);
+                }
+            }
+            return listaSemDevolucoes;
+       }
 
 
         public void ExcluirDocumentoFiscal(long codPedido)
@@ -967,10 +1043,13 @@ namespace Negocio
                     {
                         saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                     }
+
+                    saidaProdutos = ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
                     int numeroProdutosImpressos = 0;
                     int numeroPaginas = 1;
                     decimal subtotal = 0;
                     decimal subtotalAVista = 0;
+                    decimal descontoDevolucoes = 0;
 
                     imp.Imp(imp.Comprimido);
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -980,7 +1059,7 @@ namespace Negocio
                             numeroProdutosImpressos = 0;
                             numeroPaginas++;
 
-                            imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, false);
+                            imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, descontoDevolucoes, false);
                             imp.Eject();
                             imprimirNotaFiscalCabecalho(saida, cliente, imp);
                         }
@@ -989,11 +1068,11 @@ namespace Negocio
                         {
                             if (numeroPaginas > 1)
                             {
-                                imp.Pula(3);
+                                imp.Pula(1);
                                 imp.Imp(imp.Comprimido);
                                 imp.ImpCol(13, "VALOR TRANSPORTADO DA PAG    " + (numeroPaginas - 1) + " ->");
                                 imp.ImpColDireita(100, 116, subtotal.ToString("N2"));
-                                imp.Pula(2);
+                                imp.Pula(1);
                             }
                             else
                             {
@@ -1001,45 +1080,52 @@ namespace Negocio
                             }
                         }
 
-                        imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
-                        if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-                            imp.ImpCol(14, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
-                        else
-                            imp.ImpCol(14, saidaProduto.Nome);
-                        if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
-                            imp.ImpCol(70, "041");
-                        else
-                            imp.ImpCol(70, saidaProduto.CodCST);
-                        imp.ImpCol(75, saidaProduto.Unidade);
-                        imp.ImpColDireita(81, 87, saidaProduto.Quantidade.ToString("N2"));
-                        imp.ImpColDireita(89, 105, saidaProduto.ValorVenda.ToString("N2"));
-                        imp.ImpColDireita(115, 128, saidaProduto.Subtotal.ToString("N2"));
-                        if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                        if (saidaProduto.Quantidade > 0)
                         {
-                            imp.ImpCol(133, "0%");
-                        }
-                        else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-                        {
-                            imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString("N1"));
-                        }
-                        else
-                        {
-                            if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST))
-                                imp.ImpCol(133, "17%");
+                            imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
+                            if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                                imp.ImpCol(14, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
                             else
+                                imp.ImpCol(14, saidaProduto.Nome);
+                            if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                                imp.ImpCol(69, "041");
+                            else
+                                imp.ImpCol(69, saidaProduto.CodCST);
+                            imp.ImpCol(75, saidaProduto.Unidade);
+                            imp.ImpColDireita(78, 87, saidaProduto.Quantidade.ToString("N2"));
+                            imp.ImpColDireita(89, 105, saidaProduto.ValorVenda.ToString("N2"));
+                            imp.ImpColDireita(115, 128, saidaProduto.Subtotal.ToString("N2"));
+                            if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                            {
                                 imp.ImpCol(133, "0%");
-                        }
-                        imp.Pula(1);
+                            }
+                            else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                            {
+                                imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString("N1"));
+                            }
+                            else
+                            {
+                                if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST))
+                                    imp.ImpCol(133, "17%");
+                                else
+                                    imp.ImpCol(133, "0%");
+                            }
+                            imp.Pula(1);
 
-                        subtotal += saidaProduto.Subtotal;
-                        subtotalAVista += saidaProduto.SubtotalAVista;
-                        numeroProdutosImpressos++;
+                            subtotal += saidaProduto.Subtotal;
+                            subtotalAVista += saidaProduto.SubtotalAVista;
+                            numeroProdutosImpressos++;
+                        }
+                        else
+                        {
+                            descontoDevolucoes += saidaProduto.Subtotal;
+                        }
                     }
 
                     imp.Pula(17 - numeroProdutosImpressos);
 
 
-                    imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, true);
+                    imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, descontoDevolucoes, true);
 
                     imp.Eject();
                     imp.Fim();
@@ -1102,7 +1188,7 @@ namespace Negocio
             imp.Pula(7);
         }
 
-        private void imprimirNotaFiscalRodape(Saida saida, ImprimeTexto imp, int numeroPagina, decimal subtotal, decimal subtotalAvista, bool ultimaPagina)
+        private void imprimirNotaFiscalRodape(Saida saida, ImprimeTexto imp, int numeroPagina, decimal subtotal, decimal subtotalAvista, decimal descontoDevolucoes, bool ultimaPagina)
         {
             if (ultimaPagina)
             {
@@ -1114,7 +1200,7 @@ namespace Negocio
                 {
 
                     imp.Imp(imp.Comprimido);
-                    imp.ImpCol(13, "DESCONTO PROMOCIONAL ---------> R$" + (subtotal - subtotalAvista).ToString("N2"));
+                    imp.ImpCol(13, "DESCONTO PROMOCIONAL ---------> R$" + (subtotal - subtotalAvista - descontoDevolucoes).ToString("N2"));
 
                     imp.Pula(1);
                     imp.Imp(imp.Normal);
@@ -1129,8 +1215,8 @@ namespace Negocio
                     imp.ImpColDireita(35, 47, saida.BaseCalculoICMSSubst.ToString("N2"));
                     imp.ImpColDireita(50, 62, saida.ValorICMSSubst.ToString("N2")); //valor do icms substituto
                 }
-                imp.ImpColLFDireita(65, 78, subtotalAvista.ToString("N2")); // total produtos
-                imp.Pula(1);
+                imp.ImpColLFDireita(65, 78, (subtotalAvista + descontoDevolucoes).ToString("N2")); // total produtos
+                //imp.Pula(0);
 
                 // linha 46
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
@@ -1144,7 +1230,7 @@ namespace Negocio
                 }
                 else
                 {
-                    imp.ImpColDireita(65, 78, (subtotalAvista).ToString("N2")); //total nota
+                    imp.ImpColDireita(65, 78, (subtotalAvista + descontoDevolucoes).ToString("N2")); //total nota
                 }
                 imp.Pula(2);
                 Pessoa empresaFrete = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodEmpresaFrete).ElementAt(0);
@@ -1159,15 +1245,17 @@ namespace Negocio
                     imp.ImpCol(2, empresaFrete.Nome);
                 }
 
-                imp.ImpCol(49, "1");
+                imp.ImpCol(48, "1");
                 imp.ImpCol(65, empresaFrete.CpfCnpj);
                 imp.Pula(2);
 
                 // linha 51
                 imp.ImpCol(2, empresaFrete.Endereco + ", " + empresaFrete.Numero);
                 imp.ImpCol(40, empresaFrete.Cidade);
-                imp.ImpCol(61, empresaFrete.Uf);
+                imp.ImpCol(60, empresaFrete.Uf);
                 imp.ImpColLF(65, empresaFrete.Ie);
+                // linha 53
+                imp.Pula(1);
                 imp.ImpCol(2, saida.QuantidadeVolumes.ToString("N2"));
                 imp.ImpCol(15, saida.EspecieVolumes);
                 imp.ImpCol(29, saida.Marca);
@@ -1188,7 +1276,7 @@ namespace Negocio
                 else
                 {
                     imp.ImpCol(3, "VEND:   0   CLI: " + saida.CodCliente);
-                    imp.Pula(5);
+                    imp.Pula(7);
                     imp.ImpCol(75, saida.Nfe);
                 }
 
@@ -1214,5 +1302,7 @@ namespace Negocio
             }
             return 1;
         }
+
+        
     }
 }

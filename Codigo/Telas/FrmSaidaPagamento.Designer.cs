@@ -55,10 +55,13 @@
             this.valorRecebidoTextBox = new System.Windows.Forms.TextBox();
             this.tbdocumentopagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.parcelasTextBox = new System.Windows.Forms.TextBox();
+            this.formaPagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.codClienteComboBox = new System.Windows.Forms.ComboBox();
+            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codProfissionalComboBox = new System.Windows.Forms.ComboBox();
+            this.profissionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -68,8 +71,10 @@
             this.tb_tipo_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_tipo_saidaTableAdapter();
             this.tb_saida_forma_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_saida_forma_pagamentoTableAdapter();
             this.codContaBancoComboBox = new System.Windows.Forms.ComboBox();
+            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codFormaPagamentoComboBox = new System.Windows.Forms.ComboBox();
             this.codCartaoComboBox = new System.Windows.Forms.ComboBox();
+            this.cartaoCreditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.codDocumentoPagamentoComboBox = new System.Windows.Forms.ComboBox();
             this.tb_documento_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_documento_pagamentoTableAdapter();
@@ -87,11 +92,6 @@
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
             this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
             this.trocoTextBox = new System.Windows.Forms.TextBox();
-            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cartaoCreditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.formaPagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.profissionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
             tipoSaidaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -114,13 +114,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saida_pagamentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbdocumentopagamentoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_forma_pagamentoDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.formaPagamentoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profissionalBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_forma_pagamentoDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tipoSaidaLabel
@@ -364,6 +364,10 @@
             this.parcelasTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.parcelasTextBox.Leave += new System.EventHandler(this.parcelasTextBox_Leave);
             // 
+            // formaPagamentoBindingSource
+            // 
+            this.formaPagamentoBindingSource.DataSource = typeof(Dominio.FormaPagamento);
+            // 
             // descontoTextBox
             // 
             this.descontoTextBox.BackColor = System.Drawing.Color.White;
@@ -414,6 +418,10 @@
             this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codClienteComboBox.Leave += new System.EventHandler(this.codClienteComboBox_Leave);
             // 
+            // clienteBindingSource
+            // 
+            this.clienteBindingSource.DataSource = typeof(Dominio.Pessoa);
+            // 
             // codProfissionalComboBox
             // 
             this.codProfissionalComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -435,6 +443,10 @@
             this.codProfissionalComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codProfissionalComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codProfissionalComboBox.Leave += new System.EventHandler(this.codProfissionalComboBox_Leave);
+            // 
+            // profissionalBindingSource
+            // 
+            this.profissionalBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // label5
             // 
@@ -523,6 +535,10 @@
             this.codContaBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codContaBancoComboBox.Leave += new System.EventHandler(this.codContaBancoComboBox_Leave);
             // 
+            // contaBancoBindingSource
+            // 
+            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
+            // 
             // codFormaPagamentoComboBox
             // 
             this.codFormaPagamentoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -561,6 +577,11 @@
             this.codCartaoComboBox.ValueMember = "CodCartao";
             this.codCartaoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             this.codCartaoComboBox.Leave += new System.EventHandler(this.codCartaoComboBox_Leave);
+            // 
+            // cartaoCreditoBindingSource
+            // 
+            this.cartaoCreditoBindingSource.DataSource = typeof(Dominio.CartaoCredito);
+            this.cartaoCreditoBindingSource.Sort = "nome";
             // 
             // tb_saidaTableAdapter
             // 
@@ -754,27 +775,6 @@
             this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.trocoTextBox.Visible = false;
             // 
-            // clienteBindingSource
-            // 
-            this.clienteBindingSource.DataSource = typeof(Dominio.Pessoa);
-            // 
-            // cartaoCreditoBindingSource
-            // 
-            this.cartaoCreditoBindingSource.DataSource = typeof(Dominio.CartaoCredito);
-            this.cartaoCreditoBindingSource.Sort = "nome";
-            // 
-            // formaPagamentoBindingSource
-            // 
-            this.formaPagamentoBindingSource.DataSource = typeof(Dominio.FormaPagamento);
-            // 
-            // contaBancoBindingSource
-            // 
-            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
-            // 
-            // profissionalBindingSource
-            // 
-            this.profissionalBindingSource.DataSource = typeof(Dominio.Pessoa);
-            // 
             // FrmSaidaPagamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -832,13 +832,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saida_pagamentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbdocumentopagamentoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_forma_pagamentoDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.formaPagamentoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.profissionalBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_forma_pagamentoDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

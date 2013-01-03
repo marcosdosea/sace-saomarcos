@@ -60,7 +60,7 @@ namespace Telas
             {
                 throw new NegocioException("Número da nota fiscal inválido. Favor verificar o formato e a sequência da numeração.");
             }
-            GerenciadorSaida.getInstace().atualizar(Saida);
+            GerenciadorSaida.getInstace().Atualizar(Saida.PedidoGerado, Saida.Nfe);
             GerenciadorSaida.getInstace().imprimirNotaFiscal(Saida);
         }
 

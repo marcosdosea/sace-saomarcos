@@ -206,7 +206,7 @@ namespace Telas
         {
             HashSet<long> codSaidas = new HashSet<long>();
 
-            string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[4].Value.ToString();
+            string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[3].Value.ToString().Trim();
 
             if (!pedidoGerado.Trim().Equals(""))
             {
