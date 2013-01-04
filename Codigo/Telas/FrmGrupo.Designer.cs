@@ -288,6 +288,7 @@
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(351, 20);
             this.descricaoTextBox.TabIndex = 24;
+            this.descricaoTextBox.Leave += new System.EventHandler(this.descricaoTextBox_Leave);
             // 
             // tb_grupoTableAdapter
             // 
@@ -317,8 +318,8 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro Grupos de Produto";
-            this.Load += new System.EventHandler(this.FrmGrupo_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmGrupo_FormClosing);
+            this.Load += new System.EventHandler(this.FrmGrupo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGrupo_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -234,5 +234,10 @@ namespace Telas
             }
             
         }
+
+        private void nomeTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
     }
 }

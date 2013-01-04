@@ -328,6 +328,7 @@
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(455, 20);
             this.descricaoTextBox.TabIndex = 28;
+            this.descricaoTextBox.Leave += new System.EventHandler(this.descricaoTextBox_Leave);
             // 
             // saldoTextBox
             // 

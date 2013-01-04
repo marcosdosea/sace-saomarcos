@@ -220,6 +220,7 @@
             this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
             this.tableAdapterManager.tb_contaTableAdapter = null;
             this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
+            this.tableAdapterManager.tb_cstTableAdapter = null;
             this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
             this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
@@ -238,10 +239,13 @@
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
+            this.tableAdapterManager.tb_saida_pedidoTableAdapter = null;
             this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
             this.tableAdapterManager.tb_saidaTableAdapter = null;
             this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
+            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
             this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
+            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
             this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
             this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
@@ -367,6 +371,7 @@
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(326, 20);
             this.descricaoTextBox.TabIndex = 24;
+            this.descricaoTextBox.Leave += new System.EventHandler(this.descricaoTextBox_Leave);
             // 
             // diaBaseTextBox
             // 
@@ -393,8 +398,8 @@
             this.codGrupoContaComboBox.Size = new System.Drawing.Size(249, 21);
             this.codGrupoContaComboBox.TabIndex = 26;
             this.codGrupoContaComboBox.ValueMember = "codGrupoConta";
-            this.codGrupoContaComboBox.Leave += new System.EventHandler(this.codGrupoContaComboBox_Leave);
             this.codGrupoContaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codGrupoContaComboBox_KeyPress);
+            this.codGrupoContaComboBox.Leave += new System.EventHandler(this.codGrupoContaComboBox_Leave);
             // 
             // tbgrupocontaBindingSource
             // 
@@ -462,8 +467,8 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro de Plano de Contas";
-            this.Load += new System.EventHandler(this.FrmPlanoConta_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPlanoConta_FormClosing);
+            this.Load += new System.EventHandler(this.FrmPlanoConta_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPlanoConta_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

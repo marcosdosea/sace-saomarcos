@@ -37,5 +37,25 @@ namespace Util
             }
         }
 
+        public static void RemoverAcentos(TextBox textBox)
+        {
+            try
+            {
+                string input = textBox.Text;
+                if (string.IsNullOrEmpty(input))
+                    textBox.Text = "";
+                else
+                {
+                    byte[] bytes = System.Text.Encoding.GetEncoding("iso-8859-8").GetBytes(input);
+                    textBox.Text = System.Text.Encoding.UTF8.GetString(bytes);
+                }
+            }
+            catch (Exception)
+            {
+                textBox.Focus();
+                throw new UtilException("Problemas na remoção de acentuação.");
+            }
+        }
+
     }
 }

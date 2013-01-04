@@ -193,5 +193,10 @@ namespace Telas
         {
             CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
         }
+
+        private void descricaoTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
     }
 }

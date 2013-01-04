@@ -300,5 +300,11 @@ namespace Telas
                 combobox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
         }
+
+        private void nomeTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+            codCartaoTextBox_Leave(sender, e);
+        }
     }
 }

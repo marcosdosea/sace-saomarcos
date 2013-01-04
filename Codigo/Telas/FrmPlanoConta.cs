@@ -254,5 +254,10 @@ namespace Telas
                 codPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
             }
         }
+
+        private void descricaoTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
     }
 }

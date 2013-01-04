@@ -387,6 +387,7 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(342, 20);
             this.nomeTextBox.TabIndex = 24;
+            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // codPessoaComboBox
             // 

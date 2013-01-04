@@ -304,6 +304,7 @@
             this.descricaoTextBox.Size = new System.Drawing.Size(346, 20);
             this.descricaoTextBox.TabIndex = 23;
             this.descricaoTextBox.TextChanged += new System.EventHandler(this.descricaoTextBox_TextChanged);
+            this.descricaoTextBox.Leave += new System.EventHandler(this.descricaoTextBox_Leave);
             // 
             // codGrupoComboBox
             // 

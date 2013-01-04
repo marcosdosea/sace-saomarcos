@@ -430,6 +430,7 @@ namespace Telas
                 contasPessoaDataGridView.DataSource = null;
             }
             contasPessoaDataGridView.SelectAll();
+            
         }
 
         private void DescontoTextBox_Leave(object sender, EventArgs e)
@@ -504,6 +505,39 @@ namespace Telas
         {
             ListarPagamentosContasSelecionadas();
             CalcularTotalContasSelecionadas();
+            DestacarContasEmAtraso();
+        }
+
+        private void DestacarContasEmAtraso()
+        {
+            for (int i = 0; i < contasPessoaDataGridView.RowCount; i++)
+            {
+                DateTime dataConta = Convert.ToDateTime(contasPessoaDataGridView.Rows[i].Cells[2].Value);
+                string situacaoConta = contasPessoaDataGridView.Rows[i].Cells[4].Value.ToString();
+                if ((dataConta < DateTime.Now) && (situacaoConta.Trim().Equals("ABERTA")))
+                {
+                    contasPessoaDataGridView.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    contasPessoaDataGridView.Rows[i].DefaultCellStyle.ForeColor = Color.Black;
+                }
+            }
+
+            for (int i = 0; i < contasPessoaDataGridView.SelectedRows.Count; i++)
+            {
+                DateTime dataConta = Convert.ToDateTime(contasPessoaDataGridView.SelectedRows[i].Cells[2].Value);
+                string situacaoConta = contasPessoaDataGridView.SelectedRows[i].Cells[4].Value.ToString();
+                if ((dataConta < DateTime.Now) && (situacaoConta.Trim().Equals("ABERTA")))
+                {
+                    contasPessoaDataGridView.SelectedRows[i].DefaultCellStyle.SelectionForeColor = Color.Red;
+                }
+                else
+                {
+                    contasPessoaDataGridView.SelectedRows[i].DefaultCellStyle.SelectionForeColor = Color.Black;
+                }
+            }
+
         }
 
         private void codFormaPagamentoComboBox_SelectedIndexChanged(object sender, EventArgs e)

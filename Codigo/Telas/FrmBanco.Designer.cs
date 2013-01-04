@@ -277,6 +277,7 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(339, 20);
             this.nomeTextBox.TabIndex = 23;
+            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // FrmBanco
             // 

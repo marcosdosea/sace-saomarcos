@@ -288,11 +288,17 @@ namespace Telas
 
         private void nomeFantasiaTextBox_Leave(object sender, EventArgs e)
         {
+            FormatTextBox.RemoverAcentos((TextBox) sender);
             if (nomeTextBox.Text.Trim().Equals(""))
             {
                 //nomeTextBox.Text = nomeFantasiaTextBox.Text;
                 ((Pessoa)pessoaBindingSource.Current).Nome = nomeFantasiaTextBox.Text; 
             }
+        }
+
+        private void nomeTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
         }
     }
 }
