@@ -200,6 +200,7 @@ namespace Telas
 
         private void cfopTextBox_Leave(object sender, EventArgs e)
         {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
             TextBox textbox = (TextBox)sender;
             textbox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
         }

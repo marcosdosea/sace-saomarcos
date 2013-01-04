@@ -190,5 +190,10 @@ namespace Telas
         {
             CodGrupo = Int32.Parse(codGrupoTextBox.Text);
         }
+
+        private void descricaoTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
     }
 }

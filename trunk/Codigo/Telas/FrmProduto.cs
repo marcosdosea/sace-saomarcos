@@ -352,6 +352,7 @@ namespace Telas
 
         private void nomeTextBox_Leave(object sender, EventArgs e)
         {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
             if (nomeFabricanteTextBox.Text.Trim().Equals(""))
             {
                 nomeFabricanteTextBox.Text = nomeTextBox.Text;
@@ -488,6 +489,12 @@ namespace Telas
         private void precoVendaAtacadoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
+            codProdutoTextBox_Leave(sender, e);
+        }
+
+        private void nomeFabricanteTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
             codProdutoTextBox_Leave(sender, e);
         }
 

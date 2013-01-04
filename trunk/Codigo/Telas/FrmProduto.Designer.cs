@@ -667,7 +667,7 @@
             this.nomeFabricanteTextBox.Size = new System.Drawing.Size(446, 20);
             this.nomeFabricanteTextBox.TabIndex = 13;
             this.nomeFabricanteTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
-            this.nomeFabricanteTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
+            this.nomeFabricanteTextBox.Leave += new System.EventHandler(this.nomeFabricanteTextBox_Leave);
             // 
             // cfopComboBox
             // 

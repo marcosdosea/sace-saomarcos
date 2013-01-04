@@ -330,7 +330,7 @@
             this.nomeTextBox.Size = new System.Drawing.Size(336, 20);
             this.nomeTextBox.TabIndex = 27;
             this.nomeTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.nomeTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // diaBaseTextBox
             // 

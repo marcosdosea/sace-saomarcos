@@ -35,6 +35,9 @@ namespace Negocio
         {
             try
             {
+                if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
+                    throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
+                
                 PessoaE _pessoa = new PessoaE(); 
                 Atribuir(pessoa, _pessoa);
                

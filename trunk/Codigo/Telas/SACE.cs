@@ -284,5 +284,12 @@ namespace Telas
             GerenciadorSaida.getInstace().AtualizarPedidosComDocumentosFiscais();
         }
 
+        private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProdutoEstatistica frmProdutoEstatistica = new FrmProdutoEstatistica();
+            frmProdutoEstatistica.ShowDialog();
+            frmProdutoEstatistica.Dispose();
+        }
+
     }
 }

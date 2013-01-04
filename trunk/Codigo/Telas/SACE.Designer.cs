@@ -49,12 +49,6 @@
             this.transferênciaEntreLojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidoDeCompraÀFornecedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fiscalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aberturaDeCaixaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.emissãoDeCupomFiscalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuponsFiscaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapaResumoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fechamentoCaixaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.documentosDePagamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +70,7 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
+            this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +80,6 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastrosToolStripMenuItem,
             this.movimentaçãoToolStripMenuItem,
-            this.fiscalToolStripMenuItem,
             this.contasAPagarToolStripMenuItem,
             this.utilitáriosToolStripMenuItem,
             this.relatóriosToolStripMenuItem,
@@ -206,7 +200,8 @@
             this.entradaDeProdutosToolStripMenuItem,
             this.transferênciaEntreLojasToolStripMenuItem,
             this.pedidoDeCompraÀFornecedoresToolStripMenuItem,
-            this.devoluçãoDeProdutosToolStripMenuItem});
+            this.devoluçãoDeProdutosToolStripMenuItem,
+            this.estatísticaPorProdutoToolStripMenuItem});
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.movimentaçãoToolStripMenuItem.Text = "&Estoque";
@@ -246,48 +241,6 @@
             this.devoluçãoDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.devoluçãoDeProdutosToolStripMenuItem.Text = "Devolução para Fornecedor";
             this.devoluçãoDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeProdutosToolStripMenuItem_Click);
-            // 
-            // fiscalToolStripMenuItem
-            // 
-            this.fiscalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aberturaDeCaixaToolStripMenuItem,
-            this.emissãoDeCupomFiscalToolStripMenuItem,
-            this.cuponsFiscaisToolStripMenuItem,
-            this.mapaResumoToolStripMenuItem,
-            this.fechamentoCaixaToolStripMenuItem});
-            this.fiscalToolStripMenuItem.Name = "fiscalToolStripMenuItem";
-            this.fiscalToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.fiscalToolStripMenuItem.Text = "Caixa";
-            // 
-            // aberturaDeCaixaToolStripMenuItem
-            // 
-            this.aberturaDeCaixaToolStripMenuItem.Name = "aberturaDeCaixaToolStripMenuItem";
-            this.aberturaDeCaixaToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.aberturaDeCaixaToolStripMenuItem.Text = "Abertura de Caixa";
-            // 
-            // emissãoDeCupomFiscalToolStripMenuItem
-            // 
-            this.emissãoDeCupomFiscalToolStripMenuItem.Name = "emissãoDeCupomFiscalToolStripMenuItem";
-            this.emissãoDeCupomFiscalToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.emissãoDeCupomFiscalToolStripMenuItem.Text = "Emissão de Cupom Fiscal";
-            // 
-            // cuponsFiscaisToolStripMenuItem
-            // 
-            this.cuponsFiscaisToolStripMenuItem.Name = "cuponsFiscaisToolStripMenuItem";
-            this.cuponsFiscaisToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.cuponsFiscaisToolStripMenuItem.Text = "Comprovantes Fiscais";
-            // 
-            // mapaResumoToolStripMenuItem
-            // 
-            this.mapaResumoToolStripMenuItem.Name = "mapaResumoToolStripMenuItem";
-            this.mapaResumoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.mapaResumoToolStripMenuItem.Text = "Mapa Resumo";
-            // 
-            // fechamentoCaixaToolStripMenuItem
-            // 
-            this.fechamentoCaixaToolStripMenuItem.Name = "fechamentoCaixaToolStripMenuItem";
-            this.fechamentoCaixaToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.fechamentoCaixaToolStripMenuItem.Text = "Fechamento Caixa";
             // 
             // contasAPagarToolStripMenuItem
             // 
@@ -480,6 +433,13 @@
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
             // 
+            // estatísticaPorProdutoToolStripMenuItem
+            // 
+            this.estatísticaPorProdutoToolStripMenuItem.Name = "estatísticaPorProdutoToolStripMenuItem";
+            this.estatísticaPorProdutoToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.estatísticaPorProdutoToolStripMenuItem.Text = "Estatística por Produto";
+            this.estatísticaPorProdutoToolStripMenuItem.Click += new System.EventHandler(this.estatísticaPorProdutoToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -552,16 +512,11 @@
         private System.Windows.Forms.ToolStripMenuItem pedidoDeCompraÀFornecedoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem receberPagamentosToolStripMenuItem;
         private System.Windows.Forms.Button btnReceber;
-        private System.Windows.Forms.ToolStripMenuItem fiscalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aberturaDeCaixaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem emissãoDeCupomFiscalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cuponsFiscaisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mapaResumoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fechamentoCaixaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeProdutosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem códigoFiscalDeOperaçãoCFOPToolStripMenuItem;
         private System.Windows.Forms.Timer timerAtualizaCuponsFiscais;
         private System.ComponentModel.BackgroundWorker backgroundWorkerAtualizarCupons;
+        private System.Windows.Forms.ToolStripMenuItem estatísticaPorProdutoToolStripMenuItem;
 
     }
 }

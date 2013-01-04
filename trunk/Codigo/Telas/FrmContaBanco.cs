@@ -233,5 +233,10 @@ namespace Telas
                 throw new TelaException("Um banco válido precisa ser selecionado.");
             }
         }
+
+        private void descricaoTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
     }
 }

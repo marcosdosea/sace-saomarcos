@@ -222,5 +222,10 @@ namespace Telas
                 }
             }
         }
+
+        private void loginTextBox_Leave(object sender, EventArgs e)
+        {
+            FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
     }
 }

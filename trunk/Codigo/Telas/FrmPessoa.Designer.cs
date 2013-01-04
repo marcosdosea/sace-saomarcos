@@ -507,6 +507,7 @@
             this.bairroTextBox.Name = "bairroTextBox";
             this.bairroTextBox.Size = new System.Drawing.Size(145, 20);
             this.bairroTextBox.TabIndex = 40;
+            this.bairroTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // cidadeTextBox
             // 
@@ -517,6 +518,7 @@
             this.cidadeTextBox.Name = "cidadeTextBox";
             this.cidadeTextBox.Size = new System.Drawing.Size(103, 20);
             this.cidadeTextBox.TabIndex = 44;
+            this.cidadeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // observacaoTextBox
             // 
@@ -538,6 +540,7 @@
             this.enderecoTextBox.Name = "enderecoTextBox";
             this.enderecoTextBox.Size = new System.Drawing.Size(385, 20);
             this.enderecoTextBox.TabIndex = 36;
+            this.enderecoTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // ufTextBox
             // 
@@ -737,6 +740,7 @@
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(236, 20);
             this.emailTextBox.TabIndex = 48;
+            this.emailTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // ieSubstitutoTextBox
             // 
@@ -767,6 +771,7 @@
             this.complementoTextBox.Name = "complementoTextBox";
             this.complementoTextBox.Size = new System.Drawing.Size(229, 20);
             this.complementoTextBox.TabIndex = 42;
+            this.complementoTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // limiteCompraTextBox
             // 
@@ -834,6 +839,7 @@
             this.nomeTextBox.Name = "nomeTextBox";
             this.nomeTextBox.Size = new System.Drawing.Size(630, 20);
             this.nomeTextBox.TabIndex = 27;
+            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // cepMaskedTextBox
             // 
