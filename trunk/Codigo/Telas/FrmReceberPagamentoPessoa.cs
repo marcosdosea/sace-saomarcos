@@ -174,7 +174,7 @@ namespace Telas
                         GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, listaSaidaPagamento, valorPagamento);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            GerenciadorConta.GetInstance().Baixar(listaContas, valorPagamento, cartaoCredito, parcelas);
+                            GerenciadorConta.GetInstance().SubstituirContas(listaContas, valorPagamento, cartaoCredito, parcelas);
                         }
                     }
                     codClienteComboBox_Leave(sender, e);

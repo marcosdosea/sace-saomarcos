@@ -279,7 +279,14 @@ namespace Negocio
         }
 
 
-        public void Baixar(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
+        /// <summary>
+        /// Substitui um conjunto de contas por uma nova conta. 
+        /// </summary>
+        /// <param name="listaContas">Contas que serão baixadas</param>
+        /// <param name="valorPagamento">valor pago nessas contas</param>
+        /// <param name="cartaoCredito">cartão de crédito quando necessário</param>
+        /// <param name="parcelas">número de parcelas do pagamento</param>
+        public void SubstituirContas(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
         {
             string observacao = "Substituiu as contas: ";
             foreach (long codConta in listaContas)

@@ -309,7 +309,6 @@ namespace Negocio
             _pessoa.bairro = pessoa.Bairro;
             _pessoa.cep = pessoa.Cep;
             _pessoa.cidade = pessoa.Cidade;
-            _pessoa.codPessoa = pessoa.CodPessoa;
             _pessoa.complemento = pessoa.Complemento;
             _pessoa.cpf_Cnpj = pessoa.CpfCnpj;
             _pessoa.ehFabricante = pessoa.EhFabricante;
