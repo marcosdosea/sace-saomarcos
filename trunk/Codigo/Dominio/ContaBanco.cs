@@ -26,6 +26,11 @@ namespace Dominio
             return this.CodContaBanco == ((ContaBanco) obj).CodContaBanco;    
         }
 
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodContaBanco.GetHashCode();
+        }
         
     }
 }

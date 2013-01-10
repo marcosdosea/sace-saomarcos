@@ -5,9 +5,12 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Cst
+    public class SituacaoConta
     {
-        public string CodCST { get; set; }
+        public const string SITUACAO_ABERTA = "A";
+        public const string SITUACAO_QUITADA = "Q";
+        
+        public string CodSituacao { get; set; }
         public string Descricao { get; set; }
 
         // override object.Equals
@@ -18,13 +21,13 @@ namespace Dominio
                 return false;
             }
 
-            return this.CodCST.Equals(((Cst)obj).CodCST);    
+            return this.CodSituacao == ((SituacaoConta)obj).CodSituacao;
         }
 
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return this.CodCST.GetHashCode();
+            return this.CodSituacao.GetHashCode();
         }
     }
 }

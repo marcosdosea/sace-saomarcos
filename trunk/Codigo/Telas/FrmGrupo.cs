@@ -16,13 +16,7 @@ namespace Telas
     public partial class FrmGrupo : Form
     {
         private EstadoFormulario estado;
-        private Int32 codGrupo;
-
-        public Int32 CodGrupo
-        {
-            get { return codGrupo; }
-            set { codGrupo = value; }
-        }
+        public Grupo GrupoSelected { get; set; }
 
         public FrmGrupo()
         {
@@ -31,8 +25,8 @@ namespace Telas
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
+            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
+            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -40,16 +34,16 @@ namespace Telas
         {
             Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
             frmGrupoPesquisa.ShowDialog();
-            if (frmGrupoPesquisa.CodGrupo != -1)
+            if (frmGrupoPesquisa.SelectedGrupo != null)
             {
-                tb_grupoBindingSource.Position = tb_grupoBindingSource.Find("codGrupo", frmGrupoPesquisa.CodGrupo);
+                grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmGrupoPesquisa.SelectedGrupo);
             }
             frmGrupoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_grupoBindingSource.AddNew();
+            grupoBindingSource.AddNew();
             codGrupoTextBox.Enabled = false;
             descricaoTextBox.Focus();
             habilitaBotoes(false);
@@ -67,15 +61,15 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorGrupo.getInstace().remover(Int32.Parse(codGrupoTextBox.Text));
-                tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
+                GerenciadorGrupo.GetInstance().Remover(Int32.Parse(codGrupoTextBox.Text));
+                grupoBindingSource.RemoveCurrent();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_grupoBindingSource.CancelEdit();
-            tb_grupoBindingSource.EndEdit();
+            grupoBindingSource.CancelEdit();
+            grupoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -88,22 +82,21 @@ namespace Telas
                 grupo.Descricao = descricaoTextBox.Text;
                 grupo.CodGrupo = Int32.Parse(codGrupoTextBox.Text);
 
-                GerenciadorGrupo gGrupo = GerenciadorGrupo.getInstace();
+                GerenciadorGrupo gGrupo = GerenciadorGrupo.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gGrupo.inserir(grupo);
-                    tb_grupoTableAdapter.Fill(saceDataSet.tb_grupo);
-                    tb_grupoBindingSource.MoveLast();
+                    long codGrupo = gGrupo.Inserir(grupo);
+                    codGrupoTextBox.Text = codGrupo.ToString();
                 }
                 else
                 {
-                    gGrupo.atualizar(grupo);
-                    tb_grupoBindingSource.EndEdit();
+                    gGrupo.Atualizar(grupo);
                 }
+                grupoBindingSource.EndEdit();
             }
             catch (DadosException de)
             {
-                tb_grupoBindingSource.CancelEdit();
+                grupoBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -135,19 +128,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_grupoBindingSource.MoveLast();
+                    grupoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_grupoBindingSource.MoveFirst();
+                    grupoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_grupoBindingSource.MovePrevious();
+                    grupoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_grupoBindingSource.MoveNext();
+                    grupoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -188,7 +181,7 @@ namespace Telas
 
         private void FrmGrupo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodGrupo = Int32.Parse(codGrupoTextBox.Text);
+            GrupoSelected = (Grupo)grupoBindingSource.Current;
         }
 
         private void descricaoTextBox_Leave(object sender, EventArgs e)

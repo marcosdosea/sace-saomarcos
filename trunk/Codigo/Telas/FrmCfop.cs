@@ -16,13 +16,7 @@ namespace Telas
     public partial class FrmCfop : Form
     {
         private EstadoFormulario estado;
-        private Int32 codCfop;
-
-        public Int32 CodCfop
-        {
-            get { return codCfop; }
-            set { codCfop = value; }
-        }
+        private Cfop CfopSelected { get; set;}
 
         public FrmCfop()
         {
@@ -31,8 +25,7 @@ namespace Telas
 
         private void FrmCfop_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            this.tb_cfopTableAdapter.Fill(this.saceDataSet.tb_cfop);
+            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -40,16 +33,16 @@ namespace Telas
         {
             Telas.FrmCfopPesquisa frmCfopPesquisa = new Telas.FrmCfopPesquisa();
             frmCfopPesquisa.ShowDialog();
-            if (frmCfopPesquisa.CodCfop != -1)
+            if (frmCfopPesquisa.CfopSelected != null)
             {
-                tb_cfopBindingSource.Position = tb_cfopBindingSource.Find("cfop", frmCfopPesquisa.CodCfop);
+                cfopBindingSource.Position = cfopBindingSource.List.IndexOf(frmCfopPesquisa.CfopSelected);
             }
             frmCfopPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_cfopBindingSource.AddNew();
+            cfopBindingSource.AddNew();
             cfopTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -67,14 +60,14 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorCfop.GetInstance().Remover(Int32.Parse(cfopTextBox.Text));
-                tb_cfopTableAdapter.Fill(saceDataSet.tb_cfop);
+                cfopBindingSource.RemoveCurrent();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_cfopBindingSource.CancelEdit();
-            tb_cfopBindingSource.EndEdit();
+            cfopBindingSource.CancelEdit();
+            cfopBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -92,18 +85,16 @@ namespace Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gCfop.Inserir(cfop);
-                    tb_cfopTableAdapter.Fill(saceDataSet.tb_cfop);
-                    tb_cfopBindingSource.MoveLast();
                 }
                 else
                 {
                     gCfop.Atualizar(cfop);
-                    tb_cfopBindingSource.EndEdit();
                 }
+                cfopBindingSource.EndEdit();
             }
             catch (DadosException de)
             {
-                tb_cfopBindingSource.CancelEdit();
+                cfopBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -135,19 +126,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_cfopBindingSource.MoveLast();
+                    cfopBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_cfopBindingSource.MoveFirst();
+                    cfopBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_cfopBindingSource.MovePrevious();
+                    cfopBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_cfopBindingSource.MoveNext();
+                    cfopBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -158,7 +149,6 @@ namespace Telas
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    
                     e.Handled = true;
                     SendKeys.Send("{tab}");
                 }
@@ -189,7 +179,7 @@ namespace Telas
 
         private void FrmCfop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodCfop = Int32.Parse(cfopTextBox.Text);
+            CfopSelected = (Cfop) cfopBindingSource.Current;
         }
 
         private void cfopTextBox_Enter(object sender, EventArgs e)

@@ -189,8 +189,8 @@ namespace Telas
                 } else {
                     GerenciadorSaida.getInstace().remover(saida);
                 }
-
-                ObterSaidas(true);
+                tb_saidaBindingSource.RemoveCurrent();
+                //ObterSaidas(true);
             }
             estado = EstadoFormulario.ESPERA;
             btnNovo.Focus();

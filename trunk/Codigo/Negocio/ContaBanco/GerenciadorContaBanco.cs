@@ -88,26 +88,6 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Atualiza o saldo da conta bancária
-        /// </summary>
-        /// <param name="codContaBanco"></param>
-        /// <param name="valor"></param>
-        public void IncrementaSaldo(Int32 codContaBanco, Decimal valor)
-        {
-            try
-            {
-                ContaBancoE _contaBanco = repContaBanco.ObterEntidade(c => c.codContaBanco == codContaBanco);
-                _contaBanco.saldo += valor;
-
-                repContaBanco.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Conta do Banco", e.Message, e);
-            }
-        }
-
-        /// <summary>
         /// Query Geral para obter dados das contas
         /// </summary>
         /// <returns></returns>

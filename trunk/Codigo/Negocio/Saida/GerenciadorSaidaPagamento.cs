@@ -139,7 +139,7 @@ namespace Negocio
 
                     foreach (Conta conta in contas)
                     {
-                        GerenciadorMovimentacaoConta.getInstace().removerMovimentacoesConta(conta);
+                        GerenciadorMovimentacaoConta.getInstace().RemoverPorConta(conta.CodConta);
                         GerenciadorConta.GetInstance().Remover(conta.CodConta);
                     }
                }

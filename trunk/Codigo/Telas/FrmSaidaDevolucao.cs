@@ -29,11 +29,15 @@ namespace Telas
 
             this.tb_tipo_saidaTableAdapter.Fill(this.saceDataSet.tb_tipo_saida);
             this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-            this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            IEnumerable<Loja> lojas = GerenciadorLoja.GetInstance().ObterTodos();
+            lojaBindingSourceDestino.DataSource = lojas;
+            lojaBindingSourceOrigem.DataSource = lojas;
+            IEnumerable<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterTodos();
+            pessoaDestinoBindingSource.DataSource = pessoas;
+            pessoaFreteBindingSource.DataSource = pessoas;
             
             tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
-        }
+        }  
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
@@ -129,10 +133,9 @@ namespace Telas
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
+                if (frmPessoaPesquisa.PessoaSelected != null)
                 {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    codEmpresaFreteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
+                    pessoaFreteBindingSource.Position = pessoaFreteBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                 }
                 else
                 {
@@ -142,7 +145,7 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
+                pessoaFreteBindingSource.Position = pessoaFreteBindingSource.List.IndexOf(pessoas[0]);
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -154,10 +157,10 @@ namespace Telas
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
+                if (frmPessoaPesquisa.PessoaSelected != null)
                 {
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                    codClienteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource1.Current).Row).nome;
+                    pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                    codClienteComboBox.Text = frmPessoaPesquisa.PessoaSelected.Nome;
                 }
                 else
                 {
@@ -167,7 +170,7 @@ namespace Telas
             }
             else
             {
-                tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoas[0].codPessoa);
+                pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.Find("codPessoa", pessoas[0].codPessoa);
             }
             codSaidaTextBox_Leave(sender, e);
         }

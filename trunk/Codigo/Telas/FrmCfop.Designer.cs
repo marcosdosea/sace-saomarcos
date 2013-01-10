@@ -40,8 +40,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_cfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_cfopBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -54,11 +53,9 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cfopTextBox = new System.Windows.Forms.TextBox();
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_cfopTableAdapter = new Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
             descricaoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cfopBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_cfopBindingNavigator)).BeginInit();
             this.tb_cfopBindingNavigator.SuspendLayout();
             this.SuspendLayout();
@@ -162,20 +159,14 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
+            // cfopBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_cfopBindingSource
-            // 
-            this.tb_cfopBindingSource.DataMember = "tb_cfop";
-            this.tb_cfopBindingSource.DataSource = this.saceDataSet;
+            this.cfopBindingSource.DataSource = typeof(Dominio.Cfop);
             // 
             // tb_cfopBindingNavigator
             // 
             this.tb_cfopBindingNavigator.AddNewItem = null;
-            this.tb_cfopBindingNavigator.BindingSource = this.tb_cfopBindingSource;
+            this.tb_cfopBindingNavigator.BindingSource = this.cfopBindingSource;
             this.tb_cfopBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_cfopBindingNavigator.DeleteItem = null;
             this.tb_cfopBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -270,7 +261,7 @@
             // cfopTextBox
             // 
             this.cfopTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.cfopTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cfopBindingSource, "cfop", true));
+            this.cfopTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cfopBindingSource, "CodCfop", true));
             this.cfopTextBox.Location = new System.Drawing.Point(4, 87);
             this.cfopTextBox.Name = "cfopTextBox";
             this.cfopTextBox.Size = new System.Drawing.Size(100, 20);
@@ -281,17 +272,13 @@
             // descricaoTextBox
             // 
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_cfopBindingSource, "descricao", true));
+            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cfopBindingSource, "Descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(118, 87);
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(351, 20);
             this.descricaoTextBox.TabIndex = 26;
             this.descricaoTextBox.Enter += new System.EventHandler(this.cfopTextBox_Enter);
             this.descricaoTextBox.Leave += new System.EventHandler(this.cfopTextBox_Leave);
-            // 
-            // tb_cfopTableAdapter
-            // 
-            this.tb_cfopTableAdapter.ClearBeforeFill = true;
             // 
             // FrmCfop
             // 
@@ -322,8 +309,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCfop_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cfopBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_cfopBindingNavigator)).EndInit();
             this.tb_cfopBindingNavigator.ResumeLayout(false);
             this.tb_cfopBindingNavigator.PerformLayout();
@@ -342,9 +328,8 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.Label codCfopLabel;
-        private System.Windows.Forms.BindingSource tb_cfopBindingSource;
+        private System.Windows.Forms.BindingSource cfopBindingSource;
         private System.Windows.Forms.BindingNavigator tb_cfopBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -357,6 +342,5 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.TextBox cfopTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
-        private Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
     }
 }

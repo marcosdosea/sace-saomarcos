@@ -6,43 +6,39 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
+using Dominio;
 
 namespace Telas
 {
     public partial class FrmLojaPesquisa : Form
     {
-        private Int32 codLoja;
-
-        public Int32 CodLoja
-        {
-            get { return codLoja; }
-            set { codLoja = value; }
-        }
+        public Loja LojaSelected { get; set; }
 
         public FrmLojaPesquisa()
         {
             InitializeComponent();
-            CodLoja = -1;
+            LojaSelected = null;
         }
 
         private void FrmLojaPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
+            lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                this.tb_lojaTableAdapter.FillByCodLoja(this.saceDataSet.tb_loja, int.Parse(txtTexto.Text));
+                lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().Obter(int.Parse(txtTexto.Text));
 
             else
-                this.tb_lojaTableAdapter.FillByNome(this.saceDataSet.tb_loja, txtTexto.Text);
+                lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterPorNome(txtTexto.Text);
         }
 
         private void tb_lojaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codLoja = int.Parse(tb_lojaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            LojaSelected = (Loja)lojaBindingSource.Current;
             this.Close();
         }
 
@@ -58,11 +54,11 @@ namespace Telas
             }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_lojaBindingSource.MoveNext();
+                lojaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_lojaBindingSource.MovePrevious();
+                lojaBindingSource.MovePrevious();
             }
         }
 

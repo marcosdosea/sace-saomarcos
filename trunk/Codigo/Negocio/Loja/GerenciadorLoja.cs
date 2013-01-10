@@ -14,25 +14,35 @@ namespace Negocio
     public class GerenciadorLoja
     {
         private static GerenciadorLoja gLoja;
-        private static tb_lojaTableAdapter tb_lojaTA;
+        private static RepositorioGenerico<LojaE, SaceEntities> repLoja;
         
-        public static GerenciadorLoja getInstace()
+        public static GerenciadorLoja GetInstance()
         {
             if (gLoja == null)
             {
                 gLoja = new GerenciadorLoja();
-                tb_lojaTA = new tb_lojaTableAdapter();
+                repLoja = new RepositorioGenerico<LojaE, SaceEntities>("chave");
             }
             return gLoja;
         }
 
-        public Int64 inserir(Loja loja)
+        /// <summary>
+        /// Insere um nova loja
+        /// </summary>
+        /// <param name="loja"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Loja loja)
         {
             try
             {
-                tb_lojaTA.Insert(loja.Nome, loja.CodPessoa);
+                LojaE _lojaE = new LojaE();
+                _lojaE.codPessoa = loja.CodPessoa;
+                _lojaE.nome = loja.Nome;
 
-                return 0;
+                repLoja.Inserir(_lojaE);
+                repLoja.SaveChanges();
+                
+                return _lojaE.codLoja;
             }
             catch (Exception e)
             {
@@ -40,11 +50,19 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Loja loja)
+        /// <summary>
+        /// Atualiza os dados de uma loja
+        /// </summary>
+        /// <param name="loja"></param>
+        public void Atualizar(Loja loja)
         {
             try
             {
-                tb_lojaTA.Update(loja.Nome, loja.CodPessoa, loja.CodLoja);
+                LojaE _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
+                _lojaE.codPessoa = loja.CodPessoa;
+                _lojaE.nome = loja.Nome;
+
+                repLoja.SaveChanges();
             }
             catch (Exception e)
             {
@@ -52,14 +70,18 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codloja)
+        /// <summary>
+        /// Remove os dados de uma loja
+        /// </summary>
+        /// <param name="codloja"></param>
+        public void Remover(Int32 codloja)
         {
             if (codloja == 1)
                 throw new NegocioException("A loja matriz não pode ser excluída.");
                 
             try
             {
-                tb_lojaTA.Delete(codloja);
+                repLoja.Remover(loja => loja.codLoja == codloja);
             }
             catch (Exception e)
             {
@@ -67,30 +89,60 @@ namespace Negocio
             }
         }
 
-        public Loja obter(int codLoja)
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<Loja> GetQuery()
         {
-            Loja loja = new Loja();
-
-            Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTA = new tb_lojaTableAdapter();
-            Dados.saceDataSet.tb_lojaDataTable lojaDT = tb_lojaTA.GetDataByCodLoja(codLoja);
-
-            loja.CodLoja  = Convert.ToInt32(lojaDT.Rows[0]["codLoja"].ToString());
-            loja.CodPessoa = Convert.ToInt64(lojaDT.Rows[0]["codPessoa"].ToString());
-            loja.Nome = lojaDT.Rows[0]["nome"].ToString();
-            return loja;
+            var saceEntities = (SaceEntities) repLoja.ObterContexto();
+            var query = from loja in saceEntities.LojaSet
+                        select new Loja
+                        {
+                            CodLoja = loja.codLoja,
+                            CodPessoa = loja.codPessoa,
+                            Nome = loja.nome
+                        };
+            return query;
         }
 
-        public Loja obterByCodPessoa(long codPessoa)
+        /// <summary>
+        /// Obtém todos os lojas cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Loja> ObterTodos()
         {
-            Loja loja = new Loja();
+            return GetQuery().ToList();
+        }
 
-            Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTA = new tb_lojaTableAdapter();
-            Dados.saceDataSet.tb_lojaDataTable lojaDT = tb_lojaTA.GetDataByCodPessoa(codPessoa);
+        /// <summary>
+        /// Obtém loja com a código especificado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Loja> Obter(int codLoja)
+        {
+            return GetQuery().Where(loja => loja.CodLoja == codLoja).ToList();
+        }
 
-            loja.CodLoja = Convert.ToInt32(lojaDT.Rows[0]["codLoja"].ToString());
-            loja.CodPessoa = Convert.ToInt64(lojaDT.Rows[0]["codPessoa"].ToString());
-            loja.Nome = lojaDT.Rows[0]["nome"].ToString();
-            return loja;
+        /// <summary>
+        /// Obtém lojas que iniciam com o nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<Loja> ObterPorNome(string nome)
+        {
+            return GetQuery().Where(loja => loja.Nome.StartsWith(nome)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém loja associada a uma pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Loja> ObterPorPessoa(long codPessoa)
+        {
+            return GetQuery().Where(loja => loja.CodPessoa == codPessoa).ToList();
         }
     }
 }

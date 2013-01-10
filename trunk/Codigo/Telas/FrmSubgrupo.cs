@@ -16,23 +16,21 @@ namespace Telas
     {
         private EstadoFormulario estado;
 
-        public Int32 CodSubgrupo { get; set; }
-        public Int32 CodGrupo { get; set; }
-        public Int32 CodGrupoOriginal { get; set; }
+        public Subgrupo SubgrupoSelected { get; set; }
+        public Grupo GrupoSelected { get; set; }
 
         public FrmSubgrupo(Int32 codGrupo)
         {
             InitializeComponent();
-            CodGrupoOriginal = codGrupo;
-            CodGrupo = -1;
-            CodSubgrupo = -1;
+            GrupoSelected = null;
+            SubgrupoSelected = null;
         }
 
         private void FrmSubgrupo_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
-            this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
-            this.tb_subgrupoTableAdapter.Fill(this.saceDataSet.tb_subgrupo);
+            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
+            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -40,17 +38,17 @@ namespace Telas
         {
             Telas.FrmSubgrupoPesquisa frmSubgrupoPesquisa = new Telas.FrmSubgrupoPesquisa();
             frmSubgrupoPesquisa.ShowDialog();
-            if (frmSubgrupoPesquisa.CodSubgrupo != -1)
+            if (frmSubgrupoPesquisa.SubgrupoSelected != null)
             {
-                tb_subgrupoBindingSource.Position = tb_subgrupoBindingSource.Find("codSubgrupo", frmSubgrupoPesquisa.CodSubgrupo);
+                subgrupoBindingSource.Position = subgrupoBindingSource.List.IndexOf(frmSubgrupoPesquisa.SubgrupoSelected);
             }
             frmSubgrupoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_subgrupoBindingSource.AddNew();
-            tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", CodGrupoOriginal);
+            subgrupoBindingSource.AddNew();
+            //grupoBindingSource.Position = grupoBindingSource.Find("codGrupo", CodGrupoOriginal);
             descricaoTextBox.Focus();
             habilitaBotoes(false);
             codGrupoComboBox.SelectedIndex = 0;
@@ -68,15 +66,15 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSubgrupo.getInstace().remover(Int32.Parse(codSubgrupoTextBox.Text));
-                tb_subgrupoTableAdapter.Fill(saceDataSet.tb_subgrupo);
+                GerenciadorSubgrupo.GetInstance().Remover(Int32.Parse(codSubgrupoTextBox.Text));
+                subgrupoBindingSource.RemoveCurrent();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_subgrupoBindingSource.CancelEdit();
-            tb_subgrupoBindingSource.EndEdit();
+            subgrupoBindingSource.CancelEdit();
+            subgrupoBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -91,23 +89,23 @@ namespace Telas
                 subgrupo.CodSubgrupo = Convert.ToInt32(codSubgrupoTextBox.Text);
                 subgrupo.Descricao = descricaoTextBox.Text;
 
-                GerenciadorSubgrupo gSubgrupo = GerenciadorSubgrupo.getInstace();
+                GerenciadorSubgrupo gSubgrupo = GerenciadorSubgrupo.GetInstance();
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gSubgrupo.inserir(subgrupo);
-                    tb_subgrupoTableAdapter.Fill(saceDataSet.tb_subgrupo);
-                    tb_subgrupoBindingSource.MoveLast();
+                    gSubgrupo.Inserir(subgrupo);
+                    subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
+                    subgrupoBindingSource.MoveLast();
                 }
                 else
                 {
-                    gSubgrupo.atualizar(subgrupo);
-                    tb_subgrupoBindingSource.EndEdit();
+                    gSubgrupo.Atualizar(subgrupo);
+                    subgrupoBindingSource.EndEdit();
                 }
             }
             catch (Dados.DadosException de)
             {
-                tb_subgrupoBindingSource.CancelEdit();
+                subgrupoBindingSource.CancelEdit();
                 throw de;
             }
             finally {
@@ -138,19 +136,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_subgrupoBindingSource.MoveLast();
+                    subgrupoBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_subgrupoBindingSource.MoveFirst();
+                    subgrupoBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_subgrupoBindingSource.MovePrevious();
+                    subgrupoBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_subgrupoBindingSource.MoveNext();
+                    subgrupoBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -176,9 +174,9 @@ namespace Telas
                 {
                     Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
-                    if (frmGrupoPesquisa.CodGrupo != -1)
+                    if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.CodGrupo);
+                        grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmGrupoPesquisa.SelectedGrupo);
                     }
                     frmGrupoPesquisa.Dispose();
                 }
@@ -186,10 +184,9 @@ namespace Telas
                 {
                     Telas.FrmGrupo frmGrupo = new Telas.FrmGrupo();
                     frmGrupo.ShowDialog();
-                    if (frmGrupo.CodGrupo != -1)
+                    if (frmGrupo.GrupoSelected != null)
                     {
-                        this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupo.CodGrupo);
+                        grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmGrupo.GrupoSelected);
                     }
                     frmGrupo.Dispose();
                 }
@@ -213,8 +210,8 @@ namespace Telas
 
         private void FrmSubgrupo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodSubgrupo = Convert.ToInt32(codSubgrupoTextBox.Text);
-            CodGrupo = Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString());
+            SubgrupoSelected = (Subgrupo)subgrupoBindingSource.Current;
+            GrupoSelected = GerenciadorGrupo.GetInstance().Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
         }
 
         private void codGrupoComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -229,11 +226,6 @@ namespace Telas
                 codGrupoComboBox.Focus();
                 throw new TelaException("Um grupo válido precisa ser selecionado.");
             }
-        }
-
-        private void descricaoTextBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void descricaoTextBox_Leave(object sender, EventArgs e)

@@ -137,6 +137,7 @@ namespace Telas
 
                 var frmSaidaConfirma = new FrmSaidaConfirma(saida);
                 frmSaidaConfirma.ShowDialog();
+                Cursor.Current = Cursors.WaitCursor;
                 
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
@@ -161,6 +162,7 @@ namespace Telas
                 frmSaidaConfirma.Close();               
                 frmSaidaConfirma.Dispose();
             }
+            Cursor.Current = Cursors.Default;
             this.Close();
         }
 
@@ -281,11 +283,9 @@ namespace Telas
             {
                 FrmPessoa frmPessoa = new FrmPessoa();
                 frmPessoa.ShowDialog();
-                if (frmPessoa.CodPessoa > 0)
+                if (frmPessoa.PessoaSelected != null)
                 {
-                    codClienteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-                    Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoa.CodPessoa).ElementAt(0);
-                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(pessoa);
+                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                 }
                 frmPessoa.Dispose();
             }
@@ -294,46 +294,44 @@ namespace Telas
             {
                 FrmPessoa frmPessoa = new FrmPessoa();
                 frmPessoa.ShowDialog();
-                if (frmPessoa.CodPessoa > 0)
+                if (frmPessoa.PessoaSelected != null)
                 {
-                    codProfissionalComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-                    Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoa.CodPessoa).ElementAt(0);
-                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(pessoa);
+                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                 }
                 frmPessoa.Dispose();
             }
             else if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
             {
-                Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
-                frmDocumentoPagamentoPesquisa.ShowDialog();
-                if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
-                {
-                    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
-                }
-                frmDocumentoPagamentoPesquisa.Dispose();
+                //Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
+                //frmDocumentoPagamentoPesquisa.ShowDialog();
+                //if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
+                //{
+                //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
+                //}
+                //frmDocumentoPagamentoPesquisa.Dispose();
             }
             else if ((e.KeyCode == Keys.F3) && (codDocumentoPagamentoComboBox.Focused))
             {
-                Int32 formaPagamentoSelecionada = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue.ToString());
+                //Int32 formaPagamentoSelecionada = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue.ToString());
 
-                Int32 codTipoDocumento = 0;
-                if (formaPagamentoSelecionada == FormaPagamento.BOLETO)
-                    codTipoDocumento = DocumentoPagamento.TIPO_BOLETO;
-                else if (formaPagamentoSelecionada == FormaPagamento.CHEQUE)
-                    codTipoDocumento = DocumentoPagamento.TIPO_CHEQUE;
-                else
-                    codTipoDocumento = DocumentoPagamento.TIPO_PROMISSORIA;
+                //Int32 codTipoDocumento = 0;
+                //if (formaPagamentoSelecionada == FormaPagamento.BOLETO)
+                //    codTipoDocumento = DocumentoPagamento.TIPO_BOLETO;
+                //else if (formaPagamentoSelecionada == FormaPagamento.CHEQUE)
+                //    codTipoDocumento = DocumentoPagamento.TIPO_CHEQUE;
+                //else
+                //    codTipoDocumento = DocumentoPagamento.TIPO_PROMISSORIA;
 
-                Int32 codPessoa = Convert.ToInt32(codClienteComboBox.SelectedValue);
+                //Int32 codPessoa = Convert.ToInt32(codClienteComboBox.SelectedValue);
 
-                Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(codTipoDocumento, codPessoa);
-                frmDocumentoPagamento.ShowDialog();
-                if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
-                {
-                    this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-                    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
-                }
-                frmDocumentoPagamento.Dispose();
+                //Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(codTipoDocumento, codPessoa);
+                //frmDocumentoPagamento.ShowDialog();
+                //if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
+                //{
+                //    this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
+                //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
+                //}
+                //frmDocumentoPagamento.Dispose();
             }
         }
 
@@ -358,11 +356,10 @@ namespace Telas
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
+                if (frmPessoaPesquisa.PessoaSelected != null)
                 {
-                    cliente = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
-                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(cliente);
-                    codClienteComboBox.Text = cliente.NomeFantasia;
+                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                    codClienteComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
                 }
                 else
                 {
@@ -387,11 +384,10 @@ namespace Telas
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codProfissionalComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
+                if (frmPessoaPesquisa.PessoaSelected != null)
                 {
-                    Pessoa profissional = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
-                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(profissional);
-                    codProfissionalComboBox.Text = profissional.NomeFantasia;
+                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                    codProfissionalComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
                 }
                 else
                 {

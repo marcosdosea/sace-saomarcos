@@ -49,9 +49,9 @@
             this.transferênciaEntreLojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidoDeCompraÀFornecedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.documentosDePagamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.receberPagamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +70,6 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
-            this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -242,11 +241,17 @@
             this.devoluçãoDeProdutosToolStripMenuItem.Text = "Devolução para Fornecedor";
             this.devoluçãoDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeProdutosToolStripMenuItem_Click);
             // 
+            // estatísticaPorProdutoToolStripMenuItem
+            // 
+            this.estatísticaPorProdutoToolStripMenuItem.Name = "estatísticaPorProdutoToolStripMenuItem";
+            this.estatísticaPorProdutoToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.estatísticaPorProdutoToolStripMenuItem.Text = "Estatística por Produto";
+            this.estatísticaPorProdutoToolStripMenuItem.Click += new System.EventHandler(this.estatísticaPorProdutoToolStripMenuItem_Click);
+            // 
             // contasAPagarToolStripMenuItem
             // 
             this.contasAPagarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contasAPagarToolStripMenuItem1,
-            this.documentosDePagamentoToolStripMenuItem,
             this.receberPagamentosToolStripMenuItem});
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
             this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
@@ -255,21 +260,14 @@
             // contasAPagarToolStripMenuItem1
             // 
             this.contasAPagarToolStripMenuItem1.Name = "contasAPagarToolStripMenuItem1";
-            this.contasAPagarToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.contasAPagarToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
             this.contasAPagarToolStripMenuItem1.Text = "Contas a Pagar / Receber";
             this.contasAPagarToolStripMenuItem1.Click += new System.EventHandler(this.contasAPagarToolStripMenuItem1_Click);
-            // 
-            // documentosDePagamentoToolStripMenuItem
-            // 
-            this.documentosDePagamentoToolStripMenuItem.Name = "documentosDePagamentoToolStripMenuItem";
-            this.documentosDePagamentoToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.documentosDePagamentoToolStripMenuItem.Text = "Documentos de Pagamento";
-            this.documentosDePagamentoToolStripMenuItem.Click += new System.EventHandler(this.documentosDePagamentoToolStripMenuItem_Click);
             // 
             // receberPagamentosToolStripMenuItem
             // 
             this.receberPagamentosToolStripMenuItem.Name = "receberPagamentosToolStripMenuItem";
-            this.receberPagamentosToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.receberPagamentosToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.receberPagamentosToolStripMenuItem.Text = "Receber Pagamentos";
             this.receberPagamentosToolStripMenuItem.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
             // 
@@ -433,13 +431,6 @@
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
             // 
-            // estatísticaPorProdutoToolStripMenuItem
-            // 
-            this.estatísticaPorProdutoToolStripMenuItem.Name = "estatísticaPorProdutoToolStripMenuItem";
-            this.estatísticaPorProdutoToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.estatísticaPorProdutoToolStripMenuItem.Text = "Estatística por Produto";
-            this.estatísticaPorProdutoToolStripMenuItem.Click += new System.EventHandler(this.estatísticaPorProdutoToolStripMenuItem_Click);
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -503,7 +494,6 @@
         private System.Windows.Forms.ToolStripMenuItem bancosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tiposDeContasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuárioToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem documentosDePagamentoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem produtosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restaurarBackupToolStripMenuItem;

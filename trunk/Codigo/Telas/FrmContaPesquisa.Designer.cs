@@ -30,26 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tb_contaDataGridView = new System.Windows.Forms.DataGridView();
-            this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codPlanoContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.documentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.observacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
+            this.contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
-            this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoSituacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_contaDataGridView
@@ -59,104 +52,31 @@
             this.tb_contaDataGridView.AutoGenerateColumns = false;
             this.tb_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codPessoaDataGridViewTextBoxColumn,
-            this.codPlanoContaDataGridViewTextBoxColumn,
-            this.codSaidaDataGridViewTextBoxColumn,
-            this.documentoDataGridViewTextBoxColumn,
-            this.codEntradaDataGridViewTextBoxColumn,
             this.codContaDataGridViewTextBoxColumn,
-            this.dataVencimentoDataGridViewTextBoxColumn,
+            this.codEntradaDataGridViewTextBoxColumn,
+            this.codSaidaDataGridViewTextBoxColumn,
             this.valorDataGridViewTextBoxColumn,
-            this.observacaoDataGridViewTextBoxColumn});
-            this.tb_contaDataGridView.DataSource = this.tb_contaBindingSource;
+            this.DataVencimento,
+            this.descricaoSituacaoDataGridViewTextBoxColumn});
+            this.tb_contaDataGridView.DataSource = this.contaBindingSource;
             this.tb_contaDataGridView.Location = new System.Drawing.Point(11, 52);
             this.tb_contaDataGridView.Name = "tb_contaDataGridView";
             this.tb_contaDataGridView.ReadOnly = true;
             this.tb_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_contaDataGridView.Size = new System.Drawing.Size(561, 220);
+            this.tb_contaDataGridView.Size = new System.Drawing.Size(654, 220);
             this.tb_contaDataGridView.TabIndex = 10;
             this.tb_contaDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_grupo_contaDataGridView_CellClick);
             // 
-            // codPessoaDataGridViewTextBoxColumn
+            // contaBindingSource
             // 
-            this.codPessoaDataGridViewTextBoxColumn.DataPropertyName = "codPessoa";
-            this.codPessoaDataGridViewTextBoxColumn.HeaderText = "codPessoa";
-            this.codPessoaDataGridViewTextBoxColumn.Name = "codPessoaDataGridViewTextBoxColumn";
-            this.codPessoaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codPlanoContaDataGridViewTextBoxColumn
-            // 
-            this.codPlanoContaDataGridViewTextBoxColumn.DataPropertyName = "codPlanoConta";
-            this.codPlanoContaDataGridViewTextBoxColumn.HeaderText = "codPlanoConta";
-            this.codPlanoContaDataGridViewTextBoxColumn.Name = "codPlanoContaDataGridViewTextBoxColumn";
-            this.codPlanoContaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // documentoDataGridViewTextBoxColumn
-            // 
-            this.documentoDataGridViewTextBoxColumn.DataPropertyName = "documento";
-            this.documentoDataGridViewTextBoxColumn.HeaderText = "documento";
-            this.documentoDataGridViewTextBoxColumn.Name = "documentoDataGridViewTextBoxColumn";
-            this.documentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codEntradaDataGridViewTextBoxColumn
-            // 
-            this.codEntradaDataGridViewTextBoxColumn.DataPropertyName = "codEntrada";
-            this.codEntradaDataGridViewTextBoxColumn.HeaderText = "codEntrada";
-            this.codEntradaDataGridViewTextBoxColumn.Name = "codEntradaDataGridViewTextBoxColumn";
-            this.codEntradaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codContaDataGridViewTextBoxColumn
-            // 
-            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "codConta";
-            this.codContaDataGridViewTextBoxColumn.HeaderText = "codConta";
-            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
-            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataVencimentoDataGridViewTextBoxColumn
-            // 
-            this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "dataVencimento";
-            this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "dataVencimento";
-            this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
-            this.dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorDataGridViewTextBoxColumn
-            // 
-            this.valorDataGridViewTextBoxColumn.DataPropertyName = "valor";
-            this.valorDataGridViewTextBoxColumn.HeaderText = "valor";
-            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // observacaoDataGridViewTextBoxColumn
-            // 
-            this.observacaoDataGridViewTextBoxColumn.DataPropertyName = "observacao";
-            this.observacaoDataGridViewTextBoxColumn.HeaderText = "observacao";
-            this.observacaoDataGridViewTextBoxColumn.Name = "observacaoDataGridViewTextBoxColumn";
-            this.observacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tb_contaBindingSource
-            // 
-            this.tb_contaBindingSource.DataMember = "tb_conta";
-            this.tb_contaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.contaBindingSource.DataSource = typeof(Dominio.Conta);
             // 
             // txtTexto
             // 
             this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTexto.Location = new System.Drawing.Point(147, 25);
             this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(425, 20);
+            this.txtTexto.Size = new System.Drawing.Size(518, 20);
             this.txtTexto.TabIndex = 6;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
@@ -185,61 +105,62 @@
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
             "Codigo Conta",
-            "Codigo Pessoa",
-            "Codigo Entrada",
-            "Codigo Saída",
-            "Data Vencimento"});
+            "Entrada",
+            "Saída"});
             this.cmbBusca.Location = new System.Drawing.Point(11, 24);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(121, 21);
             this.cmbBusca.TabIndex = 13;
             this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
             // 
-            // tb_contaTableAdapter
+            // codContaDataGridViewTextBoxColumn
             // 
-            this.tb_contaTableAdapter.ClearBeforeFill = true;
+            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
+            this.codContaDataGridViewTextBoxColumn.HeaderText = "Código";
+            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
+            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // tableAdapterManager
+            // codEntradaDataGridViewTextBoxColumn
             // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = this.tb_contaTableAdapter;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.codEntradaDataGridViewTextBoxColumn.DataPropertyName = "CodEntrada";
+            this.codEntradaDataGridViewTextBoxColumn.HeaderText = "Entrada";
+            this.codEntradaDataGridViewTextBoxColumn.Name = "codEntradaDataGridViewTextBoxColumn";
+            this.codEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Saída";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            this.valorDataGridViewTextBoxColumn.HeaderText = "Valor";
+            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // DataVencimento
+            // 
+            this.DataVencimento.DataPropertyName = "DataVencimento";
+            this.DataVencimento.HeaderText = "Vencimento";
+            this.DataVencimento.Name = "DataVencimento";
+            this.DataVencimento.ReadOnly = true;
+            // 
+            // descricaoSituacaoDataGridViewTextBoxColumn
+            // 
+            this.descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmContaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 281);
+            this.ClientSize = new System.Drawing.Size(672, 281);
             this.Controls.Add(this.cmbBusca);
             this.Controls.Add(this.tb_contaDataGridView);
             this.Controls.Add(this.txtTexto);
@@ -252,8 +173,7 @@
             this.Load += new System.EventHandler(this.FrmContaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmContaPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,19 +185,13 @@
         private System.Windows.Forms.TextBox txtTexto;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
-        private Dados.saceDataSet saceDataSet;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.BindingSource tb_contaBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codPessoaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codPlanoContaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn documentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codContaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn observacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource contaBindingSource;
         private System.Windows.Forms.ComboBox cmbBusca;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codContaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataVencimento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descricaoSituacaoDataGridViewTextBoxColumn;
     }
 }

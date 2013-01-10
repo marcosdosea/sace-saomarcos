@@ -6,51 +6,38 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
 namespace Telas
 {
     public partial class FrmGrupoContaPesquisa : Form
     {
-        private Int32 codGrupoConta;
-
-        public Int32 CodGrupoConta
-        {
-            get { return codGrupoConta; }
-            set { codGrupoConta = value; }
-        }
+        public GrupoConta GrupoConta { get; set; }
 
         public FrmGrupoContaPesquisa()
         {
             InitializeComponent();
-            codGrupoConta = -1;
+            GrupoConta = null;
         }
 
         private void FrmGrupoContaPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_grupo_conta' table. You can move, or remove it, as needed.
-            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
+            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_grupo_contaTableAdapter.FillByCodGrupoConta(this.saceDataSet.tb_grupo_conta, int.Parse(txtTexto.Text));
-                   
-                else
-                    this.tb_grupo_contaTableAdapter.FillByDescricao(this.saceDataSet.tb_grupo_conta, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-        }
+            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+               grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
+            else
+              grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().ObterPorDescricao(txtTexto.Text);
+         }
 
         private void tb_grupo_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codGrupoConta = int.Parse(tb_grupo_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            GrupoConta = (GrupoConta) grupoContaBindingSource.Current;
             this.Close();
         }
 
@@ -66,11 +53,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_grupo_contaBindingSource.MoveNext();
+                grupoContaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_grupo_contaBindingSource.MovePrevious();
+                grupoContaBindingSource.MovePrevious();
             }
         }
 

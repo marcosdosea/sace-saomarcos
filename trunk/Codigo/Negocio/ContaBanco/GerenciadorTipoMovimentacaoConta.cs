@@ -14,24 +14,35 @@ namespace Negocio
     public class GerenciadorTipoMovimentacaoConta
     {
         private static GerenciadorTipoMovimentacaoConta gTipoMovimentacaoConta;
-        private static tb_tipo_movimentacao_contaTableAdapter tb_tipoMovimentacaoContaTA;
+        private static RepositorioGenerico<TipoMovimentacaoContaE, SaceEntities> repTipoMovimentacaoConta;
         
-        public static GerenciadorTipoMovimentacaoConta getInstace()
+        public static GerenciadorTipoMovimentacaoConta GetInstance()
         {
             if (gTipoMovimentacaoConta == null)
             {
                 gTipoMovimentacaoConta = new GerenciadorTipoMovimentacaoConta();
-                tb_tipoMovimentacaoContaTA = new tb_tipo_movimentacao_contaTableAdapter();
+                repTipoMovimentacaoConta = new RepositorioGenerico<TipoMovimentacaoContaE, SaceEntities>("chave");
             }
             return gTipoMovimentacaoConta;
         }
 
-        public Int64 inserir(TipoMovimentacaoConta tipoMovimentacaoConta)
+        /// <summary>
+        /// Insere um novo tipo de movimentacao
+        /// </summary>
+        /// <param name="tipoMovimentacaoConta"></param>
+        /// <returns></returns>
+        public Int64 Inserir(TipoMovimentacaoConta tipoMovimentacaoConta)
         {
             try
             {
-                tb_tipoMovimentacaoContaTA.Insert(tipoMovimentacaoConta.Descricao, tipoMovimentacaoConta.SomaSaldo);
-                return 0;
+                TipoMovimentacaoContaE _tipoMovimentacaoContaE = new TipoMovimentacaoContaE();
+                _tipoMovimentacaoContaE.descricao = tipoMovimentacaoConta.Descricao;
+                _tipoMovimentacaoContaE.somaSaldo = tipoMovimentacaoConta.SomaSaldo;
+
+                repTipoMovimentacaoConta.Inserir(_tipoMovimentacaoContaE);
+                repTipoMovimentacaoConta.SaveChanges();
+                
+                return _tipoMovimentacaoContaE.codTipoMovimentacao;
             }
             catch (Exception e)
             {
@@ -39,11 +50,20 @@ namespace Negocio
             }
         }
 
+        /// <summary>
+        /// Atualiza os dados do tipo de movimentacao
+        /// </summary>
+        /// <param name="tipoMovimentacaoConta"></param>
         public void atualizar(TipoMovimentacaoConta tipoMovimentacaoConta)
         {
             try
             {
-                tb_tipoMovimentacaoContaTA.Update(tipoMovimentacaoConta.Descricao, tipoMovimentacaoConta.SomaSaldo, tipoMovimentacaoConta.CodTipoMovimentacao);
+                TipoMovimentacaoContaE _tipoMovimentacaoConta = repTipoMovimentacaoConta.ObterEntidade(tmc => tmc.codTipoMovimentacao == tipoMovimentacaoConta.CodTipoMovimentacao);
+
+                _tipoMovimentacaoConta.descricao = tipoMovimentacaoConta.Descricao;
+                _tipoMovimentacaoConta.somaSaldo = tipoMovimentacaoConta.SomaSaldo;
+
+                repTipoMovimentacaoConta.SaveChanges();
             }
             catch (Exception e)
             {
@@ -51,11 +71,17 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codTipoMovimentacaoConta)
+        /// <summary>
+        /// Remove um tipo de movimentacao de conta
+        /// </summary>
+        /// <param name="codTipoMovimentacaoConta"></param>
+        public void Remover(Int32 codTipoMovimentacaoConta)
         {
             try
             {
-                tb_tipoMovimentacaoContaTA.Delete(codTipoMovimentacaoConta);
+                repTipoMovimentacaoConta.Remover(tmc => tmc.codTipoMovimentacao == codTipoMovimentacaoConta);
+                
+                repTipoMovimentacaoConta.SaveChanges();
             }
             catch (Exception e)
             {
@@ -63,18 +89,53 @@ namespace Negocio
             }
         }
 
-        public TipoMovimentacaoConta obterTipoMovimentacaoConta(Int32 codTipoMovimentacaoConta)
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<TipoMovimentacaoConta> GetQuery()
         {
-            TipoMovimentacaoConta tipoMovimentacaoConta = new TipoMovimentacaoConta();
+            var saceEntities = (SaceEntities)repTipoMovimentacaoConta.ObterContexto();
+            var query = from tipoMovimentacaoConta in saceEntities.TipoMovimentacaoContaSet
+                        select new TipoMovimentacaoConta
+                        {
+                            CodTipoMovimentacao = tipoMovimentacaoConta.codTipoMovimentacao,
+                            Descricao = tipoMovimentacaoConta.descricao,
+                            SomaSaldo = tipoMovimentacaoConta.somaSaldo
+                        };
 
-            tb_tipo_movimentacao_contaTableAdapter tb_tipomcTA = new tb_tipo_movimentacao_contaTableAdapter();
-            Dados.saceDataSet.tb_tipo_movimentacao_contaDataTable tipomcDT = tb_tipomcTA.GetDataByCodTipoMovimentacao(codTipoMovimentacaoConta);
-
-            tipoMovimentacaoConta.CodTipoMovimentacao = Convert.ToInt32(tipomcDT.Rows[0]["codTipoMovimentacao"].ToString());
-            tipoMovimentacaoConta.Descricao = tipomcDT.Rows[0]["descricao"].ToString();
-            tipoMovimentacaoConta.SomaSaldo = Convert.ToBoolean(tipomcDT.Rows[0]["somaSaldo"].ToString());
-
-            return tipoMovimentacaoConta;
+            return query;
         }
+
+        /// <summary>
+        /// Obtém todos os tipoMovimentacoes de contas cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TipoMovimentacaoConta> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
+
+        /// <summary>
+        /// Obtém tipoMovimentacao de contas com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<TipoMovimentacaoConta> Obter(int codTipoMovimentacaoConta)
+        {
+            return GetQuery().Where(tmc => tmc.CodTipoMovimentacao == codTipoMovimentacaoConta).ToList();
+        }
+
+        /// <summary>
+        /// Obtém tipoMovimentacaos de contas que iniciam com a descrição
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<TipoMovimentacaoConta> ObterPorDescricao(string descricao)
+        {
+            return GetQuery().Where(tmc => tmc.Descricao.StartsWith(descricao)).ToList();
+        }
+
+
     }
 }

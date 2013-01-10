@@ -60,9 +60,8 @@
             this.tb_tipo_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_tipo_saidaTableAdapter();
             this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.tb_lojaBindingSourceOrigem = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_lojaBindingSourceDestino = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
+            this.lojaBindingSourceOrigem = new System.Windows.Forms.BindingSource(this.components);
+            this.lojaBindingSourceDestino = new System.Windows.Forms.BindingSource(this.components);
             this.baseCalculoICMSTextBox = new System.Windows.Forms.TextBox();
             this.valorICMSTextBox = new System.Windows.Forms.TextBox();
             this.baseCalculoICMSSubstTextBox = new System.Windows.Forms.TextBox();
@@ -73,7 +72,7 @@
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.totalNotaFiscalTextBox = new System.Windows.Forms.TextBox();
             this.codEmpresaFreteComboBox = new System.Windows.Forms.ComboBox();
-            this.tbpessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pessoaFreteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.quantidadeVolumesTextBox = new System.Windows.Forms.TextBox();
             this.especieVolumesTextBox = new System.Windows.Forms.TextBox();
             this.marcaTextBox = new System.Windows.Forms.TextBox();
@@ -82,8 +81,7 @@
             this.pesoLiquidoTextBox = new System.Windows.Forms.TextBox();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.codClienteComboBox = new System.Windows.Forms.ComboBox();
-            this.tbpessoaBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
+            this.pessoaDestinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             tipoSaidaLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
@@ -108,10 +106,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSourceOrigem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSourceDestino)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceOrigem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceDestino)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tipoSaidaLabel
@@ -405,21 +403,15 @@
             this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(473, 35);
             this.descricaoTipoSaidaTextBox.TabIndex = 4;
             // 
-            // tb_lojaBindingSourceOrigem
+            // lojaBindingSourceOrigem
             // 
-            this.tb_lojaBindingSourceOrigem.AllowNew = false;
-            this.tb_lojaBindingSourceOrigem.DataMember = "tb_loja";
-            this.tb_lojaBindingSourceOrigem.DataSource = this.saceDataSet;
+            this.lojaBindingSourceOrigem.AllowNew = false;
+            this.lojaBindingSourceOrigem.DataSource = typeof(Dominio.Loja);
             // 
-            // tb_lojaBindingSourceDestino
+            // lojaBindingSourceDestino
             // 
-            this.tb_lojaBindingSourceDestino.AllowNew = false;
-            this.tb_lojaBindingSourceDestino.DataMember = "tb_loja";
-            this.tb_lojaBindingSourceDestino.DataSource = this.saceDataSet;
-            // 
-            // tb_lojaTableAdapter
-            // 
-            this.tb_lojaTableAdapter.ClearBeforeFill = true;
+            this.lojaBindingSourceDestino.AllowNew = false;
+            this.lojaBindingSourceDestino.DataSource = typeof(Dominio.Loja);
             // 
             // baseCalculoICMSTextBox
             // 
@@ -539,25 +531,24 @@
             // 
             this.codEmpresaFreteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codEmpresaFreteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saidaBindingSource, "codEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeEmpresaFrete", true));
-            this.codEmpresaFreteComboBox.DataSource = this.tbpessoaBindingSource;
-            this.codEmpresaFreteComboBox.DisplayMember = "nome";
+            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saidaBindingSource, "codEmpresaFrete", true));
+            this.codEmpresaFreteComboBox.DataSource = this.pessoaFreteBindingSource;
+            this.codEmpresaFreteComboBox.DisplayMember = "Nome";
             this.codEmpresaFreteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.codEmpresaFreteComboBox.FormattingEnabled = true;
             this.codEmpresaFreteComboBox.Location = new System.Drawing.Point(14, 346);
             this.codEmpresaFreteComboBox.Name = "codEmpresaFreteComboBox";
             this.codEmpresaFreteComboBox.Size = new System.Drawing.Size(782, 37);
             this.codEmpresaFreteComboBox.TabIndex = 28;
-            this.codEmpresaFreteComboBox.ValueMember = "codPessoa";
+            this.codEmpresaFreteComboBox.ValueMember = "CodPessoa";
             this.codEmpresaFreteComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codEmpresaFreteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codEmpresaFreteComboBox_KeyPress);
             this.codEmpresaFreteComboBox.Leave += new System.EventHandler(this.codEmpresaFreteComboBox_Leave);
             // 
-            // tbpessoaBindingSource
+            // pessoaFreteBindingSource
             // 
-            this.tbpessoaBindingSource.DataMember = "tb_pessoa";
-            this.tbpessoaBindingSource.DataSource = this.saceDataSet;
+            this.pessoaFreteBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // quantidadeVolumesTextBox
             // 
@@ -647,29 +638,24 @@
             // 
             this.codClienteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saidaBindingSource, "codCliente", true));
             this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeCliente", true));
-            this.codClienteComboBox.DataSource = this.tbpessoaBindingSource1;
-            this.codClienteComboBox.DisplayMember = "nome";
+            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saidaBindingSource, "codCliente", true));
+            this.codClienteComboBox.DataSource = this.pessoaDestinoBindingSource;
+            this.codClienteComboBox.DisplayMember = "Nome";
             this.codClienteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.codClienteComboBox.FormattingEnabled = true;
             this.codClienteComboBox.Location = new System.Drawing.Point(10, 106);
             this.codClienteComboBox.Name = "codClienteComboBox";
             this.codClienteComboBox.Size = new System.Drawing.Size(786, 37);
             this.codClienteComboBox.TabIndex = 7;
-            this.codClienteComboBox.ValueMember = "codPessoa";
+            this.codClienteComboBox.ValueMember = "CodPessoa";
             this.codClienteComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codEmpresaFreteComboBox_KeyPress);
             this.codClienteComboBox.Leave += new System.EventHandler(this.codClienteComboBox_Leave);
             // 
-            // tbpessoaBindingSource1
+            // pessoaDestinoBindingSource
             // 
-            this.tbpessoaBindingSource1.DataMember = "tb_pessoa";
-            this.tbpessoaBindingSource1.DataSource = this.saceDataSet;
-            // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
+            this.pessoaDestinoBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // FrmSaidaDevolucao
             // 
@@ -730,10 +716,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSourceOrigem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSourceDestino)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceOrigem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceDestino)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -751,9 +737,8 @@
         private Dados.saceDataSetTableAdapters.tb_tipo_saidaTableAdapter tb_tipo_saidaTableAdapter;
         private Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
-        private System.Windows.Forms.BindingSource tb_lojaBindingSourceOrigem;
-        private System.Windows.Forms.BindingSource tb_lojaBindingSourceDestino;
-        private Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTableAdapter;
+        private System.Windows.Forms.BindingSource lojaBindingSourceOrigem;
+        private System.Windows.Forms.BindingSource lojaBindingSourceDestino;
         private System.Windows.Forms.TextBox baseCalculoICMSTextBox;
         private System.Windows.Forms.TextBox valorICMSTextBox;
         private System.Windows.Forms.TextBox baseCalculoICMSSubstTextBox;
@@ -771,9 +756,8 @@
         private System.Windows.Forms.TextBox pesoBrutoTextBox;
         private System.Windows.Forms.TextBox pesoLiquidoTextBox;
         private System.Windows.Forms.TextBox descontoTextBox;
-        private System.Windows.Forms.BindingSource tbpessoaBindingSource;
+        private System.Windows.Forms.BindingSource pessoaFreteBindingSource;
         private System.Windows.Forms.ComboBox codClienteComboBox;
-        private System.Windows.Forms.BindingSource tbpessoaBindingSource1;
-        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
+        private System.Windows.Forms.BindingSource pessoaDestinoBindingSource;
     }
 }

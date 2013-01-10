@@ -16,14 +16,8 @@ namespace Telas
     public partial class FrmGrupoConta : Form
     {
         private EstadoFormulario estado;
-        
-        private Int32 codGrupoConta;
+        public GrupoConta GrupoContaSelected { get; set; }
 
-        public Int32 CodGrupoConta
-        {
-            get { return codGrupoConta; }
-            set { codGrupoConta = value; }
-        }
         public FrmGrupoConta()
         {
             InitializeComponent();
@@ -32,7 +26,7 @@ namespace Telas
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
-            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
+            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -40,16 +34,16 @@ namespace Telas
         {
             Telas.FrmGrupoContaPesquisa frmTipoContaPesquisa = new Telas.FrmGrupoContaPesquisa();
             frmTipoContaPesquisa.ShowDialog();
-            if (frmTipoContaPesquisa.CodGrupoConta != -1)
+            if (frmTipoContaPesquisa.GrupoConta != null)
             {
-                tb_grupo_contaBindingSource.Position = tb_grupo_contaBindingSource.Find("codGrupoConta", frmTipoContaPesquisa.CodGrupoConta);
+                grupoContaBindingSource.Position = grupoContaBindingSource.List.IndexOf(frmTipoContaPesquisa.GrupoConta);
             }
             frmTipoContaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_grupo_contaBindingSource.AddNew();
+            grupoContaBindingSource.AddNew();
             codGrupoContaTextBox.Enabled = false;
             descricaoTextBox.Focus();
             habilitaBotoes(false);
@@ -67,16 +61,16 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorGrupoConta.getInstace().remover(Int32.Parse(codGrupoContaTextBox.Text));
-                tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
+                GerenciadorGrupoConta.GetInstance().Remover(Int32.Parse(codGrupoContaTextBox.Text));
+                grupoContaBindingSource.RemoveCurrent();
             }
 
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_grupo_contaBindingSource.CancelEdit();
-            tb_grupo_contaBindingSource.EndEdit();
+            grupoContaBindingSource.CancelEdit();
+            grupoContaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -89,22 +83,21 @@ namespace Telas
                 grupoConta.CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
                 grupoConta.Descricao = descricaoTextBox.Text;
 
-                GerenciadorGrupoConta gGrupoConta = GerenciadorGrupoConta.getInstace();
+                GerenciadorGrupoConta gGrupoConta = GerenciadorGrupoConta.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gGrupoConta.inserir(grupoConta);
-                    tb_grupo_contaTableAdapter.Fill(saceDataSet.tb_grupo_conta);
-                    tb_grupo_contaBindingSource.MoveLast();
+                    grupoConta.CodGrupoConta = (int) gGrupoConta.Inserir(grupoConta);
+                    codGrupoContaTextBox.Text = grupoConta.CodGrupoConta.ToString();
                 }
                 else
                 {
-                    gGrupoConta.atualizar(grupoConta);
-                    tb_grupo_contaBindingSource.EndEdit();
+                    gGrupoConta.Atualizar(grupoConta);
                 }
+                grupoContaBindingSource.EndEdit();
             }
             catch (DadosException de)
             {
-                tb_grupo_contaBindingSource.CancelEdit();
+                grupoContaBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -138,19 +131,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_grupo_contaBindingSource.MoveLast();
+                    grupoContaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_grupo_contaBindingSource.MoveFirst();
+                    grupoContaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_grupo_contaBindingSource.MovePrevious();
+                    grupoContaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_grupo_contaBindingSource.MoveNext();
+                    grupoContaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -191,7 +184,7 @@ namespace Telas
 
         private void FrmGrupoConta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
+            GrupoContaSelected = (GrupoConta) grupoContaBindingSource.Current;
         }
 
         private void descricaoTextBox_Leave(object sender, EventArgs e)

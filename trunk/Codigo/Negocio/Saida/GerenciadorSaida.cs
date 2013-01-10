@@ -253,7 +253,7 @@ namespace Negocio
                     throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
                 }
 
-                Loja lojaDestino = GerenciadorLoja.getInstace().obterByCodPessoa(saida.CodCliente);
+                Loja lojaDestino = GerenciadorLoja.GetInstance().ObterPorPessoa(saida.CodCliente).ElementAt(0);
                 if (lojaDestino.CodLoja == Global.LOJA_PADRAO)
                 {
                     throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
@@ -335,9 +335,9 @@ namespace Negocio
 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserida quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
-                    conta.CodSituacao = Conta.SITUACAO_QUITADA.ToString();
+                    conta.CodSituacao = SituacaoConta.SITUACAO_QUITADA.ToString();
                 else
-                    conta.CodSituacao = Conta.SITUACAO_ABERTA.ToString();
+                    conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA.ToString();
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {
@@ -412,7 +412,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
 
-                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta);
+                    GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao);
                 }
             }
         }
@@ -829,7 +829,7 @@ namespace Negocio
                     return false;
                 }
 
-                Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
                 Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
                 imp.Imp(imp.Comprimido);
@@ -931,7 +931,7 @@ namespace Negocio
                     return false;
                 }
 
-                Loja loja = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
                 Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
 

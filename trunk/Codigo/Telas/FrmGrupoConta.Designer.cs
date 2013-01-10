@@ -40,10 +40,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_grupo_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_grupo_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.grupoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_grupo_contaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -59,8 +56,7 @@
             codGrupoContaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoContaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaBindingNavigator)).BeginInit();
             this.tb_grupo_contaBindingNavigator.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +64,7 @@
             // codGrupoContaLabel
             // 
             codGrupoContaLabel.AutoSize = true;
-            codGrupoContaLabel.Location = new System.Drawing.Point(4, 78);
+            codGrupoContaLabel.Location = new System.Drawing.Point(5, 78);
             codGrupoContaLabel.Name = "codGrupoContaLabel";
             codGrupoContaLabel.Size = new System.Drawing.Size(43, 13);
             codGrupoContaLabel.TabIndex = 21;
@@ -164,68 +160,15 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
+            // grupoContaBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_grupo_contaBindingSource
-            // 
-            this.tb_grupo_contaBindingSource.DataMember = "tb_grupo_conta";
-            this.tb_grupo_contaBindingSource.DataSource = this.saceDataSet;
-            this.tb_grupo_contaBindingSource.Sort = "codGrupoConta";
-            // 
-            // tb_grupo_contaTableAdapter
-            // 
-            this.tb_grupo_contaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = this.tb_grupo_contaTableAdapter;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pedidoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.grupoContaBindingSource.DataSource = typeof(Dominio.GrupoConta);
+            this.grupoContaBindingSource.Sort = "codGrupoConta";
             // 
             // tb_grupo_contaBindingNavigator
             // 
             this.tb_grupo_contaBindingNavigator.AddNewItem = null;
-            this.tb_grupo_contaBindingNavigator.BindingSource = this.tb_grupo_contaBindingSource;
+            this.tb_grupo_contaBindingNavigator.BindingSource = this.grupoContaBindingSource;
             this.tb_grupo_contaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_grupo_contaBindingNavigator.DeleteItem = null;
             this.tb_grupo_contaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -246,7 +189,7 @@
             this.tb_grupo_contaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_grupo_contaBindingNavigator.Name = "tb_grupo_contaBindingNavigator";
             this.tb_grupo_contaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_grupo_contaBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_grupo_contaBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_grupo_contaBindingNavigator.TabIndex = 21;
             this.tb_grupo_contaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -319,7 +262,7 @@
             // 
             // codGrupoContaTextBox
             // 
-            this.codGrupoContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_grupo_contaBindingSource, "codGrupoConta", true));
+            this.codGrupoContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.grupoContaBindingSource, "CodGrupoConta", true));
             this.codGrupoContaTextBox.Enabled = false;
             this.codGrupoContaTextBox.Location = new System.Drawing.Point(7, 96);
             this.codGrupoContaTextBox.Name = "codGrupoContaTextBox";
@@ -329,7 +272,7 @@
             // descricaoTextBox
             // 
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_grupo_contaBindingSource, "descricao", true));
+            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.grupoContaBindingSource, "Descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(129, 96);
             this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
@@ -366,8 +309,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGrupoConta_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoContaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_grupo_contaBindingNavigator)).EndInit();
             this.tb_grupo_contaBindingNavigator.ResumeLayout(false);
             this.tb_grupo_contaBindingNavigator.PerformLayout();
@@ -386,10 +328,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_grupo_contaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource grupoContaBindingSource;
         private System.Windows.Forms.BindingNavigator tb_grupo_contaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;

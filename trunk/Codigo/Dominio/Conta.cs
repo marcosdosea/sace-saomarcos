@@ -9,8 +9,6 @@ namespace Dominio
     {
         public const Char CONTA_PAGAR = 'P';
         public const Char CONTA_RECEBER = 'R';
-        public const string SITUACAO_ABERTA = "A";
-        public const string SITUACAO_QUITADA = "Q";
         
         public long CodConta { get; set; }
         public long CodEntrada { get; set; }
@@ -18,7 +16,6 @@ namespace Dominio
         public long CodDocumento { get; set; }
         public long CodPlanoConta { get; set; }
         public long CodPessoa { get; set; }
-        //public string NomePessoa { get; set; }
         public DateTime DataVencimento { get; set; }
         public decimal Valor { get; set; }
         public string CodSituacao { get; set; }
@@ -33,5 +30,21 @@ namespace Dominio
       
         public long? CodPagamento { get; set; }
         public decimal Desconto { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return this.CodConta == ((Conta)obj).CodConta;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodConta.GetHashCode();
+        }
     }
 }

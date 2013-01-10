@@ -104,6 +104,7 @@
     <Compile Include="SaidaEntradaProduto.cs" />
     <Compile Include="SaidaPagamento.cs" />
     <Compile Include="SaidaProduto.cs" />
+    <Compile Include="SituacaoConta.cs" />
     <Compile Include="SituacaoPagamentos.cs" />
     <Compile Include="SituacaoProduto.cs" />
     <Compile Include="Subgrupo.cs" />

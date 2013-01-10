@@ -16,14 +16,8 @@ namespace Telas
     public partial class FrmPlanoConta : Form
     {
         private EstadoFormulario estado;
-        private Int32 codPlanoConta;
 
-        public Int32 CodPlanoConta
-        {
-            get { return codPlanoConta; }
-            set { codPlanoConta = value; }
-        }
-
+        public PlanoConta PlanoContaSelected;
 
         public FrmPlanoConta()
         {
@@ -33,8 +27,8 @@ namespace Telas
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
-            this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
-            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
+            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().ObterTodos();
+            planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -42,16 +36,16 @@ namespace Telas
         {
             Telas.FrmPlanoContaPesquisa frmPlanoContaPesquisa = new Telas.FrmPlanoContaPesquisa();
             frmPlanoContaPesquisa.ShowDialog();
-            if (frmPlanoContaPesquisa.getCodPlanoConta() != -1)
+            if (frmPlanoContaPesquisa.PlanoContaSelected != null)
             {
-                tb_plano_contaBindingSource.Position = tb_plano_contaBindingSource.Find("codPlanoConta", frmPlanoContaPesquisa.getCodPlanoConta());
+                planoContaBindingSource.Position = planoContaBindingSource.List.IndexOf(frmPlanoContaPesquisa.PlanoContaSelected);
             }
             frmPlanoContaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_plano_contaBindingSource.AddNew();
+            planoContaBindingSource.AddNew();
             codPlanoContaTextBox.Enabled = false;
             rbPagar.Checked = true;
             codGrupoContaComboBox.SelectedIndex = 0;
@@ -71,15 +65,15 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorPlanoConta.getInstace().remover(int.Parse(codPlanoContaTextBox.Text));
-                tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
+                GerenciadorPlanoConta.GetInstance().Remover(int.Parse(codPlanoContaTextBox.Text));
+                planoContaBindingSource.RemoveCurrent();
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_plano_contaBindingSource.CancelEdit();
-            tb_plano_contaBindingSource.EndEdit();
+            planoContaBindingSource.CancelEdit();
+            planoContaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -95,22 +89,21 @@ namespace Telas
                 planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
                 planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
 
-                GerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.getInstace();
+                GerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gPlanoConta.inserir(planoConta);
-                    tb_plano_contaTableAdapter.Fill(saceDataSet.tb_plano_conta);
-                    tb_plano_contaBindingSource.MoveLast();
+                    long codPlanoConta = gPlanoConta.Inserir(planoConta);
+                    codPlanoContaTextBox.Text = codPlanoConta.ToString();
                 }
                 else
                 {
-                    gPlanoConta.atualizar(planoConta);
-                    tb_plano_contaBindingSource.EndEdit();
+                    gPlanoConta.Atualizar(planoConta);
                 }
+                planoContaBindingSource.EndEdit();
             }
            catch (Exception exc)
             {
-                tb_plano_contaBindingSource.CancelEdit(); 
+               planoContaBindingSource.CancelEdit(); 
                throw exc;
             }
             finally {
@@ -141,19 +134,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_plano_contaBindingSource.MoveLast();
+                    planoContaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_plano_contaBindingSource.MoveFirst();
+                    planoContaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_plano_contaBindingSource.MovePrevious();
+                    planoContaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_plano_contaBindingSource.MoveNext();
+                    planoContaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -179,9 +172,9 @@ namespace Telas
                 {
                     Telas.FrmGrupoContaPesquisa frmGrupoContaPesquisa = new Telas.FrmGrupoContaPesquisa();
                     frmGrupoContaPesquisa.ShowDialog();
-                    if (frmGrupoContaPesquisa.CodGrupoConta != -1)
+                    if (frmGrupoContaPesquisa.GrupoConta != null)
                     {
-                        tbgrupocontaBindingSource.Position = tbgrupocontaBindingSource.Find("codTipoConta", frmGrupoContaPesquisa.CodGrupoConta);
+                        grupoContaBindingSource.Position = grupoContaBindingSource.List.IndexOf(frmGrupoContaPesquisa.GrupoConta);
                     }
                     frmGrupoContaPesquisa.Dispose();
                 }
@@ -189,10 +182,9 @@ namespace Telas
                 {
                     Telas.FrmGrupoConta frmGrupoConta = new Telas.FrmGrupoConta();
                     frmGrupoConta.ShowDialog();
-                    if (frmGrupoConta.CodGrupoConta != -1)
+                    if (frmGrupoConta.GrupoContaSelected != null)
                     {
-                        this.tb_grupo_contaTableAdapter.Fill(this.saceDataSet.tb_grupo_conta);
-                        tbgrupocontaBindingSource.Position = tbgrupocontaBindingSource.Find("codGrupoConta", frmGrupoConta.CodGrupoConta);
+                        grupoContaBindingSource.Position = grupoContaBindingSource.List.IndexOf(frmGrupoConta.GrupoContaSelected);
                     }
                     frmGrupoConta.Dispose();
                 }
@@ -221,11 +213,10 @@ namespace Telas
 
         private void tb_plano_contaBindingSource_PositionChanged(object sender, EventArgs e)
         {
-            DataRowView linha = (DataRowView)tb_plano_contaBindingSource.Current;
-            if (linha != null)
+            PlanoContaSelected = (PlanoConta) planoContaBindingSource.Current;
+            if (PlanoContaSelected != null)
             {
-                String codTipoConta = linha["codTipoConta"].ToString();
-                if (codTipoConta.Equals(Conta.CONTA_PAGAR))
+                if (PlanoContaSelected.TipoConta.Equals(Conta.CONTA_PAGAR))
                 {
                     rbPagar.Checked = true;
                     rbReceber.Checked = false;
@@ -249,10 +240,7 @@ namespace Telas
 
         private void FrmPlanoConta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!codPlanoContaTextBox.Text.Equals(""))
-            {
-                codPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
-            }
+            PlanoContaSelected = (PlanoConta)planoContaBindingSource.Current;
         }
 
         private void descricaoTextBox_Leave(object sender, EventArgs e)

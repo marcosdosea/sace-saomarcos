@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 
 namespace Telas
 {
     public partial class FrmCartaoCreditoPesquisa : Form
     {
-        private Int32 codCartaoCredito;
+        public CartaoCredito CartaoCreditoSelected { get; set; }
 
         public FrmCartaoCreditoPesquisa()
         {
             InitializeComponent();
-            codCartaoCredito = -1;
+            CartaoCreditoSelected = null;
         }
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)
@@ -31,12 +32,12 @@ namespace Telas
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
                 cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().Obter(int.Parse(txtTexto.Text));
             else
-                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterPorNome(txtTexto.Text);                
+                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterPorNome(txtTexto.Text);
         }
 
         private void tb_cartao_creditoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codCartaoCredito = int.Parse(tb_cartao_creditoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            CartaoCreditoSelected = (CartaoCredito)cartaoCreditoBindingSource.Current;
             this.Close();
         }
 
@@ -45,11 +46,11 @@ namespace Telas
             if (e.KeyCode == Keys.Enter)
             {
                 tb_cartao_creditoDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
                 cartaoCreditoBindingSource.MoveNext();
@@ -58,11 +59,6 @@ namespace Telas
             {
                 cartaoCreditoBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodCartaoCredito()
-        {
-            return codCartaoCredito;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
