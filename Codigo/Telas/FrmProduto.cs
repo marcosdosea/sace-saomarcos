@@ -29,11 +29,11 @@ namespace Telas
         {
             Cursor.Current = Cursors.WaitCursor;
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PRODUTOS, Principal.Autenticacao.CodUsuario);
-            
-            this.tb_cstTableAdapter.Fill(this.saceDataSet.tb_cst);
+
+            cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
             codigoFabricanteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             cfopComboBox.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
-            this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
+            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             this.tb_situacao_produtoTableAdapter.Fill(this.saceDataSet.tb_situacao_produto);
             this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             
@@ -156,7 +156,7 @@ namespace Telas
                 tbprodutoBindingSource.EndEdit();
 
                 
-                codGrupoComboBox.SelectedIndex = tbgrupoBindingSource.Find("descricao", descricaoGrupo);
+                codGrupoComboBox.SelectedIndex = grupoBindingSource.Find("descricao", descricaoGrupo);
             }
 
             habilitaBotoes(true);
@@ -231,9 +231,9 @@ namespace Telas
                 {
                     Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
-                    if (frmGrupoPesquisa.CodGrupo != -1)
+                    if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupoPesquisa.CodGrupo);
+                        grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmGrupoPesquisa.SelectedGrupo);
                     }
                     frmGrupoPesquisa.Dispose();
                 }
@@ -241,10 +241,9 @@ namespace Telas
                 {
                     Telas.FrmGrupo frmGrupo = new Telas.FrmGrupo();
                     frmGrupo.ShowDialog();
-                    if (frmGrupo.CodGrupo > 0)
+                    if (frmGrupo.GrupoSelected != null)
                     {
-                        this.tb_grupoTableAdapter.Fill(this.saceDataSet.tb_grupo);
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmGrupo.CodGrupo);
+                        grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmGrupo.GrupoSelected);
                     }
                     frmGrupo.Dispose();
                 }
@@ -252,10 +251,10 @@ namespace Telas
                 {
                     Telas.FrmSubgrupoPesquisa frmSubGrupoPesquisa = new Telas.FrmSubgrupoPesquisa();
                     frmSubGrupoPesquisa.ShowDialog();
-                    if (frmSubGrupoPesquisa.CodSubgrupo != -1)
+                    if (frmSubGrupoPesquisa.SubgrupoSelected != null)
                     {
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmSubGrupoPesquisa.CodGrupo);
-                        tbsubgrupoBindingSource.Position = tbsubgrupoBindingSource.Find("codSubgrupo", frmSubGrupoPesquisa.CodSubgrupo);
+                        grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmSubGrupoPesquisa.GrupoSelected);
+                        subgrupoBindingSource.Position = subgrupoBindingSource.List.IndexOf(frmSubGrupoPesquisa.SubgrupoSelected);
                     }
                     frmSubGrupoPesquisa.Dispose();
                 }
@@ -263,11 +262,10 @@ namespace Telas
                 {
                     Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo( Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString() ) );
                     frmSubgrupo.ShowDialog();
-                    if (frmSubgrupo.CodSubgrupo > 0)
+                    if (frmSubgrupo.SubgrupoSelected != null)
                     {
-                        this.tb_subgrupoTableAdapter.Fill(this.saceDataSet.tb_subgrupo);
-                        tbgrupoBindingSource.Position = tbgrupoBindingSource.Find("codGrupo", frmSubgrupo.CodGrupo);
-                        tbsubgrupoBindingSource.Position = tbsubgrupoBindingSource.Find("codSubgrupo", frmSubgrupo.CodSubgrupo);
+                        grupoBindingSource.Position = grupoBindingSource.List.IndexOf(frmSubgrupo.GrupoSelected);
+                        subgrupoBindingSource.Position = subgrupoBindingSource.List.IndexOf(frmSubgrupo.SubgrupoSelected);
                     }
                     frmSubgrupo.Dispose();
                 }
@@ -275,10 +273,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -286,11 +283,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        codigoFabricanteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-                        Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoa.CodPessoa).ElementAt(0);
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -367,11 +362,10 @@ namespace Telas
             {
                 Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codigoFabricanteComboBox.Text);
                 frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
+                if (frmPessoaPesquisa.PessoaSelected != null)
                 {
-                    Pessoa fabricante = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
-                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(fabricante);
-                    codigoFabricanteComboBox.Text = fabricante.NomeFantasia;
+                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                    codigoFabricanteComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
                 }
                 else
                 {
@@ -453,15 +447,15 @@ namespace Telas
         {
             if (codGrupoComboBox.SelectedValue != null)
             {
-                Int32 codGrupo = Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString());
-                this.tb_subgrupoTableAdapter.FillByCodGrupo(this.saceDataSet.tb_subgrupo, codGrupo);
+                Grupo grupoSelected = (Grupo) grupoBindingSource.Current;
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo(grupoSelected);
 
 
                 Int32 codSubgrupo = ((Dados.saceDataSet.tb_produtoRow)((DataRowView)tbprodutoBindingSource.Current).Row).codSubgrupo;
 
-                tbsubgrupoBindingSource.Position = tbsubgrupoBindingSource.Find("codSubgrupo", codSubgrupo);
+                subgrupoBindingSource.Position = subgrupoBindingSource.Find("codSubgrupo", codSubgrupo);
 
-                if (tbsubgrupoBindingSource.Position == 0)
+                if (subgrupoBindingSource.Position == 0)
                 {
                     codSubgrupoComboBox.SelectedIndex = 0;
                 }

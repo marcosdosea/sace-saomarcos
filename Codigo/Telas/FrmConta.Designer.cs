@@ -1,6 +1,6 @@
 ﻿namespace Telas
 {
-    partial class FrmContas
+    partial class FrmConta
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label nomeLabel;
             System.Windows.Forms.Label codBancoLabel;
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label label4;
@@ -39,8 +38,8 @@
             System.Windows.Forms.Label valorLabel;
             System.Windows.Forms.Label observacaoLabel;
             System.Windows.Forms.Label label5;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmContas));
-            this.tb_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConta));
+            this.contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSet = new Dados.saceDataSet();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,23 +62,14 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.codContaTextBox = new System.Windows.Forms.TextBox();
             this.codPlanoContaComboBox = new System.Windows.Forms.ComboBox();
-            this.tbplanocontaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.planoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.tbpessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codDocumentoPagamentoComboBox = new System.Windows.Forms.ComboBox();
-            this.tbdocumentopagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codEntradaTextBox = new System.Windows.Forms.TextBox();
             this.codSaidaTextBox = new System.Windows.Forms.TextBox();
             this.dataVencimentoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.valorTextBox = new System.Windows.Forms.TextBox();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_contaTableAdapter();
-            this.tb_documento_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_documento_pagamentoTableAdapter();
-            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
-            this.tb_plano_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
-            this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
-            this.tbsituacaocontaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_situacao_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_situacao_contaTableAdapter();
             this.tb_movimentacao_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_movimentacao_contaTableAdapter();
             this.tb_movimentacao_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
@@ -89,7 +79,8 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoTipoContaLabel1 = new System.Windows.Forms.Label();
-            nomeLabel = new System.Windows.Forms.Label();
+            this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
+            this.situacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             codBancoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -99,27 +90,17 @@
             valorLabel = new System.Windows.Forms.Label();
             observacaoLabel = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).BeginInit();
             this.tb_contaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbplanocontaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbdocumentopagamentoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbsituacaocontaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.situacaoContaBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // nomeLabel
-            // 
-            nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(4, 111);
-            nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new System.Drawing.Size(65, 13);
-            nomeLabel.TabIndex = 34;
-            nomeLabel.Text = "Documento:";
             // 
             // codBancoLabel
             // 
@@ -202,12 +183,11 @@
             label5.TabIndex = 57;
             label5.Text = "Situação:";
             // 
-            // tb_contaBindingSource
+            // contaBindingSource
             // 
-            this.tb_contaBindingSource.DataMember = "tb_conta";
-            this.tb_contaBindingSource.DataSource = this.saceDataSet;
-            this.tb_contaBindingSource.Sort = "codConta";
-            this.tb_contaBindingSource.CurrentChanged += new System.EventHandler(this.tb_contaBindingSource_CurrentChanged);
+            this.contaBindingSource.DataSource = typeof(Dominio.Conta);
+            this.contaBindingSource.Sort = "codConta";
+            this.contaBindingSource.CurrentChanged += new System.EventHandler(this.tb_contaBindingSource_CurrentChanged);
             // 
             // saceDataSet
             // 
@@ -307,7 +287,7 @@
             // tb_contaBindingNavigator
             // 
             this.tb_contaBindingNavigator.AddNewItem = null;
-            this.tb_contaBindingNavigator.BindingSource = this.tb_contaBindingSource;
+            this.tb_contaBindingNavigator.BindingSource = this.contaBindingSource;
             this.tb_contaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_contaBindingNavigator.DeleteItem = null;
             this.tb_contaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -401,7 +381,7 @@
             // 
             // codContaTextBox
             // 
-            this.codContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "codConta", true));
+            this.codContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "codConta", true));
             this.codContaTextBox.Location = new System.Drawing.Point(7, 86);
             this.codContaTextBox.Name = "codContaTextBox";
             this.codContaTextBox.ReadOnly = true;
@@ -411,9 +391,9 @@
             // 
             // codPlanoContaComboBox
             // 
-            this.codPlanoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contaBindingSource, "codPlanoConta", true));
-            this.codPlanoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "descricaoPlanoConta", true));
-            this.codPlanoContaComboBox.DataSource = this.tbplanocontaBindingSource;
+            this.codPlanoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "codPlanoConta", true));
+            this.codPlanoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "descricaoPlanoConta", true));
+            this.codPlanoContaComboBox.DataSource = this.planoContaBindingSource;
             this.codPlanoContaComboBox.DisplayMember = "descricao";
             this.codPlanoContaComboBox.FormattingEnabled = true;
             this.codPlanoContaComboBox.Location = new System.Drawing.Point(378, 181);
@@ -424,18 +404,17 @@
             this.codPlanoContaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codDocumentoPagamentoComboBox_KeyPress);
             this.codPlanoContaComboBox.Leave += new System.EventHandler(this.codPlanoContaComboBox_Leave);
             // 
-            // tbplanocontaBindingSource
+            // planoContaBindingSource
             // 
-            this.tbplanocontaBindingSource.DataMember = "tb_plano_conta";
-            this.tbplanocontaBindingSource.DataSource = this.saceDataSet;
+            this.planoContaBindingSource.DataSource = typeof(Dominio.PlanoConta);
             // 
             // codPessoaComboBox
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contaBindingSource, "codPessoa", true));
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "nomePessoa", true));
-            this.codPessoaComboBox.DataSource = this.tbpessoaBindingSource;
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "codPessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "nomePessoa", true));
+            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
             this.codPessoaComboBox.DisplayMember = "nome";
             this.codPessoaComboBox.FormattingEnabled = true;
             this.codPessoaComboBox.Location = new System.Drawing.Point(7, 181);
@@ -446,36 +425,13 @@
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codDocumentoPagamentoComboBox_KeyPress);
             this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
             // 
-            // tbpessoaBindingSource
+            // pessoaBindingSource
             // 
-            this.tbpessoaBindingSource.DataMember = "tb_pessoa";
-            this.tbpessoaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // codDocumentoPagamentoComboBox
-            // 
-            this.codDocumentoPagamentoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codDocumentoPagamentoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codDocumentoPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contaBindingSource, "codDocumentoPagamento", true));
-            this.codDocumentoPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "numeroDocumento", true));
-            this.codDocumentoPagamentoComboBox.DataSource = this.tbdocumentopagamentoBindingSource;
-            this.codDocumentoPagamentoComboBox.DisplayMember = "numeroDocumento";
-            this.codDocumentoPagamentoComboBox.FormattingEnabled = true;
-            this.codDocumentoPagamentoComboBox.Location = new System.Drawing.Point(7, 130);
-            this.codDocumentoPagamentoComboBox.Name = "codDocumentoPagamentoComboBox";
-            this.codDocumentoPagamentoComboBox.Size = new System.Drawing.Size(246, 21);
-            this.codDocumentoPagamentoComboBox.TabIndex = 38;
-            this.codDocumentoPagamentoComboBox.ValueMember = "codDocumentoPagamento";
-            this.codDocumentoPagamentoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codDocumentoPagamentoComboBox_KeyPress);
-            this.codDocumentoPagamentoComboBox.Leave += new System.EventHandler(this.codDocumentoPagamentoComboBox_Leave);
-            // 
-            // tbdocumentopagamentoBindingSource
-            // 
-            this.tbdocumentopagamentoBindingSource.DataMember = "tb_documento_pagamento";
-            this.tbdocumentopagamentoBindingSource.DataSource = this.saceDataSet;
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // codEntradaTextBox
             // 
-            this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "codEntrada", true));
+            this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "codEntrada", true));
             this.codEntradaTextBox.Location = new System.Drawing.Point(139, 87);
             this.codEntradaTextBox.Name = "codEntradaTextBox";
             this.codEntradaTextBox.ReadOnly = true;
@@ -485,7 +441,7 @@
             // 
             // codSaidaTextBox
             // 
-            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "codSaida", true));
+            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "codSaida", true));
             this.codSaidaTextBox.Location = new System.Drawing.Point(267, 87);
             this.codSaidaTextBox.Name = "codSaidaTextBox";
             this.codSaidaTextBox.ReadOnly = true;
@@ -495,7 +451,7 @@
             // 
             // dataVencimentoDateTimePicker
             // 
-            this.dataVencimentoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.tb_contaBindingSource, "dataVencimento", true));
+            this.dataVencimentoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.contaBindingSource, "dataVencimento", true));
             this.dataVencimentoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dataVencimentoDateTimePicker.Location = new System.Drawing.Point(267, 130);
             this.dataVencimentoDateTimePicker.Name = "dataVencimentoDateTimePicker";
@@ -505,7 +461,7 @@
             // valorTextBox
             // 
             this.valorTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "valor", true));
+            this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "valor", true));
             this.valorTextBox.Location = new System.Drawing.Point(377, 130);
             this.valorTextBox.Name = "valorTextBox";
             this.valorTextBox.Size = new System.Drawing.Size(128, 20);
@@ -514,52 +470,12 @@
             // observacaoTextBox
             // 
             this.observacaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "observacao", true));
+            this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "observacao", true));
             this.observacaoTextBox.Location = new System.Drawing.Point(7, 224);
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(619, 45);
             this.observacaoTextBox.TabIndex = 48;
-            // 
-            // tb_contaTableAdapter
-            // 
-            this.tb_contaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_documento_pagamentoTableAdapter
-            // 
-            this.tb_documento_pagamentoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_plano_contaTableAdapter
-            // 
-            this.tb_plano_contaTableAdapter.ClearBeforeFill = true;
-            // 
-            // codSituacaoComboBox
-            // 
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_contaBindingSource, "descricaoSituacao", true));
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_contaBindingSource, "codSituacao", true));
-            this.codSituacaoComboBox.DataSource = this.tbsituacaocontaBindingSource;
-            this.codSituacaoComboBox.DisplayMember = "descricaoSituacao";
-            this.codSituacaoComboBox.Enabled = false;
-            this.codSituacaoComboBox.FormattingEnabled = true;
-            this.codSituacaoComboBox.Location = new System.Drawing.Point(377, 86);
-            this.codSituacaoComboBox.Name = "codSituacaoComboBox";
-            this.codSituacaoComboBox.Size = new System.Drawing.Size(249, 21);
-            this.codSituacaoComboBox.TabIndex = 36;
-            this.codSituacaoComboBox.TabStop = false;
-            this.codSituacaoComboBox.ValueMember = "codSituacao";
-            // 
-            // tbsituacaocontaBindingSource
-            // 
-            this.tbsituacaocontaBindingSource.DataMember = "tb_situacao_conta";
-            this.tbsituacaocontaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_situacao_contaTableAdapter
-            // 
-            this.tb_situacao_contaTableAdapter.ClearBeforeFill = true;
             // 
             // tb_movimentacao_contaTableAdapter
             // 
@@ -632,7 +548,7 @@
             // 
             // descricaoTipoContaLabel1
             // 
-            this.descricaoTipoContaLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbplanocontaBindingSource, "descricaoTipoConta", true));
+            this.descricaoTipoContaLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "descricaoTipoConta", true));
             this.descricaoTipoContaLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descricaoTipoContaLabel1.Location = new System.Drawing.Point(526, 127);
             this.descricaoTipoContaLabel1.Name = "descricaoTipoContaLabel1";
@@ -640,19 +556,37 @@
             this.descricaoTipoContaLabel1.TabIndex = 60;
             this.descricaoTipoContaLabel1.Text = "PAGAR";
             // 
-            // FrmContas
+            // codSituacaoComboBox
+            // 
+            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodSituacao", true));
+            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "DescricaoSituacao", true));
+            this.codSituacaoComboBox.DataSource = this.situacaoContaBindingSource;
+            this.codSituacaoComboBox.DisplayMember = "Descricao";
+            this.codSituacaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codSituacaoComboBox.Enabled = false;
+            this.codSituacaoComboBox.FormattingEnabled = true;
+            this.codSituacaoComboBox.Location = new System.Drawing.Point(380, 85);
+            this.codSituacaoComboBox.Name = "codSituacaoComboBox";
+            this.codSituacaoComboBox.Size = new System.Drawing.Size(224, 21);
+            this.codSituacaoComboBox.TabIndex = 61;
+            this.codSituacaoComboBox.ValueMember = "CodSituacao";
+            // 
+            // situacaoContaBindingSource
+            // 
+            this.situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
+            // 
+            // FrmConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 458);
+            this.ClientSize = new System.Drawing.Size(641, 458);
+            this.Controls.Add(this.codSituacaoComboBox);
             this.Controls.Add(this.descricaoTipoContaLabel1);
             this.Controls.Add(this.tb_movimentacao_contaDataGridView);
-            this.Controls.Add(this.codSituacaoComboBox);
             this.Controls.Add(this.tb_contaBindingNavigator);
             this.Controls.Add(this.codContaTextBox);
             this.Controls.Add(this.codPlanoContaComboBox);
             this.Controls.Add(this.codPessoaComboBox);
-            this.Controls.Add(this.codDocumentoPagamentoComboBox);
             this.Controls.Add(this.codEntradaTextBox);
             this.Controls.Add(this.codSaidaTextBox);
             this.Controls.Add(this.dataVencimentoDateTimePicker);
@@ -666,7 +600,6 @@
             this.Controls.Add(planoContaLabel);
             this.Controls.Add(label4);
             this.Controls.Add(label3);
-            this.Controls.Add(nomeLabel);
             this.Controls.Add(codBancoLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSalvar);
@@ -677,25 +610,24 @@
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
-            this.Name = "FrmContas";
+            this.Name = "FrmConta";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Contas a Pagar e a Receber";
             this.Load += new System.EventHandler(this.FrmContas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmContas_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).EndInit();
             this.tb_contaBindingNavigator.ResumeLayout(false);
             this.tb_contaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbplanocontaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbdocumentopagamentoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbsituacaocontaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.situacaoContaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -713,7 +645,7 @@
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label label2;
         private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_contaBindingSource;
+        private System.Windows.Forms.BindingSource contaBindingSource;
         private System.Windows.Forms.BindingNavigator tb_contaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -727,22 +659,13 @@
         private System.Windows.Forms.TextBox codContaTextBox;
         private System.Windows.Forms.ComboBox codPlanoContaComboBox;
         private System.Windows.Forms.ComboBox codPessoaComboBox;
-        private System.Windows.Forms.ComboBox codDocumentoPagamentoComboBox;
         private System.Windows.Forms.TextBox codEntradaTextBox;
         private System.Windows.Forms.TextBox codSaidaTextBox;
         private System.Windows.Forms.DateTimePicker dataVencimentoDateTimePicker;
         private System.Windows.Forms.TextBox valorTextBox;
         private System.Windows.Forms.TextBox observacaoTextBox;
-        private System.Windows.Forms.BindingSource tbpessoaBindingSource;
-        private System.Windows.Forms.BindingSource tbdocumentopagamentoBindingSource;
-        private System.Windows.Forms.BindingSource tbplanocontaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_contaTableAdapter tb_contaTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_documento_pagamentoTableAdapter tb_documento_pagamentoTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
-        private System.Windows.Forms.ComboBox codSituacaoComboBox;
-        private System.Windows.Forms.BindingSource tbsituacaocontaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_situacao_contaTableAdapter tb_situacao_contaTableAdapter;
+        private System.Windows.Forms.BindingSource pessoaBindingSource;
+        private System.Windows.Forms.BindingSource planoContaBindingSource;
         private Dados.saceDataSetTableAdapters.tb_movimentacao_contaTableAdapter tb_movimentacao_contaTableAdapter;
         private System.Windows.Forms.BindingSource tb_movimentacao_contaBindingSource;
         private System.Windows.Forms.DataGridView tb_movimentacao_contaDataGridView;
@@ -752,5 +675,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.Label descricaoTipoContaLabel1;
+        private System.Windows.Forms.ComboBox codSituacaoComboBox;
+        private System.Windows.Forms.BindingSource situacaoContaBindingSource;
     }
 }

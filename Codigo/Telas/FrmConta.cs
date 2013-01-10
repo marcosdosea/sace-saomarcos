@@ -12,11 +12,11 @@ using Util;
 
 namespace Telas
 {
-    public partial class FrmContas : Form
+    public partial class FrmConta : Form
     {
         private EstadoFormulario estado;
 
-        public FrmContas()
+        public FrmConta()
         {
             InitializeComponent();
         }
@@ -25,15 +25,10 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
 
-            this.tb_situacao_contaTableAdapter.Fill(this.saceDataSet.tb_situacao_conta);
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
-            this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-            this.tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
-            if (codContaTextBox.Text != "")
-            {
-                this.tb_movimentacao_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_movimentacao_conta, Convert.ToInt64(codContaTextBox.Text));
-            }
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
+            contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterTodos();
+            
             habilitaBotoes(true);
         }
 
@@ -56,21 +51,19 @@ namespace Telas
         {
             Telas.FrmContaPesquisa frmContaPesquisa = new Telas.FrmContaPesquisa();
             frmContaPesquisa.ShowDialog();
-            if (frmContaPesquisa.getCodConta() != -1)
+            if (frmContaPesquisa.ContaSelected != null)
             {
-                tb_contaBindingSource.Position = tb_contaBindingSource.Find("codConta", frmContaPesquisa.getCodConta());
+                contaBindingSource.Position = contaBindingSource.List.IndexOf(frmContaPesquisa.ContaSelected);
             }
             frmContaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_contaBindingSource.AddNew();
+            contaBindingSource.AddNew();
             codSituacaoComboBox.SelectedIndex = 0;
             codPessoaComboBox.SelectedIndex = 0;
-            codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codPlanoContaComboBox.SelectedIndex = 0;
-            codDocumentoPagamentoComboBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -87,7 +80,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorConta.GetInstance().Remover(long.Parse(codContaTextBox.Text));
-                tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
+                contaBindingSource.RemoveCurrent();
             }
         }
 
@@ -95,7 +88,6 @@ namespace Telas
         {
             Conta conta = new Conta();
             conta.CodConta = Convert.ToInt64(codContaTextBox.Text);
-            conta.CodDocumento = Convert.ToInt64(codDocumentoPagamentoComboBox.SelectedValue.ToString());
             conta.CodEntrada = Convert.ToInt64(codEntradaTextBox.Text);
             conta.CodPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
             conta.CodPlanoConta = Convert.ToInt32(codPlanoContaComboBox.SelectedValue.ToString());
@@ -109,26 +101,22 @@ namespace Telas
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                GerenciadorConta.GetInstance().Inserir(conta);
-                tb_contaTableAdapter.Fill(saceDataSet.tb_conta);
-                tb_contaBindingSource.MoveLast();
+                long codConta = GerenciadorConta.GetInstance().Inserir(conta);
+                codContaTextBox.Text = codConta.ToString();
             }
             else
             {
                 GerenciadorConta.GetInstance().Atualizar(conta);
-                tb_contaBindingSource.EndEdit();
-                tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
-                tb_contaBindingSource.Position = tb_contaBindingSource.Find("codConta", conta.CodConta);
             }
-
+            contaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_contaBindingSource.CancelEdit();
-            tb_contaBindingSource.EndEdit();
+            contaBindingSource.CancelEdit();
+            contaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -156,19 +144,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_contaBindingSource.MoveLast();
+                    contaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_contaBindingSource.MoveFirst();
+                    contaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_contaBindingSource.MovePrevious();
+                    contaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_contaBindingSource.MoveNext();
+                    contaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -185,36 +173,36 @@ namespace Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
-                else if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
-                {
-                    Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
-                    frmDocumentoPagamentoPesquisa.ShowDialog();
-                    if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
-                    {
-                        tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
-                    }
-                    frmDocumentoPagamentoPesquisa.Dispose();
-                }
-                else if ((e.KeyCode == Keys.F3) && (codDocumentoPagamentoComboBox.Focused))
-                {
-                    Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(0);
-                    frmDocumentoPagamento.ShowDialog();
-                    if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
-                    {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-                        tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
-                    }
-                    frmDocumentoPagamento.Dispose();
-                }
+                //else if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
+                //{
+                    //Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
+                    //frmDocumentoPagamentoPesquisa.ShowDialog();
+                    //if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
+                    //{
+                    //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
+                    //}
+                    //frmDocumentoPagamentoPesquisa.Dispose();
+                //}
+                //else if ((e.KeyCode == Keys.F3) && (codDocumentoPagamentoComboBox.Focused))
+                //{
+                //    //Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(0);
+                    //frmDocumentoPagamento.ShowDialog();
+                    //if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
+                    //{
+                    //    this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+                    //    this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
+                    //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
+                    //}
+                    //frmDocumentoPagamento.Dispose();
+                //}
 
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -222,10 +210,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -234,9 +221,9 @@ namespace Telas
                 {
                     Telas.FrmPlanoContaPesquisa frmPlanoContaPesquisa = new Telas.FrmPlanoContaPesquisa();
                     frmPlanoContaPesquisa.ShowDialog();
-                    if (frmPlanoContaPesquisa.CodPlanoConta != -1)
+                    if (frmPlanoContaPesquisa.PlanoContaSelected != null)
                     {
-                        tbplanocontaBindingSource.Position = tbplanocontaBindingSource.Find("codPlanoConta", frmPlanoContaPesquisa.CodPlanoConta);
+                        planoContaBindingSource.Position = planoContaBindingSource.List.IndexOf(frmPlanoContaPesquisa.PlanoContaSelected);
                     }
                     frmPlanoContaPesquisa.Dispose();
                 }
@@ -244,10 +231,9 @@ namespace Telas
                 {
                     Telas.FrmPlanoConta frmPlanoConta = new Telas.FrmPlanoConta();
                     frmPlanoConta.ShowDialog();
-                    if (frmPlanoConta.CodPlanoConta > 0)
+                    if (frmPlanoConta.PlanoContaSelected != null)
                     {
-                        this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
-                        tbplanocontaBindingSource.Position = tbplanocontaBindingSource.Find("codPlanoConta", frmPlanoConta.CodPlanoConta);
+                        planoContaBindingSource.Position = planoContaBindingSource.List.IndexOf(frmPlanoConta.PlanoContaSelected);
                     }
                     frmPlanoConta.Dispose();
                 }
@@ -259,28 +245,7 @@ namespace Telas
             e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
         }
 
-        private void codDocumentoPagamentoComboBox_Leave(object sender, EventArgs e)
-        {
-            if (codDocumentoPagamentoComboBox.SelectedValue == null)
-            {
-                codDocumentoPagamentoComboBox.Focus();
-                throw new TelaException("Um documento de pagamento válido precisa ser selecionado.");
-            }
-            
-            else 
-            {
-                Int64 codDocumentoPagamento = Convert.ToInt64(codDocumentoPagamentoComboBox.SelectedValue.ToString());
-                // Caso que um documento válido seja selecionado. 
-                if (codDocumentoPagamento != 0) {
-                    DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(codDocumentoPagamento);
-                    dataVencimentoDateTimePicker.Value = documento.DataVencimento;
-                    valorTextBox.Text = documento.Valor.ToString(); ;
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", documento.CodPessoaResponsavel);
-                    tb_contaBindingSource_CurrentChanged(sender, e);
-                }
-            }
-        }
-
+        
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
             if (codPessoaComboBox.SelectedValue == null)
@@ -301,10 +266,10 @@ namespace Telas
 
         private void tb_contaBindingSource_CurrentChanged(object sender, EventArgs e)
         {
-            bool possuiDocumento = (codDocumentoPagamentoComboBox.SelectedIndex != 0);
-            dataVencimentoDateTimePicker.Enabled = !possuiDocumento;
-            valorTextBox.Enabled = !possuiDocumento;
-            codPessoaComboBox.Enabled = !possuiDocumento;
+            //bool possuiDocumento = (codDocumentoPagamentoComboBox.SelectedIndex != 0);
+            //dataVencimentoDateTimePicker.Enabled = !possuiDocumento;
+            //valorTextBox.Enabled = !possuiDocumento;
+            //codPessoaComboBox.Enabled = !possuiDocumento;
             if (codContaTextBox.Text != "")
                 this.tb_movimentacao_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_movimentacao_conta, Convert.ToInt64(codContaTextBox.Text));
         }

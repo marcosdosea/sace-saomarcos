@@ -25,10 +25,9 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
             this.tb_usuarioTableAdapter.Fill(this.saceDataSet.tb_usuario);
-            tb_pessoaBindingSource.Find("codPessoa", -1);
 
             habilitaBotoes(true);
         }
@@ -203,9 +202,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -213,10 +212,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tb_pessoaBindingSource.Position = tb_pessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }

@@ -44,10 +44,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_lojaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -61,11 +58,10 @@
             this.codLojaTextBox = new System.Windows.Forms.MaskedTextBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.tbpessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
             this.ieTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
-            this.tb_pessoaTableAdapter = new Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter();
             codLojaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             codPessoaLabel = new System.Windows.Forms.Label();
@@ -73,11 +69,10 @@
             ieLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingNavigator)).BeginInit();
             this.tb_lojaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codLojaLabel
@@ -215,68 +210,15 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
+            // lojaBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_lojaBindingSource
-            // 
-            this.tb_lojaBindingSource.DataMember = "tb_loja";
-            this.tb_lojaBindingSource.DataSource = this.saceDataSet;
-            this.tb_lojaBindingSource.Sort = "codLoja";
-            // 
-            // tb_lojaTableAdapter
-            // 
-            this.tb_lojaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = this.tb_lojaTableAdapter;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pedidoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.lojaBindingSource.DataSource = typeof(Dominio.Loja);
+            this.lojaBindingSource.Sort = "codLoja";
             // 
             // tb_lojaBindingNavigator
             // 
             this.tb_lojaBindingNavigator.AddNewItem = null;
-            this.tb_lojaBindingNavigator.BindingSource = this.tb_lojaBindingSource;
+            this.tb_lojaBindingNavigator.BindingSource = this.lojaBindingSource;
             this.tb_lojaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_lojaBindingNavigator.DeleteItem = null;
             this.tb_lojaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -297,7 +239,7 @@
             this.tb_lojaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_lojaBindingNavigator.Name = "tb_lojaBindingNavigator";
             this.tb_lojaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_lojaBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_lojaBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_lojaBindingNavigator.TabIndex = 21;
             this.tb_lojaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -370,7 +312,7 @@
             // 
             // codLojaTextBox
             // 
-            this.codLojaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "codLoja", true));
+            this.codLojaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "CodLoja", true));
             this.codLojaTextBox.Location = new System.Drawing.Point(9, 89);
             this.codLojaTextBox.Name = "codLojaTextBox";
             this.codLojaTextBox.ReadOnly = true;
@@ -381,7 +323,7 @@
             // nomeTextBox
             // 
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "nome", true));
+            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "Nome", true));
             this.nomeTextBox.Location = new System.Drawing.Point(123, 89);
             this.nomeTextBox.MaxLength = 40;
             this.nomeTextBox.Name = "nomeTextBox";
@@ -393,27 +335,26 @@
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_lojaBindingSource, "nomePessoa", true));
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_lojaBindingSource, "codPessoa", true));
-            this.codPessoaComboBox.DataSource = this.tbpessoaBindingSource;
-            this.codPessoaComboBox.DisplayMember = "nomeFantasia";
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "nomePessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.lojaBindingSource, "CodPessoa", true));
+            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
+            this.codPessoaComboBox.DisplayMember = "NomeFantasia";
             this.codPessoaComboBox.FormattingEnabled = true;
             this.codPessoaComboBox.Location = new System.Drawing.Point(9, 141);
             this.codPessoaComboBox.Name = "codPessoaComboBox";
             this.codPessoaComboBox.Size = new System.Drawing.Size(456, 21);
             this.codPessoaComboBox.TabIndex = 25;
-            this.codPessoaComboBox.ValueMember = "codPessoa";
+            this.codPessoaComboBox.ValueMember = "CodPessoa";
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
             this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
             // 
-            // tbpessoaBindingSource
+            // pessoaBindingSource
             // 
-            this.tbpessoaBindingSource.DataMember = "tb_pessoa";
-            this.tbpessoaBindingSource.DataSource = this.saceDataSet;
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // cpf_CnpjTextBox
             // 
-            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "cpf_Cnpj", true));
+            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "CpfCnpj", true));
             this.cpf_CnpjTextBox.Location = new System.Drawing.Point(9, 190);
             this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
             this.cpf_CnpjTextBox.ReadOnly = true;
@@ -423,7 +364,7 @@
             // 
             // ieTextBox
             // 
-            this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "ie", true));
+            this.ieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "IeSubstituto", true));
             this.ieTextBox.Location = new System.Drawing.Point(170, 190);
             this.ieTextBox.Name = "ieTextBox";
             this.ieTextBox.ReadOnly = true;
@@ -433,17 +374,13 @@
             // 
             // cidadeTextBox
             // 
-            this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbpessoaBindingSource, "cidade", true));
+            this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "Cidade", true));
             this.cidadeTextBox.Location = new System.Drawing.Point(302, 190);
             this.cidadeTextBox.Name = "cidadeTextBox";
             this.cidadeTextBox.ReadOnly = true;
             this.cidadeTextBox.Size = new System.Drawing.Size(163, 20);
             this.cidadeTextBox.TabIndex = 29;
             this.cidadeTextBox.TabStop = false;
-            // 
-            // tb_pessoaTableAdapter
-            // 
-            this.tb_pessoaTableAdapter.ClearBeforeFill = true;
             // 
             // FrmLoja
             // 
@@ -482,12 +419,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLoja_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingNavigator)).EndInit();
             this.tb_lojaBindingNavigator.ResumeLayout(false);
             this.tb_lojaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbpessoaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,10 +439,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_lojaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource lojaBindingSource;
         private System.Windows.Forms.BindingNavigator tb_lojaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -523,7 +456,6 @@
         private System.Windows.Forms.TextBox cpf_CnpjTextBox;
         private System.Windows.Forms.TextBox ieTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
-        private System.Windows.Forms.BindingSource tbpessoaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_pessoaTableAdapter tb_pessoaTableAdapter;
+        private System.Windows.Forms.BindingSource pessoaBindingSource;
     }
 }

@@ -25,11 +25,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(pessoaComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        Pessoa pessoa = new Pessoa();
-                        pessoa.CodPessoa = frmPessoaPesquisa.CodPessoa;
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                         if (retornaNomeFantasia)
                             pessoaComboBox.Text = ((Pessoa) pessoaBindingSource.Current).NomeFantasia;
                         else

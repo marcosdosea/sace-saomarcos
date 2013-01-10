@@ -131,9 +131,9 @@ namespace Negocio
                 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserido quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
-                    conta.CodSituacao = Conta.SITUACAO_QUITADA.ToString();
+                    conta.CodSituacao = SituacaoConta.SITUACAO_QUITADA.ToString();
                 else
-                    conta.CodSituacao = Conta.SITUACAO_ABERTA.ToString();
+                    conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA.ToString();
 
                 conta.CodDocumento = pagamento.CodDocumentoPagamento;
                 conta.TipoConta = Conta.CONTA_PAGAR.ToString();
@@ -159,13 +159,13 @@ namespace Negocio
                     MovimentacaoConta movimentacao = new MovimentacaoConta();
                     movimentacao.CodContaBanco = pagamento.CodContaBanco;
                     movimentacao.CodConta = conta.CodConta;
-                    movimentacao.CodResponsavel = GerenciadorLoja.getInstace().obter(Global.LOJA_PADRAO).CodPessoa;
+                    movimentacao.CodResponsavel = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0).CodPessoa;
 
                     movimentacao.CodTipoMovimentacao = MovimentacaoConta.PAGAMENTO_FORNECEDOR;
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = pagamento.Valor;
 
-                    GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, conta);
+                    GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao);
                 }
             }
         }

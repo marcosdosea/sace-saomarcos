@@ -15,14 +15,8 @@ namespace Telas
     public partial class FrmContaBanco : Form
     {
         private EstadoFormulario estado;
-        
-        private String codContaBanco;
 
-        public String CodContaBanco
-        {
-            get { return codContaBanco; }
-            set { codContaBanco = value; }
-        }
+        public ContaBanco ContaBancoSelected { get; set; }
 
         public FrmContaBanco()
         {
@@ -41,10 +35,9 @@ namespace Telas
         {
             Telas.FrmContaBancoPesquisa frmContaBancoPesquisa = new Telas.FrmContaBancoPesquisa();
             frmContaBancoPesquisa.ShowDialog();
-            if (frmContaBancoPesquisa.CodContaBanco != "")
+            if (frmContaBancoPesquisa.ContaBancoSelected != null)
             {
-                ContaBanco contaBanco = GerenciadorContaBanco.GetInstance().Obter(int.Parse(frmContaBancoPesquisa.CodContaBanco)).ElementAt(0);
-                contaBancoBindingSource.Position = contaBancoBindingSource.List.IndexOf( contaBanco );
+                contaBancoBindingSource.Position = contaBancoBindingSource.List.IndexOf(frmContaBancoPesquisa.ContaBancoSelected);
             }
             frmContaBancoPesquisa.Dispose();
         }
@@ -70,8 +63,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorContaBanco.GetInstance().Remover(Int32.Parse(codContaBancoTextBox.Text));
-
-                contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+                contaBancoBindingSource.RemoveCurrent();
             }
         }
 
@@ -99,15 +91,14 @@ namespace Telas
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gContaBanco.Inserir(_contaBanco);
-                    contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
-                    contaBancoBindingSource.MoveLast();
+                    long codContaBanco = gContaBanco.Inserir(_contaBanco);
+                    codContaBancoTextBox.Text = codContaBanco.ToString();
                 }
                 else
                 {
                     gContaBanco.Atualizar(_contaBanco);
-                    contaBancoBindingSource.EndEdit();
                 }
+                contaBancoBindingSource.EndEdit();
             }
             catch (Dados.DadosException de)
             {
@@ -180,9 +171,9 @@ namespace Telas
                 {
                     Telas.FrmBancoPesquisa frmBancoPesquisa = new Telas.FrmBancoPesquisa();
                     frmBancoPesquisa.ShowDialog();
-                    if (frmBancoPesquisa.CodBanco != -1)
+                    if (frmBancoPesquisa.BancoSelected != null)
                     {
-                        bancoBindingSource.Position = bancoBindingSource.Find("codBanco", frmBancoPesquisa.CodBanco);
+                        bancoBindingSource.Position = bancoBindingSource.List.IndexOf(frmBancoPesquisa.BancoSelected);
                     }
                     frmBancoPesquisa.Dispose();
                 }
@@ -190,10 +181,9 @@ namespace Telas
                 {
                     Telas.FrmBanco frmBanco = new Telas.FrmBanco();
                     frmBanco.ShowDialog();
-                    if (frmBanco.CodBanco != -1)
+                    if (frmBanco.BancoSelected != null)
                     {
-                        codBancoComboBox.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
-                        bancoBindingSource.Position = bancoBindingSource.Find("CodBanco", frmBanco.CodBanco);
+                        bancoBindingSource.Position = bancoBindingSource.List.IndexOf(frmBanco.BancoSelected);
                     }
                     frmBanco.Dispose();
                 }
@@ -217,7 +207,7 @@ namespace Telas
 
         private void FrmContaBanco_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodContaBanco = codContaBancoTextBox.Text;
+            ContaBancoSelected = (ContaBanco) contaBancoBindingSource.Current;
         }
 
         private void codBancoComboBox_KeyPress(object sender, KeyPressEventArgs e)

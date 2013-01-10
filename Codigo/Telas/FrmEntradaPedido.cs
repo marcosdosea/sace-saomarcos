@@ -29,10 +29,10 @@ namespace Telas
             if ((codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 1)) {
                 this.tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
             }
-            this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
+            pessoaFornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
             this.tb_entradaTableAdapter.FillPedidos(this.saceDataSet.tb_entrada);
             this.tb_situacao_pagamentosTableAdapter.Fill(this.saceDataSet.tb_situacao_pagamentos);
-            this.tb_cstTableAdapter.Fill(this.saceDataSet.tb_cst);
             entrada = new Entrada();
             entradaProduto = new EntradaProduto();
             tb_entradaBindingSource.MoveLast();
@@ -165,8 +165,8 @@ namespace Telas
                 entradaProduto.QtdProdutoAtacado = Convert.ToDecimal(qtdProdutoAtacadoTextBox.Text);
                 entradaProduto.Desconto = Convert.ToDecimal(descontoProdutoTextBox.Text);
 
-                entradaProduto.FornecedorEhFabricante = ((Dados.saceDataSet.tb_pessoaRow) ((System.Data.DataRowView) tbpessoaBindingSource.Current).Row).ehFabricante;
-                entradaProduto.CodFornecedor = ((Dados.saceDataSet.tb_pessoaRow)((System.Data.DataRowView)tbpessoaBindingSource.Current).Row).codPessoa;
+                entradaProduto.FornecedorEhFabricante = ((Dados.saceDataSet.tb_pessoaRow) ((System.Data.DataRowView) pessoaFornecedorBindingSource.Current).Row).ehFabricante;
+                entradaProduto.CodFornecedor = ((Dados.saceDataSet.tb_pessoaRow)((System.Data.DataRowView)pessoaFornecedorBindingSource.Current).Row).codPessoa;
 
                 GerenciadorEntradaProduto.getInstace().inserir(entradaProduto);
                 codEntradaTextBox_TextChanged(sender, e);
@@ -275,9 +275,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        pessoaFornecedorBindingSource.Position = pessoaFornecedorBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -285,10 +285,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        pessoaFornecedorBindingSource.Position = pessoaFornecedorBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -296,9 +295,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        pessoaTransportadoraBindingSource.Position = pessoaTransportadoraBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -306,10 +305,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoa.CodPessoa);
+                        pessoaTransportadoraBindingSource.Position = pessoaTransportadoraBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -399,10 +397,10 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                        codFornecedorComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource.Current).Row).nome;
+                        pessoaFornecedorBindingSource.Position = pessoaFornecedorBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                        codFornecedorComboBox.Text = frmPessoaPesquisa.PessoaSelected.Nome;
                     }
                     else
                     {
@@ -412,7 +410,7 @@ namespace Telas
                 }
                 else
                 {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
+                    pessoaFornecedorBindingSource.Position = pessoaFornecedorBindingSource.Find("codPessoa", pessoas[0].codPessoa);
                 }
 
             }
@@ -429,10 +427,10 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                        codEmpresaFreteComboBox.Text = ((Dados.saceDataSet.tb_pessoaRow)((DataRowView)tbpessoaBindingSource1.Current).Row).nome;
+                        pessoaTransportadoraBindingSource.Position = pessoaTransportadoraBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                        codEmpresaFreteComboBox.Text = frmPessoaPesquisa.PessoaSelected.Nome;
                     }
                     else
                     {
@@ -442,7 +440,7 @@ namespace Telas
                 }
                 else
                 {
-                    tbpessoaBindingSource1.Position = tbpessoaBindingSource1.Find("codPessoa", pessoas[0].codPessoa);
+                    pessoaTransportadoraBindingSource.Position = pessoaTransportadoraBindingSource.Find("codPessoa", pessoas[0].codPessoa);
                 }
             }
             codEntradaTextBox_Leave(sender, e);

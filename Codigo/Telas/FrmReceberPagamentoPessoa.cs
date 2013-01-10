@@ -118,7 +118,7 @@ namespace Telas
                             decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
                             long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
                             Conta conta = GerenciadorConta.GetInstance().Obter(codConta).ElementAt(0);
-                            if (conta.CodSituacao.Equals(Conta.SITUACAO_ABERTA))
+                            if (conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA))
                             {
                                 GerenciadorConta.GetInstance().Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
                             }
@@ -134,7 +134,7 @@ namespace Telas
                         movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
                         movimentacao.DataHora = DateTime.Now;
                         movimentacao.Valor = valorPagamento;
-                        GerenciadorMovimentacaoConta.getInstace().inserir(movimentacao, listaContas);
+                        GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao, listaContas);
                         if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();
@@ -295,7 +295,7 @@ namespace Telas
                 if (tb_movimentacao_contaDataGridView.Rows.Count > 0)
                 {
                     long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorMovimentacaoConta.getInstace().remover(codMovimentacaoConta);
+                    Negocio.GerenciadorMovimentacaoConta.getInstace().Remover(codMovimentacaoConta);
                 }
                 ListarContasPessoa();
             }
@@ -332,10 +332,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                         codClienteComboBox.Text = pessoa.NomeFantasia;
                     }
                     else
@@ -353,7 +352,7 @@ namespace Telas
                 if (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO))
                 {
                     // Obter todas as contas da pessoa em aberto
-                    contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(Conta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
+                    contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
                     descontoTextBox.Text = "0";
                     if (contasPessoaDataGridView.RowCount > 0)
                     {
@@ -379,11 +378,11 @@ namespace Telas
         private string obterListaSituacao()
         {
             if (abertaCheckBox.Checked && quitadaCheckBox.Checked)
-                return Conta.SITUACAO_ABERTA + "," + "," + Conta.SITUACAO_QUITADA;
+                return SituacaoConta.SITUACAO_ABERTA + "," + "," + SituacaoConta.SITUACAO_QUITADA;
             else if (abertaCheckBox.Checked)
-                return Conta.SITUACAO_ABERTA;
+                return SituacaoConta.SITUACAO_ABERTA;
             else if (quitadaCheckBox.Checked)
-                return Conta.SITUACAO_QUITADA;
+                return SituacaoConta.SITUACAO_QUITADA;
             else
                 return "";
         }
@@ -406,11 +405,11 @@ namespace Telas
 
             if (abertaCheckBox.Checked)
             {
-                situacoes.Add(Conta.SITUACAO_ABERTA.ToString());
+                situacoes.Add(SituacaoConta.SITUACAO_ABERTA.ToString());
             }
             if (quitadaCheckBox.Checked)
             {
-                situacoes.Add(Conta.SITUACAO_QUITADA.ToString());
+                situacoes.Add(SituacaoConta.SITUACAO_QUITADA.ToString());
             }
 
             dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
@@ -466,7 +465,7 @@ namespace Telas
             {
                 contasExibidas.Add((long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value);
             }
-            tb_movimentacao_contaDataGridView.DataSource = GerenciadorMovimentacaoConta.getInstace().ObterMovimentacaoPorContas(contasExibidas);
+            movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.getInstace().ObterPorContas(contasExibidas);
         }
 
 
@@ -481,9 +480,9 @@ namespace Telas
                 totalDesconto += Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[6].Value.ToString()); //totalPagar
             }
 
-            for (int i = 0; i < tb_movimentacao_contaDataGridView.RowCount; i++)
+            foreach (MovimentacaoConta movimentacaoConta in movimentacaoContaBindingSource)
             {
-                totalPagamentos += Convert.ToDecimal(tb_movimentacao_contaDataGridView.Rows[i].Cells[6].Value.ToString());
+                totalPagamentos += movimentacaoConta.Valor;
             }
             totalContasTextBox.Text = totalContas.ToString("N2");
             totalAVistaTextBox.Text = (totalContas - totalDesconto).ToString("N2");

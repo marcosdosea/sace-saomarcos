@@ -6,40 +6,42 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
 namespace Telas
 {
     public partial class FrmSubgrupoPesquisa : Form
     {
-        public Int32 CodSubgrupo { get; set; }
-        public Int32 CodGrupo { get; set; }
+        public Subgrupo SubgrupoSelected { get; set; }
+        public Grupo GrupoSelected { get; set; }
 
         public FrmSubgrupoPesquisa()
         {
             InitializeComponent();
-            CodSubgrupo = -1;
-            CodGrupo = -1;
+            SubgrupoSelected = null;
+            GrupoSelected = null;
         }
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_subgrupoTableAdapter.Fill(this.saceDataSet.tb_subgrupo);
+            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                this.tb_subgrupoTableAdapter.FillByCodSubgrupo(this.saceDataSet.tb_subgrupo, Convert.ToInt32(txtTexto.Text));
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
             else
-                this.tb_subgrupoTableAdapter.FillByDescricao(this.saceDataSet.tb_subgrupo, txtTexto.Text);                
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorDescricao(txtTexto.Text);                
             
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            CodSubgrupo = Convert.ToInt32(tb_subgrupoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-            CodGrupo = Convert.ToInt32(tb_subgrupoDataGridView.SelectedRows[0].Cells[2].Value.ToString());
+            SubgrupoSelected = (Subgrupo) subgrupoBindingSource.Current;
+            GrupoSelected = GerenciadorGrupo.GetInstance().Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
             this.Close();
         }
 
@@ -55,11 +57,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_subgrupoBindingSource.MoveNext();
+                subgrupoBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_subgrupoBindingSource.MovePrevious();
+                subgrupoBindingSource.MovePrevious();
             }
         }
 

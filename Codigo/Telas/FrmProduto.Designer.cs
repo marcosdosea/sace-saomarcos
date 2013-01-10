@@ -74,7 +74,7 @@
             this.unidadeTextBox = new System.Windows.Forms.TextBox();
             this.codigoBarraTextBox = new System.Windows.Forms.TextBox();
             this.codGrupoComboBox = new System.Windows.Forms.ComboBox();
-            this.tbgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.grupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codigoFabricanteComboBox = new System.Windows.Forms.ComboBox();
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.temVencimentoCheckBox = new System.Windows.Forms.CheckBox();
@@ -114,11 +114,7 @@
             this.referenciaFabricanteTextBox = new System.Windows.Forms.TextBox();
             this.ncmshTextBox = new System.Windows.Forms.TextBox();
             this.codCSTComboBox = new System.Windows.Forms.ComboBox();
-            this.tbcstBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_cfopTableAdapter = new Dados.saceDataSetTableAdapters.tb_cfopTableAdapter();
-            this.tb_cstTableAdapter = new Dados.saceDataSetTableAdapters.tb_cstTableAdapter();
-            this.tb_grupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
-            this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
+            this.cstBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_situacao_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_situacao_produtoTableAdapter();
             this.tb_produtoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -131,14 +127,14 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tb_produto_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter();
-            this.tbsubgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_subgrupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_subgrupoTableAdapter();
+            this.subgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codSubgrupoComboBox = new System.Windows.Forms.ComboBox();
             this.precoCustoTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.unidadeCompraTextBox = new System.Windows.Forms.TextBox();
             this.quantidadeEmbalagemTextBox = new System.Windows.Forms.TextBox();
+            this.tb_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_produtoTableAdapter();
             codProdutoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             unidadeLabel = new System.Windows.Forms.Label();
@@ -171,16 +167,16 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbsituacaoprodutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutolojaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cstBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).BeginInit();
             this.tb_produtoBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbsubgrupoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subgrupoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codProdutoLabel
@@ -593,7 +589,7 @@
             this.codGrupoComboBox.CausesValidation = false;
             this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tbprodutoBindingSource, "codGrupo", true));
             this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "descricaoGrupo", true));
-            this.codGrupoComboBox.DataSource = this.tbgrupoBindingSource;
+            this.codGrupoComboBox.DataSource = this.grupoBindingSource;
             this.codGrupoComboBox.DisplayMember = "descricao";
             this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoComboBox.FormattingEnabled = true;
@@ -607,10 +603,9 @@
             this.codGrupoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFabricanteComboBox_KeyPress);
             this.codGrupoComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
-            // tbgrupoBindingSource
+            // grupoBindingSource
             // 
-            this.tbgrupoBindingSource.DataMember = "tb_grupo";
-            this.tbgrupoBindingSource.DataSource = this.saceDataSet;
+            this.grupoBindingSource.DataSource = typeof(Dominio.Grupo);
             // 
             // codigoFabricanteComboBox
             // 
@@ -1018,7 +1013,7 @@
             this.codCSTComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "descricaoCST", true));
             this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tbprodutoBindingSource, "codCST", true));
-            this.codCSTComboBox.DataSource = this.tbcstBindingSource;
+            this.codCSTComboBox.DataSource = this.cstBindingSource;
             this.codCSTComboBox.DisplayMember = "descricaoCST";
             this.codCSTComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codCSTComboBox.FormattingEnabled = true;
@@ -1030,26 +1025,9 @@
             this.codCSTComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codCSTComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
-            // tbcstBindingSource
+            // cstBindingSource
             // 
-            this.tbcstBindingSource.DataMember = "tb_cst";
-            this.tbcstBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_cfopTableAdapter
-            // 
-            this.tb_cfopTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_cstTableAdapter
-            // 
-            this.tb_cstTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_grupoTableAdapter
-            // 
-            this.tb_grupoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_produtoTableAdapter
-            // 
-            this.tb_produtoTableAdapter.ClearBeforeFill = true;
+            this.cstBindingSource.DataSource = typeof(Dominio.Cst);
             // 
             // tb_situacao_produtoTableAdapter
             // 
@@ -1154,21 +1132,16 @@
             // 
             this.tb_produto_lojaTableAdapter.ClearBeforeFill = true;
             // 
-            // tbsubgrupoBindingSource
+            // subgrupoBindingSource
             // 
-            this.tbsubgrupoBindingSource.DataMember = "tb_subgrupo";
-            this.tbsubgrupoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_subgrupoTableAdapter
-            // 
-            this.tb_subgrupoTableAdapter.ClearBeforeFill = true;
+            this.subgrupoBindingSource.DataSource = typeof(Dominio.Subgrupo);
             // 
             // codSubgrupoComboBox
             // 
             this.codSubgrupoComboBox.CausesValidation = false;
             this.codSubgrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tbprodutoBindingSource, "codSubgrupo", true));
             this.codSubgrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tbprodutoBindingSource, "descricaoSubgrupo", true));
-            this.codSubgrupoComboBox.DataSource = this.tbsubgrupoBindingSource;
+            this.codSubgrupoComboBox.DataSource = this.subgrupoBindingSource;
             this.codSubgrupoComboBox.DisplayMember = "descricao";
             this.codSubgrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codSubgrupoComboBox.FormattingEnabled = true;
@@ -1226,6 +1199,10 @@
             this.quantidadeEmbalagemTextBox.Name = "quantidadeEmbalagemTextBox";
             this.quantidadeEmbalagemTextBox.Size = new System.Drawing.Size(119, 20);
             this.quantidadeEmbalagemTextBox.TabIndex = 25;
+            // 
+            // tb_produtoTableAdapter
+            // 
+            this.tb_produtoTableAdapter.ClearBeforeFill = true;
             // 
             // FrmProduto
             // 
@@ -1322,17 +1299,17 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbsituacaoprodutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbprodutolojaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cstBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoBindingNavigator)).EndInit();
             this.tb_produtoBindingNavigator.ResumeLayout(false);
             this.tb_produtoBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbsubgrupoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subgrupoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1382,10 +1359,6 @@
         private System.Windows.Forms.TextBox referenciaFabricanteTextBox;
         private System.Windows.Forms.TextBox ncmshTextBox;
         private System.Windows.Forms.ComboBox codCSTComboBox;
-        private Dados.saceDataSetTableAdapters.tb_cfopTableAdapter tb_cfopTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_cstTableAdapter tb_cstTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
         private Dados.saceDataSetTableAdapters.tb_situacao_produtoTableAdapter tb_situacao_produtoTableAdapter;
         private System.Windows.Forms.BindingSource tbprodutoBindingSource;
         private System.Windows.Forms.BindingNavigator tb_produtoBindingNavigator;
@@ -1400,13 +1373,12 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource cfopBindingSource;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
-        private System.Windows.Forms.BindingSource tbgrupoBindingSource;
+        private System.Windows.Forms.BindingSource grupoBindingSource;
         private Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_produto_lojaTableAdapter;
         private System.Windows.Forms.BindingSource tbsituacaoprodutoBindingSource;
-        private System.Windows.Forms.BindingSource tbcstBindingSource;
+        private System.Windows.Forms.BindingSource cstBindingSource;
         private System.Windows.Forms.BindingSource tbprodutolojaBindingSource;
-        private System.Windows.Forms.BindingSource tbsubgrupoBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_subgrupoTableAdapter tb_subgrupoTableAdapter;
+        private System.Windows.Forms.BindingSource subgrupoBindingSource;
         private System.Windows.Forms.ComboBox codSubgrupoComboBox;
         private System.Windows.Forms.TextBox precoCustoTextBox;
         private System.Windows.Forms.Label label4;
@@ -1420,5 +1392,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn estoqueMaximo;
         private System.Windows.Forms.TextBox unidadeCompraTextBox;
         private System.Windows.Forms.TextBox quantidadeEmbalagemTextBox;
+        private Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produtoTableAdapter;
     }
 }

@@ -19,17 +19,17 @@ namespace Telas
     {
         private EstadoFormulario estado;
         
-        public Int32 CodBanco;
+        public Banco BancoSelected { get; set; }
 
         public FrmBanco()
         {
             InitializeComponent();
+            BancoSelected = null;
         }
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
-
             bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos(); 
             habilitaBotoes(true);
         }
@@ -38,10 +38,9 @@ namespace Telas
         {
             Telas.FrmBancoPesquisa frmBancoPesquisa = new Telas.FrmBancoPesquisa();
             frmBancoPesquisa.ShowDialog();
-            if (frmBancoPesquisa.CodBanco != -1)
+            if (frmBancoPesquisa.BancoSelected != null)
             {
-                Banco _banco = GerenciadorBanco.GetInstace().Obter(frmBancoPesquisa.CodBanco).ElementAt(0);
-                bancoBindingSource.Position = bancoBindingSource.List.IndexOf(_banco);
+                bancoBindingSource.Position = bancoBindingSource.List.IndexOf(frmBancoPesquisa.BancoSelected);
             }
             frmBancoPesquisa.Dispose();
         }
@@ -67,7 +66,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorBanco.GetInstace().remover(int.Parse(codBancoTextBox.Text));
-                bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+                bancoBindingSource.RemoveCurrent();
             }
         }
 
@@ -90,15 +89,14 @@ namespace Telas
                 GerenciadorBanco gBanco = GerenciadorBanco.GetInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gBanco.inserir(banco);
-                    bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
-                    bancoBindingSource.MoveLast();
+                    int codBanco = (int) gBanco.inserir(banco);
+                    codBancoTextBox.Text =  codBanco.ToString();
                 }
                 else
                 {
                     gBanco.atualizar(banco);
-                    bancoBindingSource.EndEdit();
                 }
+                bancoBindingSource.EndEdit();
             }
             catch (DadosException de)
             {
@@ -186,7 +184,7 @@ namespace Telas
 
         private void FrmBanco_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodBanco = int.Parse(codBancoTextBox.Text);
+            BancoSelected = (Banco) bancoBindingSource.Current;
         }
 
         private void nomeTextBox_Leave(object sender, EventArgs e)

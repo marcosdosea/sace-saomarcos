@@ -154,18 +154,6 @@
     <Compile Include="FrmSubgrupo.Designer.cs">
       <DependentUpon>FrmSubgrupo.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmDocumentoPagamentoPesquisa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmDocumentoPagamentoPesquisa.Designer.cs">
-      <DependentUpon>FrmDocumentoPagamentoPesquisa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmDocumentoPagamento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmDocumentoPagamento.Designer.cs">
-      <DependentUpon>FrmDocumentoPagamento.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmCartaoCredito.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,11 +196,11 @@
     <Compile Include="FrmContaPesquisa.Designer.cs">
       <DependentUpon>FrmContaPesquisa.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmContas.cs">
+    <Compile Include="FrmConta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmContas.Designer.cs">
-      <DependentUpon>FrmContas.cs</DependentUpon>
+    <Compile Include="FrmConta.Designer.cs">
+      <DependentUpon>FrmConta.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
@@ -343,12 +331,6 @@
     <Compile Include="FrmProduto.Designer.cs">
       <DependentUpon>FrmProduto.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmTransformacaoProduto.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmTransformacaoProduto.Designer.cs">
-      <DependentUpon>FrmTransformacaoProduto.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -401,14 +383,6 @@
       <DependentUpon>FrmSubgrupo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmDocumentoPagamentoPesquisa.resx">
-      <DependentUpon>FrmDocumentoPagamentoPesquisa.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmDocumentoPagamento.resx">
-      <DependentUpon>FrmDocumentoPagamento.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmCartaoCredito.resx">
       <DependentUpon>FrmCartaoCredito.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -457,8 +431,8 @@
       <DependentUpon>FrmContaPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmContas.resx">
-      <DependentUpon>FrmContas.cs</DependentUpon>
+    <EmbeddedResource Include="FrmConta.resx">
+      <DependentUpon>FrmConta.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEntrada.resx">
@@ -521,10 +495,6 @@
       <DependentUpon>FrmSaidaPesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmTransformacaoProduto.resx">
-      <DependentUpon>FrmTransformacaoProduto.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmUsuario.resx">
       <DependentUpon>FrmUsuario.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -548,9 +518,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="Properties\DataSources\Dados.BancoE.datasource" />
-    <None Include="Properties\DataSources\Dados.CartaoCreditoE.datasource" />
-    <None Include="Properties\DataSources\Dados.ContaBancoE.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultas.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
@@ -562,7 +529,14 @@
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
     <None Include="Properties\DataSources\Dominio.Cst.datasource" />
     <None Include="Properties\DataSources\Dominio.FormaPagamento.datasource" />
+    <None Include="Properties\DataSources\Dominio.Grupo.datasource" />
+    <None Include="Properties\DataSources\Dominio.GrupoConta.datasource" />
+    <None Include="Properties\DataSources\Dominio.Loja.datasource" />
+    <None Include="Properties\DataSources\Dominio.MovimentacaoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
+    <None Include="Properties\DataSources\Dominio.PlanoConta.datasource" />
+    <None Include="Properties\DataSources\Dominio.SituacaoConta1.datasource" />
+    <None Include="Properties\DataSources\Dominio.Subgrupo.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />
     <None Include="Properties\Settings.settings">

@@ -34,12 +34,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_conta_bancoDataGridView = new System.Windows.Forms.DataGridView();
-            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codContaBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeroContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.agenciaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tb_conta_bancoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -107,10 +107,6 @@
             this.tb_conta_bancoDataGridView.TabIndex = 4;
             this.tb_conta_bancoDataGridView.TabStop = false;
             // 
-            // contaBancoBindingSource
-            // 
-            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
-            // 
             // codContaBancoDataGridViewTextBoxColumn
             // 
             this.codContaBancoDataGridViewTextBoxColumn.DataPropertyName = "CodContaBanco";
@@ -146,6 +142,10 @@
             this.nomeBancoDataGridViewTextBoxColumn.HeaderText = "NomeBanco";
             this.nomeBancoDataGridViewTextBoxColumn.Name = "nomeBancoDataGridViewTextBoxColumn";
             this.nomeBancoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // contaBancoBindingSource
+            // 
+            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
             // 
             // FrmContaBancoPesquisa
             // 

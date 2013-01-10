@@ -18,7 +18,7 @@ namespace Dados
         /// <summary>
         /// Objeto contexto para o sgbd
         /// </summary>
-        private readonly ObjectContext _context;
+        private static readonly ObjectContext _context = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
 
         /// <summary>
         /// Representa a entidade corrente
@@ -32,7 +32,6 @@ namespace Dados
         /// <param name="chave"> Identifica o contexto criado </param>
         public RepositorioGenerico(string chave)
         {
-            _context = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
             _objectSet = _context.CreateObjectSet<T>();
         }
 

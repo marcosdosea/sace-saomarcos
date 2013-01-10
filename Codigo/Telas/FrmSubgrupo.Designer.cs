@@ -41,8 +41,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_subgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.subgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_subgrupoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -56,18 +55,15 @@
             this.codSubgrupoTextBox = new System.Windows.Forms.TextBox();
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
             this.codGrupoComboBox = new System.Windows.Forms.ComboBox();
-            this.tbgrupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_grupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupoTableAdapter();
-            this.tb_subgrupoTableAdapter = new Dados.saceDataSetTableAdapters.tb_subgrupoTableAdapter();
+            this.grupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             codSubgrupoLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             codGrupoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_subgrupoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subgrupoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_subgrupoBindingNavigator)).BeginInit();
             this.tb_subgrupoBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codSubgrupoLabel
@@ -178,21 +174,15 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
+            // subgrupoBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_subgrupoBindingSource
-            // 
-            this.tb_subgrupoBindingSource.DataMember = "tb_subgrupo";
-            this.tb_subgrupoBindingSource.DataSource = this.saceDataSet;
-            this.tb_subgrupoBindingSource.Sort = "codSubgrupo";
+            this.subgrupoBindingSource.DataSource = typeof(Dominio.Subgrupo);
+            this.subgrupoBindingSource.Sort = "codSubgrupo";
             // 
             // tb_subgrupoBindingNavigator
             // 
             this.tb_subgrupoBindingNavigator.AddNewItem = null;
-            this.tb_subgrupoBindingNavigator.BindingSource = this.tb_subgrupoBindingSource;
+            this.tb_subgrupoBindingNavigator.BindingSource = this.subgrupoBindingSource;
             this.tb_subgrupoBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_subgrupoBindingNavigator.DeleteItem = null;
             this.tb_subgrupoBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -213,7 +203,7 @@
             this.tb_subgrupoBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_subgrupoBindingNavigator.Name = "tb_subgrupoBindingNavigator";
             this.tb_subgrupoBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_subgrupoBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_subgrupoBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_subgrupoBindingNavigator.TabIndex = 21;
             this.tb_subgrupoBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -286,7 +276,7 @@
             // 
             // codSubgrupoTextBox
             // 
-            this.codSubgrupoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_subgrupoBindingSource, "codSubgrupo", true));
+            this.codSubgrupoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.subgrupoBindingSource, "CodSubgrupo", true));
             this.codSubgrupoTextBox.Location = new System.Drawing.Point(7, 84);
             this.codSubgrupoTextBox.Name = "codSubgrupoTextBox";
             this.codSubgrupoTextBox.ReadOnly = true;
@@ -297,43 +287,33 @@
             // descricaoTextBox
             // 
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_subgrupoBindingSource, "descricao", true));
+            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.subgrupoBindingSource, "Descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(123, 85);
             this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(346, 20);
             this.descricaoTextBox.TabIndex = 23;
-            this.descricaoTextBox.TextChanged += new System.EventHandler(this.descricaoTextBox_TextChanged);
             this.descricaoTextBox.Leave += new System.EventHandler(this.descricaoTextBox_Leave);
             // 
             // codGrupoComboBox
             // 
-            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_subgrupoBindingSource, "codGrupo", true));
-            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_subgrupoBindingSource, "descricaoGrupo", true));
-            this.codGrupoComboBox.DataSource = this.tbgrupoBindingSource;
-            this.codGrupoComboBox.DisplayMember = "descricao";
+            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.subgrupoBindingSource, "CodGrupo", true));
+            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.subgrupoBindingSource, "DescricaoGrupo", true));
+            this.codGrupoComboBox.DataSource = this.grupoBindingSource;
+            this.codGrupoComboBox.DisplayMember = "Descricao";
             this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codGrupoComboBox.FormattingEnabled = true;
             this.codGrupoComboBox.Location = new System.Drawing.Point(7, 130);
             this.codGrupoComboBox.Name = "codGrupoComboBox";
             this.codGrupoComboBox.Size = new System.Drawing.Size(462, 21);
             this.codGrupoComboBox.TabIndex = 24;
-            this.codGrupoComboBox.ValueMember = "codGrupo";
+            this.codGrupoComboBox.ValueMember = "CodGrupo";
             this.codGrupoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codGrupoComboBox_KeyPress);
             this.codGrupoComboBox.Leave += new System.EventHandler(this.codGrupoComboBox_Leave);
             // 
-            // tbgrupoBindingSource
+            // grupoBindingSource
             // 
-            this.tbgrupoBindingSource.DataMember = "tb_grupo";
-            this.tbgrupoBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_grupoTableAdapter
-            // 
-            this.tb_grupoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_subgrupoTableAdapter
-            // 
-            this.tb_subgrupoTableAdapter.ClearBeforeFill = true;
+            this.grupoBindingSource.DataSource = typeof(Dominio.Grupo);
             // 
             // FrmSubgrupo
             // 
@@ -366,12 +346,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSubgrupo_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_subgrupoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subgrupoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_subgrupoBindingNavigator)).EndInit();
             this.tb_subgrupoBindingNavigator.ResumeLayout(false);
             this.tb_subgrupoBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbgrupoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -387,8 +366,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_subgrupoBindingSource;
+        private System.Windows.Forms.BindingSource subgrupoBindingSource;
         private System.Windows.Forms.BindingNavigator tb_subgrupoBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -402,8 +380,6 @@
         private System.Windows.Forms.TextBox codSubgrupoTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.ComboBox codGrupoComboBox;
-        private System.Windows.Forms.BindingSource tbgrupoBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_grupoTableAdapter tb_grupoTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_subgrupoTableAdapter tb_subgrupoTableAdapter;
+        private System.Windows.Forms.BindingSource grupoBindingSource;
     }
 }

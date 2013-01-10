@@ -47,6 +47,11 @@ namespace Dominio
             return this.CodPessoa == ((Pessoa)obj).CodPessoa;    
         }
 
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodPessoa.GetHashCode();
+        }
       
     }
 }

@@ -7,23 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 
 namespace Telas
 {
     public partial class FrmBancoPesquisa : Form
     {
-        private Int32 codBanco;
-
-        public Int32 CodBanco
-        {
-            get { return codBanco; }
-            set { codBanco = value; }
-        }
+        public Banco BancoSelected { get; set; }
 
         public FrmBancoPesquisa()
         {
             InitializeComponent();
-            codBanco = -1;
+            BancoSelected = null;
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
@@ -43,7 +38,7 @@ namespace Telas
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codBanco = int.Parse(tb_bancoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            BancoSelected = (Banco) bancoBindingSource.Current;
             this.Close();
         }
 

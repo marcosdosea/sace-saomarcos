@@ -6,52 +6,38 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
 namespace Telas
 {
     public partial class FrmPlanoContaPesquisa : Form
     {
-        private Int32 codPlanoConta;
-
-        public Int32 CodPlanoConta
-        {
-            get { return codPlanoConta; }
-            set { codPlanoConta = value; }
-        }
+        public PlanoConta PlanoContaSelected;
 
         public FrmPlanoContaPesquisa()
         {
             InitializeComponent();
-            codPlanoConta = -1;
+            PlanoContaSelected = null;
         }
 
         private void FrmPlanoContaPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
-            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
-            // TODO: This line of code loads data into the 'saceDataSet.tb_plano_conta' table. You can move, or remove it, as needed.
-            this.tb_plano_contaTableAdapter.Fill(this.saceDataSet.tb_plano_conta);
+            planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_plano_contaTableAdapter.FillByCodPlanoConta(this.saceDataSet.tb_plano_conta, int.Parse(txtTexto.Text));
-                else
-                    this.tb_plano_contaTableAdapter.FillByDescricao(this.saceDataSet.tb_plano_conta, txtTexto.Text);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
+            else
+                planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_plano_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codPlanoConta = int.Parse(tb_plano_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            PlanoContaSelected = (PlanoConta)planoContaBindingSource.Current;
             this.Close();
         }
 
@@ -60,24 +46,19 @@ namespace Telas
             if (e.KeyCode == Keys.Enter)
             {
                 tb_plano_contaDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_plano_contaBindingSource.MoveNext();
+                planoContaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_plano_contaBindingSource.MovePrevious();
+                planoContaBindingSource.MovePrevious();
             }
-        }
-
-        public Int32 getCodPlanoConta()
-        {
-            return codPlanoConta;
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,12 +66,5 @@ namespace Telas
             txtTexto.Text = "";
         }
 
-        private void tb_plano_contaBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_plano_contaBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
-        }
     }
 }

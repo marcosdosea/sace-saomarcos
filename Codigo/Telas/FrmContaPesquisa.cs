@@ -6,33 +6,42 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
 namespace Telas
 {
     public partial class FrmContaPesquisa : Form
     {
-        private int codConta;
+        public Conta ContaSelected { get; set; }
 
         public FrmContaPesquisa()
         {
             InitializeComponent();
-            codConta = -1;
+            ContaSelected = null;
         }
 
-        public int getCodConta()
-        {
-            return codConta;
-        }
-
+                
         private void FrmContaPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_contaTableAdapter.Fill(this.saceDataSet.tb_conta);
+            contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
+
+        private void txtTexto_TextChanged(object sender, EventArgs e)
+        {
+            if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
+                contaBindingSource.DataSource = GerenciadorConta.GetInstance().Obter(Convert.ToInt64(txtTexto.Text));
+            else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
+                contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterPorEntrada(Convert.ToInt64(txtTexto.Text));
+            else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+                contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterPorSaida(Convert.ToInt64(txtTexto.Text));
+            }
+
         private void tb_grupo_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codConta = int.Parse(tb_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            ContaSelected = (Conta) contaBindingSource.Current;
             this.Close();
         }
 
@@ -48,29 +57,17 @@ namespace Telas
             }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_contaBindingSource.MoveNext();
+                contaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_contaBindingSource.MovePrevious();
+                contaBindingSource.MovePrevious();
             }
         }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
-        }
-
-        private void txtTexto_TextChanged(object sender, EventArgs e)
-        {
-            //if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-            //    this.tb_contaTableAdapter.FillByConta(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
-            //else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-            //    this.tb_contaTableAdapter.FillByPessoa(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
-            //else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-            //    this.tb_contaTableAdapter.FillByEntrada(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
-            //else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-            //    this.tb_contaTableAdapter.FillBySaida(this.saceDataSet.tb_conta, int.Parse(txtTexto.Text), null);
         }
     }
 }

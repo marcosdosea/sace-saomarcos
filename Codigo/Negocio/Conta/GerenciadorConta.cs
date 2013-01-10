@@ -256,6 +256,21 @@ namespace Negocio
                   conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).ToList();
         }
 
+        /// <summary>
+        /// Obtém todas as situações de conta
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SituacaoConta> ObterSituacoesConta()
+        {
+            var saceEntities = (SaceEntities)repConta.ObterContexto();
+            var query = from situacaoConta in saceEntities.SituacaoContaSet
+                        select new SituacaoConta
+                        {
+                            CodSituacao = situacaoConta.codSituacao,
+                            Descricao = situacaoConta.descricaoSituacao
+                            };
+            return query.ToList();
+        }
        
         /// <summary>
         /// Atribui entidade à entidade persistente
@@ -291,7 +306,7 @@ namespace Negocio
             string observacao = "Substituiu as contas: ";
             foreach (long codConta in listaContas)
             {
-                GerenciadorConta.GetInstance().Atualizar(Conta.SITUACAO_QUITADA, 0, codConta);
+                GerenciadorConta.GetInstance().Atualizar(SituacaoConta.SITUACAO_QUITADA, 0, codConta);
                 observacao += codConta + ", ";
             }
             DateTime dataVecimento = DateTime.Now;
@@ -305,7 +320,7 @@ namespace Negocio
                 conta.CodPessoa = cartaoCredito.CodPessoa;
                 conta.CodPlanoConta = PlanoConta.RECEBIMENTO_CREDIARIO;
                 conta.CodSaida = 1;
-                conta.CodSituacao = Conta.SITUACAO_ABERTA;
+                conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA;
                 dataVecimento = dataVecimento.AddDays(cartaoCredito.DiaBase);
                 conta.DataVencimento = dataVecimento;
                 conta.Desconto = 0;

@@ -42,11 +42,7 @@
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_plano_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_plano_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_grupo_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter();
+            this.planoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_plano_contaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -61,7 +57,7 @@
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
             this.diaBaseTextBox = new System.Windows.Forms.TextBox();
             this.codGrupoContaComboBox = new System.Windows.Forms.ComboBox();
-            this.tbgrupocontaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.grupoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rbPagar = new System.Windows.Forms.RadioButton();
             this.rbReceber = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -70,11 +66,10 @@
             diaBaseLabel = new System.Windows.Forms.Label();
             codGrupoContaLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingNavigator)).BeginInit();
             this.tb_plano_contaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbgrupocontaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoContaBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -195,73 +190,16 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // saceDataSet
+            // planoContaBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_plano_contaBindingSource
-            // 
-            this.tb_plano_contaBindingSource.DataMember = "tb_plano_conta";
-            this.tb_plano_contaBindingSource.DataSource = this.saceDataSet;
-            this.tb_plano_contaBindingSource.Sort = "codPlanoConta";
-            this.tb_plano_contaBindingSource.PositionChanged += new System.EventHandler(this.tb_plano_contaBindingSource_PositionChanged);
-            // 
-            // tb_plano_contaTableAdapter
-            // 
-            this.tb_plano_contaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = this.tb_grupo_contaTableAdapter;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = this.tb_plano_contaTableAdapter;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pedidoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_grupo_contaTableAdapter
-            // 
-            this.tb_grupo_contaTableAdapter.ClearBeforeFill = true;
+            this.planoContaBindingSource.DataSource = typeof(Dominio.PlanoConta);
+            this.planoContaBindingSource.Sort = "codPlanoConta";
+            this.planoContaBindingSource.PositionChanged += new System.EventHandler(this.tb_plano_contaBindingSource_PositionChanged);
             // 
             // tb_plano_contaBindingNavigator
             // 
             this.tb_plano_contaBindingNavigator.AddNewItem = null;
-            this.tb_plano_contaBindingNavigator.BindingSource = this.tb_plano_contaBindingSource;
+            this.tb_plano_contaBindingNavigator.BindingSource = this.planoContaBindingSource;
             this.tb_plano_contaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_plano_contaBindingNavigator.DeleteItem = null;
             this.tb_plano_contaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -282,7 +220,7 @@
             this.tb_plano_contaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_plano_contaBindingNavigator.Name = "tb_plano_contaBindingNavigator";
             this.tb_plano_contaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_plano_contaBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_plano_contaBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_plano_contaBindingNavigator.TabIndex = 21;
             this.tb_plano_contaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -355,7 +293,7 @@
             // 
             // codPlanoContaTextBox
             // 
-            this.codPlanoContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "codPlanoConta", true));
+            this.codPlanoContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "CodPlanoConta", true));
             this.codPlanoContaTextBox.Enabled = false;
             this.codPlanoContaTextBox.Location = new System.Drawing.Point(7, 89);
             this.codPlanoContaTextBox.Name = "codPlanoContaTextBox";
@@ -365,7 +303,7 @@
             // descricaoTextBox
             // 
             this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "descricao", true));
+            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "Descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(137, 89);
             this.descricaoTextBox.MaxLength = 40;
             this.descricaoTextBox.Name = "descricaoTextBox";
@@ -376,7 +314,7 @@
             // diaBaseTextBox
             // 
             this.diaBaseTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "diaBase", true));
+            this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "DiaBase", true));
             this.diaBaseTextBox.Location = new System.Drawing.Point(413, 134);
             this.diaBaseTextBox.MaxLength = 2;
             this.diaBaseTextBox.Name = "diaBaseTextBox";
@@ -388,23 +326,22 @@
             this.codGrupoContaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codGrupoContaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codGrupoContaComboBox.CausesValidation = false;
-            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_plano_contaBindingSource, "descricaoGrupoConta", true));
-            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_plano_contaBindingSource, "codGrupoConta", true));
-            this.codGrupoContaComboBox.DataSource = this.tbgrupocontaBindingSource;
-            this.codGrupoContaComboBox.DisplayMember = "descricao";
+            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "descricaoGrupoConta", true));
+            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.planoContaBindingSource, "CodGrupoConta", true));
+            this.codGrupoContaComboBox.DataSource = this.grupoContaBindingSource;
+            this.codGrupoContaComboBox.DisplayMember = "Descricao";
             this.codGrupoContaComboBox.FormattingEnabled = true;
             this.codGrupoContaComboBox.Location = new System.Drawing.Point(10, 134);
             this.codGrupoContaComboBox.Name = "codGrupoContaComboBox";
             this.codGrupoContaComboBox.Size = new System.Drawing.Size(249, 21);
             this.codGrupoContaComboBox.TabIndex = 26;
-            this.codGrupoContaComboBox.ValueMember = "codGrupoConta";
+            this.codGrupoContaComboBox.ValueMember = "CodGrupoConta";
             this.codGrupoContaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codGrupoContaComboBox_KeyPress);
             this.codGrupoContaComboBox.Leave += new System.EventHandler(this.codGrupoContaComboBox_Leave);
             // 
-            // tbgrupocontaBindingSource
+            // grupoContaBindingSource
             // 
-            this.tbgrupocontaBindingSource.DataMember = "tb_grupo_conta";
-            this.tbgrupocontaBindingSource.DataSource = this.saceDataSet;
+            this.grupoContaBindingSource.DataSource = typeof(Dominio.GrupoConta);
             // 
             // rbPagar
             // 
@@ -472,12 +409,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPlanoConta_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingNavigator)).EndInit();
             this.tb_plano_contaBindingNavigator.ResumeLayout(false);
             this.tb_plano_contaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbgrupocontaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grupoContaBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -495,10 +431,7 @@
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_plano_contaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_plano_contaTableAdapter tb_plano_contaTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource planoContaBindingSource;
         private System.Windows.Forms.BindingNavigator tb_plano_contaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -512,9 +445,8 @@
         private System.Windows.Forms.MaskedTextBox codPlanoContaTextBox;
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.TextBox diaBaseTextBox;
-        private Dados.saceDataSetTableAdapters.tb_grupo_contaTableAdapter tb_grupo_contaTableAdapter;
         private System.Windows.Forms.ComboBox codGrupoContaComboBox;
-        private System.Windows.Forms.BindingSource tbgrupocontaBindingSource;
+        private System.Windows.Forms.BindingSource grupoContaBindingSource;
         private System.Windows.Forms.RadioButton rbPagar;
         private System.Windows.Forms.RadioButton rbReceber;
         private System.Windows.Forms.GroupBox groupBox1;

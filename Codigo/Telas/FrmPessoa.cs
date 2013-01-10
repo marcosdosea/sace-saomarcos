@@ -15,7 +15,7 @@ namespace Telas
     public partial class FrmPessoa : Form
     {
         private EstadoFormulario estado;
-        public Int32 CodPessoa { get; set; }
+        public Pessoa PessoaSelected { get; set; }
 
         public FrmPessoa()
         {
@@ -37,10 +37,9 @@ namespace Telas
         {
             Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
             frmPessoaPesquisa.ShowDialog();
-            if (frmPessoaPesquisa.CodPessoa != -1)
+            if (frmPessoaPesquisa.PessoaSelected != null)
             {
-                Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(frmPessoaPesquisa.CodPessoa).ElementAt(0);
-                pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
+                pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
             }
             frmPessoaPesquisa.Dispose();
         }
@@ -74,7 +73,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorPessoa.GetInstance().Remover(Int64.Parse(codPessoaTextBox.Text));
-                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                pessoaBindingSource.RemoveCurrent();
             }
         }
 
@@ -173,11 +172,11 @@ namespace Telas
         {
             Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
             frmPessoaPesquisa.ShowDialog();
-            if (frmPessoaPesquisa.CodPessoa != -1)
+            if (frmPessoaPesquisa.PessoaSelected != null)
             {
                 ContatoPessoa contatoPessoa = new ContatoPessoa();
                 contatoPessoa.CodPessoa = Int64.Parse(codPessoaTextBox.Text);
-                contatoPessoa.CodPessoaContato = frmPessoaPesquisa.CodPessoa;
+                contatoPessoa.CodPessoaContato = frmPessoaPesquisa.PessoaSelected.CodPessoa;
 
                 GerenciadorPessoa.GetInstance().InserirContato(contatoPessoa);
                 contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterContatos(long.Parse(codPessoaTextBox.Text));
@@ -278,7 +277,7 @@ namespace Telas
 
         private void FrmPessoa_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CodPessoa = Int32.Parse(codPessoaTextBox.Text);
+            PessoaSelected = (Pessoa) pessoaBindingSource.Current;
         }
 
         private void limiteCompraTextBox_Leave(object sender, EventArgs e)
@@ -291,7 +290,6 @@ namespace Telas
             FormatTextBox.RemoverAcentos((TextBox) sender);
             if (nomeTextBox.Text.Trim().Equals(""))
             {
-                //nomeTextBox.Text = nomeFantasiaTextBox.Text;
                 ((Pessoa)pessoaBindingSource.Current).Nome = nomeFantasiaTextBox.Text; 
             }
         }

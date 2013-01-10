@@ -162,13 +162,6 @@ namespace Telas
             frmEntrada.Dispose();
         }
 
-        private void transformaçãoDePrToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Telas.FrmTransformacaoProduto frmTrasnformacaoProduto = new Telas.FrmTransformacaoProduto();
-            frmTrasnformacaoProduto.ShowDialog();
-            frmTrasnformacaoProduto.Dispose();
-        }
-
         private void usuárioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Telas.FrmUsuario frmFrmUsuario = new Telas.FrmUsuario();
@@ -197,17 +190,9 @@ namespace Telas
             this.Visible = true;
         }
 
-
-        private void documentosDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(0);
-            frmDocumentoPagamento.ShowDialog();
-            frmDocumentoPagamento.Dispose();
-        }
-
         private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Telas.FrmContas frmConta = new Telas.FrmContas();
+            Telas.FrmConta frmConta = new Telas.FrmConta();
             frmConta.ShowDialog();
             frmConta.Dispose();
         }

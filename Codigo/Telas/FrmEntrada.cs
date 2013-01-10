@@ -306,11 +306,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        Pessoa fornecedor = new Pessoa();
-                        fornecedor.CodPessoa = frmPessoaPesquisa.CodPessoa;
-                        fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(fornecedor);
+                        fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -318,12 +316,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        codFornecedorComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-                        Pessoa fornecedor = new Pessoa();
-                        fornecedor.CodPessoa = frmPessoa.CodPessoa;
-                        fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(fornecedor);
+                        fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -331,11 +326,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        Pessoa transportadora = new Pessoa();
-                        transportadora.CodPessoa = frmPessoaPesquisa.CodPessoa;
-                        empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(transportadora);
+                        empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -343,12 +336,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        codEmpresaFreteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-                        Pessoa transportadora = new Pessoa();
-                        transportadora.CodPessoa = frmPessoa.CodPessoa;
-                        empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(transportadora);
+                        empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }

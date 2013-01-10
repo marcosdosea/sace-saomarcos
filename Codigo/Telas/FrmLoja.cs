@@ -24,9 +24,9 @@ namespace Telas
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.LOJAS, Principal.Autenticacao.CodUsuario);
-            this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
-            this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
+            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.LOJAS, Principal.Autenticacao.CodUsuario);
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -34,16 +34,16 @@ namespace Telas
         {
             Telas.FrmLojaPesquisa frmLojaPesquisa = new Telas.FrmLojaPesquisa();
             frmLojaPesquisa.ShowDialog();
-            if (frmLojaPesquisa.CodLoja != -1)
+            if (frmLojaPesquisa.LojaSelected != null)
             {
-            tb_lojaBindingSource.Position = tb_lojaBindingSource.Find("codLoja", frmLojaPesquisa.CodLoja);
+                lojaBindingSource.Position = lojaBindingSource.List.IndexOf(frmLojaPesquisa.LojaSelected);
             }
             frmLojaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_lojaBindingSource.AddNew();
+            lojaBindingSource.AddNew();
             codLojaTextBox.Enabled = false;
             codPessoaComboBox.SelectedIndex = 0;
             nomeTextBox.Focus();
@@ -62,16 +62,16 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorLoja.getInstace().remover(int.Parse(codLojaTextBox.Text));
-                tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
+                GerenciadorLoja.GetInstance().Remover(int.Parse(codLojaTextBox.Text));
+                lojaBindingSource.RemoveCurrent();
             }
 
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_lojaBindingSource.CancelEdit();
-            tb_lojaBindingSource.EndEdit();
+            lojaBindingSource.CancelEdit();
+            lojaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -85,23 +85,21 @@ namespace Telas
                 loja.Nome = nomeTextBox.Text;
                 loja.CodPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
                     
-                
-                GerenciadorLoja gLoja = GerenciadorLoja.getInstace();
+                GerenciadorLoja gLoja = GerenciadorLoja.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gLoja.inserir(loja);
-                    tb_lojaTableAdapter.Fill(saceDataSet.tb_loja);
-                    tb_lojaBindingSource.MoveLast();
+                    long codLoja = gLoja.Inserir(loja);
+                    codLojaTextBox.Text = codLoja.ToString();
                 }
                 else
                 {
-                    gLoja.atualizar(loja);
-                    tb_lojaBindingSource.EndEdit();
+                    gLoja.Atualizar(loja);
                 }
+                lojaBindingSource.EndEdit();
             }
             catch (DadosException de)
             {
-                tb_lojaBindingSource.CancelEdit();
+                lojaBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -133,19 +131,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_lojaBindingSource.MoveLast();
+                    lojaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_lojaBindingSource.MoveFirst();
+                    lojaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_lojaBindingSource.MovePrevious();
+                    lojaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_lojaBindingSource.MoveNext();
+                    lojaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -172,9 +170,9 @@ namespace Telas
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.CodPessoa != -1)
+                    if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -182,10 +180,9 @@ namespace Telas
                 {
                     Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
                     frmPessoa.ShowDialog();
-                    if (frmPessoa.CodPessoa > 0)
+                    if (frmPessoa.PessoaSelected != null)
                     {
-                        this.tb_pessoaTableAdapter.FillByTipo(this.saceDataSet.tb_pessoa, Pessoa.PESSOA_JURIDICA);
-                        tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoa.CodPessoa);
+                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -213,26 +210,7 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codPessoaComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.CodPessoa != -1)
-                {
-                    tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", frmPessoaPesquisa.CodPessoa);
-                }
-                else
-                {
-                    codPessoaComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                tbpessoaBindingSource.Position = tbpessoaBindingSource.Find("codPessoa", pessoas[0].codPessoa);
-            }
-            
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true);
         }
 
         private void nomeTextBox_Leave(object sender, EventArgs e)

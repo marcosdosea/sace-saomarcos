@@ -25,5 +25,12 @@ namespace Dominio
 
             return this.CodCartao == ((CartaoCredito)obj).CodCartao;    
         }
+
+       
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodCartao.GetHashCode();
+        }
     }
 }
