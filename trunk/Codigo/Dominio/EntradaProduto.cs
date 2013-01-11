@@ -12,7 +12,7 @@ namespace Dominio
         public long CodEntradaProduto { get; set; }
         public long CodEntrada { get; set; }
         public DateTime DataEntrada { get; set; }
-        public int CodProduto { get; set; }
+        public long CodProduto { get; set; }
         public int Cfop { get; set; }
         public string UnidadeCompra { get; set; }
         public decimal Quantidade { get; set; }
@@ -41,6 +41,14 @@ namespace Dominio
         public decimal PrecoVendaVarejo { get; set; }
         public decimal LucroPrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacado { get; set; }
+        public bool EhTributacaoIntegral
+        {
+            get
+            {
+                Cst cst = new Cst() { CodCST = this.CodCST };
+                return cst.EhTributacaoIntegral;
+            }
+        }
 
         public bool FornecedorEhFabricante { get; set; }
         public long CodFornecedor { get; set; }

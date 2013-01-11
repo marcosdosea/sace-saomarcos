@@ -178,23 +178,7 @@ namespace Telas
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
         }
 
-        private void codDocumentoPagamentoComboBox_Leave(object sender, EventArgs e)
-        {
-            if (codDocumentoPagamentoComboBox.SelectedValue == null)
-            {
-                codDocumentoPagamentoComboBox.Focus();
-                throw new TelaException("Um documento válido precisa ser selecionado.");
-            }
-            long codDocumentoPagamento = Convert.ToInt64(codDocumentoPagamentoComboBox.SelectedValue.ToString());
-            DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(codDocumentoPagamento);
-
-            valorTextBox.Text = documento.Valor.ToString();
-            valorTextBox.Enabled = false;
-
-            btnSalvar.Focus();
-        }
-
-
+      
         private void codFormaPagamentoComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (codFormaPagamentoComboBox.SelectedValue != null)

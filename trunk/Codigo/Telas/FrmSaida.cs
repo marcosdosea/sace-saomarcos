@@ -30,6 +30,7 @@ namespace Telas
         private int posicaoUltimoProduto;
 
 
+
         public FrmSaida(int tipoSaida)
         {
             InitializeComponent();
@@ -356,90 +357,18 @@ namespace Telas
         /// <param name="e"></param>
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            bool entradaViaCodigoBarra = false;
-
-            if ((estado != EstadoFormulario.ESPERA) && (estado != EstadoFormulario.ATUALIZAR_DETALHE))
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ultimoCodigoBarraLido, false);
+            if (_produtoPesquisa != null)
             {
-                quantidadeTextBox.Text = "1";
-                if (Convert.ToInt32(codProdutoComboBox.SelectedValue) == 1)
+                buscaPrecos();
+                atualizarSubTotal();
+                if (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA))
                 {
-                    produto = null;
-                    codProdutoComboBox.Text = "";
-                }
-                
-                long result;
-                bool isNumber = long.TryParse(codProdutoComboBox.Text.ToString(), out result);
 
-                if (isNumber)
-                {
-                    // Busca produto pelo Código ou Código de Barra
-                    if (codProdutoComboBox.Text.Length < 7)
-                    {
-                        produto = GerenciadorProduto.getInstace().obterProduto(Convert.ToInt32(result));
-                    }
-                    else
-                    {
-                        produto = GerenciadorProduto.getInstace().obterProdutoPorCodBarra(codProdutoComboBox.Text);
-                        entradaViaCodigoBarra = (produto != null);
-                        ultimoCodigoBarraLido = (produto == null) ? codProdutoComboBox.Text : "";
-                    }
-                    codProdutoComboBox.Text = "";
+                    btnSalvar_Click(sender, e);
                 }
-                else
-                {
-                    // Busca produto pelo nome
-                    produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
-                    if (produto == null)
-                    {
-                        Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(codProdutoComboBox.Text, false);
-                        frmProdutoPesquisaPreco.ShowDialog();
-                        if (frmProdutoPesquisaPreco.getCodProduto() != -1)
-                        {
-                            produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
-                            produtoOriginal = (Produto)produto.Clone();
-                            codProdutoComboBox.Text = produto.Nome;
-                            tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
-                        }
-                        else
-                        {
-                            codProdutoComboBox.Focus();
-                        }
-                        frmProdutoPesquisaPreco.Dispose();
-                    }
-                }
-                if (produto == null)
-                {
-                    codProdutoComboBox.Focus();
-                }
-                else
-                {
-                    // Associa o útlimo código de barra lido ao produto selecionado
-                    if (!ultimoCodigoBarraLido.Equals(""))
-                    {
-                        if (MessageBox.Show("Associar o último código de barra lido ao produto selecionado?", "Confirmar Associação", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            produto.CodigoBarra = ultimoCodigoBarraLido;
-                            GerenciadorProduto.getInstace().atualizar(produto);
-                        }
-                        ultimoCodigoBarraLido = "";
-                    }
-
-                    // Exibe dados do produto selecionado
-                    codProdutoComboBox.Text = produto.Nome;
-                    produtoOriginal = (Produto)produto.Clone();
-                    tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
-                    
-                    buscaPrecos();
-                    
-                    atualizarSubTotal();
-                    if (entradaViaCodigoBarra && (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA)))
-                    {
-                        
-                        btnSalvar_Click(sender, e);
-                    }
-                }
+                codSaidaTextBox_Leave(sender, e);
             }
-            codSaidaTextBox_Leave(sender, e);
         }
 
         /// <summary>
@@ -599,7 +528,7 @@ namespace Telas
                     //backgroundWorkerRecuperaCupons.RunWorkerAsync();
                 }
                 atualizarTelaDadosSaida(saida.CodSaida);
-                tb_produtoBindingSource.MoveFirst();
+                produtoBindingSource.MoveFirst();
                 btnNovo.Focus();
             }
             Cursor.Current = Cursors.Default;

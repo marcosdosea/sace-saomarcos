@@ -7,27 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Util;
+using Dominio;
 
 namespace Telas
 {
     public partial class FrmProdutoPesquisaPreco : Form
     {
-        private Int32 codProduto;
         private String filtroNome;
         private String textoAtual;
 
         public bool ExibirTodos { get; set;}
-
-        public Int32 CodProduto
-        {
-            get { return codProduto; }
-            set { codProduto = value; }
-        }
-
+        public ProdutoPesquisa ProdutoPesquisa { get; set; }
+        
+        
         public FrmProdutoPesquisaPreco(bool exibirTodos)
         {
             InitializeComponent();
-            codProduto = -1;
+            ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
         }
@@ -35,7 +31,7 @@ namespace Telas
         public FrmProdutoPesquisaPreco(String nome, bool exibirTodos)
         {
             InitializeComponent();
-            codProduto = -1;
+            ProdutoPesquisa = null;
             filtroNome = nome;
             ExibirTodos = exibirTodos;
         }
@@ -121,10 +117,9 @@ namespace Telas
 
         private void tb_produtoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codProduto = -1;
             if (tb_produtoDataGridView.RowCount > 0)
             {
-                codProduto = int.Parse(tb_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                ProdutoPesquisa = (ProdutoPesquisa) tb_produtoBindingSource.Current;
             }
             this.Close();
         }
@@ -168,10 +163,6 @@ namespace Telas
             }
         }
 
-        public Int32 getCodProduto()
-        {
-            return codProduto;
-        }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -207,14 +198,6 @@ namespace Telas
             }
             txtTexto.Text = "";
         }
-
-        private void tb_produtoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_produtoBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-        }
-
         
         private void tb_produtoDataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
         {

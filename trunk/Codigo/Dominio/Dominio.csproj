@@ -78,6 +78,7 @@
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
     <Compile Include="Cfop.cs" />
+    <Compile Include="ProdutoPesquisa.cs" />
     <Compile Include="Cst.cs" />
     <Compile Include="DocumentoPagamento.cs" />
     <Compile Include="EntradaPagamento.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="ContatoPessoa.cs" />
     <Compile Include="FormaPagamento.cs" />
     <Compile Include="MovimentacaoConta.cs" />
-    <Compile Include="ProdutoLojaPK.cs" />
     <Compile Include="Entrada.cs" />
     <Compile Include="EntradaProduto.cs" />
     <Compile Include="Grupo.cs" />

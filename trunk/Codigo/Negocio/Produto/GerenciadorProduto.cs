@@ -11,46 +11,43 @@ using System.Data.Common;
 
 namespace Negocio
 {
-    public class GerenciadorProduto {
+    public class GerenciadorProduto
+    {
 
         private static GerenciadorProduto gProduto;
         private static GerenciadorPrecos gPreco;
-        private static tb_produtoTableAdapter tb_produtoTA;
-        
-        public static GerenciadorProduto getInstace()
+        private static RepositorioGenerico<ProdutoE, SaceEntities> repProduto;
+
+        public static GerenciadorProduto GetInstance()
         {
             if (gProduto == null)
             {
                 gProduto = new GerenciadorProduto();
-                tb_produtoTA = new tb_produtoTableAdapter();
+                repProduto = new RepositorioGenerico<ProdutoE, SaceEntities>("chave");
                 gPreco = GerenciadorPrecos.getInstance();
             }
             return gProduto;
         }
 
-        public Int64 inserir(Produto produto)
+        /// <summary>
+        /// Insere um novo produto na base de dados
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Produto produto)
         {
             try
             {
                 if (produto.Nome.Trim().Equals(""))
                     throw new NegocioException("O nome do produto não pode ficar em branco.");
-                
-                
-                byte temVencimentoByte  = (byte) (produto.TemVencimento?1:0);
-                byte exibeNaListagemByte = (byte)(produto.ExibeNaListagem ? 1 : 0);
-                tb_produtoTA.Insert(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade, 
-                    produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh, 
-                    produto.CodFabricante, produto.ReferenciaFabricante, 
-                    produto.CodSituacaoProduto, produto.CodGrupo, produto.CodSubgrupo, temVencimentoByte,
-                    produto.Icms, produto.IcmsSubstituto, produto.Simples,
-                    produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao,
-                    produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
-                    produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
-                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado, 
-                    exibeNaListagemByte, produto.DataUltimoPedido, produto.Desconto,
-                    produto.UnidadeCompra, produto.QuantidadeEmbalagem);
-               
-                return 0;
+
+                ProdutoE _produtoE = new ProdutoE();
+                Atribuir(produto, _produtoE);
+
+                repProduto.Inserir(_produtoE);
+                repProduto.SaveChanges();
+
+                return _produtoE.codProduto;
             }
             catch (Exception e)
             {
@@ -58,33 +55,27 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Produto produto)
+        /// <summary>
+        /// Atualiza os dados do produto
+        /// </summary>
+        /// <param name="produto"></param>
+        public void Atualizar(Produto produto)
         {
             if (produto.CodProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
             else if (produto.Nome.Trim().Equals(""))
                 throw new NegocioException("O nome do produto não pode ficar em branco.");
-               
+
             try
             {
-                Produto produtoAtual = obterProduto(produto.CodProduto);
-                if ((produto.PrecoVendaVarejo != produtoAtual.PrecoVendaVarejo) || (produto.PrecoVendaAtacado != produtoAtual.PrecoVendaAtacado))
-                {
+                ProdutoE _produtoE = repProduto.ObterEntidade(p => p.codProduto == produto.CodProduto);
+                // Atualiza data da ultima atualizacao
+                if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado))
                     produto.UltimaDataAtualizacao = DateTime.Now;
-                }
-
-
-                tb_produtoTA.Update(produto.Nome, produto.NomeProdutoFabricante, produto.Unidade,
-                    produto.CodigoBarra, produto.CodCST, produto.Cfop, produto.Ncmsh,
-                    produto.CodFabricante, produto.ReferenciaFabricante,
-                    produto.CodSituacaoProduto, produto.CodGrupo, produto.CodSubgrupo, produto.TemVencimento,
-                    produto.Icms, produto.IcmsSubstituto, produto.Simples,
-                    produto.Ipi, produto.Frete, produto.UltimaDataAtualizacao,
-                    produto.UltimoPrecoCompra, produto.LucroPrecoVendaVarejo,
-                    produto.PrecoVendaVarejo, produto.QtdProdutoAtacado,
-                    produto.LucroPrecoVendaAtacado, produto.PrecoVendaAtacado,
-                    produto.ExibeNaListagem, produto.DataUltimoPedido, produto.Desconto, 
-                    produto.UnidadeCompra, produto.QuantidadeEmbalagem,  produto.CodProduto);
+                
+                // Atualiza dados do produto
+                Atribuir(produto, _produtoE);
+                repProduto.SaveChanges();
             }
             catch (Exception e)
             {
@@ -92,14 +83,36 @@ namespace Negocio
             }
         }
 
-        public void remover(Int32 codproduto)
+        /// <summary>
+        /// Atualiza o código de barra do produto
+        /// </summary>
+        /// <param name="_produtoPesquisa"></param>
+        /// <param name="ultimoCodigoBarraLido"></param>
+        public void AtualizarCodigoBarra(ProdutoPesquisa _produtoPesquisa, string ultimoCodigoBarraLido)
+        {
+            try
+            {
+                ProdutoE _produtoE = repProduto.ObterEntidade(p => p.codProduto == _produtoPesquisa.CodProduto);
+                _produtoE.codigoBarra = ultimoCodigoBarraLido;
+                repProduto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Produto", e.Message, e);
+            }
+        }
+        /// <summary>
+        /// Remove produto da base de dados
+        /// </summary>
+        /// <param name="codproduto"></param>
+        public void Remover(Int64 codproduto)
         {
             if (codproduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
-            
             try
             {
-                tb_produtoTA.Delete(codproduto);
+                repProduto.Remover(p => p.codProduto == codproduto);
+                repProduto.SaveChanges();
             }
             catch (Exception e)
             {
@@ -107,102 +120,186 @@ namespace Negocio
             }
         }
 
-        public decimal calculaPrecoCusto(Produto produto) 
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<Produto> GetQuery()
         {
-            if (produto.Cfop == Global.VENDA_NORMAL)
-                return gPreco.calculaPrecoCustoNormal(produto.UltimoPrecoCompra, produto.Icms, 
-                    produto.Simples, produto.Ipi, produto.Frete, 0, 0);
-            return gPreco.calculaPrecoCustoSubstituicao(produto.UltimoPrecoCompra, produto.IcmsSubstituto,
-                produto.Simples, produto.Ipi, produto.Frete, 0, 0);
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+            var query = from produto in saceEntities.ProdutoSet
+                        select new Produto
+                        {
+                            Cfop = (int) produto.cfop,
+                            CodCST = produto.codCST,
+                            CodFabricante = produto.codFabricante,
+                            CodGrupo = (int) produto.codGrupo,
+                            CodigoBarra = produto.codigoBarra,
+                            CodProduto = produto.codProduto,
+                            CodSituacaoProduto = (byte) produto.codSituacaoProduto,
+                            CodSubgrupo = produto.codSubgrupo,
+                            DataUltimoPedido = (DateTime) produto.dataUltimoPedido,
+                            Desconto = (decimal) produto.desconto,
+                            ExibeNaListagem = (bool) produto.exibeNaListagem,
+                            Frete = (decimal) produto.frete,
+                            Icms = (decimal) produto.icms,
+                            IcmsSubstituto = (decimal) produto.icms_substituto,
+                            Ipi = (decimal) produto.ipi,
+                            LucroPrecoVendaAtacado = (decimal) produto.lucroPrecoVendaAtacado,
+                            LucroPrecoVendaVarejo = (decimal) produto.lucroPrecoVendaVarejo,
+                            Ncmsh = produto.ncmsh,
+                            Nome = produto.nome,
+                            NomeProdutoFabricante = produto.nomeProdutoFabricante,
+                            PrecoVendaAtacado = (decimal) produto.precoVendaAtacado,
+                            PrecoVendaVarejo = (decimal) produto.precoVendaVarejo,
+                            QtdProdutoAtacado = (decimal) produto.qtdProdutoAtacado,
+                            QuantidadeEmbalagem = (decimal) produto.quantidadeEmbalagem,
+                            ReferenciaFabricante = produto.referenciaFabricante,
+                            Simples = (decimal) produto.simples,
+                            TemVencimento = (bool) produto.temVencimento,
+                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
+                            UltimoPrecoCompra = (decimal) produto.ultimoPrecoCompra,
+                            Unidade = produto.unidade,
+                            UnidadeCompra = produto.unidadeCompra
+                        };
+            return query;
         }
 
-        public decimal calculaPrecoVenda(decimal precoCusto, decimal lucro)
+        /// <summary>
+        /// Consulta simples para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<ProdutoPesquisa> GetQuerySimples()
         {
-            return gPreco.calculaPrecoVenda(precoCusto, lucro);
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+            var query = from produto in saceEntities.ProdutoSet
+                        select new ProdutoPesquisa
+                        {
+                            CodCST = produto.codCST,
+                            CodigoBarra = produto.codigoBarra,
+                            CodProduto = produto.codProduto,
+                            Nome = produto.nome,
+                            NomeProdutoFabricante = produto.nomeProdutoFabricante,
+                            PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
+                            PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
+                            QtdProdutoAtacado = (decimal)produto.qtdProdutoAtacado,
+                            UltimaDataAtualizacao = (DateTime)produto.ultimaDataAtualizacao,
+                            Unidade = produto.unidade,
+                            TemVencimento = (bool) produto.temVencimento
+                         };
+            return query;
         }
 
-        public Produto obterProdutoPorCodBarra(String codBarra)
+        /// <summary>
+        /// Obter todos os produtos
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Produto> ObterTodos()
         {
-            Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
-            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodBarra(Global.ACRESCIMO_PADRAO, codBarra);
-            return converterProduto(produtoDT);
-        }
-        
-        public Produto obterProduto(Int32 codProduto)
-        {
-            Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
-            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByCodProduto(Global.ACRESCIMO_PADRAO, codProduto);
-            return converterProduto(produtoDT);
+            return GetQuery().ToList();
         }
 
-        public Produto obterProdutoNomeIgual(String nomeProduto)
+        /// <summary>
+        /// Obter um produto usando um produto pesquisado
+        /// </summary>
+        /// <param name="produtoPesquisa"></param>
+        /// <returns></returns>
+        public Produto Obter(ProdutoPesquisa produtoPesquisa)
         {
-            Dados.saceDataSetTableAdapters.tb_produtoTableAdapter tb_produTA = new tb_produtoTableAdapter();
-            Dados.saceDataSet.tb_produtoDataTable produtoDT = tb_produTA.GetDataByExactNome(Global.ACRESCIMO_PADRAO, nomeProduto);
-            return converterProduto(produtoDT);
+            return GetQuery().Where(p => p.CodProduto == produtoPesquisa.CodProduto).ToList().ElementAt(0);
         }
 
-        private Produto converterProduto(Dados.saceDataSet.tb_produtoDataTable produtoDT) {
-            
-            Produto produto = null;
-            if (produtoDT.Count > 0)
+        /// <summary>
+        /// Obter pelo código do produto
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> Obter(long codProduto)
+        {
+            return GetQuerySimples().Where(p => p.CodProduto == codProduto).ToList();
+        }
+
+        /// <summary>
+        /// Obtém produto pelo código de barra
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorCodBarra(String codBarra)
+        {
+            return GetQuerySimples().Where(p => p.CodigoBarra.Equals(codBarra)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém produto pelo nome
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorNome(String nome)
+        {
+            if (nome[0] == '%')
             {
-                produto = new Produto();
-                produto.CodProduto = int.Parse(produtoDT.Rows[0]["codProduto"].ToString());
-                produto.Cfop = int.Parse(produtoDT.Rows[0]["cfop"].ToString());
-                produto.CodFabricante = int.Parse(produtoDT.Rows[0]["codFabricante"].ToString());
-                produto.CodGrupo  = int.Parse(produtoDT.Rows[0]["codGrupo"].ToString());
-                produto.CodSubgrupo = int.Parse(produtoDT.Rows[0]["codSubgrupo"].ToString());
-                produto.CodigoBarra = produtoDT.Rows[0]["codigoBarra"].ToString();
-                produto.ExibeNaListagem = bool.Parse(produtoDT.Rows[0]["exibeNaListagem"].ToString());
-                produto.Frete = decimal.Parse(produtoDT.Rows[0]["frete"].ToString());
-                produto.Icms = decimal.Parse(produtoDT.Rows[0]["icms"].ToString());
-                produto.IcmsSubstituto = decimal.Parse(produtoDT.Rows[0]["icms_substituto"].ToString());
-                produto.Ipi = decimal.Parse(produtoDT.Rows[0]["ipi"].ToString());
-                produto.LucroPrecoVendaAtacado = decimal.Parse(produtoDT.Rows[0]["lucroPrecoVendaAtacado"].ToString());
-                produto.LucroPrecoVendaVarejo = decimal.Parse(produtoDT.Rows[0]["lucroPrecoVendaVarejo"].ToString());
-                produto.Nome = produtoDT.Rows[0]["nome"].ToString();
-                produto.NomeProdutoFabricante = produtoDT.Rows[0]["nomeProdutoFabricante"].ToString();
-                produto.PrecoVendaAtacado = decimal.Parse(produtoDT.Rows[0]["precoVendaAtacado"].ToString());
-                produto.PrecoVendaVarejo = decimal.Parse(produtoDT.Rows[0]["precoVendaVarejo"].ToString());
-                produto.QtdProdutoAtacado = decimal.Parse(produtoDT.Rows[0]["qtdProdutoAtacado"].ToString());
-                produto.Simples = decimal.Parse(produtoDT.Rows[0]["simples"].ToString());
-                produto.TemVencimento = bool.Parse(produtoDT.Rows[0]["temVencimento"].ToString());
-                produto.UltimaDataAtualizacao = DateTime.Parse(produtoDT.Rows[0]["ultimaDataAtualizacao"].ToString());
-                produto.UltimoPrecoCompra = decimal.Parse(produtoDT.Rows[0]["ultimoPrecoCompra"].ToString());
-                produto.Unidade = produtoDT.Rows[0]["unidade"].ToString();
-                produto.DataUltimoPedido = DateTime.Parse(produtoDT.Rows[0]["dataUltimoPedido"].ToString());
-                produto.CodSituacaoProduto = Byte.Parse(produtoDT.Rows[0]["codSituacaoProduto"].ToString());
-                produto.ReferenciaFabricante = produtoDT.Rows[0]["referenciaFabricante"].ToString();
-                produto.CodCST = produtoDT.Rows[0]["codCST"].ToString();
-                produto.Ncmsh = produtoDT.Rows[0]["ncmsh"].ToString();
+                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
             }
-            return produto;
+            else
+            {
+                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome)).ToList();
+            }
         }
 
-        public bool ehProdututoTributadoIntegral(String codCST)
+        /// <summary>
+        /// Obter todas as situações de produtos cadastradas
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SituacaoProduto> ObterSituacoesProduto()
         {
-            // acontece para os CST da tabela antiga de tributacao
-            if ((codCST != null) && (codCST.Trim().Length == 3))
-            {
-                codCST = codCST.Substring(1, 2);
-                
-                return !(codCST.Equals(Produto.ST_SUBSTITUICAO) ||
-                    codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_COBRADO) ||
-                    codCST.Equals(Produto.ST_SUBSTITUICAO_ICMS_REDUCAO_BC) ||
-                    codCST.Equals(Produto.ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA) ||
-                    codCST.Equals(Produto.ST_NAO_TRIBUTADA) ) ;
-            }
-            else if ((codCST != null) && (codCST.Trim().Length == 4))
-            {
-                codCST = codCST.Substring(1, 3);
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+            var query = from situacaoProduto in saceEntities.SituacaoProdutoSet
+                        select new SituacaoProduto
+                        {
+                            CodSituacaoProduto = situacaoProduto.codSituacaoProduto,
+                            DescricaoSituacao = situacaoProduto.descricaoSituacao
+                        };
+            return query.ToList();
+        }
 
-                return !(codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
-                    codCST.Equals(Produto.ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO) ||
-                    codCST.Equals(Produto.ST_SIMPLES_NAO_TRIBUTADA) );
-            }
-            
-            return false;
+
+        /// <summary>
+        /// Atribui entidade à entidade persistente
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <param name="_produtoE"></param>
+        private static void Atribuir(Produto produto, ProdutoE _produtoE)
+        {
+            _produtoE.cfop = produto.Cfop;
+            _produtoE.codCST = produto.CodCST;
+            _produtoE.codFabricante = produto.CodFabricante;
+            _produtoE.codGrupo = produto.CodGrupo;
+            _produtoE.codigoBarra = produto.CodigoBarra;
+            _produtoE.codSituacaoProduto = Convert.ToSByte(produto.CodSituacaoProduto);
+            _produtoE.codSubgrupo = produto.CodSubgrupo;
+            _produtoE.dataUltimoPedido = produto.DataUltimoPedido;
+            _produtoE.desconto = produto.Desconto;
+            _produtoE.exibeNaListagem = produto.ExibeNaListagem;
+            _produtoE.frete = produto.Frete;
+            _produtoE.icms = produto.Icms;
+            _produtoE.icms_substituto = produto.IcmsSubstituto;
+            _produtoE.ipi = produto.Ipi;
+            _produtoE.lucroPrecoVendaAtacado = produto.LucroPrecoVendaAtacado;
+            _produtoE.lucroPrecoVendaVarejo = produto.LucroPrecoVendaVarejo;
+            _produtoE.ncmsh = produto.Ncmsh;
+            _produtoE.nome = produto.Nome;
+            _produtoE.nomeProdutoFabricante = produto.NomeProdutoFabricante;
+            _produtoE.precoVendaAtacado = produto.PrecoVendaAtacado;
+            _produtoE.precoVendaVarejo = produto.PrecoVendaVarejo;
+            _produtoE.qtdProdutoAtacado = produto.QtdProdutoAtacado;
+            _produtoE.quantidadeEmbalagem = produto.QuantidadeEmbalagem;
+            _produtoE.referenciaFabricante = produto.ReferenciaFabricante;
+            _produtoE.simples = produto.Simples;
+            _produtoE.temVencimento = produto.TemVencimento;
+            _produtoE.ultimaDataAtualizacao = produto.UltimaDataAtualizacao;
+            _produtoE.ultimoPrecoCompra = produto.UltimoPrecoCompra;
+            _produtoE.unidade = produto.Unidade;
+            _produtoE.unidadeCompra = produto.UnidadeCompra;
         }
     }
 }

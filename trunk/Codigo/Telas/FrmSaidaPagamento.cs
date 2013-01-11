@@ -463,21 +463,7 @@ namespace Telas
             }            
         }
 
-        private void codDocumentoPagamentoComboBox_Leave(object sender, EventArgs e)
-        {
-            if (codDocumentoPagamentoComboBox.SelectedValue == null)
-            {
-                codDocumentoPagamentoComboBox.Focus();
-                throw new TelaException("Um documento válido precisa ser selecionado.");
-            }
-            long codDocumentoPagamento = Convert.ToInt64(codDocumentoPagamentoComboBox.SelectedValue.ToString());
-
-            DocumentoPagamento documento =  GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento( codDocumentoPagamento );
-
-            valorRecebidoTextBox.Text = documento.Valor.ToString();
-            valorRecebidoTextBox.Enabled = false;
-        }
-
+        
         private void codContaBancoComboBox_Leave(object sender, EventArgs e)
         {
             if (codContaBancoComboBox.SelectedValue == null)
