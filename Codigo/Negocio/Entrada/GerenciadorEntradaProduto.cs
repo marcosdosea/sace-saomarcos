@@ -58,7 +58,7 @@ namespace Negocio
                     // Incrementa o estoque na loja principal
                     tb_produto_lojaTA.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
-                    Produto produto = GerenciadorProduto.getInstace().obterProduto(entradaProduto.CodProduto);
+                    Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
                     produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
                     produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;
                     produto.PrecoVendaAtacado = entradaProduto.PrecoVendaAtacado;
@@ -81,7 +81,7 @@ namespace Negocio
                     if (entradaProduto.FornecedorEhFabricante)
                         produto.CodFabricante = entradaProduto.CodFornecedor;
 
-                    GerenciadorProduto.getInstace().atualizar(produto);
+                    GerenciadorProduto.GetInstance().Atualizar(produto);
                 }
                 return 0;
             }
@@ -132,7 +132,7 @@ namespace Negocio
         }
         
 
-        private void estornarItensVendidosEstoque(Produto produto, DateTime dataValidade, Decimal quantidadeDevolvida)
+        private void estornarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeDevolvida)
         {
             List<EntradaProduto> entradaProdutos = obterVendidosOrdenadoPorValidade(produto.CodProduto);
             Decimal quantidadeRetornada = 0;
@@ -188,7 +188,7 @@ namespace Negocio
         }
         
 
-        public Decimal baixaItensVendidosEstoque(Produto produto, DateTime dataValidade, Decimal quantidadeVendida) {
+        public Decimal baixaItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeVendida) {
             List<EntradaProduto> entradaProdutos = obterDisponiveisOrdenadoPorValidade(produto.CodProduto);
 
             decimal somaPrecosCusto = 0;
@@ -248,9 +248,9 @@ namespace Negocio
             return somaPrecosCusto;
         }
 
-        private decimal baixaItensVendidosEstoqueEntradaPadrao(Produto produto, decimal quantidade) {
-            EntradaProduto entradaProduto = obter(Global.ENTRADA_PADRAO, produto.CodProduto);
-
+        private decimal baixaItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade) {
+            EntradaProduto entradaProduto = obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto);
+            Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
             if (entradaProduto != null)
             {
                 entradaProduto.QuantidadeDisponivel -= quantidade;
@@ -288,7 +288,7 @@ namespace Negocio
                 entradaProduto.DataEntrada = produto.DataUltimoPedido;
                 entradaProduto.Desconto = produto.Desconto;
 
-                if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(produto.CodCST))
+                if (produto.EhTributacaoIntegral)
                 {
                     entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoNormal(produto.UltimoPrecoCompra, produto.Icms, produto.Simples, produto.Ipi, produto.Frete, Global.CUSTO_MANUTENCAO_LOJA, produto.Desconto);
                 }

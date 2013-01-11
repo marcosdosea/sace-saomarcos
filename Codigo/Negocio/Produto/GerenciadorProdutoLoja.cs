@@ -14,26 +14,39 @@ namespace Negocio
     public class GerenciadorProdutoLoja 
     {
         private static GerenciadorProdutoLoja gProdutoLoja;
-        private static tb_produto_lojaTableAdapter tb_produto_lojaTA;
+        private static RepositorioGenerico<ProdutoLojaE, SaceEntities> repProdutoLoja;
         
-        public static GerenciadorProdutoLoja getInstace()
+        public static GerenciadorProdutoLoja GetInstance()
         {
             if (gProdutoLoja == null)
             {
                 gProdutoLoja = new GerenciadorProdutoLoja();
-                tb_produto_lojaTA = new tb_produto_lojaTableAdapter();
+                repProdutoLoja = new RepositorioGenerico<ProdutoLojaE, SaceEntities>("chave");
             }
             return gProdutoLoja;
         }
 
-        public Int64 inserir(ProdutoLoja produtoLoja)
+        /// <summary>
+        /// Insere um novo produto na loja
+        /// </summary>
+        /// <param name="produtoLoja"></param>
+        /// <returns></returns>
+        public Int64 Inserir(ProdutoLoja produtoLoja)
         {
             try
             {
-                tb_produto_lojaTA.Insert(produtoLoja.CodLoja, produtoLoja.CodProduto,
-                    produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux, produtoLoja.Localizacao, produtoLoja.Localizacao2, produtoLoja.EstoqueMaximo);
-                ajustarEstoqueEntradasProduto(produtoLoja.CodProduto);
-                return 0;
+                ProdutoLojaE _produtoLojaE = new ProdutoLojaE();
+                _produtoLojaE.codLoja = produtoLoja.CodLoja;
+                _produtoLojaE.codProduto = produtoLoja.CodProduto;
+                _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
+                _produtoLojaE.localizacao = produtoLoja.Localizacao;
+                _produtoLojaE.localizacao2 = produtoLoja.Localizacao2;
+                _produtoLojaE.qtdEstoque = produtoLoja.QtdEstoque;
+                _produtoLojaE.qtdEstoqueAux = produtoLoja.QtdEstoqueAux;
+
+                repProdutoLoja.Inserir(_produtoLojaE);
+                repProdutoLoja.SaveChanges();
+                return produtoLoja.CodProduto;
             }
             catch (Exception e)
             {
@@ -41,13 +54,24 @@ namespace Negocio
             }
         }
 
-        public void atualizar(ProdutoLoja produtoLoja)
+        /// <summary>
+        /// Atualiza os dados de um produto na loja
+        /// </summary>
+        /// <param name="produtoLoja"></param>
+        public void Atualizar(ProdutoLoja produtoLoja)
         {
             try
             {
-                tb_produto_lojaTA.Update(produtoLoja.QtdEstoque, produtoLoja.QtdEstoqueAux,
-                    produtoLoja.Localizacao, produtoLoja.Localizacao2, produtoLoja.EstoqueMaximo, produtoLoja.CodLoja, produtoLoja.CodProduto);
-                ajustarEstoqueEntradasProduto(produtoLoja.CodProduto);
+                ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == produtoLoja.CodProduto && pl.codLoja == produtoLoja.CodLoja);
+                _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
+                _produtoLojaE.localizacao = produtoLoja.Localizacao;
+                _produtoLojaE.localizacao2 = produtoLoja.Localizacao2;
+                _produtoLojaE.qtdEstoque = produtoLoja.QtdEstoque;
+                _produtoLojaE.qtdEstoqueAux = produtoLoja.QtdEstoqueAux;
+
+                repProdutoLoja.SaveChanges();
+                
+                AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);
             }
             catch (Exception e)
             {
@@ -55,12 +79,17 @@ namespace Negocio
             }
         }
 
-        public void remover(ProdutoLojaPK produtoLojaPK)
+        /// <summary>
+        /// Remove
+        /// </summary>
+        /// <param name="produtoLojaPK"></param>
+        public void Remover(long codProduto, int codLoja)
         {
             try
             {
-                tb_produto_lojaTA.Delete(produtoLojaPK.CodLoja, produtoLojaPK.CodProduto);
-                ajustarEstoqueEntradasProduto(produtoLojaPK.CodProduto);
+                repProdutoLoja.Remover(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
+                repProdutoLoja.SaveChanges();
+                AtualizarEstoqueEntradasProduto(codProduto);
             }
             catch (Exception e)
             {
@@ -68,59 +97,86 @@ namespace Negocio
             }
         }
 
-        public ProdutoLoja obterProdutoLoja(ProdutoLojaPK produtoLojaPK)
+        /// <summary>
+        /// Consulta simples para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<ProdutoLoja> GetQuery()
         {
-            ProdutoLoja produtoLoja = null;
-            Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_pLojaTA = new tb_produto_lojaTableAdapter();
-            Dados.saceDataSet.tb_produto_lojaDataTable produtoLojaDT = tb_pLojaTA.GetDataByCodProdutoCodLoja(produtoLojaPK.CodLoja, produtoLojaPK.CodProduto);
-
-            if (produtoLojaDT.Count > 0)
-            {
-                produtoLoja = new ProdutoLoja();
-                produtoLoja.CodProduto = int.Parse(produtoLojaDT.Rows[0]["codProduto"].ToString());
-                produtoLoja.CodLoja = int.Parse(produtoLojaDT.Rows[0]["codLoja"].ToString());
-                produtoLoja.Localizacao = produtoLojaDT.Rows[0]["localizacao"].ToString();
-                produtoLoja.QtdEstoque = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoque"].ToString());
-                produtoLoja.QtdEstoqueAux = decimal.Parse(produtoLojaDT.Rows[0]["qtdEstoqueAux"].ToString());
-            }
-            return produtoLoja;
+            var saceEntities = (SaceEntities)repProdutoLoja.ObterContexto();
+            var query = from produtoLoja in saceEntities.ProdutoLojaSet
+                        select new ProdutoLoja
+                        {
+                            CodLoja = produtoLoja.codLoja,
+                            CodProduto = produtoLoja.codProduto,
+                            EstoqueMaximo = produtoLoja.estoqueMaximo,
+                            Localizacao = produtoLoja.localizacao,
+                            Localizacao2 = produtoLoja.localizacao2,
+                            QtdEstoque = produtoLoja.qtdEstoque,
+                            QtdEstoqueAux = produtoLoja.qtdEstoqueAux
+                        };
+            return query;
         }
 
-        public void adicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, Int32 codProduto)
+        /// <summary>
+        /// Obter produto na loja
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <param name="codLoja"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoLoja> Obter(long codProduto, int codLoja)
         {
-            ProdutoLojaPK chave = new ProdutoLojaPK();
-            chave.CodLoja = codLoja;
-            chave.CodProduto = codProduto;
+            return GetQuery().Where(pl => pl.CodProduto == codProduto && pl.CodLoja == codLoja).ToList();
+        }
 
-            ProdutoLoja produtoLoja = obterProdutoLoja(chave);
-            if (produtoLoja != null)
+        /// <summary>
+        /// Obter dados de um produto em várias lojas
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoLoja> ObterPorProduto(long codProduto)
+        {
+            return GetQuery().Where(pl => pl.CodProduto == codProduto).ToList();
+        }
+
+       
+        /// <summary>
+        /// Adiciona quantida e quantidadeAux ao produto loja
+        /// </summary>
+        /// <param name="quantidade"></param>
+        /// <param name="quantidadeAux"></param>
+        /// <param name="codLoja"></param>
+        /// <param name="codProduto"></param>
+        public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto)
+        {
+            ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
+
+
+            if (_produtoLojaE != null)
             {
-                tb_produto_lojaTA.AdicionaQuantidade(quantidade, quantidadeAux, codLoja, codProduto);
+                _produtoLojaE.qtdEstoque += quantidade;
+                _produtoLojaE.qtdEstoqueAux += quantidadeAux;
             }
             else
             {
-                tb_produto_lojaTA.Insert(codLoja, codProduto, quantidade, quantidadeAux, "", "", 0);
+                _produtoLojaE = new ProdutoLojaE();
+                _produtoLojaE.codLoja = codLoja;
+                _produtoLojaE.codProduto = codProduto;
+                _produtoLojaE.qtdEstoque = quantidade;
+                _produtoLojaE.qtdEstoqueAux = quantidadeAux;
+                repProdutoLoja.Inserir(_produtoLojaE);
             }
+            repProdutoLoja.SaveChanges();
         }
 
-        private decimal obterEstoquePrincipal(long codProduto)
+        
+        private void AtualizarEstoqueEntradasProduto(long codProduto)
         {
-            Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_pLojaTA = new tb_produto_lojaTableAdapter();
-            decimal? estoque = tb_pLojaTA.ObterEstoqueProdutoPrincipal(codProduto);
-            return (estoque == null) ? 0 : (decimal)estoque;
-        }
+            IEnumerable<ProdutoLoja> listaProdutosLoja = ObterPorProduto(codProduto);
 
-        private decimal obterEstoqueAux(long codProduto)
-        {
-            Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_pLojaTA = new tb_produto_lojaTableAdapter();
-            decimal? estoque = tb_pLojaTA.ObterEstoqueProdutoAux(codProduto);
-            return (estoque == null) ? 0 : (decimal)estoque;
-        }
 
-        private void ajustarEstoqueEntradasProduto(long codProduto)
-        {
-            decimal quantidadeEstoquePrincipalLojas = obterEstoquePrincipal(codProduto);
-            decimal quantidadeEstoqueAuxLojas = obterEstoqueAux(codProduto);
+            decimal quantidadeEstoquePrincipalLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoque);
+            decimal quantidadeEstoqueAuxLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoqueAux);
             
             decimal quantidadeEstoquePrincipalEntradaProduto = GerenciadorEntradaProduto.getInstace().ObterEstoquePrincipalDisponivel(codProduto);
             decimal quantidadeEstoqueAuxEntradaProduto = GerenciadorEntradaProduto.getInstace().ObterEstoqueAuxDisponivel(codProduto);

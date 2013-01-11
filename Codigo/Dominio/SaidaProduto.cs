@@ -8,7 +8,7 @@ namespace Dominio
     public class SaidaProduto
     {
         public long CodSaidaProduto { get; set; }
-        public int CodProduto { get; set; }
+        public long CodProduto { get; set; }
         public string Nome { get; set; }
         public long CodSaida { get; set; }
         public decimal Quantidade { get; set; }

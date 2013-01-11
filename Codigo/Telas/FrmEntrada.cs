@@ -15,7 +15,7 @@ namespace Telas
         private Entrada entrada;
         private EntradaProduto entradaProduto;
         private Int32 tipoEntrada;
-        private Produto produto;
+        private ProdutoPesquisa _produtoPesquisa;
         private string ultimoCodigoBarraLido = "";
 
         public FrmEntrada()
@@ -346,9 +346,9 @@ namespace Telas
                 {
                     Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true);
                     frmProdutoPesquisaPreco.ShowDialog();
-                    if (frmProdutoPesquisaPreco.getCodProduto() != -1)
+                    if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
+                        tb_produtoBindingSource.Position = tb_produtoBindingSource.List.IndexOf(frmProdutoPesquisaPreco.ProdutoPesquisa);
                     }
                     frmProdutoPesquisaPreco.Dispose();
                 }
@@ -356,10 +356,10 @@ namespace Telas
                 {
                     Telas.FrmProduto frmProduto = new Telas.FrmProduto();
                     frmProduto.ShowDialog();
-                    if (frmProduto.CodProduto > 0)
+                    if (frmProduto.ProdutoPesquisa != null)
                     {
                         this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProduto.CodProduto);
+                        tb_produtoBindingSource.Position = tb_produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
                     }
                     frmProduto.Dispose();
                 }
@@ -439,90 +439,12 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-
-                Produto produtoOriginal;
-
-                if ((estado != EstadoFormulario.ESPERA) && (estado != EstadoFormulario.ATUALIZAR_DETALHE))
-                {
-                    quantidadeTextBox.Text = "1";
-                    if (Convert.ToInt32(codProdutoComboBox.SelectedValue) == 1)
-                    {
-                        produto = null;
-                        codProdutoComboBox.Text = "";
-                    }
-
-                    long result;
-                    bool isNumber = long.TryParse(codProdutoComboBox.Text.ToString(), out result);
-
-                    if (isNumber)
-                    {
-                        // Busca produto pelo Código ou Código de Barra
-                        if (codProdutoComboBox.Text.Length < 7)
-                        {
-                            produto = GerenciadorProduto.getInstace().obterProduto(Convert.ToInt32(result));
-                        }
-                        else
-                        {
-                            produto = GerenciadorProduto.getInstace().obterProdutoPorCodBarra(codProdutoComboBox.Text);
-
-                            ultimoCodigoBarraLido = (produto == null) ? codProdutoComboBox.Text : "";
-                        }
-                        codProdutoComboBox.Text = "";
-                    }
-                    else
-                    {
-                        // Busca produto pelo nome
-                        produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
-                        if (produto == null)
-                        {
-                            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(codProdutoComboBox.Text, false);
-                            frmProdutoPesquisaPreco.ShowDialog();
-                            if (frmProdutoPesquisaPreco.getCodProduto() != -1)
-                            {
-                                produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
-                                produtoOriginal = (Produto)produto.Clone();
-                                codProdutoComboBox.Text = produto.Nome;
-                                tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
-                            }
-                            else
-                            {
-                                codProdutoComboBox.Focus();
-                            }
-                            frmProdutoPesquisaPreco.Dispose();
-                        }
-                    }
-                    if (produto == null)
-                    {
-                        codProdutoComboBox.Focus();
-                    }
-                    else
-                    {
-                        // Associa o útlimo código de barra lido ao produto selecionado
-                        if (!ultimoCodigoBarraLido.Equals(""))
-                        {
-                            if (MessageBox.Show("Associar o último código de barra lido ao produto selecionado?", "Confirmar Associação", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                produto.CodigoBarra = ultimoCodigoBarraLido;
-                                GerenciadorProduto.getInstace().atualizar(produto);
-                            }
-                            ultimoCodigoBarraLido = "";
-                        }
-
-                        // Exeibe dados do produto selecionado
-                        codProdutoComboBox.Text = produto.Nome;
-                        produtoOriginal = (Produto)produto.Clone();
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
-                        data_validadeDateTimePicker.Enabled = produto.TemVencimento;
-                        if (Convert.ToDecimal(quantidadeEmbalagemTextBox.Text) <= 0)
-                        {
-                            quantidadeEmbalagemTextBox.Text = "1";
-                        }
-
-                    }
-                }
-
-                codCSTComboBox_SelectedIndexChanged(sender, e);
+                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, tb_produtoBindingSource, ultimoCodigoBarraLido, true);
+                data_validadeDateTimePicker.Enabled = _produtoPesquisa.TemVencimento;
+                if (Convert.ToDecimal(quantidadeEmbalagemTextBox.Text) <= 0)
+                    quantidadeEmbalagemTextBox.Text = "1";
             }
+            codCSTComboBox_SelectedIndexChanged(sender, e);
             codEntradaTextBox_Leave(sender, e);
         }
 
@@ -566,12 +488,12 @@ namespace Telas
                 entradaProduto.ValorICMSST = entradaProduto.ValorTotal * entradaProduto.IcmsSubstituto / 100;
                 valorICMSSTTextBox.Text = entradaProduto.ValorICMSST.ToString("N2");
 
-                if ((entradaProduto.BaseCalculoICMS == 0) && (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(entradaProduto.CodCST)))
+                if ((entradaProduto.BaseCalculoICMS == 0) && (entradaProduto.EhTributacaoIntegral))
                 {
                     baseCalculoICMSTextBox.Text = valorTotalTextBox.Text;
                 }
 
-                if ((entradaProduto.BaseCalculoICMSST == 0) && (!GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(entradaProduto.CodCST)))
+                if ((entradaProduto.BaseCalculoICMSST == 0) && (!entradaProduto.EhTributacaoIntegral))
                 {
                     baseCalculoICMSSTTextBox.Text = valorTotalTextBox.Text;
                 }
@@ -590,7 +512,8 @@ namespace Telas
                     throw new TelaException("A quantidade de produtos da embalagem deve ser maior ou igual a 1.");
                 }
 
-                if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(codCSTComboBox.SelectedValue.ToString()))
+                Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
+                if (cst.EhTributacaoIntegral)
                 {
                     entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoNormal(entradaProduto.ValorUnitario, entradaProduto.Icms,
                         entradaProduto.Simples, entradaProduto.Ipi, entradaProduto.Frete, Global.CUSTO_MANUTENCAO_LOJA, entradaProduto.Desconto) / entradaProduto.QuantidadeEmbalagem;
@@ -693,7 +616,8 @@ namespace Telas
         {
             if ((codCSTComboBox.SelectedValue != null) && (ProdutosGroupBox.Enabled) && estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                bool ehTributadoIntegral = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(codCSTComboBox.SelectedValue.ToString());
+                Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
+                bool ehTributadoIntegral = cst.EhTributacaoIntegral;
             
                 baseCalculoICMSSTTextBox.ReadOnly = ehTributadoIntegral;
                 baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
@@ -707,8 +631,7 @@ namespace Telas
 
                 inicializaVariaveis();
 
-                if (!GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(entradaProduto.CodCST) &&
-                    (entrada.TotalProdutosST > 0))
+                if (!entradaProduto.EhTributacaoIntegral && (entrada.TotalProdutosST > 0))
                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
                 else
                     entradaProduto.IcmsSubstituto = 0;

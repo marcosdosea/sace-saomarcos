@@ -373,9 +373,9 @@ namespace Negocio
                     }
                     else if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
                     {
-                        DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(pagamento.CodDocumentoPagamento);
-                        conta.DataVencimento = documento.DataVencimento;
-                        conta.Valor = documento.Valor;
+                        //DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(pagamento.CodDocumentoPagamento);
+                        //conta.DataVencimento = documento.DataVencimento;
+                        //conta.Valor = documento.Valor;
                     }
                     else if ((pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO) || (pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO) ||
                       (pagamento.CodFormaPagamento == FormaPagamento.PROMISSORIA))
@@ -425,15 +425,15 @@ namespace Negocio
         {
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                Produto produto = GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto);
+                ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(saidaProduto.CodProduto).ElementAt(0);
 
-                if (produto.CodCST != Produto.ST_OUTRAS)
+                if (produto.CodCST != Cst.ST_OUTRAS)
                 {
-                    GerenciadorProdutoLoja.getInstace().adicionaQuantidade(saidaProduto.Quantidade, 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
+                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(saidaProduto.Quantidade, 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
                 else
                 {
-                    GerenciadorProdutoLoja.getInstace().adicionaQuantidade(0, saidaProduto.Quantidade, Global.LOJA_PADRAO, saidaProduto.CodProduto);
+                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(0, saidaProduto.Quantidade, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
 
                 GerenciadorEntradaProduto.getInstace().baixaItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
@@ -451,17 +451,17 @@ namespace Negocio
             Decimal somaPrecosCusto = 0;
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                Produto produto = GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto);
-                decimal custoAtual = GerenciadorProduto.getInstace().calculaPrecoCusto(produto) * saidaProduto.Quantidade;
+                Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
+                decimal custoAtual = produto.PrecoCusto * saidaProduto.Quantidade;
 
                 // Baixa sempre o estoque da loja matriz
-                if (produto.CodCST != Produto.ST_OUTRAS)
+                if (produto.CodCST != Cst.ST_OUTRAS)
                 {
-                    GerenciadorProdutoLoja.getInstace().adicionaQuantidade(saidaProduto.Quantidade * (-1), 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
+                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
                 else
                 {
-                    GerenciadorProdutoLoja.getInstace().adicionaQuantidade(0, saidaProduto.Quantidade * (-1), Global.LOJA_PADRAO, saidaProduto.CodProduto);
+                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
 
                 decimal custoEstoque = GerenciadorEntradaProduto.getInstace().baixaItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
@@ -506,11 +506,11 @@ namespace Negocio
         {
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                Produto produto = GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto);
+                ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(saidaProduto.CodProduto).ElementAt(0);
 
-                GerenciadorProdutoLoja.getInstace().adicionaQuantidade(saidaProduto.Quantidade * (-1), 0, lojaOrigem, saidaProduto.CodProduto);
+                GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, lojaOrigem, saidaProduto.CodProduto);
 
-                GerenciadorProdutoLoja.getInstace().adicionaQuantidade(saidaProduto.Quantidade, 0, lojaDestino, saidaProduto.CodProduto);
+                GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(saidaProduto.Quantidade, 0, lojaDestino, saidaProduto.CodProduto);
             }
         }
 
@@ -552,7 +552,7 @@ namespace Negocio
                         if (cliente.ImprimirCF)
                             saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
                         else
-                            saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Produto.ST_OUTRAS);
+                            saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Cst.ST_OUTRAS);
 
                         if (saidaProdutos.Count > 0)
                         {
@@ -631,7 +631,10 @@ namespace Negocio
             {
                 if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
                 {
-                    String situacaoFiscal = GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST) ? "01" : "FF";
+                    Produto produto = new Produto();
+                    produto.CodProduto = saidaProduto.CodProduto;
+                    produto.CodCST = saidaProduto.CodCST;
+                    String situacaoFiscal = produto.EhTributacaoIntegral ? "01" : "FF";
 
                     arquivo.Write(saidaProduto.CodProduto + ";");
                     arquivo.Write(saidaProduto.Nome + ";");
@@ -1054,6 +1057,7 @@ namespace Negocio
                     imp.Imp(imp.Comprimido);
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
+                        Produto _produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });   
                         if (numeroProdutosImpressos >= 17)
                         {
                             numeroProdutosImpressos = 0;
@@ -1082,9 +1086,10 @@ namespace Negocio
 
                         if (saidaProduto.Quantidade > 0)
                         {
+                            
                             imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
                             if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-                                imp.ImpCol(14, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).NomeProdutoFabricante);
+                                imp.ImpCol(14, _produto.NomeProdutoFabricante);
                             else
                                 imp.ImpCol(14, saidaProduto.Nome);
                             if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
@@ -1101,11 +1106,11 @@ namespace Negocio
                             }
                             else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
                             {
-                                imp.ImpCol(133, GerenciadorProduto.getInstace().obterProduto(saidaProduto.CodProduto).Icms.ToString("N1"));
+                                imp.ImpCol(133, _produto.Icms.ToString("N1"));
                             }
                             else
                             {
-                                if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(saidaProduto.CodCST))
+                                if (_produto.EhTributacaoIntegral)
                                     imp.ImpCol(133, "17%");
                                 else
                                     imp.ImpCol(133, "0%");

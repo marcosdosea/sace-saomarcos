@@ -143,9 +143,9 @@ namespace Negocio
 
                 if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
                 {
-                     DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(pagamento.CodDocumentoPagamento);
-                     conta.DataVencimento = documento.DataVencimento;
-                     conta.Valor = documento.Valor;
+                     //DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(pagamento.CodDocumentoPagamento);
+                     //conta.DataVencimento = documento.DataVencimento;
+                     //conta.Valor = documento.Valor;
                 }
                 else
                 {

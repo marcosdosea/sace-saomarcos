@@ -605,7 +605,6 @@
             this.codDocumentoPagamentoComboBox.TabIndex = 22;
             this.codDocumentoPagamentoComboBox.ValueMember = "codDocumentoPagamento";
             this.codDocumentoPagamentoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
-            this.codDocumentoPagamentoComboBox.Leave += new System.EventHandler(this.codDocumentoPagamentoComboBox_Leave);
             // 
             // tb_documento_pagamentoTableAdapter
             // 

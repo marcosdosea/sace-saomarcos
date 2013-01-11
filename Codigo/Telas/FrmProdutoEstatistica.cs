@@ -51,104 +51,25 @@ namespace Telas
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            Produto produtoOriginal;
-
-            //if ((codProdutoComboBox.SelectedValue == null) || Convert.ToInt32(codProdutoComboBox.SelectedValue) == 1)
-            //{
-            //    produto = null;
-            //    codProdutoComboBox.Text = "";
-            //}
-            //else
-            //{
-
-                long result;
-                bool isNumber = long.TryParse(codProdutoComboBox.Text.ToString(), out result);
-
-                if (isNumber)
-                {
-                    // Busca produto pelo Código ou Código de Barra
-                    if (codProdutoComboBox.Text.Length < 7)
-                    {
-                        produto = GerenciadorProduto.getInstace().obterProduto(Convert.ToInt32(result));
-                    }
-                    else
-                    {
-                        produto = GerenciadorProduto.getInstace().obterProdutoPorCodBarra(codProdutoComboBox.Text);
-
-                        ultimoCodigoBarraLido = (produto == null) ? codProdutoComboBox.Text : "";
-                    }
-                    codProdutoComboBox.Text = "";
-                }
-                else if (!codProdutoComboBox.Text.Trim().Equals(""))
-                {
-                    // Busca produto pelo nome
-                    produto = GerenciadorProduto.getInstace().obterProdutoNomeIgual(codProdutoComboBox.Text);
-                    if (produto == null)
-                    {
-                        Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(codProdutoComboBox.Text, false);
-                        frmProdutoPesquisaPreco.ShowDialog();
-                        if (frmProdutoPesquisaPreco.getCodProduto() != -1)
-                        {
-                            produto = GerenciadorProduto.getInstace().obterProduto(frmProdutoPesquisaPreco.getCodProduto());
-                            produtoOriginal = (Produto)produto.Clone();
-                            codProdutoComboBox.Text = produto.Nome;
-                            tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", frmProdutoPesquisaPreco.getCodProduto());
-                        }
-                        else
-                        {
-                            codProdutoComboBox.Focus();
-                        }
-                        frmProdutoPesquisaPreco.Dispose();
-                    }
-                }
-            //}
-            if (produto == null)
+            EstadoFormulario estado = EstadoFormulario.INSERIR;
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, tb_produtoBindingSource, ultimoCodigoBarraLido, true);
+            
+            if (_produtoPesquisa != null)
             {
+                preencherDadosEstatisticos(_produtoPesquisa);
                 codProdutoComboBox.Focus();
+                codProdutoComboBox.SelectAll();
             }
-            else
-            {
-                // Associa o útlimo código de barra lido ao produto selecionado
-                if (!ultimoCodigoBarraLido.Equals(""))
-                {
-                    if (MessageBox.Show("Associar o último código de barra lido ao produto selecionado?", "Confirmar Associação", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        produto.CodigoBarra = ultimoCodigoBarraLido;
-                        GerenciadorProduto.getInstace().atualizar(produto);
-                    }
-                    ultimoCodigoBarraLido = "";
-                }
-
-                // Exibe dados do produto selecionado
-                codProdutoComboBox.Text = produto.Nome;
-                produtoOriginal = (Produto)produto.Clone();
-                //tb_produtoBindingSource.Position = tb_produtoBindingSource.Find("codProduto", produto.CodProduto);
-
-                if (produto != null)
-                {
-                    preencherDadosEstatisticos(produto);
-                    codProdutoComboBox.Focus();
-                    codProdutoComboBox.SelectAll();
-                }
-            }
+            
         }
 
-        private void preencherDadosEstatisticos(Produto produto)
+        private void preencherDadosEstatisticos(ProdutoPesquisa produtoPesquisa)
         {
-            decimal precoCusto = 0;
-            if (GerenciadorProduto.getInstace().ehProdututoTributadoIntegral(produto.CodCST))
-            {
-                precoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoNormal(produto.UltimoPrecoCompra, produto.Icms,
-                    produto.Simples, produto.Ipi, produto.Frete, 0, produto.Desconto);
-            }
-            else
-            {
-                precoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoSubstituicao(produto.UltimoPrecoCompra, produto.IcmsSubstituto,
-                    produto.Simples, produto.Ipi, produto.Frete, 0, produto.Desconto);
-            }
-            preco_custoTextBox.Text = precoCusto.ToString("N2");
-            precoVarejoSugestaoTextBox.Text = GerenciadorPrecos.getInstance().calculaPrecoVenda(precoCusto, produto.LucroPrecoVendaVarejo).ToString("N2");
-            precoAtacadoSugestaoTextBox.Text = GerenciadorPrecos.getInstance().calculaPrecoVenda(precoCusto, produto.LucroPrecoVendaAtacado).ToString("N2");
+            Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
+            
+            preco_custoTextBox.Text = produto.PrecoCusto.ToString("N2");
+            precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
+            precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
             this.tb_produto_lojaTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto_loja, produto.CodProduto);
             this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);

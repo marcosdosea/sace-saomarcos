@@ -535,7 +535,10 @@
     <None Include="Properties\DataSources\Dominio.MovimentacaoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
     <None Include="Properties\DataSources\Dominio.PlanoConta.datasource" />
+    <None Include="Properties\DataSources\Dominio.Produto.datasource" />
+    <None Include="Properties\DataSources\Dominio.ProdutoLoja.datasource" />
     <None Include="Properties\DataSources\Dominio.SituacaoConta1.datasource" />
+    <None Include="Properties\DataSources\Dominio.SituacaoProduto.datasource" />
     <None Include="Properties\DataSources\Dominio.Subgrupo.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />

@@ -6,38 +6,14 @@ using Util;
 
 namespace Dominio
 {
-    public class Produto: ICloneable
+    public class Produto : ProdutoPesquisa
     {
-        public const string ST_TRIBUTADO_INTEGRAL = "00";
-        public const string ST_SUBSTITUICAO = "10";
-        public const string ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA = "30";
-        public const string ST_SUBSTITUICAO_ICMS_COBRADO = "60";
-        public const string ST_SUBSTITUICAO_ICMS_REDUCAO_BC = "70";
-        public const string ST_OUTRAS = "90";
-        public const string ST_NAO_TRIBUTADA = "41";
-        
-        public const string ST_SIMPLES_TRIBUTADA_PERM_CREDITO = "101";
-        public const string ST_SIMPLES_TRIBUTADA_SEM_PERM_CREDITO = "102";
-        public const string ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
-        public const string ST_SIMPLES_NAO_TRIBUTADA = "400";
-        public const string ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
-        public const string ST_SIMPLES_OUTRAS = "900";
-
-
-        
-        public int CodProduto { get; set; }
-        public string Nome { get; set; }
-        public string NomeProdutoFabricante { get; set; }
-        public string Unidade { get; set; }
         public string UnidadeCompra { get; set; }
         public decimal QuantidadeEmbalagem { get; set; }
-        public string CodigoBarra { get; set; }
-        public string CodCST { get; set; }
         public int CodGrupo { get; set; }
         public int CodSubgrupo { get; set; }
         public long CodFabricante { get; set; }
         public string ReferenciaFabricante { get; set; }
-        public Boolean TemVencimento { get; set; }
         public int Cfop { get; set; }
         public string Ncmsh { get; set; }
         public decimal Icms { get; set; }
@@ -47,59 +23,58 @@ namespace Dominio
         public decimal Frete { get; set; }
         public decimal Desconto { get; set; }
         public decimal UltimoPrecoCompra { get; set; }
-        public DateTime UltimaDataAtualizacao { get; set; }
+        public decimal PrecoCusto
+        {
+            get 
+            {
+                if (Cfop == Global.VENDA_NORMAL)
+                return CalculaPrecoCustoNormal(UltimoPrecoCompra, Icms,
+                    Simples, Ipi, Frete, 0, 0);
+                return CalculaPrecoCustoSubstituicao(UltimoPrecoCompra, IcmsSubstituto,
+                    Simples, Ipi, Frete, 0, 0);
+            }
+        }
         public decimal LucroPrecoVendaVarejo { get; set; }
-        public decimal PrecoVendaVarejo { get; set; }
-        public decimal PrecoVendaVarejoSemDesconto
+        public decimal PrecoVendaVarejoSugestao
         {
-            get { return Math.Round((PrecoVendaVarejo * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }
+            get { return PrecoCusto + (PrecoCusto * LucroPrecoVendaVarejo / 100); }
         }
-
-        public decimal QtdProdutoAtacado { get; set; }
         public decimal LucroPrecoVendaAtacado { get; set; }
-        public decimal PrecoVendaAtacado { get; set; }
-        public decimal PrecoVendaAtacadoSemDesconto
+        public decimal PrecoVendaAtacadoSugestao
         {
-            get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
+            get { return PrecoCusto + (PrecoCusto * LucroPrecoVendaAtacado / 100); }
         }
-        
         public Boolean ExibeNaListagem { get; set; }
         public DateTime DataUltimoPedido { get; set; }
         public Byte CodSituacaoProduto { get; set; }
-        
-        public Object Clone()
+
+        public decimal CalculaPrecoCustoNormal(decimal precoCompra, decimal creditoICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
         {
-            Produto produto = new Produto();
-            produto.Cfop = Cfop;
-            produto.CodCST = CodCST;
-            produto.CodFabricante = CodFabricante;
-            produto.CodGrupo = CodGrupo;
-            produto.CodigoBarra = CodigoBarra;
-            produto.CodProduto = CodProduto;
-            produto.CodSituacaoProduto = CodSituacaoProduto;
-            produto.DataUltimoPedido = DataUltimoPedido;
-            produto.ExibeNaListagem = ExibeNaListagem;
-            produto.Frete = Frete;
-            produto.Icms = Icms;
-            produto.IcmsSubstituto = IcmsSubstituto;
-            produto.Ipi = Ipi;
-            produto.LucroPrecoVendaAtacado = LucroPrecoVendaAtacado;
-            produto.LucroPrecoVendaVarejo = LucroPrecoVendaVarejo;
-            produto.Ncmsh = Ncmsh;
-            produto.Nome = Nome;
-            produto.NomeProdutoFabricante = NomeProdutoFabricante;
-            produto.PrecoVendaAtacado = PrecoVendaAtacado;
-            produto.PrecoVendaVarejo = PrecoVendaVarejo;
-            produto.QtdProdutoAtacado = QtdProdutoAtacado;
-            produto.ReferenciaFabricante = ReferenciaFabricante;
-            produto.Simples = Simples;
-            produto.TemVencimento = TemVencimento;
-            produto.UltimaDataAtualizacao = UltimaDataAtualizacao;
-            produto.UltimoPrecoCompra = UltimoPrecoCompra;
-            produto.Unidade = Unidade;
-            produto.UnidadeCompra = UnidadeCompra;
-            produto.QuantidadeEmbalagem = QuantidadeEmbalagem;
-            return produto;
+            // return precoCompra + (precoCompra * (1 / (100 - (Global.ICMS_LOCAL - creditoICMS))) * 10) + (precoCompra * (1 / (100 - simples)) * 10) +
+            //    (precoCompra * ipi / 100) + (precoCompra * frete / 100) + (precoCompra * manutencao / 100);
+
+            decimal precoCalculado = precoCompra + (precoCompra * (Global.ICMS_LOCAL - creditoICMS) / 100);
+            precoCalculado = precoCalculado + (precoCalculado * simples / 100);
+            precoCalculado = precoCalculado + (precoCalculado * ipi / 100);
+            precoCalculado = precoCalculado + (precoCalculado * frete / 100);
+            precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
+            precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
+            return precoCalculado;
         }
+
+        public decimal CalculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
+        {
+            // return precoCompra + (precoCompra * (1 / (100 - ICMSSubstituicao)) *10) + (precoCompra * (1 / (100 - simples))*10) +
+            //    (precoCompra * ipi / 100) + (precoCompra * frete / 100) + (precoCompra * manutencao / 100);
+
+            decimal precoCalculado = precoCompra + (precoCompra * ICMSSubstituicao / 100);
+            precoCalculado = precoCalculado + (precoCalculado * simples / 100);
+            precoCalculado = precoCalculado + (precoCalculado * ipi / 100);
+            precoCalculado = precoCalculado + (precoCalculado * frete / 100);
+            precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
+            precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
+            return precoCalculado;
+        }
+
     }
 }
