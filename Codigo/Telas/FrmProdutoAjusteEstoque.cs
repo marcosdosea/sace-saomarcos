@@ -34,15 +34,15 @@ namespace Telas
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
-            this.tb_produto_lojaTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto_loja, codProduto);
+            lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
+            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
             habilitaBotoes(true);
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
             String nomeProduto = nomeProdutoTextBox.Text;
-            tb_produto_lojaBindingSource.AddNew();
+            produtoLojaBindingSource.AddNew();
             habilitaBotoes(false);
             codProdutoTextBox.Text = codProduto.ToString();
             nomeProdutoTextBox.Text = nomeProduto;
@@ -61,8 +61,8 @@ namespace Telas
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             CodProduto = Convert.ToInt32(codProdutoTextBox.Text);
-            tb_produto_lojaBindingSource.CancelEdit();
-            tb_produto_lojaBindingSource.EndEdit();
+            produtoLojaBindingSource.CancelEdit();
+            produtoLojaBindingSource.EndEdit();
             habilitaBotoes(true);
             btnEditar.Focus();
         }
@@ -85,18 +85,18 @@ namespace Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gProdutoLoja.Inserir(produtoLoja);
-                    tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
-                    tb_produto_lojaBindingSource.MoveLast();
+                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
+                    produtoLojaBindingSource.MoveLast();
                 }
                 else
                 {
                     gProdutoLoja.Atualizar(produtoLoja);
-                    tb_produto_lojaBindingSource.EndEdit();
+                    produtoLojaBindingSource.EndEdit();
                 }
             }
             catch (DadosException de)
             {
-                tb_produto_lojaBindingSource.CancelEdit();
+                produtoLojaBindingSource.CancelEdit();
                 throw de;
             }
             finally
@@ -124,19 +124,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_produto_lojaBindingSource.MoveLast();
+                    produtoLojaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_produto_lojaBindingSource.MoveFirst();
+                    produtoLojaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_produto_lojaBindingSource.MovePrevious();
+                    produtoLojaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_produto_lojaBindingSource.MoveNext();
+                    produtoLojaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -209,11 +209,9 @@ namespace Telas
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
-                //Produto produto = GerenciadorProduto.GetInstance().Obter(frmProdutoPesquisa.getCodProduto()).ElementAt(0);
-                //codProduto = produto.CodProduto;
                 nomeProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.Nome;
                 codProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.CodProduto.ToString();
-                this.tb_produto_lojaTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto_loja, frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
                 habilitaBotoes(true);
             }
             frmProdutoPesquisa.Dispose();

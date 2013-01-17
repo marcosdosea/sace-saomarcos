@@ -238,6 +238,27 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obtém entradas pelo número da nota fiscal
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Entrada> ObterPorNumeroNotaFiscal(string numeroNotaFiscal)
+        {
+            return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém entradas pelo nome do fornecedor
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Entrada> ObterPorNomeFornecedor(string nomeFornecedor)
+        {
+            return GetQuery().Where(entrada => entrada.NomeFornecedor.StartsWith(nomeFornecedor)).ToList();
+        }
+        
+        
+        /// <summary>
         /// Obtém situacoes Pagamentos
         /// </summary>
         /// <param name="codBanco"></param>

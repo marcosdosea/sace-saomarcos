@@ -110,7 +110,7 @@ namespace Negocio
         /// Obtém todos os lojas cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Loja> ObterTodos()
+        public List<Loja> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -120,7 +120,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Loja> Obter(int codLoja)
+        public List<Loja> Obter(int codLoja)
         {
             return GetQuery().Where(loja => loja.CodLoja == codLoja).ToList();
         }
@@ -130,7 +130,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Loja> ObterPorNome(string nome)
+        public List<Loja> ObterPorNome(string nome)
         {
             return GetQuery().Where(loja => loja.Nome.StartsWith(nome)).ToList();
         }
@@ -140,7 +140,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Loja> ObterPorPessoa(long codPessoa)
+        public List<Loja> ObterPorPessoa(long codPessoa)
         {
             return GetQuery().Where(loja => loja.CodPessoa == codPessoa).ToList();
         }

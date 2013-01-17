@@ -50,18 +50,12 @@
             System.Windows.Forms.Label pesoLiquidoLabel;
             System.Windows.Forms.Label descontoLabel;
             System.Windows.Forms.Label codClienteLabel;
-            this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
+            this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.codSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.tb_tipo_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_tipo_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_tipo_saidaTableAdapter();
-            this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.lojaBindingSourceOrigem = new System.Windows.Forms.BindingSource(this.components);
-            this.lojaBindingSourceDestino = new System.Windows.Forms.BindingSource(this.components);
             this.baseCalculoICMSTextBox = new System.Windows.Forms.TextBox();
             this.valorICMSTextBox = new System.Windows.Forms.TextBox();
             this.baseCalculoICMSSubstTextBox = new System.Windows.Forms.TextBox();
@@ -103,11 +97,7 @@
             pesoLiquidoLabel = new System.Windows.Forms.Label();
             descontoLabel = new System.Windows.Forms.Label();
             codClienteLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceOrigem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceDestino)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -322,20 +312,14 @@
             codClienteLabel.TabIndex = 81;
             codClienteLabel.Text = "Destinatário:";
             // 
-            // tb_saidaBindingSource
+            // saidaBindingSource
             // 
-            this.tb_saidaBindingSource.DataMember = "tb_saida";
-            this.tb_saidaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
             // 
             // totalTextBox
             // 
             this.totalTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "total", true));
+            this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Total", true));
             this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalTextBox.ForeColor = System.Drawing.Color.Yellow;
             this.totalTextBox.Location = new System.Drawing.Point(11, 39);
@@ -368,7 +352,7 @@
             // 
             // codSaidaTextBox
             // 
-            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "codSaida", true));
+            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "CodSaida", true));
             this.codSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codSaidaTextBox.Location = new System.Drawing.Point(648, 39);
             this.codSaidaTextBox.Name = "codSaidaTextBox";
@@ -379,23 +363,9 @@
             this.codSaidaTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codSaidaTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
-            // tb_tipo_saidaBindingSource
-            // 
-            this.tb_tipo_saidaBindingSource.AllowNew = false;
-            this.tb_tipo_saidaBindingSource.DataMember = "tb_tipo_saida";
-            this.tb_tipo_saidaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_tipo_saidaTableAdapter
-            // 
-            this.tb_tipo_saidaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_saidaTableAdapter
-            // 
-            this.tb_saidaTableAdapter.ClearBeforeFill = true;
-            // 
             // descricaoTipoSaidaTextBox
             // 
-            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "descricaoTipoSaida", true));
+            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DescricaoTipoSaida", true));
             this.descricaoTipoSaidaTextBox.Enabled = false;
             this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(169, 39);
@@ -403,19 +373,9 @@
             this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(473, 35);
             this.descricaoTipoSaidaTextBox.TabIndex = 4;
             // 
-            // lojaBindingSourceOrigem
-            // 
-            this.lojaBindingSourceOrigem.AllowNew = false;
-            this.lojaBindingSourceOrigem.DataSource = typeof(Dominio.Loja);
-            // 
-            // lojaBindingSourceDestino
-            // 
-            this.lojaBindingSourceDestino.AllowNew = false;
-            this.lojaBindingSourceDestino.DataSource = typeof(Dominio.Loja);
-            // 
             // baseCalculoICMSTextBox
             // 
-            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "baseCalculoICMS", true));
+            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "BaseCalculoICMS", true));
             this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(11, 183);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
@@ -428,7 +388,7 @@
             // 
             // valorICMSTextBox
             // 
-            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "valorICMS", true));
+            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorICMS", true));
             this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorICMSTextBox.Location = new System.Drawing.Point(170, 183);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
@@ -441,7 +401,7 @@
             // 
             // baseCalculoICMSSubstTextBox
             // 
-            this.baseCalculoICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "baseCalculoICMSSubst", true));
+            this.baseCalculoICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "BaseCalculoICMSSubst", true));
             this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(323, 183);
             this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
@@ -454,7 +414,7 @@
             // 
             // valorICMSSubstTextBox
             // 
-            this.valorICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "valorICMSSubst", true));
+            this.valorICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorICMSSubst", true));
             this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorICMSSubstTextBox.Location = new System.Drawing.Point(478, 183);
             this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
@@ -468,7 +428,7 @@
             // valorFreteTextBox
             // 
             this.valorFreteTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.valorFreteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "valorFrete", true));
+            this.valorFreteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorFrete", true));
             this.valorFreteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorFreteTextBox.Location = new System.Drawing.Point(648, 183);
             this.valorFreteTextBox.Name = "valorFreteTextBox";
@@ -480,7 +440,7 @@
             // valorSeguroTextBox
             // 
             this.valorSeguroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.valorSeguroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "valorSeguro", true));
+            this.valorSeguroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorSeguro", true));
             this.valorSeguroTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorSeguroTextBox.Location = new System.Drawing.Point(10, 265);
             this.valorSeguroTextBox.Name = "valorSeguroTextBox";
@@ -492,7 +452,7 @@
             // outrasDespesasTextBox
             // 
             this.outrasDespesasTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.outrasDespesasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "outrasDespesas", true));
+            this.outrasDespesasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "OutrasDespesas", true));
             this.outrasDespesasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.outrasDespesasTextBox.Location = new System.Drawing.Point(323, 265);
             this.outrasDespesasTextBox.Name = "outrasDespesasTextBox";
@@ -504,7 +464,7 @@
             // valorIPITextBox
             // 
             this.valorIPITextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "valorIPI", true));
+            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorIPI", true));
             this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorIPITextBox.Location = new System.Drawing.Point(478, 265);
             this.valorIPITextBox.Name = "valorIPITextBox";
@@ -518,7 +478,7 @@
             // totalNotaFiscalTextBox
             // 
             this.totalNotaFiscalTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.totalNotaFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "totalNotaFiscal", true));
+            this.totalNotaFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "TotalNotaFiscal", true));
             this.totalNotaFiscalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.totalNotaFiscalTextBox.Location = new System.Drawing.Point(648, 265);
             this.totalNotaFiscalTextBox.Name = "totalNotaFiscalTextBox";
@@ -531,8 +491,8 @@
             // 
             this.codEmpresaFreteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codEmpresaFreteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeEmpresaFrete", true));
-            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saidaBindingSource, "codEmpresaFrete", true));
+            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "nomeEmpresaFrete", true));
+            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataSource = this.pessoaFreteBindingSource;
             this.codEmpresaFreteComboBox.DisplayMember = "Nome";
             this.codEmpresaFreteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
@@ -553,7 +513,7 @@
             // quantidadeVolumesTextBox
             // 
             this.quantidadeVolumesTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.quantidadeVolumesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "quantidadeVolumes", true));
+            this.quantidadeVolumesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "QuantidadeVolumes", true));
             this.quantidadeVolumesTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.quantidadeVolumesTextBox.Location = new System.Drawing.Point(12, 422);
             this.quantidadeVolumesTextBox.Name = "quantidadeVolumesTextBox";
@@ -565,7 +525,7 @@
             // especieVolumesTextBox
             // 
             this.especieVolumesTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.especieVolumesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "especieVolumes", true));
+            this.especieVolumesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "EspecieVolumes", true));
             this.especieVolumesTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.especieVolumesTextBox.Location = new System.Drawing.Point(148, 422);
             this.especieVolumesTextBox.Name = "especieVolumesTextBox";
@@ -577,7 +537,7 @@
             // marcaTextBox
             // 
             this.marcaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.marcaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "marca", true));
+            this.marcaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Marca", true));
             this.marcaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.marcaTextBox.Location = new System.Drawing.Point(268, 422);
             this.marcaTextBox.Name = "marcaTextBox";
@@ -589,7 +549,7 @@
             // numeroTextBox
             // 
             this.numeroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.numeroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "numero", true));
+            this.numeroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Numero", true));
             this.numeroTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.numeroTextBox.Location = new System.Drawing.Point(428, 422);
             this.numeroTextBox.Name = "numeroTextBox";
@@ -601,7 +561,7 @@
             // pesoBrutoTextBox
             // 
             this.pesoBrutoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.pesoBrutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "pesoBruto", true));
+            this.pesoBrutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "PesoBruto", true));
             this.pesoBrutoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.pesoBrutoTextBox.Location = new System.Drawing.Point(676, 422);
             this.pesoBrutoTextBox.Name = "pesoBrutoTextBox";
@@ -613,7 +573,7 @@
             // pesoLiquidoTextBox
             // 
             this.pesoLiquidoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.pesoLiquidoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "pesoLiquido", true));
+            this.pesoLiquidoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "PesoLiquido", true));
             this.pesoLiquidoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.pesoLiquidoTextBox.Location = new System.Drawing.Point(542, 422);
             this.pesoLiquidoTextBox.Name = "pesoLiquidoTextBox";
@@ -625,7 +585,7 @@
             // descontoTextBox
             // 
             this.descontoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "desconto", true));
+            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Desconto", true));
             this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.descontoTextBox.Location = new System.Drawing.Point(170, 266);
             this.descontoTextBox.Name = "descontoTextBox";
@@ -638,8 +598,8 @@
             // 
             this.codClienteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_saidaBindingSource, "nomeCliente", true));
-            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_saidaBindingSource, "codCliente", true));
+            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "nomeCliente", true));
+            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodCliente", true));
             this.codClienteComboBox.DataSource = this.pessoaDestinoBindingSource;
             this.codClienteComboBox.DisplayMember = "Nome";
             this.codClienteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
@@ -713,11 +673,7 @@
             this.Text = "Encerramento da Saída";
             this.Load += new System.EventHandler(this.FrmSaidaDevolucao_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaDevolucao_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_tipo_saidaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceOrigem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceDestino)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -727,18 +683,12 @@
 
         #endregion
 
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_saidaBindingSource;
+        private System.Windows.Forms.BindingSource saidaBindingSource;
         private System.Windows.Forms.TextBox totalTextBox;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.TextBox codSaidaTextBox;
-        private System.Windows.Forms.BindingSource tb_tipo_saidaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_tipo_saidaTableAdapter tb_tipo_saidaTableAdapter;
-        private Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
-        private System.Windows.Forms.BindingSource lojaBindingSourceOrigem;
-        private System.Windows.Forms.BindingSource lojaBindingSourceDestino;
         private System.Windows.Forms.TextBox baseCalculoICMSTextBox;
         private System.Windows.Forms.TextBox valorICMSTextBox;
         private System.Windows.Forms.TextBox baseCalculoICMSSubstTextBox;

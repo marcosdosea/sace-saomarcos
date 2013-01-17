@@ -382,6 +382,7 @@
             this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
             this.tableAdapterManager.tb_perfilTableAdapter = this.tb_perfilTableAdapter;
             this.tableAdapterManager.tb_permissaoTableAdapter = null;
+            this.tableAdapterManager.tb_pessoaTableAdapter = null;
             this.tableAdapterManager.tb_plano_contaTableAdapter = null;
             this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
             this.tableAdapterManager.tb_produtoTableAdapter = null;

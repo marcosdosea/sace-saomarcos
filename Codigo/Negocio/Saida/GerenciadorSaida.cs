@@ -191,14 +191,15 @@ namespace Negocio
                         select new Saida
                         {
                             BaseCalculoICMS = (decimal)saida.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saida.baseCalculoICMSSubst,
+                            BaseCalculoICMSSubst = (decimal) saida.baseCalculoICMSSubst,
                             CodCliente = saida.codCliente,
                             CodEmpresaFrete = saida.codEmpresaFrete,
-                            CodProfissional = (long)saida.codProfissional,
+                            CodProfissional = (long) saida.codProfissional,
                             CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            CodSaida = saida.codSaida,
                             CpfCnpj = saida.cpf_cnpj,
                             DataSaida = saida.dataSaida,
-                            Desconto = (decimal)saida.desconto,
+                            Desconto = (decimal) saida.desconto ,
                             DescricaoSituacaoPagamentos = situacaoPagamentos.descricaoSituacaoPagamentos,
                             DescricaoTipoSaida = tipoSaida.descricaoTipoSaida,
                             EntregaRealizada = saida.entregaRealizada,
@@ -210,7 +211,7 @@ namespace Negocio
                             NumeroCartaoVenda = (int)saida.numeroCartaoVenda,
                             OutrasDespesas = (decimal)saida.outrasDespesas,
                             PedidoGerado = saida.pedidoGerado,
-                            PesoBruto = (decimal)saida.pesoBruto,
+                            PesoBruto =  (decimal)saida.pesoBruto,
                             PesoLiquido = (decimal)saida.pesoLiquido,
                             QuantidadeVolumes = (decimal)saida.quantidadeVolumes,
                             TipoSaida = saida.codTipoSaida,
@@ -262,11 +263,42 @@ namespace Negocio
         public List<Saida> ObterSaidaConsumidor(bool somenteUltimasSaidas)
         {
             if (somenteUltimasSaidas) 
-                return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO || 
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
-            else
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
                     saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).Take(100).ToList();
+            else
+                return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
+        }
+
+        /// <summary>
+        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterPorPedido(string pedidoGerado)
+        {
+            return GetQuery().Where(saida => saida.PedidoGerado.StartsWith(pedidoGerado)).ToList();
+        }
+
+        /// <summary>
+        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterPorNomeCliente(string nomeCliente)
+        {
+            return GetQuery().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).ToList();
+        }
+
+        /// <summary>
+        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterPreVendasPendentes()
+        {
+            return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA && 
+                saida.PedidoGerado.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA).ToList();
         }
 
         /// <summary>

@@ -33,22 +33,19 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
+            this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.txtTexto = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbBusca = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tb_saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.txtTexto = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbBusca = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_saidaTableAdapter = new Dados.saceDataSetTableAdapters.tb_saidaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_saidaDataGridView
@@ -70,8 +67,9 @@
             this.dataSaida,
             this.nomeCliente,
             this.pedidoGerado,
-            this.totalAVista});
-            this.tb_saidaDataGridView.DataSource = this.tb_saidaBindingSource;
+            this.totalAVista,
+            this.totalDataGridViewTextBoxColumn});
+            this.tb_saidaDataGridView.DataSource = this.saidaBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
@@ -93,58 +91,15 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.tb_saidaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.tb_saidaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saidaDataGridView.Size = new System.Drawing.Size(762, 251);
+            this.tb_saidaDataGridView.Size = new System.Drawing.Size(849, 251);
             this.tb_saidaDataGridView.TabIndex = 8;
             this.tb_saidaDataGridView.TabStop = false;
             this.tb_saidaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             // 
-            // codSaidaDataGridViewTextBoxColumn
+            // saidaBindingSource
             // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "codSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Código";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataSaida
-            // 
-            this.dataSaida.DataPropertyName = "dataSaida";
-            this.dataSaida.HeaderText = "Data";
-            this.dataSaida.Name = "dataSaida";
-            this.dataSaida.ReadOnly = true;
-            // 
-            // nomeCliente
-            // 
-            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeCliente.DataPropertyName = "nomeCliente";
-            this.nomeCliente.HeaderText = "Cliente";
-            this.nomeCliente.Name = "nomeCliente";
-            this.nomeCliente.ReadOnly = true;
-            // 
-            // pedidoGerado
-            // 
-            this.pedidoGerado.DataPropertyName = "pedidoGerado";
-            this.pedidoGerado.HeaderText = "CF";
-            this.pedidoGerado.Name = "pedidoGerado";
-            this.pedidoGerado.ReadOnly = true;
-            // 
-            // totalAVista
-            // 
-            this.totalAVista.DataPropertyName = "totalAVista";
-            this.totalAVista.HeaderText = "Total a Vista";
-            this.totalAVista.Name = "totalAVista";
-            this.totalAVista.ReadOnly = true;
-            // 
-            // tb_saidaBindingSource
-            // 
-            this.tb_saidaBindingSource.DataMember = "tb_saida";
-            this.tb_saidaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
             // 
             // txtTexto
             // 
@@ -152,7 +107,7 @@
             this.txtTexto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTexto.Location = new System.Drawing.Point(282, 27);
             this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(488, 24);
+            this.txtTexto.Size = new System.Drawing.Size(575, 24);
             this.txtTexto.TabIndex = 5;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
@@ -193,57 +148,54 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Buscar Por:";
             // 
-            // tb_saidaTableAdapter
+            // codSaidaDataGridViewTextBoxColumn
             // 
-            this.tb_saidaTableAdapter.ClearBeforeFill = true;
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // tableAdapterManager
+            // dataSaida
             // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = this.tb_saidaTableAdapter;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.dataSaida.DataPropertyName = "dataSaida";
+            this.dataSaida.HeaderText = "Data";
+            this.dataSaida.Name = "dataSaida";
+            this.dataSaida.ReadOnly = true;
+            // 
+            // nomeCliente
+            // 
+            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeCliente.DataPropertyName = "NomeCliente";
+            this.nomeCliente.HeaderText = "Cliente";
+            this.nomeCliente.Name = "nomeCliente";
+            this.nomeCliente.ReadOnly = true;
+            // 
+            // pedidoGerado
+            // 
+            this.pedidoGerado.DataPropertyName = "PedidoGerado";
+            this.pedidoGerado.HeaderText = "CF";
+            this.pedidoGerado.Name = "pedidoGerado";
+            this.pedidoGerado.ReadOnly = true;
+            // 
+            // totalAVista
+            // 
+            this.totalAVista.DataPropertyName = "totalAVista";
+            this.totalAVista.HeaderText = "Total a Vista";
+            this.totalAVista.Name = "totalAVista";
+            this.totalAVista.ReadOnly = true;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmSaidaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 318);
+            this.ClientSize = new System.Drawing.Size(869, 318);
             this.Controls.Add(this.tb_saidaDataGridView);
             this.Controls.Add(this.txtTexto);
             this.Controls.Add(this.label2);
@@ -258,8 +210,7 @@
             this.Load += new System.EventHandler(this.FrmSaidaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaPesquisa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,15 +223,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label1;
-        private Dados.saceDataSet saceDataSet;
-        private Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.BindingSource tb_saidaBindingSource;
+        private System.Windows.Forms.BindingSource saidaBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSaida;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn pedidoGerado;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalAVista;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
 
     }
 }

@@ -22,9 +22,6 @@ namespace Telas
         private const string PRECO_VAREJO_DESCONTO = "CTRL+P - Varejo+Desc 10%";
 
         private EstadoFormulario estado;
-        //private Produto produto, produtoOriginal;
-        //private Saida saida;
-        //private SaidaProduto saidaProduto;
         private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
         private int posicaoUltimoProduto;
@@ -34,10 +31,7 @@ namespace Telas
         public FrmSaida(int tipoSaida)
         {
             InitializeComponent();
-            //saida = new Saida();
             tipoSaidaFormulario = tipoSaida;
-            //saidaProduto = new SaidaProduto();
-            //produto = new Produto();
         }
 
         /// <summary>
@@ -55,7 +49,6 @@ namespace Telas
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosExibiveis();
             
             ObterSaidas(true);
-                        
             saidaBindingSource.MoveLast();
             quantidadeTextBox.Text = "1";
             precoVendatextBox.Text = "0,00";
@@ -91,6 +84,9 @@ namespace Telas
         /// <param name="e"></param>
         private void btnNovo_Click(object sender, EventArgs e)
         {
+            saidaBindingSource.AddNew();
+            saidaProdutoBindingSource.AddNew();
+            
             Saida saida = (Saida)saidaBindingSource.Current;
             saida.CodSaida = -1;
             saida.CodCliente = Global.CLIENTE_PADRAO;
@@ -126,9 +122,6 @@ namespace Telas
             saida.Marca = "DIVERSAS";
             saida.TipoSaida = tipoSaidaFormulario;
             saida.EspecieVolumes = "VOLUMES";
-
-            saidaBindingSource.AddNew();
-            
             baseCalculoICMSTextBox.Text = "0.00";
             valorICMSTextBox.Text = "0.00";
             baseCalculoICMSSubstTextBox.Text = "0.00";
@@ -250,7 +243,7 @@ namespace Telas
 
             SaidaProduto saidaProduto = (SaidaProduto) saidaProdutoBindingSource.Current;
             
-            saidaProduto.CodProduto = ((Produto) produtoBindingSource.Current).CodProduto;
+            saidaProduto.CodProduto = ((ProdutoPesquisa) produtoBindingSource.Current).CodProduto;
             saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
             saidaProduto.Desconto = Global.DESCONTO_PADRAO;
             saidaProduto.Quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
@@ -455,7 +448,7 @@ namespace Telas
             decimal baseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
             decimal baseCalculoICMSSubst = Convert.ToDecimal(baseCalculoICMSSubstTextBox.Text);
 
-            ProdutoPesquisa produto = (Produto) produtoBindingSource.Current;
+            ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
             valorICMSTextBox.Text = (baseCalculoICMS * produto.Icms / 100).ToString("N2");
             valorICMSSubstTextBox.Text = (baseCalculoICMSSubst * produto.IcmsSubstituto / 100).ToString("N2");
             valorIPITextBox.Text = (baseCalculoICMS * produto.Ipi / 100).ToString("N2");
@@ -804,11 +797,5 @@ namespace Telas
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
         }
-
-        private void tb_saida_produtoDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
     }
 }

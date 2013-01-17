@@ -266,12 +266,8 @@ namespace Telas
 
         private void tb_contaBindingSource_CurrentChanged(object sender, EventArgs e)
         {
-            //bool possuiDocumento = (codDocumentoPagamentoComboBox.SelectedIndex != 0);
-            //dataVencimentoDateTimePicker.Enabled = !possuiDocumento;
-            //valorTextBox.Enabled = !possuiDocumento;
-            //codPessoaComboBox.Enabled = !possuiDocumento;
             if (codContaTextBox.Text != "")
-                this.tb_movimentacao_contaTableAdapter.FillByCodConta(this.saceDataSet.tb_movimentacao_conta, Convert.ToInt64(codContaTextBox.Text));
+                movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.getInstace().ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
         }
     }
 }

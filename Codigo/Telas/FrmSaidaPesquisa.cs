@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace Telas
 {
@@ -26,7 +27,7 @@ namespace Telas
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
         {
-            this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPreVendasPendentes();
             cmbBusca.SelectedIndex = 1;
          }
 
@@ -36,17 +37,17 @@ namespace Telas
             {
                 if (cmbBusca.SelectedIndex == 0)
                 {
-                    this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
+                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPreVendasPendentes();
                 }
                 else
                     if (!txtTexto.Text.Trim().Equals(""))
                     {
                         if (cmbBusca.SelectedIndex == 1)
-                            this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, int.Parse(txtTexto.Text));
+                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(long.Parse(txtTexto.Text));
                         else if (cmbBusca.SelectedIndex == 2)
-                            this.tb_saidaTableAdapter.FillByPedidoGerado(this.saceDataSet.tb_saida, txtTexto.Text);
+                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorPedido(txtTexto.Text);
                         else if (cmbBusca.SelectedIndex == 3)
-                            this.tb_saidaTableAdapter.FillByNomeCliente(this.saceDataSet.tb_saida, txtTexto.Text);
+                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorNomeCliente(txtTexto.Text);
                     }
             }
             catch (System.Exception ex)
@@ -73,11 +74,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_saidaBindingSource.MoveNext();
+                saidaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_saidaBindingSource.MovePrevious();
+                saidaBindingSource.MovePrevious();
             }
         }        
 
@@ -86,18 +87,9 @@ namespace Telas
             txtTexto.Text = "";
             if (cmbBusca.SelectedIndex == 0)
             {
-                this.tb_saidaTableAdapter.FillPreVendasPendentes(this.saceDataSet.tb_saida);
+                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPreVendasPendentes();
             }
         }
-
-        private void tb_saidaBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_saidaBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
-        }
-
-        
+      
     }
 }

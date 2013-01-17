@@ -34,16 +34,13 @@ namespace Telas
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
 
-            this.tb_tipo_saidaTableAdapter.Fill(this.saceDataSet.tb_tipo_saida);
-            this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
-
-            codFormaPagamentoComboBox.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
-            codClienteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            codProfissionalComboBox.DataSource = GerenciadorPessoa.GetInstance().Obter(1);
-            codContaBancoComboBox.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
-            codCartaoComboBox.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
-            this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-            this.tb_saidaTableAdapter.FillByCodSaida(this.saceDataSet.tb_saida, saida.CodSaida);
+            saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
+            formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
+            clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            profissionalBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(1);
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
             
             InicializaVariaveis();
             AtualizaValores();
@@ -99,7 +96,7 @@ namespace Telas
 
                 AtualizaValores();
 
-                this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, long.Parse(codSaidaTextBox.Text));
+                saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(long.Parse(codSaidaTextBox.Text));
 
                 if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
                 {
@@ -179,7 +176,7 @@ namespace Telas
                     // Exclui os dados do pagamento
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
                     Negocio.GerenciadorSaidaPagamento.GetInstance().Remover(codSaidaPagamento, saida);
-                    this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
+                    saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
 
                     InicializaVariaveis();
                     AtualizaValores();

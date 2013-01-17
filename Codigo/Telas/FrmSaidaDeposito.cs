@@ -25,11 +25,10 @@ namespace Telas
         private void FrmSaidaDeposito_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-
-            this.tb_tipo_saidaTableAdapter.Fill(this.saceDataSet.tb_tipo_saida);
-            this.tb_saidaTableAdapter.Fill(this.saceDataSet.tb_saida);
-            this.tb_lojaTableAdapter.Fill(this.saceDataSet.tb_loja);
-            tb_saidaBindingSource.Position = tb_saidaBindingSource.Find("codSaida", saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
+            List<Loja> listaLojas = GerenciadorLoja.GetInstance().ObterTodos();
+            lojaBindingSourceDestino.DataSource = listaLojas;
+            lojaBindingSourceOrigem.DataSource = listaLojas;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
