@@ -287,13 +287,13 @@ namespace Negocio
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
-                Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
+                Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
 
                 saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
                 Atualizar(saida);
 
                 List<SaidaPagamento> saidaPagamentos = (List<SaidaPagamento>) GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
-                registrarPagamentosSaida(saidaPagamentos, saida);
+                RegistrarPagamentosSaida(saidaPagamentos, saida);
             }
             else if (tipoSaidaEncerramento.Equals(Saida.TIPO_SAIDA_DEPOSITO))
             {
@@ -321,7 +321,7 @@ namespace Negocio
                 {
                     saida.Nfe = ObterNumeroProximaNotaFiscal().ToString();
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
-                    registrarBaixaEstoque(saidaProdutos);
+                    RegistrarBaixaEstoque(saidaProdutos);
                 }
             }
         }
@@ -359,7 +359,7 @@ namespace Negocio
         /// </summary>
         /// <param name="pagamentos"></param>
         /// <param name="saida"></param>
-        public void registrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
+        public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
         {
             decimal totalRegistrado = 0;
 
@@ -497,7 +497,7 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <returns> A soma dos preços de custo dos produtos baixados para determinar o lucro</returns>
-        private Decimal registrarBaixaEstoque(List<SaidaProduto> saidaProdutos)
+        private Decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos)
         {
             Decimal somaPrecosCusto = 0;
             foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -858,16 +858,16 @@ namespace Negocio
             return atualizou;
         }
 
-        public void imprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, bool comprimido)
+        public void ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, bool comprimido)
         {
 
             if (comprimido)
-                imprimirDAVComprimido(saidas, total, totalAVista, desconto);
+                ImprimirDAVComprimido(saidas, total, totalAVista, desconto);
             else
-                imprimirDAVNormal(saidas, total, totalAVista, desconto);
+                ImprimirDAVNormal(saidas, total, totalAVista, desconto);
         }
 
-        private bool imprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
             {
@@ -968,7 +968,7 @@ namespace Negocio
             }
         }
 
-        private bool imprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool ImprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
             {
@@ -1057,7 +1057,7 @@ namespace Negocio
             }
         }
 
-        public void imprimirNotaFiscal(Saida saida)
+        public void ImprimirNotaFiscal(Saida saida)
         {
 
             if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
@@ -1079,7 +1079,7 @@ namespace Negocio
 
                     Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
 
-                    imprimirNotaFiscalCabecalho(saida, cliente, imp);
+                    ImprimirNotaFiscalCabecalho(saida, cliente, imp);
 
                     //linha 23 
                     List<SaidaProduto> saidaProdutos;
@@ -1108,9 +1108,9 @@ namespace Negocio
                             numeroProdutosImpressos = 0;
                             numeroPaginas++;
 
-                            imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, descontoDevolucoes, false);
+                            ImprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, descontoDevolucoes, false);
                             imp.Eject();
-                            imprimirNotaFiscalCabecalho(saida, cliente, imp);
+                            ImprimirNotaFiscalCabecalho(saida, cliente, imp);
                         }
 
                         if (numeroProdutosImpressos == 0)
@@ -1175,7 +1175,7 @@ namespace Negocio
                     imp.Pula(17 - numeroProdutosImpressos);
 
 
-                    imprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, descontoDevolucoes, true);
+                    ImprimirNotaFiscalRodape(saida, imp, numeroPaginas, subtotal, subtotalAVista, descontoDevolucoes, true);
 
                     imp.Eject();
                     imp.Fim();
@@ -1187,7 +1187,7 @@ namespace Negocio
             }
         }
 
-        private void imprimirNotaFiscalCabecalho(Saida saida, Pessoa cliente, ImprimeTexto imp)
+        private void ImprimirNotaFiscalCabecalho(Saida saida, Pessoa cliente, ImprimeTexto imp)
         {
             imp.Imp(imp.Normal);
             imp.Pula(4);
@@ -1238,7 +1238,7 @@ namespace Negocio
             imp.Pula(7);
         }
 
-        private void imprimirNotaFiscalRodape(Saida saida, ImprimeTexto imp, int numeroPagina, decimal subtotal, decimal subtotalAvista, decimal descontoDevolucoes, bool ultimaPagina)
+        private void ImprimirNotaFiscalRodape(Saida saida, ImprimeTexto imp, int numeroPagina, decimal subtotal, decimal subtotalAvista, decimal descontoDevolucoes, bool ultimaPagina)
         {
             if (ultimaPagina)
             {

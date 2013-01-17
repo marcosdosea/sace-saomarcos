@@ -31,13 +31,13 @@ namespace Telas
         private void btnNotmal_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance().imprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, false);
+            GerenciadorSaida.GetInstance().ImprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, false);
         }
 
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance().imprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, true);
+            GerenciadorSaida.GetInstance().ImprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, true);
         }
 
         private List<Saida> obterSaidas(List<long> listaCodSaidas)

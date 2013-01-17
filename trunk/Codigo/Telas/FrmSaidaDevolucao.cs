@@ -68,7 +68,7 @@ namespace Telas
 
                 if (MessageBox.Show("Confirma Impressão da Nota Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance().imprimirNotaFiscal(saida);
+                    GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
                 }
                 this.Close();
             }
