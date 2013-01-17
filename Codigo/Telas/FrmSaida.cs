@@ -570,7 +570,7 @@ namespace Telas
             {
                 if (MessageBox.Show("Confirma impressão do Cupom Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance().imprimirNotaFiscal(saida);
+                    GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
                 }
             }
             else if (saida.TipoSaida == Saida.TIPO_VENDA)
@@ -584,7 +584,7 @@ namespace Telas
                 if (MessageBox.Show("Confirma impressão da Nota Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
 
-                    GerenciadorSaida.GetInstance().imprimirNotaFiscal(saida);
+                    GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
                 }
             }
             else

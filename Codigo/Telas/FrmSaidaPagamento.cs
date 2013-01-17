@@ -149,7 +149,7 @@ namespace Telas
                         {
                             if (cliente.ImprimirDAV)
                             {
-                                GerenciadorSaida.GetInstance().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                                GerenciadorSaida.GetInstance().ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
                             }
                         }
                         else
