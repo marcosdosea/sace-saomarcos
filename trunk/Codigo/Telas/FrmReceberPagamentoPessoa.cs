@@ -142,7 +142,7 @@ namespace Telas
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
-                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, new List<SaidaPagamento>() { saidaPagamento }, valorPagamento);
+                            GerenciadorSaida.GetInstance().GerarDocumentoFiscal(listaSaidas, new List<SaidaPagamento>() { saidaPagamento }, valorPagamento);
                         }
                     }
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
@@ -171,7 +171,7 @@ namespace Telas
                         saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
                         saidaPagamentoCartao.Valor = valorPagamento;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
-                        GerenciadorSaida.getInstace().GerarDocumentoFiscal(listaSaidas, listaSaidaPagamento, valorPagamento);
+                        GerenciadorSaida.GetInstance().GerarDocumentoFiscal(listaSaidas, listaSaidaPagamento, valorPagamento);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             GerenciadorConta.GetInstance().SubstituirContas(listaContas, valorPagamento, cartaoCredito, parcelas);
@@ -211,7 +211,7 @@ namespace Telas
             if (!pedidoGerado.Trim().Equals(""))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                Saida saida = GerenciadorSaida.getInstace().obterSaida(codSaida);
+                Saida saida = GerenciadorSaida.GetInstance().Obter(codSaida);
 
                 FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
                 frmSaidaNF.ShowDialog();
@@ -236,7 +236,7 @@ namespace Telas
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
-                    GerenciadorSaida.getInstace().GerarDocumentoFiscal(codSaidas, new List<SaidaPagamento>() { saidaPagamento }, saidaPagamento.Valor);
+                    GerenciadorSaida.GetInstance().GerarDocumentoFiscal(codSaidas, new List<SaidaPagamento>() { saidaPagamento }, saidaPagamento.Valor);
                 }
             }
         }

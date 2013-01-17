@@ -17,16 +17,16 @@ namespace Negocio
     public class GerenciadorSaida
     {
         private static GerenciadorSaida gSaida;
-        private static tb_saidaTableAdapter tb_SaidaTA;
-        private static tb_saida_pedidoTableAdapter tb_saida_pedidoTA;
+        private static RepositorioGenerico<SaidaE, SaceEntities> repSaida;
+        private static RepositorioGenerico<SaidaPedidoE, SaceEntities> repSaidaPedido;
 
-        public static GerenciadorSaida getInstace()
+        public static GerenciadorSaida GetInstance()
         {
             if (gSaida == null)
             {
                 gSaida = new GerenciadorSaida();
-                tb_SaidaTA = new tb_saidaTableAdapter();
-                tb_saida_pedidoTA = new tb_saida_pedidoTableAdapter();
+                repSaida = new RepositorioGenerico<SaidaE, SaceEntities>("chave");
+                repSaidaPedido = new RepositorioGenerico<SaidaPedidoE, SaceEntities>("chave");
             }
             return gSaida;
         }
@@ -36,20 +36,17 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public Int64 inserir(Saida saida)
+        public Int64 Inserir(Saida saida)
         {
             try
             {
+                SaidaE _saidaE = new SaidaE();
+                Atribuir(saida, _saidaE);
 
-                tb_SaidaTA.Insert(saida.DataSaida, saida.CodCliente, saida.TipoSaida, saida.CodProfissional, saida.NumeroCartaoVenda, saida.PedidoGerado, saida.Total, saida.TotalAVista, saida.Desconto,
-                    saida.TotalPago, saida.TotalLucro, saida.CpfCnpj, saida.CodSituacaoPagamentos, saida.Troco, saida.EntregaRealizada,
-                    saida.Nfe, saida.BaseCalculoICMS, saida.ValorICMS, saida.BaseCalculoICMSSubst, saida.ValorICMSSubst,
-                    saida.ValorFrete, saida.ValorSeguro, saida.OutrasDespesas, saida.ValorIPI, saida.TotalNotaFiscal,
-                    saida.QuantidadeVolumes, saida.EspecieVolumes, saida.Marca, saida.Numero, saida.PesoBruto, saida.PesoLiquido, saida.CodEmpresaFrete);
-
-                return (Int64)tb_SaidaTA.GetUltimoCodSaida();
-
-
+                repSaida.Inserir(_saidaE);
+                repSaida.SaveChanges();
+                
+                return _saidaE.codSaida;
             }
             catch (Exception e)
             {
@@ -57,20 +54,19 @@ namespace Negocio
             }
         }
 
+        
         /// <summary>
         /// Atualiza dados de uma saída (orçamento/pré-venda/venda/saída depósito)
         /// </summary>
         /// <param name="saida"></param>
-        public void atualizar(Saida saida)
+        public void Atualizar(Saida saida)
         {
             try
             {
-                tb_SaidaTA.Update(saida.DataSaida, saida.CodCliente, saida.TipoSaida, saida.CodProfissional,
-                    saida.NumeroCartaoVenda, saida.PedidoGerado, saida.Total, saida.TotalAVista, saida.Desconto,
-                    saida.TotalPago, saida.TotalLucro, saida.CpfCnpj, saida.CodSituacaoPagamentos, saida.Troco, saida.EntregaRealizada,
-                    saida.Nfe, saida.BaseCalculoICMS, saida.ValorICMS, saida.BaseCalculoICMSSubst, saida.ValorICMSSubst,
-                    saida.ValorFrete, saida.ValorSeguro, saida.OutrasDespesas, saida.ValorIPI, saida.TotalNotaFiscal,
-                    saida.QuantidadeVolumes, saida.EspecieVolumes, saida.Marca, saida.Numero, saida.PesoBruto, saida.PesoLiquido, saida.CodEmpresaFrete, saida.CodSaida);
+                SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida == saida.CodSaida);
+                Atribuir(saida, _saidaE);
+
+                repSaida.SaveChanges();
             }
             catch (Exception e)
             {
@@ -83,11 +79,14 @@ namespace Negocio
         /// </summary>
         /// <param name="codSituacaoPagamentos"></param>
         /// <param name="codSaida"></param>
-        public void atualizar(int codSituacaoPagamentos, long codSaida)
+        public void AtualizarSituacaoPagamentoPorSaida(int codSituacaoPagamentos, long codSaida)
         {
             try
             {
-                tb_SaidaTA.UpdateSituacaoPagamentos(codSituacaoPagamentos, codSaida);
+                SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida == codSaida);
+                _saidaE.codSituacaoPagamentos = codSituacaoPagamentos;
+
+                repSaida.SaveChanges();
             }
             catch (Exception e)
             {
@@ -95,11 +94,41 @@ namespace Negocio
             }
         }
 
-        public void Atualizar(string codPedidoGerado, string nfe)
+        /// <summary>
+        /// Atualiza o número da nota fiscal gerada a partir do pedido (cupom fiscal) gerado
+        /// </summary>
+        /// <param name="nfe"></param>
+        /// <param name="pedidoGerado"></param>
+        public void AtualizarNfePorPedidoGerado(string nfe, string pedidoGerado)
         {
             try
             {
-                tb_SaidaTA.UpdateNfe(nfe, codPedidoGerado);
+                List<SaidaE> _listaSaidaE = (List<SaidaE>) repSaida.Obter(s => s.pedidoGerado.Equals(pedidoGerado));
+                foreach (SaidaE _saidaE in _listaSaidaE)
+                {
+                    _saidaE.nfe = nfe;
+                }
+                repSaida.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza o número da nota fiscal gerada a partir do pedido (cupom fiscal) gerado
+        /// </summary>
+        /// <param name="nfe"></param>
+        /// <param name="pedidoGerado"></param>
+        public void AtualizarTipoPedidoGeradoPorSaida(int codTipoSaida, string pedidoGerado, long codSaida)
+        {
+            try
+            {
+                SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida.Equals(codSaida));
+                _saidaE.codTipoSaida = codTipoSaida;
+                _saidaE.pedidoGerado = pedidoGerado;
+                repSaida.SaveChanges();
             }
             catch (Exception e)
             {
@@ -111,48 +140,34 @@ namespace Negocio
         /// Remove os dados de uma saída. No caso de vendas e pré-vendas transforma em orçamento.
         /// </summary>
         /// <param name="saida"></param>
-        public void remover(Saida saida)
+        public void Remover(Saida saida)
         {
             try
             {
+                GerenciadorSaidaPagamento.GetInstance().RemoverPorSaida(saida);
+                    
                 if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
                 {
-                    GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
-                    tb_SaidaTA.Delete(saida.CodSaida);
+                    repSaida.Remover(s => s.codSaida == saida.CodSaida);
+                    repSaida.SaveChanges();
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
-                    GerenciadorSaidaPagamento.getInstace().removerPagamentos(saida);
-                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
-                    registrarEstornoEstoque(saidaProdutos);
+                    RegistrarEstornoEstoque(saida);
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                     saida.PedidoGerado = "";
-                    atualizar(saida);
+                    Atualizar(saida);
                 }
-                else if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                else if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
                 {
-                    // para garantir que nenhuma outra estãção emitiu a nota de transferência
-                    saida = GerenciadorSaida.getInstace().obterSaida(saida.CodSaida);
                     if ((saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     {
-                        throw new NegocioException("Não é possível remover uma saída para depósito cuja nota fiscal de trasnferência já foi emitida.");
+                        throw new NegocioException("Não é possível remover Saídas ou Devoluções cuja nota fiscal já foi emitida.");
                     }
                     else
                     {
-                        tb_SaidaTA.Delete(saida.CodSaida);
-                    }
-                }
-                else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-                {
-                    // para garantir que nenhuma outra estãção emitiu a nota de transferência
-                    saida = GerenciadorSaida.getInstace().obterSaida(saida.CodSaida);
-                    if ((saida.Nfe != null) && (!saida.Nfe.Equals("")))
-                    {
-                        throw new NegocioException("Não é possível remover uma devolução para fornecedor cuja nota fiscal de transferência já foi emitida.");
-                    }
-                    else
-                    {
-                        tb_SaidaTA.Delete(saida.CodSaida);
+                        repSaida.Remover(s => s.codSaida == saida.CodSaida);
+                        repSaida.SaveChanges();
                     }
                 }
             }
@@ -163,60 +178,95 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<Saida> GetQuery()
+        {
+            var saceEntities = (SaceEntities)repSaida.ObterContexto();
+            var query = from saida in saceEntities.SaidaSet
+                        join situacaoPagamentos in saceEntities.SituacaoPagamentosSet on saida.codSituacaoPagamentos equals situacaoPagamentos.codSituacaoPagamentos
+                        join tipoSaida in saceEntities.TipoSaidaSet on saida.codTipoSaida equals tipoSaida.codTipoSaida
+                        join cliente in saceEntities.PessoaSet on saida.codCliente equals cliente.codPessoa
+                        select new Saida
+                        {
+                            BaseCalculoICMS = (decimal)saida.baseCalculoICMS,
+                            BaseCalculoICMSSubst = (decimal)saida.baseCalculoICMSSubst,
+                            CodCliente = saida.codCliente,
+                            CodEmpresaFrete = saida.codEmpresaFrete,
+                            CodProfissional = (long)saida.codProfissional,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            CpfCnpj = saida.cpf_cnpj,
+                            DataSaida = saida.dataSaida,
+                            Desconto = (decimal)saida.desconto,
+                            DescricaoSituacaoPagamentos = situacaoPagamentos.descricaoSituacaoPagamentos,
+                            DescricaoTipoSaida = tipoSaida.descricaoTipoSaida,
+                            EntregaRealizada = saida.entregaRealizada,
+                            EspecieVolumes = saida.especieVolumes,
+                            Marca = saida.marca,
+                            Nfe = saida.nfe,
+                            NomeCliente = cliente.nomeFantasia,
+                            Numero = (decimal)saida.numero,
+                            NumeroCartaoVenda = (int)saida.numeroCartaoVenda,
+                            OutrasDespesas = (decimal)saida.outrasDespesas,
+                            PedidoGerado = saida.pedidoGerado,
+                            PesoBruto = (decimal)saida.pesoBruto,
+                            PesoLiquido = (decimal)saida.pesoLiquido,
+                            QuantidadeVolumes = (decimal)saida.quantidadeVolumes,
+                            TipoSaida = saida.codTipoSaida,
+                            Total = (decimal)saida.total,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            TotalLucro = (decimal)saida.totalLucro,
+                            TotalNotaFiscal = (decimal)saida.totalNotaFiscal,
+                            TotalPago = (decimal)saida.totalPago,
+                            Troco = (decimal)saida.troco,
+                            ValorFrete = (decimal)saida.valorFrete,
+                            ValorICMS = (decimal)saida.valorICMS,
+                            ValorICMSSubst = (decimal)saida.valorICMSSubst,
+                            ValorIPI = (decimal)saida.valorIPI,
+                            ValorSeguro = (decimal)saida.valorSeguro
+                        };
+            return query;
+        }
+
+        /// <summary>
         /// Obtme todos os dados de uma saída
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public Saida obterSaida(Int64 codSaida)
+        public Saida Obter(Int64 codSaida)
         {
-            Saida saida = null;
-            Dados.saceDataSetTableAdapters.tb_saidaTableAdapter tb_saidaTA = new tb_saidaTableAdapter();
-            Dados.saceDataSet.tb_saidaDataTable saidaDT = tb_saidaTA.GetDataByCodSaida(codSaida);
+            List<Saida> saidas = GetQuery().Where(saida => saida.CodSaida == codSaida).ToList();
+            if (saidas.Count == 1)
+                return saidas[0];
+            else
+                return null;
+        }
 
-            if (saidaDT.Count > 0)
-            {
-                saida = new Saida();
-                saida.CodSaida = codSaida;
-                saida.DataSaida = DateTime.Parse(saidaDT.Rows[0]["dataSaida"].ToString());
-                saida.TipoSaida = int.Parse(saidaDT.Rows[0]["codTipoSaida"].ToString());
-                saida.CodCliente = long.Parse(saidaDT.Rows[0]["codCliente"].ToString());
-                saida.CodProfissional = long.Parse(saidaDT.Rows[0]["codProfissional"].ToString());
-                saida.NumeroCartaoVenda = int.Parse(saidaDT.Rows[0]["numeroCartaoVenda"].ToString());
-                saida.PedidoGerado = saidaDT.Rows[0]["pedidoGerado"].ToString();
-                saida.Desconto = decimal.Parse(saidaDT.Rows[0]["desconto"].ToString());
-                if (!saidaDT.Rows[0]["total"].ToString().Equals(""))
-                {
-                    saida.Total = decimal.Parse(saidaDT.Rows[0]["total"].ToString());
-                    saida.TotalAVista = decimal.Parse(saidaDT.Rows[0]["totalAVista"].ToString());
-                    saida.TotalLucro = decimal.Parse(saidaDT.Rows[0]["totalLucro"].ToString());
-                    saida.TotalPago = decimal.Parse(saidaDT.Rows[0]["totalPago"].ToString());
-                }
-                saida.CodSituacaoPagamentos = Convert.ToInt32(saidaDT.Rows[0]["codSituacaoPagamentos"].ToString());
-                saida.EntregaRealizada = Convert.ToBoolean(saidaDT.Rows[0]["entregaRealizada"].ToString());
-                saida.Nfe = saidaDT.Rows[0]["nfe"].ToString();
-                saida.Troco = Convert.ToDecimal(saidaDT.Rows[0]["troco"].ToString());
-                saida.CpfCnpj = saidaDT.Rows[0]["cpf_cnpj"].ToString();
-                saida.BaseCalculoICMS = Convert.ToDecimal(saidaDT.Rows[0]["baseCalculoICMS"].ToString());
-                saida.ValorICMS = Convert.ToDecimal(saidaDT.Rows[0]["valorICMS"].ToString());
-                saida.BaseCalculoICMSSubst = Convert.ToDecimal(saidaDT.Rows[0]["baseCalculoICMSSubst"].ToString());
-                saida.ValorICMSSubst = Convert.ToDecimal(saidaDT.Rows[0]["valorICMSSubst"].ToString());
-                saida.ValorFrete = Convert.ToDecimal(saidaDT.Rows[0]["valorFrete"].ToString());
-                saida.ValorSeguro = Convert.ToDecimal(saidaDT.Rows[0]["valorSeguro"].ToString());
-                saida.OutrasDespesas = Convert.ToDecimal(saidaDT.Rows[0]["outrasDespesas"].ToString());
-                saida.ValorIPI = Convert.ToDecimal(saidaDT.Rows[0]["valorIPI"].ToString());
-                saida.TotalNotaFiscal = Convert.ToDecimal(saidaDT.Rows[0]["totalNotaFiscal"].ToString());
-                saida.QuantidadeVolumes = Convert.ToDecimal(saidaDT.Rows[0]["quantidadeVolumes"].ToString());
-                saida.EspecieVolumes = saidaDT.Rows[0]["especieVolumes"].ToString();
-                saida.Marca = saidaDT.Rows[0]["marca"].ToString();
-                saida.Numero = Convert.ToDecimal(saidaDT.Rows[0]["numero"].ToString());
-                saida.PesoBruto = Convert.ToDecimal(saidaDT.Rows[0]["pesoBruto"].ToString());
-                saida.PesoLiquido = Convert.ToDecimal(saidaDT.Rows[0]["pesoLiquido"].ToString());
-                saida.CodEmpresaFrete = Convert.ToInt64(saidaDT.Rows[0]["codEmpresaFrete"].ToString());
-                saida.DescricaoTipoSaida = saidaDT.Rows[0]["descricaoTipoSaida"].ToString();
-                saida.NomeCliente = saidaDT.Rows[0]["nomeCliente"].ToString();
-                saida.DescricaoSituacaoPagamentos = saidaDT.Rows[0]["descricaoSituacaoPagamentos"].ToString();
-            }
-            return saida;
+
+        /// <summary>
+        /// Obtme todos os dados de uma saída
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterPorTipoSaida(int codTipoSaida)
+        {
+            return GetQuery().Where(saida => saida.TipoSaida == codTipoSaida).ToList();
+        }
+
+        /// <summary>
+        /// Obtme todos os dados de uma saída
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterSaidaConsumidor(bool somenteUltimasSaidas)
+        {
+            if (somenteUltimasSaidas) 
+                return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO || 
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
+            else
+                return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).Take(100).ToList();
         }
 
         /// <summary>
@@ -224,25 +274,25 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="tipoSaidaEncerramento"></param>
-        public void encerrar(Saida saida, int tipoSaidaEncerramento)
+        public void Encerrar(Saida saida, int tipoSaidaEncerramento)
         {
             if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipoSaidaEncerramento.Equals(Saida.TIPO_ORCAMENTO))
             {
                 saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                atualizar(saida);
+                Atualizar(saida);
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipoSaidaEncerramento.Equals(Saida.TIPO_PRE_VENDA))
             {
                 saida.TipoSaida = Saida.TIPO_PRE_VENDA;
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
-                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                 Decimal somaPrecosCusto = registrarBaixaEstoque(saidaProdutos);
 
                 saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
-                atualizar(saida);
+                Atualizar(saida);
 
-                List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(saida.CodSaida);
+                List<SaidaPagamento> saidaPagamentos = (List<SaidaPagamento>) GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
                 registrarPagamentosSaida(saidaPagamentos, saida);
             }
             else if (tipoSaidaEncerramento.Equals(Saida.TIPO_SAIDA_DEPOSITO))
@@ -259,10 +309,10 @@ namespace Negocio
                     throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                 }
 
-                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                 saida.Nfe = ObterNumeroProximaNotaFiscal().ToString();
-                atualizar(saida);
-                registrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
+                Atualizar(saida);
+                RegistrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
             }
             else if (tipoSaidaEncerramento.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
             {
@@ -270,7 +320,7 @@ namespace Negocio
                 if ((saida.Nfe == null) || (saida.Nfe.Equals("")))
                 {
                     saida.Nfe = ObterNumeroProximaNotaFiscal().ToString();
-                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                     registrarBaixaEstoque(saidaProdutos);
                 }
             }
@@ -294,11 +344,11 @@ namespace Negocio
         /// <param name="produto"></param>
         /// <param name="dataVencimento"></param>
         /// <returns></returns>
-        public Boolean dataVencimentoProdutoAceitavel(Produto produto, DateTime dataVencimento)
+        public Boolean DataVencimentoProdutoAceitavel(ProdutoPesquisa produto, DateTime dataVencimento)
         {
             if (produto.TemVencimento)
             {
-                DateTime dataMaisAntigo = GerenciadorEntradaProduto.getInstace().getDataProdutoMaisAntigoEstoque(produto);
+                DateTime dataMaisAntigo = GerenciadorEntradaProduto.GetInstance().GetDataProdutoMaisAntigoEstoque(produto);
                 return (dataMaisAntigo >= dataVencimento);
             }
             return true;
@@ -421,8 +471,9 @@ namespace Negocio
         /// Registra estorno de estoque no caso de devolução ou exclusão da saída
         /// </summary>
         /// <param name="saidaProdutos"></param>
-        public void registrarEstornoEstoque(List<SaidaProduto> saidaProdutos)
+        public void RegistrarEstornoEstoque(Saida saida)
         {
+            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(saidaProduto.CodProduto).ElementAt(0);
@@ -436,7 +487,7 @@ namespace Negocio
                     GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(0, saidaProduto.Quantidade, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
 
-                GerenciadorEntradaProduto.getInstace().baixaItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
+                GerenciadorEntradaProduto.GetInstance().BaixarItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
             }
         }
 
@@ -464,7 +515,7 @@ namespace Negocio
                     GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
 
-                decimal custoEstoque = GerenciadorEntradaProduto.getInstace().baixaItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
+                decimal custoEstoque = GerenciadorEntradaProduto.GetInstance().BaixarItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
                 // Se não houver preço de custo do produto
                 if (custoAtual <= 0)
                 {
@@ -502,7 +553,7 @@ namespace Negocio
         /// <param name="saidaProdutos"></param>
         /// <param name="lojaOrigem"></param>
         /// <param name="lojaDestino"></param>
-        private void registrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino)
+        private void RegistrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino)
         {
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
@@ -519,7 +570,7 @@ namespace Negocio
             List<Saida> saidas = new List<Saida>();
             foreach (long codSaida in listaCodSaidas)
             {
-                Saida saida = obterSaida(codSaida);
+                Saida saida = Obter(codSaida);
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                 {
                     throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
@@ -550,22 +601,22 @@ namespace Negocio
                         Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAt(0);
                         List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
                         if (cliente.ImprimirCF)
-                            saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                            saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                         else
-                            saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosSemCST(saida.CodSaida, Cst.ST_OUTRAS);
+                            saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaidaSemCST(saida.CodSaida, Cst.ST_OUTRAS);
 
                         if (saidaProdutos.Count > 0)
                         {
                             // associa as saídas ao pedido que foi gerado para emissão do cupom fiscal
-                            if (tb_saida_pedidoTA.GetDataByCodSaida(saida.CodSaida).Rows.Count == 0)
+                            if (GerenciadorSaidaPedido.GetInstance().ObterPorSaida(saida.CodSaida).Count == 0)
                             {
-                                tb_saida_pedidoTA.Insert(saida.CodSaida, saidas[0].CodSaida);
+                                GerenciadorSaidaPedido.GetInstance().Inserir(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida });
                             }
                             listaSaidaProdutos.AddRange(saidaProdutos);
                         }
                         else
                         {
-                            tb_SaidaTA.UpdatePedidoGerado(Saida.TIPO_VENDA, "", saida.CodSaida);
+                            GerenciadorSaida.GetInstance().AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, "", saida.CodSaida);
                         }
                     }
 
@@ -583,7 +634,7 @@ namespace Negocio
                         // Buscar pagamentos quando não foram passados por parâmetro
                         if ((saidaPagamentos == null) || (saidaPagamentos.Count == 0))
                         {
-                            saidaPagamentos = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentos(listaCodSaidas.ToList());
+                            saidaPagamentos = (List<SaidaPagamento>) GerenciadorSaidaPagamento.GetInstance().ObterPorSaidas(listaCodSaidas.ToList());
                         }
                         
                         // imprime desconto
@@ -723,7 +774,7 @@ namespace Negocio
                     if (cupomFiscal.Exists)
                     {
                         cupomFiscal.Delete();
-                        tb_saida_pedidoTA.DeleteByCodPedido(codPedido);
+                        GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                     }
                 }
             }
@@ -770,34 +821,28 @@ namespace Negocio
                             reader.Close();
 
                             // quando cupom fiscal impresso com sucesso atualiza saidas
+                            long codPedido = Convert.ToInt64(file.Name.Replace(".TXT", ""));
+                            List<SaidaPedido> _listaSaidaPedido = GerenciadorSaidaPedido.GetInstance().ObterPorPedido(codPedido);
                             if (sucesso)
                             {
-                                long codPedido = Convert.ToInt64(file.Name.Replace(".TXT", ""));
-                                saceDataSet.tb_saida_pedidoDataTable tb_saida_pedidoDT = tb_saida_pedidoTA.GetDataByCodPedido(codPedido);
-
-                                for (int i = 0; i < tb_saida_pedidoDT.Count; i++)
+                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
                                 {
-                                    long codSaida = Convert.ToInt64(tb_saida_pedidoDT.Rows[i]["codSaida"].ToString());
-                                    tb_SaidaTA.UpdatePedidoGerado(Saida.TIPO_VENDA, numeroCF, codSaida);
+                                    GerenciadorSaida.GetInstance().AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, numeroCF, saidaPedido.CodSaida);
                                     atualizou = true;
                                 }
-                                tb_saida_pedidoTA.DeleteByCodPedido(codPedido);
+                                GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                             }
                             else
                             {
-                                long codPedido = Convert.ToInt64(file.Name.Replace(".TXT", ""));
-                                saceDataSet.tb_saida_pedidoDataTable tb_saida_pedidoDT = tb_saida_pedidoTA.GetDataByCodPedido(codPedido);
-
-                                for (int i = 0; i < tb_saida_pedidoDT.Count; i++)
+                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
                                 {
-                                    long codSaida = Convert.ToInt64(tb_saida_pedidoDT.Rows[i]["codSaida"].ToString());
-                                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(codSaida, FormaPagamento.CREDIARIO).Count > 0;
+                                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance().ObterPorSaidaFormaPagamento(saidaPedido.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
                                     if (!temPagamentoCrediario)
                                     {
-                                        remover(obterSaida(codSaida));
+                                        Remover(Obter(saidaPedido.CodSaida));
                                     }
                                 }
-                                tb_saida_pedidoTA.DeleteByCodPedido(codPedido);
+                                GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                             }
                             file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
                             file.Delete();
@@ -872,7 +917,7 @@ namespace Negocio
                         imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.PedidoGerado);
                     }
 
-                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                     foreach (SaidaProduto produto in saidaProdutos)
                     {
                         imp.ImpColDireita(0, 3, produto.CodProduto.ToString());
@@ -974,7 +1019,7 @@ namespace Negocio
                         imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.PedidoGerado);
                     }
 
-                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                     foreach (SaidaProduto produto in saidaProdutos)
                     {
                         imp.ImpColDireita(0, 3, produto.CodProduto.ToString());
@@ -1040,11 +1085,11 @@ namespace Negocio
                     List<SaidaProduto> saidaProdutos;
                     if (saida.TipoSaida == Saida.TIPO_VENDA)
                     {
-                        saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutosPorPedido(saida.PedidoGerado);
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorPedido(saida.PedidoGerado);
                     }
                     else
                     {
-                        saidaProdutos = GerenciadorSaidaProduto.getInstace().obterSaidaProdutos(saida.CodSaida);
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
                     }
 
                     saidaProdutos = ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
@@ -1273,12 +1318,18 @@ namespace Negocio
                 if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
                 {
                     imp.ImpColLF(3, "");
-                    imp.ImpColLF(3, "Nao Incidencia de ICMS conforme Art 2o,");
-                    imp.ImpColLF(3, "XI do RICMS/SE");
+                    imp.ImpColLF(3, "Referente Notas Fiscais: 36796, 63744,");
+                    imp.ImpColLF(3, "86622");
                     imp.Pula(2);
                     imp.ImpCol(75, saida.Nfe);
                 }
-                else
+                else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                {
+                    imp.ImpColLF(3, "");
+                    imp.ImpColLF(3, "Nao Incidencia de ICMS conforme Art 2o,");
+                    imp.ImpColLF(3, "XI do RICMS/SE");
+                    
+                }
                 {
                     imp.ImpCol(3, "VEND:   0   CLI: " + saida.CodCliente);
                     imp.Pula(7);
@@ -1300,14 +1351,52 @@ namespace Negocio
 
         public Int64 ObterNumeroProximaNotaFiscal()
         {
-            String ultimoNumero = tb_SaidaTA.GetUltimoNumeroNF();
-            if ((ultimoNumero != null) && (!ultimoNumero.Trim().Equals("")))
-            {
-                return Convert.ToInt64(ultimoNumero) + 1;
-            }
-            return 1;
+            var saceEntities = (SaceEntities)repSaida.ObterContexto();
+            var query = from saida in saceEntities.SaidaSet
+                        select saida;
+            return Convert.ToInt64(query.Max(saida => saida.nfe));
         }
 
+        /// <summary>
+        /// Atribui entidade para entidade persistente
+        /// </summary>
+        /// <param name="saida"></param>
+        /// <param name="_saidaE"></param>
+        private static void Atribuir(Saida saida, SaidaE _saidaE)
+        {
+            _saidaE.baseCalculoICMS = saida.BaseCalculoICMS;
+            _saidaE.baseCalculoICMSSubst = saida.BaseCalculoICMSSubst;
+            _saidaE.codCliente = saida.CodCliente;
+            _saidaE.codEmpresaFrete = saida.CodEmpresaFrete;
+            _saidaE.codProfissional = saida.CodProfissional;
+            _saidaE.codSituacaoPagamentos = saida.CodSituacaoPagamentos;
+            _saidaE.codTipoSaida = saida.TipoSaida;
+            _saidaE.cpf_cnpj = saida.CpfCnpj;
+            _saidaE.dataSaida = saida.DataSaida;
+            _saidaE.desconto = saida.Desconto;
+            _saidaE.entregaRealizada = saida.EntregaRealizada;
+            _saidaE.especieVolumes = saida.EspecieVolumes;
+            _saidaE.marca = saida.Marca;
+            _saidaE.nfe = saida.Nfe;
+            _saidaE.numero = saida.Numero;
+            _saidaE.numeroCartaoVenda = saida.NumeroCartaoVenda;
+            _saidaE.outrasDespesas = saida.OutrasDespesas;
+            _saidaE.pedidoGerado = saida.PedidoGerado;
+            _saidaE.pesoBruto = saida.PesoBruto;
+            _saidaE.pesoLiquido = saida.PesoLiquido;
+            _saidaE.quantidadeVolumes = saida.QuantidadeVolumes;
+            _saidaE.total = saida.Total;
+            _saidaE.totalAVista = saida.TotalAVista;
+            _saidaE.totalLucro = saida.TotalLucro;
+            _saidaE.totalNotaFiscal = saida.TotalNotaFiscal;
+            _saidaE.totalPago = saida.TotalPago;
+            _saidaE.troco = saida.Troco;
+            _saidaE.valorFrete = saida.ValorFrete;
+            _saidaE.valorICMS = saida.ValorICMS;
+            _saidaE.valorICMSSubst = saida.ValorICMSSubst;
+            _saidaE.valorIPI = saida.ValorIPI;
+            _saidaE.valorSeguro = saida.ValorSeguro;
+        }
         
     }
 }

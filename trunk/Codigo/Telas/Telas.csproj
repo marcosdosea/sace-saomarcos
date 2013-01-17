@@ -528,6 +528,9 @@
     <None Include="Properties\DataSources\Dominio.Conta.datasource" />
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
     <None Include="Properties\DataSources\Dominio.Cst.datasource" />
+    <None Include="Properties\DataSources\Dominio.Entrada.datasource" />
+    <None Include="Properties\DataSources\Dominio.EntradaPagamento.datasource" />
+    <None Include="Properties\DataSources\Dominio.EntradaProduto.datasource" />
     <None Include="Properties\DataSources\Dominio.FormaPagamento.datasource" />
     <None Include="Properties\DataSources\Dominio.Grupo.datasource" />
     <None Include="Properties\DataSources\Dominio.GrupoConta.datasource" />
@@ -537,7 +540,13 @@
     <None Include="Properties\DataSources\Dominio.PlanoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Produto.datasource" />
     <None Include="Properties\DataSources\Dominio.ProdutoLoja.datasource" />
+    <None Include="Properties\DataSources\Dominio.ProdutoPesquisa.datasource" />
+    <None Include="Properties\DataSources\Dominio.ProdutoVendido.datasource" />
+    <None Include="Properties\DataSources\Dominio.Saida.datasource" />
+    <None Include="Properties\DataSources\Dominio.SaidaPagamento.datasource" />
+    <None Include="Properties\DataSources\Dominio.SaidaProduto.datasource" />
     <None Include="Properties\DataSources\Dominio.SituacaoConta1.datasource" />
+    <None Include="Properties\DataSources\Dominio.SituacaoPagamentos.datasource" />
     <None Include="Properties\DataSources\Dominio.SituacaoProduto.datasource" />
     <None Include="Properties\DataSources\Dominio.Subgrupo.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />

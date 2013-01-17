@@ -15,7 +15,6 @@ namespace Negocio
     {
 
         private static GerenciadorProduto gProduto;
-        private static GerenciadorPrecos gPreco;
         private static RepositorioGenerico<ProdutoE, SaceEntities> repProduto;
 
         public static GerenciadorProduto GetInstance()
@@ -24,7 +23,6 @@ namespace Negocio
             {
                 gProduto = new GerenciadorProduto();
                 repProduto = new RepositorioGenerico<ProdutoE, SaceEntities>("chave");
-                gPreco = GerenciadorPrecos.getInstance();
             }
             return gProduto;
         }
@@ -200,6 +198,16 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obtém produto que podem ser exibidos na listagem
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
+        {
+            return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
+        }
+
+        /// <summary>
         /// Obter um produto usando um produto pesquisado
         /// </summary>
         /// <param name="produtoPesquisa"></param>
@@ -236,7 +244,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterPorNome(String nome)
         {
-            if (nome[0] == '%')
+            if ((nome.Length > 0) && (nome[0] == '%'))
             {
                 return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
             }

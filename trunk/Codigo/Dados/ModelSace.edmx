@@ -1783,7 +1783,7 @@
             <End Role="tb_pessoa" EntitySet="PessoaSet" />
             <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
-          <EntitySet Name="tb_saida_pedido" EntityType="SaceModel.tb_saida_pedido" />
+          <EntitySet Name="SaidaPedidoSet" EntityType="SaceModel.SaidaPedidoE" />
         </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -3057,7 +3057,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tb_saida_pedido">
+        <EntityType Name="SaidaPedidoE">
           <Key>
             <PropertyRef Name="codSaida" />
             <PropertyRef Name="codPedidoGerado" />
@@ -3427,8 +3427,8 @@
               <ScalarProperty Name="codPerfil" ColumnName="codPerfil" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="tb_saida_pedido">
-            <EntityTypeMapping TypeName="SaceModel.tb_saida_pedido">
+          <EntitySetMapping Name="SaidaPedidoSet">
+            <EntityTypeMapping TypeName="SaceModel.SaidaPedidoE">
               <MappingFragment StoreEntitySet="tb_saida_pedido">
                 <ScalarProperty Name="codPedidoGerado" ColumnName="codPedidoGerado" />
                 <ScalarProperty Name="codSaida" ColumnName="codSaida" />
@@ -4046,7 +4046,7 @@
           <ConnectorPoint PointX="7.65107476928711" PointY="27.000634010416661" />
           <ConnectorPoint PointX="7.65107476928711" PointY="24.028138020833339" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="SaceModel.tb_saida_pedido" Width="1.5" PointX="3.375" PointY="0.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="SaceModel.SaidaPedidoE" Width="1.5" PointX="3.375" PointY="0.75" Height="1.4033821614583246" />
       </Diagram>
     </Diagrams>
   </Designer>

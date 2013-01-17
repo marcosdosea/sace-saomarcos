@@ -21,7 +21,7 @@ namespace Telas
         /// <param name="retornaNomeFantasia"></param>
         public static void PessoaComboBox_Leave(object sender, EventArgs e, ComboBox pessoaComboBox, EstadoFormulario estado, BindingSource pessoaBindingSource, bool retornaNomeFantasia)
         {
-            if (estado.Equals(EstadoFormulario.INSERIR))
+            if (estado.Equals(EstadoFormulario.INSERIR) || estado.Equals(EstadoFormulario.ATUALIZAR))
             {
                 List<Pessoa> pessoas;
                 if (retornaNomeFantasia)
@@ -29,7 +29,7 @@ namespace Telas
                 else
                     pessoas = (List<Pessoa>)GerenciadorPessoa.GetInstance().ObterPorNome(pessoaComboBox.Text);
 
-                if (pessoas.Count == 0)
+                if ((pessoas.Count == 0) || (pessoas.Count > 1))
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(pessoaComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
@@ -99,7 +99,7 @@ namespace Telas
                 {
                     // Busca produto pelo nome
                     _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
-                    if (_listaProdutos.Count == 0)
+                    if ((_listaProdutos.Count == 0) || (_listaProdutos.Count > 1))
                     {
                         Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(produtoComboBox.Text, exibirTodos);
                         frmProdutoPesquisaPreco.ShowDialog();
@@ -111,13 +111,14 @@ namespace Telas
                         frmProdutoPesquisaPreco.Dispose();
                     }
                 }
-                // Se retornou algum produto nas pesquisas
+                //Se retornou algum produto nas pesquisas
                 if (_listaProdutos.Count > 0)
                 {
-                    produtoBindingSource.Position = produtoBindingSource.List.IndexOf(_listaProdutos[0]);
+                    Produto produto = new Produto() { CodProduto = _listaProdutos[0].CodProduto };
+                    produtoBindingSource.Position = produtoBindingSource.List.IndexOf(produto);
                 }
                 // Se posição não foi modificada então focus no combobox
-                if ((produtoBindingSource.Position == 0))
+                if (produtoBindingSource.Position == 0)
                 {
                     produtoComboBox.Text = "";
                     produtoComboBox.Focus();

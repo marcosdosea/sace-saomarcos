@@ -39,14 +39,14 @@ namespace Telas
             saida.Desconto = 0;
             saida.Total = decimal.Parse(totalTextBox.Text);
 
-            GerenciadorSaida.getInstace().atualizar(saida);
+            GerenciadorSaida.GetInstance().Atualizar(saida);
             if (MessageBox.Show("Confirma transferência para depósito?", "Confirmar Transferência", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_SAIDA_DEPOSITO);
+                GerenciadorSaida.GetInstance().Encerrar(saida, Saida.TIPO_SAIDA_DEPOSITO);
 
                 if (MessageBox.Show("Confirma Impressão da Nota Fiscal de transferência?", "Confirmar Transferência", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
+                    GerenciadorSaida.GetInstance().imprimirNotaFiscal(saida);
                 }
                 this.Close();
             }

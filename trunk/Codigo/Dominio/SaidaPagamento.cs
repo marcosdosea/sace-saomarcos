@@ -44,14 +44,6 @@ namespace Dominio
             set { codCartaoCredito = value; }
         }
 
-        private long codPessoaResponsavel;
-
-        public long CodPessoaResponsavel
-        {
-            get { return codPessoaResponsavel; }
-            set { codPessoaResponsavel = value; }
-        }
-        
         private decimal valor;
 
         public decimal Valor

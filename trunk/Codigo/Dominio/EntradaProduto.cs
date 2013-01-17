@@ -52,7 +52,5 @@ namespace Dominio
 
         public bool FornecedorEhFabricante { get; set; }
         public long CodFornecedor { get; set; }
-        public int CodTipoEntrada { get; set; }
-
     }
 }

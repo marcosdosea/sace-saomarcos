@@ -35,7 +35,7 @@ namespace Telas
             codEmpresaFreteTextBox.Text = entrada.NomeEmpresaFrete;
             valorFreteTextBox.Text = entrada.ValorFrete.ToString("N2");
 
-            atualizaValores();
+            InicializaComponentes();
         }
 
 
@@ -51,14 +51,15 @@ namespace Telas
 
             entradaPagamento.Valor = Convert.ToDecimal(valorTextBox.Text);
 
-            GerenciadorEntradaPagamento.getInstace().inserir(entradaPagamento, entrada);
+            GerenciadorEntradaPagamento.GetInstance().Inserir(entradaPagamento);
 
-            atualizaValores();
+            InicializaComponentes();
 
             this.tb_entrada_forma_pagamentoTableAdapter.FillByCodEntrada(saceDataSet.tb_entrada_forma_pagamento, long.Parse(codEntradaTextBox.Text));
 
+            decimal totalPago = GerenciadorEntradaPagamento.GetInstance().ObterPorEntrada(entrada.CodEntrada).Sum(ep => ep.Valor);
 
-            if (entrada.TotalPago == (entrada.TotalNota + entrada.ValorFrete) )
+            if (totalPago == (entrada.TotalNota + entrada.ValorFrete))
             {
                 btnEncerrar_Click(sender, e);
             }
@@ -72,7 +73,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma lançamentos de pagamentos?", "Confirmar Pagamentos", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorEntrada.getInstace().encerrar(entrada);
+                GerenciadorEntrada.GetInstance().Encerrar(entrada);
 
                 this.Close();
             }
@@ -84,11 +85,8 @@ namespace Telas
             this.Close();
         }
 
-        private void atualizaValores()
+        private void InicializaComponentes()
         {
-            entrada.TotalPago = GerenciadorEntradaPagamento.getInstace().totalPagamentos(entrada.CodEntrada);
-            totalRecebidoLabel.Text = entrada.TotalPago.ToString("N2");
-
             codFormaPagamentoComboBox.SelectedIndex = 3;
             codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
@@ -161,9 +159,9 @@ namespace Telas
                 if (tb_entrada_forma_pagamentoDataGridView.Rows.Count > 0)
                 {
                     long codEntradaPagamento = long.Parse(tb_entrada_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorEntradaPagamento.getInstace().remover(codEntradaPagamento);
+                    Negocio.GerenciadorEntradaPagamento.GetInstance().Remover(codEntradaPagamento);
                     this.tb_entrada_forma_pagamentoTableAdapter.FillByCodEntrada(saceDataSet.tb_entrada_forma_pagamento, entrada.CodEntrada);
-                    atualizaValores();
+                    InicializaComponentes();
                 }
             }
         }

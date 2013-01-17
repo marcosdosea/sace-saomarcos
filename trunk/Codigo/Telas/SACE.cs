@@ -261,12 +261,19 @@ namespace Telas
 
         private void timerAtualizaCuponsFiscais_Tick(object sender, EventArgs e)
         {
-            backgroundWorkerAtualizarCupons.RunWorkerAsync();
+            try
+            {
+                backgroundWorkerAtualizarCupons.RunWorkerAsync();
+            }
+            catch (Exception)
+            {
+                // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
+            }
         }
 
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
-            GerenciadorSaida.getInstace().AtualizarPedidosComDocumentosFiscais();
+            GerenciadorSaida.GetInstance().AtualizarPedidosComDocumentosFiscais();
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)
