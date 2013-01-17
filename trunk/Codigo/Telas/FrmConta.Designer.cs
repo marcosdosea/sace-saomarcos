@@ -40,7 +40,6 @@
             System.Windows.Forms.Label label5;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConta));
             this.contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -70,17 +69,19 @@
             this.dataVencimentoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.valorTextBox = new System.Windows.Forms.TextBox();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_movimentacao_contaTableAdapter = new Dados.saceDataSetTableAdapters.tb_movimentacao_contaTableAdapter();
-            this.tb_movimentacao_contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.movimentacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoTipoContaLabel1 = new System.Windows.Forms.Label();
             this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
             this.situacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codMovimentacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codTipoMovimentacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataHoraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codResponsavelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codContaBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.somaSaldoDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             codBancoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -91,13 +92,12 @@
             observacaoLabel = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).BeginInit();
             this.tb_contaBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movimentacaoContaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.situacaoContaBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -188,11 +188,6 @@
             this.contaBindingSource.DataSource = typeof(Dominio.Conta);
             this.contaBindingSource.Sort = "codConta";
             this.contaBindingSource.CurrentChanged += new System.EventHandler(this.tb_contaBindingSource_CurrentChanged);
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // panel1
             // 
@@ -308,7 +303,7 @@
             this.tb_contaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_contaBindingNavigator.Name = "tb_contaBindingNavigator";
             this.tb_contaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_contaBindingNavigator.Size = new System.Drawing.Size(209, 25);
+            this.tb_contaBindingNavigator.Size = new System.Drawing.Size(240, 25);
             this.tb_contaBindingNavigator.TabIndex = 58;
             this.tb_contaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -477,14 +472,9 @@
             this.observacaoTextBox.Size = new System.Drawing.Size(619, 45);
             this.observacaoTextBox.TabIndex = 48;
             // 
-            // tb_movimentacao_contaTableAdapter
+            // movimentacaoContaBindingSource
             // 
-            this.tb_movimentacao_contaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_movimentacao_contaBindingSource
-            // 
-            this.tb_movimentacao_contaBindingSource.DataMember = "tb_movimentacao_conta";
-            this.tb_movimentacao_contaBindingSource.DataSource = this.saceDataSet;
+            this.movimentacaoContaBindingSource.DataSource = typeof(Dominio.MovimentacaoConta);
             // 
             // tb_movimentacao_contaDataGridView
             // 
@@ -493,12 +483,15 @@
             this.tb_movimentacao_contaDataGridView.AutoGenerateColumns = false;
             this.tb_movimentacao_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_movimentacao_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn6});
-            this.tb_movimentacao_contaDataGridView.DataSource = this.tb_movimentacao_contaBindingSource;
+            this.codMovimentacaoDataGridViewTextBoxColumn,
+            this.codTipoMovimentacaoDataGridViewTextBoxColumn,
+            this.valorDataGridViewTextBoxColumn,
+            this.dataHoraDataGridViewTextBoxColumn,
+            this.codResponsavelDataGridViewTextBoxColumn,
+            this.codContaBancoDataGridViewTextBoxColumn,
+            this.codContaDataGridViewTextBoxColumn,
+            this.somaSaldoDataGridViewCheckBoxColumn});
+            this.tb_movimentacao_contaDataGridView.DataSource = this.movimentacaoContaBindingSource;
             this.tb_movimentacao_contaDataGridView.Location = new System.Drawing.Point(7, 297);
             this.tb_movimentacao_contaDataGridView.Name = "tb_movimentacao_contaDataGridView";
             this.tb_movimentacao_contaDataGridView.ReadOnly = true;
@@ -506,45 +499,6 @@
             this.tb_movimentacao_contaDataGridView.Size = new System.Drawing.Size(619, 112);
             this.tb_movimentacao_contaDataGridView.TabIndex = 58;
             this.tb_movimentacao_contaDataGridView.TabStop = false;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "codMovimentacao";
-            this.dataGridViewTextBoxColumn1.FillWeight = 150F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "codMovimentacao";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "descricaoTipoMovimento";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Movimento";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "dataHora";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Data";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "nomeResponsavel";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Responsável";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "valor";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Valor";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
             // descricaoTipoContaLabel1
             // 
@@ -574,6 +528,62 @@
             // situacaoContaBindingSource
             // 
             this.situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
+            // 
+            // codMovimentacaoDataGridViewTextBoxColumn
+            // 
+            this.codMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodMovimentacao";
+            this.codMovimentacaoDataGridViewTextBoxColumn.HeaderText = "CodMovimentacao";
+            this.codMovimentacaoDataGridViewTextBoxColumn.Name = "codMovimentacaoDataGridViewTextBoxColumn";
+            this.codMovimentacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codTipoMovimentacaoDataGridViewTextBoxColumn
+            // 
+            this.codTipoMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodTipoMovimentacao";
+            this.codTipoMovimentacaoDataGridViewTextBoxColumn.HeaderText = "CodTipoMovimentacao";
+            this.codTipoMovimentacaoDataGridViewTextBoxColumn.Name = "codTipoMovimentacaoDataGridViewTextBoxColumn";
+            this.codTipoMovimentacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            this.valorDataGridViewTextBoxColumn.HeaderText = "Valor";
+            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataHoraDataGridViewTextBoxColumn
+            // 
+            this.dataHoraDataGridViewTextBoxColumn.DataPropertyName = "DataHora";
+            this.dataHoraDataGridViewTextBoxColumn.HeaderText = "DataHora";
+            this.dataHoraDataGridViewTextBoxColumn.Name = "dataHoraDataGridViewTextBoxColumn";
+            this.dataHoraDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codResponsavelDataGridViewTextBoxColumn
+            // 
+            this.codResponsavelDataGridViewTextBoxColumn.DataPropertyName = "CodResponsavel";
+            this.codResponsavelDataGridViewTextBoxColumn.HeaderText = "CodResponsavel";
+            this.codResponsavelDataGridViewTextBoxColumn.Name = "codResponsavelDataGridViewTextBoxColumn";
+            this.codResponsavelDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codContaBancoDataGridViewTextBoxColumn
+            // 
+            this.codContaBancoDataGridViewTextBoxColumn.DataPropertyName = "CodContaBanco";
+            this.codContaBancoDataGridViewTextBoxColumn.HeaderText = "CodContaBanco";
+            this.codContaBancoDataGridViewTextBoxColumn.Name = "codContaBancoDataGridViewTextBoxColumn";
+            this.codContaBancoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codContaDataGridViewTextBoxColumn
+            // 
+            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
+            this.codContaDataGridViewTextBoxColumn.HeaderText = "CodConta";
+            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
+            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // somaSaldoDataGridViewCheckBoxColumn
+            // 
+            this.somaSaldoDataGridViewCheckBoxColumn.DataPropertyName = "SomaSaldo";
+            this.somaSaldoDataGridViewCheckBoxColumn.HeaderText = "SomaSaldo";
+            this.somaSaldoDataGridViewCheckBoxColumn.Name = "somaSaldoDataGridViewCheckBoxColumn";
+            this.somaSaldoDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // FrmConta
             // 
@@ -617,7 +627,6 @@
             this.Load += new System.EventHandler(this.FrmContas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmContas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).EndInit();
@@ -625,7 +634,7 @@
             this.tb_contaBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movimentacaoContaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.situacaoContaBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -644,7 +653,6 @@
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label label2;
-        private Dados.saceDataSet saceDataSet;
         private System.Windows.Forms.BindingSource contaBindingSource;
         private System.Windows.Forms.BindingNavigator tb_contaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -666,16 +674,18 @@
         private System.Windows.Forms.TextBox observacaoTextBox;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.BindingSource planoContaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_movimentacao_contaTableAdapter tb_movimentacao_contaTableAdapter;
-        private System.Windows.Forms.BindingSource tb_movimentacao_contaBindingSource;
+        private System.Windows.Forms.BindingSource movimentacaoContaBindingSource;
         private System.Windows.Forms.DataGridView tb_movimentacao_contaDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.Label descricaoTipoContaLabel1;
         private System.Windows.Forms.ComboBox codSituacaoComboBox;
         private System.Windows.Forms.BindingSource situacaoContaBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codMovimentacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codTipoMovimentacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataHoraDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codResponsavelDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codContaBancoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codContaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn somaSaldoDataGridViewCheckBoxColumn;
     }
 }

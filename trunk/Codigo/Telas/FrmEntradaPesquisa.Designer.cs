@@ -33,18 +33,34 @@
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.tb_entradaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_entradaTableAdapter = new Dados.saceDataSetTableAdapters.tb_entradaTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
+            this.entradaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_entradaDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeFornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
+            this.codEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroNotaFiscalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codEmpresaFreteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeEmpresaFreteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codFornecedorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeFornecedorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codTipoEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataEmissaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalBaseCalculoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalICMSDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalBaseSubstituicaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalSubstituicaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalProdutosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalProdutosSTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorFreteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorSeguroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.outrasDespesasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalIPIDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalNotaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSituacaoPagamentosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fretePagoEmitenteDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.entradaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,61 +106,9 @@
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
-            // tb_entradaBindingSource
+            // entradaBindingSource
             // 
-            this.tb_entradaBindingSource.DataMember = "tb_entrada";
-            this.tb_entradaBindingSource.DataSource = this.saceDataSet;
-            // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_entradaTableAdapter
-            // 
-            this.tb_entradaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = this.tb_entradaTableAdapter;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = null;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = null;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.entradaBindingSource.DataSource = typeof(Dominio.Entrada);
             // 
             // tb_entradaDataGridView
             // 
@@ -153,12 +117,32 @@
             this.tb_entradaDataGridView.AutoGenerateColumns = false;
             this.tb_entradaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_entradaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn9,
             this.nomeFornecedor,
-            this.totalNota});
-            this.tb_entradaDataGridView.DataSource = this.tb_entradaBindingSource;
+            this.totalNota,
+            this.codEntradaDataGridViewTextBoxColumn,
+            this.numeroNotaFiscalDataGridViewTextBoxColumn,
+            this.codEmpresaFreteDataGridViewTextBoxColumn,
+            this.nomeEmpresaFreteDataGridViewTextBoxColumn,
+            this.codFornecedorDataGridViewTextBoxColumn,
+            this.nomeFornecedorDataGridViewTextBoxColumn,
+            this.codTipoEntradaDataGridViewTextBoxColumn,
+            this.dataEmissaoDataGridViewTextBoxColumn,
+            this.dataEntradaDataGridViewTextBoxColumn,
+            this.totalBaseCalculoDataGridViewTextBoxColumn,
+            this.totalICMSDataGridViewTextBoxColumn,
+            this.totalBaseSubstituicaoDataGridViewTextBoxColumn,
+            this.totalSubstituicaoDataGridViewTextBoxColumn,
+            this.totalProdutosDataGridViewTextBoxColumn,
+            this.totalProdutosSTDataGridViewTextBoxColumn,
+            this.valorFreteDataGridViewTextBoxColumn,
+            this.valorSeguroDataGridViewTextBoxColumn,
+            this.descontoDataGridViewTextBoxColumn,
+            this.outrasDespesasDataGridViewTextBoxColumn,
+            this.totalIPIDataGridViewTextBoxColumn,
+            this.totalNotaDataGridViewTextBoxColumn,
+            this.codSituacaoPagamentosDataGridViewTextBoxColumn,
+            this.fretePagoEmitenteDataGridViewCheckBoxColumn});
+            this.tb_entradaDataGridView.DataSource = this.entradaBindingSource;
             this.tb_entradaDataGridView.Location = new System.Drawing.Point(12, 63);
             this.tb_entradaDataGridView.MultiSelect = false;
             this.tb_entradaDataGridView.Name = "tb_entradaDataGridView";
@@ -169,27 +153,6 @@
             this.tb_entradaDataGridView.TabStop = false;
             this.tb_entradaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_entradaDataGridView_CellClick);
             this.tb_entradaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_entradaDataGridView_CellClick);
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "codEntrada";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "dataEntrada";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Data Entrada";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "numeroNotaFiscal";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Número NF";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
             // nomeFornecedor
             // 
@@ -206,7 +169,168 @@
             this.totalNota.HeaderText = "Total Nota (R$)";
             this.totalNota.Name = "totalNota";
             this.totalNota.ReadOnly = true;
-            this.totalNota.Width = 105;
+            this.totalNota.Width = 79;
+            // 
+            // codEntradaDataGridViewTextBoxColumn
+            // 
+            this.codEntradaDataGridViewTextBoxColumn.DataPropertyName = "CodEntrada";
+            this.codEntradaDataGridViewTextBoxColumn.HeaderText = "CodEntrada";
+            this.codEntradaDataGridViewTextBoxColumn.Name = "codEntradaDataGridViewTextBoxColumn";
+            this.codEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // numeroNotaFiscalDataGridViewTextBoxColumn
+            // 
+            this.numeroNotaFiscalDataGridViewTextBoxColumn.DataPropertyName = "NumeroNotaFiscal";
+            this.numeroNotaFiscalDataGridViewTextBoxColumn.HeaderText = "NumeroNotaFiscal";
+            this.numeroNotaFiscalDataGridViewTextBoxColumn.Name = "numeroNotaFiscalDataGridViewTextBoxColumn";
+            this.numeroNotaFiscalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codEmpresaFreteDataGridViewTextBoxColumn
+            // 
+            this.codEmpresaFreteDataGridViewTextBoxColumn.DataPropertyName = "CodEmpresaFrete";
+            this.codEmpresaFreteDataGridViewTextBoxColumn.HeaderText = "CodEmpresaFrete";
+            this.codEmpresaFreteDataGridViewTextBoxColumn.Name = "codEmpresaFreteDataGridViewTextBoxColumn";
+            this.codEmpresaFreteDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeEmpresaFreteDataGridViewTextBoxColumn
+            // 
+            this.nomeEmpresaFreteDataGridViewTextBoxColumn.DataPropertyName = "NomeEmpresaFrete";
+            this.nomeEmpresaFreteDataGridViewTextBoxColumn.HeaderText = "NomeEmpresaFrete";
+            this.nomeEmpresaFreteDataGridViewTextBoxColumn.Name = "nomeEmpresaFreteDataGridViewTextBoxColumn";
+            this.nomeEmpresaFreteDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codFornecedorDataGridViewTextBoxColumn
+            // 
+            this.codFornecedorDataGridViewTextBoxColumn.DataPropertyName = "CodFornecedor";
+            this.codFornecedorDataGridViewTextBoxColumn.HeaderText = "CodFornecedor";
+            this.codFornecedorDataGridViewTextBoxColumn.Name = "codFornecedorDataGridViewTextBoxColumn";
+            this.codFornecedorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeFornecedorDataGridViewTextBoxColumn
+            // 
+            this.nomeFornecedorDataGridViewTextBoxColumn.DataPropertyName = "NomeFornecedor";
+            this.nomeFornecedorDataGridViewTextBoxColumn.HeaderText = "NomeFornecedor";
+            this.nomeFornecedorDataGridViewTextBoxColumn.Name = "nomeFornecedorDataGridViewTextBoxColumn";
+            this.nomeFornecedorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codTipoEntradaDataGridViewTextBoxColumn
+            // 
+            this.codTipoEntradaDataGridViewTextBoxColumn.DataPropertyName = "CodTipoEntrada";
+            this.codTipoEntradaDataGridViewTextBoxColumn.HeaderText = "CodTipoEntrada";
+            this.codTipoEntradaDataGridViewTextBoxColumn.Name = "codTipoEntradaDataGridViewTextBoxColumn";
+            this.codTipoEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataEmissaoDataGridViewTextBoxColumn
+            // 
+            this.dataEmissaoDataGridViewTextBoxColumn.DataPropertyName = "DataEmissao";
+            this.dataEmissaoDataGridViewTextBoxColumn.HeaderText = "DataEmissao";
+            this.dataEmissaoDataGridViewTextBoxColumn.Name = "dataEmissaoDataGridViewTextBoxColumn";
+            this.dataEmissaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataEntradaDataGridViewTextBoxColumn
+            // 
+            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
+            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "DataEntrada";
+            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
+            this.dataEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalBaseCalculoDataGridViewTextBoxColumn
+            // 
+            this.totalBaseCalculoDataGridViewTextBoxColumn.DataPropertyName = "TotalBaseCalculo";
+            this.totalBaseCalculoDataGridViewTextBoxColumn.HeaderText = "TotalBaseCalculo";
+            this.totalBaseCalculoDataGridViewTextBoxColumn.Name = "totalBaseCalculoDataGridViewTextBoxColumn";
+            this.totalBaseCalculoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalICMSDataGridViewTextBoxColumn
+            // 
+            this.totalICMSDataGridViewTextBoxColumn.DataPropertyName = "TotalICMS";
+            this.totalICMSDataGridViewTextBoxColumn.HeaderText = "TotalICMS";
+            this.totalICMSDataGridViewTextBoxColumn.Name = "totalICMSDataGridViewTextBoxColumn";
+            this.totalICMSDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalBaseSubstituicaoDataGridViewTextBoxColumn
+            // 
+            this.totalBaseSubstituicaoDataGridViewTextBoxColumn.DataPropertyName = "TotalBaseSubstituicao";
+            this.totalBaseSubstituicaoDataGridViewTextBoxColumn.HeaderText = "TotalBaseSubstituicao";
+            this.totalBaseSubstituicaoDataGridViewTextBoxColumn.Name = "totalBaseSubstituicaoDataGridViewTextBoxColumn";
+            this.totalBaseSubstituicaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalSubstituicaoDataGridViewTextBoxColumn
+            // 
+            this.totalSubstituicaoDataGridViewTextBoxColumn.DataPropertyName = "TotalSubstituicao";
+            this.totalSubstituicaoDataGridViewTextBoxColumn.HeaderText = "TotalSubstituicao";
+            this.totalSubstituicaoDataGridViewTextBoxColumn.Name = "totalSubstituicaoDataGridViewTextBoxColumn";
+            this.totalSubstituicaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalProdutosDataGridViewTextBoxColumn
+            // 
+            this.totalProdutosDataGridViewTextBoxColumn.DataPropertyName = "TotalProdutos";
+            this.totalProdutosDataGridViewTextBoxColumn.HeaderText = "TotalProdutos";
+            this.totalProdutosDataGridViewTextBoxColumn.Name = "totalProdutosDataGridViewTextBoxColumn";
+            this.totalProdutosDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalProdutosSTDataGridViewTextBoxColumn
+            // 
+            this.totalProdutosSTDataGridViewTextBoxColumn.DataPropertyName = "TotalProdutosST";
+            this.totalProdutosSTDataGridViewTextBoxColumn.HeaderText = "TotalProdutosST";
+            this.totalProdutosSTDataGridViewTextBoxColumn.Name = "totalProdutosSTDataGridViewTextBoxColumn";
+            this.totalProdutosSTDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorFreteDataGridViewTextBoxColumn
+            // 
+            this.valorFreteDataGridViewTextBoxColumn.DataPropertyName = "ValorFrete";
+            this.valorFreteDataGridViewTextBoxColumn.HeaderText = "ValorFrete";
+            this.valorFreteDataGridViewTextBoxColumn.Name = "valorFreteDataGridViewTextBoxColumn";
+            this.valorFreteDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorSeguroDataGridViewTextBoxColumn
+            // 
+            this.valorSeguroDataGridViewTextBoxColumn.DataPropertyName = "ValorSeguro";
+            this.valorSeguroDataGridViewTextBoxColumn.HeaderText = "ValorSeguro";
+            this.valorSeguroDataGridViewTextBoxColumn.Name = "valorSeguroDataGridViewTextBoxColumn";
+            this.valorSeguroDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descontoDataGridViewTextBoxColumn
+            // 
+            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "Desconto";
+            this.descontoDataGridViewTextBoxColumn.HeaderText = "Desconto";
+            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
+            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // outrasDespesasDataGridViewTextBoxColumn
+            // 
+            this.outrasDespesasDataGridViewTextBoxColumn.DataPropertyName = "OutrasDespesas";
+            this.outrasDespesasDataGridViewTextBoxColumn.HeaderText = "OutrasDespesas";
+            this.outrasDespesasDataGridViewTextBoxColumn.Name = "outrasDespesasDataGridViewTextBoxColumn";
+            this.outrasDespesasDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalIPIDataGridViewTextBoxColumn
+            // 
+            this.totalIPIDataGridViewTextBoxColumn.DataPropertyName = "TotalIPI";
+            this.totalIPIDataGridViewTextBoxColumn.HeaderText = "TotalIPI";
+            this.totalIPIDataGridViewTextBoxColumn.Name = "totalIPIDataGridViewTextBoxColumn";
+            this.totalIPIDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalNotaDataGridViewTextBoxColumn
+            // 
+            this.totalNotaDataGridViewTextBoxColumn.DataPropertyName = "TotalNota";
+            this.totalNotaDataGridViewTextBoxColumn.HeaderText = "TotalNota";
+            this.totalNotaDataGridViewTextBoxColumn.Name = "totalNotaDataGridViewTextBoxColumn";
+            this.totalNotaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codSituacaoPagamentosDataGridViewTextBoxColumn
+            // 
+            this.codSituacaoPagamentosDataGridViewTextBoxColumn.DataPropertyName = "CodSituacaoPagamentos";
+            this.codSituacaoPagamentosDataGridViewTextBoxColumn.HeaderText = "CodSituacaoPagamentos";
+            this.codSituacaoPagamentosDataGridViewTextBoxColumn.Name = "codSituacaoPagamentosDataGridViewTextBoxColumn";
+            this.codSituacaoPagamentosDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fretePagoEmitenteDataGridViewCheckBoxColumn
+            // 
+            this.fretePagoEmitenteDataGridViewCheckBoxColumn.DataPropertyName = "FretePagoEmitente";
+            this.fretePagoEmitenteDataGridViewCheckBoxColumn.HeaderText = "FretePagoEmitente";
+            this.fretePagoEmitenteDataGridViewCheckBoxColumn.Name = "fretePagoEmitenteDataGridViewCheckBoxColumn";
+            this.fretePagoEmitenteDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // FrmEntradaPesquisa
             // 
@@ -226,8 +350,7 @@
             this.Text = "Pesquisa Entrada de Produtos";
             this.Load += new System.EventHandler(this.FrmEntradaPesquisa_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmEntradaPesquisa_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -239,16 +362,33 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_entradaBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_entradaTableAdapter tb_entradaTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.BindingSource entradaBindingSource;
         private System.Windows.Forms.DataGridView tb_entradaDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeFornecedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalNota;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroNotaFiscalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codEmpresaFreteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeEmpresaFreteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codFornecedorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeFornecedorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codTipoEntradaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataEmissaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataEntradaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalBaseCalculoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalICMSDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalBaseSubstituicaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalSubstituicaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalProdutosDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalProdutosSTDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorFreteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorSeguroDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descontoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn outrasDespesasDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalIPIDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalNotaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codSituacaoPagamentosDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn fretePagoEmitenteDataGridViewCheckBoxColumn;
         
     }
 }

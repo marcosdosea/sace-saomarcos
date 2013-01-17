@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Util;
 using Dominio;
+using Negocio;
 
 namespace Telas
 {
@@ -47,11 +48,11 @@ namespace Telas
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    this.tb_produtoTableAdapter.FillByNomeTodos(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
                 }
                 else
                 {
-                    this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
                 }
             }
             else
@@ -67,14 +68,14 @@ namespace Telas
             if ((txtTexto.Text.Trim().Length > 0) && (txtTexto.Text.Length > textoAtual.Length))
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    this.tb_produtoTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, int.Parse(txtTexto.Text));
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().Obter(int.Parse(txtTexto.Text));
                 else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
                 {
-                    this.tb_produtoTableAdapter.FillByReferenciaFabricante(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorReferenciaFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
                 {
-                    this.tb_produtoTableAdapter.FillByNomeProdutoFabricante(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeProdutoFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Length > 9))
                 {
@@ -82,7 +83,7 @@ namespace Telas
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        this.tb_produtoTableAdapter.FillByDataAtualizacao(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, data);
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataAtualizacaoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -95,13 +96,9 @@ namespace Telas
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
                     {
                         if (ExibirTodos)
-                        {
-                           this.tb_produtoTableAdapter.FillByNomeTodos(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
-                        } 
+                           produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
                         else 
-                        {
-                            this.tb_produtoTableAdapter.FillByNome(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO, txtTexto.Text);
-                        }
+                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
                     }
                 }
             }
@@ -110,7 +107,7 @@ namespace Telas
             if ((tb_produtoDataGridView.RowCount > 0) )
             {
                 Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[0].Cells[0].Value.ToString());
-                this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -119,7 +116,7 @@ namespace Telas
         {
             if (tb_produtoDataGridView.RowCount > 0)
             {
-                ProdutoPesquisa = (ProdutoPesquisa) tb_produtoBindingSource.Current;
+                ProdutoPesquisa = (ProdutoPesquisa) produtoBindingSource.Current;
             }
             this.Close();
         }
@@ -136,19 +133,19 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_produtoBindingSource.MoveNext();
+                produtoBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_produtoBindingSource.MovePrevious();
+                produtoBindingSource.MovePrevious();
             }
             else if ((e.KeyCode == Keys.PageDown) && (txtTexto.Focused))
             {
-                tb_produtoBindingSource.Position += 15;
+                produtoBindingSource.Position += 15;
             }
             else if ((e.KeyCode == Keys.PageUp) && (txtTexto.Focused))
             {
-                tb_produtoBindingSource.Position -= 15;
+                produtoBindingSource.Position -= 15;
             }
             else if (e.KeyCode == Keys.F7)
             {
@@ -158,7 +155,7 @@ namespace Telas
                     FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(codProduto);
                     frmAjuste.ShowDialog();
                     frmAjuste.Dispose();
-                    tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
+                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
                 }
             }
         }
@@ -204,7 +201,7 @@ namespace Telas
             if ((tb_produtoDataGridView.RowCount > 0) && (tb_produtoDataGridView.SelectedRows.Count > 0))
             {
                 Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-                this.tb_produto_lojaTableAdapter.FillByCodProduto(saceDataSet.tb_produto_loja, codProduto);
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
             }
         }
     }

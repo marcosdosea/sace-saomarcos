@@ -36,16 +36,15 @@
             System.Windows.Forms.Label localizacaoLabel;
             System.Windows.Forms.Label nomeProdutoLabel;
             System.Windows.Forms.Label localizacao2Label;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoAjusteEstoque));
             System.Windows.Forms.Label estoqueMaximoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProdutoAjusteEstoque));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNovo = new System.Windows.Forms.Button();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_produto_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.produtoLojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produto_lojaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -61,10 +60,8 @@
             this.qtdEstoqueAuxTextBox = new System.Windows.Forms.TextBox();
             this.codProdutoTextBox = new System.Windows.Forms.TextBox();
             this.nomeProdutoTextBox = new System.Windows.Forms.TextBox();
-            this.tb_produto_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter();
-            this.tb_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codLojaComboBox = new System.Windows.Forms.ComboBox();
-            this.tb_lojaTableAdapter = new Dados.saceDataSetTableAdapters.tb_lojaTableAdapter();
             this.localizacao2TextBox = new System.Windows.Forms.TextBox();
             this.estoqueMaximoTextBox = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -77,11 +74,10 @@
             localizacao2Label = new System.Windows.Forms.Label();
             estoqueMaximoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingNavigator)).BeginInit();
             this.tb_produto_lojaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codProdutoLabel
@@ -147,6 +143,15 @@
             localizacao2Label.TabIndex = 34;
             localizacao2Label.Text = "Localizaçao 2:";
             // 
+            // estoqueMaximoLabel
+            // 
+            estoqueMaximoLabel.AutoSize = true;
+            estoqueMaximoLabel.Location = new System.Drawing.Point(340, 159);
+            estoqueMaximoLabel.Name = "estoqueMaximoLabel";
+            estoqueMaximoLabel.Size = new System.Drawing.Size(108, 13);
+            estoqueMaximoLabel.TabIndex = 35;
+            estoqueMaximoLabel.Text = "Qtd Máxima Estoque:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -207,20 +212,14 @@
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
             // 
-            // saceDataSet
+            // produtoLojaBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_produto_lojaBindingSource
-            // 
-            this.tb_produto_lojaBindingSource.DataMember = "tb_produto_loja";
-            this.tb_produto_lojaBindingSource.DataSource = this.saceDataSet;
+            this.produtoLojaBindingSource.DataSource = typeof(Dominio.ProdutoLoja);
             // 
             // tb_produto_lojaBindingNavigator
             // 
             this.tb_produto_lojaBindingNavigator.AddNewItem = null;
-            this.tb_produto_lojaBindingNavigator.BindingSource = this.tb_produto_lojaBindingSource;
+            this.tb_produto_lojaBindingNavigator.BindingSource = this.produtoLojaBindingSource;
             this.tb_produto_lojaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_produto_lojaBindingNavigator.DeleteItem = null;
             this.tb_produto_lojaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -314,7 +313,7 @@
             // 
             // localizacaoTextBox
             // 
-            this.localizacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "localizacao", true));
+            this.localizacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "Localizacao", true));
             this.localizacaoTextBox.Location = new System.Drawing.Point(9, 216);
             this.localizacaoTextBox.Name = "localizacaoTextBox";
             this.localizacaoTextBox.Size = new System.Drawing.Size(213, 20);
@@ -325,7 +324,7 @@
             // 
             // qtdEstoqueTextBox
             // 
-            this.qtdEstoqueTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "qtdEstoque", true));
+            this.qtdEstoqueTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "QtdEstoque", true));
             this.qtdEstoqueTextBox.Location = new System.Drawing.Point(12, 175);
             this.qtdEstoqueTextBox.Name = "qtdEstoqueTextBox";
             this.qtdEstoqueTextBox.Size = new System.Drawing.Size(146, 20);
@@ -335,7 +334,7 @@
             // 
             // qtdEstoqueAuxTextBox
             // 
-            this.qtdEstoqueAuxTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "qtdEstoqueAux", true));
+            this.qtdEstoqueAuxTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "QtdEstoqueAux", true));
             this.qtdEstoqueAuxTextBox.Location = new System.Drawing.Point(183, 175);
             this.qtdEstoqueAuxTextBox.Name = "qtdEstoqueAuxTextBox";
             this.qtdEstoqueAuxTextBox.Size = new System.Drawing.Size(138, 20);
@@ -345,7 +344,7 @@
             // 
             // codProdutoTextBox
             // 
-            this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "codProduto", true));
+            this.codProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "CodProduto", true));
             this.codProdutoTextBox.Location = new System.Drawing.Point(12, 89);
             this.codProdutoTextBox.Name = "codProdutoTextBox";
             this.codProdutoTextBox.ReadOnly = true;
@@ -357,7 +356,7 @@
             // 
             // nomeProdutoTextBox
             // 
-            this.nomeProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "nomeProduto", true));
+            this.nomeProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "NomeProduto", true));
             this.nomeProdutoTextBox.Location = new System.Drawing.Point(134, 89);
             this.nomeProdutoTextBox.Name = "nomeProdutoTextBox";
             this.nomeProdutoTextBox.ReadOnly = true;
@@ -367,43 +366,34 @@
             this.nomeProdutoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.nomeProdutoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
-            // tb_produto_lojaTableAdapter
+            // lojaBindingSource
             // 
-            this.tb_produto_lojaTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_lojaBindingSource
-            // 
-            this.tb_lojaBindingSource.DataMember = "tb_loja";
-            this.tb_lojaBindingSource.DataSource = this.saceDataSet;
+            this.lojaBindingSource.DataSource = typeof(Dominio.Loja);
             // 
             // codLojaComboBox
             // 
             this.codLojaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codLojaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codLojaComboBox.CausesValidation = false;
-            this.codLojaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_produto_lojaBindingSource, "codLoja", true));
-            this.codLojaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "nomeLoja", true));
-            this.codLojaComboBox.DataSource = this.tb_lojaBindingSource;
-            this.codLojaComboBox.DisplayMember = "nome";
+            this.codLojaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "nomeLoja", true));
+            this.codLojaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoLojaBindingSource, "CodLoja", true));
+            this.codLojaComboBox.DataSource = this.lojaBindingSource;
+            this.codLojaComboBox.DisplayMember = "Nome";
             this.codLojaComboBox.Enabled = false;
             this.codLojaComboBox.FormattingEnabled = true;
             this.codLojaComboBox.Location = new System.Drawing.Point(12, 131);
             this.codLojaComboBox.Name = "codLojaComboBox";
             this.codLojaComboBox.Size = new System.Drawing.Size(450, 21);
             this.codLojaComboBox.TabIndex = 28;
-            this.codLojaComboBox.ValueMember = "codLoja";
+            this.codLojaComboBox.ValueMember = "CodLoja";
             this.codLojaComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codLojaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.localizacaoTextBox_KeyPress);
             this.codLojaComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
-            // tb_lojaTableAdapter
-            // 
-            this.tb_lojaTableAdapter.ClearBeforeFill = true;
-            // 
             // localizacao2TextBox
             // 
             this.localizacao2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.localizacao2TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "localizacao2", true));
+            this.localizacao2TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "Localizacao2", true));
             this.localizacao2TextBox.Location = new System.Drawing.Point(243, 216);
             this.localizacao2TextBox.Name = "localizacao2TextBox";
             this.localizacao2TextBox.Size = new System.Drawing.Size(219, 20);
@@ -411,18 +401,9 @@
             this.localizacao2TextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.localizacao2TextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
-            // estoqueMaximoLabel
-            // 
-            estoqueMaximoLabel.AutoSize = true;
-            estoqueMaximoLabel.Location = new System.Drawing.Point(340, 159);
-            estoqueMaximoLabel.Name = "estoqueMaximoLabel";
-            estoqueMaximoLabel.Size = new System.Drawing.Size(108, 13);
-            estoqueMaximoLabel.TabIndex = 35;
-            estoqueMaximoLabel.Text = "Qtd Máxima Estoque:";
-            // 
             // estoqueMaximoTextBox
             // 
-            this.estoqueMaximoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_produto_lojaBindingSource, "estoqueMaximo", true));
+            this.estoqueMaximoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "EstoqueMaximo", true));
             this.estoqueMaximoTextBox.Location = new System.Drawing.Point(343, 175);
             this.estoqueMaximoTextBox.Name = "estoqueMaximoTextBox";
             this.estoqueMaximoTextBox.Size = new System.Drawing.Size(119, 20);
@@ -479,12 +460,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoAjusteEstoque_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingNavigator)).EndInit();
             this.tb_produto_lojaBindingNavigator.ResumeLayout(false);
             this.tb_produto_lojaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -498,8 +478,7 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnNovo;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_produto_lojaBindingSource;
+        private System.Windows.Forms.BindingSource produtoLojaBindingSource;
         private System.Windows.Forms.BindingNavigator tb_produto_lojaBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -515,10 +494,8 @@
         private System.Windows.Forms.TextBox qtdEstoqueAuxTextBox;
         private System.Windows.Forms.TextBox codProdutoTextBox;
         private System.Windows.Forms.TextBox nomeProdutoTextBox;
-        private Dados.saceDataSetTableAdapters.tb_produto_lojaTableAdapter tb_produto_lojaTableAdapter;
-        private System.Windows.Forms.BindingSource tb_lojaBindingSource;
+        private System.Windows.Forms.BindingSource lojaBindingSource;
         private System.Windows.Forms.ComboBox codLojaComboBox;
-        private Dados.saceDataSetTableAdapters.tb_lojaTableAdapter tb_lojaTableAdapter;
         private System.Windows.Forms.TextBox localizacao2TextBox;
         private System.Windows.Forms.TextBox estoqueMaximoTextBox;
         private System.Windows.Forms.Button btnBuscar;

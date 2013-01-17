@@ -139,7 +139,7 @@
     <value>135, 17</value>
   </metadata>
   <metadata name="tb_usuarioBindingNavigator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>459, 17</value>
+    <value>311, 19</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="bindingNavigatorMoveFirstItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -187,10 +187,7 @@
 </value>
   </data>
   <metadata name="pessoaBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>668, 17</value>
-  </metadata>
-  <metadata name="tb_PerfilBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>198, 56</value>
+    <value>505, 21</value>
   </metadata>
   <metadata name="tb_PerfilBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>198, 56</value>
@@ -202,6 +199,6 @@
     <value>373, 56</value>
   </metadata>
   <metadata name="tb_perfilTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>723, 56</value>
+    <value>672, 20</value>
   </metadata>
 </root>

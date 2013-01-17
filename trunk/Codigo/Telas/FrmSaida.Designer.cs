@@ -394,7 +394,7 @@
             // 
             // pedidoGeradoTextBox
             // 
-            this.pedidoGeradoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "pedidoGerado", true));
+            this.pedidoGeradoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "PedidoGerado", true));
             this.pedidoGeradoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pedidoGeradoTextBox.Location = new System.Drawing.Point(352, 561);
             this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
@@ -410,7 +410,7 @@
             // 
             // codSaidaTextBox
             // 
-            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "codSaida", true));
+            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "CodSaida", true));
             this.codSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codSaidaTextBox.ForeColor = System.Drawing.Color.Red;
             this.codSaidaTextBox.Location = new System.Drawing.Point(12, 560);
@@ -426,6 +426,7 @@
             // dataSaidaDateTimePicker
             // 
             this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.saidaBindingSource, "dataSaida", true));
+            this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DataSaida", true));
             this.dataSaidaDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataSaidaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(108, 560);
@@ -661,7 +662,6 @@
             this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 300);
             this.tb_saida_produtoDataGridView.TabIndex = 36;
             this.tb_saida_produtoDataGridView.TabStop = false;
-            this.tb_saida_produtoDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saida_produtoDataGridView_CellContentClick);
             this.tb_saida_produtoDataGridView.Leave += new System.EventHandler(this.tb_saida_produtoDataGridView_Leave);
             // 
             // codSaidaProdutoDataGridViewTextBoxColumn
@@ -921,7 +921,7 @@
             // 
             // nomeClienteTextBox
             // 
-            this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "nomeCliente", true));
+            this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "NomeCliente", true));
             this.nomeClienteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nomeClienteTextBox.Location = new System.Drawing.Point(14, 622);
             this.nomeClienteTextBox.Name = "nomeClienteTextBox";
@@ -932,7 +932,7 @@
             // 
             // descricaoTipoSaidaTextBox
             // 
-            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "descricaoTipoSaida", true));
+            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DescricaoTipoSaida", true));
             this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(223, 561);
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
@@ -953,7 +953,7 @@
             // 
             // nfeTextBox
             // 
-            this.nfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "nfe", true));
+            this.nfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Nfe", true));
             this.nfeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nfeTextBox.Location = new System.Drawing.Point(484, 562);
             this.nfeTextBox.Name = "nfeTextBox";
@@ -977,7 +977,7 @@
             // 
             // descricaoSituacaoPagamentosTextBox
             // 
-            this.descricaoSituacaoPagamentosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "descricaoSituacaoPagamentos", true));
+            this.descricaoSituacaoPagamentosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DescricaoSituacaoPagamentos", true));
             this.descricaoSituacaoPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descricaoSituacaoPagamentosTextBox.Location = new System.Drawing.Point(484, 622);
             this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
@@ -1038,6 +1038,7 @@
             // 
             // baseCalculoICMSTextBox
             // 
+            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "BaseCalculoICMS", true));
             this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(201, 487);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
@@ -1049,6 +1050,7 @@
             // 
             // valorICMSTextBox
             // 
+            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorICMS", true));
             this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorICMSTextBox.Location = new System.Drawing.Point(352, 487);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
@@ -1059,6 +1061,7 @@
             // 
             // baseCalculoICMSSubstTextBox
             // 
+            this.baseCalculoICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "BaseCalculoICMSSubst", true));
             this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(515, 487);
             this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
@@ -1070,6 +1073,7 @@
             // 
             // valorICMSSubstTextBox
             // 
+            this.valorICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorICMSSubst", true));
             this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorICMSSubstTextBox.Location = new System.Drawing.Point(677, 487);
             this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
@@ -1081,6 +1085,7 @@
             // 
             // valorIPITextBox
             // 
+            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorIPI", true));
             this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorIPITextBox.Location = new System.Drawing.Point(855, 487);
             this.valorIPITextBox.Name = "valorIPITextBox";

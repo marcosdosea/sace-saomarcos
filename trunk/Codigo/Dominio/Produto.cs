@@ -13,36 +13,37 @@ namespace Dominio
         public int CodGrupo { get; set; }
         public int CodSubgrupo { get; set; }
         public long CodFabricante { get; set; }
-        public string ReferenciaFabricante { get; set; }
         public int Cfop { get; set; }
         public decimal PrecoCusto
         {
             get 
             {
+                decimal _precoCusto = 0;
                 if (EhTributacaoIntegral)
                 {
-                    return CalculaPrecoCustoNormal(UltimoPrecoCompra, Icms,
+                    _precoCusto = CalculaPrecoCustoNormal(UltimoPrecoCompra, Icms,
                         Simples, Ipi, Frete, 0, 0);
                 }
                 else
                 {
-                    return CalculaPrecoCustoSubstituicao(UltimoPrecoCompra, IcmsSubstituto,
+                    _precoCusto = CalculaPrecoCustoSubstituicao(UltimoPrecoCompra, IcmsSubstituto,
                         Simples, Ipi, Frete, 0, 0);
                 }
+                return Math.Round(_precoCusto, 2, MidpointRounding.AwayFromZero);
             }
         }
         public decimal LucroPrecoVendaVarejo { get; set; }
         public decimal PrecoVendaVarejoSugestao
         {
-            get { return PrecoCusto + (PrecoCusto * LucroPrecoVendaVarejo / 100); }
+            get { return Math.Round(PrecoCusto + (PrecoCusto * LucroPrecoVendaVarejo / 100), 3, MidpointRounding.AwayFromZero); }
         }
         public decimal LucroPrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacadoSugestao
         {
-            get { return PrecoCusto + (PrecoCusto * LucroPrecoVendaAtacado / 100); }
+            get { return Math.Round(PrecoCusto + (PrecoCusto * LucroPrecoVendaAtacado / 100), 3, MidpointRounding.AwayFromZero); }
         }
         public DateTime DataUltimoPedido { get; set; }
-        public Byte CodSituacaoProduto { get; set; }
+        public sbyte CodSituacaoProduto { get; set; }
 
         public decimal CalculaPrecoCustoNormal(decimal precoCompra, decimal creditoICMS, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
         {

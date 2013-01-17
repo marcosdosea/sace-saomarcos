@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Negocio;
 
 namespace Telas
 {
@@ -21,8 +22,6 @@ namespace Telas
 
         private void FrmEntradaPesquisa_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'saceDataSet.tb_entrada' table. You can move, or remove it, as needed.
-            //this.tb_entradaTableAdapter.Fill(this.saceDataSet.tb_entrada);
             cmbBusca.SelectedIndex = 0;
         }
 
@@ -34,11 +33,11 @@ namespace Telas
             {
                 if (!txtTexto.Text.Equals("")) {
                     if (cmbBusca.SelectedIndex == 0) 
-                        this.tb_entradaTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada, int.Parse(txtTexto.Text));
+                        entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().Obter(long.Parse(txtTexto.Text));
                     else if (cmbBusca.SelectedIndex == 1)
-                        this.tb_entradaTableAdapter.FillByNumeroNotaFiscal(this.saceDataSet.tb_entrada, txtTexto.Text);
-                    else 
-                        this.tb_entradaTableAdapter.FillByNomeFornecedor(this.saceDataSet.tb_entrada, txtTexto.Text);
+                        entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterPorNumeroNotaFiscal(txtTexto.Text);
+                    else
+                        entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterPorNomeFornecedor(txtTexto.Text);
                 }
             }
             catch (System.Exception ex)
@@ -68,11 +67,11 @@ namespace Telas
             } 
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
-                tb_entradaBindingSource.MoveNext();
+                entradaBindingSource.MoveNext();
             }
             else if ((e.KeyCode == Keys.Up) && (txtTexto.Focused))
             {
-                tb_entradaBindingSource.MovePrevious();
+                entradaBindingSource.MovePrevious();
             }
         }
 
@@ -84,14 +83,6 @@ namespace Telas
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
-        }
-
-        private void tb_entradaBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.tb_entradaBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.saceDataSet);
-
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Telas
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             
             habilitaBotoes(true);
             Cursor.Current = Cursors.Default;
@@ -127,7 +128,7 @@ namespace Telas
             produto.UnidadeCompra = unidadeCompraTextBox.Text;
             produto.QuantidadeEmbalagem = (quantidadeEmbalagemTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(quantidadeEmbalagemTextBox.Text.Trim());
             produto.DataUltimoPedido = dataUltimoPedidoDateTimePicker.Value;
-            produto.CodSituacaoProduto = Byte.Parse(codSituacaoProdutoComboBox.SelectedValue.ToString());
+            produto.CodSituacaoProduto = SByte.Parse(codSituacaoProdutoComboBox.SelectedValue.ToString());
             produto.ReferenciaFabricante = referenciaFabricanteTextBox.Text;
             produto.CodCST = codCSTComboBox.SelectedValue.ToString();
             produto.Ncmsh = ncmshTextBox.Text;
@@ -144,7 +145,7 @@ namespace Telas
                 
                 produtoLoja.CodProduto = codProduto;
                 gProdutoLoja.Inserir(produtoLoja);
-                codProdutoTextBox_TextChanged(sender, e);
+                //codProdutoTextBox_TextChanged(sender, e);
             }
             else
             {
@@ -314,28 +315,7 @@ namespace Telas
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
         {
-            List<Pessoa> pessoas = (List<Pessoa>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codigoFabricanteComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codigoFabricanteComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.PessoaSelected != null)
-                {
-                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                    codigoFabricanteComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
-                }
-                else
-                {
-                    codigoFabricanteComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                Pessoa fabricante = pessoas[0];
-                pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(fabricante);
-                codigoFabricanteComboBox.Text = fabricante.NomeFantasia;
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, pessoaBindingSource, true);
             codProdutoTextBox_Leave(sender, e);
         }
 
@@ -395,18 +375,11 @@ namespace Telas
         {
             if (codGrupoComboBox.SelectedValue != null)
             {
+                Produto produto = (Produto)produtoBindingSource.Current;
+                grupoBindingSource.Position = grupoBindingSource.List.IndexOf(new Grupo() { CodGrupo = produto.CodGrupo });
                 Grupo grupoSelected = (Grupo) grupoBindingSource.Current;
                 subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo(grupoSelected);
-
-
-                Int32 codSubgrupo = ((Dados.saceDataSet.tb_produtoRow)((DataRowView)produtoBindingSource.Current).Row).codSubgrupo;
-
-                subgrupoBindingSource.Position = subgrupoBindingSource.Find("codSubgrupo", codSubgrupo);
-
-                if (subgrupoBindingSource.Position == 0)
-                {
-                    codSubgrupoComboBox.SelectedIndex = 0;
-                }
+                subgrupoBindingSource.Position = subgrupoBindingSource.List.IndexOf(produto.CodSubgrupo);
             }
         }
 

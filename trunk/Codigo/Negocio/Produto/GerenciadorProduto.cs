@@ -134,7 +134,7 @@ namespace Negocio
                             CodGrupo = (int) produto.codGrupo,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,
-                            CodSituacaoProduto = (byte) produto.codSituacaoProduto,
+                            CodSituacaoProduto = produto.codSituacaoProduto,
                             CodSubgrupo = produto.codSubgrupo,
                             DataUltimoPedido = (DateTime) produto.dataUltimoPedido,
                             Desconto = (decimal) produto.desconto,
@@ -204,7 +204,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
-            return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
+            return GetQuerySimples().Where(p => p.ExibeNaListagem).ToList();
+            //return GetQuerySimples().ToList();
         }
 
         /// <summary>
@@ -228,6 +229,16 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obter pela referência do fabricante
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorReferenciaFabricante(string referenciaFabricante)
+        {
+            return GetQuerySimples().Where(p => p.ReferenciaFabricante.Contains(referenciaFabricante)).ToList();
+        }
+
+        /// <summary>
         /// Obtém produto pelo código de barra
         /// </summary>
         /// <param name="codBarra"></param>
@@ -235,6 +246,26 @@ namespace Negocio
         public IEnumerable<ProdutoPesquisa> ObterPorCodBarra(String codBarra)
         {
             return GetQuerySimples().Where(p => p.CodigoBarra.Equals(codBarra)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém produto pelo nome
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorNomeProdutoFabricante(String nomeProdutoFabricante)
+        {
+            return GetQuerySimples().Where(p => p.NomeProdutoFabricante.StartsWith(nomeProdutoFabricante)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém produto pela data de atualização
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorDataAtualizacaoMaiorIgual(DateTime dataAtualizacao)
+        {
+            return GetQuerySimples().Where(p => p.UltimaDataAtualizacao >= dataAtualizacao).ToList();
         }
 
         /// <summary>
@@ -251,6 +282,23 @@ namespace Negocio
             else
             {
                 return GetQuerySimples().Where(p => p.Nome.StartsWith(nome)).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Obtém produto que podem ser exibidos na lista pelo nome 
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorNomeExibiveis(String nome)
+        {
+            if ((nome.Length > 0) && (nome[0] == '%'))
+            {
+                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
+            }
+            else
+            {
+                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
             }
         }
 

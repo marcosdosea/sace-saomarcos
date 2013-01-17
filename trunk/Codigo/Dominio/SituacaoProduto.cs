@@ -11,9 +11,9 @@ namespace Dominio
         public const int COMPRA_NECESSARIA = 2;
         public const int COMPRADO = 3;
 
-        private int codSituacaoProduto;
+        private sbyte codSituacaoProduto;
 
-        public int CodSituacaoProduto
+        public sbyte CodSituacaoProduto
         {
             get { return codSituacaoProduto; }
             set { codSituacaoProduto = value; }
@@ -24,6 +24,23 @@ namespace Dominio
         {
             get { return descricaoSituacao; }
             set { descricaoSituacao = value; }
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodSituacaoProduto == ((SituacaoProduto)obj).CodSituacaoProduto;    
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodSituacaoProduto.GetHashCode();
         }
 
     }

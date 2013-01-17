@@ -107,6 +107,7 @@ namespace Negocio
                             BaseCalculoICMSSubst = (decimal) saidaProduto.baseCalculoICMSSubst,
                             CodProduto = saidaProduto.codProduto,
                             CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
                             CodCST = produto.codCST,
                             DataValidade = (DateTime) saidaProduto.data_validade,
                             Desconto = (decimal) saidaProduto.desconto,
