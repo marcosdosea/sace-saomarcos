@@ -64,11 +64,11 @@ namespace Telas
 
             if (MessageBox.Show("Confirma dados da Nota Fiscal?", "Confirmar Dados da Nota Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.getInstace().encerrar(saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+                GerenciadorSaida.GetInstance().Encerrar(saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
 
                 if (MessageBox.Show("Confirma Impressão da Nota Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.getInstace().imprimirNotaFiscal(saida);
+                    GerenciadorSaida.GetInstance().imprimirNotaFiscal(saida);
                 }
                 this.Close();
             }
@@ -109,7 +109,7 @@ namespace Telas
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = GerenciadorSaida.getInstace().ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = GerenciadorSaida.GetInstance().ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -128,50 +128,13 @@ namespace Telas
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.PessoaSelected != null)
-                {
-                    pessoaFreteBindingSource.Position = pessoaFreteBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                }
-                else
-                {
-                    codEmpresaFreteComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                pessoaFreteBindingSource.Position = pessoaFreteBindingSource.List.IndexOf(pessoas[0]);
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false);
             codSaidaTextBox_Leave(sender, e);
         }
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            List<PessoaE> pessoas = (List<PessoaE>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.PessoaSelected != null)
-                {
-                    pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                    codClienteComboBox.Text = frmPessoaPesquisa.PessoaSelected.Nome;
-                }
-                else
-                {
-                    codClienteComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.Find("codPessoa", pessoas[0].codPessoa);
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, pessoaDestinoBindingSource, false);
             codSaidaTextBox_Leave(sender, e);
         }
 

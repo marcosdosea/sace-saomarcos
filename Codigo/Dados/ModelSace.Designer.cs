@@ -707,18 +707,18 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_saida_pedido> tb_saida_pedido
+        public ObjectSet<SaidaPedidoE> SaidaPedidoSet
         {
             get
             {
-                if ((_tb_saida_pedido == null))
+                if ((_SaidaPedidoSet == null))
                 {
-                    _tb_saida_pedido = base.CreateObjectSet<tb_saida_pedido>("tb_saida_pedido");
+                    _SaidaPedidoSet = base.CreateObjectSet<SaidaPedidoE>("SaidaPedidoSet");
                 }
-                return _tb_saida_pedido;
+                return _SaidaPedidoSet;
             }
         }
-        private ObjectSet<tb_saida_pedido> _tb_saida_pedido;
+        private ObjectSet<SaidaPedidoE> _SaidaPedidoSet;
 
         #endregion
         #region AddTo Methods
@@ -1012,11 +1012,11 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_saida_pedido EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the SaidaPedidoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTotb_saida_pedido(tb_saida_pedido tb_saida_pedido)
+        public void AddToSaidaPedidoSet(SaidaPedidoE saidaPedidoE)
         {
-            base.AddObject("tb_saida_pedido", tb_saida_pedido);
+            base.AddObject("SaidaPedidoSet", saidaPedidoE);
         }
 
         #endregion
@@ -9549,6 +9549,90 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="SaidaPedidoE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SaidaPedidoE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SaidaPedidoE object.
+        /// </summary>
+        /// <param name="codSaida">Initial value of the codSaida property.</param>
+        /// <param name="codPedidoGerado">Initial value of the codPedidoGerado property.</param>
+        public static SaidaPedidoE CreateSaidaPedidoE(global::System.Int64 codSaida, global::System.Int64 codPedidoGerado)
+        {
+            SaidaPedidoE saidaPedidoE = new SaidaPedidoE();
+            saidaPedidoE.codSaida = codSaida;
+            saidaPedidoE.codPedidoGerado = codPedidoGerado;
+            return saidaPedidoE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codSaida
+        {
+            get
+            {
+                return _codSaida;
+            }
+            set
+            {
+                if (_codSaida != value)
+                {
+                    OncodSaidaChanging(value);
+                    ReportPropertyChanging("codSaida");
+                    _codSaida = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codSaida");
+                    OncodSaidaChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codSaida;
+        partial void OncodSaidaChanging(global::System.Int64 value);
+        partial void OncodSaidaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codPedidoGerado
+        {
+            get
+            {
+                return _codPedidoGerado;
+            }
+            set
+            {
+                if (_codPedidoGerado != value)
+                {
+                    OncodPedidoGeradoChanging(value);
+                    ReportPropertyChanging("codPedidoGerado");
+                    _codPedidoGerado = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codPedidoGerado");
+                    OncodPedidoGeradoChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codPedidoGerado;
+        partial void OncodPedidoGeradoChanging(global::System.Int64 value);
+        partial void OncodPedidoGeradoChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="SaidaProdutoE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -11538,90 +11622,6 @@ namespace Dados
         }
 
         #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_saida_pedido")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class tb_saida_pedido : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new tb_saida_pedido object.
-        /// </summary>
-        /// <param name="codSaida">Initial value of the codSaida property.</param>
-        /// <param name="codPedidoGerado">Initial value of the codPedidoGerado property.</param>
-        public static tb_saida_pedido Createtb_saida_pedido(global::System.Int64 codSaida, global::System.Int64 codPedidoGerado)
-        {
-            tb_saida_pedido tb_saida_pedido = new tb_saida_pedido();
-            tb_saida_pedido.codSaida = codSaida;
-            tb_saida_pedido.codPedidoGerado = codPedidoGerado;
-            return tb_saida_pedido;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 codSaida
-        {
-            get
-            {
-                return _codSaida;
-            }
-            set
-            {
-                if (_codSaida != value)
-                {
-                    OncodSaidaChanging(value);
-                    ReportPropertyChanging("codSaida");
-                    _codSaida = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codSaida");
-                    OncodSaidaChanged();
-                }
-            }
-        }
-        private global::System.Int64 _codSaida;
-        partial void OncodSaidaChanging(global::System.Int64 value);
-        partial void OncodSaidaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 codPedidoGerado
-        {
-            get
-            {
-                return _codPedidoGerado;
-            }
-            set
-            {
-                if (_codPedidoGerado != value)
-                {
-                    OncodPedidoGeradoChanging(value);
-                    ReportPropertyChanging("codPedidoGerado");
-                    _codPedidoGerado = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codPedidoGerado");
-                    OncodPedidoGeradoChanged();
-                }
-            }
-        }
-        private global::System.Int64 _codPedidoGerado;
-        partial void OncodPedidoGeradoChanging(global::System.Int64 value);
-        partial void OncodPedidoGeradoChanged();
-
-        #endregion
-    
     }
     
     /// <summary>

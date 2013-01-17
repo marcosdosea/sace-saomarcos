@@ -37,7 +37,6 @@ namespace Telas
             situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             
-            atualizarPrecos();
             habilitaBotoes(true);
             Cursor.Current = Cursors.Default;
         }
@@ -286,41 +285,6 @@ namespace Telas
         }
 
 
-        private void atualizarPrecos()
-        {
-            GerenciadorPrecos gPrecos = GerenciadorPrecos.getInstance();
-
-            decimal precoCompra = Convert.ToDecimal(ultimoPrecoCompraTextBox.Text);
-            decimal creditoICMS = Convert.ToDecimal(icmsTextBox.Text);
-            decimal ICMSSubstituicao = Convert.ToDecimal(icms_substitutoTextBox.Text);
-            decimal simples = Convert.ToDecimal(simplesTextBox.Text);
-            decimal ipi = Convert.ToDecimal(ipiTextBox.Text);
-            decimal frete = Convert.ToDecimal(freteTextBox.Text);
-            decimal lucroVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
-            decimal lucroAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
-            decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
-            decimal manutencao = 0;
-            decimal precoCusto = 0;
-
-            if (codCSTComboBox.SelectedValue != null)
-            {
-                Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
-
-
-                if (cst.EhTributacaoIntegral)
-                {
-                    precoCusto = gPrecos.calculaPrecoCustoNormal(precoCompra, creditoICMS, simples, ipi, frete, manutencao, desconto);
-                }
-                else
-                {
-                    precoCusto = gPrecos.calculaPrecoCustoSubstituicao(precoCompra, ICMSSubstituicao, simples, ipi, frete, manutencao, desconto);
-                }
-                precoCustoTextBox.Text = precoCusto.ToString("N3");
-                precoVarejoSugestaoTextBox.Text = gPrecos.calculaPrecoVenda(precoCusto, lucroVarejo).ToString("N3");
-                precoAtacadoSugestaoTextBox.Text = gPrecos.calculaPrecoVenda(precoCusto, lucroAtacado).ToString("N3");
-            }
-        }
-
         private void habilitaBotoes(Boolean habilita)
         {
             btnSalvar.Enabled = !(habilita);
@@ -410,7 +374,6 @@ namespace Telas
         private void icmsTextBox_Leave_1(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
-            atualizarPrecos();
             if (Convert.ToDecimal(precoVendaVarejoTextBox.Text) == 0)
             {
                 precoVendaVarejoTextBox.Text = precoVarejoSugestaoTextBox.Text;
@@ -426,14 +389,6 @@ namespace Telas
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             codProdutoTextBox_Leave(sender, e);
-        }
-
-        private void tbprodutoBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            if (!ultimoPrecoCompraTextBox.Text.Equals(""))
-            {
-                atualizarPrecos();
-            }
         }
 
         private void codGrupoComboBox_SelectedIndexChanged(object sender, EventArgs e)

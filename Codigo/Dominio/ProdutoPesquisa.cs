@@ -27,7 +27,7 @@ namespace Dominio
         {
             get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
         }
-        
+        public Boolean ExibeNaListagem { get; set; }
         public bool EhTributacaoIntegral
         {
             get
@@ -36,17 +36,26 @@ namespace Dominio
                 return cst.EhTributacaoIntegral;
             }
         }
+        public string Ncmsh { get; set; }
+        public decimal Icms { get; set; }
+        public decimal IcmsSubstituto { get; set; }
+        public decimal Simples { get; set; }
+        public decimal Ipi { get; set; }
+        public decimal Frete { get; set; }
+        public decimal Desconto { get; set; }
+        public decimal UltimoPrecoCompra { get; set; }
+        
 
         // override object.Equals
         public override bool Equals(object obj)
         {
-            return CodProduto == ((ProdutoPesquisa)obj).CodProduto;    
+            return this.CodProduto == ((ProdutoPesquisa)obj).CodProduto;    
         }
 
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return CodProduto.GetHashCode();
+            return this.CodProduto.GetHashCode();
         }
     }
 }

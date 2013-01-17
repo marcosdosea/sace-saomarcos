@@ -535,7 +535,6 @@
             // 
             this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
             this.produtoBindingSource.Sort = "codProduto";
-            this.produtoBindingSource.CurrentItemChanged += new System.EventHandler(this.tbprodutoBindingSource_CurrentItemChanged);
             // 
             // nomeTextBox
             // 

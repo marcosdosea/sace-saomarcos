@@ -74,7 +74,6 @@
     <Compile Include="Entrada\GerenciadorEntradaPagamento.cs" />
     <Compile Include="Produto\GerenciadorSubgrupo.cs" />
     <Compile Include="Produto\GerenciadorProdutoLoja.cs" />
-    <Compile Include="Produto\GerenciadorPrecos.cs" />
     <Compile Include="Conta\GerenciadorGrupoConta.cs" />
     <Compile Include="Produto\GerenciadorGrupo.cs" />
     <Compile Include="Loja\GerenciadorLoja.cs" />
@@ -108,6 +107,7 @@
     <Compile Include="GerenciadorSeguranca.cs" />
     <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />
     <Compile Include="Saida\GerenciadorSaidaPagamento.cs" />
+    <Compile Include="Saida\GerenciadorSaidaPedido.cs" />
     <Compile Include="Saida\GerenciadorSaidaProduto.cs" />
     <Compile Include="Saida\GerenciadorSaida.cs" />
     <Compile Include="Usuario\GerenciadorUsuario.cs" />

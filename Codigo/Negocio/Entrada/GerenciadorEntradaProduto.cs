@@ -14,76 +14,52 @@ namespace Negocio
     public class GerenciadorEntradaProduto 
     {
         private static GerenciadorEntradaProduto gEntradaProduto;
-        private static tb_entrada_produtoTableAdapter tb_entrada_produtoTA;
-        private static tb_produto_lojaTableAdapter tb_produto_lojaTA;
-        private static tb_produtoTableAdapter tb_produtoTA;
+        private static RepositorioGenerico<EntradaProdutoE, SaceEntities> repEntradaProduto;
         
-        
-        public static GerenciadorEntradaProduto getInstace()
+        public static GerenciadorEntradaProduto GetInstance()
         {
             if (gEntradaProduto == null)
             {
                 gEntradaProduto = new GerenciadorEntradaProduto();
-                tb_entrada_produtoTA = new tb_entrada_produtoTableAdapter();
-                tb_produto_lojaTA = new tb_produto_lojaTableAdapter();
-                tb_produtoTA = new tb_produtoTableAdapter();
+                repEntradaProduto = new RepositorioGenerico<EntradaProdutoE, SaceEntities>("chave");
             }
             return gEntradaProduto;
         }
 
-        public Int64 inserir(EntradaProduto entradaProduto)
+        /// <summary>
+        /// Insere uma novo produto na entrada
+        public Int64 Inserir(EntradaProduto entradaProduto, int codTipoEntrada)
         {
 
             if (entradaProduto.Quantidade == 0)
                 throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
-
-            if (entradaProduto.PrecoVendaVarejo <= 0)
+            else if (entradaProduto.PrecoVendaVarejo <= 0)
                 throw new NegocioException("O preço de venda deve ser maior que zero.");
-
-            if (entradaProduto.QuantidadeEmbalagem <= 0)
+            else if (entradaProduto.QuantidadeEmbalagem <= 0)
                 throw new NegocioException("A quantidade de produtos em cada embalagem deve ser maior que zero.");
 
             try
             {
-                tb_entrada_produtoTA.Insert(entradaProduto.CodEntrada, entradaProduto.CodProduto,
-                    entradaProduto.Cfop, entradaProduto.UnidadeCompra, entradaProduto.Quantidade,
-                    entradaProduto.QuantidadeEmbalagem, entradaProduto.ValorUnitario,
-                    entradaProduto.ValorTotal, entradaProduto.BaseCalculoICMS,
-                    entradaProduto.BaseCalculoICMSST, entradaProduto.ValorICMS,
-                    entradaProduto.ValorICMSST, entradaProduto.ValorIPI,
-                    entradaProduto.DataValidade, entradaProduto.PrecoCusto, entradaProduto.QuantidadeDisponivel, entradaProduto.ValorDesconto, entradaProduto.CodCST);
+                EntradaProdutoE _entradaProdutoE = new EntradaProdutoE();
+                Atribuir(entradaProduto, _entradaProdutoE);
 
-                if ((entradaProduto.CodTipoEntrada == Entrada.TIPO_ENTRADA) || (entradaProduto.CodTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
+                repEntradaProduto.Inserir(_entradaProdutoE);
+                repEntradaProduto.SaveChanges();
+                
+                if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
                 {
                     // Incrementa o estoque na loja principal
-                    tb_produto_lojaTA.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
+                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
                     Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
-                    produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
-                    produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;
-                    produto.PrecoVendaAtacado = entradaProduto.PrecoVendaAtacado;
-                    produto.PrecoVendaVarejo = entradaProduto.PrecoVendaVarejo;
-                    produto.Frete = entradaProduto.Frete;
-                    produto.Icms = entradaProduto.Icms;
-                    produto.IcmsSubstituto = entradaProduto.IcmsSubstituto;
-                    produto.Ipi = entradaProduto.Ipi;
-                    produto.Ncmsh = entradaProduto.Ncmsh;
-                    produto.QtdProdutoAtacado = entradaProduto.QtdProdutoAtacado;
-                    produto.UltimaDataAtualizacao = DateTime.Now;
-                    produto.DataUltimoPedido = entradaProduto.DataEntrada;
-                    produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
-                    produto.Cfop = entradaProduto.Cfop;
-                    produto.CodCST = entradaProduto.CodCST;
-                    produto.Desconto = entradaProduto.Desconto;
-                    produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
-                    produto.UnidadeCompra = entradaProduto.UnidadeCompra;
+                    Atribuir(entradaProduto, produto);
 
                     if (entradaProduto.FornecedorEhFabricante)
                         produto.CodFabricante = entradaProduto.CodFornecedor;
 
                     GerenciadorProduto.GetInstance().Atualizar(produto);
                 }
-                return 0;
+                return _entradaProdutoE.codEntrada;
             }
             catch (Exception e)
             {
@@ -91,18 +67,19 @@ namespace Negocio
             }
         }
 
-        public void atualizar(EntradaProduto entradaProduto)
+        
+        /// <summary>
+        /// Atualiza os dados de um produto na entrada
+        /// </summary>
+        /// <param name="entradaProduto"></param>
+        public void Atualizar(EntradaProduto entradaProduto)
         {
             try
             {
-                tb_entrada_produtoTA.Update(entradaProduto.CodEntrada, entradaProduto.CodProduto, 
-                    entradaProduto.Cfop, entradaProduto.UnidadeCompra, entradaProduto.Quantidade,
-                    entradaProduto.QuantidadeEmbalagem, entradaProduto.ValorUnitario, 
-                    entradaProduto.ValorTotal, entradaProduto.BaseCalculoICMS,
-                    entradaProduto.BaseCalculoICMSST, entradaProduto.ValorICMS,
-                    entradaProduto.ValorICMSST, entradaProduto.ValorIPI, 
-                    entradaProduto.DataValidade, entradaProduto.PrecoCusto, entradaProduto.QuantidadeDisponivel, 
-                    entradaProduto.ValorDesconto, entradaProduto.CodCST, entradaProduto.CodEntradaProduto);
+                EntradaProdutoE _entradaProdutoE = repEntradaProduto.ObterEntidade(ep => ep.codEntradaProduto == entradaProduto.CodEntradaProduto);
+                Atribuir(entradaProduto, _entradaProdutoE);
+
+                repEntradaProduto.SaveChanges();
             }
             catch (Exception e)
             {
@@ -110,19 +87,21 @@ namespace Negocio
             }
         }
 
-        public void remover(Int64 codEntradaProduto)
+        /// <summary>
+        /// REmove um produto de uma entrada
+        /// </summary>
+        /// <param name="codEntradaProduto"></param>
+        public void Remover(EntradaProduto entradaProduto, int codTipoEntrada)
         {
             try
             {
-                EntradaProduto entradaProduto = obter(codEntradaProduto);
-                tb_entrada_produtoTA.Delete(codEntradaProduto);
-
-                Entrada entrada = GerenciadorEntrada.getInstace().obterEntrada(entradaProduto.CodEntrada);
-
-                if ((entrada.CodTipoEntrada == Entrada.TIPO_ENTRADA) || (entrada.CodTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
+                repEntradaProduto.Remover(ep => ep.codEntradaProduto == entradaProduto.CodEntradaProduto);
+                repEntradaProduto.SaveChanges();
+                
+                if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
                 {
                     // Decrementa o estoque na loja principal
-                    tb_produto_lojaTA.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
+                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
                 }
             }
             catch (Exception e)
@@ -130,11 +109,149 @@ namespace Negocio
                 throw new DadosException("EntradaProduto", e.Message, e);
             }
         }
-        
 
-        private void estornarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeDevolvida)
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<EntradaProduto> GetQuery()
         {
-            List<EntradaProduto> entradaProdutos = obterVendidosOrdenadoPorValidade(produto.CodProduto);
+            var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
+            var query = from entradaProduto in saceEntities.EntradaProdutoSet
+                        select new EntradaProduto
+                        {
+                            BaseCalculoICMS = (decimal)entradaProduto.baseCalculoICMS,
+                            BaseCalculoICMSST = (decimal)entradaProduto.baseCalculoICMSST,
+                            Cfop = entradaProduto.cfop,
+                            CodCST = entradaProduto.codCST,
+                            CodEntrada = entradaProduto.codEntrada,
+                            CodEntradaProduto = entradaProduto.codEntradaProduto,
+                            CodProduto = entradaProduto.codProduto,
+                            DataValidade = (DateTime)entradaProduto.data_validade,
+                            Desconto = (decimal)entradaProduto.desconto,
+                            PrecoCusto = (decimal)entradaProduto.preco_custo,
+                            Quantidade = (decimal)entradaProduto.quantidade,
+                            QuantidadeDisponivel = (decimal)entradaProduto.quantidade_disponivel,
+                            QuantidadeEmbalagem = (decimal)entradaProduto.quantidadeEmbalagem,
+                            UnidadeCompra = entradaProduto.unidadeCompra,
+                            ValorICMS = (decimal)entradaProduto.valorICMS,
+                            ValorICMSST = (decimal)entradaProduto.valorICMSST,
+                            ValorIPI = (decimal)entradaProduto.valorIPI,
+                            ValorTotal = (decimal)entradaProduto.valorTotal,
+                            ValorUnitario = (decimal)entradaProduto.valorUnitario
+                        };
+            return query;
+        }
+
+        /// <summary>
+        /// Obter uma determinada Entrada Produto
+        /// </summary>
+        /// <param name="codEntradaProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<EntradaProduto> Obter(long codEntradaProduto)
+        {
+            return GetQuery().Where(ep => ep.CodEntradaProduto == codEntradaProduto).ToList();
+        }
+
+        /// <summary>
+        /// Obter por Entrada 
+        /// </summary>
+        /// <param name="codEntradaProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<EntradaProduto> ObterPorEntrada(long codEntrada)
+        {
+            return GetQuery().Where(ep => ep.CodEntrada == codEntrada).ToList();
+        }
+
+        /// <summary>
+        /// Obter todas as Entrada Produto
+        /// </summary>
+        /// <param name="codEntradaProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<EntradaProduto> Obter(long codEntrada, long codProduto)
+        {
+            return GetQuery().Where(ep => ep.CodEntrada == codEntrada && ep.CodProduto == codProduto).ToList();
+        }
+
+        /// <summary>
+        /// Obter produtos disponíveis ordenado pela data de validade
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<EntradaProduto> ObterDisponiveisOrdenadoPorValidade(long codProduto)
+        {
+            return GetQuery().Where(ep => ep.CodProduto == codProduto
+                && ep.QuantidadeDisponivel > 0).OrderBy(ep => ep.DataValidade).ToList();
+        }
+
+
+        /// <summary>
+        /// Obtém os lotes que já foram vendidos ordenados pela data de validade
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        private List<EntradaProduto> ObterVendidosOrdenadoPorValidade(long codProduto)
+        {
+            return GetQuery().Where(ep => ep.CodProduto == codProduto && ep.Quantidade > ep.QuantidadeDisponivel).
+                OrderBy(ep => ep.DataValidade).ToList();
+        }
+
+        /// <summary>
+        /// Obtém a data do lote de produtos disponíveis mais antigo do estoque
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <returns></returns>
+        public DateTime GetDataProdutoMaisAntigoEstoque(ProdutoPesquisa produto)
+        {
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisOrdenadoPorValidade(produto.CodProduto);
+            if (entradaProdutos.Count > 0)
+            {
+                return entradaProdutos[0].DataValidade;
+            }
+            return DateTime.Now;
+        }
+
+        public IEnumerable<EntradaProduto> ObterPorProdutoTipoEntrada(long codProduto, int tipoEntrada)
+        {
+            var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
+            var query = from entradaProduto in saceEntities.EntradaProdutoSet
+                        join entrada in saceEntities.EntradaSet on entradaProduto.codEntrada equals entrada.codEntrada
+                        where entrada.codTipoEntrada == Entrada.TIPO_ENTRADA && entradaProduto.codProduto == codProduto 
+                        select new EntradaProduto
+                        {
+                            BaseCalculoICMS = (decimal)entradaProduto.baseCalculoICMS,
+                            BaseCalculoICMSST = (decimal)entradaProduto.baseCalculoICMSST,
+                            Cfop = entradaProduto.cfop,
+                            CodCST = entradaProduto.codCST,
+                            CodEntrada = entradaProduto.codEntrada,
+                            CodEntradaProduto = entradaProduto.codEntradaProduto,
+                            CodProduto = entradaProduto.codProduto,
+                            DataValidade = (DateTime)entradaProduto.data_validade,
+                            Desconto = (decimal)entradaProduto.desconto,
+                            PrecoCusto = (decimal)entradaProduto.preco_custo,
+                            Quantidade = (decimal)entradaProduto.quantidade,
+                            QuantidadeDisponivel = (decimal)entradaProduto.quantidade_disponivel,
+                            QuantidadeEmbalagem = (decimal)entradaProduto.quantidadeEmbalagem,
+                            UnidadeCompra = entradaProduto.unidadeCompra,
+                            ValorICMS = (decimal)entradaProduto.valorICMS,
+                            ValorICMSST = (decimal)entradaProduto.valorICMSST,
+                            ValorIPI = (decimal)entradaProduto.valorIPI,
+                            ValorTotal = (decimal)entradaProduto.valorTotal,
+                            ValorUnitario = (decimal)entradaProduto.valorUnitario
+                        };
+            return query.ToList();
+        }
+
+        
+        /// <summary>
+        /// Estorna dos lotes do estoque uma determinada quantidade
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <param name="dataValidade"></param>
+        /// <param name="quantidadeDevolvida"></param>
+        private void EstornarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeDevolvida)
+        {
+            List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorValidade(produto.CodProduto);
             Decimal quantidadeRetornada = 0;
 
             if (entradaProdutos != null)
@@ -149,7 +266,7 @@ namespace Negocio
                             {
                                 entradaProduto.QuantidadeDisponivel += quantidadeDevolvida - quantidadeRetornada;
                                 quantidadeRetornada += quantidadeDevolvida - quantidadeRetornada;
-                                atualizar(entradaProduto);
+                                Atualizar(entradaProduto);
                             }
                         }
                         if (quantidadeDevolvida == quantidadeRetornada)
@@ -173,7 +290,7 @@ namespace Negocio
                             quantidadeRetornada += entradaProduto.Quantidade - entradaProduto.QuantidadeDisponivel;
                             entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade;
                         }
-                        atualizar(entradaProduto);
+                        Atualizar(entradaProduto);
                         if (quantidadeDevolvida == quantidadeRetornada)
                             break;
                     }
@@ -183,20 +300,26 @@ namespace Negocio
             // acontece quando uma data de validade não existe no estoque
             if (quantidadeRetornada < quantidadeDevolvida)
             {
-                baixaItensVendidosEstoqueEntradaPadrao(produto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)));
+                BaixarItensVendidosEstoqueEntradaPadrao(produto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)));
             }
         }
         
-
-        public Decimal baixaItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeVendida) {
-            List<EntradaProduto> entradaProdutos = obterDisponiveisOrdenadoPorValidade(produto.CodProduto);
+        /// <summary>
+        /// Baixa dos lotes do estoque uma determinada quantidade vendida
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <param name="dataValidade"></param>
+        /// <param name="quantidadeVendida"></param>
+        /// <returns></returns>
+        public Decimal BaixarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeVendida) {
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisOrdenadoPorValidade(produto.CodProduto);
 
             decimal somaPrecosCusto = 0;
             decimal quantidadeBaixas = 0;
 
             if (quantidadeVendida < 0)
             {
-                estornarItensVendidosEstoque(produto, dataValidade, Math.Abs(quantidadeVendida));
+                EstornarItensVendidosEstoque(produto, dataValidade, Math.Abs(quantidadeVendida));
             } 
             else if (entradaProdutos != null)
             {
@@ -236,25 +359,31 @@ namespace Negocio
                             }
                         }
                     }
-                    atualizar(entradaProduto);
+                    Atualizar(entradaProduto);
                 }
             }
 
             if (quantidadeBaixas < quantidadeVendida)
             {
-                somaPrecosCusto += baixaItensVendidosEstoqueEntradaPadrao(produto, (quantidadeVendida - quantidadeBaixas));
+                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(produto, (quantidadeVendida - quantidadeBaixas));
             }
 
             return somaPrecosCusto;
         }
 
-        private decimal baixaItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade) {
-            EntradaProduto entradaProduto = obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto);
+        /// <summary>
+        /// Baixar uma certa quantidade de produtos da entrada padrão que contém todos os produtos sem entradas associadas
+        /// </summary>
+        /// <param name="produtoPesquisa"></param>
+        /// <param name="quantidade"></param>
+        /// <returns></returns>
+        private decimal BaixarItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade) {
+            EntradaProduto entradaProduto = Obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto).ElementAt(0);
             Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
             if (entradaProduto != null)
             {
                 entradaProduto.QuantidadeDisponivel -= quantidade;
-                atualizar(entradaProduto);
+                Atualizar(entradaProduto);
             }
             else
             {
@@ -287,141 +416,72 @@ namespace Negocio
                 entradaProduto.QtdProdutoAtacado = produto.QtdProdutoAtacado;
                 entradaProduto.DataEntrada = produto.DataUltimoPedido;
                 entradaProduto.Desconto = produto.Desconto;
-
-                if (produto.EhTributacaoIntegral)
-                {
-                    entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoNormal(produto.UltimoPrecoCompra, produto.Icms, produto.Simples, produto.Ipi, produto.Frete, Global.CUSTO_MANUTENCAO_LOJA, produto.Desconto);
-                }
-                else
-                {
-                    entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoSubstituicao(produto.UltimoPrecoCompra, produto.IcmsSubstituto, produto.Simples, produto.Ipi, produto.Frete, Global.CUSTO_MANUTENCAO_LOJA, produto.Desconto);
-                }
+                entradaProduto.PrecoCusto = produto.PrecoCusto; 
                 entradaProduto.QuantidadeDisponivel = (produto.TemVencimento) ? 0 : 10000 - quantidade; 
                 entradaProduto.ValorDesconto = 0;
                 entradaProduto.CodCST = produto.CodCST;
 
-                inserir(entradaProduto);
+                Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             }
             
             return 0;
         }
 
-        public DateTime getDataProdutoMaisAntigoEstoque(Produto produto)
+        /// <summary>
+        /// Atribuição de entradaproduto para atualizar dados de produto
+        /// </summary>
+        /// <param name="entradaProduto"></param>
+        /// <param name="produto"></param>
+        private static void Atribuir(EntradaProduto entradaProduto, Produto produto)
         {
-            List<EntradaProduto> entradaProdutos = obterDisponiveisOrdenadoPorValidade(produto.CodProduto);
-
-            if (entradaProdutos.Count > 0)
-            {
-                return entradaProdutos[0].DataValidade;
-            }
-            return DateTime.Now;
-            
+            produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
+            produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;
+            produto.PrecoVendaAtacado = entradaProduto.PrecoVendaAtacado;
+            produto.PrecoVendaVarejo = entradaProduto.PrecoVendaVarejo;
+            produto.Frete = entradaProduto.Frete;
+            produto.Icms = entradaProduto.Icms;
+            produto.IcmsSubstituto = entradaProduto.IcmsSubstituto;
+            produto.Ipi = entradaProduto.Ipi;
+            produto.Ncmsh = entradaProduto.Ncmsh;
+            produto.QtdProdutoAtacado = entradaProduto.QtdProdutoAtacado;
+            produto.UltimaDataAtualizacao = DateTime.Now;
+            produto.DataUltimoPedido = entradaProduto.DataEntrada;
+            produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
+            produto.Cfop = entradaProduto.Cfop;
+            produto.CodCST = entradaProduto.CodCST;
+            produto.Desconto = entradaProduto.Desconto;
+            produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
+            produto.UnidadeCompra = entradaProduto.UnidadeCompra;
         }
 
-        public decimal ObterEstoquePrincipalDisponivel(long codProduto)
+        /// <summary>
+        /// Atribui a entidade para entidade persistente
+        /// </summary>
+        /// <param name="entradaProduto"></param>
+        /// <param name="_entradaProdutoE"></param>
+        private static void Atribuir(EntradaProduto entradaProduto, EntradaProdutoE _entradaProdutoE)
         {
-
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            decimal? estoque = (decimal?) tb_entradaProdutoTA.GetEstoquePrincipalDisponivel(codProduto);
-
-            return (estoque == null) ? 0 : (decimal)estoque;
+            _entradaProdutoE.baseCalculoICMS = entradaProduto.BaseCalculoICMS;
+            _entradaProdutoE.baseCalculoICMSST = entradaProduto.BaseCalculoICMSST;
+            _entradaProdutoE.cfop = entradaProduto.Cfop;
+            _entradaProdutoE.codCST = entradaProduto.CodCST;
+            _entradaProdutoE.codEntrada = entradaProduto.CodEntrada;
+            _entradaProdutoE.codEntradaProduto = entradaProduto.CodEntradaProduto;
+            _entradaProdutoE.codProduto = entradaProduto.CodProduto;
+            _entradaProdutoE.data_validade = entradaProduto.DataValidade;
+            _entradaProdutoE.desconto = entradaProduto.Desconto;
+            _entradaProdutoE.preco_custo = entradaProduto.PrecoCusto;
+            _entradaProdutoE.quantidade = entradaProduto.Quantidade;
+            _entradaProdutoE.quantidade_disponivel = entradaProduto.QuantidadeDisponivel;
+            _entradaProdutoE.quantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
+            _entradaProdutoE.unidadeCompra = entradaProduto.UnidadeCompra;
+            _entradaProdutoE.valorICMS = entradaProduto.ValorICMS;
+            _entradaProdutoE.valorICMSST = entradaProduto.ValorICMSST;
+            _entradaProdutoE.valorIPI = entradaProduto.ValorIPI;
+            _entradaProdutoE.valorTotal = entradaProduto.ValorTotal;
+            _entradaProdutoE.valorUnitario = entradaProduto.ValorUnitario;
         }
 
-        public decimal ObterEstoqueAuxDisponivel(long codProduto)
-        {
-
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            decimal? estoque = tb_entradaProdutoTA.GetEstoqueAuxDisponivel(codProduto);
-
-            return (estoque == null) ? 0 : (decimal)estoque;
-        }
-
-        private List<EntradaProduto> obterDisponiveisOrdenadoPorValidade(long codProduto)
-        {
-            
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetEntradaProdutosDisponiveisOrderByDataValidade(codProduto);
-
-            return converterEntradaProduto(entradaProdutoDT);
-        }
-
-        public List<EntradaProduto> ObterEntradasPrincipais(long codProduto)
-        {
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetEntradaProdutosPrincipais(codProduto);
-
-            return converterEntradaProduto(entradaProdutoDT);
-        }
-
-        public List<EntradaProduto> ObterEntradasAuxiliar(long codProduto)
-        {
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetEntradaProdutosAux(codProduto);
-
-            return converterEntradaProduto(entradaProdutoDT);
-        }
-
-        private List<EntradaProduto> obterVendidosOrdenadoPorValidade(long codProduto)
-        {
-
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetEntradaProdutosVendidosOrderByDataValidade(codProduto);
-
-            return converterEntradaProduto(entradaProdutoDT);
-        }
-
-        private EntradaProduto obter(long codEntrada, long codProduto)
-        {
-
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetDataByCodEntradaCodProduto(codEntrada, codProduto);
-            
-            List<EntradaProduto> entradaProdutos = converterEntradaProduto(entradaProdutoDT);
-            return (entradaProdutos != null) ? entradaProdutos[0] : null;
-        }
-
-        public EntradaProduto obter(long codEntradaProduto)
-        {
-            tb_entrada_produtoTableAdapter tb_entradaProdutoTA = new tb_entrada_produtoTableAdapter();
-            Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT = tb_entradaProdutoTA.GetDataByCodEntradaProduto(codEntradaProduto);
-
-            List<EntradaProduto> entradaProdutos = converterEntradaProduto(entradaProdutoDT); 
-            return (entradaProdutos != null) ? entradaProdutos[0] : null;
-        }
-
-
-        private List<EntradaProduto> converterEntradaProduto(Dados.saceDataSet.tb_entrada_produtoDataTable entradaProdutoDT)
-        {
-
-            List<EntradaProduto> entradaProdutos = new List<EntradaProduto>();
-
-            for (int i = 0; i < entradaProdutoDT.Count; i++)
-            {
-                EntradaProduto entradaProduto = new EntradaProduto();
-
-                entradaProduto.CodEntradaProduto = long.Parse(entradaProdutoDT.Rows[i]["codEntradaProduto"].ToString());
-                entradaProduto.CodEntrada = int.Parse(entradaProdutoDT.Rows[i]["codEntrada"].ToString());
-                entradaProduto.CodProduto = int.Parse(entradaProdutoDT.Rows[i]["codProduto"].ToString());
-                entradaProduto.DataValidade = DateTime.Parse(entradaProdutoDT.Rows[i]["data_validade"].ToString());
-                entradaProduto.PrecoCusto = decimal.Parse(entradaProdutoDT.Rows[i]["preco_custo"].ToString());
-                entradaProduto.Quantidade = decimal.Parse(entradaProdutoDT.Rows[i]["quantidade"].ToString());
-                entradaProduto.QuantidadeDisponivel = decimal.Parse(entradaProdutoDT.Rows[i]["quantidade_disponivel"].ToString());
-                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(entradaProdutoDT.Rows[i]["baseCalculoICMS"].ToString());
-                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(entradaProdutoDT.Rows[i]["baseCalculoICMSST"].ToString());
-                entradaProduto.Cfop = Convert.ToInt32(entradaProdutoDT.Rows[i]["cfop"].ToString());
-                entradaProduto.QuantidadeEmbalagem = Convert.ToDecimal(entradaProdutoDT.Rows[i]["quantidadeEmbalagem"].ToString());
-                entradaProduto.UnidadeCompra = entradaProdutoDT.Rows[i]["unidadeCompra"].ToString();
-                entradaProduto.ValorICMS = Convert.ToDecimal(entradaProdutoDT.Rows[i]["valorICMS"].ToString());
-                entradaProduto.ValorICMSST = Convert.ToDecimal(entradaProdutoDT.Rows[i]["valorICMSST"].ToString());
-                entradaProduto.ValorIPI = Convert.ToDecimal(entradaProdutoDT.Rows[i]["valorIPI"].ToString());
-                entradaProduto.ValorTotal = Convert.ToDecimal(entradaProdutoDT.Rows[i]["valorTotal"].ToString());
-                entradaProduto.ValorUnitario = Convert.ToDecimal(entradaProdutoDT.Rows[i]["valorUnitario"].ToString());
-                entradaProduto.CodCST = entradaProdutoDT.Rows[0]["codCST"].ToString();
-
-                entradaProdutos.Add(entradaProduto);
-            }
-
-            return entradaProdutos.Count > 0 ? entradaProdutos : null;
-        }
+        
     }
 }

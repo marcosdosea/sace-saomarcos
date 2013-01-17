@@ -21,7 +21,7 @@ namespace Dominio
         public int CodTipoEntrada { get; set; }
         public DateTime DataEmissao { get; set; }
         public DateTime DataEntrada { get; set; }
-        public decimal TotalPago { get; set; }
+        //public decimal TotalPago { get; set; }
         public decimal TotalBaseCalculo { get; set; }
         public decimal TotalICMS { get; set; }
         public decimal TotalBaseSubstituicao { get; set; }
@@ -36,5 +36,22 @@ namespace Dominio
         public decimal TotalNota { get; set; }
         public int CodSituacaoPagamentos { get; set; }
         public Boolean FretePagoEmitente { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodEntrada == ((Entrada)obj).CodEntrada;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodEntrada.GetHashCode();
+        }
     }
 }

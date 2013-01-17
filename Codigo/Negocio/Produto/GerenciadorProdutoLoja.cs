@@ -177,36 +177,38 @@ namespace Negocio
 
             decimal quantidadeEstoquePrincipalLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoque);
             decimal quantidadeEstoqueAuxLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoqueAux);
-            
-            decimal quantidadeEstoquePrincipalEntradaProduto = GerenciadorEntradaProduto.getInstace().ObterEstoquePrincipalDisponivel(codProduto);
-            decimal quantidadeEstoqueAuxEntradaProduto = GerenciadorEntradaProduto.getInstace().ObterEstoqueAuxDisponivel(codProduto);
+
+            List<EntradaProduto> entradasProdutoPrincipal = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance().ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA);
+            List<EntradaProduto> entradasProdutoAuxiliar = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance().ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA_AUX);
+
+            decimal quantidadeEstoquePrincipalEntradaProduto = entradasProdutoPrincipal.Sum(ep => ep.QuantidadeDisponivel);
+            decimal quantidadeEstoqueAuxEntradaProduto = entradasProdutoAuxiliar.Sum(ep => ep.QuantidadeDisponivel);
             
             // Atualiza as entradas principais com os valores do estoque totais dos produto / loja
             if (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto)
             {
-                List<EntradaProduto> entradasProduto = GerenciadorEntradaProduto.getInstace().ObterEntradasPrincipais(codProduto);
 
-                for (int i = 0; (entradasProduto != null) && (i < entradasProduto.Count); i++)
+                for (int i = 0; (entradasProdutoPrincipal != null) && (i < entradasProdutoPrincipal.Count); i++)
                 {
                     // Vai decremetar o contador até organizar a quantidade disponível dos lotes de entrada
                     if (quantidadeEstoquePrincipalLojas > 0)
                     {
-                        if (entradasProduto[i].Quantidade < quantidadeEstoquePrincipalLojas)
+                        if (entradasProdutoPrincipal[i].Quantidade < quantidadeEstoquePrincipalLojas)
                         {
-                            entradasProduto[i].QuantidadeDisponivel = entradasProduto[i].Quantidade;
-                            quantidadeEstoquePrincipalLojas -= entradasProduto[i].Quantidade;
+                            entradasProdutoPrincipal[i].QuantidadeDisponivel = entradasProdutoPrincipal[i].Quantidade;
+                            quantidadeEstoquePrincipalLojas -= entradasProdutoPrincipal[i].Quantidade;
                         }
                         else
                         {
-                            entradasProduto[i].QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
+                            entradasProdutoPrincipal[i].QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
                             quantidadeEstoquePrincipalLojas = 0;
                         }
                     }
                     else
                     {
-                        entradasProduto[i].QuantidadeDisponivel = 0;
+                        entradasProdutoPrincipal[i].QuantidadeDisponivel = 0;
                     }
-                    GerenciadorEntradaProduto.getInstace().atualizar(entradasProduto[i]);
+                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoPrincipal[i]);
                 }
 
             }
@@ -215,29 +217,27 @@ namespace Negocio
             // Atualiza as entradas auxiliares com os valores do estoque totais dos produto / loja
             if (quantidadeEstoqueAuxLojas != quantidadeEstoqueAuxEntradaProduto)
             {
-                List<EntradaProduto> entradasProduto = GerenciadorEntradaProduto.getInstace().ObterEntradasAuxiliar(codProduto);
-
-                for (int i = 0; (entradasProduto != null) && (i < entradasProduto.Count); i++)
+                for (int i = 0; (entradasProdutoAuxiliar != null) && (i < entradasProdutoAuxiliar.Count); i++)
                 {
                     // Vai decremetar o contador até organizar a quantidade disponível dos lotes de entrada
                     if (quantidadeEstoqueAuxLojas > 0)
                     {
-                        if (entradasProduto[i].Quantidade < quantidadeEstoqueAuxLojas)
+                        if (entradasProdutoAuxiliar[i].Quantidade < quantidadeEstoqueAuxLojas)
                         {
-                            entradasProduto[i].QuantidadeDisponivel = entradasProduto[i].Quantidade;
-                            quantidadeEstoqueAuxLojas -= entradasProduto[i].Quantidade;
+                            entradasProdutoAuxiliar[i].QuantidadeDisponivel = entradasProdutoAuxiliar[i].Quantidade;
+                            quantidadeEstoqueAuxLojas -= entradasProdutoAuxiliar[i].Quantidade;
                         }
                         else
                         {
-                            entradasProduto[i].QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
+                            entradasProdutoAuxiliar[i].QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
                             quantidadeEstoqueAuxLojas = 0;
                         }
                     }
                     else
                     {
-                        entradasProduto[i].QuantidadeDisponivel = 0;
+                        entradasProdutoAuxiliar[i].QuantidadeDisponivel = 0;
                     }
-                    GerenciadorEntradaProduto.getInstace().atualizar(entradasProduto[i]);
+                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoAuxiliar[i]);
                 }
 
             }

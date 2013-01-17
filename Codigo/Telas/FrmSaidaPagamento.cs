@@ -83,7 +83,6 @@ namespace Telas
                 saidaPagamento.Valor = decimal.Parse(valorRecebidoTextBox.Text);
                 saidaPagamento.CodSaida = saida.CodSaida;
                 saidaPagamento.CodDocumentoPagamento = int.Parse(codDocumentoPagamentoComboBox.SelectedValue.ToString());
-                saidaPagamento.CodPessoaResponsavel = long.Parse(codClienteComboBox.SelectedValue.ToString());
                 saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
                 saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
 
@@ -96,7 +95,7 @@ namespace Telas
                 saida.TotalPago = Convert.ToDecimal(totalRecebidoLabel.Text);
 
                 codFormaPagamentoComboBox.Focus();
-                GerenciadorSaidaPagamento.getInstace().inserir(saidaPagamento, saida);
+                GerenciadorSaidaPagamento.GetInstance().Inserir(saidaPagamento, saida);
 
                 AtualizaValores();
 
@@ -141,21 +140,21 @@ namespace Telas
                 
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
-                    GerenciadorSaida.getInstace().encerrar(saida, frmSaidaConfirma.Opcao);
+                    GerenciadorSaida.GetInstance().Encerrar(saida, frmSaidaConfirma.Opcao);
                     if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                     {
                         // quando tem pagamento crediário imprime o DAV
-                        bool temPagamentoCrediario = GerenciadorSaidaPagamento.getInstace().obterSaidaPagamentosPorFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).Count > 0;
+                        bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance().ObterPorSaidaFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
                         if (temPagamentoCrediario)
                         {
                             if (cliente.ImprimirDAV)
                             {
-                                GerenciadorSaida.getInstace().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                                GerenciadorSaida.GetInstance().imprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
                             }
                         }
                         else
                         {
-                            GerenciadorSaida.getInstace().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null, saida.TotalAVista);
+                            GerenciadorSaida.GetInstance().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null, saida.TotalAVista);
                         }
                     }
                 }
@@ -179,7 +178,7 @@ namespace Telas
                 {
                     // Exclui os dados do pagamento
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorSaidaPagamento.getInstace().remover(codSaidaPagamento, saida);
+                    Negocio.GerenciadorSaidaPagamento.GetInstance().Remover(codSaidaPagamento, saida);
                     this.tb_saida_forma_pagamentoTableAdapter.FillByCodSaida(saceDataSet.tb_saida_forma_pagamento, saida.CodSaida);
 
                     InicializaVariaveis();

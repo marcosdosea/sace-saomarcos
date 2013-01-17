@@ -28,18 +28,15 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
 
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
-            if ((codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 1)) {
-                this.tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-            }
 
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             fornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             empresaFreteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
             cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
-            this.tb_entradaTableAdapter.FillEntradas(this.saceDataSet.tb_entrada);
-            this.tb_situacao_pagamentosTableAdapter.Fill(this.saceDataSet.tb_situacao_pagamentos);
-            tb_entradaBindingSource.MoveLast();
+            entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
+            situacaoPagamentosBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodosSituacoesPagamentos();
+            entradaBindingSource.MoveLast();
             entrada = new Entrada();
             entradaProduto = new EntradaProduto();
             tipoEntrada = Entrada.TIPO_ENTRADA;
@@ -54,14 +51,14 @@ namespace Telas
             frmEntradaPesquisa.ShowDialog();
             if (frmEntradaPesquisa.getCodEntrada() != -1)
             {
-                tb_entradaBindingSource.Position = tb_entradaBindingSource.Find("codEntrada", frmEntradaPesquisa.getCodEntrada());
+                entradaBindingSource.Position = entradaBindingSource.Find("codEntrada", frmEntradaPesquisa.getCodEntrada());
             }
             frmEntradaPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            tb_entradaBindingSource.AddNew();
+            entradaBindingSource.AddNew();
             codEntradaTextBox.Enabled = false;
             numeroNotaFiscalTextBox.Focus();
             codEmpresaFreteComboBox.SelectedIndex = 0;
@@ -83,8 +80,8 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorEntrada.getInstace().remover(Convert.ToInt64(codEntradaTextBox.Text));
-                tb_entradaTableAdapter.FillEntradas(saceDataSet.tb_entrada);
+                GerenciadorEntrada.GetInstance().Remover(Convert.ToInt64(codEntradaTextBox.Text));
+                entradaBindingSource.RemoveCurrent();
             }
         }
 
@@ -92,10 +89,10 @@ namespace Telas
         {
             habilitaBotoes(true);
             
-            tb_entradaBindingSource.CancelEdit();
-            tb_entradaBindingSource.EndEdit();
-            tb_entrada_produtoBindingSource.CancelEdit();
-            tb_entrada_produtoBindingSource.EndEdit();
+            entradaBindingSource.CancelEdit();
+            entradaBindingSource.EndEdit();
+            entradaProdutoBindingSource.CancelEdit();
+            entradaProdutoBindingSource.EndEdit();
             ProdutosGroupBox.Enabled = false;
             btnBuscar.Focus();
         }
@@ -132,22 +129,19 @@ namespace Telas
                 entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
             }
                         
-            GerenciadorEntrada gEntrada = GerenciadorEntrada.getInstace();
+            GerenciadorEntrada gEntrada = GerenciadorEntrada.GetInstance();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-
-                entrada.CodEntrada = gEntrada.inserir(entrada);
-                tb_entradaTableAdapter.FillEntradas(saceDataSet.tb_entrada);
-                tb_entradaBindingSource.Position = tb_entradaBindingSource.Find("codEntrada", entrada.CodEntrada);
+                entrada.CodEntrada = gEntrada.Inserir(entrada);
+                codEntradaTextBox.Text = entrada.CodEntrada.ToString();
                 habilitaBotoes(true);
                 btnProdutos.Focus();
             }
             else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                GerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.getInstace();
+                GerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.GetInstance();
                 entradaProduto = new EntradaProduto();
-                entradaProduto.CodTipoEntrada = entrada.CodTipoEntrada;
                 entradaProduto.CodProduto = Convert.ToInt32(codProdutoComboBox.SelectedValue.ToString());
                 entradaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
                 entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(baseCalculoICMSSTTextBox.Text);
@@ -182,20 +176,19 @@ namespace Telas
                 entradaProduto.FornecedorEhFabricante = ((Pessoa) fornecedorBindingSource.Current).EhFabricante;
                 entradaProduto.CodFornecedor = ((Pessoa) fornecedorBindingSource.Current).CodPessoa;
 
-                GerenciadorEntradaProduto.getInstace().inserir(entradaProduto);
+                GerenciadorEntradaProduto.GetInstance().Inserir(entradaProduto, entrada.CodTipoEntrada);
                 codEntradaTextBox_TextChanged(sender, e);
                 btnProdutos_Click(sender, e);
             }
             else 
             {
-                gEntrada.atualizar(entrada);
-                tb_entradaBindingSource.EndEdit();
-                tb_entradaTableAdapter.FillEntradas(saceDataSet.tb_entrada);
-                tb_entradaBindingSource.Position = tb_entradaBindingSource.Find("codEntrada", entrada.CodEntrada);
-                tb_produtoBindingSource.Position = 0;
+                gEntrada.Atualizar(entrada);
+                produtoBindingSource.Position = 0;
                 habilitaBotoes(true);
                 btnProdutos.Focus();
             }
+            entradaBindingSource.EndEdit();
+            entradaProdutoBindingSource.EndEdit();
         }
 
         private void excluirProduto(object sender, EventArgs e)
@@ -205,8 +198,9 @@ namespace Telas
             {
                 if (tb_entrada_produtoDataGridView.Rows.Count > 0)
                 {
-                    long codEntradaProduto = long.Parse(tb_entrada_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorEntradaProduto.getInstace().remover(codEntradaProduto);
+                    EntradaProduto _entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+                    Entrada _entrada = (Entrada)entradaBindingSource.Current;
+                    GerenciadorEntradaProduto.GetInstance().Remover(_entradaProduto, entrada.CodTipoEntrada);
                 }
             }
             codEntradaTextBox_TextChanged(sender, e);
@@ -255,19 +249,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_entradaBindingSource.MoveLast();
+                    entradaBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_entradaBindingSource.MoveFirst();
+                    entradaBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_entradaBindingSource.MovePrevious();
+                    entradaBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_entradaBindingSource.MoveNext();
+                    entradaBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {
@@ -348,7 +342,7 @@ namespace Telas
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.List.IndexOf(frmProdutoPesquisaPreco.ProdutoPesquisa);
+                        produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProdutoPesquisaPreco.ProdutoPesquisa);
                     }
                     frmProdutoPesquisaPreco.Dispose();
                 }
@@ -358,8 +352,8 @@ namespace Telas
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
-                        tb_produtoBindingSource.Position = tb_produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+                        produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
                     }
                     frmProduto.Dispose();
                 }
@@ -395,7 +389,6 @@ namespace Telas
             btnProdutos.Enabled = habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             btnPagamentos.Enabled = habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             tb_entradaBindingNavigator.Enabled = habilita;
-            //ProdutosGroupBox.Enabled = !habilita && (codEntradaTextBox.Text != "") && (long.Parse(codEntradaTextBox.Text) > 0);
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
@@ -410,9 +403,9 @@ namespace Telas
 
         private void btnProdutos_Click(object sender, EventArgs e)
         {
-            tb_entrada_produtoBindingSource.AddNew();
+            entradaProdutoBindingSource.AddNew();
             codProdutoComboBox.SelectedIndex = 0;
-            tb_produtoBindingSource.Position = 0;
+            produtoBindingSource.Position = 0;
             cfopComboBox.SelectedIndex = 0;
             ProdutosGroupBox.Enabled = true;
             codProdutoComboBox.Focus();
@@ -439,24 +432,25 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, tb_produtoBindingSource, ultimoCodigoBarraLido, true);
-                data_validadeDateTimePicker.Enabled = _produtoPesquisa.TemVencimento;
-                if (Convert.ToDecimal(quantidadeEmbalagemTextBox.Text) <= 0)
-                    quantidadeEmbalagemTextBox.Text = "1";
+                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ultimoCodigoBarraLido, true);
+                if (_produtoPesquisa != null)
+                {
+                    data_validadeDateTimePicker.Enabled = _produtoPesquisa.TemVencimento;
+                    if (Convert.ToDecimal(quantidadeEmbalagemTextBox.Text) <= 0)
+                        quantidadeEmbalagemTextBox.Text = "1";
+                    codCSTComboBox_SelectedIndexChanged(sender, e);
+                    codEntradaTextBox_Leave(sender, e);
+                }
             }
-            codCSTComboBox_SelectedIndexChanged(sender, e);
-            codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
         {
             totalNotaCalculadoTextBox.Text = "0,00";
-            if ((!codEntradaTextBox.Text.Trim().Equals("")) /*&& (long.Parse(codEntradaTextBox.Text) > 1)*/) {
-                tb_entrada_produtoTableAdapter.FillByCodEntrada(this.saceDataSet.tb_entrada_produto, long.Parse(codEntradaTextBox.Text));
-                decimal? total = tb_entrada_produtoTableAdapter.totalEntrada(long.Parse(codEntradaTextBox.Text));
-                if (total != null) {
-                    totalNotaCalculadoTextBox.Text = ((decimal) total).ToString("N2");
-                }
+            if ((!codEntradaTextBox.Text.Trim().Equals("")) && (long.Parse(codEntradaTextBox.Text) > 1)) {
+                IEnumerable<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance().ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
+                entradaProdutoBindingSource.DataSource = listaEntradaProduto;
+                //totalNotaCalculadoTextBox.Text = listaEntradaProduto
             }
         }
 
@@ -511,30 +505,20 @@ namespace Telas
                 {
                     throw new TelaException("A quantidade de produtos da embalagem deve ser maior ou igual a 1.");
                 }
-
-                Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
-                if (cst.EhTributacaoIntegral)
-                {
-                    entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoNormal(entradaProduto.ValorUnitario, entradaProduto.Icms,
-                        entradaProduto.Simples, entradaProduto.Ipi, entradaProduto.Frete, Global.CUSTO_MANUTENCAO_LOJA, entradaProduto.Desconto) / entradaProduto.QuantidadeEmbalagem;
-                }
-                else
-                {
-                    entradaProduto.PrecoCusto = GerenciadorPrecos.getInstance().calculaPrecoCustoSubstituicao(entradaProduto.ValorUnitario, entradaProduto.IcmsSubstituto,
-                        entradaProduto.Simples, entradaProduto.Ipi, entradaProduto.Frete, Global.CUSTO_MANUTENCAO_LOJA, entradaProduto.Desconto) / entradaProduto.QuantidadeEmbalagem;
-                }
-                preco_custoTextBox.Text = entradaProduto.PrecoCusto.ToString("N2");
-
-                entradaProduto.LucroPrecoVendaVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
-                entradaProduto.LucroPrecoVendaAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
-
-                entradaProduto.PrecoVendaVarejo = GerenciadorPrecos.getInstance().calculaPrecoVenda(entradaProduto.PrecoCusto,
-                    entradaProduto.LucroPrecoVendaVarejo);
-                entradaProduto.PrecoVendaAtacado = GerenciadorPrecos.getInstance().calculaPrecoVenda(entradaProduto.PrecoCusto,
-                    entradaProduto.LucroPrecoVendaAtacado);
-
-                precoVarejoSugestaoTextBox.Text = entradaProduto.PrecoVendaVarejo.ToString("N3");
-                precoAtacadoSugestaoTextBox.Text = entradaProduto.PrecoVendaAtacado.ToString("N3");
+                
+                Produto _produto = (Produto) produtoBindingSource.Current;
+                _produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
+                _produto.Icms = entradaProduto.Icms;
+                _produto.Simples = entradaProduto.Simples;
+                _produto.Ipi = entradaProduto.Ipi;
+                _produto.CodCST = codCSTComboBox.SelectedValue.ToString();
+                _produto.Frete = entradaProduto.Frete;
+                _produto.Desconto = entradaProduto.Desconto;
+                entradaProduto.PrecoCusto = _produto.PrecoCusto;
+                _produto.LucroPrecoVendaVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
+                _produto.LucroPrecoVendaAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
+                //precoVarejoSugestaoTextBox.Text = _produto.PrecoVendaVarejoSugestao.ToString("N3");
+                //precoAtacadoSugestaoTextBox.Text = _produto.PrecoVendaAtacadoSugestao.ToString("N3");
             }
             codEntradaTextBox_Leave(sender, e);
         }
@@ -591,13 +575,10 @@ namespace Telas
             {
                 habilitaBotoes(true);
                 estado = EstadoFormulario.ESPERA;
-                entrada = GerenciadorEntrada.getInstace().obterEntrada(Convert.ToInt64(codEntradaTextBox.Text));
+                entrada = GerenciadorEntrada.GetInstance().Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
                 FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
                 frmEntradaPagamento.ShowDialog();
                 frmEntradaPagamento.Dispose();
-
-                this.tb_entradaTableAdapter.FillEntradas(this.saceDataSet.tb_entrada);
-                tb_entradaBindingSource.MoveLast();
                 btnNovo.Focus();
             }
         }

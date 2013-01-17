@@ -22,14 +22,14 @@ namespace Util
 	public class ImprimeTexto
 	{
 
-		private int GENERIC_WRITE = 0x40000000;
-		private int OPEN_EXISTING = 3;
-		private int FILE_SHARE_WRITE = 0x2;
+		//private int GENERIC_WRITE = 0x40000000;
+		//private int OPEN_EXISTING = 3;
+		//private int FILE_SHARE_WRITE = 0x2;
 		private string sPorta;
 		private int hPort;
 		private FileStream outFile;
 		private StreamWriter fileWriter;
-		private IntPtr hPortP;
+		//private IntPtr hPortP;
 		private bool lOK = false;
         private string GeraArquivoLPT;
 

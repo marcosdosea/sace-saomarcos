@@ -14,33 +14,35 @@ namespace Negocio
     public class GerenciadorEntrada 
     {
         private static GerenciadorEntrada gEntrada;
-        private static tb_entradaTableAdapter tb_entradaTA;
+        private static RepositorioGenerico<EntradaE, SaceEntities> repEntrada;
         
         
-        public static GerenciadorEntrada getInstace()
+        public static GerenciadorEntrada GetInstance()
         {
             if (gEntrada == null)
             {
                 gEntrada = new GerenciadorEntrada();
-                tb_entradaTA = new tb_entradaTableAdapter();
+                repEntrada = new RepositorioGenerico<EntradaE, SaceEntities>("chave");
             }
             return gEntrada;
         }
 
-        public Int64 inserir(Entrada entrada)
+        /// <summary>
+        /// Inserir uma nova entrada
+        /// </summary>
+        /// <param name="entrada"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Entrada entrada)
         {
             try
             {
-                byte fretePagoEmitenteByte = (byte)(entrada.FretePagoEmitente ? 1 : 0);
+                EntradaE _entradaE = new EntradaE();
+                Atribuir(entrada, _entradaE);
 
-                tb_entradaTA.Insert(entrada.NumeroNotaFiscal, entrada.CodEmpresaFrete, entrada.CodFornecedor,
-                    entrada.CodTipoEntrada, entrada.DataEmissao, entrada.DataEntrada, entrada.TotalBaseCalculo.ToString(),
-                    entrada.TotalICMS.ToString(), entrada.TotalBaseSubstituicao.ToString(), entrada.TotalSubstituicao.ToString(),
-                    entrada.TotalProdutos.ToString(), entrada.TotalProdutosST.ToString(), entrada.ValorFrete.ToString(), entrada.ValorSeguro.ToString(),
-                    entrada.Desconto.ToString(), entrada.OutrasDespesas.ToString(), entrada.TotalIPI.ToString(),
-                    entrada.TotalNota.ToString(), entrada.CodSituacaoPagamentos, fretePagoEmitenteByte);
-
-                return (Int64) tb_entradaTA.getMaxCodEntrada();
+                repEntrada.Inserir(_entradaE);
+                repEntrada.SaveChanges();
+                
+                return _entradaE.codEntrada;
             }
             catch (Exception e)
             {
@@ -48,19 +50,18 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Entrada entrada)
+        /// <summary>
+        /// Atualizar dados da entrada
+        /// </summary>
+        /// <param name="entrada"></param>
+        public void Atualizar(Entrada entrada)
         {
             try
             {
-                byte fretePagoEmitenteByte = (byte)(entrada.FretePagoEmitente ? 1 : 0);
+                EntradaE _entradaE = repEntrada.ObterEntidade(e => e.codEntrada == entrada.CodEntrada);
+                Atribuir(entrada, _entradaE);
 
-                tb_entradaTA.Update(entrada.NumeroNotaFiscal, entrada.CodEmpresaFrete, entrada.CodFornecedor,
-                    entrada.CodTipoEntrada, entrada.DataEmissao, entrada.DataEntrada, entrada.TotalBaseCalculo,
-                    entrada.TotalICMS, entrada.TotalBaseSubstituicao, entrada.TotalSubstituicao,
-                    entrada.TotalProdutos, entrada.TotalProdutosST, entrada.ValorFrete, entrada.ValorSeguro,
-                    entrada.Desconto, entrada.OutrasDespesas, entrada.TotalIPI,
-                    entrada.TotalNota, entrada.CodSituacaoPagamentos, fretePagoEmitenteByte,
-                    entrada.CodEntrada);
+                repEntrada.SaveChanges();
             }
             catch (Exception e)
             {
@@ -68,11 +69,16 @@ namespace Negocio
             }
         }
 
-        public void atualizar(int codSituacaoPagamentos, long codEntrada)
+        /// <summary>
+        /// REmover uma entrada
+        /// </summary>
+        /// <param name="codEntrada"></param>
+        public void Remover(long codEntrada)
         {
             try
             {
-                tb_entradaTA.UpdateSituacaoPagamentos(codSituacaoPagamentos, codEntrada);
+                repEntrada.Remover(e => e.codEntrada == codEntrada);
+                repEntrada.SaveChanges();
             }
             catch (Exception e)
             {
@@ -80,38 +86,31 @@ namespace Negocio
             }
         }
 
-        public void remover(Int64 codEntrada)
+        /// <summary>
+        /// Encerra o cadastramento da entrada lançando todas as contas a pagar
+        /// </summary>
+        /// <param name="entrada"></param>
+        public void Encerrar(Entrada entrada)
         {
-            try
-            {
-                tb_entradaTA.Delete(codEntrada);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Entrada", e.Message, e);
-            }
-        }
-
-        public void encerrar(Entrada entrada)
-        {
-            
-
-
             if (GerenciadorConta.GetInstance().ObterPorEntrada(entrada.CodEntrada).ToList().Count == 0)
             {
-                List<EntradaPagamento> entradaPagamentos = GerenciadorEntradaPagamento.getInstace().obterEntradaPagamentos(entrada.CodEntrada);
-                registrarPagamentosEntrada(entradaPagamentos, entrada);
+                List<EntradaPagamento> entradaPagamentos = (List<EntradaPagamento>) GerenciadorEntradaPagamento.GetInstance().ObterPorEntrada(entrada.CodEntrada);
+                RegistrarPagamentosEntrada(entradaPagamentos, entrada);
             }
-            else
+            else 
             {
                 throw new NegocioException("Existem contas associadas a essa entrada. Ela não pode ser encerrada novamente.");
             }
-
             entrada.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-            atualizar(entrada);
+            Atualizar(entrada);
         }
 
-        private void registrarPagamentosEntrada(List<EntradaPagamento> pagamentos, Entrada entrada)
+        /// <summary>
+        /// REgistra os pagamentos associando para cada um dele uma conta a pagar
+        /// </summary>
+        /// <param name="pagamentos"></param>
+        /// <param name="entrada"></param>
+        private void RegistrarPagamentosEntrada(List<EntradaPagamento> pagamentos, Entrada entrada)
         {
 
             foreach (EntradaPagamento pagamento in pagamentos)
@@ -169,37 +168,121 @@ namespace Negocio
                 }
             }
         }
-        public Entrada obterEntrada(Int64 codEntrada)
+
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<Entrada> GetQuery()
         {
-            Entrada entrada = new Entrada();
-
-            tb_entradaTableAdapter tb_entradaTA = new tb_entradaTableAdapter();
-            Dados.saceDataSet.tb_entradaDataTable entradaDT = tb_entradaTA.GetDataByCodEntrada(codEntrada);
-
-            entrada.CodEntrada = Convert.ToInt64(entradaDT.Rows[0]["codEntrada"].ToString());
-            entrada.CodEmpresaFrete = Convert.ToInt64(entradaDT.Rows[0]["codEmpresaFrete"].ToString());
-            entrada.CodFornecedor = Convert.ToInt64(entradaDT.Rows[0]["codFornecedor"].ToString());
-            entrada.CodTipoEntrada = Convert.ToInt32(entradaDT.Rows[0]["codTipoEntrada"].ToString());
-            entrada.DataEmissao = Convert.ToDateTime(entradaDT.Rows[0]["dataEmissao"].ToString());
-            entrada.DataEntrada = Convert.ToDateTime(entradaDT.Rows[0]["dataEntrada"].ToString());
-            entrada.Desconto = Convert.ToDecimal(entradaDT.Rows[0]["desconto"].ToString());
-            entrada.NomeEmpresaFrete = entradaDT.Rows[0]["nomeEmpresaFrete"].ToString();
-            entrada.NomeFornecedor = entradaDT.Rows[0]["nomeFornecedor"].ToString();
-            entrada.NumeroNotaFiscal = entradaDT.Rows[0]["numeroNotaFiscal"].ToString();
-            entrada.OutrasDespesas = Convert.ToDecimal(entradaDT.Rows[0]["outrasDespesas"].ToString());
-            entrada.TotalBaseCalculo = Convert.ToDecimal(entradaDT.Rows[0]["totalBaseCalculo"].ToString());
-            entrada.TotalBaseSubstituicao = Convert.ToDecimal(entradaDT.Rows[0]["totalBaseSubstituicao"].ToString());
-            entrada.TotalICMS = Convert.ToDecimal(entradaDT.Rows[0]["totalICMS"].ToString());
-            entrada.TotalIPI = Convert.ToDecimal(entradaDT.Rows[0]["totalIPI"].ToString());
-            entrada.TotalNota = Convert.ToDecimal(entradaDT.Rows[0]["totalNota"].ToString());
-            entrada.TotalProdutos = Convert.ToDecimal(entradaDT.Rows[0]["totalProdutos"].ToString());
-            entrada.TotalSubstituicao = Convert.ToDecimal(entradaDT.Rows[0]["totalSubstituicao"].ToString());
-            entrada.ValorFrete = Convert.ToDecimal(entradaDT.Rows[0]["valorFrete"].ToString());
-            entrada.ValorSeguro = Convert.ToDecimal(entradaDT.Rows[0]["valorSeguro"].ToString());
-            entrada.CodSituacaoPagamentos = Convert.ToInt32(entradaDT.Rows[0]["codSituacaoPagamentos"].ToString());
-            entrada.FretePagoEmitente = Convert.ToBoolean(entradaDT.Rows[0]["fretePagoEmitente"].ToString());
-
-            return entrada;
+            var saceEntities = (SaceEntities)repEntrada.ObterContexto();
+            var query = from entrada in saceEntities.EntradaSet
+                        join fornecedor in saceEntities.PessoaSet on entrada.codFornecedor equals fornecedor.codPessoa
+                        join transportadora in saceEntities.PessoaSet on entrada.codEmpresaFrete equals transportadora.codPessoa
+                        select new Entrada
+                        {
+                            CodEmpresaFrete = entrada.codEmpresaFrete,
+                            CodEntrada = entrada.codEntrada,
+                            CodFornecedor = entrada.codFornecedor,
+                            CodSituacaoPagamentos = entrada.codSituacaoPagamentos,
+                            CodTipoEntrada = entrada.codTipoEntrada,
+                            DataEmissao = (DateTime) entrada.dataEmissao,
+                            DataEntrada = (DateTime) entrada.dataEntrada,
+                            Desconto = (decimal) entrada.desconto,
+                            FretePagoEmitente = entrada.fretePagoEmitente,
+                            NomeEmpresaFrete = transportadora.nome,
+                            NomeFornecedor = fornecedor.nome,
+                            NumeroNotaFiscal = entrada.numeroNotaFiscal,
+                            OutrasDespesas = (decimal) entrada.outrasDespesas,
+                            TotalBaseCalculo = (decimal) entrada.totalBaseCalculo,
+                            TotalBaseSubstituicao = (decimal) entrada.totalBaseSubstituicao,
+                            TotalICMS = (decimal) entrada.totalICMS,
+                            TotalIPI = (decimal) entrada.totalIPI,
+                            TotalNota = (decimal) entrada.totalNota,
+                            TotalProdutos = (decimal) entrada.totalProdutos,
+                            TotalProdutosST = (decimal) entrada.totalProdutosST,
+                            TotalSubstituicao = (decimal) entrada.totalSubstituicao,
+                            ValorFrete = (decimal) entrada.valorFrete,
+                            ValorSeguro = (decimal) entrada.valorSeguro
+                        };
+            return query;
         }
+
+        /// <summary>
+        /// Obtém todos os banco cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Entrada> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
+
+        /// <summary>
+        /// Obtém banco com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Entrada> Obter(long codEntrada)
+        {
+            return GetQuery().Where(entrada => entrada.CodEntrada == codEntrada).ToList();
+        }
+
+        /// <summary>
+        /// Obtém banco com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Entrada> ObterPorTipoEntrada(int codTipoEntrada)
+        {
+            return GetQuery().Where(entrada => entrada.CodTipoEntrada == codTipoEntrada).ToList();
+        }
+
+        /// <summary>
+        /// Obtém situacoes Pagamentos
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<SituacaoPagamentos> ObterTodosSituacoesPagamentos()
+        {
+            var saceEntities = (SaceEntities)repEntrada.ObterContexto();
+            var query = from situacaoPagamentos in saceEntities.SituacaoPagamentosSet
+                        select new SituacaoPagamentos
+                        {
+                            CodSituacaoPagamentos = situacaoPagamentos.codSituacaoPagamentos,
+                            DescricaoSituacaoPagamentos = situacaoPagamentos.descricaoSituacaoPagamentos
+                        };
+            return query.ToList();
+        }
+
+
+        /// <summary>
+        /// Atribui os dados da entidade para entidade persistente
+        /// </summary>
+        /// <param name="entrada"></param>
+        /// <param name="_entradaE"></param>
+        private static void Atribuir(Entrada entrada, EntradaE _entradaE)
+        {
+            _entradaE.codEmpresaFrete = entrada.CodEmpresaFrete;
+            _entradaE.codFornecedor = entrada.CodFornecedor;
+            _entradaE.codSituacaoPagamentos = entrada.CodSituacaoPagamentos;
+            _entradaE.codTipoEntrada = entrada.CodTipoEntrada;
+            _entradaE.dataEmissao = entrada.DataEmissao;
+            _entradaE.dataEntrada = entrada.DataEntrada;
+            _entradaE.desconto = entrada.Desconto;
+            _entradaE.fretePagoEmitente = entrada.FretePagoEmitente;
+            _entradaE.numeroNotaFiscal = entrada.NumeroNotaFiscal;
+            _entradaE.outrasDespesas = entrada.OutrasDespesas;
+            _entradaE.totalBaseCalculo = entrada.TotalBaseCalculo;
+            _entradaE.totalBaseSubstituicao = entrada.TotalBaseSubstituicao;
+            _entradaE.totalICMS = entrada.TotalICMS;
+            _entradaE.totalIPI = entrada.TotalIPI;
+            _entradaE.totalNota = entrada.TotalNota;
+            _entradaE.totalProdutos = entrada.TotalProdutos;
+            _entradaE.totalProdutosST = entrada.TotalProdutosST;
+            _entradaE.totalSubstituicao = entrada.TotalSubstituicao;
+            _entradaE.valorFrete = entrada.ValorFrete;
+            _entradaE.valorSeguro = entrada.ValorSeguro;
+        }
+
     }
 }

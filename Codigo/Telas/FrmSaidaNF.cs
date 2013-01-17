@@ -26,7 +26,7 @@ namespace Telas
             } 
             else 
             {
-                numeroNFText.Text = GerenciadorSaida.getInstace().ObterNumeroProximaNotaFiscal().ToString();
+                numeroNFText.Text = GerenciadorSaida.GetInstance().ObterNumeroProximaNotaFiscal().ToString();
             }
         }
 
@@ -60,8 +60,8 @@ namespace Telas
             {
                 throw new NegocioException("Número da nota fiscal inválido. Favor verificar o formato e a sequência da numeração.");
             }
-            GerenciadorSaida.getInstace().Atualizar(Saida.PedidoGerado, Saida.Nfe);
-            GerenciadorSaida.getInstace().imprimirNotaFiscal(Saida);
+            GerenciadorSaida.GetInstance().AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.PedidoGerado);
+            GerenciadorSaida.GetInstance().imprimirNotaFiscal(Saida);
         }
 
     }
