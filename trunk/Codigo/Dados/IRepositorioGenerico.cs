@@ -7,9 +7,8 @@ using System.Data.Entity;
 
 namespace Dados
 {
-    public interface IRepositorioGenerico<T, IObjectContext>: IDisposable 
+    public interface IRepositorioGenerico<T>: IDisposable 
         where T: class
-        where IObjectContext: ObjectContext
     {
         T Inserir(T entidade);
         void Remover(T entidade);
