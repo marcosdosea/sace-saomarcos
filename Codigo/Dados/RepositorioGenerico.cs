@@ -11,27 +11,27 @@ namespace Dados
     /// Repositório genérico para trabalhar com dados no SGBD
     /// </summary>
     /// <typeparam name="T">Um POCO que representa uma entidade no Entity Framework </typeparam>
-    public class RepositorioGenerico<T, IObjectContext>: IRepositorioGenerico<T, IObjectContext> 
+    public class RepositorioGenerico<T>: IRepositorioGenerico<T> 
         where T: class, new()
-        where IObjectContext: ObjectContext, new()
     {
         /// <summary>
         /// Objeto contexto para o sgbd
         /// </summary>
-        private static readonly ObjectContext _context = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
+        private ObjectContext _context;
 
         /// <summary>
         /// Representa a entidade corrente
         /// </summary>
-        private readonly IObjectSet<T> _objectSet;
+        private IObjectSet<T> _objectSet;
 
         /// <summary>
         /// Inicializa uma nova instância do repositório
         /// </summary>
         /// <param name="contexto">O Objeto contexto do Entity Framework </param>
         /// <param name="chave"> Identifica o contexto criado </param>
-        public RepositorioGenerico(string chave)
+        public RepositorioGenerico()
         {
+            _context = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
             _objectSet = _context.CreateObjectSet<T>();
         }
 
@@ -54,6 +54,7 @@ namespace Dados
             {
                 throw new ArgumentNullException("entity");
             }
+
             _objectSet.AddObject(entidade);
             return entidade;
         }
@@ -134,7 +135,6 @@ namespace Dados
         /// <returns> número de registros afetados </returns>
         public int SaveChanges()
         {
-            // retorna o número de objetos que foram persistidos
             return _context.SaveChanges();
         }
 
