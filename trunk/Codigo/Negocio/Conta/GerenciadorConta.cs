@@ -8,7 +8,6 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
-using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
@@ -126,7 +125,6 @@ namespace Negocio
                         select new Conta
                         {
                             CodConta = conta.codConta,
-                            CodDocumento = conta.codDocumentoPagamento,
                             CodEntrada = (long)conta.codEntrada,
                             CodPagamento = conta.codPagamento,
                             CodPessoa = conta.codPessoa,
@@ -280,7 +278,6 @@ namespace Negocio
         private void Atribuir(Conta conta, ContaE _conta)
         {
             _conta.codConta = conta.CodConta;
-            _conta.codDocumentoPagamento = conta.CodDocumento;
             _conta.codEntrada = conta.CodEntrada;
             _conta.codPagamento = conta.CodPagamento;
             _conta.codPessoa = conta.CodPessoa;
@@ -314,7 +311,6 @@ namespace Negocio
             for (int i = 0; i < parcelas; i++)
             {
                 Conta conta = new Conta();    
-                conta.CodDocumento = 1;
                 conta.CodEntrada = 1;
                 conta.CodPagamento = 1;
                 conta.CodPessoa = cartaoCredito.CodPessoa;

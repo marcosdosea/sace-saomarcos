@@ -119,42 +119,6 @@
             this.dataEntradaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.tb_entrada_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.codProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codEntradaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cfopDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unidadeCompraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeEmbalagemDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorTotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseCalculoICMSDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseCalculoICMSSTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorICMSDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorICMSSTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorIPIDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDescontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoCustoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ncmshDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.icmsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.icmsSubstitutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ipiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.freteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codCSTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qtdProdutoAtacadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataValidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDisponivelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.simplesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lucroPrecoVendaVarejoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoVendaVarejoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lucroPrecoVendaAtacadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoVendaAtacadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ehTributacaoIntegralDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.fornecedorEhFabricanteDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.codFornecedorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
             this.situacaoPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -178,6 +142,13 @@
             this.tb_produto_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
             this.label13 = new System.Windows.Forms.Label();
+            this.codEntradaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unidadeCompraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorTotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codEntradaLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
             codFornecedorLabel = new System.Windows.Forms.Label();
@@ -909,16 +880,16 @@
             this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codProdutoComboBox.CausesValidation = false;
-            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaProdutoBindingSource, "codProduto", true));
             this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "nomeProduto", true));
+            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaProdutoBindingSource, "CodProduto", true));
             this.codProdutoComboBox.DataSource = this.produtoBindingSource;
-            this.codProdutoComboBox.DisplayMember = "nome";
+            this.codProdutoComboBox.DisplayMember = "Nome";
             this.codProdutoComboBox.FormattingEnabled = true;
             this.codProdutoComboBox.Location = new System.Drawing.Point(6, 33);
             this.codProdutoComboBox.Name = "codProdutoComboBox";
             this.codProdutoComboBox.Size = new System.Drawing.Size(513, 21);
             this.codProdutoComboBox.TabIndex = 50;
-            this.codProdutoComboBox.ValueMember = "codProduto";
+            this.codProdutoComboBox.ValueMember = "CodProduto";
             this.codProdutoComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFornecedorComboBox_KeyPress);
             this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
@@ -1107,42 +1078,13 @@
             this.tb_entrada_produtoDataGridView.AutoGenerateColumns = false;
             this.tb_entrada_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_entrada_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codProduto,
             this.codEntradaProdutoDataGridViewTextBoxColumn,
-            this.codEntradaDataGridViewTextBoxColumn,
-            this.dataEntradaDataGridViewTextBoxColumn,
-            this.codProdutoDataGridViewTextBoxColumn,
-            this.cfopDataGridViewTextBoxColumn,
+            this.codProduto,
+            this.NomeProduto,
             this.unidadeCompraDataGridViewTextBoxColumn,
             this.quantidadeDataGridViewTextBoxColumn,
-            this.quantidadeEmbalagemDataGridViewTextBoxColumn,
             this.valorUnitarioDataGridViewTextBoxColumn,
-            this.valorTotalDataGridViewTextBoxColumn,
-            this.baseCalculoICMSDataGridViewTextBoxColumn,
-            this.baseCalculoICMSSTDataGridViewTextBoxColumn,
-            this.valorICMSDataGridViewTextBoxColumn,
-            this.valorICMSSTDataGridViewTextBoxColumn,
-            this.valorIPIDataGridViewTextBoxColumn,
-            this.valorDescontoDataGridViewTextBoxColumn,
-            this.precoCustoDataGridViewTextBoxColumn,
-            this.ncmshDataGridViewTextBoxColumn,
-            this.icmsDataGridViewTextBoxColumn,
-            this.icmsSubstitutoDataGridViewTextBoxColumn,
-            this.ipiDataGridViewTextBoxColumn,
-            this.freteDataGridViewTextBoxColumn,
-            this.descontoDataGridViewTextBoxColumn,
-            this.codCSTDataGridViewTextBoxColumn,
-            this.qtdProdutoAtacadoDataGridViewTextBoxColumn,
-            this.dataValidadeDataGridViewTextBoxColumn,
-            this.quantidadeDisponivelDataGridViewTextBoxColumn,
-            this.simplesDataGridViewTextBoxColumn,
-            this.lucroPrecoVendaVarejoDataGridViewTextBoxColumn,
-            this.precoVendaVarejoDataGridViewTextBoxColumn,
-            this.lucroPrecoVendaAtacadoDataGridViewTextBoxColumn,
-            this.precoVendaAtacadoDataGridViewTextBoxColumn,
-            this.ehTributacaoIntegralDataGridViewCheckBoxColumn,
-            this.fornecedorEhFabricanteDataGridViewCheckBoxColumn,
-            this.codFornecedorDataGridViewTextBoxColumn});
+            this.valorTotalDataGridViewTextBoxColumn});
             this.tb_entrada_produtoDataGridView.DataSource = this.entradaProdutoBindingSource;
             this.tb_entrada_produtoDataGridView.Location = new System.Drawing.Point(7, 153);
             this.tb_entrada_produtoDataGridView.Name = "tb_entrada_produtoDataGridView";
@@ -1151,258 +1093,6 @@
             this.tb_entrada_produtoDataGridView.Size = new System.Drawing.Size(831, 84);
             this.tb_entrada_produtoDataGridView.TabIndex = 46;
             this.tb_entrada_produtoDataGridView.TabStop = false;
-            // 
-            // codProduto
-            // 
-            this.codProduto.DataPropertyName = "codProduto";
-            this.codProduto.HeaderText = "Cód Produto";
-            this.codProduto.Name = "codProduto";
-            this.codProduto.ReadOnly = true;
-            // 
-            // codEntradaProdutoDataGridViewTextBoxColumn
-            // 
-            this.codEntradaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodEntradaProduto";
-            this.codEntradaProdutoDataGridViewTextBoxColumn.HeaderText = "CodEntradaProduto";
-            this.codEntradaProdutoDataGridViewTextBoxColumn.Name = "codEntradaProdutoDataGridViewTextBoxColumn";
-            this.codEntradaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codEntradaDataGridViewTextBoxColumn
-            // 
-            this.codEntradaDataGridViewTextBoxColumn.DataPropertyName = "CodEntrada";
-            this.codEntradaDataGridViewTextBoxColumn.HeaderText = "CodEntrada";
-            this.codEntradaDataGridViewTextBoxColumn.Name = "codEntradaDataGridViewTextBoxColumn";
-            this.codEntradaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataEntradaDataGridViewTextBoxColumn
-            // 
-            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
-            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "DataEntrada";
-            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
-            this.dataEntradaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codProdutoDataGridViewTextBoxColumn
-            // 
-            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodProduto";
-            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "CodProduto";
-            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
-            this.codProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cfopDataGridViewTextBoxColumn
-            // 
-            this.cfopDataGridViewTextBoxColumn.DataPropertyName = "Cfop";
-            this.cfopDataGridViewTextBoxColumn.HeaderText = "Cfop";
-            this.cfopDataGridViewTextBoxColumn.Name = "cfopDataGridViewTextBoxColumn";
-            this.cfopDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // unidadeCompraDataGridViewTextBoxColumn
-            // 
-            this.unidadeCompraDataGridViewTextBoxColumn.DataPropertyName = "UnidadeCompra";
-            this.unidadeCompraDataGridViewTextBoxColumn.HeaderText = "UnidadeCompra";
-            this.unidadeCompraDataGridViewTextBoxColumn.Name = "unidadeCompraDataGridViewTextBoxColumn";
-            this.unidadeCompraDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantidadeEmbalagemDataGridViewTextBoxColumn
-            // 
-            this.quantidadeEmbalagemDataGridViewTextBoxColumn.DataPropertyName = "QuantidadeEmbalagem";
-            this.quantidadeEmbalagemDataGridViewTextBoxColumn.HeaderText = "QuantidadeEmbalagem";
-            this.quantidadeEmbalagemDataGridViewTextBoxColumn.Name = "quantidadeEmbalagemDataGridViewTextBoxColumn";
-            this.quantidadeEmbalagemDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorUnitarioDataGridViewTextBoxColumn
-            // 
-            this.valorUnitarioDataGridViewTextBoxColumn.DataPropertyName = "ValorUnitario";
-            this.valorUnitarioDataGridViewTextBoxColumn.HeaderText = "ValorUnitario";
-            this.valorUnitarioDataGridViewTextBoxColumn.Name = "valorUnitarioDataGridViewTextBoxColumn";
-            this.valorUnitarioDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorTotalDataGridViewTextBoxColumn
-            // 
-            this.valorTotalDataGridViewTextBoxColumn.DataPropertyName = "ValorTotal";
-            this.valorTotalDataGridViewTextBoxColumn.HeaderText = "ValorTotal";
-            this.valorTotalDataGridViewTextBoxColumn.Name = "valorTotalDataGridViewTextBoxColumn";
-            this.valorTotalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // baseCalculoICMSDataGridViewTextBoxColumn
-            // 
-            this.baseCalculoICMSDataGridViewTextBoxColumn.DataPropertyName = "BaseCalculoICMS";
-            this.baseCalculoICMSDataGridViewTextBoxColumn.HeaderText = "BaseCalculoICMS";
-            this.baseCalculoICMSDataGridViewTextBoxColumn.Name = "baseCalculoICMSDataGridViewTextBoxColumn";
-            this.baseCalculoICMSDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // baseCalculoICMSSTDataGridViewTextBoxColumn
-            // 
-            this.baseCalculoICMSSTDataGridViewTextBoxColumn.DataPropertyName = "BaseCalculoICMSST";
-            this.baseCalculoICMSSTDataGridViewTextBoxColumn.HeaderText = "BaseCalculoICMSST";
-            this.baseCalculoICMSSTDataGridViewTextBoxColumn.Name = "baseCalculoICMSSTDataGridViewTextBoxColumn";
-            this.baseCalculoICMSSTDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorICMSDataGridViewTextBoxColumn
-            // 
-            this.valorICMSDataGridViewTextBoxColumn.DataPropertyName = "ValorICMS";
-            this.valorICMSDataGridViewTextBoxColumn.HeaderText = "ValorICMS";
-            this.valorICMSDataGridViewTextBoxColumn.Name = "valorICMSDataGridViewTextBoxColumn";
-            this.valorICMSDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorICMSSTDataGridViewTextBoxColumn
-            // 
-            this.valorICMSSTDataGridViewTextBoxColumn.DataPropertyName = "ValorICMSST";
-            this.valorICMSSTDataGridViewTextBoxColumn.HeaderText = "ValorICMSST";
-            this.valorICMSSTDataGridViewTextBoxColumn.Name = "valorICMSSTDataGridViewTextBoxColumn";
-            this.valorICMSSTDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorIPIDataGridViewTextBoxColumn
-            // 
-            this.valorIPIDataGridViewTextBoxColumn.DataPropertyName = "ValorIPI";
-            this.valorIPIDataGridViewTextBoxColumn.HeaderText = "ValorIPI";
-            this.valorIPIDataGridViewTextBoxColumn.Name = "valorIPIDataGridViewTextBoxColumn";
-            this.valorIPIDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorDescontoDataGridViewTextBoxColumn
-            // 
-            this.valorDescontoDataGridViewTextBoxColumn.DataPropertyName = "ValorDesconto";
-            this.valorDescontoDataGridViewTextBoxColumn.HeaderText = "ValorDesconto";
-            this.valorDescontoDataGridViewTextBoxColumn.Name = "valorDescontoDataGridViewTextBoxColumn";
-            this.valorDescontoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // precoCustoDataGridViewTextBoxColumn
-            // 
-            this.precoCustoDataGridViewTextBoxColumn.DataPropertyName = "PrecoCusto";
-            this.precoCustoDataGridViewTextBoxColumn.HeaderText = "PrecoCusto";
-            this.precoCustoDataGridViewTextBoxColumn.Name = "precoCustoDataGridViewTextBoxColumn";
-            this.precoCustoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ncmshDataGridViewTextBoxColumn
-            // 
-            this.ncmshDataGridViewTextBoxColumn.DataPropertyName = "Ncmsh";
-            this.ncmshDataGridViewTextBoxColumn.HeaderText = "Ncmsh";
-            this.ncmshDataGridViewTextBoxColumn.Name = "ncmshDataGridViewTextBoxColumn";
-            this.ncmshDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // icmsDataGridViewTextBoxColumn
-            // 
-            this.icmsDataGridViewTextBoxColumn.DataPropertyName = "Icms";
-            this.icmsDataGridViewTextBoxColumn.HeaderText = "Icms";
-            this.icmsDataGridViewTextBoxColumn.Name = "icmsDataGridViewTextBoxColumn";
-            this.icmsDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // icmsSubstitutoDataGridViewTextBoxColumn
-            // 
-            this.icmsSubstitutoDataGridViewTextBoxColumn.DataPropertyName = "IcmsSubstituto";
-            this.icmsSubstitutoDataGridViewTextBoxColumn.HeaderText = "IcmsSubstituto";
-            this.icmsSubstitutoDataGridViewTextBoxColumn.Name = "icmsSubstitutoDataGridViewTextBoxColumn";
-            this.icmsSubstitutoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ipiDataGridViewTextBoxColumn
-            // 
-            this.ipiDataGridViewTextBoxColumn.DataPropertyName = "Ipi";
-            this.ipiDataGridViewTextBoxColumn.HeaderText = "Ipi";
-            this.ipiDataGridViewTextBoxColumn.Name = "ipiDataGridViewTextBoxColumn";
-            this.ipiDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // freteDataGridViewTextBoxColumn
-            // 
-            this.freteDataGridViewTextBoxColumn.DataPropertyName = "Frete";
-            this.freteDataGridViewTextBoxColumn.HeaderText = "Frete";
-            this.freteDataGridViewTextBoxColumn.Name = "freteDataGridViewTextBoxColumn";
-            this.freteDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descontoDataGridViewTextBoxColumn
-            // 
-            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "Desconto";
-            this.descontoDataGridViewTextBoxColumn.HeaderText = "Desconto";
-            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
-            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codCSTDataGridViewTextBoxColumn
-            // 
-            this.codCSTDataGridViewTextBoxColumn.DataPropertyName = "CodCST";
-            this.codCSTDataGridViewTextBoxColumn.HeaderText = "CodCST";
-            this.codCSTDataGridViewTextBoxColumn.Name = "codCSTDataGridViewTextBoxColumn";
-            this.codCSTDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // qtdProdutoAtacadoDataGridViewTextBoxColumn
-            // 
-            this.qtdProdutoAtacadoDataGridViewTextBoxColumn.DataPropertyName = "QtdProdutoAtacado";
-            this.qtdProdutoAtacadoDataGridViewTextBoxColumn.HeaderText = "QtdProdutoAtacado";
-            this.qtdProdutoAtacadoDataGridViewTextBoxColumn.Name = "qtdProdutoAtacadoDataGridViewTextBoxColumn";
-            this.qtdProdutoAtacadoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataValidadeDataGridViewTextBoxColumn
-            // 
-            this.dataValidadeDataGridViewTextBoxColumn.DataPropertyName = "DataValidade";
-            this.dataValidadeDataGridViewTextBoxColumn.HeaderText = "DataValidade";
-            this.dataValidadeDataGridViewTextBoxColumn.Name = "dataValidadeDataGridViewTextBoxColumn";
-            this.dataValidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantidadeDisponivelDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDisponivelDataGridViewTextBoxColumn.DataPropertyName = "QuantidadeDisponivel";
-            this.quantidadeDisponivelDataGridViewTextBoxColumn.HeaderText = "QuantidadeDisponivel";
-            this.quantidadeDisponivelDataGridViewTextBoxColumn.Name = "quantidadeDisponivelDataGridViewTextBoxColumn";
-            this.quantidadeDisponivelDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // simplesDataGridViewTextBoxColumn
-            // 
-            this.simplesDataGridViewTextBoxColumn.DataPropertyName = "Simples";
-            this.simplesDataGridViewTextBoxColumn.HeaderText = "Simples";
-            this.simplesDataGridViewTextBoxColumn.Name = "simplesDataGridViewTextBoxColumn";
-            this.simplesDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lucroPrecoVendaVarejoDataGridViewTextBoxColumn
-            // 
-            this.lucroPrecoVendaVarejoDataGridViewTextBoxColumn.DataPropertyName = "LucroPrecoVendaVarejo";
-            this.lucroPrecoVendaVarejoDataGridViewTextBoxColumn.HeaderText = "LucroPrecoVendaVarejo";
-            this.lucroPrecoVendaVarejoDataGridViewTextBoxColumn.Name = "lucroPrecoVendaVarejoDataGridViewTextBoxColumn";
-            this.lucroPrecoVendaVarejoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // precoVendaVarejoDataGridViewTextBoxColumn
-            // 
-            this.precoVendaVarejoDataGridViewTextBoxColumn.DataPropertyName = "PrecoVendaVarejo";
-            this.precoVendaVarejoDataGridViewTextBoxColumn.HeaderText = "PrecoVendaVarejo";
-            this.precoVendaVarejoDataGridViewTextBoxColumn.Name = "precoVendaVarejoDataGridViewTextBoxColumn";
-            this.precoVendaVarejoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lucroPrecoVendaAtacadoDataGridViewTextBoxColumn
-            // 
-            this.lucroPrecoVendaAtacadoDataGridViewTextBoxColumn.DataPropertyName = "LucroPrecoVendaAtacado";
-            this.lucroPrecoVendaAtacadoDataGridViewTextBoxColumn.HeaderText = "LucroPrecoVendaAtacado";
-            this.lucroPrecoVendaAtacadoDataGridViewTextBoxColumn.Name = "lucroPrecoVendaAtacadoDataGridViewTextBoxColumn";
-            this.lucroPrecoVendaAtacadoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // precoVendaAtacadoDataGridViewTextBoxColumn
-            // 
-            this.precoVendaAtacadoDataGridViewTextBoxColumn.DataPropertyName = "PrecoVendaAtacado";
-            this.precoVendaAtacadoDataGridViewTextBoxColumn.HeaderText = "PrecoVendaAtacado";
-            this.precoVendaAtacadoDataGridViewTextBoxColumn.Name = "precoVendaAtacadoDataGridViewTextBoxColumn";
-            this.precoVendaAtacadoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ehTributacaoIntegralDataGridViewCheckBoxColumn
-            // 
-            this.ehTributacaoIntegralDataGridViewCheckBoxColumn.DataPropertyName = "EhTributacaoIntegral";
-            this.ehTributacaoIntegralDataGridViewCheckBoxColumn.HeaderText = "EhTributacaoIntegral";
-            this.ehTributacaoIntegralDataGridViewCheckBoxColumn.Name = "ehTributacaoIntegralDataGridViewCheckBoxColumn";
-            this.ehTributacaoIntegralDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // fornecedorEhFabricanteDataGridViewCheckBoxColumn
-            // 
-            this.fornecedorEhFabricanteDataGridViewCheckBoxColumn.DataPropertyName = "FornecedorEhFabricante";
-            this.fornecedorEhFabricanteDataGridViewCheckBoxColumn.HeaderText = "FornecedorEhFabricante";
-            this.fornecedorEhFabricanteDataGridViewCheckBoxColumn.Name = "fornecedorEhFabricanteDataGridViewCheckBoxColumn";
-            this.fornecedorEhFabricanteDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // codFornecedorDataGridViewTextBoxColumn
-            // 
-            this.codFornecedorDataGridViewTextBoxColumn.DataPropertyName = "CodFornecedor";
-            this.codFornecedorDataGridViewTextBoxColumn.HeaderText = "CodFornecedor";
-            this.codFornecedorDataGridViewTextBoxColumn.Name = "codFornecedorDataGridViewTextBoxColumn";
-            this.codFornecedorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // fretePagoEmitenteCheckBox
             // 
@@ -1441,7 +1131,7 @@
             this.chart1.TabIndex = 113;
             this.chart1.Text = "chart1";
             // 
-            // produtosVendidosTableAdapterBindingSource
+            // produtosVendidosBindingSource
             // 
             this.produtosVendidosBindingSource.DataMember = "ProdutosVendidos";
             // 
@@ -1636,6 +1326,59 @@
             this.label13.TabIndex = 125;
             this.label13.Text = "Estoque";
             // 
+            // codEntradaProdutoDataGridViewTextBoxColumn
+            // 
+            this.codEntradaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodEntradaProduto";
+            this.codEntradaProdutoDataGridViewTextBoxColumn.HeaderText = "CodEntradaProduto";
+            this.codEntradaProdutoDataGridViewTextBoxColumn.Name = "codEntradaProdutoDataGridViewTextBoxColumn";
+            this.codEntradaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codEntradaProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // codProduto
+            // 
+            this.codProduto.DataPropertyName = "CodProduto";
+            this.codProduto.HeaderText = "Cód Produto";
+            this.codProduto.Name = "codProduto";
+            this.codProduto.ReadOnly = true;
+            // 
+            // NomeProduto
+            // 
+            this.NomeProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NomeProduto.DataPropertyName = "NomeProduto";
+            this.NomeProduto.HeaderText = "Nome Produto";
+            this.NomeProduto.Name = "NomeProduto";
+            this.NomeProduto.ReadOnly = true;
+            // 
+            // unidadeCompraDataGridViewTextBoxColumn
+            // 
+            this.unidadeCompraDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.unidadeCompraDataGridViewTextBoxColumn.DataPropertyName = "UnidadeCompra";
+            this.unidadeCompraDataGridViewTextBoxColumn.FillWeight = 20F;
+            this.unidadeCompraDataGridViewTextBoxColumn.HeaderText = "UN";
+            this.unidadeCompraDataGridViewTextBoxColumn.Name = "unidadeCompraDataGridViewTextBoxColumn";
+            this.unidadeCompraDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorUnitarioDataGridViewTextBoxColumn
+            // 
+            this.valorUnitarioDataGridViewTextBoxColumn.DataPropertyName = "ValorUnitario";
+            this.valorUnitarioDataGridViewTextBoxColumn.HeaderText = "Valor Unitário";
+            this.valorUnitarioDataGridViewTextBoxColumn.Name = "valorUnitarioDataGridViewTextBoxColumn";
+            this.valorUnitarioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorTotalDataGridViewTextBoxColumn
+            // 
+            this.valorTotalDataGridViewTextBoxColumn.DataPropertyName = "ValorTotal";
+            this.valorTotalDataGridViewTextBoxColumn.HeaderText = "Valor Total";
+            this.valorTotalDataGridViewTextBoxColumn.Name = "valorTotalDataGridViewTextBoxColumn";
+            this.valorTotalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // FrmEntradaPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1784,7 +1527,6 @@
         private System.Windows.Forms.ComboBox codCSTComboBox;
         private System.Windows.Forms.BindingSource cstBindingSource;
         private System.Windows.Forms.TextBox descontoProdutoTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codProduto;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.TextBox valorFreteTextBox;
         private System.Windows.Forms.TextBox totalICMSTextBox;
@@ -1807,39 +1549,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataEntrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidade;
         private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaProdutoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataEntradaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codProdutoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cfopDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codProduto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NomeProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn unidadeCompraDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeEmbalagemDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorUnitarioDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorTotalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn baseCalculoICMSDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn baseCalculoICMSSTDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorICMSDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorICMSSTDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorIPIDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorDescontoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoCustoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ncmshDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn icmsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn icmsSubstitutoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ipiDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn freteDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descontoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codCSTDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn qtdProdutoAtacadoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDisponivelDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn simplesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lucroPrecoVendaVarejoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoVendaVarejoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lucroPrecoVendaAtacadoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoVendaAtacadoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ehTributacaoIntegralDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn fornecedorEhFabricanteDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codFornecedorDataGridViewTextBoxColumn;
     }
 }

@@ -106,9 +106,11 @@ namespace Negocio
             var saceEntities = (SaceEntities)repProdutoLoja.ObterContexto();
             var query = from produtoLoja in saceEntities.ProdutoLojaSet
                         join produto in saceEntities.ProdutoSet on produtoLoja.codProduto equals produto.codProduto
+                        join loja in saceEntities.LojaSet on produtoLoja.codLoja equals loja.codLoja
                         select new ProdutoLoja
                         {
                             CodLoja = produtoLoja.codLoja,
+                            NomeLoja = loja.nome,
                             CodProduto = produtoLoja.codProduto,
                             EstoqueMaximo = produtoLoja.estoqueMaximo,
                             Localizacao = produtoLoja.localizacao,

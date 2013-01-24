@@ -375,7 +375,6 @@
             this.codLojaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codLojaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codLojaComboBox.CausesValidation = false;
-            this.codLojaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoLojaBindingSource, "nomeLoja", true));
             this.codLojaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoLojaBindingSource, "CodLoja", true));
             this.codLojaComboBox.DataSource = this.lojaBindingSource;
             this.codLojaComboBox.DisplayMember = "Nome";

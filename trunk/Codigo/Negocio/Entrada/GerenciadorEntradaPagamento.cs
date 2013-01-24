@@ -40,20 +40,7 @@ namespace Negocio
                 {
                     throw new NegocioException("O valor do pagamento deve ser maior que zero e não deve ultrapassar o valor total da entrada.");
                 } 
-                else if ((entradaPagamento.CodFormaPagamento == FormaPagamento.BOLETO) && (entradaPagamento.CodDocumentoPagamento == 1))
-                {
-                    throw new NegocioException("É necessário cadastrar os dados do boleto para utilizar essa forma de pagamento.");
-                } 
-                else if ((entradaPagamento.CodFormaPagamento == FormaPagamento.CHEQUE) && (entradaPagamento.CodDocumentoPagamento == 1))
-                {
-                    throw new NegocioException("É necessário cadastrar os dados do cheque para utilizar essa forma de pagamento.");
-                } 
-                else if ((entradaPagamento.CodFormaPagamento == FormaPagamento.CARTAO) || (entradaPagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
-                    || (entradaPagamento.CodFormaPagamento == FormaPagamento.DEPOSITO))
-                {
-                    entradaPagamento.CodDocumentoPagamento = Global.DOCUMENTO_PADRAO;
-                }
-
+                
                 decimal? totalPagamentos = ObterPorEntrada(entradaPagamento.CodEntrada).Sum(ep => ep.Valor);
 
                 Entrada entrada = GerenciadorEntrada.GetInstance().Obter(entradaPagamento.CodEntrada).ElementAt(0);
@@ -83,7 +70,6 @@ namespace Negocio
         private static void Atribuir(EntradaPagamento entradaPagamento, EntradaFormaPagamentoE _entradaFormaPagamentoE)
         {
             _entradaFormaPagamentoE.codContaBanco = entradaPagamento.CodContaBanco;
-            _entradaFormaPagamentoE.codDocumentoPagamento = entradaPagamento.CodDocumentoPagamento;
             _entradaFormaPagamentoE.codEntrada = entradaPagamento.CodEntrada;
             _entradaFormaPagamentoE.codFormaPagamento = entradaPagamento.CodFormaPagamento;
             _entradaFormaPagamentoE.data = entradaPagamento.Data;
@@ -119,7 +105,6 @@ namespace Negocio
                         select new EntradaPagamento
                         {
                             CodContaBanco = entradaFormaPagamento.codContaBanco,
-                            CodDocumentoPagamento = entradaFormaPagamento.codDocumentoPagamento,
                             CodEntrada = entradaFormaPagamento.codEntrada,
                             CodEntradaFormaPagamento = entradaFormaPagamento.codEntradaFormaPagamento,
                             CodFormaPagamento = entradaFormaPagamento.codFormaPagamento,

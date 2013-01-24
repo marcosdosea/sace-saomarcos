@@ -51,8 +51,11 @@
             System.Windows.Forms.Label valorIPILabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblSaidaProdutos = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblFormaEntrada = new System.Windows.Forms.Label();
@@ -79,24 +82,6 @@
             this.precoVendaSemDescontoTextBox = new System.Windows.Forms.TextBox();
             this.subtotalTextBox = new System.Windows.Forms.TextBox();
             this.tb_saida_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.codSaidaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVendaAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descontoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataValidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codCSTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseCalculoICMSDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorICMSDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseCalculoICMSSubstDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorICMSSubstDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorIPIDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saidaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -125,6 +110,13 @@
             this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
+            this.codSaidaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -588,7 +580,6 @@
             // 
             // precoVendaSemDescontoTextBox
             // 
-            this.precoVendaSemDescontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "precoVendaVarejoSemDesconto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.precoVendaSemDescontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendaSemDescontoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaSemDescontoTextBox.Location = new System.Drawing.Point(13, 239);
@@ -625,170 +616,33 @@
             this.tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaProdutoDataGridViewTextBoxColumn,
-            this.codProdutoDataGridViewTextBoxColumn,
             this.nomeDataGridViewTextBoxColumn,
-            this.codSaidaDataGridViewTextBoxColumn,
+            this.Unidade,
             this.quantidadeDataGridViewTextBoxColumn,
             this.valorVendaDataGridViewTextBoxColumn,
-            this.valorVendaAVistaDataGridViewTextBoxColumn,
-            this.descontoDataGridViewTextBoxColumn,
             this.subtotalDataGridViewTextBoxColumn,
-            this.subtotalAVistaDataGridViewTextBoxColumn,
-            this.dataValidadeDataGridViewTextBoxColumn,
-            this.codCSTDataGridViewTextBoxColumn,
-            this.unidadeDataGridViewTextBoxColumn,
-            this.baseCalculoICMSDataGridViewTextBoxColumn,
-            this.valorICMSDataGridViewTextBoxColumn,
-            this.baseCalculoICMSSubstDataGridViewTextBoxColumn,
-            this.valorICMSSubstDataGridViewTextBoxColumn,
-            this.valorIPIDataGridViewTextBoxColumn});
+            this.subtotalAVistaDataGridViewTextBoxColumn});
             this.tb_saida_produtoDataGridView.DataSource = this.saidaProdutoBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 150);
             this.tb_saida_produtoDataGridView.MultiSelect = false;
             this.tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
             this.tb_saida_produtoDataGridView.ReadOnly = true;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 300);
             this.tb_saida_produtoDataGridView.TabIndex = 36;
             this.tb_saida_produtoDataGridView.TabStop = false;
             this.tb_saida_produtoDataGridView.Leave += new System.EventHandler(this.tb_saida_produtoDataGridView_Leave);
-            // 
-            // codSaidaProdutoDataGridViewTextBoxColumn
-            // 
-            this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaProduto";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "CodSaidaProduto";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codProdutoDataGridViewTextBoxColumn
-            // 
-            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodProduto";
-            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "CodProduto";
-            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
-            this.codProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorVendaDataGridViewTextBoxColumn
-            // 
-            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
-            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "ValorVenda";
-            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
-            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorVendaAVistaDataGridViewTextBoxColumn
-            // 
-            this.valorVendaAVistaDataGridViewTextBoxColumn.DataPropertyName = "ValorVendaAVista";
-            this.valorVendaAVistaDataGridViewTextBoxColumn.HeaderText = "ValorVendaAVista";
-            this.valorVendaAVistaDataGridViewTextBoxColumn.Name = "valorVendaAVistaDataGridViewTextBoxColumn";
-            this.valorVendaAVistaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descontoDataGridViewTextBoxColumn
-            // 
-            this.descontoDataGridViewTextBoxColumn.DataPropertyName = "Desconto";
-            this.descontoDataGridViewTextBoxColumn.HeaderText = "Desconto";
-            this.descontoDataGridViewTextBoxColumn.Name = "descontoDataGridViewTextBoxColumn";
-            this.descontoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // subtotalDataGridViewTextBoxColumn
-            // 
-            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
-            this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
-            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
-            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // subtotalAVistaDataGridViewTextBoxColumn
-            // 
-            this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
-            this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "SubtotalAVista";
-            this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
-            this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataValidadeDataGridViewTextBoxColumn
-            // 
-            this.dataValidadeDataGridViewTextBoxColumn.DataPropertyName = "DataValidade";
-            this.dataValidadeDataGridViewTextBoxColumn.HeaderText = "DataValidade";
-            this.dataValidadeDataGridViewTextBoxColumn.Name = "dataValidadeDataGridViewTextBoxColumn";
-            this.dataValidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codCSTDataGridViewTextBoxColumn
-            // 
-            this.codCSTDataGridViewTextBoxColumn.DataPropertyName = "CodCST";
-            this.codCSTDataGridViewTextBoxColumn.HeaderText = "CodCST";
-            this.codCSTDataGridViewTextBoxColumn.Name = "codCSTDataGridViewTextBoxColumn";
-            this.codCSTDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // unidadeDataGridViewTextBoxColumn
-            // 
-            this.unidadeDataGridViewTextBoxColumn.DataPropertyName = "Unidade";
-            this.unidadeDataGridViewTextBoxColumn.HeaderText = "Unidade";
-            this.unidadeDataGridViewTextBoxColumn.Name = "unidadeDataGridViewTextBoxColumn";
-            this.unidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // baseCalculoICMSDataGridViewTextBoxColumn
-            // 
-            this.baseCalculoICMSDataGridViewTextBoxColumn.DataPropertyName = "BaseCalculoICMS";
-            this.baseCalculoICMSDataGridViewTextBoxColumn.HeaderText = "BaseCalculoICMS";
-            this.baseCalculoICMSDataGridViewTextBoxColumn.Name = "baseCalculoICMSDataGridViewTextBoxColumn";
-            this.baseCalculoICMSDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorICMSDataGridViewTextBoxColumn
-            // 
-            this.valorICMSDataGridViewTextBoxColumn.DataPropertyName = "ValorICMS";
-            this.valorICMSDataGridViewTextBoxColumn.HeaderText = "ValorICMS";
-            this.valorICMSDataGridViewTextBoxColumn.Name = "valorICMSDataGridViewTextBoxColumn";
-            this.valorICMSDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // baseCalculoICMSSubstDataGridViewTextBoxColumn
-            // 
-            this.baseCalculoICMSSubstDataGridViewTextBoxColumn.DataPropertyName = "BaseCalculoICMSSubst";
-            this.baseCalculoICMSSubstDataGridViewTextBoxColumn.HeaderText = "BaseCalculoICMSSubst";
-            this.baseCalculoICMSSubstDataGridViewTextBoxColumn.Name = "baseCalculoICMSSubstDataGridViewTextBoxColumn";
-            this.baseCalculoICMSSubstDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorICMSSubstDataGridViewTextBoxColumn
-            // 
-            this.valorICMSSubstDataGridViewTextBoxColumn.DataPropertyName = "ValorICMSSubst";
-            this.valorICMSSubstDataGridViewTextBoxColumn.HeaderText = "ValorICMSSubst";
-            this.valorICMSSubstDataGridViewTextBoxColumn.Name = "valorICMSSubstDataGridViewTextBoxColumn";
-            this.valorICMSSubstDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorIPIDataGridViewTextBoxColumn
-            // 
-            this.valorIPIDataGridViewTextBoxColumn.DataPropertyName = "ValorIPI";
-            this.valorIPIDataGridViewTextBoxColumn.HeaderText = "ValorIPI";
-            this.valorIPIDataGridViewTextBoxColumn.Name = "valorIPIDataGridViewTextBoxColumn";
-            this.valorIPIDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // saidaProdutoBindingSource
             // 
@@ -898,7 +752,6 @@
             // 
             // precoVendatextBox
             // 
-            this.precoVendatextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "precoVendaVarejo", true));
             this.precoVendatextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendatextBox.Location = new System.Drawing.Point(13, 358);
             this.precoVendatextBox.Name = "precoVendatextBox";
@@ -1105,6 +958,66 @@
             this.lblPreco.TabIndex = 78;
             this.lblPreco.Text = "CTRL+P - Preço Varejo";
             // 
+            // codSaidaProdutoDataGridViewTextBoxColumn
+            // 
+            this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaProduto";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "CodSaidaProduto";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codSaidaProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
+            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // Unidade
+            // 
+            this.Unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Unidade.DataPropertyName = "Unidade";
+            this.Unidade.FillWeight = 20F;
+            this.Unidade.HeaderText = "UN";
+            this.Unidade.Name = "Unidade";
+            this.Unidade.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorVendaDataGridViewTextBoxColumn
+            // 
+            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
+            dataGridViewCellStyle2.Format = "C2";
+            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
+            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
+            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalDataGridViewTextBoxColumn
+            // 
+            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
+            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
+            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalAVistaDataGridViewTextBoxColumn
+            // 
+            this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
+            dataGridViewCellStyle4.Format = "C2";
+            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
+            this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
+            this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // FrmSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1253,22 +1166,11 @@
         private System.Windows.Forms.TextBox valorIPITextBox;
         private System.Windows.Forms.Label lblPreco;
         private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaProdutoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codProdutoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unidade;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorVendaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorVendaAVistaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descontoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalAVistaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codCSTDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unidadeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn baseCalculoICMSDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorICMSDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn baseCalculoICMSSubstDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorICMSSubstDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorIPIDataGridViewTextBoxColumn;
     }
 }

@@ -243,26 +243,7 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            List<Pessoa> pessoas = (List<Pessoa>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codPessoaComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codPessoaComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.PessoaSelected != null)
-                {
-                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                    codPessoaComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
-                }
-                else
-                {
-                    codPessoaComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoas[0]);
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true);
         }
 
         private void codCartaoTextBox_Enter(object sender, EventArgs e)

@@ -104,10 +104,10 @@ namespace Telas
             }
             textoAtual = txtTexto.Text;
 
-            if ((tb_produtoDataGridView.RowCount > 0) )
+            if (produtoBindingSource.Count > 0)
             {
-                Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[0].Cells[0].Value.ToString());
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
+                ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(produto.CodProduto);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -151,11 +151,11 @@ namespace Telas
             {
                 if (tb_produtoDataGridView.RowCount > 0)
                 {
-                    Int32 codProduto = int.Parse(tb_produtoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(codProduto);
+                    ProdutoPesquisa _produto = (ProdutoPesquisa) produtoBindingSource.Current;
+                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produto);
                     frmAjuste.ShowDialog();
                     frmAjuste.Dispose();
-                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
+                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(_produto.CodProduto);
                 }
             }
         }

@@ -16,26 +16,19 @@ namespace Telas
     public partial class FrmProdutoAjusteEstoque : Form
     {
         private EstadoFormulario estado;
-        private Int32 codProduto;
+        public ProdutoPesquisa ProdutoSelected { get; set; }
 
-        public Int32 CodProduto
-        {
-            get { return codProduto; }
-            set { codProduto = value; }
-        }
-
-
-        public FrmProdutoAjusteEstoque(Int32 codProduto)
+        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto)
         {
             InitializeComponent();
-            this.codProduto = codProduto;
+            ProdutoSelected = _produto;
         }
 
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
             lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
-            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
+            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(ProdutoSelected.CodProduto);
             habilitaBotoes(true);
         }
 
@@ -44,7 +37,7 @@ namespace Telas
             String nomeProduto = nomeProdutoTextBox.Text;
             produtoLojaBindingSource.AddNew();
             habilitaBotoes(false);
-            codProdutoTextBox.Text = codProduto.ToString();
+            codProdutoTextBox.Text = ProdutoSelected.CodProduto.ToString();
             nomeProdutoTextBox.Text = nomeProduto;
             codLojaComboBox.Focus();
             estado = EstadoFormulario.INSERIR;
@@ -60,7 +53,7 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            CodProduto = Convert.ToInt32(codProdutoTextBox.Text);
+            //CodProduto = Convert.ToInt32(codProdutoTextBox.Text);
             produtoLojaBindingSource.CancelEdit();
             produtoLojaBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -72,7 +65,7 @@ namespace Telas
             try
             {
                 ProdutoLoja produtoLoja = new ProdutoLoja();
-                produtoLoja.CodProduto = codProduto;
+                produtoLoja.CodProduto = ProdutoSelected.CodProduto;
                 produtoLoja.CodLoja = Int32.Parse(codLojaComboBox.SelectedValue.ToString());
                 produtoLoja.QtdEstoque = decimal.Parse(qtdEstoqueTextBox.Text);
                 produtoLoja.QtdEstoqueAux = decimal.Parse(qtdEstoqueAuxTextBox.Text);
@@ -85,7 +78,7 @@ namespace Telas
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gProdutoLoja.Inserir(produtoLoja);
-                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(codProduto);
+                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(ProdutoSelected.CodProduto);
                     produtoLojaBindingSource.MoveLast();
                 }
                 else

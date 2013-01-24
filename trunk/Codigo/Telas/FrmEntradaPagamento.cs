@@ -43,7 +43,6 @@ namespace Telas
         {
             EntradaPagamento entradaPagamento = new EntradaPagamento();
             entradaPagamento.CodContaBanco = Convert.ToInt32(codContaBancoComboBox.SelectedValue.ToString());
-            entradaPagamento.CodDocumentoPagamento = Convert.ToInt32(codDocumentoPagamentoComboBox.SelectedValue.ToString());
             entradaPagamento.CodEntrada = entrada.CodEntrada;
             entradaPagamento.CodFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue.ToString());
             entradaPagamento.Data = Convert.ToDateTime(dataDateTimePicker.Text);
@@ -116,38 +115,6 @@ namespace Telas
             if ((e.KeyCode == Keys.Delete) && (tb_entrada_forma_pagamentoDataGridView.Focused == true))
             {
                 excluirPagamento(sender, e);
-            }
-
-            if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
-            {
-                //Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
-                //frmDocumentoPagamentoPesquisa.ShowDialog();
-                //if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
-                //{
-                //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
-                //}
-                //frmDocumentoPagamentoPesquisa.Dispose();
-            }
-            else if ((e.KeyCode == Keys.F3) && (codDocumentoPagamentoComboBox.Focused))
-            {
-                //Int32 formaPagamentoSelecionada = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue.ToString());
-
-                //Int32 codTipoDocumento = 0;
-                //if (formaPagamentoSelecionada == FormaPagamento.BOLETO)
-                //    codTipoDocumento = DocumentoPagamento.TIPO_BOLETO;
-                //else if (formaPagamentoSelecionada == FormaPagamento.CHEQUE)
-                //    codTipoDocumento = DocumentoPagamento.TIPO_CHEQUE;
-                //else
-                //    codTipoDocumento = DocumentoPagamento.TIPO_PROMISSORIA;
-
-                ////Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(codTipoDocumento);
-                //frmDocumentoPagamento.ShowDialog();
-                //if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
-                //{
-                //    this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-                //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
-                //}
-                //frmDocumentoPagamento.Dispose();
             }
         }
 

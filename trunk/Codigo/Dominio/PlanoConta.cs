@@ -12,44 +12,13 @@ namespace Dominio
         public const int RECEBIMENTO_CREDIARIO = 3;
         
 
-        private long codPlanoConta;
-
-        public long CodPlanoConta
-        {
-            get { return codPlanoConta; }
-            set { codPlanoConta = value; }
-        }
-
-        private int codGrupoConta;
-
-        public int CodGrupoConta
-        {
-            get { return codGrupoConta; }
-            set { codGrupoConta = value; }
-        }
-
-        private string descricao;
-
-        public string Descricao
-        {
-            get { return descricao; }
-            set { descricao = value; }
-        }
-        private String tipoConta;
-
-        public String TipoConta
-        {
-            get { return tipoConta; }
-            set { tipoConta = value; }
-        }
-        private Int16 diaBase;
-
-        public Int16 DiaBase
-        {
-            get { return diaBase; }
-            set { diaBase = value; }
-        }
-
+        public long CodPlanoConta { get; set; }
+        public int CodGrupoConta { get; set; }
+        public string Descricao { get; set; }
+        public string TipoConta { get; set; }
+        public string DescricaoTipoConta { get; set; }
+        public short DiaBase { get; set; }
+        
         // override object.Equals
         public override bool Equals(object obj)
         {

@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 
 namespace Telas
 {
     public partial class FrmEntradaPesquisa : Form
     {
-        private Int64 codEntrada;
+        public Entrada EntradaSelected { get; set; } 
 
         public FrmEntradaPesquisa()
         {
             InitializeComponent();
-            codEntrada = -1;
+            EntradaSelected = null;
         }
 
         private void FrmEntradaPesquisa_Load(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace Telas
         {
             if (tb_entradaDataGridView.SelectedRows.Count > 0)
             {
-                codEntrada = int.Parse(tb_entradaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                EntradaSelected = (Entrada) entradaBindingSource.Current;
             }
             this.Close();
         }
@@ -75,14 +76,10 @@ namespace Telas
             }
         }
 
-        public Int64 getCodEntrada()
-        {
-            return codEntrada;
-        }
-
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
         }
+
     }
 }

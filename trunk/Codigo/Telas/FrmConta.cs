@@ -173,29 +173,6 @@ namespace Telas
                 {
                     btnSalvar_Click(sender, e);
                 }
-                //else if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
-                //{
-                    //Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
-                    //frmDocumentoPagamentoPesquisa.ShowDialog();
-                    //if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
-                    //{
-                    //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
-                    //}
-                    //frmDocumentoPagamentoPesquisa.Dispose();
-                //}
-                //else if ((e.KeyCode == Keys.F3) && (codDocumentoPagamentoComboBox.Focused))
-                //{
-                //    //Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(0);
-                    //frmDocumentoPagamento.ShowDialog();
-                    //if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
-                    //{
-                    //    this.tb_pessoaTableAdapter.Fill(this.saceDataSet.tb_pessoa);
-                    //    this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-                    //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
-                    //}
-                    //frmDocumentoPagamento.Dispose();
-                //}
-
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();

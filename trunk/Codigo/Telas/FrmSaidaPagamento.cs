@@ -16,8 +16,8 @@ namespace Telas
     public partial class FrmSaidaPagamento : Form
     {
         private Saida saida;
-        private Pessoa cliente = null;
-        private decimal faltaReceber = 0;
+        //private Pessoa cliente = null;
+        //private decimal faltaReceber = 0;
 
         public FrmSaidaPagamento(Saida saida)
         {
@@ -53,7 +53,7 @@ namespace Telas
         {
             codCartaoComboBox.SelectedIndex = 0;
             codFormaPagamentoComboBox.SelectedIndex = 0;
-            codDocumentoPagamentoComboBox.SelectedIndex = 0;
+            //codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
             parcelasTextBox.Text = "1";
@@ -79,7 +79,6 @@ namespace Telas
                 saidaPagamento.Data = DateTime.Now;
                 saidaPagamento.Valor = decimal.Parse(valorRecebidoTextBox.Text);
                 saidaPagamento.CodSaida = saida.CodSaida;
-                saidaPagamento.CodDocumentoPagamento = int.Parse(codDocumentoPagamentoComboBox.SelectedValue.ToString());
                 saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
                 saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
 
@@ -144,6 +143,7 @@ namespace Telas
                         bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance().ObterPorSaidaFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
                         if (temPagamentoCrediario)
                         {
+                            Pessoa cliente = (Pessoa)clienteBindingSource.Current;
                             if (cliente.ImprimirDAV)
                             {
                                 GerenciadorSaida.GetInstance().ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
@@ -193,11 +193,11 @@ namespace Telas
             totalRecebidoLabel.Text = saida.TotalPago.ToString("N2");
             
             // Cálculo de quanto falta receber
-            faltaReceber = saida.TotalAVista - saida.TotalPago;
-            if (faltaReceber > 0)
-                faltaReceberTextBox.Text = faltaReceber.ToString("N2");
-            else
-                faltaReceberTextBox.Text = "0";
+            //faltaReceber = saida.TotalAVista - saida.TotalPago;
+            //if (faltaReceber > 0)
+            //    faltaReceberTextBox.Text = faltaReceber.ToString("N2");
+            //else
+            //    faltaReceberTextBox.Text = "0";
             
             // Cálculo do troco em relação aos pagamento efetuados
             if (saida.Troco > 0)
@@ -296,39 +296,6 @@ namespace Telas
                 }
                 frmPessoa.Dispose();
             }
-            else if ((e.KeyCode == Keys.F2) && (codDocumentoPagamentoComboBox.Focused))
-            {
-                //Telas.FrmDocumentoPagamentoPesquisa frmDocumentoPagamentoPesquisa = new Telas.FrmDocumentoPagamentoPesquisa();
-                //frmDocumentoPagamentoPesquisa.ShowDialog();
-                //if (frmDocumentoPagamentoPesquisa.CodDocumentoPagamento != -1)
-                //{
-                //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamentoPesquisa.CodDocumentoPagamento);
-                //}
-                //frmDocumentoPagamentoPesquisa.Dispose();
-            }
-            else if ((e.KeyCode == Keys.F3) && (codDocumentoPagamentoComboBox.Focused))
-            {
-                //Int32 formaPagamentoSelecionada = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue.ToString());
-
-                //Int32 codTipoDocumento = 0;
-                //if (formaPagamentoSelecionada == FormaPagamento.BOLETO)
-                //    codTipoDocumento = DocumentoPagamento.TIPO_BOLETO;
-                //else if (formaPagamentoSelecionada == FormaPagamento.CHEQUE)
-                //    codTipoDocumento = DocumentoPagamento.TIPO_CHEQUE;
-                //else
-                //    codTipoDocumento = DocumentoPagamento.TIPO_PROMISSORIA;
-
-                //Int32 codPessoa = Convert.ToInt32(codClienteComboBox.SelectedValue);
-
-                //Telas.FrmDocumentoPagamento frmDocumentoPagamento = new Telas.FrmDocumentoPagamento(codTipoDocumento, codPessoa);
-                //frmDocumentoPagamento.ShowDialog();
-                //if (frmDocumentoPagamento.CodDocumentoPagamento > 0)
-                //{
-                //    this.tb_documento_pagamentoTableAdapter.Fill(this.saceDataSet.tb_documento_pagamento);
-                //    tbdocumentopagamentoBindingSource.Position = tbdocumentopagamentoBindingSource.Find("codDocumentoPagamento", frmDocumentoPagamento.CodDocumentoPagamento);
-                //}
-                //frmDocumentoPagamento.Dispose();
-            }
         }
 
         
@@ -347,56 +314,14 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            List<Pessoa> pessoas = (List<Pessoa>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.PessoaSelected != null)
-                {
-                    clienteBindingSource.Position = clienteBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                    codClienteComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
-                }
-                else
-                {
-                    codClienteComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                cliente = pessoas[0];
-                clienteBindingSource.Position = clienteBindingSource.List.IndexOf(cliente);
-                codClienteComboBox.Text = cliente.NomeFantasia;
-            }
+            Pessoa cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, clienteBindingSource, true);
             cpf_CnpjTextBox.Text = cliente.CpfCnpj;
             codSaidaTextBox_Leave(sender, e);
         }
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            List<Pessoa> pessoas = (List<Pessoa>) GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codProfissionalComboBox.Text);
-            if (pessoas.Count == 0)
-            {
-                Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codProfissionalComboBox.Text);
-                frmPessoaPesquisa.ShowDialog();
-                if (frmPessoaPesquisa.PessoaSelected != null)
-                {
-                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                    codProfissionalComboBox.Text = frmPessoaPesquisa.PessoaSelected.NomeFantasia;
-                }
-                else
-                {
-                    codProfissionalComboBox.Focus();
-                }
-                frmPessoaPesquisa.Dispose();
-            }
-            else
-            {
-                Pessoa profissional = pessoas[0];
-                profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(profissional);
-                codProfissionalComboBox.Text = profissional.NomeFantasia;
-            }
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codProfissionalComboBox, EstadoFormulario.INSERIR, profissionalBindingSource, true); 
             codSaidaTextBox_Leave(sender, e);
         }
 
@@ -478,10 +403,10 @@ namespace Telas
             codSaidaTextBox_Leave(sender, e);
         }
 
-        private void faltaReceberTextBox_TextChanged(object sender, EventArgs e)
-        {
-            faltaReceber = Convert.ToDecimal(faltaReceberTextBox.Text);
-        }
+        //private void faltaReceberTextBox_TextChanged(object sender, EventArgs e)
+        //{
+        //    faltaReceber = Convert.ToDecimal(faltaReceberTextBox.Text);
+        //}
 
         private void codClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -503,7 +428,6 @@ namespace Telas
                 parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO) || (formaPagamento == FormaPagamento.PROMISSORIA);
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
                 codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
-                codDocumentoPagamentoComboBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO);
                 valorRecebidoTextBox.Enabled = !((formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO));
                 intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
             }

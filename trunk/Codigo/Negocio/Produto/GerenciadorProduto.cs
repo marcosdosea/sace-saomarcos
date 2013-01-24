@@ -204,8 +204,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
-            return GetQuerySimples().Where(p => p.ExibeNaListagem).ToList();
-            //return GetQuerySimples().ToList();
+            //return GetQuerySimples().ToList().Where(p => p.ExibeNaListagem);
+            return GetQuerySimples().ToList();
         }
 
         /// <summary>
@@ -294,11 +294,13 @@ namespace Negocio
         {
             if ((nome.Length > 0) && (nome[0] == '%'))
             {
-                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
+                //return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
+                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
             }
             else
             {
-                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
+                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome)).ToList();
+                //return GetQuerySimples().Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
             }
         }
 

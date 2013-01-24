@@ -134,7 +134,6 @@ namespace Negocio
                 else
                     conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA.ToString();
 
-                conta.CodDocumento = pagamento.CodDocumentoPagamento;
                 conta.TipoConta = Conta.CONTA_PAGAR.ToString();
 
                 

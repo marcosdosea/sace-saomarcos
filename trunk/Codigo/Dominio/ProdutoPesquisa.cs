@@ -28,7 +28,7 @@ namespace Dominio
         {
             get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
         }
-        public Boolean ExibeNaListagem { get; set; }
+        public bool ExibeNaListagem { get; set; }
         public bool EhTributacaoIntegral
         {
             get

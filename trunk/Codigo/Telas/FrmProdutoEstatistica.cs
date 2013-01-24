@@ -11,7 +11,7 @@ namespace Telas
 {
     public partial class FrmProdutoEstatistica : Form
     {
-        private Produto produto;
+        //private Produto produto;
         string ultimoCodigoBarraLido = "";
 
         public FrmProdutoEstatistica()
@@ -52,7 +52,7 @@ namespace Telas
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, tb_produtoBindingSource, ultimoCodigoBarraLido, true);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, tb_produtoBindingSource, ref ultimoCodigoBarraLido, true);
             
             if (_produtoPesquisa != null)
             {

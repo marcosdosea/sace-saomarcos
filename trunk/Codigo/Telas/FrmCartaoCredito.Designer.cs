@@ -368,7 +368,7 @@
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "NomePessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.cartaoCreditoBindingSource, "CodPessoa", true));
             this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
             this.codPessoaComboBox.DisplayMember = "NomeFantasia";
             this.codPessoaComboBox.FormattingEnabled = true;

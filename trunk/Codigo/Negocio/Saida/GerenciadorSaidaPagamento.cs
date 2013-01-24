@@ -8,7 +8,6 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
-using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
@@ -55,19 +54,6 @@ namespace Negocio
                 {
                     throw new NegocioException("É necessário informar um cliente para utilizar essa forma de pagamento.");
                 }
-                else if ((saidaPagamento.CodFormaPagamento == FormaPagamento.BOLETO) && (saidaPagamento.CodDocumentoPagamento == 1))
-                {
-                    throw new NegocioException("É necessário cadastrar os dados do boleto para utilizar essa forma de pagamento.");
-                }
-                else if ((saidaPagamento.CodFormaPagamento == FormaPagamento.CHEQUE) && (saidaPagamento.CodDocumentoPagamento == 1))
-                {
-                    throw new NegocioException("É necessário cadastrar os dados do cheque para utilizar essa forma de pagamento.");
-                }
-                if ((saidaPagamento.CodFormaPagamento == FormaPagamento.CARTAO) || (saidaPagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
-                    || (saidaPagamento.CodFormaPagamento == FormaPagamento.DEPOSITO))
-                {
-                    saidaPagamento.CodDocumentoPagamento = Global.DOCUMENTO_PADRAO;
-                }
                 //decimal total = totalPagamentos(saida.CodSaida);
 
                 if (Math.Abs(saida.TotalAVista - saida.TotalPago) > 0)
@@ -75,7 +61,6 @@ namespace Negocio
                     SaidaFormaPagamentoE _saidaPagamentoE = new SaidaFormaPagamentoE();
                     _saidaPagamentoE.codCartao = saidaPagamento.CodCartaoCredito;
                     _saidaPagamentoE.codContaBanco = saidaPagamento.CodContaBanco;
-                    _saidaPagamentoE.codDocumentoPagamento = saidaPagamento.CodDocumentoPagamento;
                     _saidaPagamentoE.codFormaPagamento = saidaPagamento.CodFormaPagamento;
                     _saidaPagamentoE.codSaida = saidaPagamento.CodSaida;
                     _saidaPagamentoE.data = saidaPagamento.Data;
@@ -165,7 +150,6 @@ namespace Negocio
                         {
                             CodCartaoCredito = saidaPagamento.codCartao,
                             CodContaBanco = saidaPagamento.codContaBanco,
-                            CodDocumentoPagamento = saidaPagamento.codDocumentoPagamento,
                             CodFormaPagamento = saidaPagamento.codFormaPagamento,
                             CodSaida = saidaPagamento.codSaida,
                             CodSaidaPagamento = saidaPagamento.codSaidaFormaPagamento,

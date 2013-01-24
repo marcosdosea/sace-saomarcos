@@ -99,13 +99,15 @@ namespace Negocio
         {
             var saceEntities = (SaceEntities)repPlanoConta.ObterContexto();
             var query = from planoConta in saceEntities.PlanoContaSet
+                        join tipoConta in saceEntities.TipoContaSet on planoConta.codTipoConta equals tipoConta.codTipoConta
                         select new PlanoConta
                         {
                             CodPlanoConta = planoConta.codPlanoConta,
                             CodGrupoConta = planoConta.codGrupoConta,
                             Descricao = planoConta.descricao,
-                            DiaBase = (short) planoConta.diaBase,
-                            TipoConta = planoConta.codTipoConta
+                            DiaBase = planoConta.diaBase == null ? (short) 1 : (short) planoConta.diaBase ,
+                            TipoConta = planoConta.codTipoConta,
+                            DescricaoTipoConta = tipoConta.descricaoTipoConta
                         };
             return query;
         }

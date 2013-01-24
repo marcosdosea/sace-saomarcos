@@ -43,7 +43,6 @@
             this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -67,8 +66,7 @@
             this.dataSaida,
             this.nomeCliente,
             this.pedidoGerado,
-            this.totalAVista,
-            this.totalDataGridViewTextBoxColumn});
+            this.totalAVista});
             this.tb_saidaDataGridView.DataSource = this.saidaBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -184,13 +182,6 @@
             this.totalAVista.Name = "totalAVista";
             this.totalAVista.ReadOnly = true;
             // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // FrmSaidaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,7 +220,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn pedidoGerado;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalAVista;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
 
     }
 }
