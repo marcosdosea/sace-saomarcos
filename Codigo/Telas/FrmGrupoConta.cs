@@ -64,7 +64,7 @@ namespace Telas
                 GerenciadorGrupoConta.GetInstance().Remover(Int32.Parse(codGrupoContaTextBox.Text));
                 grupoContaBindingSource.RemoveCurrent();
             }
-
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

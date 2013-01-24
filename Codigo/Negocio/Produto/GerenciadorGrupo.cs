@@ -40,7 +40,8 @@ namespace Negocio
                 GrupoE _grupoE = new GrupoE();
                 _grupoE.descricao = grupo.Descricao;
                 repGrupo.Inserir(_grupoE);
-                
+                repGrupo.SaveChanges();
+
                 SubgrupoE _subgrupoE = new SubgrupoE();
                 _subgrupoE.codGrupo = Convert.ToInt32(_grupoE.codGrupo);
                 _subgrupoE.descricao = "---- NAO DEFINIDO ----";

@@ -62,6 +62,7 @@ namespace Telas
                 GerenciadorCfop.GetInstance().Remover(Int32.Parse(cfopTextBox.Text));
                 cfopBindingSource.RemoveCurrent();
             }
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

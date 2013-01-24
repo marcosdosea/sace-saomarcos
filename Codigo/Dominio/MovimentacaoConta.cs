@@ -12,64 +12,15 @@ namespace Dominio
         public const int TROCO_CLIENTE = 3;
         public const int DEVOLUCAO_CLIENTE = 4;
 
-        private long codMovimentacao;
-
-        public long CodMovimentacao
-        {
-            get { return codMovimentacao; }
-            set { codMovimentacao = value; }
-        }
-        private int codTipoMovimentacao;
-
-        public int CodTipoMovimentacao
-        {
-            get { return codTipoMovimentacao; }
-            set { codTipoMovimentacao = value; }
-        }
-        private decimal valor;
-
-        public decimal Valor
-        {
-            get { return valor; }
-            set { valor = value; }
-        }
-        private DateTime dataHora;
-
-        public DateTime DataHora
-        {
-            get { return dataHora; }
-            set { dataHora = value; }
-        }
-        private long codResponsavel;
-
-        public long CodResponsavel
-        {
-            get { return codResponsavel; }
-            set { codResponsavel = value; }
-        }
-        private int codContaBanco;
-
-        public int CodContaBanco
-        {
-            get { return codContaBanco; }
-            set { codContaBanco = value; }
-        }
-
-        private long codConta;
-
-        public long CodConta
-        {
-            get { return codConta; }
-            set { codConta = value; }
-        }
-
-        private Boolean somaSaldo;
-
-        public Boolean SomaSaldo
-        {
-            get { return somaSaldo; }
-            set { somaSaldo = value; }
-        }
-
+        public long CodMovimentacao { get; set; }
+        public int CodTipoMovimentacao { get; set; }
+        public decimal Valor { get; set; }
+        public DateTime DataHora { get; set; }
+        public long CodResponsavel { get; set; }
+        public int CodContaBanco { get; set; }
+        public long CodConta  { get; set; }
+        public Boolean SomaSaldo { get; set; }
+        public string DescricaoTipoMovimentacao { get; set; }
+        public string NomeResponsavel { get; set; }
     }
 }

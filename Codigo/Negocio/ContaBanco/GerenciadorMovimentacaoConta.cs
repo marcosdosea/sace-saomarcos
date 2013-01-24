@@ -8,7 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
-using MySql.Data.MySqlClient;
+
 
 namespace Negocio
 {
@@ -175,13 +175,16 @@ namespace Negocio
             var saceEntities = (SaceEntities) repMovimentacaoConta.ObterContexto();
             var query = from movimentacao in saceEntities.MovimentacaoContaSet
                         join tipoMovimentacao in saceEntities.TipoMovimentacaoContaSet on movimentacao.codTipoMovimentacao equals tipoMovimentacao.codTipoMovimentacao
+                        join pessoa in saceEntities.PessoaSet on movimentacao.codResponsavel equals pessoa.codPessoa
                         select new MovimentacaoConta
                         {
                             CodConta = (long) movimentacao.codConta,
                             CodContaBanco = movimentacao.codContaBanco,
                             CodMovimentacao = movimentacao.codMovimentacao,
                             CodResponsavel = movimentacao.codResponsavel,
+                            NomeResponsavel = pessoa.nome,
                             CodTipoMovimentacao = movimentacao.codTipoMovimentacao,
+                            DescricaoTipoMovimentacao = tipoMovimentacao.descricao,
                             DataHora = movimentacao.dataHora,
                             SomaSaldo = tipoMovimentacao.somaSaldo,
                             Valor = movimentacao.valor

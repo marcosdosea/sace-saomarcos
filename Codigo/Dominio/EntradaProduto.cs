@@ -13,6 +13,7 @@ namespace Dominio
         public long CodEntrada { get; set; }
         public DateTime DataEntrada { get; set; }
         public long CodProduto { get; set; }
+        public string NomeProduto { get; set; }
         public int Cfop { get; set; }
         public string UnidadeCompra { get; set; }
         public decimal Quantidade { get; set; }

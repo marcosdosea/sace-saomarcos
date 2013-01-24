@@ -19,7 +19,7 @@ namespace Telas
         /// <param name="estado"></param>
         /// <param name="pessoaBindingSource"></param>
         /// <param name="retornaNomeFantasia"></param>
-        public static void PessoaComboBox_Leave(object sender, EventArgs e, ComboBox pessoaComboBox, EstadoFormulario estado, BindingSource pessoaBindingSource, bool retornaNomeFantasia)
+        public static Pessoa PessoaComboBox_Leave(object sender, EventArgs e, ComboBox pessoaComboBox, EstadoFormulario estado, BindingSource pessoaBindingSource, bool retornaNomeFantasia)
         {
             if (estado.Equals(EstadoFormulario.INSERIR) || estado.Equals(EstadoFormulario.ATUALIZAR))
             {
@@ -56,6 +56,7 @@ namespace Telas
                         pessoaComboBox.Text = ((Pessoa)pessoaBindingSource.Current).Nome;
                 }
             }
+            return (Pessoa)pessoaBindingSource.Current;
         }
 
         /// <summary>
@@ -69,9 +70,9 @@ namespace Telas
         /// <param name="ultimoCodigoBarraLido"></param>
         /// <param name="exibirTodos"></param>
         /// <returns></returns>
-        public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, string ultimoCodigoBarraLido, bool exibirTodos)
+        public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, ref string ultimoCodigoBarraLido, bool exibirTodos)
         {
-            bool entradaViaCodigoBarra = false;
+            //bool entradaViaCodigoBarra = false;
             ProdutoPesquisa _produtoPesquisa = null;
             List<ProdutoPesquisa> _listaProdutos = new List<ProdutoPesquisa>();
 
@@ -91,8 +92,8 @@ namespace Telas
                     else
                     {
                         _listaProdutos = GerenciadorProduto.GetInstance().ObterPorCodBarra(produtoComboBox.Text).ToList();
-                        entradaViaCodigoBarra = (_listaProdutos.Count > 0);
-                        ultimoCodigoBarraLido = (_listaProdutos.Count > 0) ? "" : produtoComboBox.Text;
+                        //entradaViaCodigoBarra = (_listaProdutos.Count > 0);
+                        ultimoCodigoBarraLido = produtoComboBox.Text;
                     }
                 }
                 else
@@ -127,7 +128,7 @@ namespace Telas
                 {
                     _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
                     // Associa o útlimo código de barra lido ao produto selecionado
-                    if (!ultimoCodigoBarraLido.Equals(""))
+                    if (!ultimoCodigoBarraLido.Equals("") && !isNumber)
                     {
                         if (MessageBox.Show("Associar o último código de barra lido ao produto selecionado?", "Confirmar Associação", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {

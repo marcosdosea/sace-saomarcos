@@ -15,7 +15,7 @@ namespace Telas
         private Entrada entrada;
         private EntradaProduto entradaProduto;
         private Int32 tipoEntrada;
-        private ProdutoPesquisa _produtoPesquisa;
+        //private ProdutoPesquisa _produtoPesquisa;
         private string ultimoCodigoBarraLido = "";
 
         public FrmEntrada()
@@ -28,7 +28,6 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
 
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             fornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             empresaFreteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
@@ -49,9 +48,9 @@ namespace Telas
         {
             Telas.FrmEntradaPesquisa frmEntradaPesquisa = new Telas.FrmEntradaPesquisa();
             frmEntradaPesquisa.ShowDialog();
-            if (frmEntradaPesquisa.getCodEntrada() != -1)
+            if (frmEntradaPesquisa.EntradaSelected != null)
             {
-                entradaBindingSource.Position = entradaBindingSource.Find("codEntrada", frmEntradaPesquisa.getCodEntrada());
+                entradaBindingSource.Position = entradaBindingSource.List.IndexOf(frmEntradaPesquisa.EntradaSelected);
             }
             frmEntradaPesquisa.Dispose();
         }
@@ -432,7 +431,7 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ultimoCodigoBarraLido, true);
+                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
                 if (_produtoPesquisa != null)
                 {
                     data_validadeDateTimePicker.Enabled = _produtoPesquisa.TemVencimento;

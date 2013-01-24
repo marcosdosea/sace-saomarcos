@@ -44,8 +44,9 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             lojaBindingSource.AddNew();
-            codLojaTextBox.Enabled = false;
-            codPessoaComboBox.SelectedIndex = 0;
+            codPessoaComboBox.SelectedIndex = 1;
+            Loja loja = (Loja) lojaBindingSource.Current;
+            loja.CodPessoa = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
             nomeTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -65,7 +66,7 @@ namespace Telas
                 GerenciadorLoja.GetInstance().Remover(int.Parse(codLojaTextBox.Text));
                 lojaBindingSource.RemoveCurrent();
             }
-
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -80,20 +81,16 @@ namespace Telas
         {
             try
             {
-                Loja loja = new Loja();
-                loja.CodLoja = int.Parse(codLojaTextBox.Text);
-                loja.Nome = nomeTextBox.Text;
-                loja.CodPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
-                    
-                GerenciadorLoja gLoja = GerenciadorLoja.GetInstance();
+                Loja loja = (Loja) lojaBindingSource.Current;
+                
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codLoja = gLoja.Inserir(loja);
+                    long codLoja = GerenciadorLoja.GetInstance().Inserir(loja);
                     codLojaTextBox.Text = codLoja.ToString();
                 }
                 else
                 {
-                    gLoja.Atualizar(loja);
+                    GerenciadorLoja.GetInstance().Atualizar(loja);
                 }
                 lojaBindingSource.EndEdit();
             }

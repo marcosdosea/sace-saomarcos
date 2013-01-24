@@ -491,7 +491,6 @@
             // 
             this.codEmpresaFreteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codEmpresaFreteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "nomeEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodEmpresaFrete", true));
             this.codEmpresaFreteComboBox.DataSource = this.pessoaFreteBindingSource;
             this.codEmpresaFreteComboBox.DisplayMember = "Nome";
@@ -598,7 +597,6 @@
             // 
             this.codClienteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "nomeCliente", true));
             this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodCliente", true));
             this.codClienteComboBox.DataSource = this.pessoaDestinoBindingSource;
             this.codClienteComboBox.DisplayMember = "Nome";

@@ -64,6 +64,7 @@ namespace Telas
                 GerenciadorGrupo.GetInstance().Remover(Int32.Parse(codGrupoTextBox.Text));
                 grupoBindingSource.RemoveCurrent();
             }
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -78,19 +79,16 @@ namespace Telas
         {
             try
             {
-                Grupo grupo = new Grupo();
-                grupo.Descricao = descricaoTextBox.Text;
-                grupo.CodGrupo = Int32.Parse(codGrupoTextBox.Text);
-
-                GerenciadorGrupo gGrupo = GerenciadorGrupo.GetInstance();
+                Grupo grupo = (Grupo) grupoBindingSource.Current;
+                
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codGrupo = gGrupo.Inserir(grupo);
+                    long codGrupo = GerenciadorGrupo.GetInstance().Inserir(grupo);
                     codGrupoTextBox.Text = codGrupo.ToString();
                 }
                 else
                 {
-                    gGrupo.Atualizar(grupo);
+                    GerenciadorGrupo.GetInstance().Atualizar(grupo);
                 }
                 grupoBindingSource.EndEdit();
             }

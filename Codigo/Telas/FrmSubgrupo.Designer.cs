@@ -203,7 +203,7 @@
             this.tb_subgrupoBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_subgrupoBindingNavigator.Name = "tb_subgrupoBindingNavigator";
             this.tb_subgrupoBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_subgrupoBindingNavigator.Size = new System.Drawing.Size(240, 25);
+            this.tb_subgrupoBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_subgrupoBindingNavigator.TabIndex = 21;
             this.tb_subgrupoBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -298,7 +298,6 @@
             // codGrupoComboBox
             // 
             this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.subgrupoBindingSource, "CodGrupo", true));
-            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.subgrupoBindingSource, "DescricaoGrupo", true));
             this.codGrupoComboBox.DataSource = this.grupoBindingSource;
             this.codGrupoComboBox.DisplayMember = "Descricao";
             this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

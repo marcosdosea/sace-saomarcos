@@ -59,14 +59,6 @@ namespace Dominio
             set { data = value; }
         }
 
-        private long codDocumentoPagamento;
-
-        public long CodDocumentoPagamento
-        {
-            get { return codDocumentoPagamento; }
-            set { codDocumentoPagamento = value; }
-        }
-
         private int parcelas;
 
         public int Parcelas

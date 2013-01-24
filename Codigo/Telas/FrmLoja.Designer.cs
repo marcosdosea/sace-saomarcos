@@ -239,7 +239,7 @@
             this.tb_lojaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_lojaBindingNavigator.Name = "tb_lojaBindingNavigator";
             this.tb_lojaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_lojaBindingNavigator.Size = new System.Drawing.Size(240, 25);
+            this.tb_lojaBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_lojaBindingNavigator.TabIndex = 21;
             this.tb_lojaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -335,12 +335,11 @@
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "nomePessoa", true));
             this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.lojaBindingSource, "CodPessoa", true));
             this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
             this.codPessoaComboBox.DisplayMember = "NomeFantasia";
             this.codPessoaComboBox.FormattingEnabled = true;
-            this.codPessoaComboBox.Location = new System.Drawing.Point(9, 141);
+            this.codPessoaComboBox.Location = new System.Drawing.Point(2, 140);
             this.codPessoaComboBox.Name = "codPessoaComboBox";
             this.codPessoaComboBox.Size = new System.Drawing.Size(456, 21);
             this.codPessoaComboBox.TabIndex = 25;

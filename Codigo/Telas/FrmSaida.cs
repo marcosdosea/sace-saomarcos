@@ -69,10 +69,10 @@ namespace Telas
         {
             Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
-            if (frmSaidaPesquisa.CodSaida != -1)
+            if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 ObterSaidas(false);
-                saidaBindingSource.Position = saidaBindingSource.Find("codSaida", frmSaidaPesquisa.CodSaida);
+                saidaBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
             }
             frmSaidaPesquisa.Dispose();
         }
@@ -85,7 +85,7 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             saidaBindingSource.AddNew();
-            saidaProdutoBindingSource.AddNew();
+            //saidaProdutoBindingSource.AddNew();
             
             Saida saida = (Saida)saidaBindingSource.Current;
             saida.CodSaida = -1;
@@ -241,7 +241,7 @@ namespace Telas
                 codSaidaTextBox.Text = saida.CodSaida.ToString();
             }
 
-            SaidaProduto saidaProduto = (SaidaProduto) saidaProdutoBindingSource.Current;
+            SaidaProduto saidaProduto = (SaidaProduto) saidaProdutoBindingSource.AddNew();
             
             saidaProduto.CodProduto = ((ProdutoPesquisa) produtoBindingSource.Current).CodProduto;
             saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
@@ -339,14 +339,14 @@ namespace Telas
         /// <param name="e"></param>
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ultimoCodigoBarraLido, false);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, false);
             if (_produtoPesquisa != null)
             {
                 buscaPrecos();
                 AtualizarSubTotal();
-                if (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA))
+                if (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA) && !ultimoCodigoBarraLido.Equals(""))
                 {
-
+                    ultimoCodigoBarraLido = "";
                     btnSalvar_Click(sender, e);
                 }
                 codSaidaTextBox_Leave(sender, e);
@@ -375,7 +375,7 @@ namespace Telas
         {
             FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
             Saida saida = (Saida)saidaBindingSource.Current;
-            ProdutoPesquisa produto = (Produto)produtoBindingSource.Current;
+            ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
             produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
 
             if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))

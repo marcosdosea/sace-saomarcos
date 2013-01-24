@@ -188,6 +188,7 @@ namespace Negocio
                         join situacaoPagamentos in saceEntities.SituacaoPagamentosSet on saida.codSituacaoPagamentos equals situacaoPagamentos.codSituacaoPagamentos
                         join tipoSaida in saceEntities.TipoSaidaSet on saida.codTipoSaida equals tipoSaida.codTipoSaida
                         join cliente in saceEntities.PessoaSet on saida.codCliente equals cliente.codPessoa
+                        orderby saida.codSaida
                         select new Saida
                         {
                             BaseCalculoICMS = (decimal)saida.baseCalculoICMS,
@@ -264,7 +265,7 @@ namespace Negocio
         {
             if (somenteUltimasSaidas) 
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).Take(100).ToList();
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
             else
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
                     saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
@@ -426,7 +427,6 @@ namespace Negocio
                     conta.CodPessoa = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.CodCartaoCredito).ElementAt(0).CodPessoa;
                 }
 
-                conta.CodDocumento = pagamento.CodDocumentoPagamento;
                 conta.TipoConta = Conta.CONTA_RECEBER.ToString();
 
                 if (((totalRegistrado + pagamento.Valor) >= saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO))

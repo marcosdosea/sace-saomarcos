@@ -34,9 +34,9 @@ namespace Telas
         {
             Telas.FrmEntradaPesquisa frmEntradaPedidoPesquisa = new Telas.FrmEntradaPesquisa();
             frmEntradaPedidoPesquisa.ShowDialog();
-            if (frmEntradaPedidoPesquisa.getCodEntrada() != -1)
+            if (frmEntradaPedidoPesquisa.EntradaSelected != null)
             {
-                entradaBindingSource.Position = entradaBindingSource.List.IndexOf(frmEntradaPedidoPesquisa.getCodEntrada());
+                entradaBindingSource.Position = entradaBindingSource.List.IndexOf(frmEntradaPedidoPesquisa.EntradaSelected);
             }
             frmEntradaPedidoPesquisa.Dispose();
         }
@@ -163,7 +163,7 @@ namespace Telas
             else 
             {
                 gEntrada.Atualizar(entrada);
-                entradaBindingSource.Position = entradaBindingSource.Find("codEntrada", entrada.CodEntrada);
+                entradaBindingSource.Position = entradaBindingSource.List.IndexOf(entrada);
                 produtoBindingSource.Position = 0;
                 habilitaBotoes(true);
                 btnProdutos.Focus();
@@ -380,7 +380,7 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codFornecedorComboBox.Text);
+                List<Pessoa> pessoas = (List<Pessoa>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codFornecedorComboBox.Text);
                 if (pessoas.Count == 0)
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
@@ -398,7 +398,7 @@ namespace Telas
                 }
                 else
                 {
-                    pessoaFornecedorBindingSource.Position = pessoaFornecedorBindingSource.Find("codPessoa", pessoas[0].codPessoa);
+                    pessoaFornecedorBindingSource.Position = pessoaFornecedorBindingSource.List.IndexOf(pessoas[0]);
                 }
 
             }
@@ -410,7 +410,7 @@ namespace Telas
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
 
-                List<PessoaE> pessoas = (List<PessoaE>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
+                List<Pessoa> pessoas = (List<Pessoa>)GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
                 if (pessoas.Count == 0)
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
@@ -428,7 +428,7 @@ namespace Telas
                 }
                 else
                 {
-                    pessoaTransportadoraBindingSource.Position = pessoaTransportadoraBindingSource.Find("codPessoa", pessoas[0].codPessoa);
+                    pessoaTransportadoraBindingSource.Position = pessoaTransportadoraBindingSource.List.IndexOf(pessoas[0]);
                 }
             }
             codEntradaTextBox_Leave(sender, e);
@@ -438,7 +438,7 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ultimoCodigoBarraLido, true);
+                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
                 if (_produtoPesquisa != null)
                 {
                     quantidadeTextBox.Text = "0";

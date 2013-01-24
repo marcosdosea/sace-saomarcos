@@ -48,10 +48,11 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             subgrupoBindingSource.AddNew();
-            //grupoBindingSource.Position = grupoBindingSource.Find("codGrupo", CodGrupoOriginal);
             descricaoTextBox.Focus();
             habilitaBotoes(false);
             codGrupoComboBox.SelectedIndex = 0;
+            Subgrupo subgrupo = (Subgrupo) subgrupoBindingSource.Current;
+            subgrupo.CodGrupo = ((Grupo) grupoBindingSource.Current).CodGrupo; // grupo padrão
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -69,6 +70,7 @@ namespace Telas
                 GerenciadorSubgrupo.GetInstance().Remover(Int32.Parse(codSubgrupoTextBox.Text));
                 subgrupoBindingSource.RemoveCurrent();
             }
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -83,25 +85,17 @@ namespace Telas
         {
             try
             {
-                Subgrupo subgrupo = new Subgrupo();
-
-                subgrupo.CodGrupo = Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString());
-                subgrupo.CodSubgrupo = Convert.ToInt32(codSubgrupoTextBox.Text);
-                subgrupo.Descricao = descricaoTextBox.Text;
-
-                GerenciadorSubgrupo gSubgrupo = GerenciadorSubgrupo.GetInstance();
-
+                Subgrupo subgrupo = (Subgrupo) subgrupoBindingSource.Current;
+                
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gSubgrupo.Inserir(subgrupo);
-                    subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
-                    subgrupoBindingSource.MoveLast();
+                    GerenciadorSubgrupo.GetInstance().Inserir(subgrupo);
                 }
                 else
                 {
-                    gSubgrupo.Atualizar(subgrupo);
-                    subgrupoBindingSource.EndEdit();
+                    GerenciadorSubgrupo.GetInstance().Atualizar(subgrupo);
                 }
+                subgrupoBindingSource.EndEdit();
             }
             catch (Dados.DadosException de)
             {

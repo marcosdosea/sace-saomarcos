@@ -82,6 +82,7 @@ namespace Negocio
             try
             {
                 repLoja.Remover(loja => loja.codLoja == codloja);
+                repLoja.SaveChanges();
             }
             catch (Exception e)
             {

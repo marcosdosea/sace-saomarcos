@@ -7,22 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Negocio;
+using Dominio;
 
 namespace Telas
 {
     public partial class FrmSaidaPesquisa : Form
     {
-        private Int64 codSaida;
-
-        public Int64 CodSaida
-        {
-            get { return codSaida; }            
-        }
-
+        public Saida SaidaSelected { get; set; }
+        
         public FrmSaidaPesquisa()
         {
             InitializeComponent();
-            codSaida = -1;
+            SaidaSelected = null;
         }
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
@@ -58,7 +54,10 @@ namespace Telas
 
         private void tb_saidaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            codSaida = int.Parse(tb_saidaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            if (saidaBindingSource.Count > 0)
+            {
+                SaidaSelected = (Saida)saidaBindingSource.Current;
+            }
             this.Close();
         }
 

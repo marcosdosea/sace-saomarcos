@@ -48,7 +48,7 @@ namespace Telas
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
-                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProdutoPesquisa.ProdutoPesquisa);
+                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = frmProdutoPesquisa.ProdutoPesquisa.CodProduto } );
             }
             frmProdutoPesquisa.Dispose();
         }
@@ -333,12 +333,12 @@ namespace Telas
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            Int32 codProduto = Int32.Parse(codProdutoTextBox.Text);
-            FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(codProduto);
+            ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
+            FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produtoPesquisa);
             frmAjuste.ShowDialog();
-            if (frmAjuste.CodProduto != -1)
+            if (frmAjuste.ProdutoSelected != null)
             {
-                produtoBindingSource.Position = produtoBindingSource.Find("codProduto", frmAjuste.CodProduto);
+                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmAjuste.ProdutoSelected);
             }
             codProdutoTextBox_TextChanged(sender, e);
         }

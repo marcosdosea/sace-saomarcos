@@ -118,6 +118,7 @@ namespace Negocio
         {
             var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
             var query = from entradaProduto in saceEntities.EntradaProdutoSet
+                        join produto in saceEntities.ProdutoSet on entradaProduto.codProduto equals produto.codProduto
                         select new EntradaProduto
                         {
                             BaseCalculoICMS = (decimal)entradaProduto.baseCalculoICMS,
@@ -127,6 +128,7 @@ namespace Negocio
                             CodEntrada = entradaProduto.codEntrada,
                             CodEntradaProduto = entradaProduto.codEntradaProduto,
                             CodProduto = entradaProduto.codProduto,
+                            NomeProduto = produto.nome,
                             DataValidade = (DateTime)entradaProduto.data_validade,
                             Desconto = (decimal)entradaProduto.desconto,
                             PrecoCusto = (decimal)entradaProduto.preco_custo,

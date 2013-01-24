@@ -68,6 +68,7 @@ namespace Telas
                 GerenciadorBanco.GetInstace().remover(int.Parse(codBancoTextBox.Text));
                 bancoBindingSource.RemoveCurrent();
             }
+            btnBuscar.Focus();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -82,19 +83,16 @@ namespace Telas
         {
             try
             {
-                Banco banco = new Banco();
-                banco.CodBanco = Int32.Parse(codBancoTextBox.Text);
-                banco.Nome = nomeTextBox.Text;
+                Banco banco = (Banco)bancoBindingSource.Current;
 
-                GerenciadorBanco gBanco = GerenciadorBanco.GetInstace();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    int codBanco = (int) gBanco.inserir(banco);
+                    int codBanco = (int)GerenciadorBanco.GetInstace().inserir(banco);
                     codBancoTextBox.Text =  codBanco.ToString();
                 }
                 else
                 {
-                    gBanco.atualizar(banco);
+                    GerenciadorBanco.GetInstace().atualizar(banco);
                 }
                 bancoBindingSource.EndEdit();
             }

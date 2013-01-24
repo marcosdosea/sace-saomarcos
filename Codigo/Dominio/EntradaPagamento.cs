@@ -35,13 +35,7 @@ namespace Dominio
             get { return codContaBanco; }
             set { codContaBanco = value; }
         }
-        private long codDocumentoPagamento;
-
-        public long CodDocumentoPagamento
-        {
-            get { return codDocumentoPagamento; }
-            set { codDocumentoPagamento = value; }
-        }
+       
         private decimal valor;
 
         public decimal Valor

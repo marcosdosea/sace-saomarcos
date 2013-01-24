@@ -8,7 +8,6 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
-using MySql.Data;
 
 namespace Negocio
 {
@@ -16,14 +15,12 @@ namespace Negocio
     {
 
         private static GerenciadorBanco gBanco;
-        private static RepositorioGenerico<BancoE, SaceEntities> repBanco;
 
         public static GerenciadorBanco GetInstace()
         {
             if (gBanco == null)
             {
                 gBanco = new GerenciadorBanco();
-                repBanco = new RepositorioGenerico<BancoE, SaceEntities>("chave");
             }
             return gBanco;
         }
@@ -35,9 +32,11 @@ namespace Negocio
         /// <returns></returns>
         public Int64 inserir(Banco banco)
         {
+            var repBanco = new RepositorioGenerico<BancoE>();
+            BancoE _bancoE = new BancoE();
             try
             {
-                BancoE _bancoE = new BancoE();
+                
                 _bancoE.codBanco = banco.CodBanco;
                 _bancoE.nome = banco.Nome;
 
@@ -50,6 +49,7 @@ namespace Negocio
             {
                 throw new DadosException("Banco", e.Message, e);
             }
+
         }
 
         /// <summary>
@@ -60,6 +60,7 @@ namespace Negocio
         {
             try
             {
+                var repBanco = new RepositorioGenerico<BancoE>();
                 BancoE _bancoE = repBanco.ObterEntidade(b => b.codBanco == banco.CodBanco);
                 _bancoE.nome = banco.Nome;
 
@@ -81,6 +82,7 @@ namespace Negocio
                 throw new NegocioException("O banco não pode ser removido.");
             try
             {
+                var repBanco = new RepositorioGenerico<BancoE>();
                 repBanco.Remover(b => b.codBanco == codBanco);
                 repBanco.SaveChanges();
             }
@@ -96,6 +98,7 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Banco> GetQuery()
         {
+            var repBanco = new RepositorioGenerico<BancoE>();
             var saceEntities = (SaceEntities)repBanco.ObterContexto();
             var query = from banco in saceEntities.BancoSet
                         select new Banco
