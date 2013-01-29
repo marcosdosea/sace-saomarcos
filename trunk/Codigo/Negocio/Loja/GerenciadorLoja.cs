@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorLoja
     {
         private static GerenciadorLoja gLoja;
-        private static RepositorioGenerico<LojaE, SaceEntities> repLoja;
         
         public static GerenciadorLoja GetInstance()
         {
             if (gLoja == null)
             {
                 gLoja = new GerenciadorLoja();
-                repLoja = new RepositorioGenerico<LojaE, SaceEntities>("chave");
             }
             return gLoja;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repLoja = new RepositorioGenerico<LojaE>();
+
                 LojaE _lojaE = new LojaE();
                 _lojaE.codPessoa = loja.CodPessoa;
                 _lojaE.nome = loja.Nome;
@@ -58,6 +58,8 @@ namespace Negocio
         {
             try
             {
+                var repLoja = new RepositorioGenerico<LojaE>();
+
                 LojaE _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
                 _lojaE.codPessoa = loja.CodPessoa;
                 _lojaE.nome = loja.Nome;
@@ -81,6 +83,8 @@ namespace Negocio
                 
             try
             {
+                var repLoja = new RepositorioGenerico<LojaE>();
+
                 repLoja.Remover(loja => loja.codLoja == codloja);
                 repLoja.SaveChanges();
             }
@@ -96,6 +100,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Loja> GetQuery()
         {
+            var repLoja = new RepositorioGenerico<LojaE>();
+
             var saceEntities = (SaceEntities) repLoja.ObterContexto();
             var query = from loja in saceEntities.LojaSet
                         select new Loja

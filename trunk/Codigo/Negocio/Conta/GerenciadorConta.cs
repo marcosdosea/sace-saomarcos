@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorConta
     {
         private static GerenciadorConta gConta;
-        private static RepositorioGenerico<ContaE, SaceEntities> repConta;
-        
+       
         public static GerenciadorConta GetInstance()
         {
             if (gConta == null)
             {
                 gConta = new GerenciadorConta();
-                repConta = new RepositorioGenerico<ContaE, SaceEntities>("chave");
             }
             return gConta;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repConta = new RepositorioGenerico<ContaE>();
+
                 ContaE _conta = new ContaE();
                 Atribuir(conta, _conta);
 
@@ -60,6 +60,8 @@ namespace Negocio
 
             try
             {
+                var repConta = new RepositorioGenerico<ContaE>();
+
                 ContaE _conta = repConta.ObterEntidade(c => c.codConta == conta.CodConta);
                 Atribuir(conta, _conta);
 
@@ -81,6 +83,8 @@ namespace Negocio
         {
             try
             {
+                var repConta = new RepositorioGenerico<ContaE>();
+
                 ContaE _conta = repConta.ObterEntidade(c => c.codConta == codConta);
                 _conta.codSituacao = codSituacao;
                 _conta.desconto = desconto;
@@ -101,6 +105,8 @@ namespace Negocio
         {
             try
             {
+                var repConta = new RepositorioGenerico<ContaE>();
+
                 repConta.Remover(c => c.codConta == codConta);
                 repConta.SaveChanges();
             }
@@ -116,6 +122,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Conta> GetQuery()
         {
+            var repConta = new RepositorioGenerico<ContaE>();
+
             var saceEntities = (SaceEntities)repConta.ObterContexto();
             var query = from conta in saceEntities.ContaSet
                         join planoConta in saceEntities.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
@@ -260,6 +268,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<SituacaoConta> ObterSituacoesConta()
         {
+            var repConta = new RepositorioGenerico<ContaE>();
+
             var saceEntities = (SaceEntities)repConta.ObterContexto();
             var query = from situacaoConta in saceEntities.SituacaoContaSet
                         select new SituacaoConta

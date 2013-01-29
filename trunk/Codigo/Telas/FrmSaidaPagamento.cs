@@ -32,8 +32,7 @@ namespace Telas
         /// <param name="e"></param>
         private void FrmSaidaPagamento_Load(object sender, EventArgs e)
         {
-            codSaidaTextBox.Text = saida.CodSaida.ToString();
-
+            //codSaidaTextBox.Text = saida.CodSaida.ToString();
             saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();

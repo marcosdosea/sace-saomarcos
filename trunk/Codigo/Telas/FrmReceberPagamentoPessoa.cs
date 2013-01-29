@@ -349,7 +349,7 @@ namespace Telas
                     pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
                 }
 
-                if (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO))
+                if ((pessoa != null) && (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO)))
                 {
                     // Obter todas as contas da pessoa em aberto
                     contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);

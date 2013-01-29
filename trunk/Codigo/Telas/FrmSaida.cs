@@ -172,8 +172,12 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Saida saida = GerenciadorSaida.GetInstance().Obter(Int64.Parse(codSaidaTextBox.Text));
-                if  ( (saida.TipoSaida == Saida.TIPO_VENDA) && (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes) )
+                Saida saida = (Saida) saidaBindingSource.Current;
+                if ((saida.TipoSaida == Saida.TIPO_VENDA) && (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes))
+                {
+                    GerenciadorSaida.GetInstance().Remover(saida);
+                }
+                else
                 {
                     GerenciadorSaida.GetInstance().Remover(saida);
                 }
@@ -235,7 +239,8 @@ namespace Telas
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             Saida saida = (Saida)saidaBindingSource.Current;
-            if (saida.CodSaida < 0)
+            
+            if (saida.CodSaida <= 0)
             {
                 saida.CodSaida = GerenciadorSaida.GetInstance().Inserir(saida);
                 codSaidaTextBox.Text = saida.CodSaida.ToString();
@@ -284,10 +289,8 @@ namespace Telas
                     Saida saida = (Saida)saidaBindingSource.Current;
                     
                     Negocio.GerenciadorSaidaProduto.GetInstance().Remover(saidaProduto, saida);
+                    saidaProdutoBindingSource.RemoveCurrent();
 
-                    //saida = GerenciadorSaida.getInstace().obterSaida(Convert.ToInt64(codSaidaTextBox.Text));
-                    //totalTextBox.Text = saida.Total.ToString();
-                    //totalAVistaTextBox.Text = saida.TotalAVista.ToString();
                 }
             }
             estado = EstadoFormulario.INSERIR_DETALHE;
@@ -466,9 +469,23 @@ namespace Telas
             if (!codSaidaTextBox.Text.Trim().Equals(""))
             {
                 Saida saida = (Saida) saidaBindingSource.Current;
-                saidaProdutoBindingSource.DataSource = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
-                atualizarTelaDadosSaida(saida.CodSaida);
-            }
+                if (saida.CodSaida > 0)
+                {
+                    saida = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
+                    saidaProdutoBindingSource.DataSource = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(saida.CodSaida);
+                    descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
+                    pedidoGeradoTextBox.Text = saida.PedidoGerado;
+                    nfeTextBox.Text = saida.Nfe;
+                    nomeClienteTextBox.Text = saida.NomeCliente;
+                    descricaoSituacaoPagamentosTextBox.Text = saida.DescricaoSituacaoPagamentos;
+                    totalTextBox.Text = saida.Total.ToString();
+                    totalAVistaTextBox.Text = saida.TotalAVista.ToString();
+                }
+                else
+                {
+                    saidaProdutoBindingSource.DataSource = null;
+                }
+             }
         }
 
         private void codProdutoComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -486,7 +503,6 @@ namespace Telas
                 habilitaBotoes(true);
                 estado = EstadoFormulario.ESPERA;
                
-                saida = GerenciadorSaida.GetInstance().Obter(long.Parse(codSaidaTextBox.Text));
                 saida.EntregaRealizada = entregaRealizadaCheckBox.Checked;
 
                 if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
@@ -494,14 +510,14 @@ namespace Telas
                     FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
-                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_SAIDA_DEPOSITO);
+                    //saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_SAIDA_DEPOSITO);
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
                 {
                     FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
                     frmSaidaDevolucao.ShowDialog();
                     frmSaidaDevolucao.Dispose();
-                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+                    //saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
                 }
                 else
                 {
@@ -510,27 +526,11 @@ namespace Telas
                     frmSaidaPagamento.Dispose();
                     //backgroundWorkerRecuperaCupons.RunWorkerAsync();
                 }
-                atualizarTelaDadosSaida(saida.CodSaida);
                 produtoBindingSource.MoveFirst();
+                codSaidaTextBox_TextChanged(sender, e);
                 btnNovo.Focus();
             }
             Cursor.Current = Cursors.Default;
-        }
-
-        private void atualizarTelaDadosSaida(long codSaida)
-        {
-            if (codSaida > 0)
-            {
-                Saida saida = GerenciadorSaida.GetInstance().Obter(Convert.ToInt64(codSaidaTextBox.Text));
-                
-                descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
-                pedidoGeradoTextBox.Text = saida.PedidoGerado;
-                nfeTextBox.Text = saida.Nfe;
-                nomeClienteTextBox.Text = saida.NomeCliente;
-                descricaoSituacaoPagamentosTextBox.Text = saida.DescricaoSituacaoPagamentos;
-                totalTextBox.Text = saida.Total.ToString();
-                totalAVistaTextBox.Text = saida.TotalAVista.ToString();
-            }
         }
 
         /// <summary>

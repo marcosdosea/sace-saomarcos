@@ -26,7 +26,7 @@ namespace Telas
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
-            codBancoComboBox.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+            bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
@@ -48,6 +48,8 @@ namespace Telas
             numerocontaTextBox.Focus();
             habilitaBotoes(false);
             codBancoComboBox.SelectedIndex = 0;
+            ContaBanco contaBanco = (ContaBanco)contaBancoBindingSource.Current;
+            contaBanco.CodBanco = ((Banco)bancoBindingSource.Current).CodBanco;
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -79,24 +81,16 @@ namespace Telas
         {
             try
             {
-                ContaBanco _contaBanco = new ContaBanco();
-                _contaBanco.CodContaBanco = Int32.Parse(codContaBancoTextBox.Text);
-                _contaBanco.NumeroConta = numerocontaTextBox.Text;
-                _contaBanco.Agencia = agenciaTextBox.Text;
-                _contaBanco.Descricao = descricaoTextBox.Text;
-                _contaBanco.Saldo = decimal.Parse(saldoTextBox.Text);
-                _contaBanco.CodBanco = Int32.Parse(codBancoComboBox.SelectedValue.ToString());
-
-                GerenciadorContaBanco gContaBanco = GerenciadorContaBanco.GetInstance();
-
+                ContaBanco _contaBanco = (ContaBanco)contaBancoBindingSource.Current;
+                
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codContaBanco = gContaBanco.Inserir(_contaBanco);
+                    long codContaBanco = GerenciadorContaBanco.GetInstance().Inserir(_contaBanco);
                     codContaBancoTextBox.Text = codContaBanco.ToString();
                 }
                 else
                 {
-                    gContaBanco.Atualizar(_contaBanco);
+                    GerenciadorContaBanco.GetInstance().Atualizar(_contaBanco);
                 }
                 contaBancoBindingSource.EndEdit();
             }

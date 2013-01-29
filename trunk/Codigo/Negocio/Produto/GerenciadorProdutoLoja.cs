@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorProdutoLoja 
     {
         private static GerenciadorProdutoLoja gProdutoLoja;
-        private static RepositorioGenerico<ProdutoLojaE, SaceEntities> repProdutoLoja;
         
         public static GerenciadorProdutoLoja GetInstance()
         {
             if (gProdutoLoja == null)
             {
                 gProdutoLoja = new GerenciadorProdutoLoja();
-                repProdutoLoja = new RepositorioGenerico<ProdutoLojaE, SaceEntities>("chave");
             }
             return gProdutoLoja;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+
                 ProdutoLojaE _produtoLojaE = new ProdutoLojaE();
                 _produtoLojaE.codLoja = produtoLoja.CodLoja;
                 _produtoLojaE.codProduto = produtoLoja.CodProduto;
@@ -62,6 +62,8 @@ namespace Negocio
         {
             try
             {
+                var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+
                 ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == produtoLoja.CodProduto && pl.codLoja == produtoLoja.CodLoja);
                 _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
                 _produtoLojaE.localizacao = produtoLoja.Localizacao;
@@ -87,6 +89,8 @@ namespace Negocio
         {
             try
             {
+                var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+
                 repProdutoLoja.Remover(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
                 repProdutoLoja.SaveChanges();
                 AtualizarEstoqueEntradasProduto(codProduto);
@@ -103,6 +107,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ProdutoLoja> GetQuery()
         {
+            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+
             var saceEntities = (SaceEntities)repProdutoLoja.ObterContexto();
             var query = from produtoLoja in saceEntities.ProdutoLojaSet
                         join produto in saceEntities.ProdutoSet on produtoLoja.codProduto equals produto.codProduto
@@ -153,23 +159,34 @@ namespace Negocio
         /// <param name="codProduto"></param>
         public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto)
         {
-            ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
-
-
-            if (_produtoLojaE != null)
+            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+            
+            var saceEntities = (SaceEntities)repProdutoLoja.ObterContexto();
+            var query = from produtoLoja in saceEntities.ProdutoLojaSet
+                        where produtoLoja.codLoja == codLoja && produtoLoja.codProduto == codProduto
+                        select produtoLoja;
+            int numeroRegistros = query.Count();
+            if (numeroRegistros > 0)
             {
-                _produtoLojaE.qtdEstoque += quantidade;
-                _produtoLojaE.qtdEstoqueAux += quantidadeAux;
+                foreach (ProdutoLojaE _produtoLojaE in query)
+                {
+                    if (_produtoLojaE != null)
+                    {
+                        _produtoLojaE.qtdEstoque += quantidade;
+                        _produtoLojaE.qtdEstoqueAux += quantidadeAux;
+                    }
+                }
             }
             else
             {
-                _produtoLojaE = new ProdutoLojaE();
+                ProdutoLojaE _produtoLojaE = new ProdutoLojaE();
                 _produtoLojaE.codLoja = codLoja;
                 _produtoLojaE.codProduto = codProduto;
                 _produtoLojaE.qtdEstoque = quantidade;
                 _produtoLojaE.qtdEstoqueAux = quantidadeAux;
                 repProdutoLoja.Inserir(_produtoLojaE);
             }
+            
             repProdutoLoja.SaveChanges();
         }
 

@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorEntradaPagamento 
     {
         private static GerenciadorEntradaPagamento gEntradaPagamento;
-        private static RepositorioGenerico<EntradaFormaPagamentoE, SaceEntities> repEntradaPagamento;
-        
+                
         public static GerenciadorEntradaPagamento GetInstance()
         {
             if (gEntradaPagamento == null)
             {
                 gEntradaPagamento = new GerenciadorEntradaPagamento();
-                repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE, SaceEntities>("chave");
             }
             return gEntradaPagamento;
         }
@@ -55,6 +53,8 @@ namespace Negocio
 
                 EntradaFormaPagamentoE _entradaFormaPagamentoE = new EntradaFormaPagamentoE();
                 Atribuir(entradaPagamento, _entradaFormaPagamentoE);
+                
+                var repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE>();
 
                 repEntradaPagamento.Inserir(_entradaFormaPagamentoE);
                 repEntradaPagamento.SaveChanges();
@@ -85,6 +85,7 @@ namespace Negocio
         {
             try
             {
+                var repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE>();
                 repEntradaPagamento.Remover(ep => ep.codEntradaFormaPagamento == codEntradaPagamento);
                 repEntradaPagamento.SaveChanges();
             }
@@ -100,6 +101,7 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<EntradaPagamento> GetQuery()
         {
+            var repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE>();
             var saceEntities = (SaceEntities)repEntradaPagamento.ObterContexto();
             var query = from entradaFormaPagamento in saceEntities.EntradaFormaPagamentoSet
                         select new EntradaPagamento

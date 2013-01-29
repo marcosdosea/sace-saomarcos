@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorFormaPagamento 
     {
         private static GerenciadorFormaPagamento gFormaPagamento;
-        private static RepositorioGenerico<FormaPagamentoE, SaceEntities> repFormaPagamento;
         
         public static GerenciadorFormaPagamento GetInstance()
         {
             if (gFormaPagamento == null)
             {
                 gFormaPagamento = new GerenciadorFormaPagamento();
-                repFormaPagamento = new RepositorioGenerico<FormaPagamentoE, SaceEntities>("chave");
             }
             return gFormaPagamento;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+
                 FormaPagamentoE _formaPagamento = new FormaPagamentoE();
                 Atribuir(formaPagamento, _formaPagamento);
 
@@ -57,6 +57,8 @@ namespace Negocio
         {
             try
             {
+                var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+
                 FormaPagamentoE _formaPagamento = repFormaPagamento.Obter(f => f.codFormaPagamento == formaPagamento.CodFormaPagamento).ElementAt(0) ;
                 Atribuir(formaPagamento, _formaPagamento);
 
@@ -76,6 +78,8 @@ namespace Negocio
         {
             try
             {
+                var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+
                 repFormaPagamento.Remover(f => f.codFormaPagamento == codformaPagamento);
                 repFormaPagamento.SaveChanges();
             }
@@ -91,6 +95,7 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<FormaPagamento> GetQuery()
         {
+            var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
             var saceEntities = (SaceEntities)repFormaPagamento.ObterContexto();
             var query = from formaPagamento in saceEntities.FormaPagamentoSet
                         select new FormaPagamento

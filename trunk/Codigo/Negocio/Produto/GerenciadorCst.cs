@@ -14,15 +14,12 @@ namespace Negocio
     public class GerenciadorCst 
     {
         private static GerenciadorCst gCst;
-        private static RepositorioGenerico<CstE, SaceEntities> repCst;
-
-
+        
         public static GerenciadorCst GetInstance()
         {
             if (gCst == null)
             {
                 gCst = new GerenciadorCst();
-                repCst = new RepositorioGenerico<CstE, SaceEntities>("chave");
             }
             return gCst;
         }
@@ -36,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repCst = new RepositorioGenerico<CstE>();
+
                 CstE _cst = new CstE();
                 _cst.codCST = cst.CodCST;
                 _cst.descricaoCST = cst.Descricao;
@@ -60,6 +59,8 @@ namespace Negocio
         {
             try
             {
+                var repCst = new RepositorioGenerico<CstE>();
+
                 CstE _cst = repCst.ObterEntidade(c => c.codCST.Equals(cst.CodCST));
                 _cst.descricaoCST = cst.Descricao;
                 _cst.codCST = cst.CodCST;
@@ -80,6 +81,8 @@ namespace Negocio
         {
             try
             {
+                var repCst = new RepositorioGenerico<CstE>();
+
                 repCst.Remover(c => c.codCST.Equals(codCst));
                 repCst.SaveChanges();
             }
@@ -95,6 +98,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Cst> GetQuery()
         {
+            var repCst = new RepositorioGenerico<CstE>();
+
             var saceEntities = (SaceEntities)repCst.ObterContexto();
             var query = from cst in saceEntities.CstSet
                         select new Cst

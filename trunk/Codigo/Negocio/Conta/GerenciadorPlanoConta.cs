@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorPlanoConta 
     {
         private static GerenciadorPlanoConta gPlanoConta;
-        private static RepositorioGenerico<PlanoContaE, SaceEntities> repPlanoConta;
         
         public static GerenciadorPlanoConta GetInstance()
         {
             if (gPlanoConta == null)
             {
                 gPlanoConta = new GerenciadorPlanoConta();
-                repPlanoConta = new RepositorioGenerico<PlanoContaE, SaceEntities>("chave");
             }
             return gPlanoConta;
         }
@@ -36,6 +34,8 @@ namespace Negocio
         {
             try
             {
+                var repPlanoConta = new RepositorioGenerico<PlanoContaE>();
+
                 PlanoContaE _planoContaE = new PlanoContaE();
                 Atribuir(planoConta, _planoContaE);
 
@@ -61,6 +61,8 @@ namespace Negocio
             
             try
             {
+                var repPlanoConta = new RepositorioGenerico<PlanoContaE>();
+
                 PlanoContaE _planoContaE = repPlanoConta.ObterEntidade(pc => pc.codPlanoConta == planoConta.CodPlanoConta);
                 Atribuir(planoConta, _planoContaE);
                 
@@ -82,6 +84,8 @@ namespace Negocio
                 throw new NegocioException("O plano de conta não pode ser removido para manter a consitência da base de dados.");
             try
             {
+                var repPlanoConta = new RepositorioGenerico<PlanoContaE>();
+
                 repPlanoConta.Remover(pc => pc.codPlanoConta == codplanoConta);
                 repPlanoConta.SaveChanges();
             }
@@ -97,6 +101,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<PlanoConta> GetQuery()
         {
+            var repPlanoConta = new RepositorioGenerico<PlanoContaE>();
+
             var saceEntities = (SaceEntities)repPlanoConta.ObterContexto();
             var query = from planoConta in saceEntities.PlanoContaSet
                         join tipoConta in saceEntities.TipoContaSet on planoConta.codTipoConta equals tipoConta.codTipoConta

@@ -103,6 +103,7 @@
             this.tb_subgrupoDataGridView.Location = new System.Drawing.Point(10, 62);
             this.tb_subgrupoDataGridView.Name = "tb_subgrupoDataGridView";
             this.tb_subgrupoDataGridView.ReadOnly = true;
+            this.tb_subgrupoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_subgrupoDataGridView.Size = new System.Drawing.Size(586, 220);
             this.tb_subgrupoDataGridView.TabIndex = 5;
             // 

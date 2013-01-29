@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorContaBanco 
     {
         private static GerenciadorContaBanco gContaBanco;
-        private static RepositorioGenerico<ContaBancoE, SaceEntities> repContaBanco;
         
         public static GerenciadorContaBanco GetInstance()
         {
             if (gContaBanco == null)
             {
                 gContaBanco = new GerenciadorContaBanco();
-                repContaBanco = new RepositorioGenerico<ContaBancoE, SaceEntities>("chave");
             }
             return gContaBanco;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repContaBanco = new RepositorioGenerico<ContaBancoE>();
+
                 ContaBancoE _contaBanco = new ContaBancoE();
                 Atribuir(contaBanco, _contaBanco);
                 repContaBanco.Inserir(_contaBanco);
@@ -57,6 +57,8 @@ namespace Negocio
         {
             try
             {
+                var repContaBanco = new RepositorioGenerico<ContaBancoE>();
+
                 ContaBancoE _contaBanco = repContaBanco.ObterEntidade(c => c.codContaBanco == contaBanco.CodContaBanco);
                 Atribuir(contaBanco, _contaBanco);
 
@@ -78,6 +80,8 @@ namespace Negocio
                 throw new NegocioException("A conta bancária/Caixa não pode ser excluída.");
             try
             {
+                var repContaBanco = new RepositorioGenerico<ContaBancoE>();
+
                 repContaBanco.Remover(c => c.codContaBanco == codcontaBanco);
                 repContaBanco.SaveChanges();
             }
@@ -93,6 +97,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ContaBanco> GetQuery()
         {
+            var repContaBanco = new RepositorioGenerico<ContaBancoE>();
+
             var saceEntities = (SaceEntities)repContaBanco.ObterContexto();
             var query = from contaBanco in saceEntities.ContaBancoSet
                         join banco in saceEntities.BancoSet

@@ -49,12 +49,14 @@ namespace Telas
         {
             cartaoCreditoBindingSource.AddNew();
             codCartaoTextBox.Enabled = false;
-            nomeTextBox.Focus();
             habilitaBotoes(false);
-            contaBancoBindingSource.MoveFirst();
             codContaBancoComboBox.SelectedIndex = 0;
             codPessoaComboBox.SelectedIndex = 0;
+            CartaoCredito cartaoCredito = (CartaoCredito)cartaoCreditoBindingSource.Current;
+            cartaoCredito.CodContaBanco = ((ContaBanco)contaBancoBindingSource.Current).CodContaBanco;
+            cartaoCredito.CodPessoa = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
             estado = EstadoFormulario.INSERIR;
+            nomeTextBox.Focus();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -85,23 +87,16 @@ namespace Telas
         {
             try
             {
-                CartaoCredito _cartaoCredito = new CartaoCredito();
-                _cartaoCredito.CodCartao = int.Parse(codCartaoTextBox.Text);
-                _cartaoCredito.Nome = nomeTextBox.Text;
-                _cartaoCredito.DiaBase = int.Parse(diaBaseTextBox.Text);
-                _cartaoCredito.CodContaBanco = Int32.Parse(codContaBancoComboBox.SelectedValue.ToString());
-                _cartaoCredito.CodPessoa = Int64.Parse(codPessoaComboBox.SelectedValue.ToString());
-                _cartaoCredito.Mapeamento = mapeamentoTextBox.Text;
-
-                GerenciadorCartaoCredito gCartaoCredito = GerenciadorCartaoCredito.GetInstance();
+                CartaoCredito _cartaoCredito = (CartaoCredito) cartaoCreditoBindingSource.Current;
+                
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codCartao = gCartaoCredito.Inserir(_cartaoCredito);
+                    long codCartao = GerenciadorCartaoCredito.GetInstance().Inserir(_cartaoCredito);
                     codCartaoTextBox.Text = codCartao.ToString();
                 }
                 else
                 {
-                    gCartaoCredito.Atualizar(_cartaoCredito);
+                    GerenciadorCartaoCredito.GetInstance().Atualizar(_cartaoCredito);
                 }
                 cartaoCreditoBindingSource.EndEdit();
             }

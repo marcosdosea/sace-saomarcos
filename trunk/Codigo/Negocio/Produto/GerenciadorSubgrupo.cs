@@ -14,15 +14,12 @@ namespace Negocio
     public class GerenciadorSubgrupo 
     {
         private static GerenciadorSubgrupo gSubgrupo;
-        private static RepositorioGenerico<SubgrupoE, SaceEntities> repSubgrupo;
-        
-        
+       
         public static GerenciadorSubgrupo GetInstance()
         {
             if (gSubgrupo == null)
             {
                 gSubgrupo = new GerenciadorSubgrupo();
-                repSubgrupo = new RepositorioGenerico<SubgrupoE, SaceEntities>("chave");
             }
             return gSubgrupo;
         }
@@ -37,6 +34,8 @@ namespace Negocio
         {
             try
             {
+                var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
+            
                 SubgrupoE _subgrupoE = new SubgrupoE();
                 _subgrupoE.codGrupo = subgrupo.CodGrupo;
                 _subgrupoE.descricao = subgrupo.Descricao;
@@ -60,6 +59,8 @@ namespace Negocio
         {
             try
             {
+                var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
+            
                 SubgrupoE _subgrupoE = repSubgrupo.ObterEntidade(s => s.codSubgrupo == subgrupo.CodSubgrupo);
                 _subgrupoE.codGrupo = subgrupo.CodGrupo;
                 _subgrupoE.descricao = subgrupo.Descricao;
@@ -82,6 +83,8 @@ namespace Negocio
                 throw new NegocioException("Esse subgrupo não pode ser excluído para manter a consistência da base de dados");
             try
             {
+                var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
+            
                 repSubgrupo.Remover(s => s.codSubgrupo == codSubgrupo);
                 repSubgrupo.SaveChanges();
             }
@@ -97,6 +100,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Subgrupo> GetQuery()
         {
+            var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
+            
             var saceEntities = (SaceEntities) repSubgrupo.ObterContexto();
             var query = from subgrupo in saceEntities.SubgrupoSet
                         join grupo in saceEntities.GrupoSet on subgrupo.codGrupo equals grupo.codGrupo

@@ -82,6 +82,13 @@
             this.precoVendaSemDescontoTextBox = new System.Windows.Forms.TextBox();
             this.subtotalTextBox = new System.Windows.Forms.TextBox();
             this.tb_saida_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.codSaidaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotalAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saidaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -110,13 +117,6 @@
             this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
-            this.codSaidaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -398,7 +398,7 @@
             // saidaBindingSource
             // 
             this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
-            this.saidaBindingSource.Sort = "codSaida";
+            this.saidaBindingSource.Sort = "";
             // 
             // codSaidaTextBox
             // 
@@ -644,6 +644,66 @@
             this.tb_saida_produtoDataGridView.TabStop = false;
             this.tb_saida_produtoDataGridView.Leave += new System.EventHandler(this.tb_saida_produtoDataGridView_Leave);
             // 
+            // codSaidaProdutoDataGridViewTextBoxColumn
+            // 
+            this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaProduto";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "CodSaidaProduto";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
+            this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codSaidaProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
+            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // Unidade
+            // 
+            this.Unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Unidade.DataPropertyName = "Unidade";
+            this.Unidade.FillWeight = 20F;
+            this.Unidade.HeaderText = "UN";
+            this.Unidade.Name = "Unidade";
+            this.Unidade.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorVendaDataGridViewTextBoxColumn
+            // 
+            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
+            dataGridViewCellStyle2.Format = "C2";
+            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
+            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
+            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalDataGridViewTextBoxColumn
+            // 
+            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
+            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
+            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // subtotalAVistaDataGridViewTextBoxColumn
+            // 
+            this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
+            dataGridViewCellStyle4.Format = "C2";
+            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
+            this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
+            this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // saidaProdutoBindingSource
             // 
             this.saidaProdutoBindingSource.DataSource = typeof(Dominio.SaidaProduto);
@@ -651,7 +711,7 @@
             // totalTextBox
             // 
             this.totalTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "total", true));
+            this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Total", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.totalTextBox.ForeColor = System.Drawing.Color.Yellow;
             this.totalTextBox.Location = new System.Drawing.Point(792, 544);
@@ -674,7 +734,7 @@
             // totalAVistaTextBox
             // 
             this.totalAVistaTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalAVistaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "totalAVista", true));
+            this.totalAVistaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "TotalAVista", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalAVistaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.totalAVistaTextBox.ForeColor = System.Drawing.Color.Yellow;
             this.totalAVistaTextBox.Location = new System.Drawing.Point(792, 611);
@@ -957,66 +1017,6 @@
             this.lblPreco.Size = new System.Drawing.Size(165, 18);
             this.lblPreco.TabIndex = 78;
             this.lblPreco.Text = "CTRL+P - Preço Varejo";
-            // 
-            // codSaidaProdutoDataGridViewTextBoxColumn
-            // 
-            this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaProduto";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "CodSaidaProduto";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codSaidaProdutoDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // Unidade
-            // 
-            this.Unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Unidade.DataPropertyName = "Unidade";
-            this.Unidade.FillWeight = 20F;
-            this.Unidade.HeaderText = "UN";
-            this.Unidade.Name = "Unidade";
-            this.Unidade.ReadOnly = true;
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorVendaDataGridViewTextBoxColumn
-            // 
-            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
-            dataGridViewCellStyle2.Format = "C2";
-            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
-            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
-            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // subtotalDataGridViewTextBoxColumn
-            // 
-            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
-            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
-            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // subtotalAVistaDataGridViewTextBoxColumn
-            // 
-            this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
-            dataGridViewCellStyle4.Format = "C2";
-            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
-            this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
-            this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmSaida
             // 
