@@ -9,22 +9,19 @@ using Dados.saceDataSetConsultasTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using System.Data.Objects;
 
 
 namespace Negocio
 {
     public class GerenciadorSaidaProduto {
         private static GerenciadorSaidaProduto gSaidaProduto;
-        private static RepositorioGenerico<SaidaProdutoE, SaceEntities> repSaidaProduto;
-        private static RepositorioGenerico<SaidaE, SaceEntities> repSaida;
         
         public static GerenciadorSaidaProduto GetInstance()
         {
             if (gSaidaProduto == null)
             {
                 gSaidaProduto = new GerenciadorSaidaProduto();
-                repSaidaProduto = new RepositorioGenerico<SaidaProdutoE, SaceEntities>("chave");
-                repSaida = new RepositorioGenerico<SaidaE, SaceEntities>("chave");
             }
             return gSaidaProduto;
         }
@@ -50,6 +47,9 @@ namespace Negocio
             
             try
             {
+                var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+                //repSaidaProduto.ObterContexto().Exe
+                
                 SaidaProdutoE _saidaProdutoE = new SaidaProdutoE();
                 Atribuir(saidaProduto, _saidaProdutoE);
 
@@ -83,7 +83,18 @@ namespace Negocio
                 else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Devolução para Fornecedor com Nota Fiscal já emitida.");
 
-                repSaidaProduto.Remover(sp => sp.codSaidaProduto == saidaProduto.CodSaidaProduto);
+               
+                var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+            
+                var saceEntities = (SaceEntities)repSaidaProduto.ObterContexto();
+                var query = from _saidaProduto in saceEntities.SaidaProdutoSet
+                            where _saidaProduto.codSaidaProduto == saidaProduto.CodSaidaProduto
+                            select _saidaProduto;
+                foreach (SaidaProdutoE saidaProdutoE in query)
+                {
+                    repSaidaProduto.Remover(saidaProdutoE);
+                    repSaidaProduto.SaveChanges();
+                }
                 AtualizarTotaisSaida(saida, saidaProduto, true);
             }
             catch (Exception e)
@@ -98,7 +109,9 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaProduto> GetQuery()
         {
-            var saceEntities = (SaceEntities)repSaida.ObterContexto();
+            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+            
+            var saceEntities = (SaceEntities)repSaidaProduto.ObterContexto();
             var query = from saidaProduto in saceEntities.SaidaProdutoSet
                         join produto in saceEntities.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
                         select new SaidaProduto
@@ -154,7 +167,9 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaProduto> ObterPorPedido(string codPedido)
         {
-            var saceEntities = (SaceEntities)repSaida.ObterContexto();
+            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+            
+            var saceEntities = (SaceEntities)repSaidaProduto.ObterContexto();
             var query = from saidaProduto in saceEntities.SaidaProdutoSet
                         join produto in saceEntities.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
                         join saida in saceEntities.SaidaSet on saidaProduto.codSaida equals saida.codSaida
@@ -211,28 +226,28 @@ namespace Negocio
         
         private void AtualizarTotaisSaida(Saida saida, SaidaProduto saidaProduto, bool ehRemocao)
         {
-            SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida == saida.CodSaida);
             if (ehRemocao)
             {
-                _saidaE.total -= saidaProduto.Subtotal;
-                _saidaE.totalAVista -= saidaProduto.SubtotalAVista;
-                _saidaE.baseCalculoICMS -= saidaProduto.BaseCalculoICMS;
-                _saidaE.valorICMS -= saidaProduto.ValorICMS;
-                _saidaE.baseCalculoICMSSubst -= saidaProduto.BaseCalculoICMSSubst;
-                _saidaE.valorICMSSubst -= saidaProduto.ValorICMSSubst;
-                _saidaE.valorIPI -= saidaProduto.ValorIPI;
+                saida.Total -= saidaProduto.Subtotal;
+                saida.TotalAVista -= saidaProduto.SubtotalAVista;
+                saida.BaseCalculoICMS -= saidaProduto.BaseCalculoICMS;
+                saida.ValorICMS -= saidaProduto.ValorICMS;
+                saida.BaseCalculoICMSSubst -= saidaProduto.BaseCalculoICMSSubst;
+                saida.ValorICMSSubst -= saidaProduto.ValorICMSSubst;
+                saida.ValorIPI -= saidaProduto.ValorIPI;
             }
             else
             {
-                _saidaE.total += saidaProduto.Subtotal;
-                _saidaE.totalAVista += saidaProduto.SubtotalAVista;
-                _saidaE.baseCalculoICMS += saidaProduto.BaseCalculoICMS;
-                _saidaE.valorICMS += saidaProduto.ValorICMS;
-                _saidaE.baseCalculoICMSSubst += saidaProduto.BaseCalculoICMSSubst;
-                _saidaE.valorICMSSubst += saidaProduto.ValorICMSSubst;
-                _saidaE.valorIPI += saidaProduto.ValorIPI;
+                saida.Total += saidaProduto.Subtotal;
+                saida.TotalAVista += saidaProduto.SubtotalAVista;
+                saida.BaseCalculoICMS += saidaProduto.BaseCalculoICMS;
+                saida.ValorICMS += saidaProduto.ValorICMS;
+                saida.BaseCalculoICMSSubst += saidaProduto.BaseCalculoICMSSubst;
+                saida.ValorICMSSubst += saidaProduto.ValorICMSSubst;
+                saida.ValorIPI += saidaProduto.ValorIPI;
             }
-            repSaida.SaveChanges();
+            
+            GerenciadorSaida.GetInstance().Atualizar(saida);
         }
     }
 }

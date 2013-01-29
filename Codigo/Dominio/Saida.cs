@@ -52,5 +52,22 @@ namespace Dominio
         public string NomeCliente { get; set; }
         public string DescricaoSituacaoPagamentos { get; set; }
 
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodSaida.Equals(((Saida)obj).CodSaida);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodSaida.GetHashCode();
+        }
+
     }
 }

@@ -14,15 +14,12 @@ namespace Negocio
     public class GerenciadorCfop 
     {
         private static GerenciadorCfop gCfop;
-        private static RepositorioGenerico<CfopE, SaceEntities> repCfop;
-
-
+        
         public static GerenciadorCfop GetInstance()
         {
             if (gCfop == null)
             {
                 gCfop = new GerenciadorCfop();
-                repCfop = new RepositorioGenerico<CfopE, SaceEntities>("chave");
             }
             return gCfop;
         }
@@ -36,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repCfop = new RepositorioGenerico<CfopE>();
+
                 CfopE _cfop = new CfopE();
                 _cfop.cfop = cfop.CodCfop;
                 _cfop.descricao = cfop.Descricao;
@@ -61,6 +60,8 @@ namespace Negocio
         {
             try
             {
+                var repCfop = new RepositorioGenerico<CfopE>();
+
                 CfopE _cfop = repCfop.ObterEntidade(cf => cf.cfop.Equals(cfop.CodCfop));
                 _cfop.descricao = cfop.Descricao;
                 _cfop.icms = cfop.Icms;
@@ -81,6 +82,8 @@ namespace Negocio
         {
             try
             {
+                var repCfop = new RepositorioGenerico<CfopE>();
+
                 repCfop.Remover(c => c.cfop == codCfop);
                 repCfop.SaveChanges();
             }
@@ -96,6 +99,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Cfop> GetQuery()
         {
+            var repCfop = new RepositorioGenerico<CfopE>();
+
             var saceEntities = (SaceEntities)repCfop.ObterContexto();
             var query = from cfop in saceEntities.CfopSet
                         select new Cfop

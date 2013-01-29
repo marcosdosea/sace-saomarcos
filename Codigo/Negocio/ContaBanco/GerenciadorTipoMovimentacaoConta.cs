@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorTipoMovimentacaoConta
     {
         private static GerenciadorTipoMovimentacaoConta gTipoMovimentacaoConta;
-        private static RepositorioGenerico<TipoMovimentacaoContaE, SaceEntities> repTipoMovimentacaoConta;
         
         public static GerenciadorTipoMovimentacaoConta GetInstance()
         {
             if (gTipoMovimentacaoConta == null)
             {
                 gTipoMovimentacaoConta = new GerenciadorTipoMovimentacaoConta();
-                repTipoMovimentacaoConta = new RepositorioGenerico<TipoMovimentacaoContaE, SaceEntities>("chave");
             }
             return gTipoMovimentacaoConta;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repTipoMovimentacaoConta = new RepositorioGenerico<TipoMovimentacaoContaE>();
+
                 TipoMovimentacaoContaE _tipoMovimentacaoContaE = new TipoMovimentacaoContaE();
                 _tipoMovimentacaoContaE.descricao = tipoMovimentacaoConta.Descricao;
                 _tipoMovimentacaoContaE.somaSaldo = tipoMovimentacaoConta.SomaSaldo;
@@ -58,6 +58,8 @@ namespace Negocio
         {
             try
             {
+                var repTipoMovimentacaoConta = new RepositorioGenerico<TipoMovimentacaoContaE>();
+
                 TipoMovimentacaoContaE _tipoMovimentacaoConta = repTipoMovimentacaoConta.ObterEntidade(tmc => tmc.codTipoMovimentacao == tipoMovimentacaoConta.CodTipoMovimentacao);
 
                 _tipoMovimentacaoConta.descricao = tipoMovimentacaoConta.Descricao;
@@ -79,8 +81,9 @@ namespace Negocio
         {
             try
             {
+                var repTipoMovimentacaoConta = new RepositorioGenerico<TipoMovimentacaoContaE>();
+
                 repTipoMovimentacaoConta.Remover(tmc => tmc.codTipoMovimentacao == codTipoMovimentacaoConta);
-                
                 repTipoMovimentacaoConta.SaveChanges();
             }
             catch (Exception e)
@@ -95,6 +98,7 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<TipoMovimentacaoConta> GetQuery()
         {
+            var repTipoMovimentacaoConta = new RepositorioGenerico<TipoMovimentacaoContaE>();
             var saceEntities = (SaceEntities)repTipoMovimentacaoConta.ObterContexto();
             var query = from tipoMovimentacaoConta in saceEntities.TipoMovimentacaoContaSet
                         select new TipoMovimentacaoConta

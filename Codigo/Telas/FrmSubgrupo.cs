@@ -58,7 +58,7 @@ namespace Telas
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            codSubgrupoTextBox.Focus();
+            descricaoTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.ATUALIZAR;
         }
@@ -89,7 +89,8 @@ namespace Telas
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    GerenciadorSubgrupo.GetInstance().Inserir(subgrupo);
+                    long codSubgrupo = GerenciadorSubgrupo.GetInstance().Inserir(subgrupo);
+                    codSubgrupoTextBox.Text = codSubgrupo.ToString();
                 }
                 else
                 {

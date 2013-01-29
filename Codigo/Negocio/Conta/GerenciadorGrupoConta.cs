@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorGrupoConta 
     {
         private static GerenciadorGrupoConta gGrupoConta;
-        private static RepositorioGenerico<GrupoContaE, SaceEntities> repGrupoConta;
         
         public static GerenciadorGrupoConta GetInstance()
         {
             if (gGrupoConta == null)
             {
                 gGrupoConta = new GerenciadorGrupoConta();
-                repGrupoConta = new RepositorioGenerico<GrupoContaE, SaceEntities>("chave");
             }
             return gGrupoConta;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repGrupoConta = new RepositorioGenerico<GrupoContaE>();
+
                 GrupoContaE _grupoContaE = new GrupoContaE();
                 _grupoContaE.descricao = grupoConta.Descricao;
 
@@ -56,6 +56,8 @@ namespace Negocio
         {
             try
             {
+                var repGrupoConta = new RepositorioGenerico<GrupoContaE>();
+
                 GrupoContaE _grupoContaE = repGrupoConta.ObterEntidade(gc => gc.codGrupoConta == grupoConta.CodGrupoConta);
                 _grupoContaE.descricao = grupoConta.Descricao;
 
@@ -78,6 +80,8 @@ namespace Negocio
 
             try
             {
+                var repGrupoConta = new RepositorioGenerico<GrupoContaE>();
+
                 repGrupoConta.Remover(gc => gc.codGrupoConta == codGrupoConta);
                 repGrupoConta.SaveChanges();
             }
@@ -93,6 +97,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<GrupoConta> GetQuery()
         {
+            var repGrupoConta = new RepositorioGenerico<GrupoContaE>();
+
             var saceEntities = (SaceEntities) repGrupoConta.ObterContexto();
             var query = from grupoConta in saceEntities.GrupoContaSet
                         select new GrupoConta

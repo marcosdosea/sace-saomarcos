@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorCartaoCredito
     {
         private static GerenciadorCartaoCredito gCartaoCredito;
-        private static RepositorioGenerico<CartaoCreditoE, SaceEntities> repCartaoCredito;
         
         public static GerenciadorCartaoCredito GetInstance()
         {
             if (gCartaoCredito == null)
             {
                 gCartaoCredito = new GerenciadorCartaoCredito();
-                repCartaoCredito = new RepositorioGenerico<CartaoCreditoE, SaceEntities>("chave");
             }
             return gCartaoCredito;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repCartaoCredito = new RepositorioGenerico<CartaoCreditoE>();
+
                 CartaoCreditoE _cartaoCredito = new CartaoCreditoE();
                 Atribuir(cartaoCredito, _cartaoCredito);
                 
@@ -57,6 +57,8 @@ namespace Negocio
         {
             try
             {
+                var repCartaoCredito = new RepositorioGenerico<CartaoCreditoE>();
+
                 CartaoCreditoE _cartaoCredito = repCartaoCredito.ObterEntidade(cartao => cartao.codCartao == cartaoCredito.CodCartao);
                 Atribuir(cartaoCredito, _cartaoCredito);
 
@@ -76,6 +78,8 @@ namespace Negocio
         {
             try
             {
+                var repCartaoCredito = new RepositorioGenerico<CartaoCreditoE>();
+
                 if (codCartaoCredito == 1)
                 {
                     throw new NegocioException("Esse cartão de crédito não pode ser removido");
@@ -96,6 +100,7 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<CartaoCredito> GetQuery()
         {
+            var repCartaoCredito = new RepositorioGenerico<CartaoCreditoE>();
             var saceEntities = (SaceEntities)repCartaoCredito.ObterContexto();
             var query = from cartao in saceEntities.CartaoCreditoSet
                         join contaBanco in saceEntities.ContaBancoSet on cartao.codContaBanco equals contaBanco.codContaBanco

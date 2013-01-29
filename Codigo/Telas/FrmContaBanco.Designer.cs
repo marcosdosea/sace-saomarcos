@@ -343,18 +343,18 @@
             // 
             // codBancoComboBox
             // 
-            this.codBancoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codBancoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codBancoComboBox.CausesValidation = false;
-            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBancoBindingSource, "NomeBanco", true));
+            this.codBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBancoBindingSource, "CodBanco", true));
             this.codBancoComboBox.DataSource = this.bancoBindingSource;
             this.codBancoComboBox.DisplayMember = "Nome";
+            this.codBancoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codBancoComboBox.FormattingEnabled = true;
             this.codBancoComboBox.Location = new System.Drawing.Point(133, 185);
             this.codBancoComboBox.Name = "codBancoComboBox";
             this.codBancoComboBox.Size = new System.Drawing.Size(329, 21);
             this.codBancoComboBox.TabIndex = 32;
-            this.codBancoComboBox.ValueMember = "codBanco";
+            this.codBancoComboBox.ValueMember = "CodBanco";
             this.codBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codBancoComboBox_KeyPress);
             this.codBancoComboBox.Leave += new System.EventHandler(this.codBancoComboBox_Leave);
             // 

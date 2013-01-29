@@ -17,16 +17,12 @@ namespace Negocio
     public class GerenciadorSaida
     {
         private static GerenciadorSaida gSaida;
-        private static RepositorioGenerico<SaidaE, SaceEntities> repSaida;
-        private static RepositorioGenerico<SaidaPedidoE, SaceEntities> repSaidaPedido;
-
+        
         public static GerenciadorSaida GetInstance()
         {
             if (gSaida == null)
             {
                 gSaida = new GerenciadorSaida();
-                repSaida = new RepositorioGenerico<SaidaE, SaceEntities>("chave");
-                repSaidaPedido = new RepositorioGenerico<SaidaPedidoE, SaceEntities>("chave");
             }
             return gSaida;
         }
@@ -42,7 +38,9 @@ namespace Negocio
             {
                 SaidaE _saidaE = new SaidaE();
                 Atribuir(saida, _saidaE);
-
+                
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                
                 repSaida.Inserir(_saidaE);
                 repSaida.SaveChanges();
                 
@@ -63,9 +61,17 @@ namespace Negocio
         {
             try
             {
-                SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida == saida.CodSaida);
-                Atribuir(saida, _saidaE);
-
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                var saceEntities = (SaceEntities)repSaida.ObterContexto();
+                var query = from saidaE in saceEntities.SaidaSet
+                            where saidaE.codSaida == saida.CodSaida
+                            select saidaE;
+                
+                foreach (SaidaE _saidaE in query)
+                {
+                    Atribuir(saida, _saidaE);
+                }
+                                
                 repSaida.SaveChanges();
             }
             catch (Exception e)
@@ -83,6 +89,8 @@ namespace Negocio
         {
             try
             {
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                
                 SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida == codSaida);
                 _saidaE.codSituacaoPagamentos = codSituacaoPagamentos;
 
@@ -103,6 +111,8 @@ namespace Negocio
         {
             try
             {
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                
                 List<SaidaE> _listaSaidaE = (List<SaidaE>) repSaida.Obter(s => s.pedidoGerado.Equals(pedidoGerado));
                 foreach (SaidaE _saidaE in _listaSaidaE)
                 {
@@ -125,6 +135,8 @@ namespace Negocio
         {
             try
             {
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                
                 SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida.Equals(codSaida));
                 _saidaE.codTipoSaida = codTipoSaida;
                 _saidaE.pedidoGerado = pedidoGerado;
@@ -144,6 +156,8 @@ namespace Negocio
         {
             try
             {
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                
                 GerenciadorSaidaPagamento.GetInstance().RemoverPorSaida(saida);
                     
                 if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
@@ -183,12 +197,13 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Saida> GetQuery()
         {
+            var repSaida = new RepositorioGenerico<SaidaE>();
+
             var saceEntities = (SaceEntities)repSaida.ObterContexto();
             var query = from saida in saceEntities.SaidaSet
                         join situacaoPagamentos in saceEntities.SituacaoPagamentosSet on saida.codSituacaoPagamentos equals situacaoPagamentos.codSituacaoPagamentos
                         join tipoSaida in saceEntities.TipoSaidaSet on saida.codTipoSaida equals tipoSaida.codTipoSaida
                         join cliente in saceEntities.PessoaSet on saida.codCliente equals cliente.codPessoa
-                        orderby saida.codSaida
                         select new Saida
                         {
                             BaseCalculoICMS = (decimal)saida.baseCalculoICMS,
@@ -253,7 +268,7 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterPorTipoSaida(int codTipoSaida)
         {
-            return GetQuery().Where(saida => saida.TipoSaida == codTipoSaida).ToList();
+            return GetQuery().Where(saida => saida.TipoSaida == codTipoSaida).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -265,10 +280,10 @@ namespace Negocio
         {
             if (somenteUltimasSaidas) 
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderByDescending(s => s.CodSaida).Take(100).OrderBy(s => s.CodSaida).ToList();
             else
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).ToList();
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -278,7 +293,7 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterPorPedido(string pedidoGerado)
         {
-            return GetQuery().Where(saida => saida.PedidoGerado.StartsWith(pedidoGerado)).ToList();
+            return GetQuery().Where(saida => saida.PedidoGerado.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -288,7 +303,7 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterPorNomeCliente(string nomeCliente)
         {
-            return GetQuery().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).ToList();
+            return GetQuery().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -298,8 +313,8 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterPreVendasPendentes()
         {
-            return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA && 
-                saida.PedidoGerado.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA).ToList();
+            return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
+                saida.PedidoGerado.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -1383,6 +1398,8 @@ namespace Negocio
 
         public Int64 ObterNumeroProximaNotaFiscal()
         {
+            var repSaida = new RepositorioGenerico<SaidaE>();
+
             var saceEntities = (SaceEntities)repSaida.ObterContexto();
             var query = from saida in saceEntities.SaidaSet
                         select saida;

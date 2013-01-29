@@ -14,15 +14,12 @@ namespace Negocio
     public class GerenciadorEntrada 
     {
         private static GerenciadorEntrada gEntrada;
-        private static RepositorioGenerico<EntradaE, SaceEntities> repEntrada;
-        
-        
+                
         public static GerenciadorEntrada GetInstance()
         {
             if (gEntrada == null)
             {
                 gEntrada = new GerenciadorEntrada();
-                repEntrada = new RepositorioGenerico<EntradaE, SaceEntities>("chave");
             }
             return gEntrada;
         }
@@ -36,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repEntrada = new RepositorioGenerico<EntradaE>();
+
                 EntradaE _entradaE = new EntradaE();
                 Atribuir(entrada, _entradaE);
 
@@ -58,6 +57,8 @@ namespace Negocio
         {
             try
             {
+                var repEntrada = new RepositorioGenerico<EntradaE>();
+
                 EntradaE _entradaE = repEntrada.ObterEntidade(e => e.codEntrada == entrada.CodEntrada);
                 Atribuir(entrada, _entradaE);
 
@@ -77,6 +78,8 @@ namespace Negocio
         {
             try
             {
+                var repEntrada = new RepositorioGenerico<EntradaE>();
+
                 repEntrada.Remover(e => e.codEntrada == codEntrada);
                 repEntrada.SaveChanges();
             }
@@ -174,6 +177,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Entrada> GetQuery()
         {
+            var repEntrada = new RepositorioGenerico<EntradaE>();
+
             var saceEntities = (SaceEntities)repEntrada.ObterContexto();
             var query = from entrada in saceEntities.EntradaSet
                         join fornecedor in saceEntities.PessoaSet on entrada.codFornecedor equals fornecedor.codPessoa
@@ -264,6 +269,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<SituacaoPagamentos> ObterTodosSituacoesPagamentos()
         {
+            var repEntrada = new RepositorioGenerico<EntradaE>();
+
             var saceEntities = (SaceEntities)repEntrada.ObterContexto();
             var query = from situacaoPagamentos in saceEntities.SituacaoPagamentosSet
                         select new SituacaoPagamentos

@@ -15,14 +15,12 @@ namespace Negocio
     {
 
         private static GerenciadorProduto gProduto;
-        private static RepositorioGenerico<ProdutoE, SaceEntities> repProduto;
 
         public static GerenciadorProduto GetInstance()
         {
             if (gProduto == null)
             {
                 gProduto = new GerenciadorProduto();
-                repProduto = new RepositorioGenerico<ProdutoE, SaceEntities>("chave");
             }
             return gProduto;
         }
@@ -42,6 +40,7 @@ namespace Negocio
                 ProdutoE _produtoE = new ProdutoE();
                 Atribuir(produto, _produtoE);
 
+                var repProduto = new RepositorioGenerico<ProdutoE>();
                 repProduto.Inserir(_produtoE);
                 repProduto.SaveChanges();
 
@@ -66,6 +65,8 @@ namespace Negocio
 
             try
             {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+
                 ProdutoE _produtoE = repProduto.ObterEntidade(p => p.codProduto == produto.CodProduto);
                 // Atualiza data da ultima atualizacao
                 if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado))
@@ -90,6 +91,8 @@ namespace Negocio
         {
             try
             {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+
                 ProdutoE _produtoE = repProduto.ObterEntidade(p => p.codProduto == _produtoPesquisa.CodProduto);
                 _produtoE.codigoBarra = ultimoCodigoBarraLido;
                 repProduto.SaveChanges();
@@ -109,6 +112,8 @@ namespace Negocio
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
             try
             {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+
                 repProduto.Remover(p => p.codProduto == codproduto);
                 repProduto.SaveChanges();
             }
@@ -124,8 +129,11 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Produto> GetQuery()
         {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
             var query = from produto in saceEntities.ProdutoSet
+                        orderby produto.nome
                         select new Produto
                         {
                             Cfop = (int) produto.cfop,
@@ -169,8 +177,11 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ProdutoPesquisa> GetQuerySimples()
         {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
             var query = from produto in saceEntities.ProdutoSet
+                        orderby produto.nome
                         select new ProdutoPesquisa
                         {
                             CodCST = produto.codCST,
@@ -310,6 +321,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<SituacaoProduto> ObterSituacoesProduto()
         {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
             var query = from situacaoProduto in saceEntities.SituacaoProdutoSet
                         select new SituacaoProduto

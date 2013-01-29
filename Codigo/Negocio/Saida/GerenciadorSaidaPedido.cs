@@ -10,14 +10,12 @@ namespace Negocio
     public class GerenciadorSaidaPedido
     {
         private static GerenciadorSaidaPedido gSaidaPedido;
-        private static RepositorioGenerico<SaidaPedidoE, SaceEntities> repSaidaPedido;
-
+        
         public static GerenciadorSaidaPedido GetInstance()
         {
             if (gSaidaPedido == null)
             {
                 gSaidaPedido = new GerenciadorSaidaPedido();
-                repSaidaPedido = new RepositorioGenerico<SaidaPedidoE, SaceEntities>("chave");
             }
             return gSaidaPedido;
         }
@@ -31,6 +29,8 @@ namespace Negocio
         {
             try
             {
+                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
+            
                 SaidaPedidoE _saidaPedidoE = new SaidaPedidoE();
                 _saidaPedidoE.codSaida = saidaPedido.CodSaida;
                 _saidaPedidoE.codPedidoGerado = saidaPedido.CodPedido;
@@ -54,6 +54,7 @@ namespace Negocio
         {
             try
             {
+                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
                 repSaidaPedido.Remover(sp => sp.codPedidoGerado == codPedido);
                 repSaidaPedido.SaveChanges();
             }
@@ -69,6 +70,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaPedido> GetQuery()
         {
+            var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
+            
             var saceEntities = (SaceEntities)repSaidaPedido.ObterContexto();
             var query = from saidaPedido in saceEntities.SaidaPedidoSet
                         select new SaidaPedido

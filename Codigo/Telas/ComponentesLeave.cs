@@ -29,7 +29,21 @@ namespace Telas
                 else
                     pessoas = (List<Pessoa>)GerenciadorPessoa.GetInstance().ObterPorNome(pessoaComboBox.Text);
 
-                if ((pessoas.Count == 0) || (pessoas.Count > 1))
+                Pessoa pessoaNomeIgual = null;
+                foreach (Pessoa pessoa in pessoas)
+                {
+                    if (retornaNomeFantasia)
+                    {
+                        if (pessoa.NomeFantasia.Equals(pessoaComboBox.Text))
+                            pessoaNomeIgual = pessoa;
+                    }
+                    else
+                    {
+                        if (pessoa.Nome.Equals(pessoaComboBox.Text))
+                            pessoaNomeIgual = pessoa;
+                    }
+                }
+                if ((pessoas.Count == 0) || ((pessoas.Count > 1) && (pessoaNomeIgual == null)))
                 {
                     Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(pessoaComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
@@ -49,7 +63,7 @@ namespace Telas
                 }
                 else
                 {
-                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoas[0]);
+                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoaNomeIgual);
                     if (retornaNomeFantasia)
                         pessoaComboBox.Text = ((Pessoa)pessoaBindingSource.Current).NomeFantasia;
                     else
@@ -81,6 +95,7 @@ namespace Telas
                 long result;
                 // Busca produto pelo Código ou Código de Barra
                 bool isNumber = long.TryParse(produtoComboBox.Text.ToString(), out result);
+                ProdutoPesquisa produtoNomeIgual = null;
                 if (isNumber)
                 {
                     // Busca pelo código do produto
@@ -100,7 +115,13 @@ namespace Telas
                 {
                     // Busca produto pelo nome
                     _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
-                    if ((_listaProdutos.Count == 0) || (_listaProdutos.Count > 1))
+                    
+                    foreach (ProdutoPesquisa produto in _listaProdutos)
+                    {
+                        if (produto.Nome.Equals(produtoComboBox.Text))
+                            produtoNomeIgual = produto;
+                    }
+                    if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count > 1) && (produtoNomeIgual == null)))
                     {
                         Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(produtoComboBox.Text, exibirTodos);
                         frmProdutoPesquisaPreco.ShowDialog();
@@ -108,14 +129,15 @@ namespace Telas
                         {
                             produtoComboBox.Text = frmProdutoPesquisaPreco.ProdutoPesquisa.Nome;
                             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProdutoPesquisaPreco.ProdutoPesquisa);
+                            produtoNomeIgual = frmProdutoPesquisaPreco.ProdutoPesquisa;
                         }
                         frmProdutoPesquisaPreco.Dispose();
                     }
                 }
                 //Se retornou algum produto nas pesquisas
-                if (_listaProdutos.Count > 0)
+                if ((_listaProdutos.Count > 0) && (produtoNomeIgual != null))
                 {
-                    Produto produto = new Produto() { CodProduto = _listaProdutos[0].CodProduto };
+                    Produto produto = new Produto() { CodProduto = produtoNomeIgual.CodProduto };
                     produtoBindingSource.Position = produtoBindingSource.List.IndexOf(produto);
                 }
                 // Se posição não foi modificada então focus no combobox

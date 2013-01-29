@@ -14,14 +14,12 @@ namespace Negocio
     public class GerenciadorPessoa
     {
         private static GerenciadorPessoa gPessoa;
-        private static RepositorioGenerico<PessoaE, SaceEntities> repPessoa;
         
         public static GerenciadorPessoa GetInstance()
         {
             if (gPessoa == null)
             {
                 gPessoa = new GerenciadorPessoa();
-                repPessoa = new RepositorioGenerico<PessoaE, SaceEntities>("chave");
             }
             return gPessoa;
         }
@@ -35,6 +33,8 @@ namespace Negocio
         {
             try
             {
+                var repPessoa = new RepositorioGenerico<PessoaE>();
+
                 if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
                     throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
                 
@@ -57,6 +57,7 @@ namespace Negocio
         /// <param name="pessoa"></param>
         public void Atualizar(Pessoa pessoa)
         {
+            var repPessoa = new RepositorioGenerico<PessoaE>();
 
             if (pessoa.CodPessoa == Global.CLIENTE_PADRAO)
                 throw new NegocioException("Os dados dessa pessoa não podem ser alterados ou removidos");
@@ -79,6 +80,8 @@ namespace Negocio
         /// <param name="codpessoa"></param>
         public void Remover(Int64 codpessoa)
         {
+            var repPessoa = new RepositorioGenerico<PessoaE>();
+
             if (codpessoa == Global.CLIENTE_PADRAO)
                 throw new NegocioException("Essa pessoa não pode ser removida.");
 
@@ -102,6 +105,7 @@ namespace Negocio
         {
             try
             {
+                var repPessoa = new RepositorioGenerico<PessoaE>();
 
                 PessoaE pessoa = repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoa);
                 pessoa.tb_pessoa2.Add(repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoaContato));
@@ -124,6 +128,8 @@ namespace Negocio
         {
             try
             {
+                var repPessoa = new RepositorioGenerico<PessoaE>();
+
                 PessoaE pessoa = repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoa);
                 PessoaE contato = repPessoa.ObterEntidade(p => p.codPessoa == contatoPessoa.CodPessoaContato);
 
@@ -138,8 +144,11 @@ namespace Negocio
 
         private IQueryable<Pessoa> GetQuery()
         {
+            var repPessoa = new RepositorioGenerico<PessoaE>();
+
             var saceEntities = (SaceEntities)repPessoa.ObterContexto();
             var query = from pessoa in saceEntities.PessoaSet
+                        orderby pessoa.nome
                         select new Pessoa
                         {
                             Bairro = pessoa.bairro,
@@ -258,6 +267,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Pessoa> ObterContatos(long codPessoa)
         {
+            var repPessoa = new RepositorioGenerico<PessoaE>();
+
             var saceEntities = (SaceEntities)repPessoa.ObterContexto();
             PessoaE _pessoa = repPessoa.ObterPrimeiro(p => p.codPessoa == codPessoa);
 

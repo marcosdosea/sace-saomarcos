@@ -14,16 +14,13 @@ namespace Negocio
     public class GerenciadorGrupo 
     {
         private static GerenciadorGrupo gGrupo;
-        private static RepositorioGenerico<SubgrupoE, SaceEntities> repSubgrupo;
-        private static RepositorioGenerico<GrupoE, SaceEntities> repGrupo;
+
         
         public static GerenciadorGrupo GetInstance()
         {
             if (gGrupo == null)
             {
                 gGrupo = new GerenciadorGrupo();
-                repGrupo = new RepositorioGenerico<GrupoE, SaceEntities>("chave");
-                repSubgrupo = new RepositorioGenerico<SubgrupoE, SaceEntities>("chave");
             }
             return gGrupo;
         }
@@ -37,6 +34,9 @@ namespace Negocio
         {
             try
             {
+                var repGrupo = new RepositorioGenerico<GrupoE>();
+                var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
+
                 GrupoE _grupoE = new GrupoE();
                 _grupoE.descricao = grupo.Descricao;
                 repGrupo.Inserir(_grupoE);
@@ -64,6 +64,8 @@ namespace Negocio
         {
             try
             {
+                var repGrupo = new RepositorioGenerico<GrupoE>();
+                
                 GrupoE _grupoE = repGrupo.ObterEntidade(g => g.codGrupo == grupo.CodGrupo);
                 _grupoE.descricao = grupo.Descricao;
 
@@ -85,6 +87,8 @@ namespace Negocio
                 throw new NegocioException("Esse grupo não pode ser excluído para manter a consistência da base de dados");
             try
             {
+                var repGrupo = new RepositorioGenerico<GrupoE>();
+                
                 repGrupo.Remover(grupo => grupo.codGrupo == codGrupo);
                 repGrupo.SaveChanges();
             }
@@ -100,6 +104,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Grupo> GetQuery()
         {
+            var repGrupo = new RepositorioGenerico<GrupoE>();
+            var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
             var saceEntities = (SaceEntities)repGrupo.ObterContexto();
             var query = from grupo in saceEntities.GrupoSet
                         select new Grupo

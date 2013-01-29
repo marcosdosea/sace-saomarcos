@@ -8,6 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using System.Data.Objects;
 
 namespace Negocio
 {
@@ -15,14 +16,12 @@ namespace Negocio
     {
 
         private static GerenciadorSaidaPagamento gSaidaPagamento;
-        private static RepositorioGenerico<SaidaFormaPagamentoE, SaceEntities> repSaidaPagamento;
 
         public static GerenciadorSaidaPagamento GetInstance()
         {
             if (gSaidaPagamento == null)
             {
                 gSaidaPagamento = new GerenciadorSaidaPagamento();
-                repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE, SaceEntities>("chave");
             }
             return gSaidaPagamento;
         }
@@ -68,6 +67,7 @@ namespace Negocio
                     _saidaPagamentoE.parcelas = saidaPagamento.Parcelas;
                     _saidaPagamentoE.valor = saidaPagamento.Valor;
 
+                    var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
                     repSaidaPagamento.Inserir(_saidaPagamentoE);
                     repSaidaPagamento.SaveChanges();
 
@@ -120,6 +120,7 @@ namespace Negocio
                         GerenciadorConta.GetInstance().Remover(conta.CodConta);
                     }
                 }
+                var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
 
                 repSaidaPagamento.Remover(sp => sp.codSaidaFormaPagamento == codSaidaPagamento);
                 repSaidaPagamento.SaveChanges();
@@ -142,6 +143,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaPagamento> GetQuery()
         {
+            var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
+
             var saceEntities = (SaceEntities)repSaidaPagamento.ObterContexto();
             var query = from saidaPagamento in saceEntities.SaidaFormaPagamentoSet
                         join formaPagamento in saceEntities.FormaPagamentoSet on saidaPagamento.codFormaPagamento equals formaPagamento.codFormaPagamento

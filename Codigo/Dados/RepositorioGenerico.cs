@@ -36,6 +36,17 @@ namespace Dados
         }
 
         /// <summary>
+        /// Inicializa uma nova instância do repositório
+        /// </summary>
+        /// <param name="contexto">O Objeto contexto do Entity Framework </param>
+        /// <param name="chave"> Identifica o contexto criado </param>
+        public RepositorioGenerico(ObjectContext context)
+        {
+            _context = context;
+            _objectSet = _context.CreateObjectSet<T>();
+        }
+
+        /// <summary>
         /// Retorna contexto para criação de consultas específicas
         /// </summary>
         /// <returns></returns>
