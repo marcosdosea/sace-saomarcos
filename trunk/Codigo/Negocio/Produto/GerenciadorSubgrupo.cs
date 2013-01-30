@@ -144,6 +144,15 @@ namespace Negocio
             return GetQuery().Where(subgrupo => subgrupo.Descricao.StartsWith(descricao)).ToList();
         }
 
+        /// <summary>
+        /// Obtém subgrupos pela descrição de um determinado grupo
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<Subgrupo> ObterPorDescricaoGrupo(string descricao)
+        {
+            return GetQuery().Where(subgrupo => subgrupo.DescricaoGrupo.StartsWith(descricao)).ToList();
+        }
 
         /// <summary>
         /// Obter subgrupos de um determinado grupo

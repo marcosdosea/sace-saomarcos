@@ -24,9 +24,6 @@ namespace Telas
         private EstadoFormulario estado;
         private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
-        private int posicaoUltimoProduto;
-
-
 
         public FrmSaida(int tipoSaida)
         {
@@ -85,8 +82,7 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             saidaBindingSource.AddNew();
-            //saidaProdutoBindingSource.AddNew();
-            
+           
             Saida saida = (Saida)saidaBindingSource.Current;
             saida.CodSaida = -1;
             saida.CodCliente = Global.CLIENTE_PADRAO;
@@ -262,7 +258,7 @@ namespace Telas
             saidaProduto.ValorIPI = Convert.ToDecimal(valorIPITextBox.Text);
 
             codProdutoComboBox.Focus();
-            posicaoUltimoProduto = codProdutoComboBox.SelectedIndex;
+            //posicaoUltimoProduto = codProdutoComboBox.SelectedIndex;
             codProdutoComboBox.Text = "";
             
             GerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.GetInstance();
@@ -715,16 +711,6 @@ namespace Telas
                 else if ((e.KeyCode == Keys.Delete) && (tb_saida_produtoDataGridView.Focused == true))
                 {
                     excluirProduto(sender, e);
-                }
-                else if ((e.KeyCode == Keys.Down) && (codProdutoComboBox.Focused) && (posicaoUltimoProduto < (codProdutoComboBox.Items.Count-1)))
-                {
-                    codProdutoComboBox.SelectedIndex = posicaoUltimoProduto;
-                    posicaoUltimoProduto++;
-                }
-                else if ((e.KeyCode == Keys.Up) && (codProdutoComboBox.Focused) && (posicaoUltimoProduto > 0))
-                {
-                    codProdutoComboBox.SelectedIndex = posicaoUltimoProduto;
-                    posicaoUltimoProduto--;
                 }
                 else if (e.KeyCode == Keys.F1)
                 {

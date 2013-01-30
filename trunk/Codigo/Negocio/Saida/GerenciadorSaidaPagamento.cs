@@ -149,10 +149,12 @@ namespace Negocio
             var query = from saidaPagamento in saceEntities.SaidaFormaPagamentoSet
                         join formaPagamento in saceEntities.FormaPagamentoSet on saidaPagamento.codFormaPagamento equals formaPagamento.codFormaPagamento
                         join cartaoCredito in saceEntities.CartaoCreditoSet on saidaPagamento.codCartao equals cartaoCredito.codCartao
+                        join contaBanco in saceEntities.ContaBancoSet on saidaPagamento.codContaBanco equals contaBanco.codContaBanco
                         select new SaidaPagamento
                         {
                             CodCartaoCredito = saidaPagamento.codCartao,
                             CodContaBanco = saidaPagamento.codContaBanco,
+                            DescricaoContaBanco = contaBanco.descricao,
                             CodFormaPagamento = saidaPagamento.codFormaPagamento,
                             CodSaida = saidaPagamento.codSaida,
                             CodSaidaPagamento = saidaPagamento.codSaidaFormaPagamento,

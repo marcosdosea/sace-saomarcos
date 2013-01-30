@@ -148,7 +148,6 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repPessoa.ObterContexto();
             var query = from pessoa in saceEntities.PessoaSet
-                        orderby pessoa.nome
                         select new Pessoa
                         {
                             Bairro = pessoa.bairro,
@@ -186,7 +185,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Pessoa> ObterTodos()
         {
-            return GetQuery().ToList();
+            return GetQuery().OrderBy(p=> p.CodPessoa).ToList();
         }
 
         /// <summary>

@@ -107,19 +107,26 @@ namespace Telas
                     else
                     {
                         _listaProdutos = GerenciadorProduto.GetInstance().ObterPorCodBarra(produtoComboBox.Text).ToList();
+                        if (_listaProdutos.Count > 0)
+                        {
+                            produtoNomeIgual = _listaProdutos[0];
+                        }
                         //entradaViaCodigoBarra = (_listaProdutos.Count > 0);
                         ultimoCodigoBarraLido = produtoComboBox.Text;
                     }
                 }
                 else
                 {
-                    // Busca produto pelo nome
-                    _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
-                    
-                    foreach (ProdutoPesquisa produto in _listaProdutos)
+                    if (!produtoComboBox.Text.Trim().Equals(""))
                     {
-                        if (produto.Nome.Equals(produtoComboBox.Text))
-                            produtoNomeIgual = produto;
+                        // Busca produto pelo nome
+                        _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
+
+                        foreach (ProdutoPesquisa produto in _listaProdutos)
+                        {
+                            if (produto.Nome.Equals(produtoComboBox.Text))
+                                produtoNomeIgual = produto;
+                        }
                     }
                     if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count > 1) && (produtoNomeIgual == null)))
                     {
@@ -139,15 +146,6 @@ namespace Telas
                 {
                     Produto produto = new Produto() { CodProduto = produtoNomeIgual.CodProduto };
                     produtoBindingSource.Position = produtoBindingSource.List.IndexOf(produto);
-                }
-                // Se posição não foi modificada então focus no combobox
-                if (produtoBindingSource.Position == 0)
-                {
-                    produtoComboBox.Text = "";
-                    produtoComboBox.Focus();
-                }
-                else
-                {
                     _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
                     // Associa o útlimo código de barra lido ao produto selecionado
                     if (!ultimoCodigoBarraLido.Equals("") && !isNumber)
@@ -158,6 +156,11 @@ namespace Telas
                         }
                         ultimoCodigoBarraLido = "";
                     }
+                } 
+                else 
+                {
+                    produtoComboBox.Text = "";
+                    produtoComboBox.Focus();
                 }
             }
             return _produtoPesquisa;

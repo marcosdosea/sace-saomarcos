@@ -67,14 +67,21 @@ namespace Negocio
             {
                 var repProduto = new RepositorioGenerico<ProdutoE>();
 
-                ProdutoE _produtoE = repProduto.ObterEntidade(p => p.codProduto == produto.CodProduto);
-                // Atualiza data da ultima atualizacao
-                if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado))
-                    produto.UltimaDataAtualizacao = DateTime.Now;
-                
-                // Atualiza dados do produto
-                Atribuir(produto, _produtoE);
+                var saceEntities = (SaceEntities)repProduto.ObterContexto();
+                var query = from produtoSet in saceEntities.ProdutoSet
+                            where produtoSet.codProduto == produto.CodProduto
+                            select produtoSet;
+                foreach (ProdutoE _produtoE in query)
+                {
+                    // Atualiza data da ultima atualizacao
+                    if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado))
+                        produto.UltimaDataAtualizacao = DateTime.Now;
+
+                    // Atualiza dados do produto
+                    Atribuir(produto, _produtoE);
+                }
                 repProduto.SaveChanges();
+
             }
             catch (Exception e)
             {
@@ -93,8 +100,14 @@ namespace Negocio
             {
                 var repProduto = new RepositorioGenerico<ProdutoE>();
 
-                ProdutoE _produtoE = repProduto.ObterEntidade(p => p.codProduto == _produtoPesquisa.CodProduto);
-                _produtoE.codigoBarra = ultimoCodigoBarraLido;
+                var saceEntities = (SaceEntities)repProduto.ObterContexto();
+                var query = from produtoSet in saceEntities.ProdutoSet
+                            where produtoSet.codProduto == _produtoPesquisa.CodProduto
+                            select produtoSet;
+                foreach (ProdutoE _produtoE in query)
+                {
+                    _produtoE.codigoBarra = ultimoCodigoBarraLido;
+                }
                 repProduto.SaveChanges();
             }
             catch (Exception e)
@@ -133,12 +146,14 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
             var query = from produto in saceEntities.ProdutoSet
+                        join fabricante in saceEntities.PessoaSet on produto.codFabricante equals fabricante.codPessoa
                         orderby produto.nome
                         select new Produto
                         {
                             Cfop = (int) produto.cfop,
                             CodCST = produto.codCST,
                             CodFabricante = produto.codFabricante,
+                            NomeFabricante = fabricante.nomeFantasia,
                             CodGrupo = (int) produto.codGrupo,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,

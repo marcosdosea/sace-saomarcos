@@ -33,8 +33,10 @@ namespace Telas
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
                 subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
-            else
+            else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
                 subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorDescricao(txtTexto.Text);                
+            else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorDescricaoGrupo(txtTexto.Text);
             
         }
 

@@ -361,6 +361,7 @@
             // bancoBindingSource
             // 
             this.bancoBindingSource.DataSource = typeof(Dominio.Banco);
+            this.bancoBindingSource.CurrentItemChanged += new System.EventHandler(this.bancoBindingSource_CurrentItemChanged);
             // 
             // numerocontaTextBox
             // 
