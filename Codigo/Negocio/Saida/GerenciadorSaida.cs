@@ -162,7 +162,13 @@ namespace Negocio
                     
                 if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
                 {
-                    repSaida.Remover(s => s.codSaida == saida.CodSaida);
+                    var saceEntities = (SaceEntities)repSaida.ObterContexto();
+                    var query = from saidaSet in saceEntities.SaidaSet
+                                where saidaSet.codSaida == saida.CodSaida
+                                select saidaSet;
+                    foreach (SaidaE _saidaE in query) {
+                        repSaida.Remover(_saidaE);
+                    }
                     repSaida.SaveChanges();
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))

@@ -93,8 +93,8 @@ namespace Negocio
                 foreach (SaidaProdutoE saidaProdutoE in query)
                 {
                     repSaidaProduto.Remover(saidaProdutoE);
-                    repSaidaProduto.SaveChanges();
                 }
+                repSaidaProduto.SaveChanges();
                 AtualizarTotaisSaida(saida, saidaProduto, true);
             }
             catch (Exception e)

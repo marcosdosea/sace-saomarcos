@@ -220,7 +220,7 @@
             this.tb_plano_contaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.tb_plano_contaBindingNavigator.Name = "tb_plano_contaBindingNavigator";
             this.tb_plano_contaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_plano_contaBindingNavigator.Size = new System.Drawing.Size(240, 25);
+            this.tb_plano_contaBindingNavigator.Size = new System.Drawing.Size(209, 25);
             this.tb_plano_contaBindingNavigator.TabIndex = 21;
             this.tb_plano_contaBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -326,7 +326,6 @@
             this.codGrupoContaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codGrupoContaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codGrupoContaComboBox.CausesValidation = false;
-            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "descricaoGrupoConta", true));
             this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.planoContaBindingSource, "CodGrupoConta", true));
             this.codGrupoContaComboBox.DataSource = this.grupoContaBindingSource;
             this.codGrupoContaComboBox.DisplayMember = "Descricao";

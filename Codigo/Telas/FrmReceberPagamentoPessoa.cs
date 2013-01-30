@@ -93,7 +93,7 @@ namespace Telas
                     List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance().ObterPorSaida(codSaida);
                     foreach (Conta conta in contas)
                     {
-                        if (!listaContas.Contains(conta.CodConta) || !conta.CF.Trim().Equals(""))
+                        if ((!listaContas.Contains(conta.CodConta)) || ((conta.CF != null) && !conta.CF.Trim().Equals("")))
                         {
                             podeImprimirCF = false;
                             break;

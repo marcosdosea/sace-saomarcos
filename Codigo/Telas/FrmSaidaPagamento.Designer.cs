@@ -69,28 +69,17 @@
             this.codCartaoComboBox = new System.Windows.Forms.ComboBox();
             this.cartaoCreditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_saida_forma_pagamentoDataGridView = new System.Windows.Forms.DataGridView();
-            this.numeroDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.parcelas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoContaBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codContaBancoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codCartaoCreditoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codDocumentoPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.parcelasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.intervaloDiasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mapeamentoFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mapeamentoCartaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeCartaoCreditoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.intervaloDiasTextBox = new System.Windows.Forms.TextBox();
             this.totalRecebidoLabel = new System.Windows.Forms.Label();
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
             this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
             this.trocoTextBox = new System.Windows.Forms.TextBox();
+            this.codSaidaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodContaBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcelas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -539,23 +528,12 @@
             this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_forma_pagamentoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numeroDocumento,
-            this.parcelas,
-            this.descricaoContaBanco,
             this.codSaidaPagamentoDataGridViewTextBoxColumn,
-            this.codSaidaDataGridViewTextBoxColumn,
-            this.codFormaPagamentoDataGridViewTextBoxColumn,
-            this.codContaBancoDataGridViewTextBoxColumn,
-            this.codCartaoCreditoDataGridViewTextBoxColumn,
-            this.valorDataGridViewTextBoxColumn,
-            this.dataDataGridViewTextBoxColumn,
-            this.codDocumentoPagamentoDataGridViewTextBoxColumn,
-            this.parcelasDataGridViewTextBoxColumn,
-            this.intervaloDiasDataGridViewTextBoxColumn,
-            this.mapeamentoFormaPagamentoDataGridViewTextBoxColumn,
-            this.mapeamentoCartaoDataGridViewTextBoxColumn,
             this.descricaoFormaPagamentoDataGridViewTextBoxColumn,
-            this.nomeCartaoCreditoDataGridViewTextBoxColumn});
+            this.CodContaBanco,
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn,
+            this.parcelas,
+            this.valorDataGridViewTextBoxColumn});
             this.tb_saida_forma_pagamentoDataGridView.DataSource = this.saidaPagamentoBindingSource;
             this.tb_saida_forma_pagamentoDataGridView.Location = new System.Drawing.Point(20, 420);
             this.tb_saida_forma_pagamentoDataGridView.MultiSelect = false;
@@ -567,127 +545,6 @@
             this.tb_saida_forma_pagamentoDataGridView.Size = new System.Drawing.Size(792, 138);
             this.tb_saida_forma_pagamentoDataGridView.TabIndex = 68;
             this.tb_saida_forma_pagamentoDataGridView.TabStop = false;
-            // 
-            // numeroDocumento
-            // 
-            this.numeroDocumento.DataPropertyName = "numeroDocumento";
-            this.numeroDocumento.HeaderText = "Cheque/Boleto";
-            this.numeroDocumento.Name = "numeroDocumento";
-            this.numeroDocumento.ReadOnly = true;
-            // 
-            // parcelas
-            // 
-            this.parcelas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.parcelas.DataPropertyName = "parcelas";
-            this.parcelas.HeaderText = "Parcelas";
-            this.parcelas.Name = "parcelas";
-            this.parcelas.ReadOnly = true;
-            this.parcelas.Width = 80;
-            // 
-            // descricaoContaBanco
-            // 
-            this.descricaoContaBanco.DataPropertyName = "descricaoContaBanco";
-            this.descricaoContaBanco.HeaderText = "Conta";
-            this.descricaoContaBanco.Name = "descricaoContaBanco";
-            this.descricaoContaBanco.ReadOnly = true;
-            // 
-            // codSaidaPagamentoDataGridViewTextBoxColumn
-            // 
-            this.codSaidaPagamentoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaPagamento";
-            this.codSaidaPagamentoDataGridViewTextBoxColumn.HeaderText = "CodSaidaPagamento";
-            this.codSaidaPagamentoDataGridViewTextBoxColumn.Name = "codSaidaPagamentoDataGridViewTextBoxColumn";
-            this.codSaidaPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codFormaPagamentoDataGridViewTextBoxColumn
-            // 
-            this.codFormaPagamentoDataGridViewTextBoxColumn.DataPropertyName = "CodFormaPagamento";
-            this.codFormaPagamentoDataGridViewTextBoxColumn.HeaderText = "CodFormaPagamento";
-            this.codFormaPagamentoDataGridViewTextBoxColumn.Name = "codFormaPagamentoDataGridViewTextBoxColumn";
-            this.codFormaPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codContaBancoDataGridViewTextBoxColumn
-            // 
-            this.codContaBancoDataGridViewTextBoxColumn.DataPropertyName = "CodContaBanco";
-            this.codContaBancoDataGridViewTextBoxColumn.HeaderText = "CodContaBanco";
-            this.codContaBancoDataGridViewTextBoxColumn.Name = "codContaBancoDataGridViewTextBoxColumn";
-            this.codContaBancoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codCartaoCreditoDataGridViewTextBoxColumn
-            // 
-            this.codCartaoCreditoDataGridViewTextBoxColumn.DataPropertyName = "CodCartaoCredito";
-            this.codCartaoCreditoDataGridViewTextBoxColumn.HeaderText = "CodCartaoCredito";
-            this.codCartaoCreditoDataGridViewTextBoxColumn.Name = "codCartaoCreditoDataGridViewTextBoxColumn";
-            this.codCartaoCreditoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorDataGridViewTextBoxColumn
-            // 
-            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
-            this.valorDataGridViewTextBoxColumn.HeaderText = "Valor";
-            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataDataGridViewTextBoxColumn
-            // 
-            this.dataDataGridViewTextBoxColumn.DataPropertyName = "Data";
-            this.dataDataGridViewTextBoxColumn.HeaderText = "Data";
-            this.dataDataGridViewTextBoxColumn.Name = "dataDataGridViewTextBoxColumn";
-            this.dataDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codDocumentoPagamentoDataGridViewTextBoxColumn
-            // 
-            this.codDocumentoPagamentoDataGridViewTextBoxColumn.DataPropertyName = "CodDocumentoPagamento";
-            this.codDocumentoPagamentoDataGridViewTextBoxColumn.HeaderText = "CodDocumentoPagamento";
-            this.codDocumentoPagamentoDataGridViewTextBoxColumn.Name = "codDocumentoPagamentoDataGridViewTextBoxColumn";
-            this.codDocumentoPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // parcelasDataGridViewTextBoxColumn
-            // 
-            this.parcelasDataGridViewTextBoxColumn.DataPropertyName = "Parcelas";
-            this.parcelasDataGridViewTextBoxColumn.HeaderText = "Parcelas";
-            this.parcelasDataGridViewTextBoxColumn.Name = "parcelasDataGridViewTextBoxColumn";
-            this.parcelasDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // intervaloDiasDataGridViewTextBoxColumn
-            // 
-            this.intervaloDiasDataGridViewTextBoxColumn.DataPropertyName = "IntervaloDias";
-            this.intervaloDiasDataGridViewTextBoxColumn.HeaderText = "IntervaloDias";
-            this.intervaloDiasDataGridViewTextBoxColumn.Name = "intervaloDiasDataGridViewTextBoxColumn";
-            this.intervaloDiasDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // mapeamentoFormaPagamentoDataGridViewTextBoxColumn
-            // 
-            this.mapeamentoFormaPagamentoDataGridViewTextBoxColumn.DataPropertyName = "MapeamentoFormaPagamento";
-            this.mapeamentoFormaPagamentoDataGridViewTextBoxColumn.HeaderText = "MapeamentoFormaPagamento";
-            this.mapeamentoFormaPagamentoDataGridViewTextBoxColumn.Name = "mapeamentoFormaPagamentoDataGridViewTextBoxColumn";
-            this.mapeamentoFormaPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // mapeamentoCartaoDataGridViewTextBoxColumn
-            // 
-            this.mapeamentoCartaoDataGridViewTextBoxColumn.DataPropertyName = "MapeamentoCartao";
-            this.mapeamentoCartaoDataGridViewTextBoxColumn.HeaderText = "MapeamentoCartao";
-            this.mapeamentoCartaoDataGridViewTextBoxColumn.Name = "mapeamentoCartaoDataGridViewTextBoxColumn";
-            this.mapeamentoCartaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descricaoFormaPagamentoDataGridViewTextBoxColumn
-            // 
-            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoFormaPagamento";
-            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.HeaderText = "DescricaoFormaPagamento";
-            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.Name = "descricaoFormaPagamentoDataGridViewTextBoxColumn";
-            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nomeCartaoCreditoDataGridViewTextBoxColumn
-            // 
-            this.nomeCartaoCreditoDataGridViewTextBoxColumn.DataPropertyName = "NomeCartaoCredito";
-            this.nomeCartaoCreditoDataGridViewTextBoxColumn.HeaderText = "NomeCartaoCredito";
-            this.nomeCartaoCreditoDataGridViewTextBoxColumn.Name = "nomeCartaoCreditoDataGridViewTextBoxColumn";
-            this.nomeCartaoCreditoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // intervaloDiasTextBox
             // 
@@ -747,6 +604,57 @@
             this.trocoTextBox.TabStop = false;
             this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.trocoTextBox.Visible = false;
+            // 
+            // codSaidaPagamentoDataGridViewTextBoxColumn
+            // 
+            this.codSaidaPagamentoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaPagamento";
+            this.codSaidaPagamentoDataGridViewTextBoxColumn.HeaderText = "CodSaidaPagamento";
+            this.codSaidaPagamentoDataGridViewTextBoxColumn.Name = "codSaidaPagamentoDataGridViewTextBoxColumn";
+            this.codSaidaPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codSaidaPagamentoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // descricaoFormaPagamentoDataGridViewTextBoxColumn
+            // 
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoFormaPagamento";
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.FillWeight = 40F;
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.HeaderText = "Forma Pagamento";
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.Name = "descricaoFormaPagamentoDataGridViewTextBoxColumn";
+            this.descricaoFormaPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // CodContaBanco
+            // 
+            this.CodContaBanco.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CodContaBanco.DataPropertyName = "DescricaoContaBanco";
+            this.CodContaBanco.FillWeight = 40F;
+            this.CodContaBanco.HeaderText = "Caixa / Conta";
+            this.CodContaBanco.Name = "CodContaBanco";
+            this.CodContaBanco.ReadOnly = true;
+            // 
+            // nomeCartaoCreditoDataGridViewTextBoxColumn
+            // 
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn.DataPropertyName = "NomeCartaoCredito";
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn.FillWeight = 40F;
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn.HeaderText = "Cartao Credito";
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn.Name = "nomeCartaoCreditoDataGridViewTextBoxColumn";
+            this.nomeCartaoCreditoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // parcelas
+            // 
+            this.parcelas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.parcelas.DataPropertyName = "parcelas";
+            this.parcelas.HeaderText = "Parcelas";
+            this.parcelas.Name = "parcelas";
+            this.parcelas.ReadOnly = true;
+            this.parcelas.Width = 80;
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            this.valorDataGridViewTextBoxColumn.HeaderText = "Valor";
+            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmSaidaPagamento
             // 
@@ -836,26 +744,16 @@
         private System.Windows.Forms.BindingSource cartaoCreditoBindingSource;
         private System.Windows.Forms.DataGridView tb_saida_forma_pagamentoDataGridView;
         private System.Windows.Forms.TextBox intervaloDiasTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numeroDocumento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn parcelas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descricaoContaBanco;
         private System.Windows.Forms.Label totalRecebidoLabel;
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
         private System.Windows.Forms.TextBox cpf_CnpjTextBox;
         private System.Windows.Forms.TextBox trocoTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaPagamentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codFormaPagamentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codContaBancoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codCartaoCreditoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codDocumentoPagamentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn parcelasDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn intervaloDiasDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mapeamentoFormaPagamentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mapeamentoCartaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaPagamentoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descricaoFormaPagamentoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodContaBanco;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeCartaoCreditoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcelas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
     }
 }

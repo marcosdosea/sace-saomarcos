@@ -119,6 +119,13 @@
             this.dataEntradaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.tb_entrada_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.codEntradaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unidadeCompraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorTotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
             this.situacaoPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -142,13 +149,6 @@
             this.tb_produto_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
             this.label13 = new System.Windows.Forms.Label();
-            this.codEntradaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unidadeCompraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorTotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codEntradaLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
             codFornecedorLabel = new System.Windows.Forms.Label();
@@ -881,7 +881,6 @@
             this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codProdutoComboBox.CausesValidation = false;
             this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "nomeProduto", true));
-            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaProdutoBindingSource, "CodProduto", true));
             this.codProdutoComboBox.DataSource = this.produtoBindingSource;
             this.codProdutoComboBox.DisplayMember = "Nome";
             this.codProdutoComboBox.FormattingEnabled = true;
@@ -1093,6 +1092,59 @@
             this.tb_entrada_produtoDataGridView.Size = new System.Drawing.Size(831, 84);
             this.tb_entrada_produtoDataGridView.TabIndex = 46;
             this.tb_entrada_produtoDataGridView.TabStop = false;
+            // 
+            // codEntradaProdutoDataGridViewTextBoxColumn
+            // 
+            this.codEntradaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodEntradaProduto";
+            this.codEntradaProdutoDataGridViewTextBoxColumn.HeaderText = "CodEntradaProduto";
+            this.codEntradaProdutoDataGridViewTextBoxColumn.Name = "codEntradaProdutoDataGridViewTextBoxColumn";
+            this.codEntradaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codEntradaProdutoDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // codProduto
+            // 
+            this.codProduto.DataPropertyName = "CodProduto";
+            this.codProduto.HeaderText = "Cód Produto";
+            this.codProduto.Name = "codProduto";
+            this.codProduto.ReadOnly = true;
+            // 
+            // NomeProduto
+            // 
+            this.NomeProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NomeProduto.DataPropertyName = "NomeProduto";
+            this.NomeProduto.HeaderText = "Nome Produto";
+            this.NomeProduto.Name = "NomeProduto";
+            this.NomeProduto.ReadOnly = true;
+            // 
+            // unidadeCompraDataGridViewTextBoxColumn
+            // 
+            this.unidadeCompraDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.unidadeCompraDataGridViewTextBoxColumn.DataPropertyName = "UnidadeCompra";
+            this.unidadeCompraDataGridViewTextBoxColumn.FillWeight = 20F;
+            this.unidadeCompraDataGridViewTextBoxColumn.HeaderText = "UN";
+            this.unidadeCompraDataGridViewTextBoxColumn.Name = "unidadeCompraDataGridViewTextBoxColumn";
+            this.unidadeCompraDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorUnitarioDataGridViewTextBoxColumn
+            // 
+            this.valorUnitarioDataGridViewTextBoxColumn.DataPropertyName = "ValorUnitario";
+            this.valorUnitarioDataGridViewTextBoxColumn.HeaderText = "Valor Unitário";
+            this.valorUnitarioDataGridViewTextBoxColumn.Name = "valorUnitarioDataGridViewTextBoxColumn";
+            this.valorUnitarioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorTotalDataGridViewTextBoxColumn
+            // 
+            this.valorTotalDataGridViewTextBoxColumn.DataPropertyName = "ValorTotal";
+            this.valorTotalDataGridViewTextBoxColumn.HeaderText = "Valor Total";
+            this.valorTotalDataGridViewTextBoxColumn.Name = "valorTotalDataGridViewTextBoxColumn";
+            this.valorTotalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // fretePagoEmitenteCheckBox
             // 
@@ -1325,59 +1377,6 @@
             this.label13.Size = new System.Drawing.Size(46, 13);
             this.label13.TabIndex = 125;
             this.label13.Text = "Estoque";
-            // 
-            // codEntradaProdutoDataGridViewTextBoxColumn
-            // 
-            this.codEntradaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodEntradaProduto";
-            this.codEntradaProdutoDataGridViewTextBoxColumn.HeaderText = "CodEntradaProduto";
-            this.codEntradaProdutoDataGridViewTextBoxColumn.Name = "codEntradaProdutoDataGridViewTextBoxColumn";
-            this.codEntradaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codEntradaProdutoDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // codProduto
-            // 
-            this.codProduto.DataPropertyName = "CodProduto";
-            this.codProduto.HeaderText = "Cód Produto";
-            this.codProduto.Name = "codProduto";
-            this.codProduto.ReadOnly = true;
-            // 
-            // NomeProduto
-            // 
-            this.NomeProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NomeProduto.DataPropertyName = "NomeProduto";
-            this.NomeProduto.HeaderText = "Nome Produto";
-            this.NomeProduto.Name = "NomeProduto";
-            this.NomeProduto.ReadOnly = true;
-            // 
-            // unidadeCompraDataGridViewTextBoxColumn
-            // 
-            this.unidadeCompraDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.unidadeCompraDataGridViewTextBoxColumn.DataPropertyName = "UnidadeCompra";
-            this.unidadeCompraDataGridViewTextBoxColumn.FillWeight = 20F;
-            this.unidadeCompraDataGridViewTextBoxColumn.HeaderText = "UN";
-            this.unidadeCompraDataGridViewTextBoxColumn.Name = "unidadeCompraDataGridViewTextBoxColumn";
-            this.unidadeCompraDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorUnitarioDataGridViewTextBoxColumn
-            // 
-            this.valorUnitarioDataGridViewTextBoxColumn.DataPropertyName = "ValorUnitario";
-            this.valorUnitarioDataGridViewTextBoxColumn.HeaderText = "Valor Unitário";
-            this.valorUnitarioDataGridViewTextBoxColumn.Name = "valorUnitarioDataGridViewTextBoxColumn";
-            this.valorUnitarioDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorTotalDataGridViewTextBoxColumn
-            // 
-            this.valorTotalDataGridViewTextBoxColumn.DataPropertyName = "ValorTotal";
-            this.valorTotalDataGridViewTextBoxColumn.HeaderText = "Valor Total";
-            this.valorTotalDataGridViewTextBoxColumn.Name = "valorTotalDataGridViewTextBoxColumn";
-            this.valorTotalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmEntradaPedido
             // 

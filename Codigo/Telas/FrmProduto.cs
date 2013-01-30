@@ -31,12 +31,12 @@ namespace Telas
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PRODUTOS, Principal.Autenticacao.CodUsuario);
 
             cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
-            codigoFabricanteComboBox.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            cfopComboBox.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
-            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             
             habilitaBotoes(true);
             Cursor.Current = Cursors.Default;
@@ -64,9 +64,10 @@ namespace Telas
             codigoFabricanteComboBox.SelectedIndex = 0;
             codSituacaoProdutoComboBox.SelectedIndex = 0;
             codCSTComboBox.SelectedIndex = 0;
-            simplesTextBox.Text = Global.SIMPLES.ToString();
-            unidadeTextBox.Text = "UN";
-            unidadeCompraTextBox.Text = "UN";
+            Produto produto = (Produto) produtoBindingSource.Current;
+            produto.Simples = Global.SIMPLES;
+            produto.Unidade = "UN";
+            produto.UnidadeCompra = "UN";
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -98,58 +99,25 @@ namespace Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            Produto produto = new Produto();
-            ProdutoLoja produtoLoja = new ProdutoLoja();
-
-            produto.Cfop = int.Parse(cfopComboBox.SelectedValue.ToString());
-            produto.CodFabricante = Int32.Parse(codigoFabricanteComboBox.SelectedValue.ToString());
-            produto.CodGrupo = Int32.Parse(codGrupoComboBox.SelectedValue.ToString());
-            produto.CodSubgrupo = Int32.Parse(codSubgrupoComboBox.SelectedValue.ToString());
-            produto.CodigoBarra = codigoBarraTextBox.Text;
-            produto.CodProduto = Int32.Parse(codProdutoTextBox.Text);
-            produto.ExibeNaListagem = exibeNaListagemCheckBox.Checked;
-            produto.Frete = (freteTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(freteTextBox.Text);
-            produto.Icms = (icmsTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(icmsTextBox.Text);
-            produto.IcmsSubstituto = (icms_substitutoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(icms_substitutoTextBox.Text);
-            produto.Ipi = (ipiTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(ipiTextBox.Text);
-            produto.Desconto = (descontoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(descontoTextBox.Text);
-            produto.LucroPrecoVendaAtacado = (lucroPrecoVendaAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(lucroPrecoVendaAtacadoTextBox.Text);
-            produto.LucroPrecoVendaVarejo = (lucroPrecoVendaVarejoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(lucroPrecoVendaVarejoTextBox.Text);
-            produto.Nome = nomeTextBox.Text.Trim();
-            produto.NomeProdutoFabricante = nomeFabricanteTextBox.Text.Trim();
-            produto.UltimoPrecoCompra = (ultimoPrecoCompraTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(ultimoPrecoCompraTextBox.Text);
-            produto.PrecoVendaAtacado = (precoVendaAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(precoVendaAtacadoTextBox.Text.Trim());
-            produto.PrecoVendaVarejo = (precoVendaVarejoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(precoVendaVarejoTextBox.Text.Trim());
-            produto.QtdProdutoAtacado = (qtdProdutoAtacadoTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(qtdProdutoAtacadoTextBox.Text.Trim());
-            produto.Simples = (simplesTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(simplesTextBox.Text);
-            produto.TemVencimento = temVencimentoCheckBox.Checked;
-            produto.UltimaDataAtualizacao = ultimaDataAtualizacaoDateTimePicker.Value;
-            produto.Unidade = unidadeTextBox.Text;
-            produto.UnidadeCompra = unidadeCompraTextBox.Text;
-            produto.QuantidadeEmbalagem = (quantidadeEmbalagemTextBox.Text.Trim() == "") ? 0 : Decimal.Parse(quantidadeEmbalagemTextBox.Text.Trim());
-            produto.DataUltimoPedido = dataUltimoPedidoDateTimePicker.Value;
-            produto.CodSituacaoProduto = SByte.Parse(codSituacaoProdutoComboBox.SelectedValue.ToString());
-            produto.ReferenciaFabricante = referenciaFabricanteTextBox.Text;
-            produto.CodCST = codCSTComboBox.SelectedValue.ToString();
-            produto.Ncmsh = ncmshTextBox.Text;
-            produtoLoja.CodLoja = Global.LOJA_PADRAO;
-            produtoLoja.QtdEstoque = 0;
-            produtoLoja.QtdEstoqueAux = 0;
+            produtoBindingSource_CurrentItemChanged(sender, e);
+            Produto produto = (Produto) produtoBindingSource.Current;
             
-            GerenciadorProduto gProduto = GerenciadorProduto.GetInstance();
-            GerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.GetInstance();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codProduto = gProduto.Inserir(produto);
+                long codProduto = GerenciadorProduto.GetInstance().Inserir(produto);
                 codProdutoTextBox.Text = codProduto.ToString();
-                
+
+                ProdutoLoja produtoLoja = new ProdutoLoja();
                 produtoLoja.CodProduto = codProduto;
-                gProdutoLoja.Inserir(produtoLoja);
-                //codProdutoTextBox_TextChanged(sender, e);
+                produtoLoja.CodLoja = Global.LOJA_PADRAO;
+                produtoLoja.QtdEstoque = 0;
+                produtoLoja.QtdEstoqueAux = 0;
+
+                GerenciadorProdutoLoja.GetInstance().Inserir(produtoLoja);
             }
             else
             {
-                gProduto.Atualizar(produto);
+                GerenciadorProduto.GetInstance().Atualizar(produto);
             }
             produtoBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -308,7 +276,8 @@ namespace Telas
             FormatTextBox.RemoverAcentos((TextBox)sender);
             if (nomeFabricanteTextBox.Text.Trim().Equals(""))
             {
-                nomeFabricanteTextBox.Text = nomeTextBox.Text;
+                Produto produto = (Produto)produtoBindingSource.Current;
+                produto.NomeProdutoFabricante = nomeTextBox.Text; 
             }
             codProdutoTextBox_Leave(sender, e);
         }
@@ -373,6 +342,7 @@ namespace Telas
 
         private void codGrupoComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            produtoBindingSource_CurrentItemChanged(sender, e);
             if (codGrupoComboBox.SelectedValue != null)
             {
                 Produto produto = (Produto)produtoBindingSource.Current;
@@ -413,5 +383,18 @@ namespace Telas
             codProdutoTextBox_Leave(sender, e);
         }
 
+        private void produtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            Produto produto = (Produto)produtoBindingSource.Current;
+            if (cfopBindingSource.Current != null)
+            {
+                produto.Cfop = ((Cfop)cfopBindingSource.Current).CodCfop;
+                produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
+                produto.CodFabricante = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
+                produto.CodSituacaoProduto = ((SituacaoProduto)situacaoprodutoBindingSource.Current).CodSituacaoProduto;
+                produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
+                produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
+            }
+        }
     }
 }

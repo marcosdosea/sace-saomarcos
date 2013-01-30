@@ -129,7 +129,7 @@ namespace Negocio
                         join planoConta in saceEntities.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
                         join situacaoConta in saceEntities.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
                         join saida in saceEntities.SaidaSet on conta.codSaida equals saida.codSaida
-                        orderby conta.dataVencimento, conta.codConta
+                        orderby conta.codConta
                         select new Conta
                         {
                             CodConta = conta.codConta,

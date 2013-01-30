@@ -58,8 +58,9 @@
             this.cmbBusca.FormattingEnabled = true;
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
-            "Número Conta",
-            "Descrição"});
+            "Código",
+            "Descrição",
+            "Grupo"});
             this.cmbBusca.Location = new System.Drawing.Point(10, 26);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(121, 21);
@@ -106,6 +107,7 @@
             this.tb_subgrupoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_subgrupoDataGridView.Size = new System.Drawing.Size(586, 220);
             this.tb_subgrupoDataGridView.TabIndex = 5;
+            this.tb_subgrupoDataGridView.TabStop = false;
             // 
             // codSubgrupoDataGridViewTextBoxColumn
             // 

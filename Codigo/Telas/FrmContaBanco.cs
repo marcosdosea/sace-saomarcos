@@ -222,5 +222,14 @@ namespace Telas
         {
             FormatTextBox.RemoverAcentos((TextBox)sender);
         }
+
+        private void bancoBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (contaBancoBindingSource.Current != null)
+            {
+                ContaBanco contaBanco = (ContaBanco)contaBancoBindingSource.Current;
+                contaBanco.CodBanco = ((Banco)bancoBindingSource.Current).CodBanco;
+            }
+        }
     }
 }

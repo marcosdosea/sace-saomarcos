@@ -158,10 +158,6 @@
             this.totalIPITextBox = new System.Windows.Forms.TextBox();
             this.totalNotaTextBox = new System.Windows.Forms.TextBox();
             this.tb_entrada_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
-            this.codSituacaoPagamentosComboBox = new System.Windows.Forms.ComboBox();
-            this.situacaoPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.totalProdutosSTTextBox = new System.Windows.Forms.TextBox();
             this.codEntradaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NomeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -170,6 +166,10 @@
             this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorTotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
+            this.codSituacaoPagamentosComboBox = new System.Windows.Forms.ComboBox();
+            this.situacaoPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.totalProdutosSTTextBox = new System.Windows.Forms.TextBox();
             codEntradaLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -1215,7 +1215,6 @@
             this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codProdutoComboBox.CausesValidation = false;
-            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaProdutoBindingSource, "CodProduto", true));
             this.codProdutoComboBox.DataSource = this.produtoBindingSource;
             this.codProdutoComboBox.DisplayMember = "Nome";
             this.codProdutoComboBox.FormattingEnabled = true;
@@ -1559,46 +1558,6 @@
             this.tb_entrada_produtoDataGridView.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.tb_entrada_produtoDataGridView.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
-            // fretePagoEmitenteCheckBox
-            // 
-            this.fretePagoEmitenteCheckBox.Checked = true;
-            this.fretePagoEmitenteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.fretePagoEmitenteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.entradaBindingSource, "FretePagoEmitente", true));
-            this.fretePagoEmitenteCheckBox.Location = new System.Drawing.Point(308, 111);
-            this.fretePagoEmitenteCheckBox.Name = "fretePagoEmitenteCheckBox";
-            this.fretePagoEmitenteCheckBox.Size = new System.Drawing.Size(69, 35);
-            this.fretePagoEmitenteCheckBox.TabIndex = 23;
-            this.fretePagoEmitenteCheckBox.Text = "Pago Emitente";
-            this.fretePagoEmitenteCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // codSituacaoPagamentosComboBox
-            // 
-            this.codSituacaoPagamentosComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodSituacaoPagamentos", true));
-            this.codSituacaoPagamentosComboBox.DataSource = this.situacaoPagamentosBindingSource;
-            this.codSituacaoPagamentosComboBox.DisplayMember = "DescricaoSituacaoPagamentos";
-            this.codSituacaoPagamentosComboBox.Enabled = false;
-            this.codSituacaoPagamentosComboBox.FormattingEnabled = true;
-            this.codSituacaoPagamentosComboBox.Location = new System.Drawing.Point(485, 40);
-            this.codSituacaoPagamentosComboBox.Name = "codSituacaoPagamentosComboBox";
-            this.codSituacaoPagamentosComboBox.Size = new System.Drawing.Size(103, 21);
-            this.codSituacaoPagamentosComboBox.TabIndex = 112;
-            this.codSituacaoPagamentosComboBox.ValueMember = "CodSituacaoPagamentos";
-            this.codSituacaoPagamentosComboBox.Visible = false;
-            // 
-            // situacaoPagamentosBindingSource
-            // 
-            this.situacaoPagamentosBindingSource.DataSource = typeof(Dominio.SituacaoPagamentos);
-            // 
-            // totalProdutosSTTextBox
-            // 
-            this.totalProdutosSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalProdutosST", true));
-            this.totalProdutosSTTextBox.Location = new System.Drawing.Point(496, 167);
-            this.totalProdutosSTTextBox.Name = "totalProdutosSTTextBox";
-            this.totalProdutosSTTextBox.Size = new System.Drawing.Size(103, 20);
-            this.totalProdutosSTTextBox.TabIndex = 41;
-            this.totalProdutosSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalProdutosSTTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
-            // 
             // codEntradaProdutoDataGridViewTextBoxColumn
             // 
             this.codEntradaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodEntradaProduto";
@@ -1664,6 +1623,46 @@
             this.valorTotalDataGridViewTextBoxColumn.HeaderText = "Valor Total";
             this.valorTotalDataGridViewTextBoxColumn.Name = "valorTotalDataGridViewTextBoxColumn";
             this.valorTotalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fretePagoEmitenteCheckBox
+            // 
+            this.fretePagoEmitenteCheckBox.Checked = true;
+            this.fretePagoEmitenteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.fretePagoEmitenteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.entradaBindingSource, "FretePagoEmitente", true));
+            this.fretePagoEmitenteCheckBox.Location = new System.Drawing.Point(308, 111);
+            this.fretePagoEmitenteCheckBox.Name = "fretePagoEmitenteCheckBox";
+            this.fretePagoEmitenteCheckBox.Size = new System.Drawing.Size(69, 35);
+            this.fretePagoEmitenteCheckBox.TabIndex = 23;
+            this.fretePagoEmitenteCheckBox.Text = "Pago Emitente";
+            this.fretePagoEmitenteCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // codSituacaoPagamentosComboBox
+            // 
+            this.codSituacaoPagamentosComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodSituacaoPagamentos", true));
+            this.codSituacaoPagamentosComboBox.DataSource = this.situacaoPagamentosBindingSource;
+            this.codSituacaoPagamentosComboBox.DisplayMember = "DescricaoSituacaoPagamentos";
+            this.codSituacaoPagamentosComboBox.Enabled = false;
+            this.codSituacaoPagamentosComboBox.FormattingEnabled = true;
+            this.codSituacaoPagamentosComboBox.Location = new System.Drawing.Point(485, 40);
+            this.codSituacaoPagamentosComboBox.Name = "codSituacaoPagamentosComboBox";
+            this.codSituacaoPagamentosComboBox.Size = new System.Drawing.Size(103, 21);
+            this.codSituacaoPagamentosComboBox.TabIndex = 112;
+            this.codSituacaoPagamentosComboBox.ValueMember = "CodSituacaoPagamentos";
+            this.codSituacaoPagamentosComboBox.Visible = false;
+            // 
+            // situacaoPagamentosBindingSource
+            // 
+            this.situacaoPagamentosBindingSource.DataSource = typeof(Dominio.SituacaoPagamentos);
+            // 
+            // totalProdutosSTTextBox
+            // 
+            this.totalProdutosSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalProdutosST", true));
+            this.totalProdutosSTTextBox.Location = new System.Drawing.Point(496, 167);
+            this.totalProdutosSTTextBox.Name = "totalProdutosSTTextBox";
+            this.totalProdutosSTTextBox.Size = new System.Drawing.Size(103, 20);
+            this.totalProdutosSTTextBox.TabIndex = 41;
+            this.totalProdutosSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
+            this.totalProdutosSTTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
             // 
             // FrmEntrada
             // 
