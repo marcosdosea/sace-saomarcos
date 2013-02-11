@@ -106,8 +106,15 @@ namespace Negocio
             try
             {
                 var repConta = new RepositorioGenerico<ContaE>();
+                var saceEntities = (SaceEntities)repConta.ObterContexto();
+                var query = from contaSet in saceEntities.ContaSet
+                            where contaSet.codConta == codConta
+                            select contaSet;
 
-                repConta.Remover(c => c.codConta == codConta);
+                foreach (ContaE _contaE in query)
+                {
+                    repConta.Remover(_contaE);
+                }
                 repConta.SaveChanges();
             }
             catch (Exception e)

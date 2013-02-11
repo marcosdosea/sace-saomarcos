@@ -36,6 +36,8 @@ namespace Negocio
             {
                 if (produto.Nome.Trim().Equals(""))
                     throw new NegocioException("O nome do produto não pode ficar em branco.");
+                else if (produto.QuantidadeEmbalagem <= 0) 
+                    throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
 
                 ProdutoE _produtoE = new ProdutoE();
                 Atribuir(produto, _produtoE);
@@ -62,6 +64,8 @@ namespace Negocio
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
             else if (produto.Nome.Trim().Equals(""))
                 throw new NegocioException("O nome do produto não pode ficar em branco.");
+            else if (produto.QuantidadeEmbalagem <= 0)
+                throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
 
             try
             {
@@ -178,10 +182,8 @@ namespace Negocio
                             ReferenciaFabricante = produto.referenciaFabricante,
                             Simples = (decimal) produto.simples,
                             TemVencimento = (bool) produto.temVencimento,
-                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
-                            UltimoPrecoCompra = (decimal) produto.ultimoPrecoCompra,
-                            Unidade = produto.unidade,
-                            UnidadeCompra = produto.unidadeCompra
+                            UnidadeCompra = produto.unidadeCompra,
+                            UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra
                         };
             return query;
         }
@@ -199,17 +201,32 @@ namespace Negocio
                         orderby produto.nome
                         select new ProdutoPesquisa
                         {
+                            Cfop = (int) produto.cfop,
                             CodCST = produto.codCST,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,
+                            Desconto = (decimal) produto.desconto,
+                            ExibeNaListagem = (bool) produto.exibeNaListagem,
+                            Frete = (decimal)produto.frete,
+                            Icms = (decimal)produto.icms,
+                            IcmsSubstituto = (decimal)produto.icms_substituto,
+                            Ipi = (decimal)produto.ipi,
+                            LucroPrecoVendaAtacado = (decimal)produto.lucroPrecoVendaAtacado,
+                            LucroPrecoVendaVarejo = (decimal)produto.lucroPrecoVendaVarejo,
+                            Ncmsh = produto.ncmsh,
                             Nome = produto.nome,
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
                             PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
                             PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
                             QtdProdutoAtacado = (decimal)produto.qtdProdutoAtacado,
+                            QuantidadeEmbalagem = (decimal) produto.quantidadeEmbalagem,
+                            ReferenciaFabricante = produto.referenciaFabricante,
+                            Simples = (decimal) produto.simples,
                             UltimaDataAtualizacao = (DateTime)produto.ultimaDataAtualizacao,
                             Unidade = produto.unidade,
-                            TemVencimento = (bool) produto.temVencimento
+                            TemVencimento = (bool) produto.temVencimento,
+                            UltimoPrecoCompra = (decimal) produto.ultimoPrecoCompra,
+                            UnidadeCompra = produto.unidadeCompra
                          };
             return query;
         }
@@ -360,7 +377,7 @@ namespace Negocio
             _produtoE.codCST = produto.CodCST;
             _produtoE.codFabricante = produto.CodFabricante;
             _produtoE.codGrupo = produto.CodGrupo;
-            _produtoE.codigoBarra = produto.CodigoBarra;
+            _produtoE.codigoBarra = produto.CodigoBarra == null ? "" : produto.CodigoBarra;
             _produtoE.codSituacaoProduto = Convert.ToSByte(produto.CodSituacaoProduto);
             _produtoE.codSubgrupo = produto.CodSubgrupo;
             _produtoE.dataUltimoPedido = produto.DataUltimoPedido;
@@ -372,7 +389,7 @@ namespace Negocio
             _produtoE.ipi = produto.Ipi;
             _produtoE.lucroPrecoVendaAtacado = produto.LucroPrecoVendaAtacado;
             _produtoE.lucroPrecoVendaVarejo = produto.LucroPrecoVendaVarejo;
-            _produtoE.ncmsh = produto.Ncmsh;
+            _produtoE.ncmsh = produto.Ncmsh == null ? "" : produto.Ncmsh;
             _produtoE.nome = produto.Nome;
             _produtoE.nomeProdutoFabricante = produto.NomeProdutoFabricante;
             _produtoE.precoVendaAtacado = produto.PrecoVendaAtacado;

@@ -104,6 +104,7 @@ namespace Telas
             saida.BaseCalculoICMSSubst = 0;
             saida.EspecieVolumes = "";
             saida.Marca = "";
+            saida.Observacao = "";
             saida.Numero = 0;
             saida.OutrasDespesas = 0;
             saida.PesoBruto = 0;
@@ -123,6 +124,9 @@ namespace Telas
             baseCalculoICMSSubstTextBox.Text = "0.00";
             valorICMSSubstTextBox.Text = "0.00";
             valorIPITextBox.Text = "0.00";
+            precoVendaSemDescontoTextBox.Text = "0.00";
+            subtotalAVistatextBox.Text = "0.00";
+            subtotalTextBox.Text = "0.00";
             dataSaidaDateTimePicker.Text = saida.DataSaida.ToShortDateString();
 
             lblPreco.Text = PRECO_VAREJO;
@@ -204,7 +208,7 @@ namespace Telas
                     btnNovo.Focus();
                 } else if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)) && (codSaida > 0) )
                 {
-                    Saida saida = GerenciadorSaida.GetInstance().Obter(Int64.Parse(codSaidaTextBox.Text));
+                    Saida saida = (Saida) saidaBindingSource.Current;
                     GerenciadorSaida.GetInstance().Remover(saida);
                     saidaBindingSource.RemoveCurrent();
                     saidaBindingSource.MoveLast();
@@ -240,9 +244,10 @@ namespace Telas
             {
                 saida.CodSaida = GerenciadorSaida.GetInstance().Inserir(saida);
                 codSaidaTextBox.Text = saida.CodSaida.ToString();
+                
             }
 
-            SaidaProduto saidaProduto = (SaidaProduto) saidaProdutoBindingSource.AddNew();
+            SaidaProduto saidaProduto = new SaidaProduto();
             
             saidaProduto.CodProduto = ((ProdutoPesquisa) produtoBindingSource.Current).CodProduto;
             saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
@@ -308,19 +313,29 @@ namespace Telas
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_SAIDA_DEPOSITO);
                 tb_saida_produtoDataGridView.Height = 370;
             }
-            else if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            else if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR) || tipoSaidaFormulario.Equals(Saida.TIPO_OUTRAS_SAIDAS))
             {
                 lblSaidaProdutos.Text = "Devolução de Produtos para Fornecedor";
                 this.Text = "Devolução de Produtos para Fornecedor";
                 lblBalcao.Text = "Devolução";
-                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
                 baseCalculoICMSSubstTextBox.ReadOnly = false;
                 baseCalculoICMSTextBox.ReadOnly = false;
                 valorICMSSubstTextBox.ReadOnly = false;
+                valorICMSTextBox.ReadOnly = false;
+                valorIPITextBox.ReadOnly = false;
+
                 baseCalculoICMSTextBox.TabStop = true;
                 baseCalculoICMSSubstTextBox.TabStop = true;
+                valorICMSTextBox.TabStop = true;
                 valorICMSSubstTextBox.TabStop = true;
+                valorIPITextBox.TabStop = true;
                 tb_saida_produtoDataGridView.Height = 300;
+
+                if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+                else if (tipoSaidaFormulario.Equals(Saida.TIPO_OUTRAS_SAIDAS))
+                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_OUTRAS_SAIDAS);
+                
             }
             else
             {
@@ -341,6 +356,7 @@ namespace Telas
             ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, false);
             if (_produtoPesquisa != null)
             {
+                quantidadeTextBox.Text = "1";
                 buscaPrecos();
                 AtualizarSubTotal();
                 if (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA) && !ultimoCodigoBarraLido.Equals(""))
@@ -506,21 +522,18 @@ namespace Telas
                     FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
-                    //saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_SAIDA_DEPOSITO);
                 }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_OUTRAS_SAIDAS))
                 {
                     FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
                     frmSaidaDevolucao.ShowDialog();
                     frmSaidaDevolucao.Dispose();
-                    //saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
                 }
                 else
                 {
                     FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
-                    //backgroundWorkerRecuperaCupons.RunWorkerAsync();
                 }
                 produtoBindingSource.MoveFirst();
                 codSaidaTextBox_TextChanged(sender, e);
@@ -562,19 +575,11 @@ namespace Telas
                     GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
                 }
             }
-            else if (saida.TipoSaida == Saida.TIPO_VENDA)
+            else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
             {
                 FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
-            }
-            else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
-            {
-                if (MessageBox.Show("Confirma impressão da Nota Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-
-                    GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
-                }
             }
             else
             {

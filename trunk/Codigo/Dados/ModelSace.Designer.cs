@@ -7772,7 +7772,8 @@ namespace Dados
         /// <param name="codSituacaoPagamentos">Initial value of the codSituacaoPagamentos property.</param>
         /// <param name="entregaRealizada">Initial value of the entregaRealizada property.</param>
         /// <param name="codEmpresaFrete">Initial value of the codEmpresaFrete property.</param>
-        public static SaidaE CreateSaidaE(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete)
+        /// <param name="observacao">Initial value of the observacao property.</param>
+        public static SaidaE CreateSaidaE(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao)
         {
             SaidaE saidaE = new SaidaE();
             saidaE.codSaida = codSaida;
@@ -7782,6 +7783,7 @@ namespace Dados
             saidaE.codSituacaoPagamentos = codSituacaoPagamentos;
             saidaE.entregaRealizada = entregaRealizada;
             saidaE.codEmpresaFrete = codEmpresaFrete;
+            saidaE.observacao = observacao;
             return saidaE;
         }
 
@@ -8582,6 +8584,30 @@ namespace Dados
         private global::System.Int64 _codEmpresaFrete;
         partial void OncodEmpresaFreteChanging(global::System.Int64 value);
         partial void OncodEmpresaFreteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String observacao
+        {
+            get
+            {
+                return _observacao;
+            }
+            set
+            {
+                OnobservacaoChanging(value);
+                ReportPropertyChanging("observacao");
+                _observacao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("observacao");
+                OnobservacaoChanged();
+            }
+        }
+        private global::System.String _observacao;
+        partial void OnobservacaoChanging(global::System.String value);
+        partial void OnobservacaoChanged();
 
         #endregion
     

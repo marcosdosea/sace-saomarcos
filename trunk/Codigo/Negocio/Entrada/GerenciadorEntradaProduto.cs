@@ -148,10 +148,6 @@ namespace Negocio
                             QuantidadeDisponivel = (decimal)entradaProduto.quantidade_disponivel,
                             QuantidadeEmbalagem = (decimal)entradaProduto.quantidadeEmbalagem,
                             UnidadeCompra = entradaProduto.unidadeCompra,
-                            ValorICMS = (decimal)entradaProduto.valorICMS,
-                            ValorICMSST = (decimal)entradaProduto.valorICMSST,
-                            ValorIPI = (decimal)entradaProduto.valorIPI,
-                            ValorTotal = (decimal)entradaProduto.valorTotal,
                             ValorUnitario = (decimal)entradaProduto.valorUnitario
                         };
             return query;
@@ -249,10 +245,6 @@ namespace Negocio
                             QuantidadeDisponivel = (decimal)entradaProduto.quantidade_disponivel,
                             QuantidadeEmbalagem = (decimal)entradaProduto.quantidadeEmbalagem,
                             UnidadeCompra = entradaProduto.unidadeCompra,
-                            ValorICMS = (decimal)entradaProduto.valorICMS,
-                            ValorICMSST = (decimal)entradaProduto.valorICMSST,
-                            ValorIPI = (decimal)entradaProduto.valorIPI,
-                            ValorTotal = (decimal)entradaProduto.valorTotal,
                             ValorUnitario = (decimal)entradaProduto.valorUnitario
                         };
             return query.ToList();
@@ -412,12 +404,9 @@ namespace Negocio
                 entradaProduto.Quantidade = (produto.TemVencimento) ? quantidade : 10000;
                 entradaProduto.QuantidadeEmbalagem = 1;
                 entradaProduto.ValorUnitario = produto.UltimoPrecoCompra;
-                entradaProduto.ValorTotal = 0;
+                //entradaProduto.ValorTotal = 0;
                 entradaProduto.BaseCalculoICMS = 0;
                 entradaProduto.BaseCalculoICMSST = 0;
-                entradaProduto.ValorICMS = 0;
-                entradaProduto.ValorICMSST = 0;
-                entradaProduto.ValorIPI = 0;
                 entradaProduto.DataValidade = DateTime.Now;
                 // para não perder os dados do produto
                 entradaProduto.LucroPrecoVendaAtacado = produto.LucroPrecoVendaAtacado;

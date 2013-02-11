@@ -15,7 +15,7 @@ namespace Telas
         private Entrada entrada;
         private EntradaProduto entradaProduto;
         private Int32 tipoEntrada;
-        //private ProdutoPesquisa _produtoPesquisa;
+        private ProdutoPesquisa produtoPesquisa;
         private string ultimoCodigoBarraLido = "";
 
         public FrmEntrada()
@@ -58,6 +58,7 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             entradaBindingSource.AddNew();
+            entradaProdutoBindingSource.DataSource = new List<EntradaProduto>();
             codEntradaTextBox.Enabled = false;
             numeroNotaFiscalTextBox.Focus();
             codEmpresaFreteComboBox.SelectedIndex = 0;
@@ -86,51 +87,23 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            habilitaBotoes(true);
-            
             entradaBindingSource.CancelEdit();
             entradaBindingSource.EndEdit();
             entradaProdutoBindingSource.CancelEdit();
             entradaProdutoBindingSource.EndEdit();
             ProdutosGroupBox.Enabled = false;
+            habilitaBotoes(true);
             btnBuscar.Focus();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            entrada = new Entrada();
-            entrada.CodEntrada = Convert.ToInt64(codEntradaTextBox.Text);
-            entrada.CodEmpresaFrete = Convert.ToInt32(codEmpresaFreteComboBox.SelectedValue.ToString());
-            entrada.CodFornecedor = Convert.ToInt32(codFornecedorComboBox.SelectedValue.ToString());
-            entrada.CodTipoEntrada = tipoEntrada;
-            entrada.DataEmissao = Convert.ToDateTime(dataEmissaoDateTimePicker.Text);
-            entrada.DataEntrada = Convert.ToDateTime(dataEntradaDateTimePicker.Text);
-            entrada.Desconto = Convert.ToDecimal(descontoTextBox.Text);
-            entrada.NumeroNotaFiscal = numeroNotaFiscalTextBox.Text;
-            entrada.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
-            entrada.TotalBaseCalculo = Convert.ToDecimal(totalBaseCalculoTextBox.Text);
-            entrada.TotalBaseSubstituicao = Convert.ToDecimal(totalBaseSubstituicaoTextBox.Text);
-            entrada.TotalICMS = Convert.ToDecimal(totalICMSTextBox.Text);
-            entrada.TotalIPI = Convert.ToDecimal(totalIPITextBox.Text);
-            entrada.TotalNota = Convert.ToDecimal(totalNotaTextBox.Text);
-            entrada.TotalProdutos = Convert.ToDecimal(totalProdutosTextBox.Text);
-            entrada.TotalProdutosST = Convert.ToDecimal(totalProdutosSTTextBox.Text);
-            entrada.TotalSubstituicao = Convert.ToDecimal(totalSubstituicaoTextBox.Text);
-            entrada.ValorFrete = Convert.ToDecimal(valorFreteTextBox.Text);
-            entrada.ValorSeguro = Convert.ToDecimal(valorSeguroTextBox.Text);
-            entrada.FretePagoEmitente = fretePagoEmitenteCheckBox.Checked;
-            if (codSituacaoPagamentosComboBox.SelectedValue != null)
-            {
-                entrada.CodSituacaoPagamentos = Convert.ToInt32(codSituacaoPagamentosComboBox.SelectedValue.ToString());
-            }
-            else
-            {
-                entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-            }
-                        
+            entrada = (Entrada)entradaBindingSource.Current;
+
             GerenciadorEntrada gEntrada = GerenciadorEntrada.GetInstance();
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
+                entrada.CodTipoEntrada = tipoEntrada;
                 entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
                 entrada.CodEntrada = gEntrada.Inserir(entrada);
                 codEntradaTextBox.Text = entrada.CodEntrada.ToString();
@@ -140,7 +113,7 @@ namespace Telas
             else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
                 GerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.GetInstance();
-                entradaProduto = new EntradaProduto();
+                entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 entradaProduto.CodProduto = Convert.ToInt32(codProdutoComboBox.SelectedValue.ToString());
                 entradaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
                 entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(baseCalculoICMSSTTextBox.Text);
@@ -164,22 +137,18 @@ namespace Telas
                 entradaProduto.Ipi = Convert.ToDecimal(ipiTextBox.Text);
                 entradaProduto.Ncmsh = ncmshTextBox.Text;
                 entradaProduto.UnidadeCompra = unidadeCompraTextBox.Text;
-                entradaProduto.ValorICMS = Convert.ToDecimal(valorICMSTextBox.Text);
-                entradaProduto.ValorICMSST = Convert.ToDecimal(valorICMSSTTextBox.Text);
-                entradaProduto.ValorIPI = Convert.ToDecimal(valorIPITextBox.Text);
-                entradaProduto.ValorTotal = Convert.ToDecimal(valorTotalTextBox.Text);
                 entradaProduto.ValorUnitario = Convert.ToDecimal(valorUnitarioTextBox.Text);
                 entradaProduto.QtdProdutoAtacado = Convert.ToDecimal(qtdProdutoAtacadoTextBox.Text);
                 entradaProduto.Desconto = Convert.ToDecimal(descontoProdutoTextBox.Text);
 
-                entradaProduto.FornecedorEhFabricante = ((Pessoa) fornecedorBindingSource.Current).EhFabricante;
-                entradaProduto.CodFornecedor = ((Pessoa) fornecedorBindingSource.Current).CodPessoa;
+                entradaProduto.FornecedorEhFabricante = ((Pessoa)fornecedorBindingSource.Current).EhFabricante;
+                entradaProduto.CodFornecedor = ((Pessoa)fornecedorBindingSource.Current).CodPessoa;
 
                 GerenciadorEntradaProduto.GetInstance().Inserir(entradaProduto, entrada.CodTipoEntrada);
                 codEntradaTextBox_TextChanged(sender, e);
                 btnProdutos_Click(sender, e);
             }
-            else 
+            else
             {
                 gEntrada.Atualizar(entrada);
                 produtoBindingSource.Position = 0;
@@ -197,13 +166,195 @@ namespace Telas
             {
                 if (tb_entrada_produtoDataGridView.Rows.Count > 0)
                 {
-                    EntradaProduto _entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+                    EntradaProduto _entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                     Entrada _entrada = (Entrada)entradaBindingSource.Current;
                     GerenciadorEntradaProduto.GetInstance().Remover(_entradaProduto, entrada.CodTipoEntrada);
                 }
             }
             codEntradaTextBox_TextChanged(sender, e);
         }
+
+        private void quantidadeTextBox_Validated(object sender, EventArgs e)
+        {
+            entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
+            if (entradaProduto != null)
+            {
+                if (entradaProduto.EhTributacaoIntegral)
+                    baseCalculoICMSTextBox.Text = entradaProduto.ValorTotal.ToString();
+                else
+                    baseCalculoICMSSTTextBox.Text = entradaProduto.ValorTotal.ToString();
+                Produto produto = (Produto) produtoBindingSource.Current;
+                entradaProduto.Icms = produto.Icms;
+                entradaProduto.IcmsSubstituto = produto.IcmsSubstituto;
+                entradaProduto.Ipi = produto.Ipi;
+
+                produto.UltimoPrecoCompra = entradaProduto.ValorUnitario;
+                
+                
+                valorICMSTextBox.Text = entradaProduto.ValorICMS.ToString();
+                valorICMSSTTextBox.Text = entradaProduto.ValorICMSST.ToString();
+                valorIPITextBox.Text = entradaProduto.ValorIPI.ToString();
+                preco_custoTextBox.Text = produto.PrecoCusto.ToString();
+                precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString();
+                precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString();
+            }
+        }
+
+
+        private void codigoFornecedorComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
+        }
+
+        private void btnProdutos_Click(object sender, EventArgs e)
+        {
+            entradaProdutoBindingSource.AddNew();
+            if (tb_entrada_produtoDataGridView.RowCount == 0)
+            {
+                codProdutoComboBox.SelectedIndex = 0;     
+            }
+            ProdutosGroupBox.Enabled = true;
+            codProdutoComboBox.Focus();
+            habilitaBotoes(false);
+            estado = EstadoFormulario.INSERIR_DETALHE;
+
+        }
+
+        private void codFornecedorComboBox_Leave(object sender, EventArgs e)
+        {
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false);
+            codEntradaTextBox_Leave(sender, e);
+        }
+
+        private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
+        {
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false);
+            codEntradaTextBox_Leave(sender, e);
+        }
+
+        private void codProdutoComboBox_Leave(object sender, EventArgs e)
+        {
+            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
+            {
+                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
+                EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
+                if (produtoPesquisa != null)
+                {
+                    data_validadeDateTimePicker.Enabled = produtoPesquisa.TemVencimento;
+                    entradaProduto.NomeProduto = produtoPesquisa.Nome;
+                    if (produtoPesquisa.QuantidadeEmbalagem <= 0)
+                        quantidadeEmbalagemTextBox.Text = "1";
+                    if (entradaProduto.Quantidade <= 0)
+                        quantidadeTextBox.Text = "1";
+                    if (entradaProduto.ValorUnitario <= 0)
+                        entradaProduto.ValorUnitario = produtoPesquisa.UltimoPrecoCompra;
+                    if (!produtoPesquisa.EhTributacaoIntegral)
+                    {
+                        produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
+                        entrada = (Entrada) entradaBindingSource.Current;
+                        produtoPesquisa.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
+                    }
+
+                    codCSTComboBox_SelectedIndexChanged(sender, e);
+                    codEntradaTextBox_Leave(sender, e);
+                }
+            }
+        }
+
+        private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
+        {
+            totalNotaCalculadoTextBox.Text = "0,00";
+            if ((!codEntradaTextBox.Text.Trim().Equals("")) && (long.Parse(codEntradaTextBox.Text) > 1))
+            {
+                IEnumerable<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance().ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
+                entradaProdutoBindingSource.DataSource = listaEntradaProduto;
+            }
+        }
+
+
+        private void btnPagamentos_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt64(codEntradaTextBox.Text) > 0)
+            {
+                habilitaBotoes(true);
+                estado = EstadoFormulario.ESPERA;
+                entrada = GerenciadorEntrada.GetInstance().Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
+                FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
+                frmEntradaPagamento.ShowDialog();
+                frmEntradaPagamento.Dispose();
+                btnNovo.Focus();
+            }
+        }
+
+        private void precoVendaAtacadoTextBox_Leave(object sender, EventArgs e)
+        {
+            codEntradaTextBox_Leave(sender, e);
+            btnSalvar.Focus();
+        }
+
+        private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((codCSTComboBox.SelectedValue != null) && (ProdutosGroupBox.Enabled) && estado.Equals(EstadoFormulario.INSERIR_DETALHE))
+            {
+                Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
+                bool ehTributadoIntegral = cst.EhTributacaoIntegral;
+
+                baseCalculoICMSSTTextBox.ReadOnly = ehTributadoIntegral;
+                baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
+                icms_substitutoTextBox.ReadOnly = ehTributadoIntegral;
+                icms_substitutoTextBox.TabStop = !icms_substitutoTextBox.ReadOnly;
+
+                baseCalculoICMSTextBox.ReadOnly = !ehTributadoIntegral;
+                baseCalculoICMSTextBox.TabStop = !baseCalculoICMSTextBox.ReadOnly;
+                icmsTextBox.ReadOnly = !ehTributadoIntegral;
+                icmsTextBox.TabStop = !icmsTextBox.ReadOnly;
+
+                if (!entradaProduto.EhTributacaoIntegral && (entrada.TotalProdutosST > 0))
+                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
+                else
+                    entradaProduto.IcmsSubstituto = 0;
+                icms_substitutoTextBox.Text = entradaProduto.IcmsSubstituto.ToString("N2");
+
+                if (entrada.ValorFrete > 0)
+                {
+                    if (entrada.FretePagoEmitente)
+                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
+                    else
+                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalNota) * 100);
+                }
+                else
+                {
+                    entradaProduto.Frete = 0;
+                }
+                freteTextBox.Text = entradaProduto.Frete.ToString("N2");
+
+                if (entrada.Desconto > 0)
+                {
+                    entradaProduto.Desconto = (entrada.Desconto / entrada.TotalProdutos) * 100;
+                    descontoProdutoTextBox.Text = entradaProduto.Desconto.ToString("N2");
+                }
+            }
+            codEntradaTextBox_Leave(sender, e);
+        }
+
+        private void codEntradaTextBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codEntradaTextBox_Leave(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            }
+        }
+
 
         private void FrmEntrada_KeyDown(object sender, KeyEventArgs e)
         {
@@ -267,7 +418,7 @@ namespace Telas
                     this.Close();
                 }
             }
-            else 
+            else
             {
                 if (e.KeyCode == Keys.Enter)
                 {
@@ -282,8 +433,8 @@ namespace Telas
                     else if (codProdutoComboBox.Focused)
                     {
                         codProdutoComboBox_Leave(sender, e);
-                    } 
-                    
+                    }
+
                     e.Handled = true;
                     SendKeys.Send("{tab}");
                 }
@@ -356,7 +507,7 @@ namespace Telas
                     }
                     frmProduto.Dispose();
                 }
-                
+
             }
             // Coloca o foco na grid caso ela não possua
             if (e.KeyCode == Keys.F12)
@@ -394,267 +545,6 @@ namespace Telas
             }
         }
 
-
-        private void codigoFornecedorComboBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
-        }
-
-        private void btnProdutos_Click(object sender, EventArgs e)
-        {
-            entradaProdutoBindingSource.AddNew();
-            codProdutoComboBox.SelectedIndex = 0;
-            produtoBindingSource.Position = 0;
-            cfopComboBox.SelectedIndex = 0;
-            ProdutosGroupBox.Enabled = true;
-            codProdutoComboBox.Focus();
-            simplesTextBox.Text = Global.SIMPLES.ToString();
-            inicializaVariaveis();
-            habilitaBotoes(false);
-            estado = EstadoFormulario.INSERIR_DETALHE;
-            
-        }
-
-        private void codFornecedorComboBox_Leave(object sender, EventArgs e)
-        {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false);
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
-        {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false);
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void codProdutoComboBox_Leave(object sender, EventArgs e)
-        {
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
-            {
-                ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
-                if (_produtoPesquisa != null)
-                {
-                    data_validadeDateTimePicker.Enabled = _produtoPesquisa.TemVencimento;
-                    if (Convert.ToDecimal(quantidadeEmbalagemTextBox.Text) <= 0)
-                        quantidadeEmbalagemTextBox.Text = "1";
-                    codCSTComboBox_SelectedIndexChanged(sender, e);
-                    codEntradaTextBox_Leave(sender, e);
-                }
-            }
-        }
-
-        private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
-        {
-            totalNotaCalculadoTextBox.Text = "0,00";
-            if ((!codEntradaTextBox.Text.Trim().Equals("")) && (long.Parse(codEntradaTextBox.Text) > 1)) {
-                IEnumerable<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance().ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
-                entradaProdutoBindingSource.DataSource = listaEntradaProduto;
-                //totalNotaCalculadoTextBox.Text = listaEntradaProduto
-            }
-        }
-
-        private void totalBaseCalculoTextBox_Leave(object sender, EventArgs e)
-        {
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
-            {
-                FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
-            }
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void quantidadeTextBox_Leave(object sender, EventArgs e)
-        {
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
-            {
-                FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
-                inicializaVariaveis();
-
-                entradaProduto.ValorTotal = Convert.ToDecimal(valorTotalTextBox.Text);
-
-                if ((entradaProduto.ValorTotal > 0) && valorTotalTextBox.Focused)
-                {
-                    entradaProduto.ValorUnitario = entradaProduto.ValorTotal / entradaProduto.Quantidade;
-                    valorUnitarioTextBox.Text = entradaProduto.ValorUnitario.ToString("N3");
-                }
-                valorTotalTextBox.Text = (entradaProduto.ValorUnitario * entradaProduto.Quantidade).ToString("N2");
-
-                entradaProduto.ValorICMSST = entradaProduto.ValorTotal * entradaProduto.IcmsSubstituto / 100;
-                valorICMSSTTextBox.Text = entradaProduto.ValorICMSST.ToString("N2");
-
-                if ((entradaProduto.BaseCalculoICMS == 0) && (entradaProduto.EhTributacaoIntegral))
-                {
-                    baseCalculoICMSTextBox.Text = valorTotalTextBox.Text;
-                }
-
-                if ((entradaProduto.BaseCalculoICMSST == 0) && (!entradaProduto.EhTributacaoIntegral))
-                {
-                    baseCalculoICMSSTTextBox.Text = valorTotalTextBox.Text;
-                }
-
-                valorICMSTextBox.Text = (entradaProduto.BaseCalculoICMS * entradaProduto.Icms / 100).ToString("N2");
-                valorIPITextBox.Text = (entradaProduto.ValorTotal * entradaProduto.Ipi / 100).ToString("N2");
-
-                entradaProduto.LucroPrecoVendaVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
-                entradaProduto.LucroPrecoVendaAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
-
-                entradaProduto.CodCST = codCSTComboBox.SelectedValue.ToString();
-                entradaProduto.QuantidadeEmbalagem = Convert.ToDecimal(quantidadeEmbalagemTextBox.Text);
-
-                if (entradaProduto.QuantidadeEmbalagem <= 0)
-                {
-                    throw new TelaException("A quantidade de produtos da embalagem deve ser maior ou igual a 1.");
-                }
-                
-                Produto _produto = (Produto) produtoBindingSource.Current;
-                _produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
-                _produto.Icms = entradaProduto.Icms;
-                _produto.Simples = entradaProduto.Simples;
-                _produto.Ipi = entradaProduto.Ipi;
-                _produto.CodCST = codCSTComboBox.SelectedValue.ToString();
-                _produto.Frete = entradaProduto.Frete;
-                _produto.Desconto = entradaProduto.Desconto;
-                entradaProduto.PrecoCusto = _produto.PrecoCusto;
-                _produto.LucroPrecoVendaVarejo = Convert.ToDecimal(lucroPrecoVendaVarejoTextBox.Text);
-                _produto.LucroPrecoVendaAtacado = Convert.ToDecimal(lucroPrecoVendaAtacadoTextBox.Text);
-                //precoVarejoSugestaoTextBox.Text = _produto.PrecoVendaVarejoSugestao.ToString("N3");
-                //precoAtacadoSugestaoTextBox.Text = _produto.PrecoVendaAtacadoSugestao.ToString("N3");
-            }
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void inicializaVariaveis()
-        {
-            if (entradaProduto != null)
-            {
-                entradaProduto.ValorUnitario = Convert.ToDecimal(valorUnitarioTextBox.Text);
-                entradaProduto.Quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
-                entradaProduto.Icms = Convert.ToDecimal(icmsTextBox.Text);
-                entradaProduto.IcmsSubstituto = Convert.ToDecimal(icms_substitutoTextBox.Text);
-                entradaProduto.Ipi = Convert.ToDecimal(ipiTextBox.Text);
-                entradaProduto.Simples = Global.SIMPLES;
-                entradaProduto.Desconto = Convert.ToDecimal(descontoProdutoTextBox.Text);
-                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
-                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(baseCalculoICMSSTTextBox.Text);
-                entradaProduto.ValorICMSST = Convert.ToDecimal(valorICMSSTTextBox.Text);
-                entradaProduto.CodCST = codCSTComboBox.SelectedValue.ToString();
-            }
-
-            if (entrada != null)
-            {
-                entrada.ValorFrete = Convert.ToDecimal(valorFreteTextBox.Text);
-                entrada.TotalNota = Convert.ToDecimal(totalNotaTextBox.Text);
-                entrada.TotalProdutos = Convert.ToDecimal(totalProdutosTextBox.Text);
-                entrada.TotalProdutosST = Convert.ToDecimal(totalProdutosSTTextBox.Text);
-                entrada.TotalSubstituicao = Convert.ToDecimal(totalSubstituicaoTextBox.Text);
-                entrada.Desconto = Convert.ToDecimal(descontoTextBox.Text);
-            }
-        }
-
-        private void precoVendaVarejoTextBox_Leave(object sender, EventArgs e)
-        {
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
-            {
-                FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
-            }
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void qtdProdutoAtacadoTextBox_Leave(object sender, EventArgs e)
-        {
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE) || estado.Equals(EstadoFormulario.INSERIR))
-            {
-                FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
-            }
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void btnPagamentos_Click(object sender, EventArgs e)
-        {
-            if (Convert.ToInt64(codEntradaTextBox.Text) > 0 )
-            {
-                habilitaBotoes(true);
-                estado = EstadoFormulario.ESPERA;
-                entrada = GerenciadorEntrada.GetInstance().Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
-                FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
-                frmEntradaPagamento.ShowDialog();
-                frmEntradaPagamento.Dispose();
-                btnNovo.Focus();
-            }
-        }
-
-        private void precoVendaAtacadoTextBox_Leave(object sender, EventArgs e)
-        {
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE) || estado.Equals(EstadoFormulario.INSERIR))
-            {
-                FormatTextBox.NumeroCom3CasasDecimais((TextBox)sender);
-            }
-            codEntradaTextBox_Leave(sender, e);
-            btnSalvar.Focus();
-        }
-
-        private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ((codCSTComboBox.SelectedValue != null) && (ProdutosGroupBox.Enabled) && estado.Equals(EstadoFormulario.INSERIR_DETALHE))
-            {
-                Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
-                bool ehTributadoIntegral = cst.EhTributacaoIntegral;
-            
-                baseCalculoICMSSTTextBox.ReadOnly = ehTributadoIntegral;
-                baseCalculoICMSSTTextBox.TabStop = !baseCalculoICMSSTTextBox.ReadOnly;
-                icms_substitutoTextBox.ReadOnly = ehTributadoIntegral;
-                icms_substitutoTextBox.TabStop = !icms_substitutoTextBox.ReadOnly;
-
-                baseCalculoICMSTextBox.ReadOnly = !ehTributadoIntegral;
-                baseCalculoICMSTextBox.TabStop = !baseCalculoICMSTextBox.ReadOnly;
-                icmsTextBox.ReadOnly = !ehTributadoIntegral;
-                icmsTextBox.TabStop = !icmsTextBox.ReadOnly;
-
-                inicializaVariaveis();
-
-                if (!entradaProduto.EhTributacaoIntegral && (entrada.TotalProdutosST > 0))
-                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
-                else
-                    entradaProduto.IcmsSubstituto = 0;
-                icms_substitutoTextBox.Text = entradaProduto.IcmsSubstituto.ToString("N2");
-
-                if (entrada.ValorFrete > 0)
-                {
-                    if (entrada.FretePagoEmitente)
-                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
-                    else
-                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalNota) * 100);
-                }
-                else
-                {
-                    entradaProduto.Frete = 0;
-                }
-                freteTextBox.Text = entradaProduto.Frete.ToString("N2");
-
-                if (entrada.Desconto > 0)
-                {
-                    entradaProduto.Desconto = (entrada.Desconto / entrada.TotalProdutos) * 100;
-                    descontoProdutoTextBox.Text = entradaProduto.Desconto.ToString("N2");
-                }
-            }
-            codEntradaTextBox_Leave(sender, e);
-        }
-
-        private void codEntradaTextBox_Enter(object sender, EventArgs e)
-        {
-            if ( (sender is Control) && !(sender is Form) )
-            {
-                Control control = (Control)sender;
-                control.BackColor = Global.BACKCOLOR_FOCUS;
-            }
-        }
-
-        private void codEntradaTextBox_Leave(object sender, EventArgs e)
-        {
-            if ((sender is Control) && !(sender is Form))
-            {
-                Control control = (Control)sender;
-                control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
-            }
-        }
+        
     }
 }

@@ -121,8 +121,15 @@ namespace Negocio
                     }
                 }
                 var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
+                var saceEntities = (SaceEntities)repSaidaPagamento.ObterContexto();
+                var query = from saidaPagamentoSet in saceEntities.SaidaFormaPagamentoSet
+                            where saidaPagamentoSet.codSaidaFormaPagamento == codSaidaPagamento
+                            select saidaPagamentoSet;
 
-                repSaidaPagamento.Remover(sp => sp.codSaidaFormaPagamento == codSaidaPagamento);
+                foreach (SaidaFormaPagamentoE _saidaPagamentoE in query)
+                {
+                    repSaidaPagamento.Remover(_saidaPagamentoE);
+                }
                 repSaidaPagamento.SaveChanges();
                 
                 saida.TotalPago = ObterPorSaida(saida.CodSaida).Sum(sp => sp.Valor);

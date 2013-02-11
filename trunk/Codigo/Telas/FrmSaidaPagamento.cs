@@ -280,6 +280,7 @@ namespace Telas
                 frmPessoa.ShowDialog();
                 if (frmPessoa.PessoaSelected != null)
                 {
+                    clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
                     clienteBindingSource.Position = clienteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                 }
                 frmPessoa.Dispose();

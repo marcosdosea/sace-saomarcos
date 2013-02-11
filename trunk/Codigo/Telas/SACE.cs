@@ -231,13 +231,7 @@ namespace Telas
             frmSaida.Dispose();
         }
 
-        private void pedidoDeCompraÀFornecedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmEntradaPedido frmEntradaPedido = new FrmEntradaPedido();
-            frmEntradaPedido.ShowDialog();
-            frmEntradaPedido.Dispose();
-        }
-
+        
         private void receberPagamentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa();
@@ -248,6 +242,13 @@ namespace Telas
         private void devoluçãoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmSaida frmSaida = new FrmSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+            frmSaida.ShowDialog();
+            frmSaida.Dispose();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_OUTRAS_SAIDAS);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
         }
@@ -282,6 +283,5 @@ namespace Telas
             frmProdutoEstatistica.ShowDialog();
             frmProdutoEstatistica.Dispose();
         }
-
     }
 }

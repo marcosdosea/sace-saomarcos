@@ -370,7 +370,7 @@
             this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(169, 39);
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(473, 35);
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(464, 35);
             this.descricaoTipoSaidaTextBox.TabIndex = 4;
             // 
             // baseCalculoICMSTextBox
@@ -379,10 +379,8 @@
             this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(11, 183);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
-            this.baseCalculoICMSTextBox.ReadOnly = true;
             this.baseCalculoICMSTextBox.Size = new System.Drawing.Size(148, 35);
             this.baseCalculoICMSTextBox.TabIndex = 8;
-            this.baseCalculoICMSTextBox.TabStop = false;
             this.baseCalculoICMSTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -392,10 +390,8 @@
             this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorICMSTextBox.Location = new System.Drawing.Point(170, 183);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
-            this.valorICMSTextBox.ReadOnly = true;
             this.valorICMSTextBox.Size = new System.Drawing.Size(148, 35);
             this.valorICMSTextBox.TabIndex = 10;
-            this.valorICMSTextBox.TabStop = false;
             this.valorICMSTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.valorICMSTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -405,10 +401,8 @@
             this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(323, 183);
             this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
-            this.baseCalculoICMSSubstTextBox.ReadOnly = true;
             this.baseCalculoICMSSubstTextBox.Size = new System.Drawing.Size(148, 35);
             this.baseCalculoICMSSubstTextBox.TabIndex = 12;
-            this.baseCalculoICMSSubstTextBox.TabStop = false;
             this.baseCalculoICMSSubstTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.baseCalculoICMSSubstTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -418,10 +412,8 @@
             this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorICMSSubstTextBox.Location = new System.Drawing.Point(478, 183);
             this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
-            this.valorICMSSubstTextBox.ReadOnly = true;
             this.valorICMSSubstTextBox.Size = new System.Drawing.Size(164, 35);
             this.valorICMSSubstTextBox.TabIndex = 14;
-            this.valorICMSSubstTextBox.TabStop = false;
             this.valorICMSSubstTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.valorICMSSubstTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -619,7 +611,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 497);
+            this.ClientSize = new System.Drawing.Size(819, 510);
             this.Controls.Add(codClienteLabel);
             this.Controls.Add(this.codClienteComboBox);
             this.Controls.Add(descontoLabel);

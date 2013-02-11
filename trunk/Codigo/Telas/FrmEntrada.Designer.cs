@@ -92,9 +92,8 @@
             this.totalNotaCalculadoTextBox = new System.Windows.Forms.TextBox();
             this.ProdutosGroupBox = new System.Windows.Forms.GroupBox();
             this.descontoProdutoTextBox = new System.Windows.Forms.TextBox();
-            this.entradaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codCSTComboBox = new System.Windows.Forms.ComboBox();
             this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codCSTComboBox = new System.Windows.Forms.ComboBox();
             this.cstBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cfopComboBox = new System.Windows.Forms.ComboBox();
             this.cfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -115,6 +114,7 @@
             this.icmsTextBox = new System.Windows.Forms.TextBox();
             this.ncmshTextBox = new System.Windows.Forms.TextBox();
             this.data_validadeDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.entradaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.valorICMSSTTextBox = new System.Windows.Forms.TextBox();
             this.valorICMSTextBox = new System.Windows.Forms.TextBox();
@@ -218,10 +218,10 @@
             totalProdutosSTLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ProdutosGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.entradaProdutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cstBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradaProdutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingNavigator)).BeginInit();
             this.tb_entradaBindingNavigator.SuspendLayout();
@@ -862,22 +862,22 @@
             // 
             // descontoProdutoTextBox
             // 
-            this.descontoProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "Desconto", true));
+            this.descontoProdutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Desconto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.descontoProdutoTextBox.Location = new System.Drawing.Point(583, 82);
             this.descontoProdutoTextBox.Name = "descontoProdutoTextBox";
             this.descontoProdutoTextBox.Size = new System.Drawing.Size(45, 20);
             this.descontoProdutoTextBox.TabIndex = 81;
             this.descontoProdutoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.descontoProdutoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.descontoProdutoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.descontoProdutoTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
-            // entradaProdutoBindingSource
+            // produtoBindingSource
             // 
-            this.entradaProdutoBindingSource.DataSource = typeof(Dominio.EntradaProduto);
-            this.entradaProdutoBindingSource.Sort = "";
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // codCSTComboBox
             // 
-            this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodCST", true));
+            this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodCST", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codCSTComboBox.DataSource = this.cstBindingSource;
             this.codCSTComboBox.DisplayMember = "CodCST";
             this.codCSTComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -891,17 +891,13 @@
             this.codCSTComboBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.codCSTComboBox.Leave += new System.EventHandler(this.codCSTComboBox_SelectedIndexChanged);
             // 
-            // produtoBindingSource
-            // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
             // cstBindingSource
             // 
             this.cstBindingSource.DataSource = typeof(Dominio.Cst);
             // 
             // cfopComboBox
             // 
-            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "Cfop", true));
+            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "Cfop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cfopComboBox.DataSource = this.cfopBindingSource;
             this.cfopComboBox.DisplayMember = "CodCfop";
             this.cfopComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -920,7 +916,7 @@
             // 
             // preco_custoTextBox
             // 
-            this.preco_custoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoCusto", true));
+            this.preco_custoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoCusto", true));
             this.preco_custoTextBox.Location = new System.Drawing.Point(726, 81);
             this.preco_custoTextBox.Name = "preco_custoTextBox";
             this.preco_custoTextBox.ReadOnly = true;
@@ -928,7 +924,6 @@
             this.preco_custoTextBox.TabIndex = 116;
             this.preco_custoTextBox.TabStop = false;
             this.preco_custoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.preco_custoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // label3
             // 
@@ -941,7 +936,7 @@
             // 
             // precoVendaAtacadoTextBox
             // 
-            this.precoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaAtacado", true));
+            this.precoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaAtacado", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVendaAtacadoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendaAtacadoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaAtacadoTextBox.Location = new System.Drawing.Point(713, 126);
@@ -953,7 +948,7 @@
             // 
             // precoAtacadoSugestaoTextBox
             // 
-            this.precoAtacadoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaAtacadoSugestao", true));
+            this.precoAtacadoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaAtacadoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoAtacadoSugestaoTextBox.Location = new System.Drawing.Point(612, 126);
             this.precoAtacadoSugestaoTextBox.Name = "precoAtacadoSugestaoTextBox";
             this.precoAtacadoSugestaoTextBox.ReadOnly = true;
@@ -961,21 +956,20 @@
             this.precoAtacadoSugestaoTextBox.TabIndex = 100;
             this.precoAtacadoSugestaoTextBox.TabStop = false;
             this.precoAtacadoSugestaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.precoAtacadoSugestaoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // qtdProdutoAtacadoTextBox
             // 
-            this.qtdProdutoAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "QtdProdutoAtacado", true));
+            this.qtdProdutoAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "QtdProdutoAtacado", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.qtdProdutoAtacadoTextBox.Location = new System.Drawing.Point(466, 126);
             this.qtdProdutoAtacadoTextBox.Name = "qtdProdutoAtacadoTextBox";
             this.qtdProdutoAtacadoTextBox.Size = new System.Drawing.Size(67, 20);
             this.qtdProdutoAtacadoTextBox.TabIndex = 96;
             this.qtdProdutoAtacadoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.qtdProdutoAtacadoTextBox.Leave += new System.EventHandler(this.qtdProdutoAtacadoTextBox_Leave);
+            this.qtdProdutoAtacadoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // precoVarejoSugestaoTextBox
             // 
-            this.precoVarejoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejoSugestao", true));
+            this.precoVarejoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVarejoSugestaoTextBox.Location = new System.Drawing.Point(267, 126);
             this.precoVarejoSugestaoTextBox.Name = "precoVarejoSugestaoTextBox";
             this.precoVarejoSugestaoTextBox.ReadOnly = true;
@@ -983,11 +977,10 @@
             this.precoVarejoSugestaoTextBox.TabIndex = 92;
             this.precoVarejoSugestaoTextBox.TabStop = false;
             this.precoVarejoSugestaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.precoVarejoSugestaoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // precoVendaVarejoTextBox
             // 
-            this.precoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejo", true));
+            this.precoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.precoVendaVarejoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendaVarejoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaVarejoTextBox.Location = new System.Drawing.Point(369, 126);
@@ -995,7 +988,7 @@
             this.precoVendaVarejoTextBox.Size = new System.Drawing.Size(93, 20);
             this.precoVendaVarejoTextBox.TabIndex = 94;
             this.precoVendaVarejoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.precoVendaVarejoTextBox.Leave += new System.EventHandler(this.precoVendaVarejoTextBox_Leave);
+            this.precoVendaVarejoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // label4
             // 
@@ -1008,27 +1001,25 @@
             // 
             // lucroPrecoVendaVarejoTextBox
             // 
-            this.lucroPrecoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "LucroPrecoVendaVarejo", true));
+            this.lucroPrecoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "LucroPrecoVendaVarejo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.lucroPrecoVendaVarejoTextBox.Location = new System.Drawing.Point(201, 126);
             this.lucroPrecoVendaVarejoTextBox.Name = "lucroPrecoVendaVarejoTextBox";
             this.lucroPrecoVendaVarejoTextBox.Size = new System.Drawing.Size(63, 20);
             this.lucroPrecoVendaVarejoTextBox.TabIndex = 90;
             this.lucroPrecoVendaVarejoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.lucroPrecoVendaVarejoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // lucroPrecoVendaAtacadoTextBox
             // 
-            this.lucroPrecoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "LucroPrecoVendaAtacado", true));
+            this.lucroPrecoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "LucroPrecoVendaAtacado", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.lucroPrecoVendaAtacadoTextBox.Location = new System.Drawing.Point(538, 126);
             this.lucroPrecoVendaAtacadoTextBox.Name = "lucroPrecoVendaAtacadoTextBox";
             this.lucroPrecoVendaAtacadoTextBox.Size = new System.Drawing.Size(69, 20);
             this.lucroPrecoVendaAtacadoTextBox.TabIndex = 98;
             this.lucroPrecoVendaAtacadoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.lucroPrecoVendaAtacadoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // simplesTextBox
             // 
-            this.simplesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Simples", true));
+            this.simplesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Simples", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.simplesTextBox.Location = new System.Drawing.Point(676, 82);
             this.simplesTextBox.Name = "simplesTextBox";
             this.simplesTextBox.ReadOnly = true;
@@ -1036,11 +1027,10 @@
             this.simplesTextBox.TabIndex = 84;
             this.simplesTextBox.TabStop = false;
             this.simplesTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.simplesTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // freteTextBox
             // 
-            this.freteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Frete", true));
+            this.freteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Frete", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.freteTextBox.Location = new System.Drawing.Point(632, 82);
             this.freteTextBox.Name = "freteTextBox";
             this.freteTextBox.ReadOnly = true;
@@ -1048,37 +1038,39 @@
             this.freteTextBox.TabIndex = 82;
             this.freteTextBox.TabStop = false;
             this.freteTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.freteTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // ipiTextBox
             // 
-            this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Ipi", true));
+            this.ipiTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Ipi", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.ipiTextBox.Location = new System.Drawing.Point(477, 82);
             this.ipiTextBox.Name = "ipiTextBox";
             this.ipiTextBox.Size = new System.Drawing.Size(46, 20);
             this.ipiTextBox.TabIndex = 78;
             this.ipiTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.ipiTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.ipiTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.ipiTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // icms_substitutoTextBox
             // 
-            this.icms_substitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "IcmsSubstituto", true));
+            this.icms_substitutoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "IcmsSubstituto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.icms_substitutoTextBox.Location = new System.Drawing.Point(329, 84);
             this.icms_substitutoTextBox.Name = "icms_substitutoTextBox";
             this.icms_substitutoTextBox.Size = new System.Drawing.Size(61, 20);
             this.icms_substitutoTextBox.TabIndex = 74;
             this.icms_substitutoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.icms_substitutoTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.icms_substitutoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.icms_substitutoTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // icmsTextBox
             // 
-            this.icmsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Icms", true));
+            this.icmsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Icms", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.icmsTextBox.Location = new System.Drawing.Point(92, 84);
             this.icmsTextBox.Name = "icmsTextBox";
             this.icmsTextBox.Size = new System.Drawing.Size(63, 20);
             this.icmsTextBox.TabIndex = 68;
             this.icmsTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.icmsTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.icmsTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.icmsTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // ncmshTextBox
             // 
@@ -1102,9 +1094,14 @@
             this.data_validadeDateTimePicker.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.data_validadeDateTimePicker.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
+            // entradaProdutoBindingSource
+            // 
+            this.entradaProdutoBindingSource.DataSource = typeof(Dominio.EntradaProduto);
+            this.entradaProdutoBindingSource.Sort = "";
+            // 
             // valorIPITextBox
             // 
-            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorIPI", true));
+            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorIPI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.valorIPITextBox.Location = new System.Drawing.Point(529, 82);
             this.valorIPITextBox.Name = "valorIPITextBox";
             this.valorIPITextBox.ReadOnly = true;
@@ -1112,91 +1109,91 @@
             this.valorIPITextBox.TabIndex = 80;
             this.valorIPITextBox.TabStop = false;
             this.valorIPITextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorIPITextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorICMSSTTextBox
             // 
-            this.valorICMSSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorICMSST", true));
+            this.valorICMSSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorICMSST", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.valorICMSSTTextBox.Location = new System.Drawing.Point(393, 84);
             this.valorICMSSTTextBox.Name = "valorICMSSTTextBox";
             this.valorICMSSTTextBox.ReadOnly = true;
             this.valorICMSSTTextBox.Size = new System.Drawing.Size(80, 20);
             this.valorICMSSTTextBox.TabIndex = 76;
             this.valorICMSSTTextBox.TabStop = false;
-            this.valorICMSSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorICMSSTTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorICMSTextBox
             // 
-            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorICMS", true));
+            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorICMS", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.valorICMSTextBox.Location = new System.Drawing.Point(160, 84);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
             this.valorICMSTextBox.ReadOnly = true;
             this.valorICMSTextBox.Size = new System.Drawing.Size(80, 20);
             this.valorICMSTextBox.TabIndex = 70;
             this.valorICMSTextBox.TabStop = false;
-            this.valorICMSTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorICMSTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // baseCalculoICMSSTTextBox
             // 
-            this.baseCalculoICMSSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "BaseCalculoICMSST", true));
+            this.baseCalculoICMSSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "BaseCalculoICMSST", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.baseCalculoICMSSTTextBox.Location = new System.Drawing.Point(246, 84);
             this.baseCalculoICMSSTTextBox.Name = "baseCalculoICMSSTTextBox";
             this.baseCalculoICMSSTTextBox.Size = new System.Drawing.Size(77, 20);
             this.baseCalculoICMSSTTextBox.TabIndex = 72;
             this.baseCalculoICMSSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.baseCalculoICMSSTTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.baseCalculoICMSSTTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.baseCalculoICMSSTTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // baseCalculoICMSTextBox
             // 
-            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "BaseCalculoICMS", true));
+            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "BaseCalculoICMS", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(9, 84);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
             this.baseCalculoICMSTextBox.Size = new System.Drawing.Size(80, 20);
             this.baseCalculoICMSTextBox.TabIndex = 66;
             this.baseCalculoICMSTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.baseCalculoICMSTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // quantidadeEmbalagemTextBox
             // 
-            this.quantidadeEmbalagemTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "QuantidadeEmbalagem", true));
+            this.quantidadeEmbalagemTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "QuantidadeEmbalagem", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.quantidadeEmbalagemTextBox.Location = new System.Drawing.Point(118, 126);
             this.quantidadeEmbalagemTextBox.Name = "quantidadeEmbalagemTextBox";
             this.quantidadeEmbalagemTextBox.Size = new System.Drawing.Size(77, 20);
             this.quantidadeEmbalagemTextBox.TabIndex = 88;
             this.quantidadeEmbalagemTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.quantidadeEmbalagemTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.quantidadeEmbalagemTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // valorTotalTextBox
             // 
-            this.valorTotalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorTotal", true));
+            this.valorTotalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorTotal", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.valorTotalTextBox.Location = new System.Drawing.Point(726, 34);
             this.valorTotalTextBox.Name = "valorTotalTextBox";
+            this.valorTotalTextBox.ReadOnly = true;
             this.valorTotalTextBox.Size = new System.Drawing.Size(86, 20);
             this.valorTotalTextBox.TabIndex = 64;
+            this.valorTotalTextBox.TabStop = false;
             this.valorTotalTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorTotalTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
             // 
             // valorUnitarioTextBox
             // 
-            this.valorUnitarioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "UltimoPrecoCompra", true));
+            this.valorUnitarioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "ValorUnitario", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.valorUnitarioTextBox.Location = new System.Drawing.Point(653, 34);
             this.valorUnitarioTextBox.Name = "valorUnitarioTextBox";
             this.valorUnitarioTextBox.Size = new System.Drawing.Size(67, 20);
             this.valorUnitarioTextBox.TabIndex = 62;
             this.valorUnitarioTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorUnitarioTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.valorUnitarioTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.valorUnitarioTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // quantidadeTextBox
             // 
-            this.quantidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "Quantidade", true));
+            this.quantidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "Quantidade", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.quantidadeTextBox.Location = new System.Drawing.Point(595, 34);
             this.quantidadeTextBox.Name = "quantidadeTextBox";
             this.quantidadeTextBox.Size = new System.Drawing.Size(55, 20);
             this.quantidadeTextBox.TabIndex = 60;
             this.quantidadeTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.quantidadeTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            this.quantidadeTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
+            this.quantidadeTextBox.Validated += new System.EventHandler(this.quantidadeTextBox_Validated);
             // 
             // unidadeCompraTextBox
             // 
@@ -1215,6 +1212,7 @@
             this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codProdutoComboBox.CausesValidation = false;
+            this.codProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaProdutoBindingSource, "CodProduto", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codProdutoComboBox.DataSource = this.produtoBindingSource;
             this.codProdutoComboBox.DisplayMember = "Nome";
             this.codProdutoComboBox.FormattingEnabled = true;
@@ -1239,7 +1237,7 @@
             // entradaBindingSource
             // 
             this.entradaBindingSource.DataSource = typeof(Dominio.Entrada);
-            this.entradaBindingSource.Sort = "codEntrada";
+            this.entradaBindingSource.Sort = "";
             // 
             // tb_entradaBindingNavigator
             // 
@@ -1338,6 +1336,7 @@
             // 
             // codEntradaTextBox
             // 
+            this.codEntradaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "CodEntrada", true));
             this.codEntradaTextBox.Enabled = false;
             this.codEntradaTextBox.Location = new System.Drawing.Point(5, 84);
@@ -1350,6 +1349,7 @@
             // 
             // numeroNotaFiscalTextBox
             // 
+            this.numeroNotaFiscalTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.numeroNotaFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "NumeroNotaFiscal", true));
             this.numeroNotaFiscalTextBox.Location = new System.Drawing.Point(91, 84);
             this.numeroNotaFiscalTextBox.Name = "numeroNotaFiscalTextBox";
@@ -1362,7 +1362,7 @@
             // 
             this.codEmpresaFreteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codEmpresaFreteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodEmpresaFrete", true));
+            this.codEmpresaFreteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodEmpresaFrete", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codEmpresaFreteComboBox.DataSource = this.empresaFreteBindingSource;
             this.codEmpresaFreteComboBox.DisplayMember = "Nome";
             this.codEmpresaFreteComboBox.FormattingEnabled = true;
@@ -1387,7 +1387,7 @@
             // 
             this.codFornecedorComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codFornecedorComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodFornecedor", true));
+            this.codFornecedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodFornecedor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codFornecedorComboBox.DataSource = this.fornecedorBindingSource;
             this.codFornecedorComboBox.DisplayMember = "Nome";
             this.codFornecedorComboBox.FormattingEnabled = true;
@@ -1413,7 +1413,7 @@
             // 
             // dataEntradaDateTimePicker
             // 
-            this.dataEntradaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.entradaBindingSource, "DataEntrada", true));
+            this.dataEntradaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.entradaBindingSource, "DataEntrada", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "d"));
             this.dataEntradaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dataEntradaDateTimePicker.Location = new System.Drawing.Point(720, 85);
             this.dataEntradaDateTimePicker.Name = "dataEntradaDateTimePicker";
@@ -1424,113 +1424,124 @@
             // 
             // totalBaseCalculoTextBox
             // 
-            this.totalBaseCalculoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalBaseCalculo", true));
+            this.totalBaseCalculoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalBaseCalculoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalBaseCalculo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
             this.totalBaseCalculoTextBox.Location = new System.Drawing.Point(382, 126);
             this.totalBaseCalculoTextBox.Name = "totalBaseCalculoTextBox";
             this.totalBaseCalculoTextBox.Size = new System.Drawing.Size(104, 20);
             this.totalBaseCalculoTextBox.TabIndex = 24;
             this.totalBaseCalculoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalBaseCalculoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalBaseCalculoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalICMSTextBox
             // 
-            this.totalICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalICMS", true));
+            this.totalICMSTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalICMS", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalICMSTextBox.Location = new System.Drawing.Point(495, 126);
             this.totalICMSTextBox.Name = "totalICMSTextBox";
             this.totalICMSTextBox.Size = new System.Drawing.Size(104, 20);
             this.totalICMSTextBox.TabIndex = 26;
             this.totalICMSTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalICMSTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalICMSTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalBaseSubstituicaoTextBox
             // 
-            this.totalBaseSubstituicaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalBaseSubstituicao", true));
+            this.totalBaseSubstituicaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalBaseSubstituicaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalBaseSubstituicao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalBaseSubstituicaoTextBox.Location = new System.Drawing.Point(610, 126);
             this.totalBaseSubstituicaoTextBox.Name = "totalBaseSubstituicaoTextBox";
             this.totalBaseSubstituicaoTextBox.Size = new System.Drawing.Size(101, 20);
             this.totalBaseSubstituicaoTextBox.TabIndex = 28;
             this.totalBaseSubstituicaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalBaseSubstituicaoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalBaseSubstituicaoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalSubstituicaoTextBox
             // 
-            this.totalSubstituicaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalSubstituicao", true));
+            this.totalSubstituicaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalSubstituicaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalSubstituicao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalSubstituicaoTextBox.Location = new System.Drawing.Point(720, 126);
             this.totalSubstituicaoTextBox.Name = "totalSubstituicaoTextBox";
             this.totalSubstituicaoTextBox.Size = new System.Drawing.Size(95, 20);
             this.totalSubstituicaoTextBox.TabIndex = 30;
             this.totalSubstituicaoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalSubstituicaoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalSubstituicaoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalProdutosTextBox
             // 
-            this.totalProdutosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalProdutos", true));
+            this.totalProdutosTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalProdutosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalProdutos", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalProdutosTextBox.Location = new System.Drawing.Point(610, 167);
             this.totalProdutosTextBox.Name = "totalProdutosTextBox";
             this.totalProdutosTextBox.Size = new System.Drawing.Size(99, 20);
             this.totalProdutosTextBox.TabIndex = 42;
             this.totalProdutosTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalProdutosTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalProdutosTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // valorFreteTextBox
             // 
-            this.valorFreteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "ValorFrete", true));
+            this.valorFreteTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.valorFreteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "ValorFrete", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.valorFreteTextBox.Location = new System.Drawing.Point(9, 167);
             this.valorFreteTextBox.Name = "valorFreteTextBox";
             this.valorFreteTextBox.Size = new System.Drawing.Size(104, 20);
             this.valorFreteTextBox.TabIndex = 32;
             this.valorFreteTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorFreteTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.valorFreteTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // valorSeguroTextBox
             // 
-            this.valorSeguroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "ValorSeguro", true));
+            this.valorSeguroTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.valorSeguroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "ValorSeguro", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.valorSeguroTextBox.Location = new System.Drawing.Point(121, 167);
             this.valorSeguroTextBox.Name = "valorSeguroTextBox";
             this.valorSeguroTextBox.Size = new System.Drawing.Size(104, 20);
             this.valorSeguroTextBox.TabIndex = 34;
             this.valorSeguroTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.valorSeguroTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.valorSeguroTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // descontoTextBox
             // 
-            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "Desconto", true));
+            this.descontoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "Desconto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.descontoTextBox.Location = new System.Drawing.Point(231, 167);
             this.descontoTextBox.Name = "descontoTextBox";
             this.descontoTextBox.Size = new System.Drawing.Size(80, 20);
             this.descontoTextBox.TabIndex = 36;
             this.descontoTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.descontoTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.descontoTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // outrasDespesasTextBox
             // 
-            this.outrasDespesasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "OutrasDespesas", true));
+            this.outrasDespesasTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.outrasDespesasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "OutrasDespesas", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.outrasDespesasTextBox.Location = new System.Drawing.Point(317, 167);
             this.outrasDespesasTextBox.Name = "outrasDespesasTextBox";
             this.outrasDespesasTextBox.Size = new System.Drawing.Size(88, 20);
             this.outrasDespesasTextBox.TabIndex = 38;
             this.outrasDespesasTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.outrasDespesasTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.outrasDespesasTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalIPITextBox
             // 
-            this.totalIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalIPI", true));
+            this.totalIPITextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalIPI", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalIPITextBox.Location = new System.Drawing.Point(414, 167);
             this.totalIPITextBox.Name = "totalIPITextBox";
             this.totalIPITextBox.Size = new System.Drawing.Size(72, 20);
             this.totalIPITextBox.TabIndex = 40;
             this.totalIPITextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalIPITextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalIPITextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // totalNotaTextBox
             // 
-            this.totalNotaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalNota", true));
+            this.totalNotaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalNotaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalNota", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalNotaTextBox.Location = new System.Drawing.Point(720, 167);
             this.totalNotaTextBox.Name = "totalNotaTextBox";
             this.totalNotaTextBox.Size = new System.Drawing.Size(95, 20);
             this.totalNotaTextBox.TabIndex = 44;
             this.totalNotaTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalNotaTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalNotaTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // tb_entrada_produtoDataGridView
             // 
@@ -1628,7 +1639,7 @@
             // 
             this.fretePagoEmitenteCheckBox.Checked = true;
             this.fretePagoEmitenteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.fretePagoEmitenteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.entradaBindingSource, "FretePagoEmitente", true));
+            this.fretePagoEmitenteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.entradaBindingSource, "FretePagoEmitente", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.fretePagoEmitenteCheckBox.Location = new System.Drawing.Point(308, 111);
             this.fretePagoEmitenteCheckBox.Name = "fretePagoEmitenteCheckBox";
             this.fretePagoEmitenteCheckBox.Size = new System.Drawing.Size(69, 35);
@@ -1656,13 +1667,14 @@
             // 
             // totalProdutosSTTextBox
             // 
-            this.totalProdutosSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalProdutosST", true));
+            this.totalProdutosSTTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.totalProdutosSTTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "TotalProdutosST", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalProdutosSTTextBox.Location = new System.Drawing.Point(496, 167);
             this.totalProdutosSTTextBox.Name = "totalProdutosSTTextBox";
             this.totalProdutosSTTextBox.Size = new System.Drawing.Size(103, 20);
             this.totalProdutosSTTextBox.TabIndex = 41;
             this.totalProdutosSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
-            this.totalProdutosSTTextBox.Leave += new System.EventHandler(this.totalBaseCalculoTextBox_Leave);
+            this.totalProdutosSTTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
             // FrmEntrada
             // 
@@ -1737,10 +1749,10 @@
             this.panel1.PerformLayout();
             this.ProdutosGroupBox.ResumeLayout(false);
             this.ProdutosGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.entradaProdutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cstBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradaProdutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingNavigator)).EndInit();
             this.tb_entradaBindingNavigator.ResumeLayout(false);

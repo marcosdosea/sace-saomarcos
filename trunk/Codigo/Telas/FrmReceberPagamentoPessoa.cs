@@ -353,7 +353,7 @@ namespace Telas
                 {
                     // Obter todas as contas da pessoa em aberto
                     contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
-                    descontoTextBox.Text = "0";
+                    //descontoTextBox.Text = "0";
                     if (contasPessoaDataGridView.RowCount > 0)
                     {
                         //Obter maior e menor data de vencimento para preencher corrretamente

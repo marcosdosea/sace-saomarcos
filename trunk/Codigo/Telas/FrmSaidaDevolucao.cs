@@ -59,10 +59,10 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance().Encerrar(saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
 
-                if (MessageBox.Show("Confirma Impressão da Nota Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
-                }
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                frmSaidaNF.ShowDialog();
+                frmSaidaNF.Dispose();
+
                 this.Close();
             }
         }

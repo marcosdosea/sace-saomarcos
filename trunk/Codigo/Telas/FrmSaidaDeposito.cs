@@ -29,12 +29,14 @@ namespace Telas
             List<Loja> listaLojas = GerenciadorLoja.GetInstance().ObterTodos();
             lojaBindingSourceDestino.DataSource = listaLojas;
             lojaBindingSourceOrigem.DataSource = listaLojas;
+            codPessoaComboBoxOrigem.SelectedIndex = 0;
+            codPessoaComboBoxDestino.SelectedIndex = 1;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             saida.CodProfissional = Global.CLIENTE_PADRAO;
-            saida.CodCliente = long.Parse(codPessoaComboBox1.SelectedValue.ToString());
+            saida.CodCliente = long.Parse(codPessoaComboBoxDestino.SelectedValue.ToString());
             saida.Desconto = 0;
             saida.Total = decimal.Parse(totalTextBox.Text);
 
@@ -43,10 +45,10 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance().Encerrar(saida, Saida.TIPO_SAIDA_DEPOSITO);
 
-                if (MessageBox.Show("Confirma Impressão da Nota Fiscal de transferência?", "Confirmar Transferência", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorSaida.GetInstance().ImprimirNotaFiscal(saida);
-                }
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                frmSaidaNF.ShowDialog();
+                frmSaidaNF.Dispose();
+
                 this.Close();
             }
         }

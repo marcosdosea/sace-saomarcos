@@ -601,6 +601,7 @@
           <Property Name="pesoBruto" Type="decimal" Scale="2" />
           <Property Name="pesoLiquido" Type="decimal" Scale="2" />
           <Property Name="codEmpresaFrete" Type="bigint" Nullable="false" />
+          <Property Name="observacao" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="tb_saida_forma_pagamento">
           <Key>
@@ -2041,6 +2042,7 @@
           <Property Type="Decimal" Name="pesoLiquido" />
           <Property Type="Int64" Name="codEmpresaFrete" Nullable="false" />
           <NavigationProperty Name="tb_pessoa2" Relationship="SaceModel.fk_tb_saida_tb_pessoa1" FromRole="tb_saida" ToRole="tb_pessoa" />
+          <Property Type="String" Name="observacao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SaidaFormaPagamentoE">
           <Key>
@@ -3026,7 +3028,8 @@
             <ScalarProperty Name="localizacao" ColumnName="localizacao" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="SaidaSet"><EntityTypeMapping TypeName="SaceModel.SaidaE"><MappingFragment StoreEntitySet="tb_saida">
-            <ScalarProperty Name="codEmpresaFrete" ColumnName="codEmpresaFrete" />
+            <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="codEmpresaFrete" ColumnName="codEmpresaFrete" />
                 <ScalarProperty Name="pesoLiquido" ColumnName="pesoLiquido" />
                 <ScalarProperty Name="pesoBruto" ColumnName="pesoBruto" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
