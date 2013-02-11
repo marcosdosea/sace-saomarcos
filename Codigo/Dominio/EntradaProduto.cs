@@ -19,12 +19,32 @@ namespace Dominio
         public decimal Quantidade { get; set; }
         public decimal QuantidadeEmbalagem { get; set; }
         public decimal ValorUnitario { get; set; }
-        public decimal ValorTotal { get; set; }
+        public decimal ValorTotal { 
+            get {
+                return Math.Round(ValorUnitario * Quantidade, 3);
+            } 
+        }
         public decimal BaseCalculoICMS { get; set; }
         public decimal BaseCalculoICMSST { get; set; }
-        public decimal ValorICMS { get; set; }
-        public decimal ValorICMSST { get; set; }
-        public decimal ValorIPI { get; set; }
+        public decimal ValorICMS { 
+            get {
+                return Math.Round(BaseCalculoICMS * Icms / 100, 2);
+            } 
+        }
+        public decimal ValorICMSST
+        {
+            get
+            {
+                return Math.Round(BaseCalculoICMSST * IcmsSubstituto / 100, 2);
+            }
+        }
+        public decimal ValorIPI
+        {
+            get
+            {
+                return Math.Round(ValorTotal * Ipi / 100, 2);
+            }
+        }
         public decimal ValorDesconto { get; set; }
         public decimal PrecoCusto { get; set; }
         public string Ncmsh { get; set; }

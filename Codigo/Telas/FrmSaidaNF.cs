@@ -16,10 +16,10 @@ namespace Telas
 
         public Saida Saida { get; set; }
         
-        public FrmSaidaNF(Saida Saida)
+        public FrmSaidaNF(Saida saida)
         {
             InitializeComponent();
-            this.Saida = Saida;
+            this.Saida = saida;
 
             if ((Saida.Nfe != null) && (! Saida.Nfe.Equals("") )) {
                 numeroNFText.Text = Saida.Nfe;
@@ -28,6 +28,19 @@ namespace Telas
             {
                 numeroNFText.Text = GerenciadorSaida.GetInstance().ObterNumeroProximaNotaFiscal().ToString();
             }
+
+            if (Saida.Observacao.Trim().Equals(""))
+            {
+                if (Saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                {
+                    Saida.Observacao = "Nao Incidencia de ICMS conforme Art 2o, XI do RICMS/SE";
+                }
+                else if (Saida.TipoSaida == Saida.TIPO_VENDA)
+                {
+                    Saida.Observacao = "VEND:   0   CLI: " + Saida.CodCliente;
+                }
+            }
+            observacaoTextBox.Text = Saida.Observacao;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -55,12 +68,13 @@ namespace Telas
             try
             {
                 Saida.Nfe = Convert.ToInt64(numeroNFText.Text).ToString();
+                Saida.Observacao = observacaoTextBox.Text;
             }
             catch (Exception)
             {
                 throw new NegocioException("Número da nota fiscal inválido. Favor verificar o formato e a sequência da numeração.");
             }
-            GerenciadorSaida.GetInstance().AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.PedidoGerado);
+            GerenciadorSaida.GetInstance().AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
             GerenciadorSaida.GetInstance().ImprimirNotaFiscal(Saida);
         }
 

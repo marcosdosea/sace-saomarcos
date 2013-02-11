@@ -68,6 +68,7 @@ namespace Telas
             produto.Simples = Global.SIMPLES;
             produto.Unidade = "UN";
             produto.UnidadeCompra = "UN";
+            produto.UltimaDataAtualizacao = DateTime.Now;
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -120,6 +121,7 @@ namespace Telas
                 GerenciadorProduto.GetInstance().Atualizar(produto);
             }
             produtoBindingSource.EndEdit();
+            codProdutoTextBox_TextChanged(sender, e);
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -391,6 +393,7 @@ namespace Telas
                 produto.Cfop = ((Cfop)cfopBindingSource.Current).CodCfop;
                 produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
                 produto.CodFabricante = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
+                produto.NomeFabricante = ((Pessoa)pessoaBindingSource.Current).NomeFantasia;
                 produto.CodSituacaoProduto = ((SituacaoProduto)situacaoprodutoBindingSource.Current).CodSituacaoProduto;
                 produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
                 produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;

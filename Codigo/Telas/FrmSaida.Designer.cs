@@ -951,7 +951,6 @@
             // 
             // baseCalculoICMSTextBox
             // 
-            this.baseCalculoICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "BaseCalculoICMS", true));
             this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(201, 487);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
@@ -963,7 +962,6 @@
             // 
             // valorICMSTextBox
             // 
-            this.valorICMSTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorICMS", true));
             this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorICMSTextBox.Location = new System.Drawing.Point(352, 487);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
@@ -971,10 +969,10 @@
             this.valorICMSTextBox.Size = new System.Drawing.Size(157, 29);
             this.valorICMSTextBox.TabIndex = 46;
             this.valorICMSTextBox.TabStop = false;
+            this.valorICMSTextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
             // 
             // baseCalculoICMSSubstTextBox
             // 
-            this.baseCalculoICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "BaseCalculoICMSSubst", true));
             this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(515, 487);
             this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
@@ -982,11 +980,10 @@
             this.baseCalculoICMSSubstTextBox.Size = new System.Drawing.Size(156, 29);
             this.baseCalculoICMSSubstTextBox.TabIndex = 48;
             this.baseCalculoICMSSubstTextBox.TabStop = false;
-            this.baseCalculoICMSSubstTextBox.Leave += new System.EventHandler(this.baseCalculoICMSTextBox_Leave);
+            this.baseCalculoICMSSubstTextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
             // 
             // valorICMSSubstTextBox
             // 
-            this.valorICMSSubstTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorICMSSubst", true));
             this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorICMSSubstTextBox.Location = new System.Drawing.Point(677, 487);
             this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
@@ -998,7 +995,6 @@
             // 
             // valorIPITextBox
             // 
-            this.valorIPITextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "ValorIPI", true));
             this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.valorIPITextBox.Location = new System.Drawing.Point(855, 487);
             this.valorIPITextBox.Name = "valorIPITextBox";
@@ -1006,6 +1002,7 @@
             this.valorIPITextBox.Size = new System.Drawing.Size(142, 29);
             this.valorIPITextBox.TabIndex = 52;
             this.valorIPITextBox.TabStop = false;
+            this.valorIPITextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
             // 
             // lblPreco
             // 

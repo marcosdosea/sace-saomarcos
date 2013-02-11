@@ -90,9 +90,15 @@ namespace Negocio
             try
             {
                 var repSaida = new RepositorioGenerico<SaidaE>();
-                
-                SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida == codSaida);
-                _saidaE.codSituacaoPagamentos = codSituacaoPagamentos;
+                 var saceEntities = (SaceEntities)repSaida.ObterContexto();
+                var query = from saidaE in saceEntities.SaidaSet
+                            where saidaE.codSaida == codSaida
+                            select saidaE;
+
+                foreach (SaidaE _saidaE in query)
+                {
+                    _saidaE.codSituacaoPagamentos = codSituacaoPagamentos;
+                }
 
                 repSaida.SaveChanges();
             }
@@ -107,17 +113,20 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarNfePorPedidoGerado(string nfe, string pedidoGerado)
+        public void AtualizarNfePorPedidoGerado(string nfe, string observacao, string pedidoGerado)
         {
             try
             {
                 var repSaida = new RepositorioGenerico<SaidaE>();
-                
-                List<SaidaE> _listaSaidaE = (List<SaidaE>) repSaida.Obter(s => s.pedidoGerado.Equals(pedidoGerado));
-                foreach (SaidaE _saidaE in _listaSaidaE)
+                var saceEntities = (SaceEntities)repSaida.ObterContexto();
+                var query = from saidaE in saceEntities.SaidaSet
+                            where saidaE.pedidoGerado.Equals(pedidoGerado)
+                            select saidaE;
+                foreach (SaidaE _saidaE in query)
                 {
                     _saidaE.nfe = nfe;
-                }
+                    _saidaE.observacao = observacao;
+                } 
                 repSaida.SaveChanges();
             }
             catch (Exception e)
@@ -137,9 +146,15 @@ namespace Negocio
             {
                 var repSaida = new RepositorioGenerico<SaidaE>();
                 
-                SaidaE _saidaE = repSaida.ObterEntidade(s => s.codSaida.Equals(codSaida));
-                _saidaE.codTipoSaida = codTipoSaida;
-                _saidaE.pedidoGerado = pedidoGerado;
+                var saceEntities = (SaceEntities)repSaida.ObterContexto();
+                var query = from saidaE in saceEntities.SaidaSet
+                            where saidaE.codSaida == codSaida 
+                            select saidaE;
+                foreach (SaidaE _saidaE in query)
+                {
+                    _saidaE.codTipoSaida = codTipoSaida;
+                    _saidaE.pedidoGerado = pedidoGerado;
+                }
                 repSaida.SaveChanges();
             }
             catch (Exception e)
@@ -232,6 +247,7 @@ namespace Negocio
                             Numero = (decimal)saida.numero,
                             NumeroCartaoVenda = (int)saida.numeroCartaoVenda,
                             OutrasDespesas = (decimal)saida.outrasDespesas,
+                            Observacao = saida.observacao,
                             PedidoGerado = saida.pedidoGerado,
                             PesoBruto =  (decimal)saida.pesoBruto,
                             PesoLiquido = (decimal)saida.pesoLiquido,
@@ -286,7 +302,7 @@ namespace Negocio
         {
             if (somenteUltimasSaidas) 
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderByDescending(s => s.CodSaida).Take(100).OrderBy(s => s.CodSaida).ToList();
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderByDescending(s => s.CodSaida).Take(50).OrderBy(s => s.CodSaida).ToList();
             else
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
                     saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderBy(s => s.CodSaida).ToList();
@@ -1367,28 +1383,27 @@ namespace Negocio
                 imp.ImpColDireita(69, 78, saida.PesoLiquido.ToString("N2"));
                 imp.Pula(4);
 
-                // linha 56
-                if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                
+                // imprimir observacao 56
+                const int NUMERO_CARACTERES_OBSERVACAO = 33;
+                int tamanho = saida.Observacao.Length;
+                int numeroLinhasObsevacao = Math.Abs(tamanho / NUMERO_CARACTERES_OBSERVACAO) + 1; // número de caracteres do espaco observacao
+
+                for (int i = 1; i <= numeroLinhasObsevacao; i++)
                 {
-                    imp.ImpColLF(3, "");
-                    imp.ImpColLF(3, "Referente Notas Fiscais: 36796, 63744,");
-                    imp.ImpColLF(3, "86622");
-                    imp.Pula(2);
-                    imp.ImpCol(75, saida.Nfe);
-                }
-                else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
-                {
-                    imp.ImpColLF(3, "");
-                    imp.ImpColLF(3, "Nao Incidencia de ICMS conforme Art 2o,");
-                    imp.ImpColLF(3, "XI do RICMS/SE");
-                    
-                }
-                {
-                    imp.ImpCol(3, "VEND:   0   CLI: " + saida.CodCliente);
-                    imp.Pula(7);
-                    imp.ImpCol(75, saida.Nfe);
+                    if (numeroLinhasObsevacao > i)
+                    {
+                        imp.ImpColLF(11, saida.Observacao.Substring((i - 1) * NUMERO_CARACTERES_OBSERVACAO, NUMERO_CARACTERES_OBSERVACAO));
+                    }
+                    else
+                    {
+                        imp.ImpColLF(11, saida.Observacao.Substring((i - 1) * NUMERO_CARACTERES_OBSERVACAO, tamanho % NUMERO_CARACTERES_OBSERVACAO));
+                    }
                 }
 
+                imp.Pula(7 - numeroLinhasObsevacao);
+
+                imp.ImpCol(75, saida.Nfe);
             }
             else
             {
@@ -1409,7 +1424,7 @@ namespace Negocio
             var saceEntities = (SaceEntities)repSaida.ObterContexto();
             var query = from saida in saceEntities.SaidaSet
                         select saida;
-            return Convert.ToInt64(query.Max(saida => saida.nfe));
+            return Convert.ToInt64(query.Max(saida => saida.nfe)) + 1;
         }
 
         /// <summary>
@@ -1451,6 +1466,7 @@ namespace Negocio
             _saidaE.valorICMSSubst = saida.ValorICMSSubst;
             _saidaE.valorIPI = saida.ValorIPI;
             _saidaE.valorSeguro = saida.ValorSeguro;
+            _saidaE.observacao = saida.Observacao;
         }
         
     }

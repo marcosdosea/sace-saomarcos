@@ -152,11 +152,12 @@ namespace Negocio
             try
             {
                 var repMovimentacaoConta = new RepositorioGenerico<MovimentacaoContaE>();
-
-                IEnumerable<MovimentacaoConta> movimentosConta = ObterPorConta(codConta);
-                foreach (MovimentacaoConta movimento in movimentosConta)
-                {
-                    Remover(movimento.CodMovimentacao);
+                var saceEntities = (SaceEntities)repMovimentacaoConta.ObterContexto();
+                var query = from movimentacaoSet in saceEntities.MovimentacaoContaSet
+                            where movimentacaoSet.codConta == codConta
+                            select movimentacaoSet;
+                foreach (MovimentacaoContaE _movimentacaoContaE in query) {
+                    repMovimentacaoConta.Remover(_movimentacaoContaE);
                 }
                 repMovimentacaoConta.SaveChanges();
             }

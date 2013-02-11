@@ -14,6 +14,7 @@ namespace Dominio
         public const int TIPO_CONSUMO_INTERNO = 5;
         public const int TIPO_PRODUTOS_DANIFICADOS = 6;
         public const int TIPO_DEVOLUCAO_FRONECEDOR = 7;
+        public const int TIPO_OUTRAS_SAIDAS = 8;
         
         public long CodSaida { get; set; }
         public DateTime DataSaida { get; set; }
@@ -51,6 +52,7 @@ namespace Dominio
         public string DescricaoTipoSaida { get; set; }
         public string NomeCliente { get; set; }
         public string DescricaoSituacaoPagamentos { get; set; }
+        public string Observacao { get; set; }
 
         // override object.Equals
         public override bool Equals(object obj)

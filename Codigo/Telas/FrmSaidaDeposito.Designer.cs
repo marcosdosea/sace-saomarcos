@@ -41,8 +41,8 @@
             this.codSaidaTextBox = new System.Windows.Forms.TextBox();
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
             this.lojaBindingSourceOrigem = new System.Windows.Forms.BindingSource(this.components);
-            this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.codPessoaComboBox1 = new System.Windows.Forms.ComboBox();
+            this.codPessoaComboBoxOrigem = new System.Windows.Forms.ComboBox();
+            this.codPessoaComboBoxDestino = new System.Windows.Forms.ComboBox();
             this.lojaBindingSourceDestino = new System.Windows.Forms.BindingSource(this.components);
             tipoSaidaLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -168,36 +168,36 @@
             this.lojaBindingSourceOrigem.AllowNew = false;
             this.lojaBindingSourceOrigem.DataSource = typeof(Dominio.Loja);
             // 
-            // codPessoaComboBox
+            // codPessoaComboBoxOrigem
             // 
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSourceOrigem, "codPessoa", true));
-            this.codPessoaComboBox.DataSource = this.lojaBindingSourceOrigem;
-            this.codPessoaComboBox.DisplayMember = "nome";
-            this.codPessoaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codPessoaComboBox.Enabled = false;
-            this.codPessoaComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codPessoaComboBox.FormattingEnabled = true;
-            this.codPessoaComboBox.Location = new System.Drawing.Point(11, 120);
-            this.codPessoaComboBox.Name = "codPessoaComboBox";
-            this.codPessoaComboBox.Size = new System.Drawing.Size(653, 37);
-            this.codPessoaComboBox.TabIndex = 8;
-            this.codPessoaComboBox.TabStop = false;
-            this.codPessoaComboBox.ValueMember = "codPessoa";
+            this.codPessoaComboBoxOrigem.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSourceOrigem, "codPessoa", true));
+            this.codPessoaComboBoxOrigem.DataSource = this.lojaBindingSourceOrigem;
+            this.codPessoaComboBoxOrigem.DisplayMember = "nome";
+            this.codPessoaComboBoxOrigem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codPessoaComboBoxOrigem.Enabled = false;
+            this.codPessoaComboBoxOrigem.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codPessoaComboBoxOrigem.FormattingEnabled = true;
+            this.codPessoaComboBoxOrigem.Location = new System.Drawing.Point(11, 120);
+            this.codPessoaComboBoxOrigem.Name = "codPessoaComboBoxOrigem";
+            this.codPessoaComboBoxOrigem.Size = new System.Drawing.Size(653, 37);
+            this.codPessoaComboBoxOrigem.TabIndex = 8;
+            this.codPessoaComboBoxOrigem.TabStop = false;
+            this.codPessoaComboBoxOrigem.ValueMember = "codPessoa";
             // 
-            // codPessoaComboBox1
+            // codPessoaComboBoxDestino
             // 
-            this.codPessoaComboBox1.CausesValidation = false;
-            this.codPessoaComboBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSourceOrigem, "codPessoa", true));
-            this.codPessoaComboBox1.DataSource = this.lojaBindingSourceDestino;
-            this.codPessoaComboBox1.DisplayMember = "nome";
-            this.codPessoaComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codPessoaComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codPessoaComboBox1.FormattingEnabled = true;
-            this.codPessoaComboBox1.Location = new System.Drawing.Point(12, 200);
-            this.codPessoaComboBox1.Name = "codPessoaComboBox1";
-            this.codPessoaComboBox1.Size = new System.Drawing.Size(652, 37);
-            this.codPessoaComboBox1.TabIndex = 10;
-            this.codPessoaComboBox1.ValueMember = "codPessoa";
+            this.codPessoaComboBoxDestino.CausesValidation = false;
+            this.codPessoaComboBoxDestino.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSourceOrigem, "codPessoa", true));
+            this.codPessoaComboBoxDestino.DataSource = this.lojaBindingSourceDestino;
+            this.codPessoaComboBoxDestino.DisplayMember = "nome";
+            this.codPessoaComboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codPessoaComboBoxDestino.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codPessoaComboBoxDestino.FormattingEnabled = true;
+            this.codPessoaComboBoxDestino.Location = new System.Drawing.Point(12, 200);
+            this.codPessoaComboBoxDestino.Name = "codPessoaComboBoxDestino";
+            this.codPessoaComboBoxDestino.Size = new System.Drawing.Size(652, 37);
+            this.codPessoaComboBoxDestino.TabIndex = 10;
+            this.codPessoaComboBoxDestino.ValueMember = "codPessoa";
             // 
             // lojaBindingSourceDestino
             // 
@@ -210,9 +210,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 294);
             this.Controls.Add(codPessoaLabel1);
-            this.Controls.Add(this.codPessoaComboBox1);
+            this.Controls.Add(this.codPessoaComboBoxDestino);
             this.Controls.Add(codPessoaLabel);
-            this.Controls.Add(this.codPessoaComboBox);
+            this.Controls.Add(this.codPessoaComboBoxOrigem);
             this.Controls.Add(this.descricaoTipoSaidaTextBox);
             this.Controls.Add(this.codSaidaTextBox);
             this.Controls.Add(this.btnSalvar);
@@ -245,8 +245,8 @@
         private System.Windows.Forms.TextBox codSaidaTextBox;
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
         private System.Windows.Forms.BindingSource lojaBindingSourceOrigem;
-        private System.Windows.Forms.ComboBox codPessoaComboBox;
-        private System.Windows.Forms.ComboBox codPessoaComboBox1;
+        private System.Windows.Forms.ComboBox codPessoaComboBoxOrigem;
+        private System.Windows.Forms.ComboBox codPessoaComboBoxDestino;
         private System.Windows.Forms.BindingSource lojaBindingSourceDestino;
     }
 }

@@ -45,7 +45,7 @@
             System.Windows.Forms.Label intervaloDiasLabel;
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label cpf_CnpjLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saidaPagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalPagarTextBox = new System.Windows.Forms.TextBox();
@@ -69,17 +69,17 @@
             this.codCartaoComboBox = new System.Windows.Forms.ComboBox();
             this.cartaoCreditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_saida_forma_pagamentoDataGridView = new System.Windows.Forms.DataGridView();
-            this.intervaloDiasTextBox = new System.Windows.Forms.TextBox();
-            this.totalRecebidoLabel = new System.Windows.Forms.Label();
-            this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
-            this.trocoTextBox = new System.Windows.Forms.TextBox();
             this.codSaidaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoFormaPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodContaBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeCartaoCreditoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parcelas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.intervaloDiasTextBox = new System.Windows.Forms.TextBox();
+            this.totalRecebidoLabel = new System.Windows.Forms.Label();
+            this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
+            this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
+            this.trocoTextBox = new System.Windows.Forms.TextBox();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -278,7 +278,7 @@
             // totalPagarTextBox
             // 
             this.totalPagarTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalPagarTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "totalAVista", true));
+            this.totalPagarTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "totalAVista", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.totalPagarTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27F);
             this.totalPagarTextBox.ForeColor = System.Drawing.Color.Yellow;
             this.totalPagarTextBox.Location = new System.Drawing.Point(12, 201);
@@ -303,7 +303,7 @@
             // 
             // parcelasTextBox
             // 
-            this.parcelasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.formaPagamentoBindingSource, "Parcelas", true));
+            this.parcelasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.formaPagamentoBindingSource, "Parcelas", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N0"));
             this.parcelasTextBox.Enabled = false;
             this.parcelasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.parcelasTextBox.Location = new System.Drawing.Point(643, 379);
@@ -320,7 +320,7 @@
             // descontoTextBox
             // 
             this.descontoTextBox.BackColor = System.Drawing.Color.White;
-            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "desconto", true));
+            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "desconto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27F);
             this.descontoTextBox.ForeColor = System.Drawing.Color.Red;
             this.descontoTextBox.Location = new System.Drawing.Point(12, 125);
@@ -518,14 +518,14 @@
             this.tb_saida_forma_pagamentoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_forma_pagamentoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_forma_pagamentoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.tb_saida_forma_pagamentoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_forma_pagamentoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaPagamentoDataGridViewTextBoxColumn,
@@ -545,65 +545,6 @@
             this.tb_saida_forma_pagamentoDataGridView.Size = new System.Drawing.Size(792, 138);
             this.tb_saida_forma_pagamentoDataGridView.TabIndex = 68;
             this.tb_saida_forma_pagamentoDataGridView.TabStop = false;
-            // 
-            // intervaloDiasTextBox
-            // 
-            this.intervaloDiasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaPagamentoBindingSource, "intervaloDias", true));
-            this.intervaloDiasTextBox.Enabled = false;
-            this.intervaloDiasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.intervaloDiasTextBox.Location = new System.Drawing.Point(749, 379);
-            this.intervaloDiasTextBox.Name = "intervaloDiasTextBox";
-            this.intervaloDiasTextBox.Size = new System.Drawing.Size(62, 29);
-            this.intervaloDiasTextBox.TabIndex = 32;
-            this.intervaloDiasTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.intervaloDiasTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
-            // 
-            // totalRecebidoLabel
-            // 
-            this.totalRecebidoLabel.AutoSize = true;
-            this.totalRecebidoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalRecebidoLabel.ForeColor = System.Drawing.Color.Red;
-            this.totalRecebidoLabel.Location = new System.Drawing.Point(380, 561);
-            this.totalRecebidoLabel.Name = "totalRecebidoLabel";
-            this.totalRecebidoLabel.Size = new System.Drawing.Size(40, 20);
-            this.totalRecebidoLabel.TabIndex = 73;
-            this.totalRecebidoLabel.Text = "0,00";
-            // 
-            // descricaoTipoSaidaTextBox
-            // 
-            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "descricaoTipoSaida", true));
-            this.descricaoTipoSaidaTextBox.Enabled = false;
-            this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(223, 34);
-            this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(396, 29);
-            this.descricaoTipoSaidaTextBox.TabIndex = 12;
-            // 
-            // cpf_CnpjTextBox
-            // 
-            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.clienteBindingSource, "CpfCnpj", true));
-            this.cpf_CnpjTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(637, 101);
-            this.cpf_CnpjTextBox.MaxLength = 14;
-            this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
-            this.cpf_CnpjTextBox.Size = new System.Drawing.Size(179, 29);
-            this.cpf_CnpjTextBox.TabIndex = 17;
-            this.cpf_CnpjTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.cpf_CnpjTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
-            // 
-            // trocoTextBox
-            // 
-            this.trocoTextBox.BackColor = System.Drawing.Color.White;
-            this.trocoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "troco", true));
-            this.trocoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27F);
-            this.trocoTextBox.ForeColor = System.Drawing.Color.Black;
-            this.trocoTextBox.Location = new System.Drawing.Point(13, 364);
-            this.trocoTextBox.Name = "trocoTextBox";
-            this.trocoTextBox.Size = new System.Drawing.Size(189, 48);
-            this.trocoTextBox.TabIndex = 10;
-            this.trocoTextBox.TabStop = false;
-            this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.trocoTextBox.Visible = false;
             // 
             // codSaidaPagamentoDataGridViewTextBoxColumn
             // 
@@ -655,6 +596,65 @@
             this.valorDataGridViewTextBoxColumn.HeaderText = "Valor";
             this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
             this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // intervaloDiasTextBox
+            // 
+            this.intervaloDiasTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaPagamentoBindingSource, "intervaloDias", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N0"));
+            this.intervaloDiasTextBox.Enabled = false;
+            this.intervaloDiasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.intervaloDiasTextBox.Location = new System.Drawing.Point(749, 379);
+            this.intervaloDiasTextBox.Name = "intervaloDiasTextBox";
+            this.intervaloDiasTextBox.Size = new System.Drawing.Size(62, 29);
+            this.intervaloDiasTextBox.TabIndex = 32;
+            this.intervaloDiasTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.intervaloDiasTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
+            // 
+            // totalRecebidoLabel
+            // 
+            this.totalRecebidoLabel.AutoSize = true;
+            this.totalRecebidoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalRecebidoLabel.ForeColor = System.Drawing.Color.Red;
+            this.totalRecebidoLabel.Location = new System.Drawing.Point(380, 561);
+            this.totalRecebidoLabel.Name = "totalRecebidoLabel";
+            this.totalRecebidoLabel.Size = new System.Drawing.Size(40, 20);
+            this.totalRecebidoLabel.TabIndex = 73;
+            this.totalRecebidoLabel.Text = "0,00";
+            // 
+            // descricaoTipoSaidaTextBox
+            // 
+            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "descricaoTipoSaida", true));
+            this.descricaoTipoSaidaTextBox.Enabled = false;
+            this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(223, 34);
+            this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(396, 29);
+            this.descricaoTipoSaidaTextBox.TabIndex = 12;
+            // 
+            // cpf_CnpjTextBox
+            // 
+            this.cpf_CnpjTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.clienteBindingSource, "CpfCnpj", true));
+            this.cpf_CnpjTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.cpf_CnpjTextBox.Location = new System.Drawing.Point(637, 101);
+            this.cpf_CnpjTextBox.MaxLength = 14;
+            this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
+            this.cpf_CnpjTextBox.Size = new System.Drawing.Size(179, 29);
+            this.cpf_CnpjTextBox.TabIndex = 17;
+            this.cpf_CnpjTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.cpf_CnpjTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
+            // 
+            // trocoTextBox
+            // 
+            this.trocoTextBox.BackColor = System.Drawing.Color.White;
+            this.trocoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "troco", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.trocoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27F);
+            this.trocoTextBox.ForeColor = System.Drawing.Color.Black;
+            this.trocoTextBox.Location = new System.Drawing.Point(13, 364);
+            this.trocoTextBox.Name = "trocoTextBox";
+            this.trocoTextBox.Size = new System.Drawing.Size(189, 48);
+            this.trocoTextBox.TabIndex = 10;
+            this.trocoTextBox.TabStop = false;
+            this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.trocoTextBox.Visible = false;
             // 
             // FrmSaidaPagamento
             // 
@@ -748,7 +748,6 @@
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
         private System.Windows.Forms.TextBox cpf_CnpjTextBox;
         private System.Windows.Forms.TextBox trocoTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codDocumentoPagamentoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaPagamentoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descricaoFormaPagamentoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CodContaBanco;

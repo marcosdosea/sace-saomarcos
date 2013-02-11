@@ -110,12 +110,6 @@
     <Compile Include="FrmReceberPagamentoPessoa.Designer.cs">
       <DependentUpon>FrmReceberPagamentoPessoa.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmEntradaPedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmEntradaPedido.Designer.cs">
-      <DependentUpon>FrmEntradaPedido.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmSaidaConfirma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -354,10 +348,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmReceberPagamentoPessoa.resx">
       <DependentUpon>FrmReceberPagamentoPessoa.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmEntradaPedido.resx">
-      <DependentUpon>FrmEntradaPedido.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSaidaConfirma.resx">

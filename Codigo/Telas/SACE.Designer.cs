@@ -44,11 +44,10 @@
             this.usuárioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.códigoFiscalDeOperaçãoCFOPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entradaDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transferênciaEntreLojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pedidoDeCompraÀFornecedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transferênciaEntreLojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +69,9 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -195,23 +197,18 @@
             // movimentaçãoToolStripMenuItem
             // 
             this.movimentaçãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.vendaAoConsumidorToolStripMenuItem,
             this.entradaDeProdutosToolStripMenuItem,
-            this.transferênciaEntreLojasToolStripMenuItem,
-            this.pedidoDeCompraÀFornecedoresToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.vendaAoConsumidorToolStripMenuItem,
             this.devoluçãoDeProdutosToolStripMenuItem,
+            this.transferênciaEntreLojasToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.toolStripSeparator2,
             this.estatísticaPorProdutoToolStripMenuItem});
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.movimentaçãoToolStripMenuItem.Text = "&Estoque";
             this.movimentaçãoToolStripMenuItem.Click += new System.EventHandler(this.movimentaçãoToolStripMenuItem_Click);
-            // 
-            // vendaAoConsumidorToolStripMenuItem
-            // 
-            this.vendaAoConsumidorToolStripMenuItem.Name = "vendaAoConsumidorToolStripMenuItem";
-            this.vendaAoConsumidorToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.vendaAoConsumidorToolStripMenuItem.Text = "Pré-Venda ao Consumidor";
-            this.vendaAoConsumidorToolStripMenuItem.Click += new System.EventHandler(this.vendaAoConsumidorToolStripMenuItem_Click);
             // 
             // entradaDeProdutosToolStripMenuItem
             // 
@@ -220,19 +217,12 @@
             this.entradaDeProdutosToolStripMenuItem.Text = "Entrada de Produtos";
             this.entradaDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.entradaDeProdutosToolStripMenuItem_Click);
             // 
-            // transferênciaEntreLojasToolStripMenuItem
+            // vendaAoConsumidorToolStripMenuItem
             // 
-            this.transferênciaEntreLojasToolStripMenuItem.Name = "transferênciaEntreLojasToolStripMenuItem";
-            this.transferênciaEntreLojasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.transferênciaEntreLojasToolStripMenuItem.Text = "Transferência entre Lojas";
-            this.transferênciaEntreLojasToolStripMenuItem.Click += new System.EventHandler(this.transferênciaEntreLojasToolStripMenuItem_Click);
-            // 
-            // pedidoDeCompraÀFornecedoresToolStripMenuItem
-            // 
-            this.pedidoDeCompraÀFornecedoresToolStripMenuItem.Name = "pedidoDeCompraÀFornecedoresToolStripMenuItem";
-            this.pedidoDeCompraÀFornecedoresToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.pedidoDeCompraÀFornecedoresToolStripMenuItem.Text = "Pedido para Fornecedor";
-            this.pedidoDeCompraÀFornecedoresToolStripMenuItem.Click += new System.EventHandler(this.pedidoDeCompraÀFornecedoresToolStripMenuItem_Click);
+            this.vendaAoConsumidorToolStripMenuItem.Name = "vendaAoConsumidorToolStripMenuItem";
+            this.vendaAoConsumidorToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.vendaAoConsumidorToolStripMenuItem.Text = "Pré-Venda ao Consumidor";
+            this.vendaAoConsumidorToolStripMenuItem.Click += new System.EventHandler(this.vendaAoConsumidorToolStripMenuItem_Click);
             // 
             // devoluçãoDeProdutosToolStripMenuItem
             // 
@@ -240,6 +230,13 @@
             this.devoluçãoDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.devoluçãoDeProdutosToolStripMenuItem.Text = "Devolução para Fornecedor";
             this.devoluçãoDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeProdutosToolStripMenuItem_Click);
+            // 
+            // transferênciaEntreLojasToolStripMenuItem
+            // 
+            this.transferênciaEntreLojasToolStripMenuItem.Name = "transferênciaEntreLojasToolStripMenuItem";
+            this.transferênciaEntreLojasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.transferênciaEntreLojasToolStripMenuItem.Text = "Transferência entre Lojas";
+            this.transferênciaEntreLojasToolStripMenuItem.Click += new System.EventHandler(this.transferênciaEntreLojasToolStripMenuItem_Click);
             // 
             // estatísticaPorProdutoToolStripMenuItem
             // 
@@ -431,6 +428,23 @@
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItem1.Text = "Nota Complementar";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(216, 6);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -499,7 +513,6 @@
         private System.Windows.Forms.ToolStripMenuItem restaurarBackupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subgrupoDeProdutosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transferênciaEntreLojasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pedidoDeCompraÀFornecedoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem receberPagamentosToolStripMenuItem;
         private System.Windows.Forms.Button btnReceber;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeProdutosToolStripMenuItem;
@@ -507,6 +520,9 @@
         private System.Windows.Forms.Timer timerAtualizaCuponsFiscais;
         private System.ComponentModel.BackgroundWorker backgroundWorkerAtualizarCupons;
         private System.Windows.Forms.ToolStripMenuItem estatísticaPorProdutoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 
     }
 }

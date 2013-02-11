@@ -8,13 +8,10 @@ namespace Dominio
 {
     public class Produto : ProdutoPesquisa
     {
-        public string UnidadeCompra { get; set; }
-        public decimal QuantidadeEmbalagem { get; set; }
         public int CodGrupo { get; set; }
         public int CodSubgrupo { get; set; }
         public long CodFabricante { get; set; }
         public string NomeFabricante { get; set; }
-        public int Cfop { get; set; }
         public decimal PrecoCusto
         {
             get 
@@ -33,16 +30,15 @@ namespace Dominio
                 return Math.Round(_precoCusto, 2, MidpointRounding.AwayFromZero);
             }
         }
-        public decimal LucroPrecoVendaVarejo { get; set; }
         public decimal PrecoVendaVarejoSugestao
         {
             get { return Math.Round(PrecoCusto + (PrecoCusto * LucroPrecoVendaVarejo / 100), 3, MidpointRounding.AwayFromZero); }
         }
-        public decimal LucroPrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacadoSugestao
         {
             get { return Math.Round(PrecoCusto + (PrecoCusto * LucroPrecoVendaAtacado / 100), 3, MidpointRounding.AwayFromZero); }
         }
+        
         public DateTime DataUltimoPedido { get; set; }
         public sbyte CodSituacaoProduto { get; set; }
 
@@ -54,7 +50,7 @@ namespace Dominio
             precoCalculado = precoCalculado + (precoCalculado * frete / 100);
             precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
             precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
-            return precoCalculado;
+            return precoCalculado / QuantidadeEmbalagem;
         }
 
         public decimal CalculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
@@ -65,7 +61,7 @@ namespace Dominio
             precoCalculado = precoCalculado + (precoCalculado * frete / 100);
             precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
             precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
-            return precoCalculado;
+            return precoCalculado / QuantidadeEmbalagem;
         }
 
 
