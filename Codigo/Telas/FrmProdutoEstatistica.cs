@@ -22,7 +22,8 @@ namespace Telas
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            //this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
             codProdutoComboBox.SelectAll();
             codProdutoComboBox.Focus();
         }
@@ -52,7 +53,7 @@ namespace Telas
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, tb_produtoBindingSource, ref ultimoCodigoBarraLido, true);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
             
             if (_produtoPesquisa != null)
             {
@@ -71,7 +72,7 @@ namespace Telas
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
-            this.tb_produto_lojaTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto_loja, produto.CodProduto);
+            //this.tb_produto_lojaTableAdapter.FillByCodProduto(this.saceDataSet.tb_produto_loja, produto.CodProduto);
             this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
             this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
 

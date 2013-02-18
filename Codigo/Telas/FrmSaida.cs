@@ -91,7 +91,7 @@ namespace Telas
             saida.DataSaida = DateTime.Now;
             saida.Desconto = 0;
             saida.NumeroCartaoVenda = 0;
-            saida.PedidoGerado = null;
+            saida.PedidoGerado = "";
             saida.Total = 0;
             saida.TotalAVista = 0;
             saida.TotalLucro = 0;
@@ -206,7 +206,8 @@ namespace Telas
                     habilitaBotoes(true);
                     estado = EstadoFormulario.ESPERA;
                     btnNovo.Focus();
-                } else if ((tb_saida_produtoDataGridView.RowCount == 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)) && (codSaida > 0) )
+                } else if ((tb_saida_produtoDataGridView.RowCount == 0) && (tipoSaidaFormulario != Saida.TIPO_OUTRAS_SAIDAS) &&
+                    (estado.Equals(EstadoFormulario.INSERIR_DETALHE)) && (codSaida > 0) )
                 {
                     Saida saida = (Saida) saidaBindingSource.Current;
                     GerenciadorSaida.GetInstance().Remover(saida);
@@ -216,7 +217,7 @@ namespace Telas
                     estado = EstadoFormulario.ESPERA;
                     btnNovo.Focus();
                 }
-                else if ((tb_saida_produtoDataGridView.RowCount > 0) && (estado.Equals(EstadoFormulario.INSERIR_DETALHE)))
+                else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
                 {
                     btnEncerrar_Click(sender, e);
                 }
@@ -244,7 +245,6 @@ namespace Telas
             {
                 saida.CodSaida = GerenciadorSaida.GetInstance().Inserir(saida);
                 codSaidaTextBox.Text = saida.CodSaida.ToString();
-                
             }
 
             SaidaProduto saidaProduto = new SaidaProduto();
@@ -261,15 +261,15 @@ namespace Telas
             saidaProduto.BaseCalculoICMSSubst = Convert.ToDecimal(baseCalculoICMSSubstTextBox.Text);
             saidaProduto.ValorICMSSubst = Convert.ToDecimal(valorICMSSubstTextBox.Text);
             saidaProduto.ValorIPI = Convert.ToDecimal(valorIPITextBox.Text);
-
-            codProdutoComboBox.Focus();
-            //posicaoUltimoProduto = codProdutoComboBox.SelectedIndex;
-            codProdutoComboBox.Text = "";
             
-            GerenciadorSaidaProduto gSaidaProduto = GerenciadorSaidaProduto.GetInstance();
-            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
+            
+            codProdutoComboBox.Focus();
+            codProdutoComboBox.Text = "";
+
+            bool saidaProdutoInvalida = (saidaProduto.CodProduto == 1) || (saidaProduto.Quantidade == 0) || (saidaProduto.ValorVendaAVista == 0);
+            if (estado.Equals(EstadoFormulario.INSERIR_DETALHE) && !saidaProdutoInvalida)
             {
-                gSaidaProduto.Inserir(saidaProduto, saida);
+                GerenciadorSaidaProduto.GetInstance().Inserir(saidaProduto, saida);
                 codSaidaTextBox_TextChanged(sender, e);
                 saidaProdutoBindingSource.MoveLast();
             }
