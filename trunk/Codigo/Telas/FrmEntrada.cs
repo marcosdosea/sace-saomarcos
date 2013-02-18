@@ -263,12 +263,17 @@ namespace Telas
 
         private void codEntradaTextBox_TextChanged(object sender, EventArgs e)
         {
-            totalNotaCalculadoTextBox.Text = "0,00";
+            decimal totalNotaCalculado = 0;
             if ((!codEntradaTextBox.Text.Trim().Equals("")) && (long.Parse(codEntradaTextBox.Text) > 1))
             {
                 IEnumerable<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance().ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
                 entradaProdutoBindingSource.DataSource = listaEntradaProduto;
+                foreach (EntradaProduto entradaProduto in listaEntradaProduto)
+                {
+                    totalNotaCalculado += entradaProduto.ValorTotal;
+                }
             }
+            totalNotaCalculadoTextBox.Text = totalNotaCalculado.ToString("N2");
         }
 
 

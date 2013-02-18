@@ -57,7 +57,7 @@ namespace Telas
 
             if (MessageBox.Show("Confirma dados da Nota Fiscal?", "Confirmar Dados da Nota Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.GetInstance().Encerrar(saida, Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+                GerenciadorSaida.GetInstance().Encerrar(saida, saida.TipoSaida);
 
                 FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
                 frmSaidaNF.ShowDialog();

@@ -334,7 +334,6 @@ namespace Telas
         
         private void descontoTextBox_Leave(object sender, EventArgs e)
         {
-            
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
             calcularDesconto();
             codSaidaTextBox_Leave(sender, e);
@@ -342,6 +341,7 @@ namespace Telas
 
         private void calcularDesconto()
         {
+            saida = (Saida) saidaBindingSource.Current;
             const decimal ERRO = 0.02M;
             saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
             decimal totalCalculado = saida.Total * (1 - (saida.Desconto / 100));
@@ -350,7 +350,6 @@ namespace Telas
             {
                 saida.TotalAVista = totalCalculado;
             }
-
             totalPagarTextBox.Text = saida.TotalAVista.ToString("N2");
         }
 

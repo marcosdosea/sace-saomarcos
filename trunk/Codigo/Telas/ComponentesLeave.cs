@@ -107,12 +107,11 @@ namespace Telas
                     else
                     {
                         _listaProdutos = GerenciadorProduto.GetInstance().ObterPorCodBarra(produtoComboBox.Text).ToList();
-                        if (_listaProdutos.Count > 0)
-                        {
-                            produtoNomeIgual = _listaProdutos[0];
-                        }
-                        //entradaViaCodigoBarra = (_listaProdutos.Count > 0);
                         ultimoCodigoBarraLido = produtoComboBox.Text;
+                    }
+                    if (_listaProdutos.Count > 0)
+                    {
+                        produtoNomeIgual = _listaProdutos[0];
                     }
                 }
                 else
@@ -122,10 +121,17 @@ namespace Telas
                         // Busca produto pelo nome
                         _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
 
-                        foreach (ProdutoPesquisa produto in _listaProdutos)
+                        if (_listaProdutos.Count == 1)
                         {
-                            if (produto.Nome.Equals(produtoComboBox.Text))
-                                produtoNomeIgual = produto;
+                            produtoNomeIgual = _listaProdutos[0];
+                        }
+                        else
+                        {
+                            foreach (ProdutoPesquisa produto in _listaProdutos)
+                            {
+                                if (produto.Nome.Equals(produtoComboBox.Text))
+                                    produtoNomeIgual = produto;
+                            }
                         }
                     }
                     if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count > 1) && (produtoNomeIgual == null)))

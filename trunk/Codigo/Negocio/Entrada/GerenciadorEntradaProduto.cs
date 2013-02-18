@@ -194,6 +194,15 @@ namespace Negocio
                 && ep.QuantidadeDisponivel > 0).OrderBy(ep => ep.DataValidade).ToList();
         }
 
+        /// <summary>
+        /// Obter produtos ordenado pela data de validade
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<EntradaProduto> ObterOrdenadoPorValidade(long codProduto)
+        {
+            return GetQuery().Where(ep => ep.CodProduto == codProduto).OrderBy(ep => ep.DataValidade).ToList();
+        }
 
         /// <summary>
         /// Obtém os lotes que já foram vendidos ordenados pela data de validade
@@ -329,7 +338,7 @@ namespace Negocio
             {
                 EstornarItensVendidosEstoque(produto, dataValidade, Math.Abs(quantidadeVendida));
             } 
-            else if (entradaProdutos != null)
+            else if (entradaProdutos.Count > 0)
             {
                 // reduz a quantidade de itens disponíveis nos lotes de entrada
                 foreach (EntradaProduto entradaProduto in entradaProdutos)
@@ -386,8 +395,14 @@ namespace Negocio
         /// <param name="quantidade"></param>
         /// <returns></returns>
         private decimal BaixarItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade) {
-            EntradaProduto entradaProduto = Obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto).ElementAt(0);
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) Obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto);
             Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
+            EntradaProduto entradaProduto = null;
+            if (entradaProdutos.Count > 0)
+            {
+                entradaProduto = entradaProdutos[0];
+            }
+
             if (entradaProduto != null)
             {
                 entradaProduto.QuantidadeDisponivel -= quantidade;
