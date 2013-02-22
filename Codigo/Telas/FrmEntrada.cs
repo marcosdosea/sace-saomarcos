@@ -467,6 +467,7 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
+                        fornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
                         fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
@@ -487,6 +488,7 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
+                        empresaFreteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
                         empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();

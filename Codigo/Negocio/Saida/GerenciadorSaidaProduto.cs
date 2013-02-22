@@ -128,7 +128,7 @@ namespace Negocio
                             Nome = produto.nome,
                             Subtotal = (decimal) saidaProduto.subtotal,
                             SubtotalAVista = (decimal) saidaProduto.subtotalAVista,
-                            Unidade = produto.unidade,
+                            Unidade = produto.unidade == null ? "UN": produto.unidade,
                             ValorICMS = (decimal) saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal) saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal) saidaProduto.valorIPI,
@@ -195,6 +195,8 @@ namespace Negocio
                         };
             return query.ToList();
         }
+
+
         /// <summary>
         /// Atribui entidade para entidade persistente
         /// </summary>

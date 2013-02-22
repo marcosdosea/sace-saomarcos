@@ -137,6 +137,33 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Atualiza o número da nota fiscal gerada num determinado codigo saida
+        /// </summary>
+        /// <param name="nfe"></param>
+        /// <param name="pedidoGerado"></param>
+        public void AtualizarNfePorCodSaida(string nfe, string observacao, long codSaida)
+        {
+            try
+            {
+                var repSaida = new RepositorioGenerico<SaidaE>();
+                var saceEntities = (SaceEntities)repSaida.ObterContexto();
+                var query = from saidaE in saceEntities.SaidaSet
+                            where saidaE.codSaida == codSaida
+                            select saidaE;
+                foreach (SaidaE _saidaE in query)
+                {
+                    _saidaE.nfe = nfe;
+                    _saidaE.observacao = observacao;
+                }
+                repSaida.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
+        }
+
+        /// <summary>
         /// Atualiza o número da nota fiscal gerada a partir do pedido (cupom fiscal) gerado
         /// </summary>
         /// <param name="nfe"></param>

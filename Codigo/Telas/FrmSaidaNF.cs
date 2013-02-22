@@ -74,7 +74,14 @@ namespace Telas
             {
                 throw new NegocioException("Número da nota fiscal inválido. Favor verificar o formato e a sequência da numeração.");
             }
-            GerenciadorSaida.GetInstance().AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
+            if (Saida.PedidoGerado.Trim().Equals(""))
+            {
+                GerenciadorSaida.GetInstance().AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
+            }
+            else
+            {
+                GerenciadorSaida.GetInstance().AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
+            }
             GerenciadorSaida.GetInstance().ImprimirNotaFiscal(Saida);
         }
 
