@@ -248,6 +248,7 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
+                        pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
                         pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();

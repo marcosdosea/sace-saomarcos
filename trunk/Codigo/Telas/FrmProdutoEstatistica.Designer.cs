@@ -37,12 +37,12 @@
             System.Windows.Forms.Label precoVendaAtacadoLabel;
             System.Windows.Forms.Label preco_custoLabel;
             System.Windows.Forms.Label codProdutoLabel;
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ProdutosGroupBox = new System.Windows.Forms.GroupBox();
@@ -58,9 +58,6 @@
             this.lucroPrecoVendaVarejoTextBox = new System.Windows.Forms.TextBox();
             this.lucroPrecoVendaAtacadoTextBox = new System.Windows.Forms.TextBox();
             this.valorUnitarioTextBox = new System.Windows.Forms.TextBox();
-            this.tbcstBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_entrada_produtoTableAdapter = new Dados.saceDataSetTableAdapters.tb_entrada_produtoTableAdapter();
-            this.tbsituacaopagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.produtosVendidosTableAdapterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saceDataSetConsultas = new Dados.saceDataSetConsultas();
@@ -84,12 +81,21 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
-            this.tb_produto_lojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.produtoLojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
             this.label13 = new System.Windows.Forms.Label();
             this.entradasPorProdutoTableAdapter = new Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter();
             this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.codLojaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeLojaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacao2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estoqueMaximoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             valorUnitarioLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaAtacadoLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaVarejoLabel = new System.Windows.Forms.Label();
@@ -101,14 +107,12 @@
             this.panel1.SuspendLayout();
             this.ProdutosGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbsituacaopagamentosBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtosVendidosTableAdapterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -354,27 +358,23 @@
             this.valorUnitarioTextBox.TabIndex = 60;
             this.valorUnitarioTextBox.TabStop = false;
             // 
-            // tb_entrada_produtoTableAdapter
-            // 
-            this.tb_entrada_produtoTableAdapter.ClearBeforeFill = true;
-            // 
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.Color.LightGray;
             this.chart1.BackHatchStyle = System.Windows.Forms.DataVisualization.Charting.ChartHatchStyle.DarkDownwardDiagonal;
             this.chart1.BackImageTransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.chart1.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.DataSource = this.produtosVendidosTableAdapterBindingSource;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(0, 296);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(834, 143);
             this.chart1.TabIndex = 113;
             this.chart1.Text = "chart1";
@@ -552,9 +552,9 @@
             // 
             this.quantidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.quantidade.DataPropertyName = "Quantidade";
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.quantidade.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.quantidade.DefaultCellStyle = dataGridViewCellStyle4;
             this.quantidade.HeaderText = "Quantidade";
             this.quantidade.Name = "quantidade";
             this.quantidade.ReadOnly = true;
@@ -564,9 +564,9 @@
             // 
             this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn10.DataPropertyName = "valorUnitario";
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewTextBoxColumn10.FillWeight = 20F;
             this.dataGridViewTextBoxColumn10.HeaderText = "Valor UN (R$)";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
@@ -576,9 +576,9 @@
             // 
             this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn11.DataPropertyName = "preco_custo";
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewTextBoxColumn11.FillWeight = 20F;
             this.dataGridViewTextBoxColumn11.HeaderText = "Preço Custo (R$)";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
@@ -594,13 +594,27 @@
             this.label11.TabIndex = 122;
             this.label11.Text = "Últimas Entradas/Pedidos";
             // 
+            // produtoLojaBindingSource
+            // 
+            this.produtoLojaBindingSource.DataSource = typeof(Dominio.ProdutoLoja);
+            // 
             // tb_produto_lojaDataGridView
             // 
             this.tb_produto_lojaDataGridView.AllowUserToAddRows = false;
             this.tb_produto_lojaDataGridView.AllowUserToDeleteRows = false;
             this.tb_produto_lojaDataGridView.AutoGenerateColumns = false;
             this.tb_produto_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_produto_lojaDataGridView.DataSource = this.tb_produto_lojaBindingSource;
+            this.tb_produto_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.codLojaDataGridViewTextBoxColumn,
+            this.nomeLojaDataGridViewTextBoxColumn,
+            this.codProdutoDataGridViewTextBoxColumn,
+            this.nomeProdutoDataGridViewTextBoxColumn,
+            this.qtdEstoqueDataGridViewTextBoxColumn,
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn,
+            this.localizacaoDataGridViewTextBoxColumn,
+            this.localizacao2DataGridViewTextBoxColumn,
+            this.estoqueMaximoDataGridViewTextBoxColumn});
+            this.tb_produto_lojaDataGridView.DataSource = this.produtoLojaBindingSource;
             this.tb_produto_lojaDataGridView.Location = new System.Drawing.Point(453, 202);
             this.tb_produto_lojaDataGridView.MultiSelect = false;
             this.tb_produto_lojaDataGridView.Name = "tb_produto_lojaDataGridView";
@@ -652,6 +666,69 @@
             this.label2.TabIndex = 128;
             this.label2.Text = "Média de Vendas:";
             // 
+            // codLojaDataGridViewTextBoxColumn
+            // 
+            this.codLojaDataGridViewTextBoxColumn.DataPropertyName = "CodLoja";
+            this.codLojaDataGridViewTextBoxColumn.HeaderText = "CodLoja";
+            this.codLojaDataGridViewTextBoxColumn.Name = "codLojaDataGridViewTextBoxColumn";
+            this.codLojaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeLojaDataGridViewTextBoxColumn
+            // 
+            this.nomeLojaDataGridViewTextBoxColumn.DataPropertyName = "NomeLoja";
+            this.nomeLojaDataGridViewTextBoxColumn.HeaderText = "NomeLoja";
+            this.nomeLojaDataGridViewTextBoxColumn.Name = "nomeLojaDataGridViewTextBoxColumn";
+            this.nomeLojaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codProdutoDataGridViewTextBoxColumn
+            // 
+            this.codProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodProduto";
+            this.codProdutoDataGridViewTextBoxColumn.HeaderText = "CodProduto";
+            this.codProdutoDataGridViewTextBoxColumn.Name = "codProdutoDataGridViewTextBoxColumn";
+            this.codProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeProdutoDataGridViewTextBoxColumn
+            // 
+            this.nomeProdutoDataGridViewTextBoxColumn.DataPropertyName = "NomeProduto";
+            this.nomeProdutoDataGridViewTextBoxColumn.HeaderText = "NomeProduto";
+            this.nomeProdutoDataGridViewTextBoxColumn.Name = "nomeProdutoDataGridViewTextBoxColumn";
+            this.nomeProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "QtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
+            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueAuxDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "QtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacaoDataGridViewTextBoxColumn
+            // 
+            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "Localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
+            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacao2DataGridViewTextBoxColumn
+            // 
+            this.localizacao2DataGridViewTextBoxColumn.DataPropertyName = "Localizacao2";
+            this.localizacao2DataGridViewTextBoxColumn.HeaderText = "Localizacao2";
+            this.localizacao2DataGridViewTextBoxColumn.Name = "localizacao2DataGridViewTextBoxColumn";
+            this.localizacao2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // estoqueMaximoDataGridViewTextBoxColumn
+            // 
+            this.estoqueMaximoDataGridViewTextBoxColumn.DataPropertyName = "EstoqueMaximo";
+            this.estoqueMaximoDataGridViewTextBoxColumn.HeaderText = "EstoqueMaximo";
+            this.estoqueMaximoDataGridViewTextBoxColumn.Name = "estoqueMaximoDataGridViewTextBoxColumn";
+            this.estoqueMaximoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // FrmProdutoEstatistica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -691,14 +768,12 @@
             this.ProdutosGroupBox.ResumeLayout(false);
             this.ProdutosGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbcstBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbsituacaopagamentosBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtosVendidosTableAdapterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -721,10 +796,7 @@
         private System.Windows.Forms.TextBox precoAtacadoSugestaoTextBox;
         private System.Windows.Forms.TextBox precoVarejoSugestaoTextBox;
         private System.Windows.Forms.Label label4;
-        private Dados.saceDataSetTableAdapters.tb_entrada_produtoTableAdapter tb_entrada_produtoTableAdapter;
         private System.Windows.Forms.TextBox preco_custoTextBox;
-        private System.Windows.Forms.BindingSource tbsituacaopagamentosBindingSource;
-        private System.Windows.Forms.BindingSource tbcstBindingSource;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
@@ -741,7 +813,7 @@
         private System.Windows.Forms.BindingSource entradasPorProdutoBindingSource;
         private System.Windows.Forms.DataGridView entradasPorProdutoDataGridView;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.BindingSource tb_produto_lojaBindingSource;
+        private System.Windows.Forms.BindingSource produtoLojaBindingSource;
         private System.Windows.Forms.DataGridView tb_produto_lojaDataGridView;
         private System.Windows.Forms.Label label13;
         private Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter entradasPorProdutoTableAdapter;
@@ -754,5 +826,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.ComboBox codProdutoComboBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codLojaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeLojaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codProdutoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeProdutoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueAuxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localizacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localizacao2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estoqueMaximoDataGridViewTextBoxColumn;
     }
 }
