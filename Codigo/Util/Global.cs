@@ -79,7 +79,8 @@ namespace Util
          SGBD_IP = "192.168.0.3",
          PORTA_IMPRESSORA_NORMAL = "LPT1",
          PORTA_IMPRESSORA_REDUZIDA = "LPT2",
-         //PORTA_IMPRESSORA_NORMAL = "sace-teste.txt",
+         //PORTA_IMPRESSORA_NORMAL = "lpt1-teste.txt",
+         //PORTA_IMPRESSORA_REDUZIDA = "lpt2-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================";
         

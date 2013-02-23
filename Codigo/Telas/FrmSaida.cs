@@ -158,14 +158,19 @@ namespace Telas
         {
             long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
             saida = GerenciadorSaida.GetInstance().Obter(codSaida);
-            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) {
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+            {
                 GerenciadorSaida.GetInstance().ExcluirDocumentoFiscal(codSaida);
                 GerenciadorSaidaPagamento.GetInstance().RemoverPorSaida(saida);
-                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(codSaida);
-                GerenciadorSaida.GetInstance().RegistrarEstornoEstoque(saida);
+                if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+                {
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(codSaida);
+                    GerenciadorSaida.GetInstance().RegistrarEstornoEstoque(saida);
+                }
                 saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
                 saida.PedidoGerado = "";
+                saida.TotalPago = 0;
                 GerenciadorSaida.GetInstance().Atualizar(saida);
                 descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
             }
