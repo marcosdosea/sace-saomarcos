@@ -87,20 +87,23 @@ namespace Telas
 
 
                 // cupom fiscal pode ser impresso quando todas as contas associadas a uma saída estiverem selecionadas
-                bool podeImprimirCF = true;
-                foreach (long codSaida in listaSaidas)
+                bool podeImprimirCF = (valorPagamento == faltaReceber);
+                if (podeImprimirCF)
                 {
-                    List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance().ObterPorSaida(codSaida);
-                    foreach (Conta conta in contas)
+                    foreach (long codSaida in listaSaidas)
                     {
-                        if ((!listaContas.Contains(conta.CodConta)) || ((conta.CF != null) && !conta.CF.Trim().Equals("")))
+                        List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance().ObterPorSaida(codSaida);
+                        foreach (Conta conta in contas)
                         {
-                            podeImprimirCF = false;
-                            break;
+                            if ((!listaContas.Contains(conta.CodConta)) || ((conta.CF != null) && !conta.CF.Trim().Equals("")))
+                            {
+                                podeImprimirCF = false;
+                                break;
+                            }
                         }
+                        if (!podeImprimirCF)
+                            break;
                     }
-                    if (!podeImprimirCF)
-                        break;
                 }
 
                 if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF)

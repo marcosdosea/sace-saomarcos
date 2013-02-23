@@ -182,6 +182,7 @@ namespace Negocio
                             ReferenciaFabricante = produto.referenciaFabricante,
                             Simples = (decimal) produto.simples,
                             TemVencimento = (bool) produto.temVencimento,
+                            Unidade = produto.unidade,
                             UnidadeCompra = produto.unidadeCompra,
                             UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra
                         };

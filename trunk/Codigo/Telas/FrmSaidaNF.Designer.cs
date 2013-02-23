@@ -91,7 +91,7 @@
             // 
             this.observacaoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.observacaoTextBox.Location = new System.Drawing.Point(116, 65);
-            this.observacaoTextBox.MaxLength = 100;
+            this.observacaoTextBox.MaxLength = 165;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(244, 72);
@@ -102,7 +102,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 173);
+            this.ClientSize = new System.Drawing.Size(359, 169);
             this.ControlBox = false;
             this.Controls.Add(observacaoLabel);
             this.Controls.Add(this.observacaoTextBox);

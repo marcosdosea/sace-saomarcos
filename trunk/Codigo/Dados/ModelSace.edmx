@@ -2042,7 +2042,7 @@
           <Property Type="Decimal" Name="pesoLiquido" />
           <Property Type="Int64" Name="codEmpresaFrete" Nullable="false" />
           <NavigationProperty Name="tb_pessoa2" Relationship="SaceModel.fk_tb_saida_tb_pessoa1" FromRole="tb_saida" ToRole="tb_pessoa" />
-          <Property Type="String" Name="observacao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="observacao" Nullable="false" MaxLength="165" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SaidaFormaPagamentoE">
           <Key>

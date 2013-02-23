@@ -40,7 +40,7 @@ namespace Telas
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
-            
+            saida = (Saida) saidaBindingSource.Current;
             InicializaVariaveis();
             AtualizaValores();
         }
@@ -192,7 +192,7 @@ namespace Telas
             totalRecebidoLabel.Text = saida.TotalPago.ToString("N2");
             
             // Cálculo de quanto falta receber
-            //faltaReceber = saida.TotalAVista - saida.TotalPago;
+            //decimal faltaReceber = saida.TotalAVista - saida.TotalPago;
             //if (faltaReceber > 0)
             //    faltaReceberTextBox.Text = faltaReceber.ToString("N2");
             //else
