@@ -37,7 +37,7 @@ namespace Negocio
             try
             {
                 var repMovimentacaoConta = new RepositorioGenerico<MovimentacaoContaE>();
-                ObjectContext context = repMovimentacaoConta.ObterContexto();
+                ObjectContext _context = repMovimentacaoConta.ObterContexto();
                 //var repConta = new RepositorioGenerico<ContaE>();
 
                 MovimentacaoContaE _movimentacaoE = new MovimentacaoContaE();
@@ -46,14 +46,15 @@ namespace Negocio
                 repMovimentacaoConta.Inserir(_movimentacaoE);
 
                 // Atualiza saldo da conta bancária
-                AtualizaSaldoContaBanco(movimentacaoConta, context);
-
+                AtualizaSaldoContaBanco(movimentacaoConta, _context);
+                _context.SaveChanges();
+                
                 // Atualiza status da conta, entrada e saída 
-                ContaE _contaE = AtualizaSituacaoConta((long)_movimentacaoE.codConta);
-                AtualizaSituacaoPagamentosEntrada(_contaE);
-                AtualizaSituacaoPagamentosSaida(_contaE);
-
-                repMovimentacaoConta.SaveChanges();
+                ContaE _contaE = AtualizaSituacaoConta((long)_movimentacaoE.codConta, _context);
+                AtualizaSituacaoPagamentosEntrada(_contaE, _context);
+                AtualizaSituacaoPagamentosSaida(_contaE, _context);
+                _context.SaveChanges();
+                
                 return _movimentacaoE.codMovimentacao;
             }
             catch (Exception e)
@@ -71,7 +72,8 @@ namespace Negocio
         public Int64 Inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas)
         {
             var repMovimentacaoConta = new RepositorioGenerico<MovimentacaoContaE>();
-            var repConta = new RepositorioGenerico<ContaE>(repMovimentacaoConta.ObterContexto());
+            ObjectContext context = repMovimentacaoConta.ObterContexto();
+            var repConta = new RepositorioGenerico<ContaE>(context);
 
             decimal totalMovimentacao = movimentacaoConta.Valor;
             foreach (long codConta in listaContas)
@@ -99,16 +101,18 @@ namespace Negocio
                         repMovimentacaoConta.Inserir(_movimentacaoE);
 
                         // Atualiza saldo da conta bancária
-                        AtualizaSaldoContaBanco(movimentacaoConta, repMovimentacaoConta.ObterContexto());
-
+                        AtualizaSaldoContaBanco(movimentacaoConta, context);
+                        context.SaveChanges();
+                        
                         // Atualiza status da conta, entrada e saída 
-                        AtualizaSituacaoConta(repConta, _contaE);
-                        AtualizaSituacaoPagamentosEntrada(_contaE);
-                        AtualizaSituacaoPagamentosSaida(_contaE);
+                        AtualizaSituacaoConta(_contaE);
+                        AtualizaSituacaoPagamentosEntrada(_contaE, context);
+                        AtualizaSituacaoPagamentosSaida(_contaE, context);
                     }
                 }
             }
-            repMovimentacaoConta.SaveChanges();
+            context.SaveChanges();
+            //context.AcceptAllChanges();
             return 0;
         }
 
@@ -121,21 +125,23 @@ namespace Negocio
             try
             {
                 var repMovimentacaoConta = new RepositorioGenerico<MovimentacaoContaE>();
-                var repConta = new RepositorioGenerico<ContaE>(repMovimentacaoConta.ObterContexto());
+                ObjectContext _context = repMovimentacaoConta.ObterContexto();
 
                 MovimentacaoConta movimentacaoConta = Obter(codMovimentacaoConta).ElementAt(0);
                 repMovimentacaoConta.Remover(m => m.codMovimentacao == codMovimentacaoConta);
 
                 // Decrementa o saldo da conta
                 movimentacaoConta.Valor *= (-1);
-                AtualizaSaldoContaBanco(movimentacaoConta, repMovimentacaoConta.ObterContexto());
+                AtualizaSaldoContaBanco(movimentacaoConta, _context);
+                _context.SaveChanges();
 
                 // Atualiza status da conta, entrada e saída 
-                ContaE _contaE = AtualizaSituacaoConta(movimentacaoConta.CodConta);
-                AtualizaSituacaoPagamentosEntrada(_contaE);
-                AtualizaSituacaoPagamentosSaida(_contaE);
+                ContaE _contaE = AtualizaSituacaoConta(movimentacaoConta.CodConta, _context);
+                AtualizaSituacaoPagamentosEntrada(_contaE, _context);
+                AtualizaSituacaoPagamentosSaida(_contaE, _context);
 
-                repMovimentacaoConta.SaveChanges();
+                _context.SaveChanges();
+                //_context.AcceptAllChanges();
             }
             catch (Exception e)
             {
@@ -229,10 +235,10 @@ namespace Negocio
         /// Atualiza Situacao dos pagamentos da saída para quitado quando todas as contas estão quitadas
         /// </summary>
         /// <param name="_contaE"></param>
-        private static void AtualizaSituacaoPagamentosSaida(ContaE _contaE)
+        private static void AtualizaSituacaoPagamentosSaida(ContaE _contaE, ObjectContext context)
         {
-            var repSaida = new RepositorioGenerico<SaidaE>();
-            var saceEntities = (SaceEntities)repSaida.ObterContexto();
+            //var repSaida = new RepositorioGenerico<SaidaE>();
+            var saceEntities = (SaceEntities) context;
             var query = from saida in saceEntities.SaidaSet
                         where saida.codSaida == _contaE.codSaida
                         select saida;
@@ -250,17 +256,15 @@ namespace Negocio
                     }
                 }
             }
-            repSaida.SaveChanges();
         }
 
         /// <summary>
         /// Atualiza Situacao dos pagamentos da entrada para quitado quando todas as contas estão quitadas
         /// </summary>
         /// <param name="_contaE"></param>
-        private static void AtualizaSituacaoPagamentosEntrada(ContaE _contaE)
+        private static void AtualizaSituacaoPagamentosEntrada(ContaE _contaE, ObjectContext context)
         {
-            var repEntrada = new RepositorioGenerico<EntradaE>();
-            var saceEntities = (SaceEntities)repEntrada.ObterContexto();
+            var saceEntities = (SaceEntities) context;
             var query = from entrada in saceEntities.EntradaSet
                         where entrada.codEntrada == _contaE.codEntrada
                         select entrada;
@@ -278,41 +282,35 @@ namespace Negocio
                     }
                 }
             }
-            repEntrada.SaveChanges();
         }
 
         /// <summary>
         /// Atualiza conta para quitada quando todas a soma de todas as movimentacoes quitam a conta
         /// </summary>
         /// <param name="_contaE"></param>
-        private ContaE AtualizaSituacaoConta(long codConta)
+        private ContaE AtualizaSituacaoConta(long codConta, ObjectContext context)
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-            var saceEntities = (SaceEntities)repConta.ObterContexto();
+            var saceEntities = (SaceEntities) context;
             var query = from conta in saceEntities.ContaSet
                         where conta.codConta == codConta
                         select conta;
 
             foreach (ContaE _contaE in query)
             {
-                AtualizaSituacaoConta(repConta, _contaE);
+                AtualizaSituacaoConta(_contaE);
                 return _contaE;
             }
             return null;
         }
 
-        private void AtualizaSituacaoConta(RepositorioGenerico<ContaE> repConta, ContaE _contaE)
+        private void AtualizaSituacaoConta(ContaE _contaE)
         {
-            if (!_contaE.codSituacao.Equals(SituacaoConta.SITUACAO_QUITADA))
-            {
-                decimal valorConta = Math.Round(_contaE.valor - _contaE.desconto, 2);
-                decimal totalMovimentacoesConta = ObterPorConta(_contaE.codConta).Sum(c => c.Valor);
-                if (valorConta <= totalMovimentacoesConta)
-                    _contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
-                else
-                    _contaE.codSituacao = SituacaoConta.SITUACAO_ABERTA;
-            }
-            repConta.SaveChanges();
+            decimal valorConta = Math.Round(_contaE.valor - _contaE.desconto, 2);
+            decimal totalMovimentacoesConta = ObterPorConta(_contaE.codConta).Sum(c => c.Valor);
+            if (valorConta <= totalMovimentacoesConta)
+                _contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
+            else
+                _contaE.codSituacao = SituacaoConta.SITUACAO_ABERTA;
         }
 
 
@@ -336,7 +334,6 @@ namespace Negocio
                 else
                     _contaBancoE.saldo += movimentacaoConta.Valor * (-1);
             }
-            context.SaveChanges();
         }
 
 
