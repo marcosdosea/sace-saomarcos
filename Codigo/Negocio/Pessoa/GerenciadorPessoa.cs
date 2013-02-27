@@ -37,7 +37,14 @@ namespace Negocio
 
                 if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
                     throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
-                
+                if (!pessoa.CpfCnpj.Trim().Equals(""))
+                {
+                    int countPessoasCpfCnpj = GerenciadorPessoa.GetInstance().ObterPorCpfCnpjEquals(pessoa.CpfCnpj).Count();
+                    if (countPessoasCpfCnpj > 0)
+                        throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
+                }
+
+
                 PessoaE _pessoa = new PessoaE(); 
                 Atribuir(pessoa, _pessoa);
                
@@ -61,7 +68,15 @@ namespace Negocio
 
             if (pessoa.CodPessoa == Global.CLIENTE_PADRAO)
                 throw new NegocioException("Os dados dessa pessoa não podem ser alterados ou removidos");
-            
+            if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
+                throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
+            if (!pessoa.CpfCnpj.Trim().Equals(""))
+            {
+                int countPessoasCpfCnpj = GerenciadorPessoa.GetInstance().ObterPorCpfCnpjEquals(pessoa.CpfCnpj).Count();
+                if (countPessoasCpfCnpj > 0)
+                    throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
+            }
+
             try
             {
                 PessoaE _pessoa = repPessoa.ObterEntidade(p => p.codPessoa == pessoa.CodPessoa);
@@ -237,6 +252,16 @@ namespace Negocio
         public IEnumerable<Pessoa> ObterPorCpfCnpj(string CpfCnpj)
         {
             return GetQuery().Where(pessoa => pessoa.CpfCnpj.StartsWith(CpfCnpj)).OrderBy(p => p.NomeFantasia).ToList();
+        }
+
+        /// <summary>
+        /// Obter pelo cpf/cnpj da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorCpfCnpjEquals(string CpfCnpj)
+        {
+            return GetQuery().Where(pessoa => pessoa.CpfCnpj.Equals(CpfCnpj)).ToList();
         }
 
         /// <summary>
