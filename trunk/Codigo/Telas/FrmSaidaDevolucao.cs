@@ -53,6 +53,7 @@ namespace Telas
             saida.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
             saida.BaseCalculoICMSSubst = Convert.ToDecimal(baseCalculoICMSSubstTextBox.Text);
             saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+            saida.DataSaida = dataSaidaDateTimePicker.Value;
             saida.TotalLucro = 0;
 
             if (MessageBox.Show("Confirma dados da Nota Fiscal?", "Confirmar Dados da Nota Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)

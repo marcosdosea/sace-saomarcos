@@ -50,6 +50,7 @@
             System.Windows.Forms.Label pesoLiquidoLabel;
             System.Windows.Forms.Label descontoLabel;
             System.Windows.Forms.Label codClienteLabel;
+            System.Windows.Forms.Label dataSaidaLabel;
             this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@
             this.descontoTextBox = new System.Windows.Forms.TextBox();
             this.codClienteComboBox = new System.Windows.Forms.ComboBox();
             this.pessoaDestinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSaidaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
@@ -97,6 +99,7 @@
             pesoLiquidoLabel = new System.Windows.Forms.Label();
             descontoLabel = new System.Windows.Forms.Label();
             codClienteLabel = new System.Windows.Forms.Label();
+            dataSaidaLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).BeginInit();
@@ -370,7 +373,7 @@
             this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(169, 39);
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(464, 35);
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(287, 35);
             this.descricaoTipoSaidaTextBox.TabIndex = 4;
             // 
             // baseCalculoICMSTextBox
@@ -607,11 +610,33 @@
             // 
             this.pessoaDestinoBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
+            // dataSaidaLabel
+            // 
+            dataSaidaLabel.AutoSize = true;
+            dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            dataSaidaLabel.Location = new System.Drawing.Point(461, 3);
+            dataSaidaLabel.Name = "dataSaidaLabel";
+            dataSaidaLabel.Size = new System.Drawing.Size(136, 29);
+            dataSaidaLabel.TabIndex = 81;
+            dataSaidaLabel.Text = "Data Saída:";
+            // 
+            // dataSaidaDateTimePicker
+            // 
+            this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.saidaBindingSource, "DataSaida", true));
+            this.dataSaidaDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.dataSaidaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(466, 39);
+            this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
+            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(167, 35);
+            this.dataSaidaDateTimePicker.TabIndex = 5;
+            // 
             // FrmSaidaDevolucao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(819, 510);
+            this.Controls.Add(dataSaidaLabel);
+            this.Controls.Add(this.dataSaidaDateTimePicker);
             this.Controls.Add(codClienteLabel);
             this.Controls.Add(this.codClienteComboBox);
             this.Controls.Add(descontoLabel);
@@ -699,5 +724,6 @@
         private System.Windows.Forms.BindingSource pessoaFreteBindingSource;
         private System.Windows.Forms.ComboBox codClienteComboBox;
         private System.Windows.Forms.BindingSource pessoaDestinoBindingSource;
+        private System.Windows.Forms.DateTimePicker dataSaidaDateTimePicker;
     }
 }

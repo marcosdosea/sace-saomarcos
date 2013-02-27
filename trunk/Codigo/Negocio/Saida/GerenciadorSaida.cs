@@ -1436,7 +1436,7 @@ namespace Negocio
                 imp.ImpCol(40, saida.Numero.ToString());
                 imp.ImpColDireita(55, 64, saida.PesoBruto.ToString("N2"));
                 imp.ImpColDireita(69, 78, saida.PesoLiquido.ToString("N2"));
-                imp.Pula(4);
+                imp.Pula(3);
 
                 
                 // imprimir observacao 56
@@ -1456,7 +1456,7 @@ namespace Negocio
                     }
                 }
 
-                imp.Pula(7 - numeroLinhasObsevacao);
+                imp.Pula(8 - numeroLinhasObsevacao);
 
                 imp.ImpCol(75, saida.Nfe);
             }
