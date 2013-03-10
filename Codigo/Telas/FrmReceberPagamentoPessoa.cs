@@ -66,6 +66,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma registro de pagamento?", "Confirmar Pagamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 decimal valorPagamento = Convert.ToDecimal(valorPagamentoTextBox.Text);
                 decimal totalPago = Convert.ToDecimal(totalPagamentosTextBox.Text);
@@ -146,6 +147,10 @@ namespace Telas
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
                             GerenciadorSaida.GetInstance().GerarDocumentoFiscal(listaSaidas, new List<SaidaPagamento>() { saidaPagamento }, valorPagamento);
+                        }
+                        else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            GerenciadorSaida.GetInstance().ImprimirCreditoPagamento(movimentacao);
                         }
                     }
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
@@ -300,7 +305,7 @@ namespace Telas
                     long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
                     Negocio.GerenciadorMovimentacaoConta.getInstace().Remover(codMovimentacaoConta);
                 }
-                ListarContasPessoa();
+                ObterTodasContasAbertas(pessoa);
             }
         }
 
@@ -328,54 +333,35 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            if (estado != EstadoFormulario.ESPERA)
+            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true);
+
+            if ((pessoa != null) && (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO)))
             {
-                List<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(codClienteComboBox.Text).ToList();
-                if ((pessoas.Count == 0) || (pessoas.Count > 1))
-                {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codClienteComboBox.Text);
-                    frmPessoaPesquisa.ShowDialog();
-                    if (frmPessoaPesquisa.PessoaSelected != null)
-                    {
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
-                        codClienteComboBox.Text = pessoa.NomeFantasia;
-                    }
-                    else
-                    {
-                        codClienteComboBox.Focus();
-                    }
-                    frmPessoaPesquisa.Dispose();
-                }
-                else
-                {
-                    pessoa = pessoas[0];
-                    pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(pessoa);
-                }
-
-                if ((pessoa != null) && (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO)))
-                {
-                    // Obter todas as contas da pessoa em aberto
-                    contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
-                    //descontoTextBox.Text = "0";
-                    if (contasPessoaDataGridView.RowCount > 0)
-                    {
-                        //Obter maior e menor data de vencimento para preencher corrretamente
-                        dataInicioDateTimePicker.Text = contasPessoaDataGridView.Rows[0].Cells[2].Value.ToString();
-                        int ultimaLinha = contasPessoaDataGridView.RowCount - 1;
-                        dataFinalDateTimePicker.Text = contasPessoaDataGridView.Rows[ultimaLinha].Cells[2].Value.ToString();
-
-                        // Guarda os dados das variáveis para verificar se há necessidade de uma nova consulta
-                        dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
-                        dataFim = Convert.ToDateTime(dataFinalDateTimePicker.Text);
-                        abertaChecked = abertaCheckBox.Checked;
-                        quitadaChecked = quitadaCheckBox.Checked;
-                    }
-
-                    contasPessoaDataGridView.SelectAll();
-                    habilitaBotoes(false);
-                }
+                // Obter todas as contas da pessoa em aberto
+                ObterTodasContasAbertas(pessoa);
             }
+
             alterouDesconto = false;
+        }
+
+        private void ObterTodasContasAbertas(Pessoa pessoa)
+        {
+            contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
+            if (contasPessoaDataGridView.RowCount > 0)
+            {
+                //Obter maior e menor data de vencimento para preencher corrretamente
+                dataInicioDateTimePicker.Text = contasPessoaDataGridView.Rows[0].Cells[2].Value.ToString();
+                int ultimaLinha = contasPessoaDataGridView.RowCount - 1;
+                dataFinalDateTimePicker.Text = contasPessoaDataGridView.Rows[ultimaLinha].Cells[2].Value.ToString();
+
+                // Guarda os dados das variáveis para verificar se há necessidade de uma nova consulta
+                dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
+                dataFim = Convert.ToDateTime(dataFinalDateTimePicker.Text);
+                abertaChecked = abertaCheckBox.Checked;
+                quitadaChecked = quitadaCheckBox.Checked;
+            }
+            contasPessoaDataGridView.SelectAll();
+            habilitaBotoes(false);
         }
 
         private string obterListaSituacao()
@@ -432,7 +418,7 @@ namespace Telas
                 contasPessoaDataGridView.DataSource = null;
             }
             contasPessoaDataGridView.SelectAll();
-            
+
         }
 
         private void DescontoTextBox_Leave(object sender, EventArgs e)
@@ -454,7 +440,7 @@ namespace Telas
                     contasPessoaDataGridView.SelectedRows[i].Cells[6].Value = (valorConta * (descontoAtual / 100)).ToString("N2");
                     decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
                     // valor da conta a vista
-                    contasPessoaDataGridView.SelectedRows[i].Cells[7].Value = valorConta - valorDescontoConta;
+                    contasPessoaDataGridView.SelectedRows[i].Cells[7].Value = (valorConta - valorDescontoConta).ToString("N2");
                 }
                 CalcularTotalContasSelecionadas();
             }

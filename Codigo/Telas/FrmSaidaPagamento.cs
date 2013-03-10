@@ -16,8 +16,6 @@ namespace Telas
     public partial class FrmSaidaPagamento : Form
     {
         private Saida saida;
-        //private Pessoa cliente = null;
-        //private decimal faltaReceber = 0;
 
         public FrmSaidaPagamento(Saida saida)
         {
@@ -32,7 +30,6 @@ namespace Telas
         /// <param name="e"></param>
         private void FrmSaidaPagamento_Load(object sender, EventArgs e)
         {
-            //codSaidaTextBox.Text = saida.CodSaida.ToString();
             saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
@@ -41,6 +38,11 @@ namespace Telas
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
+            if (codClienteComboBox.SelectedIndex != 0)
+            {
+                codFormaPagamentoComboBox.SelectedIndex = 1;
+            }
+
             InicializaVariaveis();
             AtualizaValores();
         }
@@ -52,7 +54,6 @@ namespace Telas
         {
             codCartaoComboBox.SelectedIndex = 0;
             codFormaPagamentoComboBox.SelectedIndex = 0;
-            //codDocumentoPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
             parcelasTextBox.Text = "1";
@@ -87,8 +88,7 @@ namespace Telas
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
                 saida.Total = decimal.Parse(totalTextBox.Text);
-                saida.TotalPago = Convert.ToDecimal(totalRecebidoLabel.Text);
-
+                
                 codFormaPagamentoComboBox.Focus();
                 GerenciadorSaidaPagamento.GetInstance().Inserir(saidaPagamento, saida);
 
@@ -135,7 +135,7 @@ namespace Telas
                 
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
-                    GerenciadorSaida.GetInstance().Encerrar(saida, frmSaidaConfirma.Opcao);
+                    GerenciadorSaida.GetInstance().Encerrar(saida.CodSaida, frmSaidaConfirma.Opcao);
                     if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                     {
                         // quando tem pagamento crediário imprime o DAV

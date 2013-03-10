@@ -161,8 +161,8 @@ namespace Telas
                             {
                                 GerenciadorProduto.GetInstance().AtualizarCodigoBarra(_produtoPesquisa, ultimoCodigoBarraLido);
                             }
-                            ultimoCodigoBarraLido = "";
                         }
+                        ultimoCodigoBarraLido = "";
                     }
                     else if (produtoComboBox != null)
                     {

@@ -45,11 +45,15 @@ namespace Negocio
             else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                 throw new NegocioException("Não é possível inserir produtos numa devolução para fornecedor cuja nota fiscal já foi emitida.");
             
+            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+            SaceEntities saceContext = (SaceEntities)repSaidaProduto.ObterContexto();
+            DbTransaction transaction = null;
             try
             {
-                var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
-                //repSaidaProduto.ObterContexto().Exe
-                
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+
                 SaidaProdutoE _saidaProdutoE = new SaidaProdutoE();
                 Atribuir(saidaProduto, _saidaProdutoE);
 
@@ -57,13 +61,18 @@ namespace Negocio
                 repSaidaProduto.SaveChanges();
 
 
-                AtualizarTotaisSaida(saida, saidaProduto, false);
+                AtualizarTotaisSaida(saida, saidaProduto, false, saceContext);
+                transaction.Commit();
                 return _saidaProdutoE.codSaidaProduto;
-                
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new DadosException("Saída de Produtos", e.Message, e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
             }
         }
 
@@ -74,20 +83,23 @@ namespace Negocio
         /// <param name="saida"></param>
         public void Remover(SaidaProduto saidaProduto, Saida saida)
         {
-            try
-            {
-                if (saida.TipoSaida == Saida.TIPO_VENDA)
+            if (saida.TipoSaida == Saida.TIPO_VENDA)
                     throw new NegocioException("Não é possível remover produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
                 else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Saída para Deposito com Nota Fiscal já emitida.");
                 else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Devolução para Fornecedor com Nota Fiscal já emitida.");
 
-               
-                var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
-            
-                var saceEntities = (SaceEntities)repSaidaProduto.ObterContexto();
-                var query = from _saidaProduto in saceEntities.SaidaProdutoSet
+            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+            SaceEntities saceContext = (SaceEntities)repSaidaProduto.ObterContexto();
+            DbTransaction transaction = null;
+            try
+            {
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+
+                var query = from _saidaProduto in saceContext.SaidaProdutoSet
                             where _saidaProduto.codSaidaProduto == saidaProduto.CodSaidaProduto
                             select _saidaProduto;
                 foreach (SaidaProdutoE saidaProdutoE in query)
@@ -95,11 +107,18 @@ namespace Negocio
                     repSaidaProduto.Remover(saidaProdutoE);
                 }
                 repSaidaProduto.SaveChanges();
-                AtualizarTotaisSaida(saida, saidaProduto, true);
+                AtualizarTotaisSaida(saida, saidaProduto, true, saceContext);
+
+                transaction.Commit();
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new DadosException("Saída de Produtos", e.Message, e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
             }
         }
 
@@ -226,7 +245,7 @@ namespace Negocio
         /// <param name="saidaProduto"></param>
         /// <param name="ehRemocao"></param>
         
-        private void AtualizarTotaisSaida(Saida saida, SaidaProduto saidaProduto, bool ehRemocao)
+        private void AtualizarTotaisSaida(Saida saida, SaidaProduto saidaProduto, bool ehRemocao, SaceEntities saceContext)
         {
             if (ehRemocao)
             {
@@ -249,7 +268,7 @@ namespace Negocio
                 saida.ValorIPI += saidaProduto.ValorIPI;
             }
             
-            GerenciadorSaida.GetInstance().Atualizar(saida);
+            GerenciadorSaida.GetInstance().Atualizar(saida, saceContext);
         }
     }
 }

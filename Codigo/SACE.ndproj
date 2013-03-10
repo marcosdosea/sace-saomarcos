@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <NDepend AppName="SACE" Platform="DotNet">
   <OutputDir KeepHistoric="True" KeepXmlFiles="True">D:\SACE\trunk\Codigo\NDependOut</OutputDir>
   <Assemblies>
@@ -8,41 +8,30 @@
     <Name>Dados</Name>
     <Name>Dominio</Name>
   </Assemblies>
-  <FrameworkAssemblies>
-    <Name>System.Windows.Forms</Name>
-    <Name>System</Name>
-    <Name>mscorlib</Name>
-    <Name>Microsoft.ReportViewer.WinForms</Name>
-    <Name>System.Drawing</Name>
-    <Name>System.Data</Name>
-    <Name>MySql.Data</Name>
-    <Name>System.Data.DataSetExtensions</Name>
-    <Name>System.Xml</Name>
-  </FrameworkAssemblies>
+  <FrameworkAssemblies />
   <Dirs>
     <Dir>C:\Windows\Microsoft.NET\Framework\v2.0.50727</Dir>
     <Dir>C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0</Dir>
     <Dir>C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5</Dir>
     <Dir>D:\SACE\trunk\Codigo\Telas\bin\Debug</Dir>
   </Dirs>
-  <Report XslPath="">
+  <Report Kind="0" SectionsEnabled="12287" XslPath="" Flags="0">
     <Section Enabled="True">Application Metrics</Section>
-    <Section Enabled="True">Assemblies Metrics</Section>
-    <Section Enabled="True">VisualNDepend View</Section>
-    <Section Enabled="True">Assemblies Abstractness vs. Instability</Section>
-    <Section Enabled="True">Assemblies Dependencies</Section>
-    <Section Enabled="True">Assemblies Dependencies Diagram</Section>
-    <Section Enabled="True">Assemblies build order</Section>
-    <Section Enabled="True">NDepend information and warnings</Section>
-    <Section Enabled="True">CQL Queries and Constraints</Section>
+    <Section Enabled="True">.NET Assemblies Metrics</Section>
+    <Section Enabled="True">Treemap Metric View</Section>
+    <Section Enabled="True">.NET Assemblies Abstractness vs. Instability</Section>
+    <Section Enabled="True">.NET Assemblies Dependencies</Section>
+    <Section Enabled="True">.NET Assemblies Dependency Graph</Section>
+    <Section Enabled="True">.NET Assemblies Build Order</Section>
+    <Section Enabled="True">Analysis Log</Section>
+    <Section Enabled="True">CQL Rules Violated</Section>
     <Section Enabled="True">Types Metrics</Section>
     <Section Enabled="False">Types Dependencies</Section>
   </Report>
-  <BuildComparisonSetting ProjectMode="DontCompare" BuildMode="MostRecentBuildAvailable" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="1" />
-  <BaselineInUISetting ProjectMode="DontCompare" BuildMode="MostRecentBuildAvailable" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="1" />
+  <BuildComparisonSetting ProjectMode="DontCompare" BuildMode="MostRecentAnalysisResultAvailable" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="1" />
+  <BaselineInUISetting ProjectMode="DontCompare" BuildMode="MostRecentAnalysisResultAvailable" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="1" />
   <CoverageFiles UncoverableAttribute="" />
-  <SourceFileRebasing FromPath="" ToPath="" />
-  <CQLQueries>
+  <SourceFileRebasing FromPath="" ToPath="" /><CQLQueries>
     <CQLGroup Name="Code Quality" Active="True">
       <CQLQuery Active="True" DisplayList="True" DisplayStat="True" DisplaySelectionView="False">// &lt;Name&gt;Quick summary of methods to refactor&lt;/Name&gt;\r\nWARN IF Count &gt; 0 IN SELECT \r\n   TOP 10 METHODS /*OUT OF "YourGeneratedCode" */ WHERE \r\n\r\n                                    // Metrics' definitions\r\n  ( NbLinesOfCode &gt; 30 OR           // http://www.ndepend.com/Metrics.aspx#NbLinesOfCode\r\n    NbILInstructions &gt; 200 OR       // http://www.ndepend.com/Metrics.aspx#NbILInstructions\r\n    CyclomaticComplexity &gt; 20 OR    // http://www.ndepend.com/Metrics.aspx#CC\r\n    ILCyclomaticComplexity &gt; 50 OR  // http://www.ndepend.com/Metrics.aspx#ILCC\r\n    ILNestingDepth &gt; 4 OR           // http://www.ndepend.com/Metrics.aspx#ILNestingDepth\r\n    NbParameters &gt; 5 OR             // http://www.ndepend.com/Metrics.aspx#NbParameters\r\n    NbVariables &gt; 8 OR              // http://www.ndepend.com/Metrics.aspx#NbVariables\r\n    NbOverloads &gt; 6 )               // http://www.ndepend.com/Metrics.aspx#NbOverloads\r\n     AND \r\n\r\n  // Here are some ways to avoid taking account of generated methods.\r\n  !( NameIs "InitializeComponent()" OR\r\n     // NDepend.CQL.GeneratedAttribute is defined in \r\n     // the redistributable assembly $NDependInstallDir$\Lib\NDepend.CQL.dll\r\n     // You can define your own attribute to mark "Generated".\r\n     HasAttribute "OPTIONAL:NDepend.CQL.GeneratedAttribute") </CQLQuery>
       <CQLQuery Active="True" DisplayList="True" DisplayStat="True" DisplaySelectionView="False">// &lt;Name&gt;Methods too big (NbLinesOfCode)&lt;/Name&gt;\r\nWARN IF Count &gt; 0 IN SELECT TOP 10 METHODS WHERE \r\n   NbLinesOfCode &gt; 30 \r\n   ORDER BY NbLinesOfCode DESC\r\n\r\n// METHODS WHERE NbLinesOfCode &gt; 30 are extremely complex \r\n// and should be split in smaller methods \r\n// (except if they are automatically generated by a tool).\r\n// See the definition of the NbLinesOfCode metric here \r\n// http://www.ndepend.com/Metrics.aspx#NbLinesOfCode</CQLQuery>
@@ -318,5 +307,4 @@
         <CQLQuery Active="True" DisplayList="True" DisplayStat="True" DisplaySelectionView="False">// &lt;Name&gt;Check that all namespaces begins with CompanyName.ProductName&lt;/Name&gt;\r\nWARN IF Count &gt; 0 IN SELECT NAMESPACES WHERE \r\n  !NameLike "^CompanyName.ProductName"\r\n  AND !IsInFrameworkAssembly </CQLQuery>
       </CQLGroup>
     </CQLGroup>
-  </CQLQueries>
-</NDepend>
+  </CQLQueries></NDepend>
