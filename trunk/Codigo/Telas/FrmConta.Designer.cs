@@ -71,14 +71,14 @@
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
             this.movimentacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
-            this.descricaoTipoContaLabel1 = new System.Windows.Forms.Label();
-            this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
-            this.situacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codMovimentacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoTipoMovimentacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataHoraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NomeResponsavel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoTipoContaLabel1 = new System.Windows.Forms.Label();
+            this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
+            this.situacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             codBancoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -493,35 +493,6 @@
             this.tb_movimentacao_contaDataGridView.TabIndex = 58;
             this.tb_movimentacao_contaDataGridView.TabStop = false;
             // 
-            // descricaoTipoContaLabel1
-            // 
-            this.descricaoTipoContaLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "DescricaoTipoConta", true));
-            this.descricaoTipoContaLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descricaoTipoContaLabel1.Location = new System.Drawing.Point(526, 127);
-            this.descricaoTipoContaLabel1.Name = "descricaoTipoContaLabel1";
-            this.descricaoTipoContaLabel1.Size = new System.Drawing.Size(113, 35);
-            this.descricaoTipoContaLabel1.TabIndex = 60;
-            this.descricaoTipoContaLabel1.Text = "PAGAR";
-            // 
-            // codSituacaoComboBox
-            // 
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "DescricaoSituacao", true));
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodSituacao", true));
-            this.codSituacaoComboBox.DataSource = this.situacaoContaBindingSource;
-            this.codSituacaoComboBox.DisplayMember = "Descricao";
-            this.codSituacaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codSituacaoComboBox.Enabled = false;
-            this.codSituacaoComboBox.FormattingEnabled = true;
-            this.codSituacaoComboBox.Location = new System.Drawing.Point(380, 85);
-            this.codSituacaoComboBox.Name = "codSituacaoComboBox";
-            this.codSituacaoComboBox.Size = new System.Drawing.Size(224, 21);
-            this.codSituacaoComboBox.TabIndex = 61;
-            this.codSituacaoComboBox.ValueMember = "CodSituacao";
-            // 
-            // situacaoContaBindingSource
-            // 
-            this.situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
-            // 
             // codMovimentacaoDataGridViewTextBoxColumn
             // 
             this.codMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodMovimentacao";
@@ -559,6 +530,35 @@
             this.valorDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
             this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
             this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descricaoTipoContaLabel1
+            // 
+            this.descricaoTipoContaLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "DescricaoTipoConta", true));
+            this.descricaoTipoContaLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descricaoTipoContaLabel1.Location = new System.Drawing.Point(526, 127);
+            this.descricaoTipoContaLabel1.Name = "descricaoTipoContaLabel1";
+            this.descricaoTipoContaLabel1.Size = new System.Drawing.Size(113, 35);
+            this.descricaoTipoContaLabel1.TabIndex = 60;
+            this.descricaoTipoContaLabel1.Text = "PAGAR";
+            // 
+            // codSituacaoComboBox
+            // 
+            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodSituacao", true));
+            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "DescricaoSituacao", true));
+            this.codSituacaoComboBox.DataSource = this.situacaoContaBindingSource;
+            this.codSituacaoComboBox.DisplayMember = "Descricao";
+            this.codSituacaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codSituacaoComboBox.Enabled = false;
+            this.codSituacaoComboBox.FormattingEnabled = true;
+            this.codSituacaoComboBox.Location = new System.Drawing.Point(380, 85);
+            this.codSituacaoComboBox.Name = "codSituacaoComboBox";
+            this.codSituacaoComboBox.Size = new System.Drawing.Size(224, 21);
+            this.codSituacaoComboBox.TabIndex = 61;
+            this.codSituacaoComboBox.ValueMember = "CodSituacao";
+            // 
+            // situacaoContaBindingSource
+            // 
+            this.situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
             // 
             // FrmConta
             // 

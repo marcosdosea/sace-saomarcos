@@ -24,6 +24,7 @@ namespace Negocio
             return gConta;
         }
 
+
         /// <summary>
         /// Insere conta na base de dados
         /// </summary>
@@ -31,15 +32,23 @@ namespace Negocio
         /// <returns></returns>
         public Int64 Inserir(Conta conta)
         {
+            var repConta = new RepositorioGenerico<ContaE>();
+            return Inserir(conta, (SaceEntities)repConta.ObterContexto());
+        }
+        /// <summary>
+        /// Insere conta na base de dados
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Conta conta, SaceEntities saceContext)
+        {
             try
             {
-                var repConta = new RepositorioGenerico<ContaE>();
-
                 ContaE _conta = new ContaE();
                 Atribuir(conta, _conta);
 
-                repConta.Inserir(_conta);
-                repConta.SaveChanges();
+                saceContext.AddToContaSet(_conta);
+                saceContext.SaveChanges();
                 
                 return _conta.codConta;
             }
@@ -81,15 +90,29 @@ namespace Negocio
         /// <param name="codConta">conta pesquisada</param>
         public void Atualizar(string codSituacao, decimal desconto, long codConta)
         {
+            var repConta = new RepositorioGenerico<ContaE>();
+            Atualizar(codSituacao, desconto, codConta, (SaceEntities)repConta.ObterContexto());
+        }
+
+        /// <summary>
+        /// Atualizar dados da conta no banco de dados.
+        /// </summary>
+        /// <param name="codSituacao">nova situação da conta</param>
+        /// <param name="valorDesconto">novo valor de desconto</param>
+        /// <param name="codConta">conta pesquisada</param>
+        public void Atualizar(string codSituacao, decimal desconto, long codConta, SaceEntities saceContext)
+        {
             try
             {
-                var repConta = new RepositorioGenerico<ContaE>();
+                var query = from contaSet in saceContext.ContaSet
+                            where contaSet.codConta == codConta
+                            select contaSet;
 
-                ContaE _conta = repConta.ObterEntidade(c => c.codConta == codConta);
+                ContaE _conta = query.ElementAtOrDefault(0);
                 _conta.codSituacao = codSituacao;
                 _conta.desconto = desconto;
 
-                repConta.SaveChanges();
+                saceContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -103,19 +126,27 @@ namespace Negocio
         /// <param name="codConta"></param>
         public void Remover(Int64 codConta)
         {
+            var repConta = new RepositorioGenerico<ContaE>();
+            Remover(codConta, (SaceEntities)repConta.ObterContexto());
+        }
+
+        /// <summary>
+        /// Remove conta da base de dados
+        /// </summary>
+        /// <param name="codConta"></param>
+        public void Remover(Int64 codConta, SaceEntities saceContext)
+        {
             try
             {
-                var repConta = new RepositorioGenerico<ContaE>();
-                var saceEntities = (SaceEntities)repConta.ObterContexto();
-                var query = from contaSet in saceEntities.ContaSet
+                var query = from contaSet in saceContext.ContaSet
                             where contaSet.codConta == codConta
                             select contaSet;
 
                 foreach (ContaE _contaE in query)
                 {
-                    repConta.Remover(_contaE);
+                    saceContext.DeleteObject(_contaE);
                 }
-                repConta.SaveChanges();
+                saceContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -252,7 +283,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Conta> ObterPorSituacaoPessoa(string codSituacao, long codPessoa)
         {
-            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).ToList();
+            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).OrderBy(conta => conta.DataVencimento).ToList();
         }
 
         /// <summary>
@@ -266,7 +297,7 @@ namespace Negocio
         public IEnumerable<Conta> ObterPorSituacaoPessoaPeriodo(string situacao1, string situacao2, long codPessoa, DateTime dataInicial, DateTime dataFinal)
         {
             return GetQuery().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) && 
-                  conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).ToList();
+                  conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).OrderBy(conta => conta.DataVencimento).ToList();
         }
 
         /// <summary>
@@ -317,29 +348,48 @@ namespace Negocio
         /// <param name="parcelas">número de parcelas do pagamento</param>
         public void SubstituirContas(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
         {
-            string observacao = "Substituiu as contas: ";
-            foreach (long codConta in listaContas)
+            var repConta = new RepositorioGenerico<ContaE>();
+            SaceEntities saceContext = (SaceEntities) repConta.ObterContexto();
+            DbTransaction transaction = null;
+            try
             {
-                GerenciadorConta.GetInstance().Atualizar(SituacaoConta.SITUACAO_QUITADA, 0, codConta);
-                observacao += codConta + ", ";
-            }
-            DateTime dataVecimento = DateTime.Now;
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
 
-            for (int i = 0; i < parcelas; i++)
+                string observacao = "Substituiu as contas: ";
+                foreach (long codConta in listaContas)
+                {
+                    Atualizar(SituacaoConta.SITUACAO_QUITADA, 0, codConta, saceContext);
+                    observacao += codConta + ", ";
+                }
+                DateTime dataVecimento = DateTime.Now;
+
+                for (int i = 0; i < parcelas; i++)
+                {
+                    Conta conta = new Conta();
+                    conta.CodEntrada = 1;
+                    conta.CodPagamento = 1;
+                    conta.CodPessoa = cartaoCredito.CodPessoa;
+                    conta.CodPlanoConta = PlanoConta.RECEBIMENTO_CREDIARIO;
+                    conta.CodSaida = 1;
+                    conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA;
+                    dataVecimento = dataVecimento.AddDays(cartaoCredito.DiaBase);
+                    conta.DataVencimento = dataVecimento;
+                    conta.Desconto = 0;
+                    conta.Valor = valorPagamento / parcelas;
+                    conta.Observacao = observacao;
+                    Inserir(conta, saceContext);
+                }
+            }
+            catch (Exception e)
             {
-                Conta conta = new Conta();    
-                conta.CodEntrada = 1;
-                conta.CodPagamento = 1;
-                conta.CodPessoa = cartaoCredito.CodPessoa;
-                conta.CodPlanoConta = PlanoConta.RECEBIMENTO_CREDIARIO;
-                conta.CodSaida = 1;
-                conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA;
-                dataVecimento = dataVecimento.AddDays(cartaoCredito.DiaBase);
-                conta.DataVencimento = dataVecimento;
-                conta.Desconto = 0;
-                conta.Valor = valorPagamento/parcelas;
-                conta.Observacao = observacao;
-                Inserir(conta);
+                transaction.Rollback();
+                throw new DadosException("Não foi possível realizar a substituição de contas. Favor contactar o administrador.", e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
             }
         }
     }

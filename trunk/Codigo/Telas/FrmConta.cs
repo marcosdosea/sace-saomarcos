@@ -28,6 +28,7 @@ namespace Telas
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
             contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterTodos();
+            situacaoContaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterSituacoesConta();
             
             habilitaBotoes(true);
         }

@@ -25,7 +25,7 @@ namespace Telas
         private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
 
-        Saida saida;
+        private Saida saida;
 
         public FrmSaida(int tipoSaida)
         {
@@ -160,20 +160,9 @@ namespace Telas
             saida = GerenciadorSaida.GetInstance().Obter(codSaida);
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
             {
-                GerenciadorSaida.GetInstance().ExcluirDocumentoFiscal(codSaida);
-                GerenciadorSaidaPagamento.GetInstance().RemoverPorSaida(saida);
-                if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
-                {
-                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance().ObterPorSaida(codSaida);
-                    GerenciadorSaida.GetInstance().RegistrarEstornoEstoque(saida);
-                }
-                saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-                saida.PedidoGerado = "";
-                saida.TotalPago = 0;
-                GerenciadorSaida.GetInstance().Atualizar(saida);
-                descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
+                GerenciadorSaida.GetInstance().CoverterParaOrcamento(saida);
             }
+            codSaidaTextBox_TextChanged(sender, e);
             
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
@@ -181,13 +170,11 @@ namespace Telas
             estado = EstadoFormulario.INSERIR_DETALHE;
         }
 
-        
-        
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Saida saida = GerenciadorSaida.GetInstance().Obter(Convert.ToInt64(codSaidaTextBox.Text));
+                saida = GerenciadorSaida.GetInstance().Obter(Convert.ToInt64(codSaidaTextBox.Text));
                 if ((saida.TipoSaida == Saida.TIPO_VENDA) && (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes))
                 {
                     GerenciadorSaida.GetInstance().Remover(saida);
@@ -224,7 +211,7 @@ namespace Telas
                 } else if ((tb_saida_produtoDataGridView.RowCount == 0) && (tipoSaidaFormulario != Saida.TIPO_OUTRAS_SAIDAS) &&
                     (estado.Equals(EstadoFormulario.INSERIR_DETALHE)) && (codSaida > 0) )
                 {
-                    Saida saida = (Saida) saidaBindingSource.Current;
+                    //saida = (Saida) saidaBindingSource.Current;
                     GerenciadorSaida.GetInstance().Remover(saida);
                     saidaBindingSource.RemoveCurrent();
                     saidaBindingSource.MoveLast();
@@ -254,7 +241,7 @@ namespace Telas
         /// <param name="e"></param>
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            Saida saida = (Saida)saidaBindingSource.Current;
+            //saida = (Saida)saidaBindingSource.Current;
             
             if (saida.CodSaida <= 0)
             {
@@ -303,7 +290,7 @@ namespace Telas
                 if (tb_saida_produtoDataGridView.Rows.Count > 0)
                 {
                     SaidaProduto saidaProduto = (SaidaProduto)saidaProdutoBindingSource.Current;
-                    Saida saida = (Saida)saidaBindingSource.Current;
+                    //saida = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
                     
                     Negocio.GerenciadorSaidaProduto.GetInstance().Remover(saidaProduto, saida);
                     saidaProdutoBindingSource.RemoveCurrent();
@@ -405,7 +392,7 @@ namespace Telas
         private void precoVendatextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
-            Saida saida = (Saida)saidaBindingSource.Current;
+            //saida = (Saida)saidaBindingSource.Current;
             ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
             produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
 
@@ -428,7 +415,7 @@ namespace Telas
         {
             decimal quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
 
-            Saida saida = (Saida)saidaBindingSource.Current;
+            //saida = (Saida)saidaBindingSource.Current;
             ProdutoPesquisa produto = (ProdutoPesquisa)produtoBindingSource.Current;
 
             if (produto != null)
@@ -513,6 +500,7 @@ namespace Telas
                 {
                     saidaProdutoBindingSource.DataSource = null;
                 }
+                //saidaBindingSource.ResumeBinding();
              }
         }
 
@@ -525,7 +513,7 @@ namespace Telas
         private void btnEncerrar_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            Saida saida = (Saida)saidaBindingSource.Current;
+            saida = (Saida)saidaBindingSource.Current;
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
                 habilitaBotoes(true);
@@ -582,7 +570,7 @@ namespace Telas
         /// <param name="e"></param>
         private void btnCfNfe_Click(object sender, EventArgs e)
         {
-            Saida saida = GerenciadorSaida.GetInstance().Obter(long.Parse(codSaidaTextBox.Text));
+            saida = GerenciadorSaida.GetInstance().Obter(long.Parse(codSaidaTextBox.Text));
 
             if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
             {

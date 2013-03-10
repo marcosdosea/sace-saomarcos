@@ -8,6 +8,7 @@ using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
+using System.Data.Objects;
 
 namespace Negocio
 {
@@ -60,9 +61,15 @@ namespace Negocio
         /// <param name="produtoLoja"></param>
         public void Atualizar(ProdutoLoja produtoLoja)
         {
+            
+            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+            SaceEntities saceContext = (SaceEntities) repProdutoLoja.ObterContexto();
+            DbTransaction transaction = null;
             try
             {
-                var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
 
                 ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == produtoLoja.CodProduto && pl.codLoja == produtoLoja.CodLoja);
                 _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
@@ -72,12 +79,18 @@ namespace Negocio
                 _produtoLojaE.qtdEstoqueAux = produtoLoja.QtdEstoqueAux;
 
                 repProdutoLoja.SaveChanges();
-                
-                AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);
+
+                AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto, saceContext);
+                transaction.Commit();
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new DadosException("Produto", e.Message, e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
             }
         }
 
@@ -87,17 +100,28 @@ namespace Negocio
         /// <param name="produtoLojaPK"></param>
         public void Remover(long codProduto, int codLoja)
         {
+            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+            SaceEntities saceContext = (SaceEntities)repProdutoLoja.ObterContexto();
+            DbTransaction transaction = null;
             try
             {
-                var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
 
                 repProdutoLoja.Remover(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
-                repProdutoLoja.SaveChanges();
-                AtualizarEstoqueEntradasProduto(codProduto);
+                saceContext.SaveChanges();
+                AtualizarEstoqueEntradasProduto(codProduto, saceContext);
+                transaction.Commit();
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new DadosException("Produto", e.Message, e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
             }
         }
 
@@ -157,12 +181,10 @@ namespace Negocio
         /// <param name="quantidadeAux"></param>
         /// <param name="codLoja"></param>
         /// <param name="codProduto"></param>
-        public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto)
+        public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto, ObjectContext context)
         {
-            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
-            
-            var saceEntities = (SaceEntities)repProdutoLoja.ObterContexto();
-            var query = from produtoLoja in saceEntities.ProdutoLojaSet
+            var saceContext = (SaceEntities) context;
+            var query = from produtoLoja in saceContext.ProdutoLojaSet
                         where produtoLoja.codLoja == codLoja && produtoLoja.codProduto == codProduto
                         select produtoLoja;
             int numeroRegistros = query.Count();
@@ -184,14 +206,15 @@ namespace Negocio
                 _produtoLojaE.codProduto = codProduto;
                 _produtoLojaE.qtdEstoque = quantidade;
                 _produtoLojaE.qtdEstoqueAux = quantidadeAux;
-                repProdutoLoja.Inserir(_produtoLojaE);
+
+                saceContext.AddToProdutoLojaSet(_produtoLojaE);
             }
-            
-            repProdutoLoja.SaveChanges();
+
+            saceContext.SaveChanges();
         }
 
         
-        private void AtualizarEstoqueEntradasProduto(long codProduto)
+        private void AtualizarEstoqueEntradasProduto(long codProduto, SaceEntities saceContext)
         {
             IEnumerable<ProdutoLoja> listaProdutosLoja = ObterPorProduto(codProduto);
 
@@ -229,7 +252,7 @@ namespace Negocio
                     {
                         entradasProdutoPrincipal[i].QuantidadeDisponivel = 0;
                     }
-                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoPrincipal[i]);
+                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoPrincipal[i], saceContext);
                 }
 
             }
@@ -258,7 +281,7 @@ namespace Negocio
                     {
                         entradasProdutoAuxiliar[i].QuantidadeDisponivel = 0;
                     }
-                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoAuxiliar[i]);
+                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoAuxiliar[i], saceContext);
                 }
 
             }

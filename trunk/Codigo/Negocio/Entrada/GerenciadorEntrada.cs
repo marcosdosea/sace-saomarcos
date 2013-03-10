@@ -49,20 +49,31 @@ namespace Negocio
             }
         }
 
+
         /// <summary>
         /// Atualizar dados da entrada
         /// </summary>
         /// <param name="entrada"></param>
         public void Atualizar(Entrada entrada)
         {
+            var repEntrada = new RepositorioGenerico<EntradaE>();
+            Atualizar(entrada, (SaceEntities) repEntrada.ObterContexto());
+        }
+
+        /// <summary>
+        /// Atualizar dados da entrada
+        /// </summary>
+        /// <param name="entrada"></param>
+        public void Atualizar(Entrada entrada, SaceEntities saceContext)
+        {
             try
             {
-                var repEntrada = new RepositorioGenerico<EntradaE>();
-
-                EntradaE _entradaE = repEntrada.ObterEntidade(e => e.codEntrada == entrada.CodEntrada);
+                var query = from entradaSet in saceContext.EntradaSet
+                            where entradaSet.codEntrada == entrada.CodEntrada
+                            select entradaSet;
+                EntradaE _entradaE = query.ElementAtOrDefault(0);    
                 Atribuir(entrada, _entradaE);
-
-                repEntrada.SaveChanges();
+                saceContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -95,17 +106,36 @@ namespace Negocio
         /// <param name="entrada"></param>
         public void Encerrar(Entrada entrada)
         {
-            if (GerenciadorConta.GetInstance().ObterPorEntrada(entrada.CodEntrada).ToList().Count == 0)
+            var repEntrada = new RepositorioGenerico<EntradaE>();
+            SaceEntities saceContext = (SaceEntities) repEntrada.ObterContexto();
+            DbTransaction transaction = null;
+            try
             {
-                List<EntradaPagamento> entradaPagamentos = (List<EntradaPagamento>) GerenciadorEntradaPagamento.GetInstance().ObterPorEntrada(entrada.CodEntrada);
-                RegistrarPagamentosEntrada(entradaPagamentos, entrada);
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+                if (GerenciadorConta.GetInstance().ObterPorEntrada(entrada.CodEntrada).ToList().Count == 0)
+                {
+                    List<EntradaPagamento> entradaPagamentos = (List<EntradaPagamento>)GerenciadorEntradaPagamento.GetInstance().ObterPorEntrada(entrada.CodEntrada);
+                    RegistrarPagamentosEntrada(entradaPagamentos, entrada, saceContext);
+                }
+                else
+                {
+                    throw new NegocioException("Existem contas associadas a essa entrada. Ela não pode ser encerrada novamente.");
+                }
+                entrada.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+                Atualizar(entrada, saceContext);
+                transaction.Commit();
             }
-            else 
+            catch (Exception e)
             {
-                throw new NegocioException("Existem contas associadas a essa entrada. Ela não pode ser encerrada novamente.");
+                transaction.Rollback();
+                throw e;
             }
-            entrada.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-            Atualizar(entrada);
+            finally
+            {
+                saceContext.Connection.Close();
+            }
         }
 
         /// <summary>
@@ -113,7 +143,7 @@ namespace Negocio
         /// </summary>
         /// <param name="pagamentos"></param>
         /// <param name="entrada"></param>
-        private void RegistrarPagamentosEntrada(List<EntradaPagamento> pagamentos, Entrada entrada)
+        private void RegistrarPagamentosEntrada(List<EntradaPagamento> pagamentos, Entrada entrada, SaceEntities saceContext)
         {
 
             foreach (EntradaPagamento pagamento in pagamentos)
@@ -152,8 +182,8 @@ namespace Negocio
                 {
                      conta.DataVencimento = pagamento.Data;
                  }
-                
-                conta.CodConta = GerenciadorConta.GetInstance().Inserir(conta);
+
+                conta.CodConta = GerenciadorConta.GetInstance().Inserir(conta, saceContext);
                 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
                 {
@@ -166,7 +196,7 @@ namespace Negocio
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = pagamento.Valor;
 
-                    GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao);
+                    GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao, saceContext);
                 }
             }
         }

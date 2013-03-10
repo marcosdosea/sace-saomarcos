@@ -34,8 +34,15 @@ namespace Negocio
         /// <returns></returns>
         public long Inserir(SaidaPagamento saidaPagamento, Saida saida)
         {
+            var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
+            SaceEntities saceContext = (SaceEntities)repSaidaPagamento.ObterContexto();
+            DbTransaction transaction = null;
             try
             {
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+
                 if ((saidaPagamento.Valor == 0) && ((saida.TotalAVista - saida.TotalPago) != 0))
                 {
                     throw new NegocioException("O valor recebido não pode ser igual a zero.");
@@ -67,22 +74,33 @@ namespace Negocio
                     _saidaPagamentoE.parcelas = saidaPagamento.Parcelas;
                     _saidaPagamentoE.valor = saidaPagamento.Valor;
 
-                    var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
+
                     repSaidaPagamento.Inserir(_saidaPagamentoE);
                     repSaidaPagamento.SaveChanges();
 
-                    saida.TotalPago = ObterPorSaida(saida.CodSaida).Sum(sp => sp.Valor);
+                    var query = from saidaPagamentoSet in saceContext.SaidaFormaPagamentoSet
+                                where saidaPagamentoSet.codSaida == saida.CodSaida
+                                select saidaPagamentoSet;
+
+
+                    saida.TotalPago = query.ToList().Sum(sp => (decimal) sp.valor);
                     saida.Troco = saida.TotalPago - saida.TotalAVista;
                     saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
 
                 }
-                GerenciadorSaida.GetInstance().Atualizar(saida);
-
+                GerenciadorSaida.GetInstance().Atualizar(saida, saceContext);
+                transaction.Commit();
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new DadosException("Pagamentos", e.Message, e);
             }
+            finally
+            {
+                saceContext.Connection.Close();
+            }
+
             return 0;
         }
 
@@ -90,9 +108,9 @@ namespace Negocio
         /// Remove todos os pagamentos de uma Saída
         /// </summary>
         /// <param name="saida"></param>
-        public void RemoverPorSaida(Saida saida)
+        public void RemoverPorSaida(Saida saida, SaceEntities saceContext)
         {
-            List<SaidaPagamento> pagamentos = (List<SaidaPagamento>) ObterPorSaida(saida.CodSaida);
+            List<SaidaPagamento> pagamentos = (List<SaidaPagamento>)ObterPorSaida(saida.CodSaida);
 
             foreach (SaidaPagamento pagamento in pagamentos)
             {
@@ -108,21 +126,26 @@ namespace Negocio
         /// <param name="saida"></param>
         public void Remover(Int64 codSaidaPagamento, Saida saida)
         {
+            var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
+            SaceEntities saceContext = (SaceEntities)repSaidaPagamento.ObterContexto();
+            DbTransaction transaction = null;
             try
             {
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+
                 if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
                 {
                     List<Conta> contas = GerenciadorConta.GetInstance().ObterPorSaidaPagamento(saida.CodSaida, codSaidaPagamento).ToList();
 
                     foreach (Conta conta in contas)
                     {
-                        GerenciadorMovimentacaoConta.getInstace().RemoverPorConta(conta.CodConta);
-                        GerenciadorConta.GetInstance().Remover(conta.CodConta);
+                        GerenciadorMovimentacaoConta.getInstace().RemoverPorConta(conta.CodConta, saceContext);
+                        GerenciadorConta.GetInstance().Remover(conta.CodConta, saceContext);
                     }
                 }
-                var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
-                var saceEntities = (SaceEntities)repSaidaPagamento.ObterContexto();
-                var query = from saidaPagamentoSet in saceEntities.SaidaFormaPagamentoSet
+                var query = from saidaPagamentoSet in saceContext.SaidaFormaPagamentoSet
                             where saidaPagamentoSet.codSaidaFormaPagamento == codSaidaPagamento
                             select saidaPagamentoSet;
 
@@ -135,11 +158,15 @@ namespace Negocio
                 saida.TotalPago = ObterPorSaida(saida.CodSaida).Sum(sp => sp.Valor);
                 saida.Troco = saida.TotalPago - saida.TotalAVista;
                 saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
-                GerenciadorSaida.GetInstance().Atualizar(saida);
+                GerenciadorSaida.GetInstance().Atualizar(saida, saceContext);
+                transaction.Commit();
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new DadosException("Pagamentos", e.Message, e);
+            } finally {
+                saceContext.Connection.Close();
             }
         }
 
@@ -209,7 +236,7 @@ namespace Negocio
         {
             return GetQuery().Where(sp => listaCodSaidas.Contains(sp.CodSaida)).ToList();
         }
-        
+
         /// <summary>
         /// Obter os todos os pagamentos de uma saída de uma mesma forma de pagamento
         /// </summary>
@@ -219,5 +246,5 @@ namespace Negocio
         {
             return GetQuery().Where(sp => sp.CodSaida == codSaida && sp.CodFormaPagamento == codFormaPagamento).ToList();
         }
-     }
+    }
 }
