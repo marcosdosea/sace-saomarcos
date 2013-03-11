@@ -245,7 +245,7 @@ namespace Telas
         private void tb_contaBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (codContaTextBox.Text != "")
-                movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.getInstace().ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
+                movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.GetInstance().ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
         }
     }
 }

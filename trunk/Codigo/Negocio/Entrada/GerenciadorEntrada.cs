@@ -196,7 +196,7 @@ namespace Negocio
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = pagamento.Valor;
 
-                    GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao, saceContext);
+                    GerenciadorMovimentacaoConta.GetInstance().Inserir(movimentacao, saceContext);
                 }
             }
         }
