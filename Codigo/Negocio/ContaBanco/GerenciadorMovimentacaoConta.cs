@@ -17,7 +17,7 @@ namespace Negocio
     {
         private static GerenciadorMovimentacaoConta gMovimentacaoConta;
 
-        public static GerenciadorMovimentacaoConta getInstace()
+        public static GerenciadorMovimentacaoConta GetInstance()
         {
             if (gMovimentacaoConta == null)
             {
@@ -202,7 +202,7 @@ namespace Negocio
                             where movimentacaoSet.codConta == codConta
                             select movimentacaoSet;
                 foreach (MovimentacaoContaE _movimentacaoContaE in query) {
-                    GerenciadorMovimentacaoConta.getInstace().Remover(_movimentacaoContaE.codMovimentacao, saceContext);
+                    GerenciadorMovimentacaoConta.GetInstance().Remover(_movimentacaoContaE.codMovimentacao, saceContext);
                 }
                 saceContext.SaveChanges();
             }
@@ -294,7 +294,7 @@ namespace Negocio
                             listaCodContas.Add(conta.CodConta);
                         }
                         decimal somaMovimentacoes = 0;
-                        IEnumerable<MovimentacaoConta> listaMovimentacoes = GerenciadorMovimentacaoConta.getInstace().ObterPorContas(listaCodContas);
+                        IEnumerable<MovimentacaoConta> listaMovimentacoes = GerenciadorMovimentacaoConta.GetInstance().ObterPorContas(listaCodContas);
                         foreach (MovimentacaoConta movimentacao in listaMovimentacoes)
                         {
                             somaMovimentacoes += movimentacao.Valor;

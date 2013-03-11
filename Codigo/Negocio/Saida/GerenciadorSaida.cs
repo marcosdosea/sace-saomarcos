@@ -651,7 +651,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
 
-                    GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao, saceContext);
+                    GerenciadorMovimentacaoConta.GetInstance().Inserir(movimentacao, saceContext);
                 }
             }
         }

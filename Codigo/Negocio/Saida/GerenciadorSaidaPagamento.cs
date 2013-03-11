@@ -141,7 +141,7 @@ namespace Negocio
 
                     foreach (Conta conta in contas)
                     {
-                        GerenciadorMovimentacaoConta.getInstace().RemoverPorConta(conta.CodConta, saceContext);
+                        GerenciadorMovimentacaoConta.GetInstance().RemoverPorConta(conta.CodConta, saceContext);
                         GerenciadorConta.GetInstance().Remover(conta.CodConta, saceContext);
                     }
                 }

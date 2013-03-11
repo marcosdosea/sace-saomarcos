@@ -138,7 +138,7 @@ namespace Telas
                         movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
                         movimentacao.DataHora = DateTime.Now;
                         movimentacao.Valor = valorPagamento;
-                        GerenciadorMovimentacaoConta.getInstace().Inserir(movimentacao, listaContas);
+                        GerenciadorMovimentacaoConta.GetInstance().Inserir(movimentacao, listaContas);
                         if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();
@@ -303,7 +303,7 @@ namespace Telas
                 if (tb_movimentacao_contaDataGridView.Rows.Count > 0)
                 {
                     long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorMovimentacaoConta.getInstace().Remover(codMovimentacaoConta);
+                    Negocio.GerenciadorMovimentacaoConta.GetInstance().Remover(codMovimentacaoConta);
                 }
                 ObterTodasContasAbertas(pessoa);
             }
@@ -454,7 +454,7 @@ namespace Telas
             {
                 contasExibidas.Add((long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value);
             }
-            movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.getInstace().ObterPorContas(contasExibidas);
+            movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.GetInstance().ObterPorContas(contasExibidas);
         }
 
 
