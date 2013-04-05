@@ -15,14 +15,26 @@ using System.Data.Objects;
 namespace Negocio
 {
     public class GerenciadorSaidaProduto {
-        private static GerenciadorSaidaProduto gSaidaProduto;
         
-        public static GerenciadorSaidaProduto GetInstance()
+        private static GerenciadorSaidaProduto gSaidaProduto;
+        private static SaceEntities saceContext;
+        private static RepositorioGenerico<SaidaProdutoE> repSaidaProduto;
+        
+        public static GerenciadorSaidaProduto GetInstance(SaceEntities context)
         {
             if (gSaidaProduto == null)
             {
                 gSaidaProduto = new GerenciadorSaidaProduto();
             }
+            if (context == null)
+            {
+                repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
+            }
+            else
+            {
+                repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>(context);
+            }
+            saceContext = (SaceEntities)repSaidaProduto.ObterContexto();
             return gSaidaProduto;
         }
 
@@ -44,9 +56,7 @@ namespace Negocio
                 throw new NegocioException("Não é possível inserir produtos numa transferência para depósito cuja nota fiscal já foi emitida.");
             else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                 throw new NegocioException("Não é possível inserir produtos numa devolução para fornecedor cuja nota fiscal já foi emitida.");
-            
-            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
-            SaceEntities saceContext = (SaceEntities)repSaidaProduto.ObterContexto();
+
             DbTransaction transaction = null;
             try
             {
@@ -61,7 +71,7 @@ namespace Negocio
                 repSaidaProduto.SaveChanges();
 
 
-                AtualizarTotaisSaida(saida, saidaProduto, false, saceContext);
+                AtualizarTotaisSaida(saida, saidaProduto, false);
                 transaction.Commit();
                 return _saidaProdutoE.codSaidaProduto;
             }
@@ -90,8 +100,6 @@ namespace Negocio
                 else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Devolução para Fornecedor com Nota Fiscal já emitida.");
 
-            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
-            SaceEntities saceContext = (SaceEntities)repSaidaProduto.ObterContexto();
             DbTransaction transaction = null;
             try
             {
@@ -107,7 +115,7 @@ namespace Negocio
                     repSaidaProduto.Remover(saidaProdutoE);
                 }
                 repSaidaProduto.SaveChanges();
-                AtualizarTotaisSaida(saida, saidaProduto, true, saceContext);
+                AtualizarTotaisSaida(saida, saidaProduto, true);
 
                 transaction.Commit();
             }
@@ -128,11 +136,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaProduto> GetQuery()
         {
-            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
-            
-            var saceEntities = (SaceEntities)repSaidaProduto.ObterContexto();
-            var query = from saidaProduto in saceEntities.SaidaProdutoSet
-                        join produto in saceEntities.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
                         select new SaidaProduto
                         {
                             BaseCalculoICMS = (decimal) saidaProduto.baseCalculoICMS,
@@ -186,12 +191,9 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaProduto> ObterPorPedido(string codPedido)
         {
-            var repSaidaProduto = new RepositorioGenerico<SaidaProdutoE>();
-            
-            var saceEntities = (SaceEntities)repSaidaProduto.ObterContexto();
-            var query = from saidaProduto in saceEntities.SaidaProdutoSet
-                        join produto in saceEntities.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
-                        join saida in saceEntities.SaidaSet on saidaProduto.codSaida equals saida.codSaida
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
+                        join saida in saceContext.SaidaSet on saidaProduto.codSaida equals saida.codSaida
                         where saida.pedidoGerado == codPedido
                         select new SaidaProduto
                         {
@@ -245,7 +247,7 @@ namespace Negocio
         /// <param name="saidaProduto"></param>
         /// <param name="ehRemocao"></param>
         
-        private void AtualizarTotaisSaida(Saida saida, SaidaProduto saidaProduto, bool ehRemocao, SaceEntities saceContext)
+        private void AtualizarTotaisSaida(Saida saida, SaidaProduto saidaProduto, bool ehRemocao)
         {
             if (ehRemocao)
             {
@@ -268,7 +270,7 @@ namespace Negocio
                 saida.ValorIPI += saidaProduto.ValorIPI;
             }
             
-            GerenciadorSaida.GetInstance().Atualizar(saida, saceContext);
+            GerenciadorSaida.GetInstance(saceContext).Atualizar(saida);
         }
     }
 }

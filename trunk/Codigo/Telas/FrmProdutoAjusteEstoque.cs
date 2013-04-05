@@ -28,7 +28,7 @@ namespace Telas
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
             lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
-            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(ProdutoSelected.CodProduto);
+            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(ProdutoSelected.CodProduto);
             habilitaBotoes(true);
         }
 
@@ -74,11 +74,11 @@ namespace Telas
                 produtoLoja.Localizacao2 = localizacao2TextBox.Text;
 
                 
-                GerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.GetInstance();
+                GerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.GetInstance(null);
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gProdutoLoja.Inserir(produtoLoja);
-                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(ProdutoSelected.CodProduto);
+                    produtoLojaBindingSource.DataSource = gProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
                     produtoLojaBindingSource.MoveLast();
                 }
                 else
@@ -204,7 +204,7 @@ namespace Telas
             {
                 nomeProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.Nome;
                 codProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.CodProduto.ToString();
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
                 habilitaBotoes(true);
             }
             frmProdutoPesquisa.Dispose();

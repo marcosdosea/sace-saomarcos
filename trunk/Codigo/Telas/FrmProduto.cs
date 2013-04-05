@@ -114,7 +114,7 @@ namespace Telas
                 produtoLoja.QtdEstoque = 0;
                 produtoLoja.QtdEstoqueAux = 0;
 
-                GerenciadorProdutoLoja.GetInstance().Inserir(produtoLoja);
+                GerenciadorProdutoLoja.GetInstance(null).Inserir(produtoLoja);
             }
             else
             {
@@ -299,7 +299,7 @@ namespace Telas
         private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
         {
             if ((codProdutoTextBox.Text != null) && (codProdutoTextBox.Text != ""))
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance().ObterPorProduto(Convert.ToInt64(codProdutoTextBox.Text));
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(Convert.ToInt64(codProdutoTextBox.Text));
             
         }
 

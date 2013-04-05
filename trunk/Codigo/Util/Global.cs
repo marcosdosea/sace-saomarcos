@@ -65,22 +65,23 @@ namespace Util
 
         public static String
 
-         //ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-         ENDERECO_SERVIDOR = "c:\\",
+         ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+         //ENDERECO_SERVIDOR = "c:\\",
          PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          NOME_SERVIDOR = "SERVIDOR",
+         //NOME_SERVIDOR = "MARCOSDOSEA",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",
          SGBD_SENHA = "sace",
          SGBD_IP = "192.168.0.3",
-         //PORTA_IMPRESSORA_NORMAL = "LPT1",
-         //PORTA_IMPRESSORA_REDUZIDA = "LPT2",
-         PORTA_IMPRESSORA_NORMAL = "lpt1-teste.txt",
-         PORTA_IMPRESSORA_REDUZIDA = "lpt2-teste.txt",
+         PORTA_IMPRESSORA_NORMAL = "LPT1",
+         PORTA_IMPRESSORA_REDUZIDA = "LPT2",
+         //PORTA_IMPRESSORA_NORMAL = "lpt1-teste.txt",
+         //PORTA_IMPRESSORA_REDUZIDA = "lpt2-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================";
         

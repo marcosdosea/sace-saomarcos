@@ -274,7 +274,7 @@ namespace Telas
 
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
-            GerenciadorSaida.GetInstance().AtualizarPedidosComDocumentosFiscais();
+            GerenciadorSaida.GetInstance(null).AtualizarPedidosComDocumentosFiscais();
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)

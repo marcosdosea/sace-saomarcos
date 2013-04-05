@@ -681,6 +681,22 @@ namespace Dados
             }
         }
         private ObjectSet<SaidaPedidoE> _SaidaPedidoSet;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_parametros_locais> tb_parametros_locais
+        {
+            get
+            {
+                if ((_tb_parametros_locais == null))
+                {
+                    _tb_parametros_locais = base.CreateObjectSet<tb_parametros_locais>("tb_parametros_locais");
+                }
+                return _tb_parametros_locais;
+            }
+        }
+        private ObjectSet<tb_parametros_locais> _tb_parametros_locais;
 
         #endregion
         #region AddTo Methods
@@ -963,6 +979,14 @@ namespace Dados
         public void AddToSaidaPedidoSet(SaidaPedidoE saidaPedidoE)
         {
             base.AddObject("SaidaPedidoSet", saidaPedidoE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_parametros_locais EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_parametros_locais(tb_parametros_locais tb_parametros_locais)
+        {
+            base.AddObject("tb_parametros_locais", tb_parametros_locais);
         }
 
         #endregion
@@ -6392,17 +6416,19 @@ namespace Dados
         /// </summary>
         /// <param name="codProduto">Initial value of the codProduto property.</param>
         /// <param name="nome">Initial value of the nome property.</param>
+        /// <param name="unidade">Initial value of the unidade property.</param>
         /// <param name="codCST">Initial value of the codCST property.</param>
         /// <param name="ncmsh">Initial value of the ncmsh property.</param>
         /// <param name="codFabricante">Initial value of the codFabricante property.</param>
         /// <param name="codSituacaoProduto">Initial value of the codSituacaoProduto property.</param>
         /// <param name="codGrupo">Initial value of the codGrupo property.</param>
         /// <param name="codSubgrupo">Initial value of the codSubgrupo property.</param>
-        public static ProdutoE CreateProdutoE(global::System.Int64 codProduto, global::System.String nome, global::System.String codCST, global::System.String ncmsh, global::System.Int64 codFabricante, global::System.SByte codSituacaoProduto, global::System.Int64 codGrupo, global::System.Int32 codSubgrupo)
+        public static ProdutoE CreateProdutoE(global::System.Int64 codProduto, global::System.String nome, global::System.String unidade, global::System.String codCST, global::System.String ncmsh, global::System.Int64 codFabricante, global::System.SByte codSituacaoProduto, global::System.Int64 codGrupo, global::System.Int32 codSubgrupo)
         {
             ProdutoE produtoE = new ProdutoE();
             produtoE.codProduto = codProduto;
             produtoE.nome = nome;
+            produtoE.unidade = unidade;
             produtoE.codCST = codCST;
             produtoE.ncmsh = ncmsh;
             produtoE.codFabricante = codFabricante;
@@ -6493,7 +6519,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String unidade
         {
@@ -6505,7 +6531,7 @@ namespace Dados
             {
                 OnunidadeChanging(value);
                 ReportPropertyChanging("unidade");
-                _unidade = StructuralObject.SetValidValue(value, true);
+                _unidade = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("unidade");
                 OnunidadeChanged();
             }
@@ -9297,11 +9323,13 @@ namespace Dados
         /// </summary>
         /// <param name="codSaida">Initial value of the codSaida property.</param>
         /// <param name="codPedidoGerado">Initial value of the codPedidoGerado property.</param>
-        public static SaidaPedidoE CreateSaidaPedidoE(global::System.Int64 codSaida, global::System.Int64 codPedidoGerado)
+        /// <param name="totalAVista">Initial value of the totalAVista property.</param>
+        public static SaidaPedidoE CreateSaidaPedidoE(global::System.Int64 codSaida, global::System.Int64 codPedidoGerado, global::System.Decimal totalAVista)
         {
             SaidaPedidoE saidaPedidoE = new SaidaPedidoE();
             saidaPedidoE.codSaida = codSaida;
             saidaPedidoE.codPedidoGerado = codPedidoGerado;
+            saidaPedidoE.totalAVista = totalAVista;
             return saidaPedidoE;
         }
 
@@ -9361,6 +9389,30 @@ namespace Dados
         private global::System.Int64 _codPedidoGerado;
         partial void OncodPedidoGeradoChanging(global::System.Int64 value);
         partial void OncodPedidoGeradoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal totalAVista
+        {
+            get
+            {
+                return _totalAVista;
+            }
+            set
+            {
+                OntotalAVistaChanging(value);
+                ReportPropertyChanging("totalAVista");
+                _totalAVista = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("totalAVista");
+                OntotalAVistaChanged();
+            }
+        }
+        private global::System.Decimal _totalAVista;
+        partial void OntotalAVistaChanging(global::System.Decimal value);
+        partial void OntotalAVistaChanged();
 
         #endregion
     
@@ -10527,6 +10579,133 @@ namespace Dados
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_parametros_locais")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_parametros_locais : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_parametros_locais object.
+        /// </summary>
+        /// <param name="nomeMaquina">Initial value of the nomeMaquina property.</param>
+        public static tb_parametros_locais Createtb_parametros_locais(global::System.String nomeMaquina)
+        {
+            tb_parametros_locais tb_parametros_locais = new tb_parametros_locais();
+            tb_parametros_locais.nomeMaquina = nomeMaquina;
+            return tb_parametros_locais;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String nomeMaquina
+        {
+            get
+            {
+                return _nomeMaquina;
+            }
+            set
+            {
+                if (_nomeMaquina != value)
+                {
+                    OnnomeMaquinaChanging(value);
+                    ReportPropertyChanging("nomeMaquina");
+                    _nomeMaquina = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("nomeMaquina");
+                    OnnomeMaquinaChanged();
+                }
+            }
+        }
+        private global::System.String _nomeMaquina;
+        partial void OnnomeMaquinaChanging(global::System.String value);
+        partial void OnnomeMaquinaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String enderecoServidor
+        {
+            get
+            {
+                return _enderecoServidor;
+            }
+            set
+            {
+                OnenderecoServidorChanging(value);
+                ReportPropertyChanging("enderecoServidor");
+                _enderecoServidor = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("enderecoServidor");
+                OnenderecoServidorChanged();
+            }
+        }
+        private global::System.String _enderecoServidor;
+        partial void OnenderecoServidorChanging(global::System.String value);
+        partial void OnenderecoServidorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String portaImpressoraNormal
+        {
+            get
+            {
+                return _portaImpressoraNormal;
+            }
+            set
+            {
+                OnportaImpressoraNormalChanging(value);
+                ReportPropertyChanging("portaImpressoraNormal");
+                _portaImpressoraNormal = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("portaImpressoraNormal");
+                OnportaImpressoraNormalChanged();
+            }
+        }
+        private global::System.String _portaImpressoraNormal;
+        partial void OnportaImpressoraNormalChanging(global::System.String value);
+        partial void OnportaImpressoraNormalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String portaImpressoraReduzida
+        {
+            get
+            {
+                return _portaImpressoraReduzida;
+            }
+            set
+            {
+                OnportaImpressoraReduzidaChanging(value);
+                ReportPropertyChanging("portaImpressoraReduzida");
+                _portaImpressoraReduzida = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("portaImpressoraReduzida");
+                OnportaImpressoraReduzidaChanged();
+            }
+        }
+        private global::System.String _portaImpressoraReduzida;
+        partial void OnportaImpressoraReduzidaChanging(global::System.String value);
+        partial void OnportaImpressoraReduzidaChanged();
+
+        #endregion
+    
     }
     
     /// <summary>

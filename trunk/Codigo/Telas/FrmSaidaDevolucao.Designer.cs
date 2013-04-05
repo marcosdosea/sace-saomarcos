@@ -315,6 +315,16 @@
             codClienteLabel.TabIndex = 81;
             codClienteLabel.Text = "Destinatário:";
             // 
+            // dataSaidaLabel
+            // 
+            dataSaidaLabel.AutoSize = true;
+            dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            dataSaidaLabel.Location = new System.Drawing.Point(461, 3);
+            dataSaidaLabel.Name = "dataSaidaLabel";
+            dataSaidaLabel.Size = new System.Drawing.Size(136, 29);
+            dataSaidaLabel.TabIndex = 81;
+            dataSaidaLabel.Text = "Data Saída:";
+            // 
             // saidaBindingSource
             // 
             this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
@@ -463,10 +473,8 @@
             this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.valorIPITextBox.Location = new System.Drawing.Point(478, 265);
             this.valorIPITextBox.Name = "valorIPITextBox";
-            this.valorIPITextBox.ReadOnly = true;
             this.valorIPITextBox.Size = new System.Drawing.Size(164, 35);
             this.valorIPITextBox.TabIndex = 24;
-            this.valorIPITextBox.TabStop = false;
             this.valorIPITextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.valorIPITextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -609,16 +617,6 @@
             // pessoaDestinoBindingSource
             // 
             this.pessoaDestinoBindingSource.DataSource = typeof(Dominio.Pessoa);
-            // 
-            // dataSaidaLabel
-            // 
-            dataSaidaLabel.AutoSize = true;
-            dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            dataSaidaLabel.Location = new System.Drawing.Point(461, 3);
-            dataSaidaLabel.Name = "dataSaidaLabel";
-            dataSaidaLabel.Size = new System.Drawing.Size(136, 29);
-            dataSaidaLabel.TabIndex = 81;
-            dataSaidaLabel.Text = "Data Saída:";
             // 
             // dataSaidaDateTimePicker
             // 

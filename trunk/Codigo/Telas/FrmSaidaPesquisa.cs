@@ -23,7 +23,7 @@ namespace Telas
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
         {
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPreVendasPendentes();
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
             cmbBusca.SelectedIndex = 1;
          }
 
@@ -33,17 +33,17 @@ namespace Telas
             {
                 if (cmbBusca.SelectedIndex == 0)
                 {
-                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPreVendasPendentes();
+                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
                 }
                 else
                     if (!txtTexto.Text.Trim().Equals(""))
                     {
                         if (cmbBusca.SelectedIndex == 1)
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(long.Parse(txtTexto.Text));
+                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(long.Parse(txtTexto.Text));
                         else if (cmbBusca.SelectedIndex == 2)
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorPedido(txtTexto.Text);
+                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorPedido(txtTexto.Text);
                         else if (cmbBusca.SelectedIndex == 3)
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPorNomeCliente(txtTexto.Text);
+                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorNomeCliente(txtTexto.Text);
                     }
             }
             catch (System.Exception ex)
@@ -86,7 +86,7 @@ namespace Telas
             txtTexto.Text = "";
             if (cmbBusca.SelectedIndex == 0)
             {
-                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().ObterPreVendasPendentes();
+                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
             }
         }
       

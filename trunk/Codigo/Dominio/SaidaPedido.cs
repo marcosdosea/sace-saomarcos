@@ -9,5 +9,6 @@ namespace Dominio
     {
         public long CodSaida { get; set; }
         public long CodPedido { get; set; }
+        public decimal TotalAVista { get; set; }
     }
 }

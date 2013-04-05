@@ -23,6 +23,7 @@
           <EntitySet Name="tb_grupo_conta" EntityType="SaceModel.Store.tb_grupo_conta" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_loja" EntityType="SaceModel.Store.tb_loja" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_movimentacao_conta" EntityType="SaceModel.Store.tb_movimentacao_conta" store:Type="Tables" Schema="sace" />
+          <EntitySet Name="tb_parametros_locais" EntityType="SaceModel.Store.tb_parametros_locais" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_perfil" EntityType="SaceModel.Store.tb_perfil" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_perfil_funcionalidade" EntityType="SaceModel.Store.tb_perfil_funcionalidade" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_permissao" EntityType="SaceModel.Store.tb_permissao" store:Type="Tables" Schema="sace" />
@@ -98,10 +99,6 @@
           <AssociationSet Name="fk_tb_entrada_codfornecedor" Association="SaceModel.Store.fk_tb_entrada_codfornecedor">
             <End Role="tb_pessoa" EntitySet="tb_pessoa" />
             <End Role="tb_entrada" EntitySet="tb_entrada" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tb_entrada_forma_pagamento_tb_conta_banco1" Association="SaceModel.Store.fk_tb_entrada_forma_pagamento_tb_conta_banco1">
-            <End Role="tb_conta_banco" EntitySet="tb_conta_banco" />
-            <End Role="tb_entrada_forma_pagamento" EntitySet="tb_entrada_forma_pagamento" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1" Association="SaceModel.Store.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1">
             <End Role="tb_entrada" EntitySet="tb_entrada" />
@@ -452,6 +449,15 @@
           <Property Name="valor" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="dataHora" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="tb_parametros_locais">
+          <Key>
+            <PropertyRef Name="nomeMaquina" />
+          </Key>
+          <Property Name="nomeMaquina" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="enderecoServidor" Type="varchar" MaxLength="50" />
+          <Property Name="portaImpressoraNormal" Type="varchar" MaxLength="100" />
+          <Property Name="portaImpressoraReduzida" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="tb_perfil">
           <Key>
             <PropertyRef Name="codPerfil" />
@@ -522,7 +528,7 @@
           <Property Name="codProduto" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="nome" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="nomeProdutoFabricante" Type="varchar" MaxLength="50" />
-          <Property Name="unidade" Type="char" MaxLength="2" />
+          <Property Name="unidade" Type="char" Nullable="false" MaxLength="2" />
           <Property Name="codigoBarra" Type="varchar" MaxLength="40" />
           <Property Name="codCST" Type="char" Nullable="false" MaxLength="4" />
           <Property Name="cfop" Type="int" />
@@ -601,7 +607,7 @@
           <Property Name="pesoBruto" Type="decimal" Scale="2" />
           <Property Name="pesoLiquido" Type="decimal" Scale="2" />
           <Property Name="codEmpresaFrete" Type="bigint" Nullable="false" />
-          <Property Name="observacao" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="observacao" Type="varchar" Nullable="false" MaxLength="165" />
         </EntityType>
         <EntityType Name="tb_saida_forma_pagamento">
           <Key>
@@ -624,6 +630,7 @@
           </Key>
           <Property Name="codSaida" Type="bigint" Nullable="false" />
           <Property Name="codPedidoGerado" Type="bigint" Nullable="false" />
+          <Property Name="totalAVista" Type="decimal" Nullable="false" Scale="2" />
         </EntityType>
         <EntityType Name="tb_saida_produto">
           <Key>
@@ -881,18 +888,6 @@
             </Principal>
             <Dependent Role="tb_entrada">
               <PropertyRef Name="codFornecedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tb_entrada_forma_pagamento_tb_conta_banco1">
-          <End Role="tb_conta_banco" Type="SaceModel.Store.tb_conta_banco" Multiplicity="1" />
-          <End Role="tb_entrada_forma_pagamento" Type="SaceModel.Store.tb_entrada_forma_pagamento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_conta_banco">
-              <PropertyRef Name="codContaBanco" />
-            </Principal>
-            <Dependent Role="tb_entrada_forma_pagamento">
-              <PropertyRef Name="codContaBanco" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1382,6 +1377,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'def.sace.tb_parametros_globais' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="tb_parametros_globais">
+        <Property Name="acrescimoPadrao" Type="decimal" Scale="6" />
+        <Property Name="descontoPadrao" Type="decimal" Scale="2" />
+        <Property Name="simples" Type="decimal" Scale="2" />
+        <Property Name="icmsLocal" Type="decimal" Scale="2" />
+        <Property Name="custoManutencao" Type="decimal" Scale="2" />
+        <Property Name="pastaComunicacaoFrenteLoja" Type="varchar" MaxLength="100" />
+        <Property Name="pastaComunicacaoFrenteLojaRetorno" Type="varchar" MaxLength="100" />
+        <Property Name="pastaComunicacaoFrenteLojaBackup" Type="varchar" MaxLength="100" />
+        <Property Name="pastaBackup" Type="varchar" MaxLength="100" />
+        <Property Name="pastaMysqlServer" Type="varchar" MaxLength="100" />
+        <Property Name="nomeServidor" Type="varchar" MaxLength="50" />
+        <Property Name="sgbdNome" Type="varchar" MaxLength="50" />
+        <Property Name="sgbdUsuario" Type="varchar" MaxLength="50" />
+        <Property Name="sgbdSenha" Type="varchar" MaxLength="50" />
+        <Property Name="sgbdIP" Type="varchar" MaxLength="50" />
+        <Property Name="linha" Type="varchar" MaxLength="100" />
+        <Property Name="linhaComprimida" Type="varchar" MaxLength="100" />
+      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1634,6 +1651,7 @@
             <End Role="tb_saida" EntitySet="SaidaSet" />
           </AssociationSet>
           <EntitySet Name="SaidaPedidoSet" EntityType="SaceModel.SaidaPedidoE" />
+          <EntitySet Name="tb_parametros_locais" EntityType="SaceModel.tb_parametros_locais" />
         </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -1944,7 +1962,7 @@
           <Property Name="codProduto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nome" Type="String" Nullable="false" />
           <Property Name="nomeProdutoFabricante" Type="String" />
-          <Property Name="unidade" Type="String" />
+          <Property Name="unidade" Type="String" Nullable="false" />
           <Property Name="codigoBarra" Type="String" />
           <Property Name="codCST" Type="String" Nullable="false" />
           <Property Name="cfop" Type="Int32" />
@@ -2804,6 +2822,16 @@
           </Key>
           <Property Type="Int64" Name="codSaida" Nullable="false" />
           <Property Type="Int64" Name="codPedidoGerado" Nullable="false" />
+          <Property Type="Decimal" Name="totalAVista" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_parametros_locais">
+          <Key>
+            <PropertyRef Name="nomeMaquina" />
+          </Key>
+          <Property Type="String" Name="nomeMaquina" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="enderecoServidor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="portaImpressoraNormal" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="portaImpressoraReduzida" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3150,8 +3178,19 @@
           <EntitySetMapping Name="SaidaPedidoSet">
             <EntityTypeMapping TypeName="SaceModel.SaidaPedidoE">
               <MappingFragment StoreEntitySet="tb_saida_pedido">
+                <ScalarProperty Name="totalAVista" ColumnName="totalAVista" />
                 <ScalarProperty Name="codPedidoGerado" ColumnName="codPedidoGerado" />
                 <ScalarProperty Name="codSaida" ColumnName="codSaida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_parametros_locais">
+            <EntityTypeMapping TypeName="SaceModel.tb_parametros_locais">
+              <MappingFragment StoreEntitySet="tb_parametros_locais">
+                <ScalarProperty Name="portaImpressoraReduzida" ColumnName="portaImpressoraReduzida" />
+                <ScalarProperty Name="portaImpressoraNormal" ColumnName="portaImpressoraNormal" />
+                <ScalarProperty Name="enderecoServidor" ColumnName="enderecoServidor" />
+                <ScalarProperty Name="nomeMaquina" ColumnName="nomeMaquina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3721,6 +3760,7 @@
           <ConnectorPoint PointX="6.625" PointY="21.296875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SaceModel.SaidaPedidoE" Width="1.5" PointX="3.375" PointY="0.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="SaceModel.tb_parametros_locais" Width="1.5" PointX="0.75" PointY="3.75" Height="1.7879850260416674" />
       </Diagram>
     </Diagrams>
   </Designer>

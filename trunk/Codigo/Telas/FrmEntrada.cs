@@ -112,7 +112,7 @@ namespace Telas
             }
             else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                GerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.GetInstance();
+                GerenciadorEntradaProduto gEntradaProduto = GerenciadorEntradaProduto.GetInstance(null);
                 entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 entradaProduto.CodProduto = Convert.ToInt32(codProdutoComboBox.SelectedValue.ToString());
                 entradaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
@@ -144,7 +144,7 @@ namespace Telas
                 entradaProduto.FornecedorEhFabricante = ((Pessoa)fornecedorBindingSource.Current).EhFabricante;
                 entradaProduto.CodFornecedor = ((Pessoa)fornecedorBindingSource.Current).CodPessoa;
 
-                GerenciadorEntradaProduto.GetInstance().Inserir(entradaProduto, entrada.CodTipoEntrada);
+                GerenciadorEntradaProduto.GetInstance(null).Inserir(entradaProduto, entrada.CodTipoEntrada);
                 codEntradaTextBox_TextChanged(sender, e);
                 btnProdutos_Click(sender, e);
             }
@@ -168,7 +168,7 @@ namespace Telas
                 {
                     EntradaProduto _entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                     Entrada _entrada = (Entrada)entradaBindingSource.Current;
-                    GerenciadorEntradaProduto.GetInstance().Remover(_entradaProduto, entrada.CodTipoEntrada);
+                    GerenciadorEntradaProduto.GetInstance(null).Remover(_entradaProduto, entrada.CodTipoEntrada);
                 }
             }
             codEntradaTextBox_TextChanged(sender, e);
@@ -237,6 +237,7 @@ namespace Telas
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
                 produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
+
                 EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 if (produtoPesquisa != null)
                 {
@@ -266,7 +267,7 @@ namespace Telas
             decimal totalNotaCalculado = 0;
             if ((!codEntradaTextBox.Text.Trim().Equals("")) && (long.Parse(codEntradaTextBox.Text) > 1))
             {
-                IEnumerable<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance().ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
+                IEnumerable<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance(null).ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
                 entradaProdutoBindingSource.DataSource = listaEntradaProduto;
                 foreach (EntradaProduto entradaProduto in listaEntradaProduto)
                 {

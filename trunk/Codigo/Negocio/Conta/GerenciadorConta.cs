@@ -14,16 +14,27 @@ namespace Negocio
     public class GerenciadorConta
     {
         private static GerenciadorConta gConta;
+        private static SaceEntities saceContext;
+        private static RepositorioGenerico<ContaE> repConta;
+
        
-        public static GerenciadorConta GetInstance()
+        public static GerenciadorConta GetInstance(SaceEntities context)
         {
             if (gConta == null)
             {
                 gConta = new GerenciadorConta();
             }
+            if (context == null) 
+            {
+                repConta = new RepositorioGenerico<ContaE>();
+            }
+            else 
+            {
+                repConta = new RepositorioGenerico<ContaE>(context);
+            }
+            saceContext = (SaceEntities)repConta.ObterContexto();
             return gConta;
         }
-
 
         /// <summary>
         /// Insere conta na base de dados
@@ -32,22 +43,12 @@ namespace Negocio
         /// <returns></returns>
         public Int64 Inserir(Conta conta)
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-            return Inserir(conta, (SaceEntities)repConta.ObterContexto());
-        }
-        /// <summary>
-        /// Insere conta na base de dados
-        /// </summary>
-        /// <param name="conta"></param>
-        /// <returns></returns>
-        public Int64 Inserir(Conta conta, SaceEntities saceContext)
-        {
             try
             {
                 ContaE _conta = new ContaE();
                 Atribuir(conta, _conta);
 
-                saceContext.AddToContaSet(_conta);
+                repConta.Inserir(_conta);
                 saceContext.SaveChanges();
                 
                 return _conta.codConta;
@@ -81,7 +82,7 @@ namespace Negocio
                 throw new DadosException("Conta", e.Message, e);
             }
         }
-
+        
         /// <summary>
         /// Atualizar dados da conta no banco de dados.
         /// </summary>
@@ -90,25 +91,13 @@ namespace Negocio
         /// <param name="codConta">conta pesquisada</param>
         public void Atualizar(string codSituacao, decimal desconto, long codConta)
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-            Atualizar(codSituacao, desconto, codConta, (SaceEntities)repConta.ObterContexto());
-        }
-
-        /// <summary>
-        /// Atualizar dados da conta no banco de dados.
-        /// </summary>
-        /// <param name="codSituacao">nova situação da conta</param>
-        /// <param name="valorDesconto">novo valor de desconto</param>
-        /// <param name="codConta">conta pesquisada</param>
-        public void Atualizar(string codSituacao, decimal desconto, long codConta, SaceEntities saceContext)
-        {
             try
             {
                 var query = from contaSet in saceContext.ContaSet
                             where contaSet.codConta == codConta
                             select contaSet;
 
-                ContaE _conta = query.ElementAtOrDefault(0);
+                ContaE _conta = query.ToList().ElementAtOrDefault(0);
                 _conta.codSituacao = codSituacao;
                 _conta.desconto = desconto;
 
@@ -126,16 +115,6 @@ namespace Negocio
         /// <param name="codConta"></param>
         public void Remover(Int64 codConta)
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-            Remover(codConta, (SaceEntities)repConta.ObterContexto());
-        }
-
-        /// <summary>
-        /// Remove conta da base de dados
-        /// </summary>
-        /// <param name="codConta"></param>
-        public void Remover(Int64 codConta, SaceEntities saceContext)
-        {
             try
             {
                 var query = from contaSet in saceContext.ContaSet
@@ -144,9 +123,9 @@ namespace Negocio
 
                 foreach (ContaE _contaE in query)
                 {
-                    saceContext.DeleteObject(_contaE);
+                    repConta.Remover(_contaE);
                 }
-                saceContext.SaveChanges();
+                repConta.SaveChanges();
             }
             catch (Exception e)
             {
@@ -160,13 +139,10 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Conta> GetQuery()
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-
-            var saceEntities = (SaceEntities)repConta.ObterContexto();
-            var query = from conta in saceEntities.ContaSet
-                        join planoConta in saceEntities.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
-                        join situacaoConta in saceEntities.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
-                        join saida in saceEntities.SaidaSet on conta.codSaida equals saida.codSaida
+            var query = from conta in saceContext.ContaSet
+                        join planoConta in saceContext.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
+                        join situacaoConta in saceContext.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
+                        join saida in saceContext.SaidaSet on conta.codSaida equals saida.codSaida
                         orderby conta.codConta
                         select new Conta
                         {
@@ -306,10 +282,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<SituacaoConta> ObterSituacoesConta()
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-
-            var saceEntities = (SaceEntities)repConta.ObterContexto();
-            var query = from situacaoConta in saceEntities.SituacaoContaSet
+            var query = from situacaoConta in saceContext.SituacaoContaSet
                         select new SituacaoConta
                         {
                             CodSituacao = situacaoConta.codSituacao,
@@ -348,8 +321,6 @@ namespace Negocio
         /// <param name="parcelas">número de parcelas do pagamento</param>
         public void SubstituirContas(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
         {
-            var repConta = new RepositorioGenerico<ContaE>();
-            SaceEntities saceContext = (SaceEntities) repConta.ObterContexto();
             DbTransaction transaction = null;
             try
             {
@@ -360,7 +331,7 @@ namespace Negocio
                 string observacao = "Substituiu as contas: ";
                 foreach (long codConta in listaContas)
                 {
-                    Atualizar(SituacaoConta.SITUACAO_QUITADA, 0, codConta, saceContext);
+                    Atualizar(SituacaoConta.SITUACAO_QUITADA, 0, codConta);
                     observacao += codConta + ", ";
                 }
                 DateTime dataVecimento = DateTime.Now;
@@ -379,7 +350,7 @@ namespace Negocio
                     conta.Desconto = 0;
                     conta.Valor = valorPagamento / parcelas;
                     conta.Observacao = observacao;
-                    Inserir(conta, saceContext);
+                    Inserir(conta);
                 }
             }
             catch (Exception e)

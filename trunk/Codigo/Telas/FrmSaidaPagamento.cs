@@ -30,13 +30,13 @@ namespace Telas
         /// <param name="e"></param>
         private void FrmSaidaPagamento_Load(object sender, EventArgs e)
         {
-            saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
+            saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             profissionalBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(1);
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
             if (codClienteComboBox.SelectedIndex != 0)
             {
@@ -90,11 +90,11 @@ namespace Telas
                 saida.Total = decimal.Parse(totalTextBox.Text);
                 
                 codFormaPagamentoComboBox.Focus();
-                GerenciadorSaidaPagamento.GetInstance().Inserir(saidaPagamento, saida);
+                GerenciadorSaidaPagamento.GetInstance(null).Inserir(saidaPagamento, saida);
 
                 AtualizaValores();
 
-                saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(long.Parse(codSaidaTextBox.Text));
+                saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(long.Parse(codSaidaTextBox.Text));
 
                 if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
                 {
@@ -135,22 +135,24 @@ namespace Telas
                 
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
-                    GerenciadorSaida.GetInstance().Encerrar(saida.CodSaida, frmSaidaConfirma.Opcao);
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, frmSaidaConfirma.Opcao);
                     if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                     {
                         // quando tem pagamento crediário imprime o DAV
-                        bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance().ObterPorSaidaFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
+                        bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
                         if (temPagamentoCrediario)
                         {
                             Pessoa cliente = (Pessoa)clienteBindingSource.Current;
                             if (cliente.ImprimirDAV)
                             {
-                                GerenciadorSaida.GetInstance().ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                                GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
                             }
                         }
                         else
                         {
-                            GerenciadorSaida.GetInstance().GerarDocumentoFiscal(new HashSet<long>() { saida.CodSaida }, null, saida.TotalAVista);
+                            Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
+                            saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
+                            GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
                         }
                     }
                 }
@@ -174,8 +176,8 @@ namespace Telas
                 {
                     // Exclui os dados do pagamento
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorSaidaPagamento.GetInstance().Remover(codSaidaPagamento, saida);
-                    saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance().ObterPorSaida(saida.CodSaida);
+                    Negocio.GerenciadorSaidaPagamento.GetInstance(null).Remover(codSaidaPagamento, saida);
+                    saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
 
                     InicializaVariaveis();
                     AtualizaValores();

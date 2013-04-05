@@ -63,12 +63,14 @@ namespace Telas
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(long.Parse(txtTexto.Text));
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasiaComContasEmAtraso(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(long.Parse(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorEndereco(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 4) && !txtTexto.Text.Equals(""))
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorEndereco(txtTexto.Text);
+            else if ((cmbBusca.SelectedIndex == 5) && !txtTexto.Text.Equals(""))
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorBairro(txtTexto.Text);
             else
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(txtTexto.Text);

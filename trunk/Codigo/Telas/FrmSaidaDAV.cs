@@ -31,13 +31,13 @@ namespace Telas
         private void btnNotmal_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance().ImprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, false);
+            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, false);
         }
 
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance().ImprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, true);
+            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(ListaCodSaidas.ToList<long>()), Total, TotalAVista, Desconto, true);
         }
 
         private List<Saida> obterSaidas(List<long> listaCodSaidas)
@@ -45,7 +45,7 @@ namespace Telas
             List<Saida> saidas = new List<Saida>();
             foreach (Int64 codSaida in listaCodSaidas)
             {
-                saidas.Add(GerenciadorSaida.GetInstance().Obter(codSaida));
+                saidas.Add(GerenciadorSaida.GetInstance(null).Obter(codSaida));
             }
             return saidas;
         }

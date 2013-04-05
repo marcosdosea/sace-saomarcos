@@ -26,10 +26,12 @@ namespace Telas
         private void FrmSaidaDevolucao_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             IEnumerable<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
+            pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
+            pessoaFreteBindingSource.Position = pessoaFreteBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodEmpresaFrete });
         }  
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -45,6 +47,8 @@ namespace Telas
             saida.PesoLiquido = Convert.ToDecimal(pesoLiquidoTextBox.Text);
             saida.QuantidadeVolumes = Convert.ToDecimal(quantidadeVolumesTextBox.Text);
             saida.TotalNotaFiscal = Convert.ToDecimal(totalNotaFiscalTextBox.Text);
+            saida.Total = Convert.ToDecimal(totalTextBox.Text);
+            saida.TotalAVista = Convert.ToDecimal(totalTextBox.Text);
             saida.ValorFrete = Convert.ToDecimal(valorFreteTextBox.Text);
             saida.ValorICMS = Convert.ToDecimal(valorICMSTextBox.Text);
             saida.ValorICMSSubst = Convert.ToDecimal(valorICMSSubstTextBox.Text);
@@ -56,17 +60,20 @@ namespace Telas
             saida.DataSaida = dataSaidaDateTimePicker.Value;
             saida.TotalLucro = 0;
 
-            if (MessageBox.Show("Confirma dados da Nota Fiscal?", "Confirmar Dados da Nota Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.GetInstance().Atualizar(saida);
-                GerenciadorSaida.GetInstance().Encerrar(saida.CodSaida, saida.TipoSaida);
+                GerenciadorSaida.GetInstance(null).Atualizar(saida);
+                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, saida.TipoSaida);
 
-                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
-
-                this.Close();
             }
+            else
+            {
+                GerenciadorSaida.GetInstance(null).Atualizar(saida);
+            }
+            this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -104,7 +111,7 @@ namespace Telas
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = GerenciadorSaida.GetInstance().ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = GerenciadorSaida.GetInstance(null).ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }

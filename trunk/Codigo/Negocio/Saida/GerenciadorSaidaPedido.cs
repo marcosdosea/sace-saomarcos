@@ -34,6 +34,7 @@ namespace Negocio
                 SaidaPedidoE _saidaPedidoE = new SaidaPedidoE();
                 _saidaPedidoE.codSaida = saidaPedido.CodSaida;
                 _saidaPedidoE.codPedidoGerado = saidaPedido.CodPedido;
+                _saidaPedidoE.totalAVista = saidaPedido.TotalAVista;
 
                 repSaidaPedido.Inserir(_saidaPedidoE);
                 repSaidaPedido.SaveChanges();
@@ -57,8 +58,8 @@ namespace Negocio
                 var query = from saidaPedidoSet in saceContext.SaidaPedidoSet
                             where saidaPedidoSet.codPedidoGerado == codPedido
                             select saidaPedidoSet;
-                SaidaPedidoE saidaPedidoE = query.ElementAtOrDefault(0);
-                if (saidaPedidoE != null)
+                //SaidaPedidoE saidaPedidoE = query.ToList().ElementAtOrDefault(0);
+                foreach(SaidaPedidoE saidaPedidoE in query) 
                 {
                     saceContext.DeleteObject(saidaPedidoE);
                 }
@@ -70,6 +71,28 @@ namespace Negocio
             }
         }
 
+        /// <summary>
+        /// Remove uma saída
+        /// </summary>
+        /// <param name="saida"></param>
+        public void RemoverPorSaida(long codSaida, SaceEntities saceContext)
+        {
+            try
+            {
+                var query = from saidaPedidoSet in saceContext.SaidaPedidoSet
+                            where saidaPedidoSet.codSaida == codSaida
+                            select saidaPedidoSet;
+                foreach (SaidaPedidoE saidaPedidoE in query)
+                {
+                    saceContext.DeleteObject(saidaPedidoE);
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saída", e.Message, e);
+            }
+        }
         /// <summary>
         /// Consulta para retornar dados da entidade
         /// </summary>
@@ -83,7 +106,8 @@ namespace Negocio
                         select new SaidaPedido
                         {
                             CodPedido = saidaPedido.codPedidoGerado,
-                            CodSaida = saidaPedido.codSaida
+                            CodSaida = saidaPedido.codSaida,
+                            TotalAVista = saidaPedido.totalAVista
                         };
             return query;
         }

@@ -15,13 +15,24 @@ namespace Negocio
     public class GerenciadorProdutoLoja 
     {
         private static GerenciadorProdutoLoja gProdutoLoja;
+        private static SaceEntities saceContext;
+        private static RepositorioGenerico<ProdutoLojaE> repProdutoLoja;
         
-        public static GerenciadorProdutoLoja GetInstance()
+        public static GerenciadorProdutoLoja GetInstance(SaceEntities context)
         {
             if (gProdutoLoja == null)
             {
                 gProdutoLoja = new GerenciadorProdutoLoja();
             }
+            if (context == null)
+            {
+                repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
+            }
+            else
+            {
+                repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>(context);
+            }
+            saceContext = (SaceEntities)repProdutoLoja.ObterContexto();
             return gProdutoLoja;
         }
 
@@ -34,8 +45,6 @@ namespace Negocio
         {
             try
             {
-                var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
-
                 ProdutoLojaE _produtoLojaE = new ProdutoLojaE();
                 _produtoLojaE.codLoja = produtoLoja.CodLoja;
                 _produtoLojaE.codProduto = produtoLoja.CodProduto;
@@ -61,9 +70,6 @@ namespace Negocio
         /// <param name="produtoLoja"></param>
         public void Atualizar(ProdutoLoja produtoLoja)
         {
-            
-            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
-            SaceEntities saceContext = (SaceEntities) repProdutoLoja.ObterContexto();
             DbTransaction transaction = null;
             try
             {
@@ -80,7 +86,7 @@ namespace Negocio
 
                 repProdutoLoja.SaveChanges();
 
-                AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto, saceContext);
+                AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);
                 transaction.Commit();
             }
             catch (Exception e)
@@ -100,8 +106,6 @@ namespace Negocio
         /// <param name="produtoLojaPK"></param>
         public void Remover(long codProduto, int codLoja)
         {
-            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
-            SaceEntities saceContext = (SaceEntities)repProdutoLoja.ObterContexto();
             DbTransaction transaction = null;
             try
             {
@@ -110,8 +114,8 @@ namespace Negocio
                 transaction = saceContext.Connection.BeginTransaction();
 
                 repProdutoLoja.Remover(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
-                saceContext.SaveChanges();
-                AtualizarEstoqueEntradasProduto(codProduto, saceContext);
+                repProdutoLoja.SaveChanges();
+                AtualizarEstoqueEntradasProduto(codProduto);
                 transaction.Commit();
             }
             catch (Exception e)
@@ -131,12 +135,9 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ProdutoLoja> GetQuery()
         {
-            var repProdutoLoja = new RepositorioGenerico<ProdutoLojaE>();
-
-            var saceEntities = (SaceEntities)repProdutoLoja.ObterContexto();
-            var query = from produtoLoja in saceEntities.ProdutoLojaSet
-                        join produto in saceEntities.ProdutoSet on produtoLoja.codProduto equals produto.codProduto
-                        join loja in saceEntities.LojaSet on produtoLoja.codLoja equals loja.codLoja
+            var query = from produtoLoja in saceContext.ProdutoLojaSet
+                        join produto in saceContext.ProdutoSet on produtoLoja.codProduto equals produto.codProduto
+                        join loja in saceContext.LojaSet on produtoLoja.codLoja equals loja.codLoja
                         select new ProdutoLoja
                         {
                             CodLoja = produtoLoja.codLoja,
@@ -173,6 +174,15 @@ namespace Negocio
             return GetQuery().Where(pl => pl.CodProduto == codProduto).ToList();
         }
 
+        /// <summary>
+        /// Obter dados de um produto em várias lojas
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoLoja> ObterPorLoja(int codLoja)
+        {
+            return GetQuery().Where(pl => pl.CodLoja == codLoja).ToList();
+        }
        
         /// <summary>
         /// Adiciona quantida e quantidadeAux ao produto loja
@@ -181,9 +191,8 @@ namespace Negocio
         /// <param name="quantidadeAux"></param>
         /// <param name="codLoja"></param>
         /// <param name="codProduto"></param>
-        public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto, ObjectContext context)
+        public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto)
         {
-            var saceContext = (SaceEntities) context;
             var query = from produtoLoja in saceContext.ProdutoLojaSet
                         where produtoLoja.codLoja == codLoja && produtoLoja.codProduto == codProduto
                         select produtoLoja;
@@ -214,7 +223,7 @@ namespace Negocio
         }
 
         
-        private void AtualizarEstoqueEntradasProduto(long codProduto, SaceEntities saceContext)
+        private void AtualizarEstoqueEntradasProduto(long codProduto)
         {
             IEnumerable<ProdutoLoja> listaProdutosLoja = ObterPorProduto(codProduto);
 
@@ -222,8 +231,8 @@ namespace Negocio
             decimal quantidadeEstoquePrincipalLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoque);
             decimal quantidadeEstoqueAuxLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoqueAux);
 
-            List<EntradaProduto> entradasProdutoPrincipal = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance().ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA);
-            List<EntradaProduto> entradasProdutoAuxiliar = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance().ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA_AUX);
+            List<EntradaProduto> entradasProdutoPrincipal = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance(saceContext).ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA);
+            List<EntradaProduto> entradasProdutoAuxiliar = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance(saceContext).ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA_AUX);
 
             decimal quantidadeEstoquePrincipalEntradaProduto = entradasProdutoPrincipal.Sum(ep => ep.QuantidadeDisponivel);
             decimal quantidadeEstoqueAuxEntradaProduto = entradasProdutoAuxiliar.Sum(ep => ep.QuantidadeDisponivel);
@@ -252,7 +261,7 @@ namespace Negocio
                     {
                         entradasProdutoPrincipal[i].QuantidadeDisponivel = 0;
                     }
-                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoPrincipal[i], saceContext);
+                    GerenciadorEntradaProduto.GetInstance(saceContext).Atualizar(entradasProdutoPrincipal[i]);
                 }
 
             }
@@ -281,7 +290,7 @@ namespace Negocio
                     {
                         entradasProdutoAuxiliar[i].QuantidadeDisponivel = 0;
                     }
-                    GerenciadorEntradaProduto.GetInstance().Atualizar(entradasProdutoAuxiliar[i], saceContext);
+                    GerenciadorEntradaProduto.GetInstance(saceContext).Atualizar(entradasProdutoAuxiliar[i]);
                 }
 
             }

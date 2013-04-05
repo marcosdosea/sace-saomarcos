@@ -24,7 +24,7 @@ namespace Telas
                 
         private void FrmContaPesquisa_Load(object sender, EventArgs e)
         {
-            contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterTodos();
+            contaBindingSource.DataSource = GerenciadorConta.GetInstance(null).ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
@@ -32,11 +32,11 @@ namespace Telas
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                contaBindingSource.DataSource = GerenciadorConta.GetInstance().Obter(Convert.ToInt64(txtTexto.Text));
+                contaBindingSource.DataSource = GerenciadorConta.GetInstance(null).Obter(Convert.ToInt64(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterPorEntrada(Convert.ToInt64(txtTexto.Text));
+                contaBindingSource.DataSource = GerenciadorConta.GetInstance(null).ObterPorEntrada(Convert.ToInt64(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterPorSaida(Convert.ToInt64(txtTexto.Text));
+                contaBindingSource.DataSource = GerenciadorConta.GetInstance(null).ObterPorSaida(Convert.ToInt64(txtTexto.Text));
             }
 
         private void tb_grupo_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

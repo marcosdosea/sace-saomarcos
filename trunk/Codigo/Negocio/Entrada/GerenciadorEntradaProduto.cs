@@ -15,26 +15,30 @@ namespace Negocio
     public class GerenciadorEntradaProduto 
     {
         private static GerenciadorEntradaProduto gEntradaProduto;
+        private static SaceEntities saceContext;
+        private static RepositorioGenerico<EntradaProdutoE> repEntradaProduto;
         
-        public static GerenciadorEntradaProduto GetInstance()
+        public static GerenciadorEntradaProduto GetInstance(SaceEntities context)
         {
             if (gEntradaProduto == null)
             {
                 gEntradaProduto = new GerenciadorEntradaProduto();
             }
+            if (context == null)
+            {
+                repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>();
+            }
+            else
+            {
+                repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>(context);
+            }
+            saceContext = (SaceEntities)repEntradaProduto.ObterContexto();
             return gEntradaProduto;
         }
 
         /// <summary>
         /// Insere uma novo produto na entrada
         public Int64 Inserir(EntradaProduto entradaProduto, int codTipoEntrada)
-        {
-            var repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>();
-            return Inserir(entradaProduto, codTipoEntrada, (SaceEntities)repEntradaProduto.ObterContexto());
-        }
-        /// <summary>
-        /// Insere uma novo produto na entrada
-        public Int64 Inserir(EntradaProduto entradaProduto, int codTipoEntrada, SaceEntities saceContext)
         {
 
             if (entradaProduto.Quantidade == 0)
@@ -44,15 +48,15 @@ namespace Negocio
             else if (entradaProduto.QuantidadeEmbalagem <= 0)
                 throw new NegocioException("A quantidade de produtos em cada embalagem deve ser maior que zero.");
 
-            DbTransaction transaction = null;
+            //DbTransaction transaction = null;
             try
             {
                 EntradaProdutoE _entradaProdutoE = new EntradaProdutoE();
                 Atribuir(entradaProduto, _entradaProdutoE);
 
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
+                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                //    saceContext.Connection.Open();
+                //transaction = saceContext.Connection.BeginTransaction();
 
                 saceContext.AddToEntradaProdutoSet(_entradaProdutoE);
                 saceContext.SaveChanges();
@@ -60,7 +64,7 @@ namespace Negocio
                 if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
                 {
                     // Incrementa o estoque na loja principal
-                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto, saceContext);
+                    GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
                     Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
                     Atribuir(entradaProduto, produto);
@@ -68,20 +72,20 @@ namespace Negocio
                     if (entradaProduto.FornecedorEhFabricante)
                         produto.CodFabricante = entradaProduto.CodFornecedor;
 
-                    GerenciadorProduto.GetInstance().Atualizar(produto, saceContext);
+                    GerenciadorProduto.GetInstance().Atualizar(produto);
                 }
-                transaction.Commit();
+                //transaction.Commit();
                 return _entradaProdutoE.codEntrada;
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                //transaction.Rollback();
                 throw new DadosException("EntradaProduto", e.Message, e);
             }
-            finally
-            {
-                saceContext.Connection.Close();
-            }
+            //finally
+            //{
+            //    saceContext.Connection.Close();
+            //}
         }
 
         
@@ -89,7 +93,7 @@ namespace Negocio
         /// Atualiza os dados de um produto na entrada
         /// </summary>
         /// <param name="entradaProduto"></param>
-        public void Atualizar(EntradaProduto entradaProduto, SaceEntities saceContext)
+        public void Atualizar(EntradaProduto entradaProduto)
         {
             try
             {
@@ -101,7 +105,7 @@ namespace Negocio
                 {
                     Atribuir(entradaProduto, _entradaProdutoE);
                 }
-                saceContext.SaveChanges();
+                repEntradaProduto.SaveChanges();
             }
             catch (Exception e)
             {
@@ -115,15 +119,12 @@ namespace Negocio
         /// <param name="codEntradaProduto"></param>
         public void Remover(EntradaProduto entradaProduto, int codTipoEntrada)
         {
-            var repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>();
-
-            SaceEntities saceContext = (SaceEntities)repEntradaProduto.ObterContexto();
-            DbTransaction transaction = null;
+            //DbTransaction transaction = null;
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
+                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                //    saceContext.Connection.Open();
+                //transaction = saceContext.Connection.BeginTransaction();
 
 
                 repEntradaProduto.Remover(ep => ep.codEntradaProduto == entradaProduto.CodEntradaProduto);
@@ -132,13 +133,13 @@ namespace Negocio
                 if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
                 {
                     // Decrementa o estoque na loja principal
-                    GerenciadorProdutoLoja.GetInstance().AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto, saceContext);
+                    GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
                 }
-                transaction.Commit();
+                //transaction.Commit();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                //transaction.Rollback();
                 throw new DadosException("EntradaProduto", e.Message, e);
             }
             finally
@@ -153,11 +154,8 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<EntradaProduto> GetQuery()
         {
-            var repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>();
-
-            var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
-            var query = from entradaProduto in saceEntities.EntradaProdutoSet
-                        join produto in saceEntities.ProdutoSet on entradaProduto.codProduto equals produto.codProduto
+            var query = from entradaProduto in saceContext.EntradaProdutoSet
+                        join produto in saceContext.ProdutoSet on entradaProduto.codProduto equals produto.codProduto
                         select new EntradaProduto
                         {
                             BaseCalculoICMS = (decimal)entradaProduto.baseCalculoICMS,
@@ -293,7 +291,7 @@ namespace Negocio
         /// <param name="produto"></param>
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeDevolvida"></param>
-        private void EstornarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeDevolvida, SaceEntities saceContext)
+        private void EstornarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeDevolvida)
         {
             List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorValidade(produto.CodProduto);
             Decimal quantidadeRetornada = 0;
@@ -310,7 +308,7 @@ namespace Negocio
                             {
                                 entradaProduto.QuantidadeDisponivel += quantidadeDevolvida - quantidadeRetornada;
                                 quantidadeRetornada += quantidadeDevolvida - quantidadeRetornada;
-                                Atualizar(entradaProduto, saceContext);
+                                Atualizar(entradaProduto);
                             }
                         }
                         if (quantidadeDevolvida == quantidadeRetornada)
@@ -334,7 +332,7 @@ namespace Negocio
                             quantidadeRetornada += entradaProduto.Quantidade - entradaProduto.QuantidadeDisponivel;
                             entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade;
                         }
-                        Atualizar(entradaProduto, saceContext);
+                        Atualizar(entradaProduto);
                         if (quantidadeDevolvida == quantidadeRetornada)
                             break;
                     }
@@ -344,7 +342,7 @@ namespace Negocio
             // acontece quando uma data de validade não existe no estoque
             if (quantidadeRetornada < quantidadeDevolvida)
             {
-                BaixarItensVendidosEstoqueEntradaPadrao(produto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)), saceContext);
+                BaixarItensVendidosEstoqueEntradaPadrao(produto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)));
             }
         }
         
@@ -355,7 +353,7 @@ namespace Negocio
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeVendida"></param>
         /// <returns></returns>
-        public Decimal BaixarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeVendida, SaceEntities saceContext) {
+        public Decimal BaixarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeVendida) {
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisOrdenadoPorValidade(produto.CodProduto);
 
             decimal somaPrecosCusto = 0;
@@ -363,7 +361,7 @@ namespace Negocio
 
             if (quantidadeVendida < 0)
             {
-                EstornarItensVendidosEstoque(produto, dataValidade, Math.Abs(quantidadeVendida), saceContext);
+                EstornarItensVendidosEstoque(produto, dataValidade, Math.Abs(quantidadeVendida));
             } 
             else if (entradaProdutos.Count > 0)
             {
@@ -403,13 +401,13 @@ namespace Negocio
                             }
                         }
                     }
-                    Atualizar(entradaProduto, saceContext);
+                    Atualizar(entradaProduto);
                 }
             }
 
             if (quantidadeBaixas < quantidadeVendida)
             {
-                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(produto, (quantidadeVendida - quantidadeBaixas), saceContext);
+                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(produto, (quantidadeVendida - quantidadeBaixas));
             }
             saceContext.SaveChanges();
             return somaPrecosCusto;
@@ -421,7 +419,7 @@ namespace Negocio
         /// <param name="produtoPesquisa"></param>
         /// <param name="quantidade"></param>
         /// <returns></returns>
-        private decimal BaixarItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade, SaceEntities saceContext) {
+        private decimal BaixarItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade) {
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) Obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto);
             Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
             EntradaProduto entradaProduto = null;
@@ -433,7 +431,7 @@ namespace Negocio
             if (entradaProduto != null)
             {
                 entradaProduto.QuantidadeDisponivel -= quantidade;
-                Atualizar(entradaProduto, saceContext);
+                Atualizar(entradaProduto);
             }
             else
             {
@@ -468,7 +466,7 @@ namespace Negocio
                 entradaProduto.ValorDesconto = 0;
                 entradaProduto.CodCST = produto.CodCST;
 
-                Inserir(entradaProduto, Entrada.TIPO_ENTRADA, saceContext);
+                Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             }
             
             return 0;
