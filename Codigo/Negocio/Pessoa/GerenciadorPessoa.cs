@@ -285,6 +285,24 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obter pelo bairro da pessoa
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<Pessoa> ObterPorNomeFantasiaComContasEmAtraso(string nomeFantasia)
+        {
+            var repPessoa = new RepositorioGenerico<PessoaE>();
+
+            var saceEntities = (SaceEntities)repPessoa.ObterContexto();
+            var query = from contas in saceEntities.ContaSet
+                        where contas.dataVencimento <= DateTime.Now && contas.codSituacao == SituacaoConta.SITUACAO_ABERTA
+                        select contas.codPessoa;
+            List<long> pessoasEmAtraso = query.Distinct().ToList();
+
+            return GetQuery().Where(pessoa => pessoasEmAtraso.Contains(pessoa.CodPessoa) && pessoa.NomeFantasia.StartsWith(nomeFantasia)).OrderBy(p => p.NomeFantasia).ToList();
+        }
+
+        /// <summary>
         /// Obter contatos de uma pessoa
         /// </summary>
         /// <param name="codPessoa"></param>

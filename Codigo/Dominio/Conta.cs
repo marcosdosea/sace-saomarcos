@@ -13,7 +13,7 @@ namespace Dominio
         public long CodConta { get; set; }
         public long CodEntrada { get; set; }
         public long CodSaida { get; set; }
-        //public long CodDocumento { get; set; }
+        public string Nfe { get; set; }
         public long CodPlanoConta { get; set; }
         public long CodPessoa { get; set; }
         public DateTime DataVencimento { get; set; }

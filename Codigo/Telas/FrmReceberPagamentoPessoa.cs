@@ -78,12 +78,15 @@ namespace Telas
                     throw new TelaException("O valor do pagamento não pode ser maior que o valor a receber.");
                 }
 
+                Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
                 List<long> listaContas = new List<long>();
-                HashSet<long> listaSaidas = new HashSet<long>();
+                
                 for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
                 {
                     listaContas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[0].Value.ToString())); //codConta 
-                    listaSaidas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString())); //codSaida
+                    long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //codSaida
+                    decimal valorAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[7].Value.ToString()); //totalAVista
+                    saidaTotalAVista.Add(codSaidaTemp, valorAVistaTemp);
                 }
 
 
@@ -91,9 +94,9 @@ namespace Telas
                 bool podeImprimirCF = (valorPagamento == faltaReceber);
                 if (podeImprimirCF)
                 {
-                    foreach (long codSaida in listaSaidas)
+                    foreach (long codSaida in saidaTotalAVista.Keys)
                     {
-                        List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance().ObterPorSaida(codSaida);
+                        List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance(null).ObterPorSaida(codSaida);
                         foreach (Conta conta in contas)
                         {
                             if ((!listaContas.Contains(conta.CodConta)) || ((conta.CF != null) && !conta.CF.Trim().Equals("")))
@@ -121,10 +124,10 @@ namespace Telas
                         {
                             decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
                             long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
-                            Conta conta = GerenciadorConta.GetInstance().Obter(codConta).ElementAt(0);
+                            Conta conta = GerenciadorConta.GetInstance(null).Obter(codConta).ElementAt(0);
                             if (conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA))
                             {
-                                GerenciadorConta.GetInstance().Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
+                                GerenciadorConta.GetInstance(null).Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
                             }
                         }
                     }
@@ -138,7 +141,13 @@ namespace Telas
                         movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
                         movimentacao.DataHora = DateTime.Now;
                         movimentacao.Valor = valorPagamento;
-                        GerenciadorMovimentacaoConta.GetInstance().Inserir(movimentacao, listaContas);
+                        
+                   
+                        
+                        
+
+
+                        GerenciadorMovimentacaoConta.GetInstance(null).Inserir(movimentacao, listaContas, totalPago);
                         if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();
@@ -146,11 +155,12 @@ namespace Telas
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
-                            GerenciadorSaida.GetInstance().GerarDocumentoFiscal(listaSaidas, new List<SaidaPagamento>() { saidaPagamento }, valorPagamento);
+                            GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
                         }
                         else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            GerenciadorSaida.GetInstance().ImprimirCreditoPagamento(movimentacao);
+                            movimentacao.Valor = valorPagamento;
+                            GerenciadorSaida.GetInstance(null).ImprimirCreditoPagamento(movimentacao);
                         }
                     }
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
@@ -179,10 +189,10 @@ namespace Telas
                         saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
                         saidaPagamentoCartao.Valor = valorPagamento;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
-                        GerenciadorSaida.GetInstance().GerarDocumentoFiscal(listaSaidas, listaSaidaPagamento, valorPagamento);
+                        GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, listaSaidaPagamento);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            GerenciadorConta.GetInstance().SubstituirContas(listaContas, valorPagamento, cartaoCredito, parcelas);
+                            GerenciadorConta.GetInstance(null).SubstituirContas(listaContas, valorPagamento, cartaoCredito, parcelas);
                         }
                     }
                     codClienteComboBox_Leave(sender, e);
@@ -212,16 +222,16 @@ namespace Telas
 
         private void btnCFNfe_Click(object sender, EventArgs e)
         {
-            HashSet<long> codSaidas = new HashSet<long>();
-
+            Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
             string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[3].Value.ToString().Trim();
 
             if (!pedidoGerado.Trim().Equals(""))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                Saida saida = GerenciadorSaida.GetInstance().Obter(codSaida);
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
 
-                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }
@@ -230,7 +240,9 @@ namespace Telas
 
                 for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
                 {
-                    codSaidas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString())); //pre-venda
+                    long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //pre-venda
+                    decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[7].Value.ToString()); //total a vista
+                    saidaTotalAVista.Add(codSaidaTemp, totalAVistaTemp);
                 }
 
                 decimal total = Convert.ToDecimal(totalContasTextBox.Text);
@@ -244,10 +256,13 @@ namespace Telas
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
-                    GerenciadorSaida.GetInstance().GerarDocumentoFiscal(codSaidas, new List<SaidaPagamento>() { saidaPagamento }, saidaPagamento.Valor);
+                   
+                    GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
                 }
             }
         }
+
+        
 
         private void FrmReceberPagamentoPessoa_KeyDown(object sender, KeyEventArgs e)
         {
@@ -303,7 +318,7 @@ namespace Telas
                 if (tb_movimentacao_contaDataGridView.Rows.Count > 0)
                 {
                     long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.GerenciadorMovimentacaoConta.GetInstance().Remover(codMovimentacaoConta);
+                    Negocio.GerenciadorMovimentacaoConta.GetInstance(null).Remover(codMovimentacaoConta);
                 }
                 ObterTodasContasAbertas(pessoa);
             }
@@ -346,7 +361,7 @@ namespace Telas
 
         private void ObterTodasContasAbertas(Pessoa pessoa)
         {
-            contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
+            contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance(null).ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
             if (contasPessoaDataGridView.RowCount > 0)
             {
                 //Obter maior e menor data de vencimento para preencher corrretamente
@@ -407,11 +422,11 @@ namespace Telas
             quitadaChecked = quitadaCheckBox.Checked;
             if (situacoes.Count == 2)
             {
-                contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[1], pessoa.CodPessoa, dataInicio, dataFim);
+                contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance(null).ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[1], pessoa.CodPessoa, dataInicio, dataFim);
             }
             else if (situacoes.Count == 1)
             {
-                contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance().ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[0], pessoa.CodPessoa, dataInicio, dataFim);
+                contasPessoaDataGridView.DataSource = GerenciadorConta.GetInstance(null).ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[0], pessoa.CodPessoa, dataInicio, dataFim);
             }
             else
             {
@@ -454,7 +469,7 @@ namespace Telas
             {
                 contasExibidas.Add((long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value);
             }
-            movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.GetInstance().ObterPorContas(contasExibidas);
+            movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.GetInstance(null).ObterPorContas(contasExibidas);
         }
 
 

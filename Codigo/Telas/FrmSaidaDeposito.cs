@@ -25,7 +25,7 @@ namespace Telas
         private void FrmSaidaDeposito_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             List<Loja> listaLojas = GerenciadorLoja.GetInstance().ObterTodos();
             lojaBindingSourceDestino.DataSource = listaLojas;
             lojaBindingSourceOrigem.DataSource = listaLojas;
@@ -40,12 +40,12 @@ namespace Telas
             saida.Desconto = 0;
             saida.Total = decimal.Parse(totalTextBox.Text);
 
-            GerenciadorSaida.GetInstance().Atualizar(saida);
+            GerenciadorSaida.GetInstance(null).Atualizar(saida);
             if (MessageBox.Show("Confirma transferência para depósito?", "Confirmar Transferência", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.GetInstance().Encerrar(saida.CodSaida, Saida.TIPO_SAIDA_DEPOSITO);
+                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_SAIDA_DEPOSITO);
 
-                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida);
+                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
 

@@ -36,6 +36,10 @@ namespace Negocio
                 var repEntrada = new RepositorioGenerico<EntradaE>();
 
                 EntradaE _entradaE = new EntradaE();
+                if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0 ))
+                  throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
+                
+
                 Atribuir(entrada, _entradaE);
 
                 repEntrada.Inserir(_entradaE);
@@ -68,10 +72,13 @@ namespace Negocio
         {
             try
             {
+                if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0))
+                    throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
+                
                 var query = from entradaSet in saceContext.EntradaSet
                             where entradaSet.codEntrada == entrada.CodEntrada
                             select entradaSet;
-                EntradaE _entradaE = query.ElementAtOrDefault(0);    
+                EntradaE _entradaE = query.ToList().ElementAtOrDefault(0);    
                 Atribuir(entrada, _entradaE);
                 saceContext.SaveChanges();
             }
@@ -114,7 +121,7 @@ namespace Negocio
                 if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
                     saceContext.Connection.Open();
                 transaction = saceContext.Connection.BeginTransaction();
-                if (GerenciadorConta.GetInstance().ObterPorEntrada(entrada.CodEntrada).ToList().Count == 0)
+                if (GerenciadorConta.GetInstance(saceContext).ObterPorEntrada(entrada.CodEntrada).ToList().Count == 0)
                 {
                     List<EntradaPagamento> entradaPagamentos = (List<EntradaPagamento>)GerenciadorEntradaPagamento.GetInstance().ObterPorEntrada(entrada.CodEntrada);
                     RegistrarPagamentosEntrada(entradaPagamentos, entrada, saceContext);
@@ -183,7 +190,7 @@ namespace Negocio
                      conta.DataVencimento = pagamento.Data;
                  }
 
-                conta.CodConta = GerenciadorConta.GetInstance().Inserir(conta, saceContext);
+                conta.CodConta = GerenciadorConta.GetInstance(saceContext).Inserir(conta);
                 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
                 {
@@ -196,7 +203,7 @@ namespace Negocio
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = pagamento.Valor;
 
-                    GerenciadorMovimentacaoConta.GetInstance().Inserir(movimentacao, saceContext);
+                    GerenciadorMovimentacaoConta.GetInstance(saceContext).Inserir(movimentacao);
                 }
             }
         }

@@ -27,8 +27,8 @@ namespace Telas
 
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
-            contaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterTodos();
-            situacaoContaBindingSource.DataSource = GerenciadorConta.GetInstance().ObterSituacoesConta();
+            contaBindingSource.DataSource = GerenciadorConta.GetInstance(null).ObterTodos();
+            situacaoContaBindingSource.DataSource = GerenciadorConta.GetInstance(null).ObterSituacoesConta();
             
             habilitaBotoes(true);
         }
@@ -80,7 +80,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorConta.GetInstance().Remover(long.Parse(codContaTextBox.Text));
+                GerenciadorConta.GetInstance(null).Remover(long.Parse(codContaTextBox.Text));
                 contaBindingSource.RemoveCurrent();
             }
         }
@@ -102,12 +102,12 @@ namespace Telas
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codConta = GerenciadorConta.GetInstance().Inserir(conta);
+                long codConta = GerenciadorConta.GetInstance(null).Inserir(conta);
                 codContaTextBox.Text = codConta.ToString();
             }
             else
             {
-                GerenciadorConta.GetInstance().Atualizar(conta);
+                GerenciadorConta.GetInstance(null).Atualizar(conta);
             }
             contaBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -245,7 +245,7 @@ namespace Telas
         private void tb_contaBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (codContaTextBox.Text != "")
-                movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.GetInstance().ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
+                movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.GetInstance(null).ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
         }
     }
 }

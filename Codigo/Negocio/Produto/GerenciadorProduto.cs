@@ -61,33 +61,8 @@ namespace Negocio
         public void Atualizar(Produto produto)
         {
             var repProduto = new RepositorioGenerico<ProdutoE>();
-            SaceEntities saceContext = (SaceEntities)repProduto.ObterContexto();
-            DbTransaction transaction = null;
-            try
-            {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
-                Atualizar(produto, saceContext);
-                transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw new DadosException("Produto", e.Message, e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
-            }
-        }
+            SaceEntities contexto = (SaceEntities) repProduto.ObterContexto();
 
-        /// <summary>
-        /// Atualiza os dados do produto
-        /// </summary>
-        /// <param name="produto"></param>
-        public void Atualizar(Produto produto, SaceEntities saceContext)
-        {
             if (produto.CodProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
             else if (produto.Nome.Trim().Equals(""))
@@ -97,7 +72,7 @@ namespace Negocio
 
             try
             {
-                var query = from produtoSet in saceContext.ProdutoSet
+                var query = from produtoSet in contexto.ProdutoSet
                             where produtoSet.codProduto == produto.CodProduto
                             select produtoSet;
                 foreach (ProdutoE _produtoE in query)
@@ -109,8 +84,7 @@ namespace Negocio
                     // Atualiza dados do produto
                     Atribuir(produto, _produtoE);
                 }
-                saceContext.SaveChanges();
-
+                repProduto.SaveChanges();
             }
             catch (Exception e)
             {

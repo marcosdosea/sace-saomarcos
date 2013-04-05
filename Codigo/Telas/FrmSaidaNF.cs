@@ -15,18 +15,18 @@ namespace Telas
     {
 
         public Saida Saida { get; set; }
-        
-        public FrmSaidaNF(Saida saida)
+
+        public FrmSaidaNF(long codSaida)
         {
             InitializeComponent();
-            this.Saida = saida;
-
+            this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+            
             if ((Saida.Nfe != null) && (! Saida.Nfe.Equals("") )) {
                 numeroNFText.Text = Saida.Nfe;
             } 
             else 
             {
-                numeroNFText.Text = GerenciadorSaida.GetInstance().ObterNumeroProximaNotaFiscal().ToString();
+                numeroNFText.Text = GerenciadorSaida.GetInstance(null).ObterNumeroProximaNotaFiscal().ToString();
             }
 
             if (Saida.Observacao.Trim().Equals(""))
@@ -76,13 +76,13 @@ namespace Telas
             }
             if (Saida.PedidoGerado.Trim().Equals(""))
             {
-                GerenciadorSaida.GetInstance().AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
+                GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
             }
             else
             {
-                GerenciadorSaida.GetInstance().AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
+                GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
             }
-            GerenciadorSaida.GetInstance().ImprimirNotaFiscal(Saida);
+            GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(Saida);
         }
 
     }

@@ -34,7 +34,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_pessoaDataGridView = new System.Windows.Forms.DataGridView();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codPessoaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeFantasiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cpfCnpjDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +41,7 @@
             this.bairroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ufDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tb_pessoaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -62,20 +62,21 @@
             this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
             this.cmbBusca.Items.AddRange(new object[] {
             "Nome Fantasia",
+            "Nome Fantasia com Contas em Atraso",
             "Código",
             "CPF",
             "Endereço",
             "Bairro"});
             this.cmbBusca.Location = new System.Drawing.Point(10, 26);
             this.cmbBusca.Name = "cmbBusca";
-            this.cmbBusca.Size = new System.Drawing.Size(121, 21);
+            this.cmbBusca.Size = new System.Drawing.Size(222, 21);
             this.cmbBusca.TabIndex = 3;
             this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(143, 9);
+            this.label2.Location = new System.Drawing.Point(235, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 4;
@@ -84,9 +85,9 @@
             // txtTexto
             // 
             this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTexto.Location = new System.Drawing.Point(146, 26);
+            this.txtTexto.Location = new System.Drawing.Point(238, 26);
             this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(598, 20);
+            this.txtTexto.Size = new System.Drawing.Size(506, 20);
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
@@ -114,10 +115,6 @@
             this.tb_pessoaDataGridView.TabIndex = 5;
             this.tb_pessoaDataGridView.TabStop = false;
             this.tb_pessoaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_pessoaDataGridView_CellClick);
-            // 
-            // pessoaBindingSource
-            // 
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // codPessoaDataGridViewTextBoxColumn
             // 
@@ -175,6 +172,10 @@
             this.ufDataGridViewTextBoxColumn.Name = "ufDataGridViewTextBoxColumn";
             this.ufDataGridViewTextBoxColumn.ReadOnly = true;
             this.ufDataGridViewTextBoxColumn.Width = 43;
+            // 
+            // pessoaBindingSource
+            // 
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // FrmPessoaPesquisa
             // 
