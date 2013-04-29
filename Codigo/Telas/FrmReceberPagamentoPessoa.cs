@@ -78,6 +78,7 @@ namespace Telas
                     throw new TelaException("O valor do pagamento não pode ser maior que o valor a receber.");
                 }
 
+                //FIX: O Dictionary não permite pagar contas de uma mesma saída
                 Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
                 List<long> listaContas = new List<long>();
                 

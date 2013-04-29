@@ -1398,7 +1398,11 @@ namespace Negocio
                 sbImprimir.AppendLine(Global.LINHA);
 
                 Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
-                sbImprimir.Append("Cliente: " + cliente.NomeFantasia);
+                if (cliente.NomeFantasia.Length <= 40) 
+                    sbImprimir.Append("Cliente: " + cliente.NomeFantasia);
+                else
+                    sbImprimir.Append("Cliente: " + cliente.NomeFantasia.Substring(0, 40));
+
                 sbImprimir.AppendLineEsquerda(50, "CPF/CNPJ: " + cliente.CpfCnpj);
                 if (saidas.Count == 1)
                 {
@@ -1577,6 +1581,7 @@ namespace Negocio
                         }
                         else
                         {
+                            //totalProdutos += saidaProduto.Subtotal;
                             descontoDevolucoes += saidaProduto.Subtotal;
                         }
                     }
@@ -1587,7 +1592,7 @@ namespace Negocio
                     if (saida.TipoSaida == Saida.TIPO_VENDA)
                     {
                         List<Saida> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.PedidoGerado);
-                        totalAVista = listaSaidas.Sum(s => s.TotalAVista);
+                        totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
                     }
                     ImprimirNotaFiscalRodape(saida, imp, numeroPaginas, totalProdutos, totalAVista, descontoDevolucoes, true);
 
