@@ -321,12 +321,12 @@ namespace Negocio
         /// <param name="parcelas">número de parcelas do pagamento</param>
         public void SubstituirContas(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
         {
-            DbTransaction transaction = null;
+            //DbTransaction transaction = null;
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
+                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                //    saceContext.Connection.Open();
+                // transaction = saceContext.Connection.BeginTransaction();
 
                 string observacao = "Substituiu as contas: ";
                 foreach (long codConta in listaContas)
@@ -355,12 +355,12 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                //transaction.Rollback();
                 throw new DadosException("Não foi possível realizar a substituição de contas. Favor contactar o administrador.", e);
             }
             finally
             {
-                saceContext.Connection.Close();
+                //saceContext.Connection.Close();
             }
         }
     }

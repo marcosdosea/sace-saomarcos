@@ -70,16 +70,21 @@ namespace Negocio
                 throw new NegocioException("Os dados dessa pessoa não podem ser alterados ou removidos");
             if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
                 throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
-            if (!pessoa.CpfCnpj.Trim().Equals(""))
-            {
-                int countPessoasCpfCnpj = GerenciadorPessoa.GetInstance().ObterPorCpfCnpjEquals(pessoa.CpfCnpj).Count();
-                if (countPessoasCpfCnpj > 0)
-                    throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
-            }
-
             try
             {
                 PessoaE _pessoa = repPessoa.ObterEntidade(p => p.codPessoa == pessoa.CodPessoa);
+
+
+                if (!pessoa.CpfCnpj.Trim().Equals(""))
+                {
+                    IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.GetInstance().ObterPorCpfCnpjEquals(pessoa.CpfCnpj);
+                    foreach(Pessoa p in listaPessoas) {
+                        if (p.CodPessoa != pessoa.CodPessoa)
+                           throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
+                    }
+                }
+
+                
                 Atribuir(pessoa, _pessoa);
                 repPessoa.SaveChanges();
             }
