@@ -208,6 +208,24 @@ namespace Negocio
             return GetQuery().OrderBy(p=> p.CodPessoa).ToList();
         }
 
+        public IEnumerable<MunicipiosIBGE> ObterTodosMunicipios()
+        {
+            var repMunicipios = new RepositorioGenerico<MunicipiosIbgeE>();
+
+            var saceEntities = (SaceEntities)repMunicipios.ObterContexto();
+            var query = from municipios in saceEntities.MunicipiosIbgeSet
+                        select new MunicipiosIBGE
+                        {
+                            Codigo = municipios.codigo,
+                            Municipio = municipios.municipio,
+                            Uf = municipios.uf
+                        };
+            return query.ToList();
+        }
+
+        
+        
+        
         /// <summary>
         /// Obter pelo código da pessoa
         /// </summary>

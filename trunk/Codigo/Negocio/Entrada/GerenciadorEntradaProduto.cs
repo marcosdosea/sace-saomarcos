@@ -439,7 +439,6 @@ namespace Negocio
                 entradaProduto.CodEntrada = Global.ENTRADA_PADRAO;
                 entradaProduto.CodProduto = produto.CodProduto; 
 
-                entradaProduto.Cfop = produto.Cfop;
                 entradaProduto.UnidadeCompra = produto.Unidade;
                 entradaProduto.Quantidade = (produto.TemVencimento) ? quantidade : 10000;
                 entradaProduto.QuantidadeEmbalagem = 1;
@@ -492,7 +491,6 @@ namespace Negocio
             produto.UltimaDataAtualizacao = DateTime.Now;
             produto.DataUltimoPedido = entradaProduto.DataEntrada;
             produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
-            produto.Cfop = entradaProduto.Cfop;
             produto.CodCST = entradaProduto.CodCST;
             produto.Desconto = entradaProduto.Desconto;
             produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;

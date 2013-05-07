@@ -18,7 +18,6 @@ namespace Dominio
         public string CodCST { get; set; }
         public string ReferenciaFabricante { get; set; }
         public decimal PrecoVendaVarejo { get; set; }
-        public int Cfop { get; set; }
         public decimal PrecoVendaVarejoSemDesconto
         {
             get { return Math.Round((PrecoVendaVarejo * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }

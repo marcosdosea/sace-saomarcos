@@ -52,6 +52,9 @@ namespace Dominio
         {
             return this.CodPessoa.GetHashCode();
         }
-      
+
+
+        public int CodMunicipioIBGE { get; set; }
+        public string NomeMunicipioIBGE { get; set; }
     }
 }

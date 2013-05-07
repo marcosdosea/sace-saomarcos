@@ -211,7 +211,8 @@ namespace Telas
             entradaProdutoBindingSource.AddNew();
             if (tb_entrada_produtoDataGridView.RowCount == 0)
             {
-                codProdutoComboBox.SelectedIndex = 0;     
+                codProdutoComboBox.SelectedIndex = 0;
+                cfopComboBox.SelectedIndex = 0;
             }
             ProdutosGroupBox.Enabled = true;
             codProdutoComboBox.Focus();
@@ -255,7 +256,7 @@ namespace Telas
                         entrada = (Entrada) entradaBindingSource.Current;
                         produtoPesquisa.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
                     }
-
+                    cfopComboBox.SelectedIndex = 0;
                     codCSTComboBox_SelectedIndexChanged(sender, e);
                     codEntradaTextBox_Leave(sender, e);
                 }

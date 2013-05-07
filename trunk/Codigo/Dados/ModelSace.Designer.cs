@@ -23,7 +23,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.CartaoCreditoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_cfop", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.CfopE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_conta_pagar_codplanoconta", "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PlanoContaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codentrada", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.EntradaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
@@ -71,6 +70,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_tipo_saida_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.TipoSaidaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_tb_cfop1", "CfopE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_tb_cst1", "CstE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.MunicipiosIbgeE), "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.NfeE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE))]
 
 #endregion
 
@@ -169,22 +172,6 @@ namespace Dados
             }
         }
         private ObjectSet<CfopE> _CfopSet;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_configuracao_sistema> tb_configuracao_sistema
-        {
-            get
-            {
-                if ((_tb_configuracao_sistema == null))
-                {
-                    _tb_configuracao_sistema = base.CreateObjectSet<tb_configuracao_sistema>("tb_configuracao_sistema");
-                }
-                return _tb_configuracao_sistema;
-            }
-        }
-        private ObjectSet<tb_configuracao_sistema> _tb_configuracao_sistema;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -685,18 +672,34 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_parametros_locais> tb_parametros_locais
+        public ObjectSet<MunicipiosIbgeE> MunicipiosIbgeSet
         {
             get
             {
-                if ((_tb_parametros_locais == null))
+                if ((_MunicipiosIbgeSet == null))
                 {
-                    _tb_parametros_locais = base.CreateObjectSet<tb_parametros_locais>("tb_parametros_locais");
+                    _MunicipiosIbgeSet = base.CreateObjectSet<MunicipiosIbgeE>("MunicipiosIbgeSet");
                 }
-                return _tb_parametros_locais;
+                return _MunicipiosIbgeSet;
             }
         }
-        private ObjectSet<tb_parametros_locais> _tb_parametros_locais;
+        private ObjectSet<MunicipiosIbgeE> _MunicipiosIbgeSet;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<NfeE> NfeSet
+        {
+            get
+            {
+                if ((_NfeSet == null))
+                {
+                    _NfeSet = base.CreateObjectSet<NfeE>("NfeSet");
+                }
+                return _NfeSet;
+            }
+        }
+        private ObjectSet<NfeE> _NfeSet;
 
         #endregion
         #region AddTo Methods
@@ -723,14 +726,6 @@ namespace Dados
         public void AddToCfopSet(CfopE cfopE)
         {
             base.AddObject("CfopSet", cfopE);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_configuracao_sistema EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_configuracao_sistema(tb_configuracao_sistema tb_configuracao_sistema)
-        {
-            base.AddObject("tb_configuracao_sistema", tb_configuracao_sistema);
         }
     
         /// <summary>
@@ -982,11 +977,19 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_parametros_locais EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the MunicipiosIbgeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTotb_parametros_locais(tb_parametros_locais tb_parametros_locais)
+        public void AddToMunicipiosIbgeSet(MunicipiosIbgeE municipiosIbgeE)
         {
-            base.AddObject("tb_parametros_locais", tb_parametros_locais);
+            base.AddObject("MunicipiosIbgeSet", municipiosIbgeE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the NfeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToNfeSet(NfeE nfeE)
+        {
+            base.AddObject("NfeSet", nfeE);
         }
 
         #endregion
@@ -1516,28 +1519,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_cfop", "tb_produto")]
-        public EntityCollection<ProdutoE> tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_cfop", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_cfop", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_tipo_saida_tb_cfop1", "tb_tipo_saida")]
         public EntityCollection<TipoSaidaE> tb_tipo_saida
         {
@@ -1550,6 +1531,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TipoSaidaE>("SaceModel.fk_tb_tipo_saida_tb_cfop1", "tb_tipo_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_tb_cfop1", "SaidaProdutoE")]
+        public EntityCollection<SaidaProdutoE> tb_saida_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_tb_cfop1", "SaidaProdutoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_tb_cfop1", "SaidaProdutoE", value);
                 }
             }
         }
@@ -2504,6 +2507,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaProdutoE>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_entrada_produto", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_tb_cst1", "SaidaProdutoE")]
+        public EntityCollection<SaidaProdutoE> tb_saida_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_tb_cst1", "SaidaProdutoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_tb_cst1", "SaidaProdutoE", value);
                 }
             }
         }
@@ -5224,6 +5249,360 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="MunicipiosIbgeE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MunicipiosIbgeE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MunicipiosIbgeE object.
+        /// </summary>
+        /// <param name="codigo">Initial value of the codigo property.</param>
+        public static MunicipiosIbgeE CreateMunicipiosIbgeE(global::System.Int32 codigo)
+        {
+            MunicipiosIbgeE municipiosIbgeE = new MunicipiosIbgeE();
+            municipiosIbgeE.codigo = codigo;
+            return municipiosIbgeE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codigo
+        {
+            get
+            {
+                return _codigo;
+            }
+            set
+            {
+                if (_codigo != value)
+                {
+                    OncodigoChanging(value);
+                    ReportPropertyChanging("codigo");
+                    _codigo = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codigo");
+                    OncodigoChanged();
+                }
+            }
+        }
+        private global::System.Int32 _codigo;
+        partial void OncodigoChanging(global::System.Int32 value);
+        partial void OncodigoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String municipio
+        {
+            get
+            {
+                return _municipio;
+            }
+            set
+            {
+                OnmunicipioChanging(value);
+                ReportPropertyChanging("municipio");
+                _municipio = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("municipio");
+                OnmunicipioChanged();
+            }
+        }
+        private global::System.String _municipio;
+        partial void OnmunicipioChanging(global::System.String value);
+        partial void OnmunicipioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String uf
+        {
+            get
+            {
+                return _uf;
+            }
+            set
+            {
+                OnufChanging(value);
+                ReportPropertyChanging("uf");
+                _uf = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("uf");
+                OnufChanged();
+            }
+        }
+        private global::System.String _uf;
+        partial void OnufChanging(global::System.String value);
+        partial void OnufChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "PessoaE")]
+        public EntityCollection<PessoaE> tb_pessoa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "PessoaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "PessoaE", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="NfeE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class NfeE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new NfeE object.
+        /// </summary>
+        /// <param name="codNFe">Initial value of the codNFe property.</param>
+        /// <param name="chave">Initial value of the chave property.</param>
+        public static NfeE CreateNfeE(global::System.Int32 codNFe, global::System.String chave)
+        {
+            NfeE nfeE = new NfeE();
+            nfeE.codNFe = codNFe;
+            nfeE.chave = chave;
+            return nfeE;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codNFe
+        {
+            get
+            {
+                return _codNFe;
+            }
+            set
+            {
+                if (_codNFe != value)
+                {
+                    OncodNFeChanging(value);
+                    ReportPropertyChanging("codNFe");
+                    _codNFe = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codNFe");
+                    OncodNFeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _codNFe;
+        partial void OncodNFeChanging(global::System.Int32 value);
+        partial void OncodNFeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String chave
+        {
+            get
+            {
+                return _chave;
+            }
+            set
+            {
+                OnchaveChanging(value);
+                ReportPropertyChanging("chave");
+                _chave = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("chave");
+                OnchaveChanged();
+            }
+        }
+        private global::System.String _chave;
+        partial void OnchaveChanging(global::System.String value);
+        partial void OnchaveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String loteEnvio
+        {
+            get
+            {
+                return _loteEnvio;
+            }
+            set
+            {
+                OnloteEnvioChanging(value);
+                ReportPropertyChanging("loteEnvio");
+                _loteEnvio = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("loteEnvio");
+                OnloteEnvioChanged();
+            }
+        }
+        private global::System.String _loteEnvio;
+        partial void OnloteEnvioChanging(global::System.String value);
+        partial void OnloteEnvioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String situacao
+        {
+            get
+            {
+                return _situacao;
+            }
+            set
+            {
+                OnsituacaoChanging(value);
+                ReportPropertyChanging("situacao");
+                _situacao = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("situacao");
+                OnsituacaoChanged();
+            }
+        }
+        private global::System.String _situacao;
+        partial void OnsituacaoChanging(global::System.String value);
+        partial void OnsituacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String protocoloAutorizacao
+        {
+            get
+            {
+                return _protocoloAutorizacao;
+            }
+            set
+            {
+                OnprotocoloAutorizacaoChanging(value);
+                ReportPropertyChanging("protocoloAutorizacao");
+                _protocoloAutorizacao = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("protocoloAutorizacao");
+                OnprotocoloAutorizacaoChanged();
+            }
+        }
+        private global::System.String _protocoloAutorizacao;
+        partial void OnprotocoloAutorizacaoChanging(global::System.String value);
+        partial void OnprotocoloAutorizacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String justificativaCancelamento
+        {
+            get
+            {
+                return _justificativaCancelamento;
+            }
+            set
+            {
+                OnjustificativaCancelamentoChanging(value);
+                ReportPropertyChanging("justificativaCancelamento");
+                _justificativaCancelamento = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("justificativaCancelamento");
+                OnjustificativaCancelamentoChanged();
+            }
+        }
+        private global::System.String _justificativaCancelamento;
+        partial void OnjustificativaCancelamentoChanging(global::System.String value);
+        partial void OnjustificativaCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String protocoloCancelamento
+        {
+            get
+            {
+                return _protocoloCancelamento;
+            }
+            set
+            {
+                OnprotocoloCancelamentoChanging(value);
+                ReportPropertyChanging("protocoloCancelamento");
+                _protocoloCancelamento = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("protocoloCancelamento");
+                OnprotocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _protocoloCancelamento;
+        partial void OnprotocoloCancelamentoChanging(global::System.String value);
+        partial void OnprotocoloCancelamentoChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "SaidaE")]
+        public EntityCollection<SaidaE> tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.tb_saida_nfe", "SaidaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.tb_saida_nfe", "SaidaE", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="PessoaE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -5240,7 +5619,8 @@ namespace Dados
         /// <param name="ehFabricante">Initial value of the ehFabricante property.</param>
         /// <param name="imprimirDAV">Initial value of the imprimirDAV property.</param>
         /// <param name="imprimirCF">Initial value of the imprimirCF property.</param>
-        public static PessoaE CreatePessoaE(global::System.Int64 codPessoa, global::System.String nome, global::System.String tipo, global::System.Boolean ehFabricante, global::System.Boolean imprimirDAV, global::System.Boolean imprimirCF)
+        /// <param name="codMunicipiosIBGE">Initial value of the codMunicipiosIBGE property.</param>
+        public static PessoaE CreatePessoaE(global::System.Int64 codPessoa, global::System.String nome, global::System.String tipo, global::System.Boolean ehFabricante, global::System.Boolean imprimirDAV, global::System.Boolean imprimirCF, global::System.Int32 codMunicipiosIBGE)
         {
             PessoaE pessoaE = new PessoaE();
             pessoaE.codPessoa = codPessoa;
@@ -5249,6 +5629,7 @@ namespace Dados
             pessoaE.ehFabricante = ehFabricante;
             pessoaE.imprimirDAV = imprimirDAV;
             pessoaE.imprimirCF = imprimirCF;
+            pessoaE.codMunicipiosIBGE = codMunicipiosIBGE;
             return pessoaE;
         }
 
@@ -5833,6 +6214,30 @@ namespace Dados
         private global::System.String _nomeFantasia;
         partial void OnnomeFantasiaChanging(global::System.String value);
         partial void OnnomeFantasiaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codMunicipiosIBGE
+        {
+            get
+            {
+                return _codMunicipiosIBGE;
+            }
+            set
+            {
+                OncodMunicipiosIBGEChanging(value);
+                ReportPropertyChanging("codMunicipiosIBGE");
+                _codMunicipiosIBGE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codMunicipiosIBGE");
+                OncodMunicipiosIBGEChanged();
+            }
+        }
+        private global::System.Int32 _codMunicipiosIBGE;
+        partial void OncodMunicipiosIBGEChanging(global::System.Int32 value);
+        partial void OncodMunicipiosIBGEChanged();
 
         #endregion
     
@@ -6136,6 +6541,44 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_pessoa1", "tb_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge")]
+        public MunicipiosIbgeE tb_municipios_ibge
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<MunicipiosIbgeE> tb_municipios_ibgeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge", value);
                 }
             }
         }
@@ -6587,30 +7030,6 @@ namespace Dados
         private global::System.String _codCST;
         partial void OncodCSTChanging(global::System.String value);
         partial void OncodCSTChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> cfop
-        {
-            get
-            {
-                return _cfop;
-            }
-            set
-            {
-                OncfopChanging(value);
-                ReportPropertyChanging("cfop");
-                _cfop = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("cfop");
-                OncfopChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _cfop;
-        partial void OncfopChanging(Nullable<global::System.Int32> value);
-        partial void OncfopChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7191,44 +7610,6 @@ namespace Dados
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_cfop", "tb_cfop")]
-        public CfopE tb_cfop
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CfopE>("SaceModel.fk_tb_produto_cfop", "tb_cfop").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CfopE>("SaceModel.fk_tb_produto_cfop", "tb_cfop").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<CfopE> tb_cfopReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CfopE>("SaceModel.fk_tb_produto_cfop", "tb_cfop");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CfopE>("SaceModel.fk_tb_produto_cfop", "tb_cfop", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8634,6 +9015,30 @@ namespace Dados
         private global::System.String _observacao;
         partial void OnobservacaoChanging(global::System.String value);
         partial void OnobservacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> dataEmissaoDocFiscal
+        {
+            get
+            {
+                return _dataEmissaoDocFiscal;
+            }
+            set
+            {
+                OndataEmissaoDocFiscalChanging(value);
+                ReportPropertyChanging("dataEmissaoDocFiscal");
+                _dataEmissaoDocFiscal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataEmissaoDocFiscal");
+                OndataEmissaoDocFiscalChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _dataEmissaoDocFiscal;
+        partial void OndataEmissaoDocFiscalChanging(Nullable<global::System.DateTime> value);
+        partial void OndataEmissaoDocFiscalChanged();
 
         #endregion
     
@@ -8891,6 +9296,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_saida_tb_pessoa1", "tb_pessoa", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_nfe")]
+        public EntityCollection<NfeE> tb_nfe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "tb_nfe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "tb_nfe", value);
                 }
             }
         }
@@ -9434,12 +9861,16 @@ namespace Dados
         /// <param name="codSaidaProduto">Initial value of the codSaidaProduto property.</param>
         /// <param name="codProduto">Initial value of the codProduto property.</param>
         /// <param name="codSaida">Initial value of the codSaida property.</param>
-        public static SaidaProdutoE CreateSaidaProdutoE(global::System.Int64 codSaidaProduto, global::System.Int64 codProduto, global::System.Int64 codSaida)
+        /// <param name="codCST">Initial value of the codCST property.</param>
+        /// <param name="cfop">Initial value of the cfop property.</param>
+        public static SaidaProdutoE CreateSaidaProdutoE(global::System.Int64 codSaidaProduto, global::System.Int64 codProduto, global::System.Int64 codSaida, global::System.String codCST, global::System.Int32 cfop)
         {
             SaidaProdutoE saidaProdutoE = new SaidaProdutoE();
             saidaProdutoE.codSaidaProduto = codSaidaProduto;
             saidaProdutoE.codProduto = codProduto;
             saidaProdutoE.codSaida = codSaida;
+            saidaProdutoE.codCST = codCST;
+            saidaProdutoE.cfop = cfop;
             return saidaProdutoE;
         }
 
@@ -9784,6 +10215,54 @@ namespace Dados
         private Nullable<global::System.Decimal> _valorIPI;
         partial void OnvalorIPIChanging(Nullable<global::System.Decimal> value);
         partial void OnvalorIPIChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String codCST
+        {
+            get
+            {
+                return _codCST;
+            }
+            set
+            {
+                OncodCSTChanging(value);
+                ReportPropertyChanging("codCST");
+                _codCST = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("codCST");
+                OncodCSTChanged();
+            }
+        }
+        private global::System.String _codCST;
+        partial void OncodCSTChanging(global::System.String value);
+        partial void OncodCSTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 cfop
+        {
+            get
+            {
+                return _cfop;
+            }
+            set
+            {
+                OncfopChanging(value);
+                ReportPropertyChanging("cfop");
+                _cfop = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("cfop");
+                OncfopChanged();
+            }
+        }
+        private global::System.Int32 _cfop;
+        partial void OncfopChanging(global::System.Int32 value);
+        partial void OncfopChanged();
 
         #endregion
     
@@ -9861,6 +10340,82 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SaidaE>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_tb_cfop1", "CfopE")]
+        public CfopE tb_cfop
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CfopE>("SaceModel.fk_tb_saida_produto_tb_cfop1", "CfopE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CfopE>("SaceModel.fk_tb_saida_produto_tb_cfop1", "CfopE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CfopE> tb_cfopReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CfopE>("SaceModel.fk_tb_saida_produto_tb_cfop1", "CfopE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CfopE>("SaceModel.fk_tb_saida_produto_tb_cfop1", "CfopE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_tb_cst1", "CstE")]
+        public CstE tb_cst
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_saida_produto_tb_cst1", "CstE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_saida_produto_tb_cst1", "CstE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CstE> tb_cstReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_saida_produto_tb_cst1", "CstE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CstE>("SaceModel.fk_tb_saida_produto_tb_cst1", "CstE", value);
                 }
             }
         }
@@ -10377,85 +10932,6 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_configuracao_sistema")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class tb_configuracao_sistema : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new tb_configuracao_sistema object.
-        /// </summary>
-        /// <param name="codigo">Initial value of the codigo property.</param>
-        public static tb_configuracao_sistema Createtb_configuracao_sistema(global::System.Int32 codigo)
-        {
-            tb_configuracao_sistema tb_configuracao_sistema = new tb_configuracao_sistema();
-            tb_configuracao_sistema.codigo = codigo;
-            return tb_configuracao_sistema;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codigo
-        {
-            get
-            {
-                return _codigo;
-            }
-            set
-            {
-                if (_codigo != value)
-                {
-                    OncodigoChanging(value);
-                    ReportPropertyChanging("codigo");
-                    _codigo = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codigo");
-                    OncodigoChanged();
-                }
-            }
-        }
-        private global::System.Int32 _codigo;
-        partial void OncodigoChanging(global::System.Int32 value);
-        partial void OncodigoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> lucro_minimo
-        {
-            get
-            {
-                return _lucro_minimo;
-            }
-            set
-            {
-                Onlucro_minimoChanging(value);
-                ReportPropertyChanging("lucro_minimo");
-                _lucro_minimo = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("lucro_minimo");
-                Onlucro_minimoChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _lucro_minimo;
-        partial void Onlucro_minimoChanging(Nullable<global::System.Decimal> value);
-        partial void Onlucro_minimoChanged();
-
-        #endregion
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_funcionalidade")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -10579,133 +11055,6 @@ namespace Dados
         }
 
         #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_parametros_locais")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class tb_parametros_locais : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new tb_parametros_locais object.
-        /// </summary>
-        /// <param name="nomeMaquina">Initial value of the nomeMaquina property.</param>
-        public static tb_parametros_locais Createtb_parametros_locais(global::System.String nomeMaquina)
-        {
-            tb_parametros_locais tb_parametros_locais = new tb_parametros_locais();
-            tb_parametros_locais.nomeMaquina = nomeMaquina;
-            return tb_parametros_locais;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String nomeMaquina
-        {
-            get
-            {
-                return _nomeMaquina;
-            }
-            set
-            {
-                if (_nomeMaquina != value)
-                {
-                    OnnomeMaquinaChanging(value);
-                    ReportPropertyChanging("nomeMaquina");
-                    _nomeMaquina = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("nomeMaquina");
-                    OnnomeMaquinaChanged();
-                }
-            }
-        }
-        private global::System.String _nomeMaquina;
-        partial void OnnomeMaquinaChanging(global::System.String value);
-        partial void OnnomeMaquinaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String enderecoServidor
-        {
-            get
-            {
-                return _enderecoServidor;
-            }
-            set
-            {
-                OnenderecoServidorChanging(value);
-                ReportPropertyChanging("enderecoServidor");
-                _enderecoServidor = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("enderecoServidor");
-                OnenderecoServidorChanged();
-            }
-        }
-        private global::System.String _enderecoServidor;
-        partial void OnenderecoServidorChanging(global::System.String value);
-        partial void OnenderecoServidorChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String portaImpressoraNormal
-        {
-            get
-            {
-                return _portaImpressoraNormal;
-            }
-            set
-            {
-                OnportaImpressoraNormalChanging(value);
-                ReportPropertyChanging("portaImpressoraNormal");
-                _portaImpressoraNormal = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("portaImpressoraNormal");
-                OnportaImpressoraNormalChanged();
-            }
-        }
-        private global::System.String _portaImpressoraNormal;
-        partial void OnportaImpressoraNormalChanging(global::System.String value);
-        partial void OnportaImpressoraNormalChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String portaImpressoraReduzida
-        {
-            get
-            {
-                return _portaImpressoraReduzida;
-            }
-            set
-            {
-                OnportaImpressoraReduzidaChanging(value);
-                ReportPropertyChanging("portaImpressoraReduzida");
-                _portaImpressoraReduzida = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("portaImpressoraReduzida");
-                OnportaImpressoraReduzidaChanged();
-            }
-        }
-        private global::System.String _portaImpressoraReduzida;
-        partial void OnportaImpressoraReduzidaChanging(global::System.String value);
-        partial void OnportaImpressoraReduzidaChanged();
-
-        #endregion
-    
     }
     
     /// <summary>

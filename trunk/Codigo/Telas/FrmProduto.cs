@@ -32,7 +32,6 @@ namespace Telas
 
             cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
@@ -59,7 +58,6 @@ namespace Telas
             codProdutoTextBox.Enabled = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);
-            cfopComboBox.SelectedIndex = 0;
             codGrupoComboBox.SelectedIndex = 0;
             codigoFabricanteComboBox.SelectedIndex = 0;
             codSituacaoProdutoComboBox.SelectedIndex = 0;
@@ -389,9 +387,8 @@ namespace Telas
         private void produtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             Produto produto = (Produto)produtoBindingSource.Current;
-            if (cfopBindingSource.Current != null)
+            if (grupoBindingSource.Current != null)
             {
-                produto.Cfop = ((Cfop)cfopBindingSource.Current).CodCfop;
                 produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
                 produto.CodFabricante = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
                 produto.NomeFabricante = ((Pessoa)pessoaBindingSource.Current).NomeFantasia;

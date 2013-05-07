@@ -529,6 +529,7 @@
     <None Include="Properties\DataSources\Dominio.GrupoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Loja.datasource" />
     <None Include="Properties\DataSources\Dominio.MovimentacaoConta.datasource" />
+    <None Include="Properties\DataSources\Dominio.MunicipiosIBGE.datasource" />
     <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
     <None Include="Properties\DataSources\Dominio.PlanoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Produto.datasource" />

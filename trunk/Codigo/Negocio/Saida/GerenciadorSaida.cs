@@ -11,6 +11,8 @@ using Util;
 using System.Data.Common;
 using System.IO.Ports;
 using System.Data.Objects;
+using System.Xml.Serialization;
+using System.Xml;
 
 
 namespace Negocio
@@ -237,7 +239,7 @@ namespace Negocio
                     saida.PedidoGerado = "";
                     Atualizar(saida);
                 }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                else if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                 {
                     if ((saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     {
@@ -278,7 +280,7 @@ namespace Negocio
                     throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
                 else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida.");
-                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida.");
                 else if ((saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA) && (saida.CodCliente != Global.CLIENTE_PADRAO))
                 {
@@ -443,6 +445,19 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obter cfop padrão de um determinado tipo de saída do sistema
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public string ObterCfopTipoSaida(int codTipoSaida)
+        {
+            var query = from tipoSaida in saceContext.TipoSaidaSet
+                        where tipoSaida.codTipoSaida == codTipoSaida
+                        select tipoSaida.cfop;
+            return query.ToList().ElementAtOrDefault(0).ToString();
+        }
+
+        /// <summary>
         /// Encerra uma saída fazendo movimentações de estoque e lançamentos no contas a pagar/receber
         /// </summary>
         /// <param name="saida"></param>
@@ -500,9 +515,9 @@ namespace Negocio
                         saceContext.SaveChanges();
                         RegistrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
                     }
-                    else if (tipoSaidaEncerramento.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                    else if (tipoSaidaEncerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     {
-                        _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FRONECEDOR;
+                        _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
                         if ((_saidaE.nfe == null) || (_saidaE.nfe.Equals("")))
                         {
                             _saidaE.nfe = ObterNumeroProximaNotaFiscal().ToString();
@@ -922,7 +937,7 @@ namespace Negocio
 
 
 
-        private static int ImprimirProdutosCupomFiscal(StreamWriter arquivo, ref decimal precoTotalProdutosVendidos, List<SaidaProduto> saidaProdutos)
+        private int ImprimirProdutosCupomFiscal(StreamWriter arquivo, ref decimal precoTotalProdutosVendidos, List<SaidaProduto> saidaProdutos)
         {
             int quantidadeProdutosImpressos = 0;
             saidaProdutos = ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
@@ -952,7 +967,7 @@ namespace Negocio
             return quantidadeProdutosImpressos;
         }
 
-        private static List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
+        public List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
         {
             List<SaidaProduto> listaSemDevolucoes = new List<SaidaProduto>();
             List<SaidaProduto> listaDevolucoes = new List<SaidaProduto>();
@@ -1179,6 +1194,7 @@ namespace Negocio
                 ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
         }
 
+        
         private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
@@ -1478,7 +1494,7 @@ namespace Negocio
                     GerarDocumentoFiscal( saidaTotalAVista, null);
                 }
                 else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || 
-                    (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) || (saida.TipoSaida == Saida.TIPO_OUTRAS_SAIDAS))
+                    (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_OUTRAS_SAIDAS))
                 {
                     ImprimeTexto imp = new ImprimeTexto();
 
@@ -1547,7 +1563,7 @@ namespace Negocio
                         {
                             
                             imp.ImpColDireita(5, 9, saidaProduto.CodProduto.ToString());
-                            if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                            if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                                 imp.ImpCol(14, _produto.NomeProdutoFabricante);
                             else
                                 imp.ImpCol(14, saidaProduto.Nome);
@@ -1563,7 +1579,7 @@ namespace Negocio
                             {
                                 imp.ImpCol(133, "0%");
                             }
-                            else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                            else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                             {
                                 imp.ImpCol(133, _produto.Icms.ToString("N1"));
                             }
@@ -1625,7 +1641,7 @@ namespace Negocio
                 imp.ImpCol(27, "6.949");
                 imp.Pula(2);
             }     
-            else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+            else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
             {
                 imp.ImpCol(1, "DEVOLUCAO DE COMPRA P/COM.");
                 imp.ImpCol(27, "6.411");
@@ -1670,7 +1686,7 @@ namespace Negocio
         {
             if (ultimaPagina)
             {
-                if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR) || (saida.TipoSaida == Saida.TIPO_OUTRAS_SAIDAS))
+                if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_OUTRAS_SAIDAS))
                 {
                     imp.Pula(3);
                 }
@@ -1688,7 +1704,7 @@ namespace Negocio
                 }
                 imp.Imp(imp.Normal);
                 // linha 45
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
                     imp.ImpColDireita(35, 47, saida.BaseCalculoICMSSubst.ToString("N2"));
                     imp.ImpColDireita(50, 62, saida.ValorICMSSubst.ToString("N2")); //valor do icms substituto
@@ -1697,7 +1713,7 @@ namespace Negocio
                 imp.Pula(1);
 
                 // linha 46
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR)
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
                     imp.ImpColDireita(05, 15, saida.ValorFrete.ToString("N2")); // frete
                     imp.ImpColDireita(18, 30, saida.ValorSeguro.ToString("N2")); // seguro
@@ -1823,6 +1839,5 @@ namespace Negocio
             _saidaE.valorSeguro = saida.ValorSeguro;
             _saidaE.observacao = saida.Observacao;
         }
-        
     }
 }

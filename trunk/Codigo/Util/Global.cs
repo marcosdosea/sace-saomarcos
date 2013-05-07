@@ -64,12 +64,16 @@ namespace Util
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String
-
-         ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-         //ENDERECO_SERVIDOR = "c:\\",
+         AMBIENTE_NFE = "2", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
+         IBGE_UF_SE = "28",
+         //ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+         ENDERECO_SERVIDOR = "c:\\",
+         ENDERECO_SERVIDOR_NFE = "c:\\",
          PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
+         PASTA_COMUNICACAO_NFE_ENVIO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Envio\\",
+         PASTA_COMUNICACAO_NFE_RETORNO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Retorno\\",
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          NOME_SERVIDOR = "SERVIDOR",
@@ -84,6 +88,7 @@ namespace Util
          //PORTA_IMPRESSORA_REDUZIDA = "lpt2-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================";
+
         
     }
 }

@@ -153,7 +153,6 @@ namespace Negocio
                         orderby produto.nome
                         select new Produto
                         {
-                            Cfop = (int) produto.cfop,
                             CodCST = produto.codCST,
                             CodFabricante = produto.codFabricante,
                             NomeFabricante = fabricante.nomeFantasia,
@@ -201,7 +200,6 @@ namespace Negocio
                         orderby produto.nome
                         select new ProdutoPesquisa
                         {
-                            Cfop = (int) produto.cfop,
                             CodCST = produto.codCST,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,
@@ -373,7 +371,6 @@ namespace Negocio
         /// <param name="_produtoE"></param>
         private static void Atribuir(Produto produto, ProdutoE _produtoE)
         {
-            _produtoE.cfop = produto.Cfop;
             _produtoE.codCST = produto.CodCST;
             _produtoE.codFabricante = produto.CodFabricante;
             _produtoE.codGrupo = produto.CodGrupo;
