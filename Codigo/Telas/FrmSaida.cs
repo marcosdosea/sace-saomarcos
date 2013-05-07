@@ -318,7 +318,7 @@ namespace Telas
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.TIPO_SAIDA_DEPOSITO);
                 tb_saida_produtoDataGridView.Height = 370;
             }
-            else if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR) || tipoSaidaFormulario.Equals(Saida.TIPO_OUTRAS_SAIDAS))
+            else if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || tipoSaidaFormulario.Equals(Saida.TIPO_OUTRAS_SAIDAS))
             {
                 lblSaidaProdutos.Text = "Devolução de Produtos para Fornecedor";
                 this.Text = "Devolução de Produtos para Fornecedor";
@@ -336,8 +336,8 @@ namespace Telas
                 valorIPITextBox.TabStop = true;
                 tb_saida_produtoDataGridView.Height = 300;
 
-                if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
-                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FRONECEDOR);
+                if (tipoSaidaFormulario.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.TIPO_DEVOLUCAO_FORNECEDOR);
                 else if (tipoSaidaFormulario.Equals(Saida.TIPO_OUTRAS_SAIDAS))
                     saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.TIPO_OUTRAS_SAIDAS);
                 
@@ -400,7 +400,7 @@ namespace Telas
             //ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
             produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
 
-            if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
             {
                 precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N2");
             }
@@ -423,7 +423,7 @@ namespace Telas
 
             if (produto != null)
             {
-                if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+                if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                 {
                     precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
                     precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
@@ -530,7 +530,7 @@ namespace Telas
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
                 }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FRONECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_OUTRAS_SAIDAS))
+                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_OUTRAS_SAIDAS))
                 {
                     FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
                     frmSaidaDevolucao.ShowDialog();
@@ -582,7 +582,7 @@ namespace Telas
                     GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(saida);
                 }
             }
-            else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FRONECEDOR))
+            else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
             {
                 FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida.CodSaida);
                 frmSaidaNF.ShowDialog();

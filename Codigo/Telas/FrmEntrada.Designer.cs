@@ -897,7 +897,7 @@
             // 
             // cfopComboBox
             // 
-            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "Cfop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaProdutoBindingSource, "Cfop", true));
             this.cfopComboBox.DataSource = this.cfopBindingSource;
             this.cfopComboBox.DisplayMember = "CodCfop";
             this.cfopComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

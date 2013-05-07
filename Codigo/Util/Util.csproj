@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CDSImprimeTexto.cs" />
+    <Compile Include="DigitoVerificador.cs" />
     <Compile Include="MatrixReporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StringBuilderImprimir.cs" />

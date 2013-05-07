@@ -1,19 +1,20 @@
 ﻿1) Entrar no diretório dos schemas D:\SACE2010\trunk\Codigo\Dominio\NFE_Schema>
 
 2) Executar comandos:
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" consStatServ_v2.00.xsd /c /l:c#
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd Nfe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd cancNFe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd consCad_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd consReciNFe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd consSitNFe_v2.01.xsd /c /l:c#
-"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd consStatServ_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd enviNFe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd inutNFe_v2.00.xsd /c /l:c#
 
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" retConsStatServ_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retCancNFe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retConsCad_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retConsReciNFe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retConsSitNFe_v2.01.xsd /c /l:c#
-"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retConsStatServ_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retEnviNFe_v2.00.xsd /c /l:c#
 "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" xmldsig-core-schema_v1.01.xsd retInutNFe_v2.00.xsd /c /l:c#
 

@@ -82,7 +82,9 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
             }
-            GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(Saida);
+            string chaveNFe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
+            GerenciadorNFe.GetInstance().EnviarNFE(Saida, chaveNFe);
+            //GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(Saida);
         }
 
     }

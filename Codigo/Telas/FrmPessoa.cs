@@ -27,6 +27,7 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PESSOAS, Principal.Autenticacao.CodUsuario);
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            municipiosIBGEBindingSource.DataSource = GerenciadorMunicipio.GetInstance().ObterTodos();
             if (!codPessoaTextBox.Text.Trim().Equals(""))
                 contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterContatos(long.Parse(codPessoaTextBox.Text));
             habilitaBotoes(true);
@@ -48,8 +49,6 @@ namespace Telas
         {
             pessoaBindingSource.AddNew();
             codPessoaTextBox.Enabled = false;
-            cidadeTextBox.Text = "ARACAJU";
-            ufTextBox.Text = "SE";
             limiteCompraTextBox.Text = "0";
             valorComissaoTextBox.Text = "0";
             ehFabricanteCheckBox.Checked = false;
@@ -94,7 +93,7 @@ namespace Telas
             _pessoa.Complemento = complementoTextBox.Text;
             _pessoa.Bairro = bairroTextBox.Text;
             _pessoa.Cep = cepMaskedTextBox.Text;
-            _pessoa.Cidade = cidadeTextBox.Text;
+            _pessoa.CodMunicipioIBGE = Convert.ToInt32(codMunicipioIBGEComboBox.SelectedValue);
             _pessoa.Email = emailTextBox.Text;
             _pessoa.IeSubstituto = ieSubstitutoTextBox.Text;
             _pessoa.Numero = numeroTextBox.Text;

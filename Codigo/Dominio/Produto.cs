@@ -50,7 +50,9 @@ namespace Dominio
             precoCalculado = precoCalculado + (precoCalculado * frete / 100);
             precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
             precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
-            return precoCalculado / QuantidadeEmbalagem;
+            if (QuantidadeEmbalagem > 0)
+                return precoCalculado / QuantidadeEmbalagem;
+            return precoCalculado;
         }
 
         public decimal CalculaPrecoCustoSubstituicao(decimal precoCompra, decimal ICMSSubstituicao, decimal simples, decimal ipi, decimal frete, decimal manutencao, decimal desconto)
@@ -61,7 +63,9 @@ namespace Dominio
             precoCalculado = precoCalculado + (precoCalculado * frete / 100);
             precoCalculado = precoCalculado + (precoCalculado * manutencao / 100);
             precoCalculado = precoCalculado - (precoCalculado * desconto / 100);
-            return precoCalculado / QuantidadeEmbalagem;
+            if (QuantidadeEmbalagem > 0)
+                return precoCalculado / QuantidadeEmbalagem;
+            return precoCalculado;
         }
 
 

@@ -68,6 +68,7 @@
     <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
     <Compile Include="Conta\GerenciadorFormaPagamento.cs" />
     <Compile Include="Conta\GerenciadorConta.cs" />
+    <Compile Include="Pessoa\GerenciadorMunicipios.cs" />
     <Compile Include="Produto\GerenciadorCfop.cs" />
     <Compile Include="Produto\GerenciadorCst.cs" />
     <Compile Include="Entrada\GerenciadorEntrada.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="SaceConst.cs" />
     <Compile Include="GerenciadorSeguranca.cs" />
     <Compile Include="GerenciadorImprimir.cs" />
+    <Compile Include="Saida\GerenciadorNFe.cs" />
     <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />
     <Compile Include="Saida\GerenciadorSaidaPagamento.cs" />
     <Compile Include="Saida\GerenciadorSaidaPedido.cs" />

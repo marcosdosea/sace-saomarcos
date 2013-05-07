@@ -78,6 +78,8 @@
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
     <Compile Include="Cfop.cs" />
+    <Compile Include="MunicipiosIBGE.cs" />
+    <Compile Include="NFE_Schema\Nfe_v2_00.cs" />
     <Compile Include="ProdutoPesquisa.cs" />
     <Compile Include="Cst.cs" />
     <Compile Include="DocumentoPagamento.cs" />

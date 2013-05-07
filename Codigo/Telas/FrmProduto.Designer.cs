@@ -35,7 +35,6 @@
             System.Windows.Forms.Label codigoBarraLabel;
             System.Windows.Forms.Label codGrupoLabel;
             System.Windows.Forms.Label codigoFabricanteLabel;
-            System.Windows.Forms.Label cfopLabel;
             System.Windows.Forms.Label nomeFabricanteLabel;
             System.Windows.Forms.Label codSituacaoProdutoLabel;
             System.Windows.Forms.Label referenciaFabricanteLabel;
@@ -79,8 +78,6 @@
             this.temVencimentoCheckBox = new System.Windows.Forms.CheckBox();
             this.exibeNaListagemCheckBox = new System.Windows.Forms.CheckBox();
             this.nomeFabricanteTextBox = new System.Windows.Forms.TextBox();
-            this.cfopComboBox = new System.Windows.Forms.ComboBox();
-            this.cfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnEstoque = new System.Windows.Forms.Button();
             this.codSituacaoProdutoComboBox = new System.Windows.Forms.ComboBox();
             this.situacaoprodutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -135,7 +132,6 @@
             codigoBarraLabel = new System.Windows.Forms.Label();
             codGrupoLabel = new System.Windows.Forms.Label();
             codigoFabricanteLabel = new System.Windows.Forms.Label();
-            cfopLabel = new System.Windows.Forms.Label();
             nomeFabricanteLabel = new System.Windows.Forms.Label();
             codSituacaoProdutoLabel = new System.Windows.Forms.Label();
             referenciaFabricanteLabel = new System.Windows.Forms.Label();
@@ -162,7 +158,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.situacaoprodutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
@@ -193,7 +188,7 @@
             // unidadeLabel
             // 
             unidadeLabel.AutoSize = true;
-            unidadeLabel.Location = new System.Drawing.Point(6, 155);
+            unidadeLabel.Location = new System.Drawing.Point(6, 112);
             unidadeLabel.Name = "unidadeLabel";
             unidadeLabel.Size = new System.Drawing.Size(81, 13);
             unidadeLabel.TabIndex = 25;
@@ -226,15 +221,6 @@
             codigoFabricanteLabel.TabIndex = 31;
             codigoFabricanteLabel.Text = "Fabricante:";
             // 
-            // cfopLabel
-            // 
-            cfopLabel.AutoSize = true;
-            cfopLabel.Location = new System.Drawing.Point(6, 112);
-            cfopLabel.Name = "cfopLabel";
-            cfopLabel.Size = new System.Drawing.Size(31, 13);
-            cfopLabel.TabIndex = 35;
-            cfopLabel.Text = "cfop:";
-            // 
             // nomeFabricanteLabel
             // 
             nomeFabricanteLabel.AutoSize = true;
@@ -256,7 +242,7 @@
             // referenciaFabricanteLabel
             // 
             referenciaFabricanteLabel.AutoSize = true;
-            referenciaFabricanteLabel.Location = new System.Drawing.Point(465, 155);
+            referenciaFabricanteLabel.Location = new System.Drawing.Point(4, 154);
             referenciaFabricanteLabel.Name = "referenciaFabricanteLabel";
             referenciaFabricanteLabel.Size = new System.Drawing.Size(115, 13);
             referenciaFabricanteLabel.TabIndex = 86;
@@ -548,11 +534,11 @@
             // 
             this.unidadeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.unidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Unidade", true));
-            this.unidadeTextBox.Location = new System.Drawing.Point(7, 172);
+            this.unidadeTextBox.Location = new System.Drawing.Point(7, 129);
             this.unidadeTextBox.MaxLength = 2;
             this.unidadeTextBox.Name = "unidadeTextBox";
             this.unidadeTextBox.Size = new System.Drawing.Size(134, 20);
-            this.unidadeTextBox.TabIndex = 15;
+            this.unidadeTextBox.TabIndex = 11;
             this.unidadeTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.unidadeTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
@@ -604,7 +590,7 @@
             this.codigoFabricanteComboBox.FormattingEnabled = true;
             this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 170);
             this.codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
-            this.codigoFabricanteComboBox.Size = new System.Drawing.Size(312, 21);
+            this.codigoFabricanteComboBox.Size = new System.Drawing.Size(446, 21);
             this.codigoFabricanteComboBox.TabIndex = 17;
             this.codigoFabricanteComboBox.ValueMember = "CodPessoa";
             this.codigoFabricanteComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
@@ -649,26 +635,6 @@
             this.nomeFabricanteTextBox.TabIndex = 13;
             this.nomeFabricanteTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.nomeFabricanteTextBox.Leave += new System.EventHandler(this.nomeFabricanteTextBox_Leave);
-            // 
-            // cfopComboBox
-            // 
-            this.cfopComboBox.CausesValidation = false;
-            this.cfopComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "Cfop", true));
-            this.cfopComboBox.DataSource = this.cfopBindingSource;
-            this.cfopComboBox.DisplayMember = "Descricao";
-            this.cfopComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cfopComboBox.FormattingEnabled = true;
-            this.cfopComboBox.Location = new System.Drawing.Point(7, 128);
-            this.cfopComboBox.Name = "cfopComboBox";
-            this.cfopComboBox.Size = new System.Drawing.Size(134, 21);
-            this.cfopComboBox.TabIndex = 11;
-            this.cfopComboBox.ValueMember = "CodCfop";
-            this.cfopComboBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
-            this.cfopComboBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
-            // 
-            // cfopBindingSource
-            // 
-            this.cfopBindingSource.DataSource = typeof(Dominio.Cfop);
             // 
             // btnEstoque
             // 
@@ -947,11 +913,11 @@
             // 
             this.referenciaFabricanteTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.referenciaFabricanteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "ReferenciaFabricante", true));
-            this.referenciaFabricanteTextBox.Location = new System.Drawing.Point(468, 172);
+            this.referenciaFabricanteTextBox.Location = new System.Drawing.Point(7, 171);
             this.referenciaFabricanteTextBox.MaxLength = 20;
             this.referenciaFabricanteTextBox.Name = "referenciaFabricanteTextBox";
-            this.referenciaFabricanteTextBox.Size = new System.Drawing.Size(128, 20);
-            this.referenciaFabricanteTextBox.TabIndex = 19;
+            this.referenciaFabricanteTextBox.Size = new System.Drawing.Size(134, 20);
+            this.referenciaFabricanteTextBox.TabIndex = 15;
             this.referenciaFabricanteTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.referenciaFabricanteTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
@@ -1188,7 +1154,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(icms_substitutoLabel);
             this.Controls.Add(this.icms_substitutoTextBox);
-            this.Controls.Add(this.cfopComboBox);
             this.Controls.Add(qtdProdutoAtacadoLabel);
             this.Controls.Add(this.qtdProdutoAtacadoTextBox);
             this.Controls.Add(codProdutoLabel);
@@ -1204,7 +1169,6 @@
             this.Controls.Add(codigoFabricanteLabel);
             this.Controls.Add(this.codigoFabricanteComboBox);
             this.Controls.Add(this.temVencimentoCheckBox);
-            this.Controls.Add(cfopLabel);
             this.Controls.Add(icmsLabel);
             this.Controls.Add(this.icmsTextBox);
             this.Controls.Add(simplesLabel);
@@ -1249,7 +1213,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.situacaoprodutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).EndInit();
@@ -1282,7 +1245,6 @@
         private System.Windows.Forms.CheckBox temVencimentoCheckBox;
         private System.Windows.Forms.CheckBox exibeNaListagemCheckBox;
         private System.Windows.Forms.TextBox nomeFabricanteTextBox;
-        private System.Windows.Forms.ComboBox cfopComboBox;
         private System.Windows.Forms.Button btnEstoque;
         private System.Windows.Forms.ComboBox codSituacaoProdutoComboBox;
         private System.Windows.Forms.TextBox precoVendaAtacadoTextBox;
@@ -1317,7 +1279,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.BindingSource cfopBindingSource;
         private System.Windows.Forms.BindingSource grupoBindingSource;
         private System.Windows.Forms.BindingSource situacaoprodutoBindingSource;
         private System.Windows.Forms.BindingSource cstBindingSource;

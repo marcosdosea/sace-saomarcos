@@ -13,7 +13,7 @@ namespace Dominio
         public const int TIPO_SAIDA_DEPOSITO = 4;
         public const int TIPO_CONSUMO_INTERNO = 5;
         public const int TIPO_PRODUTOS_DANIFICADOS = 6;
-        public const int TIPO_DEVOLUCAO_FRONECEDOR = 7;
+        public const int TIPO_DEVOLUCAO_FORNECEDOR = 7;
         public const int TIPO_OUTRAS_SAIDAS = 8;
         
         public long CodSaida { get; set; }
@@ -24,6 +24,7 @@ namespace Dominio
         public long CodProfissional { get; set; }
         public int NumeroCartaoVenda { get; set; }
         public string PedidoGerado { get; set; }
+        public DateTime DataEmissaoDocFiscal { get; set; }
         public decimal Total { get; set; }
         public decimal TotalAVista { get; set; }
         public decimal Desconto { get; set; }
