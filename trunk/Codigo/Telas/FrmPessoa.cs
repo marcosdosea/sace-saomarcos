@@ -47,15 +47,16 @@ namespace Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            pessoaBindingSource.AddNew();
-            codPessoaTextBox.Enabled = false;
-            limiteCompraTextBox.Text = "0";
-            valorComissaoTextBox.Text = "0";
-            ehFabricanteCheckBox.Checked = false;
-            imprimirCFCheckBox.Checked = false;
-            imprimirDAVCheckBox.Checked = true;
+            Pessoa pessoa = (Pessoa) pessoaBindingSource.AddNew();
+            pessoa.EhFabricante = false;
+            pessoa.ImprimirCF = false;
+            pessoa.ImprimirDAV = true;
             PfRadioButton.Select();
+            Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+            pessoa.CodMunicipioIBGE = loja.CodMunicipioIBGE;
+            
             nomeFantasiaTextBox.Focus();
+             
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
         }
@@ -63,6 +64,7 @@ namespace Telas
         private void btnEditar_Click(object sender, EventArgs e)
         {
             nomeFantasiaTextBox.Focus();
+
             habilitaBotoes(false);
             estado = EstadoFormulario.ATUALIZAR;
         }
@@ -94,6 +96,7 @@ namespace Telas
             _pessoa.Bairro = bairroTextBox.Text;
             _pessoa.Cep = cepMaskedTextBox.Text;
             _pessoa.CodMunicipioIBGE = Convert.ToInt32(codMunicipioIBGEComboBox.SelectedValue);
+            _pessoa.Cidade = codMunicipioIBGEComboBox.Text;
             _pessoa.Email = emailTextBox.Text;
             _pessoa.IeSubstituto = ieSubstitutoTextBox.Text;
             _pessoa.Numero = numeroTextBox.Text;
@@ -164,7 +167,11 @@ namespace Telas
         private void codPessoaTextBox_TextChanged(object sender, EventArgs e)
         {
             if ((codPessoaTextBox.Text != null) && (codPessoaTextBox.Text != ""))
+            {
                 contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterContatos(long.Parse(codPessoaTextBox.Text));
+                
+                municipiosIBGEBindingSource.Position = municipiosIBGEBindingSource.List.IndexOf(new MunicipiosIBGE() { Codigo = ((Pessoa)pessoaBindingSource.Current).CodMunicipioIBGE });
+            }
         }
 
         private void btnAdicionarContato_Click(object sender, EventArgs e)
@@ -297,5 +304,13 @@ namespace Telas
         {
             FormatTextBox.RemoverAcentos((TextBox)sender);
         }
+
+        private void codMunicipioIBGEComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string str = e.KeyChar.ToString().ToUpper();
+            char[] ch = str.ToCharArray();
+            e.KeyChar = ch[0];
+        }
+
     }
 }

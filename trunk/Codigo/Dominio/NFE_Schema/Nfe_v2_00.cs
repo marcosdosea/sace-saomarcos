@@ -443,54 +443,7 @@ public partial class SignedInfoTypeSignatureMethod {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-[System.Xml.Serialization.XmlRootAttribute("enviNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
-public partial class TEnviNFe {
-    
-    private string idLoteField;
-    
-    private TNFe[] nFeField;
-    
-    private string versaoField;
-    
-    /// <remarks/>
-    public string idLote {
-        get {
-            return this.idLoteField;
-        }
-        set {
-            this.idLoteField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("NFe")]
-    public TNFe[] NFe {
-        get {
-            return this.nFeField;
-        }
-        set {
-            this.nFeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string versao {
-        get {
-            return this.versaoField;
-        }
-        set {
-            this.versaoField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("NFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
 public partial class TNFe {
     
     private TNFeInfNFe infNFeField;

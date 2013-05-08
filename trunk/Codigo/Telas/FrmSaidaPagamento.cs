@@ -126,7 +126,7 @@ namespace Telas
         /// <param name="e"></param>
         private void EncerrarLancamentosPagamentos(object sender, EventArgs e)
         {
-            if ((saida.PedidoGerado == null) || saida.PedidoGerado.Equals(""))
+            if ((saida.CupomFiscal == null) || saida.CupomFiscal.Equals(""))
             {
 
                 var frmSaidaConfirma = new FrmSaidaConfirma(saida);
