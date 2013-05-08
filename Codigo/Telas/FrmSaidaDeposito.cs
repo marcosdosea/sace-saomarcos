@@ -45,7 +45,7 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_SAIDA_DEPOSITO);
 
-                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida.CodSaida);
+                FrmSaidaVenda frmSaidaNF = new FrmSaidaVenda(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
 

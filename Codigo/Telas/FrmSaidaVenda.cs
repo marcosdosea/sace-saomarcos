@@ -11,24 +11,16 @@ using Dominio;
 
 namespace Telas
 {
-    public partial class FrmSaidaNF: Form
+    public partial class FrmSaidaVenda: Form
     {
 
         public Saida Saida { get; set; }
 
-        public FrmSaidaNF(long codSaida)
+        public FrmSaidaVenda(long codSaida)
         {
             InitializeComponent();
             this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
             
-            if ((Saida.Nfe != null) && (! Saida.Nfe.Equals("") )) {
-                numeroNFText.Text = Saida.Nfe;
-            } 
-            else 
-            {
-                numeroNFText.Text = GerenciadorSaida.GetInstance(null).ObterNumeroProximaNotaFiscal().ToString();
-            }
-
             if (Saida.Observacao.Trim().Equals(""))
             {
                 if (Saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
@@ -67,23 +59,29 @@ namespace Telas
             this.Close();
             try
             {
-                Saida.Nfe = Convert.ToInt64(numeroNFText.Text).ToString();
                 Saida.Observacao = observacaoTextBox.Text;
             }
             catch (Exception)
             {
                 throw new NegocioException("Número da nota fiscal inválido. Favor verificar o formato e a sequência da numeração.");
             }
-            if (Saida.PedidoGerado.Trim().Equals(""))
+            if (Saida.CupomFiscal.Trim().Equals(""))
             {
                 GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
             }
             else
             {
-                GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.PedidoGerado);
+                GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
             }
-            string chaveNFe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
-            GerenciadorNFe.GetInstance().EnviarNFE(Saida, chaveNFe);
+            Nfe nfe = new Nfe();
+            nfe.CodNfe = GerenciadorNFe.GetInstance().Inserir(nfe, Saida);
+            nfe.Chave = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, nfe);
+                     
+            if (!string.IsNullOrEmpty(nfe.Chave))
+            {
+                GerenciadorNFe.GetInstance().Atualizar(nfe);    
+                GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe);
+            }
             //GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(Saida);
         }
 

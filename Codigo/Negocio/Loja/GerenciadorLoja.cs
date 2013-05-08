@@ -104,11 +104,18 @@ namespace Negocio
 
             var saceEntities = (SaceEntities) repLoja.ObterContexto();
             var query = from loja in saceEntities.LojaSet
+                        join pessoa in saceEntities.PessoaSet
+                        on loja.codPessoa equals pessoa.codPessoa
                         select new Loja
                         {
                             CodLoja = loja.codLoja,
                             CodPessoa = loja.codPessoa,
-                            Nome = loja.nome
+                            Nome = loja.nome,
+                            Cnpj = pessoa.cpf_Cnpj,
+                            CodMunicipioIBGE = pessoa.codMunicipiosIBGE,
+                            Estado = pessoa.uf,
+                            Ie = pessoa.ie,
+                            NomePessoa = pessoa.nome
                         };
             return query;
         }

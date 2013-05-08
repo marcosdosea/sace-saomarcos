@@ -9,26 +9,15 @@ namespace Dominio
     {
         private int codLoja;
 
-        public int CodLoja
-        {
-            get { return codLoja; }
-            set { codLoja = value; }
-        }
-        private string nome;
+        public int CodLoja { get; set; }
+        public string Nome { get; set; }
+        public long CodPessoa { get; set; }
+        public string NomePessoa { get; set; }
+        public string Cnpj { get; set; }
+        public string Ie { get; set; }
+        public int CodMunicipioIBGE { get; set; }
+        public string Estado { get; set; }
 
-        public string Nome
-        {
-            get { return nome; }
-            set { nome = value; }
-        }
-
-        private long codPessoa;
-
-        public long CodPessoa
-        {
-            get { return codPessoa; }
-            set { codPessoa = value; }
-        }
 
         // override object.Equals
         public override bool Equals(object obj)

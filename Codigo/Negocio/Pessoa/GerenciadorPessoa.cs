@@ -168,6 +168,8 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repPessoa.ObterContexto();
             var query = from pessoa in saceEntities.PessoaSet
+                        join municipiosIBGE in saceEntities.MunicipiosIbgeSet
+                        on pessoa.codMunicipiosIBGE equals municipiosIBGE.codigo
                         select new Pessoa
                         {
                             Bairro = pessoa.bairro,
@@ -193,7 +195,9 @@ namespace Negocio
                             Observacao = pessoa.observacao,
                             Tipo = pessoa.Tipo,
                             Uf = pessoa.uf,
-                            ValorComissao = (decimal) pessoa.valorComissao
+                            ValorComissao = (decimal) pessoa.valorComissao,
+                            CodMunicipioIBGE = pessoa.codMunicipiosIBGE,
+                            NomeMunicipioIBGE = municipiosIBGE.municipio
 
                         };
             return query;
@@ -208,24 +212,6 @@ namespace Negocio
             return GetQuery().OrderBy(p=> p.CodPessoa).ToList();
         }
 
-        public IEnumerable<MunicipiosIBGE> ObterTodosMunicipios()
-        {
-            var repMunicipios = new RepositorioGenerico<MunicipiosIbgeE>();
-
-            var saceEntities = (SaceEntities)repMunicipios.ObterContexto();
-            var query = from municipios in saceEntities.MunicipiosIbgeSet
-                        select new MunicipiosIBGE
-                        {
-                            Codigo = municipios.codigo,
-                            Municipio = municipios.municipio,
-                            Uf = municipios.uf
-                        };
-            return query.ToList();
-        }
-
-        
-        
-        
         /// <summary>
         /// Obter pelo código da pessoa
         /// </summary>
@@ -368,6 +354,7 @@ namespace Negocio
                             Observacao = pessoa.observacao,
                             Tipo = pessoa.Tipo,
                             Uf = pessoa.uf,
+                            CodMunicipioIBGE = pessoa.codMunicipiosIBGE,
                             ValorComissao = (decimal) pessoa.valorComissao
                         };
             return query;
@@ -385,6 +372,7 @@ namespace Negocio
             _pessoa.bairro = pessoa.Bairro;
             _pessoa.cep = pessoa.Cep;
             _pessoa.cidade = pessoa.Cidade;
+            _pessoa.codMunicipiosIBGE = pessoa.CodMunicipioIBGE;
             _pessoa.complemento = pessoa.Complemento;
             _pessoa.cpf_Cnpj = pessoa.CpfCnpj;
             _pessoa.ehFabricante = pessoa.EhFabricante;

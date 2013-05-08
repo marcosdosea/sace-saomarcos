@@ -24,6 +24,7 @@ namespace Telas
         private EstadoFormulario estado;
         private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
+        private int cfopPadrao;
 
         private Saida saida;
         private ProdutoPesquisa produto;
@@ -49,6 +50,8 @@ namespace Telas
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosExibiveis();
             
             ObterSaidas(true);
+
+            cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(tipoSaidaFormulario);
             saidaBindingSource.MoveLast();
             quantidadeTextBox.Text = "1";
             precoVendatextBox.Text = "0,00";
@@ -94,7 +97,7 @@ namespace Telas
             saida.DataSaida = DateTime.Now;
             saida.Desconto = 0;
             saida.NumeroCartaoVenda = 0;
-            saida.PedidoGerado = "";
+            saida.CupomFiscal = "";
             saida.Total = 0;
             saida.TotalAVista = 0;
             saida.TotalLucro = 0;
@@ -265,7 +268,8 @@ namespace Telas
             saidaProduto.BaseCalculoICMSSubst = Convert.ToDecimal(baseCalculoICMSSubstTextBox.Text);
             saidaProduto.ValorICMSSubst = Convert.ToDecimal(valorICMSSubstTextBox.Text);
             saidaProduto.ValorIPI = Convert.ToDecimal(valorIPITextBox.Text);
-            
+            saidaProduto.CodCST = produto.CodCST;
+            saidaProduto.CodCfop = cfopPadrao; 
             
             codProdutoComboBox.Focus();
             codProdutoComboBox.Text = "";
@@ -492,7 +496,7 @@ namespace Telas
                     saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
                     saidaProdutoBindingSource.DataSource = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
                     descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
-                    pedidoGeradoTextBox.Text = saida.PedidoGerado;
+                    pedidoGeradoTextBox.Text = saida.CupomFiscal;
                     nfeTextBox.Text = saida.Nfe;
                     nomeClienteTextBox.Text = saida.NomeCliente;
                     descricaoSituacaoPagamentosTextBox.Text = saida.DescricaoSituacaoPagamentos;
@@ -584,7 +588,7 @@ namespace Telas
             }
             else if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
             {
-                FrmSaidaNF frmSaidaNF = new FrmSaidaNF(saida.CodSaida);
+                FrmSaidaVenda frmSaidaNF = new FrmSaidaVenda(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }

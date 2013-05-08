@@ -193,7 +193,11 @@ namespace Negocio
                         _saidaE.totalLucro += totalAVista - _saidaE.totalAVista;
                     }
                     _saidaE.codTipoSaida = codTipoSaida;
-                    _saidaE.pedidoGerado = pedidoGerado;
+                    if (string.IsNullOrEmpty(_saidaE.pedidoGerado))
+                    {
+                        _saidaE.pedidoGerado = pedidoGerado;
+                        _saidaE.dataEmissaoDocFiscal = DateTime.Now;
+                    }
                     _saidaE.totalAVista = totalAVista;
                     _saidaE.totalPago = totalAVista;
                     _saidaE.desconto = Math.Round(Convert.ToDecimal((1 -(_saidaE.totalAVista / _saidaE.total)) * 100), 2);
@@ -236,7 +240,7 @@ namespace Negocio
                 {
                     RegistrarEstornoEstoque(saida);
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                    saida.PedidoGerado = "";
+                    saida.CupomFiscal = "";
                     Atualizar(saida);
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
@@ -304,7 +308,7 @@ namespace Negocio
                 }
                 saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-                saida.PedidoGerado = "";
+                saida.CupomFiscal = "";
                 saida.TotalPago = 0;
                 Atualizar(saida);
                 //transaction.Commit();
@@ -353,7 +357,8 @@ namespace Negocio
                             NumeroCartaoVenda = (int)saida.numeroCartaoVenda,
                             OutrasDespesas = (decimal)saida.outrasDespesas,
                             Observacao = saida.observacao,
-                            PedidoGerado = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            DataEmissaoCupomFiscal = saida.dataEmissaoDocFiscal == null ? saida.dataSaida : (DateTime) saida.dataEmissaoDocFiscal,
                             PesoBruto =  (decimal)saida.pesoBruto,
                             PesoLiquido = (decimal)saida.pesoLiquido,
                             QuantidadeVolumes = (decimal)saida.quantidadeVolumes,
@@ -420,7 +425,7 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterPorPedido(string pedidoGerado)
         {
-            return GetQuery().Where(saida => saida.PedidoGerado.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
+            return GetQuery().Where(saida => saida.CupomFiscal.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -441,7 +446,7 @@ namespace Negocio
         public List<Saida> ObterPreVendasPendentes()
         {
             return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
-                saida.PedidoGerado.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente==Global.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
+                saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente==Global.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -449,14 +454,15 @@ namespace Negocio
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public string ObterCfopTipoSaida(int codTipoSaida)
+        public int ObterCfopTipoSaida(int codTipoSaida)
         {
             var query = from tipoSaida in saceContext.TipoSaidaSet
                         where tipoSaida.codTipoSaida == codTipoSaida
                         select tipoSaida.cfop;
-            return query.ToList().ElementAtOrDefault(0).ToString();
+            return query.ToList().ElementAtOrDefault(0);
         }
 
+        
         /// <summary>
         /// Encerra uma saída fazendo movimentações de estoque e lançamentos no contas a pagar/receber
         /// </summary>
@@ -1232,7 +1238,7 @@ namespace Negocio
                 if (saidas.Count == 1)
                 {
                     imp.Imp("No do Documento: " + saidas[0].CodSaida);
-                    imp.ImpColLF(30, "No do Documento Fiscal: " + saidas[0].PedidoGerado);
+                    imp.ImpColLF(30, "No do Documento Fiscal: " + saidas[0].CupomFiscal);
                     imp.ImpLF("Data: " + saidas[0].DataSaida.ToShortDateString());
                 }
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
@@ -1242,7 +1248,7 @@ namespace Negocio
                 {
                     if (saidas.Count > 1)
                     {
-                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.PedidoGerado);
+                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal);
                     }
 
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
@@ -1271,7 +1277,7 @@ namespace Negocio
                 imp.ImpColLFDireita(30, 59, imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.NegritoOff);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
-                if (!saidas[0].PedidoGerado.Equals(""))
+                if (!saidas[0].CupomFiscal.Equals(""))
                 {
                     imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
                 }
@@ -1335,7 +1341,7 @@ namespace Negocio
                 {
                     imp.ImpLF("Data : " + saidas[0].DataSaida.ToShortDateString());
                     imp.Imp("No do Documento: " + saidas[0].CodSaida);
-                    imp.ImpColLF(50, "No do Documento Fiscal: " + saidas[0].PedidoGerado);
+                    imp.ImpColLF(50, "No do Documento Fiscal: " + saidas[0].CupomFiscal);
                 }
                 imp.ImpLF(Global.LINHA);
                 imp.ImpLF("Cod  Produto                                   Qtdade  UN Preco(R$) Subtotal(R$)");
@@ -1344,7 +1350,7 @@ namespace Negocio
                 {
                     if (saidas.Count > 1)
                     {
-                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.PedidoGerado);
+                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal);
                     }
 
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
@@ -1424,7 +1430,7 @@ namespace Negocio
                 {
                     sbImprimir.AppendLine("Data : " + saidas[0].DataSaida.ToShortDateString());
                     sbImprimir.Append("No do Documento: " + saidas[0].CodSaida);
-                    sbImprimir.AppendLineEsquerda(50, "No do Documento Fiscal: " + saidas[0].PedidoGerado);
+                    sbImprimir.AppendLineEsquerda(50, "No do Documento Fiscal: " + saidas[0].CupomFiscal);
                 }
                 sbImprimir.AppendLine(Global.LINHA);
                 sbImprimir.AppendLine("Cod  Produto                                   Qtdade  UN Preco(R$) Subtotal(R$)");
@@ -1434,7 +1440,7 @@ namespace Negocio
                     if (saidas.Count > 1)
                     {
                         sbImprimir.AppendLine("");
-                        sbImprimir.AppendLine("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.PedidoGerado);
+                        sbImprimir.AppendLine("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal);
                     }
 
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
@@ -1508,7 +1514,7 @@ namespace Negocio
                     List<SaidaProduto> saidaProdutos;
                     if (saida.TipoSaida == Saida.TIPO_VENDA)
                     {
-                        saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorPedido(saida.PedidoGerado);
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorPedido(saida.CupomFiscal);
                     }
                     else
                     {
@@ -1607,7 +1613,7 @@ namespace Negocio
                     decimal totalAVista = totalProdutos;
                     if (saida.TipoSaida == Saida.TIPO_VENDA)
                     {
-                        List<Saida> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.PedidoGerado);
+                        List<Saida> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
                         totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
                     }
                     ImprimirNotaFiscalRodape(saida, imp, numeroPaginas, totalProdutos, totalAVista, descontoDevolucoes, true);
@@ -1698,7 +1704,7 @@ namespace Negocio
 
                     imp.Pula(1);
                     imp.Imp(imp.Normal);
-                    imp.ImpCol(13, "***  REF. AO CUMPOM FISCAL NUMERO " + saida.PedidoGerado + "/001   ***");
+                    imp.ImpCol(13, "***  REF. AO CUMPOM FISCAL NUMERO " + saida.CupomFiscal + "/001   ***");
 
                     imp.Pula(1);
                 }
@@ -1822,7 +1828,8 @@ namespace Negocio
             _saidaE.numero = saida.Numero;
             _saidaE.numeroCartaoVenda = saida.NumeroCartaoVenda;
             _saidaE.outrasDespesas = saida.OutrasDespesas;
-            _saidaE.pedidoGerado = saida.PedidoGerado;
+            _saidaE.pedidoGerado = saida.CupomFiscal;
+            _saidaE.dataEmissaoDocFiscal = saida.DataEmissaoCupomFiscal;
             _saidaE.pesoBruto = saida.PesoBruto;
             _saidaE.pesoLiquido = saida.PesoLiquido;
             _saidaE.quantidadeVolumes = saida.QuantidadeVolumes;

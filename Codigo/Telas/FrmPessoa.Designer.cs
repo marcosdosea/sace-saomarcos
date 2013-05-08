@@ -106,8 +106,8 @@
             this.imprimirCFCheckBox = new System.Windows.Forms.CheckBox();
             this.nomeTextBox = new System.Windows.Forms.TextBox();
             this.cepMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.codMunicipioIBGEComboBox = new System.Windows.Forms.ComboBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
+            this.codMunicipioIBGEComboBox = new System.Windows.Forms.ComboBox();
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
@@ -303,11 +303,12 @@
             // cidadeLabel1
             // 
             cidadeLabel1.AutoSize = true;
+            cidadeLabel1.ForeColor = System.Drawing.Color.Red;
             cidadeLabel1.Location = new System.Drawing.Point(473, 249);
             cidadeLabel1.Name = "cidadeLabel1";
-            cidadeLabel1.Size = new System.Drawing.Size(43, 13);
+            cidadeLabel1.Size = new System.Drawing.Size(100, 13);
             cidadeLabel1.TabIndex = 69;
-            cidadeLabel1.Text = "Cidade:";
+            cidadeLabel1.Text = "Cidade Cadastrada:";
             // 
             // label1
             // 
@@ -554,10 +555,11 @@
             this.ufTextBox.MaxLength = 2;
             this.ufTextBox.Name = "ufTextBox";
             this.ufTextBox.Size = new System.Drawing.Size(64, 20);
-            this.ufTextBox.TabIndex = 46;
+            this.ufTextBox.TabIndex = 44;
             // 
             // municipiosIBGEBindingSource
             // 
+            this.municipiosIBGEBindingSource.AllowNew = true;
             this.municipiosIBGEBindingSource.DataSource = typeof(Dominio.MunicipiosIBGE);
             // 
             // groupBox1
@@ -618,7 +620,7 @@
             this.fone1MaskedTextBox.Mask = "(99) 9999-9999";
             this.fone1MaskedTextBox.Name = "fone1MaskedTextBox";
             this.fone1MaskedTextBox.Size = new System.Drawing.Size(110, 20);
-            this.fone1MaskedTextBox.TabIndex = 50;
+            this.fone1MaskedTextBox.TabIndex = 51;
             this.fone1MaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // fone2MaskedTextBox
@@ -747,7 +749,7 @@
             this.emailTextBox.MaxLength = 40;
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(236, 20);
-            this.emailTextBox.TabIndex = 48;
+            this.emailTextBox.TabIndex = 50;
             this.emailTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
             // ieSubstitutoTextBox
@@ -860,20 +862,6 @@
             this.cepMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.cepMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
-            // codMunicipioIBGEComboBox
-            // 
-            this.codMunicipioIBGEComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "CodMunicipioIBGE", true));
-            this.codMunicipioIBGEComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.pessoaBindingSource, "CodMunicipioIBGE", true));
-            this.codMunicipioIBGEComboBox.DataSource = this.municipiosIBGEBindingSource;
-            this.codMunicipioIBGEComboBox.DisplayMember = "municipio";
-            this.codMunicipioIBGEComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codMunicipioIBGEComboBox.FormattingEnabled = true;
-            this.codMunicipioIBGEComboBox.Location = new System.Drawing.Point(10, 305);
-            this.codMunicipioIBGEComboBox.Name = "codMunicipioIBGEComboBox";
-            this.codMunicipioIBGEComboBox.Size = new System.Drawing.Size(385, 21);
-            this.codMunicipioIBGEComboBox.TabIndex = 69;
-            this.codMunicipioIBGEComboBox.ValueMember = "Codigo";
-            // 
             // cidadeTextBox
             // 
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "Cidade", true));
@@ -881,16 +869,32 @@
             this.cidadeTextBox.Location = new System.Drawing.Point(476, 266);
             this.cidadeTextBox.Name = "cidadeTextBox";
             this.cidadeTextBox.Size = new System.Drawing.Size(161, 20);
-            this.cidadeTextBox.TabIndex = 70;
+            this.cidadeTextBox.TabIndex = 46;
+            // 
+            // codMunicipioIBGEComboBox
+            // 
+            this.codMunicipioIBGEComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codMunicipioIBGEComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codMunicipioIBGEComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.pessoaBindingSource, "CodMunicipioIBGE", true));
+            this.codMunicipioIBGEComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.municipiosIBGEBindingSource, "Municipio", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.codMunicipioIBGEComboBox.DataSource = this.municipiosIBGEBindingSource;
+            this.codMunicipioIBGEComboBox.DisplayMember = "Municipio";
+            this.codMunicipioIBGEComboBox.FormattingEnabled = true;
+            this.codMunicipioIBGEComboBox.Location = new System.Drawing.Point(10, 305);
+            this.codMunicipioIBGEComboBox.Name = "codMunicipioIBGEComboBox";
+            this.codMunicipioIBGEComboBox.Size = new System.Drawing.Size(385, 21);
+            this.codMunicipioIBGEComboBox.TabIndex = 48;
+            this.codMunicipioIBGEComboBox.ValueMember = "Codigo";
+            this.codMunicipioIBGEComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codMunicipioIBGEComboBox_KeyPress);
             // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 604);
+            this.ClientSize = new System.Drawing.Size(642, 592);
+            this.Controls.Add(this.codMunicipioIBGEComboBox);
             this.Controls.Add(cidadeLabel1);
             this.Controls.Add(this.cidadeTextBox);
-            this.Controls.Add(this.codMunicipioIBGEComboBox);
             this.Controls.Add(nomeLabel1);
             this.Controls.Add(this.nomeTextBox);
             this.Controls.Add(this.imprimirCFCheckBox);
@@ -1030,8 +1034,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeFantasiaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fone1DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fone2DataGridViewTextBoxColumn;
-        private System.Windows.Forms.ComboBox codMunicipioIBGEComboBox;
         private System.Windows.Forms.BindingSource municipiosIBGEBindingSource;
         private System.Windows.Forms.TextBox cidadeTextBox;
+        private System.Windows.Forms.ComboBox codMunicipioIBGEComboBox;
     }
 }

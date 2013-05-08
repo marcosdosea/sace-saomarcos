@@ -23,8 +23,8 @@ namespace Dominio
         public string CpfCnpj { get; set; }
         public long CodProfissional { get; set; }
         public int NumeroCartaoVenda { get; set; }
-        public string PedidoGerado { get; set; }
-        public DateTime DataEmissaoDocFiscal { get; set; }
+        public string CupomFiscal { get; set; }
+        public DateTime DataEmissaoCupomFiscal { get; set; }
         public decimal Total { get; set; }
         public decimal TotalAVista { get; set; }
         public decimal Desconto { get; set; }

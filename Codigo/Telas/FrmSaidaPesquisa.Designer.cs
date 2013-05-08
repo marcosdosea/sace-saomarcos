@@ -170,7 +170,7 @@
             // 
             // pedidoGerado
             // 
-            this.pedidoGerado.DataPropertyName = "PedidoGerado";
+            this.pedidoGerado.DataPropertyName = "CupomFiscal";
             this.pedidoGerado.HeaderText = "CF";
             this.pedidoGerado.Name = "pedidoGerado";
             this.pedidoGerado.ReadOnly = true;

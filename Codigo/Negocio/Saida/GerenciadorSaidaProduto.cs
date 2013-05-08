@@ -145,7 +145,8 @@ namespace Negocio
                             CodProduto = saidaProduto.codProduto,
                             CodSaida = saidaProduto.codSaida,
                             CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = produto.codCST,
+                            CodCST = saidaProduto.codCST,
+                            CodCfop = saidaProduto.cfop,
                             DataValidade = (DateTime) saidaProduto.data_validade,
                             Desconto = (decimal) saidaProduto.desconto,
                             Quantidade = (decimal) saidaProduto.quantidade,
@@ -238,6 +239,8 @@ namespace Negocio
             _saidaProdutoE.valorICMSSubst = saidaProduto.ValorICMSSubst;
             _saidaProdutoE.valorIPI = saidaProduto.ValorIPI;
             _saidaProdutoE.valorVenda = saidaProduto.ValorVenda;
+            _saidaProdutoE.codCST = saidaProduto.CodCST;
+            _saidaProdutoE.cfop = saidaProduto.CodCfop;
         }
 
         /// <summary>

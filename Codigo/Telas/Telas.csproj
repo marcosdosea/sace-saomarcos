@@ -127,11 +127,11 @@
     <Compile Include="FrmSaidaDeposito.Designer.cs">
       <DependentUpon>FrmSaidaDeposito.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSaidaNF.cs">
+    <Compile Include="FrmSaidaVenda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSaidaNF.Designer.cs">
-      <DependentUpon>FrmSaidaNF.cs</DependentUpon>
+    <Compile Include="FrmSaidaVenda.Designer.cs">
+      <DependentUpon>FrmSaidaVenda.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmSaidaDAV.cs">
       <SubType>Form</SubType>
@@ -362,8 +362,8 @@
       <DependentUpon>FrmSaidaDeposito.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSaidaNF.resx">
-      <DependentUpon>FrmSaidaNF.cs</DependentUpon>
+    <EmbeddedResource Include="FrmSaidaVenda.resx">
+      <DependentUpon>FrmSaidaVenda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSaidaDAV.resx">
       <DependentUpon>FrmSaidaDAV.cs</DependentUpon>
