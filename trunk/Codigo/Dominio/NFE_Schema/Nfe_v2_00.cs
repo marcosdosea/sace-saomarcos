@@ -20,428 +20,6 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-[System.Xml.Serialization.XmlRootAttribute("Signature", Namespace="http://www.w3.org/2000/09/xmldsig#", IsNullable=false)]
-public partial class SignatureType {
-    
-    private SignedInfoType signedInfoField;
-    
-    private SignatureValueType signatureValueField;
-    
-    private KeyInfoType keyInfoField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public SignedInfoType SignedInfo {
-        get {
-            return this.signedInfoField;
-        }
-        set {
-            this.signedInfoField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public SignatureValueType SignatureValue {
-        get {
-            return this.signatureValueField;
-        }
-        set {
-            this.signatureValueField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public KeyInfoType KeyInfo {
-        get {
-            return this.keyInfoField;
-        }
-        set {
-            this.keyInfoField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignedInfoType {
-    
-    private SignedInfoTypeCanonicalizationMethod canonicalizationMethodField;
-    
-    private SignedInfoTypeSignatureMethod signatureMethodField;
-    
-    private ReferenceType referenceField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public SignedInfoTypeCanonicalizationMethod CanonicalizationMethod {
-        get {
-            return this.canonicalizationMethodField;
-        }
-        set {
-            this.canonicalizationMethodField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public SignedInfoTypeSignatureMethod SignatureMethod {
-        get {
-            return this.signatureMethodField;
-        }
-        set {
-            this.signatureMethodField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public ReferenceType Reference {
-        get {
-            return this.referenceField;
-        }
-        set {
-            this.referenceField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignedInfoTypeCanonicalizationMethod {
-    
-    private string algorithmField;
-    
-    public SignedInfoTypeCanonicalizationMethod() {
-        this.algorithmField = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class X509DataType {
-    
-    private byte[] x509CertificateField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-    public byte[] X509Certificate {
-        get {
-            return this.x509CertificateField;
-        }
-        set {
-            this.x509CertificateField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class KeyInfoType {
-    
-    private X509DataType x509DataField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public X509DataType X509Data {
-        get {
-            return this.x509DataField;
-        }
-        set {
-            this.x509DataField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignatureValueType {
-    
-    private string idField;
-    
-    private byte[] valueField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTextAttribute(DataType="base64Binary")]
-    public byte[] Value {
-        get {
-            return this.valueField;
-        }
-        set {
-            this.valueField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class TransformType {
-    
-    private string[] xPathField;
-    
-    private TTransformURI algorithmField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("XPath")]
-    public string[] XPath {
-        get {
-            return this.xPathField;
-        }
-        set {
-            this.xPathField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public TTransformURI Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public enum TTransformURI {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/2000/09/xmldsig#enveloped-signature")]
-    httpwwww3org200009xmldsigenvelopedsignature,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/TR/2001/REC-xml-c14n-20010315")]
-    httpwwww3orgTR2001RECxmlc14n20010315,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class ReferenceType {
-    
-    private TransformType[] transformsField;
-    
-    private ReferenceTypeDigestMethod digestMethodField;
-    
-    private byte[] digestValueField;
-    
-    private string idField;
-    
-    private string uRIField;
-    
-    private string typeField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Transform", IsNullable=false)]
-    public TransformType[] Transforms {
-        get {
-            return this.transformsField;
-        }
-        set {
-            this.transformsField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public ReferenceTypeDigestMethod DigestMethod {
-        get {
-            return this.digestMethodField;
-        }
-        set {
-            this.digestMethodField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-    public byte[] DigestValue {
-        get {
-            return this.digestValueField;
-        }
-        set {
-            this.digestValueField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string URI {
-        get {
-            return this.uRIField;
-        }
-        set {
-            this.uRIField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class ReferenceTypeDigestMethod {
-    
-    private string algorithmField;
-    
-    public ReferenceTypeDigestMethod() {
-        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#sha1";
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignedInfoTypeSignatureMethod {
-    
-    private string algorithmField;
-    
-    public SignedInfoTypeSignatureMethod() {
-        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
 [System.Xml.Serialization.XmlRootAttribute("NFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
 public partial class TNFe {
@@ -1219,91 +797,21 @@ public enum TNFeInfNFeIdeNFrefRefECFMod {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIdeNFrefRefNF {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class X509DataType {
     
-    private TCodUfIBGE cUFField;
-    
-    private string aAMMField;
-    
-    private string cNPJField;
-    
-    private TNFeInfNFeIdeNFrefRefNFMod modField;
-    
-    private string serieField;
-    
-    private string nNFField;
+    private byte[] x509CertificateField;
     
     /// <remarks/>
-    public TCodUfIBGE cUF {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] X509Certificate {
         get {
-            return this.cUFField;
+            return this.x509CertificateField;
         }
         set {
-            this.cUFField = value;
+            this.x509CertificateField = value;
         }
     }
-    
-    /// <remarks/>
-    public string AAMM {
-        get {
-            return this.aAMMField;
-        }
-        set {
-            this.aAMMField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string CNPJ {
-        get {
-            return this.cNPJField;
-        }
-        set {
-            this.cNPJField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TNFeInfNFeIdeNFrefRefNFMod mod {
-        get {
-            return this.modField;
-        }
-        set {
-            this.modField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string serie {
-        get {
-            return this.serieField;
-        }
-        set {
-            this.serieField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string nNF {
-        get {
-            return this.nNFField;
-        }
-        set {
-            this.nNFField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeIdeNFrefRefNFMod {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01")]
-    Item01,
 }
 
 /// <remarks/>
@@ -1311,265 +819,33 @@ public enum TNFeInfNFeIdeNFrefRefNFMod {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIdeNFrefRefNFP {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class KeyInfoType {
     
-    private TCodUfIBGE cUFField;
+    private X509DataType x509DataField;
     
-    private string aAMMField;
-    
-    private string itemField;
-    
-    private ItemChoiceType itemElementNameField;
-    
-    private string ieField;
-    
-    private TNFeInfNFeIdeNFrefRefNFPMod modField;
-    
-    private string serieField;
-    
-    private string nNFField;
+    private string idField;
     
     /// <remarks/>
-    public TCodUfIBGE cUF {
+    public X509DataType X509Data {
         get {
-            return this.cUFField;
+            return this.x509DataField;
         }
         set {
-            this.cUFField = value;
+            this.x509DataField = value;
         }
     }
     
     /// <remarks/>
-    public string AAMM {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
         get {
-            return this.aAMMField;
+            return this.idField;
         }
         set {
-            this.aAMMField = value;
+            this.idField = value;
         }
     }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public string Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType ItemElementName {
-        get {
-            return this.itemElementNameField;
-        }
-        set {
-            this.itemElementNameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string IE {
-        get {
-            return this.ieField;
-        }
-        set {
-            this.ieField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TNFeInfNFeIdeNFrefRefNFPMod mod {
-        get {
-            return this.modField;
-        }
-        set {
-            this.modField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string serie {
-        get {
-            return this.serieField;
-        }
-        set {
-            this.serieField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string nNF {
-        get {
-            return this.nNFField;
-        }
-        set {
-            this.nNFField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType {
-    
-    /// <remarks/>
-    CNPJ,
-    
-    /// <remarks/>
-    CPF,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeIdeNFrefRefNFPMod {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01")]
-    Item01,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04")]
-    Item04,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType1 {
-    
-    /// <remarks/>
-    refCTe,
-    
-    /// <remarks/>
-    refECF,
-    
-    /// <remarks/>
-    refNF,
-    
-    /// <remarks/>
-    refNFP,
-    
-    /// <remarks/>
-    refNFe,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeIdeTpImp {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1")]
-    Item1,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("2")]
-    Item2,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeIdeTpEmis {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1")]
-    Item1,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("2")]
-    Item2,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("3")]
-    Item3,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("4")]
-    Item4,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("5")]
-    Item5,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("6")]
-    Item6,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("7")]
-    Item7,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TAmb {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1")]
-    Item1,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("2")]
-    Item2,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TFinNFe {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1")]
-    Item1,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("2")]
-    Item2,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("3")]
-    Item3,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TProcEmi {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("0")]
-    Item0,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1")]
-    Item1,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("2")]
-    Item2,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("3")]
-    Item3,
 }
 
 /// <remarks/>
@@ -1577,130 +853,32 @@ public enum TProcEmi {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeEmit {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignatureValueType {
     
-    private string itemField;
+    private string idField;
     
-    private ItemChoiceType2 itemElementNameField;
-    
-    private string xNomeField;
-    
-    private string xFantField;
-    
-    private TEnderEmi enderEmitField;
-    
-    private string ieField;
-    
-    private string iESTField;
-    
-    private string imField;
-    
-    private string cNAEField;
-    
-    private TNFeInfNFeEmitCRT cRTField;
+    private byte[] valueField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public string Item {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
         get {
-            return this.itemField;
+            return this.idField;
         }
         set {
-            this.itemField = value;
+            this.idField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType2 ItemElementName {
+    [System.Xml.Serialization.XmlTextAttribute(DataType="base64Binary")]
+    public byte[] Value {
         get {
-            return this.itemElementNameField;
+            return this.valueField;
         }
         set {
-            this.itemElementNameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xNome {
-        get {
-            return this.xNomeField;
-        }
-        set {
-            this.xNomeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xFant {
-        get {
-            return this.xFantField;
-        }
-        set {
-            this.xFantField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TEnderEmi enderEmit {
-        get {
-            return this.enderEmitField;
-        }
-        set {
-            this.enderEmitField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string IE {
-        get {
-            return this.ieField;
-        }
-        set {
-            this.ieField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string IEST {
-        get {
-            return this.iESTField;
-        }
-        set {
-            this.iESTField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string IM {
-        get {
-            return this.imField;
-        }
-        set {
-            this.imField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string CNAE {
-        get {
-            return this.cNAEField;
-        }
-        set {
-            this.cNAEField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TNFeInfNFeEmitCRT CRT {
-        get {
-            return this.cRTField;
-        }
-        set {
-            this.cRTField = value;
+            this.valueField = value;
         }
     }
 }
@@ -1708,14 +886,332 @@ public partial class TNFeInfNFeEmit {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType2 {
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class TransformType {
+    
+    private string[] xPathField;
+    
+    private TTransformURI algorithmField;
     
     /// <remarks/>
-    CNPJ,
+    [System.Xml.Serialization.XmlElementAttribute("XPath")]
+    public string[] XPath {
+        get {
+            return this.xPathField;
+        }
+        set {
+            this.xPathField = value;
+        }
+    }
     
     /// <remarks/>
-    CPF,
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TTransformURI Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public enum TTransformURI {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/2000/09/xmldsig#enveloped-signature")]
+    httpwwww3org200009xmldsigenvelopedsignature,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/TR/2001/REC-xml-c14n-20010315")]
+    httpwwww3orgTR2001RECxmlc14n20010315,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class ReferenceType {
+    
+    private TransformType[] transformsField;
+    
+    private ReferenceTypeDigestMethod digestMethodField;
+    
+    private byte[] digestValueField;
+    
+    private string idField;
+    
+    private string uRIField;
+    
+    private string typeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayItemAttribute("Transform", IsNullable=false)]
+    public TransformType[] Transforms {
+        get {
+            return this.transformsField;
+        }
+        set {
+            this.transformsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public ReferenceTypeDigestMethod DigestMethod {
+        get {
+            return this.digestMethodField;
+        }
+        set {
+            this.digestMethodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] DigestValue {
+        get {
+            return this.digestValueField;
+        }
+        set {
+            this.digestValueField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string URI {
+        get {
+            return this.uRIField;
+        }
+        set {
+            this.uRIField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class ReferenceTypeDigestMethod {
+    
+    private string algorithmField;
+    
+    public ReferenceTypeDigestMethod() {
+        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#sha1";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignedInfoType {
+    
+    private SignedInfoTypeCanonicalizationMethod canonicalizationMethodField;
+    
+    private SignedInfoTypeSignatureMethod signatureMethodField;
+    
+    private ReferenceType referenceField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public SignedInfoTypeCanonicalizationMethod CanonicalizationMethod {
+        get {
+            return this.canonicalizationMethodField;
+        }
+        set {
+            this.canonicalizationMethodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public SignedInfoTypeSignatureMethod SignatureMethod {
+        get {
+            return this.signatureMethodField;
+        }
+        set {
+            this.signatureMethodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public ReferenceType Reference {
+        get {
+            return this.referenceField;
+        }
+        set {
+            this.referenceField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignedInfoTypeCanonicalizationMethod {
+    
+    private string algorithmField;
+    
+    public SignedInfoTypeCanonicalizationMethod() {
+        this.algorithmField = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignedInfoTypeSignatureMethod {
+    
+    private string algorithmField;
+    
+    public SignedInfoTypeSignatureMethod() {
+        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+[System.Xml.Serialization.XmlRootAttribute("Signature", Namespace="http://www.w3.org/2000/09/xmldsig#", IsNullable=false)]
+public partial class SignatureType {
+    
+    private SignedInfoType signedInfoField;
+    
+    private SignatureValueType signatureValueField;
+    
+    private KeyInfoType keyInfoField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public SignedInfoType SignedInfo {
+        get {
+            return this.signedInfoField;
+        }
+        set {
+            this.signedInfoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public SignatureValueType SignatureValue {
+        get {
+            return this.signatureValueField;
+        }
+        set {
+            this.signatureValueField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public KeyInfoType KeyInfo {
+        get {
+            return this.keyInfoField;
+        }
+        set {
+            this.keyInfoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
 }
 
 /// <remarks/>
@@ -1724,96 +1220,26 @@ public enum ItemChoiceType2 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TEnderEmi {
+public partial class TVeiculo {
     
-    private string xLgrField;
+    private string placaField;
     
-    private string nroField;
+    private TUf ufField;
     
-    private string xCplField;
-    
-    private string xBairroField;
-    
-    private string cMunField;
-    
-    private string xMunField;
-    
-    private TUfEmi ufField;
-    
-    private string cEPField;
-    
-    private TEnderEmiCPais cPaisField;
-    
-    private bool cPaisFieldSpecified;
-    
-    private TEnderEmiXPais xPaisField;
-    
-    private bool xPaisFieldSpecified;
-    
-    private string foneField;
+    private string rNTCField;
     
     /// <remarks/>
-    public string xLgr {
+    public string placa {
         get {
-            return this.xLgrField;
+            return this.placaField;
         }
         set {
-            this.xLgrField = value;
+            this.placaField = value;
         }
     }
     
     /// <remarks/>
-    public string nro {
-        get {
-            return this.nroField;
-        }
-        set {
-            this.nroField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xCpl {
-        get {
-            return this.xCplField;
-        }
-        set {
-            this.xCplField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xBairro {
-        get {
-            return this.xBairroField;
-        }
-        set {
-            this.xBairroField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string cMun {
-        get {
-            return this.cMunField;
-        }
-        set {
-            this.cMunField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xMun {
-        get {
-            return this.xMunField;
-        }
-        set {
-            this.xMunField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TUfEmi UF {
+    public TUf UF {
         get {
             return this.ufField;
         }
@@ -1823,64 +1249,12 @@ public partial class TEnderEmi {
     }
     
     /// <remarks/>
-    public string CEP {
+    public string RNTC {
         get {
-            return this.cEPField;
+            return this.rNTCField;
         }
         set {
-            this.cEPField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TEnderEmiCPais cPais {
-        get {
-            return this.cPaisField;
-        }
-        set {
-            this.cPaisField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool cPaisSpecified {
-        get {
-            return this.cPaisFieldSpecified;
-        }
-        set {
-            this.cPaisFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TEnderEmiXPais xPais {
-        get {
-            return this.xPaisField;
-        }
-        set {
-            this.xPaisField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool xPaisSpecified {
-        get {
-            return this.xPaisFieldSpecified;
-        }
-        set {
-            this.xPaisFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string fone {
-        get {
-            return this.foneField;
-        }
-        set {
-            this.foneField = value;
+            this.rNTCField = value;
         }
     }
 }
@@ -1889,7 +1263,7 @@ public partial class TEnderEmi {
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TUfEmi {
+public enum TUf {
     
     /// <remarks/>
     AC,
@@ -1971,49 +1345,9 @@ public enum TUfEmi {
     
     /// <remarks/>
     TO,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TEnderEmiCPais {
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1058")]
-    Item1058,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TEnderEmiXPais {
-    
-    /// <remarks/>
-    Brasil,
-    
-    /// <remarks/>
-    BRASIL,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeEmitCRT {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("1")]
-    Item1,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("2")]
-    Item2,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("3")]
-    Item3,
+    EX,
 }
 
 /// <remarks/>
@@ -2021,163 +1355,26 @@ public enum TNFeInfNFeEmitCRT {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeAvulsa {
-    
-    private string cNPJField;
-    
-    private string xOrgaoField;
-    
-    private string matrField;
-    
-    private string xAgenteField;
-    
-    private string foneField;
-    
-    private TUfEmi ufField;
-    
-    private string nDARField;
-    
-    private string dEmiField;
-    
-    private string vDARField;
-    
-    private string repEmiField;
-    
-    private string dPagField;
-    
-    /// <remarks/>
-    public string CNPJ {
-        get {
-            return this.cNPJField;
-        }
-        set {
-            this.cNPJField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xOrgao {
-        get {
-            return this.xOrgaoField;
-        }
-        set {
-            this.xOrgaoField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string matr {
-        get {
-            return this.matrField;
-        }
-        set {
-            this.matrField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string xAgente {
-        get {
-            return this.xAgenteField;
-        }
-        set {
-            this.xAgenteField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string fone {
-        get {
-            return this.foneField;
-        }
-        set {
-            this.foneField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TUfEmi UF {
-        get {
-            return this.ufField;
-        }
-        set {
-            this.ufField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string nDAR {
-        get {
-            return this.nDARField;
-        }
-        set {
-            this.nDARField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string dEmi {
-        get {
-            return this.dEmiField;
-        }
-        set {
-            this.dEmiField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string vDAR {
-        get {
-            return this.vDARField;
-        }
-        set {
-            this.vDARField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string repEmi {
-        get {
-            return this.repEmiField;
-        }
-        set {
-            this.repEmiField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string dPag {
-        get {
-            return this.dPagField;
-        }
-        set {
-            this.dPagField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDest {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TLocal {
     
     private string itemField;
     
-    private ItemChoiceType3 itemElementNameField;
+    private ItemChoiceType4 itemElementNameField;
     
-    private string xNomeField;
+    private string xLgrField;
     
-    private TEndereco enderDestField;
+    private string nroField;
     
-    private string ieField;
+    private string xCplField;
     
-    private string iSUFField;
+    private string xBairroField;
     
-    private string emailField;
+    private string cMunField;
+    
+    private string xMunField;
+    
+    private TUf ufField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
@@ -2194,7 +1391,7 @@ public partial class TNFeInfNFeDest {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType3 ItemElementName {
+    public ItemChoiceType4 ItemElementName {
         get {
             return this.itemElementNameField;
         }
@@ -2204,52 +1401,72 @@ public partial class TNFeInfNFeDest {
     }
     
     /// <remarks/>
-    public string xNome {
+    public string xLgr {
         get {
-            return this.xNomeField;
+            return this.xLgrField;
         }
         set {
-            this.xNomeField = value;
+            this.xLgrField = value;
         }
     }
     
     /// <remarks/>
-    public TEndereco enderDest {
+    public string nro {
         get {
-            return this.enderDestField;
+            return this.nroField;
         }
         set {
-            this.enderDestField = value;
+            this.nroField = value;
         }
     }
     
     /// <remarks/>
-    public string IE {
+    public string xCpl {
         get {
-            return this.ieField;
+            return this.xCplField;
         }
         set {
-            this.ieField = value;
+            this.xCplField = value;
         }
     }
     
     /// <remarks/>
-    public string ISUF {
+    public string xBairro {
         get {
-            return this.iSUFField;
+            return this.xBairroField;
         }
         set {
-            this.iSUFField = value;
+            this.xBairroField = value;
         }
     }
     
     /// <remarks/>
-    public string email {
+    public string cMun {
         get {
-            return this.emailField;
+            return this.cMunField;
         }
         set {
-            this.emailField = value;
+            this.cMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMun {
+        get {
+            return this.xMunField;
+        }
+        set {
+            this.xMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUf UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
         }
     }
 }
@@ -2258,7 +1475,7 @@ public partial class TNFeInfNFeDest {
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType3 {
+public enum ItemChoiceType4 {
     
     /// <remarks/>
     CNPJ,
@@ -2419,97 +1636,6 @@ public partial class TEndereco {
             this.foneField = value;
         }
     }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TUf {
-    
-    /// <remarks/>
-    AC,
-    
-    /// <remarks/>
-    AL,
-    
-    /// <remarks/>
-    AM,
-    
-    /// <remarks/>
-    AP,
-    
-    /// <remarks/>
-    BA,
-    
-    /// <remarks/>
-    CE,
-    
-    /// <remarks/>
-    DF,
-    
-    /// <remarks/>
-    ES,
-    
-    /// <remarks/>
-    GO,
-    
-    /// <remarks/>
-    MA,
-    
-    /// <remarks/>
-    MG,
-    
-    /// <remarks/>
-    MS,
-    
-    /// <remarks/>
-    MT,
-    
-    /// <remarks/>
-    PA,
-    
-    /// <remarks/>
-    PB,
-    
-    /// <remarks/>
-    PE,
-    
-    /// <remarks/>
-    PI,
-    
-    /// <remarks/>
-    PR,
-    
-    /// <remarks/>
-    RJ,
-    
-    /// <remarks/>
-    RN,
-    
-    /// <remarks/>
-    RO,
-    
-    /// <remarks/>
-    RR,
-    
-    /// <remarks/>
-    RS,
-    
-    /// <remarks/>
-    SC,
-    
-    /// <remarks/>
-    SE,
-    
-    /// <remarks/>
-    SP,
-    
-    /// <remarks/>
-    TO,
-    
-    /// <remarks/>
-    EX,
 }
 
 /// <remarks/>
@@ -3625,11 +2751,7 @@ public enum Tpais {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TLocal {
-    
-    private string itemField;
-    
-    private ItemChoiceType4 itemElementNameField;
+public partial class TEnderEmi {
     
     private string xLgrField;
     
@@ -3643,31 +2765,19 @@ public partial class TLocal {
     
     private string xMunField;
     
-    private TUf ufField;
+    private TUfEmi ufField;
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public string Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
+    private string cEPField;
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType4 ItemElementName {
-        get {
-            return this.itemElementNameField;
-        }
-        set {
-            this.itemElementNameField = value;
-        }
-    }
+    private TEnderEmiCPais cPaisField;
+    
+    private bool cPaisFieldSpecified;
+    
+    private TEnderEmiXPais xPaisField;
+    
+    private bool xPaisFieldSpecified;
+    
+    private string foneField;
     
     /// <remarks/>
     public string xLgr {
@@ -3730,12 +2840,387 @@ public partial class TLocal {
     }
     
     /// <remarks/>
-    public TUf UF {
+    public TUfEmi UF {
         get {
             return this.ufField;
         }
         set {
             this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CEP {
+        get {
+            return this.cEPField;
+        }
+        set {
+            this.cEPField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEnderEmiCPais cPais {
+        get {
+            return this.cPaisField;
+        }
+        set {
+            this.cPaisField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool cPaisSpecified {
+        get {
+            return this.cPaisFieldSpecified;
+        }
+        set {
+            this.cPaisFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEnderEmiXPais xPais {
+        get {
+            return this.xPaisField;
+        }
+        set {
+            this.xPaisField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool xPaisSpecified {
+        get {
+            return this.xPaisFieldSpecified;
+        }
+        set {
+            this.xPaisFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string fone {
+        get {
+            return this.foneField;
+        }
+        set {
+            this.foneField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TUfEmi {
+    
+    /// <remarks/>
+    AC,
+    
+    /// <remarks/>
+    AL,
+    
+    /// <remarks/>
+    AM,
+    
+    /// <remarks/>
+    AP,
+    
+    /// <remarks/>
+    BA,
+    
+    /// <remarks/>
+    CE,
+    
+    /// <remarks/>
+    DF,
+    
+    /// <remarks/>
+    ES,
+    
+    /// <remarks/>
+    GO,
+    
+    /// <remarks/>
+    MA,
+    
+    /// <remarks/>
+    MG,
+    
+    /// <remarks/>
+    MS,
+    
+    /// <remarks/>
+    MT,
+    
+    /// <remarks/>
+    PA,
+    
+    /// <remarks/>
+    PB,
+    
+    /// <remarks/>
+    PE,
+    
+    /// <remarks/>
+    PI,
+    
+    /// <remarks/>
+    PR,
+    
+    /// <remarks/>
+    RJ,
+    
+    /// <remarks/>
+    RN,
+    
+    /// <remarks/>
+    RO,
+    
+    /// <remarks/>
+    RR,
+    
+    /// <remarks/>
+    RS,
+    
+    /// <remarks/>
+    SC,
+    
+    /// <remarks/>
+    SE,
+    
+    /// <remarks/>
+    SP,
+    
+    /// <remarks/>
+    TO,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TEnderEmiCPais {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1058")]
+    Item1058,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TEnderEmiXPais {
+    
+    /// <remarks/>
+    Brasil,
+    
+    /// <remarks/>
+    BRASIL,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeIdeNFrefRefNF {
+    
+    private TCodUfIBGE cUFField;
+    
+    private string aAMMField;
+    
+    private string cNPJField;
+    
+    private TNFeInfNFeIdeNFrefRefNFMod modField;
+    
+    private string serieField;
+    
+    private string nNFField;
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string AAMM {
+        get {
+            return this.aAMMField;
+        }
+        set {
+            this.aAMMField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CNPJ {
+        get {
+            return this.cNPJField;
+        }
+        set {
+            this.cNPJField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeIdeNFrefRefNFMod mod {
+        get {
+            return this.modField;
+        }
+        set {
+            this.modField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string serie {
+        get {
+            return this.serieField;
+        }
+        set {
+            this.serieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNF {
+        get {
+            return this.nNFField;
+        }
+        set {
+            this.nNFField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeIdeNFrefRefNFMod {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("01")]
+    Item01,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeIdeNFrefRefNFP {
+    
+    private TCodUfIBGE cUFField;
+    
+    private string aAMMField;
+    
+    private string itemField;
+    
+    private ItemChoiceType itemElementNameField;
+    
+    private string ieField;
+    
+    private TNFeInfNFeIdeNFrefRefNFPMod modField;
+    
+    private string serieField;
+    
+    private string nNFField;
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string AAMM {
+        get {
+            return this.aAMMField;
+        }
+        set {
+            this.aAMMField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IE {
+        get {
+            return this.ieField;
+        }
+        set {
+            this.ieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeIdeNFrefRefNFPMod mod {
+        get {
+            return this.modField;
+        }
+        set {
+            this.modField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string serie {
+        get {
+            return this.serieField;
+        }
+        set {
+            this.serieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNF {
+        get {
+            return this.nNFField;
+        }
+        set {
+            this.nNFField = value;
         }
     }
 }
@@ -3744,7 +3229,567 @@ public partial class TLocal {
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType4 {
+public enum ItemChoiceType {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeIdeNFrefRefNFPMod {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("01")]
+    Item01,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("04")]
+    Item04,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType1 {
+    
+    /// <remarks/>
+    refCTe,
+    
+    /// <remarks/>
+    refECF,
+    
+    /// <remarks/>
+    refNF,
+    
+    /// <remarks/>
+    refNFP,
+    
+    /// <remarks/>
+    refNFe,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeIdeTpImp {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeIdeTpEmis {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("5")]
+    Item5,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("6")]
+    Item6,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("7")]
+    Item7,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TAmb {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TFinNFe {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TProcEmi {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeEmit {
+    
+    private string itemField;
+    
+    private ItemChoiceType2 itemElementNameField;
+    
+    private string xNomeField;
+    
+    private string xFantField;
+    
+    private TEnderEmi enderEmitField;
+    
+    private string ieField;
+    
+    private string iESTField;
+    
+    private string imField;
+    
+    private string cNAEField;
+    
+    private TNFeInfNFeEmitCRT cRTField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType2 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xNome {
+        get {
+            return this.xNomeField;
+        }
+        set {
+            this.xNomeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xFant {
+        get {
+            return this.xFantField;
+        }
+        set {
+            this.xFantField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEnderEmi enderEmit {
+        get {
+            return this.enderEmitField;
+        }
+        set {
+            this.enderEmitField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IE {
+        get {
+            return this.ieField;
+        }
+        set {
+            this.ieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IEST {
+        get {
+            return this.iESTField;
+        }
+        set {
+            this.iESTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IM {
+        get {
+            return this.imField;
+        }
+        set {
+            this.imField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CNAE {
+        get {
+            return this.cNAEField;
+        }
+        set {
+            this.cNAEField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeEmitCRT CRT {
+        get {
+            return this.cRTField;
+        }
+        set {
+            this.cRTField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType2 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeEmitCRT {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeAvulsa {
+    
+    private string cNPJField;
+    
+    private string xOrgaoField;
+    
+    private string matrField;
+    
+    private string xAgenteField;
+    
+    private string foneField;
+    
+    private TUfEmi ufField;
+    
+    private string nDARField;
+    
+    private string dEmiField;
+    
+    private string vDARField;
+    
+    private string repEmiField;
+    
+    private string dPagField;
+    
+    /// <remarks/>
+    public string CNPJ {
+        get {
+            return this.cNPJField;
+        }
+        set {
+            this.cNPJField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xOrgao {
+        get {
+            return this.xOrgaoField;
+        }
+        set {
+            this.xOrgaoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string matr {
+        get {
+            return this.matrField;
+        }
+        set {
+            this.matrField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xAgente {
+        get {
+            return this.xAgenteField;
+        }
+        set {
+            this.xAgenteField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string fone {
+        get {
+            return this.foneField;
+        }
+        set {
+            this.foneField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUfEmi UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nDAR {
+        get {
+            return this.nDARField;
+        }
+        set {
+            this.nDARField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string dEmi {
+        get {
+            return this.dEmiField;
+        }
+        set {
+            this.dEmiField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vDAR {
+        get {
+            return this.vDARField;
+        }
+        set {
+            this.vDARField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string repEmi {
+        get {
+            return this.repEmiField;
+        }
+        set {
+            this.repEmiField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string dPag {
+        get {
+            return this.dPagField;
+        }
+        set {
+            this.dPagField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDest {
+    
+    private string itemField;
+    
+    private ItemChoiceType3 itemElementNameField;
+    
+    private string xNomeField;
+    
+    private TEndereco enderDestField;
+    
+    private string ieField;
+    
+    private string iSUFField;
+    
+    private string emailField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType3 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xNome {
+        get {
+            return this.xNomeField;
+        }
+        set {
+            this.xNomeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEndereco enderDest {
+        get {
+            return this.enderDestField;
+        }
+        set {
+            this.enderDestField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IE {
+        get {
+            return this.ieField;
+        }
+        set {
+            this.ieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string ISUF {
+        get {
+            return this.iSUFField;
+        }
+        set {
+            this.iSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string email {
+        get {
+            return this.emailField;
+        }
+        set {
+            this.emailField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType3 {
     
     /// <remarks/>
     CNPJ,
@@ -15756,51 +15801,6 @@ public enum TCfopTransp {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
 [System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TVeiculo {
-    
-    private string placaField;
-    
-    private TUf ufField;
-    
-    private string rNTCField;
-    
-    /// <remarks/>
-    public string placa {
-        get {
-            return this.placaField;
-        }
-        set {
-            this.placaField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public TUf UF {
-        get {
-            return this.ufField;
-        }
-        set {
-            this.ufField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string RNTC {
-        get {
-            return this.rNTCField;
-        }
-        set {
-            this.rNTCField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
 public enum ItemsChoiceType5 {
     
@@ -16540,6 +16540,3331 @@ public partial class TNFeInfNFeCanaDeduc {
         }
         set {
             this.vDedField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("cancNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TCancNFe {
+    
+    private TCancNFeInfCanc infCancField;
+    
+    private SignatureType signatureField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TCancNFeInfCanc infCanc {
+        get {
+            return this.infCancField;
+        }
+        set {
+            this.infCancField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCancNFeInfCanc {
+    
+    private TAmb tpAmbField;
+    
+    private TCancNFeInfCancXServ xServField;
+    
+    private string chNFeField;
+    
+    private string nProtField;
+    
+    private string xJustField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCancNFeInfCancXServ xServ {
+        get {
+            return this.xServField;
+        }
+        set {
+            this.xServField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xJust {
+        get {
+            return this.xJustField;
+        }
+        set {
+            this.xJustField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TCancNFeInfCancXServ {
+    
+    /// <remarks/>
+    CANCELAR,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("ConsCad", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TConsCad {
+    
+    private TConsCadInfCons infConsField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TConsCadInfCons infCons {
+        get {
+            return this.infConsField;
+        }
+        set {
+            this.infConsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TConsCadInfCons {
+    
+    private TConsCadInfConsXServ xServField;
+    
+    private TUfCons ufField;
+    
+    private string itemField;
+    
+    private ItemChoiceType6 itemElementNameField;
+    
+    /// <remarks/>
+    public TConsCadInfConsXServ xServ {
+        get {
+            return this.xServField;
+        }
+        set {
+            this.xServField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUfCons UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("IE", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType6 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TConsCadInfConsXServ {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("CONS-CAD")]
+    CONSCAD,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TUfCons {
+    
+    /// <remarks/>
+    AC,
+    
+    /// <remarks/>
+    AL,
+    
+    /// <remarks/>
+    AM,
+    
+    /// <remarks/>
+    AP,
+    
+    /// <remarks/>
+    BA,
+    
+    /// <remarks/>
+    CE,
+    
+    /// <remarks/>
+    DF,
+    
+    /// <remarks/>
+    ES,
+    
+    /// <remarks/>
+    GO,
+    
+    /// <remarks/>
+    MA,
+    
+    /// <remarks/>
+    MG,
+    
+    /// <remarks/>
+    MS,
+    
+    /// <remarks/>
+    MT,
+    
+    /// <remarks/>
+    PA,
+    
+    /// <remarks/>
+    PB,
+    
+    /// <remarks/>
+    PE,
+    
+    /// <remarks/>
+    PI,
+    
+    /// <remarks/>
+    PR,
+    
+    /// <remarks/>
+    RJ,
+    
+    /// <remarks/>
+    RN,
+    
+    /// <remarks/>
+    RO,
+    
+    /// <remarks/>
+    RR,
+    
+    /// <remarks/>
+    RS,
+    
+    /// <remarks/>
+    SC,
+    
+    /// <remarks/>
+    SE,
+    
+    /// <remarks/>
+    SP,
+    
+    /// <remarks/>
+    TO,
+    
+    /// <remarks/>
+    SU,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType6 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+    
+    /// <remarks/>
+    IE,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("consReciNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TConsReciNFe {
+    
+    private TAmb tpAmbField;
+    
+    private string nRecField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nRec {
+        get {
+            return this.nRecField;
+        }
+        set {
+            this.nRecField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("consSitNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TConsSitNFe {
+    
+    private TAmb tpAmbField;
+    
+    private TConsSitNFeXServ xServField;
+    
+    private string chNFeField;
+    
+    private TVerConsSitNFe versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TConsSitNFeXServ xServ {
+        get {
+            return this.xServField;
+        }
+        set {
+            this.xServField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TVerConsSitNFe versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TConsSitNFeXServ {
+    
+    /// <remarks/>
+    CONSULTAR,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TVerConsSitNFe {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2.01")]
+    Item201,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("consStatServ", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TConsStatServ {
+    
+    private TAmb tpAmbField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private TConsStatServXServ xServField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TConsStatServXServ xServ {
+        get {
+            return this.xServField;
+        }
+        set {
+            this.xServField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TConsStatServXServ {
+    
+    /// <remarks/>
+    STATUS,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("enviNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TEnviNFe {
+    
+    private string idLoteField;
+    
+    private TNFe[] nFeField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public string idLote {
+        get {
+            return this.idLoteField;
+        }
+        set {
+            this.idLoteField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("NFe")]
+    public TNFe[] NFe {
+        get {
+            return this.nFeField;
+        }
+        set {
+            this.nFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("inutNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TInutNFe {
+    
+    private TInutNFeInfInut infInutField;
+    
+    private SignatureType signatureField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TInutNFeInfInut infInut {
+        get {
+            return this.infInutField;
+        }
+        set {
+            this.infInutField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TInutNFeInfInut {
+    
+    private TAmb tpAmbField;
+    
+    private TInutNFeInfInutXServ xServField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private string anoField;
+    
+    private string cNPJField;
+    
+    private TMod modField;
+    
+    private string serieField;
+    
+    private string nNFIniField;
+    
+    private string nNFFinField;
+    
+    private string xJustField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TInutNFeInfInutXServ xServ {
+        get {
+            return this.xServField;
+        }
+        set {
+            this.xServField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string ano {
+        get {
+            return this.anoField;
+        }
+        set {
+            this.anoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CNPJ {
+        get {
+            return this.cNPJField;
+        }
+        set {
+            this.cNPJField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TMod mod {
+        get {
+            return this.modField;
+        }
+        set {
+            this.modField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string serie {
+        get {
+            return this.serieField;
+        }
+        set {
+            this.serieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNFIni {
+        get {
+            return this.nNFIniField;
+        }
+        set {
+            this.nNFIniField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNFFin {
+        get {
+            return this.nNFFinField;
+        }
+        set {
+            this.nNFFinField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xJust {
+        get {
+            return this.xJustField;
+        }
+        set {
+            this.xJustField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TInutNFeInfInutXServ {
+    
+    /// <remarks/>
+    INUTILIZAR,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retCancNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetCancNFe {
+    
+    private TRetCancNFeInfCanc infCancField;
+    
+    private SignatureType signatureField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TRetCancNFeInfCanc infCanc {
+        get {
+            return this.infCancField;
+        }
+        set {
+            this.infCancField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetCancNFeInfCanc {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private string chNFeField;
+    
+    private System.DateTime dhRecbtoField;
+    
+    private bool dhRecbtoFieldSpecified;
+    
+    private string nProtField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dhRecbtoSpecified {
+        get {
+            return this.dhRecbtoFieldSpecified;
+        }
+        set {
+            this.dhRecbtoFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retConsCad", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetConsCad {
+    
+    private TRetConsCadInfCons infConsField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TRetConsCadInfCons infCons {
+        get {
+            return this.infConsField;
+        }
+        set {
+            this.infConsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetConsCadInfCons {
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TUfCons ufField;
+    
+    private string itemField;
+    
+    private ItemChoiceType7 itemElementNameField;
+    
+    private System.DateTime dhConsField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private TRetConsCadInfConsInfCad[] infCadField;
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUfCons UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("IE", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType7 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhCons {
+        get {
+            return this.dhConsField;
+        }
+        set {
+            this.dhConsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("infCad")]
+    public TRetConsCadInfConsInfCad[] infCad {
+        get {
+            return this.infCadField;
+        }
+        set {
+            this.infCadField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType7 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+    
+    /// <remarks/>
+    IE,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetConsCadInfConsInfCad {
+    
+    private string ieField;
+    
+    private string itemField;
+    
+    private ItemChoiceType8 itemElementNameField;
+    
+    private TUf ufField;
+    
+    private TRetConsCadInfConsInfCadCSit cSitField;
+    
+    private TRetConsCadInfConsInfCadIndCredNFe indCredNFeField;
+    
+    private TRetConsCadInfConsInfCadIndCredCTe indCredCTeField;
+    
+    private string xNomeField;
+    
+    private string xFantField;
+    
+    private string xRegApurField;
+    
+    private string cNAEField;
+    
+    private System.DateTime dIniAtivField;
+    
+    private bool dIniAtivFieldSpecified;
+    
+    private System.DateTime dUltSitField;
+    
+    private bool dUltSitFieldSpecified;
+    
+    private System.DateTime dBaixaField;
+    
+    private bool dBaixaFieldSpecified;
+    
+    private string iEUnicaField;
+    
+    private string iEAtualField;
+    
+    private TEndereco enderField;
+    
+    /// <remarks/>
+    public string IE {
+        get {
+            return this.ieField;
+        }
+        set {
+            this.ieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType8 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUf UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRetConsCadInfConsInfCadCSit cSit {
+        get {
+            return this.cSitField;
+        }
+        set {
+            this.cSitField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRetConsCadInfConsInfCadIndCredNFe indCredNFe {
+        get {
+            return this.indCredNFeField;
+        }
+        set {
+            this.indCredNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRetConsCadInfConsInfCadIndCredCTe indCredCTe {
+        get {
+            return this.indCredCTeField;
+        }
+        set {
+            this.indCredCTeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xNome {
+        get {
+            return this.xNomeField;
+        }
+        set {
+            this.xNomeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xFant {
+        get {
+            return this.xFantField;
+        }
+        set {
+            this.xFantField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="token")]
+    public string xRegApur {
+        get {
+            return this.xRegApurField;
+        }
+        set {
+            this.xRegApurField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="token")]
+    public string CNAE {
+        get {
+            return this.cNAEField;
+        }
+        set {
+            this.cNAEField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
+    public System.DateTime dIniAtiv {
+        get {
+            return this.dIniAtivField;
+        }
+        set {
+            this.dIniAtivField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dIniAtivSpecified {
+        get {
+            return this.dIniAtivFieldSpecified;
+        }
+        set {
+            this.dIniAtivFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
+    public System.DateTime dUltSit {
+        get {
+            return this.dUltSitField;
+        }
+        set {
+            this.dUltSitField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dUltSitSpecified {
+        get {
+            return this.dUltSitFieldSpecified;
+        }
+        set {
+            this.dUltSitFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
+    public System.DateTime dBaixa {
+        get {
+            return this.dBaixaField;
+        }
+        set {
+            this.dBaixaField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dBaixaSpecified {
+        get {
+            return this.dBaixaFieldSpecified;
+        }
+        set {
+            this.dBaixaFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IEUnica {
+        get {
+            return this.iEUnicaField;
+        }
+        set {
+            this.iEUnicaField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IEAtual {
+        get {
+            return this.iEAtualField;
+        }
+        set {
+            this.iEAtualField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEndereco ender {
+        get {
+            return this.enderField;
+        }
+        set {
+            this.enderField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType8 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TRetConsCadInfConsInfCadCSit {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TRetConsCadInfConsInfCadIndCredNFe {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TRetConsCadInfConsInfCadIndCredCTe {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retConsReciNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetConsReciNFe {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string nRecField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private string cMsgField;
+    
+    private string xMsgField;
+    
+    private TProtNFe[] protNFeField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nRec {
+        get {
+            return this.nRecField;
+        }
+        set {
+            this.nRecField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cMsg {
+        get {
+            return this.cMsgField;
+        }
+        set {
+            this.cMsgField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMsg {
+        get {
+            return this.xMsgField;
+        }
+        set {
+            this.xMsgField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("protNFe")]
+    public TProtNFe[] protNFe {
+        get {
+            return this.protNFeField;
+        }
+        set {
+            this.protNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TProtNFe {
+    
+    private TProtNFeInfProt infProtField;
+    
+    private SignatureType signatureField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TProtNFeInfProt infProt {
+        get {
+            return this.infProtField;
+        }
+        set {
+            this.infProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TProtNFeInfProt {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string chNFeField;
+    
+    private System.DateTime dhRecbtoField;
+    
+    private string nProtField;
+    
+    private byte[] digValField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] digVal {
+        get {
+            return this.digValField;
+        }
+        set {
+            this.digValField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retConsSitNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetConsSitNFe {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private string chNFeField;
+    
+    private TProtNFe protNFeField;
+    
+    private TRetCancNFe_v200107 retCancNFeField;
+    
+    private TProcEvento[] procEventoNFeField;
+    
+    private TVerConsSitNFe versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TProtNFe protNFe {
+        get {
+            return this.protNFeField;
+        }
+        set {
+            this.protNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRetCancNFe_v200107 retCancNFe {
+        get {
+            return this.retCancNFeField;
+        }
+        set {
+            this.retCancNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("procEventoNFe")]
+    public TProcEvento[] procEventoNFe {
+        get {
+            return this.procEventoNFeField;
+        }
+        set {
+            this.procEventoNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TVerConsSitNFe versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetCancNFe_v200107 {
+    
+    private TRetCancNFe_v200107InfCanc infCancField;
+    
+    private SignatureType signatureField;
+    
+    private TVerCancNFe_v200107 versaoField;
+    
+    /// <remarks/>
+    public TRetCancNFe_v200107InfCanc infCanc {
+        get {
+            return this.infCancField;
+        }
+        set {
+            this.infCancField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TVerCancNFe_v200107 versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetCancNFe_v200107InfCanc {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private string chNFeField;
+    
+    private System.DateTime dhRecbtoField;
+    
+    private bool dhRecbtoFieldSpecified;
+    
+    private string nProtField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dhRecbtoSpecified {
+        get {
+            return this.dhRecbtoFieldSpecified;
+        }
+        set {
+            this.dhRecbtoFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TVerCancNFe_v200107 {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2.00")]
+    Item200,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1.07")]
+    Item107,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TProcEvento {
+    
+    private TEvento eventoField;
+    
+    private TRetEvento retEventoField;
+    
+    private TVerEvento versaoField;
+    
+    /// <remarks/>
+    public TEvento evento {
+        get {
+            return this.eventoField;
+        }
+        set {
+            this.eventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRetEvento retEvento {
+        get {
+            return this.retEventoField;
+        }
+        set {
+            this.retEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TVerEvento versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TEvento {
+    
+    private TEventoInfEvento infEventoField;
+    
+    private SignatureType signatureField;
+    
+    private TVerEvento versaoField;
+    
+    /// <remarks/>
+    public TEventoInfEvento infEvento {
+        get {
+            return this.infEventoField;
+        }
+        set {
+            this.infEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TVerEvento versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TEventoInfEvento {
+    
+    private TCOrgaoIBGE cOrgaoField;
+    
+    private TAmb tpAmbField;
+    
+    private string itemField;
+    
+    private ItemChoiceType9 itemElementNameField;
+    
+    private string chNFeField;
+    
+    private string dhEventoField;
+    
+    private string tpEventoField;
+    
+    private string nSeqEventoField;
+    
+    private string verEventoField;
+    
+    private TEventoInfEventoDetEvento detEventoField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TCOrgaoIBGE cOrgao {
+        get {
+            return this.cOrgaoField;
+        }
+        set {
+            this.cOrgaoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType9 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string dhEvento {
+        get {
+            return this.dhEventoField;
+        }
+        set {
+            this.dhEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string tpEvento {
+        get {
+            return this.tpEventoField;
+        }
+        set {
+            this.tpEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nSeqEvento {
+        get {
+            return this.nSeqEventoField;
+        }
+        set {
+            this.nSeqEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verEvento {
+        get {
+            return this.verEventoField;
+        }
+        set {
+            this.verEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEventoInfEventoDetEvento detEvento {
+        get {
+            return this.detEventoField;
+        }
+        set {
+            this.detEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TCOrgaoIBGE {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("11")]
+    Item11,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("12")]
+    Item12,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("13")]
+    Item13,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("14")]
+    Item14,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("15")]
+    Item15,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("16")]
+    Item16,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("17")]
+    Item17,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("21")]
+    Item21,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("22")]
+    Item22,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("23")]
+    Item23,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("24")]
+    Item24,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("25")]
+    Item25,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("26")]
+    Item26,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("27")]
+    Item27,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("28")]
+    Item28,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("29")]
+    Item29,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("31")]
+    Item31,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("32")]
+    Item32,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("33")]
+    Item33,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("35")]
+    Item35,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("41")]
+    Item41,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("42")]
+    Item42,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("43")]
+    Item43,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("50")]
+    Item50,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("51")]
+    Item51,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("52")]
+    Item52,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("53")]
+    Item53,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("90")]
+    Item90,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType9 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TEventoInfEventoDetEvento {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TVerEvento {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1.00")]
+    Item100,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetEvento {
+    
+    private TRetEventoInfEvento infEventoField;
+    
+    private SignatureType signatureField;
+    
+    private TVerEvento versaoField;
+    
+    /// <remarks/>
+    public TRetEventoInfEvento infEvento {
+        get {
+            return this.infEventoField;
+        }
+        set {
+            this.infEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TVerEvento versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetEventoInfEvento {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private TCOrgaoIBGE cOrgaoField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private string chNFeField;
+    
+    private string tpEventoField;
+    
+    private string xEventoField;
+    
+    private string nSeqEventoField;
+    
+    private string itemField;
+    
+    private ItemChoiceType10 itemElementNameField;
+    
+    private string emailDestField;
+    
+    private string dhRegEventoField;
+    
+    private string nProtField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCOrgaoIBGE cOrgao {
+        get {
+            return this.cOrgaoField;
+        }
+        set {
+            this.cOrgaoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string tpEvento {
+        get {
+            return this.tpEventoField;
+        }
+        set {
+            this.tpEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xEvento {
+        get {
+            return this.xEventoField;
+        }
+        set {
+            this.xEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nSeqEvento {
+        get {
+            return this.nSeqEventoField;
+        }
+        set {
+            this.nSeqEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJDest", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPFDest", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType10 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string emailDest {
+        get {
+            return this.emailDestField;
+        }
+        set {
+            this.emailDestField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string dhRegEvento {
+        get {
+            return this.dhRegEventoField;
+        }
+        set {
+            this.dhRegEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType10 {
+    
+    /// <remarks/>
+    CNPJDest,
+    
+    /// <remarks/>
+    CPFDest,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retConsStatServ", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetConsStatServ {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private System.DateTime dhRecbtoField;
+    
+    private string tMedField;
+    
+    private System.DateTime dhRetornoField;
+    
+    private bool dhRetornoFieldSpecified;
+    
+    private string xObsField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string tMed {
+        get {
+            return this.tMedField;
+        }
+        set {
+            this.tMedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRetorno {
+        get {
+            return this.dhRetornoField;
+        }
+        set {
+            this.dhRetornoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dhRetornoSpecified {
+        get {
+            return this.dhRetornoFieldSpecified;
+        }
+        set {
+            this.dhRetornoFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xObs {
+        get {
+            return this.xObsField;
+        }
+        set {
+            this.xObsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retEnviNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetEnviNFe {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private System.DateTime dhRecbtoField;
+    
+    private TRetEnviNFeInfRec infRecField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRetEnviNFeInfRec infRec {
+        get {
+            return this.infRecField;
+        }
+        set {
+            this.infRecField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetEnviNFeInfRec {
+    
+    private string nRecField;
+    
+    private string tMedField;
+    
+    /// <remarks/>
+    public string nRec {
+        get {
+            return this.nRecField;
+        }
+        set {
+            this.nRecField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string tMed {
+        get {
+            return this.tMedField;
+        }
+        set {
+            this.tMedField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retInutNFe", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetInutNFe {
+    
+    private TRetInutNFeInfInut infInutField;
+    
+    private SignatureType signatureField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TRetInutNFeInfInut infInut {
+        get {
+            return this.infInutField;
+        }
+        set {
+            this.infInutField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="token")]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRetInutNFeInfInut {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TCodUfIBGE cUFField;
+    
+    private string anoField;
+    
+    private string cNPJField;
+    
+    private TMod modField;
+    
+    private bool modFieldSpecified;
+    
+    private string serieField;
+    
+    private string nNFIniField;
+    
+    private string nNFFinField;
+    
+    private System.DateTime dhRecbtoField;
+    
+    private bool dhRecbtoFieldSpecified;
+    
+    private string nProtField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string ano {
+        get {
+            return this.anoField;
+        }
+        set {
+            this.anoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CNPJ {
+        get {
+            return this.cNPJField;
+        }
+        set {
+            this.cNPJField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TMod mod {
+        get {
+            return this.modField;
+        }
+        set {
+            this.modField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool modSpecified {
+        get {
+            return this.modFieldSpecified;
+        }
+        set {
+            this.modFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string serie {
+        get {
+            return this.serieField;
+        }
+        set {
+            this.serieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNFIni {
+        get {
+            return this.nNFIniField;
+        }
+        set {
+            this.nNFIniField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNFFin {
+        get {
+            return this.nNFFinField;
+        }
+        set {
+            this.nNFFinField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool dhRecbtoSpecified {
+        get {
+            return this.dhRecbtoFieldSpecified;
+        }
+        set {
+            this.dhRecbtoFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
         }
     }
 }

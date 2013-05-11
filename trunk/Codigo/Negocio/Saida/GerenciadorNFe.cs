@@ -34,30 +34,36 @@ namespace Negocio
         /// </summary>
         /// <param name="contaBanco"></param>
         /// <returns></returns>
-        public int Inserir(Nfe nfe, Saida saida)
+        public int Inserir(NfeControle nfe, Saida saida)
         {
             try
             {
                 var repNfe = new RepositorioGenerico<NfeE>();
-                var repSaida = new RepositorioGenerico<SaidaE>();
+                var repSaida = new RepositorioGenerico<SaidaE>(repNfe.ObterContexto());
 
-                NfeE _nfe = new NfeE();
-                Atribuir(nfe, _nfe);
+                NfeE _nfeE = new NfeE();
+                Atribuir(nfe, _nfeE);
 
+                repNfe.Inserir(_nfeE);
+                
+
+                IEnumerable<SaidaE> saidas;
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
                 {
-                    _nfe.tb_saida = (EntityCollection<SaidaE>)repSaida.Obter(s => s.codSaida == saida.CodSaida);
+                     saidas = repSaida.Obter(s => s.codSaida == saida.CodSaida);
                 }
                 else
                 {
-                    _nfe.tb_saida = (EntityCollection<SaidaE>)repSaida.Obter(s => s.pedidoGerado == saida.CupomFiscal);
+                    saidas = repSaida.Obter(s => s.pedidoGerado == saida.CupomFiscal);
+                }
+                foreach (SaidaE _saidaE in saidas)
+                {
+                    _nfeE.tb_saida.Add(_saidaE);
                 }
                 
-                
-                repNfe.Inserir(_nfe);
                 repNfe.SaveChanges();
 
-                return _nfe.codNFe;
+                return _nfeE.codNFe;
             }
             catch (Exception e)
             {
@@ -69,7 +75,7 @@ namespace Negocio
         /// Atualiza os dados de uma Nfe
         /// </summary>
         /// <param name="contaBanco"></param>
-        public void Atualizar(Nfe nfe)
+        public void Atualizar(NfeControle nfe)
         {
             try
             {
@@ -109,13 +115,13 @@ namespace Negocio
         /// Query Geral para obter dados das nfes
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Nfe> GetQuery()
+        private IQueryable<NfeControle> GetQuery()
         {
             var repNfe = new RepositorioGenerico<NfeE>();
 
             var saceEntities = (SaceEntities)repNfe.ObterContexto();
             var query = from nfe in saceEntities.NfeSet
-                        select new Nfe
+                        select new NfeControle
                         {
                             Chave = nfe.chave,
                             CodNfe = nfe.codNFe,
@@ -133,7 +139,7 @@ namespace Negocio
         /// Obtém todos as nfe
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Nfe> ObterTodos()
+        public IEnumerable<NfeControle> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -142,7 +148,7 @@ namespace Negocio
         /// Obtém todos as nfe relacioanadas a uma saída
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Nfe> ObterPorSaida(long codSaida)
+        public IEnumerable<NfeControle> ObterPorSaida(long codSaida)
         {
             var repSaida = new RepositorioGenerico<SaidaE>();
 
@@ -150,7 +156,7 @@ namespace Negocio
             SaidaE _saidaE = repSaida.ObterPrimeiro(s => s.codSaida == codSaida);
             
             var query = from nfe in _saidaE.tb_nfe
-                        select new Nfe
+                        select new NfeControle
                         {
                             
                             Chave = nfe.chave,
@@ -169,12 +175,12 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Nfe> Obter(int codNfe)
+        public IEnumerable<NfeControle> Obter(int codNfe)
         {
             return GetQuery().Where(nfe=> nfe.CodNfe == codNfe).ToList();
         }
 
-        public string GerarChaveNFE(Saida saida, Nfe nfe)
+        public string GerarChaveNFE(Saida saida, NfeControle nfe)
         {
             try
             {
@@ -194,7 +200,7 @@ namespace Negocio
                 XmlElement xmlcnpj = xmldoc.CreateElement("CNPJ");
                 
                 //atribui o conteúdo das caixa de texto aos elementos xml
-                xmlnNF.InnerText = nfe.CodNfe.ToString();
+                xmlnNF.InnerText = nfe.CodNfe.ToString().PadLeft(8, '0');
                 xmlserie.InnerText = "1";
                 xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
                 long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO)[0].CodPessoa;
@@ -215,9 +221,9 @@ namespace Negocio
                 chaveNFe = ObterChaveGerada(saida, 10);
                 return chaveNFe;
             }
-            catch (Exception ex)
+            catch (NegocioException nex)
             {
-                throw ex;
+                throw nex;
             }
             
         }
@@ -225,7 +231,8 @@ namespace Negocio
         private static string ObterChaveGerada(Saida saida, int numeroTentativasGerarChave)
         {
             string chaveNFe = "";
-            while (chaveNFe.Equals("") && numeroTentativasGerarChave > 0)
+            int tentativas = 0;
+            while (chaveNFe.Equals("") && tentativas < numeroTentativasGerarChave)
             {
                 
                 DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
@@ -233,34 +240,60 @@ namespace Negocio
                 {
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
                     string arquivoRetornoChave = saida.Nfe + "-ret-gerar-chave.xml";
-                    FileInfo[] Files = Dir.GetFiles(arquivoRetornoChave, SearchOption.TopDirectoryOnly);
-                    if (Files.Length > 0)
+                    FileInfo[] files = Dir.GetFiles(arquivoRetornoChave, SearchOption.TopDirectoryOnly);
+                    if (files.Length > 0)
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
                         xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + saida.Nfe + "-ret-gerar-chave.xml");
                         chaveNFe = xmldocRetorno.DocumentElement.InnerText;
+                        files[0].Delete();
                     }
                     else
                     {
                         Thread.Sleep(1000);
                     }
                 }
-                numeroTentativasGerarChave--;
+                tentativas++;
             }
-            //if (chaveNFe.Equals(""))
-            //    throw new NegocioException("Ocorreram problemas na geração da chave da NF-e. Favor contactar administrador do sistema.");
+
+            if (tentativas > 1 && tentativas >= numeroTentativasGerarChave && string.IsNullOrEmpty(chaveNFe) )
+                throw new NegocioException("Ocorreram problemas/lentidão na geração da chave da NF-e. Favor contactar administrador do sistema.");
             return chaveNFe;
+        }
+
+        public static string ObterProtocoloEnvio(NfeControle nfeControle)
+        {
+              DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+              if (Dir.Exists)
+              {
+                  // Busca automaticamente todos os arquivos em todos os subdiretórios
+                  //string arquivoRetornoChave = saida.Nfe + "-ret-gerar-chave.xml";
+                  FileInfo[] files = Dir.GetFiles(""/*arquivoRetornoChave*/, SearchOption.TopDirectoryOnly);
+                  if (files.Length > 0)
+                  {
+                     // xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + saida.Nfe + "-ret-gerar-chave.xml");
+                      XmlDocument xmldocRetorno = new XmlDocument();
+                      //chaveNFe = xmldocRetorno.DocumentElement.InnerText;
+                      files[0].Delete();
+                  }
+                  else
+                  {
+                      Thread.Sleep(1000);
+                  }
+              }
+              return "";//chaveNFe;
         }
 
 
 
-        public void EnviarNFE(Saida saida, Nfe nfeControle)
+        public void EnviarNFE(Saida saida, NfeControle nfeControle)
         {
+            
             try
             {
                 // utilizado como padrão quando não especificado pelos produtos
                 string cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(saida.TipoSaida).ToString();
-               
+                
                 string FORMATO_DATA = "yyyy-MM-dd";
                 TNFe nfe = new TNFe();
                 
@@ -269,14 +302,15 @@ namespace Negocio
                 infNFe.versao = "2.00";
                 infNFe.Id = "NFe" + nfeControle.Chave;
                 nfe.infNFe = infNFe;
+                
 
                 //Ide
                 TNFeInfNFeIde infNFeIde = new TNFeInfNFeIde();
-                infNFeIde.cDV = DigitoVerificador.DigitoModulo11(nfeControle.Chave);
+                infNFeIde.cNF = nfeControle.Chave.Substring(35, 8); // código composto por 8 dígitos sequenciais
+                infNFeIde.cDV = nfeControle.Chave.Substring(43, 1);
                 
                 Loja lojaPadrao = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
-                infNFeIde.cMunFG = lojaPadrao.CodMunicipioIBGE.ToString(); 
-                infNFeIde.cNF = saida.Nfe; // código composto por 8 dígitos sequenciais
+                infNFeIde.cMunFG = lojaPadrao.CodMunicipioIBGE.ToString();
                 infNFeIde.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + lojaPadrao.CodMunicipioIBGE.ToString().Substring(0, 2));
 
                 infNFeIde.dEmi = saida.DataEmissaoCupomFiscal.ToString(FORMATO_DATA);
@@ -285,15 +319,24 @@ namespace Negocio
                 infNFeIde.indPag = (TNFeInfNFeIdeIndPag)0; // 0 - à Vista  1 - a prazo  2 - outros
                 infNFeIde.mod = TMod.Item55;
                 infNFeIde.natOp = GerenciadorCfop.GetInstance().Obter(Convert.ToInt32(cfopPadrao)).ElementAtOrDefault(0).Descricao;
-                infNFeIde.nNF = saida.CupomFiscal; // número do Documento Fiscal
+                infNFeIde.nNF = nfeControle.CodNfe.ToString(); // número do Documento Fiscal
                 infNFeIde.procEmi = TProcEmi.Item0; //0 - Emissão do aplicativo do contribuinte
-                infNFeIde.serie = "000";
+                infNFeIde.serie = "1";
                 infNFeIde.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
                 infNFeIde.tpEmis = TNFeInfNFeIdeTpEmis.Item1; // emissão Normal
                 infNFeIde.tpImp = TNFeInfNFeIdeTpImp.Item1; // 1-Retratro / 2-Paisagem
                 infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item1; // 0 - entrada / 1 - saída de produtos
-                infNFeIde.verProc = "1.0"; //versão do aplicativo de emissão de nf-e                 
-                
+                infNFeIde.verProc = "SACE 2.0.1"; //versão do aplicativo de emissão de nf-e   
+                TNFeInfNFeIdeNFrefRefECF refEcf = new TNFeInfNFeIdeNFrefRefECF();
+                refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;
+                refEcf.nCOO = saida.CupomFiscal;
+                refEcf.nECF = saida.NumeroECF;
+                TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
+                nfRef.ItemElementName = ItemChoiceType1.refECF;
+                nfRef.Item = refEcf;
+                infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
+                infNFeIde.NFref[0] = nfRef;
+
                 nfe.infNFe.ide = infNFeIde;
 
                 ////Endereco Emitente
@@ -413,47 +456,45 @@ namespace Negocio
 
                         TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
 
-                        if (produto.EhTributacaoIntegral)
+                        if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
                         {
-                            TNFeInfNFeDetImpostoICMSICMS00 icms00 = new TNFeInfNFeDetImpostoICMSICMS00();
-                            icms00.CST = TNFeInfNFeDetImpostoICMSICMS00CST.Item00;
-                            icms00.orig = Torig.Item0; //0-Nacional, 1-Estrageira, 2-Estrangeira adquirida no mercado interno
-                            icms00.modBC = TNFeInfNFeDetImpostoICMSICMS00ModBC.Item0;//0-Margem Valor agregado, 1-Pauta(Valor), 2-Preço tabelado max, 3-valor da operação
-                            icms00.vBC = formataValorNFe(saidaProduto.BaseCalculoICMS);
-                            icms00.pICMS = formataValorNFe(produto.Icms);
-                            icms00.vICMS = formataValorNFe(saidaProduto.ValorICMS);
+                            TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
+                            icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item102;
+                            icms102.orig = Torig.Item0;
 
-                            icms.Item = icms00;
+                            icms.Item = icms102;
                         }
-                        else
-                        {
-                            TNFeInfNFeDetImpostoICMSICMS10 icms10 = new TNFeInfNFeDetImpostoICMSICMS10();
-                            icms10.CST = TNFeInfNFeDetImpostoICMSICMS10CST.Item10;
-                            icms10.orig = Torig.Item0; //0-Nacional, 1-Estrageira, 2-Estrangeira adquirida no mercado interno
-                            icms10.modBC = TNFeInfNFeDetImpostoICMSICMS10ModBC.Item0;//0-Margem Valor agregado, 1-Pauta(Valor), 2-Preço tabelado max, 3-valor da operação
-                            icms10.vBC = formataValorNFe(saidaProduto.BaseCalculoICMSSubst);
-                            icms10.pICMS = formataValorNFe(produto.IcmsSubstituto);
-                            icms10.vICMS = formataValorNFe(saidaProduto.ValorICMSSubst);
-
-                            icms.Item = icms10;
-                        }
-
-
+                        
                         TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto();
                         imp.Items = new object[] { icms };
 
                         TNFeInfNFeDetImpostoPISPISOutr pisOutr = new TNFeInfNFeDetImpostoPISPISOutr();
                         pisOutr.CST = TNFeInfNFeDetImpostoPISPISOutrCST.Item99;
                         pisOutr.vPIS = formataValorNFe(0);
+                        pisOutr.Items = new string[2];
+                        pisOutr.Items[0] = formataValorNFe(0);
+                        pisOutr.Items[1] = formataValorNFe(0);
+                        pisOutr.ItemsElementName = new ItemsChoiceType1[2];
+                        pisOutr.ItemsElementName[0] = ItemsChoiceType1.vBC;
+                        pisOutr.ItemsElementName[1] = ItemsChoiceType1.pPIS;
+                        
 
                         TNFeInfNFeDetImpostoPIS pis = new TNFeInfNFeDetImpostoPIS();
                         pis.Item = pisOutr;
                         imp.PIS = pis;
 
 
+
                         TNFeInfNFeDetImpostoCOFINSCOFINSOutr cofinsOutr = new TNFeInfNFeDetImpostoCOFINSCOFINSOutr();
                         cofinsOutr.CST = TNFeInfNFeDetImpostoCOFINSCOFINSOutrCST.Item99;
                         cofinsOutr.vCOFINS = formataValorNFe(0);
+                        cofinsOutr.Items = new string[2];
+                        cofinsOutr.Items[0] = formataValorNFe(0);
+                        cofinsOutr.Items[1] = formataValorNFe(0);
+                        cofinsOutr.ItemsElementName = new ItemsChoiceType3[2];
+                        cofinsOutr.ItemsElementName[0] = ItemsChoiceType3.vBC;
+                        cofinsOutr.ItemsElementName[1] = ItemsChoiceType3.pCOFINS;
+                        
 
                         TNFeInfNFeDetImpostoCOFINS cofins = new TNFeInfNFeDetImpostoCOFINS();
                         cofins.Item = cofinsOutr;
@@ -482,7 +523,7 @@ namespace Negocio
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                 {
-                    icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS);
+                    icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS + saida.Desconto); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
                     icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
                     icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
@@ -521,7 +562,7 @@ namespace Negocio
 
                 TNFeInfNFeTranspTransporta transporta = new TNFeInfNFeTranspTransporta();
                 TNFeInfNFeTransp transp = new TNFeInfNFeTransp();
-                if (saida.CodEmpresaFrete == saida.CodCliente)
+                if ((saida.CodEmpresaFrete == saida.CodCliente) || (saida.CodEmpresaFrete == Global.CLIENTE_PADRAO))
                 {
                     transp.modFrete = TNFeInfNFeTranspModFrete.Item9; // 9-Sem frete
                 }
@@ -558,6 +599,8 @@ namespace Negocio
 
                 ns.Add("", "http://www.portalfiscal.inf.br/nfe");
                 serializer.Serialize(memStream, nfe, ns);
+                
+                
                 memStream.Position = 0;
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(memStream);
@@ -565,7 +608,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new NegocioException("Problemas na geração do arquivo da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
             }
         }
 
@@ -605,7 +648,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="_nfe"></param>
-        private void Atribuir(Nfe nfe, NfeE _nfe)
+        private void Atribuir(NfeControle nfe, NfeE _nfe)
         {
             _nfe.chave = string.IsNullOrEmpty(nfe.Chave)?"":nfe.Chave;
             _nfe.codNFe = nfe.CodNfe;

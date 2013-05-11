@@ -72,5 +72,7 @@ namespace Dominio
             return this.CodSaida.GetHashCode();
         }
 
+        //TODO: colocar núemro da ecf no banco de dados.
+        public string NumeroECF { get { return "01"; } }
     }
 }

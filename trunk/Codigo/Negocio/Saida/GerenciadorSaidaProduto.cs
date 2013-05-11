@@ -203,6 +203,7 @@ namespace Negocio
                             CodProduto = saidaProduto.codProduto,
                             CodSaida = saidaProduto.codSaida,
                             CodCST = produto.codCST,
+                            CodCfop = saidaProduto.cfop,
                             DataValidade = (DateTime)saidaProduto.data_validade,
                             Desconto = (decimal)saidaProduto.desconto,
                             Quantidade = (decimal)saidaProduto.quantidade,

@@ -18,5 +18,11 @@ namespace Negocio
         {
 
         }
+
+        public NegocioException(String mensagem, Exception inner)
+            : base(mensagem, inner)
+        {
+
+        }
     }
 }

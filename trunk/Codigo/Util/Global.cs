@@ -65,7 +65,7 @@ namespace Util
 
         public static String
          AMBIENTE_NFE = "2", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
-         IBGE_UF_SE = "28",
+         //IBGE_UF_SE = "28",
          //ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
          ENDERECO_SERVIDOR = "c:\\",
          ENDERECO_SERVIDOR_NFE = "c:\\",
