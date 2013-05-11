@@ -73,7 +73,7 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
             }
-            Nfe nfe = new Nfe();
+            NfeControle nfe = new NfeControle();
             nfe.CodNfe = GerenciadorNFe.GetInstance().Inserir(nfe, Saida);
             nfe.Chave = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, nfe);
                      
