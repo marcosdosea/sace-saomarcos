@@ -87,8 +87,7 @@ namespace Util
          //PORTA_IMPRESSORA_NORMAL = "lpt1-teste.txt",
          //PORTA_IMPRESSORA_REDUZIDA = "lpt2-teste.txt",
          LINHA = "================================================================================",
-         LINHA_COMPRIMIDA = "============================================================";
-
-        
+         LINHA_COMPRIMIDA = "============================================================",
+         NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI."; 
     }
 }

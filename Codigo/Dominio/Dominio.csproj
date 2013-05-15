@@ -110,6 +110,7 @@
     <Compile Include="SituacaoConta.cs" />
     <Compile Include="SituacaoPagamentos.cs" />
     <Compile Include="SituacaoProduto.cs" />
+    <Compile Include="NfeStatusResposta.cs" />
     <Compile Include="Subgrupo.cs" />
     <Compile Include="TipoMovimentacaoConta.cs" />
     <Compile Include="Usuario.cs" />
