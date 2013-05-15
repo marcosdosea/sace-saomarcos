@@ -108,8 +108,18 @@ namespace Telas
                 }
                
             }
-            
-            result = MessageBox.Show(erro, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            string[] palavras = erro.Split(' ');
+            string erroQuebraLinha = "";
+            for (int i = 0; i < palavras.Length; i++)
+            {
+                if (i % 10 == 0)
+                {
+                    erroQuebraLinha += Environment.NewLine;
+                }
+                erroQuebraLinha += palavras[i] + " ";
+            }
+            result = MessageBox.Show(erroQuebraLinha, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             if (result == DialogResult.Abort)
                 Application.Exit();
         }
