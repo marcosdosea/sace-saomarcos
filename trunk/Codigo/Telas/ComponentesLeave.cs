@@ -126,7 +126,7 @@ namespace Telas
                             // Busca produto pelo nome
                             _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
 
-                            if ((_listaProdutos.Count == 1) && (_listaProdutos[0].Nome.Equals(produtoComboBox.Text)))
+                            if ((_listaProdutos.Count == 1) || (_listaProdutos[0].Nome.Equals(produtoComboBox.Text)))
                             {
                                 produtoNomeIgual = _listaProdutos[0];
                             }

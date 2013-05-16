@@ -18,9 +18,8 @@ namespace Telas
         private const string ENTRADA_AUTOMATICA = "F1-AUTOMÁTICA";
 
         private const string PRECO_VAREJO = "CTRL+P - Preço Varejo";
-        private const string PRECO_ATACADO = "CTRL+P - Preço Atacado";
-        private const string PRECO_VAREJO_DESCONTO = "CTRL+P - Varejo+Desc 10%";
-
+        private const string PRECO_REVENDA = "CTRL+P - Preço Revenda";
+        
         private EstadoFormulario estado;
         private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
@@ -434,7 +433,7 @@ namespace Telas
                 }
                 else
                 {
-                    if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)) || (lblPreco.Text.Equals(PRECO_ATACADO)))
+                    if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)))
                     {
                         precoVendaSemDescontoTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produto.PrecoVendaAtacado.ToString();
@@ -444,10 +443,10 @@ namespace Telas
                         precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
                     }
-                    else if (lblPreco.Text.Equals(PRECO_VAREJO_DESCONTO))
+                    else if (lblPreco.Text.Equals(PRECO_REVENDA))
                     {
-                        precoVendaSemDescontoTextBox.Text = (produto.PrecoVendaVarejoSemDesconto * Convert.ToDecimal(0.9)).ToString("N2");
-                        precoVendatextBox.Text = ( produto.PrecoVendaVarejo * Convert.ToDecimal(0.9)).ToString("N2");
+                        precoVendaSemDescontoTextBox.Text = (produto.PrecoRevendaSemDesconto * Convert.ToDecimal(0.9)).ToString("N2");
+                        precoVendatextBox.Text = ( produto.PrecoRevenda * Convert.ToDecimal(0.9)).ToString("N2");
                     }
                     data_validadeDateTimePicker.Enabled = produto.TemVencimento;
                     data_validadeDateTimePicker.TabStop = produto.TemVencimento;
@@ -745,13 +744,8 @@ namespace Telas
                 {
                     if (lblPreco.Text.Equals(PRECO_VAREJO))
                     {
-                        lblPreco.Text = PRECO_ATACADO;
+                        lblPreco.Text = PRECO_REVENDA;
                         lblPreco.ForeColor = Color.Green;
-                    }
-                    else if (lblPreco.Text.Equals(PRECO_ATACADO))
-                    {
-                        lblPreco.Text = PRECO_VAREJO_DESCONTO;
-                        lblPreco.ForeColor = Color.DarkMagenta;
                     }
                     else
                     {

@@ -324,10 +324,10 @@ namespace Telas
 
                 if (entrada.ValorFrete > 0)
                 {
-                    if (entrada.FretePagoEmitente)
-                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
-                    else
-                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalNota) * 100);
+                    //if (entrada.FretePagoEmitente)
+                    entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
+                    //else
+                        //entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalNota) * 100);
                 }
                 else
                 {

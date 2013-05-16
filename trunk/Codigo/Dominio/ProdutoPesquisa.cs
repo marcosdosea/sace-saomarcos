@@ -32,11 +32,17 @@ namespace Dominio
         {
             get { return Math.Round(QtdProdutoAtacado * PrecoVendaAtacadoSemDesconto, 2, MidpointRounding.AwayFromZero); }
         }
-
         public decimal TotalPrecoVendaAtacado
         {
             get { return Math.Round(QtdProdutoAtacado * PrecoVendaAtacado, 2, MidpointRounding.AwayFromZero); }
         }
+
+        public decimal PrecoRevenda { get; set; }
+        public decimal PrecoRevendaSemDesconto
+        {
+            get { return Math.Round((PrecoRevenda * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
+        }
+        
         public bool ExibeNaListagem { get; set; }
         public bool EhTributacaoIntegral
         {
@@ -56,6 +62,7 @@ namespace Dominio
         public decimal UltimoPrecoCompra { get; set; }
         public decimal LucroPrecoVendaVarejo { get; set; }
         public decimal LucroPrecoVendaAtacado { get; set; }
+        public decimal LucroPrecoRevenda { get; set; }
         public string UnidadeCompra { get; set; }
         public decimal QuantidadeEmbalagem { get; set; }
         
