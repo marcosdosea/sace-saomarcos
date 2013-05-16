@@ -8,22 +8,21 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_banco_codbanco", "tb_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.BancoE), "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaBancoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_codcontabanco", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.CartaoCreditoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.CartaoCreditoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_cartao_credito", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_conta_pagar_codplanoconta", "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PlanoContaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codentrada", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.EntradaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.SaidaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
@@ -33,8 +32,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_movimentacao_conta_codcontabanco", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_conta_banco1", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_codempresafrete", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_codfornecedor", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_codentrada", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_tb_situacao_pagamentos1", "tb_situacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
@@ -46,16 +43,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_codgrupo", "tb_grupo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_subgrupo_tb_grupo1", "tb_grupo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_subgrupo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SubgrupoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_codgrupoconta", "tb_grupo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.LojaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_movimentacao_conta_codtipomovimentacao", "tb_tipo_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoMovimentacaoContaE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.tb_perfil), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_permissao_codpessoa", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.UsuarioE), "tb_permissao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_permissao), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codcliente", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codprofissional", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_tb_tipo_conta1", "tb_tipo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoProdutoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
@@ -65,15 +56,25 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SaidaE), "tb_saida_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_situacao_pagamentos1", "tb_situacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "ContatoEmpresaE", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), "tb_pessoa1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE))]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_funcionalidade), "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_perfil))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_tipo_saida_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.TipoSaidaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_tb_cfop1", "CfopE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_tb_cst1", "CstE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.MunicipiosIbgeE), "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.NfeE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "CartaoCreditoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.CartaoCreditoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "ContaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_codempresafrete", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "EntradaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_codfornecedor", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "EntradaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "LojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.LojaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "MovimentacaoContaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.MunicipiosIbgeE), "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "ProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codcliente", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codprofissional", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.PessoaE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "UsuarioE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.UsuarioE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), "tb_pessoa1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE))]
 
 #endregion
 
@@ -400,22 +401,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PessoaE> PessoaSet
-        {
-            get
-            {
-                if ((_PessoaSet == null))
-                {
-                    _PessoaSet = base.CreateObjectSet<PessoaE>("PessoaSet");
-                }
-                return _PessoaSet;
-            }
-        }
-        private ObjectSet<PessoaE> _PessoaSet;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<PlanoContaE> PlanoContaSet
         {
             get
@@ -672,6 +657,22 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<NfeE> NfeSet
+        {
+            get
+            {
+                if ((_NfeSet == null))
+                {
+                    _NfeSet = base.CreateObjectSet<NfeE>("NfeSet");
+                }
+                return _NfeSet;
+            }
+        }
+        private ObjectSet<NfeE> _NfeSet;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<MunicipiosIbgeE> MunicipiosIbgeSet
         {
             get
@@ -688,20 +689,21 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<NfeE> NfeSet
+        public ObjectSet<PessoaE> PessoaSet
         {
             get
             {
-                if ((_NfeSet == null))
+                if ((_PessoaSet == null))
                 {
-                    _NfeSet = base.CreateObjectSet<NfeE>("NfeSet");
+                    _PessoaSet = base.CreateObjectSet<PessoaE>("PessoaSet");
                 }
-                return _NfeSet;
+                return _PessoaSet;
             }
         }
-        private ObjectSet<NfeE> _NfeSet;
+        private ObjectSet<PessoaE> _PessoaSet;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -841,14 +843,6 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PessoaSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPessoaSet(PessoaE pessoaE)
-        {
-            base.AddObject("PessoaSet", pessoaE);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the PlanoContaSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPlanoContaSet(PlanoContaE planoContaE)
@@ -977,6 +971,14 @@ namespace Dados
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the NfeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToNfeSet(NfeE nfeE)
+        {
+            base.AddObject("NfeSet", nfeE);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the MunicipiosIbgeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToMunicipiosIbgeSet(MunicipiosIbgeE municipiosIbgeE)
@@ -985,19 +987,19 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the NfeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the PessoaSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToNfeSet(NfeE nfeE)
+        public void AddToPessoaSet(PessoaE pessoaE)
         {
-            base.AddObject("NfeSet", nfeE);
+            base.AddObject("PessoaSet", pessoaE);
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -1024,6 +1026,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1078,6 +1081,7 @@ namespace Dados
         partial void OnnomeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1104,6 +1108,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1134,6 +1139,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1284,6 +1290,7 @@ namespace Dados
         partial void OncodPessoaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1331,6 +1338,28 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_saida_forma_pagamento")]
+        public EntityCollection<SaidaFormaPagamentoE> tb_saida_forma_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_saida_forma_pagamento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_saida_forma_pagamento", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_pessoa")]
         public PessoaE tb_pessoa
         {
@@ -1362,30 +1391,9 @@ namespace Dados
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_pagamento_tb_cartao_credito1", "tb_saida_forma_pagamento")]
-        public EntityCollection<SaidaFormaPagamentoE> tb_saida_forma_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_saida_forma_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1", "tb_saida_forma_pagamento", value);
-                }
-            }
-        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1410,6 +1418,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1488,6 +1497,7 @@ namespace Dados
         partial void OnicmsChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1558,6 +1568,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1584,6 +1595,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1734,6 +1746,7 @@ namespace Dados
         partial void OncodBancoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1864,6 +1877,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1900,6 +1914,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2170,46 +2185,9 @@ namespace Dados
         partial void OndescontoChanged();
 
         #endregion
+
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_pessoa")]
-        public PessoaE tb_pessoa
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2384,8 +2362,47 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_pessoa")]
+        public PessoaE tb_pessoa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_pessoa", value);
+                }
+            }
+        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2410,6 +2427,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2464,6 +2482,7 @@ namespace Dados
         partial void OndescricaoCSTChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2534,6 +2553,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2568,6 +2588,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3078,6 +3099,7 @@ namespace Dados
         partial void OntotalProdutosSTChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3099,82 +3121,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ContaE>("SaceModel.fk_tb_conta_pagar_codentrada", "tb_conta", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codempresafrete", "tb_pessoa")]
-        public PessoaE tb_pessoa
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codfornecedor", "tb_pessoa")]
-        public PessoaE tb_pessoa1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoa1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa", value);
                 }
             }
         }
@@ -3298,8 +3244,85 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codempresafrete", "tb_pessoa")]
+        public PessoaE tb_pessoa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_pessoa", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codfornecedor", "tb_pessoa")]
+        public PessoaE tb_pessoa1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoa1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_pessoa", value);
+                }
+            }
+        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3330,6 +3353,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3504,6 +3528,7 @@ namespace Dados
         partial void OnpagamentoDoFreteChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3622,6 +3647,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3654,6 +3680,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4116,6 +4143,7 @@ namespace Dados
         partial void OncodCSTChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4272,6 +4300,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4302,6 +4331,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4428,6 +4458,7 @@ namespace Dados
         partial void OnmapeamentoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4476,6 +4507,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4502,6 +4534,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4556,6 +4589,7 @@ namespace Dados
         partial void OndescricaoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4582,6 +4616,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4608,6 +4643,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4662,6 +4698,7 @@ namespace Dados
         partial void OndescricaoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4710,6 +4747,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4738,6 +4776,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4816,8 +4855,31 @@ namespace Dados
         partial void OncodPessoaChanged();
 
         #endregion
+
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_produto_loja")]
+        public EntityCollection<ProdutoLojaE> tb_produto_loja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codloja", "tb_produto_loja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codloja", "tb_produto_loja", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4856,30 +4918,9 @@ namespace Dados
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_produto_loja")]
-        public EntityCollection<ProdutoLojaE> tb_produto_loja
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codloja", "tb_produto_loja");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codloja", "tb_produto_loja", value);
-                }
-            }
-        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4914,6 +4955,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5088,6 +5130,7 @@ namespace Dados
         partial void OndataHoraChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5173,44 +5216,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "tb_pessoa")]
-        public PessoaE tb_pessoa
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_movimentacao_conta_codtipomovimentacao", "tb_tipo_movimentacao_conta")]
         public TipoMovimentacaoContaE tb_tipo_movimentacao_conta
         {
@@ -5242,8 +5247,47 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "tb_pessoa")]
+        public PessoaE tb_pessoa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_pessoa", value);
+                }
+            }
+        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5260,14 +5304,19 @@ namespace Dados
         /// Create a new MunicipiosIbgeE object.
         /// </summary>
         /// <param name="codigo">Initial value of the codigo property.</param>
-        public static MunicipiosIbgeE CreateMunicipiosIbgeE(global::System.Int32 codigo)
+        /// <param name="municipio">Initial value of the municipio property.</param>
+        /// <param name="uf">Initial value of the uf property.</param>
+        public static MunicipiosIbgeE CreateMunicipiosIbgeE(global::System.Int32 codigo, global::System.String municipio, global::System.String uf)
         {
             MunicipiosIbgeE municipiosIbgeE = new MunicipiosIbgeE();
             municipiosIbgeE.codigo = codigo;
+            municipiosIbgeE.municipio = municipio;
+            municipiosIbgeE.uf = uf;
             return municipiosIbgeE;
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5300,7 +5349,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String municipio
         {
@@ -5312,7 +5361,7 @@ namespace Dados
             {
                 OnmunicipioChanging(value);
                 ReportPropertyChanging("municipio");
-                _municipio = StructuralObject.SetValidValue(value, true);
+                _municipio = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("municipio");
                 OnmunicipioChanged();
             }
@@ -5324,7 +5373,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String uf
         {
@@ -5336,7 +5385,7 @@ namespace Dados
             {
                 OnufChanging(value);
                 ReportPropertyChanging("uf");
-                _uf = StructuralObject.SetValidValue(value, true);
+                _uf = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("uf");
                 OnufChanged();
             }
@@ -5346,6 +5395,7 @@ namespace Dados
         partial void OnufChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5355,23 +5405,24 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "PessoaE")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "tb_pessoa")]
         public EntityCollection<PessoaE> tb_pessoa
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "PessoaE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_pessoa");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "PessoaE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_pessoa", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5389,15 +5440,40 @@ namespace Dados
         /// </summary>
         /// <param name="codNFe">Initial value of the codNFe property.</param>
         /// <param name="chave">Initial value of the chave property.</param>
-        public static NfeE CreateNfeE(global::System.Int32 codNFe, global::System.String chave)
+        /// <param name="situacaoNfe">Initial value of the situacaoNfe property.</param>
+        /// <param name="numeroLoteEnvio">Initial value of the numeroLoteEnvio property.</param>
+        /// <param name="numeroRecibo">Initial value of the numeroRecibo property.</param>
+        /// <param name="situacaoReciboEnvio">Initial value of the situacaoReciboEnvio property.</param>
+        /// <param name="mensagemSituacaoReciboEnvio">Initial value of the mensagemSituacaoReciboEnvio property.</param>
+        /// <param name="numeroProtocoloUso">Initial value of the numeroProtocoloUso property.</param>
+        /// <param name="situacaoProtocoloUso">Initial value of the situacaoProtocoloUso property.</param>
+        /// <param name="mensagemSituacaoProtocoloUso">Initial value of the mensagemSituacaoProtocoloUso property.</param>
+        /// <param name="numeroProtocoloCancelamento">Initial value of the numeroProtocoloCancelamento property.</param>
+        /// <param name="situacaoProtocoloCancelamento">Initial value of the situacaoProtocoloCancelamento property.</param>
+        /// <param name="mensagemSituacaoProtocoloCancelamento">Initial value of the mensagemSituacaoProtocoloCancelamento property.</param>
+        /// <param name="justificativaCancelamento">Initial value of the justificativaCancelamento property.</param>
+        public static NfeE CreateNfeE(global::System.Int32 codNFe, global::System.String chave, global::System.String situacaoNfe, global::System.String numeroLoteEnvio, global::System.String numeroRecibo, global::System.String situacaoReciboEnvio, global::System.String mensagemSituacaoReciboEnvio, global::System.String numeroProtocoloUso, global::System.String situacaoProtocoloUso, global::System.String mensagemSituacaoProtocoloUso, global::System.String numeroProtocoloCancelamento, global::System.String situacaoProtocoloCancelamento, global::System.String mensagemSituacaoProtocoloCancelamento, global::System.String justificativaCancelamento)
         {
             NfeE nfeE = new NfeE();
             nfeE.codNFe = codNFe;
             nfeE.chave = chave;
+            nfeE.situacaoNfe = situacaoNfe;
+            nfeE.numeroLoteEnvio = numeroLoteEnvio;
+            nfeE.numeroRecibo = numeroRecibo;
+            nfeE.situacaoReciboEnvio = situacaoReciboEnvio;
+            nfeE.mensagemSituacaoReciboEnvio = mensagemSituacaoReciboEnvio;
+            nfeE.numeroProtocoloUso = numeroProtocoloUso;
+            nfeE.situacaoProtocoloUso = situacaoProtocoloUso;
+            nfeE.mensagemSituacaoProtocoloUso = mensagemSituacaoProtocoloUso;
+            nfeE.numeroProtocoloCancelamento = numeroProtocoloCancelamento;
+            nfeE.situacaoProtocoloCancelamento = situacaoProtocoloCancelamento;
+            nfeE.mensagemSituacaoProtocoloCancelamento = mensagemSituacaoProtocoloCancelamento;
+            nfeE.justificativaCancelamento = justificativaCancelamento;
             return nfeE;
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5454,79 +5530,271 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String loteEnvio
+        public global::System.String situacaoNfe
         {
             get
             {
-                return _loteEnvio;
+                return _situacaoNfe;
             }
             set
             {
-                OnloteEnvioChanging(value);
-                ReportPropertyChanging("loteEnvio");
-                _loteEnvio = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("loteEnvio");
-                OnloteEnvioChanged();
+                OnsituacaoNfeChanging(value);
+                ReportPropertyChanging("situacaoNfe");
+                _situacaoNfe = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoNfe");
+                OnsituacaoNfeChanged();
             }
         }
-        private global::System.String _loteEnvio;
-        partial void OnloteEnvioChanging(global::System.String value);
-        partial void OnloteEnvioChanged();
+        private global::System.String _situacaoNfe;
+        partial void OnsituacaoNfeChanging(global::System.String value);
+        partial void OnsituacaoNfeChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String situacao
+        public global::System.String numeroLoteEnvio
         {
             get
             {
-                return _situacao;
+                return _numeroLoteEnvio;
             }
             set
             {
-                OnsituacaoChanging(value);
-                ReportPropertyChanging("situacao");
-                _situacao = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("situacao");
-                OnsituacaoChanged();
+                OnnumeroLoteEnvioChanging(value);
+                ReportPropertyChanging("numeroLoteEnvio");
+                _numeroLoteEnvio = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroLoteEnvio");
+                OnnumeroLoteEnvioChanged();
             }
         }
-        private global::System.String _situacao;
-        partial void OnsituacaoChanging(global::System.String value);
-        partial void OnsituacaoChanged();
+        private global::System.String _numeroLoteEnvio;
+        partial void OnnumeroLoteEnvioChanging(global::System.String value);
+        partial void OnnumeroLoteEnvioChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String protocoloAutorizacao
+        public global::System.String numeroRecibo
         {
             get
             {
-                return _protocoloAutorizacao;
+                return _numeroRecibo;
             }
             set
             {
-                OnprotocoloAutorizacaoChanging(value);
-                ReportPropertyChanging("protocoloAutorizacao");
-                _protocoloAutorizacao = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("protocoloAutorizacao");
-                OnprotocoloAutorizacaoChanged();
+                OnnumeroReciboChanging(value);
+                ReportPropertyChanging("numeroRecibo");
+                _numeroRecibo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroRecibo");
+                OnnumeroReciboChanged();
             }
         }
-        private global::System.String _protocoloAutorizacao;
-        partial void OnprotocoloAutorizacaoChanging(global::System.String value);
-        partial void OnprotocoloAutorizacaoChanged();
+        private global::System.String _numeroRecibo;
+        partial void OnnumeroReciboChanging(global::System.String value);
+        partial void OnnumeroReciboChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoReciboEnvio
+        {
+            get
+            {
+                return _situacaoReciboEnvio;
+            }
+            set
+            {
+                OnsituacaoReciboEnvioChanging(value);
+                ReportPropertyChanging("situacaoReciboEnvio");
+                _situacaoReciboEnvio = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoReciboEnvio");
+                OnsituacaoReciboEnvioChanged();
+            }
+        }
+        private global::System.String _situacaoReciboEnvio;
+        partial void OnsituacaoReciboEnvioChanging(global::System.String value);
+        partial void OnsituacaoReciboEnvioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSituacaoReciboEnvio
+        {
+            get
+            {
+                return _mensagemSituacaoReciboEnvio;
+            }
+            set
+            {
+                OnmensagemSituacaoReciboEnvioChanging(value);
+                ReportPropertyChanging("mensagemSituacaoReciboEnvio");
+                _mensagemSituacaoReciboEnvio = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSituacaoReciboEnvio");
+                OnmensagemSituacaoReciboEnvioChanged();
+            }
+        }
+        private global::System.String _mensagemSituacaoReciboEnvio;
+        partial void OnmensagemSituacaoReciboEnvioChanging(global::System.String value);
+        partial void OnmensagemSituacaoReciboEnvioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroProtocoloUso
+        {
+            get
+            {
+                return _numeroProtocoloUso;
+            }
+            set
+            {
+                OnnumeroProtocoloUsoChanging(value);
+                ReportPropertyChanging("numeroProtocoloUso");
+                _numeroProtocoloUso = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroProtocoloUso");
+                OnnumeroProtocoloUsoChanged();
+            }
+        }
+        private global::System.String _numeroProtocoloUso;
+        partial void OnnumeroProtocoloUsoChanging(global::System.String value);
+        partial void OnnumeroProtocoloUsoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoProtocoloUso
+        {
+            get
+            {
+                return _situacaoProtocoloUso;
+            }
+            set
+            {
+                OnsituacaoProtocoloUsoChanging(value);
+                ReportPropertyChanging("situacaoProtocoloUso");
+                _situacaoProtocoloUso = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoProtocoloUso");
+                OnsituacaoProtocoloUsoChanged();
+            }
+        }
+        private global::System.String _situacaoProtocoloUso;
+        partial void OnsituacaoProtocoloUsoChanging(global::System.String value);
+        partial void OnsituacaoProtocoloUsoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSituacaoProtocoloUso
+        {
+            get
+            {
+                return _mensagemSituacaoProtocoloUso;
+            }
+            set
+            {
+                OnmensagemSituacaoProtocoloUsoChanging(value);
+                ReportPropertyChanging("mensagemSituacaoProtocoloUso");
+                _mensagemSituacaoProtocoloUso = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSituacaoProtocoloUso");
+                OnmensagemSituacaoProtocoloUsoChanged();
+            }
+        }
+        private global::System.String _mensagemSituacaoProtocoloUso;
+        partial void OnmensagemSituacaoProtocoloUsoChanging(global::System.String value);
+        partial void OnmensagemSituacaoProtocoloUsoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroProtocoloCancelamento
+        {
+            get
+            {
+                return _numeroProtocoloCancelamento;
+            }
+            set
+            {
+                OnnumeroProtocoloCancelamentoChanging(value);
+                ReportPropertyChanging("numeroProtocoloCancelamento");
+                _numeroProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroProtocoloCancelamento");
+                OnnumeroProtocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _numeroProtocoloCancelamento;
+        partial void OnnumeroProtocoloCancelamentoChanging(global::System.String value);
+        partial void OnnumeroProtocoloCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoProtocoloCancelamento
+        {
+            get
+            {
+                return _situacaoProtocoloCancelamento;
+            }
+            set
+            {
+                OnsituacaoProtocoloCancelamentoChanging(value);
+                ReportPropertyChanging("situacaoProtocoloCancelamento");
+                _situacaoProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoProtocoloCancelamento");
+                OnsituacaoProtocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _situacaoProtocoloCancelamento;
+        partial void OnsituacaoProtocoloCancelamentoChanging(global::System.String value);
+        partial void OnsituacaoProtocoloCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSituacaoProtocoloCancelamento
+        {
+            get
+            {
+                return _mensagemSituacaoProtocoloCancelamento;
+            }
+            set
+            {
+                OnmensagemSituacaoProtocoloCancelamentoChanging(value);
+                ReportPropertyChanging("mensagemSituacaoProtocoloCancelamento");
+                _mensagemSituacaoProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSituacaoProtocoloCancelamento");
+                OnmensagemSituacaoProtocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _mensagemSituacaoProtocoloCancelamento;
+        partial void OnmensagemSituacaoProtocoloCancelamentoChanging(global::System.String value);
+        partial void OnmensagemSituacaoProtocoloCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String justificativaCancelamento
         {
@@ -5538,7 +5806,7 @@ namespace Dados
             {
                 OnjustificativaCancelamentoChanging(value);
                 ReportPropertyChanging("justificativaCancelamento");
-                _justificativaCancelamento = StructuralObject.SetValidValue(value, true);
+                _justificativaCancelamento = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("justificativaCancelamento");
                 OnjustificativaCancelamentoChanged();
             }
@@ -5546,32 +5814,9 @@ namespace Dados
         private global::System.String _justificativaCancelamento;
         partial void OnjustificativaCancelamentoChanging(global::System.String value);
         partial void OnjustificativaCancelamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String protocoloCancelamento
-        {
-            get
-            {
-                return _protocoloCancelamento;
-            }
-            set
-            {
-                OnprotocoloCancelamentoChanging(value);
-                ReportPropertyChanging("protocoloCancelamento");
-                _protocoloCancelamento = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("protocoloCancelamento");
-                OnprotocoloCancelamentoChanged();
-            }
-        }
-        private global::System.String _protocoloCancelamento;
-        partial void OnprotocoloCancelamentoChanging(global::System.String value);
-        partial void OnprotocoloCancelamentoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5598,6 +5843,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5615,25 +5861,26 @@ namespace Dados
         /// </summary>
         /// <param name="codPessoa">Initial value of the codPessoa property.</param>
         /// <param name="nome">Initial value of the nome property.</param>
+        /// <param name="codMunicipiosIBGE">Initial value of the codMunicipiosIBGE property.</param>
         /// <param name="tipo">Initial value of the Tipo property.</param>
         /// <param name="ehFabricante">Initial value of the ehFabricante property.</param>
         /// <param name="imprimirDAV">Initial value of the imprimirDAV property.</param>
         /// <param name="imprimirCF">Initial value of the imprimirCF property.</param>
-        /// <param name="codMunicipiosIBGE">Initial value of the codMunicipiosIBGE property.</param>
-        public static PessoaE CreatePessoaE(global::System.Int64 codPessoa, global::System.String nome, global::System.String tipo, global::System.Boolean ehFabricante, global::System.Boolean imprimirDAV, global::System.Boolean imprimirCF, global::System.Int32 codMunicipiosIBGE)
+        public static PessoaE CreatePessoaE(global::System.Int64 codPessoa, global::System.String nome, global::System.Int32 codMunicipiosIBGE, global::System.String tipo, global::System.Boolean ehFabricante, global::System.Boolean imprimirDAV, global::System.Boolean imprimirCF)
         {
             PessoaE pessoaE = new PessoaE();
             pessoaE.codPessoa = codPessoa;
             pessoaE.nome = nome;
+            pessoaE.codMunicipiosIBGE = codMunicipiosIBGE;
             pessoaE.Tipo = tipo;
             pessoaE.ehFabricante = ehFabricante;
             pessoaE.imprimirDAV = imprimirDAV;
             pessoaE.imprimirCF = imprimirCF;
-            pessoaE.codMunicipiosIBGE = codMunicipiosIBGE;
             return pessoaE;
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5782,6 +6029,30 @@ namespace Dados
         private global::System.String _bairro;
         partial void OnbairroChanging(global::System.String value);
         partial void OnbairroChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codMunicipiosIBGE
+        {
+            get
+            {
+                return _codMunicipiosIBGE;
+            }
+            set
+            {
+                OncodMunicipiosIBGEChanging(value);
+                ReportPropertyChanging("codMunicipiosIBGE");
+                _codMunicipiosIBGE = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codMunicipiosIBGE");
+                OncodMunicipiosIBGEChanged();
+            }
+        }
+        private global::System.Int32 _codMunicipiosIBGE;
+        partial void OncodMunicipiosIBGEChanging(global::System.Int32 value);
+        partial void OncodMunicipiosIBGEChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6214,32 +6485,9 @@ namespace Dados
         private global::System.String _nomeFantasia;
         partial void OnnomeFantasiaChanging(global::System.String value);
         partial void OnnomeFantasiaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codMunicipiosIBGE
-        {
-            get
-            {
-                return _codMunicipiosIBGE;
-            }
-            set
-            {
-                OncodMunicipiosIBGEChanging(value);
-                ReportPropertyChanging("codMunicipiosIBGE");
-                _codMunicipiosIBGE = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("codMunicipiosIBGE");
-                OncodMunicipiosIBGEChanged();
-            }
-        }
-        private global::System.Int32 _codMunicipiosIBGE;
-        partial void OncodMunicipiosIBGEChanging(global::System.Int32 value);
-        partial void OncodMunicipiosIBGEChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6249,18 +6497,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_cartao_credito_tb_pessoa1", "CartaoCreditoE")]
         public EntityCollection<CartaoCreditoE> tb_cartao_credito
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "CartaoCreditoE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "tb_cartao_credito", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_tb_pessoa1", "CartaoCreditoE", value);
                 }
             }
         }
@@ -6271,18 +6519,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_conta_pagar_codpessoa", "tb_conta")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_conta_pagar_codpessoa", "ContaE")]
         public EntityCollection<ContaE> tb_conta
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ContaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_conta");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ContaE>("SaceModel.fk_conta_pagar_codpessoa", "ContaE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ContaE>("SaceModel.fk_conta_pagar_codpessoa", "tb_conta", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ContaE>("SaceModel.fk_conta_pagar_codpessoa", "ContaE", value);
                 }
             }
         }
@@ -6293,18 +6541,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codempresafrete", "tb_entrada")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codempresafrete", "EntradaE")]
         public EntityCollection<EntradaE> tb_entrada
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_entrada");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codempresafrete", "EntradaE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codempresafrete", "tb_entrada", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codempresafrete", "EntradaE", value);
                 }
             }
         }
@@ -6315,18 +6563,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codfornecedor", "tb_entrada")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_codfornecedor", "EntradaE")]
         public EntityCollection<EntradaE> tb_entrada1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_entrada");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codfornecedor", "EntradaE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codfornecedor", "tb_entrada", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaE>("SaceModel.fk_tb_entrada_codfornecedor", "EntradaE", value);
                 }
             }
         }
@@ -6337,18 +6585,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "tb_loja")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "LojaE")]
         public EntityCollection<LojaE> tb_loja
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LojaE>("SaceModel.fk_tb_loja_tb_pessoa1", "tb_loja");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LojaE>("SaceModel.fk_tb_loja_tb_pessoa1", "LojaE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LojaE>("SaceModel.fk_tb_loja_tb_pessoa1", "tb_loja", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LojaE>("SaceModel.fk_tb_loja_tb_pessoa1", "LojaE", value);
                 }
             }
         }
@@ -6359,18 +6607,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "tb_movimentacao_conta")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "MovimentacaoContaE")]
         public EntityCollection<MovimentacaoContaE> tb_movimentacao_conta
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MovimentacaoContaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_movimentacao_conta");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MovimentacaoContaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "MovimentacaoContaE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MovimentacaoContaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "tb_movimentacao_conta", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MovimentacaoContaE>("SaceModel.fk_movimentacao_conta_codresponsavel", "MovimentacaoContaE", value);
                 }
             }
         }
@@ -6381,186 +6629,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_produto")]
-        public EntityCollection<ProdutoE> tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codcliente", "tb_saida")]
-        public EntityCollection<SaidaE> tb_saida
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codcliente", "tb_saida");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codcliente", "tb_saida", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codprofissional", "tb_saida")]
-        public EntityCollection<SaidaE> tb_saida1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codprofissional", "tb_saida");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codprofissional", "tb_saida", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_usuario_codpessoa", "tb_usuario")]
-        public UsuarioE tb_usuario
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "tb_usuario").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "tb_usuario").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<UsuarioE> tb_usuarioReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "tb_usuario");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "tb_usuario", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "ContatoEmpresaE", "tb_pessoa1")]
-        public EntityCollection<PessoaE> tb_pessoa1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.ContatoEmpresaE", "tb_pessoa1");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.ContatoEmpresaE", "tb_pessoa1", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "ContatoEmpresaE", "tb_pessoa")]
-        public EntityCollection<PessoaE> tb_pessoa2
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.ContatoEmpresaE", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.ContatoEmpresaE", "tb_pessoa", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "tb_saida")]
-        public EntityCollection<SaidaE> tb_saida2
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_pessoa1", "tb_saida");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_pessoa1", "tb_saida", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE")]
         public MunicipiosIbgeE tb_municipios_ibge
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE").Value = value;
             }
         }
         /// <summary>
@@ -6572,18 +6650,189 @@ namespace Dados
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "tb_municipios_ibge", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<MunicipiosIbgeE>("SaceModel.fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "ProdutoE")]
+        public EntityCollection<ProdutoE> tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "ProdutoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "ProdutoE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codcliente", "SaidaE")]
+        public EntityCollection<SaidaE> tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codcliente", "SaidaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codcliente", "SaidaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codprofissional", "SaidaE")]
+        public EntityCollection<SaidaE> tb_saida1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codprofissional", "SaidaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_codprofissional", "SaidaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "SaidaE")]
+        public EntityCollection<SaidaE> tb_saida2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_pessoa1", "SaidaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_pessoa1", "SaidaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_usuario_codpessoa", "UsuarioE")]
+        public UsuarioE tb_usuario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "UsuarioE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "UsuarioE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UsuarioE> tb_usuarioReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "UsuarioE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UsuarioE>("SaceModel.fk_tb_usuario_codpessoa", "UsuarioE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa1")]
+        public EntityCollection<PessoaE> tb_pessoa1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.tb_contato_empresa", "tb_pessoa1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.tb_contato_empresa", "tb_pessoa1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa")]
+        public EntityCollection<PessoaE> tb_pessoa2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PessoaE>("SaceModel.tb_contato_empresa", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PessoaE>("SaceModel.tb_contato_empresa", "tb_pessoa", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6614,6 +6863,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6740,6 +6990,7 @@ namespace Dados
         partial void OndiaBaseChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6842,6 +7093,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6882,6 +7134,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -7606,8 +7859,57 @@ namespace Dados
         private Nullable<global::System.Decimal> _quantidadeEmbalagem;
         partial void OnquantidadeEmbalagemChanging(Nullable<global::System.Decimal> value);
         partial void OnquantidadeEmbalagemChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> lucroPrecoRevenda
+        {
+            get
+            {
+                return _lucroPrecoRevenda;
+            }
+            set
+            {
+                OnlucroPrecoRevendaChanging(value);
+                ReportPropertyChanging("lucroPrecoRevenda");
+                _lucroPrecoRevenda = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("lucroPrecoRevenda");
+                OnlucroPrecoRevendaChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _lucroPrecoRevenda;
+        partial void OnlucroPrecoRevendaChanging(Nullable<global::System.Decimal> value);
+        partial void OnlucroPrecoRevendaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> precoRevenda
+        {
+            get
+            {
+                return _precoRevenda;
+            }
+            set
+            {
+                OnprecoRevendaChanging(value);
+                ReportPropertyChanging("precoRevenda");
+                _precoRevenda = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("precoRevenda");
+                OnprecoRevendaChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _precoRevenda;
+        partial void OnprecoRevendaChanging(Nullable<global::System.Decimal> value);
+        partial void OnprecoRevendaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -7705,44 +8007,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "tb_grupo", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_pessoa")]
-        public PessoaE tb_pessoa
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa", value);
                 }
             }
         }
@@ -7866,8 +8130,47 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_pessoa")]
+        public PessoaE tb_pessoa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa", value);
+                }
+            }
+        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -7900,6 +8203,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -8077,6 +8381,7 @@ namespace Dados
         partial void OnestoqueMaximoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -8157,6 +8462,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -8195,6 +8501,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -9041,6 +9348,7 @@ namespace Dados
         partial void OndataEmissaoDocFiscalChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -9062,82 +9370,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ContaE>("SaceModel.fk_tb_conta_pagar_codsaida", "tb_conta", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codcliente", "tb_pessoa")]
-        public PessoaE tb_pessoa
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codprofissional", "tb_pessoa")]
-        public PessoaE tb_pessoa1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<PessoaE> tb_pessoa1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa", value);
                 }
             }
         }
@@ -9268,6 +9500,104 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_nfe")]
+        public EntityCollection<NfeE> tb_nfe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "tb_nfe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "tb_nfe", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codcliente", "tb_pessoa")]
+        public PessoaE tb_pessoa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codcliente", "tb_pessoa", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codprofissional", "tb_pessoa")]
+        public PessoaE tb_pessoa1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PessoaE> tb_pessoa1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_saida_codprofissional", "tb_pessoa", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "tb_pessoa")]
         public PessoaE tb_pessoa2
         {
@@ -9299,30 +9629,9 @@ namespace Dados
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_nfe")]
-        public EntityCollection<NfeE> tb_nfe
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "tb_nfe");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "tb_nfe", value);
-                }
-            }
-        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -9355,6 +9664,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -9577,6 +9887,7 @@ namespace Dados
         partial void OnintervaloDiasChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -9733,6 +10044,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -9761,6 +10073,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -9842,6 +10155,7 @@ namespace Dados
         partial void OntotalAVistaChanged();
 
         #endregion
+
     
     }
     
@@ -9875,6 +10189,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10265,6 +10580,7 @@ namespace Dados
         partial void OncfopChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10421,6 +10737,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10445,6 +10762,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10499,6 +10817,7 @@ namespace Dados
         partial void OndescricaoSituacaoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10525,6 +10844,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10551,6 +10871,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10605,6 +10926,7 @@ namespace Dados
         partial void OndescricaoSituacaoPagamentosChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10653,6 +10975,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10679,6 +11002,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10733,6 +11057,7 @@ namespace Dados
         partial void OndescricaoSituacaoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10759,6 +11084,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10785,6 +11111,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -10863,6 +11190,7 @@ namespace Dados
         partial void OncodGrupoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -10927,6 +11255,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -10953,6 +11282,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11007,6 +11337,7 @@ namespace Dados
         partial void OndescricaoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11055,6 +11386,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11081,6 +11413,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11135,6 +11468,7 @@ namespace Dados
         partial void OnnomeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11183,6 +11517,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11211,6 +11546,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11292,6 +11628,7 @@ namespace Dados
         partial void OnpermissaoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11372,6 +11709,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11396,6 +11734,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11450,6 +11789,7 @@ namespace Dados
         partial void OndescricaoTipoContaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11476,6 +11816,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11502,6 +11843,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11556,6 +11898,7 @@ namespace Dados
         partial void OndescricaoTipoEntradaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11582,6 +11925,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11608,6 +11952,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11686,6 +12031,7 @@ namespace Dados
         partial void OnsomaSaldoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11712,6 +12058,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11740,6 +12087,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -11818,6 +12166,7 @@ namespace Dados
         partial void OncfopChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -11882,6 +12231,7 @@ namespace Dados
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -11906,6 +12256,7 @@ namespace Dados
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -12008,6 +12359,7 @@ namespace Dados
         partial void OncodPerfilChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -12110,8 +12462,10 @@ namespace Dados
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

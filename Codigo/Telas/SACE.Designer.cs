@@ -45,9 +45,12 @@
             this.códigoFiscalDeOperaçãoCFOPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entradaDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transferênciaEntreLojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,9 +72,6 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -217,6 +217,11 @@
             this.entradaDeProdutosToolStripMenuItem.Text = "Entrada de Produtos";
             this.entradaDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.entradaDeProdutosToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
+            // 
             // vendaAoConsumidorToolStripMenuItem
             // 
             this.vendaAoConsumidorToolStripMenuItem.Name = "vendaAoConsumidorToolStripMenuItem";
@@ -237,6 +242,18 @@
             this.transferênciaEntreLojasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.transferênciaEntreLojasToolStripMenuItem.Text = "Transferência entre Lojas";
             this.transferênciaEntreLojasToolStripMenuItem.Click += new System.EventHandler(this.transferênciaEntreLojasToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
+            this.toolStripMenuItem1.Text = "Nota Complementar";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(216, 6);
             // 
             // estatísticaPorProdutoToolStripMenuItem
             // 
@@ -421,29 +438,12 @@
             // timerAtualizaCuponsFiscais
             // 
             this.timerAtualizaCuponsFiscais.Enabled = true;
-            this.timerAtualizaCuponsFiscais.Interval = 7000;
+            this.timerAtualizaCuponsFiscais.Interval = 2000;
             this.timerAtualizaCuponsFiscais.Tick += new System.EventHandler(this.timerAtualizaCuponsFiscais_Tick);
             // 
             // backgroundWorkerAtualizarCupons
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
-            this.toolStripMenuItem1.Text = "Nota Complementar";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(216, 6);
             // 
             // Principal
             // 

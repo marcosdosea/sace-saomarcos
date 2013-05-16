@@ -38,7 +38,12 @@ namespace Dominio
         {
             get { return Math.Round(PrecoCusto + (PrecoCusto * LucroPrecoVendaAtacado / 100), 3, MidpointRounding.AwayFromZero); }
         }
-        
+
+        public decimal PrecoRevendaSugestao
+        {
+            get { return Math.Round(PrecoCusto + (PrecoCusto * LucroPrecoRevenda / 100), 3, MidpointRounding.AwayFromZero); }
+        }
+
         public DateTime DataUltimoPedido { get; set; }
         public sbyte CodSituacaoProduto { get; set; }
 

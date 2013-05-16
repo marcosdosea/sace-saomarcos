@@ -265,8 +265,11 @@ namespace Telas
             try
             {
                 backgroundWorkerAtualizarCupons.RunWorkerAsync();
+                GerenciadorNFe.GetInstance().RecuperarLoteEnvio();
+                GerenciadorNFe.GetInstance().RecuperarReciboEnvioNfe();
+                GerenciadorNFe.GetInstance().RecuperarResultadoProcessamentoNfe();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
             }

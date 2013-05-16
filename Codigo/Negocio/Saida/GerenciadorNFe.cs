@@ -44,6 +44,16 @@ namespace Negocio
                 NfeE _nfeE = new NfeE();
                 Atribuir(nfe, _nfeE);
 
+
+                IEnumerable<NfeControle> nfes = ObterPorSaida(saida.CodSaida);
+                foreach (NfeControle nfeControle in nfes)
+                {
+                    if ((nfeControle.CodSaida == saida.CodSaida) && nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                    {
+                        throw new NegocioException("A Nf-e referente a esse pedido já foi emitida.");
+                    }
+                }
+
                 repNfe.Inserir(_nfeE);
                 
 
@@ -126,10 +136,17 @@ namespace Negocio
                             Chave = nfe.chave,
                             CodNfe = nfe.codNFe,
                             JustificativaCancelamento = nfe.justificativaCancelamento,
-                            NumeroLoteEnvio = nfe.loteEnvio,
-                            ProtocoloAutorizacao = nfe.protocoloAutorizacao,
-                            ProtocoloCancelamento = nfe.protocoloCancelamento,
-                            Situacao = Convert.ToChar(nfe.situacao)
+                            MensagemSituacaoReciboEnvio = nfe.mensagemSituacaoReciboEnvio,
+                            MensagemSitucaoProtocoloCancelamento = nfe.mensagemSituacaoProtocoloCancelamento,
+                            MensagemSitucaoProtocoloUso = nfe.mensagemSituacaoProtocoloUso,
+                            NumeroLoteEnvio = nfe.numeroLoteEnvio,
+                            NumeroProtocoloCancelamento = nfe.numeroProtocoloCancelamento,
+                            NumeroProtocoloUso = nfe.numeroProtocoloUso,
+                            NumeroRecibo = nfe.numeroRecibo,
+                            SituacaoNfe = nfe.situacaoNfe,
+                            SituacaoProtocoloCancelamento = nfe.situacaoProtocoloCancelamento,
+                            SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
+                            SituacaoReciboEnvio = nfe.situacaoReciboEnvio
                         };
             return query;
         }
@@ -186,11 +203,19 @@ namespace Negocio
                         {
                             Chave = nfe.chave,
                             CodNfe = nfe.codNFe,
+                            CodSaida = codSaida,
                             JustificativaCancelamento = nfe.justificativaCancelamento,
-                            NumeroLoteEnvio = nfe.loteEnvio,
-                            ProtocoloAutorizacao = nfe.protocoloAutorizacao,
-                            ProtocoloCancelamento = nfe.protocoloCancelamento,
-                            Situacao = Convert.ToChar(nfe.situacao)
+                            MensagemSituacaoReciboEnvio = nfe.mensagemSituacaoReciboEnvio,
+                            MensagemSitucaoProtocoloCancelamento = nfe.mensagemSituacaoProtocoloCancelamento,
+                            MensagemSitucaoProtocoloUso = nfe.mensagemSituacaoProtocoloUso,
+                            NumeroLoteEnvio = nfe.numeroLoteEnvio,
+                            NumeroProtocoloCancelamento = nfe.numeroProtocoloCancelamento,
+                            NumeroProtocoloUso = nfe.numeroProtocoloUso,
+                            NumeroRecibo = nfe.numeroRecibo,
+                            SituacaoNfe = nfe.situacaoNfe,
+                            SituacaoProtocoloCancelamento = nfe.situacaoProtocoloCancelamento,
+                            SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
+                            SituacaoReciboEnvio = nfe.situacaoReciboEnvio
                         };
             return query.ToList();
         }
@@ -209,7 +234,7 @@ namespace Negocio
         {
             try
             {
-                string chaveNFe = ObterChaveGerada(saida, 1);
+                string chaveNFe = RecuperarChaveGerada(saida, 1);
                 if (!chaveNFe.Equals(""))
                     return chaveNFe;
 
@@ -243,7 +268,7 @@ namespace Negocio
                 //Salva a inclusão no arquivo XML
                 xmldoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + saida.Nfe + "-gerar-chave.xml");
 
-                chaveNFe = ObterChaveGerada(saida, 10);
+                chaveNFe = RecuperarChaveGerada(saida, 10);
                 return chaveNFe;
             }
             catch (NegocioException nex)
@@ -260,7 +285,7 @@ namespace Negocio
         /// <param name="saida"></param>
         /// <param name="numeroTentativasGerarChave"></param>
         /// <returns></returns>
-        private static string ObterChaveGerada(Saida saida, int numeroTentativasGerarChave)
+        private string RecuperarChaveGerada(Saida saida, int numeroTentativasGerarChave)
         {
             string chaveNFe = "";
             int tentativas = 0;
@@ -299,7 +324,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public static string ObterLoteEnvio()
+        public string RecuperarLoteEnvio()
         {
               DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
               string numeroLote = "";
@@ -315,14 +340,14 @@ namespace Negocio
                       xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
 
                       string chave = files[0].Name.Substring(0, 44);
-                      NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorChave(chave).ElementAtOrDefault(0);
+                      NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
 
                       if (nfeControle != null)
                       {
                           if (files[i].Name.Contains("nfe.err"))
                           {
                               files[i].Delete();
-                              nfeControle.Situacao = NfeControle.SITUACAO_NAO_VALIDADA;
+                              nfeControle.SituacaoNfe = NfeControle.SITUACAO_NAO_VALIDADA;
                           }
                           else
                           {
@@ -342,19 +367,23 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public static string ObterRetornoEnvioNfe()
+        public string RecuperarReciboEnvioNfe()
         {
             DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
             string numeroRecibo = "";
             if (Dir.Exists)
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
-                string arquivoRetornoEnvioNfe = "-rec.*";
+                string arquivoRetornoEnvioNfe = "*-rec.*";
                 FileInfo[] files = Dir.GetFiles(arquivoRetornoEnvioNfe, SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < files.Length; i++)
                 {
                     // apenas exclui o arquivo texto que não será utilizado  
-                    if (files[i].Name.Contains("-rec.txt"))
+                    if (files[i].Name.Contains("-pro-rec."))
+                    {
+                        // não processa nesse método
+                    }
+                    else if (files[i].Name.Contains("-rec.txt"))
                     {
                         files[i].Delete();
                     }
@@ -362,22 +391,23 @@ namespace Negocio
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
                         xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
-
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+                        
                         string numeroLote = files[i].Name.Substring(0, 15);
-                        NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorLote(numeroLote).ElementAtOrDefault(0);
+                        NfeControle nfeControle = ObterPorLote(numeroLote).ElementAtOrDefault(0);
 
                         if (nfeControle != null)
                         {
-                            MemoryStream memStream = new MemoryStream();
+                            //MemoryStream memStream = new MemoryStream(
                             XmlSerializer serializer = new XmlSerializer(typeof(TRetEnviNFe));
-                            TRetEnviNFe retornoEnvioNfe = (TRetEnviNFe)serializer.Deserialize(memStream);
+                            TRetEnviNFe retornoEnvioNfe = (TRetEnviNFe)serializer.Deserialize(xmlReaderRetorno);
                             if (retornoEnvioNfe.cStat.Equals(NfeStatusResposta.NFE103_LOTE_RECEBIDO_SUCESSO))
                             {
                                 numeroRecibo = retornoEnvioNfe.infRec.nRec;
                                 nfeControle.NumeroRecibo = numeroRecibo;
                             }
-                            nfeControle.StatusEnvio = retornoEnvioNfe.cStat;
-                            nfeControle.MensagemStatusEnvio = retornoEnvioNfe.xMotivo;
+                            nfeControle.SituacaoReciboEnvio = retornoEnvioNfe.cStat;
+                            nfeControle.MensagemSituacaoReciboEnvio = retornoEnvioNfe.xMotivo;
                             GerenciadorNFe.GetInstance().Atualizar(nfeControle);
                             files[0].Delete();
                         }
@@ -387,7 +417,7 @@ namespace Negocio
             return numeroRecibo;
         }
 
-        public static string ObterRetornoConsultaReciboNfe()
+        public string RecuperarResultadoProcessamentoNfe()
         {
             DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
             string numeroProtocolo = "";
@@ -407,14 +437,14 @@ namespace Negocio
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
                         xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string numeroRecibo = files[i].Name.Substring(0, 15);
-                        NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorRecibo(numeroRecibo).ElementAtOrDefault(0);
+                        NfeControle nfeControle = ObterPorRecibo(numeroRecibo).ElementAtOrDefault(0);
                         if (nfeControle != null)
                         {
-                            MemoryStream memStream = new MemoryStream();
                             XmlSerializer serializer = new XmlSerializer(typeof(TRetConsReciNFe));
-                            TRetConsReciNFe retornoConsReciboNfe = (TRetConsReciNFe)serializer.Deserialize(memStream);
+                            TRetConsReciNFe retornoConsReciboNfe = (TRetConsReciNFe)serializer.Deserialize(xmlReaderRetorno);
                             if (retornoConsReciboNfe.cStat.Equals(NfeStatusResposta.NFE104_LOTE_PROCESSADO))
                             {
                                 TProtNFeInfProt protocoloNfe = retornoConsReciboNfe.protNFe[0].infProt;
@@ -423,24 +453,24 @@ namespace Negocio
                                     if (protocoloNfe.cStat.Equals(NfeStatusResposta.NFE100_AUTORIZADO_USO_NFE))
                                     {
                                         numeroProtocolo = protocoloNfe.nProt;
-                                        nfeControle.ProtocoloAutorizacao = protocoloNfe.nProt;
-                                        nfeControle.Situacao = NfeControle.SITUACAO_AUTORIZADA;
+                                        nfeControle.NumeroProtocoloUso = protocoloNfe.nProt;
+                                        nfeControle.SituacaoNfe = NfeControle.SITUACAO_AUTORIZADA;
                                     }
                                     else if (protocoloNfe.cStat.Equals(NfeStatusResposta.NFE110_USO_DENEGADO))
                                     {
-                                        nfeControle.Situacao = NfeControle.SITUACAO_DENEGADA;
+                                        nfeControle.SituacaoNfe = NfeControle.SITUACAO_DENEGADA;
                                     }
                                     else
                                     {
-                                        nfeControle.Situacao = NfeControle.SITUACAO_REJEITADA;
+                                        nfeControle.SituacaoNfe = NfeControle.SITUACAO_REJEITADA;
                                     }
-                                    nfeControle.StatusProtocolo = protocoloNfe.cStat;
-                                    nfeControle.MensagemStatusProtocolo = protocoloNfe.xMotivo;
+                                    nfeControle.SituacaoProtocoloUso = protocoloNfe.cStat;
+                                    nfeControle.MensagemSitucaoProtocoloUso = protocoloNfe.xMotivo;
 
                                 }
                             }
-                            nfeControle.StatusEnvio = retornoConsReciboNfe.cStat;
-                            nfeControle.MensagemStatusEnvio = retornoConsReciboNfe.xMotivo;
+                            nfeControle.SituacaoReciboEnvio = retornoConsReciboNfe.cStat;
+                            nfeControle.MensagemSituacaoReciboEnvio = retornoConsReciboNfe.xMotivo;
                             GerenciadorNFe.GetInstance().Atualizar(nfeControle);
                             files[0].Delete();
                         }
@@ -615,6 +645,7 @@ namespace Negocio
                         prod.qCom = formataValorNFe(saidaProduto.Quantidade);
                         prod.vUnCom = formataValorNFe(saidaProduto.ValorVenda);
                         prod.vProd = formataValorNFe(saidaProduto.Subtotal);
+                        prod.vDesc = formataValorNFe(saidaProduto.Subtotal - saidaProduto.SubtotalAVista);
                         prod.uTrib = produto.Unidade;
                         prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
                         prod.vUnTrib = formataValorNFe(saidaProduto.ValorVenda);
@@ -772,7 +803,7 @@ namespace Negocio
                 xmlDoc.Load(memStream);
                 xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-nfe.xml");
 
-                nfeControle.Situacao = NfeControle.SITUACAO_SOLICITADA;
+                nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
                 Atualizar(nfeControle);
                 
             }
@@ -823,10 +854,17 @@ namespace Negocio
             _nfe.chave = string.IsNullOrEmpty(nfe.Chave)?"":nfe.Chave;
             _nfe.codNFe = nfe.CodNfe;
             _nfe.justificativaCancelamento = nfe.JustificativaCancelamento;
-            _nfe.loteEnvio = nfe.NumeroLoteEnvio;
-            _nfe.protocoloAutorizacao = nfe.ProtocoloAutorizacao;
-            _nfe.protocoloCancelamento = nfe.ProtocoloCancelamento;
-            _nfe.situacao = nfe.Situacao.ToString();
+            _nfe.mensagemSituacaoProtocoloCancelamento = nfe.MensagemSitucaoProtocoloCancelamento;
+            _nfe.mensagemSituacaoProtocoloUso = nfe.MensagemSitucaoProtocoloUso;
+            _nfe.mensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio;
+            _nfe.numeroLoteEnvio = nfe.NumeroLoteEnvio;
+            _nfe.numeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento;
+            _nfe.numeroProtocoloUso = nfe.NumeroProtocoloUso;
+            _nfe.numeroRecibo = nfe.NumeroRecibo;
+            _nfe.situacaoNfe = nfe.SituacaoNfe;
+            _nfe.situacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento;
+            _nfe.situacaoProtocoloUso = nfe.SituacaoProtocoloUso;
+            _nfe.situacaoReciboEnvio = nfe.SituacaoReciboEnvio; 
         }
         
         public void imprimirDANFE()

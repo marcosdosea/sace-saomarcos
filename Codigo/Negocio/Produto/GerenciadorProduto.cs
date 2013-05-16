@@ -170,11 +170,13 @@ namespace Negocio
                             Ipi = (decimal) produto.ipi,
                             LucroPrecoVendaAtacado = (decimal) produto.lucroPrecoVendaAtacado,
                             LucroPrecoVendaVarejo = (decimal) produto.lucroPrecoVendaVarejo,
+                            LucroPrecoRevenda = (decimal) produto.lucroPrecoRevenda,
                             Ncmsh = produto.ncmsh,
                             Nome = produto.nome,
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
                             PrecoVendaAtacado = (decimal) produto.precoVendaAtacado,
                             PrecoVendaVarejo = (decimal) produto.precoVendaVarejo,
+                            PrecoRevenda = (decimal) produto.precoRevenda,
                             QtdProdutoAtacado = (decimal) produto.qtdProdutoAtacado,
                             QuantidadeEmbalagem = (decimal) produto.quantidadeEmbalagem,
                             ReferenciaFabricante = produto.referenciaFabricante,
@@ -211,11 +213,13 @@ namespace Negocio
                             Ipi = (decimal)produto.ipi,
                             LucroPrecoVendaAtacado = (decimal)produto.lucroPrecoVendaAtacado,
                             LucroPrecoVendaVarejo = (decimal)produto.lucroPrecoVendaVarejo,
+                            LucroPrecoRevenda = (decimal) produto.lucroPrecoRevenda,
                             Ncmsh = produto.ncmsh,
                             Nome = produto.nome,
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
                             PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
                             PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
+                            PrecoRevenda = (decimal) produto.precoRevenda,
                             QtdProdutoAtacado = (decimal)produto.qtdProdutoAtacado,
                             QuantidadeEmbalagem = (decimal) produto.quantidadeEmbalagem,
                             ReferenciaFabricante = produto.referenciaFabricante,
@@ -245,8 +249,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
-            //return GetQuerySimples().ToList().Where(p => p.ExibeNaListagem);
-            return GetQuerySimples().ToList();
+            return GetQuerySimples().ToList().Where(p => Convert.ToByte(p.ExibeNaListagem) == 1);
+            //return GetQuerySimples().ToList();
         }
 
         /// <summary>
@@ -386,11 +390,13 @@ namespace Negocio
             _produtoE.ipi = produto.Ipi;
             _produtoE.lucroPrecoVendaAtacado = produto.LucroPrecoVendaAtacado;
             _produtoE.lucroPrecoVendaVarejo = produto.LucroPrecoVendaVarejo;
+            _produtoE.lucroPrecoRevenda = produto.LucroPrecoRevenda;
             _produtoE.ncmsh = produto.Ncmsh == null ? "" : produto.Ncmsh;
             _produtoE.nome = produto.Nome;
             _produtoE.nomeProdutoFabricante = produto.NomeProdutoFabricante;
             _produtoE.precoVendaAtacado = produto.PrecoVendaAtacado;
             _produtoE.precoVendaVarejo = produto.PrecoVendaVarejo;
+            _produtoE.precoRevenda = produto.PrecoRevenda;
             _produtoE.qtdProdutoAtacado = produto.QtdProdutoAtacado;
             _produtoE.quantidadeEmbalagem = produto.QuantidadeEmbalagem;
             _produtoE.referenciaFabricante = produto.ReferenciaFabricante;

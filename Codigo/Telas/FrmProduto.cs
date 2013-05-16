@@ -397,5 +397,10 @@ namespace Telas
                 produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
             }
         }
+
+        private void codCSTLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
