@@ -71,8 +71,10 @@ namespace Negocio
 
                     if (entradaProduto.FornecedorEhFabricante)
                         produto.CodFabricante = entradaProduto.CodFornecedor;
-
-                    GerenciadorProduto.GetInstance().Atualizar(produto);
+                    
+                    // Atualiza os dados do produto se não foi na entrada padrão
+                    if (entradaProduto.CodEntrada != Global.ENTRADA_PADRAO) 
+                        GerenciadorProduto.GetInstance().Atualizar(produto);
                 }
                 //transaction.Commit();
                 return _entradaProdutoE.codEntrada;
@@ -464,6 +466,7 @@ namespace Negocio
                 entradaProduto.QuantidadeDisponivel = (produto.TemVencimento) ? 0 : 10000 - quantidade; 
                 entradaProduto.ValorDesconto = 0;
                 entradaProduto.CodCST = produto.CodCST;
+                entradaProduto.Cfop = 9999;
 
                 Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             }

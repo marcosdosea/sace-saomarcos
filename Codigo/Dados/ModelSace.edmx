@@ -1486,7 +1486,7 @@
           <EntitySet Name="GrupoContaSet" EntityType="SaceModel.GrupoContaE" />
           <EntitySet Name="LojaSet" EntityType="SaceModel.LojaE" />
           <EntitySet Name="MovimentacaoContaSet" EntityType="SaceModel.MovimentacaoContaE" />
-          <EntitySet Name="tb_perfil" EntityType="SaceModel.tb_perfil" />
+          <EntitySet Name="PerfilSet" EntityType="SaceModel.PerfilE" />
           <EntitySet Name="tb_permissao" EntityType="SaceModel.tb_permissao" />
           <EntitySet Name="PlanoContaSet" EntityType="SaceModel.PlanoContaE" />
           <EntitySet Name="ProdutoSet" EntityType="SaceModel.ProdutoE" />
@@ -1608,7 +1608,7 @@
             <End Role="tb_movimentacao_conta" EntitySet="MovimentacaoContaSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_usuario_acodperfil" Association="SaceModel.fk_tb_usuario_acodperfil">
-            <End Role="tb_perfil" EntitySet="tb_perfil" />
+            <End Role="tb_perfil" EntitySet="PerfilSet" />
             <End Role="tb_usuario" EntitySet="UsuarioSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_permissao_codpessoa" Association="SaceModel.fk_tb_permissao_codpessoa">
@@ -1653,7 +1653,7 @@
           </AssociationSet>
           <AssociationSet Name="tb_perfil_funcionalidade" Association="SaceModel.tb_perfil_funcionalidade">
             <End Role="tb_funcionalidade" EntitySet="tb_funcionalidade" />
-            <End Role="tb_perfil" EntitySet="tb_perfil" />
+            <End Role="tb_perfil" EntitySet="PerfilSet" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_entrada_produto_tb_cst1" Association="SaceModel.fk_tb_entrada_produto_tb_cst1">
             <End Role="tb_cst" EntitySet="CstSet" />
@@ -1953,7 +1953,7 @@
           <NavigationProperty Name="tb_tipo_movimentacao_conta" Relationship="SaceModel.fk_movimentacao_conta_codtipomovimentacao" FromRole="tb_movimentacao_conta" ToRole="tb_tipo_movimentacao_conta" />
           <NavigationProperty Name="tb_pessoa" Relationship="SaceModel.fk_movimentacao_conta_codresponsavel" FromRole="MovimentacaoContaE" ToRole="tb_pessoa" />
         </EntityType>
-        <EntityType Name="tb_perfil">
+        <EntityType Name="PerfilE">
           <Key>
             <PropertyRef Name="codPerfil" />
           </Key>
@@ -2539,7 +2539,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_usuario_acodperfil">
-          <End Role="tb_perfil" Type="SaceModel.tb_perfil" Multiplicity="0..1" />
+          <End Role="tb_perfil" Type="SaceModel.PerfilE" Multiplicity="0..1" />
           <End Role="tb_usuario" Type="SaceModel.UsuarioE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_perfil">
@@ -2678,7 +2678,7 @@
         </Association>
         <Association Name="tb_perfil_funcionalidade">
           <End Role="tb_funcionalidade" Type="SaceModel.tb_funcionalidade" Multiplicity="*" />
-          <End Role="tb_perfil" Type="SaceModel.tb_perfil" Multiplicity="*" />
+          <End Role="tb_perfil" Type="SaceModel.PerfilE" Multiplicity="*" />
         </Association>
         <Association Name="fk_tb_entrada_produto_tb_cst1">
           <End Type="SaceModel.CstE" Role="tb_cst" Multiplicity="1" />
@@ -3096,7 +3096,7 @@
             <ScalarProperty Name="valor" ColumnName="valor" />
             <ScalarProperty Name="dataHora" ColumnName="dataHora" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="tb_perfil"><EntityTypeMapping TypeName="SaceModel.tb_perfil"><MappingFragment StoreEntitySet="tb_perfil">
+          <EntitySetMapping Name="PerfilSet"><EntityTypeMapping TypeName="SaceModel.PerfilE"><MappingFragment StoreEntitySet="tb_perfil">
             <ScalarProperty Name="codPerfil" ColumnName="codPerfil" />
             <ScalarProperty Name="nome" ColumnName="nome" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -3391,7 +3391,7 @@
         <EntityTypeShape EntityType="SaceModel.GrupoContaE" Width="1.5" PointX="3" PointY="12.125" Height="1.5956835937500102" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.LojaE" Width="1.5" PointX="5.25" PointY="63" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.MovimentacaoContaE" Width="1.5" PointX="14.75" PointY="20.875" Height="3.1340950520833388" IsExpanded="true" />
-        <EntityTypeShape EntityType="SaceModel.tb_perfil" Width="1.5" PointX="6" PointY="40.5" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaceModel.PerfilE" Width="1.5" PointX="6" PointY="40.5" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.tb_permissao" Width="1.5" PointX="13.5" PointY="30.5" Height="1.9802864583333353" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.PlanoContaE" Width="1.5" PointX="5.25" PointY="12.75" Height="2.5571907552083388" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.ProdutoE" Width="1.5" PointX="10.25" PointY="14.125" Height="8.5185351562500031" IsExpanded="true" />

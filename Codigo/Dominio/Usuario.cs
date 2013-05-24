@@ -7,9 +7,9 @@ namespace Dominio
 {
     public class Usuario
     {
-        private int codPessoa;
+        private long codPessoa;
 
-        public int CodPessoa
+        public long CodPessoa
         {
             get { return codPessoa; }
             set { codPessoa = value; }

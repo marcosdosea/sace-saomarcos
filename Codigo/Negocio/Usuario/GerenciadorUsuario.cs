@@ -14,25 +14,61 @@ namespace Negocio
     public class GerenciadorUsuario 
     {
         private static GerenciadorUsuario gUsuario;
-        private static tb_usuarioTableAdapter tb_usuarioTA;
-        
-        public static GerenciadorUsuario getInstace()
+
+        public static GerenciadorUsuario GetInstace()
         {
             if (gUsuario == null)
             {
                 gUsuario = new GerenciadorUsuario();
-                tb_usuarioTA = new tb_usuarioTableAdapter();
             }
             return gUsuario;
         }
 
-        public Int64 inserir(Usuario usuario)
+        /// <summary>
+        /// Insere dados do usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public Int64 Inserir(Usuario usuario)
+        {
+            var repUsuario = new RepositorioGenerico<UsuarioE>();
+            UsuarioE _usuarioE = new UsuarioE();
+            try
+            {
+
+                _usuarioE.codPerfil = usuario.CodPerfil;
+                _usuarioE.codPessoa = usuario.CodPessoa;
+                _usuarioE.login = usuario.Login;
+                _usuarioE.senha = usuario.Senha;
+                
+                repUsuario.Inserir(_usuarioE);
+                repUsuario.SaveChanges();
+
+                return _usuarioE.codPessoa;
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Usuario", e.Message, e);
+            }
+
+        }
+
+        /// <summary>
+        /// Atualiza dados do usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        public void Atualizar(Usuario usuario)
         {
             try
             {
-                tb_usuarioTA.Insert(usuario.CodPessoa, usuario.Login,
-                    usuario.Senha, usuario.CodPerfil);
-                return 0;
+                var repUsuario = new RepositorioGenerico<UsuarioE>();
+                UsuarioE _usuarioE = repUsuario.ObterEntidade(b => b.codPessoa == usuario.CodPessoa);
+                _usuarioE.codPerfil = usuario.CodPerfil;
+                _usuarioE.codPessoa = usuario.CodPessoa;
+                _usuarioE.login = usuario.Login;
+                _usuarioE.senha = usuario.Senha;
+
+                repUsuario.SaveChanges();
             }
             catch (Exception e)
             {
@@ -40,31 +76,94 @@ namespace Negocio
             }
         }
 
-        public void atualizar(Usuario usuario)
+        /// <summary>
+        /// Remove dados do usuario
+        /// </summary>
+        /// <param name="codUsuario"></param>
+        public void remover(Int32 codPessoa)
         {
-            try
-            {
-                tb_usuarioTA.Update(usuario.Login, usuario.Senha, usuario.CodPerfil,
-                    usuario.CodPessoa);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Usuario", e.Message, e);
-            }
-        }
-
-        public void remover(Int32 codUsuario)
-        {
-            if (codUsuario == 1)
+            if (codPessoa == 1)
                 throw new NegocioException("O usuario não pode ser removido.");
             try
             {
-                tb_usuarioTA.Delete(codUsuario);
+                var repUsuario = new RepositorioGenerico<UsuarioE>();
+                repUsuario.Remover(b => b.codPessoa == codPessoa);
+                repUsuario.SaveChanges();
             }
             catch (Exception e)
             {
                 throw new DadosException("Usuario", e.Message, e);
             }
+        }
+
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<Usuario> GetQuery()
+        {
+            var repUsuario = new RepositorioGenerico<UsuarioE>();
+            var saceEntities = (SaceEntities)repUsuario.ObterContexto();
+            var query = from usuario in saceEntities.UsuarioSet
+                        join pessoa in saceEntities.PessoaSet on usuario.codPessoa equals pessoa.codPessoa
+                        join perfil in saceEntities.PerfilSet on usuario.codPerfil equals perfil.codPerfil
+                        select new Usuario
+                        {
+                            CodPessoa = usuario.codPessoa,
+                            CodPerfil = (int) usuario.codPerfil,
+                            Login = usuario.login,
+                            NomePerfil = perfil.nome,
+                            NomePessoa = pessoa.nome,
+                            Senha = usuario.senha
+                        };
+            return query;
+        }
+
+        /// <summary>
+        /// Obtém todos os usuario cadastrados
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Usuario> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
+
+        /// <summary>
+        /// Obtém usuario com o código especificiado
+        /// </summary>
+        /// <param name="codUsuario"></param>
+        /// <returns></returns>
+        public IEnumerable<Usuario> Obter(int codPessoa)
+        {
+            return GetQuery().Where(usuario => usuario.CodPessoa == codPessoa).ToList();
+        }
+
+        /// <summary>
+        /// Obtém usuarios que iniciam com o nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<Usuario> ObterPorLogin(string login)
+        {
+            return GetQuery().Where(usuario => usuario.Login.StartsWith(login)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém usuarios que iniciam com o nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        public IEnumerable<Perfil> ObterPerfis()
+        {
+            var repPerfil = new RepositorioGenerico<PerfilE>();
+            var saceEntities = (SaceEntities)repPerfil.ObterContexto();
+            var query = from perfil in saceEntities.PerfilSet
+                        select new Perfil
+                        {
+                            IdPerfil = perfil.codPerfil,
+                            NomePerfil = perfil.nome
+                        };
+            return query.ToList();
         }
     }
 }

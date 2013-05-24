@@ -19,7 +19,7 @@ namespace Telas.Relatorios.Produtos
 
         private void FrmRelProdutos_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome("");
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosExibiveis();
             this.reportViewer1.RefreshReport();
         }
     }

@@ -43,7 +43,7 @@
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "saceDataSet";
+            reportDataSource1.Name = "DataSetProduto";
             reportDataSource1.Value = this.produtoBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "Telas.Relatorios.Produtos.RptProdutos.rdlc";
