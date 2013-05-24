@@ -37,8 +37,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmUsuario));
             this.panel1 = new System.Windows.Forms.Panel();
             this.usuarioLabel = new System.Windows.Forms.Label();
-            this.saceDataSet = new Dados.saceDataSet();
-            this.tb_usuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_usuarioBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -59,10 +58,7 @@
             this.confirmarSenhaTextBox = new System.Windows.Forms.TextBox();
             this.senhaTextBox = new System.Windows.Forms.TextBox();
             this.perfilComboBox = new System.Windows.Forms.ComboBox();
-            this.tb_PerfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_usuarioTableAdapter = new Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter();
-            this.tableAdapterManager = new Dados.saceDataSetTableAdapters.TableAdapterManager();
-            this.tb_perfilTableAdapter = new Dados.saceDataSetTableAdapters.tb_perfilTableAdapter();
+            this.perfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
             this.loginTextBox = new System.Windows.Forms.TextBox();
             senhaLabel = new System.Windows.Forms.Label();
@@ -71,12 +67,11 @@
             codPessoaLabel = new System.Windows.Forms.Label();
             loginLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_usuarioBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_usuarioBindingNavigator)).BeginInit();
             this.tb_usuarioBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_PerfilBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // senhaLabel
@@ -144,21 +139,14 @@
             this.usuarioLabel.TabIndex = 0;
             this.usuarioLabel.Text = "Cadastro de Usuários";
             // 
-            // saceDataSet
+            // usuarioBindingSource
             // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.Prefix = "SACE";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_usuarioBindingSource
-            // 
-            this.tb_usuarioBindingSource.DataMember = "tb_usuario";
-            this.tb_usuarioBindingSource.DataSource = this.saceDataSet;
+            this.usuarioBindingSource.DataSource = typeof(Dominio.Usuario);
             // 
             // tb_usuarioBindingNavigator
             // 
             this.tb_usuarioBindingNavigator.AddNewItem = null;
-            this.tb_usuarioBindingNavigator.BindingSource = this.tb_usuarioBindingSource;
+            this.tb_usuarioBindingNavigator.BindingSource = this.usuarioBindingSource;
             this.tb_usuarioBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.tb_usuarioBindingNavigator.DeleteItem = null;
             this.tb_usuarioBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -329,7 +317,7 @@
             // senhaTextBox
             // 
             this.senhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.senhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "senha", true));
+            this.senhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.usuarioBindingSource, "senha", true));
             this.senhaTextBox.Location = new System.Drawing.Point(9, 181);
             this.senhaTextBox.MaxLength = 20;
             this.senhaTextBox.Name = "senhaTextBox";
@@ -339,8 +327,8 @@
             // 
             // perfilComboBox
             // 
-            this.perfilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_usuarioBindingSource, "codPerfil", true));
-            this.perfilComboBox.DataSource = this.tb_PerfilBindingSource;
+            this.perfilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "codPerfil", true));
+            this.perfilComboBox.DataSource = this.perfilBindingSource;
             this.perfilComboBox.DisplayMember = "nome";
             this.perfilComboBox.FormattingEnabled = true;
             this.perfilComboBox.Location = new System.Drawing.Point(10, 140);
@@ -350,68 +338,12 @@
             this.perfilComboBox.ValueMember = "codPerfil";
             this.perfilComboBox.Leave += new System.EventHandler(this.perfilComboBox_Leave);
             // 
-            // tb_PerfilBindingSource
-            // 
-            this.tb_PerfilBindingSource.DataMember = "tb_perfil";
-            this.tb_PerfilBindingSource.DataSource = this.saceDataSet;
-            // 
-            // tb_usuarioTableAdapter
-            // 
-            this.tb_usuarioTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.tb_cartao_creditoTableAdapter = null;
-            this.tableAdapterManager.tb_cfopTableAdapter = null;
-            this.tableAdapterManager.tb_configuracao_sistemaTableAdapter = null;
-            this.tableAdapterManager.tb_conta_bancoTableAdapter = null;
-            this.tableAdapterManager.tb_contaTableAdapter = null;
-            this.tableAdapterManager.tb_contato_empresaTableAdapter = null;
-            this.tableAdapterManager.tb_cstTableAdapter = null;
-            this.tableAdapterManager.tb_documento_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_entrada_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_entradaTableAdapter = null;
-            this.tableAdapterManager.tb_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_grupo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_grupoTableAdapter = null;
-            this.tableAdapterManager.tb_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_perfil_funcionalidadeTableAdapter = null;
-            this.tableAdapterManager.tb_perfilTableAdapter = this.tb_perfilTableAdapter;
-            this.tableAdapterManager.tb_permissaoTableAdapter = null;
-            this.tableAdapterManager.tb_pessoaTableAdapter = null;
-            this.tableAdapterManager.tb_plano_contaTableAdapter = null;
-            this.tableAdapterManager.tb_produto_lojaTableAdapter = null;
-            this.tableAdapterManager.tb_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_forma_pagamentoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_pedidoTableAdapter = null;
-            this.tableAdapterManager.tb_saida_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_pagamentosTableAdapter = null;
-            this.tableAdapterManager.tb_situacao_produtoTableAdapter = null;
-            this.tableAdapterManager.tb_subgrupoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_documentoTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_movimentacao_contaTableAdapter = null;
-            this.tableAdapterManager.tb_tipo_saidaTableAdapter = null;
-            this.tableAdapterManager.tb_usuarioTableAdapter = this.tb_usuarioTableAdapter;
-            this.tableAdapterManager.tp_tipo_entradaTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Dados.saceDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // tb_perfilTableAdapter
-            // 
-            this.tb_perfilTableAdapter.ClearBeforeFill = true;
-            // 
             // codPessoaComboBox
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "nomePessoa", true));
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_usuarioBindingSource, "codPessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.usuarioBindingSource, "nomePessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "codPessoa", true));
             this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
             this.codPessoaComboBox.DisplayMember = "Nome";
             this.codPessoaComboBox.FormattingEnabled = true;
@@ -425,7 +357,7 @@
             // loginTextBox
             // 
             this.loginTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.loginTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_usuarioBindingSource, "login", true));
+            this.loginTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.usuarioBindingSource, "login", true));
             this.loginTextBox.Location = new System.Drawing.Point(332, 140);
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(133, 20);
@@ -436,7 +368,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 253);
+            this.ClientSize = new System.Drawing.Size(477, 237);
             this.Controls.Add(loginLabel);
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(codPessoaLabel);
@@ -464,13 +396,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmUsuario_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_usuarioBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_usuarioBindingNavigator)).EndInit();
             this.tb_usuarioBindingNavigator.ResumeLayout(false);
             this.tb_usuarioBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_PerfilBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,8 +411,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label usuarioLabel;
-        private Dados.saceDataSet saceDataSet;
-        private System.Windows.Forms.BindingSource tb_usuarioBindingSource;
+        private System.Windows.Forms.BindingSource usuarioBindingSource;
         private System.Windows.Forms.BindingNavigator tb_usuarioBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -502,10 +432,7 @@
         private System.Windows.Forms.TextBox confirmarSenhaTextBox;
         private System.Windows.Forms.TextBox senhaTextBox;
         private System.Windows.Forms.ComboBox perfilComboBox;
-        private System.Windows.Forms.BindingSource tb_PerfilBindingSource;
-        private Dados.saceDataSetTableAdapters.tb_usuarioTableAdapter tb_usuarioTableAdapter;
-        private Dados.saceDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private Dados.saceDataSetTableAdapters.tb_perfilTableAdapter tb_perfilTableAdapter;
+        private System.Windows.Forms.BindingSource perfilBindingSource;
         private System.Windows.Forms.ComboBox codPessoaComboBox;
         private System.Windows.Forms.TextBox loginTextBox;
     }

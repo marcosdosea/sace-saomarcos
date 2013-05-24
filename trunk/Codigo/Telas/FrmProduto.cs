@@ -66,6 +66,8 @@ namespace Telas
             produto.Simples = Global.SIMPLES;
             produto.Unidade = "UN";
             produto.UnidadeCompra = "UN";
+            produto.QuantidadeEmbalagem = 1;
+            produto.ExibeNaListagem = true;
             produto.UltimaDataAtualizacao = DateTime.Now;
             estado = EstadoFormulario.INSERIR;
         }

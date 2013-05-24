@@ -286,5 +286,12 @@ namespace Telas
             frmProdutoEstatistica.ShowDialog();
             frmProdutoEstatistica.Dispose();
         }
+
+        private void atualizarCSOSNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(true);
+            frmCSOSN.ShowDialog();
+            frmCSOSN.Dispose();
+        }
     }
 }

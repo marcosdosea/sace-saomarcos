@@ -1,175 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
-    <DataSource Name="Dados">
+    <DataSource Name="Dominio">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>c41ef71f-3a87-4bea-acb4-d216104fbd8d</rd:DataSourceID>
+      <rd:DataSourceID>975f20bf-c688-409a-84b0-0feed4604dca</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="saceDataSet">
+    <DataSet Name="DataSetProduto">
       <Fields>
-        <Field Name="codProduto">
-          <DataField>codProduto</DataField>
+        <Field Name="CodCST">
+          <DataField>CodCST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CodFabricante">
+          <DataField>CodFabricante</DataField>
           <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
-        <Field Name="nome">
-          <DataField>nome</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="nomeProdutoFabricante">
-          <DataField>nomeProdutoFabricante</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="unidade">
-          <DataField>unidade</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="codigoBarra">
-          <DataField>codigoBarra</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="codCST">
-          <DataField>codCST</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="cfop">
-          <DataField>cfop</DataField>
+        <Field Name="CodGrupo">
+          <DataField>CodGrupo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ncmsh">
-          <DataField>ncmsh</DataField>
+        <Field Name="CodigoBarra">
+          <DataField>CodigoBarra</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="codFabricante">
-          <DataField>codFabricante</DataField>
+        <Field Name="CodProduto">
+          <DataField>CodProduto</DataField>
           <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
-        <Field Name="referenciaFabricante">
-          <DataField>referenciaFabricante</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="codSituacaoProduto">
-          <DataField>codSituacaoProduto</DataField>
+        <Field Name="CodSituacaoProduto">
+          <DataField>CodSituacaoProduto</DataField>
           <rd:TypeName>System.SByte</rd:TypeName>
         </Field>
-        <Field Name="codGrupo">
-          <DataField>codGrupo</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="codSubgrupo">
-          <DataField>codSubgrupo</DataField>
+        <Field Name="CodSubgrupo">
+          <DataField>CodSubgrupo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="temVencimento">
-          <DataField>temVencimento</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="icms">
-          <DataField>icms</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="icms_substituto">
-          <DataField>icms_substituto</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="simples">
-          <DataField>simples</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ipi">
-          <DataField>ipi</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="frete">
-          <DataField>frete</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ultimaDataAtualizacao">
-          <DataField>ultimaDataAtualizacao</DataField>
+        <Field Name="DataUltimoPedido">
+          <DataField>DataUltimoPedido</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="ultimoPrecoCompra">
-          <DataField>ultimoPrecoCompra</DataField>
+        <Field Name="Desconto">
+          <DataField>Desconto</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="lucroPrecoVendaVarejo">
-          <DataField>lucroPrecoVendaVarejo</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="precoVendaVarejo">
-          <DataField>precoVendaVarejo</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="qtdProdutoAtacado">
-          <DataField>qtdProdutoAtacado</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="lucroPrecoVendaAtacado">
-          <DataField>lucroPrecoVendaAtacado</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="precoVendaAtacado">
-          <DataField>precoVendaAtacado</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="exibeNaListagem">
-          <DataField>exibeNaListagem</DataField>
+        <Field Name="EhTributacaoIntegral">
+          <DataField>EhTributacaoIntegral</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
-        <Field Name="dataUltimoPedido">
-          <DataField>dataUltimoPedido</DataField>
+        <Field Name="ExibeNaListagem">
+          <DataField>ExibeNaListagem</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="Frete">
+          <DataField>Frete</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Icms">
+          <DataField>Icms</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="IcmsSubstituto">
+          <DataField>IcmsSubstituto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Ipi">
+          <DataField>Ipi</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="LucroPrecoRevenda">
+          <DataField>LucroPrecoRevenda</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="LucroPrecoVendaAtacado">
+          <DataField>LucroPrecoVendaAtacado</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="LucroPrecoVendaVarejo">
+          <DataField>LucroPrecoVendaVarejo</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Ncmsh">
+          <DataField>Ncmsh</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nome">
+          <DataField>Nome</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomeFabricante">
+          <DataField>NomeFabricante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomeProdutoFabricante">
+          <DataField>NomeProdutoFabricante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PrecoCusto">
+          <DataField>PrecoCusto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoRevenda">
+          <DataField>PrecoRevenda</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoRevendaSemDesconto">
+          <DataField>PrecoRevendaSemDesconto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoRevendaSugestao">
+          <DataField>PrecoRevendaSugestao</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoVendaAtacado">
+          <DataField>PrecoVendaAtacado</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoVendaAtacadoSemDesconto">
+          <DataField>PrecoVendaAtacadoSemDesconto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoVendaAtacadoSugestao">
+          <DataField>PrecoVendaAtacadoSugestao</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoVendaVarejo">
+          <DataField>PrecoVendaVarejo</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoVendaVarejoSemDesconto">
+          <DataField>PrecoVendaVarejoSemDesconto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecoVendaVarejoSugestao">
+          <DataField>PrecoVendaVarejoSugestao</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="QtdProdutoAtacado">
+          <DataField>QtdProdutoAtacado</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="QuantidadeEmbalagem">
+          <DataField>QuantidadeEmbalagem</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ReferenciaFabricante">
+          <DataField>ReferenciaFabricante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Simples">
+          <DataField>Simples</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TemVencimento">
+          <DataField>TemVencimento</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="TotalPrecoVendaAtacado">
+          <DataField>TotalPrecoVendaAtacado</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TotalPrecoVendaAtacadoSemDesconto">
+          <DataField>TotalPrecoVendaAtacadoSemDesconto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="UltimaDataAtualizacao">
+          <DataField>UltimaDataAtualizacao</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="precoVendaVarejoSemDesconto">
-          <DataField>precoVendaVarejoSemDesconto</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="descricaoCST">
-          <DataField>descricaoCST</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="descricaoGrupo">
-          <DataField>descricaoGrupo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="descricaoSituacao">
-          <DataField>descricaoSituacao</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="nomeFabricante">
-          <DataField>nomeFabricante</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="descricaoSubgrupo">
-          <DataField>descricaoSubgrupo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="totalPrecoAtacado">
-          <DataField>totalPrecoAtacado</DataField>
+        <Field Name="UltimoPrecoCompra">
+          <DataField>UltimoPrecoCompra</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="totalPrecoAtacadoSemDesconto">
-          <DataField>totalPrecoAtacadoSemDesconto</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
+        <Field Name="Unidade">
+          <DataField>Unidade</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="desconto">
-          <DataField>desconto</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="UnidadeCompra">
+          <DataField>UnidadeCompra</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>Dados</DataSourceName>
+        <DataSourceName>Dominio</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <rd:DataSetInfo>
-        <rd:DataSetName>Dados</rd:DataSetName>
-        <rd:TableName>saceDataSet</rd:TableName>
-        <rd:ObjectDataSourceSelectMethod>tb_produto</rd:ObjectDataSourceSelectMethod>
-        <rd:ObjectDataSourceType>Dados.saceDataSet, Dados, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:DataSetName>Dominio</rd:DataSetName>
+        <rd:TableName>Produto</rd:TableName>
+        <rd:ObjectDataSourceType>Dominio.Produto, Dominio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -197,14 +220,14 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="nome">
+                    <Textbox Name="Nome">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!nome.Value</Value>
+                              <Value>=Fields!Nome.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -214,7 +237,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>nome</rd:DefaultName>
+                      <rd:DefaultName>Nome</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -242,14 +265,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="precoVendaVarejo">
+                    <Textbox Name="PrecoVendaVarejo">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!precoVendaVarejo.Value</Value>
+                              <Value>=Fields!PrecoVendaVarejo.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -259,7 +282,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>precoVendaVarejo</rd:DefaultName>
+                      <rd:DefaultName>PrecoVendaVarejo</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -287,14 +310,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="qtdProdutoAtacado">
+                    <Textbox Name="QtdProdutoAtacado">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!qtdProdutoAtacado.Value</Value>
+                              <Value>=Fields!QtdProdutoAtacado.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -304,7 +327,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>qtdProdutoAtacado</rd:DefaultName>
+                      <rd:DefaultName>QtdProdutoAtacado</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -328,19 +351,18 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="totalPrecoAtacado">
+                    <Textbox Name="TotalPrecoVendaAtacado">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!totalPrecoAtacado.Value</Value>
+                              <Value>=Fields!TotalPrecoVendaAtacado.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -350,7 +372,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>totalPrecoAtacado</rd:DefaultName>
+                      <rd:DefaultName>TotalPrecoVendaAtacado</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -398,7 +420,7 @@
         <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <KeepTogether>true</KeepTogether>
-        <DataSetName>saceDataSet</DataSetName>
+        <DataSetName>DataSetProduto</DataSetName>
         <PageBreak>
           <BreakLocation>End</BreakLocation>
         </PageBreak>

@@ -26,9 +26,8 @@ namespace Telas
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            this.tb_perfilTableAdapter.Fill(this.saceDataSet.tb_perfil);
-            this.tb_usuarioTableAdapter.Fill(this.saceDataSet.tb_usuario);
-
+            usuarioBindingSource.DataSource = GerenciadorUsuario.GetInstace().ObterTodos();
+            perfilBindingSource.DataSource = GerenciadorUsuario.GetInstace().ObterPerfis();
             habilitaBotoes(true);
         }
 
@@ -47,8 +46,8 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            tb_usuarioBindingSource.CancelEdit();
-            tb_usuarioBindingSource.EndEdit();
+            usuarioBindingSource.CancelEdit();
+            usuarioBindingSource.EndEdit();
             habilitaBotoes(true);
             btnBuscar.Focus();
         }
@@ -58,7 +57,7 @@ namespace Telas
             if (senhaTextBox.Text != confirmarSenhaTextBox.Text)
             {
                 MessageBox.Show("Senha/Usuário inválidos");
-                tb_usuarioBindingSource.CancelEdit();
+                usuarioBindingSource.CancelEdit();
                 return;
             }
             habilitaBotoes(true);
@@ -72,14 +71,13 @@ namespace Telas
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                GerenciadorUsuario.getInstace().inserir(usuario);
-                tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
-                tb_usuarioBindingSource.MoveLast();
+                GerenciadorUsuario.GetInstace().Inserir(usuario);
+                usuarioBindingSource.MoveLast();
             }
             else
             {
-                GerenciadorUsuario.getInstace().atualizar(usuario);
-                tb_usuarioBindingSource.EndEdit();
+                GerenciadorUsuario.GetInstace().Atualizar(usuario);
+                usuarioBindingSource.EndEdit();
             }
 
 
@@ -88,7 +86,7 @@ namespace Telas
         private void btnNovo_Click(object sender, EventArgs e)
         {
             codPessoaComboBox.Focus();
-            tb_usuarioBindingSource.AddNew();
+            usuarioBindingSource.AddNew();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
             codPessoaComboBox.SelectedIndex = 0;
@@ -100,9 +98,7 @@ namespace Telas
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                
-                GerenciadorUsuario.getInstace().remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
-                tb_usuarioTableAdapter.Fill(saceDataSet.tb_usuario);
+                GerenciadorUsuario.GetInstace().remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
             }
 
         }
@@ -169,19 +165,19 @@ namespace Telas
                 }
                 else if (e.KeyCode == Keys.End)
                 {
-                    tb_usuarioBindingSource.MoveLast();
+                    usuarioBindingSource.MoveLast();
                 }
                 else if (e.KeyCode == Keys.Home)
                 {
-                    tb_usuarioBindingSource.MoveFirst();
+                    usuarioBindingSource.MoveFirst();
                 }
                 else if (e.KeyCode == Keys.PageUp)
                 {
-                    tb_usuarioBindingSource.MovePrevious();
+                    usuarioBindingSource.MovePrevious();
                 }
                 else if (e.KeyCode == Keys.PageDown)
                 {
-                    tb_usuarioBindingSource.MoveNext();
+                    usuarioBindingSource.MoveNext();
                 }
                 else if (e.KeyCode == Keys.Escape)
                 {

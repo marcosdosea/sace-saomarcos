@@ -385,10 +385,13 @@ namespace Telas
         /// <param name="e"></param>
         private void quantidadeTextBox_Leave(object sender, EventArgs e)
         {
-            FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
-            buscaPrecos();
-            AtualizarSubTotal();
-            codSaidaTextBox_Leave(sender, e);
+            if (!panelBalcao.Visible)
+            {
+                FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+                buscaPrecos();
+                AtualizarSubTotal();
+                codSaidaTextBox_Leave(sender, e);
+            }
         }
 
         /// <summary>
@@ -398,21 +401,24 @@ namespace Telas
         /// <param name="e"></param>
         private void precoVendatextBox_Leave(object sender, EventArgs e)
         {
-            FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
-            //saida = (Saida)saidaBindingSource.Current;
-            //ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
-            produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
+            if (!panelBalcao.Visible)
+            {
+                FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
+                //saida = (Saida)saidaBindingSource.Current;
+                //ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
+                produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
 
-            if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-            {
-                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N2");
+                if (saida.TipoSaida.Equals(Saida.TIPO_SAIDA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                {
+                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N2");
+                }
+                else
+                {
+                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
+                }
+                AtualizarSubTotal();
+                codSaidaTextBox_Leave(sender, e);
             }
-            else
-            {
-                precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
-            }
-            AtualizarSubTotal();
-            codSaidaTextBox_Leave(sender, e);
         }
 
         /// <summary>
@@ -445,8 +451,8 @@ namespace Telas
                     }
                     else if (lblPreco.Text.Equals(PRECO_REVENDA))
                     {
-                        precoVendaSemDescontoTextBox.Text = (produto.PrecoRevendaSemDesconto * Convert.ToDecimal(0.9)).ToString("N2");
-                        precoVendatextBox.Text = ( produto.PrecoRevenda * Convert.ToDecimal(0.9)).ToString("N2");
+                        precoVendaSemDescontoTextBox.Text = produto.PrecoRevendaSemDesconto.ToString("N2");
+                        precoVendatextBox.Text = produto.PrecoRevenda.ToString("N2");
                     }
                     data_validadeDateTimePicker.Enabled = produto.TemVencimento;
                     data_validadeDateTimePicker.TabStop = produto.TemVencimento;

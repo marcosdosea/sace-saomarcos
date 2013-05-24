@@ -118,6 +118,35 @@ namespace Negocio
                 throw new DadosException("Produto", e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Atualiza ncm e quantidade Atacado
+        /// </summary>
+        /// <param name="_produtoPesquisa"></param>
+        /// <param name="ultimoCodigoBarraLido"></param>
+        public void AtualizarNcmshQtdAtacado(long codProduto, string ncsmsh, decimal quantidadeAtacado)
+        {
+            try
+            {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+
+                var saceEntities = (SaceEntities)repProduto.ObterContexto();
+                var query = from produtoSet in saceEntities.ProdutoSet
+                            where produtoSet.codProduto == codProduto
+                            select produtoSet;
+                foreach (ProdutoE _produtoE in query)
+                {
+                    _produtoE.ncmsh = ncsmsh;
+                    _produtoE.qtdProdutoAtacado = quantidadeAtacado;
+                }
+                repProduto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Produto", e.Message, e);
+            }
+        }
+        
         /// <summary>
         /// Remove produto da base de dados
         /// </summary>

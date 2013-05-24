@@ -45,7 +45,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_codgrupoconta", "tb_grupo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_movimentacao_conta_codtipomovimentacao", "tb_tipo_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoMovimentacaoContaE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.tb_perfil), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.UsuarioE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.PerfilE), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_permissao_codpessoa", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.UsuarioE), "tb_permissao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_permissao), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_tb_tipo_conta1", "tb_tipo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
@@ -56,7 +56,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SaidaE), "tb_saida_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_situacao_pagamentos1", "tb_situacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_funcionalidade), "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_perfil))]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_funcionalidade), "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PerfilE))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_tipo_saida_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.TipoSaidaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_tb_cfop1", "CfopE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
@@ -369,18 +369,18 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_perfil> tb_perfil
+        public ObjectSet<PerfilE> PerfilSet
         {
             get
             {
-                if ((_tb_perfil == null))
+                if ((_PerfilSet == null))
                 {
-                    _tb_perfil = base.CreateObjectSet<tb_perfil>("tb_perfil");
+                    _PerfilSet = base.CreateObjectSet<PerfilE>("PerfilSet");
                 }
-                return _tb_perfil;
+                return _PerfilSet;
             }
         }
-        private ObjectSet<tb_perfil> _tb_perfil;
+        private ObjectSet<PerfilE> _PerfilSet;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -827,11 +827,11 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_perfil EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the PerfilSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTotb_perfil(tb_perfil tb_perfil)
+        public void AddToPerfilSet(PerfilE perfilE)
         {
-            base.AddObject("tb_perfil", tb_perfil);
+            base.AddObject("PerfilSet", perfilE);
         }
     
         /// <summary>
@@ -5838,6 +5838,137 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.tb_saida_nfe", "SaidaE", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="PerfilE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PerfilE : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PerfilE object.
+        /// </summary>
+        /// <param name="codPerfil">Initial value of the codPerfil property.</param>
+        /// <param name="nome">Initial value of the nome property.</param>
+        public static PerfilE CreatePerfilE(global::System.Int32 codPerfil, global::System.String nome)
+        {
+            PerfilE perfilE = new PerfilE();
+            perfilE.codPerfil = codPerfil;
+            perfilE.nome = nome;
+            return perfilE;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codPerfil
+        {
+            get
+            {
+                return _codPerfil;
+            }
+            set
+            {
+                if (_codPerfil != value)
+                {
+                    OncodPerfilChanging(value);
+                    ReportPropertyChanging("codPerfil");
+                    _codPerfil = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codPerfil");
+                    OncodPerfilChanged();
+                }
+            }
+        }
+        private global::System.Int32 _codPerfil;
+        partial void OncodPerfilChanging(global::System.Int32 value);
+        partial void OncodPerfilChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String nome
+        {
+            get
+            {
+                return _nome;
+            }
+            set
+            {
+                OnnomeChanging(value);
+                ReportPropertyChanging("nome");
+                _nome = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("nome");
+                OnnomeChanged();
+            }
+        }
+        private global::System.String _nome;
+        partial void OnnomeChanging(global::System.String value);
+        partial void OnnomeChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_usuario")]
+        public EntityCollection<UsuarioE> tb_usuario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UsuarioE>("SaceModel.fk_tb_usuario_acodperfil", "tb_usuario");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UsuarioE>("SaceModel.fk_tb_usuario_acodperfil", "tb_usuario", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade")]
+        public EntityCollection<tb_funcionalidade> tb_funcionalidade
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_funcionalidade>("SaceModel.tb_perfil_funcionalidade", "tb_funcionalidade");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_funcionalidade>("SaceModel.tb_perfil_funcionalidade", "tb_funcionalidade", value);
                 }
             }
         }
@@ -11370,148 +11501,17 @@ namespace Dados
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_perfil")]
-        public EntityCollection<tb_perfil> tb_perfil
+        public EntityCollection<PerfilE> tb_perfil
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_perfil>("SaceModel.tb_perfil_funcionalidade", "tb_perfil");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PerfilE>("SaceModel.tb_perfil_funcionalidade", "tb_perfil");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_perfil>("SaceModel.tb_perfil_funcionalidade", "tb_perfil", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_perfil")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class tb_perfil : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new tb_perfil object.
-        /// </summary>
-        /// <param name="codPerfil">Initial value of the codPerfil property.</param>
-        /// <param name="nome">Initial value of the nome property.</param>
-        public static tb_perfil Createtb_perfil(global::System.Int32 codPerfil, global::System.String nome)
-        {
-            tb_perfil tb_perfil = new tb_perfil();
-            tb_perfil.codPerfil = codPerfil;
-            tb_perfil.nome = nome;
-            return tb_perfil;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codPerfil
-        {
-            get
-            {
-                return _codPerfil;
-            }
-            set
-            {
-                if (_codPerfil != value)
-                {
-                    OncodPerfilChanging(value);
-                    ReportPropertyChanging("codPerfil");
-                    _codPerfil = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codPerfil");
-                    OncodPerfilChanged();
-                }
-            }
-        }
-        private global::System.Int32 _codPerfil;
-        partial void OncodPerfilChanging(global::System.Int32 value);
-        partial void OncodPerfilChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String nome
-        {
-            get
-            {
-                return _nome;
-            }
-            set
-            {
-                OnnomeChanging(value);
-                ReportPropertyChanging("nome");
-                _nome = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("nome");
-                OnnomeChanged();
-            }
-        }
-        private global::System.String _nome;
-        partial void OnnomeChanging(global::System.String value);
-        partial void OnnomeChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_usuario")]
-        public EntityCollection<UsuarioE> tb_usuario
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UsuarioE>("SaceModel.fk_tb_usuario_acodperfil", "tb_usuario");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UsuarioE>("SaceModel.fk_tb_usuario_acodperfil", "tb_usuario", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade")]
-        public EntityCollection<tb_funcionalidade> tb_funcionalidade
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_funcionalidade>("SaceModel.tb_perfil_funcionalidade", "tb_funcionalidade");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_funcionalidade>("SaceModel.tb_perfil_funcionalidade", "tb_funcionalidade", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PerfilE>("SaceModel.tb_perfil_funcionalidade", "tb_perfil", value);
                 }
             }
         }
@@ -12370,15 +12370,15 @@ namespace Dados
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil")]
-        public tb_perfil tb_perfil
+        public PerfilE tb_perfil
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_perfil>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PerfilE>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_perfil>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PerfilE>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil").Value = value;
             }
         }
         /// <summary>
@@ -12386,17 +12386,17 @@ namespace Dados
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<tb_perfil> tb_perfilReference
+        public EntityReference<PerfilE> tb_perfilReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_perfil>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PerfilE>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_perfil>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PerfilE>("SaceModel.fk_tb_usuario_acodperfil", "tb_perfil", value);
                 }
             }
         }

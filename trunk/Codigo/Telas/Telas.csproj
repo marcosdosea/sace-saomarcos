@@ -84,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmProdutoPesquisaCSOSN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProdutoPesquisaCSOSN.Designer.cs">
+      <DependentUpon>FrmProdutoPesquisaCSOSN.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSourceGlobal.cs" />
     <Compile Include="FrmProdutoEstatistica.cs">
       <SubType>Form</SubType>
@@ -335,6 +341,10 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmProdutoPesquisaCSOSN.resx">
+      <DependentUpon>FrmProdutoPesquisaCSOSN.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmProdutoEstatistica.resx">
       <DependentUpon>FrmProdutoEstatistica.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -530,6 +540,7 @@
     <None Include="Properties\DataSources\Dominio.Loja.datasource" />
     <None Include="Properties\DataSources\Dominio.MovimentacaoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.MunicipiosIBGE.datasource" />
+    <None Include="Properties\DataSources\Dominio.Perfil.datasource" />
     <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
     <None Include="Properties\DataSources\Dominio.PlanoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Produto.datasource" />
@@ -543,6 +554,7 @@
     <None Include="Properties\DataSources\Dominio.SituacaoPagamentos.datasource" />
     <None Include="Properties\DataSources\Dominio.SituacaoProduto.datasource" />
     <None Include="Properties\DataSources\Dominio.Subgrupo.datasource" />
+    <None Include="Properties\DataSources\Dominio.Usuario.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />
     <None Include="Properties\Settings.settings">
