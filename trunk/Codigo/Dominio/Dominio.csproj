@@ -135,7 +135,16 @@
     <None Include="NFE_Schema\consStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="NFE_Schema\e110111_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema\envEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NFE_Schema\enviNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema\eventoCancNFe_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema\inutNFe_v2.00.xsd">
@@ -153,6 +162,9 @@
     <None Include="NFE_Schema\leiauteConsultaCadastro_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="NFE_Schema\leiauteEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NFE_Schema\leiauteInutNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -163,6 +175,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema\procCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema\procEventoCancNFe_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema\procInutNFe_v2.00.xsd">
@@ -184,6 +199,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema\retConsStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema\retEnvEventoCancNFe_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema\retEnviNFe_v2.00.xsd">

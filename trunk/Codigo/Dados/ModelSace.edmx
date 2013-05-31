@@ -344,7 +344,7 @@
             <PropertyRef Name="codCST" />
           </Key>
           <Property Name="codCST" Type="char" Nullable="false" MaxLength="4" />
-          <Property Name="descricaoCST" Type="varchar" MaxLength="45" />
+          <Property Name="descricaoCST" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tb_entrada">
           <Key>
@@ -485,6 +485,7 @@
           <Property Name="situacaoProtocoloCancelamento" Type="varchar" Nullable="false" MaxLength="4" />
           <Property Name="mensagemSituacaoProtocoloCancelamento" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="justificativaCancelamento" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="dataEmissao" Type="datetime" />
         </EntityType>
         <EntityType Name="tb_perfil">
           <Key>
@@ -751,7 +752,7 @@
           <Property Name="codPessoa" Type="bigint" Nullable="false" />
           <Property Name="login" Type="varchar" MaxLength="20" />
           <Property Name="senha" Type="varchar" MaxLength="20" />
-          <Property Name="codPerfil" Type="int" />
+          <Property Name="codPerfil" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tp_tipo_entrada">
           <Key>
@@ -1443,7 +1444,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_usuario_acodperfil">
-          <End Role="tb_perfil" Type="SaceModel.Store.tb_perfil" Multiplicity="0..1" />
+          <End Role="tb_perfil" Type="SaceModel.Store.tb_perfil" Multiplicity="1" />
           <End Role="tb_usuario" Type="SaceModel.Store.tb_usuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_perfil">
@@ -2207,7 +2208,7 @@
           <Property Name="codPessoa" Type="Int64" Nullable="false" />
           <Property Name="login" Type="String" />
           <Property Name="senha" Type="String" />
-          <Property Name="codPerfil" Type="Int32" />
+          <Property Name="codPerfil" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tb_perfil" Relationship="SaceModel.fk_tb_usuario_acodperfil" FromRole="tb_usuario" ToRole="tb_perfil" />
           <NavigationProperty Name="tb_permissao" Relationship="SaceModel.fk_tb_permissao_codpessoa" FromRole="tb_usuario" ToRole="tb_permissao" />
           <NavigationProperty Name="tb_pessoa" Relationship="SaceModel.fk_tb_usuario_codpessoa" FromRole="UsuarioE" ToRole="tb_pessoa" />
@@ -2539,7 +2540,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_usuario_acodperfil">
-          <End Role="tb_perfil" Type="SaceModel.PerfilE" Multiplicity="0..1" />
+          <End Role="tb_perfil" Type="SaceModel.PerfilE" Multiplicity="1" />
           <End Role="tb_usuario" Type="SaceModel.UsuarioE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_perfil">
@@ -2756,6 +2757,7 @@
           <Property Type="String" Name="mensagemSituacaoProtocoloCancelamento" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="justificativaCancelamento" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.tb_saida_nfe" FromRole="tb_nfe" ToRole="SaidaE" />
+          <Property Type="DateTime" Name="dataEmissao" />
         </EntityType>
         <Association Name="tb_saida_nfe">
           <End Type="SaceModel.NfeE" Role="tb_nfe" Multiplicity="*" />
@@ -3282,6 +3284,7 @@
           <EntitySetMapping Name="NfeSet">
             <EntityTypeMapping TypeName="SaceModel.NfeE">
               <MappingFragment StoreEntitySet="tb_nfe">
+                <ScalarProperty Name="dataEmissao" ColumnName="dataEmissao" />
                 <ScalarProperty Name="justificativaCancelamento" ColumnName="justificativaCancelamento" />
                 <ScalarProperty Name="mensagemSituacaoProtocoloCancelamento" ColumnName="mensagemSituacaoProtocoloCancelamento" />
                 <ScalarProperty Name="situacaoProtocoloCancelamento" ColumnName="situacaoProtocoloCancelamento" />
@@ -3375,7 +3378,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ModelSace" ZoomLevel="98">
+      <Diagram Name="ModelSace" ZoomLevel="97">
         <EntityTypeShape EntityType="SaceModel.BancoE" Width="1.5" PointX="5.75" PointY="36.625" Height="1.5956835937500102" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CartaoCreditoE" Width="1.5" PointX="10.25" PointY="24" Height="2.749492187499996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CfopE" Width="1.5" PointX="7.5" PointY="11.875" Height="2.3648893229166674" IsExpanded="true" />

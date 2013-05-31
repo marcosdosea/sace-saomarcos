@@ -36,7 +36,28 @@ namespace Dominio
         public long CodSaida { get; set; }
         public string Chave { get; set; }
         public string SituacaoNfe { get; set; }
-        
+
+        public string DescricaoSituacaoNfe
+        {
+            get
+            {
+                if (SituacaoNfe.Equals(SITUACAO_AUTORIZADA))
+                    return "AUTORIZADA";
+                else if (SituacaoNfe.Equals(SITUACAO_CANCELADA))
+                    return "CANCELADA";
+                else if (SituacaoNfe.Equals(SITUACAO_DENEGADA))
+                    return "DENEGADA";
+                else if (SituacaoNfe.Equals(SITUACAO_INUTILIZADA))
+                    return "INUTILIZADA";
+                else if (SituacaoNfe.Equals(SITUACAO_NAO_VALIDADA))
+                    return "NÃO VALIDADA";
+                else if (SituacaoNfe.Equals(SITUACAO_REJEITADA))
+                    return "REJEITADA";
+                else 
+                    return "SOLICITADA";
+            }
+        }
+
         public string NumeroLoteEnvio { get; set; }
         public string NumeroRecibo { get; set; }
         public string SituacaoReciboEnvio { get; set; }
@@ -50,5 +71,6 @@ namespace Dominio
         public string SituacaoProtocoloCancelamento { get; set; }
         public string MensagemSitucaoProtocoloCancelamento { get; set; }
         public string JustificativaCancelamento { get; set; }
+        public DateTime? DataEmissao { get; set; }
     }
 }

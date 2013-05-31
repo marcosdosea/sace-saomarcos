@@ -313,6 +313,16 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obter por Ncmsh
+        /// </summary>
+        /// <param name="Ncmsh"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorNcmsh(string ncmsh)
+        {
+            return GetQuerySimples().Where(p => p.Ncmsh.StartsWith(ncmsh)).ToList();
+        }
+
+        /// <summary>
         /// Obtém produto pelo código de barra
         /// </summary>
         /// <param name="codBarra"></param>

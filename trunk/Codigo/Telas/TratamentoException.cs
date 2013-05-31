@@ -113,7 +113,7 @@ namespace Telas
             string erroQuebraLinha = "";
             for (int i = 0; i < palavras.Length; i++)
             {
-                if (i % 10 == 0)
+                if ((i> 0) && (i % 10 == 0))
                 {
                     erroQuebraLinha += Environment.NewLine;
                 }

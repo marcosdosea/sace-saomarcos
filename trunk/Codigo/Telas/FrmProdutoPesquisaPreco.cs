@@ -91,13 +91,17 @@ namespace Telas
                     }
 
                 }
+                else if ((cmbBusca.SelectedIndex == 5) && (txtTexto.Text.Length > 3))
+                {
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNcmsh(txtTexto.Text);
+                }
                 else
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
                     {
                         if (ExibirTodos)
-                           produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
-                        else 
+                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                        else
                             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
                     }
                 }
