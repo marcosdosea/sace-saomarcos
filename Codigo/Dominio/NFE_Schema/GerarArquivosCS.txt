@@ -1,6 +1,6 @@
 ﻿1) Entrar no diretório dos schemas D:\SACE2010\trunk\Codigo\Dominio\NFE_Schema>
 
-2) Renomear os 15 xmls que devem ser acoplados com o NFe e a assinatura para usar na aplicação porque o utilizatário xsd.exe
+2) Renomear os 21 xmls que devem ser acoplados com o NFe e a assinatura para usar na aplicação porque o utilizatário xsd.exe
 não permite definir o nome que vai ser gerado. Dessa forma se juntar tudo o nome do arquivo acaba passando o suportado pelo
 windows.
 

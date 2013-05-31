@@ -7,8 +7,6 @@ namespace Dominio
 {
     public class Loja
     {
-        private int codLoja;
-
         public int CodLoja { get; set; }
         public string Nome { get; set; }
         public long CodPessoa { get; set; }

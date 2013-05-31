@@ -268,6 +268,7 @@ namespace Telas
                 GerenciadorNFe.GetInstance().RecuperarLoteEnvio();
                 GerenciadorNFe.GetInstance().RecuperarReciboEnvioNfe();
                 GerenciadorNFe.GetInstance().RecuperarResultadoProcessamentoNfe();
+                GerenciadorNFe.GetInstance().RecuperarResultadoCancelamentoNfe();
             }
             catch (Exception ex)
             {

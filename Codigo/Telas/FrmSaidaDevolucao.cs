@@ -65,7 +65,7 @@ namespace Telas
                 GerenciadorSaida.GetInstance(null).Atualizar(saida);
                 GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, saida.TipoSaida);
 
-                FrmSaidaVenda frmSaidaNF = new FrmSaidaVenda(saida.CodSaida);
+                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }

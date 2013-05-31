@@ -11,7 +11,7 @@ namespace Telas
     {
 
         static BindingSource produtoBindingSouce = null;
-        static BindingSource pessoaBindingSouce = null;
+        //static BindingSource pessoaBindingSouce = null;
 
         public static BindingSource GetProdutoBindingSource() {
             if (produtoBindingSouce == null)

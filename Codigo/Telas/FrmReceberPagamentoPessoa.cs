@@ -232,7 +232,7 @@ namespace Telas
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
 
                 decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
-                FrmSaidaVenda frmSaidaNF = new FrmSaidaVenda(saida.CodSaida);
+                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }

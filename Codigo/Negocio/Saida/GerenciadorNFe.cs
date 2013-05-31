@@ -146,7 +146,8 @@ namespace Negocio
                             SituacaoNfe = nfe.situacaoNfe,
                             SituacaoProtocoloCancelamento = nfe.situacaoProtocoloCancelamento,
                             SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
-                            SituacaoReciboEnvio = nfe.situacaoReciboEnvio
+                            SituacaoReciboEnvio = nfe.situacaoReciboEnvio,
+                            DataEmissao = nfe.dataEmissao
                         };
             return query;
         }
@@ -195,8 +196,14 @@ namespace Negocio
         {
             var repSaida = new RepositorioGenerico<SaidaE>();
 
+            
+
             var saceEntities = (SaceEntities)repSaida.ObterContexto();
-            SaidaE _saidaE = repSaida.ObterPrimeiro(s => s.codSaida == codSaida);
+            var querySaida = from saida in saceEntities.SaidaSet
+                             where saida.codSaida == codSaida
+                             select saida;
+            
+            SaidaE _saidaE = querySaida.ToList().ElementAtOrDefault(0);
             
             var query = from nfe in _saidaE.tb_nfe
                         select new NfeControle
@@ -215,7 +222,8 @@ namespace Negocio
                             SituacaoNfe = nfe.situacaoNfe,
                             SituacaoProtocoloCancelamento = nfe.situacaoProtocoloCancelamento,
                             SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
-                            SituacaoReciboEnvio = nfe.situacaoReciboEnvio
+                            SituacaoReciboEnvio = nfe.situacaoReciboEnvio,
+                            DataEmissao = nfe.dataEmissao
                         };
             return query.ToList();
         }
@@ -230,46 +238,72 @@ namespace Negocio
             return GetQuery().Where(nfe=> nfe.CodNfe == codNfe).ToList();
         }
 
-        public string GerarChaveNFE(Saida saida, NfeControle nfe)
+        public NfeControle GerarChaveNFE(Saida saida)
         {
             try
             {
+                //Verifica se a saída já possui uma chave gerada e cuja nf-e não foi validada
+                IEnumerable<NfeControle> nfeControles = ObterPorSaida(saida.CodSaida);
+                IEnumerable<NfeControle> nfeControlesTentativasFalhas = nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) 
+                    || nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)
+                    || nfeC.SituacaoNfe.Equals(""));
+
+                
+                NfeControle nfeControle;
+                // Verifica se houve já alguma tentativa de gerar a chave
+                if (nfeControlesTentativasFalhas.Count() > 0)
+                {
+                    nfeControle = nfeControlesTentativasFalhas.ElementAtOrDefault(0);
+                } 
+                else
+                {
+                    nfeControle = new NfeControle();
+                    nfeControle.CodNfe = GerenciadorNFe.GetInstance().Inserir(nfeControle, saida);
+                }
+
+                nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
+
+                // Verifica se chave já foi gerada
                 string chaveNFe = RecuperarChaveGerada(saida, 1);
                 if (!chaveNFe.Equals(""))
-                    return chaveNFe;
+                {
+                    nfeControle.Chave = chaveNFe;
+                }
+                else
+                {
+                    //define um documento XML e carrega o seu conteúdo 
+                    XmlDocument xmldoc = new XmlDocument();
+                    
+                    //Cria um novo elemento poemas  e define os elementos autor, titulo e conteudo
+                    XmlElement novoGerarChave = xmldoc.CreateElement("gerarChave");
+                    XmlElement xmlnNF = xmldoc.CreateElement("nNF");
+                    XmlElement xmlserie = xmldoc.CreateElement("serie");
+                    XmlElement xmlAAMM = xmldoc.CreateElement("AAMM");
+                    XmlElement xmlcnpj = xmldoc.CreateElement("CNPJ");
 
-                //define um documento XML e carrega o seu conteúdo 
-                XmlDocument xmldoc = new XmlDocument();
-                //xmldoc.Load(Global.PASTA_COMUNICACAO_NFE_ENVIO + saida.Nfe + "-gerar-chave.xml");
+                    xmlnNF.InnerText = nfeControle.CodNfe.ToString().PadLeft(8, '0');
+                    xmlserie.InnerText = "1";
+                    xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
+                    long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO)[0].CodPessoa;
+                    xmlcnpj.InnerText = GerenciadorPessoa.GetInstance().Obter(codPessoaLoja).ElementAt(0).CpfCnpj;
 
-                //Cria um novo elemento poemas  e define os elementos autor, titulo e conteudo
-                XmlElement novoGerarChave = xmldoc.CreateElement("gerarChave");
-                XmlElement xmlnNF = xmldoc.CreateElement("nNF");
-                XmlElement xmlserie = xmldoc.CreateElement("serie");
-                XmlElement xmlAAMM = xmldoc.CreateElement("AAMM");
-                XmlElement xmlcnpj = xmldoc.CreateElement("CNPJ");
-                
-                //atribui o conteúdo das caixa de texto aos elementos xml
-                xmlnNF.InnerText = nfe.CodNfe.ToString().PadLeft(8, '0');
-                xmlserie.InnerText = "1";
-                xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
-                long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO)[0].CodPessoa;
-                xmlcnpj.InnerText = GerenciadorPessoa.GetInstance().Obter(codPessoaLoja).ElementAt(0).CpfCnpj;
+                    //inclui os novos elementos no elemento poemas
+                    novoGerarChave.AppendChild(xmlnNF);
+                    novoGerarChave.AppendChild(xmlserie);
+                    novoGerarChave.AppendChild(xmlAAMM);
+                    novoGerarChave.AppendChild(xmlcnpj);
 
-                //inclui os novos elementos no elemento poemas
-                novoGerarChave.AppendChild(xmlnNF);
-                novoGerarChave.AppendChild(xmlserie);
-                novoGerarChave.AppendChild(xmlAAMM);
-                novoGerarChave.AppendChild(xmlcnpj);
-                
-                //inclui o novo elemento no XML
-                xmldoc.AppendChild(novoGerarChave);
+                    //inclui o novo elemento no XML
+                    xmldoc.AppendChild(novoGerarChave);
 
-                //Salva a inclusão no arquivo XML
-                xmldoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + saida.Nfe + "-gerar-chave.xml");
+                    //Salva a inclusão no arquivo XML
+                    xmldoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + saida.Nfe + "-gerar-chave.xml");
 
-                chaveNFe = RecuperarChaveGerada(saida, 10);
-                return chaveNFe;
+                    nfeControle.Chave = RecuperarChaveGerada(saida, 10);
+                }
+
+                Atualizar(nfeControle);
+                return nfeControle;
             }
             catch (NegocioException nex)
             {
@@ -314,7 +348,7 @@ namespace Negocio
             }
 
             if (tentativas > 1 && tentativas >= numeroTentativasGerarChave && string.IsNullOrEmpty(chaveNFe) )
-                throw new NegocioException("Ocorreram problemas/lentidão na geração da chave da NF-e. Favor tentar novamente em alguns minutos.");
+                throw new NegocioException("Ocorreram problemas/lentidão na geração da chave da NF-e. Verifique se o certificado está conectado e a internet disponível. Favor tentar novamente em alguns minutos.");
             return chaveNFe;
         }
 
@@ -331,31 +365,34 @@ namespace Negocio
               if (Dir.Exists)
               {
                   // Busca automaticamente todos os arquivos em todos os subdiretórios
-                  
-                  string arquivoRetornoLote = "*-num-lot.*";
+                  string arquivoRetornoLote = "*.*";
                   FileInfo[] files = Dir.GetFiles(arquivoRetornoLote, SearchOption.TopDirectoryOnly);
                   for(int i = 0; i < files.Length; i++)
                   {
-                      XmlDocument xmldocRetorno = new XmlDocument();
-                      xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
-
-                      string chave = files[0].Name.Substring(0, 44);
-                      NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
-
-                      if (nfeControle != null)
+                      if (files[i].Name.Length > 45)
                       {
-                          if (files[i].Name.Contains("nfe.err"))
+                          string chave = files[i].Name.Substring(0, 44);
+                          NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+
+                          if (nfeControle != null)
                           {
-                              files[i].Delete();
-                              nfeControle.SituacaoNfe = NfeControle.SITUACAO_NAO_VALIDADA;
+                              if (files[i].Name.Contains("nfe.err"))
+                              {
+                                  files[i].CopyTo(Global.PASTA_COMUNICACAO_NFE_ERRO+"\\"+files[i].Name, true);
+                                  nfeControle.SituacaoNfe = NfeControle.SITUACAO_NAO_VALIDADA;
+                                  files[i].Delete();
+                              }
+                              else if (files[i].Name.Contains("-num-lot."))
+                              {
+                                  XmlDocument xmldocRetorno = new XmlDocument();
+                                  xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+
+                                  numeroLote = xmldocRetorno.DocumentElement.InnerText;
+                                  nfeControle.NumeroLoteEnvio = numeroLote.PadLeft(15, '0');
+                                  files[i].Delete();
+                              }
+                              GerenciadorNFe.GetInstance().Atualizar(nfeControle);
                           }
-                          else
-                          {
-                              numeroLote = xmldocRetorno.DocumentElement.InnerText;
-                              nfeControle.NumeroLoteEnvio = numeroLote.PadLeft(15, '0');
-                              files[i].Delete();
-                          }
-                          GerenciadorNFe.GetInstance().Atualizar(nfeControle);
                       }
                   }
               }
@@ -507,7 +544,8 @@ namespace Negocio
                 infNFeIde.cMunFG = lojaPadrao.CodMunicipioIBGE.ToString();
                 infNFeIde.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + lojaPadrao.CodMunicipioIBGE.ToString().Substring(0, 2));
 
-                infNFeIde.dEmi = saida.DataEmissaoCupomFiscal.ToString(FORMATO_DATA);
+                infNFeIde.dEmi = saida.CupomFiscal.Equals("") ? saida.DataSaida.ToString(FORMATO_DATA) : saida.DataEmissaoCupomFiscal.ToString(FORMATO_DATA);
+                infNFeIde.hSaiEnt = DateTime.Now.ToString("HH:mm:ss");
                 infNFeIde.dSaiEnt = saida.CupomFiscal.Equals("") ? saida.DataSaida.ToString(FORMATO_DATA) : saida.DataEmissaoCupomFiscal.ToString(FORMATO_DATA);
                 infNFeIde.finNFe = TFinNFe.Item1; //1 - Normal / 2 NF-e complementar / 3 - Nf-e Ajuste
                 infNFeIde.indPag = (TNFeInfNFeIdeIndPag)0; // 0 - à Vista  1 - a prazo  2 - outros
@@ -559,6 +597,7 @@ namespace Negocio
                 emit.xFant = pessoaloja.NomeFantasia;
                 emit.xNome = pessoaloja.Nome;
                 emit.Item = pessoaloja.CpfCnpj;
+                
                 nfe.infNFe.emit = emit;
 
                 ////Endereco destinatario
@@ -601,7 +640,7 @@ namespace Negocio
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
                     infAdic.infCpl = saida.Observacao;
                 else
-                    infAdic.infCpl = saida.Observacao + ". ICMS RECOLHIDO NO C.F.: " + saida.CupomFiscal;    
+                    infAdic.infCpl = saida.Observacao + ". ICMS RECOLHIDO NO";    
                 nfe.infNFe.infAdic = infAdic;
 
                 //detalhes
@@ -656,11 +695,11 @@ namespace Negocio
                         if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
                         {
                             TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
-                            icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400  ;
+                            icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item102;
                             icms102.orig = Torig.Item0;
                             
                             icms.Item = icms102;
-                        }
+                        } 
                         
                         TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto();
                         imp.Items = new object[] { icms };
@@ -802,7 +841,9 @@ namespace Negocio
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(memStream);
                 xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-nfe.xml");
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-nfe.xml");
 
+                nfeControle.DataEmissao = saida.CupomFiscal.Equals("") ? saida.DataSaida : saida.DataEmissaoCupomFiscal;
                 nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
                 Atualizar(nfeControle);
                 
@@ -811,6 +852,120 @@ namespace Negocio
             {
                 throw new NegocioException("Problemas na geração do arquivo da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
             }
+        }
+
+        public void EnviarSolicitacaoCancelamento(NfeControle nfeControle)
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(nfeControle.JustificativaCancelamento))
+                {
+                    throw new NegocioException("É necessário adicionar uma justificativa para realizar o cancelamento da NF-e.");
+                }
+
+                
+                TEvento evento = new TEvento();
+                evento.versao = TVerEvento.Item100;
+                
+                TEventoInfEvento infEvento = new TEventoInfEvento();
+                infEvento.chNFe = nfeControle.Chave;
+                infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
+                infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+                infEvento.nSeqEvento = "1"; // carta correção pode haver mais de uma
+                infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                infEvento.tpEvento = "110111";
+                infEvento.verEvento = "2.00";
+                infEvento.detEvento = new TEventoInfEventoDetEvento();
+                //infEvento.detEvento.
+
+                TCancNFe cancelamentoNfe = new TCancNFe();
+                TCancNFeInfCanc infCancelamento = new TCancNFeInfCanc();
+                infCancelamento.chNFe = nfeControle.Chave;
+                infCancelamento.Id = "ID" + nfeControle.Chave;
+                infCancelamento.nProt = nfeControle.NumeroProtocoloUso;
+                infCancelamento.tpAmb = 
+                //infCancelamento.xJust = nfeControle.JustificativaCancelamento;
+                //infCancelamento.xServ = TCancNFeInfCancXServ.CANCELAR;
+                //cancelamentoNfe.infCanc = infCancelamento;
+
+                MemoryStream memStream = new MemoryStream();
+                XmlSerializer serializer = new XmlSerializer(typeof(TCancNFe));
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+                serializer.Serialize(memStream, cancelamentoNfe, ns);
+
+
+                memStream.Position = 0;
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(memStream);
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-env-canc.xml");
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-env-canc.xml");
+
+                //nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
+                Atualizar(nfeControle);
+
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException("Problemas na geração do arquivo da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+            }
+        }
+
+        public string RecuperarResultadoCancelamentoNfe()
+        {
+            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            string numeroProtocolo = "";
+            if (Dir.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                string arquivoRetornoReciboNfe = "*-can.*";
+                FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    // apenas exclui o arquivo texto que não será utilizado  
+                    if (files[i].Name.Contains("-can.txt"))
+                    {
+                        files[i].Delete();
+                    } else if (files[i].Name.Contains("-can.err"))
+                    {
+                        files[i].Delete();
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        nfeControle.MensagemSitucaoProtocoloCancelamento = "O cancelamento da nota não foi realizado/autorizado.";
+                        Atualizar(nfeControle);
+                    }
+                    else
+                    {
+                        XmlDocument xmldocRetorno = new XmlDocument();
+                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        if (nfeControle != null)
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(TRetCancNFe));
+                            TRetCancNFe retornoCancNfe = (TRetCancNFe)serializer.Deserialize(xmlReaderRetorno);
+                            if (retornoCancNfe.infCanc.cStat.Equals(NfeStatusResposta.NFE101_CANCELAMENTO_NFE_HOMOLOGADO))
+                            {
+                                nfeControle.NumeroProtocoloCancelamento = retornoCancNfe.infCanc.nProt;
+                                nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
+                            }
+                            nfeControle.SituacaoProtocoloCancelamento = retornoCancNfe.infCanc.cStat;
+                            nfeControle.MensagemSitucaoProtocoloCancelamento = retornoCancNfe.infCanc.xMotivo;
+                            GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                            files[0].Delete();
+                        }
+                    }
+                }
+            }
+            return numeroProtocolo;
         }
 
         private string formataValorNFe(decimal? valor)
@@ -853,10 +1008,10 @@ namespace Negocio
         {
             _nfe.chave = string.IsNullOrEmpty(nfe.Chave)?"":nfe.Chave;
             _nfe.codNFe = nfe.CodNfe;
-            _nfe.justificativaCancelamento = nfe.JustificativaCancelamento;
-            _nfe.mensagemSituacaoProtocoloCancelamento = nfe.MensagemSitucaoProtocoloCancelamento;
-            _nfe.mensagemSituacaoProtocoloUso = nfe.MensagemSitucaoProtocoloUso;
-            _nfe.mensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio;
+            _nfe.justificativaCancelamento = truncate(nfe.JustificativaCancelamento,  200);
+            _nfe.mensagemSituacaoProtocoloCancelamento = truncate(nfe.MensagemSitucaoProtocoloCancelamento, 100);
+            _nfe.mensagemSituacaoProtocoloUso = truncate(nfe.MensagemSitucaoProtocoloUso, 100);
+            _nfe.mensagemSituacaoReciboEnvio = truncate(nfe.MensagemSituacaoReciboEnvio, 100);
             _nfe.numeroLoteEnvio = nfe.NumeroLoteEnvio;
             _nfe.numeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento;
             _nfe.numeroProtocoloUso = nfe.NumeroProtocoloUso;
@@ -864,24 +1019,38 @@ namespace Negocio
             _nfe.situacaoNfe = nfe.SituacaoNfe;
             _nfe.situacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento;
             _nfe.situacaoProtocoloUso = nfe.SituacaoProtocoloUso;
-            _nfe.situacaoReciboEnvio = nfe.SituacaoReciboEnvio; 
+            _nfe.situacaoReciboEnvio = nfe.SituacaoReciboEnvio;
+            _nfe.dataEmissao = nfe.DataEmissao;
         }
-        
-        public void imprimirDANFE()
+
+        private string truncate(string texto, int tamanho)
         {
-            try
+            if (texto.Length > tamanho)
+                return texto.Substring(0, tamanho);
+            return texto;
+        }
+
+        public void imprimirDANFE(NfeControle nfeControle)
+        {
+            if (nfeControle.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA)
             {
-                Process unidanfe = new Process();
-                unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
-                //unidanfe.StartInfo.Arguments = " arquivo=\"" + Empresa.Configuracoes[0].PastaEnviado + "\\Autorizados\\"
-                //    + nfeSelected.dataEmissao.Value.Year
-                //    + nfeSelected.dataEmissao.Value.Month.ToString("00") + "\\"
-                //    + nfeSelected.chaveAcesso + nfeSelected.digitoChaveAcesso + "-nfe.xml\" ";
-                //unidanfe.Start();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
+
+                    Process unidanfe = new Process();
+                    unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
+                    unidanfe.StartInfo.Arguments = " arquivo=\"" + Global.PASTA_COMUNICACAO_NFE_AUTORIZADOS
+                        + dataEmissao.Year
+                        + dataEmissao.Month.ToString("00")
+                        + dataEmissao.Day.ToString("00") + "\\"
+                        + nfeControle.Chave + "-nfe.xml";
+                    unidanfe.Start();
+                }
+                catch (Exception ex)
+                {
+                    throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.");
+                }
             }
         }
     }

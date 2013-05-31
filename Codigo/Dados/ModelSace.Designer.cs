@@ -45,7 +45,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_codgrupoconta", "tb_grupo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_movimentacao_conta_codtipomovimentacao", "tb_tipo_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoMovimentacaoContaE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.PerfilE), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.UsuarioE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PerfilE), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_permissao_codpessoa", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.UsuarioE), "tb_permissao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_permissao), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_tb_tipo_conta1", "tb_tipo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
@@ -5814,6 +5814,30 @@ namespace Dados
         private global::System.String _justificativaCancelamento;
         partial void OnjustificativaCancelamentoChanging(global::System.String value);
         partial void OnjustificativaCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> dataEmissao
+        {
+            get
+            {
+                return _dataEmissao;
+            }
+            set
+            {
+                OndataEmissaoChanging(value);
+                ReportPropertyChanging("dataEmissao");
+                _dataEmissao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataEmissao");
+                OndataEmissaoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _dataEmissao;
+        partial void OndataEmissaoChanging(Nullable<global::System.DateTime> value);
+        partial void OndataEmissaoChanged();
 
         #endregion
 
@@ -12248,10 +12272,12 @@ namespace Dados
         /// Create a new UsuarioE object.
         /// </summary>
         /// <param name="codPessoa">Initial value of the codPessoa property.</param>
-        public static UsuarioE CreateUsuarioE(global::System.Int64 codPessoa)
+        /// <param name="codPerfil">Initial value of the codPerfil property.</param>
+        public static UsuarioE CreateUsuarioE(global::System.Int64 codPessoa, global::System.Int32 codPerfil)
         {
             UsuarioE usuarioE = new UsuarioE();
             usuarioE.codPessoa = codPessoa;
+            usuarioE.codPerfil = codPerfil;
             return usuarioE;
         }
 
@@ -12337,9 +12363,9 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> codPerfil
+        public global::System.Int32 codPerfil
         {
             get
             {
@@ -12354,8 +12380,8 @@ namespace Dados
                 OncodPerfilChanged();
             }
         }
-        private Nullable<global::System.Int32> _codPerfil;
-        partial void OncodPerfilChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _codPerfil;
+        partial void OncodPerfilChanging(global::System.Int32 value);
         partial void OncodPerfilChanged();
 
         #endregion

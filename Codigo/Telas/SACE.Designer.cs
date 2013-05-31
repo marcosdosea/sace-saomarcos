@@ -58,6 +58,7 @@
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.atualizarCSOSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +73,6 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
-            this.atualizarCSOSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -309,6 +309,13 @@
             this.restaurarBackupToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.restaurarBackupToolStripMenuItem.Text = "Restaurar Backup";
             // 
+            // atualizarCSOSNToolStripMenuItem
+            // 
+            this.atualizarCSOSNToolStripMenuItem.Name = "atualizarCSOSNToolStripMenuItem";
+            this.atualizarCSOSNToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.atualizarCSOSNToolStripMenuItem.Text = "Atualizar CSOSN";
+            this.atualizarCSOSNToolStripMenuItem.Click += new System.EventHandler(this.atualizarCSOSNToolStripMenuItem_Click);
+            // 
             // relatóriosToolStripMenuItem
             // 
             this.relatóriosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -440,19 +447,12 @@
             // timerAtualizaCuponsFiscais
             // 
             this.timerAtualizaCuponsFiscais.Enabled = true;
-            this.timerAtualizaCuponsFiscais.Interval = 2000;
+            this.timerAtualizaCuponsFiscais.Interval = 500;
             this.timerAtualizaCuponsFiscais.Tick += new System.EventHandler(this.timerAtualizaCuponsFiscais_Tick);
             // 
             // backgroundWorkerAtualizarCupons
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
-            // 
-            // atualizarCSOSNToolStripMenuItem
-            // 
-            this.atualizarCSOSNToolStripMenuItem.Name = "atualizarCSOSNToolStripMenuItem";
-            this.atualizarCSOSNToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.atualizarCSOSNToolStripMenuItem.Text = "Atualizar CSOSN";
-            this.atualizarCSOSNToolStripMenuItem.Click += new System.EventHandler(this.atualizarCSOSNToolStripMenuItem_Click);
             // 
             // Principal
             // 
