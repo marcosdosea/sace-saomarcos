@@ -47,6 +47,7 @@ namespace Telas
                 NfeControle _nfeCurrent = (NfeControle)nfeControleBindingSource.Current;
                 NfeControle _nfeControle = GerenciadorNFe.GetInstance().Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
                 _nfeControle.JustificativaCancelamento = _nfeCurrent.JustificativaCancelamento;
+                _nfeControle.CodSaida = _nfeCurrent.CodSaida;
                 GerenciadorNFe.GetInstance().EnviarSolicitacaoCancelamento(_nfeControle);
             }
         }

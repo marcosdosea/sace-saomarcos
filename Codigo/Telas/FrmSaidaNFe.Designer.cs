@@ -41,6 +41,7 @@
             System.Windows.Forms.Label situacaoProtocoloCancelamentoLabel;
             System.Windows.Forms.Label situacaoProtocoloUsoLabel;
             System.Windows.Forms.Label situacaoReciboEnvioLabel;
+            System.Windows.Forms.Label dataEmissaoLabel;
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
@@ -64,6 +65,7 @@
             this.situacaoProtocoloCancelamentoTextBox = new System.Windows.Forms.TextBox();
             this.situacaoProtocoloUsoTextBox = new System.Windows.Forms.TextBox();
             this.situacaoReciboEnvioTextBox = new System.Windows.Forms.TextBox();
+            this.dataEmissaoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -76,6 +78,7 @@
             situacaoProtocoloCancelamentoLabel = new System.Windows.Forms.Label();
             situacaoProtocoloUsoLabel = new System.Windows.Forms.Label();
             situacaoReciboEnvioLabel = new System.Windows.Forms.Label();
+            dataEmissaoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -189,10 +192,19 @@
             situacaoReciboEnvioLabel.TabIndex = 40;
             situacaoReciboEnvioLabel.Text = "Situacao Recibo:";
             // 
+            // dataEmissaoLabel
+            // 
+            dataEmissaoLabel.AutoSize = true;
+            dataEmissaoLabel.Location = new System.Drawing.Point(272, 140);
+            dataEmissaoLabel.Name = "dataEmissaoLabel";
+            dataEmissaoLabel.Size = new System.Drawing.Size(75, 13);
+            dataEmissaoLabel.TabIndex = 41;
+            dataEmissaoLabel.Text = "Data Emissao:";
+            // 
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnImprimir.Location = new System.Drawing.Point(524, 400);
+            this.btnImprimir.Location = new System.Drawing.Point(605, 400);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(105, 26);
             this.btnImprimir.TabIndex = 10;
@@ -203,7 +215,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCancelar.Location = new System.Drawing.Point(418, 400);
+            this.btnCancelar.Location = new System.Drawing.Point(499, 400);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 26);
             this.btnCancelar.TabIndex = 6;
@@ -218,13 +230,13 @@
             this.observacaoTextBox.MaxLength = 165;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(734, 39);
+            this.observacaoTextBox.Size = new System.Drawing.Size(815, 39);
             this.observacaoTextBox.TabIndex = 16;
             // 
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnEnviar.Location = new System.Drawing.Point(312, 400);
+            this.btnEnviar.Location = new System.Drawing.Point(393, 400);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(105, 26);
             this.btnEnviar.TabIndex = 4;
@@ -249,7 +261,7 @@
             this.nfeControleDataGridView.Name = "nfeControleDataGridView";
             this.nfeControleDataGridView.ReadOnly = true;
             this.nfeControleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.nfeControleDataGridView.Size = new System.Drawing.Size(734, 114);
+            this.nfeControleDataGridView.Size = new System.Drawing.Size(815, 114);
             this.nfeControleDataGridView.TabIndex = 7;
             // 
             // dataGridViewTextBoxColumn1
@@ -295,7 +307,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnConsultar.Location = new System.Drawing.Point(205, 400);
+            this.btnConsultar.Location = new System.Drawing.Point(286, 400);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(105, 26);
             this.btnConsultar.TabIndex = 2;
@@ -306,7 +318,7 @@
             // btnFechar
             // 
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnFechar.Location = new System.Drawing.Point(633, 400);
+            this.btnFechar.Location = new System.Drawing.Point(714, 400);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(105, 26);
             this.btnFechar.TabIndex = 12;
@@ -316,49 +328,51 @@
             // 
             // justificativaCancelamentoTextBox1
             // 
+            this.justificativaCancelamentoTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.justificativaCancelamentoTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "JustificativaCancelamento", true));
+            this.justificativaCancelamentoTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 288);
             this.justificativaCancelamentoTextBox1.Multiline = true;
             this.justificativaCancelamentoTextBox1.Name = "justificativaCancelamentoTextBox1";
-            this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(734, 39);
+            this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(815, 39);
             this.justificativaCancelamentoTextBox1.TabIndex = 14;
             // 
             // mensagemSituacaoReciboEnvioTextBox
             // 
             this.mensagemSituacaoReciboEnvioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "MensagemSituacaoReciboEnvio", true));
-            this.mensagemSituacaoReciboEnvioTextBox.Enabled = false;
             this.mensagemSituacaoReciboEnvioTextBox.Location = new System.Drawing.Point(485, 167);
             this.mensagemSituacaoReciboEnvioTextBox.Name = "mensagemSituacaoReciboEnvioTextBox";
-            this.mensagemSituacaoReciboEnvioTextBox.Size = new System.Drawing.Size(253, 20);
+            this.mensagemSituacaoReciboEnvioTextBox.ReadOnly = true;
+            this.mensagemSituacaoReciboEnvioTextBox.Size = new System.Drawing.Size(334, 20);
             this.mensagemSituacaoReciboEnvioTextBox.TabIndex = 21;
             this.mensagemSituacaoReciboEnvioTextBox.TabStop = false;
             // 
             // mensagemSitucaoProtocoloCancelamentoTextBox
             // 
             this.mensagemSitucaoProtocoloCancelamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "MensagemSitucaoProtocoloCancelamento", true));
-            this.mensagemSitucaoProtocoloCancelamentoTextBox.Enabled = false;
             this.mensagemSitucaoProtocoloCancelamentoTextBox.Location = new System.Drawing.Point(485, 236);
             this.mensagemSitucaoProtocoloCancelamentoTextBox.Name = "mensagemSitucaoProtocoloCancelamentoTextBox";
-            this.mensagemSitucaoProtocoloCancelamentoTextBox.Size = new System.Drawing.Size(253, 20);
+            this.mensagemSitucaoProtocoloCancelamentoTextBox.ReadOnly = true;
+            this.mensagemSitucaoProtocoloCancelamentoTextBox.Size = new System.Drawing.Size(334, 20);
             this.mensagemSitucaoProtocoloCancelamentoTextBox.TabIndex = 23;
             this.mensagemSitucaoProtocoloCancelamentoTextBox.TabStop = false;
             // 
             // mensagemSitucaoProtocoloUsoTextBox
             // 
             this.mensagemSitucaoProtocoloUsoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "MensagemSitucaoProtocoloUso", true));
-            this.mensagemSitucaoProtocoloUsoTextBox.Enabled = false;
             this.mensagemSitucaoProtocoloUsoTextBox.Location = new System.Drawing.Point(485, 198);
             this.mensagemSitucaoProtocoloUsoTextBox.Name = "mensagemSitucaoProtocoloUsoTextBox";
-            this.mensagemSitucaoProtocoloUsoTextBox.Size = new System.Drawing.Size(253, 20);
+            this.mensagemSitucaoProtocoloUsoTextBox.ReadOnly = true;
+            this.mensagemSitucaoProtocoloUsoTextBox.Size = new System.Drawing.Size(334, 20);
             this.mensagemSitucaoProtocoloUsoTextBox.TabIndex = 25;
             this.mensagemSitucaoProtocoloUsoTextBox.TabStop = false;
             // 
             // numeroLoteEnvioTextBox
             // 
             this.numeroLoteEnvioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroLoteEnvio", true));
-            this.numeroLoteEnvioTextBox.Enabled = false;
             this.numeroLoteEnvioTextBox.Location = new System.Drawing.Point(101, 140);
             this.numeroLoteEnvioTextBox.Name = "numeroLoteEnvioTextBox";
+            this.numeroLoteEnvioTextBox.ReadOnly = true;
             this.numeroLoteEnvioTextBox.Size = new System.Drawing.Size(115, 20);
             this.numeroLoteEnvioTextBox.TabIndex = 27;
             this.numeroLoteEnvioTextBox.TabStop = false;
@@ -366,9 +380,9 @@
             // numeroProtocoloCancelamentoTextBox
             // 
             this.numeroProtocoloCancelamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroProtocoloCancelamento", true));
-            this.numeroProtocoloCancelamentoTextBox.Enabled = false;
             this.numeroProtocoloCancelamentoTextBox.Location = new System.Drawing.Point(101, 232);
             this.numeroProtocoloCancelamentoTextBox.Name = "numeroProtocoloCancelamentoTextBox";
+            this.numeroProtocoloCancelamentoTextBox.ReadOnly = true;
             this.numeroProtocoloCancelamentoTextBox.Size = new System.Drawing.Size(115, 20);
             this.numeroProtocoloCancelamentoTextBox.TabIndex = 29;
             this.numeroProtocoloCancelamentoTextBox.TabStop = false;
@@ -376,9 +390,9 @@
             // numeroProtocoloUsoTextBox
             // 
             this.numeroProtocoloUsoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroProtocoloUso", true));
-            this.numeroProtocoloUsoTextBox.Enabled = false;
             this.numeroProtocoloUsoTextBox.Location = new System.Drawing.Point(101, 198);
             this.numeroProtocoloUsoTextBox.Name = "numeroProtocoloUsoTextBox";
+            this.numeroProtocoloUsoTextBox.ReadOnly = true;
             this.numeroProtocoloUsoTextBox.Size = new System.Drawing.Size(115, 20);
             this.numeroProtocoloUsoTextBox.TabIndex = 31;
             this.numeroProtocoloUsoTextBox.TabStop = false;
@@ -386,9 +400,9 @@
             // numeroReciboTextBox
             // 
             this.numeroReciboTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroRecibo", true));
-            this.numeroReciboTextBox.Enabled = false;
             this.numeroReciboTextBox.Location = new System.Drawing.Point(101, 167);
             this.numeroReciboTextBox.Name = "numeroReciboTextBox";
+            this.numeroReciboTextBox.ReadOnly = true;
             this.numeroReciboTextBox.Size = new System.Drawing.Size(115, 20);
             this.numeroReciboTextBox.TabIndex = 33;
             this.numeroReciboTextBox.TabStop = false;
@@ -396,9 +410,9 @@
             // situacaoProtocoloCancelamentoTextBox
             // 
             this.situacaoProtocoloCancelamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SituacaoProtocoloCancelamento", true));
-            this.situacaoProtocoloCancelamentoTextBox.Enabled = false;
             this.situacaoProtocoloCancelamentoTextBox.Location = new System.Drawing.Point(353, 232);
             this.situacaoProtocoloCancelamentoTextBox.Name = "situacaoProtocoloCancelamentoTextBox";
+            this.situacaoProtocoloCancelamentoTextBox.ReadOnly = true;
             this.situacaoProtocoloCancelamentoTextBox.Size = new System.Drawing.Size(58, 20);
             this.situacaoProtocoloCancelamentoTextBox.TabIndex = 37;
             this.situacaoProtocoloCancelamentoTextBox.TabStop = false;
@@ -406,9 +420,9 @@
             // situacaoProtocoloUsoTextBox
             // 
             this.situacaoProtocoloUsoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SituacaoProtocoloUso", true));
-            this.situacaoProtocoloUsoTextBox.Enabled = false;
             this.situacaoProtocoloUsoTextBox.Location = new System.Drawing.Point(353, 198);
             this.situacaoProtocoloUsoTextBox.Name = "situacaoProtocoloUsoTextBox";
+            this.situacaoProtocoloUsoTextBox.ReadOnly = true;
             this.situacaoProtocoloUsoTextBox.Size = new System.Drawing.Size(58, 20);
             this.situacaoProtocoloUsoTextBox.TabIndex = 39;
             this.situacaoProtocoloUsoTextBox.TabStop = false;
@@ -416,20 +430,33 @@
             // situacaoReciboEnvioTextBox
             // 
             this.situacaoReciboEnvioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SituacaoReciboEnvio", true));
-            this.situacaoReciboEnvioTextBox.Enabled = false;
             this.situacaoReciboEnvioTextBox.Location = new System.Drawing.Point(353, 167);
             this.situacaoReciboEnvioTextBox.Name = "situacaoReciboEnvioTextBox";
+            this.situacaoReciboEnvioTextBox.ReadOnly = true;
             this.situacaoReciboEnvioTextBox.Size = new System.Drawing.Size(58, 20);
             this.situacaoReciboEnvioTextBox.TabIndex = 41;
             this.situacaoReciboEnvioTextBox.TabStop = false;
+            // 
+            // dataEmissaoDateTimePicker
+            // 
+            this.dataEmissaoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.nfeControleBindingSource, "DataEmissao", true));
+            this.dataEmissaoDateTimePicker.Enabled = false;
+            this.dataEmissaoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dataEmissaoDateTimePicker.Location = new System.Drawing.Point(353, 137);
+            this.dataEmissaoDateTimePicker.Name = "dataEmissaoDateTimePicker";
+            this.dataEmissaoDateTimePicker.Size = new System.Drawing.Size(82, 20);
+            this.dataEmissaoDateTimePicker.TabIndex = 42;
+            this.dataEmissaoDateTimePicker.TabStop = false;
             // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 432);
+            this.ClientSize = new System.Drawing.Size(831, 431);
             this.ControlBox = false;
+            this.Controls.Add(dataEmissaoLabel);
+            this.Controls.Add(this.dataEmissaoDateTimePicker);
             this.Controls.Add(justificativaCancelamentoLabel1);
             this.Controls.Add(this.justificativaCancelamentoTextBox1);
             this.Controls.Add(mensagemSituacaoReciboEnvioLabel);
@@ -440,7 +467,6 @@
             this.Controls.Add(this.mensagemSitucaoProtocoloUsoTextBox);
             this.Controls.Add(numeroLoteEnvioLabel);
             this.Controls.Add(this.numeroLoteEnvioTextBox);
-            this.Controls.Add(numeroProtocoloCancelamentoLabel);
             this.Controls.Add(this.numeroProtocoloCancelamentoTextBox);
             this.Controls.Add(numeroProtocoloUsoLabel);
             this.Controls.Add(this.numeroProtocoloUsoTextBox);
@@ -460,6 +486,7 @@
             this.Controls.Add(this.observacaoTextBox);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnImprimir);
+            this.Controls.Add(numeroProtocoloCancelamentoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -501,5 +528,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
+        private System.Windows.Forms.DateTimePicker dataEmissaoDateTimePicker;
     }
 }

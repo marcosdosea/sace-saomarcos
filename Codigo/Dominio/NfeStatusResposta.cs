@@ -18,5 +18,8 @@ namespace Dominio
         public const string NFE108_SERVICO_PARADO_CURTO_PRAZO = "108";
         public const string NFE109_SERVICO_PARADO_SEM_PREVISAO = "109";
         public const string NFE110_USO_DENEGADO = "110";
+        public const string NFE128_LOTE_EVENTO_PROCESSADO = "128";
+        public const string NFE135_EVENTO_REGISTRADO_VINCULADO_NFE = "135";
+        public const string NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE = "136";
     }
 }

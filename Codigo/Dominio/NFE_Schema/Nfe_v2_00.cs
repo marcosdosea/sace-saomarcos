@@ -10212,6 +10212,8 @@ public enum TNFeInfNFeDetProdVeicProdTpRest {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
 public partial class TNFeInfNFeDetImposto {
     
+    private string vTotTribField;
+    
     private object[] itemsField;
     
     private TNFeInfNFeDetImpostoPIS pISField;
@@ -10221,6 +10223,16 @@ public partial class TNFeInfNFeDetImposto {
     private TNFeInfNFeDetImpostoCOFINS cOFINSField;
     
     private TNFeInfNFeDetImpostoCOFINSST cOFINSSTField;
+    
+    /// <remarks/>
+    public string vTotTrib {
+        get {
+            return this.vTotTribField;
+        }
+        set {
+            this.vTotTribField = value;
+        }
+    }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ICMS", typeof(TNFeInfNFeDetImpostoICMS))]
@@ -15080,6 +15092,8 @@ public partial class TNFeInfNFeTotalICMSTot {
     
     private string vNFField;
     
+    private string vTotTribField;
+    
     /// <remarks/>
     public string vBC {
         get {
@@ -15217,6 +15231,16 @@ public partial class TNFeInfNFeTotalICMSTot {
         }
         set {
             this.vNFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTotTrib {
+        get {
+            return this.vTotTribField;
+        }
+        set {
+            this.vTotTribField = value;
         }
     }
 }
@@ -18714,6 +18738,7 @@ public partial class TProcEvento {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("evento", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
 public partial class TEvento {
     
     private TEventoInfEvento infEventoField;
@@ -19865,6 +19890,162 @@ public partial class TRetInutNFeInfInut {
         }
         set {
             this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("envEvento", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TEnvEvento {
+    
+    private string idLoteField;
+    
+    private TEvento[] eventoField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public string idLote {
+        get {
+            return this.idLoteField;
+        }
+        set {
+            this.idLoteField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("evento")]
+    public TEvento[] evento {
+        get {
+            return this.eventoField;
+        }
+        set {
+            this.eventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+[System.Xml.Serialization.XmlRootAttribute("retEnvEvento", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
+public partial class TRetEnvEvento {
+    
+    private string idLoteField;
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private TCOrgaoIBGE cOrgaoField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private TRetEvento[] retEventoField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public string idLote {
+        get {
+            return this.idLoteField;
+        }
+        set {
+            this.idLoteField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCOrgaoIBGE cOrgao {
+        get {
+            return this.cOrgaoField;
+        }
+        set {
+            this.cOrgaoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("retEvento")]
+    public TRetEvento[] retEvento {
+        get {
+            return this.retEventoField;
+        }
+        set {
+            this.retEventoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
         }
     }
 }
