@@ -5838,6 +5838,30 @@ namespace Dados
         private Nullable<global::System.DateTime> _dataEmissao;
         partial void OndataEmissaoChanging(Nullable<global::System.DateTime> value);
         partial void OndataEmissaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> dataCancelamento
+        {
+            get
+            {
+                return _dataCancelamento;
+            }
+            set
+            {
+                OndataCancelamentoChanging(value);
+                ReportPropertyChanging("dataCancelamento");
+                _dataCancelamento = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataCancelamento");
+                OndataCancelamentoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _dataCancelamento;
+        partial void OndataCancelamentoChanging(Nullable<global::System.DateTime> value);
+        partial void OndataCancelamentoChanged();
 
         #endregion
 

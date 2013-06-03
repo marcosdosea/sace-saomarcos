@@ -72,5 +72,7 @@ namespace Dominio
         public string MensagemSitucaoProtocoloCancelamento { get; set; }
         public string JustificativaCancelamento { get; set; }
         public DateTime? DataEmissao { get; set; }
+
+        public DateTime? DataCancelamento { get; set; }
     }
 }

@@ -64,11 +64,11 @@ namespace Util
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String
-         AMBIENTE_NFE = "2", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
+         AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
          ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
          //ENDERECO_SERVIDOR = "c:\\",
-         ENDERECO_SERVIDOR_NFE = "c:\\",
+         ENDERECO_SERVIDOR_NFE = "\\\\retaguarda\\",
          PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
@@ -79,8 +79,8 @@ namespace Util
          PASTA_COMUNICACAO_NFE_AUTORIZADOS = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Enviado\\Autorizados\\",
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
-         //NOME_SERVIDOR = "SERVIDOR",
-         NOME_SERVIDOR = "MARCOSDOSEA",
+         NOME_SERVIDOR = "SERVIDOR",
+         //NOME_SERVIDOR = "MARCOSDOSEA",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",
          SGBD_SENHA = "sace",
@@ -92,7 +92,5 @@ namespace Util
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";
-
-         
     }
 }

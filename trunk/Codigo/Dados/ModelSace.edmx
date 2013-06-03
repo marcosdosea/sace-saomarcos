@@ -486,6 +486,7 @@
           <Property Name="mensagemSituacaoProtocoloCancelamento" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="justificativaCancelamento" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="dataEmissao" Type="datetime" />
+          <Property Name="dataCancelamento" Type="datetime" />
         </EntityType>
         <EntityType Name="tb_perfil">
           <Key>
@@ -2758,6 +2759,7 @@
           <Property Type="String" Name="justificativaCancelamento" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.tb_saida_nfe" FromRole="tb_nfe" ToRole="SaidaE" />
           <Property Type="DateTime" Name="dataEmissao" />
+          <Property Type="DateTime" Name="dataCancelamento" />
         </EntityType>
         <Association Name="tb_saida_nfe">
           <End Type="SaceModel.NfeE" Role="tb_nfe" Multiplicity="*" />
@@ -3284,6 +3286,7 @@
           <EntitySetMapping Name="NfeSet">
             <EntityTypeMapping TypeName="SaceModel.NfeE">
               <MappingFragment StoreEntitySet="tb_nfe">
+                <ScalarProperty Name="dataCancelamento" ColumnName="dataCancelamento" />
                 <ScalarProperty Name="dataEmissao" ColumnName="dataEmissao" />
                 <ScalarProperty Name="justificativaCancelamento" ColumnName="justificativaCancelamento" />
                 <ScalarProperty Name="mensagemSituacaoProtocoloCancelamento" ColumnName="mensagemSituacaoProtocoloCancelamento" />

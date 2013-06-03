@@ -147,7 +147,8 @@ namespace Negocio
                             SituacaoProtocoloCancelamento = nfe.situacaoProtocoloCancelamento,
                             SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
                             SituacaoReciboEnvio = nfe.situacaoReciboEnvio,
-                            DataEmissao = nfe.dataEmissao
+                            DataEmissao = nfe.dataEmissao,
+                            DataCancelamento = nfe.dataCancelamento
                         };
             return query;
         }
@@ -223,7 +224,8 @@ namespace Negocio
                             SituacaoProtocoloCancelamento = nfe.situacaoProtocoloCancelamento,
                             SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
                             SituacaoReciboEnvio = nfe.situacaoReciboEnvio,
-                            DataEmissao = nfe.dataEmissao
+                            DataEmissao = nfe.dataEmissao,
+                            DataCancelamento = nfe.dataCancelamento
                         };
             return query.ToList();
         }
@@ -244,6 +246,12 @@ namespace Negocio
             {
                 //Verifica se a saída já possui uma chave gerada e cuja nf-e não foi validada
                 IEnumerable<NfeControle> nfeControles = ObterPorSaida(saida.CodSaida);
+
+                if (nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
+                {
+                    throw new NegocioException("Uma NF-e já foi AUTORIZADA para esse pedido.");
+                }
+
                 IEnumerable<NfeControle> nfeControlesTentativasFalhas = nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) 
                     || nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)
                     || nfeC.SituacaoNfe.Equals(""));
@@ -629,6 +637,10 @@ namespace Negocio
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
                     dest.IE = destinatario.Ie;
                 }
+                else
+                {
+                    dest.IE = "";
+                }
                 nfe.infNFe.dest = dest;
                 dest.enderDest = enderDest;
 
@@ -854,6 +866,11 @@ namespace Negocio
             }
         }
 
+
+        /// <summary>
+        /// Envia solicitação de cancelamanto usando Eventos.
+        /// </summary>
+        /// <param name="nfeControle"></param>
         public void EnviarSolicitacaoCancelamento(NfeControle nfeControle)
         {
 
@@ -864,48 +881,67 @@ namespace Negocio
                     throw new NegocioException("É necessário adicionar uma justificativa para realizar o cancelamento da NF-e.");
                 }
 
-                
+                TEnvEvento envEvento = new TEnvEvento();
+                envEvento.idLote = nfeControle.CodNfe.ToString().PadLeft(15, '0');
+                envEvento.versao = "1.00";
+
                 TEvento evento = new TEvento();
                 evento.versao = TVerEvento.Item100;
                 
                 TEventoInfEvento infEvento = new TEventoInfEvento();
                 infEvento.chNFe = nfeControle.Chave;
                 infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
-                infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
-                infEvento.nSeqEvento = "1"; // carta correção pode haver mais de uma
                 infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                
+                if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
+                    infEvento.ItemElementName = ItemChoiceType9.CPF;
+                else
+                    infEvento.ItemElementName = ItemChoiceType9.CNPJ;
+                infEvento.Item = pessoa.CpfCnpj;
+                infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
                 infEvento.tpEvento = "110111";
-                infEvento.verEvento = "2.00";
-                infEvento.detEvento = new TEventoInfEventoDetEvento();
-                //infEvento.detEvento.
+                infEvento.nSeqEvento = "1"; // carta correção pode haver mais de uma
+                infEvento.verEvento = "1.00";
+                infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
 
-                TCancNFe cancelamentoNfe = new TCancNFe();
-                TCancNFeInfCanc infCancelamento = new TCancNFeInfCanc();
-                infCancelamento.chNFe = nfeControle.Chave;
-                infCancelamento.Id = "ID" + nfeControle.Chave;
-                infCancelamento.nProt = nfeControle.NumeroProtocoloUso;
-                infCancelamento.tpAmb = 
-                //infCancelamento.xJust = nfeControle.JustificativaCancelamento;
-                //infCancelamento.xServ = TCancNFeInfCancXServ.CANCELAR;
-                //cancelamentoNfe.infCanc = infCancelamento;
-
-                MemoryStream memStream = new MemoryStream();
-                XmlSerializer serializer = new XmlSerializer(typeof(TCancNFe));
+                TEventoInfEventoDetEvento detEvento = new TEventoInfEventoDetEvento();
+                
+                XmlDocument xmlDoc = new XmlDocument();
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
 
                 ns.Add("", "http://www.portalfiscal.inf.br/nfe");
-                serializer.Serialize(memStream, cancelamentoNfe, ns);
+                
+                XmlAttribute[] atributos = new XmlAttribute[1];
+                atributos[0] = xmlDoc.CreateAttribute("versao");
+                atributos[0].Value = "1.00";
+                detEvento.AnyAttr = atributos;
+                
+                XmlElement[] elementos = new XmlElement[3];
+                elementos[0] =xmlDoc.CreateElement("descEvento", "http://www.portalfiscal.inf.br/nfe");
+                elementos[0].InnerText= "Cancelamento";
+                elementos[1] = xmlDoc.CreateElement("nProt", "http://www.portalfiscal.inf.br/nfe");
+                elementos[1].InnerText = nfeControle.NumeroProtocoloUso;
+                elementos[2] = xmlDoc.CreateElement("xJust", "http://www.portalfiscal.inf.br/nfe");
+                elementos[2].InnerText = nfeControle.JustificativaCancelamento;
+                detEvento.Any = elementos;
+                
+                infEvento.detEvento = detEvento;
+                evento.infEvento = infEvento;
+                envEvento.evento = new TEvento[1]{ evento };
 
-
+                MemoryStream memStream = new MemoryStream();
+                XmlSerializer serializer = new XmlSerializer(typeof(TEnvEvento));
+                serializer.Serialize(memStream, envEvento, ns);
                 memStream.Position = 0;
-                XmlDocument xmlDoc = new XmlDocument();
+                //XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(memStream);
+
                 xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-env-canc.xml");
                 xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-env-canc.xml");
 
-                //nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
                 Atualizar(nfeControle);
-
             }
             catch (NegocioException ne)
             {
@@ -913,10 +949,14 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw new NegocioException("Problemas na geração do arquivo da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+                throw new NegocioException("Problemas na geração do arquivo de cancelamento da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
             }
         }
 
+        /// <summary>
+        /// REtorna o resultado do pedido de cancelamento da NF-e
+        /// </summary>
+        /// <returns></returns>
         public string RecuperarResultadoCancelamentoNfe()
         {
             DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
@@ -924,20 +964,21 @@ namespace Negocio
             if (Dir.Exists)
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
-                string arquivoRetornoReciboNfe = "*-can.*";
+                string arquivoRetornoReciboNfe = "*-ret-env-canc.*";
                 FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < files.Length; i++)
                 {
                     // apenas exclui o arquivo texto que não será utilizado  
-                    if (files[i].Name.Contains("-can.txt"))
+                    if (files[i].Name.Contains("-ret-env-canc.txt"))
                     {
                         files[i].Delete();
-                    } else if (files[i].Name.Contains("-can.err"))
+                    }
+                    else if (files[i].Name.Contains("-ret-env-canc.err"))
                     {
                         files[i].Delete();
                         string chave = files[i].Name.Substring(0, 44);
                         NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
-                        nfeControle.MensagemSitucaoProtocoloCancelamento = "O cancelamento da nota não foi realizado/autorizado.";
+                        nfeControle.MensagemSitucaoProtocoloCancelamento = "Cancelamento NÃO REALIZADO";
                         Atualizar(nfeControle);
                     }
                     else
@@ -950,17 +991,147 @@ namespace Negocio
                         NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
                         if (nfeControle != null)
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof(TRetCancNFe));
-                            TRetCancNFe retornoCancNfe = (TRetCancNFe)serializer.Deserialize(xmlReaderRetorno);
-                            if (retornoCancNfe.infCanc.cStat.Equals(NfeStatusResposta.NFE101_CANCELAMENTO_NFE_HOMOLOGADO))
+                            XmlSerializer serializer = new XmlSerializer(typeof(TRetEnvEvento));
+                            TRetEnvEvento retEventoCancelamento = (TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
+                            if (retEventoCancelamento.cStat.Equals(NfeStatusResposta.NFE128_LOTE_EVENTO_PROCESSADO))
                             {
-                                nfeControle.NumeroProtocoloCancelamento = retornoCancNfe.infCanc.nProt;
-                                nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
+                                TRetEventoInfEvento retornoEvento = retEventoCancelamento.retEvento[0].infEvento;
+                                if (retornoEvento.cStat.Equals(NfeStatusResposta.NFE135_EVENTO_REGISTRADO_VINCULADO_NFE) ||
+                                    retornoEvento.cStat.Equals(NfeStatusResposta.NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE))
+                                {
+                                    nfeControle.NumeroProtocoloCancelamento = retornoEvento.nProt;
+                                    nfeControle.DataCancelamento = Convert.ToDateTime(retornoEvento.dhRegEvento);
+                                    nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
+                                }
+                                nfeControle.SituacaoProtocoloCancelamento = retornoEvento.cStat;
+                                nfeControle.MensagemSitucaoProtocoloCancelamento = retornoEvento.xMotivo;
+                                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                                files[i].Delete();    
                             }
-                            nfeControle.SituacaoProtocoloCancelamento = retornoCancNfe.infCanc.cStat;
-                            nfeControle.MensagemSitucaoProtocoloCancelamento = retornoCancNfe.infCanc.xMotivo;
-                            GerenciadorNFe.GetInstance().Atualizar(nfeControle);
-                            files[0].Delete();
+                        }
+                    }
+                }
+            }
+            return numeroProtocolo;
+        }
+
+        /// <summary>
+        /// Envia solicitação de inutilização de numeração de nf-e
+        /// </summary>
+        /// <param name="nfeControle"></param>
+        public void EnviarSolicitacaoInutilizacao(NfeControle nfeControle)
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(nfeControle.JustificativaCancelamento))
+                {
+                    throw new NegocioException("É necessário adicionar uma justificativa para realizar a inutilização da NF-e.");
+                }
+
+                TInutNFe inutilizacaoNfe = new TInutNFe();
+                inutilizacaoNfe.versao = "2.00";
+
+                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
+
+                TInutNFeInfInut infInutilizacaoNfe = new TInutNFeInfInut();
+                infInutilizacaoNfe.ano = DateTime.Now.Year.ToString();
+                infInutilizacaoNfe.CNPJ = pessoa.CpfCnpj;
+                infInutilizacaoNfe.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
+                infInutilizacaoNfe.mod = TMod.Item55;
+                infInutilizacaoNfe.nNFFin = nfeControle.CodNfe.ToString();
+                infInutilizacaoNfe.nNFIni = nfeControle.CodNfe.ToString();
+                infInutilizacaoNfe.serie = "1";
+                infInutilizacaoNfe.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                infInutilizacaoNfe.xJust = nfeControle.JustificativaCancelamento;
+                infInutilizacaoNfe.xServ = TInutNFeInfInutXServ.INUTILIZAR;
+                infInutilizacaoNfe.Id = "ID" + Global.C_ORGAO_IBGE_SERGIPE + infInutilizacaoNfe.ano.Substring(2, 2) +
+                    infInutilizacaoNfe.CNPJ + "55" + "001" + infInutilizacaoNfe.nNFIni.PadLeft(9, '0') + infInutilizacaoNfe.nNFFin.PadLeft(9, '0');
+                
+                inutilizacaoNfe.infInut = infInutilizacaoNfe;
+                
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+
+                MemoryStream memStream = new MemoryStream();
+                XmlSerializer serializer = new XmlSerializer(typeof(TInutNFe));
+                serializer.Serialize(memStream, inutilizacaoNfe, ns);
+                memStream.Position = 0;
+                xmlDoc.Load(memStream);
+
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + infInutilizacaoNfe.Id.Substring(2) + "-ped-inu.xml");
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + infInutilizacaoNfe.Id.Substring(2) + "-ped-inu.xml");
+
+                Atualizar(nfeControle);
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException("Problemas na geração do arquivo de cancelamento da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+            }
+        }
+
+        /// <summary>
+        /// REtorna o resultado do pedido de cancelamento da NF-e
+        /// </summary>
+        /// <returns></returns>
+        public string RecuperarResultadoInutilizacaoNfe()
+        {
+            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            string numeroProtocolo = "";
+            if (Dir.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                string arquivoRetornoReciboNfe = "*-inu.*";
+                FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    // apenas exclui o arquivo texto que não será utilizado  
+                    if (files[i].Name.Contains("-inu.txt"))
+                    {
+                        files[i].Delete();
+                    }
+                    else if (files[i].Name.Contains("-inu.err"))
+                    {
+                        files[i].Delete();
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        nfeControle.MensagemSitucaoProtocoloCancelamento = "Cancelamento NÃO REALIZADO";
+                        Atualizar(nfeControle);
+                    }
+                    else
+                    {
+                        XmlDocument xmldocRetorno = new XmlDocument();
+                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        if (nfeControle != null)
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(TRetEnvEvento));
+                            TRetEnvEvento retEventoCancelamento = (TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
+                            if (retEventoCancelamento.cStat.Equals(NfeStatusResposta.NFE128_LOTE_EVENTO_PROCESSADO))
+                            {
+                                TRetEventoInfEvento retornoEvento = retEventoCancelamento.retEvento[0].infEvento;
+                                if (retornoEvento.cStat.Equals(NfeStatusResposta.NFE135_EVENTO_REGISTRADO_VINCULADO_NFE) ||
+                                    retornoEvento.cStat.Equals(NfeStatusResposta.NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE))
+                                {
+                                    nfeControle.NumeroProtocoloCancelamento = retornoEvento.nProt;
+                                    nfeControle.DataCancelamento = Convert.ToDateTime(retornoEvento.dhRegEvento);
+                                    nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
+                                }
+                                nfeControle.SituacaoProtocoloCancelamento = retornoEvento.cStat;
+                                nfeControle.MensagemSitucaoProtocoloCancelamento = retornoEvento.xMotivo;
+                                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                                files[i].Delete();
+                            }
                         }
                     }
                 }
@@ -1021,6 +1192,7 @@ namespace Negocio
             _nfe.situacaoProtocoloUso = nfe.SituacaoProtocoloUso;
             _nfe.situacaoReciboEnvio = nfe.SituacaoReciboEnvio;
             _nfe.dataEmissao = nfe.DataEmissao;
+            _nfe.dataCancelamento = nfe.DataCancelamento;
         }
 
         private string truncate(string texto, int tamanho)
