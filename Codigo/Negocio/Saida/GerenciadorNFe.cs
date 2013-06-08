@@ -571,15 +571,19 @@ namespace Negocio
                 infNFeIde.tpImp = TNFeInfNFeIdeTpImp.Item1; // 1-Retratro / 2-Paisagem
                 infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item1; // 0 - entrada / 1 - saída de produtos
                 infNFeIde.verProc = "SACE 2.0.1"; //versão do aplicativo de emissão de nf-e   
-                TNFeInfNFeIdeNFrefRefECF refEcf = new TNFeInfNFeIdeNFrefRefECF();
-                refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;
-                refEcf.nCOO = saida.CupomFiscal;
-                refEcf.nECF = saida.NumeroECF;
-                TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
-                nfRef.ItemElementName = ItemChoiceType1.refECF;
-                nfRef.Item = refEcf;
-                infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
-                infNFeIde.NFref[0] = nfRef;
+
+                if (saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                {
+                    TNFeInfNFeIdeNFrefRefECF refEcf = new TNFeInfNFeIdeNFrefRefECF();
+                    refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;
+                    refEcf.nCOO = saida.CupomFiscal;
+                    refEcf.nECF = saida.NumeroECF;
+                    TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
+                    nfRef.ItemElementName = ItemChoiceType1.refECF;
+                    nfRef.Item = refEcf;
+                    infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
+                    infNFeIde.NFref[0] = nfRef;
+                }
 
                 nfe.infNFe.ide = infNFeIde;
 
@@ -714,7 +718,8 @@ namespace Negocio
                         prod.qCom = formataValorNFe(saidaProduto.Quantidade);
                         prod.vUnCom = formataValorNFe(saidaProduto.ValorVenda);
                         prod.vProd = formataValorNFe(saidaProduto.Subtotal);
-                        prod.vDesc = formataValorNFe(saidaProduto.Subtotal * fatorDesconto);
+                        if (fatorDesconto > 0)
+                            prod.vDesc = formataValorNFe(saidaProduto.Subtotal * fatorDesconto);
                         prod.uTrib = produto.Unidade;
                         prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
                         prod.vUnTrib = formataValorNFe(saidaProduto.ValorVenda);
@@ -726,6 +731,14 @@ namespace Negocio
                         {
                             TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                             icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item102;
+                            icms102.orig = Torig.Item0;
+
+                            icms.Item = icms102;
+                        }
+                        else if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                        {
+                            TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
+                            icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
                             icms102.orig = Torig.Item0;
 
                             icms.Item = icms102;
@@ -780,7 +793,7 @@ namespace Negocio
                 nfe.infNFe.det = listaNFeDet.ToArray();
 
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
-                if (saida.TipoSaida == Saida.TIPO_VENDA)
+                if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO))
                 {
                     icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(0);
