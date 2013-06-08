@@ -73,8 +73,10 @@ namespace Telas
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 ObterSaidas(false);
                 saidaBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
+                Cursor.Current = Cursors.Default;
             }
             frmSaidaPesquisa.Dispose();
         }

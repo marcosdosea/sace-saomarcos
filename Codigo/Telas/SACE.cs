@@ -265,10 +265,6 @@ namespace Telas
             try
             {
                 backgroundWorkerAtualizarCupons.RunWorkerAsync();
-                GerenciadorNFe.GetInstance().RecuperarLoteEnvio();
-                GerenciadorNFe.GetInstance().RecuperarReciboEnvioNfe();
-                GerenciadorNFe.GetInstance().RecuperarResultadoProcessamentoNfe();
-                GerenciadorNFe.GetInstance().RecuperarResultadoCancelamentoNfe();
             }
             catch (Exception ex)
             {
@@ -279,6 +275,7 @@ namespace Telas
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
             GerenciadorSaida.GetInstance(null).AtualizarPedidosComDocumentosFiscais();
+            GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)
