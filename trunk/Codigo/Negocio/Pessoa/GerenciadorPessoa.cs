@@ -33,6 +33,7 @@ namespace Negocio
         {
             try
             {
+                ValidarCpfCnpj(pessoa);
                 var repPessoa = new RepositorioGenerico<PessoaE>();
 
                 if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
@@ -58,12 +59,27 @@ namespace Negocio
             }
         }
 
+        private static void ValidarCpfCnpj(Pessoa pessoa)
+        {
+            if (!string.IsNullOrEmpty(pessoa.CpfCnpj))
+            {
+                bool validouCpfCnpj = false;
+                if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
+                    validouCpfCnpj = Validacoes.ValidaCPF(pessoa.CpfCnpj);
+                else
+                    validouCpfCnpj = Validacoes.ValidaCNPJ(pessoa.CpfCnpj);
+                if (!validouCpfCnpj)
+                    throw new NegocioException("O cpf/cnpj do cliente está incorreto. Favor verificar numeracao.");
+            }
+        }
+
         /// <summary>
         /// Atualiza os dados de um pessoa
         /// </summary>
         /// <param name="pessoa"></param>
         public void Atualizar(Pessoa pessoa)
         {
+            ValidarCpfCnpj(pessoa);
             var repPessoa = new RepositorioGenerico<PessoaE>();
 
             if (pessoa.CodPessoa == Global.CLIENTE_PADRAO)

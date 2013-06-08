@@ -17,9 +17,12 @@ namespace Telas
         public Saida Saida { get; set; }
         private long codSaida;
 
+
         public FrmSaidaNFe(long codSaida)
         {
             InitializeComponent();
+            
+
             this.codSaida = codSaida;
             nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);

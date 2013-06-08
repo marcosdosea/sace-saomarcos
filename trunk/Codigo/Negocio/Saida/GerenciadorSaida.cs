@@ -1057,13 +1057,8 @@ namespace Negocio
         public Boolean AtualizarPedidosComDocumentosFiscais()
         {
             Boolean atualizou = false;
-            //DbTransaction transaction = null;
             try
             {
-                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                //    saceContext.Connection.Open();
-                //transaction = saceContext.Connection.BeginTransaction();
-
                 DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
                 string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
                 if (Dir.Exists && nomeComputador.Equals(Global.NOME_SERVIDOR))
