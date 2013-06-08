@@ -417,6 +417,7 @@
             // 
             // pessoaBindingSource
             // 
+            this.pessoaBindingSource.AllowNew = false;
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // codEntradaTextBox
@@ -543,8 +544,8 @@
             // 
             // codSituacaoComboBox
             // 
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodSituacao", true));
             this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "DescricaoSituacao", true));
+            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodSituacao", true));
             this.codSituacaoComboBox.DataSource = this.situacaoContaBindingSource;
             this.codSituacaoComboBox.DisplayMember = "Descricao";
             this.codSituacaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
