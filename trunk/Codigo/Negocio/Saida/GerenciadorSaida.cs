@@ -1413,7 +1413,7 @@ namespace Negocio
                 sbImprimir.AppendLineCenter(80, pessoaLoja.Nome);
                 sbImprimir.AppendLineCenter(80, pessoaLoja.Endereco + "                                     Fone: " + pessoaLoja.Fone1);
                 sbImprimir.AppendLine(Global.LINHA);
-
+                
                 Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
                 if (cliente.NomeFantasia.Length <= 40) 
                     sbImprimir.Append("Cliente: " + cliente.NomeFantasia);

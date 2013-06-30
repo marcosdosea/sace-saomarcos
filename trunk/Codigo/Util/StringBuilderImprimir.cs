@@ -32,6 +32,7 @@ namespace Util
             int inicioCentro = Convert.ToInt32((numeroColunas - linha.Length) / 2);
             texto.Append(' ', inicioCentro);
             texto.AppendLine(linha);
+            
             tamanhoLinha = 0;
             return texto;
         }
