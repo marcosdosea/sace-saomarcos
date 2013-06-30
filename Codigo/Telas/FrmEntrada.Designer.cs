@@ -1854,7 +1854,6 @@
         private System.Windows.Forms.BindingSource cstBindingSource;
         private System.Windows.Forms.TextBox descontoProdutoTextBox;
         private System.Windows.Forms.TextBox totalProdutosSTTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unidadeCompraDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaProdutoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn NomeProduto;

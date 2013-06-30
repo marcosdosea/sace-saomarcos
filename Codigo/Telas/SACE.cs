@@ -266,7 +266,7 @@ namespace Telas
             {
                 backgroundWorkerAtualizarCupons.RunWorkerAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
             }
@@ -290,6 +290,13 @@ namespace Telas
             FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(true);
             frmCSOSN.ShowDialog();
             frmCSOSN.Dispose();
+        }
+
+        private void dAVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Relatorios.Produtos.FrmDAV frmDav = new Relatorios.Produtos.FrmDAV();
+            frmDav.ShowDialog();
+            frmDav.Dispose();
         }
     }
 }

@@ -219,6 +219,59 @@ namespace Negocio
             return query.ToList();
         }
 
+        /// <summary>
+        /// Consulta para retornar dados dos produtos para relatório
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<SaidaProdutoRelatorio> GetQueryRelatorio()
+        {
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
+                        join saida in saceContext.SaidaSet on saidaProduto.codSaida equals saida.codSaida
+                        select new SaidaProdutoRelatorio
+                        {
+                            CodProduto = saidaProduto.codProduto,
+                            CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
+                            Desconto = (decimal)saidaProduto.desconto,
+                            Quantidade = (decimal)saidaProduto.quantidade,
+                            Nome = produto.nome,
+                            Subtotal = (decimal)saidaProduto.subtotal,
+                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
+                            Unidade = produto.unidade == null ? "UN" : produto.unidade,
+                            ValorVenda = (decimal)saidaProduto.valorVenda,
+                            TotalSaida = (decimal)saida.total,
+                            TotalSaidaAVista = (decimal) saida.totalAVista,
+                            Pedido = saida.pedidoGerado,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente
+                        };
+            return query;
+        }
+
+        /// <summary>
+        /// Obtém as saídas de produto para emissão de DAV
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <param name="codCST"></param>
+        /// <returns></returns>
+        public List<SaidaProdutoRelatorio> ObterPorSaidaRelatorio(Int64 codSaida)
+        {
+            return GetQueryRelatorio().Where(sp => sp.CodSaida == codSaida).ToList();
+        }
+
+
+        /// <summary>
+        /// Obtém as saídas de produto para emissão de DAV
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <param name="codCST"></param>
+        /// <returns></returns>
+        public List<SaidaProdutoRelatorio> ObterPorPedidoRelatorio(string codPedido)
+        {
+            return GetQueryRelatorio().Where(sp => sp.Pedido.Equals(codPedido)).ToList();
+        }
+
 
         /// <summary>
         /// Atribui entidade para entidade persistente

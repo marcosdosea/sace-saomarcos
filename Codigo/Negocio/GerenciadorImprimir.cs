@@ -71,7 +71,7 @@ namespace Negocio
                 contador++;
             }
             // Verifica se existe mais linhas para imprimir
-            if (linha != null)
+            if ((linha != null) || (contador >= linhasPorPagina))
                 e.HasMorePages = true;
             else
                 e.HasMorePages = false;
