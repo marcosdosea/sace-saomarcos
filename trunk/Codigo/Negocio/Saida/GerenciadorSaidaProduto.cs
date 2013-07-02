@@ -240,6 +240,7 @@ namespace Negocio
                             SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
                             Unidade = produto.unidade == null ? "UN" : produto.unidade,
                             ValorVenda = (decimal)saidaProduto.valorVenda,
+                            ValorVendaAVista = (decimal) (saidaProduto.subtotalAVista / saidaProduto.quantidade),
                             TotalSaida = (decimal)saida.total,
                             TotalSaidaAVista = (decimal) saida.totalAVista,
                             Pedido = saida.pedidoGerado,
@@ -255,23 +256,10 @@ namespace Negocio
         /// <param name="codSaida"></param>
         /// <param name="codCST"></param>
         /// <returns></returns>
-        public List<SaidaProdutoRelatorio> ObterPorSaidaRelatorio(Int64 codSaida)
+        public List<SaidaProdutoRelatorio> ObterPorSaidasRelatorio(List<long> listaCodSaida)
         {
-            return GetQueryRelatorio().Where(sp => sp.CodSaida == codSaida).ToList();
+            return GetQueryRelatorio().Where(sp => listaCodSaida.Contains(sp.CodSaida)).ToList();
         }
-
-
-        /// <summary>
-        /// Obtém as saídas de produto para emissão de DAV
-        /// </summary>
-        /// <param name="codSaida"></param>
-        /// <param name="codCST"></param>
-        /// <returns></returns>
-        public List<SaidaProdutoRelatorio> ObterPorPedidoRelatorio(string codPedido)
-        {
-            return GetQueryRelatorio().Where(sp => sp.Pedido.Equals(codPedido)).ToList();
-        }
-
 
         /// <summary>
         /// Atribui entidade para entidade persistente

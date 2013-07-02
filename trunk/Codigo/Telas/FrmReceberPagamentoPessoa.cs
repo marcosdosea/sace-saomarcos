@@ -39,6 +39,7 @@ namespace Telas
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             codCartaoComboBox.SelectedIndex = 1;
             habilitaBotoes(true);
         }
@@ -216,7 +217,7 @@ namespace Telas
             decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
             decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
 
-            FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto);
+            FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto, false);
             frmSaidaDAV.ShowDialog();
             frmSaidaDAV.Dispose();
         }
@@ -550,15 +551,20 @@ namespace Telas
             {
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
+                codCartaoComboBox.Visible = (formaPagamento != FormaPagamento.DEPOSITO);
+                
                 valorPagamentoTextBox.Enabled = (formaPagamento != FormaPagamento.CARTAO);
                 parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
+                codContaBancoComboBox.Visible = (formaPagamento == FormaPagamento.DEPOSITO);
+                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
+                
             }
         }
 
         private void codFormaPagamentoComboBox_Leave(object sender, EventArgs e)
         {
             int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
-            if ((formaPagamento != FormaPagamento.DINHEIRO) && (formaPagamento != FormaPagamento.CARTAO))
+            if ((formaPagamento != FormaPagamento.DINHEIRO) && (formaPagamento != FormaPagamento.CARTAO) && (formaPagamento != FormaPagamento.DEPOSITO))
             {
                 codFormaPagamentoComboBox.Focus();
                 throw new TelaException("Essa forma de pagamento não pode ser utilizada no recebimento de contas.");

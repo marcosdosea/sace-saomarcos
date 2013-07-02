@@ -15,6 +15,7 @@ namespace Dominio
         public DateTime DataSaida { get; set; }
         public decimal Quantidade { get; set; }
         public decimal ValorVenda { get; set; }
+        public decimal ValorVendaAVista { get; set; }
         public decimal TotalSaida { get; set; }
         public decimal TotalSaidaAVista { get; set; }
         public decimal Desconto { get; set; }

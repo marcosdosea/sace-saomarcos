@@ -225,6 +225,12 @@
     <Compile Include="RamGec About Box1.Designer.cs">
       <DependentUpon>RamGec About Box1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Relatorios\Produtos\FrmDAVOrcamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Produtos\FrmDAVOrcamento.Designer.cs">
+      <DependentUpon>FrmDAVOrcamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Relatorios\Produtos\FrmDAV.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -524,6 +530,10 @@
     <EmbeddedResource Include="RamGec About Box1.resx">
       <DependentUpon>RamGec About Box1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produtos\FrmDAVOrcamento.resx">
+      <DependentUpon>FrmDAVOrcamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produtos\ReportDAVOrcamento.rdlc" />
     <EmbeddedResource Include="Relatorios\Produtos\FrmDAV.resx">
       <DependentUpon>FrmDAV.cs</DependentUpon>
     </EmbeddedResource>

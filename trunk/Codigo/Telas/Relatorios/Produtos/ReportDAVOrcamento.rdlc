@@ -129,6 +129,10 @@
     </DataSet>
     <DataSet Name="DataSetSaidaProdutoRelatorio">
       <Fields>
+        <Field Name="CodCliente">
+          <DataField>CodCliente</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
         <Field Name="CodProduto">
           <DataField>CodProduto</DataField>
           <rd:TypeName>System.Int64</rd:TypeName>
@@ -183,6 +187,10 @@
         </Field>
         <Field Name="ValorVenda">
           <DataField>ValorVenda</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ValorVendaAVista">
+          <DataField>ValorVendaAVista</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -323,19 +331,25 @@
               <Width>0.63086in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.52021in</Width>
+              <Width>2.92646in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.38179in</Width>
+              <Width>0.34137in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.60607in</Width>
+              <Width>0.49889in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.65596in</Width>
+              <Width>0.79675in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.71094in</Width>
+              <Width>0.76314in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.75589in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.73199in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -501,6 +515,43 @@ PRODUTO</Value>
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox3">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>VALOR UNIT
+PARCELADO</Value>
+                              <Style>
+                                <FontSize>8.5pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox3</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox11">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -508,8 +559,7 @@ PRODUTO</Value>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>VALOR 
-UNIT</Value>
+                              <Value>VALOR UNIT À VISTA</Value>
                               <Style>
                                 <FontSize>8.5pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -556,8 +606,72 @@ UNIT</Value>
                             <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>PARCELADO</Value>
+                              <Style>
+                                <FontSize>8.5pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox13</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox7">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>SUBTOTAL</Value>
+                              <Style>
+                                <FontSize>8.5pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>À VISTA</Value>
+                              <Style>
+                                <FontSize>8.5pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox7</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -711,7 +825,7 @@ UNIT</Value>
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="ValorVenda">
+                    <Textbox Name="ValorVenda1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -721,13 +835,51 @@ UNIT</Value>
                               <Value>=Fields!ValorVenda.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ValorVenda1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ValorVendaAVista">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ValorVendaAVista.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>ValorVenda</rd:DefaultName>
+                      <rd:DefaultName>ValorVendaAVista</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -753,6 +905,8 @@ UNIT</Value>
                               <Value>=Fields!Subtotal.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -760,6 +914,42 @@ UNIT</Value>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Subtotal</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="SubtotalAVista">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!SubtotalAVista.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>SubtotalAVista</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -785,141 +975,17 @@ UNIT</Value>
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
-            <TablixMember>
-              <TablixHeader>
-                <Size>0.93624in</Size>
-                <CellContents>
-                  <Textbox Name="Textbox69">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>SAÍDA</Value>
-                            <Style>
-                              <FontSize>8.5pt</FontSize>
-                              <FontWeight>Bold</FontWeight>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style />
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox69</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Color>LightGrey</Color>
-                        <Style>Solid</Style>
-                      </Border>
-                      <BackgroundColor>LightGrey</BackgroundColor>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
-              <TablixMembers>
-                <TablixMember />
-              </TablixMembers>
-            </TablixMember>
+            <TablixMember />
             <TablixMember>
               <TablixMembers>
                 <TablixMember>
-                  <Group Name="Group1">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!CodSaida.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!CodSaida.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
-                  <TablixHeader>
-                    <Size>0.93624in</Size>
-                    <CellContents>
-                      <Textbox Name="Group1">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>Código: </Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                              <TextRun>
-                                <Value>=Fields!CodSaida.Value</Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style />
-                          </Paragraph>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>Data: </Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                              <TextRun>
-                                <Value>=FormatDateTime(Fields!DataSaida.Value, DateFormat.ShortDate)</Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style />
-                          </Paragraph>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>CF: </Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                              <TextRun>
-                                <Value>=Fields!Pedido.Value</Value>
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style />
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Group1</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Color>LightGrey</Color>
-                            <Style>Solid</Style>
-                          </Border>
-                          <PaddingLeft>2pt</PaddingLeft>
-                          <PaddingRight>2pt</PaddingRight>
-                          <PaddingTop>2pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                  <TablixMembers>
-                    <TablixMember>
-                      <Group Name="Details" />
-                    </TablixMember>
-                  </TablixMembers>
+                  <Group Name="Details" />
                 </TablixMember>
               </TablixMembers>
             </TablixMember>
@@ -931,7 +997,7 @@ UNIT</Value>
         <DataSetName>DataSetSaidaProdutoRelatorio</DataSetName>
         <Top>0.0635cm</Top>
         <Height>1.50896cm</Height>
-        <Width>18.90286cm</Width>
+        <Width>18.91121cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -956,7 +1022,7 @@ UNIT</Value>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
-  <Width>19.02022cm</Width>
+  <Width>19.04668cm</Width>
   <Page>
     <PageHeader>
       <Height>5.27466cm</Height>
@@ -982,7 +1048,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Documento Auxiliar de Venda</Value>
+                  <Value>Documento Auxiliar de Venda - Orçamento</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1289,7 +1355,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Cupom Fiscal:</Value>
+                  <Value>Orçamento:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1299,7 +1365,7 @@ UNIT</Value>
                   <Style />
                 </TextRun>
                 <TextRun>
-                  <Value>=First(Fields!Pedido.Value, "DataSetSaidaProdutoRelatorio")</Value>
+                  <Value>=First(Fields!CodSaida.Value, "DataSetSaidaProdutoRelatorio")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1373,7 +1439,7 @@ UNIT</Value>
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.375cm</Height>
+      <Height>1.85125cm</Height>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Line Name="Line3">
@@ -1414,10 +1480,21 @@ UNIT</Value>
                 <TextAlign>Center</TextAlign>
               </Style>
             </Paragraph>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>PROPOSTA VÁLIDA POR 3 DIAS</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox284</rd:DefaultName>
           <Top>0.8255cm</Top>
-          <Height>0.49835cm</Height>
+          <Height>1.02575cm</Height>
           <Width>18.90286cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
@@ -1437,7 +1514,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Total:</Value>
+                  <Value>Total Parcelado:</Value>
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1530,7 +1607,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Total Pagar: </Value>
+                  <Value>Total à Vista: </Value>
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>

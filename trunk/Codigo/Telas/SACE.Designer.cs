@@ -73,7 +73,6 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
-            this.dAVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -334,8 +333,6 @@
             // 
             // ajudaToolStripMenuItem
             // 
-            this.ajudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dAVToolStripMenuItem});
             this.ajudaToolStripMenuItem.Name = "ajudaToolStripMenuItem";
             this.ajudaToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.ajudaToolStripMenuItem.Text = "&Ajuda";
@@ -457,13 +454,6 @@
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
             // 
-            // dAVToolStripMenuItem
-            // 
-            this.dAVToolStripMenuItem.Name = "dAVToolStripMenuItem";
-            this.dAVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dAVToolStripMenuItem.Text = "DAV";
-            this.dAVToolStripMenuItem.Click += new System.EventHandler(this.dAVToolStripMenuItem_Click);
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -543,7 +533,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem atualizarCSOSNToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dAVToolStripMenuItem;
 
     }
 }

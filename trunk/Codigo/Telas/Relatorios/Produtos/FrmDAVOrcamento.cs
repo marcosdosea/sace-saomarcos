@@ -12,7 +12,7 @@ using Microsoft.Reporting.WinForms;
 
 namespace Telas.Relatorios.Produtos
 {
-    public partial class FrmDAV : Form
+    public partial class FrmDAVOrcamento : Form
     {
         
         private List<long> listaCodSaidas;
@@ -22,7 +22,7 @@ namespace Telas.Relatorios.Produtos
 
 
 
-        public FrmDAV(List<long> listaCodSaidas, decimal total, decimal totalPagar, decimal desconto)
+        public FrmDAVOrcamento(List<long> listaCodSaidas, decimal total, decimal totalPagar, decimal desconto)
         {
             InitializeComponent();
             this.listaCodSaidas = listaCodSaidas;
