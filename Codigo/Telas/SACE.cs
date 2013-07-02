@@ -292,11 +292,5 @@ namespace Telas
             frmCSOSN.Dispose();
         }
 
-        private void dAVToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Relatorios.Produtos.FrmDAV frmDav = new Relatorios.Produtos.FrmDAV();
-            frmDav.ShowDialog();
-            frmDav.Dispose();
-        }
     }
 }

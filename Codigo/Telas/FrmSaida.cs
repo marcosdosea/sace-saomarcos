@@ -571,8 +571,9 @@ namespace Telas
             decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
             decimal desconto = (1 - (totalAVista / total)) * 100;
             long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
-            
-            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>(){codSaida} , total, totalAVista, desconto);
+            bool ehOrcamento = ((Saida) saidaBindingSource.Current).TipoSaida == Saida.TIPO_ORCAMENTO;
+           
+            FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>(){codSaida} , total, totalAVista, desconto, ehOrcamento);
             frmSaidaDav.ShowDialog();
             frmSaidaDav.Dispose();
         }
