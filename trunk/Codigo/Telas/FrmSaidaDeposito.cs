@@ -43,7 +43,7 @@ namespace Telas
             GerenciadorSaida.GetInstance(null).Atualizar(saida);
             if (MessageBox.Show("Confirma transferência para depósito?", "Confirmar Transferência", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_SAIDA_DEPOSITO);
+                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_SAIDA_DEPOSITO, null);
 
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();

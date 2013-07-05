@@ -207,7 +207,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaidaPagamento"></param>
         /// <returns></returns>
-        public IEnumerable<SaidaPagamento> Obter(long codSaidaPagamento)
+        public List<SaidaPagamento> Obter(long codSaidaPagamento)
         {
             return GetQuery().Where(sp => sp.CodSaidaPagamento == codSaidaPagamento).ToList();
         }
@@ -217,7 +217,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaidaPagamento"></param>
         /// <returns></returns>
-        public IEnumerable<SaidaPagamento> ObterPorSaida(long codSaida)
+        public List<SaidaPagamento> ObterPorSaida(long codSaida)
         {
             return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
         }
@@ -228,7 +228,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaidaPagamento"></param>
         /// <returns></returns>
-        public IEnumerable<SaidaPagamento> ObterPorSaidas(List<long> listaCodSaidas)
+        public List<SaidaPagamento> ObterPorSaidas(List<long> listaCodSaidas)
         {
             return GetQuery().Where(sp => listaCodSaidas.Contains(sp.CodSaida)).ToList();
         }
@@ -238,7 +238,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaidaPagamento"></param>
         /// <returns></returns>
-        public IEnumerable<SaidaPagamento> ObterPorSaidaFormaPagamento(long codSaida, int codFormaPagamento)
+        public List<SaidaPagamento> ObterPorSaidaFormaPagamento(long codSaida, int codFormaPagamento)
         {
             return GetQuery().Where(sp => sp.CodSaida == codSaida && sp.CodFormaPagamento == codFormaPagamento).ToList();
         }

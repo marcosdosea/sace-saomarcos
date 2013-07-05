@@ -575,7 +575,7 @@ UNIT</Value>
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.23622in</Height>
+              <Height>0.19455in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -925,12 +925,14 @@ UNIT</Value>
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <RepeatRowHeaders>true</RepeatRowHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
-        <KeepTogether>true</KeepTogether>
+        <FixedRowHeaders>true</FixedRowHeaders>
         <DataSetName>DataSetSaidaProdutoRelatorio</DataSetName>
+        <PageBreak>
+          <BreakLocation>End</BreakLocation>
+        </PageBreak>
         <Top>0.0635cm</Top>
-        <Height>1.50896cm</Height>
+        <Height>1.40313cm</Height>
         <Width>18.90286cm</Width>
         <Style>
           <Border>
@@ -939,7 +941,7 @@ UNIT</Value>
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.61684cm</Height>
+    <Height>1.46663cm</Height>
     <Style />
   </Body>
   <ReportParameters>
@@ -956,10 +958,10 @@ UNIT</Value>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
-  <Width>19.02022cm</Width>
+  <Width>18.95743cm</Width>
   <Page>
     <PageHeader>
-      <Height>5.27466cm</Height>
+      <Height>5.45987cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -967,8 +969,10 @@ UNIT</Value>
           <Source>Embedded</Source>
           <Value>MARCA2</Value>
           <Sizing>FitProportional</Sizing>
-          <Height>2.61965cm</Height>
-          <Width>4.41042cm</Width>
+          <Top>1.74625cm</Top>
+          <Left>0.05292cm</Left>
+          <Height>2.30215cm</Height>
+          <Width>4.19875cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -982,7 +986,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Documento Auxiliar de Venda</Value>
+                  <Value>DOCUMENTO AUXILIAR DE VENDA - PEDIDO</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -994,10 +998,10 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox20</rd:DefaultName>
-          <Top>1.97286cm</Top>
-          <Left>4.75112cm</Left>
+          <Top>0.03175cm</Top>
+          <Left>0.08467cm</Left>
           <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Width>18.81819cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1010,7 +1014,8 @@ UNIT</Value>
           </Style>
         </Textbox>
         <Line Name="Line2">
-          <Top>2.66904cm</Top>
+          <Top>1.68275cm</Top>
+          <Left>0.08467cm</Left>
           <Height>0cm</Height>
           <Width>18.80855cm</Width>
           <ZIndex>2</ZIndex>
@@ -1045,9 +1050,9 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>3.86848cm</Top>
+          <Top>4.12248cm</Top>
           <Height>0.6cm</Height>
-          <Width>12.73314cm</Width>
+          <Width>13.42106cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -1066,7 +1071,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>CPF/CNPJ:</Value>
+                  <Value>Documento:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1076,7 +1081,7 @@ UNIT</Value>
                   <Style />
                 </TextRun>
                 <TextRun>
-                  <Value>=First(Fields!CpfCnpj.Value, "DataSetCliente")</Value>
+                  <Value>=First(Fields!CodSaida.Value, "DataSetSaidaProdutoRelatorio")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1084,9 +1089,9 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox22</rd:DefaultName>
-          <Top>4.53904cm</Top>
+          <Top>4.79304cm</Top>
           <Height>0.6cm</Height>
-          <Width>12.73314cm</Width>
+          <Width>6.86786cm</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -1118,9 +1123,10 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Nome2</rd:DefaultName>
-          <Left>4.75112cm</Left>
-          <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Top>1.8415cm</Top>
+          <Left>4.59237cm</Left>
+          <Height>0.81167cm</Height>
+          <Width>14.30085cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -1158,6 +1164,24 @@ UNIT</Value>
                   <Value>=First(Fields!Bairro.Value, "DataSetPessoaLoja")</Value>
                   <Style />
                 </TextRun>
+                <TextRun>
+                  <Value xml:space="preserve">       </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>CNPJ</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>: </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CpfCnpj.Value, "DataSetPessoaLoja")</Value>
+                  <Style />
+                </TextRun>
               </TextRuns>
               <Style>
                 <TextAlign>Center</TextAlign>
@@ -1165,10 +1189,10 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Endereco</rd:DefaultName>
-          <Top>0.67056cm</Top>
-          <Left>4.75112cm</Left>
+          <Top>2.73203cm</Top>
+          <Left>4.59237cm</Left>
           <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Width>14.30085cm</Width>
           <ZIndex>6</ZIndex>
           <Style>
             <Border>
@@ -1201,7 +1225,7 @@ UNIT</Value>
                   <Style />
                 </TextRun>
                 <TextRun>
-                  <Value xml:space="preserve">                                           </Value>
+                  <Value xml:space="preserve">          </Value>
                   <Style />
                 </TextRun>
                 <TextRun>
@@ -1225,10 +1249,10 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Endereco</rd:DefaultName>
-          <Top>1.33758cm</Top>
-          <Left>4.75112cm</Left>
+          <Top>3.43786cm</Top>
+          <Left>4.58402cm</Left>
           <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Width>14.3092cm</Width>
           <ZIndex>7</ZIndex>
           <Style>
             <Border>
@@ -1267,10 +1291,10 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>3.86397cm</Top>
-          <Left>12.93153cm</Left>
+          <Top>4.78852cm</Top>
+          <Left>13.50667cm</Left>
           <Height>0.6cm</Height>
-          <Width>5.1396cm</Width>
+          <Width>5.38655cm</Width>
           <ZIndex>8</ZIndex>
           <Style>
             <Border>
@@ -1289,7 +1313,7 @@ UNIT</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Cupom Fiscal:</Value>
+                  <Value>Documento Fiscal:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1307,10 +1331,10 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>4.56247cm</Top>
-          <Left>12.96129cm</Left>
+          <Top>4.78852cm</Top>
+          <Left>6.93842cm</Left>
           <Height>0.6cm</Height>
-          <Width>5.1396cm</Width>
+          <Width>6.48264cm</Width>
           <ZIndex>9</ZIndex>
           <Style>
             <Border>
@@ -1339,9 +1363,9 @@ UNIT</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox285</rd:DefaultName>
-          <Top>2.71674cm</Top>
+          <Top>0.70591cm</Top>
           <Left>0.09431cm</Left>
-          <Height>0.97042cm</Height>
+          <Height>0.93098cm</Height>
           <Width>18.80855cm</Width>
           <ZIndex>10</ZIndex>
           <Style>
@@ -1355,9 +1379,9 @@ UNIT</Value>
           </Style>
         </Textbox>
         <Line Name="Line5">
-          <Top>3.76975cm</Top>
+          <Top>4.119cm</Top>
           <Height>0cm</Height>
-          <Width>18.80855cm</Width>
+          <Width>18.90286cm</Width>
           <ZIndex>11</ZIndex>
           <Style>
             <Border>
@@ -1365,6 +1389,46 @@ UNIT</Value>
             </Border>
           </Style>
         </Line>
+        <Textbox Name="Textbox25">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>CNPJ:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value xml:space="preserve"> </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CpfCnpj.Value, "DataSetCliente")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox21</rd:DefaultName>
+          <Top>4.12248cm</Top>
+          <Left>13.52689cm</Left>
+          <Height>0.6cm</Height>
+          <Width>5.37597cm</Width>
+          <ZIndex>12</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1558,9 +1622,9 @@ UNIT</Value>
           </Paragraphs>
           <rd:DefaultName>TotalPagar</rd:DefaultName>
           <Top>0.10092cm</Top>
-          <Left>11.82251cm</Left>
+          <Left>12.40459cm</Left>
           <Height>0.6cm</Height>
-          <Width>6.98604cm</Width>
+          <Width>6.40396cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>

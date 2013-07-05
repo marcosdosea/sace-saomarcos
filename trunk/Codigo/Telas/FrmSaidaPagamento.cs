@@ -135,24 +135,41 @@ namespace Telas
                 
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, frmSaidaConfirma.Opcao);
-                    if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
+                    List<SaidaPagamento> listaPagamentosSaida = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    bool limiteCompraLiberado = true;
+                    Pessoa cliente = (Pessoa) clienteBindingSource.Current;
+                    // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
+                    if (cliente.LimiteCompra > 0)
                     {
-                        // quando tem pagamento crediário imprime o DAV
-                        bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(saida.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
-                        if (temPagamentoCrediario)
+                        decimal limiteCompra = GerenciadorPessoa.GetInstance().ObterLimiteCompra(cliente);
+                        if (limiteCompra <= saida.TotalAVista)
                         {
-                            Pessoa cliente = (Pessoa)clienteBindingSource.Current;
-                            if (cliente.ImprimirDAV)
+                            if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompra.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
                             {
-                                GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                                limiteCompraLiberado = false;
                             }
                         }
-                        else
+                    }
+                    if (limiteCompraLiberado)
+                    {
+                        GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, frmSaidaConfirma.Opcao, listaPagamentosSaida);
+                        if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                         {
-                            Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
-                            saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
-                            GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
+                            // quando tem pagamento crediário imprime o DAV
+                            bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
+                            if (temPagamentoCrediario)
+                            {
+                                if (cliente.ImprimirDAV)
+                                {
+                                    GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                                }
+                            }
+                            else
+                            {
+                                Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
+                                saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
+                                GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
+                            }
                         }
                     }
                 }

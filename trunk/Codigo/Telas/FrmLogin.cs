@@ -43,7 +43,7 @@ namespace Telas
 
         private void buttonEntrar_Click(object sender, EventArgs e)
         {
-            tb_usuarioTableAdapter ta = new tb_usuarioTableAdapter();
+            //tb_usuarioTableAdapter ta = new tb_usuarioTableAdapter();
             //TODO
             //DataTable dt = ta.GetDataByLoginSenha(textBoxUsuario.Text, textBoxSenha.Text);
             //if (dt.Rows.Count > 0)
