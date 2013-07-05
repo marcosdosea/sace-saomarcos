@@ -67,7 +67,6 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma registro de pagamento?", "Confirmar Pagamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 decimal valorPagamento = Convert.ToDecimal(valorPagamentoTextBox.Text);
                 decimal totalPago = Convert.ToDecimal(totalPagamentosTextBox.Text);
@@ -117,7 +116,7 @@ namespace Telas
                     throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se algum cupom referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
                 }
 
-                if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || (formaPagamento.Equals(FormaPagamento.CARTAO) && podeImprimirCF))
+                if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO) || (formaPagamento.Equals(FormaPagamento.CARTAO) && podeImprimirCF))
                 {
                     // atualiza descontos das contas de acordo com o especificado
                     if (alterouDesconto)
@@ -134,21 +133,24 @@ namespace Telas
                         }
                     }
 
-                    if (formaPagamento.Equals(FormaPagamento.DINHEIRO))
+                    if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO))
                     {
                         MovimentacaoConta movimentacao = new MovimentacaoConta();
                         movimentacao.CodConta = listaContas.ElementAt(0); // valor é irrelevante
-                        movimentacao.CodContaBanco = Global.CAIXA_PADRAO;
+                        if (formaPagamento.Equals(FormaPagamento.DINHEIRO))
+                        {
+                            movimentacao.CodContaBanco = Global.CAIXA_PADRAO;
+                        }
+                        else
+                        {
+                            movimentacao.CodContaBanco = (int) codContaBancoComboBox.SelectedValue;
+                        }
+
                         movimentacao.CodResponsavel = pessoa.CodPessoa;
                         movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
                         movimentacao.DataHora = DateTime.Now;
                         movimentacao.Valor = valorPagamento;
                         
-                   
-                        
-                        
-
-
                         GerenciadorMovimentacaoConta.GetInstance(null).Inserir(movimentacao, listaContas, totalPago);
                         if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {

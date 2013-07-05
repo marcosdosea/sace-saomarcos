@@ -689,7 +689,7 @@ PARCELADO</Value>
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.23622in</Height>
+              <Height>0.19455in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -991,13 +991,14 @@ PARCELADO</Value>
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
-        <KeepTogether>true</KeepTogether>
+        <FixedRowHeaders>true</FixedRowHeaders>
         <DataSetName>DataSetSaidaProdutoRelatorio</DataSetName>
         <Top>0.0635cm</Top>
-        <Height>1.50896cm</Height>
-        <Width>18.91121cm</Width>
+        <Height>1.40313cm</Height>
+        <Width>18.91119cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1005,7 +1006,7 @@ PARCELADO</Value>
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.61684cm</Height>
+    <Height>1.46663cm</Height>
     <Style />
   </Body>
   <ReportParameters>
@@ -1022,10 +1023,10 @@ PARCELADO</Value>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
-  <Width>19.04668cm</Width>
+  <Width>18.97477cm</Width>
   <Page>
     <PageHeader>
-      <Height>5.27466cm</Height>
+      <Height>5.48633cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1033,8 +1034,10 @@ PARCELADO</Value>
           <Source>Embedded</Source>
           <Value>MARCA2</Value>
           <Sizing>FitProportional</Sizing>
-          <Height>2.61965cm</Height>
-          <Width>4.41042cm</Width>
+          <Top>1.73733cm</Top>
+          <Left>0.12483cm</Left>
+          <Height>2.30215cm</Height>
+          <Width>4.19875cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1048,7 +1051,7 @@ PARCELADO</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Documento Auxiliar de Venda - Orçamento</Value>
+                  <Value>DOCUMENTO AUXILIAR DE VENDA - ORÇAMENTO</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1060,10 +1063,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox20</rd:DefaultName>
-          <Top>1.97286cm</Top>
-          <Left>4.75112cm</Left>
+          <Top>0.03175cm</Top>
+          <Left>0.15658cm</Left>
           <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Width>18.81819cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1076,7 +1079,8 @@ PARCELADO</Value>
           </Style>
         </Textbox>
         <Line Name="Line2">
-          <Top>2.66904cm</Top>
+          <Top>1.67383cm</Top>
+          <Left>0.15658cm</Left>
           <Height>0cm</Height>
           <Width>18.80855cm</Width>
           <ZIndex>2</ZIndex>
@@ -1111,9 +1115,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>3.86848cm</Top>
+          <Top>4.11356cm</Top>
+          <Left>0.07191cm</Left>
           <Height>0.6cm</Height>
-          <Width>12.73314cm</Width>
+          <Width>13.42106cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -1132,7 +1137,7 @@ PARCELADO</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>CPF/CNPJ:</Value>
+                  <Value>Documento:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1142,7 +1147,7 @@ PARCELADO</Value>
                   <Style />
                 </TextRun>
                 <TextRun>
-                  <Value>=First(Fields!CpfCnpj.Value, "DataSetCliente")</Value>
+                  <Value>=First(Fields!CodSaida.Value, "DataSetSaidaProdutoRelatorio")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1150,9 +1155,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox22</rd:DefaultName>
-          <Top>4.53904cm</Top>
+          <Top>4.78412cm</Top>
+          <Left>0.07191cm</Left>
           <Height>0.6cm</Height>
-          <Width>12.73314cm</Width>
+          <Width>6.86786cm</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -1184,9 +1190,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Nome2</rd:DefaultName>
-          <Left>4.75112cm</Left>
-          <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Top>1.83258cm</Top>
+          <Left>4.66428cm</Left>
+          <Height>0.81167cm</Height>
+          <Width>14.30085cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -1224,6 +1231,24 @@ PARCELADO</Value>
                   <Value>=First(Fields!Bairro.Value, "DataSetPessoaLoja")</Value>
                   <Style />
                 </TextRun>
+                <TextRun>
+                  <Value xml:space="preserve">       </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>CNPJ</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>: </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CpfCnpj.Value, "DataSetPessoaLoja")</Value>
+                  <Style />
+                </TextRun>
               </TextRuns>
               <Style>
                 <TextAlign>Center</TextAlign>
@@ -1231,10 +1256,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Endereco</rd:DefaultName>
-          <Top>0.67056cm</Top>
-          <Left>4.75112cm</Left>
+          <Top>2.72311cm</Top>
+          <Left>4.66428cm</Left>
           <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Width>14.30085cm</Width>
           <ZIndex>6</ZIndex>
           <Style>
             <Border>
@@ -1267,7 +1292,7 @@ PARCELADO</Value>
                   <Style />
                 </TextRun>
                 <TextRun>
-                  <Value xml:space="preserve">                                           </Value>
+                  <Value xml:space="preserve">          </Value>
                   <Style />
                 </TextRun>
                 <TextRun>
@@ -1291,10 +1316,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Endereco</rd:DefaultName>
-          <Top>1.33758cm</Top>
-          <Left>4.75112cm</Left>
+          <Top>3.42894cm</Top>
+          <Left>4.65593cm</Left>
           <Height>0.6cm</Height>
-          <Width>14.16009cm</Width>
+          <Width>14.3092cm</Width>
           <ZIndex>7</ZIndex>
           <Style>
             <Border>
@@ -1333,10 +1358,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>3.86397cm</Top>
-          <Left>12.93153cm</Left>
+          <Top>4.7796cm</Top>
+          <Left>13.57858cm</Left>
           <Height>0.6cm</Height>
-          <Width>5.1396cm</Width>
+          <Width>5.38655cm</Width>
           <ZIndex>8</ZIndex>
           <Style>
             <Border>
@@ -1355,7 +1380,7 @@ PARCELADO</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Orçamento:</Value>
+                  <Value>Documento Fiscal:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -1365,7 +1390,7 @@ PARCELADO</Value>
                   <Style />
                 </TextRun>
                 <TextRun>
-                  <Value>=First(Fields!CodSaida.Value, "DataSetSaidaProdutoRelatorio")</Value>
+                  <Value>=First(Fields!Pedido.Value, "DataSetSaidaProdutoRelatorio")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1373,10 +1398,10 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>4.56247cm</Top>
-          <Left>12.96129cm</Left>
+          <Top>4.7796cm</Top>
+          <Left>7.01033cm</Left>
           <Height>0.6cm</Height>
-          <Width>5.1396cm</Width>
+          <Width>6.48264cm</Width>
           <ZIndex>9</ZIndex>
           <Style>
             <Border>
@@ -1405,9 +1430,9 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox285</rd:DefaultName>
-          <Top>2.71674cm</Top>
-          <Left>0.09431cm</Left>
-          <Height>0.97042cm</Height>
+          <Top>0.69699cm</Top>
+          <Left>0.16622cm</Left>
+          <Height>0.93098cm</Height>
           <Width>18.80855cm</Width>
           <ZIndex>10</ZIndex>
           <Style>
@@ -1421,9 +1446,10 @@ PARCELADO</Value>
           </Style>
         </Textbox>
         <Line Name="Line5">
-          <Top>3.76975cm</Top>
+          <Top>4.11008cm</Top>
+          <Left>0.07191cm</Left>
           <Height>0cm</Height>
-          <Width>18.80855cm</Width>
+          <Width>18.90286cm</Width>
           <ZIndex>11</ZIndex>
           <Style>
             <Border>
@@ -1431,6 +1457,46 @@ PARCELADO</Value>
             </Border>
           </Style>
         </Line>
+        <Textbox Name="Textbox25">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>CNPJ:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value xml:space="preserve"> </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CpfCnpj.Value, "DataSetCliente")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox21</rd:DefaultName>
+          <Top>4.11356cm</Top>
+          <Left>13.5988cm</Left>
+          <Height>0.6cm</Height>
+          <Width>5.37597cm</Width>
+          <ZIndex>12</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1635,9 +1701,9 @@ PARCELADO</Value>
           </Paragraphs>
           <rd:DefaultName>TotalPagar</rd:DefaultName>
           <Top>0.10092cm</Top>
-          <Left>11.82251cm</Left>
+          <Left>12.29401cm</Left>
           <Height>0.6cm</Height>
-          <Width>6.98604cm</Width>
+          <Width>6.51454cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>

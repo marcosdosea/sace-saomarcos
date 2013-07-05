@@ -378,6 +378,23 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Verifica se um cliente possui limite suficiente para realizar uma nova compra
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <param name="totalNovaCompra"></param>
+        /// <returns></returns>
+        public decimal ObterLimiteCompra(Pessoa cliente)
+        {
+            IEnumerable<Conta> listaContasAberto = GerenciadorConta.GetInstance(null).ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA, cliente.CodPessoa);
+            IEnumerable<long> listaCodContas = listaContasAberto.Select(p =>  p.CodConta );
+            IEnumerable<MovimentacaoConta> listaPagamentos = GerenciadorMovimentacaoConta.GetInstance(null).ObterPorContas( new List<long>(listaCodContas));
+            decimal totalValorPagar = listaContasAberto.Sum(c => c.ValorPagar);
+            decimal totalValorPago = listaPagamentos.Sum(m => m.Valor);
+
+            return cliente.LimiteCompra - totalValorPagar + totalValorPago;
+        }
+
+        /// <summary>
         /// Atribui os dados de pessoa à entidade Pessoa
         /// </summary>
         /// <param name="pessoa"></param>

@@ -468,7 +468,7 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="tipoSaidaEncerramento"></param>
-        public void Encerrar(long codSaida, int tipoSaidaEncerramento)
+        public void Encerrar(long codSaida, int tipoSaidaEncerramento, List<SaidaPagamento> saidaPagamentos)
         {
             DbTransaction transaction = null;
             try
@@ -499,7 +499,6 @@ namespace Negocio
                         _saidaE.totalLucro = _saidaE.totalAVista - somaPrecosCusto;
                         saceContext.SaveChanges();
 
-                        List<SaidaPagamento> saidaPagamentos = (List<SaidaPagamento>)GerenciadorSaidaPagamento.GetInstance(saceContext).ObterPorSaida(codSaida);
                         RegistrarPagamentosSaida(saidaPagamentos, _saidaE);
                     }
                     else if (tipoSaidaEncerramento.Equals(Saida.TIPO_SAIDA_DEPOSITO))
@@ -526,7 +525,7 @@ namespace Negocio
                         _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
                         if ((_saidaE.nfe == null) || (_saidaE.nfe.Equals("")))
                         {
-                            _saidaE.nfe = ObterNumeroProximaNotaFiscal().ToString();
+                            //_saidaE.nfe = ObterNumeroProximaNotaFiscal().ToString();
                             saceContext.SaveChanges();
                             List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
                             RegistrarBaixaEstoque(saidaProdutos);
@@ -535,10 +534,10 @@ namespace Negocio
                     else if (tipoSaidaEncerramento.Equals(Saida.TIPO_OUTRAS_SAIDAS))
                     {
                         _saidaE.codTipoSaida = Saida.TIPO_OUTRAS_SAIDAS;
-                        if ((_saidaE.nfe == null) || (_saidaE.nfe.Equals("")))
-                        {
-                            _saidaE.nfe = ObterNumeroProximaNotaFiscal().ToString();
-                        }
+                        // if ((_saidaE.nfe == null) || (_saidaE.nfe.Equals("")))
+                        //{
+                        //    _saidaE.nfe = ObterNumeroProximaNotaFiscal().ToString();
+                        //}
                         saceContext.SaveChanges();
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
                         RegistrarBaixaEstoque(saidaProdutos);

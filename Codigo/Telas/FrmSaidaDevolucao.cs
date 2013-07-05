@@ -63,7 +63,7 @@ namespace Telas
             if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorSaida.GetInstance(null).Atualizar(saida);
-                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, saida.TipoSaida);
+                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, saida.TipoSaida, null);
 
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
