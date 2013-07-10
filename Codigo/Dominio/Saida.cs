@@ -22,6 +22,7 @@ namespace Dominio
         public long CodCliente { get; set; }
         public string CpfCnpj { get; set; }
         public long CodProfissional { get; set; }
+        public long CodEntrada { get; set; }
         public int NumeroCartaoVenda { get; set; }
         public string CupomFiscal { get; set; }
         public DateTime DataEmissaoCupomFiscal { get; set; }

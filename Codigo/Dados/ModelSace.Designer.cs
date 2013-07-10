@@ -8,13 +8,12 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -75,6 +74,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "UsuarioE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), "tb_pessoa1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_entrada1", "EntradaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "SaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaE), true)]
 
 #endregion
 
@@ -703,7 +703,6 @@ namespace Dados
         private ObjectSet<PessoaE> _PessoaSet;
 
         #endregion
-
         #region AddTo Methods
     
         /// <summary>
@@ -995,11 +994,11 @@ namespace Dados
         }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entities
     
     /// <summary>
@@ -1026,7 +1025,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1081,7 +1079,6 @@ namespace Dados
         partial void OnnomeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1108,7 +1105,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1139,7 +1135,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1290,7 +1285,6 @@ namespace Dados
         partial void OncodPessoaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1393,7 +1387,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1418,7 +1411,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1497,7 +1489,6 @@ namespace Dados
         partial void OnicmsChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1568,7 +1559,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1595,7 +1585,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1746,7 +1735,6 @@ namespace Dados
         partial void OncodBancoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1877,7 +1865,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1914,7 +1901,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2185,7 +2171,6 @@ namespace Dados
         partial void OndescontoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2402,7 +2387,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2427,7 +2411,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2482,7 +2465,6 @@ namespace Dados
         partial void OndescricaoCSTChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2553,7 +2535,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2588,7 +2569,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3099,7 +3079,6 @@ namespace Dados
         partial void OntotalProdutosSTChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3320,9 +3299,30 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_entrada1", "SaidaE")]
+        public EntityCollection<SaidaE> tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_entrada1", "SaidaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaE>("SaceModel.fk_tb_saida_tb_entrada1", "SaidaE", value);
+                }
+            }
+        }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3353,7 +3353,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3528,7 +3527,6 @@ namespace Dados
         partial void OnpagamentoDoFreteChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3647,7 +3645,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3680,7 +3677,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4143,7 +4139,6 @@ namespace Dados
         partial void OncodCSTChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4300,7 +4295,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4331,7 +4325,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4458,7 +4451,6 @@ namespace Dados
         partial void OnmapeamentoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4507,7 +4499,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4534,7 +4525,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4589,7 +4579,6 @@ namespace Dados
         partial void OndescricaoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4616,7 +4605,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4643,7 +4631,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4698,7 +4685,6 @@ namespace Dados
         partial void OndescricaoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4747,7 +4733,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4776,7 +4761,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4855,7 +4839,6 @@ namespace Dados
         partial void OncodPessoaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4920,7 +4903,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4955,7 +4937,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5130,7 +5111,6 @@ namespace Dados
         partial void OndataHoraChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -5287,7 +5267,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -5316,7 +5295,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5395,7 +5373,6 @@ namespace Dados
         partial void OnufChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -5422,7 +5399,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -5473,7 +5449,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5864,7 +5839,6 @@ namespace Dados
         partial void OndataCancelamentoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -5891,7 +5865,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -5918,7 +5891,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5973,7 +5945,6 @@ namespace Dados
         partial void OnnomeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -6022,7 +5993,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6059,7 +6029,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -6666,7 +6635,6 @@ namespace Dados
         partial void OnnomeFantasiaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -7011,7 +6979,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -7042,7 +7009,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -7169,7 +7135,6 @@ namespace Dados
         partial void OndiaBaseChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -7272,7 +7237,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -7313,7 +7277,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -8088,7 +8051,6 @@ namespace Dados
         partial void OnprecoRevendaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -8349,7 +8311,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -8382,7 +8343,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -8560,7 +8520,6 @@ namespace Dados
         partial void OnestoqueMaximoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -8641,7 +8600,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -8665,7 +8623,8 @@ namespace Dados
         /// <param name="entregaRealizada">Initial value of the entregaRealizada property.</param>
         /// <param name="codEmpresaFrete">Initial value of the codEmpresaFrete property.</param>
         /// <param name="observacao">Initial value of the observacao property.</param>
-        public static SaidaE CreateSaidaE(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao)
+        /// <param name="codEntrada">Initial value of the codEntrada property.</param>
+        public static SaidaE CreateSaidaE(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao, global::System.Int64 codEntrada)
         {
             SaidaE saidaE = new SaidaE();
             saidaE.codSaida = codSaida;
@@ -8676,11 +8635,11 @@ namespace Dados
             saidaE.entregaRealizada = entregaRealizada;
             saidaE.codEmpresaFrete = codEmpresaFrete;
             saidaE.observacao = observacao;
+            saidaE.codEntrada = codEntrada;
             return saidaE;
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -9525,9 +9484,32 @@ namespace Dados
         private Nullable<global::System.DateTime> _dataEmissaoDocFiscal;
         partial void OndataEmissaoDocFiscalChanging(Nullable<global::System.DateTime> value);
         partial void OndataEmissaoDocFiscalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codEntrada
+        {
+            get
+            {
+                return _codEntrada;
+            }
+            set
+            {
+                OncodEntradaChanging(value);
+                ReportPropertyChanging("codEntrada");
+                _codEntrada = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codEntrada");
+                OncodEntradaChanged();
+            }
+        }
+        private global::System.Int64 _codEntrada;
+        partial void OncodEntradaChanging(global::System.Int64 value);
+        partial void OncodEntradaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -9808,9 +9790,46 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_entrada1", "EntradaE")]
+        public EntradaE tb_entrada
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_saida_tb_entrada1", "EntradaE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_saida_tb_entrada1", "EntradaE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<EntradaE> tb_entradaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_saida_tb_entrada1", "EntradaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EntradaE>("SaceModel.fk_tb_saida_tb_entrada1", "EntradaE", value);
+                }
+            }
+        }
 
         #endregion
-
     }
     
     /// <summary>
@@ -9843,7 +9862,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -10066,7 +10084,6 @@ namespace Dados
         partial void OnintervaloDiasChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -10223,7 +10240,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -10252,7 +10268,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -10334,7 +10349,6 @@ namespace Dados
         partial void OntotalAVistaChanged();
 
         #endregion
-
     
     }
     
@@ -10368,7 +10382,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -10759,7 +10772,6 @@ namespace Dados
         partial void OncfopChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -10916,7 +10928,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -10941,7 +10952,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -10996,7 +11006,6 @@ namespace Dados
         partial void OndescricaoSituacaoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11023,7 +11032,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11050,7 +11058,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11105,7 +11112,6 @@ namespace Dados
         partial void OndescricaoSituacaoPagamentosChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11154,7 +11160,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11181,7 +11186,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11236,7 +11240,6 @@ namespace Dados
         partial void OndescricaoSituacaoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11263,7 +11266,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11290,7 +11292,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11369,7 +11370,6 @@ namespace Dados
         partial void OncodGrupoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11434,7 +11434,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11461,7 +11460,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11516,7 +11514,6 @@ namespace Dados
         partial void OndescricaoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11565,7 +11562,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11594,7 +11590,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11676,7 +11671,6 @@ namespace Dados
         partial void OnpermissaoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11757,7 +11751,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11782,7 +11775,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11837,7 +11829,6 @@ namespace Dados
         partial void OndescricaoTipoContaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11864,7 +11855,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11891,7 +11881,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -11946,7 +11935,6 @@ namespace Dados
         partial void OndescricaoTipoEntradaChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -11973,7 +11961,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -12000,7 +11987,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -12079,7 +12065,6 @@ namespace Dados
         partial void OnsomaSaldoChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -12106,7 +12091,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -12135,7 +12119,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -12214,7 +12197,6 @@ namespace Dados
         partial void OncfopChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -12279,7 +12261,6 @@ namespace Dados
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -12306,7 +12287,6 @@ namespace Dados
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -12409,7 +12389,6 @@ namespace Dados
         partial void OncodPerfilChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -12512,10 +12491,8 @@ namespace Dados
         }
 
         #endregion
-
     }
 
     #endregion
-
     
 }

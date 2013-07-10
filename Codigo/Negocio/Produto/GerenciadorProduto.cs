@@ -279,7 +279,7 @@ namespace Negocio
         public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
             return GetQuerySimples().ToList().Where(p => Convert.ToByte(p.ExibeNaListagem) == 1);
-            //return GetQuerySimples().ToList();
+            //return GetQuerySimples();
         }
 
         /// <summary>
