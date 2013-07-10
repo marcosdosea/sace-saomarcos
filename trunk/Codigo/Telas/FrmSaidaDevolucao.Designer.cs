@@ -51,6 +51,8 @@
             System.Windows.Forms.Label descontoLabel;
             System.Windows.Forms.Label codClienteLabel;
             System.Windows.Forms.Label dataSaidaLabel;
+            System.Windows.Forms.Label codEntradaLabel;
+            System.Windows.Forms.Label numeroNotaFiscalLabel;
             this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -75,9 +77,12 @@
             this.pesoBrutoTextBox = new System.Windows.Forms.TextBox();
             this.pesoLiquidoTextBox = new System.Windows.Forms.TextBox();
             this.descontoTextBox = new System.Windows.Forms.TextBox();
-            this.codClienteComboBox = new System.Windows.Forms.ComboBox();
             this.pessoaDestinoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSaidaDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.entradaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codEntradaComboBox = new System.Windows.Forms.ComboBox();
+            this.numeroNotaFiscalTextBox = new System.Windows.Forms.TextBox();
+            this.nomeFornecedorTextBox = new System.Windows.Forms.TextBox();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
@@ -100,9 +105,12 @@
             descontoLabel = new System.Windows.Forms.Label();
             codClienteLabel = new System.Windows.Forms.Label();
             dataSaidaLabel = new System.Windows.Forms.Label();
+            codEntradaLabel = new System.Windows.Forms.Label();
+            numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tipoSaidaLabel
@@ -309,7 +317,7 @@
             // 
             codClienteLabel.AutoSize = true;
             codClienteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            codClienteLabel.Location = new System.Drawing.Point(11, 77);
+            codClienteLabel.Location = new System.Drawing.Point(324, 84);
             codClienteLabel.Name = "codClienteLabel";
             codClienteLabel.Size = new System.Drawing.Size(112, 24);
             codClienteLabel.TabIndex = 81;
@@ -327,6 +335,7 @@
             // 
             // saidaBindingSource
             // 
+            this.saidaBindingSource.AllowNew = false;
             this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
             // 
             // totalTextBox
@@ -393,7 +402,7 @@
             this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(11, 183);
             this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
             this.baseCalculoICMSTextBox.Size = new System.Drawing.Size(148, 35);
-            this.baseCalculoICMSTextBox.TabIndex = 8;
+            this.baseCalculoICMSTextBox.TabIndex = 10;
             this.baseCalculoICMSTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -404,7 +413,7 @@
             this.valorICMSTextBox.Location = new System.Drawing.Point(170, 183);
             this.valorICMSTextBox.Name = "valorICMSTextBox";
             this.valorICMSTextBox.Size = new System.Drawing.Size(148, 35);
-            this.valorICMSTextBox.TabIndex = 10;
+            this.valorICMSTextBox.TabIndex = 11;
             this.valorICMSTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.valorICMSTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
             // 
@@ -596,24 +605,6 @@
             this.descontoTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.descontoTextBox.Leave += new System.EventHandler(this.valorFreteTextBox_Leave);
             // 
-            // codClienteComboBox
-            // 
-            this.codClienteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codClienteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodCliente", true));
-            this.codClienteComboBox.DataSource = this.pessoaDestinoBindingSource;
-            this.codClienteComboBox.DisplayMember = "Nome";
-            this.codClienteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.codClienteComboBox.FormattingEnabled = true;
-            this.codClienteComboBox.Location = new System.Drawing.Point(10, 106);
-            this.codClienteComboBox.Name = "codClienteComboBox";
-            this.codClienteComboBox.Size = new System.Drawing.Size(786, 37);
-            this.codClienteComboBox.TabIndex = 7;
-            this.codClienteComboBox.ValueMember = "CodPessoa";
-            this.codClienteComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codEmpresaFreteComboBox_KeyPress);
-            this.codClienteComboBox.Leave += new System.EventHandler(this.codClienteComboBox_Leave);
-            // 
             // pessoaDestinoBindingSource
             // 
             this.pessoaDestinoBindingSource.DataSource = typeof(Dominio.Pessoa);
@@ -628,15 +619,84 @@
             this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(167, 35);
             this.dataSaidaDateTimePicker.TabIndex = 5;
             // 
+            // entradaBindingSource
+            // 
+            this.entradaBindingSource.AllowNew = false;
+            this.entradaBindingSource.DataSource = typeof(Dominio.Entrada);
+            this.entradaBindingSource.CurrentChanged += new System.EventHandler(this.entradaBindingSource_CurrentChanged);
+            // 
+            // codEntradaLabel
+            // 
+            codEntradaLabel.AutoSize = true;
+            codEntradaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            codEntradaLabel.Location = new System.Drawing.Point(7, 84);
+            codEntradaLabel.Name = "codEntradaLabel";
+            codEntradaLabel.Size = new System.Drawing.Size(80, 24);
+            codEntradaLabel.TabIndex = 81;
+            codEntradaLabel.Text = "Entrada:";
+            // 
+            // codEntradaComboBox
+            // 
+            this.codEntradaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codEntradaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codEntradaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "CodEntrada", true));
+            this.codEntradaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodEntrada", true));
+            this.codEntradaComboBox.DataSource = this.entradaBindingSource;
+            this.codEntradaComboBox.DisplayMember = "CodEntrada";
+            this.codEntradaComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.codEntradaComboBox.FormattingEnabled = true;
+            this.codEntradaComboBox.ItemHeight = 29;
+            this.codEntradaComboBox.Location = new System.Drawing.Point(11, 111);
+            this.codEntradaComboBox.Name = "codEntradaComboBox";
+            this.codEntradaComboBox.Size = new System.Drawing.Size(147, 37);
+            this.codEntradaComboBox.TabIndex = 7;
+            this.codEntradaComboBox.ValueMember = "CodEntrada";
+            this.codEntradaComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.codEntradaComboBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
+            // 
+            // numeroNotaFiscalLabel
+            // 
+            numeroNotaFiscalLabel.AutoSize = true;
+            numeroNotaFiscalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            numeroNotaFiscalLabel.Location = new System.Drawing.Point(167, 84);
+            numeroNotaFiscalLabel.Name = "numeroNotaFiscalLabel";
+            numeroNotaFiscalLabel.Size = new System.Drawing.Size(108, 24);
+            numeroNotaFiscalLabel.TabIndex = 82;
+            numeroNotaFiscalLabel.Text = "Nota Fiscal:";
+            // 
+            // numeroNotaFiscalTextBox
+            // 
+            this.numeroNotaFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "NumeroNotaFiscal", true));
+            this.numeroNotaFiscalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.numeroNotaFiscalTextBox.Location = new System.Drawing.Point(169, 113);
+            this.numeroNotaFiscalTextBox.Name = "numeroNotaFiscalTextBox";
+            this.numeroNotaFiscalTextBox.Size = new System.Drawing.Size(148, 35);
+            this.numeroNotaFiscalTextBox.TabIndex = 8;
+            this.numeroNotaFiscalTextBox.TabStop = false;
+            // 
+            // nomeFornecedorTextBox
+            // 
+            this.nomeFornecedorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "NomeFornecedor", true));
+            this.nomeFornecedorTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.nomeFornecedorTextBox.Location = new System.Drawing.Point(323, 111);
+            this.nomeFornecedorTextBox.Name = "nomeFornecedorTextBox";
+            this.nomeFornecedorTextBox.Size = new System.Drawing.Size(473, 35);
+            this.nomeFornecedorTextBox.TabIndex = 9;
+            this.nomeFornecedorTextBox.TabStop = false;
+            // 
             // FrmSaidaDevolucao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(819, 510);
+            this.ClientSize = new System.Drawing.Size(803, 510);
+            this.Controls.Add(this.nomeFornecedorTextBox);
+            this.Controls.Add(numeroNotaFiscalLabel);
+            this.Controls.Add(this.numeroNotaFiscalTextBox);
+            this.Controls.Add(codEntradaLabel);
+            this.Controls.Add(this.codEntradaComboBox);
             this.Controls.Add(dataSaidaLabel);
             this.Controls.Add(this.dataSaidaDateTimePicker);
             this.Controls.Add(codClienteLabel);
-            this.Controls.Add(this.codClienteComboBox);
             this.Controls.Add(descontoLabel);
             this.Controls.Add(this.descontoTextBox);
             this.Controls.Add(pesoLiquidoLabel);
@@ -689,6 +749,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaFreteBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaDestinoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -720,8 +781,11 @@
         private System.Windows.Forms.TextBox pesoLiquidoTextBox;
         private System.Windows.Forms.TextBox descontoTextBox;
         private System.Windows.Forms.BindingSource pessoaFreteBindingSource;
-        private System.Windows.Forms.ComboBox codClienteComboBox;
         private System.Windows.Forms.BindingSource pessoaDestinoBindingSource;
         private System.Windows.Forms.DateTimePicker dataSaidaDateTimePicker;
+        private System.Windows.Forms.ComboBox codEntradaComboBox;
+        private System.Windows.Forms.TextBox numeroNotaFiscalTextBox;
+        private System.Windows.Forms.TextBox nomeFornecedorTextBox;
+        private System.Windows.Forms.BindingSource entradaBindingSource;
     }
 }

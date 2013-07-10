@@ -46,7 +46,8 @@ namespace Telas
 
             Cursor.Current = Cursors.WaitCursor;
 
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosExibiveis();
+             produtoBindingSource.DataSource =
+                 GerenciadorProduto.GetInstance().ObterTodosExibiveis();
             
             ObterSaidas(true);
 
@@ -92,6 +93,7 @@ namespace Telas
            
             saida = (Saida)saidaBindingSource.Current;
             saida.CodSaida = -1;
+            saida.CodEntrada = Global.ENTRADA_PADRAO;
             saida.CodCliente = Global.CLIENTE_PADRAO;
             saida.CodProfissional = Global.PROFISSIONAL_PADRAO;
             saida.CodEmpresaFrete = Global.CLIENTE_PADRAO;

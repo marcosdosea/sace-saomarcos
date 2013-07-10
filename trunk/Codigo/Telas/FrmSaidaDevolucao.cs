@@ -26,6 +26,8 @@ namespace Telas
         private void FrmSaidaDevolucao_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
+            entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
+            entradaBindingSource.Position = entradaBindingSource.IndexOf(new Entrada() { CodEntrada = saida.CodEntrada });
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             IEnumerable<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
@@ -36,7 +38,9 @@ namespace Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            saida.CodCliente = Convert.ToInt64(codClienteComboBox.SelectedValue.ToString());
+            Entrada entrada = (Entrada)entradaBindingSource.Current;
+            saida.CodEntrada = entrada.CodEntrada;
+            saida.CodCliente = entrada.CodFornecedor;
             saida.CodEmpresaFrete = Convert.ToInt64( codEmpresaFreteComboBox.SelectedValue.ToString() );
             saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
             saida.EspecieVolumes = especieVolumesTextBox.Text;
@@ -64,10 +68,6 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance(null).Atualizar(saida);
                 GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, saida.TipoSaida, null);
-
-                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
-                frmSaidaNF.ShowDialog();
-                frmSaidaNF.Dispose();
             }
             else
             {
@@ -134,12 +134,6 @@ namespace Telas
             codSaidaTextBox_Leave(sender, e);
         }
 
-        private void codClienteComboBox_Leave(object sender, EventArgs e)
-        {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, pessoaDestinoBindingSource, false);
-            codSaidaTextBox_Leave(sender, e);
-        }
-
         private void codSaidaTextBox_Enter(object sender, EventArgs e)
         {
             if ((sender is Control) && !(sender is Form))
@@ -156,6 +150,11 @@ namespace Telas
                 Control control = (Control)sender;
                 control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
+        }
+
+        private void entradaBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
         }
 
        

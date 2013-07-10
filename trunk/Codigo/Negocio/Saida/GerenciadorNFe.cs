@@ -652,16 +652,7 @@ namespace Negocio
                 nfe.infNFe.dest = dest;
                 dest.enderDest = enderDest;
 
-                ////Informacoes Adicionais
-                TNFeInfNFeInfAdic infAdic = new TNFeInfNFeInfAdic();
-                //infAdic.infAdFisco = nfeSelected.informacoesAddFisco;
-
-                saida.Observacao = Global.NFE_MENSAGEM_PADRAO + saida.Observacao;
-                if (string.IsNullOrEmpty(saida.CupomFiscal))
-                    infAdic.infCpl = saida.Observacao;
-                else
-                    infAdic.infCpl = saida.Observacao + ". ICMS RECOLHIDO NO";    
-                nfe.infNFe.infAdic = infAdic;
+                
 
                 
                 //totais da nota
@@ -727,15 +718,8 @@ namespace Negocio
 
                         TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
 
-                        if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
-                        {
-                            TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
-                            icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item102;
-                            icms102.orig = Torig.Item0;
-
-                            icms.Item = icms102;
-                        }
-                        else if (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                        if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) ||
+                            (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                         {
                             TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                             icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
@@ -793,7 +777,8 @@ namespace Negocio
                 nfe.infNFe.det = listaNFeDet.ToArray();
 
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
-                if ((saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO))
+                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) 
+                    || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                 {
                     icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(0);
@@ -809,23 +794,6 @@ namespace Negocio
                     icmsTot.vCOFINS = formataValorNFe(0);
                     icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
                     icmsTot.vNF = formataValorNFe(valorTotalNota);
-                }
-                else
-                {
-                    icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS);
-                    icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
-                    icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
-                    icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
-                    icmsTot.vProd = formataValorNFe(valorTotalNota);
-                    icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
-                    icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
-                    icmsTot.vDesc = formataValorNFe(saida.Desconto);
-                    icmsTot.vII = formataValorNFe(0);
-                    icmsTot.vIPI = formataValorNFe(saida.ValorIPI);
-                    icmsTot.vPIS = formataValorNFe(0);
-                    icmsTot.vCOFINS = formataValorNFe(0);
-                    icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
-                    icmsTot.vNF = formataValorNFe(saida.TotalNotaFiscal);
                 }
 
                 TNFeInfNFeTotal total = new TNFeInfNFeTotal();
@@ -864,6 +832,25 @@ namespace Negocio
                 }
 
                 nfe.infNFe.transp = transp;
+
+                ////Informacoes Adicionais
+                TNFeInfNFeInfAdic infAdic = new TNFeInfNFeInfAdic();
+                //infAdic.infAdFisco = nfeSelected.informacoesAddFisco;
+
+                saida.Observacao = Global.NFE_MENSAGEM_PADRAO + saida.Observacao;
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                {
+                    Entrada entrada = GerenciadorEntrada.GetInstance().Obter(saida.CodEntrada).ElementAtOrDefault(0);
+                    saida.Observacao += "Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
+                        " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
+                        saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + saida.BaseCalculoICMSSubst.ToString("N2") +
+                        ". Valor do ICMS ST = R$ " + saida.ValorICMSSubst.ToString("N2") + ". Valor do IPI = R$ " + saida.ValorIPI.ToString("N2");
+                }
+                if (string.IsNullOrEmpty(saida.CupomFiscal))
+                    infAdic.infCpl = saida.Observacao;
+                else
+                    infAdic.infCpl = saida.Observacao + ". ICMS RECOLHIDO NO";
+                nfe.infNFe.infAdic = infAdic;
 
                 MemoryStream memStream = new MemoryStream();
                 XmlSerializer serializer = new XmlSerializer(typeof(TNFe));

@@ -280,11 +280,16 @@ namespace Negocio
                 //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
                 //    saceContext.Connection.Open();
                 //transaction = saceContext.Connection.BeginTransaction();
+
+                int numeroNfeAutorizadas = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).Count();
+
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                     throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
-                else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                else if (numeroNfeAutorizadas > 0)
+                    throw new NegocioException("Não é possível editar uma saída cuja NF-e já foi emitida.");
+                else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (!string.IsNullOrEmpty(saida.Nfe)) && (!saida.Nfe.Equals("NF-e")))
                     throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida.");
-                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (!string.IsNullOrEmpty(saida.Nfe)) && (!saida.Nfe.Equals("NF-e")))
                     throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida.");
                 else if ((saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA) && (saida.CodCliente != Global.CLIENTE_PADRAO))
                 {
@@ -341,6 +346,7 @@ namespace Negocio
                             CodCliente = saida.codCliente,
                             CodEmpresaFrete = saida.codEmpresaFrete,
                             CodProfissional = (long) saida.codProfissional,
+                            CodEntrada = saida.codEntrada,
                             CodSituacaoPagamentos = saida.codSituacaoPagamentos,
                             CodSaida = saida.codSaida,
                             CpfCnpj = saida.cpf_cnpj,
@@ -1839,6 +1845,7 @@ namespace Negocio
             _saidaE.valorIPI = saida.ValorIPI;
             _saidaE.valorSeguro = saida.ValorSeguro;
             _saidaE.observacao = saida.Observacao;
+            _saidaE.codEntrada = saida.CodEntrada;
         }
     }
 }
