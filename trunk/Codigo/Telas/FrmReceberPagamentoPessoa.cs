@@ -28,20 +28,41 @@ namespace Telas
         private bool quitadaChecked;
         private decimal descontoCalculado;
         private bool alterouDesconto;
+        private bool exibirSomenteAdministradorasCartoes;
 
-        public FrmReceberPagamentoPessoa()
+        public FrmReceberPagamentoPessoa(bool exibirSomenteAdministradorasCartoes)
         {
+            this.exibirSomenteAdministradorasCartoes = exibirSomenteAdministradorasCartoes;
             InitializeComponent();
         }
 
         private void FrmReceberPagamentoPessoa_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
-            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
+            IEnumerable<CartaoCredito> listaCartoes = GerenciadorCartaoCredito.GetInstance().ObterTodos();
+            cartaoCreditoBindingSource.DataSource = listaCartoes;
+            if (exibirSomenteAdministradorasCartoes)
+            {
+                IEnumerable<long> administradoras = listaCartoes.Select(c => c.CodPessoa);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos().Where(p => administradoras.Contains(p.CodPessoa));
+                OrganizarTelaAdministradoraCartoes();
+            }
+            else
+            {
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                
+            }
             codCartaoComboBox.SelectedIndex = 1;
             habilitaBotoes(true);
+        }
+
+        private void OrganizarTelaAdministradoraCartoes()
+        {
+            codCartaoComboBox.Visible = !exibirSomenteAdministradorasCartoes;
+            codContaBancoComboBox.Visible = exibirSomenteAdministradorasCartoes;
+            codFormaPagamentoComboBox.Enabled = !exibirSomenteAdministradorasCartoes;
+            codContaBancoComboBox.Enabled = !exibirSomenteAdministradorasCartoes;
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -78,8 +99,8 @@ namespace Telas
                     throw new TelaException("O valor do pagamento não pode ser maior que o valor a receber.");
                 }
 
-                //FIX: O Dictionary não permite pagar contas de uma mesma saída
-                Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
+                // Adicionar todas as saídas e totais para impressão do documento fiscal
+                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                 List<long> listaContas = new List<long>();
                 
                 for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
@@ -87,7 +108,10 @@ namespace Telas
                     listaContas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[0].Value.ToString())); //codConta 
                     long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //codSaida
                     decimal valorAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[7].Value.ToString()); //totalAVista
-                    saidaTotalAVista.Add(codSaidaTemp, valorAVistaTemp);
+                    if (!saidaTotalAVista.ContainsKey(codSaidaTemp))
+                    {
+                        saidaTotalAVista.Add(codSaidaTemp, valorAVistaTemp);
+                    }
                 }
 
 
@@ -226,7 +250,7 @@ namespace Telas
 
         private void btnCFNfe_Click(object sender, EventArgs e)
         {
-            Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
+            SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
             string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[3].Value.ToString().Trim();
 
             if (!pedidoGerado.Trim().Equals(""))
@@ -354,6 +378,19 @@ namespace Telas
         {
             pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true);
 
+            CartaoCredito cartao = GerenciadorCartaoCredito.GetInstance().ObterTodos().Where(c => c.CodPessoa == pessoa.CodPessoa).ElementAtOrDefault(0);
+            OrganizarTelaAdministradoraCartoes();
+            if (cartao != null)
+            {
+                formaPagamentoBindingSource.Position = formaPagamentoBindingSource.IndexOf(new FormaPagamento() { CodFormaPagamento = FormaPagamento.DEPOSITO });
+                contaBancoBindingSource.Position = contaBancoBindingSource.IndexOf(new ContaBanco() { CodContaBanco = cartao.CodContaBanco });
+                codFormaPagamentoComboBox.Enabled = false;
+                codContaBancoComboBox.Enabled = false;
+            }
+            else
+            {
+                formaPagamentoBindingSource.Position = 0;
+            }
             if ((pessoa != null) && (!pessoa.CodPessoa.Equals(Global.CLIENTE_PADRAO)))
             {
                 // Obter todas as contas da pessoa em aberto

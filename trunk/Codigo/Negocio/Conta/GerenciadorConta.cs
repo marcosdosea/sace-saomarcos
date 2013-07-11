@@ -110,6 +110,30 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Atualizar dados da conta no banco de dados.
+        /// </summary>
+        /// <param name="codSituacao">nova situação da conta</param>
+        /// <param name="codConta">conta pesquisada</param>
+        public void Atualizar(string codSituacao, long codConta)
+        {
+            try
+            {
+                var query = from contaSet in saceContext.ContaSet
+                            where contaSet.codConta == codConta
+                            select contaSet;
+
+                ContaE _conta = query.ToList().ElementAtOrDefault(0);
+                _conta.codSituacao = codSituacao;
+                
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
+        }
+
+        /// <summary>
         /// Remove conta da base de dados
         /// </summary>
         /// <param name="codConta"></param>
@@ -331,7 +355,7 @@ namespace Negocio
                 string observacao = "Substituiu as contas: ";
                 foreach (long codConta in listaContas)
                 {
-                    Atualizar(SituacaoConta.SITUACAO_QUITADA, 0, codConta);
+                    Atualizar(SituacaoConta.SITUACAO_QUITADA, codConta);
                     observacao += codConta + ", ";
                 }
                 DateTime dataVecimento = DateTime.Now;
