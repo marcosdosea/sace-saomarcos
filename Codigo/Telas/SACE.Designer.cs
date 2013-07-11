@@ -73,6 +73,7 @@
             this.btnReceber = new System.Windows.Forms.Button();
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
+            this.receberPagamentosCartõesDeCréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -267,7 +268,8 @@
             // 
             this.contasAPagarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contasAPagarToolStripMenuItem1,
-            this.receberPagamentosToolStripMenuItem});
+            this.receberPagamentosToolStripMenuItem,
+            this.receberPagamentosCartõesDeCréditoToolStripMenuItem});
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
             this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.contasAPagarToolStripMenuItem.Text = "&Financeiro";
@@ -275,15 +277,15 @@
             // contasAPagarToolStripMenuItem1
             // 
             this.contasAPagarToolStripMenuItem1.Name = "contasAPagarToolStripMenuItem1";
-            this.contasAPagarToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
+            this.contasAPagarToolStripMenuItem1.Size = new System.Drawing.Size(313, 22);
             this.contasAPagarToolStripMenuItem1.Text = "Contas a Pagar / Receber";
             this.contasAPagarToolStripMenuItem1.Click += new System.EventHandler(this.contasAPagarToolStripMenuItem1_Click);
             // 
             // receberPagamentosToolStripMenuItem
             // 
             this.receberPagamentosToolStripMenuItem.Name = "receberPagamentosToolStripMenuItem";
-            this.receberPagamentosToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.receberPagamentosToolStripMenuItem.Text = "Receber Pagamentos";
+            this.receberPagamentosToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.receberPagamentosToolStripMenuItem.Text = "Receber Pagamentos Clientes";
             this.receberPagamentosToolStripMenuItem.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
             // 
             // utilitáriosToolStripMenuItem
@@ -454,6 +456,13 @@
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
             // 
+            // receberPagamentosCartõesDeCréditoToolStripMenuItem
+            // 
+            this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Name = "receberPagamentosCartõesDeCréditoToolStripMenuItem";
+            this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Text = "Receber Pagamentos Administradora Cartões";
+            this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Click += new System.EventHandler(this.receberPagamentosCartõesDeCréditoToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -533,6 +542,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem atualizarCSOSNToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem receberPagamentosCartõesDeCréditoToolStripMenuItem;
 
     }
 }

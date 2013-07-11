@@ -807,7 +807,7 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaValorComDesconto"> Contém a saída e o valor com desconto de cada saída</param>
         /// <param name="saidaPagamentos"></param>
-        public void GerarDocumentoFiscal(Dictionary<long, decimal> saidaValorComDesconto, List<SaidaPagamento> saidaPagamentos)
+        public void GerarDocumentoFiscal(SortedList<long, decimal> saidaValorComDesconto, List<SaidaPagamento> saidaPagamentos)
         {
              //DbTransaction transaction = null;
             try
@@ -1479,7 +1479,7 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.");
+                throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.", e);
             }
         }
 
@@ -1495,7 +1495,7 @@ namespace Negocio
             {
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
-                    Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
+                    SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                     saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
                     GerarDocumentoFiscal( saidaTotalAVista, null);
                 }

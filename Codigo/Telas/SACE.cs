@@ -234,7 +234,7 @@ namespace Telas
         
         private void receberPagamentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa();
+            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(false);
             frmReceberPagamento.ShowDialog();
             frmReceberPagamento.Dispose();
         }
@@ -290,6 +290,13 @@ namespace Telas
             FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(true);
             frmCSOSN.ShowDialog();
             frmCSOSN.Dispose();
+        }
+
+        private void receberPagamentosCartõesDeCréditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(true);
+            frmReceberPagamento.ShowDialog();
+            frmReceberPagamento.Dispose();
         }
 
     }

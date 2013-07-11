@@ -166,7 +166,7 @@ namespace Telas
                             }
                             else
                             {
-                                Dictionary<long, decimal> saidaTotalAVista = new Dictionary<long, decimal>();
+                                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                                 saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
                                 GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
                             }

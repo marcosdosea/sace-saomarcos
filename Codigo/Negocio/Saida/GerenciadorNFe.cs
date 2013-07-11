@@ -1260,7 +1260,7 @@ namespace Negocio
                 }
                 catch (Exception ex)
                 {
-                    throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.");
+                    throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.", ex);
                 }
             }
         }
