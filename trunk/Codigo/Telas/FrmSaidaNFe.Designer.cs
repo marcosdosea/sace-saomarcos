@@ -66,6 +66,7 @@
             this.situacaoProtocoloUsoTextBox = new System.Windows.Forms.TextBox();
             this.situacaoReciboEnvioTextBox = new System.Windows.Forms.TextBox();
             this.dataEmissaoDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.folderBrowserDialogNfe = new System.Windows.Forms.FolderBrowserDialog();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -453,7 +454,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(831, 431);
+            this.ClientSize = new System.Drawing.Size(827, 427);
             this.ControlBox = false;
             this.Controls.Add(dataEmissaoLabel);
             this.Controls.Add(this.dataEmissaoDateTimePicker);
@@ -529,5 +530,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
         private System.Windows.Forms.DateTimePicker dataEmissaoDateTimePicker;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogNfe;
     }
 }

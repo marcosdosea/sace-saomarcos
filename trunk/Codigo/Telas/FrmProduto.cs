@@ -308,9 +308,10 @@ namespace Telas
             ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
             FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produtoPesquisa);
             frmAjuste.ShowDialog();
+            frmAjuste.Dispose();
             if (frmAjuste.ProdutoSelected != null)
             {
-                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmAjuste.ProdutoSelected);
+                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = frmAjuste.ProdutoSelected.CodProduto });
             }
             codProdutoTextBox_TextChanged(sender, e);
         }
