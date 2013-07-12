@@ -205,6 +205,7 @@ namespace Telas
                 nomeProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.Nome;
                 codProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.CodProduto.ToString();
                 produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
+                ProdutoSelected = frmProdutoPesquisa.ProdutoPesquisa;
                 habilitaBotoes(true);
             }
             frmProdutoPesquisa.Dispose();

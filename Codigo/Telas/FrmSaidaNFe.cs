@@ -69,6 +69,23 @@ namespace Telas
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
+            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)) {
+                if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    folderBrowserDialogNfe = new FolderBrowserDialog();
+                    if (folderBrowserDialogNfe.ShowDialog() == DialogResult.OK)
+                    {
+                        // Gera chave e envia nota fiscal
+                        NfeControle nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
+                        if (!string.IsNullOrEmpty(nfe.Chave))
+                        {
+                            GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, folderBrowserDialogNfe.SelectedPath);
+                        }
+                    }
+                }
+                    
+            }
+            
             if (MessageBox.Show("Confirma envio da NF-e?", "Enviar NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -83,7 +100,7 @@ namespace Telas
                 NfeControle nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
                 if (!string.IsNullOrEmpty(nfe.Chave))
                 {
-                    GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe);
+                    GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, "");
                 }
                 Cursor.Current = Cursors.Default;
                 nfeControleDataGridView.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);

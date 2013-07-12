@@ -527,7 +527,7 @@ namespace Negocio
             return numeroProtocolo;
         }
 
-        public void EnviarNFE(Saida saida, NfeControle nfeControle)
+        public void EnviarNFE(Saida saida, NfeControle nfeControle, string pastaGravacaoNfe)
         {
             try
             {
@@ -863,11 +863,17 @@ namespace Negocio
                 memStream.Position = 0;
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(memStream);
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-nfe.xml");
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-nfe.xml");
-
-                nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
-                Atualizar(nfeControle);
+                if (string.IsNullOrEmpty(pastaGravacaoNfe))
+                {
+                    xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-nfe.xml");
+                    xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-nfe.xml");
+                    nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
+                    Atualizar(nfeControle);
+                }
+                else
+                {
+                    xmlDoc.Save(pastaGravacaoNfe + nfeControle.Chave + "-nfe.xml");
+                }
                 
             }
             catch (Exception ex)
