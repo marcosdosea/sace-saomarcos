@@ -77,6 +77,8 @@ namespace Util
          PASTA_COMUNICACAO_NFE_RETORNO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Retorno\\",
          PASTA_COMUNICACAO_NFE_ERRO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Erro\\",
          PASTA_COMUNICACAO_NFE_AUTORIZADOS = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Enviado\\Autorizados\\",
+         PASTA_COMUNICACAO_NFE_ESPELHO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Espelho\\",
+         
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          NOME_SERVIDOR = "SERVIDOR",
