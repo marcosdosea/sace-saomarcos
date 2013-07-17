@@ -527,7 +527,7 @@ namespace Negocio
             return numeroProtocolo;
         }
 
-        public void EnviarNFE(Saida saida, NfeControle nfeControle, string pastaGravacaoNfe)
+        public void EnviarNFE(Saida saida, NfeControle nfeControle, bool ehEspelho)
         {
             try
             {
@@ -841,7 +841,7 @@ namespace Negocio
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
                     Entrada entrada = GerenciadorEntrada.GetInstance().Obter(saida.CodEntrada).ElementAtOrDefault(0);
-                    saida.Observacao += "Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
+                    saida.Observacao += " Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
                         " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
                         saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + saida.BaseCalculoICMSSubst.ToString("N2") +
                         ". Valor do ICMS ST = R$ " + saida.ValorICMSSubst.ToString("N2") + ". Valor do IPI = R$ " + saida.ValorIPI.ToString("N2");
@@ -863,18 +863,17 @@ namespace Negocio
                 memStream.Position = 0;
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(memStream);
-                if (string.IsNullOrEmpty(pastaGravacaoNfe))
+                if (ehEspelho)
+                {
+                    xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ESPELHO + nfeControle.Chave + "-nfe.xml");
+                }
+                else
                 {
                     xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-nfe.xml");
                     xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-nfe.xml");
                     nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
                     Atualizar(nfeControle);
                 }
-                else
-                {
-                    xmlDoc.Save(pastaGravacaoNfe + nfeControle.Chave + "-nfe.xml");
-                }
-                
             }
             catch (Exception ex)
             {
@@ -1270,6 +1269,7 @@ namespace Negocio
                 }
             }
         }
+
         
     }
 }
