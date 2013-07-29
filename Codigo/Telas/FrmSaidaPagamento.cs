@@ -38,11 +38,14 @@ namespace Telas
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
-            if (codClienteComboBox.SelectedIndex != 0)
+            if (saida.CodCliente != Global.CLIENTE_PADRAO)
             {
-                codFormaPagamentoComboBox.SelectedIndex = 1;
+                formaPagamentoBindingSource.Position = formaPagamentoBindingSource.IndexOf(new FormaPagamento() { CodFormaPagamento = FormaPagamento.CREDIARIO });
             }
-
+            else
+            {
+                formaPagamentoBindingSource.Position = 0;
+            }
             InicializaVariaveis();
             AtualizaValores();
         }
@@ -53,7 +56,6 @@ namespace Telas
         private void InicializaVariaveis()
         {
             codCartaoComboBox.SelectedIndex = 0;
-            codFormaPagamentoComboBox.SelectedIndex = 0;
             codContaBancoComboBox.SelectedIndex = 0;
             intervaloDiasTextBox.Text = Global.QUANTIDADE_DIAS_CREDIARIO.ToString();
             parcelasTextBox.Text = "1";

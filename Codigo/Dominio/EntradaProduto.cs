@@ -62,6 +62,8 @@ namespace Dominio
         public decimal PrecoVendaVarejo { get; set; }
         public decimal LucroPrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacado { get; set; }
+        public decimal LucroPrecoRevenda { get; set; }
+        public decimal PrecoRevenda { get; set; }
         public bool EhTributacaoIntegral
         {
             get

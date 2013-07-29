@@ -48,6 +48,24 @@ namespace Negocio
             else if (entradaProduto.QuantidadeEmbalagem <= 0)
                 throw new NegocioException("A quantidade de produtos em cada embalagem deve ser maior que zero.");
 
+            Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
+            
+            Cst cstEntrada = new Cst() { CodCST = entradaProduto.CodCST } ;
+
+            if (!produto.EhTributacaoIntegral && cstEntrada.EhTributacaoIntegral)
+            {
+                throw new NegocioException("Esse produto não pode voltar a ser tributação Normal. Favor colocar CST com Substituição Tributária e CUIDADO no cálculo do preço. Verifique se o o DAE de encerramento de fase da nota já chegou.");
+            }
+
+            if (cstEntrada.EhTributacaoIntegral && (entradaProduto.Icms <= 0))
+            {
+                throw new NegocioException("O campo % CRED ICMS não pode ser menor ou igual a zero quando o produto possui tributação normal.");
+            }
+            else if (!cstEntrada.EhTributacaoIntegral && (entradaProduto.IcmsSubstituto <= 0))
+            {
+                throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
+            }
+
             //DbTransaction transaction = null;
             try
             {
@@ -66,7 +84,6 @@ namespace Negocio
                     // Incrementa o estoque na loja principal
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
-                    Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
                     Atribuir(entradaProduto, produto);
 
                     if (entradaProduto.FornecedorEhFabricante)
@@ -493,11 +510,17 @@ namespace Negocio
             produto.QtdProdutoAtacado = entradaProduto.QtdProdutoAtacado;
             produto.UltimaDataAtualizacao = DateTime.Now;
             produto.DataUltimoPedido = entradaProduto.DataEntrada;
-            produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
+            produto.UltimoPrecoCompra = entradaProduto.ValorUnitario;
             produto.CodCST = entradaProduto.CodCST;
             produto.Desconto = entradaProduto.Desconto;
             produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
             produto.UnidadeCompra = entradaProduto.UnidadeCompra;
+            produto.PrecoRevenda = entradaProduto.PrecoRevenda;
+            produto.LucroPrecoRevenda = entradaProduto.LucroPrecoRevenda;
+            if (entradaProduto.FornecedorEhFabricante)
+            {
+                produto.CodFabricante = entradaProduto.CodFornecedor;
+            }
         }
 
         /// <summary>
