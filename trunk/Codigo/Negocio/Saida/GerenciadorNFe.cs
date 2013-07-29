@@ -813,6 +813,7 @@ namespace Negocio
                     Pessoa transportadora = GerenciadorPessoa.GetInstance().Obter(saida.CodEmpresaFrete).ElementAtOrDefault(0);
                     transporta.IE = transportadora.Ie;
                     transporta.UF = (TUf)Enum.Parse(typeof(TUf), transportadora.Uf);
+                    transporta.UFSpecified = true; 
                     transporta.xEnder = transportadora.Endereco;
                     transporta.xMun = transportadora.Cidade;
                     transporta.xNome = transportadora.Nome;
@@ -821,13 +822,21 @@ namespace Negocio
                     volumes.esp = saida.EspecieVolumes;
                     volumes.marca = saida.Marca;
                     volumes.nVol = formataValorNFe(saida.Numero);
-                    volumes.pesoB = formataValorNFe(saida.PesoBruto);
-                    volumes.pesoL = formataValorNFe(saida.PesoLiquido);
-                    volumes.qVol = formataValorNFe(saida.QuantidadeVolumes);
+                    volumes.pesoB = formataPesoNFe(saida.PesoBruto);
+                    volumes.pesoL = formataPesoNFe(saida.PesoLiquido);
+                    volumes.qVol = saida.QuantidadeVolumes.ToString("N0");
                     
                     transp.vol[0] = volumes;
                     transp.transporta = transporta;
-                    transp.retTransp = new TNFeInfNFeTranspRetTransp();
+                    TNFeInfNFeTranspRetTransp retTransp = new TNFeInfNFeTranspRetTransp();
+                    retTransp.CFOP = TCfopTransp.Item6352;
+                    retTransp.cMunFG = transportadora.CodMunicipioIBGE.ToString();
+                    retTransp.vServ = formataValorNFe(saida.ValorFrete);
+                    retTransp.vBCRet = "0";
+                    retTransp.pICMSRet = "0";
+                    retTransp.vICMSRet = "0";
+                    
+                    transp.retTransp = retTransp; 
                     
                 }
 
@@ -1206,6 +1215,21 @@ namespace Negocio
                     quantidade = 0;
 
                 return ((decimal)quantidade).ToString("0.0000", CultureInfo.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        private string formataPesoNFe(decimal? quantidade)
+        {
+            try
+            {
+                if (quantidade == null)
+                    quantidade = 0;
+
+                return ((decimal)quantidade).ToString("0.000", CultureInfo.InvariantCulture);
             }
             catch (Exception ex)
             {

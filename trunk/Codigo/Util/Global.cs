@@ -82,7 +82,7 @@ namespace Util
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          NOME_SERVIDOR = "SERVIDOR",
-         //NOME_SERVIDOR = "MARCOSDOSEA",
+         //NOME_SERVIDOR = "SONY-VAIO",
          NOME_SERVIDOR_NFE = "RETAGUARDA",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",

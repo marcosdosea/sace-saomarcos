@@ -277,6 +277,7 @@ namespace Negocio
             //DbTransaction transaction = null;
             try
             {
+                
                 //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
                 //    saceContext.Connection.Open();
                 //transaction = saceContext.Connection.BeginTransaction();
@@ -285,12 +286,13 @@ namespace Negocio
 
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                     throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
-                else if (numeroNfeAutorizadas > 0)
-                    throw new NegocioException("Não é possível editar uma saída cuja NF-e já foi emitida.");
-                else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (!string.IsNullOrEmpty(saida.Nfe)) && (!saida.Nfe.Equals("NF-e")))
-                    throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida.");
-                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (!string.IsNullOrEmpty(saida.Nfe)) && (!saida.Nfe.Equals("NF-e")))
-                    throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida.");
+
+                bool possuiNfeAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
+
+                if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (possuiNfeAutorizada))
+                    throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida e autorizada.");
+                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (possuiNfeAutorizada))
+                    throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida e autorizada.");
                 else if ((saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA) && (saida.CodCliente != Global.CLIENTE_PADRAO))
                 {
                     List<SaidaPagamento> saidaPagamentos = GerenciadorSaidaPagamento.GetInstance(saceContext).ObterPorSaida(saida.CodSaida).ToList();
@@ -306,12 +308,15 @@ namespace Negocio
 
                 ExcluirDocumentoFiscal(saida.CodSaida);
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
-                if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA))
                 {
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
                     RegistrarEstornoEstoque(saida);
                 }
-                saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
+                {
+                    saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                }
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
                 saida.CupomFiscal = "";
                 saida.TotalPago = 0;

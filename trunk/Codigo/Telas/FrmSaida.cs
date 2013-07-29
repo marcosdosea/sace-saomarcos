@@ -443,7 +443,12 @@ namespace Telas
                 }
                 else
                 {
-                    if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)))
+                    if (lblPreco.Text.Equals(PRECO_REVENDA))
+                    {
+                        precoVendaSemDescontoTextBox.Text = produto.PrecoRevendaSemDesconto.ToString("N2");
+                        precoVendatextBox.Text = produto.PrecoRevenda.ToString("N2");
+                    }
+                    else if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)))
                     {
                         precoVendaSemDescontoTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produto.PrecoVendaAtacado.ToString();
@@ -453,11 +458,7 @@ namespace Telas
                         precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
                     }
-                    else if (lblPreco.Text.Equals(PRECO_REVENDA))
-                    {
-                        precoVendaSemDescontoTextBox.Text = produto.PrecoRevendaSemDesconto.ToString("N2");
-                        precoVendatextBox.Text = produto.PrecoRevenda.ToString("N2");
-                    }
+                   
                     data_validadeDateTimePicker.Enabled = produto.TemVencimento;
                     data_validadeDateTimePicker.TabStop = produto.TemVencimento;
                 }

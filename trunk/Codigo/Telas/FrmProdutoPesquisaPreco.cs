@@ -52,7 +52,7 @@ namespace Telas
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
                 }
             }
             else

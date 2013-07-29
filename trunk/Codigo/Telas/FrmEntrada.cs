@@ -128,6 +128,10 @@ namespace Telas
                 entradaProduto.PrecoCusto = Convert.ToDecimal(preco_custoTextBox.Text);
                 entradaProduto.PrecoVendaAtacado = Convert.ToDecimal(precoVendaAtacadoTextBox.Text);
                 entradaProduto.PrecoVendaVarejo = Convert.ToDecimal(precoVendaVarejoTextBox.Text);
+
+                entradaProduto.PrecoRevenda = Convert.ToDecimal(precoRevendaTextBox.Text);
+                entradaProduto.LucroPrecoRevenda = Convert.ToDecimal(lucroPrecoRevendaTextBox.Text);
+
                 entradaProduto.Quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
                 entradaProduto.QuantidadeEmbalagem = Convert.ToDecimal(quantidadeEmbalagemTextBox.Text);
                 entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem;
@@ -296,7 +300,6 @@ namespace Telas
         private void precoVendaAtacadoTextBox_Leave(object sender, EventArgs e)
         {
             codEntradaTextBox_Leave(sender, e);
-            btnSalvar.Focus();
         }
 
         private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -552,6 +555,12 @@ namespace Telas
             {
                 estado = EstadoFormulario.ESPERA;
             }
+        }
+
+        private void precoRevendaTextBox_Leave(object sender, EventArgs e)
+        {
+            codEntradaTextBox_Leave(sender, e);
+            btnSalvar.Focus();
         }
 
         

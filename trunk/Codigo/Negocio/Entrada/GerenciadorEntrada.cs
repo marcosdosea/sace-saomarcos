@@ -38,7 +38,14 @@ namespace Negocio
                 EntradaE _entradaE = new EntradaE();
                 if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0 ))
                   throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
-                
+                else if (entrada.TotalProdutos > entrada.TotalNota) 
+                {
+                    throw new NegocioException("O valor Total dos Produtos não pode ser maior que o valor total da Nota.");
+                }
+                else if (entrada.TotalProdutosST > entrada.TotalProdutos)
+                {
+                    throw new NegocioException("O valor Total dos Protudos ST não pode ser maior que o valor Total dos Produtos.");
+                }
 
                 Atribuir(entrada, _entradaE);
 
@@ -60,6 +67,16 @@ namespace Negocio
         /// <param name="entrada"></param>
         public void Atualizar(Entrada entrada)
         {
+            if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0))
+                throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
+            else if (entrada.TotalProdutos > entrada.TotalNota)
+            {
+                throw new NegocioException("O valor Total dos Produtos não pode ser maior que o valor total da Nota.");
+            }
+            else if (entrada.TotalProdutosST > entrada.TotalProdutos)
+            {
+                throw new NegocioException("O valor Total dos Protudos ST não pode ser maior que o valor Total dos Produtos.");
+            }
             var repEntrada = new RepositorioGenerico<EntradaE>();
             Atualizar(entrada, (SaceEntities) repEntrada.ObterContexto());
         }

@@ -57,10 +57,10 @@
             System.Windows.Forms.Label descontoLabel;
             System.Windows.Forms.Label unidadeCompraLabel;
             System.Windows.Forms.Label quantidadeEmbalagemLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             System.Windows.Forms.Label lucroPrecoRevendaLabel;
             System.Windows.Forms.Label precoRevendaSugestaoLabel;
             System.Windows.Forms.Label precoRevendaLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -428,6 +428,33 @@
             quantidadeEmbalagemLabel.Size = new System.Drawing.Size(123, 13);
             quantidadeEmbalagemLabel.TabIndex = 92;
             quantidadeEmbalagemLabel.Text = "Quantidade Embalagem:";
+            // 
+            // lucroPrecoRevendaLabel
+            // 
+            lucroPrecoRevendaLabel.AutoSize = true;
+            lucroPrecoRevendaLabel.Location = new System.Drawing.Point(235, 463);
+            lucroPrecoRevendaLabel.Name = "lucroPrecoRevendaLabel";
+            lucroPrecoRevendaLabel.Size = new System.Drawing.Size(95, 13);
+            lucroPrecoRevendaLabel.TabIndex = 92;
+            lucroPrecoRevendaLabel.Text = "% Lucro Revenda:";
+            // 
+            // precoRevendaSugestaoLabel
+            // 
+            precoRevendaSugestaoLabel.AutoSize = true;
+            precoRevendaSugestaoLabel.Location = new System.Drawing.Point(329, 463);
+            precoRevendaSugestaoLabel.Name = "precoRevendaSugestaoLabel";
+            precoRevendaSugestaoLabel.Size = new System.Drawing.Size(133, 13);
+            precoRevendaSugestaoLabel.TabIndex = 93;
+            precoRevendaSugestaoLabel.Text = "Preco Revenda Sugestão:";
+            // 
+            // precoRevendaLabel
+            // 
+            precoRevendaLabel.AutoSize = true;
+            precoRevendaLabel.Location = new System.Drawing.Point(468, 463);
+            precoRevendaLabel.Name = "precoRevendaLabel";
+            precoRevendaLabel.Size = new System.Drawing.Size(85, 13);
+            precoRevendaLabel.TabIndex = 94;
+            precoRevendaLabel.Text = "Preço Revenda:";
             // 
             // label1
             // 
@@ -1129,15 +1156,6 @@
             this.quantidadeEmbalagemTextBox.Size = new System.Drawing.Size(119, 20);
             this.quantidadeEmbalagemTextBox.TabIndex = 25;
             // 
-            // lucroPrecoRevendaLabel
-            // 
-            lucroPrecoRevendaLabel.AutoSize = true;
-            lucroPrecoRevendaLabel.Location = new System.Drawing.Point(235, 463);
-            lucroPrecoRevendaLabel.Name = "lucroPrecoRevendaLabel";
-            lucroPrecoRevendaLabel.Size = new System.Drawing.Size(95, 13);
-            lucroPrecoRevendaLabel.TabIndex = 92;
-            lucroPrecoRevendaLabel.Text = "% Lucro Revenda:";
-            // 
             // lucroPrecoRevendaTextBox
             // 
             this.lucroPrecoRevendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "LucroPrecoRevenda", true));
@@ -1147,15 +1165,6 @@
             this.lucroPrecoRevendaTextBox.TabIndex = 80;
             this.lucroPrecoRevendaTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.lucroPrecoRevendaTextBox.Leave += new System.EventHandler(this.icmsTextBox_Leave_1);
-            // 
-            // precoRevendaSugestaoLabel
-            // 
-            precoRevendaSugestaoLabel.AutoSize = true;
-            precoRevendaSugestaoLabel.Location = new System.Drawing.Point(329, 463);
-            precoRevendaSugestaoLabel.Name = "precoRevendaSugestaoLabel";
-            precoRevendaSugestaoLabel.Size = new System.Drawing.Size(133, 13);
-            precoRevendaSugestaoLabel.TabIndex = 93;
-            precoRevendaSugestaoLabel.Text = "Preco Revenda Sugestão:";
             // 
             // precoRevendaSugestaoTextBox
             // 
@@ -1167,18 +1176,10 @@
             this.precoRevendaSugestaoTextBox.TabIndex = 82;
             this.precoRevendaSugestaoTextBox.TabStop = false;
             // 
-            // precoRevendaLabel
-            // 
-            precoRevendaLabel.AutoSize = true;
-            precoRevendaLabel.Location = new System.Drawing.Point(468, 463);
-            precoRevendaLabel.Name = "precoRevendaLabel";
-            precoRevendaLabel.Size = new System.Drawing.Size(85, 13);
-            precoRevendaLabel.TabIndex = 94;
-            precoRevendaLabel.Text = "Preço Revenda:";
-            // 
             // precoRevendaTextBox
             // 
             this.precoRevendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoRevenda", true));
+            this.precoRevendaTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoRevendaTextBox.Location = new System.Drawing.Point(467, 479);
             this.precoRevendaTextBox.Name = "precoRevendaTextBox";
             this.precoRevendaTextBox.Size = new System.Drawing.Size(128, 20);

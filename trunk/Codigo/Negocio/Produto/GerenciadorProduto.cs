@@ -213,7 +213,8 @@ namespace Negocio
                             TemVencimento = (bool) produto.temVencimento,
                             Unidade = produto.unidade,
                             UnidadeCompra = produto.unidadeCompra,
-                            UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra
+                            UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
+                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao
                         };
             return query;
         }
@@ -378,13 +379,13 @@ namespace Negocio
         {
             if ((nome.Length > 0) && (nome[0] == '%'))
             {
-                //return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
-                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
+                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
+                //return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
             }
             else
             {
-                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome)).ToList();
-                //return GetQuerySimples().Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
+                //return GetQuerySimples().Where(p => p.Nome.StartsWith(nome)).ToList();
+                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
             }
         }
 
