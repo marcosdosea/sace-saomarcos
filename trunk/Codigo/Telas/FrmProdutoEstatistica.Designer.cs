@@ -73,6 +73,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.entradasPorProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.entradasPorProdutoDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codCST = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.produtoLojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
@@ -84,14 +92,6 @@
             this.entradasPorProdutoTableAdapter = new Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter();
             this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codCST = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             valorUnitarioLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaAtacadoLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaVarejoLabel = new System.Windows.Forms.Label();
@@ -202,7 +202,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(846, 41);
+            this.panel1.Size = new System.Drawing.Size(872, 41);
             this.panel1.TabIndex = 20;
             // 
             // ProdutosGroupBox
@@ -227,7 +227,7 @@
             this.ProdutosGroupBox.Controls.Add(this.valorUnitarioTextBox);
             this.ProdutosGroupBox.Location = new System.Drawing.Point(0, 111);
             this.ProdutosGroupBox.Name = "ProdutosGroupBox";
-            this.ProdutosGroupBox.Size = new System.Drawing.Size(838, 62);
+            this.ProdutosGroupBox.Size = new System.Drawing.Size(858, 62);
             this.ProdutosGroupBox.TabIndex = 76;
             this.ProdutosGroupBox.TabStop = false;
             this.ProdutosGroupBox.Text = "Dados do Produto";
@@ -371,7 +371,7 @@
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(834, 143);
+            this.chart1.Size = new System.Drawing.Size(858, 143);
             this.chart1.TabIndex = 113;
             this.chart1.Text = "chart1";
             // 
@@ -505,116 +505,9 @@
             this.entradasPorProdutoDataGridView.Name = "entradasPorProdutoDataGridView";
             this.entradasPorProdutoDataGridView.ReadOnly = true;
             this.entradasPorProdutoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.entradasPorProdutoDataGridView.Size = new System.Drawing.Size(835, 102);
+            this.entradasPorProdutoDataGridView.Size = new System.Drawing.Size(855, 102);
             this.entradasPorProdutoDataGridView.TabIndex = 124;
             this.entradasPorProdutoDataGridView.TabStop = false;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(-2, 442);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(179, 18);
-            this.label11.TabIndex = 122;
-            this.label11.Text = "Últimas Entradas/Pedidos";
-            // 
-            // produtoLojaBindingSource
-            // 
-            this.produtoLojaBindingSource.DataSource = typeof(Dominio.ProdutoLoja);
-            // 
-            // tb_produto_lojaDataGridView
-            // 
-            this.tb_produto_lojaDataGridView.AllowUserToAddRows = false;
-            this.tb_produto_lojaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_produto_lojaDataGridView.AutoGenerateColumns = false;
-            this.tb_produto_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_produto_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codLojaDataGridViewTextBoxColumn,
-            this.nomeLojaDataGridViewTextBoxColumn,
-            this.qtdEstoqueDataGridViewTextBoxColumn,
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn});
-            this.tb_produto_lojaDataGridView.DataSource = this.produtoLojaBindingSource;
-            this.tb_produto_lojaDataGridView.Location = new System.Drawing.Point(453, 202);
-            this.tb_produto_lojaDataGridView.MultiSelect = false;
-            this.tb_produto_lojaDataGridView.Name = "tb_produto_lojaDataGridView";
-            this.tb_produto_lojaDataGridView.ReadOnly = true;
-            this.tb_produto_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_produto_lojaDataGridView.Size = new System.Drawing.Size(383, 88);
-            this.tb_produto_lojaDataGridView.TabIndex = 124;
-            this.tb_produto_lojaDataGridView.TabStop = false;
-            // 
-            // codLojaDataGridViewTextBoxColumn
-            // 
-            this.codLojaDataGridViewTextBoxColumn.DataPropertyName = "CodLoja";
-            this.codLojaDataGridViewTextBoxColumn.HeaderText = "CodLoja";
-            this.codLojaDataGridViewTextBoxColumn.Name = "codLojaDataGridViewTextBoxColumn";
-            this.codLojaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codLojaDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // nomeLojaDataGridViewTextBoxColumn
-            // 
-            this.nomeLojaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeLojaDataGridViewTextBoxColumn.DataPropertyName = "NomeLoja";
-            this.nomeLojaDataGridViewTextBoxColumn.HeaderText = "Loja";
-            this.nomeLojaDataGridViewTextBoxColumn.Name = "nomeLojaDataGridViewTextBoxColumn";
-            this.nomeLojaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // qtdEstoqueDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
-            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // qtdEstoqueAuxDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoqueAux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Estoque Aux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label13.Location = new System.Drawing.Point(450, 180);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(60, 17);
-            this.label13.TabIndex = 125;
-            this.label13.Text = "Estoque";
-            // 
-            // entradasPorProdutoTableAdapter
-            // 
-            this.entradasPorProdutoTableAdapter.ClearBeforeFill = true;
-            // 
-            // codProdutoComboBox
-            // 
-            this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codProdutoComboBox.CausesValidation = false;
-            this.codProdutoComboBox.DataSource = this.produtoBindingSource;
-            this.codProdutoComboBox.DisplayMember = "nome";
-            this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codProdutoComboBox.FormattingEnabled = true;
-            this.codProdutoComboBox.Location = new System.Drawing.Point(7, 73);
-            this.codProdutoComboBox.Name = "codProdutoComboBox";
-            this.codProdutoComboBox.Size = new System.Drawing.Size(831, 32);
-            this.codProdutoComboBox.TabIndex = 5;
-            this.codProdutoComboBox.ValueMember = "codProduto";
-            this.codProdutoComboBox.SelectedIndexChanged += new System.EventHandler(this.codProdutoComboBox_Leave);
-            this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
-            this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1, 178);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 18);
-            this.label2.TabIndex = 128;
-            this.label2.Text = "Média de Vendas:";
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -698,11 +591,118 @@
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(-2, 442);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(179, 18);
+            this.label11.TabIndex = 122;
+            this.label11.Text = "Últimas Entradas/Pedidos";
+            // 
+            // produtoLojaBindingSource
+            // 
+            this.produtoLojaBindingSource.DataSource = typeof(Dominio.ProdutoLoja);
+            // 
+            // tb_produto_lojaDataGridView
+            // 
+            this.tb_produto_lojaDataGridView.AllowUserToAddRows = false;
+            this.tb_produto_lojaDataGridView.AllowUserToDeleteRows = false;
+            this.tb_produto_lojaDataGridView.AutoGenerateColumns = false;
+            this.tb_produto_lojaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tb_produto_lojaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.codLojaDataGridViewTextBoxColumn,
+            this.nomeLojaDataGridViewTextBoxColumn,
+            this.qtdEstoqueDataGridViewTextBoxColumn,
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn});
+            this.tb_produto_lojaDataGridView.DataSource = this.produtoLojaBindingSource;
+            this.tb_produto_lojaDataGridView.Location = new System.Drawing.Point(453, 202);
+            this.tb_produto_lojaDataGridView.MultiSelect = false;
+            this.tb_produto_lojaDataGridView.Name = "tb_produto_lojaDataGridView";
+            this.tb_produto_lojaDataGridView.ReadOnly = true;
+            this.tb_produto_lojaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tb_produto_lojaDataGridView.Size = new System.Drawing.Size(405, 88);
+            this.tb_produto_lojaDataGridView.TabIndex = 124;
+            this.tb_produto_lojaDataGridView.TabStop = false;
+            // 
+            // codLojaDataGridViewTextBoxColumn
+            // 
+            this.codLojaDataGridViewTextBoxColumn.DataPropertyName = "CodLoja";
+            this.codLojaDataGridViewTextBoxColumn.HeaderText = "CodLoja";
+            this.codLojaDataGridViewTextBoxColumn.Name = "codLojaDataGridViewTextBoxColumn";
+            this.codLojaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codLojaDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nomeLojaDataGridViewTextBoxColumn
+            // 
+            this.nomeLojaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeLojaDataGridViewTextBoxColumn.DataPropertyName = "NomeLoja";
+            this.nomeLojaDataGridViewTextBoxColumn.HeaderText = "Loja";
+            this.nomeLojaDataGridViewTextBoxColumn.Name = "nomeLojaDataGridViewTextBoxColumn";
+            this.nomeLojaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
+            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueAuxDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Estoque Aux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label13.Location = new System.Drawing.Point(450, 180);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(60, 17);
+            this.label13.TabIndex = 125;
+            this.label13.Text = "Estoque";
+            // 
+            // entradasPorProdutoTableAdapter
+            // 
+            this.entradasPorProdutoTableAdapter.ClearBeforeFill = true;
+            // 
+            // codProdutoComboBox
+            // 
+            this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codProdutoComboBox.CausesValidation = false;
+            this.codProdutoComboBox.DataSource = this.produtoBindingSource;
+            this.codProdutoComboBox.DisplayMember = "nome";
+            this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codProdutoComboBox.FormattingEnabled = true;
+            this.codProdutoComboBox.Location = new System.Drawing.Point(7, 73);
+            this.codProdutoComboBox.Name = "codProdutoComboBox";
+            this.codProdutoComboBox.Size = new System.Drawing.Size(851, 32);
+            this.codProdutoComboBox.TabIndex = 5;
+            this.codProdutoComboBox.ValueMember = "codProduto";
+            this.codProdutoComboBox.SelectedIndexChanged += new System.EventHandler(this.codProdutoComboBox_Leave);
+            this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
+            this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(1, 178);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 18);
+            this.label2.TabIndex = 128;
+            this.label2.Text = "Média de Vendas:";
+            // 
             // FrmProdutoEstatistica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 578);
+            this.ClientSize = new System.Drawing.Size(870, 578);
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(codProdutoLabel);
