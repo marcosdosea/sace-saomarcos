@@ -38,9 +38,9 @@ namespace Negocio
                 EntradaE _entradaE = new EntradaE();
                 if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0 ))
                   throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
-                else if (entrada.TotalProdutos > entrada.TotalNota) 
+                else if ((entrada.TotalProdutos - entrada.Desconto) > entrada.TotalNota) 
                 {
-                    throw new NegocioException("O valor Total dos Produtos não pode ser maior que o valor total da Nota.");
+                    throw new NegocioException("O valor Total dos Produtos não pode ser maior que o valor total da Nota menos o desconto.");
                 }
                 else if (entrada.TotalProdutosST > entrada.TotalProdutos)
                 {

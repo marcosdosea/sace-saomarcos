@@ -997,7 +997,7 @@ PARCELADO</Value>
         <FixedRowHeaders>true</FixedRowHeaders>
         <DataSetName>DataSetSaidaProdutoRelatorio</DataSetName>
         <Top>0.0635cm</Top>
-        <Height>1.40313cm</Height>
+        <Height>1.40312cm</Height>
         <Width>18.91119cm</Width>
         <Style>
           <Border>
@@ -1505,7 +1505,7 @@ PARCELADO</Value>
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.85125cm</Height>
+      <Height>1.87771cm</Height>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Line Name="Line3">
