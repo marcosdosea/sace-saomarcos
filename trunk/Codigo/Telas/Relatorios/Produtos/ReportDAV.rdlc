@@ -932,7 +932,7 @@ UNIT</Value>
           <BreakLocation>End</BreakLocation>
         </PageBreak>
         <Top>0.0635cm</Top>
-        <Height>1.40313cm</Height>
+        <Height>1.40312cm</Height>
         <Width>18.90286cm</Width>
         <Style>
           <Border>
@@ -1437,7 +1437,7 @@ UNIT</Value>
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.375cm</Height>
+      <Height>1.34854cm</Height>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Line Name="Line3">

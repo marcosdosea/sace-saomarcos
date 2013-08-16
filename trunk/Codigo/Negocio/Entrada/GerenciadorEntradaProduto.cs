@@ -52,16 +52,17 @@ namespace Negocio
             
             Cst cstEntrada = new Cst() { CodCST = entradaProduto.CodCST } ;
 
-            if (!produto.EhTributacaoIntegral && cstEntrada.EhTributacaoIntegral)
+            bool ehTributacaoIntegral = cstEntrada.EhTributacaoIntegral;
+            if (!produto.EhTributacaoIntegral && ehTributacaoIntegral)
             {
                 throw new NegocioException("Esse produto não pode voltar a ser tributação Normal. Favor colocar CST com Substituição Tributária e CUIDADO no cálculo do preço. Verifique se o o DAE de encerramento de fase da nota já chegou.");
             }
 
-            if (cstEntrada.EhTributacaoIntegral && (entradaProduto.Icms <= 0))
+            if (ehTributacaoIntegral && (entradaProduto.Icms <= 0))
             {
                 throw new NegocioException("O campo % CRED ICMS não pode ser menor ou igual a zero quando o produto possui tributação normal.");
             }
-            else if (!cstEntrada.EhTributacaoIntegral && (entradaProduto.IcmsSubstituto <= 0))
+            else if ((ehTributacaoIntegral==false) && (entradaProduto.IcmsSubstituto <= 0))
             {
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
             }
@@ -472,8 +473,8 @@ namespace Negocio
                 entradaProduto.PrecoVendaAtacado = produto.PrecoVendaAtacado;
                 entradaProduto.PrecoVendaVarejo = produto.PrecoVendaVarejo;
                 entradaProduto.Frete = produto.Frete;
-                entradaProduto.Icms = produto.Icms;
-                entradaProduto.IcmsSubstituto = produto.IcmsSubstituto;
+                entradaProduto.Icms = 7;
+                entradaProduto.IcmsSubstituto = 20;
                 entradaProduto.Ipi = produto.Ipi;
                 entradaProduto.Ncmsh = produto.Ncmsh;
                 entradaProduto.QtdProdutoAtacado = produto.QtdProdutoAtacado;

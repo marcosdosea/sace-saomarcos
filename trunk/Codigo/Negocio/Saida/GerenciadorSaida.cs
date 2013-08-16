@@ -1301,9 +1301,9 @@ namespace Negocio
                 imp.Fim();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.");
+                throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.", e);
             }
         }
 
