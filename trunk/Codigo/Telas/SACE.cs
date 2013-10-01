@@ -10,6 +10,9 @@ using Telas;
 using System.Threading;
 using Dominio;
 using Negocio;
+using System.Diagnostics;
+using Util;
+using System.IO;
 
 namespace Telas
 {
@@ -185,9 +188,36 @@ namespace Telas
             //{
             //    Application.Exit();
             //}
+
+            MapearImpressorasSeriais();
+
             autenticacao.CodUsuario = 1;
             autenticacao.Login = "1";
             this.Visible = true;
+        }
+
+        private static void MapearImpressorasSeriais()
+        {
+            DirectoryInfo Dir = new DirectoryInfo(Global.MAPEAMENTO_IMPRESSORA_REDUZIDA);
+            if (Dir.Exists)
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
+                processStartInfo.RedirectStandardInput = true;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.CreateNoWindow = false;
+
+                Process process = Process.Start(processStartInfo);
+                if (process != null)
+                {
+                    process.StandardInput.WriteLine(@"net use " + Global.PORTA_IMPRESSORA_REDUZIDA + " /delete");
+                    process.StandardInput.WriteLine(@"net use " + Global.PORTA_IMPRESSORA_REDUZIDA + " " + Global.MAPEAMENTO_IMPRESSORA_REDUZIDA + " /yes");
+
+                    process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
+                    process.StandardOutput.ReadToEnd();
+                }
+                process.Close();
+            }
         }
 
         private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -246,13 +276,6 @@ namespace Telas
             frmSaida.Dispose();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_OUTRAS_SAIDAS);
-            frmSaida.ShowDialog();
-            frmSaida.Dispose();
-        }
-
         private void códigoFiscalDeOperaçãoCFOPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmCfop frmCfop = new FrmCfop();
@@ -297,6 +320,13 @@ namespace Telas
             FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(true);
             frmReceberPagamento.ShowDialog();
             frmReceberPagamento.Dispose();
+        }
+
+        private void produtosParaRevendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Relatorios.FrmFiltroRelatorioProduto relatorio = new Relatorios.FrmFiltroRelatorioProduto();
+            relatorio.ShowDialog();
+            relatorio.Dispose();
         }
 
     }

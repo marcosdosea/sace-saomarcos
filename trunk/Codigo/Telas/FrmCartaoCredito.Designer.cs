@@ -36,6 +36,7 @@
             System.Windows.Forms.Label codPessoaLabel;
             System.Windows.Forms.Label mapeamentoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCartaoCredito));
+            System.Windows.Forms.Label descontoLabel;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -63,12 +64,14 @@
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mapeamentoTextBox = new System.Windows.Forms.TextBox();
+            this.descontoTextBox = new System.Windows.Forms.TextBox();
             codCartaoLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             codContaBancoLabel = new System.Windows.Forms.Label();
             diaBaseLabel = new System.Windows.Forms.Label();
             codPessoaLabel = new System.Windows.Forms.Label();
             mapeamentoLabel = new System.Windows.Forms.Label();
+            descontoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingNavigator)).BeginInit();
             this.tb_cartao_creditoBindingNavigator.SuspendLayout();
@@ -107,7 +110,7 @@
             // diaBaseLabel
             // 
             diaBaseLabel.AutoSize = true;
-            diaBaseLabel.Location = new System.Drawing.Point(232, 152);
+            diaBaseLabel.Location = new System.Drawing.Point(287, 152);
             diaBaseLabel.Name = "diaBaseLabel";
             diaBaseLabel.Size = new System.Drawing.Size(107, 13);
             diaBaseLabel.TabIndex = 23;
@@ -125,7 +128,7 @@
             // mapeamentoLabel
             // 
             mapeamentoLabel.AutoSize = true;
-            mapeamentoLabel.Location = new System.Drawing.Point(366, 150);
+            mapeamentoLabel.Location = new System.Drawing.Point(397, 150);
             mapeamentoLabel.Name = "mapeamentoLabel";
             mapeamentoLabel.Size = new System.Drawing.Size(72, 13);
             mapeamentoLabel.TabIndex = 33;
@@ -335,9 +338,9 @@
             // diaBaseTextBox
             // 
             this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "DiaBase", true));
-            this.diaBaseTextBox.Location = new System.Drawing.Point(235, 168);
+            this.diaBaseTextBox.Location = new System.Drawing.Point(290, 168);
             this.diaBaseTextBox.Name = "diaBaseTextBox";
-            this.diaBaseTextBox.Size = new System.Drawing.Size(128, 20);
+            this.diaBaseTextBox.Size = new System.Drawing.Size(104, 20);
             this.diaBaseTextBox.TabIndex = 33;
             this.diaBaseTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.diaBaseTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
@@ -353,7 +356,7 @@
             this.codContaBancoComboBox.FormattingEnabled = true;
             this.codContaBancoComboBox.Location = new System.Drawing.Point(11, 168);
             this.codContaBancoComboBox.Name = "codContaBancoComboBox";
-            this.codContaBancoComboBox.Size = new System.Drawing.Size(218, 21);
+            this.codContaBancoComboBox.Size = new System.Drawing.Size(204, 21);
             this.codContaBancoComboBox.TabIndex = 31;
             this.codContaBancoComboBox.ValueMember = "codContaBanco";
             this.codContaBancoComboBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
@@ -388,18 +391,39 @@
             // mapeamentoTextBox
             // 
             this.mapeamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "Mapeamento", true));
-            this.mapeamentoTextBox.Location = new System.Drawing.Point(369, 168);
+            this.mapeamentoTextBox.Location = new System.Drawing.Point(400, 168);
             this.mapeamentoTextBox.Name = "mapeamentoTextBox";
-            this.mapeamentoTextBox.Size = new System.Drawing.Size(100, 20);
+            this.mapeamentoTextBox.Size = new System.Drawing.Size(69, 20);
             this.mapeamentoTextBox.TabIndex = 34;
             this.mapeamentoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.mapeamentoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            // 
+            // descontoLabel
+            // 
+            descontoLabel.AutoSize = true;
+            descontoLabel.Location = new System.Drawing.Point(218, 150);
+            descontoLabel.Name = "descontoLabel";
+            descontoLabel.Size = new System.Drawing.Size(56, 13);
+            descontoLabel.TabIndex = 34;
+            descontoLabel.Text = "Desconto:";
+            // 
+            // descontoTextBox
+            // 
+            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "Desconto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.descontoTextBox.Location = new System.Drawing.Point(221, 168);
+            this.descontoTextBox.Name = "descontoTextBox";
+            this.descontoTextBox.Size = new System.Drawing.Size(63, 20);
+            this.descontoTextBox.TabIndex = 32;
+            this.descontoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
+            this.descontoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
             // FrmCartaoCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 227);
+            this.ClientSize = new System.Drawing.Size(476, 224);
+            this.Controls.Add(descontoLabel);
+            this.Controls.Add(this.descontoTextBox);
             this.Controls.Add(mapeamentoLabel);
             this.Controls.Add(this.mapeamentoTextBox);
             this.Controls.Add(codPessoaLabel);
@@ -471,5 +495,6 @@
         private System.Windows.Forms.BindingSource cartaoCreditoBindingSource;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.BindingSource contaBancoBindingSource;
+        private System.Windows.Forms.TextBox descontoTextBox;
     }
 }

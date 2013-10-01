@@ -77,7 +77,7 @@
             this.codGrupoComboBox = new System.Windows.Forms.ComboBox();
             this.grupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codigoFabricanteComboBox = new System.Windows.Forms.ComboBox();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fabricanteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.temVencimentoCheckBox = new System.Windows.Forms.CheckBox();
             this.exibeNaListagemCheckBox = new System.Windows.Forms.CheckBox();
             this.nomeFabricanteTextBox = new System.Windows.Forms.TextBox();
@@ -166,7 +166,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fabricanteBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.situacaoprodutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
@@ -552,7 +552,7 @@
             // produtoBindingSource
             // 
             this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            this.produtoBindingSource.Sort = "codProduto";
+            this.produtoBindingSource.Sort = "";
             this.produtoBindingSource.CurrentItemChanged += new System.EventHandler(this.produtoBindingSource_CurrentItemChanged);
             // 
             // nomeTextBox
@@ -596,7 +596,7 @@
             this.codGrupoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codGrupoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codGrupoComboBox.CausesValidation = false;
-            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodGrupo", true));
+            this.codGrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodGrupo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codGrupoComboBox.DataSource = this.grupoBindingSource;
             this.codGrupoComboBox.DisplayMember = "descricao";
             this.codGrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -613,6 +613,7 @@
             // 
             // grupoBindingSource
             // 
+            this.grupoBindingSource.AllowNew = false;
             this.grupoBindingSource.DataSource = typeof(Dominio.Grupo);
             // 
             // codigoFabricanteComboBox
@@ -620,9 +621,8 @@
             this.codigoFabricanteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codigoFabricanteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codigoFabricanteComboBox.CausesValidation = false;
-            this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodFabricante", true));
-            this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "NomeFabricante", true));
-            this.codigoFabricanteComboBox.DataSource = this.pessoaBindingSource;
+            this.codigoFabricanteComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodFabricante", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codigoFabricanteComboBox.DataSource = this.fabricanteBindingSource;
             this.codigoFabricanteComboBox.DisplayMember = "NomeFantasia";
             this.codigoFabricanteComboBox.FormattingEnabled = true;
             this.codigoFabricanteComboBox.Location = new System.Drawing.Point(150, 170);
@@ -634,10 +634,10 @@
             this.codigoFabricanteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codigoFabricanteComboBox_KeyPress);
             this.codigoFabricanteComboBox.Leave += new System.EventHandler(this.codigoFabricanteComboBox_Leave);
             // 
-            // pessoaBindingSource
+            // fabricanteBindingSource
             // 
-            this.pessoaBindingSource.AllowNew = false;
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            this.fabricanteBindingSource.AllowNew = false;
+            this.fabricanteBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // temVencimentoCheckBox
             // 
@@ -685,7 +685,7 @@
             // 
             // codSituacaoProdutoComboBox
             // 
-            this.codSituacaoProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodSituacaoProduto", true));
+            this.codSituacaoProdutoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodSituacaoProduto", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codSituacaoProdutoComboBox.DataSource = this.situacaoprodutoBindingSource;
             this.codSituacaoProdutoComboBox.DisplayMember = "DescricaoSituacao";
             this.codSituacaoProdutoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -700,6 +700,7 @@
             // 
             // situacaoprodutoBindingSource
             // 
+            this.situacaoprodutoBindingSource.AllowNew = false;
             this.situacaoprodutoBindingSource.DataSource = typeof(Dominio.SituacaoProduto);
             // 
             // precoVendaAtacadoTextBox
@@ -754,6 +755,7 @@
             this.ultimaDataAtualizacaoDateTimePicker.Size = new System.Drawing.Size(112, 20);
             this.ultimaDataAtualizacaoDateTimePicker.TabIndex = 66;
             this.ultimaDataAtualizacaoDateTimePicker.TabStop = false;
+            this.ultimaDataAtualizacaoDateTimePicker.Value = new System.DateTime(2012, 6, 1, 15, 42, 0, 0);
             this.ultimaDataAtualizacaoDateTimePicker.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.ultimaDataAtualizacaoDateTimePicker.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
@@ -974,7 +976,7 @@
             // 
             this.codCSTComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codCSTComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodCST", true));
+            this.codCSTComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "CodCST", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codCSTComboBox.DataSource = this.cstBindingSource;
             this.codCSTComboBox.DisplayMember = "Descricao";
             this.codCSTComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -989,6 +991,7 @@
             // 
             // cstBindingSource
             // 
+            this.cstBindingSource.AllowNew = false;
             this.cstBindingSource.DataSource = typeof(Dominio.Cst);
             // 
             // tb_produtoBindingNavigator
@@ -1088,12 +1091,13 @@
             // 
             // subgrupoBindingSource
             // 
+            this.subgrupoBindingSource.AllowNew = false;
             this.subgrupoBindingSource.DataSource = typeof(Dominio.Subgrupo);
             // 
             // codSubgrupoComboBox
             // 
             this.codSubgrupoComboBox.CausesValidation = false;
-            this.codSubgrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "codSubgrupo", true));
+            this.codSubgrupoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.produtoBindingSource, "codSubgrupo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codSubgrupoComboBox.DataSource = this.subgrupoBindingSource;
             this.codSubgrupoComboBox.DisplayMember = "descricao";
             this.codSubgrupoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1178,7 +1182,7 @@
             // 
             // precoRevendaTextBox
             // 
-            this.precoRevendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoRevenda", true));
+            this.precoRevendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoRevenda", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoRevendaTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoRevendaTextBox.Location = new System.Drawing.Point(467, 479);
             this.precoRevendaTextBox.Name = "precoRevendaTextBox";
@@ -1286,7 +1290,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fabricanteBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.situacaoprodutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produto_lojaDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).EndInit();
@@ -1355,7 +1359,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource grupoBindingSource;
         private System.Windows.Forms.BindingSource situacaoprodutoBindingSource;
-        private System.Windows.Forms.BindingSource cstBindingSource;
         private System.Windows.Forms.BindingSource produtoLojaBindingSource;
         private System.Windows.Forms.BindingSource subgrupoBindingSource;
         private System.Windows.Forms.ComboBox codSubgrupoComboBox;
@@ -1369,9 +1372,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn qtdEstoqueAuxDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn localizacaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn localizacao2DataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.TextBox lucroPrecoRevendaTextBox;
         private System.Windows.Forms.TextBox precoRevendaSugestaoTextBox;
         private System.Windows.Forms.TextBox precoRevendaTextBox;
+        private System.Windows.Forms.BindingSource fabricanteBindingSource;
+        private System.Windows.Forms.BindingSource cstBindingSource;
     }
 }

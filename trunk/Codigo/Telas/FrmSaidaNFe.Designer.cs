@@ -42,6 +42,11 @@
             System.Windows.Forms.Label situacaoProtocoloUsoLabel;
             System.Windows.Forms.Label situacaoReciboEnvioLabel;
             System.Windows.Forms.Label dataEmissaoLabel;
+            System.Windows.Forms.Label numeroProtocoloCartaCorrecaoLabel;
+            System.Windows.Forms.Label situacaoProtocoloCartaCorrecaoLabel;
+            System.Windows.Forms.Label mensagemSitucaoCartaCorrecaoLabel;
+            System.Windows.Forms.Label correcaoLabel;
+            System.Windows.Forms.Label seqCartaCorrecaoLabel;
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
@@ -67,6 +72,13 @@
             this.situacaoReciboEnvioTextBox = new System.Windows.Forms.TextBox();
             this.dataEmissaoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.folderBrowserDialogNfe = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnSituacao = new System.Windows.Forms.Button();
+            this.numeroProtocoloCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
+            this.situacaoProtocoloCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
+            this.mensagemSitucaoCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
+            this.correcaoTextBox = new System.Windows.Forms.TextBox();
+            this.btnCartaCorrecao = new System.Windows.Forms.Button();
+            this.seqCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -80,6 +92,11 @@
             situacaoProtocoloUsoLabel = new System.Windows.Forms.Label();
             situacaoReciboEnvioLabel = new System.Windows.Forms.Label();
             dataEmissaoLabel = new System.Windows.Forms.Label();
+            numeroProtocoloCartaCorrecaoLabel = new System.Windows.Forms.Label();
+            situacaoProtocoloCartaCorrecaoLabel = new System.Windows.Forms.Label();
+            mensagemSitucaoCartaCorrecaoLabel = new System.Windows.Forms.Label();
+            correcaoLabel = new System.Windows.Forms.Label();
+            seqCartaCorrecaoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -88,25 +105,25 @@
             // 
             observacaoLabel.AutoSize = true;
             observacaoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            observacaoLabel.Location = new System.Drawing.Point(1, 339);
+            observacaoLabel.Location = new System.Drawing.Point(2, 296);
             observacaoLabel.Name = "observacaoLabel";
-            observacaoLabel.Size = new System.Drawing.Size(68, 13);
+            observacaoLabel.Size = new System.Drawing.Size(92, 13);
             observacaoLabel.TabIndex = 5;
-            observacaoLabel.Text = "Observacao:";
+            observacaoLabel.Text = "Dados Adicionais:";
             // 
             // justificativaCancelamentoLabel1
             // 
             justificativaCancelamentoLabel1.AutoSize = true;
-            justificativaCancelamentoLabel1.Location = new System.Drawing.Point(1, 270);
+            justificativaCancelamentoLabel1.Location = new System.Drawing.Point(2, 354);
             justificativaCancelamentoLabel1.Name = "justificativaCancelamentoLabel1";
-            justificativaCancelamentoLabel1.Size = new System.Drawing.Size(136, 13);
+            justificativaCancelamentoLabel1.Size = new System.Drawing.Size(269, 13);
             justificativaCancelamentoLabel1.TabIndex = 18;
-            justificativaCancelamentoLabel1.Text = "Justificativa Cancelamento:";
+            justificativaCancelamentoLabel1.Text = "Justificativa Cancelamento (Até 24 horas após o envio):";
             // 
             // mensagemSituacaoReciboEnvioLabel
             // 
             mensagemSituacaoReciboEnvioLabel.AutoSize = true;
-            mensagemSituacaoReciboEnvioLabel.Location = new System.Drawing.Point(417, 170);
+            mensagemSituacaoReciboEnvioLabel.Location = new System.Drawing.Point(417, 174);
             mensagemSituacaoReciboEnvioLabel.Name = "mensagemSituacaoReciboEnvioLabel";
             mensagemSituacaoReciboEnvioLabel.Size = new System.Drawing.Size(62, 13);
             mensagemSituacaoReciboEnvioLabel.TabIndex = 20;
@@ -124,7 +141,7 @@
             // mensagemSitucaoProtocoloUsoLabel
             // 
             mensagemSitucaoProtocoloUsoLabel.AutoSize = true;
-            mensagemSitucaoProtocoloUsoLabel.Location = new System.Drawing.Point(417, 201);
+            mensagemSitucaoProtocoloUsoLabel.Location = new System.Drawing.Point(417, 205);
             mensagemSitucaoProtocoloUsoLabel.Name = "mensagemSitucaoProtocoloUsoLabel";
             mensagemSitucaoProtocoloUsoLabel.Size = new System.Drawing.Size(62, 13);
             mensagemSitucaoProtocoloUsoLabel.TabIndex = 24;
@@ -133,7 +150,7 @@
             // numeroLoteEnvioLabel
             // 
             numeroLoteEnvioLabel.AutoSize = true;
-            numeroLoteEnvioLabel.Location = new System.Drawing.Point(33, 143);
+            numeroLoteEnvioLabel.Location = new System.Drawing.Point(34, 147);
             numeroLoteEnvioLabel.Name = "numeroLoteEnvioLabel";
             numeroLoteEnvioLabel.Size = new System.Drawing.Size(61, 13);
             numeroLoteEnvioLabel.TabIndex = 26;
@@ -151,7 +168,7 @@
             // numeroProtocoloUsoLabel
             // 
             numeroProtocoloUsoLabel.AutoSize = true;
-            numeroProtocoloUsoLabel.Location = new System.Drawing.Point(17, 201);
+            numeroProtocoloUsoLabel.Location = new System.Drawing.Point(17, 205);
             numeroProtocoloUsoLabel.Name = "numeroProtocoloUsoLabel";
             numeroProtocoloUsoLabel.Size = new System.Drawing.Size(77, 13);
             numeroProtocoloUsoLabel.TabIndex = 30;
@@ -169,7 +186,7 @@
             // situacaoProtocoloCancelamentoLabel
             // 
             situacaoProtocoloCancelamentoLabel.AutoSize = true;
-            situacaoProtocoloCancelamentoLabel.Location = new System.Drawing.Point(224, 232);
+            situacaoProtocoloCancelamentoLabel.Location = new System.Drawing.Point(227, 239);
             situacaoProtocoloCancelamentoLabel.Name = "situacaoProtocoloCancelamentoLabel";
             situacaoProtocoloCancelamentoLabel.Size = new System.Drawing.Size(123, 13);
             situacaoProtocoloCancelamentoLabel.TabIndex = 36;
@@ -178,7 +195,7 @@
             // situacaoProtocoloUsoLabel
             // 
             situacaoProtocoloUsoLabel.AutoSize = true;
-            situacaoProtocoloUsoLabel.Location = new System.Drawing.Point(225, 201);
+            situacaoProtocoloUsoLabel.Location = new System.Drawing.Point(231, 205);
             situacaoProtocoloUsoLabel.Name = "situacaoProtocoloUsoLabel";
             situacaoProtocoloUsoLabel.Size = new System.Drawing.Size(122, 13);
             situacaoProtocoloUsoLabel.TabIndex = 38;
@@ -187,7 +204,7 @@
             // situacaoReciboEnvioLabel
             // 
             situacaoReciboEnvioLabel.AutoSize = true;
-            situacaoReciboEnvioLabel.Location = new System.Drawing.Point(258, 170);
+            situacaoReciboEnvioLabel.Location = new System.Drawing.Point(258, 174);
             situacaoReciboEnvioLabel.Name = "situacaoReciboEnvioLabel";
             situacaoReciboEnvioLabel.Size = new System.Drawing.Size(89, 13);
             situacaoReciboEnvioLabel.TabIndex = 40;
@@ -196,7 +213,7 @@
             // dataEmissaoLabel
             // 
             dataEmissaoLabel.AutoSize = true;
-            dataEmissaoLabel.Location = new System.Drawing.Point(272, 140);
+            dataEmissaoLabel.Location = new System.Drawing.Point(275, 143);
             dataEmissaoLabel.Name = "dataEmissaoLabel";
             dataEmissaoLabel.Size = new System.Drawing.Size(75, 13);
             dataEmissaoLabel.TabIndex = 41;
@@ -205,43 +222,43 @@
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnImprimir.Location = new System.Drawing.Point(605, 400);
+            this.btnImprimir.Location = new System.Drawing.Point(605, 485);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(105, 26);
             this.btnImprimir.TabIndex = 10;
-            this.btnImprimir.Text = "F9 - Imprimir";
+            this.btnImprimir.Text = "F8 - Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCancelar.Location = new System.Drawing.Point(499, 400);
+            this.btnCancelar.Location = new System.Drawing.Point(289, 485);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 26);
             this.btnCancelar.TabIndex = 6;
-            this.btnCancelar.Text = "F7 - Cancelar";
+            this.btnCancelar.Text = "F4 - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // observacaoTextBox
             // 
             this.observacaoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.observacaoTextBox.Location = new System.Drawing.Point(4, 355);
+            this.observacaoTextBox.Location = new System.Drawing.Point(4, 312);
             this.observacaoTextBox.MaxLength = 165;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(815, 39);
-            this.observacaoTextBox.TabIndex = 16;
+            this.observacaoTextBox.TabIndex = 14;
             // 
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnEnviar.Location = new System.Drawing.Point(393, 400);
+            this.btnEnviar.Location = new System.Drawing.Point(183, 485);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(105, 26);
             this.btnEnviar.TabIndex = 4;
-            this.btnEnviar.Text = "F6 - Enviar";
+            this.btnEnviar.Text = "F3 - Enviar";
             this.btnEnviar.UseVisualStyleBackColor = true;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
@@ -308,7 +325,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnConsultar.Location = new System.Drawing.Point(286, 400);
+            this.btnConsultar.Location = new System.Drawing.Point(76, 485);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(105, 26);
             this.btnConsultar.TabIndex = 2;
@@ -319,7 +336,7 @@
             // btnFechar
             // 
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnFechar.Location = new System.Drawing.Point(714, 400);
+            this.btnFechar.Location = new System.Drawing.Point(714, 485);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(105, 26);
             this.btnFechar.TabIndex = 12;
@@ -332,11 +349,11 @@
             this.justificativaCancelamentoTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.justificativaCancelamentoTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "JustificativaCancelamento", true));
             this.justificativaCancelamentoTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 288);
+            this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 370);
             this.justificativaCancelamentoTextBox1.Multiline = true;
             this.justificativaCancelamentoTextBox1.Name = "justificativaCancelamentoTextBox1";
             this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(815, 39);
-            this.justificativaCancelamentoTextBox1.TabIndex = 14;
+            this.justificativaCancelamentoTextBox1.TabIndex = 16;
             // 
             // mensagemSituacaoReciboEnvioTextBox
             // 
@@ -391,7 +408,7 @@
             // numeroProtocoloUsoTextBox
             // 
             this.numeroProtocoloUsoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroProtocoloUso", true));
-            this.numeroProtocoloUsoTextBox.Location = new System.Drawing.Point(101, 198);
+            this.numeroProtocoloUsoTextBox.Location = new System.Drawing.Point(101, 202);
             this.numeroProtocoloUsoTextBox.Name = "numeroProtocoloUsoTextBox";
             this.numeroProtocoloUsoTextBox.ReadOnly = true;
             this.numeroProtocoloUsoTextBox.Size = new System.Drawing.Size(115, 20);
@@ -449,13 +466,141 @@
             this.dataEmissaoDateTimePicker.TabIndex = 42;
             this.dataEmissaoDateTimePicker.TabStop = false;
             // 
+            // btnSituacao
+            // 
+            this.btnSituacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnSituacao.Location = new System.Drawing.Point(499, 485);
+            this.btnSituacao.Name = "btnSituacao";
+            this.btnSituacao.Size = new System.Drawing.Size(105, 26);
+            this.btnSituacao.TabIndex = 7;
+            this.btnSituacao.Text = "F6 - Situação";
+            this.btnSituacao.UseVisualStyleBackColor = true;
+            this.btnSituacao.Click += new System.EventHandler(this.btnSituacao_Click);
+            // 
+            // numeroProtocoloCartaCorrecaoLabel
+            // 
+            numeroProtocoloCartaCorrecaoLabel.AutoSize = true;
+            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-2, 270);
+            numeroProtocoloCartaCorrecaoLabel.Name = "numeroProtocoloCartaCorrecaoLabel";
+            numeroProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(103, 13);
+            numeroProtocoloCartaCorrecaoLabel.TabIndex = 42;
+            numeroProtocoloCartaCorrecaoLabel.Text = "Prot Carta Correção:";
+            // 
+            // numeroProtocoloCartaCorrecaoTextBox
+            // 
+            this.numeroProtocoloCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroProtocoloCartaCorrecao", true));
+            this.numeroProtocoloCartaCorrecaoTextBox.Location = new System.Drawing.Point(101, 267);
+            this.numeroProtocoloCartaCorrecaoTextBox.Name = "numeroProtocoloCartaCorrecaoTextBox";
+            this.numeroProtocoloCartaCorrecaoTextBox.ReadOnly = true;
+            this.numeroProtocoloCartaCorrecaoTextBox.Size = new System.Drawing.Size(115, 20);
+            this.numeroProtocoloCartaCorrecaoTextBox.TabIndex = 43;
+            this.numeroProtocoloCartaCorrecaoTextBox.TabStop = false;
+            // 
+            // situacaoProtocoloCartaCorrecaoLabel
+            // 
+            situacaoProtocoloCartaCorrecaoLabel.AutoSize = true;
+            situacaoProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(227, 270);
+            situacaoProtocoloCartaCorrecaoLabel.Name = "situacaoProtocoloCartaCorrecaoLabel";
+            situacaoProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(126, 13);
+            situacaoProtocoloCartaCorrecaoLabel.TabIndex = 43;
+            situacaoProtocoloCartaCorrecaoLabel.Text = "Situacao Carta Correção:";
+            // 
+            // situacaoProtocoloCartaCorrecaoTextBox
+            // 
+            this.situacaoProtocoloCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SituacaoProtocoloCartaCorrecao", true));
+            this.situacaoProtocoloCartaCorrecaoTextBox.Location = new System.Drawing.Point(353, 267);
+            this.situacaoProtocoloCartaCorrecaoTextBox.Name = "situacaoProtocoloCartaCorrecaoTextBox";
+            this.situacaoProtocoloCartaCorrecaoTextBox.ReadOnly = true;
+            this.situacaoProtocoloCartaCorrecaoTextBox.Size = new System.Drawing.Size(58, 20);
+            this.situacaoProtocoloCartaCorrecaoTextBox.TabIndex = 44;
+            this.situacaoProtocoloCartaCorrecaoTextBox.TabStop = false;
+            // 
+            // mensagemSitucaoCartaCorrecaoLabel
+            // 
+            mensagemSitucaoCartaCorrecaoLabel.AutoSize = true;
+            mensagemSitucaoCartaCorrecaoLabel.Location = new System.Drawing.Point(417, 270);
+            mensagemSitucaoCartaCorrecaoLabel.Name = "mensagemSitucaoCartaCorrecaoLabel";
+            mensagemSitucaoCartaCorrecaoLabel.Size = new System.Drawing.Size(62, 13);
+            mensagemSitucaoCartaCorrecaoLabel.TabIndex = 44;
+            mensagemSitucaoCartaCorrecaoLabel.Text = "Mensagem:";
+            // 
+            // mensagemSitucaoCartaCorrecaoTextBox
+            // 
+            this.mensagemSitucaoCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "MensagemSitucaoCartaCorrecao", true));
+            this.mensagemSitucaoCartaCorrecaoTextBox.Location = new System.Drawing.Point(485, 267);
+            this.mensagemSitucaoCartaCorrecaoTextBox.Name = "mensagemSitucaoCartaCorrecaoTextBox";
+            this.mensagemSitucaoCartaCorrecaoTextBox.ReadOnly = true;
+            this.mensagemSitucaoCartaCorrecaoTextBox.Size = new System.Drawing.Size(334, 20);
+            this.mensagemSitucaoCartaCorrecaoTextBox.TabIndex = 45;
+            this.mensagemSitucaoCartaCorrecaoTextBox.TabStop = false;
+            // 
+            // correcaoLabel
+            // 
+            correcaoLabel.AutoSize = true;
+            correcaoLabel.Location = new System.Drawing.Point(2, 412);
+            correcaoLabel.Name = "correcaoLabel";
+            correcaoLabel.Size = new System.Drawing.Size(380, 13);
+            correcaoLabel.TabIndex = 45;
+            correcaoLabel.Text = "Correções (Para NF-e Autorizadas e Situação previstas na legislação em vigor):";
+            // 
+            // correcaoTextBox
+            // 
+            this.correcaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "Correcao", true));
+            this.correcaoTextBox.Location = new System.Drawing.Point(5, 428);
+            this.correcaoTextBox.Multiline = true;
+            this.correcaoTextBox.Name = "correcaoTextBox";
+            this.correcaoTextBox.Size = new System.Drawing.Size(814, 42);
+            this.correcaoTextBox.TabIndex = 46;
+            // 
+            // btnCartaCorrecao
+            // 
+            this.btnCartaCorrecao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnCartaCorrecao.Location = new System.Drawing.Point(394, 485);
+            this.btnCartaCorrecao.Name = "btnCartaCorrecao";
+            this.btnCartaCorrecao.Size = new System.Drawing.Size(105, 26);
+            this.btnCartaCorrecao.TabIndex = 47;
+            this.btnCartaCorrecao.Text = "F5 - Correção";
+            this.btnCartaCorrecao.UseVisualStyleBackColor = true;
+            this.btnCartaCorrecao.Click += new System.EventHandler(this.btnCartaCorrecao_Click);
+            // 
+            // seqCartaCorrecaoLabel
+            // 
+            seqCartaCorrecaoLabel.AutoSize = true;
+            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(231, 293);
+            seqCartaCorrecaoLabel.Name = "seqCartaCorrecaoLabel";
+            seqCartaCorrecaoLabel.Size = new System.Drawing.Size(135, 13);
+            seqCartaCorrecaoLabel.TabIndex = 47;
+            seqCartaCorrecaoLabel.Text = "Sequência Carta Correção:";
+            // 
+            // seqCartaCorrecaoTextBox
+            // 
+            this.seqCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SeqCartaCorrecao", true));
+            this.seqCartaCorrecaoTextBox.Location = new System.Drawing.Point(372, 291);
+            this.seqCartaCorrecaoTextBox.Name = "seqCartaCorrecaoTextBox";
+            this.seqCartaCorrecaoTextBox.ReadOnly = true;
+            this.seqCartaCorrecaoTextBox.Size = new System.Drawing.Size(39, 20);
+            this.seqCartaCorrecaoTextBox.TabIndex = 48;
+            this.seqCartaCorrecaoTextBox.TabStop = false;
+            // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 427);
+            this.ClientSize = new System.Drawing.Size(826, 514);
             this.ControlBox = false;
+            this.Controls.Add(seqCartaCorrecaoLabel);
+            this.Controls.Add(this.seqCartaCorrecaoTextBox);
+            this.Controls.Add(this.btnCartaCorrecao);
+            this.Controls.Add(correcaoLabel);
+            this.Controls.Add(this.correcaoTextBox);
+            this.Controls.Add(mensagemSitucaoCartaCorrecaoLabel);
+            this.Controls.Add(this.mensagemSitucaoCartaCorrecaoTextBox);
+            this.Controls.Add(situacaoProtocoloCartaCorrecaoLabel);
+            this.Controls.Add(this.situacaoProtocoloCartaCorrecaoTextBox);
+            this.Controls.Add(numeroProtocoloCartaCorrecaoLabel);
+            this.Controls.Add(this.numeroProtocoloCartaCorrecaoTextBox);
+            this.Controls.Add(this.btnSituacao);
             this.Controls.Add(dataEmissaoLabel);
             this.Controls.Add(this.dataEmissaoDateTimePicker);
             this.Controls.Add(justificativaCancelamentoLabel1);
@@ -531,5 +676,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
         private System.Windows.Forms.DateTimePicker dataEmissaoDateTimePicker;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogNfe;
+        private System.Windows.Forms.Button btnSituacao;
+        private System.Windows.Forms.TextBox numeroProtocoloCartaCorrecaoTextBox;
+        private System.Windows.Forms.TextBox situacaoProtocoloCartaCorrecaoTextBox;
+        private System.Windows.Forms.TextBox mensagemSitucaoCartaCorrecaoTextBox;
+        private System.Windows.Forms.TextBox correcaoTextBox;
+        private System.Windows.Forms.Button btnCartaCorrecao;
+        private System.Windows.Forms.TextBox seqCartaCorrecaoTextBox;
     }
 }

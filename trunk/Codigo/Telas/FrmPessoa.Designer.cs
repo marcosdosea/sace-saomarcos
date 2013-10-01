@@ -422,6 +422,7 @@
             // pessoaBindingSource
             // 
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            this.pessoaBindingSource.CurrentItemChanged += new System.EventHandler(this.pessoaBindingSource_CurrentItemChanged);
             this.pessoaBindingSource.PositionChanged += new System.EventHandler(this.pessoaBindingSource_PositionChanged);
             // 
             // bindingNavigatorCountItem

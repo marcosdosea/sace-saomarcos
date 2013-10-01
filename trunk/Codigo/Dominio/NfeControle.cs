@@ -58,21 +58,29 @@ namespace Dominio
             }
         }
 
+        // Autorização
         public string NumeroLoteEnvio { get; set; }
         public string NumeroRecibo { get; set; }
         public string SituacaoReciboEnvio { get; set; }
         public string MensagemSituacaoReciboEnvio { get; set; }
-
         public string NumeroProtocoloUso { get; set; }
         public string SituacaoProtocoloUso { get; set; }
         public string MensagemSitucaoProtocoloUso { get; set; }
-        
+        public DateTime? DataEmissao { get; set; }
+
+        // Cancelamento
         public string NumeroProtocoloCancelamento { get; set; }
         public string SituacaoProtocoloCancelamento { get; set; }
         public string MensagemSitucaoProtocoloCancelamento { get; set; }
         public string JustificativaCancelamento { get; set; }
-        public DateTime? DataEmissao { get; set; }
-
         public DateTime? DataCancelamento { get; set; }
+
+        // Correcao
+        public int SeqCartaCorrecao { get; set; }
+        public string Correcao { get; set; }
+        public string SituacaoProtocoloCartaCorrecao { get; set; }
+        public string MensagemSitucaoCartaCorrecao { get; set; }
+        public string NumeroProtocoloCartaCorrecao { get; set; }
+        public DateTime? DataCartaCorrecao { get; set; }
     }
 }

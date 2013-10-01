@@ -81,11 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DadosException.cs" />
-    <Compile Include="saceDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="saceDataSetConsultas.cs">
       <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -136,26 +131,11 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="saceDataSet.xsc">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="saceDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>saceDataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="saceDataSet.xss">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-    </None>
     <None Include="SaceEntities1.datasource" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="saceDataSet.cs">
-      <DependentUpon>saceDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

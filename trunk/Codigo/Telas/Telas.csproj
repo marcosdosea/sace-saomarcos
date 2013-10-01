@@ -165,12 +165,6 @@
     <Compile Include="FrmCartaoCredito.Designer.cs">
       <DependentUpon>FrmCartaoCredito.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmEntradaPagamento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmEntradaPagamento.Designer.cs">
-      <DependentUpon>FrmEntradaPagamento.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmProdutoPesquisaPreco.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +219,12 @@
     <Compile Include="RamGec About Box1.Designer.cs">
       <DependentUpon>RamGec About Box1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Relatorios\FrmFiltroRelatorioProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\FrmFiltroRelatorioProduto.Designer.cs">
+      <DependentUpon>FrmFiltroRelatorioProduto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Relatorios\Produtos\FrmDAVOrcamento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +243,13 @@
     <Compile Include="Relatorios\Produtos\FrmRelProdutos.Designer.cs">
       <DependentUpon>FrmRelProdutos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Relatorios\Produtos\FrmRelProdutosRevenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\Produtos\FrmRelProdutosRevenda.Designer.cs">
+      <DependentUpon>FrmRelProdutosRevenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="TelaException.cs" />
     <Compile Include="TratamentoException.cs" />
     <Compile Include="FrmBanco.cs">
@@ -410,10 +417,6 @@
       <DependentUpon>FrmCartaoCredito.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmEntradaPagamento.resx">
-      <DependentUpon>FrmEntradaPagamento.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmProdutoPesquisaPreco.resx">
       <DependentUpon>FrmProdutoPesquisaPreco.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -530,6 +533,13 @@
     <EmbeddedResource Include="RamGec About Box1.resx">
       <DependentUpon>RamGec About Box1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\FrmFiltroRelatorioProduto.resx">
+      <DependentUpon>FrmFiltroRelatorioProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produtos\FrmRelProdutosRevenda.resx">
+      <DependentUpon>FrmRelProdutosRevenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Relatorios\Produtos\ReportProdutosRevenda.rdlc" />
     <EmbeddedResource Include="Relatorios\Produtos\FrmDAVOrcamento.resx">
       <DependentUpon>FrmDAVOrcamento.cs</DependentUpon>
     </EmbeddedResource>

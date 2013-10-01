@@ -10,6 +10,7 @@ namespace Dominio
     {
         public long CodProduto { get; set; }
         public string CodigoBarra { get; set; }
+        public long CodFabricante { get; set; }
         public string Nome { get; set; }
         public string NomeProdutoFabricante { get; set; }
         public string Unidade { get; set; }

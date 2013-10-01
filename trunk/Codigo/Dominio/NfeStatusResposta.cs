@@ -21,5 +21,6 @@ namespace Dominio
         public const string NFE128_LOTE_EVENTO_PROCESSADO = "128";
         public const string NFE135_EVENTO_REGISTRADO_VINCULADO_NFE = "135";
         public const string NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE = "136";
+        public const string NFE217_NFE_INEXISTENTE = "217";
     }
 }

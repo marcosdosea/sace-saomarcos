@@ -31,7 +31,7 @@ namespace Telas
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PRODUTOS, Principal.Autenticacao.CodUsuario);
 
             cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
-            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+            fabricanteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
@@ -48,27 +48,30 @@ namespace Telas
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
                 produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = frmProdutoPesquisa.ProdutoPesquisa.CodProduto } );
+                produtoBindingSource.ResumeBinding();
+                Produto produto = (Produto) produtoBindingSource.Current;
             }
             frmProdutoPesquisa.Dispose();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            produtoBindingSource.AddNew();
+            Produto produto = (Produto) produtoBindingSource.AddNew();
             codProdutoTextBox.Enabled = false;
             nomeTextBox.Focus();
             habilitaBotoes(false);
-            codGrupoComboBox.SelectedIndex = 0;
-            codigoFabricanteComboBox.SelectedIndex = 0;
-            codSituacaoProdutoComboBox.SelectedIndex = 0;
-            codCSTComboBox.SelectedIndex = 0;
-            Produto produto = (Produto) produtoBindingSource.Current;
+            produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
+            produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
+            produto.CodFabricante = ((Pessoa)fabricanteBindingSource.Current).CodPessoa;
+            produto.CodSituacaoProduto = ((SituacaoProduto)situacaoprodutoBindingSource.Current).CodSituacaoProduto;
+            produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
             produto.Simples = Global.SIMPLES;
             produto.Unidade = "UN";
             produto.UnidadeCompra = "UN";
             produto.QuantidadeEmbalagem = 1;
             produto.ExibeNaListagem = true;
             produto.UltimaDataAtualizacao = DateTime.Now;
+            produtoBindingSource.ResumeBinding();
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -238,7 +241,7 @@ namespace Telas
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
+                        fabricanteBindingSource.Position = fabricanteBindingSource.List.IndexOf(frmPessoaPesquisa.PessoaSelected);
                     }
                     frmPessoaPesquisa.Dispose();
                 }
@@ -248,8 +251,8 @@ namespace Telas
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
-                        pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-                        pessoaBindingSource.Position = pessoaBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
+                        fabricanteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                        fabricanteBindingSource.Position = fabricanteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
@@ -282,12 +285,13 @@ namespace Telas
                 Produto produto = (Produto)produtoBindingSource.Current;
                 produto.NomeProdutoFabricante = nomeTextBox.Text; 
             }
+            produtoBindingSource.ResumeBinding();
             codProdutoTextBox_Leave(sender, e);
         }
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, pessoaBindingSource, true);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, fabricanteBindingSource, true);
             codProdutoTextBox_Leave(sender, e);
         }
 
@@ -389,16 +393,17 @@ namespace Telas
 
         private void produtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
-            Produto produto = (Produto)produtoBindingSource.Current;
-            if (grupoBindingSource.Current != null)
-            {
-                produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
-                produto.CodFabricante = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
-                produto.NomeFabricante = ((Pessoa)pessoaBindingSource.Current).NomeFantasia;
-                produto.CodSituacaoProduto = ((SituacaoProduto)situacaoprodutoBindingSource.Current).CodSituacaoProduto;
-                produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
-                produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
-            }
+            produtoBindingSource.ResumeBinding();
+            //Produto produto = (Produto)produtoBindingSource.Current;
+            //if (grupoBindingSource.Current != null)
+            //{
+                //produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
+                //produto.CodFabricante = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
+                //produto.NomeFabricante = ((Pessoa)pessoaBindingSource.Current).NomeFantasia;
+                //produto.CodSituacaoProduto = ((SituacaoProduto)situacaoprodutoBindingSource.Current).CodSituacaoProduto;
+                //produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
+                //produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
+            //}
         }
 
         private void codCSTLabel_Click(object sender, EventArgs e)

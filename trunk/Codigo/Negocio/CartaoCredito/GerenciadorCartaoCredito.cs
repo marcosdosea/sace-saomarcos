@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
 using Dados;
-using Util;
-using System.Data.Common;
+using Dominio;
 
 namespace Negocio
 {
@@ -115,7 +110,8 @@ namespace Negocio
                             Mapeamento = cartao.mapeamento,
                             Nome = cartao.nome,
                             DescricaoContaBanco = contaBanco.descricao,
-                            NomePessoa = pessoa.nomeFantasia
+                            NomePessoa = pessoa.nomeFantasia,
+                            Desconto = cartao.desconto
                         };
             return query;
          
@@ -163,6 +159,7 @@ namespace Negocio
             _cartaoCredito.diaBase = cartaoCredito.DiaBase;
             _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
             _cartaoCredito.nome = cartaoCredito.Nome;
+            _cartaoCredito.desconto = cartaoCredito.Desconto;
         }
         
     }

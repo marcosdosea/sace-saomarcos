@@ -399,6 +399,7 @@
             // 
             this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
             this.saidaBindingSource.Sort = "";
+            this.saidaBindingSource.CurrentItemChanged += new System.EventHandler(this.saidaBindingSource_CurrentItemChanged);
             // 
             // codSaidaTextBox
             // 
@@ -936,7 +937,7 @@
             // panelBalcao
             // 
             this.panelBalcao.Controls.Add(this.lblBalcao);
-            this.panelBalcao.Location = new System.Drawing.Point(0, 47);
+            this.panelBalcao.Location = new System.Drawing.Point(-1, 47);
             this.panelBalcao.Name = "panelBalcao";
             this.panelBalcao.Size = new System.Drawing.Size(1009, 102);
             this.panelBalcao.TabIndex = 72;

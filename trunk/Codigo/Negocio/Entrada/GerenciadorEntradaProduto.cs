@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
 using Dados;
+using Dominio;
 using Util;
-using System.Data.Common;
-using System.Data.Objects;
 
 namespace Negocio
 {
@@ -62,7 +57,7 @@ namespace Negocio
             {
                 throw new NegocioException("O campo % CRED ICMS não pode ser menor ou igual a zero quando o produto possui tributação normal.");
             }
-            else if ((ehTributacaoIntegral==false) && (entradaProduto.IcmsSubstituto <= 0))
+            else if ((ehTributacaoIntegral==false) && (entradaProduto.IcmsSubstituto <= 0) && (!entradaProduto.CodCST.Substring(1).Equals(Cst.ST_SUBSTITUICAO_ICMS_COBRADO)))
             {
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
             }
@@ -281,8 +276,7 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
             var query = from entradaProduto in saceEntities.EntradaProdutoSet
-                        join entrada in saceEntities.EntradaSet on entradaProduto.codEntrada equals entrada.codEntrada
-                        where entrada.codTipoEntrada == Entrada.TIPO_ENTRADA && entradaProduto.codProduto == codProduto 
+                        where entradaProduto.tb_entrada.codTipoEntrada == Entrada.TIPO_ENTRADA && entradaProduto.codProduto == codProduto 
                         select new EntradaProduto
                         {
                             BaseCalculoICMS = (decimal)entradaProduto.baseCalculoICMS,
@@ -517,6 +511,7 @@ namespace Negocio
             produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
             produto.UnidadeCompra = entradaProduto.UnidadeCompra;
             produto.PrecoRevenda = entradaProduto.PrecoRevenda;
+            produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
             produto.LucroPrecoRevenda = entradaProduto.LucroPrecoRevenda;
             if (entradaProduto.FornecedorEhFabricante)
             {

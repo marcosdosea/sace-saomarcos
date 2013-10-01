@@ -64,7 +64,7 @@ namespace Telas
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
-            nfeControleDataGridView.DataSource = nfeControleBindingSource.DataSource; 
+            //nfeControleDataGridView.DataSource = nfeControleBindingSource.DataSource; 
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
@@ -120,15 +120,23 @@ namespace Telas
             {
                 btnConsultar_Click(sender, e);
             }
-            else if (e.KeyCode == Keys.F6)
+            else if (e.KeyCode == Keys.F3)
             {
                 btnEnviar_Click(sender, e);
             }
-            else if (e.KeyCode == Keys.F7)
+            else if (e.KeyCode == Keys.F4)
             {
                 btnCancelar_Click(sender, e);
             }
-            else if (e.KeyCode == Keys.F9)
+            else if (e.KeyCode == Keys.F5)
+            {
+                btnCartaCorrecao_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                btnSituacao_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F8)
             {
                 btnImprimir_Click(sender, e);
             }
@@ -138,6 +146,24 @@ namespace Telas
             }
         }
 
+        private void btnSituacao_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma envio de solicitação de Consulta a NF-e?", "Consulta na Base da SEFAZ da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
+                GerenciadorNFe.GetInstance().EnviarConsultaNfe(nfeControle);
+            }
+        }
 
+        private void btnCartaCorrecao_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma envio de Carta Correção da Nf-e?", "Correção da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
+                GerenciadorNFe.GetInstance().EnviarCartaCorrecaoNfe(nfeControle);
+            }
+        }
+
+ 
     }
 }

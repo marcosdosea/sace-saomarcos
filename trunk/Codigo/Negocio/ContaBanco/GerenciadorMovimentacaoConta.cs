@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
 using Dados;
+using Dominio;
 using Util;
-using System.Data.Common;
-using System.Data.Objects;
 
 
 namespace Negocio
@@ -249,10 +244,10 @@ namespace Negocio
         /// <param name="_contaE"></param>
         private void AtualizaSituacaoPagamentosSaida(ContaE _contaE)
         {
-            var query = from saida in saceContext.SaidaSet
+            var query = from saida in saceContext.tb_saida
                         where saida.codSaida == _contaE.codSaida
                         select saida;
-            SaidaE _saidaE = query.ToList().ElementAtOrDefault(0);
+            tb_saida _saidaE = query.ToList().ElementAtOrDefault(0);
             if (_saidaE != null)
             {
                 if (!_contaE.codSaida.Equals(Global.SAIDA_PADRAO))

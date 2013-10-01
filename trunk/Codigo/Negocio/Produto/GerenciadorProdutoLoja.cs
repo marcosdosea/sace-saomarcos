@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
-using Dados;
-using Util;
 using System.Data.Common;
-using System.Data.Objects;
+using System.Linq;
+using Dados;
+using Dominio;
 
 namespace Negocio
 {

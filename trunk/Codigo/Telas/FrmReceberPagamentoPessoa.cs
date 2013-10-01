@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Configuration;
 using System.Windows.Forms;
-using Dados.saceDataSetTableAdapters;
-using MySql.Data.MySqlClient;
-using Dados;
 using Dominio;
 using Negocio;
 using Util;

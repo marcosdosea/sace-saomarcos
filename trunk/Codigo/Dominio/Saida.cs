@@ -15,6 +15,9 @@ namespace Dominio
         public const int TIPO_PRODUTOS_DANIFICADOS = 6;
         public const int TIPO_DEVOLUCAO_FORNECEDOR = 7;
         public const int TIPO_OUTRAS_SAIDAS = 8;
+        public const int TIPO_PRE_REMESSA = 9;
+        public const int TIPO_PRE_DEVOLUCAO = 10;
+        public const int TIPO_RETORNO_DEPOSITO = 11;
         
         public long CodSaida { get; set; }
         public DateTime DataSaida { get; set; }

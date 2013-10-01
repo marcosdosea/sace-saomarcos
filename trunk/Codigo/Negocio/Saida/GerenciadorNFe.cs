@@ -40,7 +40,7 @@ namespace Negocio
             try
             {
                 var repNfe = new RepositorioGenerico<NfeE>();
-                var repSaida = new RepositorioGenerico<SaidaE>(repNfe.ObterContexto());
+                var repSaida = new RepositorioGenerico<tb_saida>(repNfe.ObterContexto());
 
                 NfeE _nfeE = new NfeE();
                 Atribuir(nfe, _nfeE);
@@ -58,7 +58,7 @@ namespace Negocio
                 repNfe.Inserir(_nfeE);
                 
 
-                IEnumerable<SaidaE> saidas;
+                IEnumerable<tb_saida> saidas;
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
                 {
                      saidas = repSaida.Obter(s => s.codSaida == saida.CodSaida);
@@ -67,7 +67,7 @@ namespace Negocio
                 {
                     saidas = repSaida.Obter(s => s.pedidoGerado == saida.CupomFiscal);
                 }
-                foreach (SaidaE _saidaE in saidas)
+                foreach (tb_saida _saidaE in saidas)
                 {
                     _nfeE.tb_saida.Add(_saidaE);
                 }
@@ -149,7 +149,13 @@ namespace Negocio
                             SituacaoProtocoloUso = nfe.situacaoProtocoloUso,
                             SituacaoReciboEnvio = nfe.situacaoReciboEnvio,
                             DataEmissao = nfe.dataEmissao,
-                            DataCancelamento = nfe.dataCancelamento
+                            DataCancelamento = nfe.dataCancelamento,
+                            Correcao = nfe.correcao,
+                            DataCartaCorrecao = nfe.dataCartaCorrecao,
+                            MensagemSitucaoCartaCorrecao = nfe.mensagemSitucaoCartaCorrecao,
+                            NumeroProtocoloCartaCorrecao = nfe.numeroProtocoloCartaCorrecao,
+                            SeqCartaCorrecao = nfe.seqCartaCorrecao,
+                            SituacaoProtocoloCartaCorrecao = nfe.situacaoProtocoloCartaCorrecao
                         };
             return query;
         }
@@ -196,16 +202,16 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<NfeControle> ObterPorSaida(long codSaida)
         {
-            var repSaida = new RepositorioGenerico<SaidaE>();
+            var repSaida = new RepositorioGenerico<tb_saida>();
 
             
 
             var saceEntities = (SaceEntities)repSaida.ObterContexto();
-            var querySaida = from saida in saceEntities.SaidaSet
+            var querySaida = from saida in saceEntities.tb_saida
                              where saida.codSaida == codSaida
                              select saida;
-            
-            SaidaE _saidaE = querySaida.ToList().ElementAtOrDefault(0);
+
+            tb_saida _saidaE = querySaida.ToList().ElementAtOrDefault(0);
             
             var query = from nfe in _saidaE.tb_nfe
                         select new NfeControle
@@ -272,6 +278,10 @@ namespace Negocio
                     nfeControle = new NfeControle();
                     nfeControle.SituacaoNfe = NfeControle.SITUACAO_NAO_VALIDADA;
                     nfeControle.DataEmissao = DateTime.Now;
+                    nfeControle.Correcao = "";
+                    nfeControle.MensagemSitucaoCartaCorrecao = "";
+                    nfeControle.SituacaoProtocoloCartaCorrecao = "";
+                    nfeControle.NumeroProtocoloCartaCorrecao = "";
                     nfeControle.CodNfe = GerenciadorNFe.GetInstance().Inserir(nfeControle, saida);
                 }
 
@@ -337,7 +347,7 @@ namespace Negocio
                 if (Dir.Exists)
                 {
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
-                    string arquivoRetornoChave = saida.Nfe + "-ret-gerar-chave.xml";
+                    string arquivoRetornoChave = "*-ret-gerar-chave.xml";
                     FileInfo[] files = Dir.GetFiles(arquivoRetornoChave, SearchOption.TopDirectoryOnly);
                     if (files.Length > 0)
                     {
@@ -426,7 +436,10 @@ namespace Negocio
                 for (int i = 0; i < files.Length; i++)
                 {
                     // apenas exclui o arquivo texto que não será utilizado  
-                    if (files[i].Name.Contains("-pro-rec."))
+                    if (files[i].Name.Contains("-rec.err"))
+                    {
+                        // não processa nesse método
+                    } else if (files[i].Name.Contains("-pro-rec."))
                     {
                         // não processa nesse método
                     }
@@ -441,13 +454,14 @@ namespace Negocio
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
                         
                         string numeroLote = files[i].Name.Substring(0, 15);
-                        NfeControle nfeControle = ObterPorLote(numeroLote).ElementAtOrDefault(0);
+                        NfeControle nfeControle = ObterPorLote(numeroLote).LastOrDefault();
 
                         if (nfeControle != null)
                         {
                             //MemoryStream memStream = new MemoryStream(
                             XmlSerializer serializer = new XmlSerializer(typeof(TRetEnviNFe));
                             TRetEnviNFe retornoEnvioNfe = (TRetEnviNFe)serializer.Deserialize(xmlReaderRetorno);
+                            
                             if (retornoEnvioNfe.cStat.Equals(NfeStatusResposta.NFE103_LOTE_RECEBIDO_SUCESSO))
                             {
                                 numeroRecibo = retornoEnvioNfe.infRec.nRec;
@@ -475,10 +489,15 @@ namespace Negocio
                 FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < files.Length; i++)
                 {
-                    // apenas exclui o arquivo texto que não será utilizado  
-                    if (files[i].Name.Contains("-pro-rec.txt"))
+
+
+                    if (files[i].Name.Contains("-pro-rec.err"))
                     {
-                        files[i].Delete();
+                        //TODO: faz nada
+                    }
+                    else if (files[i].Name.Contains("-pro-rec.txt"))
+                    {
+                        files[i].Delete(); // não precisa do arquivo texto
                     }
                     else
                     {
@@ -709,7 +728,7 @@ namespace Negocio
                         prod.qCom = formataValorNFe(saidaProduto.Quantidade);
                         prod.vUnCom = formataValorNFe(saidaProduto.ValorVenda);
                         prod.vProd = formataValorNFe(saidaProduto.Subtotal);
-                        if (fatorDesconto > 0)
+                        if (Math.Round(saidaProduto.Subtotal * fatorDesconto, 2) > 0)
                             prod.vDesc = formataValorNFe(saidaProduto.Subtotal * fatorDesconto);
                         prod.uTrib = produto.Unidade;
                         prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
@@ -1163,7 +1182,275 @@ namespace Negocio
             return numeroProtocolo;
         }
 
-        
+        /// <summary>
+        /// Envia solicitação de consulta a uma nf-e
+        /// </summary>
+        /// <param name="nfeControle"></param>
+        public void EnviarConsultaNfe(NfeControle nfeControle)
+        {
+
+            try
+            {
+                TConsSitNFe consultaNfe = new TConsSitNFe();
+
+                consultaNfe.chNFe = nfeControle.Chave;
+                consultaNfe.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                consultaNfe.versao = TVerConsSitNFe.Item201;
+                consultaNfe.xServ = TConsSitNFeXServ.CONSULTAR;
+                
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+
+                MemoryStream memStream = new MemoryStream();
+                XmlSerializer serializer = new XmlSerializer(typeof(TConsSitNFe));
+                serializer.Serialize(memStream, consultaNfe, ns);
+                memStream.Position = 0;
+                xmlDoc.Load(memStream);
+
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-ped-sit.xml");
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-ped-sit.xml");
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException("Problemas na geração do arquivo de consulta da situação da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+            }
+        }
+
+
+        /// <summary>
+        /// REtorna o resultado do pedido de cancelamento da NF-e
+        /// </summary>
+        /// <returns></returns>
+        public void RecuperarResultadoConsultaNfe()
+        {
+            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            if (Dir.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                string arquivoRetornoConsultaNfe = "*-sit.*";
+                FileInfo[] files = Dir.GetFiles(arquivoRetornoConsultaNfe, SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    // apenas exclui o arquivo texto que não será utilizado  
+                    if (files[i].Name.Contains("-sit.txt"))
+                    {
+                        files[i].Delete();
+                    }
+                    else if (files[i].Name.Contains("-sit.err"))
+                    {
+                        files[i].Delete();
+                    }
+                    else
+                    {
+                        XmlDocument xmldocRetorno = new XmlDocument();
+                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        if (nfeControle != null)
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(TRetConsSitNFe));
+                            TRetConsSitNFe retConsulta = (TRetConsSitNFe)serializer.Deserialize(xmlReaderRetorno);
+
+                            if (retConsulta.cStat.Equals(NfeStatusResposta.NFE217_NFE_INEXISTENTE))
+                            {
+                                nfeControle.SituacaoProtocoloUso = retConsulta.cStat;
+                                nfeControle.MensagemSitucaoProtocoloUso = retConsulta.xMotivo;
+                            }
+                            else
+                            {
+                                TProtNFeInfProt protocoloNfe = retConsulta.protNFe.infProt;
+                                if (protocoloNfe.chNFe.Equals(nfeControle.Chave))
+                                {
+                                    if (protocoloNfe.cStat.Equals(NfeStatusResposta.NFE100_AUTORIZADO_USO_NFE))
+                                    {
+                                        //numeroProtocolo = protocoloNfe.nProt;
+                                        nfeControle.NumeroProtocoloUso = protocoloNfe.nProt;
+                                        nfeControle.SituacaoNfe = NfeControle.SITUACAO_AUTORIZADA;
+                                    }
+                                    else if (protocoloNfe.cStat.Equals(NfeStatusResposta.NFE110_USO_DENEGADO))
+                                    {
+                                        nfeControle.SituacaoNfe = NfeControle.SITUACAO_DENEGADA;
+                                    }
+                                    else
+                                    {
+                                        nfeControle.SituacaoNfe = NfeControle.SITUACAO_REJEITADA;
+                                    }
+                                    nfeControle.SituacaoProtocoloUso = protocoloNfe.cStat;
+                                    nfeControle.MensagemSitucaoProtocoloUso = protocoloNfe.xMotivo;
+                                }
+                            }
+                            GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                            files[0].Delete();
+                                
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Envia solicitação de correção de uma nf-e
+        /// </summary>
+        /// <param name="nfeControle"></param>
+        public void EnviarCartaCorrecaoNfe(NfeControle nfeControle)
+        {
+            try
+            {
+                if (nfeControle.SituacaoNfe != NfeControle.SITUACAO_AUTORIZADA)
+                {
+                    throw new NegocioException("Só é possível enviar cartas de correção de NF-e AUTORIZADAS.");
+                }
+                if (string.IsNullOrEmpty(nfeControle.Correcao))
+                {
+                    throw new NegocioException("É necessário adicionar uma texto de correção para enviar uma Carta de Correção da NF-e.");
+                }
+
+
+                TEnvEvento envEvento = new TEnvEvento();
+                envEvento.idLote = nfeControle.CodNfe.ToString().PadLeft(15, '0');
+                envEvento.versao = "1.00";
+                
+
+                TEvento evento = new TEvento();
+                evento.versao = TVerEvento.Item100;
+
+                TEventoInfEvento infEvento = new TEventoInfEvento();
+                infEvento.chNFe = nfeControle.Chave;
+                infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
+                infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
+
+                if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
+                    infEvento.ItemElementName = ItemChoiceType9.CPF;
+                else
+                    infEvento.ItemElementName = ItemChoiceType9.CNPJ;
+                infEvento.Item = pessoa.CpfCnpj;
+                infEvento.chNFe = nfeControle.Chave;
+                infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+                infEvento.tpEvento = "110110";
+                infEvento.nSeqEvento = (nfeControle.SeqCartaCorrecao + 1).ToString(); // carta correção pode haver mais de uma
+                nfeControle.SeqCartaCorrecao = Convert.ToInt32(infEvento.nSeqEvento);
+                infEvento.verEvento = "1.00";
+                infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
+                
+                TEventoInfEventoDetEvento detEvento = new TEventoInfEventoDetEvento();
+
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+
+                XmlAttribute[] atributos = new XmlAttribute[1];
+                atributos[0] = xmlDoc.CreateAttribute("versao");
+                atributos[0].Value = "1.00";
+                detEvento.AnyAttr = atributos;
+
+                XmlElement[] elementos = new XmlElement[3];
+                elementos[0] = xmlDoc.CreateElement("descEvento", "http://www.portalfiscal.inf.br/nfe");
+                elementos[0].InnerText = "Carta de Correcao";
+                elementos[1] = xmlDoc.CreateElement("xCorrecao", "http://www.portalfiscal.inf.br/nfe");
+                elementos[1].InnerText = nfeControle.Correcao;
+                elementos[2] = xmlDoc.CreateElement("xCondUso", "http://www.portalfiscal.inf.br/nfe");
+                elementos[2].InnerText = ("A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.");
+                detEvento.Any = elementos;
+
+                infEvento.detEvento = detEvento;
+                evento.infEvento = infEvento;
+                envEvento.evento = new TEvento[1] { evento };
+
+                MemoryStream memStream = new MemoryStream();
+                XmlSerializer serializer = new XmlSerializer(typeof(TEnvEvento));
+                serializer.Serialize(memStream, envEvento, ns);
+                memStream.Position = 0;
+                xmlDoc.Load(memStream);
+
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-" + nfeControle.SeqCartaCorrecao.ToString().PadLeft(2, '0') + "-env-cce.xml");
+                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-" + nfeControle.SeqCartaCorrecao.ToString().PadLeft(2, '0') + "-env-cce.xml");
+
+                Atualizar(nfeControle);
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException("Problemas na geração do arquivo de cancelamento da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+            }
+        }
+
+        /// <summary>
+        /// REtorna o resultado do pedido de cancelamento da NF-e
+        /// </summary>
+        /// <returns></returns>
+        public string RecuperarResultadoCartaCorrecaoNfe()
+        {
+            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            string numeroProtocolo = "";
+            if (Dir.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                string arquivoRetornoReciboNfe = "*-ret-env-cce.*";
+                FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    // apenas exclui o arquivo texto que não será utilizado  
+                    if (files[i].Name.Contains("-ret-env-cce.txt"))
+                    {
+                        files[i].Delete();
+                    }
+                    else if (files[i].Name.Contains("-ret-env-cce.err"))
+                    {
+                        files[i].Delete();
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        nfeControle.MensagemSitucaoCartaCorrecao = "Carta de Correção com erros no layout.";
+                        Atualizar(nfeControle);
+                    }
+                    else
+                    {
+                        XmlDocument xmldocRetorno = new XmlDocument();
+                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+
+                        string chave = files[i].Name.Substring(0, 44);
+                        NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
+                        if (nfeControle != null)
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(TRetEnvEvento));
+                            TRetEnvEvento retEventoCartaCorrecao = (TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
+                            if (retEventoCartaCorrecao.cStat.Equals(NfeStatusResposta.NFE128_LOTE_EVENTO_PROCESSADO))
+                            {
+                                //retEventoCartaCorrecao.
+                                TRetEventoInfEvento retornoEvento = retEventoCartaCorrecao.retEvento[0].infEvento;
+                                if (retornoEvento.cStat.Equals(NfeStatusResposta.NFE135_EVENTO_REGISTRADO_VINCULADO_NFE) ||
+                                    retornoEvento.cStat.Equals(NfeStatusResposta.NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE))
+                                {
+                                    nfeControle.NumeroProtocoloCartaCorrecao = retornoEvento.nProt;
+                                    nfeControle.DataCartaCorrecao = Convert.ToDateTime(retornoEvento.dhRegEvento);
+                                    nfeControle.SeqCartaCorrecao = Convert.ToInt32(retornoEvento.nSeqEvento);
+                                    //nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
+                                }
+                                nfeControle.SituacaoProtocoloCartaCorrecao = retornoEvento.cStat;
+                                nfeControle.MensagemSitucaoCartaCorrecao = retornoEvento.xMotivo;
+                                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                                files[i].Delete();
+                            }
+                        }
+                    }
+                }
+            }
+            return numeroProtocolo;
+        }
         /// <summary>
         /// Recupera os vários retornos do processamento de Nfes
         /// </summary>
@@ -1179,10 +1466,12 @@ namespace Negocio
                     FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
                     if (Files.Length > 0)
                     {
-                        GerenciadorNFe.GetInstance().RecuperarLoteEnvio();
-                        GerenciadorNFe.GetInstance().RecuperarReciboEnvioNfe();
-                        GerenciadorNFe.GetInstance().RecuperarResultadoProcessamentoNfe();
-                        GerenciadorNFe.GetInstance().RecuperarResultadoCancelamentoNfe();
+                        RecuperarLoteEnvio();
+                        RecuperarReciboEnvioNfe();
+                        RecuperarResultadoProcessamentoNfe();
+                        RecuperarResultadoCancelamentoNfe();
+                        RecuperarResultadoConsultaNfe();
+                        RecuperarResultadoCartaCorrecaoNfe();
                     }
                 }
             }
@@ -1251,6 +1540,7 @@ namespace Negocio
             _nfe.mensagemSituacaoProtocoloCancelamento = truncate(nfe.MensagemSitucaoProtocoloCancelamento, 100);
             _nfe.mensagemSituacaoProtocoloUso = truncate(nfe.MensagemSitucaoProtocoloUso, 100);
             _nfe.mensagemSituacaoReciboEnvio = truncate(nfe.MensagemSituacaoReciboEnvio, 100);
+            
             _nfe.numeroLoteEnvio = nfe.NumeroLoteEnvio;
             _nfe.numeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento;
             _nfe.numeroProtocoloUso = nfe.NumeroProtocoloUso;
@@ -1261,6 +1551,14 @@ namespace Negocio
             _nfe.situacaoReciboEnvio = nfe.SituacaoReciboEnvio;
             _nfe.dataEmissao = nfe.DataEmissao;
             _nfe.dataCancelamento = nfe.DataCancelamento;
+            
+            _nfe.correcao = truncate(string.IsNullOrEmpty(nfe.Correcao)?"":nfe.Correcao, 200);
+            _nfe.dataCartaCorrecao = nfe.DataCartaCorrecao;
+            _nfe.mensagemSitucaoCartaCorrecao = truncate(string.IsNullOrEmpty(nfe.MensagemSitucaoCartaCorrecao)?"":nfe.MensagemSitucaoCartaCorrecao, 100);
+            _nfe.numeroProtocoloCartaCorrecao = string.IsNullOrEmpty(nfe.NumeroProtocoloCartaCorrecao)?"":nfe.NumeroProtocoloCartaCorrecao;
+            _nfe.seqCartaCorrecao = nfe.SeqCartaCorrecao;
+            _nfe.situacaoProtocoloCartaCorrecao = string.IsNullOrEmpty(nfe.SituacaoProtocoloCartaCorrecao)?"":nfe.SituacaoProtocoloCartaCorrecao;
+
         }
 
         private string truncate(string texto, int tamanho)

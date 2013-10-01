@@ -10,7 +10,6 @@ namespace Dominio
     {
         public int CodGrupo { get; set; }
         public int CodSubgrupo { get; set; }
-        public long CodFabricante { get; set; }
         public string NomeFabricante { get; set; }
         public decimal PrecoCusto
         {
