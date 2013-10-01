@@ -42,14 +42,12 @@ namespace Telas
         /// <param name="e"></param>
         private void FrmSaida_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.SAIDA, Principal.Autenticacao.CodUsuario);
-
             Cursor.Current = Cursors.WaitCursor;
 
              produtoBindingSource.DataSource =
                  GerenciadorProduto.GetInstance().ObterTodosExibiveis();
             
-            ObterSaidas(true);
+            ObterSaidas(0);
 
             cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(tipoSaidaFormulario);
             saidaBindingSource.MoveLast();
@@ -75,7 +73,7 @@ namespace Telas
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                ObterSaidas(false);
+                ObterSaidas(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }
@@ -154,7 +152,6 @@ namespace Telas
             precoVendatextBox.Text = "0.00";
             subtotalAVistatextBox.Text = "0.00";
             subtotalTextBox.Text = "0.00";
-
         }
 
 
@@ -314,7 +311,7 @@ namespace Telas
         /// <summary>
         /// Obter saídas e armazenar e disponibilizar em tela de acordo com o tipo
         /// </summary>
-        private void ObterSaidas(bool somenteUltimasSaidas)
+        private void ObterSaidas(long codSaidaInicial)
         {
             if (tipoSaidaFormulario.Equals(Saida.TIPO_SAIDA_DEPOSITO))
             {
@@ -351,7 +348,7 @@ namespace Telas
             }
             else
             {
-                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(somenteUltimasSaidas);
+                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(codSaidaInicial);
                 
                 tb_saida_produtoDataGridView.Height = 370;
             }
@@ -805,5 +802,11 @@ namespace Telas
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox) sender);
         }
+
+        private void saidaBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            saidaBindingSource.ResumeBinding();
+        }
+
     }
 }

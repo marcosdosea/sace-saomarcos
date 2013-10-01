@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
 using Dados;
-using Util;
-using System.Data.Common;
+using Dominio;
 
 namespace Negocio
 {
@@ -166,7 +161,7 @@ namespace Negocio
             var query = from conta in saceContext.ContaSet
                         join planoConta in saceContext.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
                         join situacaoConta in saceContext.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
-                        join saida in saceContext.SaidaSet on conta.codSaida equals saida.codSaida
+                        join saida in saceContext.tb_saida on conta.codSaida equals saida.codSaida
                         orderby conta.codConta
                         select new Conta
                         {

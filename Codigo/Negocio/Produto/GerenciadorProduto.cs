@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Dominio;
-using Dados.saceDataSetTableAdapters;
 using Dados;
 using Util;
 using System.Data.Common;
@@ -78,7 +77,8 @@ namespace Negocio
                 foreach (ProdutoE _produtoE in query)
                 {
                     // Atualiza data da ultima atualizacao
-                    if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado))
+                    if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado)
+                        || (produto.PrecoRevenda != _produtoE.precoRevenda))
                         produto.UltimaDataAtualizacao = DateTime.Now;
 
                     // Atualiza dados do produto
@@ -178,13 +178,13 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
             var query = from produto in saceEntities.ProdutoSet
-                        join fabricante in saceEntities.PessoaSet on produto.codFabricante equals fabricante.codPessoa
+                        //join fabricante in saceEntities.PessoaSet on produto.codFabricante equals fabricante.codPessoa
                         orderby produto.nome
                         select new Produto
                         {
                             CodCST = produto.codCST,
                             CodFabricante = produto.codFabricante,
-                            NomeFabricante = fabricante.nomeFantasia,
+                            NomeFabricante = produto.tb_pessoa.nomeFantasia,
                             CodGrupo = (int) produto.codGrupo,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,
@@ -246,6 +246,7 @@ namespace Negocio
                             LucroPrecoRevenda = (decimal) produto.lucroPrecoRevenda,
                             Ncmsh = produto.ncmsh,
                             Nome = produto.nome,
+                            CodFabricante = produto.codFabricante,
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
                             PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
                             PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
@@ -279,8 +280,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
-            return GetQuerySimples().ToList().Where(p => Convert.ToByte(p.ExibeNaListagem) == 1);
-            //return GetQuerySimples();
+
+            return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
         }
 
         /// <summary>
@@ -343,6 +344,15 @@ namespace Negocio
             return GetQuerySimples().Where(p => p.NomeProdutoFabricante.StartsWith(nomeProdutoFabricante)).ToList();
         }
 
+        /// <summary>
+        /// Retorna todos os produtos de um determinado fabricante
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorCodigoFabricante(long codPessoa)
+        {
+            return GetQuerySimples().Where(p =>  p.CodFabricante.Equals(codPessoa));//.ToList();
+        }
         /// <summary>
         /// Obtém produto pela data de atualização
         /// </summary>
@@ -447,5 +457,7 @@ namespace Negocio
             _produtoE.unidade = produto.Unidade;
             _produtoE.unidadeCompra = produto.UnidadeCompra;
         }
+
+        
     }
 }

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
-using Dados;
-using Util;
 using System.Data.Common;
+using System.Linq;
+using Dados;
+using Dominio;
+using Util;
 
 namespace Negocio
 {
@@ -69,7 +66,7 @@ namespace Negocio
         {
             if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0))
                 throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
-            else if (entrada.TotalProdutos > entrada.TotalNota)
+            else if (entrada.TotalProdutos > (entrada.TotalNota+entrada.Desconto))
             {
                 throw new NegocioException("O valor Total dos Produtos não pode ser maior que o valor total da Nota.");
             }

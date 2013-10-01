@@ -128,7 +128,7 @@ namespace Util
             GeraArquivoLPT = "";
 			sPortaInicio.ToUpper();
             outFile = null;
-            if (sPortaInicio.Substring(0, 3) == "LPT")
+            if (sPortaInicio.Substring(0, 3).Equals("LPT") || sPortaInicio.Substring(0,4).StartsWith("\\"))
             {
                 if (sPortaInicio == "LPT")
                 {
@@ -154,7 +154,9 @@ namespace Util
             }
             else
             {
-                fileWriter = new StreamWriter(sPortaInicio);
+                sPortaInicio += "LPT-" + DateTime.Now.Hour.ToString("00") + DateTime.Now.Minute.ToString("00") + DateTime.Now.Second.ToString("00") + ".TXT";
+
+                fileWriter = new StreamWriter(sPortaInicio, true, System.Text.Encoding.GetEncoding("ISO-8859-1"));
                 lOK = true;
             }
 			return lOK;
@@ -195,7 +197,7 @@ namespace Util
 
                 if (GeraArquivoLPT != String.Empty)
                 {
-                    System.IO.File.Copy(GeraArquivoLPT, sPorta);
+                    System.IO.File.Copy(GeraArquivoLPT, sPorta, true);
                     File.Delete(GeraArquivoLPT);
                     GeraArquivoLPT = "";
                 }

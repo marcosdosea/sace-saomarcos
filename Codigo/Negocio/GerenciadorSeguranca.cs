@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dados.saceDataSetTableAdapters;
-using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Util;
 using Ionic.Zip;
+using Util;
 
 namespace Negocio
 {
@@ -27,7 +22,7 @@ namespace Negocio
 
         public bool verificaPermissao(Form sender, int funcao, int codUsuario)
         {
-            tb_perfil_funcionalidadeTableAdapter ta = new tb_perfil_funcionalidadeTableAdapter();
+            //tb_perfil_funcionalidadeTableAdapter ta = new tb_perfil_funcionalidadeTableAdapter();
             //TODO
 
             //DataTable dt = ta.FillByPerfilFuncionalidade(ta, funcao,             if (dt.Rows.Count > 0)

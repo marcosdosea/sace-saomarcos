@@ -15,6 +15,7 @@ namespace Dominio
         public long CodPessoa { get; set; }
         public string NomePessoa { get; set; }
         public string Mapeamento { get; set; }
+        public decimal Desconto { get; set; }
 
         public override bool Equals(object obj)
         {

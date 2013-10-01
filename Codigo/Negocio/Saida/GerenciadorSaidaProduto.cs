@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dominio;
-using Dados.saceDataSetTableAdapters;
-using Dados.saceDataSetConsultasTableAdapters;
-using Dados;
-using Util;
 using System.Data.Common;
-using System.Data.Objects;
+using System.Linq;
+using Dados;
+using Dominio;
 
 
 namespace Negocio
@@ -194,7 +188,7 @@ namespace Negocio
         {
             var query = from saidaProduto in saceContext.SaidaProdutoSet
                         join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
-                        join saida in saceContext.SaidaSet on saidaProduto.codSaida equals saida.codSaida
+                        join saida in saceContext.tb_saida on saidaProduto.codSaida equals saida.codSaida
                         where saida.pedidoGerado == codPedido
                         select new SaidaProduto
                         {
@@ -227,7 +221,7 @@ namespace Negocio
         {
             var query = from saidaProduto in saceContext.SaidaProdutoSet
                         join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
-                        join saida in saceContext.SaidaSet on saidaProduto.codSaida equals saida.codSaida
+                        join saida in saceContext.tb_saida on saidaProduto.codSaida equals saida.codSaida
                         select new SaidaProdutoRelatorio
                         {
                             CodProduto = saidaProduto.codProduto,

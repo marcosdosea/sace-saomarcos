@@ -51,7 +51,8 @@ namespace Telas
             pessoa.EhFabricante = false;
             pessoa.ImprimirCF = false;
             pessoa.ImprimirDAV = true;
-            PfRadioButton.Select();
+            pessoa.Tipo = Pessoa.PESSOA_JURIDICA;
+
             Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
             pessoa.CodMunicipioIBGE = loja.CodMunicipioIBGE;
             
@@ -310,6 +311,11 @@ namespace Telas
             string str = e.KeyChar.ToString().ToUpper();
             char[] ch = str.ToCharArray();
             e.KeyChar = ch[0];
+        }
+
+        private void pessoaBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            pessoaBindingSource.ResumeBinding();
         }
 
     }

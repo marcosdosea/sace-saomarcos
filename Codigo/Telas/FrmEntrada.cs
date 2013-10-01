@@ -258,7 +258,10 @@ namespace Telas
                     {
                         produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
                         entrada = (Entrada) entradaBindingSource.Current;
-                        produtoPesquisa.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
+                        if (entrada.TotalProdutosST > 0)
+                        {
+                            produtoPesquisa.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
+                        }
                     }
                     cfopComboBox.SelectedIndex = 0;
                     codCSTComboBox_SelectedIndexChanged(sender, e);
@@ -290,9 +293,9 @@ namespace Telas
                 habilitaBotoes(true);
                 estado = EstadoFormulario.ESPERA;
                 entrada = GerenciadorEntrada.GetInstance().Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
-                FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
-                frmEntradaPagamento.ShowDialog();
-                frmEntradaPagamento.Dispose();
+                //FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
+                //frmEntradaPagamento.ShowDialog();
+                //frmEntradaPagamento.Dispose();
                 btnNovo.Focus();
             }
         }
