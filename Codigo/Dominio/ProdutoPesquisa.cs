@@ -16,6 +16,7 @@ namespace Dominio
         public string Unidade { get; set; }
         public DateTime UltimaDataAtualizacao { get; set; }
         public Boolean TemVencimento { get; set; }
+        public Boolean EmPromocao { get; set; }
         public string CodCST { get; set; }
         public string ReferenciaFabricante { get; set; }
         public decimal PrecoVendaVarejo { get; set; }

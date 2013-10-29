@@ -189,7 +189,7 @@ namespace Telas
             //    Application.Exit();
             //}
 
-            MapearImpressorasSeriais();
+            //MapearImpressorasSeriais();
 
             autenticacao.CodUsuario = 1;
             autenticacao.Login = "1";
@@ -256,12 +256,17 @@ namespace Telas
 
         private void transferênciaEntreLojasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_SAIDA_DEPOSITO);
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_REMESSA);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
         }
 
-        
+        private void retornoDepositoMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_RETORNO_DEPOSITO);
+            frmSaida.ShowDialog();
+            frmSaida.Dispose();
+        }        
         private void receberPagamentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(false);
@@ -271,7 +276,7 @@ namespace Telas
 
         private void devoluçãoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_DEVOLUCAO_FORNECEDOR);
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
         }
@@ -329,5 +334,9 @@ namespace Telas
             relatorio.Dispose();
         }
 
-    }
+        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+     }
 }

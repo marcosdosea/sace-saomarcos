@@ -31,9 +31,7 @@ namespace Negocio
                 var repLoja = new RepositorioGenerico<LojaE>();
 
                 LojaE _lojaE = new LojaE();
-                _lojaE.codPessoa = loja.CodPessoa;
-                _lojaE.nome = loja.Nome;
-
+                Atribuir(loja, _lojaE);
                 repLoja.Inserir(_lojaE);
                 repLoja.SaveChanges();
                 
@@ -56,8 +54,7 @@ namespace Negocio
                 var repLoja = new RepositorioGenerico<LojaE>();
 
                 LojaE _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
-                _lojaE.codPessoa = loja.CodPessoa;
-                _lojaE.nome = loja.Nome;
+                Atribuir(loja, _lojaE);
 
                 repLoja.SaveChanges();
             }
@@ -99,18 +96,24 @@ namespace Negocio
 
             var saceEntities = (SaceEntities) repLoja.ObterContexto();
             var query = from loja in saceEntities.LojaSet
-                        join pessoa in saceEntities.PessoaSet
-                        on loja.codPessoa equals pessoa.codPessoa
                         select new Loja
                         {
                             CodLoja = loja.codLoja,
                             CodPessoa = loja.codPessoa,
                             Nome = loja.nome,
-                            Cnpj = pessoa.cpf_Cnpj,
-                            CodMunicipioIBGE = pessoa.codMunicipiosIBGE,
-                            Estado = pessoa.uf,
-                            Ie = pessoa.ie,
-                            NomePessoa = pessoa.nome
+                            EnderecoServidorNfe = loja.enderecoServidorNfe,
+                            NomeServidorNfe = loja.nomeServidorNfe,
+                            PastaNfeAutorizados = loja.pastaNfeAutorizados,
+                            PastaNfeEnviado = loja.pastaNfeEnviado,
+                            PastaNfeEnvio = loja.pastaNfeEnvio,
+                            PastaNfeErro = loja.pastaNfeErro,
+                            PastaNfeEspelho = loja.pastaNfeEspelho,
+                            PastaNfeRetorno = loja.pastaNfeRetorno,
+                            Cnpj = loja.tb_pessoa.cpf_Cnpj,
+                            CodMunicipioIBGE = loja.tb_pessoa.codMunicipiosIBGE,
+                            Estado = loja.tb_pessoa.uf,
+                            Ie = loja.tb_pessoa.ie,
+                            NomePessoa = loja.tb_pessoa.nome
                         };
             return query;
         }
@@ -152,6 +155,31 @@ namespace Negocio
         public List<Loja> ObterPorPessoa(long codPessoa)
         {
             return GetQuery().Where(loja => loja.CodPessoa == codPessoa).ToList();
+        }
+
+        /// <summary>
+        /// Obtém dados da loja associada a um computador com cartão de Nf-e instalado
+        /// </summary>
+        /// <param name="codPessoa"></param>
+        /// <returns></returns>
+        public List<Loja> ObterPorServidorNfe(string nomeComputador)
+        {
+            return GetQuery().Where(loja => loja.NomeServidorNfe.Equals(nomeComputador)).ToList();
+        }
+
+        private static void Atribuir(Loja loja, LojaE _lojaE)
+        {
+            _lojaE.codPessoa = loja.CodPessoa;
+            _lojaE.nome = loja.Nome;
+            _lojaE.enderecoServidorNfe = loja.EnderecoServidorNfe;
+            _lojaE.nomeServidorNfe = loja.NomeServidorNfe;
+            _lojaE.pastaNfeAutorizados = loja.PastaNfeAutorizados;
+            _lojaE.pastaNfeEnviado = loja.PastaNfeEnviado;
+            _lojaE.pastaNfeEnvio = loja.PastaNfeEnvio;
+            _lojaE.pastaNfeErro = loja.PastaNfeErro;
+            _lojaE.pastaNfeEspelho = loja.PastaNfeEspelho;
+            _lojaE.pastaNfeRetorno = loja.PastaNfeRetorno;
+
         }
     }
 }

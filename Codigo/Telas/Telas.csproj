@@ -213,11 +213,11 @@
     <Compile Include="FrmSaidaPesquisa.Designer.cs">
       <DependentUpon>FrmSaidaPesquisa.cs</DependentUpon>
     </Compile>
-    <Compile Include="RamGec About Box1.cs">
+    <Compile Include="FrmSobre.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RamGec About Box1.Designer.cs">
-      <DependentUpon>RamGec About Box1.cs</DependentUpon>
+    <Compile Include="FrmSobre.Designer.cs">
+      <DependentUpon>FrmSobre.cs</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\FrmFiltroRelatorioProduto.cs">
       <SubType>Form</SubType>
@@ -530,8 +530,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RamGec About Box1.resx">
-      <DependentUpon>RamGec About Box1.cs</DependentUpon>
+    <EmbeddedResource Include="FrmSobre.resx">
+      <DependentUpon>FrmSobre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Relatorios\FrmFiltroRelatorioProduto.resx">
       <DependentUpon>FrmFiltroRelatorioProduto.cs</DependentUpon>
@@ -641,7 +641,6 @@
     <None Include="Resources\761.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\DataSources\Dados.saceDataSet.datasource" />
     <None Include="Resources\86.png" />
   </ItemGroup>
   <ItemGroup>

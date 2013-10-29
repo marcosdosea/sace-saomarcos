@@ -39,6 +39,7 @@ namespace Util
         RELATORIO_COMPRAS = 28,
         RELATORIO_CONTAS = 29,
         LOJA_PADRAO = 1,
+        DEPOSITO_PADRAO = 2,
         CLIENTE_PADRAO = 1,
         PROFISSIONAL_PADRAO = 1,
         ENTRADA_PADRAO = 1,
@@ -66,24 +67,25 @@ namespace Util
         public static String
          AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
+         
+         NOME_SERVIDOR = "SERVIDOR",
          ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
-         //ENDERECO_SERVIDOR = "c:\\",
-         ENDERECO_SERVIDOR_NFE = "\\\\retaguarda\\",
          PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
-         PASTA_COMUNICACAO_NFE_ENVIO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Envio\\",
-         PASTA_COMUNICACAO_NFE_ENVIADO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Enviado\\",
-         PASTA_COMUNICACAO_NFE_RETORNO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Retorno\\",
-         PASTA_COMUNICACAO_NFE_ERRO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Erro\\",
-         PASTA_COMUNICACAO_NFE_AUTORIZADOS = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Enviado\\Autorizados\\",
-         PASTA_COMUNICACAO_NFE_ESPELHO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Espelho\\",
+
+         //NOME_SERVIDOR_NFE = "RETAGUARDA",
+         //ENDERECO_SERVIDOR_NFE = "\\\\retaguarda\\",
+         
+         //PASTA_COMUNICACAO_NFE_ENVIO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Envio\\",
+         //PASTA_COMUNICACAO_NFE_ENVIADO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Enviado\\",
+         //PASTA_COMUNICACAO_NFE_RETORNO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Retorno\\",
+         //PASTA_COMUNICACAO_NFE_ERRO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Erro\\",
+         //PASTA_COMUNICACAO_NFE_AUTORIZADOS = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Enviado\\Autorizados\\",
+         //PASTA_COMUNICACAO_NFE_ESPELHO = ENDERECO_SERVIDOR_NFE + "Unimake\\UniNFe\\32799603000191\\Espelho\\",
          
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
-         NOME_SERVIDOR = "SERVIDOR",
-         //NOME_SERVIDOR_NFE = "SONY-VAIO",
-         NOME_SERVIDOR_NFE = "RETAGUARDA",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",
          SGBD_SENHA = "sace",
@@ -91,8 +93,6 @@ namespace Util
          PORTA_IMPRESSORA_NORMAL = "LPT1",
          PORTA_IMPRESSORA_REDUZIDA = "LPT2",
          MAPEAMENTO_IMPRESSORA_REDUZIDA = "\\\\SERVIDOR\\Daruma",
-         //PORTA_IMPRESSORA_NORMAL = "lpt1-teste.txt",
-         //PORTA_IMPRESSORA_REDUZIDA = "lpt2-teste.txt",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";

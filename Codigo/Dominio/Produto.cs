@@ -19,12 +19,12 @@ namespace Dominio
                 if (EhTributacaoIntegral)
                 {
                     _precoCusto = CalculaPrecoCustoNormal(UltimoPrecoCompra, Icms,
-                        Simples, Ipi, Frete, 0, 0);
+                        Simples, Ipi, Frete, 0, Desconto);
                 }
                 else
                 {
                     _precoCusto = CalculaPrecoCustoSubstituicao(UltimoPrecoCompra, IcmsSubstituto,
-                        Simples, Ipi, Frete, 0, 0);
+                        Simples, Ipi, Frete, 0, Desconto);
                 }
                 return Math.Round(_precoCusto, 2, MidpointRounding.AwayFromZero);
             }

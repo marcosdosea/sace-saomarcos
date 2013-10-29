@@ -29,7 +29,7 @@ namespace Telas
             
             if (Saida.Observacao.Trim().Equals(""))
             {
-                if (Saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO)
+                if (Saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO)
                 {
                     Saida.Observacao = "Nao Incidencia de ICMS conforme Art 2o, XI do RICMS/SE";
                 }
