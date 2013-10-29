@@ -40,45 +40,89 @@ namespace Negocio
         /// <returns></returns>
         public Int64 Inserir(SaidaProduto saidaProduto, Saida saida)
         {
+            
+            if (saidaProduto.Quantidade == 0)
+                throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
+            else if (saidaProduto.ValorVendaAVista <= 0)
+                throw new NegocioException("O preço de venda do produto deve ser maior que zero.");
+            else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                throw new NegocioException("Não é possível inserir produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
+            else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) && string.IsNullOrEmpty(saida.Nfe))
+                throw new NegocioException("Não é possível inserir produtos em uma transferência para depósito cuja nota fiscal já foi emitida.");
+            else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) && string.IsNullOrEmpty(saida.Nfe))
+                throw new NegocioException("Não é possível inserir produtos em um retorno de depósito cuja nota fiscal já foi emitida.");
+            else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) &&  string.IsNullOrEmpty(saida.Nfe))
+                throw new NegocioException("Não é possível inserir produtos em uma devolução para fornecedor cuja nota fiscal já foi emitida.");
+
+            SaidaProdutoE _saidaProdutoE = new SaidaProdutoE();
+            Atribuir(saidaProduto, _saidaProdutoE);
+
+            repSaidaProduto.Inserir(_saidaProdutoE);
+            repSaidaProduto.SaveChanges();
+
+            AtualizarTotaisSaida(saida, saidaProduto, false);
+            return _saidaProdutoE.codSaidaProduto;
+        }
+
+        /// <summary>
+        /// Atualiza os dados de um produto da saída
+        /// </summary>
+        /// <param name="saidaProduto"></param>
+        /// <param name="saida"></param>
+        public void Atualizar(SaidaProduto saidaProduto, Saida saida)
+        {
             if (saidaProduto.Quantidade == 0)
                 throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
             else if (saidaProduto.ValorVendaAVista <= 0)
                 throw new NegocioException("O preço de venda do produto deve ser maior que zero.");
             else if (saida.TipoSaida == Saida.TIPO_VENDA)
-                throw new NegocioException("Não é possível inserir produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
-            else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
-                throw new NegocioException("Não é possível inserir produtos numa transferência para depósito cuja nota fiscal já foi emitida.");
+                throw new NegocioException("Não é possível alterar produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
+            else if ((saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                throw new NegocioException("Não é possível alterar produtos numa transferência para depósito cuja nota fiscal já foi emitida.");
             else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
-                throw new NegocioException("Não é possível inserir produtos numa devolução para fornecedor cuja nota fiscal já foi emitida.");
+                throw new NegocioException("Não é possível alterar produtos numa devolução para fornecedor cuja nota fiscal já foi emitida.");
 
-            DbTransaction transaction = null;
-            try
+            
+            var query = from saidaProdutoE in saceContext.SaidaProdutoSet
+                        where saidaProdutoE.codSaidaProduto == saidaProduto.CodSaidaProduto
+                        select saidaProdutoE;
+
+            foreach (SaidaProdutoE _saidaProdutoE in query)
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
-
-                SaidaProdutoE _saidaProdutoE = new SaidaProdutoE();
                 Atribuir(saidaProduto, _saidaProdutoE);
-
-                repSaidaProduto.Inserir(_saidaProdutoE);
-                repSaidaProduto.SaveChanges();
-
-
-                AtualizarTotaisSaida(saida, saidaProduto, false);
-                transaction.Commit();
-                return _saidaProdutoE.codSaidaProduto;
             }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw new DadosException("Saída de Produtos", e.Message, e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
-            }
+            saceContext.SaveChanges();
         }
+
+        /// <summary>
+        /// Atualiza os preços dos produtos utilizandos os valores do dia.
+        /// </summary>
+        /// <param name="p"></param>
+        public void AtualizarPrecosComValoresDia(Saida saida, bool podeBaixarPreco)
+        {
+            if (!saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+            {
+                throw new NegocioException("A atualização de preços com os preços do dia só pode ser realizada em ORÇAMENTOS.");
+            }
+            List<SaidaProduto> listaSaidaProdutos = ObterPorSaida(saida.CodSaida);
+            GerenciadorProduto gProduto = GerenciadorProduto.GetInstance();
+            
+            foreach (SaidaProduto _saidaProduto in listaSaidaProdutos)
+            {
+                ProdutoPesquisa produto = gProduto.Obter(_saidaProduto.CodProduto).ElementAtOrDefault(0);
+                if ((_saidaProduto.ValorVendaAVista < produto.PrecoVendaVarejo) || 
+                    ((_saidaProduto.ValorVendaAVista > produto.PrecoVendaVarejo) && podeBaixarPreco))
+                {
+                    _saidaProduto.ValorVendaAVista = produto.PrecoVendaVarejo;
+                    _saidaProduto.ValorVenda = produto.PrecoVendaVarejoSemDesconto;
+
+                    Atualizar(_saidaProduto, saida);
+                } 
+            }
+            RecalcularTotais(saida);
+        }
+
+
 
         /// <summary>
         /// Remover um produto de uma saída
@@ -89,7 +133,7 @@ namespace Negocio
         {
             if (saida.TipoSaida == Saida.TIPO_VENDA)
                     throw new NegocioException("Não é possível remover produtos de uma Venda cujo Comprovante Fiscal já foi emitido.");
-                else if ((saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
+                else if ((saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Saída para Deposito com Nota Fiscal já emitida.");
                 else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Devolução para Fornecedor com Nota Fiscal já emitida.");
@@ -279,6 +323,28 @@ namespace Negocio
             _saidaProdutoE.cfop = saidaProduto.CodCfop;
         }
 
+        /// <summary>
+        /// Recalcula os totais da saída de acordo com os produtos registrados.
+        /// </summary>
+        /// <param name="saida"></param>
+        private void RecalcularTotais(Saida saida)
+        {
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where saidaProduto.codSaida == saida.CodSaida
+                        select saidaProduto;
+            List <SaidaProdutoE> listaSaidaProdutos = query.ToList();
+            saida.Total = listaSaidaProdutos.Sum(sp => sp.subtotal).GetValueOrDefault();
+            saida.TotalAVista = listaSaidaProdutos.Sum(sp => sp.subtotalAVista).GetValueOrDefault();
+            saida.BaseCalculoICMS = listaSaidaProdutos.Sum(sp => sp.baseCalculoICMS).GetValueOrDefault();
+            saida.ValorICMS = listaSaidaProdutos.Sum(sp => sp.valorICMS).GetValueOrDefault();
+            saida.BaseCalculoICMSSubst = listaSaidaProdutos.Sum(sp => sp.baseCalculoICMSSubst).GetValueOrDefault();
+            saida.ValorICMSSubst = listaSaidaProdutos.Sum(sp => sp.valorICMSSubst).GetValueOrDefault();
+            saida.ValorIPI = listaSaidaProdutos.Sum(sp => sp.valorIPI).GetValueOrDefault();
+            GerenciadorSaida.GetInstance(null).Atualizar(saida);
+        }
+        
+        
+        
         /// <summary>
         /// Atualiza os totais de uma saída quando um produto é inserido ou excluído de uma saída
         /// </summary>

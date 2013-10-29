@@ -211,6 +211,7 @@ namespace Negocio
                             ReferenciaFabricante = produto.referenciaFabricante,
                             Simples = (decimal) produto.simples,
                             TemVencimento = (bool) produto.temVencimento,
+                            EmPromocao = (bool) produto.emPromocao,
                             Unidade = produto.unidade,
                             UnidadeCompra = produto.unidadeCompra,
                             UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
@@ -258,6 +259,7 @@ namespace Negocio
                             UltimaDataAtualizacao = (DateTime)produto.ultimaDataAtualizacao,
                             Unidade = produto.unidade,
                             TemVencimento = (bool) produto.temVencimento,
+                            EmPromocao = (bool) produto.emPromocao,
                             UltimoPrecoCompra = (decimal) produto.ultimoPrecoCompra,
                             UnidadeCompra = produto.unidadeCompra
                          };
@@ -456,6 +458,7 @@ namespace Negocio
             _produtoE.ultimoPrecoCompra = produto.UltimoPrecoCompra;
             _produtoE.unidade = produto.Unidade;
             _produtoE.unidadeCompra = produto.UnidadeCompra;
+            _produtoE.emPromocao = produto.EmPromocao;
         }
 
         

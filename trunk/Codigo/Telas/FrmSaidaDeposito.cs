@@ -26,30 +26,51 @@ namespace Telas
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+            saida = (Saida) saidaBindingSource.Current;
             List<Loja> listaLojas = GerenciadorLoja.GetInstance().ObterTodos();
             lojaBindingSourceDestino.DataSource = listaLojas;
             lojaBindingSourceOrigem.DataSource = listaLojas;
-            codPessoaComboBoxOrigem.SelectedIndex = 0;
-            codPessoaComboBoxDestino.SelectedIndex = 1;
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA))
+            {
+                codPessoaComboBoxOrigem.SelectedIndex = 0;
+                codPessoaComboBoxDestino.SelectedIndex = 1;
+            }
+            else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
+            {
+                codPessoaComboBoxOrigem.SelectedIndex = 1;
+                codPessoaComboBoxDestino.SelectedIndex = 0;
+            }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             saida.CodProfissional = Global.CLIENTE_PADRAO;
             saida.CodCliente = long.Parse(codPessoaComboBoxDestino.SelectedValue.ToString());
-            saida.Desconto = 0;
-            saida.Total = decimal.Parse(totalTextBox.Text);
-
+            
             GerenciadorSaida.GetInstance(null).Atualizar(saida);
-            if (MessageBox.Show("Confirma transferência para depósito?", "Confirmar Transferência", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA))
             {
-                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_SAIDA_DEPOSITO, null);
+                if (MessageBox.Show("Confirma REMESSA para DEPÓSITO?", "Confirmar Remessa", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_REMESSA_DEPOSITO, null);
 
-                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
-                frmSaidaNF.ShowDialog();
-                frmSaidaNF.Dispose();
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+                    frmSaidaNF.ShowDialog();
+                    frmSaidaNF.Dispose();
+                    this.Close();
+                }
+            }
+            else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
+            {
+                if (MessageBox.Show("Confirma RETORNO de DEPÓSITO FECHADO?", "Confirmar Retorno", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_RETORNO_DEPOSITO, null);
 
-                this.Close();
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+                    frmSaidaNF.ShowDialog();
+                    frmSaidaNF.Dispose();
+                    this.Close();
+                }
             }
         }
 

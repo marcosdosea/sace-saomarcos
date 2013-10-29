@@ -48,8 +48,10 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transferênciaEntreLojasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remessaDepositoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.retornoDepositoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +77,7 @@
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -205,8 +208,10 @@
             this.toolStripSeparator1,
             this.vendaAoConsumidorToolStripMenuItem,
             this.devoluçãoDeProdutosToolStripMenuItem,
-            this.transferênciaEntreLojasToolStripMenuItem,
+            this.remessaDepositoToolStripMenuItem,
             this.toolStripSeparator2,
+            this.retornoDepositoMenuItem,
+            this.toolStripSeparator3,
             this.estatísticaPorProdutoToolStripMenuItem});
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -216,45 +221,57 @@
             // entradaDeProdutosToolStripMenuItem
             // 
             this.entradaDeProdutosToolStripMenuItem.Name = "entradaDeProdutosToolStripMenuItem";
-            this.entradaDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.entradaDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.entradaDeProdutosToolStripMenuItem.Text = "Entrada de Produtos";
             this.entradaDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.entradaDeProdutosToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(227, 6);
             // 
             // vendaAoConsumidorToolStripMenuItem
             // 
             this.vendaAoConsumidorToolStripMenuItem.Name = "vendaAoConsumidorToolStripMenuItem";
-            this.vendaAoConsumidorToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.vendaAoConsumidorToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.vendaAoConsumidorToolStripMenuItem.Text = "Pré-Venda ao Consumidor";
             this.vendaAoConsumidorToolStripMenuItem.Click += new System.EventHandler(this.vendaAoConsumidorToolStripMenuItem_Click);
             // 
             // devoluçãoDeProdutosToolStripMenuItem
             // 
             this.devoluçãoDeProdutosToolStripMenuItem.Name = "devoluçãoDeProdutosToolStripMenuItem";
-            this.devoluçãoDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.devoluçãoDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.devoluçãoDeProdutosToolStripMenuItem.Text = "Devolução para Fornecedor";
             this.devoluçãoDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeProdutosToolStripMenuItem_Click);
             // 
-            // transferênciaEntreLojasToolStripMenuItem
+            // remessaDepositoToolStripMenuItem
             // 
-            this.transferênciaEntreLojasToolStripMenuItem.Name = "transferênciaEntreLojasToolStripMenuItem";
-            this.transferênciaEntreLojasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.transferênciaEntreLojasToolStripMenuItem.Text = "Transferência entre Lojas";
-            this.transferênciaEntreLojasToolStripMenuItem.Click += new System.EventHandler(this.transferênciaEntreLojasToolStripMenuItem_Click);
+            this.remessaDepositoToolStripMenuItem.Name = "remessaDepositoToolStripMenuItem";
+            this.remessaDepositoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.remessaDepositoToolStripMenuItem.Text = "Remessa para Depósito";
+            this.remessaDepositoToolStripMenuItem.Click += new System.EventHandler(this.transferênciaEntreLojasToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(216, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+            // 
+            // retornoDepositoMenuItem
+            // 
+            this.retornoDepositoMenuItem.Name = "retornoDepositoMenuItem";
+            this.retornoDepositoMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.retornoDepositoMenuItem.Text = "Retorno de Depósito Fechado";
+            this.retornoDepositoMenuItem.Click += new System.EventHandler(this.retornoDepositoMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
             // 
             // estatísticaPorProdutoToolStripMenuItem
             // 
             this.estatísticaPorProdutoToolStripMenuItem.Name = "estatísticaPorProdutoToolStripMenuItem";
-            this.estatísticaPorProdutoToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.estatísticaPorProdutoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.estatísticaPorProdutoToolStripMenuItem.Text = "Estatística por Produto";
             this.estatísticaPorProdutoToolStripMenuItem.Click += new System.EventHandler(this.estatísticaPorProdutoToolStripMenuItem_Click);
             // 
@@ -344,6 +361,8 @@
             // 
             // ajudaToolStripMenuItem
             // 
+            this.ajudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sobreToolStripMenuItem});
             this.ajudaToolStripMenuItem.Name = "ajudaToolStripMenuItem";
             this.ajudaToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.ajudaToolStripMenuItem.Text = "&Ajuda";
@@ -476,6 +495,13 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // sobreToolStripMenuItem
+            // 
+            this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sobreToolStripMenuItem.Text = "Sobre";
+            this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,7 +571,7 @@
         private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restaurarBackupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subgrupoDeProdutosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem transferênciaEntreLojasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem remessaDepositoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem receberPagamentosToolStripMenuItem;
         private System.Windows.Forms.Button btnReceber;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeProdutosToolStripMenuItem;
@@ -559,6 +585,9 @@
         private System.Windows.Forms.ToolStripMenuItem receberPagamentosCartõesDeCréditoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem produtosParaRevendaToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem retornoDepositoMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
 
     }
 }

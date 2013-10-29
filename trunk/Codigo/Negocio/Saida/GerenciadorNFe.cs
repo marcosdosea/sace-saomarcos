@@ -19,6 +19,9 @@ namespace Negocio
     public class GerenciadorNFe
     {
         private static GerenciadorNFe gNFe;
+        private string nomeComputador;
+        private string pastaNfeRetorno;
+
 
         public static GerenciadorNFe GetInstance()
         {
@@ -28,6 +31,13 @@ namespace Negocio
             }
 
             return gNFe;
+        }
+
+        private GerenciadorNFe()
+        {
+            nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            Loja loja = GerenciadorLoja.GetInstance().ObterPorServidorNfe(nomeComputador).ElementAtOrDefault(0);
+            pastaNfeRetorno = loja != null ? loja.PastaNfeRetorno : "";
         }
 
         /// <summary>
@@ -249,6 +259,10 @@ namespace Negocio
 
         public NfeControle GerarChaveNFE(Saida saida)
         {
+            if (saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
+            {
+                throw new NegocioException("Não existe cliente associado a esse pedido. É necessário associar um CLIENTE que esteja com todos os dados cadastrados.");
+            }
             try
             {
                 //Verifica se a saída já possui uma chave gerada e cuja nf-e não foi validada
@@ -287,7 +301,7 @@ namespace Negocio
 
                 
                 // Verifica se chave já foi gerada
-                RecuperarChaveGerada(saida, 1, nfeControle);
+                RecuperarChaveGerada(saida, 1, nfeControle, pastaNfeRetorno);
                 if (nfeControle.Chave.Equals(""))
                 {
                     //define um documento XML e carrega o seu conteúdo 
@@ -303,7 +317,7 @@ namespace Negocio
                     xmlnNF.InnerText = nfeControle.CodNfe.ToString().PadLeft(8, '0');
                     xmlserie.InnerText = "1";
                     xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
-                    long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO)[0].CodPessoa;
+                    long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem)[0].CodPessoa;
                     xmlcnpj.InnerText = GerenciadorPessoa.GetInstance().Obter(codPessoaLoja).ElementAt(0).CpfCnpj;
 
                     //inclui os novos elementos no elemento poemas
@@ -316,9 +330,10 @@ namespace Negocio
                     xmldoc.AppendChild(novoGerarChave);
 
                     //Salva a inclusão no arquivo XML
-                    xmldoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + saida.Nfe + "-gerar-chave.xml");
+                    Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                    xmldoc.Save(loja.PastaNfeEnvio + saida.Nfe + "-gerar-chave.xml");
 
-                    RecuperarChaveGerada(saida, 10, nfeControle);
+                    RecuperarChaveGerada(saida, 10, nfeControle, pastaNfeRetorno);
                 }
                 return nfeControle;
             }
@@ -336,14 +351,15 @@ namespace Negocio
         /// <param name="saida"></param>
         /// <param name="numeroTentativasGerarChave"></param>
         /// <returns></returns>
-        private void RecuperarChaveGerada(Saida saida, int numeroTentativasGerarChave, NfeControle nfeControle)
+        private void RecuperarChaveGerada(Saida saida, int numeroTentativasGerarChave, NfeControle nfeControle, string pastaNfeRetorno)
         {
             string chaveNFe = "";
             int tentativas = 0;
+
             while (chaveNFe.Equals("") && tentativas < numeroTentativasGerarChave)
             {
                 
-                DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+                DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
                 if (Dir.Exists)
                 {
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
@@ -352,7 +368,7 @@ namespace Negocio
                     if (files.Length > 0)
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + saida.Nfe + "-ret-gerar-chave.xml");
+                        xmldocRetorno.Load(pastaNfeRetorno + saida.Nfe + "-ret-gerar-chave.xml");
                         chaveNFe = xmldocRetorno.DocumentElement.InnerText;
                         files[0].Delete();
                     }
@@ -378,9 +394,9 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public string RecuperarLoteEnvio()
+        public string RecuperarLoteEnvio(string pastaNfeRetorno)
         {
-              DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+              DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
               string numeroLote = "";
               if (Dir.Exists)
               {
@@ -398,14 +414,14 @@ namespace Negocio
                           {
                               if (files[i].Name.Contains("nfe.err"))
                               {
-                                  files[i].CopyTo(Global.PASTA_COMUNICACAO_NFE_ERRO+"\\"+files[i].Name, true);
+                                  files[i].CopyTo(pastaNfeRetorno+"\\"+files[i].Name, true);
                                   nfeControle.SituacaoNfe = NfeControle.SITUACAO_NAO_VALIDADA;
                                   files[i].Delete();
                               }
                               else if (files[i].Name.Contains("-num-lot."))
                               {
                                   XmlDocument xmldocRetorno = new XmlDocument();
-                                  xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                                  xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
 
                                   numeroLote = xmldocRetorno.DocumentElement.InnerText;
                                   nfeControle.NumeroLoteEnvio = numeroLote.PadLeft(15, '0');
@@ -424,9 +440,9 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public string RecuperarReciboEnvioNfe()
+        public string RecuperarReciboEnvioNfe(string pastaNfeRetorno)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroRecibo = "";
             if (Dir.Exists)
             {
@@ -450,7 +466,7 @@ namespace Negocio
                     else
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
                         
                         string numeroLote = files[i].Name.Substring(0, 15);
@@ -478,9 +494,9 @@ namespace Negocio
             return numeroRecibo;
         }
 
-        public string RecuperarResultadoProcessamentoNfe()
+        public string RecuperarResultadoProcessamentoNfe(string pastaNfeRetorno)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
             {
@@ -502,7 +518,7 @@ namespace Negocio
                     else
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string numeroRecibo = files[i].Name.Substring(0, 15);
@@ -569,9 +585,9 @@ namespace Negocio
                 infNFeIde.cNF = nfeControle.Chave.Substring(35, 8); // código composto por 8 dígitos sequenciais
                 infNFeIde.cDV = nfeControle.Chave.Substring(43, 1);
                 
-                Loja lojaPadrao = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
-                infNFeIde.cMunFG = lojaPadrao.CodMunicipioIBGE.ToString();
-                infNFeIde.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + lojaPadrao.CodMunicipioIBGE.ToString().Substring(0, 2));
+                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                infNFeIde.cMunFG = loja.CodMunicipioIBGE.ToString();
+                infNFeIde.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + loja.CodMunicipioIBGE.ToString().Substring(0, 2));
 
                 infNFeIde.dEmi = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA);
 
@@ -609,7 +625,6 @@ namespace Negocio
                 ////Endereco Emitente
                 TEnderEmi enderEmit = new TEnderEmi();
 
-                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
                 Pessoa pessoaloja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
                 enderEmit.CEP = pessoaloja.Cep;
                 enderEmit.cMun = pessoaloja.CodMunicipioIBGE.ToString();
@@ -738,7 +753,7 @@ namespace Negocio
                         TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
 
                         if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) ||
-                            (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                            (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                         {
                             TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                             icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
@@ -797,7 +812,7 @@ namespace Negocio
 
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
                 if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) 
-                    || (saida.TipoSaida == Saida.TIPO_SAIDA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                    || (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                 {
                     icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(0);
@@ -893,12 +908,12 @@ namespace Negocio
                 xmlDoc.Load(memStream);
                 if (ehEspelho)
                 {
-                    xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ESPELHO + nfeControle.Chave + "-nfe.xml");
+                    xmlDoc.Save(loja.PastaNfeEspelho + nfeControle.Chave + "-nfe.xml");
                 }
                 else
                 {
-                    xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-nfe.xml");
-                    xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-nfe.xml");
+                    xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-nfe.xml");
+                    xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-nfe.xml");
                     nfeControle.SituacaoNfe = NfeControle.SITUACAO_SOLICITADA;
                     Atualizar(nfeControle);
                 }
@@ -935,7 +950,8 @@ namespace Negocio
                 infEvento.chNFe = nfeControle.Chave;
                 infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
                 infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
                 
                 if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
@@ -978,11 +994,10 @@ namespace Negocio
                 XmlSerializer serializer = new XmlSerializer(typeof(TEnvEvento));
                 serializer.Serialize(memStream, envEvento, ns);
                 memStream.Position = 0;
-                //XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(memStream);
 
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-env-canc.xml");
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-env-canc.xml");
+                xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-env-canc.xml");
+                xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-env-canc.xml");
 
                 Atualizar(nfeControle);
             }
@@ -1000,9 +1015,9 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public string RecuperarResultadoCancelamentoNfe()
+        public string RecuperarResultadoCancelamentoNfe(string pastaNfeRetorno)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
             {
@@ -1027,7 +1042,7 @@ namespace Negocio
                     else
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string chave = files[i].Name.Substring(0, 44);
@@ -1074,8 +1089,8 @@ namespace Negocio
 
                 TInutNFe inutilizacaoNfe = new TInutNFe();
                 inutilizacaoNfe.versao = "2.00";
-
-                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
                 TInutNFeInfInut infInutilizacaoNfe = new TInutNFeInfInut();
@@ -1105,8 +1120,8 @@ namespace Negocio
                 memStream.Position = 0;
                 xmlDoc.Load(memStream);
 
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + infInutilizacaoNfe.Id.Substring(2) + "-ped-inu.xml");
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + infInutilizacaoNfe.Id.Substring(2) + "-ped-inu.xml");
+                xmlDoc.Save(loja.PastaNfeEnvio + infInutilizacaoNfe.Id.Substring(2) + "-ped-inu.xml");
+                xmlDoc.Save(loja.PastaNfeEnviado + infInutilizacaoNfe.Id.Substring(2) + "-ped-inu.xml");
 
                 Atualizar(nfeControle);
             }
@@ -1124,9 +1139,9 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public string RecuperarResultadoInutilizacaoNfe()
+        public string RecuperarResultadoInutilizacaoNfe(string pastaNfeRetorno)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
             {
@@ -1151,7 +1166,7 @@ namespace Negocio
                     else
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string chave = files[i].Name.Substring(0, 44);
@@ -1209,8 +1224,10 @@ namespace Negocio
                 memStream.Position = 0;
                 xmlDoc.Load(memStream);
 
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-ped-sit.xml");
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-ped-sit.xml");
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-ped-sit.xml");
+                xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-ped-sit.xml");
             }
             catch (NegocioException ne)
             {
@@ -1227,9 +1244,9 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public void RecuperarResultadoConsultaNfe()
+        public void RecuperarResultadoConsultaNfe(string pastaNfeRetorno)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             if (Dir.Exists)
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
@@ -1249,7 +1266,7 @@ namespace Negocio
                     else
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string chave = files[i].Name.Substring(0, 44);
@@ -1326,7 +1343,9 @@ namespace Negocio
                 infEvento.chNFe = nfeControle.Chave;
                 infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
                 infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
                 if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
@@ -1373,8 +1392,8 @@ namespace Negocio
                 memStream.Position = 0;
                 xmlDoc.Load(memStream);
 
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIO + nfeControle.Chave + "-" + nfeControle.SeqCartaCorrecao.ToString().PadLeft(2, '0') + "-env-cce.xml");
-                xmlDoc.Save(Global.PASTA_COMUNICACAO_NFE_ENVIADO + nfeControle.Chave + "-" + nfeControle.SeqCartaCorrecao.ToString().PadLeft(2, '0') + "-env-cce.xml");
+                xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-" + nfeControle.SeqCartaCorrecao.ToString().PadLeft(2, '0') + "-env-cce.xml");
+                xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-" + nfeControle.SeqCartaCorrecao.ToString().PadLeft(2, '0') + "-env-cce.xml");
 
                 Atualizar(nfeControle);
             }
@@ -1392,9 +1411,9 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public string RecuperarResultadoCartaCorrecaoNfe()
+        public string RecuperarResultadoCartaCorrecaoNfe(string pastaNfeRetorno)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
+            DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
             {
@@ -1419,7 +1438,7 @@ namespace Negocio
                     else
                     {
                         XmlDocument xmldocRetorno = new XmlDocument();
-                        xmldocRetorno.Load(Global.PASTA_COMUNICACAO_NFE_RETORNO + files[i].Name);
+                        xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string chave = files[i].Name.Substring(0, 44);
@@ -1458,20 +1477,19 @@ namespace Negocio
         {
             try
             {
-                DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFE_RETORNO);
-                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-                if (Dir.Exists && nomeComputador.Equals(Global.NOME_SERVIDOR_NFE))
+                if (!string.IsNullOrEmpty(pastaNfeRetorno))
                 {
+                    DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
                     FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
                     if (Files.Length > 0)
                     {
-                        RecuperarLoteEnvio();
-                        RecuperarReciboEnvioNfe();
-                        RecuperarResultadoProcessamentoNfe();
-                        RecuperarResultadoCancelamentoNfe();
-                        RecuperarResultadoConsultaNfe();
-                        RecuperarResultadoCartaCorrecaoNfe();
+                        RecuperarLoteEnvio(pastaNfeRetorno);
+                        RecuperarReciboEnvioNfe(pastaNfeRetorno);
+                        RecuperarResultadoProcessamentoNfe(pastaNfeRetorno);
+                        RecuperarResultadoCancelamentoNfe(pastaNfeRetorno);
+                        RecuperarResultadoConsultaNfe(pastaNfeRetorno);
+                        RecuperarResultadoCartaCorrecaoNfe(pastaNfeRetorno);
                     }
                 }
             }
@@ -1572,13 +1590,15 @@ namespace Negocio
         {
             if (nfeControle.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA)
             {
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 try
                 {
                     DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
 
                     Process unidanfe = new Process();
                     unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
-                    unidanfe.StartInfo.Arguments = " arquivo=\"" + Global.PASTA_COMUNICACAO_NFE_AUTORIZADOS
+                    unidanfe.StartInfo.Arguments = " arquivo=\"" + loja.PastaNfeAutorizados
                         + dataEmissao.Year
                         + dataEmissao.Month.ToString("00")
                         + dataEmissao.Day.ToString("00") + "\\"

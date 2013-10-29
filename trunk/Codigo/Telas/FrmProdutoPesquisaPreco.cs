@@ -16,6 +16,7 @@ namespace Telas
     {
         private String filtroNome;
         private String textoAtual;
+        private DateTime horarioUltimaBusca;
 
         public bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
@@ -26,7 +27,9 @@ namespace Telas
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = null;
+            horarioUltimaBusca = DateTime.Now;
             ExibirTodos = exibirTodos;
+
         }
 
         public FrmProdutoPesquisaPreco(String nome, bool exibirTodos)
@@ -207,6 +210,33 @@ namespace Telas
                 Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
                 produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(codProduto);
             }
+        }
+
+        
+        private void DestacarProdutosEmPromocao()
+        {
+            for (int i = 0; i < tb_produtoDataGridView.RowCount; i++)
+            {
+                bool emPromocao = Convert.ToBoolean(tb_produtoDataGridView.Rows[i].Cells[10].Value);
+                if (emPromocao)
+                {
+                    tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.Wheat;
+                }
+                else
+                {
+                    tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                }
+            }
+        }
+
+        private void tb_produtoDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            DestacarProdutosEmPromocao();
+        }
+
+        private void tb_produtoDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            DestacarProdutosEmPromocao();
         }
     }
 }

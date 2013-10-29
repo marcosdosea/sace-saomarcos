@@ -117,6 +117,7 @@
             this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
+            this.labelAtualizarPrecos = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -224,7 +225,7 @@
             pedidoGeradoLabel.AutoSize = true;
             pedidoGeradoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pedidoGeradoLabel.ForeColor = System.Drawing.Color.Black;
-            pedidoGeradoLabel.Location = new System.Drawing.Point(348, 534);
+            pedidoGeradoLabel.Location = new System.Drawing.Point(480, 534);
             pedidoGeradoLabel.Name = "pedidoGeradoLabel";
             pedidoGeradoLabel.Size = new System.Drawing.Size(34, 20);
             pedidoGeradoLabel.TabIndex = 27;
@@ -276,7 +277,7 @@
             nfeLabel.AutoSize = true;
             nfeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             nfeLabel.ForeColor = System.Drawing.Color.Black;
-            nfeLabel.Location = new System.Drawing.Point(480, 534);
+            nfeLabel.Location = new System.Drawing.Point(591, 534);
             nfeLabel.Name = "nfeLabel";
             nfeLabel.Size = new System.Drawing.Size(38, 20);
             nfeLabel.TabIndex = 69;
@@ -388,10 +389,10 @@
             // 
             this.pedidoGeradoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "CupomFiscal", true));
             this.pedidoGeradoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(352, 561);
+            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(484, 561);
             this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
             this.pedidoGeradoTextBox.ReadOnly = true;
-            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(122, 26);
+            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(105, 26);
             this.pedidoGeradoTextBox.TabIndex = 60;
             this.pedidoGeradoTextBox.TabStop = false;
             // 
@@ -430,9 +431,9 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(322, 661);
+            this.btnSalvar.Location = new System.Drawing.Point(288, 661);
             this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
+            this.btnSalvar.Size = new System.Drawing.Size(70, 23);
             this.btnSalvar.TabIndex = 5;
             this.btnSalvar.Text = "F6 - Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
@@ -440,7 +441,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(653, 661);
+            this.btnCancelar.Location = new System.Drawing.Point(593, 661);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 9;
@@ -450,9 +451,9 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(82, 661);
+            this.btnNovo.Location = new System.Drawing.Point(78, 661);
             this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(81, 23);
+            this.btnNovo.Size = new System.Drawing.Size(70, 23);
             this.btnNovo.TabIndex = 2;
             this.btnNovo.Text = "F3 - Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
@@ -460,9 +461,9 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(247, 661);
+            this.btnExcluir.Location = new System.Drawing.Point(218, 661);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
+            this.btnExcluir.Size = new System.Drawing.Size(70, 23);
             this.btnExcluir.TabIndex = 4;
             this.btnExcluir.Text = "F5 - Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
@@ -751,7 +752,7 @@
             // 
             this.btnBuscar.Location = new System.Drawing.Point(7, 661);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(70, 23);
             this.btnBuscar.TabIndex = 10;
             this.btnBuscar.Text = "F2 - Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -805,9 +806,9 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(163, 661);
+            this.btnEditar.Location = new System.Drawing.Point(148, 661);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(83, 23);
+            this.btnEditar.Size = new System.Drawing.Size(70, 23);
             this.btnEditar.TabIndex = 3;
             this.btnEditar.Text = "F4 - Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
@@ -853,15 +854,15 @@
             this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(223, 561);
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
             this.descricaoTipoSaidaTextBox.ReadOnly = true;
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(122, 26);
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(251, 26);
             this.descricaoTipoSaidaTextBox.TabIndex = 58;
             this.descricaoTipoSaidaTextBox.TabStop = false;
             // 
             // btnEncerrar
             // 
-            this.btnEncerrar.Location = new System.Drawing.Point(403, 661);
+            this.btnEncerrar.Location = new System.Drawing.Point(358, 661);
             this.btnEncerrar.Name = "btnEncerrar";
-            this.btnEncerrar.Size = new System.Drawing.Size(81, 23);
+            this.btnEncerrar.Size = new System.Drawing.Size(78, 23);
             this.btnEncerrar.TabIndex = 6;
             this.btnEncerrar.Text = "F7 - Encerrar";
             this.btnEncerrar.UseVisualStyleBackColor = true;
@@ -871,10 +872,10 @@
             // 
             this.nfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Nfe", true));
             this.nfeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nfeTextBox.Location = new System.Drawing.Point(484, 562);
+            this.nfeTextBox.Location = new System.Drawing.Point(595, 562);
             this.nfeTextBox.Name = "nfeTextBox";
             this.nfeTextBox.ReadOnly = true;
-            this.nfeTextBox.Size = new System.Drawing.Size(165, 26);
+            this.nfeTextBox.Size = new System.Drawing.Size(50, 26);
             this.nfeTextBox.TabIndex = 62;
             this.nfeTextBox.TabStop = false;
             // 
@@ -904,9 +905,9 @@
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(484, 661);
+            this.btnImprimir.Location = new System.Drawing.Point(436, 661);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(81, 23);
+            this.btnImprimir.Size = new System.Drawing.Size(75, 23);
             this.btnImprimir.TabIndex = 7;
             this.btnImprimir.Text = "F8 - Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
@@ -944,11 +945,11 @@
             // 
             // btnCfNfe
             // 
-            this.btnCfNfe.Location = new System.Drawing.Point(565, 661);
+            this.btnCfNfe.Location = new System.Drawing.Point(511, 661);
             this.btnCfNfe.Name = "btnCfNfe";
-            this.btnCfNfe.Size = new System.Drawing.Size(88, 23);
+            this.btnCfNfe.Size = new System.Drawing.Size(80, 23);
             this.btnCfNfe.TabIndex = 8;
-            this.btnCfNfe.Text = "F9 - CF / NF-e";
+            this.btnCfNfe.Text = "F9 - CF/NF-e";
             this.btnCfNfe.UseVisualStyleBackColor = true;
             this.btnCfNfe.Click += new System.EventHandler(this.btnCfNfe_Click);
             // 
@@ -1012,11 +1013,22 @@
             this.lblPreco.AutoSize = true;
             this.lblPreco.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.lblPreco.ForeColor = System.Drawing.Color.Red;
-            this.lblPreco.Location = new System.Drawing.Point(598, 131);
+            this.lblPreco.Location = new System.Drawing.Point(610, 130);
             this.lblPreco.Name = "lblPreco";
             this.lblPreco.Size = new System.Drawing.Size(165, 18);
             this.lblPreco.TabIndex = 78;
             this.lblPreco.Text = "CTRL+P - Preço Varejo";
+            // 
+            // labelAtualizarPrecos
+            // 
+            this.labelAtualizarPrecos.AutoSize = true;
+            this.labelAtualizarPrecos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.labelAtualizarPrecos.ForeColor = System.Drawing.Color.Red;
+            this.labelAtualizarPrecos.Location = new System.Drawing.Point(335, 131);
+            this.labelAtualizarPrecos.Name = "labelAtualizarPrecos";
+            this.labelAtualizarPrecos.Size = new System.Drawing.Size(267, 18);
+            this.labelAtualizarPrecos.TabIndex = 79;
+            this.labelAtualizarPrecos.Text = "CTRL+A - Atualizar com Preços do Dia";
             // 
             // FrmSaida
             // 
@@ -1083,6 +1095,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblPreco);
+            this.Controls.Add(this.labelAtualizarPrecos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -1172,5 +1185,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn valorVendaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalAVistaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label labelAtualizarPrecos;
     }
 }

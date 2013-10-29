@@ -191,12 +191,14 @@
             this.codPessoaComboBoxDestino.DataSource = this.lojaBindingSourceDestino;
             this.codPessoaComboBoxDestino.DisplayMember = "nome";
             this.codPessoaComboBoxDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codPessoaComboBoxDestino.Enabled = false;
             this.codPessoaComboBoxDestino.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codPessoaComboBoxDestino.FormattingEnabled = true;
             this.codPessoaComboBoxDestino.Location = new System.Drawing.Point(12, 200);
             this.codPessoaComboBoxDestino.Name = "codPessoaComboBoxDestino";
             this.codPessoaComboBoxDestino.Size = new System.Drawing.Size(652, 37);
             this.codPessoaComboBoxDestino.TabIndex = 10;
+            this.codPessoaComboBoxDestino.TabStop = false;
             this.codPessoaComboBoxDestino.ValueMember = "codPessoa";
             // 
             // lojaBindingSourceDestino
@@ -225,7 +227,7 @@
             this.KeyPreview = true;
             this.Name = "FrmSaidaDeposito";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pagamento";
+            this.Text = "Remessa ou Retorno de Depósito Fechado";
             this.Load += new System.EventHandler(this.FrmSaidaDeposito_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaDeposito_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();

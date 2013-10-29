@@ -52,11 +52,7 @@
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.nfeControleDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nfeControleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.justificativaCancelamentoTextBox1 = new System.Windows.Forms.TextBox();
@@ -79,6 +75,10 @@
             this.correcaoTextBox = new System.Windows.Forms.TextBox();
             this.btnCartaCorrecao = new System.Windows.Forms.Button();
             this.seqCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
+            this.nfeControleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -219,6 +219,51 @@
             dataEmissaoLabel.TabIndex = 41;
             dataEmissaoLabel.Text = "Data Emissao:";
             // 
+            // numeroProtocoloCartaCorrecaoLabel
+            // 
+            numeroProtocoloCartaCorrecaoLabel.AutoSize = true;
+            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-2, 270);
+            numeroProtocoloCartaCorrecaoLabel.Name = "numeroProtocoloCartaCorrecaoLabel";
+            numeroProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(103, 13);
+            numeroProtocoloCartaCorrecaoLabel.TabIndex = 42;
+            numeroProtocoloCartaCorrecaoLabel.Text = "Prot Carta Correção:";
+            // 
+            // situacaoProtocoloCartaCorrecaoLabel
+            // 
+            situacaoProtocoloCartaCorrecaoLabel.AutoSize = true;
+            situacaoProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(227, 270);
+            situacaoProtocoloCartaCorrecaoLabel.Name = "situacaoProtocoloCartaCorrecaoLabel";
+            situacaoProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(126, 13);
+            situacaoProtocoloCartaCorrecaoLabel.TabIndex = 43;
+            situacaoProtocoloCartaCorrecaoLabel.Text = "Situacao Carta Correção:";
+            // 
+            // mensagemSitucaoCartaCorrecaoLabel
+            // 
+            mensagemSitucaoCartaCorrecaoLabel.AutoSize = true;
+            mensagemSitucaoCartaCorrecaoLabel.Location = new System.Drawing.Point(417, 270);
+            mensagemSitucaoCartaCorrecaoLabel.Name = "mensagemSitucaoCartaCorrecaoLabel";
+            mensagemSitucaoCartaCorrecaoLabel.Size = new System.Drawing.Size(62, 13);
+            mensagemSitucaoCartaCorrecaoLabel.TabIndex = 44;
+            mensagemSitucaoCartaCorrecaoLabel.Text = "Mensagem:";
+            // 
+            // correcaoLabel
+            // 
+            correcaoLabel.AutoSize = true;
+            correcaoLabel.Location = new System.Drawing.Point(2, 412);
+            correcaoLabel.Name = "correcaoLabel";
+            correcaoLabel.Size = new System.Drawing.Size(380, 13);
+            correcaoLabel.TabIndex = 45;
+            correcaoLabel.Text = "Correções (Para NF-e Autorizadas e Situação previstas na legislação em vigor):";
+            // 
+            // seqCartaCorrecaoLabel
+            // 
+            seqCartaCorrecaoLabel.AutoSize = true;
+            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(231, 293);
+            seqCartaCorrecaoLabel.Name = "seqCartaCorrecaoLabel";
+            seqCartaCorrecaoLabel.Size = new System.Drawing.Size(135, 13);
+            seqCartaCorrecaoLabel.TabIndex = 47;
+            seqCartaCorrecaoLabel.Text = "Sequência Carta Correção:";
+            // 
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -282,33 +327,6 @@
             this.nfeControleDataGridView.Size = new System.Drawing.Size(815, 114);
             this.nfeControleDataGridView.TabIndex = 7;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodNfe";
-            this.dataGridViewTextBoxColumn1.FillWeight = 42.56329F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Código NF-e";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "CodSaida";
-            this.dataGridViewTextBoxColumn2.FillWeight = 36.02162F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Saída";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Chave";
-            this.dataGridViewTextBoxColumn3.FillWeight = 162.4366F;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Chave";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
             // DescricaoSituacaoNfe
             // 
             this.DescricaoSituacaoNfe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -317,10 +335,6 @@
             this.DescricaoSituacaoNfe.HeaderText = "Situação";
             this.DescricaoSituacaoNfe.Name = "DescricaoSituacaoNfe";
             this.DescricaoSituacaoNfe.ReadOnly = true;
-            // 
-            // nfeControleBindingSource
-            // 
-            this.nfeControleBindingSource.DataSource = typeof(Dominio.NfeControle);
             // 
             // btnConsultar
             // 
@@ -477,15 +491,6 @@
             this.btnSituacao.UseVisualStyleBackColor = true;
             this.btnSituacao.Click += new System.EventHandler(this.btnSituacao_Click);
             // 
-            // numeroProtocoloCartaCorrecaoLabel
-            // 
-            numeroProtocoloCartaCorrecaoLabel.AutoSize = true;
-            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-2, 270);
-            numeroProtocoloCartaCorrecaoLabel.Name = "numeroProtocoloCartaCorrecaoLabel";
-            numeroProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(103, 13);
-            numeroProtocoloCartaCorrecaoLabel.TabIndex = 42;
-            numeroProtocoloCartaCorrecaoLabel.Text = "Prot Carta Correção:";
-            // 
             // numeroProtocoloCartaCorrecaoTextBox
             // 
             this.numeroProtocoloCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "NumeroProtocoloCartaCorrecao", true));
@@ -495,15 +500,6 @@
             this.numeroProtocoloCartaCorrecaoTextBox.Size = new System.Drawing.Size(115, 20);
             this.numeroProtocoloCartaCorrecaoTextBox.TabIndex = 43;
             this.numeroProtocoloCartaCorrecaoTextBox.TabStop = false;
-            // 
-            // situacaoProtocoloCartaCorrecaoLabel
-            // 
-            situacaoProtocoloCartaCorrecaoLabel.AutoSize = true;
-            situacaoProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(227, 270);
-            situacaoProtocoloCartaCorrecaoLabel.Name = "situacaoProtocoloCartaCorrecaoLabel";
-            situacaoProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(126, 13);
-            situacaoProtocoloCartaCorrecaoLabel.TabIndex = 43;
-            situacaoProtocoloCartaCorrecaoLabel.Text = "Situacao Carta Correção:";
             // 
             // situacaoProtocoloCartaCorrecaoTextBox
             // 
@@ -515,15 +511,6 @@
             this.situacaoProtocoloCartaCorrecaoTextBox.TabIndex = 44;
             this.situacaoProtocoloCartaCorrecaoTextBox.TabStop = false;
             // 
-            // mensagemSitucaoCartaCorrecaoLabel
-            // 
-            mensagemSitucaoCartaCorrecaoLabel.AutoSize = true;
-            mensagemSitucaoCartaCorrecaoLabel.Location = new System.Drawing.Point(417, 270);
-            mensagemSitucaoCartaCorrecaoLabel.Name = "mensagemSitucaoCartaCorrecaoLabel";
-            mensagemSitucaoCartaCorrecaoLabel.Size = new System.Drawing.Size(62, 13);
-            mensagemSitucaoCartaCorrecaoLabel.TabIndex = 44;
-            mensagemSitucaoCartaCorrecaoLabel.Text = "Mensagem:";
-            // 
             // mensagemSitucaoCartaCorrecaoTextBox
             // 
             this.mensagemSitucaoCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "MensagemSitucaoCartaCorrecao", true));
@@ -533,15 +520,6 @@
             this.mensagemSitucaoCartaCorrecaoTextBox.Size = new System.Drawing.Size(334, 20);
             this.mensagemSitucaoCartaCorrecaoTextBox.TabIndex = 45;
             this.mensagemSitucaoCartaCorrecaoTextBox.TabStop = false;
-            // 
-            // correcaoLabel
-            // 
-            correcaoLabel.AutoSize = true;
-            correcaoLabel.Location = new System.Drawing.Point(2, 412);
-            correcaoLabel.Name = "correcaoLabel";
-            correcaoLabel.Size = new System.Drawing.Size(380, 13);
-            correcaoLabel.TabIndex = 45;
-            correcaoLabel.Text = "Correções (Para NF-e Autorizadas e Situação previstas na legislação em vigor):";
             // 
             // correcaoTextBox
             // 
@@ -563,15 +541,6 @@
             this.btnCartaCorrecao.UseVisualStyleBackColor = true;
             this.btnCartaCorrecao.Click += new System.EventHandler(this.btnCartaCorrecao_Click);
             // 
-            // seqCartaCorrecaoLabel
-            // 
-            seqCartaCorrecaoLabel.AutoSize = true;
-            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(231, 293);
-            seqCartaCorrecaoLabel.Name = "seqCartaCorrecaoLabel";
-            seqCartaCorrecaoLabel.Size = new System.Drawing.Size(135, 13);
-            seqCartaCorrecaoLabel.TabIndex = 47;
-            seqCartaCorrecaoLabel.Text = "Sequência Carta Correção:";
-            // 
             // seqCartaCorrecaoTextBox
             // 
             this.seqCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SeqCartaCorrecao", true));
@@ -582,12 +551,43 @@
             this.seqCartaCorrecaoTextBox.TabIndex = 48;
             this.seqCartaCorrecaoTextBox.TabStop = false;
             // 
+            // nfeControleBindingSource
+            // 
+            this.nfeControleBindingSource.DataSource = typeof(Dominio.NfeControle);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodNfe";
+            this.dataGridViewTextBoxColumn1.FillWeight = 42.56329F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Código NF-e";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "CodSaida";
+            this.dataGridViewTextBoxColumn2.FillWeight = 36.02162F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Saída";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Chave";
+            this.dataGridViewTextBoxColumn3.FillWeight = 162.4366F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Chave";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(826, 514);
+            this.ClientSize = new System.Drawing.Size(822, 514);
             this.ControlBox = false;
             this.Controls.Add(seqCartaCorrecaoLabel);
             this.Controls.Add(this.seqCartaCorrecaoTextBox);

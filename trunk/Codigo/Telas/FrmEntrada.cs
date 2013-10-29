@@ -87,12 +87,14 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            estado = EstadoFormulario.ESPERA;
             entradaBindingSource.CancelEdit();
             entradaBindingSource.EndEdit();
             entradaProdutoBindingSource.CancelEdit();
             entradaProdutoBindingSource.EndEdit();
             ProdutosGroupBox.Enabled = false;
             habilitaBotoes(true);
+            codEntradaTextBox_TextChanged(sender, e);
             btnBuscar.Focus();
         }
 
@@ -193,8 +195,7 @@ namespace Telas
                 entradaProduto.Ipi = produto.Ipi;
 
                 produto.UltimoPrecoCompra = entradaProduto.ValorUnitario;
-                
-                
+                produto.Desconto = Convert.ToDecimal(descontoProdutoTextBox.Text);
                 valorICMSTextBox.Text = entradaProduto.ValorICMS.ToString();
                 valorICMSSTTextBox.Text = entradaProduto.ValorICMSST.ToString();
                 valorIPITextBox.Text = entradaProduto.ValorIPI.ToString();
@@ -307,8 +308,10 @@ namespace Telas
 
         private void codCSTComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if ((codCSTComboBox.SelectedValue != null) && (ProdutosGroupBox.Enabled) && estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
+                
                 Cst cst = new Cst() { CodCST = codCSTComboBox.SelectedValue.ToString() };
                 bool ehTributadoIntegral = cst.EhTributacaoIntegral;
 
