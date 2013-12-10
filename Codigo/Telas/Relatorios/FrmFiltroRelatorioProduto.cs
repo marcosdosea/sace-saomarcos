@@ -36,7 +36,8 @@ namespace Telas.Relatorios
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             long codPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
-            Relatorios.Produtos.FrmRelProdutosRevenda relatorio = new Relatorios.Produtos.FrmRelProdutosRevenda(codPessoa);
+            decimal lucro = Convert.ToDecimal(lucroTextBox.Text);
+            Relatorios.Produtos.FrmRelProdutosRevenda relatorio = new Relatorios.Produtos.FrmRelProdutosRevenda(codPessoa, lucro);
             relatorio.ShowDialog();
             relatorio.Dispose();
         }
@@ -56,6 +57,11 @@ namespace Telas.Relatorios
         private void codPessoaComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

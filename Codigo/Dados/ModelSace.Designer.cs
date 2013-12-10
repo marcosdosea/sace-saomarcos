@@ -77,6 +77,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "TipoSaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "NfeE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.NfeE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_loja1", "LojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_ponta_estoque_tb_produto1", "ProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_ponta_estoque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_ponta_estoque), true)]
 
 #endregion
 
@@ -703,6 +704,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_saida> _tb_saida;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_ponta_estoque> tb_ponta_estoque
+        {
+            get
+            {
+                if ((_tb_ponta_estoque == null))
+                {
+                    _tb_ponta_estoque = base.CreateObjectSet<tb_ponta_estoque>("tb_ponta_estoque");
+                }
+                return _tb_ponta_estoque;
+            }
+        }
+        private ObjectSet<tb_ponta_estoque> _tb_ponta_estoque;
 
         #endregion
 
@@ -994,6 +1011,14 @@ namespace Dados
         public void AddTotb_saida(tb_saida tb_saida)
         {
             base.AddObject("tb_saida", tb_saida);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_ponta_estoque EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_ponta_estoque(tb_ponta_estoque tb_ponta_estoque)
+        {
+            base.AddObject("tb_ponta_estoque", tb_ponta_estoque);
         }
 
         #endregion
@@ -8805,6 +8830,28 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_ponta_estoque_tb_produto1", "tb_ponta_estoque")]
+        public EntityCollection<tb_ponta_estoque> tb_ponta_estoque
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_ponta_estoque>("SaceModel.fk_tb_ponta_estoque_tb_produto1", "tb_ponta_estoque");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_ponta_estoque>("SaceModel.fk_tb_ponta_estoque_tb_produto1", "tb_ponta_estoque", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -11041,6 +11088,181 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UsuarioE>("SaceModel.fk_tb_permissao_codpessoa", "tb_usuario", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_ponta_estoque")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_ponta_estoque : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_ponta_estoque object.
+        /// </summary>
+        /// <param name="codPontaEstoque">Initial value of the codPontaEstoque property.</param>
+        /// <param name="codProduto">Initial value of the codProduto property.</param>
+        /// <param name="quantidade">Initial value of the quantidade property.</param>
+        public static tb_ponta_estoque Createtb_ponta_estoque(global::System.Int32 codPontaEstoque, global::System.Int64 codProduto, global::System.Decimal quantidade)
+        {
+            tb_ponta_estoque tb_ponta_estoque = new tb_ponta_estoque();
+            tb_ponta_estoque.codPontaEstoque = codPontaEstoque;
+            tb_ponta_estoque.codProduto = codProduto;
+            tb_ponta_estoque.quantidade = quantidade;
+            return tb_ponta_estoque;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codPontaEstoque
+        {
+            get
+            {
+                return _codPontaEstoque;
+            }
+            set
+            {
+                if (_codPontaEstoque != value)
+                {
+                    OncodPontaEstoqueChanging(value);
+                    ReportPropertyChanging("codPontaEstoque");
+                    _codPontaEstoque = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codPontaEstoque");
+                    OncodPontaEstoqueChanged();
+                }
+            }
+        }
+        private global::System.Int32 _codPontaEstoque;
+        partial void OncodPontaEstoqueChanging(global::System.Int32 value);
+        partial void OncodPontaEstoqueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codProduto
+        {
+            get
+            {
+                return _codProduto;
+            }
+            set
+            {
+                OncodProdutoChanging(value);
+                ReportPropertyChanging("codProduto");
+                _codProduto = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codProduto");
+                OncodProdutoChanged();
+            }
+        }
+        private global::System.Int64 _codProduto;
+        partial void OncodProdutoChanging(global::System.Int64 value);
+        partial void OncodProdutoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal quantidade
+        {
+            get
+            {
+                return _quantidade;
+            }
+            set
+            {
+                OnquantidadeChanging(value);
+                ReportPropertyChanging("quantidade");
+                _quantidade = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quantidade");
+                OnquantidadeChanged();
+            }
+        }
+        private global::System.Decimal _quantidade;
+        partial void OnquantidadeChanging(global::System.Decimal value);
+        partial void OnquantidadeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String caracteristica
+        {
+            get
+            {
+                return _caracteristica;
+            }
+            set
+            {
+                OncaracteristicaChanging(value);
+                ReportPropertyChanging("caracteristica");
+                _caracteristica = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("caracteristica");
+                OncaracteristicaChanged();
+            }
+        }
+        private global::System.String _caracteristica;
+        partial void OncaracteristicaChanging(global::System.String value);
+        partial void OncaracteristicaChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_ponta_estoque_tb_produto1", "ProdutoE")]
+        public ProdutoE tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_ponta_estoque_tb_produto1", "ProdutoE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_ponta_estoque_tb_produto1", "ProdutoE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ProdutoE> tb_produtoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_ponta_estoque_tb_produto1", "ProdutoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_ponta_estoque_tb_produto1", "ProdutoE", value);
                 }
             }
         }

@@ -37,6 +37,14 @@ namespace Telas
                 {
                     Saida.Observacao = "Cod Cliente: " + Saida.CodCliente;
                 }
+                else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                {
+                    Entrada entrada = GerenciadorEntrada.GetInstance().Obter(Saida.CodEntrada).ElementAtOrDefault(0);
+                    Saida.Observacao += " Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
+                        " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
+                        Saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + Saida.BaseCalculoICMSSubst.ToString("N2") +
+                        ". Valor do ICMS ST = R$ " + Saida.ValorICMSSubst.ToString("N2") + ". Valor do IPI = R$ " + Saida.ValorIPI.ToString("N2");
+                }
             }
             Saida.Nfe = "NF-e";
             observacaoTextBox.Text = Saida.Observacao;
@@ -79,8 +87,7 @@ namespace Telas
                         GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, true);
                     }
 
-                }
-                    
+                }   
             }
             
             if (MessageBox.Show("Confirma envio da NF-e?", "Enviar NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)

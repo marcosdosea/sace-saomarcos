@@ -1005,8 +1005,163 @@ PARCELADO</Value>
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="TotalPagar">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Total à Vista: </Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve"> </Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>=Parameters!TotalPagar.Value</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <Format>'R$' 0.00;('R$' 0.00)</Format>
+                  <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>TotalPagar</rd:DefaultName>
+        <Top>1.87813cm</Top>
+        <Left>12.32996cm</Left>
+        <Height>0.6cm</Height>
+        <Width>6.51454cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="TotalSaidas">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Total Parcelado:</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve">  </Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>=Parameters!TotalSaidas.Value</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <Format>'R$' 0.00;('R$' 0.00)</Format>
+                  <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>TotalSaidas</rd:DefaultName>
+        <Top>1.86865cm</Top>
+        <Left>0.03595cm</Left>
+        <Height>0.6cm</Height>
+        <Width>6.86786cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Desconto">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Desconto: </Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>=Parameters!Desconto.Value</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <Format>0.00;(0.00)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value> %</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <Format>0.00;(0.00)</Format>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Desconto</rd:DefaultName>
+        <Top>1.88342cm</Top>
+        <Left>7.08021cm</Left>
+        <Height>0.6cm</Height>
+        <Width>4.60187cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line3">
+        <Top>1.84071cm</Top>
+        <Left>0.13026cm</Left>
+        <Height>0cm</Height>
+        <Width>18.80855cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
     </ReportItems>
-    <Height>1.46663cm</Height>
+    <Height>2.48342cm</Height>
     <Style />
   </Body>
   <ReportParameters>
@@ -1505,26 +1660,14 @@ PARCELADO</Value>
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.87771cm</Height>
+      <Height>1.24271cm</Height>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Line Name="Line3">
-          <Top>0.0635cm</Top>
-          <Left>0.09431cm</Left>
-          <Height>0cm</Height>
-          <Width>18.80855cm</Width>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-          </Style>
-        </Line>
         <Line Name="Line4">
-          <Top>0.762cm</Top>
+          <Top>0.09526cm</Top>
           <Left>0.09431cm</Left>
           <Height>0cm</Height>
           <Width>18.80855cm</Width>
-          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1559,152 +1702,11 @@ PARCELADO</Value>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox284</rd:DefaultName>
-          <Top>0.8255cm</Top>
+          <Top>0.15876cm</Top>
+          <Left>0.65943cm</Left>
           <Height>1.02575cm</Height>
-          <Width>18.90286cm</Width>
-          <ZIndex>2</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="TotalSaidas">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>Total Parcelado:</Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value xml:space="preserve">  </Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value>=Parameters!TotalSaidas.Value</Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <Format>'R$' 0.00;('R$' 0.00)</Format>
-                    <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>TotalSaidas</rd:DefaultName>
-          <Top>0.09144cm</Top>
-          <Height>0.6cm</Height>
-          <Width>6.86786cm</Width>
-          <ZIndex>3</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Desconto">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>Desconto: </Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value>=Parameters!Desconto.Value</Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <Format>0.00;(0.00)</Format>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value> %</Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <Format>0.00;(0.00)</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Desconto</rd:DefaultName>
-          <Top>0.10621cm</Top>
-          <Left>7.04425cm</Left>
-          <Height>0.6cm</Height>
-          <Width>4.60187cm</Width>
-          <ZIndex>4</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="TotalPagar">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>Total à Vista: </Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value xml:space="preserve"> </Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value>=Parameters!TotalPagar.Value</Value>
-                  <Style>
-                    <FontSize>11pt</FontSize>
-                    <Format>'R$' 0.00;('R$' 0.00)</Format>
-                    <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Right</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>TotalPagar</rd:DefaultName>
-          <Top>0.10092cm</Top>
-          <Left>12.29401cm</Left>
-          <Height>0.6cm</Height>
-          <Width>6.51454cm</Width>
-          <ZIndex>5</ZIndex>
+          <Width>17.70477cm</Width>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>

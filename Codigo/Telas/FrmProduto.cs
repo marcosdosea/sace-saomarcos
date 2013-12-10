@@ -153,6 +153,10 @@ namespace Telas
                 {
                     btnEstoque_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F8)
+                {
+                    btnPontaEstoque_Click(sender, e);
+                }
                 else if (e.KeyCode == Keys.End)
                 {
                     produtoBindingSource.MoveLast();
@@ -320,6 +324,19 @@ namespace Telas
             codProdutoTextBox_TextChanged(sender, e);
         }
 
+        private void btnPontaEstoque_Click(object sender, EventArgs e)
+        {
+            ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
+            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(_produtoPesquisa);
+            frmPontaEstoque.ShowDialog();
+            frmPontaEstoque.Dispose();
+            if (frmPontaEstoque.ProdutoSelected != null)
+            {
+                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = frmPontaEstoque.ProdutoSelected.CodProduto });
+            }
+            codProdutoTextBox_TextChanged(sender, e);
+        }
+
         private void FrmProduto_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!codProdutoTextBox.Text.Equals(""))
@@ -404,11 +421,6 @@ namespace Telas
                 //produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
                 //produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
             //}
-        }
-
-        private void codCSTLabel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

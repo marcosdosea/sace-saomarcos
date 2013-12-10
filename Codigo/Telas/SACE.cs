@@ -294,7 +294,7 @@ namespace Telas
             {
                 backgroundWorkerAtualizarCupons.RunWorkerAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
             }
@@ -337,6 +337,13 @@ namespace Telas
         private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void pontaDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(new ProdutoPesquisa() { CodProduto = 1 });
+            frmPontaEstoque.ShowDialog();
+            frmPontaEstoque.Dispose();
         }
      }
 }

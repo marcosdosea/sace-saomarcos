@@ -86,6 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmPontaEstoquePesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPontaEstoquePesquisa.Designer.cs">
+      <DependentUpon>FrmPontaEstoquePesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPontaEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPontaEstoque.Designer.cs">
+      <DependentUpon>FrmPontaEstoque.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmProdutoPesquisaCSOSN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -368,6 +380,14 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmPontaEstoquePesquisa.resx">
+      <DependentUpon>FrmPontaEstoquePesquisa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPontaEstoque.resx">
+      <DependentUpon>FrmPontaEstoque.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmProdutoPesquisaCSOSN.resx">
       <DependentUpon>FrmProdutoPesquisaCSOSN.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -585,6 +605,7 @@
     <None Include="Properties\DataSources\Dominio.Perfil.datasource" />
     <None Include="Properties\DataSources\Dominio.Pessoa.datasource" />
     <None Include="Properties\DataSources\Dominio.PlanoConta.datasource" />
+    <None Include="Properties\DataSources\Dominio.PontaEstoque.datasource" />
     <None Include="Properties\DataSources\Dominio.Produto.datasource" />
     <None Include="Properties\DataSources\Dominio.ProdutoLoja.datasource" />
     <None Include="Properties\DataSources\Dominio.ProdutoPesquisa.datasource" />

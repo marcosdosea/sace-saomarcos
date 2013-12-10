@@ -29,6 +29,7 @@
           <EntitySet Name="tb_permissao" EntityType="SaceModel.Store.tb_permissao" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_pessoa" EntityType="SaceModel.Store.tb_pessoa" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_plano_conta" EntityType="SaceModel.Store.tb_plano_conta" store:Type="Tables" Schema="sace" />
+          <EntitySet Name="tb_ponta_estoque" EntityType="SaceModel.Store.tb_ponta_estoque" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_produto" EntityType="SaceModel.Store.tb_produto" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_produto_loja" EntityType="SaceModel.Store.tb_produto_loja" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_saida" EntityType="SaceModel.Store.tb_saida" store:Type="Tables" Schema="sace" />
@@ -172,6 +173,10 @@
           <AssociationSet Name="fk_tb_plano_conta_tb_tipo_conta1" Association="SaceModel.Store.fk_tb_plano_conta_tb_tipo_conta1">
             <End Role="tb_tipo_conta" EntitySet="tb_tipo_conta" />
             <End Role="tb_plano_conta" EntitySet="tb_plano_conta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tb_ponta_estoque_tb_produto1" Association="SaceModel.Store.fk_tb_ponta_estoque_tb_produto1">
+            <End Role="tb_produto" EntitySet="tb_produto" />
+            <End Role="tb_ponta_estoque" EntitySet="tb_ponta_estoque" />
           </AssociationSet>
           <AssociationSet Name="fk_tb_produto_codgrupo" Association="SaceModel.Store.fk_tb_produto_codgrupo">
             <End Role="tb_grupo" EntitySet="tb_grupo" />
@@ -574,6 +579,15 @@
           <Property Name="codTipoConta" Type="char" Nullable="false" MaxLength="1" />
           <Property Name="descricao" Type="varchar" Nullable="false" MaxLength="40" />
           <Property Name="diaBase" Type="smallint" />
+        </EntityType>
+        <EntityType Name="tb_ponta_estoque">
+          <Key>
+            <PropertyRef Name="codPontaEstoque" />
+          </Key>
+          <Property Name="codPontaEstoque" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="codProduto" Type="bigint" Nullable="false" />
+          <Property Name="quantidade" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="caracteristica" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="tb_produto">
           <Key>
@@ -1173,6 +1187,18 @@
             </Principal>
             <Dependent Role="tb_plano_conta">
               <PropertyRef Name="codTipoConta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tb_ponta_estoque_tb_produto1">
+          <End Role="tb_produto" Type="SaceModel.Store.tb_produto" Multiplicity="1" />
+          <End Role="tb_ponta_estoque" Type="SaceModel.Store.tb_ponta_estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_produto">
+              <PropertyRef Name="codProduto" />
+            </Principal>
+            <Dependent Role="tb_ponta_estoque">
+              <PropertyRef Name="codProduto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1791,6 +1817,11 @@
             <End Role="LojaE" EntitySet="LojaSet" />
             <End Role="tb_saida" EntitySet="tb_saida" />
           </AssociationSet>
+          <EntitySet Name="tb_ponta_estoque" EntityType="SaceModel.tb_ponta_estoque" />
+          <AssociationSet Name="fk_tb_ponta_estoque_tb_produto1" Association="SaceModel.fk_tb_ponta_estoque_tb_produto1">
+            <End Role="ProdutoE" EntitySet="ProdutoSet" />
+            <End Role="tb_ponta_estoque" EntitySet="tb_ponta_estoque" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -2102,6 +2133,7 @@
           <Property Type="Decimal" Name="lucroPrecoRevenda" />
           <Property Type="Decimal" Name="precoRevenda" />
           <Property Type="Boolean" Name="emPromocao" />
+          <NavigationProperty Name="tb_ponta_estoque" Relationship="SaceModel.fk_tb_ponta_estoque_tb_produto1" FromRole="ProdutoE" ToRole="tb_ponta_estoque" />
         </EntityType>
         <EntityType Name="ProdutoLojaE">
           <Key>
@@ -3064,6 +3096,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tb_ponta_estoque">
+          <Key>
+            <PropertyRef Name="codPontaEstoque" />
+          </Key>
+          <Property Type="Int32" Name="codPontaEstoque" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codProduto" Nullable="false" />
+          <Property Type="Decimal" Name="quantidade" Nullable="false" />
+          <Property Type="String" Name="caracteristica" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_ponta_estoque_tb_produto1" FromRole="tb_ponta_estoque" ToRole="ProdutoE" />
+        </EntityType>
+        <Association Name="fk_tb_ponta_estoque_tb_produto1">
+          <End Type="SaceModel.ProdutoE" Role="ProdutoE" Multiplicity="1" />
+          <End Type="SaceModel.tb_ponta_estoque" Role="tb_ponta_estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProdutoE">
+              <PropertyRef Name="codProduto" />
+            </Principal>
+            <Dependent Role="tb_ponta_estoque">
+              <PropertyRef Name="codProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3481,6 +3535,16 @@
               <ScalarProperty Name="codNFe" ColumnName="codNFe" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tb_ponta_estoque">
+            <EntityTypeMapping TypeName="SaceModel.tb_ponta_estoque">
+              <MappingFragment StoreEntitySet="tb_ponta_estoque">
+                <ScalarProperty Name="caracteristica" ColumnName="caracteristica" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+                <ScalarProperty Name="codPontaEstoque" ColumnName="codPontaEstoque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3545,8 +3609,8 @@
           <ConnectorPoint PointX="9.5" PointY="38.154976756184894" />
           <ConnectorPoint PointX="10.072916666666666" PointY="38.154976756184894" />
           <ConnectorPoint PointX="10.239583333333334" PointY="38.154976756184894" />
-          <ConnectorPoint PointX="10.539060625000001" PointY="38.154976756184894" />
-          <ConnectorPoint PointX="10.539060625000001" PointY="26.941793619791667" />
+          <ConnectorPoint PointX="10.5312475" PointY="38.154976756184894" />
+          <ConnectorPoint PointX="10.5312475" PointY="26.941793619791667" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_pagamento_tb_cartao_credito1" ManuallyRouted="false">
           <ConnectorPoint PointX="11.75" PointY="26.283396809895834" />
@@ -3555,15 +3619,15 @@
           <ConnectorPoint PointX="13.5" PointY="26.283396809895834" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_produto_tb_cfop1" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="12.291666666666666" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="12.458333333333334" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="14.135416666666666" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="14.302083333333334" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="16.791666666666668" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="16.958333333333332" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="18.45312625" PointY="13.539602675000683" />
-          <ConnectorPoint PointX="18.45312625" PointY="21.625" />
+          <ConnectorPoint PointX="9" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="12.291666666666666" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="12.458333333333334" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="14.135416666666666" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="14.302083333333334" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="16.791666666666668" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="16.958333333333332" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="18.376953656250002" PointY="13.119944661458334" />
+          <ConnectorPoint PointX="18.376953656250002" PointY="21.625" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_conta_pagar_codplanoconta" ManuallyRouted="false">
           <ConnectorPoint PointX="5.75390625" PointY="15.307190755208339" />
@@ -3577,10 +3641,10 @@
           <ConnectorPoint PointX="12.125" PointY="27.325901340119316" />
           <ConnectorPoint PointX="11.083333333333334" PointY="27.325901340119316" />
           <ConnectorPoint PointX="10.791666666666666" PointY="27.325901340119316" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="27.325901340119316" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="27.325901340119316" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="27.325901340119316" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="27.325901340119316" />
           <ConnectorPoint PointX="10.083333333333334" PointY="27.325901340119316" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="27.325901340119316" />
+          <ConnectorPoint PointX="9.8541666666666661" PointY="27.325901340119316" />
           <ConnectorPoint PointX="9" PointY="27.325901340119316" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_conta_tb_situacao_conta1" ManuallyRouted="false">
@@ -3592,10 +3656,12 @@
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_movimentacao_conta_tb_conta1" ManuallyRouted="false">
           <ConnectorPoint PointX="8.25" PointY="23.25" />
-          <ConnectorPoint PointX="8.25" PointY="23.085836588541667" />
-          <ConnectorPoint PointX="9.9166666666666661" PointY="23.085836588541667" />
-          <ConnectorPoint PointX="10.083333333333334" PointY="23.085836588541667" />
-          <ConnectorPoint PointX="12.25" PointY="23.085836588541667" />
+          <ConnectorPoint PointX="8.25" PointY="22.442047526041669" />
+          <ConnectorPoint PointX="9.7291666666666661" PointY="22.442047526041669" />
+          <ConnectorPoint PointX="9.9583333333333339" PointY="22.442047526041669" />
+          <ConnectorPoint PointX="10" PointY="22.442047526041669" />
+          <ConnectorPoint PointX="10" PointY="23.278138020833339" />
+          <ConnectorPoint PointX="12.25" PointY="23.278138020833339" />
           <ConnectorPoint PointX="12.25" PointY="24.864807942708339" />
           <ConnectorPoint PointX="14.135416666666666" PointY="24.864807942708339" />
           <ConnectorPoint PointX="14.302083333333334" PointY="24.864807942708339" />
@@ -3607,8 +3673,8 @@
           <ConnectorPoint PointX="9.5" PointY="36.62727126302083" />
           <ConnectorPoint PointX="10.072916666666666" PointY="36.62727126302083" />
           <ConnectorPoint PointX="10.239583333333334" PointY="36.62727126302083" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="36.62727126302083" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="36.62727126302083" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="36.62727126302083" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="36.62727126302083" />
           <ConnectorPoint PointX="10.791666666666666" PointY="36.62727126302083" />
           <ConnectorPoint PointX="11.083333333333334" PointY="36.62727126302083" />
           <ConnectorPoint PointX="12.885416666666666" PointY="36.62727126302083" />
@@ -3626,8 +3692,8 @@
           <ConnectorPoint PointX="9.5" PointY="37.238353460286454" />
           <ConnectorPoint PointX="10.072916666666666" PointY="37.238353460286454" />
           <ConnectorPoint PointX="10.239583333333334" PointY="37.238353460286454" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="37.238353460286454" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="37.238353460286454" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="37.238353460286454" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="37.238353460286454" />
           <ConnectorPoint PointX="10.791666666666666" PointY="37.238353460286454" />
           <ConnectorPoint PointX="11.083333333333334" PointY="37.238353460286454" />
           <ConnectorPoint PointX="12.885416666666666" PointY="37.238353460286454" />
@@ -3644,28 +3710,28 @@
           <ConnectorPoint PointX="9.875" PointY="35.5" />
           <ConnectorPoint PointX="10.072916666666666" PointY="35.5" />
           <ConnectorPoint PointX="10.239583333333334" PointY="35.5" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="35.5" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="35.5" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="35.5" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="35.5" />
           <ConnectorPoint PointX="10.791666666666666" PointY="35.5" />
           <ConnectorPoint PointX="11.083333333333334" PointY="35.5" />
           <ConnectorPoint PointX="12.885416666666666" PointY="35.5" />
           <ConnectorPoint PointX="13.052083333333334" PointY="35.5" />
           <ConnectorPoint PointX="13.125" PointY="35.5" />
           <ConnectorPoint PointX="13.125" PointY="29.518697916666667" />
-          <ConnectorPoint PointX="13.19107443490112" PointY="29.452623481765546" />
-          <ConnectorPoint PointX="13.308925565098878" PointY="29.334772351567789" />
+          <ConnectorPoint PointX="13.12857443490112" PointY="29.515123481765546" />
+          <ConnectorPoint PointX="13.246425565098878" PointY="29.397272351567789" />
           <ConnectorPoint PointX="13.5" PointY="29.143697916666667" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_produto_tb_cst1" ManuallyRouted="false">
           <ConnectorPoint PointX="9.5" PointY="16.240143229166662" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="16.240143229166662" />
-          <ConnectorPoint PointX="9.9583333333333339" PointY="16.240143229166662" />
+          <ConnectorPoint PointX="9.7291666666666661" PointY="16.240143229166662" />
+          <ConnectorPoint PointX="9.8958333333333339" PointY="16.240143229166662" />
           <ConnectorPoint PointX="10.25" PointY="16.240143229166662" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1" ManuallyRouted="false">
           <ConnectorPoint PointX="12.75" PointY="30.21875" />
           <ConnectorPoint PointX="12.885416666666666" PointY="30.21875" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="30.21875" />
+          <ConnectorPoint PointX="13.270833333333334" PointY="30.21875" />
           <ConnectorPoint PointX="15.326821041666667" PointY="30.21875" />
           <ConnectorPoint PointX="15.493487708333335" PointY="30.21875" />
           <ConnectorPoint PointX="15.736980416666667" PointY="30.21875" />
@@ -3673,18 +3739,18 @@
           <ConnectorPoint PointX="16.5" PointY="30.21875" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_produto_codentrada" ManuallyRouted="false">
-          <ConnectorPoint PointX="12.75" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="12.885416666666666" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="13.208333333333334" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="15.736980416666667" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="15.903647083333334" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="34.184351688910915" />
-          <ConnectorPoint PointX="18.53125" PointY="34.184351688910915" />
+          <ConnectorPoint PointX="12.75" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="12.885416666666666" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="15.736980416666667" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="15.903647083333334" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="34.251160712986888" />
+          <ConnectorPoint PointX="18.53125" PointY="34.251160712986888" />
           <ConnectorPoint PointX="18.53125" PointY="27.066712239583332" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_tb_situacao_pagamentos1" ManuallyRouted="false">
@@ -3697,8 +3763,8 @@
           <ConnectorPoint PointX="7.802083333333333" PointY="34.819153645833339" />
           <ConnectorPoint PointX="10.072916666666666" PointY="34.819153645833339" />
           <ConnectorPoint PointX="10.239583333333334" PointY="34.819153645833339" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="34.819153645833339" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="34.819153645833339" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="34.819153645833339" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="34.819153645833339" />
           <ConnectorPoint PointX="10.791666666666666" PointY="34.819153645833339" />
           <ConnectorPoint PointX="11.083333333333334" PointY="34.819153645833339" />
           <ConnectorPoint PointX="11.25" PointY="34.819153645833339" />
@@ -3706,8 +3772,8 @@
         <AssociationConnector Association="SaceModel.fk_tb_entrada_tp_tipo_entrada1" ManuallyRouted="false">
           <ConnectorPoint PointX="10.15625" PointY="40.625" />
           <ConnectorPoint PointX="10.15625" PointY="32.182444661458334" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="32.182444661458334" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="32.182444661458334" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="32.182444661458334" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="32.182444661458334" />
           <ConnectorPoint PointX="10.791666666666666" PointY="32.182444661458334" />
           <ConnectorPoint PointX="11.083333333333334" PointY="32.182444661458334" />
           <ConnectorPoint PointX="11.25" PointY="32.182444661458334" />
@@ -3718,15 +3784,19 @@
           <ConnectorPoint PointX="16.875" PointY="30" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_produto_codproduto" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.75" PointY="15.28125" />
-          <ConnectorPoint PointX="12.291666666666666" PointY="15.28125" />
-          <ConnectorPoint PointX="12.458333333333334" PointY="15.28125" />
-          <ConnectorPoint PointX="14.135416666666666" PointY="15.28125" />
-          <ConnectorPoint PointX="14.302083333333334" PointY="15.28125" />
-          <ConnectorPoint PointX="16.791666666666668" PointY="15.28125" />
-          <ConnectorPoint PointX="16.958333333333332" PointY="15.28125" />
-          <ConnectorPoint PointX="17.945310624999998" PointY="15.28125" />
-          <ConnectorPoint PointX="17.945310624999998" PointY="21.625" />
+          <ConnectorPoint PointX="11.75" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="12.104166666666666" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="12.270833333333334" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="12.291666666666666" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="12.458333333333334" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="14.135416666666666" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="14.302083333333334" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="15.416666666666666" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="16.791666666666668" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="16.958333333333332" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="17.907224328125" PointY="18.925393502604166" />
+          <ConnectorPoint PointX="17.907224328125" PointY="21.625" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1" ManuallyRouted="false">
           <ConnectorPoint PointX="12.75" PointY="11.573072161458335" />
@@ -3756,17 +3826,17 @@
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_produto_codgrupo" ManuallyRouted="false">
           <ConnectorPoint PointX="9.5" PointY="18.768992513020834" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="18.768992513020834" />
-          <ConnectorPoint PointX="10.020833333333334" PointY="18.768992513020834" />
+          <ConnectorPoint PointX="9.7291666666666661" PointY="18.768992513020834" />
+          <ConnectorPoint PointX="9.9583333333333339" PointY="18.768992513020834" />
           <ConnectorPoint PointX="10.25" PointY="18.768992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_subgrupo_tb_grupo1" ManuallyRouted="false">
           <ConnectorPoint PointX="8.75" PointY="19.662985026041667" />
           <ConnectorPoint PointX="8.75" PointY="20.25" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="20.25" />
-          <ConnectorPoint PointX="9.9583333333333339" PointY="20.25" />
-          <ConnectorPoint PointX="10" PointY="20.25" />
-          <ConnectorPoint PointX="10" PointY="33.740143229166669" />
+          <ConnectorPoint PointX="9.7291666666666661" PointY="20.25" />
+          <ConnectorPoint PointX="9.8958333333333339" PointY="20.25" />
+          <ConnectorPoint PointX="9.9375" PointY="20.25" />
+          <ConnectorPoint PointX="9.9375" PointY="33.740143229166669" />
           <ConnectorPoint PointX="9.5" PointY="33.740143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_plano_conta_codgrupoconta" ManuallyRouted="false">
@@ -3803,18 +3873,18 @@
         <AssociationConnector Association="SaceModel.fk_tb_permissao_codpessoa" ManuallyRouted="false">
           <ConnectorPoint PointX="9" PointY="29.25" />
           <ConnectorPoint PointX="9" PointY="28" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="28" />
+          <ConnectorPoint PointX="9.8541666666666661" PointY="28" />
           <ConnectorPoint PointX="10.083333333333334" PointY="28" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="28" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="28" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="28" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="28" />
           <ConnectorPoint PointX="10.791666666666666" PointY="28" />
           <ConnectorPoint PointX="11.083333333333334" PointY="28" />
           <ConnectorPoint PointX="12.041666666666666" PointY="28" />
           <ConnectorPoint PointX="12.208333333333334" PointY="28" />
           <ConnectorPoint PointX="12.885416666666666" PointY="28" />
           <ConnectorPoint PointX="13.052083333333334" PointY="28" />
-          <ConnectorPoint PointX="13.25" PointY="28" />
-          <ConnectorPoint PointX="13.25" PointY="31.490143229166669" />
+          <ConnectorPoint PointX="13.1875" PointY="28" />
+          <ConnectorPoint PointX="13.1875" PointY="31.490143229166669" />
           <ConnectorPoint PointX="13.5" PointY="31.490143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_plano_conta_tb_tipo_conta1" ManuallyRouted="false">
@@ -3822,32 +3892,32 @@
           <ConnectorPoint PointX="5.25" PointY="14.903595377604169" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_produto_loja_codproduto" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.75" PointY="17.414064999999994" />
-          <ConnectorPoint PointX="12.1875" PointY="17.414064999999994" />
+          <ConnectorPoint PointX="11.75" PointY="16.493944751302088" />
+          <ConnectorPoint PointX="12.1875" PointY="16.493944751302088" />
           <ConnectorPoint PointX="12.1875" PointY="25.375" />
           <ConnectorPoint PointX="12.96875" PointY="25.375" />
           <ConnectorPoint PointX="12.96875" PointY="38.125" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_produto_tb_situacao_produto1" ManuallyRouted="false">
           <ConnectorPoint PointX="9.5" PointY="21.297841796874998" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="21.297841796874998" />
-          <ConnectorPoint PointX="10.083333333333334" PointY="21.297841796874998" />
+          <ConnectorPoint PointX="9.7291666666666661" PointY="21.297841796874998" />
+          <ConnectorPoint PointX="10.020833333333334" PointY="21.297841796874998" />
           <ConnectorPoint PointX="10.25" PointY="21.297841796874998" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_produto_tb_subgrupo1" ManuallyRouted="false">
           <ConnectorPoint PointX="9.5" PointY="33.213819614583343" />
-          <ConnectorPoint PointX="9.875" PointY="33.213819614583343" />
-          <ConnectorPoint PointX="9.875" PointY="23.653138020833339" />
-          <ConnectorPoint PointX="9.9166666666666661" PointY="23.653138020833339" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="23.653138020833339" />
-          <ConnectorPoint PointX="11.27026265625" PointY="23.653138020833339" />
-          <ConnectorPoint PointX="11.27026265625" PointY="23.028138020833339" />
+          <ConnectorPoint PointX="10" PointY="33.213819614583343" />
+          <ConnectorPoint PointX="10" PointY="23.720439453125003" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="23.720439453125003" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="23.720439453125003" />
+          <ConnectorPoint PointX="11.239546416015624" PointY="23.720439453125003" />
+          <ConnectorPoint PointX="11.239546416015624" PointY="23.220439453125003" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_produto_codproduto" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.75" PointY="21.389069010416669" />
-          <ConnectorPoint PointX="11.979166666666666" PointY="21.389069010416669" />
-          <ConnectorPoint PointX="12.270833333333334" PointY="21.389069010416669" />
-          <ConnectorPoint PointX="12.5" PointY="21.389069010416669" />
+          <ConnectorPoint PointX="11.75" PointY="21.4852197265625" />
+          <ConnectorPoint PointX="11.979166666666666" PointY="21.4852197265625" />
+          <ConnectorPoint PointX="12.270833333333334" PointY="21.4852197265625" />
+          <ConnectorPoint PointX="12.5" PointY="21.4852197265625" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.tb_perfil_funcionalidade" ManuallyRouted="false">
           <ConnectorPoint PointX="4.75" PointY="40.884496256510417" />
@@ -3861,24 +3931,24 @@
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_produto_tb_cst1" >
           <ConnectorPoint PointX="9.5" PointY="16.766466843749996" />
-          <ConnectorPoint PointX="9.9375" PointY="16.766466843749996" />
-          <ConnectorPoint PointX="9.9375" PointY="23.101461588541667" />
-          <ConnectorPoint PointX="12.125" PointY="23.101461588541667" />
+          <ConnectorPoint PointX="9.875" PointY="16.766466843749996" />
+          <ConnectorPoint PointX="9.875" PointY="23.293763020833339" />
+          <ConnectorPoint PointX="12.125" PointY="23.293763020833339" />
           <ConnectorPoint PointX="12.125" PointY="19.5" />
-          <ConnectorPoint PointX="13.166666666666666" PointY="19.5" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="19.5" />
+          <ConnectorPoint PointX="13.369792666666667" PointY="19.5" />
+          <ConnectorPoint PointX="13.536459333333335" PointY="19.5" />
           <ConnectorPoint PointX="14.135416666666666" PointY="19.5" />
           <ConnectorPoint PointX="14.302083333333334" PointY="19.5" />
           <ConnectorPoint PointX="15.416666666666666" PointY="19.5" />
           <ConnectorPoint PointX="15.583333333333334" PointY="19.5" />
           <ConnectorPoint PointX="16.791666666666668" PointY="19.5" />
           <ConnectorPoint PointX="16.958333333333332" PointY="19.5" />
-          <ConnectorPoint PointX="17.861977291666665" PointY="19.5" />
-          <ConnectorPoint PointX="18.02864395833333" PointY="19.5" />
-          <ConnectorPoint PointX="18.369792916666668" PointY="19.5" />
-          <ConnectorPoint PointX="18.536459583333333" PointY="19.5" />
-          <ConnectorPoint PointX="18.757815125" PointY="19.5" />
-          <ConnectorPoint PointX="18.757815125" PointY="21.625" />
+          <ConnectorPoint PointX="17.823890994791668" PointY="19.5" />
+          <ConnectorPoint PointX="17.990557661458332" PointY="19.5" />
+          <ConnectorPoint PointX="18.29362032291667" PointY="19.5" />
+          <ConnectorPoint PointX="18.460286989583334" PointY="19.5" />
+          <ConnectorPoint PointX="18.78320590625" PointY="19.5" />
+          <ConnectorPoint PointX="18.78320590625" PointY="21.625" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_tipo_saida_tb_cfop1" >
           <ConnectorPoint PointX="7.5011528461538459" PointY="14.047587890625" />
@@ -3895,21 +3965,21 @@
         <AssociationConnector Association="SaceModel.fk_tb_saida_produto_tb_cfop1" >
           <ConnectorPoint PointX="9" PointY="12.9612939453125" />
           <ConnectorPoint PointX="12.375" PointY="12.9612939453125" />
-          <ConnectorPoint PointX="12.375" PointY="19.375" />
-          <ConnectorPoint PointX="13.25" PointY="19.375" />
-          <ConnectorPoint PointX="13.25" PointY="19.75" />
+          <ConnectorPoint PointX="12.375" PointY="19.25" />
+          <ConnectorPoint PointX="13.453126000000001" PointY="19.25" />
+          <ConnectorPoint PointX="13.453126000000001" PointY="19.75" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_produto_tb_cst1" >
           <ConnectorPoint PointX="9.5" PointY="15.713819614583329" />
-          <ConnectorPoint PointX="9.875" PointY="15.713819614583329" />
-          <ConnectorPoint PointX="9.875" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="9.9166666666666661" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="10.083333333333334" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="10.645545994791666" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="10.812212661458334" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="11.186929322916667" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="11.353595989583335" PointY="23.117086588541667" />
-          <ConnectorPoint PointX="12.0625" PointY="23.117086588541667" />
+          <ConnectorPoint PointX="9.8125" PointY="15.713819614583329" />
+          <ConnectorPoint PointX="9.8125" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="9.8541666666666661" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="10.020833333333334" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="10.630187874674478" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="10.796854541341146" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="11.156213082682291" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="11.322879749348958" PointY="23.309388020833339" />
+          <ConnectorPoint PointX="12.0625" PointY="23.309388020833339" />
           <ConnectorPoint PointX="12.0625" PointY="19.484375" />
           <ConnectorPoint PointX="12.104166666666666" PointY="19.484375" />
           <ConnectorPoint PointX="12.270833333333334" PointY="19.484375" />
@@ -3920,10 +3990,10 @@
         <EntityTypeShape EntityType="SaceModel.MunicipiosIbgeE" Width="1.5" PointX="1.125" PointY="25.875" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="SaceModel.PessoaE" Width="1.5" PointX="3.375" PointY="43.5" Height="8.518535156249996" />
         <AssociationConnector Association="SaceModel.fk_tb_cartao_credito_tb_pessoa1" >
-          <ConnectorPoint PointX="4.875" PointY="47.144965472451489" />
-          <ConnectorPoint PointX="5.385416666666667" PointY="47.144965472451489" />
-          <ConnectorPoint PointX="5.552083333333333" PointY="47.144965472451489" />
-          <ConnectorPoint PointX="10.875" PointY="47.144965472451489" />
+          <ConnectorPoint PointX="4.875" PointY="47.066824156841641" />
+          <ConnectorPoint PointX="5.385416666666667" PointY="47.066824156841641" />
+          <ConnectorPoint PointX="5.552083333333333" PointY="47.066824156841641" />
+          <ConnectorPoint PointX="10.875" PointY="47.066824156841641" />
           <ConnectorPoint PointX="10.875" PointY="26.941793619791667" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_conta_pagar_codpessoa" >
@@ -3937,52 +4007,52 @@
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_codempresafrete" >
           <ConnectorPoint PointX="4.859375" PointY="43.5" />
-          <ConnectorPoint PointX="4.859375" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="6.168619791666667" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="6.335286458333333" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="7.635416666666667" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="7.802083333333333" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="8.9166666666666661" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="9.0833333333333339" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="10.083333333333334" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="11.083333333333334" PointY="28.858362685881492" />
-          <ConnectorPoint PointX="11.25" PointY="28.858362685881492" />
+          <ConnectorPoint PointX="4.859375" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="6.168619791666667" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="6.335286458333333" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="7.635416666666667" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="7.802083333333333" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="8.9166666666666661" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="9.0833333333333339" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="9.8541666666666661" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="28.855214421470375" />
+          <ConnectorPoint PointX="11.25" PointY="28.855214421470375" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_entrada_codfornecedor" >
           <ConnectorPoint PointX="4.828125" PointY="43.5" />
-          <ConnectorPoint PointX="4.828125" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="6.168619791666667" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="6.335286458333333" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="7.635416666666667" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="7.802083333333333" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="8.9166666666666661" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="9.0833333333333339" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="10.083333333333334" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="11.083333333333334" PointY="28.52292884294075" />
-          <ConnectorPoint PointX="11.25" PointY="28.52292884294075" />
+          <ConnectorPoint PointX="4.828125" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="6.168619791666667" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="6.335286458333333" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="7.635416666666667" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="7.802083333333333" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="8.9166666666666661" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="9.0833333333333339" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="9.8541666666666661" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="28.521354710735196" />
+          <ConnectorPoint PointX="11.25" PointY="28.521354710735196" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_loja_tb_pessoa1" >
           <ConnectorPoint PointX="3.6097090384615385" PointY="52.018535156249996" />
-          <ConnectorPoint PointX="3.6097090384615385" PointY="64.086293945312491" />
-          <ConnectorPoint PointX="5.25" PointY="64.086293945312491" />
+          <ConnectorPoint PointX="3.6097090384615385" PointY="64.855499674479162" />
+          <ConnectorPoint PointX="5.25" PointY="64.855499674479162" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_movimentacao_conta_codresponsavel" >
-          <ConnectorPoint PointX="4.875" PointY="50.847020735300447" />
-          <ConnectorPoint PointX="5.385416666666667" PointY="50.847020735300447" />
-          <ConnectorPoint PointX="5.552083333333333" PointY="50.847020735300447" />
-          <ConnectorPoint PointX="15.410154375000001" PointY="50.847020735300447" />
+          <ConnectorPoint PointX="4.875" PointY="50.837253070849215" />
+          <ConnectorPoint PointX="5.385416666666667" PointY="50.837253070849215" />
+          <ConnectorPoint PointX="5.552083333333333" PointY="50.837253070849215" />
+          <ConnectorPoint PointX="15.410154375000001" PointY="50.837253070849215" />
           <ConnectorPoint PointX="15.410154375000001" PointY="24.009095052083339" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_pessoa_tb_municipios_ibge1" >
@@ -3991,21 +4061,21 @@
           <ConnectorPoint PointX="3.375" PointY="47.759267578125005" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_produto_tb_pessoa1" >
-          <ConnectorPoint PointX="4.875" PointY="44.364363368112791" />
-          <ConnectorPoint PointX="5.385416666666667" PointY="44.364363368112791" />
-          <ConnectorPoint PointX="5.552083333333333" PointY="44.364363368112791" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="44.364363368112791" />
-          <ConnectorPoint PointX="10.958333333333334" PointY="44.364363368112791" />
-          <ConnectorPoint PointX="11" PointY="44.364363368112791" />
+          <ConnectorPoint PointX="4.875" PointY="44.634474091745616" />
+          <ConnectorPoint PointX="5.385416666666667" PointY="44.634474091745616" />
+          <ConnectorPoint PointX="5.552083333333333" PointY="44.634474091745616" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="44.634474091745616" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="44.634474091745616" />
+          <ConnectorPoint PointX="11" PointY="44.634474091745616" />
           <ConnectorPoint PointX="11" PointY="27.191793619791667" />
           <ConnectorPoint PointX="10.958333333333334" PointY="27.191793619791667" />
           <ConnectorPoint PointX="10.791666666666666" PointY="27.191793619791667" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="27.191793619791667" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="27.191793619791667" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="27.191793619791667" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="27.191793619791667" />
           <ConnectorPoint PointX="10.125" PointY="27.191793619791667" />
-          <ConnectorPoint PointX="10.125" PointY="23.403138020833339" />
-          <ConnectorPoint PointX="10.728879328125" PointY="23.403138020833339" />
-          <ConnectorPoint PointX="10.728879328125" PointY="23.028138020833339" />
+          <ConnectorPoint PointX="10.125" PointY="23.595439453125003" />
+          <ConnectorPoint PointX="10.713521208007812" PointY="23.595439453125003" />
+          <ConnectorPoint PointX="10.713521208007812" PointY="23.220439453125003" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_usuario_codpessoa" >
           <ConnectorPoint PointX="4.0703105" PointY="43.5" />
@@ -4030,77 +4100,77 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="SaceModel.tb_saida" Width="1.5" PointX="19.5" PointY="28.625" Height="9.8646451822916674" />
         <AssociationConnector Association="SaceModel.fk_tb_conta_pagar_codsaida" >
-          <ConnectorPoint PointX="19.5" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="15.903647083333334" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="15.736980416666667" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="13.208333333333334" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="12.885416666666666" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="11.083333333333334" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="35.297760416666669" />
-          <ConnectorPoint PointX="7.71875" PointY="35.297760416666669" />
+          <ConnectorPoint PointX="19.5" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="15.903647083333334" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="15.736980416666667" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="12.885416666666666" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="35.082964348257327" />
+          <ConnectorPoint PointX="7.71875" PointY="35.082964348257327" />
           <ConnectorPoint PointX="7.71875" PointY="27.537903645833339" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_tb_entrada1" >
-          <ConnectorPoint PointX="12.75" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="12.885416666666666" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="13.208333333333334" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="15.736980416666667" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="15.903647083333334" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="18.447916666666668" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="18.614583333333332" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="19.041666666666668" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="19.208333333333332" PointY="33.531822654351288" />
-          <ConnectorPoint PointX="19.5" PointY="33.531822654351288" />
+          <ConnectorPoint PointX="12.75" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="12.885416666666666" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="15.736980416666667" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="15.903647083333334" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="18.447916666666668" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="18.614583333333332" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="19.041666666666668" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="19.208333333333332" PointY="33.565227166389278" />
+          <ConnectorPoint PointX="19.5" PointY="33.565227166389278" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_codcliente" >
-          <ConnectorPoint PointX="4.875" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="5.385416666666667" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="5.552083333333333" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="19.557287916666667" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="19.723954583333331" PointY="48.378983893401141" />
-          <ConnectorPoint PointX="20.25" PointY="48.378983893401141" />
+          <ConnectorPoint PointX="4.875" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="5.385416666666667" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="5.552083333333333" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="19.608069479166666" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="19.77473614583333" PointY="48.339913235596214" />
+          <ConnectorPoint PointX="20.25" PointY="48.339913235596214" />
           <ConnectorPoint PointX="20.25" PointY="38.874248046875" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_codprofissional" >
-          <ConnectorPoint PointX="4.875" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="5.385416666666667" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="5.552083333333333" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="10.958333333333334" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="19.557287916666667" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="19.723954583333331" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="19.8437475" PointY="45.75466442028214" />
-          <ConnectorPoint PointX="19.8437475" PointY="38.874248046875" />
+          <ConnectorPoint PointX="4.875" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="5.385416666666667" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="5.552083333333333" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="19.608069479166666" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="19.77473614583333" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="19.945310624999998" PointY="45.831452183491329" />
+          <ConnectorPoint PointX="19.945310624999998" PointY="38.874248046875" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_tb_pessoa1" >
-          <ConnectorPoint PointX="4.875" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="5.385416666666667" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="5.552083333333333" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="19.557287916666667" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="19.723954583333331" PointY="49.613002314350794" />
-          <ConnectorPoint PointX="20.6562525" PointY="49.613002314350794" />
+          <ConnectorPoint PointX="4.875" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="5.385416666666667" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="5.552083333333333" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="19.608069479166666" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="19.77473614583333" PointY="49.59346698544833" />
+          <ConnectorPoint PointX="20.6562525" PointY="49.59346698544833" />
           <ConnectorPoint PointX="20.6562525" PointY="38.874248046875" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_pagamento_tb_saida1" >
@@ -4116,16 +4186,16 @@
           <ConnectorPoint PointX="15" PointY="28.884348958333334" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_produto_codsaida" >
-          <ConnectorPoint PointX="20.45312625" PointY="28.625" />
-          <ConnectorPoint PointX="20.45312625" PointY="20.28125" />
-          <ConnectorPoint PointX="20.02864395833333" PointY="20.28125" />
-          <ConnectorPoint PointX="19.861977291666665" PointY="20.28125" />
-          <ConnectorPoint PointX="18.841148458333333" PointY="20.28125" />
-          <ConnectorPoint PointX="18.674481791666668" PointY="20.28125" />
-          <ConnectorPoint PointX="18.536459583333333" PointY="20.28125" />
-          <ConnectorPoint PointX="18.369792916666668" PointY="20.28125" />
-          <ConnectorPoint PointX="18.02864395833333" PointY="20.28125" />
-          <ConnectorPoint PointX="17.861977291666665" PointY="20.28125" />
+          <ConnectorPoint PointX="20.5039078125" PointY="28.625" />
+          <ConnectorPoint PointX="20.5039078125" PointY="20.28125" />
+          <ConnectorPoint PointX="20.054034739583333" PointY="20.28125" />
+          <ConnectorPoint PointX="19.887368072916669" PointY="20.28125" />
+          <ConnectorPoint PointX="18.866539239583332" PointY="20.28125" />
+          <ConnectorPoint PointX="18.699872572916668" PointY="20.28125" />
+          <ConnectorPoint PointX="18.460286989583334" PointY="20.28125" />
+          <ConnectorPoint PointX="18.29362032291667" PointY="20.28125" />
+          <ConnectorPoint PointX="17.990557661458332" PointY="20.28125" />
+          <ConnectorPoint PointX="17.823890994791668" PointY="20.28125" />
           <ConnectorPoint PointX="16.958333333333332" PointY="20.28125" />
           <ConnectorPoint PointX="16.791666666666668" PointY="20.28125" />
           <ConnectorPoint PointX="15.583333333333334" PointY="20.28125" />
@@ -4135,59 +4205,57 @@
           <ConnectorPoint PointX="14" PointY="20.28125" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_tb_situacao_pagamentos1" >
-          <ConnectorPoint PointX="4.5" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="4.744791666666667" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="7.322916666666667" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="7.489583333333333" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="11.083333333333334" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="12.885416666666666" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="13.208333333333334" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="15.736980416666667" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="15.903647083333334" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="35.2542529296875" />
-          <ConnectorPoint PointX="19.5" PointY="35.2542529296875" />
+          <ConnectorPoint PointX="4.5" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="4.744791666666667" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="7.322916666666667" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="7.489583333333333" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="12.885416666666666" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="15.736980416666667" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="15.903647083333334" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="35.247974687149494" />
+          <ConnectorPoint PointX="19.5" PointY="35.247974687149494" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.fk_tb_saida_tb_tipo_saida1" >
           <ConnectorPoint PointX="3.75" PointY="32.855286458333332" />
           <ConnectorPoint PointX="3.75" PointY="33.25" />
           <ConnectorPoint PointX="4.75" PointY="33.25" />
-          <ConnectorPoint PointX="4.75" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="4.760416666666667" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="7.322916666666667" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="7.489583333333333" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="7.635416666666667" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="7.802083333333333" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="10.455727291666667" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="10.622393958333335" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="11.083333333333334" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="12.885416666666666" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="13.208333333333334" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="15.326821041666667" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="15.493487708333335" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="15.736980416666667" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="15.903647083333334" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="19.125" PointY="35.095520833333339" />
-          <ConnectorPoint PointX="19.125" PointY="31.208085806342311" />
-          <ConnectorPoint PointX="19.5" PointY="31.208085806342311" />
+          <ConnectorPoint PointX="4.75" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="4.760416666666667" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="7.322916666666667" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="7.489583333333333" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="10.447914166666665" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="10.614580833333333" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="12.885416666666666" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="15.326821041666667" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="15.493487708333335" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="15.736980416666667" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="15.903647083333334" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="19.125" PointY="35.126770833333339" />
+          <ConnectorPoint PointX="19.125" PointY="31.224788062361306" />
+          <ConnectorPoint PointX="19.5" PointY="31.224788062361306" />
         </AssociationConnector>
         <AssociationConnector Association="SaceModel.tb_saida_nfe" >
           <ConnectorPoint PointX="6.75" PointY="3.7208561197916659" />
@@ -4198,6 +4266,13 @@
           <ConnectorPoint PointX="6.75" PointY="64.086293945312491" />
           <ConnectorPoint PointX="19.64062125" PointY="64.086293945312491" />
           <ConnectorPoint PointX="19.64062125" PointY="38.874248046875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="SaceModel.tb_ponta_estoque" Width="1.5" PointX="12.5" PointY="13.625" Height="1.9802864583333246" />
+        <AssociationConnector Association="SaceModel.fk_tb_ponta_estoque_tb_produto1" >
+          <ConnectorPoint PointX="11.75" PointY="14.865143229166662" />
+          <ConnectorPoint PointX="12.291666666666666" PointY="14.865143229166662" />
+          <ConnectorPoint PointX="12.458333333333334" PointY="14.865143229166662" />
+          <ConnectorPoint PointX="12.5" PointY="14.865143229166662" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

@@ -67,7 +67,7 @@ namespace Telas
             if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorSaida.GetInstance(null).Atualizar(saida);
-                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, saida.TipoSaida, null);
+                GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null);
             }
             else
             {

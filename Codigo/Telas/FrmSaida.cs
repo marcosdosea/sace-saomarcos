@@ -379,6 +379,19 @@ namespace Telas
             if (produto != null)
             {
                 quantidadeTextBox.Text = "1";
+                IEnumerable<PontaEstoque> listaPontaEstoque = GerenciadorPontaEstoque.GetInstace().ObterPorProduto(produto.CodProduto);
+                if (listaPontaEstoque.Count() > 0)
+                {
+                    FrmPontaEstoquePesquisa frmPontaEstoquePesquisa = new FrmPontaEstoquePesquisa(listaPontaEstoque);
+                    frmPontaEstoquePesquisa.ShowDialog();
+                    if (frmPontaEstoquePesquisa.PontaEstoqueSelected != null)
+                    {
+                        quantidadeTextBox.Text = frmPontaEstoquePesquisa.PontaEstoqueSelected.Quantidade.ToString();
+                    }
+                    frmPontaEstoquePesquisa.Dispose();
+                }
+                
+                
                 buscaPrecos();
                 AtualizarSubTotal();
                 if (lblFormaEntrada.Text.Equals(ENTRADA_AUTOMATICA) && ehCodigoBarra)

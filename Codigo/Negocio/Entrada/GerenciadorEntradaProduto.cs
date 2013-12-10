@@ -134,27 +134,16 @@ namespace Negocio
         /// <param name="codEntradaProduto"></param>
         public void Remover(EntradaProduto entradaProduto, int codTipoEntrada)
         {
-            //DbTransaction transaction = null;
             try
             {
-                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                //    saceContext.Connection.Open();
-                //transaction = saceContext.Connection.BeginTransaction();
-
-
                 repEntradaProduto.Remover(ep => ep.codEntradaProduto == entradaProduto.CodEntradaProduto);
                 repEntradaProduto.SaveChanges();
 
-                if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
-                {
-                    // Decrementa o estoque na loja principal
-                    GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
-                }
-                //transaction.Commit();
+                // Decrementa o estoque na loja principal
+                GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
             }
             catch (Exception e)
             {
-                //transaction.Rollback();
                 throw new DadosException("EntradaProduto", e.Message, e);
             }
             finally

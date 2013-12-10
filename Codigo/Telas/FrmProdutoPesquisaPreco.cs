@@ -213,14 +213,20 @@ namespace Telas
         }
 
         
-        private void DestacarProdutosEmPromocao()
+        private void DestacarProdutosEmPromocaoENaoExibiveis()
         {
             for (int i = 0; i < tb_produtoDataGridView.RowCount; i++)
             {
                 bool emPromocao = Convert.ToBoolean(tb_produtoDataGridView.Rows[i].Cells[10].Value);
-                if (emPromocao)
+                bool exibirListagem = Convert.ToBoolean(tb_produtoDataGridView.Rows[i].Cells[11].Value);
+                if (!exibirListagem)
+                {
+                    tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+                }
+                else if (emPromocao)
                 {
                     tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.Wheat;
+
                 }
                 else
                 {
@@ -231,12 +237,12 @@ namespace Telas
 
         private void tb_produtoDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            DestacarProdutosEmPromocao();
+            DestacarProdutosEmPromocaoENaoExibiveis();
         }
 
         private void tb_produtoDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            DestacarProdutosEmPromocao();
+            DestacarProdutosEmPromocaoENaoExibiveis();
         }
     }
 }

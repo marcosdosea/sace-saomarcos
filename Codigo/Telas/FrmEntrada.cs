@@ -263,6 +263,10 @@ namespace Telas
                         {
                             produtoPesquisa.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
                         }
+                        else
+                        {
+                            produtoPesquisa.IcmsSubstituto = 0;
+                        }
                     }
                     cfopComboBox.SelectedIndex = 0;
                     codCSTComboBox_SelectedIndexChanged(sender, e);
@@ -325,6 +329,8 @@ namespace Telas
                 icmsTextBox.ReadOnly = !ehTributadoIntegral;
                 icmsTextBox.TabStop = !icmsTextBox.ReadOnly;
 
+                entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+                entradaProduto.CodCST = cst.CodCST;
                 if (!entradaProduto.EhTributacaoIntegral && (entrada.TotalProdutosST > 0))
                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
                 else
@@ -332,16 +338,9 @@ namespace Telas
                 icms_substitutoTextBox.Text = entradaProduto.IcmsSubstituto.ToString("N2");
 
                 if (entrada.ValorFrete > 0)
-                {
-                    //if (entrada.FretePagoEmitente)
                     entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
-                    //else
-                        //entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalNota) * 100);
-                }
                 else
-                {
                     entradaProduto.Frete = 0;
-                }
                 freteTextBox.Text = entradaProduto.Frete.ToString("N2");
 
                 if (entrada.Desconto > 0)
@@ -351,6 +350,7 @@ namespace Telas
                 }
             }
             codEntradaTextBox_Leave(sender, e);
+            entradaProdutoBindingSource.ResumeBinding();
         }
 
         private void codEntradaTextBox_Enter(object sender, EventArgs e)

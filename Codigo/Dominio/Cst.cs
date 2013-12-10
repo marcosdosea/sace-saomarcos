@@ -50,17 +50,23 @@ namespace Dominio
                 if ((CodCST != null) && (CodCST.Trim().Length == 3))
                 {
                     CodCST = CodCST.Substring(1, 2);
+                }
 
+                if ((CodCST != null) && (CodCST.Trim().Length == 2))
+                {
                     return !(CodCST.Equals(ST_SUBSTITUICAO) ||
                         CodCST.Equals(ST_SUBSTITUICAO_ICMS_COBRADO) ||
                         CodCST.Equals(ST_SUBSTITUICAO_ICMS_REDUCAO_BC) ||
                         CodCST.Equals(ST_SUBSTITUICAO_ISENTA_NAO_TRIBUTADA) ||
                         CodCST.Equals(ST_NAO_TRIBUTADA));
                 }
-                else if ((CodCST != null) && (CodCST.Trim().Length == 4))
+                
+                if ((CodCST != null) && (CodCST.Trim().Length == 4))
                 {
                     CodCST = CodCST.Substring(1, 3);
-
+                }
+                if ((CodCST != null) && (CodCST.Trim().Length == 3))
+                {
                     return !(CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
                         CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO) ||
                         CodCST.Equals(ST_SIMPLES_NAO_TRIBUTADA));

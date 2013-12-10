@@ -8,15 +8,18 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using Microsoft.Reporting.WinForms;
 
 namespace Telas.Relatorios.Produtos
 {
     public partial class FrmRelProdutosRevenda : Form
     {
         private long codPessoa;
-        public FrmRelProdutosRevenda(long codPessoa)
+        private decimal lucro; 
+        public FrmRelProdutosRevenda(long codPessoa, decimal lucro)
         {
             this.codPessoa = codPessoa;
+            this.lucro = lucro;
             InitializeComponent();
         }
 
@@ -25,7 +28,11 @@ namespace Telas.Relatorios.Produtos
             ProdutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigoFabricante(codPessoa);
             Loja loja = GerenciadorLoja.GetInstance().Obter(Util.Global.LOJA_PADRAO).ElementAtOrDefault(0);
             PessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa);
-            
+
+            string parametroLucro = (1 + lucro / 100).ToString();
+
+            ReportParameter p1 = new ReportParameter("PorcentagemLucro", parametroLucro);
+            this.reportViewer1.LocalReport.SetParameters(p1);
             this.reportViewer1.RefreshReport();
         }
 
