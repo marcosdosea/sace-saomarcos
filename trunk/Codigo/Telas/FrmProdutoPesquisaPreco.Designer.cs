@@ -52,6 +52,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeProdutoFabricanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,9 +66,7 @@
             this.totalPrecoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UltimaDataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmPromocao = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.ExibeNaListagem = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(tb_produto_lojaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
@@ -242,7 +243,8 @@
             this.totalPrecoAtacadoSemDesconto,
             this.totalPrecoAtacado,
             this.UltimaDataAtualizacao,
-            this.EmPromocao});
+            this.EmPromocao,
+            this.ExibeNaListagem});
             this.tb_produtoDataGridView.DataSource = this.produtoBindingSource;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
@@ -268,6 +270,30 @@
             this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
             this.tb_produtoDataGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.tb_produtoDataGridView_RowsAdded);
             this.tb_produtoDataGridView.SelectionChanged += new System.EventHandler(this.tb_produtoDataGridView_SelectionChanged);
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(13, 622);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(219, 13);
+            this.label6.TabIndex = 61;
+            this.label6.Text = "F7 - Ajustar Estoque do Produto Selecionado";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 515);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(247, 20);
+            this.label3.TabIndex = 71;
+            this.label3.Text = "Estoque do Produto Selecionado:";
             // 
             // CodProduto
             // 
@@ -386,29 +412,13 @@
             this.EmPromocao.ReadOnly = true;
             this.EmPromocao.Visible = false;
             // 
-            // produtoBindingSource
+            // ExibeNaListagem
             // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(13, 622);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(219, 13);
-            this.label6.TabIndex = 61;
-            this.label6.Text = "F7 - Ajustar Estoque do Produto Selecionado";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 515);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(247, 20);
-            this.label3.TabIndex = 71;
-            this.label3.Text = "Estoque do Produto Selecionado:";
+            this.ExibeNaListagem.DataPropertyName = "ExibeNaListagem";
+            this.ExibeNaListagem.HeaderText = "ExibeNaListagem";
+            this.ExibeNaListagem.Name = "ExibeNaListagem";
+            this.ExibeNaListagem.ReadOnly = true;
+            this.ExibeNaListagem.Visible = false;
             // 
             // FrmProdutoPesquisaPreco
             // 
@@ -467,6 +477,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPrecoAtacado;
         private System.Windows.Forms.DataGridViewTextBoxColumn UltimaDataAtualizacao;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EmPromocao;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ExibeNaListagem;
   
     }
 }

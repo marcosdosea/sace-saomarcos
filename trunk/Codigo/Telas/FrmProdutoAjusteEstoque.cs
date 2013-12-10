@@ -53,7 +53,6 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            //CodProduto = Convert.ToInt32(codProdutoTextBox.Text);
             produtoLojaBindingSource.CancelEdit();
             produtoLojaBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -215,6 +214,11 @@ namespace Telas
         private void FrmProdutoAjusteEstoque_Shown(object sender, EventArgs e)
         {
             btnEditar.Focus();
+        }
+
+        private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

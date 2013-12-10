@@ -19,8 +19,8 @@ namespace Negocio
     public class GerenciadorNFe
     {
         private static GerenciadorNFe gNFe;
-        private string nomeComputador;
-        private string pastaNfeRetorno;
+        private static string nomeComputador;
+        private static Loja loja;
 
 
         public static GerenciadorNFe GetInstance()
@@ -36,8 +36,8 @@ namespace Negocio
         private GerenciadorNFe()
         {
             nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            Loja loja = GerenciadorLoja.GetInstance().ObterPorServidorNfe(nomeComputador).ElementAtOrDefault(0);
-            pastaNfeRetorno = loja != null ? loja.PastaNfeRetorno : "";
+            loja = GerenciadorLoja.GetInstance().ObterPorServidorNfe(nomeComputador).ElementAtOrDefault(0);
+            //pastaNfeRetorno = loja != null ? loja.PastaNfeRetorno : "";
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace Negocio
 
                 
                 // Verifica se chave já foi gerada
-                RecuperarChaveGerada(saida, 1, nfeControle, pastaNfeRetorno);
+                RecuperarChaveGerada(saida, 1, nfeControle, loja.PastaNfeRetorno);
                 if (nfeControle.Chave.Equals(""))
                 {
                     //define um documento XML e carrega o seu conteúdo 
@@ -330,10 +330,10 @@ namespace Negocio
                     xmldoc.AppendChild(novoGerarChave);
 
                     //Salva a inclusão no arquivo XML
-                    Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                    Loja lojaOrigem = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                     xmldoc.Save(loja.PastaNfeEnvio + saida.Nfe + "-gerar-chave.xml");
 
-                    RecuperarChaveGerada(saida, 10, nfeControle, pastaNfeRetorno);
+                    RecuperarChaveGerada(saida, 10, nfeControle, lojaOrigem.PastaNfeRetorno);
                 }
                 return nfeControle;
             }
@@ -414,7 +414,7 @@ namespace Negocio
                           {
                               if (files[i].Name.Contains("nfe.err"))
                               {
-                                  files[i].CopyTo(pastaNfeRetorno+"\\"+files[i].Name, true);
+                                  files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
                                   nfeControle.SituacaoNfe = NfeControle.SITUACAO_NAO_VALIDADA;
                                   files[i].Delete();
                               }
@@ -735,9 +735,9 @@ namespace Negocio
                         prod.cEANTrib = produto.CodigoBarra;
                         prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), "Item" + saidaProduto.CodCfop);
                         if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                            prod.xProd = produto.NomeProdutoFabricante;
+                            prod.xProd = produto.NomeProdutoFabricante.Trim();
                         else
-                            prod.xProd = produto.Nome;
+                            prod.xProd = produto.Nome.Trim();
                         prod.NCM = produto.Ncmsh;
                         prod.uCom = produto.Unidade;
                         prod.qCom = formataValorNFe(saidaProduto.Quantidade);
@@ -880,19 +880,10 @@ namespace Negocio
                 TNFeInfNFeInfAdic infAdic = new TNFeInfNFeInfAdic();
                 //infAdic.infAdFisco = nfeSelected.informacoesAddFisco;
 
-                saida.Observacao = Global.NFE_MENSAGEM_PADRAO + saida.Observacao;
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                {
-                    Entrada entrada = GerenciadorEntrada.GetInstance().Obter(saida.CodEntrada).ElementAtOrDefault(0);
-                    saida.Observacao += " Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
-                        " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
-                        saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + saida.BaseCalculoICMSSubst.ToString("N2") +
-                        ". Valor do ICMS ST = R$ " + saida.ValorICMSSubst.ToString("N2") + ". Valor do IPI = R$ " + saida.ValorIPI.ToString("N2");
-                }
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
-                    infAdic.infCpl = saida.Observacao;
+                    infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + saida.Observacao;
                 else
-                    infAdic.infCpl = saida.Observacao + ". ICMS RECOLHIDO NO";
+                    infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + saida.Observacao + ". ICMS RECOLHIDO NO";
                 nfe.infNFe.infAdic = infAdic;
 
                 MemoryStream memStream = new MemoryStream();
@@ -1477,19 +1468,19 @@ namespace Negocio
         {
             try
             {
-                if (!string.IsNullOrEmpty(pastaNfeRetorno))
+                if (loja != null)
                 {
-                    DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
+                    DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeRetorno);
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
                     FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
                     if (Files.Length > 0)
                     {
-                        RecuperarLoteEnvio(pastaNfeRetorno);
-                        RecuperarReciboEnvioNfe(pastaNfeRetorno);
-                        RecuperarResultadoProcessamentoNfe(pastaNfeRetorno);
-                        RecuperarResultadoCancelamentoNfe(pastaNfeRetorno);
-                        RecuperarResultadoConsultaNfe(pastaNfeRetorno);
-                        RecuperarResultadoCartaCorrecaoNfe(pastaNfeRetorno);
+                        RecuperarLoteEnvio(loja.PastaNfeRetorno);
+                        RecuperarReciboEnvioNfe(loja.PastaNfeRetorno);
+                        RecuperarResultadoProcessamentoNfe(loja.PastaNfeRetorno);
+                        RecuperarResultadoCancelamentoNfe(loja.PastaNfeRetorno);
+                        RecuperarResultadoConsultaNfe(loja.PastaNfeRetorno);
+                        RecuperarResultadoCartaCorrecaoNfe(loja.PastaNfeRetorno);
                     }
                 }
             }

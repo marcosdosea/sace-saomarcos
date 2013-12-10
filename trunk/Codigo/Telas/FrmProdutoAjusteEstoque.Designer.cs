@@ -351,6 +351,7 @@
             this.codProdutoTextBox.Size = new System.Drawing.Size(100, 20);
             this.codProdutoTextBox.TabIndex = 33;
             this.codProdutoTextBox.TabStop = false;
+            this.codProdutoTextBox.TextChanged += new System.EventHandler(this.codProdutoTextBox_TextChanged);
             this.codProdutoTextBox.Enter += new System.EventHandler(this.codProdutoTextBox_Enter);
             this.codProdutoTextBox.Leave += new System.EventHandler(this.codProdutoTextBox_Leave);
             // 
