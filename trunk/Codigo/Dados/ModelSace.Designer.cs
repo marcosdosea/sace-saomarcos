@@ -720,6 +720,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_ponta_estoque> _tb_ponta_estoque;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_solicitacao_cupom> tb_solicitacao_cupom
+        {
+            get
+            {
+                if ((_tb_solicitacao_cupom == null))
+                {
+                    _tb_solicitacao_cupom = base.CreateObjectSet<tb_solicitacao_cupom>("tb_solicitacao_cupom");
+                }
+                return _tb_solicitacao_cupom;
+            }
+        }
+        private ObjectSet<tb_solicitacao_cupom> _tb_solicitacao_cupom;
 
         #endregion
 
@@ -1019,6 +1035,14 @@ namespace Dados
         public void AddTotb_ponta_estoque(tb_ponta_estoque tb_ponta_estoque)
         {
             base.AddObject("tb_ponta_estoque", tb_ponta_estoque);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_solicitacao_cupom EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_solicitacao_cupom(tb_solicitacao_cupom tb_solicitacao_cupom)
+        {
+            base.AddObject("tb_solicitacao_cupom", tb_solicitacao_cupom);
         }
 
         #endregion
@@ -12566,6 +12590,141 @@ namespace Dados
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_solicitacao_cupom")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_solicitacao_cupom : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_solicitacao_cupom object.
+        /// </summary>
+        /// <param name="codSaida">Initial value of the codSaida property.</param>
+        /// <param name="dataSolicitacao">Initial value of the dataSolicitacao property.</param>
+        /// <param name="enviada">Initial value of the enviada property.</param>
+        /// <param name="total">Initial value of the total property.</param>
+        public static tb_solicitacao_cupom Createtb_solicitacao_cupom(global::System.Int64 codSaida, global::System.DateTime dataSolicitacao, global::System.Boolean enviada, global::System.Decimal total)
+        {
+            tb_solicitacao_cupom tb_solicitacao_cupom = new tb_solicitacao_cupom();
+            tb_solicitacao_cupom.codSaida = codSaida;
+            tb_solicitacao_cupom.dataSolicitacao = dataSolicitacao;
+            tb_solicitacao_cupom.enviada = enviada;
+            tb_solicitacao_cupom.total = total;
+            return tb_solicitacao_cupom;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codSaida
+        {
+            get
+            {
+                return _codSaida;
+            }
+            set
+            {
+                if (_codSaida != value)
+                {
+                    OncodSaidaChanging(value);
+                    ReportPropertyChanging("codSaida");
+                    _codSaida = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codSaida");
+                    OncodSaidaChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codSaida;
+        partial void OncodSaidaChanging(global::System.Int64 value);
+        partial void OncodSaidaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dataSolicitacao
+        {
+            get
+            {
+                return _dataSolicitacao;
+            }
+            set
+            {
+                OndataSolicitacaoChanging(value);
+                ReportPropertyChanging("dataSolicitacao");
+                _dataSolicitacao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataSolicitacao");
+                OndataSolicitacaoChanged();
+            }
+        }
+        private global::System.DateTime _dataSolicitacao;
+        partial void OndataSolicitacaoChanging(global::System.DateTime value);
+        partial void OndataSolicitacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean enviada
+        {
+            get
+            {
+                return _enviada;
+            }
+            set
+            {
+                OnenviadaChanging(value);
+                ReportPropertyChanging("enviada");
+                _enviada = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("enviada");
+                OnenviadaChanged();
+            }
+        }
+        private global::System.Boolean _enviada;
+        partial void OnenviadaChanging(global::System.Boolean value);
+        partial void OnenviadaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal total
+        {
+            get
+            {
+                return _total;
+            }
+            set
+            {
+                OntotalChanging(value);
+                ReportPropertyChanging("total");
+                _total = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("total");
+                OntotalChanged();
+            }
+        }
+        private global::System.Decimal _total;
+        partial void OntotalChanging(global::System.Decimal value);
+        partial void OntotalChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

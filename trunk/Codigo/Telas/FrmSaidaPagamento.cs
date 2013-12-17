@@ -168,9 +168,10 @@ namespace Telas
                             }
                             else
                             {
-                                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-                                saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
-                                GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
+                                GerenciadorCupom.GetInstace().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
+                                //SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
+                                //saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
+                                //GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
                             }
                         }
                     }

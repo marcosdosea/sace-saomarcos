@@ -53,6 +53,7 @@
             this.retornoDepositoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pontaDeEstoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.receberPagamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +79,6 @@
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pontaDeEstoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -276,6 +276,13 @@
             this.estatísticaPorProdutoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.estatísticaPorProdutoToolStripMenuItem.Text = "Estatística por Produto";
             this.estatísticaPorProdutoToolStripMenuItem.Click += new System.EventHandler(this.estatísticaPorProdutoToolStripMenuItem_Click);
+            // 
+            // pontaDeEstoqueToolStripMenuItem
+            // 
+            this.pontaDeEstoqueToolStripMenuItem.Name = "pontaDeEstoqueToolStripMenuItem";
+            this.pontaDeEstoqueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.pontaDeEstoqueToolStripMenuItem.Text = "Ponta de Estoque";
+            this.pontaDeEstoqueToolStripMenuItem.Click += new System.EventHandler(this.pontaDeEstoqueToolStripMenuItem_Click);
             // 
             // contasAPagarToolStripMenuItem
             // 
@@ -503,13 +510,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(420, 121);
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
-            // 
-            // pontaDeEstoqueToolStripMenuItem
-            // 
-            this.pontaDeEstoqueToolStripMenuItem.Name = "pontaDeEstoqueToolStripMenuItem";
-            this.pontaDeEstoqueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.pontaDeEstoqueToolStripMenuItem.Text = "Ponta de Estoque";
-            this.pontaDeEstoqueToolStripMenuItem.Click += new System.EventHandler(this.pontaDeEstoqueToolStripMenuItem_Click);
             // 
             // Principal
             // 

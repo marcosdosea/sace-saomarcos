@@ -81,8 +81,8 @@ namespace Util
          SGBD_SENHA = "sace",
          SGBD_IP = "192.168.0.3",
          PORTA_IMPRESSORA_NORMAL = "LPT1",
-         PORTA_IMPRESSORA_REDUZIDA = "LPT2",
-         MAPEAMENTO_IMPRESSORA_REDUZIDA = "\\\\SERVIDOR\\Daruma",
+         PORTA_IMPRESSORA_REDUZIDA = "\\\\SM-VENDAS01\\Daruma",
+         //MAPEAMENTO_IMPRESSORA_REDUZIDA = "\\\\SM-VENDAS01\\Daruma",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";
