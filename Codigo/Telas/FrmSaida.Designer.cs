@@ -907,7 +907,7 @@
             // 
             this.btnImprimir.Location = new System.Drawing.Point(436, 661);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(75, 23);
+            this.btnImprimir.Size = new System.Drawing.Size(78, 23);
             this.btnImprimir.TabIndex = 7;
             this.btnImprimir.Text = "F8 - Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
@@ -945,7 +945,7 @@
             // 
             // btnCfNfe
             // 
-            this.btnCfNfe.Location = new System.Drawing.Point(511, 661);
+            this.btnCfNfe.Location = new System.Drawing.Point(514, 661);
             this.btnCfNfe.Name = "btnCfNfe";
             this.btnCfNfe.Size = new System.Drawing.Size(80, 23);
             this.btnCfNfe.TabIndex = 8;

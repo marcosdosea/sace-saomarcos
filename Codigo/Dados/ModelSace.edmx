@@ -40,6 +40,7 @@
           <EntitySet Name="tb_situacao_conta" EntityType="SaceModel.Store.tb_situacao_conta" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_situacao_pagamentos" EntityType="SaceModel.Store.tb_situacao_pagamentos" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_situacao_produto" EntityType="SaceModel.Store.tb_situacao_produto" store:Type="Tables" Schema="sace" />
+          <EntitySet Name="tb_solicitacao_cupom" EntityType="SaceModel.Store.tb_solicitacao_cupom" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_subgrupo" EntityType="SaceModel.Store.tb_subgrupo" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_tipo_conta" EntityType="SaceModel.Store.tb_tipo_conta" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_tipo_movimentacao_conta" EntityType="SaceModel.Store.tb_tipo_movimentacao_conta" store:Type="Tables" Schema="sace" />
@@ -584,7 +585,7 @@
           <Key>
             <PropertyRef Name="codPontaEstoque" />
           </Key>
-          <Property Name="codPontaEstoque" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="codPontaEstoque" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="codProduto" Type="bigint" Nullable="false" />
           <Property Name="quantidade" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="caracteristica" Type="varchar" MaxLength="45" />
@@ -679,7 +680,7 @@
           <Property Name="pesoBruto" Type="decimal" Scale="2" />
           <Property Name="pesoLiquido" Type="decimal" Scale="2" />
           <Property Name="codEmpresaFrete" Type="bigint" Nullable="false" />
-          <Property Name="observacao" Type="varchar" Nullable="false" MaxLength="165" />
+          <Property Name="observacao" Type="varchar" Nullable="false" MaxLength="350" />
           <Property Name="codEntrada" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_saida_forma_pagamento">
@@ -754,6 +755,15 @@
           </Key>
           <Property Name="codSituacaoProduto" Type="tinyint" Nullable="false" />
           <Property Name="descricaoSituacao" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="tb_solicitacao_cupom">
+          <Key>
+            <PropertyRef Name="codSaida" />
+          </Key>
+          <Property Name="codSaida" Type="bigint" Nullable="false" />
+          <Property Name="dataSolicitacao" Type="datetime" Nullable="false" />
+          <Property Name="enviada" Type="bool" Nullable="false" />
+          <Property Name="total" Type="decimal" Nullable="false" Scale="2" />
         </EntityType>
         <EntityType Name="tb_subgrupo">
           <Key>
@@ -1822,6 +1832,7 @@
             <End Role="ProdutoE" EntitySet="ProdutoSet" />
             <End Role="tb_ponta_estoque" EntitySet="tb_ponta_estoque" />
           </AssociationSet>
+          <EntitySet Name="tb_solicitacao_cupom" EntityType="SaceModel.tb_solicitacao_cupom" />
           </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -3118,6 +3129,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tb_solicitacao_cupom">
+          <Key>
+            <PropertyRef Name="codSaida" />
+          </Key>
+          <Property Type="Int64" Name="codSaida" Nullable="false" />
+          <Property Type="DateTime" Name="dataSolicitacao" Nullable="false" />
+          <Property Type="Boolean" Name="enviada" Nullable="false" />
+          <Property Type="Decimal" Name="total" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3542,6 +3562,16 @@
                 <ScalarProperty Name="quantidade" ColumnName="quantidade" />
                 <ScalarProperty Name="codProduto" ColumnName="codProduto" />
                 <ScalarProperty Name="codPontaEstoque" ColumnName="codPontaEstoque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_solicitacao_cupom">
+            <EntityTypeMapping TypeName="SaceModel.tb_solicitacao_cupom">
+              <MappingFragment StoreEntitySet="tb_solicitacao_cupom">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="enviada" ColumnName="enviada" />
+                <ScalarProperty Name="dataSolicitacao" ColumnName="dataSolicitacao" />
+                <ScalarProperty Name="codSaida" ColumnName="codSaida" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4274,6 +4304,7 @@
           <ConnectorPoint PointX="12.458333333333334" PointY="14.865143229166662" />
           <ConnectorPoint PointX="12.5" PointY="14.865143229166662" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="SaceModel.tb_solicitacao_cupom" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5956835937500102" />
         </Diagram>
     </Diagrams>
   </Designer>

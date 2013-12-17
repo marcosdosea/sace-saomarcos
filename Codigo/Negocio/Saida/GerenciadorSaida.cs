@@ -194,7 +194,14 @@ namespace Negocio
                     }
                     _saidaE.totalAVista = totalAVista;
                     _saidaE.totalPago = totalAVista;
-                    _saidaE.desconto = Math.Round(Convert.ToDecimal((1 -(_saidaE.totalAVista / _saidaE.total)) * 100), 2);
+                    if (_saidaE.total > 0)
+                    {
+                        _saidaE.desconto = Math.Round(Convert.ToDecimal((1 - (_saidaE.totalAVista / _saidaE.total)) * 100), 2);
+                    }
+                    else
+                    {
+                        _saidaE.desconto = 0;
+                    }
                 }
                 saceContext.SaveChanges();
             }
@@ -1097,6 +1104,7 @@ namespace Negocio
                                 foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
                                 {
                                     AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, numeroCF, saidaPedido.TotalAVista, saidaPedido.CodSaida);
+                                    GerenciadorCupom.GetInstace().RemoverSolicitacaoCupom(saidaPedido.CodSaida);
                                     atualizou = true;
                                 }
                             }
@@ -1130,11 +1138,20 @@ namespace Negocio
                 // Essa exceção não precisa ser tratada. Apenas os cupons fiscais não são recuperados.
                 //throw new NegocioException("Ocorreram problemas na recuperação dos dados dos cupons fiscais. Favor contactar o administrador informando o erro " + e.Message);
             }
-            //finally
-            //{
-            //    saceContext.Connection.Close();
-            //}
             return atualizou;
+        }
+
+        public void EmitirCupomFiscalPreVendasPendentes()
+        {
+            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            if (nomeComputador.Equals("SONY-VAIO")) {
+                List<Saida> listaPreVendasPendentes = ObterPreVendasPendentes();
+                foreach(Saida saidaPendente in listaPreVendasPendentes) {
+                    
+                }
+                //GerarDocumentoFiscal(
+            }
+
         }
 
 
@@ -1492,9 +1509,10 @@ namespace Negocio
             {
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
-                    SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-                    saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
-                    GerarDocumentoFiscal(saidaTotalAVista, null);
+                    GerenciadorCupom.GetInstace().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
+                    //SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
+                    //saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
+                    //GerarDocumentoFiscal(saidaTotalAVista, null);
                 }
             }
             catch (Exception e)
@@ -1551,6 +1569,8 @@ namespace Negocio
             _saidaE.codEntrada = saida.CodEntrada;
             _saidaE.codLojaOrigem = saida.CodLojaOrigem;
         }
+
+
         
     }
 }
