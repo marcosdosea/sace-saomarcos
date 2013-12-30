@@ -273,6 +273,7 @@ namespace Telas
             btnNovo.Enabled = habilita;
             btnExcluir.Enabled = habilita;
             btnEstoque.Enabled = habilita && (!codProdutoTextBox.Text.Equals(""));
+            btnPontaEstoque.Enabled = habilita && (!codProdutoTextBox.Text.Equals(""));
             tb_produtoBindingNavigator.Enabled = habilita;
             if (habilita)
             {

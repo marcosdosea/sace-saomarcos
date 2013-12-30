@@ -199,7 +199,7 @@ namespace Telas
                 valorICMSTextBox.Text = entradaProduto.ValorICMS.ToString();
                 valorICMSSTTextBox.Text = entradaProduto.ValorICMSST.ToString();
                 valorIPITextBox.Text = entradaProduto.ValorIPI.ToString();
-                preco_custoTextBox.Text = produto.PrecoCusto.ToString();
+                    preco_custoTextBox.Text = produto.PrecoCusto.ToString();
                 precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString();
                 precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString();
             }
@@ -305,6 +305,25 @@ namespace Telas
             }
         }
 
+        private void btnImportarNfe_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogNfe.ShowDialog() == DialogResult.OK)
+            {
+                string nomearquivo = openFileDialogNfe.FileName;
+                TNfeProc nfe = GerenciadorNFe.GetInstance().LerNFE(nomearquivo);
+                if (MessageBox.Show("Confirma importação dos dados da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    long codEntrada = GerenciadorEntrada.GetInstance().Importar(nfe);
+                    entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
+                    entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = codEntrada });
+                    List<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance(null).Importar(nfe);
+                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(listaEntradaProduto);
+                    frmEntradaImportar.ShowDialog();
+                    frmEntradaImportar.Dispose();
+                }
+            }
+        }
+
         private void precoVendaAtacadoTextBox_Leave(object sender, EventArgs e)
         {
             codEntradaTextBox_Leave(sender, e);
@@ -399,6 +418,10 @@ namespace Telas
                 else if (e.KeyCode == Keys.F8)
                 {
                     btnPagamentos_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F9)
+                {
+                    btnImportarNfe_Click(sender, e);
                 }
                 else if (e.KeyCode == Keys.F12)
                 {
@@ -569,6 +592,5 @@ namespace Telas
             btnSalvar.Focus();
         }
 
-        
     }
 }

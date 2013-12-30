@@ -499,10 +499,10 @@ namespace Negocio
                     else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     {
                         _saidaE.codTipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
-                        if (!string.IsNullOrEmpty(_saidaE.nfe))
-                        {
-                            throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
-                        }
+                        //if (!string.IsNullOrEmpty(_saidaE.nfe))
+                        //{
+                        //    throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
+                        //}
 
                         Loja lojaDestino = GerenciadorLoja.GetInstance().ObterPorPessoa(_saidaE.codCliente).ElementAt(0);
                         if (lojaDestino.CodLoja.Equals(_saidaE.codLojaOrigem))
@@ -517,10 +517,10 @@ namespace Negocio
                     else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
                     {
                         _saidaE.codTipoSaida = Saida.TIPO_RETORNO_DEPOSITO;
-                        if (!string.IsNullOrEmpty(_saidaE.nfe))
-                        {
-                            throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
-                        }
+                        //if (!string.IsNullOrEmpty(_saidaE.nfe))
+                        //{
+                        //    throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
+                        //}
 
 
                         //Loja depositoOrigem = GerenciadorLoja.GetInstance().ObterPorPessoa(_saidaE.codLojaOrigem).ElementAt(0);
@@ -536,12 +536,10 @@ namespace Negocio
                     else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     {
                         _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
-                        if (string.IsNullOrEmpty(_saidaE.nfe))
-                        {
-                            saceContext.SaveChanges();
-                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                            RegistrarBaixaEstoque(saidaProdutos);
-                        }
+                        saceContext.SaveChanges();
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
+                        RegistrarBaixaEstoque(saidaProdutos);
+                        AtualizarCfopProdutosDevolucao(saidaProdutos, _saidaE);
                     }
                 }
                 transaction.Commit();
@@ -559,6 +557,37 @@ namespace Negocio
             finally
             {
                 saceContext.Connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Atualiza os cfops de produtos de acordo com os dados de devolução na NF-e
+        /// </summary>
+        /// <param name="saidaProdutos"></param>
+        /// <param name="_saidaE"></param>
+        private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, tb_saida _saidaE)
+        {
+            Pessoa fornecedor = GerenciadorPessoa.GetInstance().Obter(_saidaE.codCliente).ElementAtOrDefault(0);
+            Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+           
+            bool ehMesmoUF = false;
+            if (loja != null && fornecedor != null)
+            {
+                ehMesmoUF = loja.Estado.Equals(fornecedor.Uf);
+            }
+            foreach (SaidaProduto saidaProduto in saidaProdutos)
+            {
+                
+                if (saidaProduto.EhTributacaoIntegral)
+                {
+                    saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOLUCAO_NORMAL_ESTADO : Cfop.DEVOLUCAO_NORMAL_FORA_ESTADO;
+                }
+                else if (!saidaProduto.EhTributacaoIntegral)
+                {
+                    saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOUCAO_ST_ESTADO : Cfop.DEVOUCAO_ST_FORA_ESTADO;
+                }
+                
+                GerenciadorSaidaProduto.GetInstance(null).AtualizarCFOP(saidaProduto.CodSaidaProduto, saidaProduto.CodCfop);
             }
         }
         /// <summary>
@@ -864,10 +893,11 @@ namespace Negocio
                                 {
                                     GerenciadorSaidaPedido.GetInstance().Inserir(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida, TotalAVista = totalAVista });
                                 }
-                                //else
-                                //{
-                                //    throw new NegocioException("Cupom fiscal já foi enviado para impressão. Favor aguardar a impressora fiscal");
-                                //}
+                                else
+                                {
+                                    GerenciadorSaidaPedido.GetInstance().Atualizar(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida, TotalAVista = totalAVista });
+                                    //throw new NegocioException("Cupom fiscal já foi enviado para impressão. Favor aguardar a impressora fiscal");
+                                }
                                 listaSaidaProdutos.AddRange(saidaProdutos);
                             }
                             else

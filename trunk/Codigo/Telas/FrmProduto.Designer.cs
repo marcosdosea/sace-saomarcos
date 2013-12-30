@@ -515,7 +515,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(554, 594);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -691,7 +691,7 @@
             this.btnEstoque.Location = new System.Drawing.Point(391, 594);
             this.btnEstoque.Name = "btnEstoque";
             this.btnEstoque.Size = new System.Drawing.Size(81, 23);
-            this.btnEstoque.TabIndex = 84;
+            this.btnEstoque.TabIndex = 5;
             this.btnEstoque.Text = "F7 - Estoque";
             this.btnEstoque.UseVisualStyleBackColor = true;
             this.btnEstoque.Click += new System.EventHandler(this.btnEstoque_Click);
@@ -1220,7 +1220,7 @@
             this.emPromocaoCheckBox.Location = new System.Drawing.Point(578, 208);
             this.emPromocaoCheckBox.Name = "emPromocaoCheckBox";
             this.emPromocaoCheckBox.Size = new System.Drawing.Size(95, 24);
-            this.emPromocaoCheckBox.TabIndex = 96;
+            this.emPromocaoCheckBox.TabIndex = 28;
             this.emPromocaoCheckBox.Text = "Em Promoção";
             this.emPromocaoCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -1229,7 +1229,7 @@
             this.btnPontaEstoque.Location = new System.Drawing.Point(473, 594);
             this.btnPontaEstoque.Name = "btnPontaEstoque";
             this.btnPontaEstoque.Size = new System.Drawing.Size(81, 23);
-            this.btnPontaEstoque.TabIndex = 97;
+            this.btnPontaEstoque.TabIndex = 6;
             this.btnPontaEstoque.Text = "F8 - Ponta";
             this.btnPontaEstoque.UseVisualStyleBackColor = true;
             this.btnPontaEstoque.Click += new System.EventHandler(this.btnPontaEstoque_Click);

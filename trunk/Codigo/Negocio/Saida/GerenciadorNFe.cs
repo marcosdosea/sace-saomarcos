@@ -562,7 +562,18 @@ namespace Negocio
             return numeroProtocolo;
         }
 
-        public void EnviarNFE(Saida saida, NfeControle nfeControle, bool ehEspelho)
+        public TNfeProc LerNFE(string arquivo)
+        {
+            XmlDocument xmldocRetorno = new XmlDocument();
+            xmldocRetorno.Load(arquivo);
+            XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+            XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
+            TNfeProc nfe = (TNfeProc)serializer.Deserialize(xmlReaderRetorno);
+            
+            return nfe;
+        }
+       
+ public void EnviarNFE(Saida saida, NfeControle nfeControle, bool ehEspelho)
         {
             try
             {
@@ -714,10 +725,10 @@ namespace Negocio
                     totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
                 } else 
                 {
-                    totalAVista = totalProdutos;
+                    totalAVista = totalProdutos - saida.Desconto;
                 }
-                decimal valorTotalDesconto = totalProdutos - totalAVista;// - descontoDevolucoes;
-                decimal valorTotalNota = totalAVista; //+ descontoDevolucoes;
+                decimal valorTotalDesconto = totalProdutos - totalAVista;
+                decimal valorTotalNota = totalAVista + saida.ValorFrete + saida.OutrasDespesas; 
 
                 // calcula fator de desconto para ser calculado sobre cada produto da nota
                 decimal fatorDesconto = valorTotalDesconto / totalProdutos;
@@ -821,7 +832,14 @@ namespace Negocio
                     icmsTot.vProd = formataValorNFe(totalProdutos);
                     icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
                     icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
-                    icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
+                    if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                    {
+                        icmsTot.vDesc = formataValorNFe(saida.Desconto);
+                    }
+                    else
+                    {
+                        icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
+                    }
                     icmsTot.vII = formataValorNFe(0);
                     icmsTot.vIPI = formataValorNFe(0);
                     icmsTot.vPIS = formataValorNFe(0);
