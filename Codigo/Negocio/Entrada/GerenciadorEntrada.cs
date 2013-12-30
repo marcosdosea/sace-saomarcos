@@ -5,6 +5,7 @@ using System.Linq;
 using Dados;
 using Dominio;
 using Util;
+using System.Globalization;
 
 namespace Negocio
 {
@@ -57,6 +58,157 @@ namespace Negocio
             }
         }
 
+        public long Importar(TNfeProc nfe)
+        {
+            try
+            {
+                string numeroNF = nfe.NFe.infNFe.ide.nNF;
+                string cpf_cnpjFornecedor = nfe.NFe.infNFe.emit.Item;
+                IEnumerable<Entrada> entradas = ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
+                if (entradas.Count() > 0)
+                {
+                    Entrada entrada = entradas.ElementAtOrDefault(0);
+                    RecuperarDadosEntrada(nfe, entrada);
+                    GerenciadorEntrada.GetInstance().Atualizar(entrada);
+                    return entrada.CodEntrada;
+                }
+                else
+                {
+                    Entrada entrada = new Entrada();
+                    RecuperarDadosEntrada(nfe, entrada);
+                    long codEntrada = GerenciadorEntrada.GetInstance().Inserir(entrada);
+                    return codEntrada;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new NegocioException("Problema durante a importação dos dados da Entrada da NF-e. Favor contactar administrador.", e);
+            }
+        }
+
+        private void RecuperarDadosEntrada(TNfeProc nfe, Entrada entrada)
+        {
+            CultureInfo ci = new CultureInfo("en-US"); // usado para connversão dos números do xml
+            entrada.CodEmpresaFrete = ObterInserirEmpresaFrete(nfe.NFe);
+            entrada.CodFornecedor = ObterInserirFornecedor(nfe.NFe);
+            entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
+            entrada.CodTipoEntrada = Entrada.TIPO_ENTRADA;
+            entrada.DataEmissao = Convert.ToDateTime(nfe.NFe.infNFe.ide.dEmi);
+            entrada.DataEntrada = DateTime.Now;
+            entrada.Desconto = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vDesc, ci);
+            entrada.FretePagoEmitente = nfe.NFe.infNFe.transp.modFrete == TNFeInfNFeTranspModFrete.Item0; // Frete pago emitente
+            entrada.NumeroNotaFiscal = nfe.NFe.infNFe.ide.nNF;
+            entrada.OutrasDespesas = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vOutro, ci);
+            entrada.TotalBaseCalculo = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vBC, ci);
+            entrada.TotalBaseSubstituicao = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vBCST, ci);
+            entrada.TotalICMS = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vICMS, ci);
+            entrada.TotalIPI = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vIPI, ci);
+            entrada.TotalNota = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vNF, ci);
+            entrada.TotalProdutos = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vProd, ci);
+            
+            // precisa calcular
+            entrada.TotalProdutosST = 0;
+            foreach(TNFeInfNFeDet produto in nfe.NFe.infNFe.det) {
+                for(int i = 0; i < produto.imposto.Items.Length; i++) {
+                    if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoICMS)
+                    {
+                        var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
+                        if (icms is TNFeInfNFeDetImpostoICMSICMS10)
+                        {
+                            entrada.TotalProdutosST += Convert.ToDecimal(produto.prod.vProd, ci);
+                        }
+                    }
+                }
+            }
+
+            entrada.TotalSubstituicao = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vST, ci);
+            entrada.ValorFrete = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vFrete, ci);
+            entrada.ValorSeguro = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vSeg, ci);
+        }
+
+        private long ObterInserirEmpresaFrete(TNFe nfe)
+        {
+            if (nfe.infNFe.transp != null && nfe.infNFe.transp.transporta != null && !string.IsNullOrEmpty(nfe.infNFe.transp.transporta.Item))
+            {
+                Pessoa empresaFrete = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(nfe.infNFe.transp.transporta.Item).ElementAtOrDefault(0);
+                if (empresaFrete == null)
+                {
+                    empresaFrete = new Pessoa();
+                    empresaFrete.CpfCnpj = nfe.infNFe.transp.transporta.Item;
+                    empresaFrete.Nome = nfe.infNFe.transp.transporta.xNome;
+                    empresaFrete.NomeFantasia = nfe.infNFe.transp.transporta.xNome;
+                    empresaFrete.Ie = nfe.infNFe.transp.transporta.IE;
+                    empresaFrete.Endereco = nfe.infNFe.transp.transporta.xEnder;
+                    empresaFrete.Uf = nfe.infNFe.transp.transporta.UF.ToString();
+                    empresaFrete.Cidade = nfe.infNFe.transp.transporta.xMun;
+
+                    empresaFrete.CodMunicipioIBGE = GerenciadorMunicipio.GetInstance().ObterPorCidadeEstado(empresaFrete.Cidade, empresaFrete.Uf).Codigo;
+                    empresaFrete.Tipo = empresaFrete.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
+                    return GerenciadorPessoa.GetInstance().Inserir(empresaFrete);
+                }
+                else
+                {
+                    return empresaFrete.CodPessoa;
+                }
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        private long ObterInserirFornecedor(TNFe nfe)
+        {
+            if (nfe.infNFe.emit != null)
+            {
+                Pessoa fornecedor = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
+                if (fornecedor == null)
+                {
+                    fornecedor = new Pessoa();
+                    fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
+                    fornecedor.Nome = nfe.infNFe.emit.xNome;
+                    fornecedor.NomeFantasia = nfe.infNFe.emit.xFant;
+                    fornecedor.Ie = nfe.infNFe.emit.IE;
+                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr;
+                    fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
+                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun;
+                    fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
+                    fornecedor.Complemento = nfe.infNFe.emit.enderEmit.xCpl;
+                    fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
+                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro;
+                    fornecedor.Ie = nfe.infNFe.emit.IE;
+                    fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
+                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
+                    fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
+                    fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
+                    return GerenciadorPessoa.GetInstance().Inserir(fornecedor);
+                }
+                else
+                {
+                    fornecedor.Nome = nfe.infNFe.emit.xNome;
+                    fornecedor.NomeFantasia = nfe.infNFe.emit.xFant;
+                    fornecedor.Ie = nfe.infNFe.emit.IE;
+                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr;
+                    fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
+                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun;
+                    fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
+                    fornecedor.Complemento = nfe.infNFe.emit.enderEmit.xCpl;
+                    fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
+                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro;
+                    fornecedor.Ie = nfe.infNFe.emit.IE;
+                    fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
+                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
+                    fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
+                    fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
+                    GerenciadorPessoa.GetInstance().Atualizar(fornecedor);
+                    return fornecedor.CodPessoa;
+                }
+            }
+            else
+            {
+                return 1; // quando por algum motivo não conseguir recuperar o fornecedor
+            }
+        }
 
         /// <summary>
         /// Atualizar dados da entrada
@@ -247,6 +399,8 @@ namespace Negocio
                             FretePagoEmitente = entrada.fretePagoEmitente,
                             NomeEmpresaFrete = transportadora.nome,
                             NomeFornecedor = fornecedor.nome,
+                            Cpf_CnpjFornecedor = fornecedor.cpf_Cnpj,
+                            FornecedorEhFabricante = fornecedor.ehFabricante,
                             NumeroNotaFiscal = entrada.numeroNotaFiscal,
                             OutrasDespesas = (decimal) entrada.outrasDespesas,
                             TotalBaseCalculo = (decimal) entrada.totalBaseCalculo,
@@ -300,6 +454,16 @@ namespace Negocio
         public IEnumerable<Entrada> ObterPorNumeroNotaFiscal(string numeroNotaFiscal)
         {
             return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal)).ToList();
+        }
+
+        /// <summary>
+        /// Obtém entradas pelo número da nota fiscal e Fornecedor
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<Entrada> ObterPorNumeroNotaFiscalFornecedor(string numeroNotaFiscal, string cpf_CnpjFornecedor)
+        {
+            return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal) && entrada.Cpf_CnpjFornecedor.Equals(cpf_CnpjFornecedor)).ToList();
         }
 
         /// <summary>

@@ -303,9 +303,13 @@ namespace Telas
 
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
-            GerenciadorCupom.GetInstace().EnviarProximoCupom();
-            GerenciadorSaida.GetInstance(null).AtualizarPedidosComDocumentosFiscais();
-            GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            if (nomeComputador.Equals(Global.NOME_SERVIDOR))
+            {
+                GerenciadorCupom.GetInstace().EnviarProximoCupom();
+                GerenciadorSaida.GetInstance(null).AtualizarPedidosComDocumentosFiscais();
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+            }
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)

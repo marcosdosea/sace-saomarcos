@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dados;
 using Dominio;
+using Util;
 
 namespace Negocio
 {
@@ -164,7 +165,12 @@ namespace Negocio
         /// <returns></returns>
         public List<Loja> ObterPorServidorNfe(string nomeComputador)
         {
-            return GetQuery().Where(loja => loja.NomeServidorNfe.Equals(nomeComputador)).ToList();
+            List<Loja> lojas = GetQuery().Where(loja => loja.NomeServidorNfe.Equals(nomeComputador)).ToList();
+            if ((lojas == null) || (lojas.Count == 0))
+            {
+                lojas = Obter(Global.LOJA_PADRAO);
+            }
+            return lojas;
         }
 
         private static void Atribuir(Loja loja, LojaE _lojaE)

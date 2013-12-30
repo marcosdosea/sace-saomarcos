@@ -36,6 +36,15 @@ namespace Dominio
         public decimal ValorICMSSubst { get; set; }
         public decimal ValorIPI { get; set; }
 
+        public bool EhTributacaoIntegral
+        {
+            get
+            {
+                Cst cst = new Cst() { CodCST = this.CodCST };
+                return cst.EhTributacaoIntegral;
+            }
+        }
+        
         // override object.Equals
         public override bool Equals(object obj)
         {

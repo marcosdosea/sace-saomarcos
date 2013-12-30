@@ -95,6 +95,25 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Atualiza cfop dos produtos
+        /// </summary>
+        /// <param name="saidaProduto"></param>
+        /// <param name="saida"></param>
+        public void AtualizarCFOP(long codSaidaProduto, int codCFOP)
+        {
+            
+            var query = from saidaProdutoE in saceContext.SaidaProdutoSet
+                        where saidaProdutoE.codSaidaProduto == codSaidaProduto
+                        select saidaProdutoE;
+
+            foreach (SaidaProdutoE _saidaProdutoE in query)
+            {
+                _saidaProdutoE.cfop = codCFOP;
+            }
+            saceContext.SaveChanges();
+        }
+
+        /// <summary>
         /// Atualiza os preços dos produtos utilizandos os valores do dia.
         /// </summary>
         /// <param name="p"></param>

@@ -86,6 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmEntradaImportar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEntradaImportar.Designer.cs">
+      <DependentUpon>FrmEntradaImportar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPontaEstoquePesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,6 +380,9 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmEntradaImportar.resx">
+      <DependentUpon>FrmEntradaImportar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPontaEstoquePesquisa.resx">
       <DependentUpon>FrmPontaEstoquePesquisa.cs</DependentUpon>
       <SubType>Designer</SubType>

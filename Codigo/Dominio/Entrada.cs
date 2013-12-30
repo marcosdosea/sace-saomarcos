@@ -18,6 +18,8 @@ namespace Dominio
         public string NomeEmpresaFrete { get; set; }
         public long CodFornecedor { get; set; }
         public string NomeFornecedor { get; set; }
+        public string Cpf_CnpjFornecedor { get; set; }
+        public bool FornecedorEhFabricante { get; set; }
         public int CodTipoEntrada { get; set; }
         public DateTime DataEmissao { get; set; }
         public DateTime DataEntrada { get; set; }

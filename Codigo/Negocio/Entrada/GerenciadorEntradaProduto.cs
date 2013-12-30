@@ -4,6 +4,7 @@ using System.Linq;
 using Dados;
 using Dominio;
 using Util;
+using System.Globalization;
 
 namespace Negocio
 {
@@ -62,15 +63,10 @@ namespace Negocio
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
             }
 
-            //DbTransaction transaction = null;
             try
             {
                 EntradaProdutoE _entradaProdutoE = new EntradaProdutoE();
                 Atribuir(entradaProduto, _entradaProdutoE);
-
-                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                //    saceContext.Connection.Open();
-                //transaction = saceContext.Connection.BeginTransaction();
 
                 saceContext.AddToEntradaProdutoSet(_entradaProdutoE);
                 saceContext.SaveChanges();
@@ -89,18 +85,12 @@ namespace Negocio
                     if (entradaProduto.CodEntrada != Global.ENTRADA_PADRAO) 
                         GerenciadorProduto.GetInstance().Atualizar(produto);
                 }
-                //transaction.Commit();
                 return _entradaProdutoE.codEntrada;
             }
             catch (Exception e)
             {
-                //transaction.Rollback();
                 throw new DadosException("EntradaProduto", e.Message, e);
             }
-            //finally
-            //{
-            //    saceContext.Connection.Close();
-            //}
         }
 
         
@@ -149,6 +139,135 @@ namespace Negocio
             finally
             {
                 saceContext.Connection.Close();
+            }
+        }
+
+
+        /// <summary>
+        /// Importa os produtos de uma Nfe
+        /// </summary>
+        /// <param name="nfe"></param>
+        public List<EntradaProduto> Importar(TNfeProc nfe)
+        {
+            try
+            {
+                CultureInfo ci = new CultureInfo("en-US"); // usado para connversão dos números do xml
+                string numeroNF = nfe.NFe.infNFe.ide.nNF;
+                string cpf_cnpjFornecedor = nfe.NFe.infNFe.emit.Item;
+                IEnumerable<Entrada> entradas = GerenciadorEntrada.GetInstance().ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
+                if (entradas.Count() == 0)
+                {
+                    throw new NegocioException("A entrada não foi encontrada para realizar o cadastro de produtos");
+                }
+                Entrada entrada = entradas.ElementAtOrDefault(0);
+                List<EntradaProduto> listaProtutos = new List<EntradaProduto>();
+                foreach (TNFeInfNFeDet produto in nfe.NFe.infNFe.det)
+                {
+                    EntradaProduto entradaProduto = new EntradaProduto();
+                    entradaProduto.Cfop = Convert.ToInt32(produto.prod.CFOP.ToString().Substring(4));
+                    entradaProduto.CodEntrada = entrada.CodEntrada;
+                    entradaProduto.CodFornecedor = entrada.CodFornecedor;
+                    ProdutoPesquisa produtoPesquisa = GerenciadorProduto.GetInstance().ObterPorCodBarra(produto.prod.cEAN).ElementAtOrDefault(0);
+
+                    entradaProduto.CodProduto = (produtoPesquisa != null) ? produtoPesquisa.CodProduto : 1;
+                    entradaProduto.DataEntrada = entrada.DataEntrada;
+                    entradaProduto.Desconto = Convert.ToDecimal(produto.prod.vDesc, ci);
+                    entradaProduto.FornecedorEhFabricante = entrada.FornecedorEhFabricante;
+                    if (entrada.ValorFrete > 0)
+                        entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
+                    else
+                        entradaProduto.Frete = 0;
+                    entradaProduto.Ncmsh = produto.prod.NCM;
+                    entradaProduto.NomeProduto = produto.prod.xProd;
+                    
+                    entradaProduto.Quantidade = Convert.ToDecimal(produto.prod.qCom, ci);
+                    entradaProduto.QuantidadeEmbalagem = (produtoPesquisa == null) ? 1 : produtoPesquisa.QuantidadeEmbalagem;
+                    entradaProduto.Simples = (produtoPesquisa == null) ? 8 : produtoPesquisa.Simples;
+                    entradaProduto.UnidadeCompra = produto.prod.uCom;
+                    entradaProduto.ValorDesconto = Convert.ToDecimal(produto.prod.vDesc, ci);
+                    entradaProduto.ValorUnitario = Convert.ToDecimal(produto.prod.vUnCom, ci);
+                    entradaProduto.CodigoBarras = produto.prod.cEAN;
+                    entradaProduto.CodProdutoFabricante = produto.prod.cProd;
+
+                    for (int i = 0; i < produto.imposto.Items.Length; i++)
+                    {
+                        if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoICMS)
+                        {
+                            var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
+                            if (icms is TNFeInfNFeDetImpostoICMSICMS10)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS10 icms10 = ((TNFeInfNFeDetImpostoICMSICMS10)icms); ;
+                                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(icms10.vBC, ci);
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms10.vBCST, ci);
+                                entradaProduto.CodCST = icms10.orig.ToString().Substring(4) + icms10.CST.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms10.pICMS, ci);
+                                entradaProduto.IcmsSubstituto = Convert.ToDecimal(icms10.pICMSST, ci);
+                            }
+                        }
+                        if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoIPI)
+                        {
+                            TNFeInfNFeDetImpostoIPI impostoIPI = (TNFeInfNFeDetImpostoIPI)produto.imposto.Items[i];
+                            //impostoIPI.
+                        }
+                    }
+
+                    Produto produtoCalculo = new Produto()
+                    {
+                        Desconto = entradaProduto.Desconto,
+                        Icms = entradaProduto.Icms,
+                        IcmsSubstituto = entradaProduto.IcmsSubstituto,
+                        Ipi = entradaProduto.Ipi,
+                        Frete = entradaProduto.Frete,
+                        Simples = entradaProduto.Simples,
+                        UltimoPrecoCompra = (entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem)
+                    };
+
+                    entradaProduto.PrecoCusto = produtoCalculo.PrecoCusto;
+
+                    if (produtoPesquisa == null)
+                    {
+                        entradaProduto.LucroPrecoRevenda = 20;
+                        entradaProduto.LucroPrecoVendaAtacado = 30;
+                        entradaProduto.LucroPrecoVendaVarejo = 35;
+                        entradaProduto.QtdProdutoAtacado = 0;
+                    }
+                    else
+                    {
+                        entradaProduto.LucroPrecoRevenda = produtoPesquisa.LucroPrecoRevenda;
+                        entradaProduto.LucroPrecoVendaAtacado = produtoPesquisa.LucroPrecoVendaAtacado;
+                        entradaProduto.LucroPrecoVendaVarejo = produtoPesquisa.LucroPrecoVendaVarejo;
+                        entradaProduto.QtdProdutoAtacado = produtoPesquisa.QtdProdutoAtacado;
+                    }
+
+                    produtoCalculo.LucroPrecoRevenda = entradaProduto.LucroPrecoRevenda;
+                    produtoCalculo.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
+                    produtoCalculo.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;
+
+                    entradaProduto.PrecoRevendaSugestao = produtoCalculo.PrecoRevendaSugestao;
+                    entradaProduto.PrecoVendaAtacadoSugestao = produtoCalculo.PrecoVendaAtacadoSugestao;
+                    entradaProduto.PrecoVendaVarejoSugestao = produtoCalculo.PrecoVendaVarejoSugestao;
+
+                    if (produtoPesquisa == null)
+                    {
+                        entradaProduto.PrecoRevenda = entradaProduto.PrecoRevendaSugestao;
+                        entradaProduto.PrecoVendaAtacado = entradaProduto.PrecoVendaAtacadoSugestao;
+                        entradaProduto.PrecoVendaVarejo = entradaProduto.PrecoVendaVarejoSugestao;
+                    }
+                    else
+                    {
+                        entradaProduto.PrecoRevenda = produtoPesquisa.PrecoRevenda;
+                        entradaProduto.PrecoVendaAtacado = produtoPesquisa.PrecoVendaAtacado;
+                        entradaProduto.PrecoVendaVarejo = produtoPesquisa.PrecoVendaVarejo;
+                    }
+                     
+                    listaProtutos.Add(entradaProduto);
+                }
+
+                return listaProtutos;
+            }
+            catch (Exception e)
+            {
+                throw new NegocioException("Problema durante a importação dos dados dos Produtos da NF-e. Favor contactar administrador.", e);
             }
         }
 
@@ -536,6 +655,6 @@ namespace Negocio
             _entradaProdutoE.valorUnitario = entradaProduto.ValorUnitario;
         }
 
-        
+
     }
 }

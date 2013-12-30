@@ -81,6 +81,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma registro de pagamento?", "Confirmar Pagamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 decimal valorPagamento = Convert.ToDecimal(valorPagamentoTextBox.Text);
                 decimal totalPago = Convert.ToDecimal(totalPagamentosTextBox.Text);
@@ -89,6 +90,7 @@ namespace Telas
                 if (valorPagamento > faltaReceber)
                 {
                     codFormaPagamentoComboBox.Focus();
+                    Cursor.Current = Cursors.Default;
                     throw new TelaException("O valor do pagamento não pode ser maior que o valor a receber.");
                 }
 
@@ -130,6 +132,7 @@ namespace Telas
 
                 if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF)
                 {
+                    Cursor.Current = Cursors.Default;
                     throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se algum cupom referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
                 }
 
@@ -169,6 +172,7 @@ namespace Telas
                         movimentacao.Valor = valorPagamento;
                         
                         GerenciadorMovimentacaoConta.GetInstance(null).Inserir(movimentacao, listaContas, totalPago);
+                        Cursor.Current = Cursors.Default;
                         if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();

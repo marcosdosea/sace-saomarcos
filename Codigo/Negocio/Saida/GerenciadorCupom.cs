@@ -5,6 +5,7 @@ using Dados;
 using Dominio;
 using Util;
 using System.IO;
+using System.Threading;
 
 namespace Negocio
 {
@@ -67,18 +68,18 @@ namespace Negocio
                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
                    if (pastaECF.Exists)
                    {
-                       FileInfo[] files = pastaECF.GetFiles("*", SearchOption.TopDirectoryOnly);
-                       if (files.Length > 0)
+                       FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
+                       if (files.Length == 0)
                        {
                            IQueryable<tb_solicitacao_cupom> solicitacoes = GetQuery().OrderBy(s => s.dataSolicitacao);
                            if (solicitacoes.Count() > 0)
                            {
+                               Thread.Sleep(1000); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
                                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                                tb_solicitacao_cupom solicitacaoE = solicitacoes.ToList().ElementAt(0);
                                saidaTotalAVista.Add(solicitacaoE.codSaida, solicitacaoE.total);
+                               RemoverSolicitacaoCupom(solicitacaoE.codSaida);
                                GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
-                               solicitacaoE.enviada = true;
-                               repCupom.SaveChanges();
                            }
                        }
                    }

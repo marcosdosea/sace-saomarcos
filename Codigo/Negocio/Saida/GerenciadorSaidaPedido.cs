@@ -48,6 +48,35 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Atualizar dados de saídas associadas a um pedido
+        /// </summary>
+        /// <param name="saida"></param>
+        /// <returns></returns>
+        public void Atualizar(SaidaPedido saidaPedido)
+        {
+            try
+            {
+                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
+                var  saceContext = (SaceEntities) repSaidaPedido.ObterContexto();
+                var query = from saidaPedidoE in saceContext.SaidaPedidoSet
+                            where saidaPedidoE.codSaida == saidaPedido.CodSaida
+                            select saidaPedidoE;
+
+                foreach (SaidaPedidoE _saidaPedidoE in query)
+                {
+                    _saidaPedidoE.codPedidoGerado = saidaPedido.CodPedido;
+                    _saidaPedidoE.totalAVista = saidaPedido.TotalAVista;
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saída", e.Message, e);
+            }
+            
+        }
+
+        /// <summary>
         /// Remove os todos associados ao pedido
         /// </summary>
         /// <param name="saida"></param>

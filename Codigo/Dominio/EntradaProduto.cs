@@ -13,6 +13,8 @@ namespace Dominio
         public long CodEntrada { get; set; }
         public DateTime DataEntrada { get; set; }
         public long CodProduto { get; set; }
+        public string CodigoBarras { get; set; }
+        public string CodProdutoFabricante { get; set; }
         public string NomeProduto { get; set; }
         public int Cfop { get; set; }
         public string UnidadeCompra { get; set; }
@@ -60,10 +62,13 @@ namespace Dominio
         public decimal Simples { get; set; }
         public decimal LucroPrecoVendaVarejo { get; set; }
         public decimal PrecoVendaVarejo { get; set; }
+        public decimal PrecoVendaVarejoSugestao { get; set; }
         public decimal LucroPrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacado { get; set; }
+        public decimal PrecoVendaAtacadoSugestao { get; set; }
         public decimal LucroPrecoRevenda { get; set; }
         public decimal PrecoRevenda { get; set; }
+        public decimal PrecoRevendaSugestao { get; set; }
         public bool EhTributacaoIntegral
         {
             get

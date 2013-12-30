@@ -107,6 +107,14 @@ namespace Negocio
             return GetQuery().OrderBy(m=> m.Municipio).ToList();
         }
 
+        /// <summary>
+        /// Obtém todos as Municipios cadastradas
+        /// </summary>
+        /// <returns></returns>
+        public MunicipiosIBGE ObterPorCidadeEstado(string municipio, string siglaEstado)
+        {
+            return GetQuery().OrderBy(m => m.Municipio.Equals(municipio) && m.Uf.Equals(siglaEstado)).ToList().ElementAtOrDefault(0);
+        }
         
         /// <summary>
         /// Atribui os dados de Municipio à entidade Municipio

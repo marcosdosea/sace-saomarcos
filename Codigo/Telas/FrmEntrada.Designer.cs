@@ -176,6 +176,8 @@
             this.codSituacaoPagamentosComboBox = new System.Windows.Forms.ComboBox();
             this.situacaoPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalProdutosSTTextBox = new System.Windows.Forms.TextBox();
+            this.btnImportarNfe = new System.Windows.Forms.Button();
+            this.openFileDialogNfe = new System.Windows.Forms.OpenFileDialog();
             codEntradaLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -715,7 +717,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(572, 625);
+            this.btnCancelar.Location = new System.Drawing.Point(680, 625);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 7;
@@ -1749,12 +1751,28 @@
             this.totalProdutosSTTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.totalProdutosSTTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
             // 
+            // btnImportarNfe
+            // 
+            this.btnImportarNfe.Location = new System.Drawing.Point(572, 625);
+            this.btnImportarNfe.Name = "btnImportarNfe";
+            this.btnImportarNfe.Size = new System.Drawing.Size(108, 23);
+            this.btnImportarNfe.TabIndex = 113;
+            this.btnImportarNfe.Text = "F9 - Importar NF-e";
+            this.btnImportarNfe.UseVisualStyleBackColor = true;
+            this.btnImportarNfe.Click += new System.EventHandler(this.btnImportarNfe_Click);
+            // 
+            // openFileDialogNfe
+            // 
+            this.openFileDialogNfe.DefaultExt = "nfe";
+            this.openFileDialogNfe.Title = "Selecionar NF-e";
+            // 
             // FrmEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 651);
             this.ControlBox = false;
+            this.Controls.Add(this.btnImportarNfe);
             this.Controls.Add(totalProdutosSTLabel);
             this.Controls.Add(this.totalProdutosSTTextBox);
             this.Controls.Add(this.codSituacaoPagamentosComboBox);
@@ -1939,5 +1957,7 @@
         private System.Windows.Forms.TextBox precoRevendaTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox precoRevendaSugestaoTextBox;
+        private System.Windows.Forms.Button btnImportarNfe;
+        private System.Windows.Forms.OpenFileDialog openFileDialogNfe;
     }
 }
