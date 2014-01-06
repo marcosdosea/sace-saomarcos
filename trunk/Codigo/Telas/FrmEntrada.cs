@@ -311,15 +311,31 @@ namespace Telas
             {
                 string nomearquivo = openFileDialogNfe.FileName;
                 TNfeProc nfe = GerenciadorNFe.GetInstance().LerNFE(nomearquivo);
-                if (MessageBox.Show("Confirma importação dos dados da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Deseja importar CABEÇALHO da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
+                    Cursor.Current = Cursors.WaitCursor;
                     long codEntrada = GerenciadorEntrada.GetInstance().Importar(nfe);
+                    fornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                    empresaFreteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
                     entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
                     entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = codEntrada });
+                    Cursor.Current = Cursors.Default;
+                }
+                if (MessageBox.Show("Deseja importar PRODUTOS da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
                     List<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance(null).Importar(nfe);
+                    if (listaEntradaProduto.Count > 0)
+                    {
+                        Entrada entrada = (Entrada)entradaBindingSource.Current;
+                        if (entrada.CodEntrada != listaEntradaProduto[0].CodEntrada)
+                        {
+                            entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = listaEntradaProduto[0].CodEntrada });
+                        }
+                    }
                     FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(listaEntradaProduto);
                     frmEntradaImportar.ShowDialog();
                     frmEntradaImportar.Dispose();
+                    codEntradaTextBox_TextChanged(sender, e);
                 }
             }
         }

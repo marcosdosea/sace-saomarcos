@@ -13,8 +13,8 @@ namespace Dominio
         public long CodEntrada { get; set; }
         public DateTime DataEntrada { get; set; }
         public long CodProduto { get; set; }
-        public string CodigoBarras { get; set; }
-        public string CodProdutoFabricante { get; set; }
+        public string CodigoBarra { get; set; }
+        public string ReferenciaFabricante { get; set; }
         public string NomeProduto { get; set; }
         public int Cfop { get; set; }
         public string UnidadeCompra { get; set; }
@@ -56,6 +56,7 @@ namespace Dominio
         public decimal Frete { get; set; }
         public decimal Desconto { get; set; }
         public string CodCST { get; set; }
+        public string CodCSTNFe { get; set; }
         public decimal QtdProdutoAtacado { get; set; }
         public DateTime DataValidade { get; set; }
         public decimal QuantidadeDisponivel { get; set; }

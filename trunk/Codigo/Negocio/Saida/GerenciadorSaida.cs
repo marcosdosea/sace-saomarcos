@@ -1318,7 +1318,7 @@ namespace Negocio
 
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpLF("Total Venda: " + total + "     Desconto: " + desconto.ToString("N2") + "%");
-                imp.ImpColLFDireita(30, 59, imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.NegritoOff);
+                imp.ImpColLFDireita(1, 38, imp.Expandido + imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.Comprimido + imp.NegritoOff);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
                 if (!saidas[0].CupomFiscal.Equals(""))

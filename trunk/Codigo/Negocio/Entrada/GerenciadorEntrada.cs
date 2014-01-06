@@ -113,7 +113,9 @@ namespace Negocio
                     if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoICMS)
                     {
                         var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
-                        if (icms is TNFeInfNFeDetImpostoICMSICMS10)
+                        if ((icms is TNFeInfNFeDetImpostoICMSICMS10) || (icms is TNFeInfNFeDetImpostoICMSICMS30) ||
+                            (icms is TNFeInfNFeDetImpostoICMSICMS60) || (icms is TNFeInfNFeDetImpostoICMSICMS70) ||
+                            (icms is TNFeInfNFeDetImpostoICMSICMSSN202) || (icms is TNFeInfNFeDetImpostoICMSICMSSN500))  
                         {
                             entrada.TotalProdutosST += Convert.ToDecimal(produto.prod.vProd, ci);
                         }
@@ -132,15 +134,18 @@ namespace Negocio
             {
                 Pessoa empresaFrete = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(nfe.infNFe.transp.transporta.Item).ElementAtOrDefault(0);
                 if (empresaFrete == null)
+                    empresaFrete = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.transp.transporta.xNome).ElementAtOrDefault(0);
+                
+                if (empresaFrete == null)
                 {
                     empresaFrete = new Pessoa();
                     empresaFrete.CpfCnpj = nfe.infNFe.transp.transporta.Item;
-                    empresaFrete.Nome = nfe.infNFe.transp.transporta.xNome;
-                    empresaFrete.NomeFantasia = nfe.infNFe.transp.transporta.xNome;
+                    empresaFrete.Nome = nfe.infNFe.transp.transporta.xNome.ToUpper();
+                    empresaFrete.NomeFantasia = nfe.infNFe.transp.transporta.xNome.ToUpper();
                     empresaFrete.Ie = nfe.infNFe.transp.transporta.IE;
-                    empresaFrete.Endereco = nfe.infNFe.transp.transporta.xEnder;
-                    empresaFrete.Uf = nfe.infNFe.transp.transporta.UF.ToString();
-                    empresaFrete.Cidade = nfe.infNFe.transp.transporta.xMun;
+                    empresaFrete.Endereco = nfe.infNFe.transp.transporta.xEnder.ToUpper();
+                    empresaFrete.Uf = nfe.infNFe.transp.transporta.UF.ToString().ToUpper();
+                    empresaFrete.Cidade = nfe.infNFe.transp.transporta.xMun.ToUpper();
 
                     empresaFrete.CodMunicipioIBGE = GerenciadorMunicipio.GetInstance().ObterPorCidadeEstado(empresaFrete.Cidade, empresaFrete.Uf).Codigo;
                     empresaFrete.Tipo = empresaFrete.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
@@ -163,19 +168,21 @@ namespace Negocio
             {
                 Pessoa fornecedor = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
                 if (fornecedor == null)
+                   fornecedor = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.emit.xNome).ElementAtOrDefault(0);
+                if (fornecedor == null)
                 {
                     fornecedor = new Pessoa();
                     fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
-                    fornecedor.Nome = nfe.infNFe.emit.xNome;
-                    fornecedor.NomeFantasia = nfe.infNFe.emit.xFant;
+                    fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 50 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xNome.ToUpper();
+                    fornecedor.NomeFantasia = nfe.infNFe.emit.xFant.Length > 50 ? nfe.infNFe.emit.xFant.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xFant.ToUpper(); 
                     fornecedor.Ie = nfe.infNFe.emit.IE;
-                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr;
+                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
                     fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
-                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun;
+                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
                     fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
-                    fornecedor.Complemento = nfe.infNFe.emit.enderEmit.xCpl;
+                    fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
                     fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
-                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro;
+                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
                     fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
@@ -185,16 +192,16 @@ namespace Negocio
                 }
                 else
                 {
-                    fornecedor.Nome = nfe.infNFe.emit.xNome;
-                    fornecedor.NomeFantasia = nfe.infNFe.emit.xFant;
+                    fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
+                    fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 50 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xNome.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
-                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr;
+                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
                     fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
-                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun;
+                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
                     fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
-                    fornecedor.Complemento = nfe.infNFe.emit.enderEmit.xCpl;
+                    fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
                     fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
-                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro;
+                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
                     fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
@@ -463,7 +470,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Entrada> ObterPorNumeroNotaFiscalFornecedor(string numeroNotaFiscal, string cpf_CnpjFornecedor)
         {
-            return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal) && entrada.Cpf_CnpjFornecedor.Equals(cpf_CnpjFornecedor)).ToList();
+            return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.Equals(numeroNotaFiscal) && entrada.Cpf_CnpjFornecedor.Equals(cpf_CnpjFornecedor)).ToList();
         }
 
         /// <summary>

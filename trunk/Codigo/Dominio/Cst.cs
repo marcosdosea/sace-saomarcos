@@ -17,11 +17,13 @@ namespace Dominio
 
         public const string ST_SIMPLES_TRIBUTADA_PERM_CREDITO = "101";
         public const string ST_SIMPLES_TRIBUTADA_SEM_PERM_CREDITO = "102";
-        public const string ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
-        public const string ST_SIMPLES_NAO_TRIBUTADA = "400";
-        public const string ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
         public const string ST_SIMPLES_OUTRAS = "900";
 
+        public const string ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
+        public const string ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
+        public const string ST_SIMPLES_NAO_TRIBUTADA = "400";
+        
+        
         public string CodCST { get; set; }
         public string Descricao { get; set; }
 
