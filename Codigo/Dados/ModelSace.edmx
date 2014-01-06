@@ -597,7 +597,7 @@
           <Property Name="codProduto" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="nome" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="nomeProdutoFabricante" Type="varchar" MaxLength="50" />
-          <Property Name="unidade" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="unidade" Type="varchar" Nullable="false" MaxLength="6" />
           <Property Name="codigoBarra" Type="varchar" MaxLength="40" />
           <Property Name="codCST" Type="char" Nullable="false" MaxLength="4" />
           <Property Name="ncmsh" Type="char" Nullable="false" MaxLength="8" />
@@ -622,7 +622,7 @@
           <Property Name="exibeNaListagem" Type="bool" />
           <Property Name="dataUltimoPedido" Type="date" />
           <Property Name="desconto" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="unidadeCompra" Type="char" MaxLength="2" />
+          <Property Name="unidadeCompra" Type="varchar" MaxLength="6" />
           <Property Name="quantidadeEmbalagem" Type="decimal" Scale="2" />
           <Property Name="lucroPrecoRevenda" Type="decimal" Scale="2" />
           <Property Name="precoRevenda" Type="decimal" Scale="3" />

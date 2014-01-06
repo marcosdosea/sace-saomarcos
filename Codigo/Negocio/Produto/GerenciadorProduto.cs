@@ -45,12 +45,53 @@ namespace Negocio
                 repProduto.Inserir(_produtoE);
                 repProduto.SaveChanges();
 
+                ProdutoLoja produtoLoja = new ProdutoLoja();
+                produtoLoja.CodProduto = _produtoE.codProduto;
+                produtoLoja.CodLoja = Global.LOJA_PADRAO;
+                produtoLoja.QtdEstoque = 0;
+                produtoLoja.QtdEstoqueAux = 0;
+
+                GerenciadorProdutoLoja.GetInstance(null).Inserir(produtoLoja);
+
                 return _produtoE.codProduto;
             }
             catch (Exception e)
             {
                 throw new DadosException("Produto", e.Message, e);
             }
+        }
+
+        public Int64 Inserir(EntradaProduto entradaProduto)
+        {
+            Produto produto = new Produto();
+            produto.CodCST = entradaProduto.CodCST;
+            produto.CodFabricante = entradaProduto.FornecedorEhFabricante ? entradaProduto.CodFornecedor : 1;
+            produto.CodGrupo = 1;
+            produto.CodigoBarra = entradaProduto.CodigoBarra;
+            produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
+            produto.CodSubgrupo = 1;
+            produto.Desconto = entradaProduto.Desconto;
+            produto.ExibeNaListagem = true;
+            produto.Frete = entradaProduto.Frete;
+            produto.Icms = entradaProduto.Icms;
+            produto.IcmsSubstituto = entradaProduto.IcmsSubstituto;
+            produto.Ipi = entradaProduto.Ipi;
+            produto.LucroPrecoRevenda = entradaProduto.LucroPrecoRevenda;
+            produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
+            produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;
+            produto.Ncmsh = entradaProduto.Ncmsh;
+            produto.Nome = entradaProduto.NomeProduto;
+            produto.NomeProdutoFabricante = entradaProduto.NomeProduto;
+            produto.PrecoRevenda = entradaProduto.PrecoRevenda;
+            produto.PrecoVendaAtacado = entradaProduto.PrecoVendaAtacado;
+            produto.PrecoVendaVarejo = entradaProduto.PrecoVendaVarejo;
+            produto.QtdProdutoAtacado = entradaProduto.QtdProdutoAtacado;
+            produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
+            produto.ReferenciaFabricante = entradaProduto.ReferenciaFabricante;
+            produto.Simples = entradaProduto.Simples;
+            produto.UnidadeCompra = entradaProduto.UnidadeCompra;
+            produto.Unidade = entradaProduto.UnidadeCompra;
+            return Inserir(produto);
         }
 
         /// <summary>

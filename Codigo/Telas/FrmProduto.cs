@@ -16,14 +16,26 @@ namespace Telas
     public partial class FrmProduto : Form
     {
         public EstadoFormulario estado;
+        // Uusado para retornar o produto corrente da view
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
+        // Usado para criar um produto a partir de uma Entrada
+        private EntradaProduto entradaProduto;
 
 
         public FrmProduto()
         {
             InitializeComponent();
             ProdutoPesquisa = null;
+            entradaProduto = null;
         }
+
+        public FrmProduto(EntradaProduto entradaProduto)
+        {
+            InitializeComponent();
+            ProdutoPesquisa = null;
+            this.entradaProduto = entradaProduto;
+        }
+
 
         private void FrmProduto_Load(object sender, EventArgs e)
         {
@@ -38,7 +50,30 @@ namespace Telas
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             
             habilitaBotoes(true);
+            InserirEntradaProduto(sender, e);
+
             Cursor.Current = Cursors.Default;
+        }
+
+        private void InserirEntradaProduto(object sender, EventArgs e)
+        {
+            if (entradaProduto != null)
+            {
+                IEnumerable<ProdutoPesquisa> listaProdutosPesquisa = GerenciadorProduto.GetInstance().ObterPorCodBarra(entradaProduto.CodigoBarra);
+                if (listaProdutosPesquisa.Count() > 0)
+                {
+                    ProdutoPesquisa _produto = listaProdutosPesquisa.ElementAtOrDefault(0);
+                    produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = _produto.CodProduto });
+                }
+                else
+                {
+                    btnNovo_Click(sender, e);
+                    Produto produto = (Produto) produtoBindingSource.Current;
+                    GerenciadorEntradaProduto.GetInstance(null).Atribuir(entradaProduto, produto);
+                    produtoBindingSource.ResumeBinding();
+                    nomeTextBox.Focus();
+                }
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -71,6 +106,8 @@ namespace Telas
             produto.QuantidadeEmbalagem = 1;
             produto.ExibeNaListagem = true;
             produto.UltimaDataAtualizacao = DateTime.Now;
+            produto.Nome = "";
+            produto.NomeProdutoFabricante = "";
             produtoBindingSource.ResumeBinding();
             estado = EstadoFormulario.INSERIR;
         }
@@ -110,14 +147,6 @@ namespace Telas
             {
                 long codProduto = GerenciadorProduto.GetInstance().Inserir(produto);
                 codProdutoTextBox.Text = codProduto.ToString();
-
-                ProdutoLoja produtoLoja = new ProdutoLoja();
-                produtoLoja.CodProduto = codProduto;
-                produtoLoja.CodLoja = Global.LOJA_PADRAO;
-                produtoLoja.QtdEstoque = 0;
-                produtoLoja.QtdEstoqueAux = 0;
-
-                GerenciadorProdutoLoja.GetInstance(null).Inserir(produtoLoja);
             }
             else
             {

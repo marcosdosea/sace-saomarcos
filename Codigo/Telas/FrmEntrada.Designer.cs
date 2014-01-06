@@ -720,7 +720,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(680, 625);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 7;
+            this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -1756,7 +1756,7 @@
             this.btnImportarNfe.Location = new System.Drawing.Point(572, 625);
             this.btnImportarNfe.Name = "btnImportarNfe";
             this.btnImportarNfe.Size = new System.Drawing.Size(108, 23);
-            this.btnImportarNfe.TabIndex = 113;
+            this.btnImportarNfe.TabIndex = 7;
             this.btnImportarNfe.Text = "F9 - Importar NF-e";
             this.btnImportarNfe.UseVisualStyleBackColor = true;
             this.btnImportarNfe.Click += new System.EventHandler(this.btnImportarNfe_Click);

@@ -571,7 +571,7 @@
             // nomeTextBox
             // 
             this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Nome", true));
+            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "Nome", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.nomeTextBox.Location = new System.Drawing.Point(150, 90);
             this.nomeTextBox.MaxLength = 50;
             this.nomeTextBox.Name = "nomeTextBox";

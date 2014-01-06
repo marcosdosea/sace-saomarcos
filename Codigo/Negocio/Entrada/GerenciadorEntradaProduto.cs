@@ -77,9 +77,6 @@ namespace Negocio
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
                     Atribuir(entradaProduto, produto);
-
-                    if (entradaProduto.FornecedorEhFabricante)
-                        produto.CodFabricante = entradaProduto.CodFornecedor;
                     
                     // Atualiza os dados do produto se não foi na entrada padrão
                     if (entradaProduto.CodEntrada != Global.ENTRADA_PADRAO) 
@@ -167,18 +164,21 @@ namespace Negocio
                     entradaProduto.Cfop = Convert.ToInt32(produto.prod.CFOP.ToString().Substring(4));
                     entradaProduto.CodEntrada = entrada.CodEntrada;
                     entradaProduto.CodFornecedor = entrada.CodFornecedor;
-                    ProdutoPesquisa produtoPesquisa = GerenciadorProduto.GetInstance().ObterPorCodBarra(produto.prod.cEAN).ElementAtOrDefault(0);
-
+                    ProdutoPesquisa produtoPesquisa = null;
+                    if (!string.IsNullOrEmpty(produto.prod.cEAN))
+                    {
+                        produtoPesquisa = GerenciadorProduto.GetInstance().ObterPorCodBarra(produto.prod.cEAN).ElementAtOrDefault(0);
+                    }
+                
                     entradaProduto.CodProduto = (produtoPesquisa != null) ? produtoPesquisa.CodProduto : 1;
                     entradaProduto.DataEntrada = entrada.DataEntrada;
-                    entradaProduto.Desconto = Convert.ToDecimal(produto.prod.vDesc, ci);
                     entradaProduto.FornecedorEhFabricante = entrada.FornecedorEhFabricante;
                     if (entrada.ValorFrete > 0)
                         entradaProduto.Frete = ((entrada.ValorFrete / entrada.TotalProdutos) * 100);
                     else
                         entradaProduto.Frete = 0;
                     entradaProduto.Ncmsh = produto.prod.NCM;
-                    entradaProduto.NomeProduto = produto.prod.xProd;
+                    entradaProduto.NomeProduto = produto.prod.xProd.Length > 50 ? produto.prod.xProd.Substring(0, 50).ToUpper() : produto.prod.xProd.ToUpper();
                     
                     entradaProduto.Quantidade = Convert.ToDecimal(produto.prod.qCom, ci);
                     entradaProduto.QuantidadeEmbalagem = (produtoPesquisa == null) ? 1 : produtoPesquisa.QuantidadeEmbalagem;
@@ -186,28 +186,151 @@ namespace Negocio
                     entradaProduto.UnidadeCompra = produto.prod.uCom;
                     entradaProduto.ValorDesconto = Convert.ToDecimal(produto.prod.vDesc, ci);
                     entradaProduto.ValorUnitario = Convert.ToDecimal(produto.prod.vUnCom, ci);
-                    entradaProduto.CodigoBarras = produto.prod.cEAN;
-                    entradaProduto.CodProdutoFabricante = produto.prod.cProd;
+                    entradaProduto.Desconto = Convert.ToDecimal(produto.prod.vDesc, ci) / entradaProduto.ValorTotal * 100;
+                    entradaProduto.CodigoBarra = produto.prod.cEAN;
+                    
+                    entradaProduto.ReferenciaFabricante = produto.prod.cProd;
 
                     for (int i = 0; i < produto.imposto.Items.Length; i++)
                     {
                         if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoICMS)
                         {
                             var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
-                            if (icms is TNFeInfNFeDetImpostoICMSICMS10)
+                            if (icms is TNFeInfNFeDetImpostoICMSICMS00)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS00 icms00 = ((TNFeInfNFeDetImpostoICMSICMS00)icms); ;
+                                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(icms00.vBC, ci);
+                                entradaProduto.BaseCalculoICMSST = 0;
+                                entradaProduto.CodCST = icms00.orig.ToString().Substring(4) + icms00.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms00.orig.ToString().Substring(4) + icms00.CST.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms00.pICMS, ci);
+                                entradaProduto.IcmsSubstituto = 0; 
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMS10)
                             {
                                 TNFeInfNFeDetImpostoICMSICMS10 icms10 = ((TNFeInfNFeDetImpostoICMSICMS10)icms); ;
                                 entradaProduto.BaseCalculoICMS = Convert.ToDecimal(icms10.vBC, ci);
                                 entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms10.vBCST, ci);
                                 entradaProduto.CodCST = icms10.orig.ToString().Substring(4) + icms10.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms10.orig.ToString().Substring(4) + icms10.CST.ToString().Substring(4);
                                 entradaProduto.Icms = Convert.ToDecimal(icms10.pICMS, ci);
-                                entradaProduto.IcmsSubstituto = Convert.ToDecimal(icms10.pICMSST, ci);
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
+                            } 
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMS20)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS20 icms20 = ((TNFeInfNFeDetImpostoICMSICMS20)icms); ;
+                                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(icms20.vBC, ci);
+                                entradaProduto.BaseCalculoICMSST = 0;
+                                entradaProduto.CodCST = icms20.orig.ToString().Substring(4) + icms20.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms20.orig.ToString().Substring(4) + icms20.CST.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms20.pICMS, ci);
+                                entradaProduto.IcmsSubstituto = 0; //Convert.ToDecimal(icms10.pICMSST, ci);
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMS30)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS30 icms30 = ((TNFeInfNFeDetImpostoICMSICMS30)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms30.vBCST, ci);
+                                entradaProduto.CodCST = icms30.orig.ToString().Substring(4) + icms30.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms30.orig.ToString().Substring(4) + icms30.CST.ToString().Substring(4);
+                                entradaProduto.Icms = 0;
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMS60)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS60 icms60 = ((TNFeInfNFeDetImpostoICMSICMS60)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms60.vBCSTRet, ci);
+                                entradaProduto.CodCST = icms60.orig.ToString().Substring(4) + icms60.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms60.orig.ToString().Substring(4) + icms60.CST.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms60.vICMSSTRet, ci);
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
+                            } 
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMS70)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS70 icms70 = ((TNFeInfNFeDetImpostoICMSICMS70)icms); ;
+                                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(icms70.vBC, ci);
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms70.vBCST, ci);
+                                entradaProduto.CodCST = icms70.orig.ToString().Substring(4) + icms70.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms70.orig.ToString().Substring(4) + icms70.CST.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms70.pICMS, ci);
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMSSN101)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN101 icms101 = ((TNFeInfNFeDetImpostoICMSICMSSN101)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = 0;
+                                entradaProduto.CodCST = icms101.orig.ToString().Substring(4) + icms101.CSOSN.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms101.orig.ToString().Substring(4) + icms101.CSOSN.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms101.pCredSN, ci);
+                                entradaProduto.IcmsSubstituto = 0; 
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMSSN102)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = ((TNFeInfNFeDetImpostoICMSICMSSN102)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = 0;
+                                entradaProduto.CodCST = icms102.orig.ToString().Substring(4) + icms102.CSOSN.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms102.orig.ToString().Substring(4) + icms102.CSOSN.ToString().Substring(4);
+                                entradaProduto.Icms = 0;
+                                entradaProduto.IcmsSubstituto = 0;
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMSSN900)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN900 icms900 = ((TNFeInfNFeDetImpostoICMSICMSSN900)icms); ;
+                                entradaProduto.BaseCalculoICMS = Convert.ToDecimal(icms900.vBC, ci);
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms900.vBCST, ci);
+                                entradaProduto.CodCST = icms900.orig.ToString().Substring(4) + icms900.CSOSN.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms900.orig.ToString().Substring(4) + icms900.CSOSN.ToString().Substring(4);
+                                entradaProduto.Icms = Convert.ToDecimal(icms900.pICMS, ci); 
+                                entradaProduto.IcmsSubstituto = 0;
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMSSN202)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN202 icms202 = ((TNFeInfNFeDetImpostoICMSICMSSN202)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms202.vBCST, ci);
+                                entradaProduto.CodCST = icms202.orig.ToString().Substring(4) + icms202.CSOSN.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms202.orig.ToString().Substring(4) + icms202.CSOSN.ToString().Substring(4);
+                                entradaProduto.Icms = 0;
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
+                            }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMSSN500)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN500 icms500 = ((TNFeInfNFeDetImpostoICMSICMSSN500)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms500.vBCSTRet, ci);
+                                entradaProduto.CodCST = icms500.orig.ToString().Substring(4) + icms500.CSOSN.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms500.orig.ToString().Substring(4) + icms500.CSOSN.ToString().Substring(4);
+                                entradaProduto.Icms = 0;
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
+                            }
+
+                            else
+                            {
+                                throw new NegocioException("Existe um imposto ICMS não tratado pela importação. Avise ao administrador.");
                             }
                         }
-                        if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoIPI)
+                        else if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoIPI)
                         {
                             TNFeInfNFeDetImpostoIPI impostoIPI = (TNFeInfNFeDetImpostoIPI)produto.imposto.Items[i];
-                            //impostoIPI.
+
+                            if (impostoIPI.Item is TNFeInfNFeDetImpostoIPIIPITrib)
+                            {
+                                
+                                TNFeInfNFeDetImpostoIPIIPITrib ipiTrib = ((TNFeInfNFeDetImpostoIPIIPITrib) impostoIPI.Item);
+                                entradaProduto.Ipi = Convert.ToDecimal(ipiTrib.vIPI, ci) / entradaProduto.ValorTotal * 100;
+                             }
+                            
                         }
                     }
 
@@ -226,7 +349,7 @@ namespace Negocio
 
                     if (produtoPesquisa == null)
                     {
-                        entradaProduto.LucroPrecoRevenda = 20;
+                        entradaProduto.LucroPrecoRevenda = 15;
                         entradaProduto.LucroPrecoVendaAtacado = 30;
                         entradaProduto.LucroPrecoVendaVarejo = 35;
                         entradaProduto.QtdProdutoAtacado = 0;
@@ -599,7 +722,7 @@ namespace Negocio
         /// </summary>
         /// <param name="entradaProduto"></param>
         /// <param name="produto"></param>
-        private static void Atribuir(EntradaProduto entradaProduto, Produto produto)
+        public void Atribuir(EntradaProduto entradaProduto, Produto produto)
         {
             produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
             produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;
@@ -619,11 +742,18 @@ namespace Negocio
             produto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
             produto.UnidadeCompra = entradaProduto.UnidadeCompra;
             produto.PrecoRevenda = entradaProduto.PrecoRevenda;
-            produto.UltimoPrecoCompra = entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem;
+            produto.UltimoPrecoCompra = entradaProduto.ValorUnitario;
             produto.LucroPrecoRevenda = entradaProduto.LucroPrecoRevenda;
+            produto.ReferenciaFabricante = entradaProduto.ReferenciaFabricante;
+            if (!string.IsNullOrEmpty(entradaProduto.CodigoBarra) && string.IsNullOrEmpty(produto.CodigoBarra))
+            {
+                produto.CodigoBarra = entradaProduto.CodigoBarra;
+            }
+
             if (entradaProduto.FornecedorEhFabricante)
             {
                 produto.CodFabricante = entradaProduto.CodFornecedor;
+                produto.NomeProdutoFabricante = entradaProduto.NomeProduto;
             }
         }
 
