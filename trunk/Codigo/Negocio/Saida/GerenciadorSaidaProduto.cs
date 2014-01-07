@@ -133,7 +133,7 @@ namespace Negocio
                     ((_saidaProduto.ValorVendaAVista > produto.PrecoVendaVarejo) && podeBaixarPreco))
                 {
                     _saidaProduto.ValorVendaAVista = produto.PrecoVendaVarejo;
-                    _saidaProduto.ValorVenda = produto.PrecoVendaVarejoSemDesconto;
+                    //_saidaProduto.ValorVenda = produto.PrecoVendaVarejoSemDesconto;
 
                     Atualizar(_saidaProduto, saida);
                 } 
@@ -208,13 +208,13 @@ namespace Negocio
                             Desconto = (decimal) saidaProduto.desconto,
                             Quantidade = (decimal) saidaProduto.quantidade,
                             Nome = produto.nome,
-                            Subtotal = (decimal) saidaProduto.subtotal,
+                            //Subtotal = (decimal) saidaProduto.subtotal,
                             SubtotalAVista = (decimal) saidaProduto.subtotalAVista,
                             Unidade = produto.unidade == null ? "UN": produto.unidade,
                             ValorICMS = (decimal) saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal) saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal) saidaProduto.valorIPI,
-                            ValorVenda = (decimal) saidaProduto.valorVenda,
+                            //ValorVenda = (decimal) saidaProduto.valorVenda,
                         };
             return query;
         }
@@ -265,13 +265,13 @@ namespace Negocio
                             Desconto = (decimal)saidaProduto.desconto,
                             Quantidade = (decimal)saidaProduto.quantidade,
                             Nome = produto.nome,
-                            Subtotal = (decimal)saidaProduto.subtotal,
+                            //Subtotal = (decimal)saidaProduto.subtotal,
                             SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
                             Unidade = produto.unidade,
                             ValorICMS = (decimal)saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal)saidaProduto.valorIPI,
-                            ValorVenda = (decimal)saidaProduto.valorVenda,
+                            //ValorVenda = (decimal)saidaProduto.valorVenda,
                         };
             return query.ToList();
         }

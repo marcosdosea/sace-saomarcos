@@ -264,7 +264,7 @@ namespace Telas
                 saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
                 saidaProduto.Desconto = Global.DESCONTO_PADRAO;
                 saidaProduto.Quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
-                saidaProduto.ValorVenda = Convert.ToDecimal(precoVendaSemDescontoTextBox.Text);
+                //saidaProduto.ValorVenda = Convert.ToDecimal(precoVendaSemDescontoTextBox.Text);
                 saidaProduto.ValorVendaAVista = Convert.ToDecimal(precoVendatextBox.Text);
                 saidaProduto.DataValidade = Convert.ToDateTime(data_validadeDateTimePicker.Text);
                 saidaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
@@ -428,7 +428,8 @@ namespace Telas
             if (!panelBalcao.Visible)
             {
                 FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
-                produto.PrecoVendaVarejo = Convert.ToDecimal(precoVendatextBox.Text);
+                SaidaProduto saidaProduto = new SaidaProduto();
+                saidaProduto.ValorVendaAVista = Convert.ToDecimal(precoVendatextBox.Text);
 
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO) 
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
@@ -437,7 +438,7 @@ namespace Telas
                 }
                 else
                 {
-                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
+                    precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVenda.ToString("N2");
                 }
                 AtualizarSubTotal();
                 codSaidaTextBox_Leave(sender, e);
@@ -466,7 +467,7 @@ namespace Telas
                         precoVendaSemDescontoTextBox.Text = produto.PrecoRevendaSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produto.PrecoRevenda.ToString("N2");
                     }
-                    else if (((produto.QtdProdutoAtacado != 0) && (quantidade >= produto.QtdProdutoAtacado)))
+                    else if (((produto.QtdProdutoAtacado != 0) && (Math.Abs(quantidade) >= produto.QtdProdutoAtacado)))
                     {
                         precoVendaSemDescontoTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString("N2");
                         precoVendatextBox.Text = produto.PrecoVendaAtacado.ToString();

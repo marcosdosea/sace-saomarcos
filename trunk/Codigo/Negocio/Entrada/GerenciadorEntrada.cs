@@ -174,7 +174,10 @@ namespace Negocio
                     fornecedor = new Pessoa();
                     fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
                     fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 50 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xNome.ToUpper();
-                    fornecedor.NomeFantasia = nfe.infNFe.emit.xFant.Length > 50 ? nfe.infNFe.emit.xFant.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xFant.ToUpper(); 
+                    if (nfe.infNFe.emit.xFant != null)
+                        fornecedor.NomeFantasia = nfe.infNFe.emit.xFant.Length > 50 ? nfe.infNFe.emit.xFant.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xFant.ToUpper();
+                    else
+                        fornecedor.NomeFantasia = fornecedor.Nome;
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
                     fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
@@ -184,7 +187,8 @@ namespace Negocio
                     fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
                     fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
-                    fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
+                    if (nfe.infNFe.emit.IEST != null)
+                        fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
                     fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
                     fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
                     fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;

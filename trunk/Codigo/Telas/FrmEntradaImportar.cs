@@ -63,7 +63,18 @@ namespace Telas
 
         private void FrmEntradaImportar_KeyDown(object sender, KeyEventArgs e)
         {
-                if (e.KeyCode == Keys.F6)
+                if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
+                {
+                    Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                    frmProduto.ShowDialog();
+                    if (frmProduto.ProdutoPesquisa != null)
+                    {
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+                        produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
+                    }
+                    frmProduto.Dispose();
+                } 
+                else if (e.KeyCode == Keys.F6)
                 {
                     btnSalvar_Click(sender, e);
                 }
@@ -146,6 +157,7 @@ namespace Telas
             frmProduto.ShowDialog();
             entradaProduto.CodProduto = frmProduto.ProdutoPesquisa.CodProduto;
             entradaProdutoBindingSource.ResumeBinding();
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = entradaProduto.CodProduto });
             frmProduto.Dispose();
         }

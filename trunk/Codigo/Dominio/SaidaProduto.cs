@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Util;
 
 namespace Dominio
 {
@@ -12,13 +13,16 @@ namespace Dominio
         public string Nome { get; set; }
         public long CodSaida { get; set; }
         public decimal Quantidade { get; set; }
-        public decimal ValorVenda { get; set; }
+        public decimal ValorVenda 
+        {
+            get { return Math.Round((ValorVendaAVista * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }
+        }
         public decimal ValorVendaAVista { get; set; }
         public decimal Desconto { get; set; }
         public decimal Subtotal
         {
             get { return ValorVenda * Quantidade; }
-            set { ValorVenda = value / Quantidade; } 
+            //set { ValorVenda = value / Quantidade; } 
         }
         public decimal SubtotalAVista
         {
