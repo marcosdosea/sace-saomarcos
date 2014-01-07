@@ -32,7 +32,7 @@ namespace Negocio
                 ValidarCpfCnpj(pessoa);
                 var repPessoa = new RepositorioGenerico<PessoaE>();
 
-                if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
+                if (string.IsNullOrEmpty(pessoa.Nome) || string.IsNullOrEmpty(pessoa.NomeFantasia))
                     throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
                 if (!pessoa.CpfCnpj.Trim().Equals(""))
                 {
