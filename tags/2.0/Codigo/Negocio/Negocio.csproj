@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1C8236BB-B81C-43F4-9D32-E0B6C9D6FE24}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Negocio</RootNamespace>
+    <AssemblyName>Negocio</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\Util\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Banco\GerenciadorBanco.cs" />
+    <Compile Include="CartaoCredito\GerenciadorCartaoCredito.cs" />
+    <Compile Include="ContaBanco\GerenciadorTipoMovimentacaoConta.cs" />
+    <Compile Include="ContaBanco\GerenciadorMovimentacaoConta.cs" />
+    <Compile Include="ContaBanco\GerenciadorContaBanco.cs" />
+    <Compile Include="Conta\GerenciadorFormaPagamento.cs" />
+    <Compile Include="Conta\GerenciadorConta.cs" />
+    <Compile Include="Pessoa\GerenciadorMunicipios.cs" />
+    <Compile Include="Produto\GerenciadorPontaEstoque.cs" />
+    <Compile Include="Produto\GerenciadorCfop.cs" />
+    <Compile Include="Produto\GerenciadorCst.cs" />
+    <Compile Include="Entrada\GerenciadorEntrada.cs" />
+    <Compile Include="Entrada\GerenciadorEntradaProduto.cs" />
+    <Compile Include="Entrada\GerenciadorEntradaPagamento.cs" />
+    <Compile Include="Produto\GerenciadorSubgrupo.cs" />
+    <Compile Include="Produto\GerenciadorProdutoLoja.cs" />
+    <Compile Include="Conta\GerenciadorGrupoConta.cs" />
+    <Compile Include="Produto\GerenciadorGrupo.cs" />
+    <Compile Include="Loja\GerenciadorLoja.cs" />
+    <Compile Include="NegocioException.cs" />
+    <Compile Include="Pessoa\GerenciadorPessoa.cs" />
+    <Compile Include="Conta\GerenciadorPlanoConta.cs" />
+    <Compile Include="Produto\GerenciadorProduto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\SACE.Dados.saceDataSet.datasource" />
+    <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SaceConst.cs" />
+    <Compile Include="GerenciadorSeguranca.cs" />
+    <Compile Include="GerenciadorImprimir.cs" />
+    <Compile Include="Saida\GerenciadorCupom.cs" />
+    <Compile Include="Saida\GerenciadorNFe.cs" />
+    <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />
+    <Compile Include="Saida\GerenciadorSaidaPagamento.cs" />
+    <Compile Include="Saida\GerenciadorSaidaPedido.cs" />
+    <Compile Include="Saida\GerenciadorSaidaProduto.cs" />
+    <Compile Include="Saida\GerenciadorSaida.cs" />
+    <Compile Include="Usuario\GerenciadorUsuario.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dados\Dados.csproj">
+      <Project>{5B533C27-8137-48D2-881B-CF1131DDB8E3}</Project>
+      <Name>Dados</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dominio\Dominio.csproj">
+      <Project>{34CA1C95-6E9C-4C01-A6B2-45F895DBC49B}</Project>
+      <Name>Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{6C434BD3-4E07-4BD0-8B5F-B9ED31580119}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
