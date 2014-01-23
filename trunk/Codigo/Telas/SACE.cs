@@ -76,7 +76,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma saída do Sistema?", "Confirmar Saída", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Negocio.GerenciadorSaida.GetInstance(null).EmitirCupomFiscalPreVendasPendentes();
+                //Negocio.GerenciadorCupom.GetInstance().EmitirCupomFiscalPreVendasPendentes();
                 Negocio.GerenciadorSeguranca.getInstance().Backup();
                 this.Close();
             }
@@ -306,8 +306,8 @@ namespace Telas
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
             if (nomeComputador.Equals(Global.NOME_SERVIDOR))
             {
-                GerenciadorCupom.GetInstace().EnviarProximoCupom();
-                GerenciadorSaida.GetInstance(null).AtualizarPedidosComDocumentosFiscais();
+                GerenciadorCupom.GetInstance().EnviarProximoCupom();
+                GerenciadorCupom.GetInstance().AtualizarPedidosComDocumentosFiscais();
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
         }

@@ -44,8 +44,9 @@ namespace Telas
         {
             Cursor.Current = Cursors.WaitCursor;
 
-             produtoBindingSource.DataSource =
-                 GerenciadorProduto.GetInstance().ObterTodosExibiveis();
+            codProdutoComboBox.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomesExibiveis();
+            //produtoBindingSource.DataSource = 
+              //   GerenciadorProduto.GetInstance().ObterTodosExibiveis();
             
             ObterSaidas(0);
 
@@ -434,7 +435,7 @@ namespace Telas
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO) 
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
                 {
-                    precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejo.ToString("N2");
+                    precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVendaAVista.ToString("N2");
                 }
                 else
                 {

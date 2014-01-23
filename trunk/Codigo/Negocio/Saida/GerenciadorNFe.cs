@@ -647,7 +647,7 @@ namespace Negocio
                 if (!string.IsNullOrEmpty(pessoaloja.Complemento))
                     enderEmit.xCpl = pessoaloja.Complemento;
                 enderEmit.xLgr = pessoaloja.Endereco;
-                enderEmit.xMun = pessoaloja.NomeMunicipioIBGE;
+                enderEmit.xMun = Util.StringUtil.RemoverAcentos(pessoaloja.NomeMunicipioIBGE);
                 enderEmit.xPais = TEnderEmiXPais.BRASIL;
                
                 ////Emitente
@@ -674,7 +674,7 @@ namespace Negocio
                 if (!string.IsNullOrEmpty(destinatario.Complemento))
                     enderDest.xCpl = destinatario.Complemento.Trim();
                 enderDest.xLgr = destinatario.Endereco.Trim();
-                enderDest.xMun = destinatario.NomeMunicipioIBGE;
+                enderDest.xMun = Util.StringUtil.RemoverAcentos(destinatario.NomeMunicipioIBGE);
                 enderDest.xPais = "Brasil";
                 
                 ////Destinatario
@@ -705,31 +705,40 @@ namespace Negocio
                 List<SaidaProduto> saidaProdutos;
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                 {
-                    saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
+                    if (destinatario.ImprimirCF)
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
+                    else
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorPedidoSemCST(saida.CupomFiscal, Cst.ST_OUTRAS);
                 }
                 else
                 {
-                    saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    if (destinatario.ImprimirCF)
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    else
+                        saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaidaSemCST(saida.CodSaida, Cst.ST_OUTRAS);
                 }
                 saidaProdutos = GerenciadorSaida.GetInstance(null).ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
 
                 int nItem = 1; // número do item processado
 
-                decimal totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
+                decimal totalProdutos = 0; 
                 //decimal descontoDevolucoes = saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.Subtotal);
                 
                 decimal totalAVista = 0;
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                 {
+                    totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
                     List<Saida> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
                     totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
-                } else 
+                } 
+                else 
                 {
-                    totalAVista = totalProdutos - saida.Desconto;
+                    totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista);
+                    totalAVista = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) - saida.Desconto;
                 }
                 decimal valorTotalDesconto = totalProdutos - totalAVista;
-                decimal valorTotalNota = totalAVista + saida.ValorFrete + saida.OutrasDespesas; 
-
+                decimal valorTotalNota = totalAVista + saida.ValorFrete + saida.OutrasDespesas;
+                
                 // calcula fator de desconto para ser calculado sobre cada produto da nota
                 decimal fatorDesconto = valorTotalDesconto / totalProdutos;
 
@@ -752,13 +761,22 @@ namespace Negocio
                         prod.NCM = produto.Ncmsh;
                         prod.uCom = produto.Unidade;
                         prod.qCom = formataValorNFe(saidaProduto.Quantidade);
-                        prod.vUnCom = formataValorNFe(saidaProduto.ValorVenda);
-                        prod.vProd = formataValorNFe(saidaProduto.Subtotal);
+                        if (saida.TipoSaida == Saida.TIPO_VENDA)
+                        {
+                            prod.vUnCom = formataValorNFe(saidaProduto.ValorVenda);
+                            prod.vProd = formataValorNFe(saidaProduto.Subtotal);
+                            prod.vUnTrib = formataValorNFe(saidaProduto.ValorVenda);
+                        }
+                        else
+                        {
+                            prod.vUnCom = formataValorNFe(saidaProduto.ValorVendaAVista);
+                            prod.vProd = formataValorNFe(saidaProduto.SubtotalAVista);
+                            prod.vUnTrib = formataValorNFe(saidaProduto.ValorVendaAVista);
+                        }
                         if (Math.Round(saidaProduto.Subtotal * fatorDesconto, 2) > 0)
                             prod.vDesc = formataValorNFe(saidaProduto.Subtotal * fatorDesconto);
                         prod.uTrib = produto.Unidade;
                         prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
-                        prod.vUnTrib = formataValorNFe(saidaProduto.ValorVenda);
                         prod.indTot = (TNFeInfNFeDetProdIndTot)1; // Valor = 1 deve entrar no valor total da nota
 
                         TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
@@ -867,7 +885,7 @@ namespace Negocio
                     transporta.UF = (TUf)Enum.Parse(typeof(TUf), transportadora.Uf);
                     transporta.UFSpecified = true; 
                     transporta.xEnder = transportadora.Endereco;
-                    transporta.xMun = transportadora.Cidade;
+                    transporta.xMun = Util.StringUtil.RemoverAcentos(transportadora.Cidade);
                     transporta.xNome = transportadora.Nome;
                     transp.vol = new TNFeInfNFeTranspVol[1];
                     TNFeInfNFeTranspVol volumes = new TNFeInfNFeTranspVol();

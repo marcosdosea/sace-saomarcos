@@ -54,7 +54,7 @@
             System.Windows.Forms.Label codEntradaLabel;
             System.Windows.Forms.Label numeroNotaFiscalLabel;
             this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.totalTextBox = new System.Windows.Forms.TextBox();
+            this.totalProdutosTextBox = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.codSaidaTextBox = new System.Windows.Forms.TextBox();
@@ -117,7 +117,7 @@
             // 
             tipoSaidaLabel.AutoSize = true;
             tipoSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            tipoSaidaLabel.Location = new System.Drawing.Point(165, 6);
+            tipoSaidaLabel.Location = new System.Drawing.Point(205, 3);
             tipoSaidaLabel.Name = "tipoSaidaLabel";
             tipoSaidaLabel.Size = new System.Drawing.Size(137, 29);
             tipoSaidaLabel.TabIndex = 12;
@@ -129,9 +129,9 @@
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             label3.Location = new System.Drawing.Point(5, 3);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(74, 29);
+            label3.Size = new System.Drawing.Size(177, 29);
             label3.TabIndex = 21;
-            label3.Text = "Total:";
+            label3.Text = "Total Produtos:";
             // 
             // codSaidaLabel
             // 
@@ -327,30 +327,50 @@
             // 
             dataSaidaLabel.AutoSize = true;
             dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            dataSaidaLabel.Location = new System.Drawing.Point(461, 3);
+            dataSaidaLabel.Location = new System.Drawing.Point(481, 3);
             dataSaidaLabel.Name = "dataSaidaLabel";
             dataSaidaLabel.Size = new System.Drawing.Size(136, 29);
             dataSaidaLabel.TabIndex = 81;
             dataSaidaLabel.Text = "Data Saída:";
+            // 
+            // codEntradaLabel
+            // 
+            codEntradaLabel.AutoSize = true;
+            codEntradaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            codEntradaLabel.Location = new System.Drawing.Point(7, 84);
+            codEntradaLabel.Name = "codEntradaLabel";
+            codEntradaLabel.Size = new System.Drawing.Size(80, 24);
+            codEntradaLabel.TabIndex = 81;
+            codEntradaLabel.Text = "Entrada:";
+            // 
+            // numeroNotaFiscalLabel
+            // 
+            numeroNotaFiscalLabel.AutoSize = true;
+            numeroNotaFiscalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            numeroNotaFiscalLabel.Location = new System.Drawing.Point(167, 84);
+            numeroNotaFiscalLabel.Name = "numeroNotaFiscalLabel";
+            numeroNotaFiscalLabel.Size = new System.Drawing.Size(108, 24);
+            numeroNotaFiscalLabel.TabIndex = 82;
+            numeroNotaFiscalLabel.Text = "Nota Fiscal:";
             // 
             // saidaBindingSource
             // 
             this.saidaBindingSource.AllowNew = false;
             this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
             // 
-            // totalTextBox
+            // totalProdutosTextBox
             // 
-            this.totalTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Total", true));
-            this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalTextBox.Location = new System.Drawing.Point(11, 39);
-            this.totalTextBox.Name = "totalTextBox";
-            this.totalTextBox.Size = new System.Drawing.Size(148, 35);
-            this.totalTextBox.TabIndex = 2;
-            this.totalTextBox.TabStop = false;
-            this.totalTextBox.Text = "999.999,99";
-            this.totalTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.totalProdutosTextBox.BackColor = System.Drawing.Color.Blue;
+            this.totalProdutosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "TotalAVista", true));
+            this.totalProdutosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalProdutosTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.totalProdutosTextBox.Location = new System.Drawing.Point(11, 39);
+            this.totalProdutosTextBox.Name = "totalProdutosTextBox";
+            this.totalProdutosTextBox.Size = new System.Drawing.Size(171, 35);
+            this.totalProdutosTextBox.TabIndex = 2;
+            this.totalProdutosTextBox.TabStop = false;
+            this.totalProdutosTextBox.Text = "999.999,99";
+            this.totalProdutosTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnSalvar
             // 
@@ -390,9 +410,9 @@
             this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DescricaoTipoSaida", true));
             this.descricaoTipoSaidaTextBox.Enabled = false;
             this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(169, 39);
+            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(210, 38);
             this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(287, 35);
+            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(267, 35);
             this.descricaoTipoSaidaTextBox.TabIndex = 4;
             // 
             // baseCalculoICMSTextBox
@@ -614,26 +634,15 @@
             this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.saidaBindingSource, "DataSaida", true));
             this.dataSaidaDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.dataSaidaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(466, 39);
+            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(486, 39);
             this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
-            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(167, 35);
+            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(156, 35);
             this.dataSaidaDateTimePicker.TabIndex = 5;
             // 
             // entradaBindingSource
             // 
             this.entradaBindingSource.AllowNew = false;
             this.entradaBindingSource.DataSource = typeof(Dominio.Entrada);
-            this.entradaBindingSource.CurrentChanged += new System.EventHandler(this.entradaBindingSource_CurrentChanged);
-            // 
-            // codEntradaLabel
-            // 
-            codEntradaLabel.AutoSize = true;
-            codEntradaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            codEntradaLabel.Location = new System.Drawing.Point(7, 84);
-            codEntradaLabel.Name = "codEntradaLabel";
-            codEntradaLabel.Size = new System.Drawing.Size(80, 24);
-            codEntradaLabel.TabIndex = 81;
-            codEntradaLabel.Text = "Entrada:";
             // 
             // codEntradaComboBox
             // 
@@ -653,16 +662,6 @@
             this.codEntradaComboBox.ValueMember = "CodEntrada";
             this.codEntradaComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
             this.codEntradaComboBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
-            // 
-            // numeroNotaFiscalLabel
-            // 
-            numeroNotaFiscalLabel.AutoSize = true;
-            numeroNotaFiscalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            numeroNotaFiscalLabel.Location = new System.Drawing.Point(167, 84);
-            numeroNotaFiscalLabel.Name = "numeroNotaFiscalLabel";
-            numeroNotaFiscalLabel.Size = new System.Drawing.Size(108, 24);
-            numeroNotaFiscalLabel.TabIndex = 82;
-            numeroNotaFiscalLabel.Text = "Nota Fiscal:";
             // 
             // numeroNotaFiscalTextBox
             // 
@@ -735,7 +734,7 @@
             this.Controls.Add(this.codSaidaTextBox);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.totalTextBox);
+            this.Controls.Add(this.totalProdutosTextBox);
             this.Controls.Add(tipoSaidaLabel);
             this.Controls.Add(label3);
             this.Controls.Add(codSaidaLabel);
@@ -758,7 +757,7 @@
         #endregion
 
         private System.Windows.Forms.BindingSource saidaBindingSource;
-        private System.Windows.Forms.TextBox totalTextBox;
+        private System.Windows.Forms.TextBox totalProdutosTextBox;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.TextBox codSaidaTextBox;

@@ -100,7 +100,7 @@ namespace Telas
                 }
                 else
                 {
-                    if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
+                    if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
                     {
                         if (ExibirTodos)
                             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
