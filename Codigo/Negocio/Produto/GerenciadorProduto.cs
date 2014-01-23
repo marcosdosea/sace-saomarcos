@@ -307,6 +307,7 @@ namespace Negocio
             return query;
         }
 
+        
         /// <summary>
         /// Obter todos os produtos
         /// </summary>
@@ -325,6 +326,22 @@ namespace Negocio
         {
 
             return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
+        }
+
+        public IEnumerable<object> ObterTodosNomesExibiveis()
+        {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+            var query = from produto in saceEntities.ProdutoSet
+                        where produto.exibeNaListagem == true
+                        orderby produto.nome
+                        select new 
+                        {
+                            CodProduto = produto.codProduto,
+                            Nome = produto.nome,
+                        };
+            return query;
         }
 
         /// <summary>
@@ -352,7 +369,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorReferenciaFabricante(string referenciaFabricante)
+        public IEnumerable<object> ObterPorReferenciaFabricante(string referenciaFabricante)
         {
             return GetQuerySimples().Where(p => p.ReferenciaFabricante.Contains(referenciaFabricante)).ToList();
         }
@@ -413,13 +430,34 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterPorNome(String nome)
         {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+            var query = from produto in saceEntities.ProdutoSet
+                        orderby produto.nome
+                        select new ProdutoPesquisa
+                        {
+                            CodProduto = produto.codProduto,
+                            ExibeNaListagem = (bool) produto.exibeNaListagem,
+                            Nome = produto.nome,
+                            NomeProdutoFabricante = produto.nomeProdutoFabricante,
+                            PrecoVendaAtacado = (decimal) produto.precoVendaAtacado,
+                            PrecoVendaVarejo = (decimal) produto.precoVendaVarejo,
+                            QtdProdutoAtacado = (decimal) produto.qtdProdutoAtacado,
+                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
+                            Unidade = produto.unidade,
+                            EmPromocao = (bool) produto.emPromocao,
+                            CodCST = produto.codCST,
+                            Ncmsh = produto.ncmsh
+                        };
+            
             if ((nome.Length > 0) && (nome[0] == '%'))
             {
-                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
+                return query.Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
             }
             else
             {
-                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome)).ToList();
+                return query.Where(p => p.Nome.StartsWith(nome)).ToList();
             }
         }
 
@@ -501,7 +539,6 @@ namespace Negocio
             _produtoE.unidadeCompra = produto.UnidadeCompra;
             _produtoE.emPromocao = produto.EmPromocao;
         }
-
         
     }
 }

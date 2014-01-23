@@ -294,7 +294,7 @@ namespace Negocio
                     }
                 }
                 // Se houver documento fiscal aguardando impressão
-                ExcluirDocumentoFiscal(saida.CodSaida);
+                GerenciadorCupom.GetInstance().ExcluirDocumentoFiscal(saida.CodSaida);
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
@@ -832,189 +832,11 @@ namespace Negocio
             }
         }
 
-        /// <summary>
-        /// Gera o cupom fiscal a partir das saídas e valores a vista de cada saía
-        /// </summary>
-        /// <param name="saidaValorComDesconto"> Contém a saída e o valor com desconto de cada saída</param>
-        /// <param name="saidaPagamentos"></param>
-        public void GerarDocumentoFiscal(SortedList<long, decimal> saidaValorComDesconto, List<SaidaPagamento> saidaPagamentos)
-        {
-             //DbTransaction transaction = null;
-            try
-            {
-                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                //    saceContext.Connection.Open();
-                //transaction = saceContext.Connection.BeginTransaction();
-
-                List<Saida> saidas = new List<Saida>();
-                foreach (long codSaida in saidaValorComDesconto.Keys)
-                {
-                    Saida saida = Obter(codSaida);
-                    if (saida.TipoSaida == Saida.TIPO_VENDA)
-                    {
-                        throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
-                    }
-                    saidas.Add(saida);
-                }
-
-                if (saidas.Count > 0)
-                {
-                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
-
-                    if (pastaECF.Exists)
-                    {
-                        // nome do arquivo é igual ao primeiro da lista
-                        String nomeArquivo = Global.PASTA_COMUNICACAO_FRENTE_LOJA + saidas[0].CodSaida + ".txt";
-                        StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
-
-                        // imprime dados do cliente no cupom fiscal
-                        if (!saidas[0].CpfCnpj.Trim().Equals(""))
-                            arquivo.WriteLine("<CPF>" + saidas[0].CpfCnpj);
-                        decimal precoTotalProdutosVendidos = 0;
-
-                        // imprime produtos dos cupons fiscais
-                        List<SaidaProduto> listaSaidaProdutos = new List<SaidaProduto>();
-                        Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
-                        foreach (Saida saida in saidas)
-                        {
-                            List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
-                            if (cliente.ImprimirCF)
-                                saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
-                            else
-                                saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaidaSemCST(saida.CodSaida, Cst.ST_OUTRAS);
-
-                            if (saidaProdutos.Count > 0)
-                            {
-                                // associa as saídas ao pedido que foi gerado para emissão do cupom fiscal
-                                //GerenciadorSaidaPedido.GetInstance().RemoverPorSaida(saida.CodSaida, saceContext);
-                                decimal totalAVista = 0;
-                                saidaValorComDesconto.TryGetValue(saida.CodSaida, out totalAVista);
-                                if (GerenciadorSaidaPedido.GetInstance().ObterPorSaida(saida.CodSaida).Count == 0)
-                                {
-                                    GerenciadorSaidaPedido.GetInstance().Inserir(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida, TotalAVista = totalAVista });
-                                }
-                                else
-                                {
-                                    GerenciadorSaidaPedido.GetInstance().Atualizar(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida, TotalAVista = totalAVista });
-                                    //throw new NegocioException("Cupom fiscal já foi enviado para impressão. Favor aguardar a impressora fiscal");
-                                }
-                                listaSaidaProdutos.AddRange(saidaProdutos);
-                            }
-                            else
-                            {
-                                decimal totalAVista;
-                                saidaValorComDesconto.TryGetValue(saida.CodSaida, out totalAVista);
-                                AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, "", totalAVista, saida.CodSaida);
-                            }
-                        }
-
-                        int quantidadeProdutosImpressos = ImprimirProdutosCupomFiscal(arquivo, ref precoTotalProdutosVendidos, listaSaidaProdutos);
-
-                        if (quantidadeProdutosImpressos > 0)
-                        {
-                            // imprime detalhes do cliente
-                            if (!saidas[0].CodCliente.Equals(Global.CLIENTE_PADRAO))
-                            {
-                                arquivo.WriteLine("<NOME> Cliente: " + saidas[0].NomeCliente);
-                                arquivo.WriteLine("<CPF> CPF/CNPJ: " + saidas[0].CpfCnpj);
-                            }
-
-                            // Buscar pagamentos quando não foram passados por parâmetro
-                            if ((saidaPagamentos == null) || (saidaPagamentos.Count == 0))
-                            {
-                                saidaPagamentos = (List<SaidaPagamento>)GerenciadorSaidaPagamento.GetInstance(saceContext).ObterPorSaidas(saidaValorComDesconto.Keys.ToList());
-                            }
-
-                            
-                            // imprime desconto
-                            decimal desconto = (precoTotalProdutosVendidos - saidaValorComDesconto.Values.Sum());
-                            if (desconto >= 0)
-                            {
-                                arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
-                            }
-                            //arquivo.WriteLine("<OBS> Total de Impostos pagos:" + saida.
-                            foreach (SaidaPagamento saidaPagamento in saidaPagamentos)
-                            {
-                                if (saidaPagamento.CodFormaPagamento != FormaPagamento.CARTAO)
-                                {
-                                    arquivo.Write("<PGTO>" + saidaPagamento.MapeamentoFormaPagamento + ";");
-                                    arquivo.Write(saidaPagamento.DescricaoFormaPagamento + ";");
-                                    arquivo.Write(saidaPagamento.Valor + ";");
-                                    arquivo.WriteLine("N;"); //N ou V
-                                }
-                                else
-                                {
-                                    arquivo.Write("<PGTO>" + saidaPagamento.MapeamentoCartao + ";");
-                                    arquivo.Write(saidaPagamento.NomeCartaoCredito + ";");
-                                    arquivo.Write(saidaPagamento.Valor + ";");
-                                    arquivo.WriteLine("V;"); //N ou V vinculado ao TEF
-                                }
-                            }
-
-                            arquivo.Close();
-                        }
-                        else
-                        {
-                            arquivo.Close();
-                            ExcluirDocumentoFiscal(saidas[0].CodSaida);
-                        }
-                    }
-                }
-                //transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                //transaction.Rollback();
-                if (e is NegocioException)
-                {
-                    throw e;
-                }
-                //TODO: definir mecanismo para lançar exceção de processo background
-            }
-            //finally
-            //{
-            //    saceContext.Connection.Close();
-            //}
-
-        }
-
-
-
-        private int ImprimirProdutosCupomFiscal(StreamWriter arquivo, ref decimal precoTotalProdutosVendidos, List<SaidaProduto> saidaProdutos)
-        {
-            int quantidadeProdutosImpressos = 0;
-            saidaProdutos = ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
-            foreach (SaidaProduto saidaProduto in saidaProdutos)
-            {
-                if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
-                {
-                    Produto produto = new Produto();
-                    produto.CodProduto = saidaProduto.CodProduto;
-                    produto.CodCST = saidaProduto.CodCST;
-                    String situacaoFiscal = produto.EhTributacaoIntegral ? "01" : "FF";
-
-                    arquivo.Write(saidaProduto.CodProduto + ";");
-                    arquivo.Write(saidaProduto.Nome + ";");
-                    arquivo.Write(saidaProduto.Quantidade.ToString() + ";");
-                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
-                    arquivo.Write(situacaoFiscal + ";");
-                    arquivo.Write("0;");
-                    arquivo.Write(saidaProduto.ValorVenda + ";");
-                    arquivo.WriteLine(saidaProduto.Unidade + ";");
-
-                    precoTotalProdutosVendidos += saidaProduto.Subtotal;
-                    quantidadeProdutosImpressos++;
-                }
-            }
-
-            return quantidadeProdutosImpressos;
-        }
-
         public List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
         {
             List<SaidaProduto> listaSemDevolucoes = new List<SaidaProduto>();
             List<SaidaProduto> listaDevolucoes = new List<SaidaProduto>();
-            List<SaidaProduto> listaNaoConseguiuDevolver = new List<SaidaProduto>(); 
+            List<SaidaProduto> listaNaoConseguiuDevolver = new List<SaidaProduto>();
 
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
@@ -1063,127 +885,7 @@ namespace Negocio
                 }
             }
             return listaSemDevolucoes;
-       }
-
-
-        public void ExcluirDocumentoFiscal(long codPedido)
-        {
-            try
-            {
-                String arquivo = Global.PASTA_COMUNICACAO_FRENTE_LOJA + codPedido + ".txt";
-
-                DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
-                if (pastaECF.Exists)
-                {
-                    FileInfo cupomFiscal = new FileInfo(arquivo);
-
-                    if (cupomFiscal.Exists)
-                    {
-                        cupomFiscal.Delete();
-                        GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido, saceContext);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw new NegocioException("Não é possível editar essa Pré-Venda. É provável que o Cupom Fiscal esteja sendo impresso.");
-            }
         }
-
-
-        public Boolean AtualizarPedidosComDocumentosFiscais()
-        {
-            Boolean atualizou = false;
-            try
-            {
-                DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
-                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-                if (Dir.Exists && nomeComputador.Equals(Global.NOME_SERVIDOR))
-                {
-                    // Busca automaticamente todos os arquivos em todos os subdiretórios
-                    FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
-                    if (Files.Length == 0)
-                    {
-                        atualizou = true;
-                    }
-                    else
-                    {
-                        foreach (FileInfo file in Files)
-                        {
-                            bool sucesso = false;
-                            String numeroCF = null;
-                            String linha = null;
-                            StreamReader reader = new StreamReader(file.FullName);
-
-                            // sucesso = true quando cupum fiscal foi impresso
-                            if ((linha = reader.ReadLine()) != null)
-                            {
-                                sucesso = linha.Equals("OK");
-                                if (sucesso && ((linha = reader.ReadLine()) != null))
-                                {
-                                    numeroCF = linha;
-                                }
-                            }
-                            reader.Close();
-
-                            // quando cupom fiscal impresso com sucesso atualiza saidas
-                            long codPedido = Convert.ToInt64(file.Name.Replace(".TXT", ""));
-                            List<SaidaPedido> _listaSaidaPedido = GerenciadorSaidaPedido.GetInstance().ObterPorPedido(codPedido);
-                            if (sucesso)
-                            {
-                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
-                                {
-                                    AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, numeroCF, saidaPedido.TotalAVista, saidaPedido.CodSaida);
-                                    GerenciadorCupom.GetInstace().RemoverSolicitacaoCupom(saidaPedido.CodSaida);
-                                    atualizou = true;
-                                }
-                            }
-                            else
-                            {
-                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
-                                {
-                                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(saceContext).ObterPorSaidaFormaPagamento(saidaPedido.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
-                                    if (!temPagamentoCrediario)
-                                    {
-                                        Saida saida = Obter(saidaPedido.CodSaida);
-                                        if (saida != null)
-                                        {
-                                            saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-                                            PrepararEdicaoSaida(saida);
-                                        }
-                                    }
-                                }
-                            }
-                            GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido, saceContext);
-                            //transaction.Commit();
-                            file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
-                            file.Delete();
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                //transaction.Rollback();
-                // Essa exceção não precisa ser tratada. Apenas os cupons fiscais não são recuperados.
-                //throw new NegocioException("Ocorreram problemas na recuperação dos dados dos cupons fiscais. Favor contactar o administrador informando o erro " + e.Message);
-            }
-            return atualizou;
-        }
-
-        public void EmitirCupomFiscalPreVendasPendentes()
-        {
-            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            if (nomeComputador.Equals("SONY-VAIO")) {
-                List<Saida> listaPreVendasPendentes = ObterPreVendasPendentes();
-                foreach(Saida saidaPendente in listaPreVendasPendentes) {
-                    
-                }
-                //GerarDocumentoFiscal(
-            }
-
-        }
-
 
         public bool ImprimirCreditoPagamento(MovimentacaoConta movimentacaoConta)
         {
@@ -1539,7 +1241,7 @@ namespace Negocio
             {
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
-                    GerenciadorCupom.GetInstace().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
+                    GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
                     //SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                     //saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
                     //GerarDocumentoFiscal(saidaTotalAVista, null);

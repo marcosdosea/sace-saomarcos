@@ -59,6 +59,7 @@
     <Compile Include="DigitoVerificador.cs" />
     <Compile Include="MatrixReporter.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="StringUtil.cs" />
     <Compile Include="StringBuilderImprimir.cs" />
     <Compile Include="UtilException.cs" />
     <Compile Include="FormatTextBox.cs" />

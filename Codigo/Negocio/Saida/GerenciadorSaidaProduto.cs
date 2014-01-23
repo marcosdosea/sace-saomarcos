@@ -250,28 +250,55 @@ namespace Negocio
         public List<SaidaProduto> ObterPorPedido(string codPedido)
         {
             var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
-                        join saida in saceContext.tb_saida on saidaProduto.codSaida equals saida.codSaida
-                        where saida.pedidoGerado == codPedido
+                        where saidaProduto.tb_saida.pedidoGerado.Equals(codPedido)
                         select new SaidaProduto
                         {
                             BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
                             BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
                             CodProduto = saidaProduto.codProduto,
                             CodSaida = saidaProduto.codSaida,
-                            CodCST = produto.codCST,
+                            CodCST = saidaProduto.tb_produto.codCST,
                             CodCfop = saidaProduto.cfop,
                             DataValidade = (DateTime)saidaProduto.data_validade,
                             Desconto = (decimal)saidaProduto.desconto,
                             Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = produto.nome,
-                            //Subtotal = (decimal)saidaProduto.subtotal,
+                            Nome = saidaProduto.tb_produto.nome,
                             SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = produto.unidade,
+                            Unidade = saidaProduto.tb_produto.unidade,
                             ValorICMS = (decimal)saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal)saidaProduto.valorIPI,
-                            //ValorVenda = (decimal)saidaProduto.valorVenda,
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtém os produtos de um determinado pedido (cupom fiscal)
+        /// sem um determinado CST
+        /// </summary>
+        /// <param name="codPedido"></param>
+        /// <returns></returns>
+        public List<SaidaProduto> ObterPorPedidoSemCST(string codPedido, string codCST)
+        {
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where saidaProduto.tb_saida.pedidoGerado.Equals(codPedido) && !saidaProduto.codCST.EndsWith(codCST)
+                        select new SaidaProduto
+                        {
+                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
+                            CodProduto = saidaProduto.codProduto,
+                            CodSaida = saidaProduto.codSaida,
+                            CodCST = saidaProduto.tb_produto.codCST,
+                            CodCfop = saidaProduto.cfop,
+                            DataValidade = (DateTime)saidaProduto.data_validade,
+                            Desconto = (decimal)saidaProduto.desconto,
+                            Quantidade = (decimal)saidaProduto.quantidade,
+                            Nome = saidaProduto.tb_produto.nome,
+                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
+                            Unidade = saidaProduto.tb_produto.unidade,
+                            ValorICMS = (decimal)saidaProduto.valorICMS,
+                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
+                            ValorIPI = (decimal)saidaProduto.valorIPI,
                         };
             return query.ToList();
         }

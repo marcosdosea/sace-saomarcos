@@ -51,8 +51,8 @@ namespace Telas
             saida.PesoLiquido = Convert.ToDecimal(pesoLiquidoTextBox.Text);
             saida.QuantidadeVolumes = Convert.ToDecimal(quantidadeVolumesTextBox.Text);
             saida.TotalNotaFiscal = Convert.ToDecimal(totalNotaFiscalTextBox.Text);
-            saida.Total = Convert.ToDecimal(totalTextBox.Text);
-            saida.TotalAVista = Convert.ToDecimal(totalTextBox.Text);
+            saida.Total = Convert.ToDecimal(totalProdutosTextBox.Text);
+            saida.TotalAVista = Convert.ToDecimal(totalProdutosTextBox.Text);
             saida.ValorFrete = Convert.ToDecimal(valorFreteTextBox.Text);
             saida.ValorICMS = Convert.ToDecimal(valorICMSTextBox.Text);
             saida.ValorICMSSubst = Convert.ToDecimal(valorICMSSubstTextBox.Text);
@@ -150,13 +150,6 @@ namespace Telas
                 Control control = (Control)sender;
                 control.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
             }
-        }
-
-        private void entradaBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-       
+        }     
     }
 }

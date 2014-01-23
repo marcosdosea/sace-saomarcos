@@ -180,7 +180,7 @@ namespace Telas
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
-                            GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
+                            GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
                         }
                         else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
@@ -214,7 +214,7 @@ namespace Telas
                         saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
                         saidaPagamentoCartao.Valor = valorPagamento;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
-                        GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, listaSaidaPagamento);
+                        GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, listaSaidaPagamento);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             GerenciadorConta.GetInstance(null).SubstituirContas(listaContas, valorPagamento, cartaoCredito, parcelas);
@@ -282,7 +282,7 @@ namespace Telas
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
                    
-                    GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
+                    GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
                 }
             }
         }
