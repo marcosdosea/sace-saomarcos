@@ -96,6 +96,7 @@ namespace Telas
             }
             finally
             {
+                bancoBindingSource.ResumeBinding();
                 habilitaBotoes(true);
                 btnBuscar.Focus();
             }

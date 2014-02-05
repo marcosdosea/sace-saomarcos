@@ -78,7 +78,9 @@
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
     <Compile Include="Cfop.cs" />
+    <Compile Include="SaidaPesquisa.cs" />
     <Compile Include="PontaEstoque.cs" />
+    <Compile Include="ProdutoNome.cs" />
     <Compile Include="SaidaProdutoRelatorio.cs" />
     <Compile Include="MunicipiosIBGE.cs" />
     <Compile Include="NfeControle.cs" />

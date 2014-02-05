@@ -24,7 +24,7 @@ namespace Telas
 
         private void FrmEntradaImportar_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomes();
             entradaProdutoBindingSource.DataSource = listaEntradaProduto;
         }
 
@@ -69,8 +69,8 @@ namespace Telas
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
-                        produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomesExibiveis();
+                        //produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
                     }
                     frmProduto.Dispose();
                 } 
