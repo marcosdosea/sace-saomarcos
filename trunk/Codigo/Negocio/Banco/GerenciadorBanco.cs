@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Dados;
 using Dominio;
+using System.Data.Objects;
+using System.Transactions;
+
 
 namespace Negocio
 {
@@ -56,13 +59,16 @@ namespace Negocio
             try
             {
                 var repBanco = new RepositorioGenerico<BancoE>();
+
                 BancoE _bancoE = repBanco.ObterEntidade(b => b.codBanco == banco.CodBanco);
                 _bancoE.nome = banco.Nome;
 
                 repBanco.SaveChanges();
+
             }
             catch (Exception e)
             {
+
                 throw new DadosException("Banco", e.Message, e);
             }
         }

@@ -328,7 +328,7 @@ namespace Negocio
             return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
         }
 
-        public IEnumerable<object> ObterTodosNomesExibiveis()
+        public IEnumerable<ProdutoNome> ObterTodosNomesExibiveis()
         {
             var repProduto = new RepositorioGenerico<ProdutoE>();
 
@@ -336,14 +336,32 @@ namespace Negocio
             var query = from produto in saceEntities.ProdutoSet
                         where produto.exibeNaListagem == true
                         orderby produto.nome
-                        select new 
+                        select new ProdutoNome
                         {
                             CodProduto = produto.codProduto,
-                            Nome = produto.nome,
+                            Nome = produto.nome
                         };
-            return query;
+            return query.ToList();
         }
 
+        /// <summary>
+        /// Obter todos os produtos ordenados pelo nome
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ProdutoNome> ObterTodosNomes()
+        {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+            var query = from produto in saceEntities.ProdutoSet
+                        orderby produto.nome
+                        select new ProdutoNome
+                        {
+                            CodProduto = produto.codProduto,
+                            Nome = produto.nome
+                        };
+            return query.ToList();
+        }
         /// <summary>
         /// Obter um produto usando um produto pesquisado
         /// </summary>
