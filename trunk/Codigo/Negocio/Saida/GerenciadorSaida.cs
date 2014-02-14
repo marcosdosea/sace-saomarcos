@@ -7,6 +7,7 @@ using System.Text;
 using Dados;
 using Dominio;
 using Util;
+using System.Transactions;
 
 
 namespace Negocio
@@ -294,7 +295,9 @@ namespace Negocio
                     }
                 }
                 // Se houver documento fiscal aguardando impressão
-                GerenciadorCupom.GetInstance().ExcluirDocumentoFiscal(saida.CodSaida);
+                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                    GerenciadorCupom.GetInstance().ExcluirDocumentoFiscal(saida.CodSaida);
+                
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
@@ -465,98 +468,77 @@ namespace Negocio
         /// <param name="tipo_encerramento"></param>
         public void Encerrar(long codSaida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos)
         {
-            DbTransaction transaction = null;
-            try
+            using (TransactionScope transaction = new TransactionScope())
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
-                var query = from saidaE in saceContext.tb_saida
-                            where saidaE.codSaida == codSaida
-                            select saidaE;
-                tb_saida _saidaE = query.ToList().ElementAtOrDefault(0);
-                if (_saidaE != null)
+                try
                 {
-
-                    if (_saidaE.codTipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_ORCAMENTO))
+                    var query = from saidaE in saceContext.tb_saida
+                                where saidaE.codSaida == codSaida
+                                select saidaE;
+                    tb_saida _saidaE = query.FirstOrDefault();
+                    if (_saidaE != null)
                     {
-                        _saidaE.codTipoSaida = Saida.TIPO_ORCAMENTO;
-                        saceContext.SaveChanges();
-                    }
-                    else if (_saidaE.codTipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA))
-                    {
-                        _saidaE.codTipoSaida = Saida.TIPO_PRE_VENDA;
-                        _saidaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
-                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(codSaida);
-                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
-
-                        _saidaE.totalLucro = _saidaE.totalAVista - somaPrecosCusto;
-                        saceContext.SaveChanges();
-
-                        RegistrarPagamentosSaida(saidaPagamentos, _saidaE);
-                    }
-                    else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
-                    {
-                        _saidaE.codTipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
-                        //if (!string.IsNullOrEmpty(_saidaE.nfe))
-                        //{
-                        //    throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
-                        //}
-
-                        Loja lojaDestino = GerenciadorLoja.GetInstance().ObterPorPessoa(_saidaE.codCliente).ElementAt(0);
-                        if (lojaDestino.CodLoja.Equals(_saidaE.codLojaOrigem))
+                        if (_saidaE.codTipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_ORCAMENTO))
                         {
-                            throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
+                            _saidaE.codTipoSaida = Saida.TIPO_ORCAMENTO;
+                            saceContext.SaveChanges();
                         }
-
-                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                        saceContext.SaveChanges();
-                        RegistrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
-                    }
-                    else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
-                    {
-                        _saidaE.codTipoSaida = Saida.TIPO_RETORNO_DEPOSITO;
-                        //if (!string.IsNullOrEmpty(_saidaE.nfe))
-                        //{
-                        //    throw new NegocioException("Não é possível finalizar uma saída para Depósito cuja nota fiscal já foi emitida.");
-                        //}
-
-
-                        //Loja depositoOrigem = GerenciadorLoja.GetInstance().ObterPorPessoa(_saidaE.codLojaOrigem).ElementAt(0);
-                        if (_saidaE.codLojaOrigem.Equals(Global.LOJA_PADRAO))
+                        else if (_saidaE.codTipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA))
                         {
-                            throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
-                        }
+                            _saidaE.codTipoSaida = Saida.TIPO_PRE_VENDA;
+                            _saidaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
-                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                        saceContext.SaveChanges();
-                        RegistrarTransferenciaEstoque(saidaProdutos, _saidaE.codLojaOrigem, Global.LOJA_PADRAO);
+                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(codSaida);
+                            Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
+
+                            _saidaE.totalLucro = _saidaE.totalAVista - somaPrecosCusto;
+                            saceContext.SaveChanges();
+
+                            RegistrarPagamentosSaida(saidaPagamentos, _saidaE);
+                        }
+                        else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
+                        {
+                            _saidaE.codTipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
+
+                            Loja lojaDestino = GerenciadorLoja.GetInstance().ObterPorPessoa(_saidaE.codCliente).ElementAt(0);
+                            if (lojaDestino.CodLoja.Equals(_saidaE.codLojaOrigem))
+                            {
+                                throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
+                            }
+
+                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
+                            saceContext.SaveChanges();
+                            RegistrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
+                        }
+                        else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
+                        {
+                            _saidaE.codTipoSaida = Saida.TIPO_RETORNO_DEPOSITO;
+                            if (_saidaE.codLojaOrigem.Equals(Global.LOJA_PADRAO))
+                            {
+                                throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
+                            }
+
+                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
+                            saceContext.SaveChanges();
+                            RegistrarTransferenciaEstoque(saidaProdutos, _saidaE.codLojaOrigem, Global.LOJA_PADRAO);
+                        }
+                        else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                        {
+                            _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
+                            saceContext.SaveChanges();
+                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
+                            RegistrarBaixaEstoque(saidaProdutos);
+                            AtualizarCfopProdutosDevolucao(saidaProdutos, _saidaE);
+                        }
                     }
-                    else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                    {
-                        _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
-                        saceContext.SaveChanges();
-                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                        RegistrarBaixaEstoque(saidaProdutos);
-                        AtualizarCfopProdutosDevolucao(saidaProdutos, _saidaE);
-                    }
+                    transaction.Complete();
+
                 }
-                transaction.Commit();
-            }
-            catch (NegocioException ne)
-            {
-                transaction.Rollback();
-                throw ne;
-            }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
+                catch (Exception e)
+                {
+                    throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
+                }
             }
         }
 

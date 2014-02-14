@@ -64,8 +64,8 @@
             System.Windows.Forms.Label valorUnitarioLabel;
             System.Windows.Forms.Label codProdutoFabricanteLabel;
             System.Windows.Forms.Label codigoBarrasLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntradaImportar));
             System.Windows.Forms.Label codCSTNFeLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntradaImportar));
             this.entradaProdutoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.entradaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -477,6 +477,15 @@
             codigoBarrasLabel.TabIndex = 84;
             codigoBarrasLabel.Text = "Codigo Barras:";
             // 
+            // codCSTNFeLabel
+            // 
+            codCSTNFeLabel.AutoSize = true;
+            codCSTNFeLabel.Location = new System.Drawing.Point(355, 119);
+            codCSTNFeLabel.Name = "codCSTNFeLabel";
+            codCSTNFeLabel.Size = new System.Drawing.Size(54, 13);
+            codCSTNFeLabel.TabIndex = 89;
+            codCSTNFeLabel.Text = "CST NFe:";
+            // 
             // entradaProdutoBindingNavigator
             // 
             this.entradaProdutoBindingNavigator.AddNewItem = null;
@@ -730,7 +739,7 @@
             // 
             // precoRevendaTextBox
             // 
-            this.precoRevendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoRevenda", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.precoRevendaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoRevenda", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoRevendaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoRevendaTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoRevendaTextBox.Location = new System.Drawing.Point(674, 323);
@@ -751,7 +760,7 @@
             // 
             // precoVendaAtacadoTextBox
             // 
-            this.precoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoVendaAtacado", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.precoVendaAtacadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoVendaAtacado", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVendaAtacadoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendaAtacadoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaAtacadoTextBox.Location = new System.Drawing.Point(478, 323);
@@ -977,15 +986,6 @@
             this.btnNovoProduto.Text = "F7 - Novo Produto";
             this.btnNovoProduto.UseVisualStyleBackColor = true;
             this.btnNovoProduto.Click += new System.EventHandler(this.btnNovoProduto_Click);
-            // 
-            // codCSTNFeLabel
-            // 
-            codCSTNFeLabel.AutoSize = true;
-            codCSTNFeLabel.Location = new System.Drawing.Point(355, 119);
-            codCSTNFeLabel.Name = "codCSTNFeLabel";
-            codCSTNFeLabel.Size = new System.Drawing.Size(54, 13);
-            codCSTNFeLabel.TabIndex = 89;
-            codCSTNFeLabel.Text = "CST NFe:";
             // 
             // codCSTNFeTextBox
             // 

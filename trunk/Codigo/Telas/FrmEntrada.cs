@@ -16,8 +16,7 @@ namespace Telas
         private EntradaProduto entradaProduto;
         private Int32 tipoEntrada;
         private ProdutoPesquisa produtoPesquisa;
-        private string ultimoCodigoBarraLido = "";
-
+        
         public FrmEntrada()
         {
             InitializeComponent();
@@ -242,7 +241,7 @@ namespace Telas
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, true);
+                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true);
 
                 EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 if (produtoPesquisa != null)

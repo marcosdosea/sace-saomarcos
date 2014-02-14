@@ -84,7 +84,7 @@ namespace Telas
         /// <param name="ultimoCodigoBarraLido"></param>
         /// <param name="exibirTodos"></param>
         /// <returns></returns>
-        public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, ref string ultimoCodigoBarraLido, bool exibirTodos)
+        public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, bool exibirTodos)
         {
             ProdutoPesquisa _produtoPesquisa = null;
             if (produtoComboBox.DataSource != null)
@@ -108,10 +108,6 @@ namespace Telas
                         else
                         {
                             _listaProdutos = GerenciadorProduto.GetInstance().ObterPorCodBarra(produtoComboBox.Text).ToList();
-                            if (_listaProdutos.Count == 0)
-                                ultimoCodigoBarraLido = produtoComboBox.Text;
-                            else
-                                ultimoCodigoBarraLido = "";
                         }
                         if (_listaProdutos.Count > 0)
                         {
@@ -125,19 +121,11 @@ namespace Telas
                         {
                             // Busca produto pelo nome
                             _listaProdutos = GerenciadorProduto.GetInstance().ObterPorNome(produtoComboBox.Text).ToList();
-
-                            if ((_listaProdutos.Count == 1) || (_listaProdutos[0].Nome.Equals(produtoComboBox.Text)))
+                            if (_listaProdutos.Count > 0)
                             {
-                                produtoNomeIgual = _listaProdutos[0];
+                                if ((_listaProdutos.Count == 1) || (_listaProdutos[0].Nome.Equals(produtoComboBox.Text)))
+                                    produtoNomeIgual = _listaProdutos[0];
                             }
-                            //else
-                            //{
-                            //    foreach (ProdutoPesquisa produto in _listaProdutos)
-                            //    {
-                            //        if (produto.Nome.Equals(produtoComboBox.Text))
-                            //            produtoNomeIgual = produto;
-                            //    }
-                            //}
                         }
                         if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count >= 1) && (produtoNomeIgual == null)))
                         {
@@ -156,20 +144,16 @@ namespace Telas
                     if ((_listaProdutos.Count > 0) && (produtoNomeIgual != null))
                     {
                         _produtoPesquisa = produtoNomeIgual;
-                        if (produtoBindingSource.Current is Produto)
+                        produtoComboBox.Text = produtoNomeIgual.Nome;
+                        if (produtoBindingSource.Current is ProdutoNome)
+                        {
+                            produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = produtoNomeIgual.CodProduto });
+                        }
+                        else if (produtoBindingSource.Current is Produto)
                             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = produtoNomeIgual.CodProduto });
                         else
                             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(produtoNomeIgual);
-                        
-                        // Associa o útlimo código de barra lido ao produto selecionado
-                        if (!ultimoCodigoBarraLido.Equals("") && _produtoPesquisa.CodigoBarra.Equals(""))
-                        {
-                            if (MessageBox.Show("Associar o último código de barra lido ao produto selecionado?", "Confirmar Associação", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                GerenciadorProduto.GetInstance().AtualizarCodigoBarra(_produtoPesquisa, ultimoCodigoBarraLido);
-                            }
-                        }
-                        ultimoCodigoBarraLido = "";
+                       
                     }
                     else if (produtoComboBox != null)
                     {

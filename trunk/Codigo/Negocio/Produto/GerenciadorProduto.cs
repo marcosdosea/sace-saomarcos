@@ -461,6 +461,7 @@ namespace Negocio
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
                             PrecoVendaAtacado = (decimal) produto.precoVendaAtacado,
                             PrecoVendaVarejo = (decimal) produto.precoVendaVarejo,
+                            PrecoRevenda = (decimal) produto.precoRevenda,
                             QtdProdutoAtacado = (decimal) produto.qtdProdutoAtacado,
                             UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
                             Unidade = produto.unidade,
