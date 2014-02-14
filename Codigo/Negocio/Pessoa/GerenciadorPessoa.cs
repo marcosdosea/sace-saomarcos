@@ -180,8 +180,6 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repPessoa.ObterContexto();
             var query = from pessoa in saceEntities.PessoaSet
-                        join municipiosIBGE in saceEntities.MunicipiosIbgeSet
-                        on pessoa.codMunicipiosIBGE equals municipiosIBGE.codigo
                         select new Pessoa
                         {
                             Bairro = pessoa.bairro,
@@ -209,8 +207,7 @@ namespace Negocio
                             Uf = pessoa.uf,
                             ValorComissao = (decimal) pessoa.valorComissao,
                             CodMunicipioIBGE = pessoa.codMunicipiosIBGE,
-                            NomeMunicipioIBGE = municipiosIBGE.municipio
-
+                            NomeMunicipioIBGE = pessoa.tb_municipios_ibge.municipio
                         };
             return query;
         }
@@ -224,6 +221,7 @@ namespace Negocio
             return GetQuery().OrderBy(p=> p.CodPessoa).ToList();
         }
 
+       
         /// <summary>
         /// Obter pelo código da pessoa
         /// </summary>

@@ -21,7 +21,6 @@ namespace Telas
         private const string PRECO_REVENDA = "CTRL+P - Preço Revenda";
         
         private EstadoFormulario estado;
-        private String ultimoCodigoBarraLido = "";
         private int tipoSaidaFormulario;
         private int cfopPadrao;
 
@@ -43,11 +42,10 @@ namespace Telas
         private void FrmSaida_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-
-            codProdutoComboBox.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomesExibiveis();
-            //produtoBindingSource.DataSource = 
-              //   GerenciadorProduto.GetInstance().ObterTodosExibiveis();
-            
+            produtoBindingSource.SuspendBinding();
+            produtoBindingSource.RaiseListChangedEvents = false;
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomesExibiveis();
+            produtoBindingSource.ResumeBinding();
             ObterSaidas(0);
 
             cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(tipoSaidaFormulario);
@@ -135,8 +133,7 @@ namespace Telas
             dataSaidaDateTimePicker.Text = saida.DataSaida.ToShortDateString();
             // necessário para nao perguntar no inicio do pedido 
             // caso a ultima item lido tenha sido um codigo de barra
-            ultimoCodigoBarraLido = "";
-
+            
             lblPreco.Text = PRECO_VAREJO;
             lblPreco.ForeColor = Color.Red;
             
@@ -319,7 +316,8 @@ namespace Telas
         /// </summary>
         private void ObterSaidas(long codSaidaInicial)
         {
-            
+            saidaBindingSource.SuspendBinding();
+            saidaBindingSource.RaiseListChangedEvents = false;
             if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(tipoSaidaFormulario))
             {
                 lblSaidaProdutos.Text = "Remessa para Depósito";
@@ -363,6 +361,8 @@ namespace Telas
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(codSaidaInicial);
                 tb_saida_produtoDataGridView.Height = 370;
             }
+            //saidaBindingSource.RaiseListChangedEvents = true;
+            saidaBindingSource.ResumeBinding();
             saidaBindingSource.MoveLast();
         }
 
@@ -376,7 +376,7 @@ namespace Telas
             long result;
             bool ehCodigoBarra = long.TryParse(codProdutoComboBox.Text, out result) && (codProdutoComboBox.Text.Length > 7);
             
-            produto = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, ref ultimoCodigoBarraLido, false);
+            produto = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, false);
             if (produto != null)
             {
                 quantidadeTextBox.Text = "1";

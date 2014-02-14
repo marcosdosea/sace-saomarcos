@@ -573,7 +573,7 @@ namespace Negocio
             return nfe;
         }
        
- public void EnviarNFE(Saida saida, NfeControle nfeControle, bool ehEspelho)
+        public void EnviarNFE(Saida saida, NfeControle nfeControle, bool ehEspelho)
         {
             try
             {
@@ -697,9 +697,6 @@ namespace Negocio
                 nfe.infNFe.dest = dest;
                 dest.enderDest = enderDest;
 
-                
-
-                
                 //totais da nota
                 List<TNFeInfNFeDet> listaNFeDet = new List<TNFeInfNFeDet>();
                 List<SaidaProduto> saidaProdutos;
@@ -729,7 +726,8 @@ namespace Negocio
                 {
                     totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
                     List<Saida> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
-                    totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
+                    //totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
+                    totalAVista = listaSaidas.Sum(s => s.TotalAVista);
                 } 
                 else 
                 {

@@ -43,6 +43,7 @@ namespace Telas
         private void FrmProdutoPesquisaPreco_Load(object sender, EventArgs e)
         {
             cmbBusca.SelectedIndex = 0;
+            produtoBindingSource.SuspendBinding();
 
             if ((filtroNome != null) && (filtroNome.Length > 0))
             {

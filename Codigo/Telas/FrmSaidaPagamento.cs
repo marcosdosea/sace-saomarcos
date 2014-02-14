@@ -32,8 +32,10 @@ namespace Telas
         {
             saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
+            clienteBindingSource.SuspendBinding();
+            profissionalBindingSource.SuspendBinding();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            profissionalBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(1);
+            profissionalBindingSource.DataSource = clienteBindingSource.DataSource;
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
@@ -169,9 +171,6 @@ namespace Telas
                             else
                             {
                                 GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
-                                //SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-                                //saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
-                                //GerenciadorSaida.GetInstance(null).GerarDocumentoFiscal(saidaTotalAVista, null);
                             }
                         }
                     }

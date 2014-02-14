@@ -14,7 +14,6 @@ namespace Telas
     public partial class FrmEntradaImportar : Form
     {
         IEnumerable<EntradaProduto> listaEntradaProduto;
-        private string ultimoCodigoBarraLido = "";
 
         public FrmEntradaImportar(IEnumerable<EntradaProduto> listaEntradaProduto)
         {
@@ -44,7 +43,7 @@ namespace Telas
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, ref ultimoCodigoBarraLido, true);
+            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true);
             EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             if (produtoPesquisa.CodProduto != 1)
             {
@@ -69,8 +68,8 @@ namespace Telas
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomesExibiveis();
-                        //produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomes();
+                        produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = frmProduto.ProdutoPesquisa.CodProduto });
                     }
                     frmProduto.Dispose();
                 } 
@@ -157,8 +156,8 @@ namespace Telas
             frmProduto.ShowDialog();
             entradaProduto.CodProduto = frmProduto.ProdutoPesquisa.CodProduto;
             entradaProdutoBindingSource.ResumeBinding();
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
-            produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = entradaProduto.CodProduto });
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomes();
+            produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = entradaProduto.CodProduto });
             frmProduto.Dispose();
         }
     }
