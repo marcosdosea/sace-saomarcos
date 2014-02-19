@@ -377,7 +377,7 @@ namespace Negocio
         /// <param name="cliente"></param>
         /// <param name="totalNovaCompra"></param>
         /// <returns></returns>
-        public decimal ObterLimiteCompra(Pessoa cliente)
+        public decimal ObterLimiteCompraDisponivel(Pessoa cliente)
         {
             IEnumerable<Conta> listaContasAberto = GerenciadorConta.GetInstance(null).ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA, cliente.CodPessoa);
             IEnumerable<long> listaCodContas = listaContasAberto.Select(p =>  p.CodConta );

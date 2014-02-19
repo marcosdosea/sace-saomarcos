@@ -191,29 +191,22 @@ namespace Negocio
             var query = from produtoLoja in saceContext.ProdutoLojaSet
                         where produtoLoja.codLoja == codLoja && produtoLoja.codProduto == codProduto
                         select produtoLoja;
-            int numeroRegistros = query.Count();
-            if (numeroRegistros > 0)
+
+            ProdutoLojaE produtoLojaE = query.FirstOrDefault();
+            if (produtoLojaE != null)
             {
-                foreach (ProdutoLojaE _produtoLojaE in query)
-                {
-                    if (_produtoLojaE != null)
-                    {
-                        _produtoLojaE.qtdEstoque += quantidade;
-                        _produtoLojaE.qtdEstoqueAux += quantidadeAux;
-                    }
-                }
+                produtoLojaE.qtdEstoque += quantidade;
+                produtoLojaE.qtdEstoqueAux += quantidadeAux;
             }
             else
             {
-                ProdutoLojaE _produtoLojaE = new ProdutoLojaE();
-                _produtoLojaE.codLoja = codLoja;
-                _produtoLojaE.codProduto = codProduto;
-                _produtoLojaE.qtdEstoque = quantidade;
-                _produtoLojaE.qtdEstoqueAux = quantidadeAux;
-
-                saceContext.AddToProdutoLojaSet(_produtoLojaE);
+                produtoLojaE = new ProdutoLojaE();
+                produtoLojaE.codLoja = codLoja;
+                produtoLojaE.codProduto = codProduto;
+                produtoLojaE.qtdEstoque = quantidade;
+                produtoLojaE.qtdEstoqueAux = quantidadeAux;
+                saceContext.AddToProdutoLojaSet(produtoLojaE);
             }
-
             saceContext.SaveChanges();
         }
 

@@ -100,7 +100,7 @@ namespace Telas
 
                 saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(long.Parse(codSaidaTextBox.Text));
 
-                if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
+                if (Math.Round(saida.TotalAVista, 2) <= Math.Round(saida.TotalPago, 2))
                 {
                     EncerrarLancamentosPagamentos(sender, e);
                 }
@@ -139,16 +139,16 @@ namespace Telas
                 
                 if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                 {
-                    List<SaidaPagamento> listaPagamentosSaida = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    List<SaidaPagamento> listaPagamentosSaida = (List <SaidaPagamento> ) saidaPagamentoBindingSource.DataSource; 
                     bool limiteCompraLiberado = true;
                     Pessoa cliente = (Pessoa) clienteBindingSource.Current;
                     // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
                     if (cliente.LimiteCompra > 0)
                     {
-                        decimal limiteCompra = GerenciadorPessoa.GetInstance().ObterLimiteCompra(cliente);
-                        if (limiteCompra <= saida.TotalAVista)
+                        decimal limiteCompraDisponivel = GerenciadorPessoa.GetInstance().ObterLimiteCompraDisponivel(cliente);
+                        if (limiteCompraDisponivel <= saida.TotalAVista)
                         {
-                            if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompra.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
+                            if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
                             {
                                 limiteCompraLiberado = false;
                             }
@@ -156,7 +156,7 @@ namespace Telas
                     }
                     if (limiteCompraLiberado)
                     {
-                        GerenciadorSaida.GetInstance(null).Encerrar(saida.CodSaida, frmSaidaConfirma.Opcao, listaPagamentosSaida);
+                        GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida);
                         if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                         {
                             // quando tem pagamento crediário imprime o DAV
@@ -164,9 +164,7 @@ namespace Telas
                             if (temPagamentoCrediario)
                             {
                                 if (cliente.ImprimirDAV)
-                                {
                                     GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
-                                }
                             }
                             else
                             {
@@ -211,13 +209,6 @@ namespace Telas
         private void AtualizaValores()
         {
             totalRecebidoLabel.Text = saida.TotalPago.ToString("N2");
-            
-            // Cálculo de quanto falta receber
-            //decimal faltaReceber = saida.TotalAVista - saida.TotalPago;
-            //if (faltaReceber > 0)
-            //    faltaReceberTextBox.Text = faltaReceber.ToString("N2");
-            //else
-            //    faltaReceberTextBox.Text = "0";
             
             // Cálculo do troco em relação aos pagamento efetuados
             if (saida.Troco > 0)

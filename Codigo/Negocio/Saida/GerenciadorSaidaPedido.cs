@@ -80,19 +80,21 @@ namespace Negocio
         /// Remove os todos associados ao pedido
         /// </summary>
         /// <param name="saida"></param>
-        public void RemoverPorPedido(long codPedido, SaceEntities saceContext)
+        public void RemoverPorPedido(long codPedido)
         {
             try
             {
-                var query = from saidaPedidoSet in saceContext.SaidaPedidoSet
+                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
+                var saceEntities = (SaceEntities)repSaidaPedido.ObterContexto();
+                var query = from saidaPedidoSet in saceEntities.SaidaPedidoSet
                             where saidaPedidoSet.codPedidoGerado == codPedido
                             select saidaPedidoSet;
                 //SaidaPedidoE saidaPedidoE = query.ToList().ElementAtOrDefault(0);
                 foreach(SaidaPedidoE saidaPedidoE in query) 
                 {
-                    saceContext.DeleteObject(saidaPedidoE);
+                    saceEntities.DeleteObject(saidaPedidoE);
                 }
-                saceContext.SaveChanges();
+                saceEntities.SaveChanges();
             }
             catch (Exception e)
             {

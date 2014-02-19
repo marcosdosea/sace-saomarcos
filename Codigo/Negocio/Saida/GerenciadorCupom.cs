@@ -312,7 +312,7 @@ namespace Negocio
                     if (cupomFiscal.Exists)
                     {
                         cupomFiscal.Delete();
-                        GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido, null);
+                        GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                     }
                 }
             }
@@ -386,7 +386,7 @@ namespace Negocio
                                     }
                                 }
                             }
-                            GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido, null);
+                            GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                             //transaction.Commit();
                             file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
                             file.Delete();

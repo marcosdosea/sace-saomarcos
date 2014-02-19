@@ -19,7 +19,7 @@ namespace Telas
     public partial class Principal : Form
     {
         static Autenticacao autenticacao = new Autenticacao();
-
+       
         public static Autenticacao Autenticacao
         {
             get { return Principal.autenticacao; }

@@ -50,7 +50,6 @@ namespace Negocio
                 saceContext.SaveChanges();
 
                 // Atualiza saldo da conta bancária
-                AtualizaSaldoContaBanco(_movimentacaoContaE);
                 ContaE _contaE = AtualizaSituacaoConta((long)_movimentacaoContaE.codConta);
                 AtualizaSituacaoPagamentosEntrada(_contaE);
                 AtualizaSituacaoPagamentosSaida(_contaE);
@@ -108,7 +107,7 @@ namespace Negocio
                                 saceContext.SaveChanges();
 
                                 // Atualiza saldo da conta bancária
-                                AtualizaSaldoContaBanco(_movimentacaoE);
+                                //AtualizaSaldoContaBanco(_movimentacaoE);
                                 AtualizaSituacaoConta(_contaE.codConta);
                                 AtualizaSituacaoPagamentosEntrada(_contaE);
                                 AtualizaSituacaoPagamentosSaida(_contaE);
@@ -141,11 +140,7 @@ namespace Negocio
                     long codConta = (long) _movimentacaoContaE.codConta;
                     repMovimentacaoConta.Remover(_movimentacaoContaE);
                     saceContext.SaveChanges();
-
-                    // Decrementa o saldo da conta
-                    _movimentacaoContaE.valor *= (-1);
-                    AtualizaSaldoContaBanco(_movimentacaoContaE);
-
+                    
                     // Atualiza status da conta, entrada e saída 
                     ContaE _contaE = AtualizaSituacaoConta(codConta);
                     AtualizaSituacaoPagamentosEntrada(_contaE);
@@ -316,7 +311,7 @@ namespace Negocio
             var query = from conta in saceContext.ContaSet
                         where conta.codConta == codConta
                         select conta;
-            ContaE _contaE = query.ToList().ElementAtOrDefault(0);
+            ContaE _contaE = query.FirstOrDefault();
             if (_contaE != null)
             {
                 decimal valorConta = Math.Round(_contaE.valor - _contaE.desconto, 2);
@@ -329,36 +324,6 @@ namespace Negocio
             saceContext.SaveChanges();
             return _contaE;
         }
-
-        /// <summary>
-        /// Atualiza saldo da conta de acordo com o tipo de movimentacao
-        /// </summary>
-        /// <param name="movimentacaoConta"></param>
-        /// <param name="_movimentacaoE"></param>
-        private void AtualizaSaldoContaBanco(MovimentacaoContaE movimentacaoContaE)
-        {
-            //TipoMovimentacaoConta tipoMovimentacaoConta = GerenciadorTipoMovimentacaoConta.GetInstance().Obter(movimentacaoConta.CodTipoMovimentacao).ElementAt(0);
-            //RepositorioGenerico<ContaBanco> repContaBanco = new RepositorioGenerico<ContaBanco>();
-            var queryTipoMovConta = from tipoMovimentacaoContaE in saceContext.TipoMovimentacaoContaSet
-                                    where tipoMovimentacaoContaE.codTipoMovimentacao == movimentacaoContaE.codTipoMovimentacao
-                                    select tipoMovimentacaoContaE;
-            TipoMovimentacaoContaE tipoMovimentacaoConta = queryTipoMovConta.First();
-
-
-            var query = from contaBanco in saceContext.ContaBancoSet
-                        where contaBanco.codContaBanco == movimentacaoContaE.codContaBanco
-                        select contaBanco;
-            List<ContaBancoE> listaContaBanco = query.ToList();
-            foreach (ContaBancoE _contaBancoE in listaContaBanco)
-            {
-                if (tipoMovimentacaoConta.somaSaldo)
-                    _contaBancoE.saldo += movimentacaoContaE.valor;
-                else
-                    _contaBancoE.saldo += movimentacaoContaE.valor * (-1);
-            }
-            saceContext.SaveChanges();
-        }
-
 
         /// <summary>
         /// Atribui a classe entidade para entidade persistente

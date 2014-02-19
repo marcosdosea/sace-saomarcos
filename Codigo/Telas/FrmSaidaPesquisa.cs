@@ -36,7 +36,7 @@ namespace Telas
                     saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
                 }
                 else
-                    if (!txtTexto.Text.Trim().Equals(""))
+                    if (txtTexto.Text.Trim().Length > 3)
                     {
                         if (cmbBusca.SelectedIndex == 1)
                             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(long.Parse(txtTexto.Text));
