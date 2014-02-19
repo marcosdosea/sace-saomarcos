@@ -17,17 +17,17 @@ namespace Negocio
         private static GerenciadorSaida gSaida;
         private static SaceEntities saceContext;
         private static RepositorioGenerico<tb_saida> repSaida;
-        
+
         public static GerenciadorSaida GetInstance(SaceEntities context)
         {
             if (gSaida == null)
             {
                 gSaida = new GerenciadorSaida();
             }
-            if (context == null) 
+            if (context == null)
             {
                 repSaida = new RepositorioGenerico<tb_saida>();
-            } 
+            }
             else
             {
                 repSaida = new RepositorioGenerico<tb_saida>(context);
@@ -47,12 +47,12 @@ namespace Negocio
             {
                 tb_saida _saidaE = new tb_saida();
                 Atribuir(saida, _saidaE);
-                
+
                 var repSaida = new RepositorioGenerico<tb_saida>();
-                
+
                 repSaida.Inserir(_saidaE);
                 repSaida.SaveChanges();
-                
+
                 return _saidaE.codSaida;
             }
             catch (Exception e)
@@ -61,7 +61,7 @@ namespace Negocio
             }
         }
 
-        
+
         /// <summary>
         /// Atualiza dados de uma saída (orçamento/pré-venda/venda/saída depósito)
         /// </summary>
@@ -73,12 +73,12 @@ namespace Negocio
                 var query = from saidaE in saceContext.tb_saida
                             where saidaE.codSaida == saida.CodSaida
                             select saidaE;
-                
-                foreach (tb_saida _saidaE in query)
+
+                tb_saida _saidaE = query.FirstOrDefault();
+                if (_saidaE != null)
                 {
                     Atribuir(saida, _saidaE);
                 }
-
 
                 saceContext.SaveChanges();
             }
@@ -87,7 +87,7 @@ namespace Negocio
                 throw new DadosException("Saída", e.Message, e);
             }
         }
-        
+
         /// <summary>
         /// Atualizar situação pagamentos de uma saída
         /// </summary>
@@ -130,7 +130,7 @@ namespace Negocio
                 {
                     _saidaE.nfe = nfe;
                     _saidaE.observacao = observacao;
-                } 
+                }
                 repSaida.SaveChanges();
             }
             catch (Exception e)
@@ -174,7 +174,7 @@ namespace Negocio
             try
             {
                 var query = from saidaE in saceContext.tb_saida
-                            where saidaE.codSaida == codSaida 
+                            where saidaE.codSaida == codSaida
                             select saidaE;
                 foreach (tb_saida _saidaE in query)
                 {
@@ -230,21 +230,28 @@ namespace Negocio
                     throw new NegocioException("Não é possível remover saídas / devoluções com NF-e emitidas pelo sistema");
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
-                
+
                 if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
                 {
-                    repSaida.Remover(s => s.codSaida == saida.CodSaida);
+                    var query = from saidaE in saceContext.tb_saida
+                                where saidaE.codSaida == saida.CodSaida
+                                select saidaE;
+                    tb_saida _saidaE = query.FirstOrDefault();
+                    saceContext.DeleteObject(_saidaE);
                     saceContext.SaveChanges();
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                     || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO))
                 {
                     RegistrarEstornoEstoque(saida);
-                    repSaida.Remover(s => s.codSaida == saida.CodSaida);
-                    repSaida.SaveChanges();
+                    var query = from saidaE in saceContext.tb_saida
+                                where saidaE.codSaida == saida.CodSaida
+                                select saidaE;
+                    tb_saida _saidaE = query.FirstOrDefault();
+                    saceContext.DeleteObject(_saidaE);
+                    saceContext.SaveChanges();
                 }
-                
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
                     RegistrarEstornoEstoque(saida);
@@ -296,8 +303,8 @@ namespace Negocio
                 }
                 // Se houver documento fiscal aguardando impressão
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-                    GerenciadorCupom.GetInstance().ExcluirDocumentoFiscal(saida.CodSaida);
-                
+                    GerenciadorCupom.GetInstance().RemoverSolicitacaoCupom(saida.CodSaida);
+
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
@@ -306,7 +313,7 @@ namespace Negocio
                 }
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO)) 
+                else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     saida.TipoSaida = Saida.TIPO_PRE_REMESSA;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO;
@@ -333,16 +340,16 @@ namespace Negocio
                         select new Saida
                         {
                             BaseCalculoICMS = (decimal)saida.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal) saida.baseCalculoICMSSubst,
+                            BaseCalculoICMSSubst = (decimal)saida.baseCalculoICMSSubst,
                             CodCliente = saida.codCliente,
                             CodEmpresaFrete = saida.codEmpresaFrete,
-                            CodProfissional = (long) saida.codProfissional,
+                            CodProfissional = (long)saida.codProfissional,
                             CodEntrada = saida.codEntrada,
                             CodSituacaoPagamentos = saida.codSituacaoPagamentos,
                             CodSaida = saida.codSaida,
                             CpfCnpj = saida.cpf_cnpj,
                             DataSaida = saida.dataSaida,
-                            Desconto = (decimal) saida.desconto ,
+                            Desconto = (decimal)saida.desconto,
                             DescricaoSituacaoPagamentos = saida.tb_situacao_pagamentos.descricaoSituacaoPagamentos,
                             DescricaoTipoSaida = saida.tb_tipo_saida.descricaoTipoSaida,
                             EntregaRealizada = saida.entregaRealizada,
@@ -355,8 +362,8 @@ namespace Negocio
                             OutrasDespesas = (decimal)saida.outrasDespesas,
                             Observacao = saida.observacao,
                             CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
-                            DataEmissaoCupomFiscal = saida.dataEmissaoDocFiscal == null ? saida.dataSaida : (DateTime) saida.dataEmissaoDocFiscal,
-                            PesoBruto =  (decimal)saida.pesoBruto,
+                            DataEmissaoCupomFiscal = saida.dataEmissaoDocFiscal == null ? saida.dataSaida : (DateTime)saida.dataEmissaoDocFiscal,
+                            PesoBruto = (decimal)saida.pesoBruto,
                             PesoLiquido = (decimal)saida.pesoLiquido,
                             QuantidadeVolumes = (decimal)saida.quantidadeVolumes,
                             TipoSaida = saida.codTipoSaida,
@@ -408,7 +415,7 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
-            if (codSaidaInicial <= 0) 
+            if (codSaidaInicial <= 0)
                 return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
                     saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderByDescending(s => s.CodSaida).Take(20).OrderBy(s => s.CodSaida).ToList();
             else
@@ -444,7 +451,7 @@ namespace Negocio
         public List<Saida> ObterPreVendasPendentes()
         {
             return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
-                saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente==Global.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
+                saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente == Global.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -460,77 +467,69 @@ namespace Negocio
             return query.ToList().ElementAtOrDefault(0);
         }
 
-        
+
         /// <summary>
         /// Encerra uma saída fazendo movimentações de estoque e lançamentos no contas a pagar/receber
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="tipo_encerramento"></param>
-        public void Encerrar(long codSaida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos)
+        public void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos)
         {
             using (TransactionScope transaction = new TransactionScope())
             {
                 try
                 {
-                    var query = from saidaE in saceContext.tb_saida
-                                where saidaE.codSaida == codSaida
-                                select saidaE;
-                    tb_saida _saidaE = query.FirstOrDefault();
-                    if (_saidaE != null)
+                    if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_ORCAMENTO))
                     {
+                        saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                        Atualizar(saida);
+                    }
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA))
+                    {
+                        saida.TipoSaida = Saida.TIPO_PRE_VENDA;
+                        saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
-                        if (_saidaE.codTipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_ORCAMENTO))
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
+
+                        saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
+                        Atualizar(saida);
+
+                        RegistrarPagamentosSaida(saidaPagamentos, saida);
+                    }
+                    else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
+                    {
+                        saida.TipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
+
+                        Loja lojaDestino = GerenciadorLoja.GetInstance().ObterPorPessoa(saida.CodCliente).ElementAt(0);
+                        if (lojaDestino.CodLoja.Equals(saida.CodLojaOrigem))
                         {
-                            _saidaE.codTipoSaida = Saida.TIPO_ORCAMENTO;
-                            saceContext.SaveChanges();
+                            throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                         }
-                        else if (_saidaE.codTipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA))
+
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                        Atualizar(saida);
+                        RegistrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
+                    }
+                    else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
+                    {
+                        saida.TipoSaida = Saida.TIPO_RETORNO_DEPOSITO;
+                        if (saida.CodLojaOrigem.Equals(Global.LOJA_PADRAO))
                         {
-                            _saidaE.codTipoSaida = Saida.TIPO_PRE_VENDA;
-                            _saidaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-
-                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(codSaida);
-                            Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
-
-                            _saidaE.totalLucro = _saidaE.totalAVista - somaPrecosCusto;
-                            saceContext.SaveChanges();
-
-                            RegistrarPagamentosSaida(saidaPagamentos, _saidaE);
+                            throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                         }
-                        else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
-                        {
-                            _saidaE.codTipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
 
-                            Loja lojaDestino = GerenciadorLoja.GetInstance().ObterPorPessoa(_saidaE.codCliente).ElementAt(0);
-                            if (lojaDestino.CodLoja.Equals(_saidaE.codLojaOrigem))
-                            {
-                                throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
-                            }
-
-                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                            saceContext.SaveChanges();
-                            RegistrarTransferenciaEstoque(saidaProdutos, Global.LOJA_PADRAO, lojaDestino.CodLoja);
-                        }
-                        else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
-                        {
-                            _saidaE.codTipoSaida = Saida.TIPO_RETORNO_DEPOSITO;
-                            if (_saidaE.codLojaOrigem.Equals(Global.LOJA_PADRAO))
-                            {
-                                throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
-                            }
-
-                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                            saceContext.SaveChanges();
-                            RegistrarTransferenciaEstoque(saidaProdutos, _saidaE.codLojaOrigem, Global.LOJA_PADRAO);
-                        }
-                        else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                        {
-                            _saidaE.codTipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
-                            saceContext.SaveChanges();
-                            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                            RegistrarBaixaEstoque(saidaProdutos);
-                            AtualizarCfopProdutosDevolucao(saidaProdutos, _saidaE);
-                        }
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                        saceContext.SaveChanges();
+                        RegistrarTransferenciaEstoque(saidaProdutos, saida.CodLojaOrigem, Global.LOJA_PADRAO);
+                    }
+                    else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                    {
+                        saida.TipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
+                        saceContext.SaveChanges();
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                        RegistrarBaixaEstoque(saidaProdutos);
+                        AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
                     }
                     transaction.Complete();
 
@@ -547,11 +546,11 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <param name="_saidaE"></param>
-        private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, tb_saida _saidaE)
+        private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida)
         {
-            Pessoa fornecedor = GerenciadorPessoa.GetInstance().Obter(_saidaE.codCliente).ElementAtOrDefault(0);
+            Pessoa fornecedor = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
             Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
-           
+
             bool ehMesmoUF = false;
             if (loja != null && fornecedor != null)
             {
@@ -559,7 +558,7 @@ namespace Negocio
             }
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                
+
                 if (saidaProduto.EhTributacaoIntegral)
                 {
                     saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOLUCAO_NORMAL_ESTADO : Cfop.DEVOLUCAO_NORMAL_FORA_ESTADO;
@@ -568,7 +567,7 @@ namespace Negocio
                 {
                     saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOUCAO_ST_ESTADO : Cfop.DEVOUCAO_ST_FORA_ESTADO;
                 }
-                
+
                 GerenciadorSaidaProduto.GetInstance(null).AtualizarCFOP(saidaProduto.CodSaidaProduto, saidaProduto.CodCfop);
             }
         }
@@ -606,14 +605,14 @@ namespace Negocio
         /// </summary>
         /// <param name="pagamentos"></param>
         /// <param name="saida"></param>
-        public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, tb_saida saidaE)
+        public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
         {
             decimal totalRegistrado = 0;
 
             foreach (SaidaPagamento pagamento in pagamentos)
             {
 
-                List<Conta> contas = GerenciadorConta.GetInstance(saceContext).ObterPorSaidaPagamento(saidaE.codSaida, pagamento.CodSaidaPagamento).ToList();
+                List<Conta> contas = GerenciadorConta.GetInstance(saceContext).ObterPorSaidaPagamento(saida.CodSaida, pagamento.CodSaidaPagamento).ToList();
 
                 if (contas.Count > 0)
                 {
@@ -622,11 +621,11 @@ namespace Negocio
                 }
                 // Para cada pagamento é criada uma nova conta
                 Conta conta = new Conta();
-                conta.CodPessoa = saidaE.codCliente;
+                conta.CodPessoa = saida.CodCliente;
                 conta.CodPlanoConta = PlanoConta.SAIDA_PRODUTOS;
-                conta.CodSaida = saidaE.codSaida;
+                conta.CodSaida = saida.CodSaida;
                 conta.CodEntrada = Global.ENTRADA_PADRAO; // entrada não válida
-                conta.CodPessoa = saidaE.codCliente;
+                conta.CodPessoa = saida.CodCliente;
                 conta.CodPagamento = pagamento.CodSaidaPagamento;
                 conta.Desconto = 0;
 
@@ -643,14 +642,14 @@ namespace Negocio
 
                 conta.TipoConta = Conta.CONTA_RECEBER.ToString();
 
-                if (((totalRegistrado + pagamento.Valor) >= saidaE.totalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO))
+                if (((totalRegistrado + pagamento.Valor) >= saida.TotalAVista) && (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO))
                 {
-                    conta.Valor = ((decimal)saidaE.totalAVista - totalRegistrado) / pagamento.Parcelas;
+                    conta.Valor = ((decimal)saida.TotalAVista - totalRegistrado) / pagamento.Parcelas;
                 }
                 else if (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
                 {
-                    conta.Valor = ((decimal)saidaE.total / pagamento.Parcelas);
-                    conta.Desconto = ((decimal)saidaE.total - (decimal)saidaE.totalAVista) / pagamento.Parcelas;
+                    conta.Valor = ((decimal)saida.Total / pagamento.Parcelas);
+                    conta.Desconto = ((decimal)saida.Total - (decimal)saida.TotalAVista) / pagamento.Parcelas;
                 }
                 else if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {
@@ -667,7 +666,7 @@ namespace Negocio
                         pagamento.Data = pagamento.Data.AddDays((double)cartaoCredito.DiaBase);
                         conta.DataVencimento = pagamento.Data;
                         conta.Desconto = (pagamento.Valor * cartaoCredito.Desconto / 100) / pagamento.Parcelas;
-                
+
                     }
                     else if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
                     {
@@ -678,7 +677,7 @@ namespace Negocio
                     else if ((pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO) || (pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO) ||
                       (pagamento.CodFormaPagamento == FormaPagamento.PROMISSORIA))
                     {
-                        conta.DataVencimento = saidaE.dataSaida.AddDays(pagamento.IntervaloDias);
+                        conta.DataVencimento = saida.DataSaida.AddDays(pagamento.IntervaloDias);
                     }
                     else
                     {
@@ -697,11 +696,11 @@ namespace Negocio
                     MovimentacaoConta movimentacao = new MovimentacaoConta();
                     movimentacao.CodContaBanco = pagamento.CodContaBanco;
                     movimentacao.CodConta = conta.CodConta;
-                    movimentacao.CodResponsavel = saidaE.codCliente;
+                    movimentacao.CodResponsavel = saida.CodCliente;
                     movimentacao.DataHora = DateTime.Now;
-                    if (totalRegistrado > saidaE.totalAVista)
+                    if (totalRegistrado > saida.TotalAVista)
                     {
-                        movimentacao.Valor = pagamento.Valor - (decimal) saidaE.troco;
+                        movimentacao.Valor = pagamento.Valor - (decimal)saida.Troco;
                     }
                     else
                     {
@@ -724,9 +723,7 @@ namespace Negocio
             List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(saidaProduto.CodProduto).ElementAt(0);
-
-                if (produto.CodCST != Cst.ST_OUTRAS)
+                if (saidaProduto.CodCST != Cst.ST_OUTRAS)
                 {
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade(saidaProduto.Quantidade, 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
@@ -735,7 +732,7 @@ namespace Negocio
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade(0, saidaProduto.Quantidade, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
 
-                GerenciadorEntradaProduto.GetInstance(saceContext).BaixarItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
+                GerenciadorEntradaProduto.GetInstance(saceContext).BaixarItensVendidosEstoque(saidaProduto);
             }
             saceContext.SaveChanges();
         }
@@ -752,10 +749,9 @@ namespace Negocio
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
-                decimal custoAtual = produto.PrecoCusto * saidaProduto.Quantidade;
 
                 // Baixa sempre o estoque da loja matriz
-                if (produto.CodCST != Cst.ST_OUTRAS)
+                if (saidaProduto.CodCST != Cst.ST_OUTRAS)
                 {
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
@@ -764,24 +760,25 @@ namespace Negocio
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
 
-                decimal custoEstoque = GerenciadorEntradaProduto.GetInstance(saceContext).BaixarItensVendidosEstoque(produto, saidaProduto.DataValidade, saidaProduto.Quantidade);
+                decimal custoAtual = produto.PrecoCusto * saidaProduto.Quantidade;
+                decimal custoEstoque = GerenciadorEntradaProduto.GetInstance(saceContext).BaixarItensVendidosEstoque(saidaProduto);
                 // Se não houver preço de custo do produto
                 if (custoAtual <= 0)
                 {
-                    custoAtual = Convert.ToDecimal(0.8) * produto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                    custoAtual = Convert.ToDecimal(0.8) * saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
-                else if (custoAtual >= (produto.PrecoVendaVarejo * saidaProduto.Quantidade))
+                else if (custoAtual >= (saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade))
                 {
-                    custoAtual = produto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                    custoAtual = saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
 
                 if (custoEstoque <= 0)
                 {
-                    custoEstoque = Convert.ToDecimal(0.8) * produto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                    custoEstoque = Convert.ToDecimal(0.8) * saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
-                else if (custoEstoque >= (produto.PrecoVendaVarejo * saidaProduto.Quantidade))
+                else if (custoEstoque >= (saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade))
                 {
-                    custoEstoque = produto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                    custoEstoque = saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
 
                 if ((Convert.ToDecimal(0.8) * custoAtual) > custoEstoque)
@@ -891,18 +888,18 @@ namespace Negocio
                 imp.ImpColLFCentralizado(0, 59, imp.NegritoOn + pessoaLoja.Nome + imp.NegritoOff);
                 imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
-                
+
                 Pessoa cliente = GerenciadorPessoa.GetInstance().Obter(movimentacaoConta.CodResponsavel).ElementAt(0);
 
                 imp.ImpLF("Cliente: " + cliente.NomeFantasia);
                 imp.ImpLF("Data/Hora: " + movimentacaoConta.DataHora);
-               
+
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
-                
+
                 imp.Pula(1);
                 imp.ImpLF("Foi creditado na conta do cliente R$ " + movimentacaoConta.Valor);
                 imp.Pula(1);
-                
+
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.Pula(1);
                 imp.ImpColLF(0, "Recebido por:");
@@ -928,7 +925,7 @@ namespace Negocio
                 ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
         }
 
-        
+
         private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
@@ -1110,7 +1107,7 @@ namespace Negocio
                 imp.ImpLF(Global.LINHA);
 
                 imp.Pula(2);
-                
+
                 imp.Fim();
                 return true;
             }
@@ -1125,8 +1122,8 @@ namespace Negocio
             try
             {
                 StringBuilderImprimir sbImprimir = new StringBuilderImprimir();
-                
-                
+
+
                 Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
                 Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 
@@ -1146,9 +1143,9 @@ namespace Negocio
                 sbImprimir.AppendLineCenter(80, pessoaLoja.Nome);
                 sbImprimir.AppendLineCenter(80, pessoaLoja.Endereco + "                                     Fone: " + pessoaLoja.Fone1);
                 sbImprimir.AppendLine(Global.LINHA);
-                
+
                 Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
-                if (cliente.NomeFantasia.Length <= 40) 
+                if (cliente.NomeFantasia.Length <= 40)
                     sbImprimir.Append("Cliente: " + cliente.NomeFantasia);
                 else
                     sbImprimir.Append("Cliente: " + cliente.NomeFantasia.Substring(0, 40));
@@ -1202,7 +1199,7 @@ namespace Negocio
 
                 sbImprimir.AppendLine("");
                 sbImprimir.AppendLine("");
-                
+
                 GerenciadorImprimir.GetInstance().Imprimir(sbImprimir.ToString());
             }
             catch (Exception e)
@@ -1285,6 +1282,6 @@ namespace Negocio
         }
 
 
-        
+
     }
 }

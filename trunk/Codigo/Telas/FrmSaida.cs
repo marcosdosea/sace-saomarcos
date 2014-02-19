@@ -179,19 +179,28 @@ namespace Telas
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            saida = (Saida)saidaBindingSource.Current;
+            saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+            if (saida.TipoSaida == Saida.TIPO_VENDA) 
             {
-                saida = GerenciadorSaida.GetInstance(null).Obter(Convert.ToInt64(codSaidaTextBox.Text));
-                if ((saida.TipoSaida == Saida.TIPO_VENDA) && (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes))
+                if (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     GerenciadorSaida.GetInstance(null).Remover(saida);
                     codSaidaTextBox_TextChanged(sender, e);
                 }
-                else
+            } 
+            else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)  
+            {
+                if (MessageBox.Show("Confirma transformar PRÉ-VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     GerenciadorSaida.GetInstance(null).Remover(saida);
-                    saidaBindingSource.RemoveCurrent();
+                    codSaidaTextBox_TextChanged(sender, e);
                 }
+            }
+            else if (MessageBox.Show("Confirma EXCLUSÃO?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                GerenciadorSaida.GetInstance(null).Remover(saida);
+                saidaBindingSource.RemoveCurrent();
             }
             estado = EstadoFormulario.ESPERA;
             btnNovo.Focus();
@@ -247,7 +256,7 @@ namespace Telas
         /// <param name="e"></param>
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            //saida = (Saida)saidaBindingSource.Current;
+            saida = (Saida)saidaBindingSource.Current;
             
             if (saida.CodSaida <= 0)
             {
@@ -262,7 +271,6 @@ namespace Telas
                 saidaProduto.CodSaida = Convert.ToInt64(codSaidaTextBox.Text);
                 saidaProduto.Desconto = Global.DESCONTO_PADRAO;
                 saidaProduto.Quantidade = Convert.ToDecimal(quantidadeTextBox.Text);
-                //saidaProduto.ValorVenda = Convert.ToDecimal(precoVendaSemDescontoTextBox.Text);
                 saidaProduto.ValorVendaAVista = Convert.ToDecimal(precoVendatextBox.Text);
                 saidaProduto.DataValidade = Convert.ToDateTime(data_validadeDateTimePicker.Text);
                 saidaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
@@ -285,6 +293,7 @@ namespace Telas
                     saidaProdutoBindingSource.MoveLast();
                 }
             }
+            saidaBindingSource.ResumeBinding();
         }
 
         /// <summary>
@@ -361,7 +370,7 @@ namespace Telas
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(codSaidaInicial);
                 tb_saida_produtoDataGridView.Height = 370;
             }
-            //saidaBindingSource.RaiseListChangedEvents = true;
+            saidaBindingSource.RaiseListChangedEvents = true;
             saidaBindingSource.ResumeBinding();
             saidaBindingSource.MoveLast();
         }

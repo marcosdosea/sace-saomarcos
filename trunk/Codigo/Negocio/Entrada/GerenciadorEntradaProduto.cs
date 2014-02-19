@@ -536,18 +536,19 @@ namespace Negocio
         /// <param name="produto"></param>
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeDevolvida"></param>
-        private void EstornarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeDevolvida)
+        private void EstornarItensVendidosEstoque(SaidaProduto saidaProduto)
         {
-            List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorValidade(produto.CodProduto);
+            decimal quantidadeDevolvida = Math.Abs(saidaProduto.Quantidade);
+            List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorValidade(saidaProduto.CodProduto);
             Decimal quantidadeRetornada = 0;
 
             if (entradaProdutos != null)
             {
-                if (produto.TemVencimento)
+                if (saidaProduto.TemVencimento)
                 {
                     foreach (EntradaProduto entradaProduto in entradaProdutos)
                     {
-                        if ((entradaProduto.DataValidade.Date.Equals(dataValidade.Date)) && (quantidadeRetornada < quantidadeDevolvida))
+                        if ((entradaProduto.DataValidade.Date.Equals(saidaProduto.DataValidade.Date)) && (quantidadeRetornada < quantidadeDevolvida))
                         {
                             if (entradaProduto.Quantidade <= (entradaProduto.QuantidadeDisponivel + (quantidadeDevolvida - quantidadeRetornada)))
                             {
@@ -587,7 +588,7 @@ namespace Negocio
             // acontece quando uma data de validade não existe no estoque
             if (quantidadeRetornada < quantidadeDevolvida)
             {
-                BaixarItensVendidosEstoqueEntradaPadrao(produto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)));
+                BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)));
             }
         }
         
@@ -598,45 +599,45 @@ namespace Negocio
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeVendida"></param>
         /// <returns></returns>
-        public Decimal BaixarItensVendidosEstoque(ProdutoPesquisa produto, DateTime dataValidade, Decimal quantidadeVendida) {
-            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisOrdenadoPorValidade(produto.CodProduto);
+        public Decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto) {
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisOrdenadoPorValidade(saidaProduto.CodProduto);
 
             decimal somaPrecosCusto = 0;
             decimal quantidadeBaixas = 0;
 
-            if (quantidadeVendida < 0)
+            if (saidaProduto.Quantidade < 0)
             {
-                EstornarItensVendidosEstoque(produto, dataValidade, Math.Abs(quantidadeVendida));
+                EstornarItensVendidosEstoque(saidaProduto);
             } 
             else if (entradaProdutos.Count > 0)
             {
                 // reduz a quantidade de itens disponíveis nos lotes de entrada
                 foreach (EntradaProduto entradaProduto in entradaProdutos)
                 {
-                    if (quantidadeVendida == quantidadeBaixas)
+                    if (saidaProduto.Quantidade == quantidadeBaixas)
                         break;
-                    if (produto.TemVencimento)
+                    if (saidaProduto.TemVencimento)
                     {
                         // quando produto tem vencimento
-                        if ((entradaProduto.DataValidade.Date.Equals(dataValidade.Date)) && (quantidadeBaixas < quantidadeVendida))
+                        if ((entradaProduto.DataValidade.Date.Equals(saidaProduto.DataValidade.Date)) && (quantidadeBaixas < saidaProduto.Quantidade))
                         {
-                            if (entradaProduto.QuantidadeDisponivel >= (quantidadeVendida - quantidadeBaixas))
+                            if (entradaProduto.QuantidadeDisponivel >= (saidaProduto.Quantidade - quantidadeBaixas))
                             {
-                                entradaProduto.QuantidadeDisponivel -= quantidadeVendida - quantidadeBaixas;
-                                somaPrecosCusto += (quantidadeVendida - quantidadeBaixas) * entradaProduto.PrecoCusto;
-                                quantidadeBaixas += (quantidadeVendida - quantidadeBaixas);
+                                entradaProduto.QuantidadeDisponivel -= saidaProduto.Quantidade - quantidadeBaixas;
+                                somaPrecosCusto += (saidaProduto.Quantidade - quantidadeBaixas) * entradaProduto.PrecoCusto;
+                                quantidadeBaixas += (saidaProduto.Quantidade - quantidadeBaixas);
                             }
                         }
                     }
                     else
                     {
-                        if (quantidadeBaixas < quantidadeVendida)
+                        if (quantidadeBaixas < saidaProduto.Quantidade)
                         {
-                            if (entradaProduto.QuantidadeDisponivel >= (quantidadeVendida - quantidadeBaixas))
+                            if (entradaProduto.QuantidadeDisponivel >= (saidaProduto.Quantidade - quantidadeBaixas))
                             {
-                                entradaProduto.QuantidadeDisponivel -= quantidadeVendida - quantidadeBaixas;
-                                somaPrecosCusto += (quantidadeVendida - quantidadeBaixas) * entradaProduto.PrecoCusto;
-                                quantidadeBaixas += (quantidadeVendida - quantidadeBaixas);
+                                entradaProduto.QuantidadeDisponivel -= saidaProduto.Quantidade - quantidadeBaixas;
+                                somaPrecosCusto += (saidaProduto.Quantidade - quantidadeBaixas) * entradaProduto.PrecoCusto;
+                                quantidadeBaixas += (saidaProduto.Quantidade - quantidadeBaixas);
                             }
                             else
                             {
@@ -650,9 +651,9 @@ namespace Negocio
                 }
             }
 
-            if (quantidadeBaixas < quantidadeVendida)
+            if (quantidadeBaixas < saidaProduto.Quantidade)
             {
-                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(produto, (quantidadeVendida - quantidadeBaixas));
+                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, (saidaProduto.Quantidade - quantidadeBaixas));
             }
             saceContext.SaveChanges();
             return somaPrecosCusto;
@@ -664,9 +665,9 @@ namespace Negocio
         /// <param name="produtoPesquisa"></param>
         /// <param name="quantidade"></param>
         /// <returns></returns>
-        private decimal BaixarItensVendidosEstoqueEntradaPadrao(ProdutoPesquisa produtoPesquisa, decimal quantidade) {
-            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) Obter(Global.ENTRADA_PADRAO, produtoPesquisa.CodProduto);
-            Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
+        private decimal BaixarItensVendidosEstoqueEntradaPadrao(SaidaProduto saidaProduto, decimal quantidade) {
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)Obter(Global.ENTRADA_PADRAO, saidaProduto.CodProduto);
+            Produto produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
             EntradaProduto entradaProduto = null;
             if (entradaProdutos.Count > 0)
             {

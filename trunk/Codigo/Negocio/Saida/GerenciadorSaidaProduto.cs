@@ -59,8 +59,6 @@ namespace Negocio
 
             repSaidaProduto.Inserir(_saidaProdutoE);
             repSaidaProduto.SaveChanges();
-
-            AtualizarTotaisSaida(saida, saidaProduto, false);
             return _saidaProdutoE.codSaidaProduto;
         }
 
@@ -172,7 +170,6 @@ namespace Negocio
                     repSaidaProduto.Remover(saidaProdutoE);
                 }
                 repSaidaProduto.SaveChanges();
-                AtualizarTotaisSaida(saida, saidaProduto, true);
 
                 transaction.Commit();
             }
@@ -194,7 +191,6 @@ namespace Negocio
         private IQueryable<SaidaProduto> GetQuery()
         {
             var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
                         select new SaidaProduto
                         {
                             BaseCalculoICMS = (decimal) saidaProduto.baseCalculoICMS,
@@ -207,14 +203,14 @@ namespace Negocio
                             DataValidade = (DateTime) saidaProduto.data_validade,
                             Desconto = (decimal) saidaProduto.desconto,
                             Quantidade = (decimal) saidaProduto.quantidade,
-                            Nome = produto.nome,
-                            //Subtotal = (decimal) saidaProduto.subtotal,
+                            Nome = saidaProduto.tb_produto.nome,
                             SubtotalAVista = (decimal) saidaProduto.subtotalAVista,
-                            Unidade = produto.unidade == null ? "UN": produto.unidade,
+                            Unidade = saidaProduto.tb_produto.unidade,
                             ValorICMS = (decimal) saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal) saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal) saidaProduto.valorIPI,
-                            //ValorVenda = (decimal) saidaProduto.valorVenda,
+                            TemVencimento = (bool) saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo                            
                         };
             return query;
         }
@@ -257,6 +253,7 @@ namespace Negocio
                             BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
                             CodProduto = saidaProduto.codProduto,
                             CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
                             CodCST = saidaProduto.tb_produto.codCST,
                             CodCfop = saidaProduto.cfop,
                             DataValidade = (DateTime)saidaProduto.data_validade,
@@ -268,6 +265,8 @@ namespace Negocio
                             ValorICMS = (decimal)saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal)saidaProduto.valorIPI,
+                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal) saidaProduto.tb_produto.precoVendaVarejo
                         };
             return query.ToList();
         }
@@ -288,6 +287,7 @@ namespace Negocio
                             BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
                             CodProduto = saidaProduto.codProduto,
                             CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
                             CodCST = saidaProduto.tb_produto.codCST,
                             CodCfop = saidaProduto.cfop,
                             DataValidade = (DateTime)saidaProduto.data_validade,
@@ -299,6 +299,8 @@ namespace Negocio
                             ValorICMS = (decimal)saidaProduto.valorICMS,
                             ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal)saidaProduto.valorIPI,
+                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo
                         };
             return query.ToList();
         }
@@ -387,41 +389,6 @@ namespace Negocio
             saida.ValorICMSSubst = listaSaidaProdutos.Sum(sp => sp.valorICMSSubst).GetValueOrDefault();
             saida.ValorIPI = listaSaidaProdutos.Sum(sp => sp.valorIPI).GetValueOrDefault();
             GerenciadorSaida.GetInstance(null).Atualizar(saida);
-        }
-        
-        
-        
-        /// <summary>
-        /// Atualiza os totais de uma saída quando um produto é inserido ou excluído de uma saída
-        /// </summary>
-        /// <param name="saida"></param>
-        /// <param name="saidaProduto"></param>
-        /// <param name="ehRemocao"></param>
-        
-        private void AtualizarTotaisSaida(Saida saida, SaidaProduto saidaProduto, bool ehRemocao)
-        {
-            if (ehRemocao)
-            {
-                saida.Total -= saidaProduto.Subtotal;
-                saida.TotalAVista -= saidaProduto.SubtotalAVista;
-                saida.BaseCalculoICMS -= saidaProduto.BaseCalculoICMS;
-                saida.ValorICMS -= saidaProduto.ValorICMS;
-                saida.BaseCalculoICMSSubst -= saidaProduto.BaseCalculoICMSSubst;
-                saida.ValorICMSSubst -= saidaProduto.ValorICMSSubst;
-                saida.ValorIPI -= saidaProduto.ValorIPI;
-            }
-            else
-            {
-                saida.Total += saidaProduto.Subtotal;
-                saida.TotalAVista += saidaProduto.SubtotalAVista;
-                saida.BaseCalculoICMS += saidaProduto.BaseCalculoICMS;
-                saida.ValorICMS += saidaProduto.ValorICMS;
-                saida.BaseCalculoICMSSubst += saidaProduto.BaseCalculoICMSSubst;
-                saida.ValorICMSSubst += saidaProduto.ValorICMSSubst;
-                saida.ValorIPI += saidaProduto.ValorIPI;
-            }
-            
-            GerenciadorSaida.GetInstance(saceContext).Atualizar(saida);
         }
     }
 }

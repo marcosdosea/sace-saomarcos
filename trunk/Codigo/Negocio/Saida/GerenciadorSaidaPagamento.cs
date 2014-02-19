@@ -115,13 +115,13 @@ namespace Negocio
         /// <param name="saida"></param>
         public void RemoverPorSaida(Saida saida)
         {
-            List<SaidaPagamento> pagamentos = (List<SaidaPagamento>)ObterPorSaida(saida.CodSaida);
-
-            foreach (SaidaPagamento pagamento in pagamentos)
+            List<SaidaPagamento> listaSaidaPagamento = ObterPorSaida(saida.CodSaida);
+            foreach (SaidaPagamento saidaPagamento in listaSaidaPagamento)
             {
-                Remover(pagamento.CodSaidaPagamento, saida);
-            }
+                Remover(saidaPagamento.CodSaidaPagamento, saida);
 
+            }
+            //repSaidaPagamento.SaveChanges();
         }
 
         /// <summary>
@@ -172,26 +172,22 @@ namespace Negocio
         private IQueryable<SaidaPagamento> GetQuery()
         {
             var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
-                        join formaPagamento in saceContext.FormaPagamentoSet on saidaPagamento.codFormaPagamento equals formaPagamento.codFormaPagamento
-                        join cartaoCredito in saceContext.CartaoCreditoSet on saidaPagamento.codCartao equals cartaoCredito.codCartao
-                        join contaBanco in saceContext.ContaBancoSet on saidaPagamento.codContaBanco equals contaBanco.codContaBanco
                         select new SaidaPagamento
                         {
                             CodCartaoCredito = saidaPagamento.codCartao,
                             CodContaBanco = saidaPagamento.codContaBanco,
-                            DescricaoContaBanco = contaBanco.descricao,
+                            DescricaoContaBanco = saidaPagamento.tb_conta_banco.descricao,
                             CodFormaPagamento = saidaPagamento.codFormaPagamento,
                             CodSaida = saidaPagamento.codSaida,
                             CodSaidaPagamento = saidaPagamento.codSaidaFormaPagamento,
                             Data = (DateTime)saidaPagamento.data,
-                            DescricaoFormaPagamento = formaPagamento.descricao,
+                            DescricaoFormaPagamento = saidaPagamento.tb_forma_pagamento.descricao,
                             IntervaloDias = (int)saidaPagamento.intervaloDias,
-                            MapeamentoCartao = cartaoCredito.mapeamento,
-                            MapeamentoFormaPagamento = formaPagamento.mapeamento,
-                            NomeCartaoCredito = cartaoCredito.nome,
+                            MapeamentoCartao = saidaPagamento.tb_cartao_credito.mapeamento,
+                            MapeamentoFormaPagamento = saidaPagamento.tb_forma_pagamento.mapeamento,
+                            NomeCartaoCredito = saidaPagamento.tb_cartao_credito.nome,
                             Parcelas = (int)saidaPagamento.parcelas,
                             Valor = (decimal)saidaPagamento.valor
-
                         };
             return query;
 
