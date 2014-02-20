@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dominio
 {
-    public class Saida
+    public class Saida : SaidaPesquisa
     {
         public const int TIPO_ORCAMENTO = 1;
         public const int TIPO_PRE_VENDA = 2;
@@ -29,23 +29,16 @@ namespace Dominio
         public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA };
 
 
-        public long CodSaida { get; set; }
         public int CodLojaOrigem { get; set; }
-        public DateTime DataSaida { get; set; }
-        public int TipoSaida { get; set; }
-        public long CodCliente { get; set; }
         public string CpfCnpj { get; set; }
         public long CodProfissional { get; set; }
         public long CodEntrada { get; set; }
         public int NumeroCartaoVenda { get; set; }
-        public string CupomFiscal { get; set; }
         public DateTime DataEmissaoCupomFiscal { get; set; }
         public decimal Total { get; set; }
-        public decimal TotalAVista { get; set; }
         public decimal Desconto { get; set; }
         public decimal TotalPago { get; set; }
         public decimal TotalLucro { get; set; }
-        public int CodSituacaoPagamentos { get; set; }
         public decimal Troco { get; set; }
         public Boolean EntregaRealizada { get; set; }
         public string Nfe { get; set; }
@@ -66,7 +59,6 @@ namespace Dominio
         public decimal PesoLiquido { get; set; }
         public long CodEmpresaFrete { get; set; }
         public string DescricaoTipoSaida { get; set; }
-        public string NomeCliente { get; set; }
         public string DescricaoSituacaoPagamentos { get; set; }
         public string Observacao { get; set; }
 

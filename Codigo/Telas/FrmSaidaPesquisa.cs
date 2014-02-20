@@ -13,7 +13,7 @@ namespace Telas
 {
     public partial class FrmSaidaPesquisa : Form
     {
-        public Saida SaidaSelected { get; set; }
+        public SaidaPesquisa SaidaSelected { get; set; }
         
         public FrmSaidaPesquisa()
         {
@@ -29,6 +29,8 @@ namespace Telas
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
+
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 if (cmbBusca.SelectedIndex == 0)
@@ -36,19 +38,31 @@ namespace Telas
                     saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
                 }
                 else
-                    if (txtTexto.Text.Trim().Length > 3)
+                    if (cmbBusca.SelectedIndex == 1)
+                       saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(long.Parse(txtTexto.Text));
+                    else if (cmbBusca.SelectedIndex == 2)
                     {
-                        if (cmbBusca.SelectedIndex == 1)
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(long.Parse(txtTexto.Text));
-                        else if (cmbBusca.SelectedIndex == 2)
+                        if (txtTexto.Text.Trim().Length > 3)
+                        {
                             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorPedido(txtTexto.Text);
-                        else if (cmbBusca.SelectedIndex == 3)
+                        }
+                    }
+                    else if (cmbBusca.SelectedIndex == 3)
+                    {
+                        if (txtTexto.Text.Trim().Length > 3)
+                        {
+
                             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorNomeCliente(txtTexto.Text);
+                        }
                     }
             }
             catch (System.Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.WaitCursor;
             }
         }
 
@@ -56,7 +70,7 @@ namespace Telas
         {
             if (saidaBindingSource.Count > 0)
             {
-                SaidaSelected = (Saida)saidaBindingSource.Current;
+                SaidaSelected = (SaidaPesquisa)saidaBindingSource.Current;
             }
             this.Close();
         }
