@@ -77,7 +77,7 @@ namespace Negocio
                            {
                                Thread.Sleep(1000); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
                                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-                               tb_solicitacao_cupom solicitacaoE = solicitacoes.ToList().ElementAt(0);
+                               tb_solicitacao_cupom solicitacaoE = solicitacoes.FirstOrDefault();
                                saidaTotalAVista.Add(solicitacaoE.codSaida, solicitacaoE.total);
                                RemoverSolicitacaoCupom(solicitacaoE.codSaida);
                                GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, null);
@@ -402,21 +402,5 @@ namespace Negocio
             }
             return atualizou;
         }
-
-        public void EmitirCupomFiscalPreVendasPendentes()
-        {
-            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            if (nomeComputador.Equals("SONY-VAIO"))
-            {
-                List<Saida> listaPreVendasPendentes = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
-                foreach (Saida saidaPendente in listaPreVendasPendentes)
-                {
-
-                }
-                //GerarDocumentoFiscal(
-            }
-
-        }
-
     }
 }

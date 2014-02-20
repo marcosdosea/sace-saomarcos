@@ -8,16 +8,13 @@ namespace Dominio
     public class SaidaPesquisa
     {
         public long CodSaida { get; set; }
+        public long CodCliente { get; set; }
+        public string NomeCliente { get; set; }
         public DateTime DataSaida { get; set; }
         public string CupomFiscal { get; set; }
-        public decimal Total { get; set; }
         public decimal TotalAVista { get; set; }
-        public Boolean EntregaRealizada { get; set; }
-        public string Nfe { get; set; }
         public int TipoSaida { get; set; }
-        public string DescricaoTipoSaida { get; set; }
-        public string NomeCliente { get; set; }
-        public string DescricaoSituacaoPagamentos { get; set; }
+        public int CodSituacaoPagamentos { get; set; }
 
         // override object.Equals
         public override bool Equals(object obj)

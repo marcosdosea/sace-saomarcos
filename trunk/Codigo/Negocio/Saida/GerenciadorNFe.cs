@@ -725,7 +725,7 @@ namespace Negocio
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                 {
                     totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-                    List<Saida> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
+                    List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorPedido(saida.CupomFiscal);
                     //totalAVista = listaSaidas.Where(s => s.TotalAVista > 0).Sum(s => s.TotalAVista);
                     totalAVista = listaSaidas.Sum(s => s.TotalAVista);
                 } 

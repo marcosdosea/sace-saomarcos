@@ -384,6 +384,27 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<SaidaPesquisa> GetQueryPesquisa()
+        {
+            var query = from saida in saceContext.tb_saida
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente,
+                            NomeCliente = saida.tb_pessoa.nomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            TipoSaida = saida.codTipoSaida
+                        };
+            return query;
+        }
+
+        /// <summary>
         /// Obtme todos os dados de uma saída
         /// </summary>
         /// <param name="codSaida"></param>
@@ -428,9 +449,9 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterPorPedido(string pedidoGerado)
+        public List<SaidaPesquisa> ObterPorPedido(string pedidoGerado)
         {
-            return GetQuery().Where(saida => saida.CupomFiscal.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
+            return GetQueryPesquisa().Where(saida => saida.CupomFiscal.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -438,9 +459,9 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterPorNomeCliente(string nomeCliente)
+        public List<SaidaPesquisa> ObterPorNomeCliente(string nomeCliente)
         {
-            return GetQuery().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).OrderBy(s => s.CodSaida).ToList();
+            return GetQueryPesquisa().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).OrderBy(s => s.CodSaida).ToList();
         }
 
         /// <summary>
@@ -448,9 +469,9 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterPreVendasPendentes()
+        public List<SaidaPesquisa> ObterPreVendasPendentes()
         {
-            return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
+            return GetQueryPesquisa().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
                 saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente == Global.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
         }
 
