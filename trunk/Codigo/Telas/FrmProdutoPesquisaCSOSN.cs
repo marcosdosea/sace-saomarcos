@@ -201,9 +201,12 @@ namespace Telas
                 for (int i = 0; i < tb_produtoDataGridView.RowCount; i++)
                 {
                     long codProduto = Convert.ToInt64( tb_produtoDataGridView.Rows[i].Cells[0].Value );
+                    string nomeProduto = tb_produtoDataGridView.Rows[i].Cells[1].Value.ToString();
                     decimal qtdAtacado = Convert.ToDecimal(tb_produtoDataGridView.Rows[i].Cells[2].Value);
                     string ncmsh = tb_produtoDataGridView.Rows[i].Cells[3].Value.ToString();
-                    GerenciadorProduto.GetInstance().AtualizarNcmshQtdAtacado(codProduto, ncmsh, qtdAtacado);
+                    string codCST = tb_produtoDataGridView.Rows[i].Cells[3].Value.ToString();
+                    List<ProdutoPesquisa> listaProduto = (List < ProdutoPesquisa >) tb_produtoDataGridView.DataSource;
+                    GerenciadorProduto.GetInstance().AtualizarNcmshQtdAtacado(codProduto, nomeProduto, ncmsh, qtdAtacado, codCST);
                 }
 
             }

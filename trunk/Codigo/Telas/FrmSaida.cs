@@ -325,8 +325,8 @@ namespace Telas
         /// </summary>
         private void ObterSaidas(long codSaidaInicial)
         {
-            saidaBindingSource.SuspendBinding();
-            saidaBindingSource.RaiseListChangedEvents = false;
+            //saidaBindingSource.SuspendBinding();
+            //saidaBindingSource.RaiseListChangedEvents = false;
             if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(tipoSaidaFormulario))
             {
                 lblSaidaProdutos.Text = "Remessa para Depósito";
@@ -365,13 +365,31 @@ namespace Telas
                 
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR);
             }
+            else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(tipoSaidaFormulario))
+            {
+                lblSaidaProdutos.Text = "Remessa para Conserto pelo Fornecedor";
+                this.Text = "Remessa para Conserto pelo Fornecedor";
+                lblBalcao.Text = "Remessa Conserto";
+                baseCalculoICMSSubstTextBox.ReadOnly = false;
+                baseCalculoICMSTextBox.ReadOnly = false;
+                valorICMSSubstTextBox.ReadOnly = false;
+                valorICMSTextBox.ReadOnly = false;
+                valorIPITextBox.ReadOnly = false;
+
+                baseCalculoICMSTextBox.TabStop = true;
+                baseCalculoICMSSubstTextBox.TabStop = true;
+                valorICMSTextBox.TabStop = true;
+                valorICMSSubstTextBox.TabStop = true;
+                valorIPITextBox.TabStop = true;
+                tb_saida_produtoDataGridView.Height = 300;
+
+                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_REMESSA_CONSERTO);
+            }
             else
             {
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(codSaidaInicial);
                 tb_saida_produtoDataGridView.Height = 370;
             }
-            saidaBindingSource.RaiseListChangedEvents = true;
-            saidaBindingSource.ResumeBinding();
             saidaBindingSource.MoveLast();
         }
 
@@ -465,7 +483,7 @@ namespace Telas
             if (produto != null)
             {
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO)
-                    || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
+                    || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO))
                 {
                     precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
                     precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
@@ -586,6 +604,12 @@ namespace Telas
                     frmSaidaDevolucao.ShowDialog();
                     frmSaidaDevolucao.Dispose();
                 }
+                else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(saida.TipoSaida))
+                {
+                    FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
+                    frmSaidaDevolucao.ShowDialog();
+                    frmSaidaDevolucao.Dispose();
+                }
                 else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
                 {
                     FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
@@ -634,7 +658,8 @@ namespace Telas
                 }
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || 
-                saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
             {
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();

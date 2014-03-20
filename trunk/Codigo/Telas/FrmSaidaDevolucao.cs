@@ -64,15 +64,21 @@ namespace Telas
             saida.DataSaida = dataSaidaDateTimePicker.Value;
             saida.TotalLucro = 0;
 
-            if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                GerenciadorSaida.GetInstance(null).Atualizar(saida);
-                GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null);
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO)) {
+                if (MessageBox.Show("Confirma Remessa de Produtos para Conserto?", "Confirmar Remessa para Conserto", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null);
+                }
             }
-            else
+            else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO)
             {
-                GerenciadorSaida.GetInstance(null).Atualizar(saida);
+                if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null);
+                }
             }
+            GerenciadorSaida.GetInstance(null).Atualizar(saida);
+            
             this.Close();
         }
 

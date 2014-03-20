@@ -4,6 +4,7 @@ using System.Linq;
 using Dados;
 using Dominio;
 using Util;
+using System.Transactions;
 
 
 namespace Negocio
@@ -20,7 +21,7 @@ namespace Negocio
             {
                 gMovimentacaoConta = new GerenciadorMovimentacaoConta();
             }
-            if (context == null) 
+            if (context == null)
             {
                 repMovimentacaoConta = new RepositorioGenerico<MovimentacaoContaE>();
             }
@@ -50,9 +51,16 @@ namespace Negocio
                 saceContext.SaveChanges();
 
                 // Atualiza saldo da conta bancária
-                ContaE _contaE = AtualizaSituacaoConta((long)_movimentacaoContaE.codConta);
-                AtualizaSituacaoPagamentosEntrada(_contaE);
-                AtualizaSituacaoPagamentosSaida(_contaE);
+                var query = from conta in saceContext.ContaSet
+                            where conta.codConta == _movimentacaoContaE.codConta
+                            select conta;
+                ContaE _contaE = query.FirstOrDefault();
+                if (_contaE != null)
+                {
+                    AtualizaSituacaoConta(_contaE, _movimentacaoContaE, false);
+                    AtualizaSituacaoPagamentosEntrada(_contaE);
+                    AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoContaE, false);
+                }
 
                 return _movimentacaoContaE.codMovimentacao;
             }
@@ -69,26 +77,35 @@ namespace Negocio
         /// <param name="movimentacaoConta"></param>
         /// <param name="listaContas"></param>
         /// <returns></returns>
-        public Int64 Inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas, decimal totalPago)
+        public Int64 Inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas, List<MovimentacaoConta> listaMovimentacaoConta)
         {
             try
             {
-                decimal totalMovimentacao = movimentacaoConta.Valor;
-                foreach (long codConta in listaContas)
+                using (TransactionScope transaction = new TransactionScope())
                 {
-                    if (totalMovimentacao > 0)
+
+                    decimal totalMovimentacao = movimentacaoConta.Valor;
+                    var queryContas = from conta in saceContext.ContaSet
+                                      where listaContas.Contains(conta.codConta)
+                                      orderby conta.dataVencimento
+                                      select conta;
+                    IEnumerable<ContaE> contasE = queryContas.ToList();
+
+                    // adiciona os créditos de devolução ao valor da movimentação
+                    decimal totalCreditos = contasE.Where(c => c.valor < 0).Sum(c => (c.valor - c.desconto));
+                    totalMovimentacao += Math.Abs(totalCreditos);
+
+                    foreach (ContaE _contaE in contasE)
                     {
-                        var queryContas = from conta in saceContext.ContaSet
-                                          where conta.codConta == codConta
-                                          select conta;
-                        IEnumerable<ContaE> contasE = queryContas.ToList();
-                        foreach (ContaE _contaE in contasE)
+                        if (totalMovimentacao > 0)
                         {
+
                             if (!_contaE.codSituacao.Equals(SituacaoConta.SITUACAO_QUITADA))
                             {
-                                movimentacaoConta.CodConta = codConta;
+                                movimentacaoConta.CodConta = _contaE.codConta;
+                                decimal totalPago = listaMovimentacaoConta.Where(m => m.CodConta == _contaE.codConta).Sum(m => m.Valor);
                                 decimal valorPagar = Math.Round(_contaE.valor - _contaE.desconto, 2) - totalPago;
-                                
+
                                 if (valorPagar <= totalMovimentacao)
                                 {
                                     movimentacaoConta.Valor = valorPagar;
@@ -106,15 +123,15 @@ namespace Negocio
                                 repMovimentacaoConta.Inserir(_movimentacaoE);
                                 saceContext.SaveChanges();
 
-                                // Atualiza saldo da conta bancária
-                                //AtualizaSaldoContaBanco(_movimentacaoE);
-                                AtualizaSituacaoConta(_contaE.codConta);
+                                AtualizaSituacaoConta(_contaE, _movimentacaoE, false);
                                 AtualizaSituacaoPagamentosEntrada(_contaE);
-                                AtualizaSituacaoPagamentosSaida(_contaE);
+                                AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoE, false);
                             }
                         }
                     }
+                    transaction.Complete();
                 }
+
             }
             catch (Exception e)
             {
@@ -137,14 +154,22 @@ namespace Negocio
                 MovimentacaoContaE _movimentacaoContaE = queryMovimentacao.ToList().ElementAtOrDefault(0);
                 if (_movimentacaoContaE != null)
                 {
-                    long codConta = (long) _movimentacaoContaE.codConta;
+                    long codConta = (long)_movimentacaoContaE.codConta;
+                    // Atualiza status da conta, entrada e saída 
+                    var query = from conta in saceContext.ContaSet
+                                where conta.codConta == _movimentacaoContaE.codConta
+                                select conta;
+                    ContaE _contaE = query.FirstOrDefault();
+                    
                     repMovimentacaoConta.Remover(_movimentacaoContaE);
                     saceContext.SaveChanges();
-                    
-                    // Atualiza status da conta, entrada e saída 
-                    ContaE _contaE = AtualizaSituacaoConta(codConta);
-                    AtualizaSituacaoPagamentosEntrada(_contaE);
-                    AtualizaSituacaoPagamentosSaida(_contaE);
+
+                    if (_contaE != null)
+                    {
+                        AtualizaSituacaoConta(_contaE, _movimentacaoContaE, true);
+                        AtualizaSituacaoPagamentosEntrada(_contaE);
+                        AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoContaE, true);
+                    }
                 }
             }
             catch (Exception e)
@@ -183,21 +208,18 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<MovimentacaoConta> GetQuery()
         {
-            //repMovimentacaoConta = new RepositorioGenerico<MovimentacaoContaE>(saceContext);
             var query = from movimentacao in saceContext.MovimentacaoContaSet
-                        join tipoMovimentacao in saceContext.TipoMovimentacaoContaSet on movimentacao.codTipoMovimentacao equals tipoMovimentacao.codTipoMovimentacao
-                        join pessoa in saceContext.PessoaSet on movimentacao.codResponsavel equals pessoa.codPessoa
                         select new MovimentacaoConta
                         {
                             CodConta = (long)movimentacao.codConta,
                             CodContaBanco = movimentacao.codContaBanco,
                             CodMovimentacao = movimentacao.codMovimentacao,
                             CodResponsavel = movimentacao.codResponsavel,
-                            NomeResponsavel = pessoa.nome,
+                            NomeResponsavel = movimentacao.tb_pessoa.nome,
                             CodTipoMovimentacao = movimentacao.codTipoMovimentacao,
-                            DescricaoTipoMovimentacao = tipoMovimentacao.descricao,
+                            DescricaoTipoMovimentacao = movimentacao.tb_tipo_movimentacao_conta.descricao,
                             DataHora = movimentacao.dataHora,
-                            SomaSaldo = tipoMovimentacao.somaSaldo,
+                            SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
                             Valor = movimentacao.valor
                         };
             return query;
@@ -237,41 +259,51 @@ namespace Negocio
         /// Atualiza Situacao dos pagamentos da saída para quitado quando todas as contas estão quitadas
         /// </summary>
         /// <param name="_contaE"></param>
-        private void AtualizaSituacaoPagamentosSaida(ContaE _contaE)
+        private void AtualizaSituacaoPagamentosSaida(ContaE contaE, MovimentacaoContaE movimentacaoContaE, bool removeuMovimento)
         {
-            var query = from saida in saceContext.tb_saida
-                        where saida.codSaida == _contaE.codSaida
-                        select saida;
-            tb_saida _saidaE = query.ToList().ElementAtOrDefault(0);
-            if (_saidaE != null)
+            if (!contaE.codSaida.Equals(Global.SAIDA_PADRAO))
             {
-                if (!_contaE.codSaida.Equals(Global.SAIDA_PADRAO))
+                var query = from saida in saceContext.tb_saida
+                            where saida.codSaida == contaE.codSaida
+                            select saida;
+                tb_saida _saidaE = query.FirstOrDefault();
+                if (_saidaE != null)
                 {
-                    if (GerenciadorConta.GetInstance(saceContext).ObterPorSituacaoSaida(SituacaoConta.SITUACAO_ABERTA, (long)_contaE.codSaida).ToList().Count == 0)
+                    if (_saidaE.totalAVista == movimentacaoContaE.valor)
                     {
-                        _saidaE.codSituacaoPagamentos = SituacaoPagamentos.QUITADA;
-                        IEnumerable<Conta> contas = GerenciadorConta.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
-                        List<long> listaCodContas = new List<long>();
-                        foreach (Conta conta in contas)
-                        {
-                            listaCodContas.Add(conta.CodConta);
-                        }
-                        decimal somaMovimentacoes = 0;
-                        IEnumerable<MovimentacaoConta> listaMovimentacoes = ObterPorContas(listaCodContas);
-                        foreach (MovimentacaoConta movimentacao in listaMovimentacoes)
-                        {
-                            somaMovimentacoes += movimentacao.Valor;
-                        }
-                        GerenciadorSaida.GetInstance(saceContext).AtualizarTipoPedidoGeradoPorSaida(_saidaE.codTipoSaida, _saidaE.pedidoGerado, somaMovimentacoes, _saidaE.codSaida);
-                        //_saidaE.totalAVista = somaMovimentacoes;
+                        if (removeuMovimento)
+                            _saidaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+                        else
+                            _saidaE.codSituacaoPagamentos = SituacaoPagamentos.QUITADA;
                     }
                     else
                     {
-                        _saidaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+                        if (GerenciadorConta.GetInstance(saceContext).ObterPorSituacaoSaida(SituacaoConta.SITUACAO_ABERTA, (long)contaE.codSaida).ToList().Count == 0)
+                        {
+                            _saidaE.codSituacaoPagamentos = SituacaoPagamentos.QUITADA;
+                            IEnumerable<Conta> contas = GerenciadorConta.GetInstance(saceContext).ObterPorSaida(_saidaE.codSaida);
+                            List<long> listaCodContas = new List<long>();
+                            foreach (Conta conta in contas)
+                            {
+                                listaCodContas.Add(conta.CodConta);
+                            }
+                            decimal somaMovimentacoes = 0;
+                            IEnumerable<MovimentacaoConta> listaMovimentacoes = ObterPorContas(listaCodContas);
+                            foreach (MovimentacaoConta movimentacao in listaMovimentacoes)
+                            {
+                                somaMovimentacoes += movimentacao.Valor;
+                            }
+                            GerenciadorSaida.GetInstance(saceContext).AtualizarTipoPedidoGeradoPorSaida(_saidaE.codTipoSaida, _saidaE.pedidoGerado, somaMovimentacoes, _saidaE.codSaida);
+                            //_saidaE.totalAVista = somaMovimentacoes;
+                        }
+                        else
+                        {
+                            _saidaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+                        }
                     }
+                    saceContext.SaveChanges();
                 }
             }
-            saceContext.SaveChanges();
         }
 
         /// <summary>
@@ -306,23 +338,29 @@ namespace Negocio
         /// Atualiza conta para quitada quando todas a soma de todas as movimentacoes quitam a conta
         /// </summary>
         /// <param name="_contaE"></param>
-        private ContaE AtualizaSituacaoConta(long codConta)
+        private ContaE AtualizaSituacaoConta(ContaE contaE, MovimentacaoContaE movimentacaoE, bool removeuMovimento)
         {
-            var query = from conta in saceContext.ContaSet
-                        where conta.codConta == codConta
-                        select conta;
-            ContaE _contaE = query.FirstOrDefault();
-            if (_contaE != null)
+            if (contaE != null)
             {
-                decimal valorConta = Math.Round(_contaE.valor - _contaE.desconto, 2);
-                decimal totalMovimentacoesConta = ObterPorConta(_contaE.codConta).Sum(c => c.Valor);
-                if (valorConta <= totalMovimentacoesConta)
-                    _contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
+                decimal valorConta = Math.Round(contaE.valor - contaE.desconto, 2);
+                if (valorConta == movimentacaoE.valor)
+                {
+                    if (removeuMovimento)
+                        contaE.codSituacao = SituacaoConta.SITUACAO_ABERTA;
+                    else
+                        contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
+                }
                 else
-                    _contaE.codSituacao = SituacaoConta.SITUACAO_ABERTA;
+                {
+                    decimal totalMovimentacoesConta = ObterPorConta(contaE.codConta).Sum(c => c.Valor);
+                    if (valorConta <= totalMovimentacoesConta)
+                        contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
+                    else
+                        contaE.codSituacao = SituacaoConta.SITUACAO_ABERTA;
+                }
             }
             saceContext.SaveChanges();
-            return _contaE;
+            return contaE;
         }
 
         /// <summary>

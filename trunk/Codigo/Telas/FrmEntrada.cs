@@ -323,15 +323,15 @@ namespace Telas
                 if (MessageBox.Show("Deseja importar PRODUTOS da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     List<EntradaProduto> listaEntradaProduto = GerenciadorEntradaProduto.GetInstance(null).Importar(nfe);
+                    Entrada entrada = (Entrada)entradaBindingSource.Current;
                     if (listaEntradaProduto.Count > 0)
                     {
-                        Entrada entrada = (Entrada)entradaBindingSource.Current;
                         if (entrada.CodEntrada != listaEntradaProduto[0].CodEntrada)
                         {
                             entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = listaEntradaProduto[0].CodEntrada });
                         }
                     }
-                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(listaEntradaProduto);
+                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(entrada, listaEntradaProduto);
                     frmEntradaImportar.ShowDialog();
                     frmEntradaImportar.Dispose();
                     codEntradaTextBox_TextChanged(sender, e);

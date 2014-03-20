@@ -48,6 +48,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remessaParaConsertoToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.remessaDepositoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.retornoDepositoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +80,7 @@
             this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -208,8 +210,10 @@
             this.entradaDeProdutosToolStripMenuItem,
             this.toolStripSeparator1,
             this.vendaAoConsumidorToolStripMenuItem,
-            this.devoluçãoDeProdutosToolStripMenuItem,
             this.remessaDepositoToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.devoluçãoDeProdutosToolStripMenuItem,
+            this.remessaParaConsertoToolStripMenuItem2,
             this.toolStripSeparator2,
             this.retornoDepositoMenuItem,
             this.toolStripSeparator3,
@@ -218,7 +222,6 @@
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.movimentaçãoToolStripMenuItem.Text = "&Estoque";
-            this.movimentaçãoToolStripMenuItem.Click += new System.EventHandler(this.movimentaçãoToolStripMenuItem_Click);
             // 
             // entradaDeProdutosToolStripMenuItem
             // 
@@ -245,6 +248,13 @@
             this.devoluçãoDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.devoluçãoDeProdutosToolStripMenuItem.Text = "Devolução para Fornecedor";
             this.devoluçãoDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeProdutosToolStripMenuItem_Click);
+            // 
+            // remessaParaConsertoToolStripMenuItem2
+            // 
+            this.remessaParaConsertoToolStripMenuItem2.Name = "remessaParaConsertoToolStripMenuItem2";
+            this.remessaParaConsertoToolStripMenuItem2.Size = new System.Drawing.Size(230, 22);
+            this.remessaParaConsertoToolStripMenuItem2.Text = "Remessa para Conserto";
+            this.remessaParaConsertoToolStripMenuItem2.Click += new System.EventHandler(this.remessaParaConsertoToolStripMenuItem2_Click);
             // 
             // remessaDepositoToolStripMenuItem
             // 
@@ -381,7 +391,6 @@
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
             this.sobreToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.sobreToolStripMenuItem.Text = "Sobre";
-            this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -511,6 +520,11 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -598,6 +612,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pontaDeEstoqueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem remessaParaConsertoToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 
     }
 }

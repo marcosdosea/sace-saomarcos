@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using Util;
 
 namespace Telas
 {
@@ -15,6 +16,7 @@ namespace Telas
     {
 
         public Saida Saida { get; set; }
+        private Pessoa Cliente { get; set; }
         private long codSaida;
 
 
@@ -24,8 +26,21 @@ namespace Telas
             
 
             this.codSaida = codSaida;
-            nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+            IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.GetInstance().Obter(Saida.CodCliente);
+            nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+            if (Saida.CodCliente != Global.CLIENTE_PADRAO)
+            {
+                pessoaBindingSource.DataSource = listaPessoas;
+                Cliente = listaPessoas.FirstOrDefault();
+                codPessoaComboBox.Enabled = false;
+                codPessoaComboBox.TabStop = false;
+            }
+            else
+            {
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+                codPessoaComboBox.Focus();
+            }
             
             if (Saida.Observacao.Trim().Equals(""))
             {
@@ -77,16 +92,15 @@ namespace Telas
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)) {
+            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
+            {
                 if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     // Atualiza os dados da saída
                     Saida.Observacao = observacaoTextBox.Text;
                     if (Saida.CupomFiscal.Trim().Equals(""))
                         GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
-                    else
-                        GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
-
+                    
                     // Gera chave e envia nota fiscal
                     NfeControle nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
                     if (!string.IsNullOrEmpty(nfe.Chave))
@@ -105,9 +119,10 @@ namespace Telas
                 if (Saida.CupomFiscal.Trim().Equals(""))
                     GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                 else
-                    GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
+                    GerenciadorSaida.GetInstance(null).AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
 
                 // Gera chave e envia nota fiscal
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
                 NfeControle nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
                 if (!string.IsNullOrEmpty(nfe.Chave))
                 {
@@ -176,6 +191,17 @@ namespace Telas
                 NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
                 GerenciadorNFe.GetInstance().EnviarCartaCorrecaoNfe(nfeControle);
             }
+        }
+
+        private void codPessoaComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
+        }
+
+        private void codPessoaComboBox_Leave(object sender, EventArgs e)
+        {
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true);
+            Cliente = (Pessoa)pessoaBindingSource.Current;
         }
 
  

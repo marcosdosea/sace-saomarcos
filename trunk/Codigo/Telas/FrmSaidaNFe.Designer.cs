@@ -47,6 +47,7 @@
             System.Windows.Forms.Label mensagemSitucaoCartaCorrecaoLabel;
             System.Windows.Forms.Label correcaoLabel;
             System.Windows.Forms.Label seqCartaCorrecaoLabel;
+            System.Windows.Forms.Label codPessoaLabel;
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
@@ -79,6 +80,8 @@
             this.correcaoTextBox = new System.Windows.Forms.TextBox();
             this.btnCartaCorrecao = new System.Windows.Forms.Button();
             this.seqCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -97,15 +100,17 @@
             mensagemSitucaoCartaCorrecaoLabel = new System.Windows.Forms.Label();
             correcaoLabel = new System.Windows.Forms.Label();
             seqCartaCorrecaoLabel = new System.Windows.Forms.Label();
+            codPessoaLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // observacaoLabel
             // 
             observacaoLabel.AutoSize = true;
             observacaoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            observacaoLabel.Location = new System.Drawing.Point(2, 296);
+            observacaoLabel.Location = new System.Drawing.Point(3, 326);
             observacaoLabel.Name = "observacaoLabel";
             observacaoLabel.Size = new System.Drawing.Size(92, 13);
             observacaoLabel.TabIndex = 5;
@@ -114,7 +119,7 @@
             // justificativaCancelamentoLabel1
             // 
             justificativaCancelamentoLabel1.AutoSize = true;
-            justificativaCancelamentoLabel1.Location = new System.Drawing.Point(2, 396);
+            justificativaCancelamentoLabel1.Location = new System.Drawing.Point(2, 438);
             justificativaCancelamentoLabel1.Name = "justificativaCancelamentoLabel1";
             justificativaCancelamentoLabel1.Size = new System.Drawing.Size(269, 13);
             justificativaCancelamentoLabel1.TabIndex = 18;
@@ -249,7 +254,7 @@
             // correcaoLabel
             // 
             correcaoLabel.AutoSize = true;
-            correcaoLabel.Location = new System.Drawing.Point(2, 454);
+            correcaoLabel.Location = new System.Drawing.Point(2, 496);
             correcaoLabel.Name = "correcaoLabel";
             correcaoLabel.Size = new System.Drawing.Size(380, 13);
             correcaoLabel.TabIndex = 45;
@@ -258,7 +263,7 @@
             // seqCartaCorrecaoLabel
             // 
             seqCartaCorrecaoLabel.AutoSize = true;
-            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(231, 293);
+            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(1, 298);
             seqCartaCorrecaoLabel.Name = "seqCartaCorrecaoLabel";
             seqCartaCorrecaoLabel.Size = new System.Drawing.Size(135, 13);
             seqCartaCorrecaoLabel.TabIndex = 47;
@@ -267,10 +272,10 @@
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnImprimir.Location = new System.Drawing.Point(605, 527);
+            this.btnImprimir.Location = new System.Drawing.Point(605, 558);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(105, 26);
-            this.btnImprimir.TabIndex = 10;
+            this.btnImprimir.TabIndex = 7;
             this.btnImprimir.Text = "F8 - Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
@@ -278,10 +283,10 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCancelar.Location = new System.Drawing.Point(289, 527);
+            this.btnCancelar.Location = new System.Drawing.Point(289, 558);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 26);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "F4 - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -289,20 +294,20 @@
             // observacaoTextBox
             // 
             this.observacaoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.observacaoTextBox.Location = new System.Drawing.Point(4, 312);
+            this.observacaoTextBox.Location = new System.Drawing.Point(4, 342);
             this.observacaoTextBox.MaxLength = 350;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(815, 81);
+            this.observacaoTextBox.Size = new System.Drawing.Size(815, 93);
             this.observacaoTextBox.TabIndex = 14;
             // 
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnEnviar.Location = new System.Drawing.Point(183, 527);
+            this.btnEnviar.Location = new System.Drawing.Point(183, 558);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(105, 26);
-            this.btnEnviar.TabIndex = 4;
+            this.btnEnviar.TabIndex = 3;
             this.btnEnviar.Text = "F3 - Enviar";
             this.btnEnviar.UseVisualStyleBackColor = true;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
@@ -370,7 +375,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnConsultar.Location = new System.Drawing.Point(76, 527);
+            this.btnConsultar.Location = new System.Drawing.Point(76, 558);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(105, 26);
             this.btnConsultar.TabIndex = 2;
@@ -381,10 +386,10 @@
             // btnFechar
             // 
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnFechar.Location = new System.Drawing.Point(714, 527);
+            this.btnFechar.Location = new System.Drawing.Point(714, 558);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(105, 26);
-            this.btnFechar.TabIndex = 12;
+            this.btnFechar.TabIndex = 8;
             this.btnFechar.Text = "ESC - Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
@@ -394,7 +399,7 @@
             this.justificativaCancelamentoTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.justificativaCancelamentoTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "JustificativaCancelamento", true));
             this.justificativaCancelamentoTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 412);
+            this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 454);
             this.justificativaCancelamentoTextBox1.Multiline = true;
             this.justificativaCancelamentoTextBox1.Name = "justificativaCancelamentoTextBox1";
             this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(815, 39);
@@ -514,10 +519,10 @@
             // btnSituacao
             // 
             this.btnSituacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnSituacao.Location = new System.Drawing.Point(499, 527);
+            this.btnSituacao.Location = new System.Drawing.Point(499, 558);
             this.btnSituacao.Name = "btnSituacao";
             this.btnSituacao.Size = new System.Drawing.Size(105, 26);
-            this.btnSituacao.TabIndex = 7;
+            this.btnSituacao.TabIndex = 6;
             this.btnSituacao.Text = "F6 - Situação";
             this.btnSituacao.UseVisualStyleBackColor = true;
             this.btnSituacao.Click += new System.EventHandler(this.btnSituacao_Click);
@@ -555,19 +560,19 @@
             // correcaoTextBox
             // 
             this.correcaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "Correcao", true));
-            this.correcaoTextBox.Location = new System.Drawing.Point(5, 470);
+            this.correcaoTextBox.Location = new System.Drawing.Point(5, 512);
             this.correcaoTextBox.Multiline = true;
             this.correcaoTextBox.Name = "correcaoTextBox";
             this.correcaoTextBox.Size = new System.Drawing.Size(814, 42);
-            this.correcaoTextBox.TabIndex = 46;
+            this.correcaoTextBox.TabIndex = 18;
             // 
             // btnCartaCorrecao
             // 
             this.btnCartaCorrecao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCartaCorrecao.Location = new System.Drawing.Point(394, 527);
+            this.btnCartaCorrecao.Location = new System.Drawing.Point(394, 558);
             this.btnCartaCorrecao.Name = "btnCartaCorrecao";
             this.btnCartaCorrecao.Size = new System.Drawing.Size(105, 26);
-            this.btnCartaCorrecao.TabIndex = 47;
+            this.btnCartaCorrecao.TabIndex = 5;
             this.btnCartaCorrecao.Text = "F5 - Correção";
             this.btnCartaCorrecao.UseVisualStyleBackColor = true;
             this.btnCartaCorrecao.Click += new System.EventHandler(this.btnCartaCorrecao_Click);
@@ -575,20 +580,51 @@
             // seqCartaCorrecaoTextBox
             // 
             this.seqCartaCorrecaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "SeqCartaCorrecao", true));
-            this.seqCartaCorrecaoTextBox.Location = new System.Drawing.Point(372, 291);
+            this.seqCartaCorrecaoTextBox.Location = new System.Drawing.Point(142, 298);
             this.seqCartaCorrecaoTextBox.Name = "seqCartaCorrecaoTextBox";
             this.seqCartaCorrecaoTextBox.ReadOnly = true;
-            this.seqCartaCorrecaoTextBox.Size = new System.Drawing.Size(39, 20);
+            this.seqCartaCorrecaoTextBox.Size = new System.Drawing.Size(74, 20);
             this.seqCartaCorrecaoTextBox.TabIndex = 48;
             this.seqCartaCorrecaoTextBox.TabStop = false;
+            // 
+            // pessoaBindingSource
+            // 
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            // 
+            // codPessoaLabel
+            // 
+            codPessoaLabel.AutoSize = true;
+            codPessoaLabel.Location = new System.Drawing.Point(227, 298);
+            codPessoaLabel.Name = "codPessoaLabel";
+            codPessoaLabel.Size = new System.Drawing.Size(66, 13);
+            codPessoaLabel.TabIndex = 48;
+            codPessoaLabel.Text = "Destinatário:";
+            // 
+            // codPessoaComboBox
+            // 
+            this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "NomeFantasia", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
+            this.codPessoaComboBox.DisplayMember = "NomeFantasia";
+            this.codPessoaComboBox.FormattingEnabled = true;
+            this.codPessoaComboBox.Location = new System.Drawing.Point(299, 298);
+            this.codPessoaComboBox.Name = "codPessoaComboBox";
+            this.codPessoaComboBox.Size = new System.Drawing.Size(520, 21);
+            this.codPessoaComboBox.TabIndex = 12;
+            this.codPessoaComboBox.ValueMember = "CodPessoa";
+            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
+            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
             // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 558);
+            this.ClientSize = new System.Drawing.Size(826, 604);
             this.ControlBox = false;
+            this.Controls.Add(codPessoaLabel);
+            this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(seqCartaCorrecaoLabel);
             this.Controls.Add(this.seqCartaCorrecaoTextBox);
             this.Controls.Add(this.btnCartaCorrecao);
@@ -644,6 +680,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaNF_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nfeControleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -683,5 +720,7 @@
         private System.Windows.Forms.TextBox correcaoTextBox;
         private System.Windows.Forms.Button btnCartaCorrecao;
         private System.Windows.Forms.TextBox seqCartaCorrecaoTextBox;
+        private System.Windows.Forms.BindingSource pessoaBindingSource;
+        private System.Windows.Forms.ComboBox codPessoaComboBox;
     }
 }

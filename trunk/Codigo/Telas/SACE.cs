@@ -228,16 +228,6 @@ namespace Telas
             frmConta.Dispose();
         }
 
-        private void movimentaçãoContasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void movimentaçãoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void produtosToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
@@ -278,6 +268,13 @@ namespace Telas
         private void devoluçãoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO);
+            frmSaida.ShowDialog();
+            frmSaida.Dispose();
+        }
+
+        private void remessaParaConsertoToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_REMESSA_CONSERTO);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
         }
@@ -340,10 +337,6 @@ namespace Telas
             relatorio.Dispose();
         }
 
-        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void pontaDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -351,5 +344,6 @@ namespace Telas
             frmPontaEstoque.ShowDialog();
             frmPontaEstoque.Dispose();
         }
+
      }
 }

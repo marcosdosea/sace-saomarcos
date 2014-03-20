@@ -90,7 +90,14 @@ namespace Telas
             List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().obterProdutosVendidos(produto.CodProduto);
 
             decimal somaVendidos = 0;
-
+            if (produtosVendidos.Count == 0)
+            {
+                vendidos3textBox.Text = "0,00";
+                vendidos6textBox.Text = "0,00";
+                vendidos12textBox.Text = "0,00";
+                vendidos18textBox.Text = "0,00";
+            }
+            
             for (int i = 0; i < produtosVendidos.Count && i < 18; i++)
             {
                 ProdutoVendido produtoVendido = produtosVendidos[i];

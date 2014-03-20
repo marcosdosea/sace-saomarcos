@@ -37,12 +37,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnSalvar = new System.Windows.Forms.Button();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QtdProdutoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ncmsh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodCST = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -116,7 +117,8 @@
             this.CodProduto,
             this.nomeDataGridViewTextBoxColumn,
             this.QtdProdutoAtacado,
-            this.Ncmsh});
+            this.Ncmsh,
+            this.CodCST});
             this.tb_produtoDataGridView.DataSource = this.produtoBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -140,10 +142,6 @@
             this.tb_produtoDataGridView.TabStop = false;
             this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
             // 
-            // produtoBindingSource
-            // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(820, 508);
@@ -153,6 +151,10 @@
             this.btnSalvar.Text = "SALVAR ALTERAÇÕES";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // CodProduto
             // 
@@ -169,7 +171,6 @@
             this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
             this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
             this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // QtdProdutoAtacado
             // 
@@ -186,6 +187,12 @@
             this.Ncmsh.FillWeight = 30F;
             this.Ncmsh.HeaderText = "Ncmsh";
             this.Ncmsh.Name = "Ncmsh";
+            // 
+            // CodCST
+            // 
+            this.CodCST.DataPropertyName = "CodCST";
+            this.CodCST.HeaderText = "CST";
+            this.CodCST.Name = "CodCST";
             // 
             // FrmProdutoPesquisaCSON
             // 
@@ -226,6 +233,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn QtdProdutoAtacado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ncmsh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodCST;
   
     }
 }

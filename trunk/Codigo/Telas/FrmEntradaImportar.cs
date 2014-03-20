@@ -14,11 +14,13 @@ namespace Telas
     public partial class FrmEntradaImportar : Form
     {
         IEnumerable<EntradaProduto> listaEntradaProduto;
+        Entrada entrada;
 
-        public FrmEntradaImportar(IEnumerable<EntradaProduto> listaEntradaProduto)
+        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto)
         {
             InitializeComponent();
             this.listaEntradaProduto = listaEntradaProduto;
+            this.entrada = entrada;            
         }
 
         private void FrmEntradaImportar_Load(object sender, EventArgs e)
@@ -124,6 +126,20 @@ namespace Telas
             EntradaProduto entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
             if (entradaProduto != null)
             {
+                Cst cstProduto = new Cst() { CodCST = entradaProduto.CodCST };
+                if (entrada.FretePagoEmitente)
+                {
+                    entradaProduto.Frete = Math.Round(entrada.ValorFrete / entrada.TotalProdutos * 100, 2);
+                }
+
+                if (cstProduto.EhTributacaoIntegral)
+                {
+                    entradaProduto.IcmsSubstituto = 0;
+                }
+                else
+                {
+                    entradaProduto.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
+                }
                 Produto produtoCalculo = new Produto()
                 {
                     CodCST = entradaProduto.CodCST,
