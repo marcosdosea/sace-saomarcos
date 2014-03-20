@@ -170,8 +170,9 @@ namespace Telas
                         movimentacao.CodTipoMovimentacao = TipoMovimentacaoConta.RECEBIMENTO_CREDIARIO;
                         movimentacao.DataHora = DateTime.Now;
                         movimentacao.Valor = valorPagamento;
-                        
-                        GerenciadorMovimentacaoConta.GetInstance(null).Inserir(movimentacao, listaContas, totalPago);
+
+                        List<MovimentacaoConta> listaMovimentacaoConta = (List<MovimentacaoConta>) movimentacaoContaBindingSource.DataSource;
+                        GerenciadorMovimentacaoConta.GetInstance(null).Inserir(movimentacao, listaContas, listaMovimentacaoConta);
                         Cursor.Current = Cursors.Default;
                         if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {

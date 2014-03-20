@@ -752,7 +752,7 @@ namespace Negocio
                         prod.cEAN = produto.CodigoBarra;
                         prod.cEANTrib = produto.CodigoBarra;
                         prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), "Item" + saidaProduto.CodCfop);
-                        if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                        if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
                             prod.xProd = produto.NomeProdutoFabricante.Trim();
                         else
                             prod.xProd = produto.Nome.Trim();
@@ -779,15 +779,15 @@ namespace Negocio
 
                         TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
 
-                        if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) ||
-                            (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                        {
+                        //if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) ||
+                        //    (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                        //{
                             TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                             icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
                             icms102.orig = Torig.Item0;
 
                             icms.Item = icms102;
-                        }
+                        //}
 
                         TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto();
                         imp.Items = new object[] { icms };
@@ -838,32 +838,32 @@ namespace Negocio
                 nfe.infNFe.det = listaNFeDet.ToArray();
 
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
-                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) 
-                    || (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                //if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) 
+                //    || (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                //{
+                icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
+                icmsTot.vICMS = formataValorNFe(0);
+                icmsTot.vBCST = formataValorNFe(0);
+                icmsTot.vST = formataValorNFe(0);
+                icmsTot.vProd = formataValorNFe(totalProdutos);
+                icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
+                icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
-                    icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
-                    icmsTot.vICMS = formataValorNFe(0);
-                    icmsTot.vBCST = formataValorNFe(0);
-                    icmsTot.vST = formataValorNFe(0);
-                    icmsTot.vProd = formataValorNFe(totalProdutos);
-                    icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
-                    icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
-                    if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                    {
-                        icmsTot.vDesc = formataValorNFe(saida.Desconto);
-                    }
-                    else
-                    {
-                        icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
-                    }
-                    icmsTot.vII = formataValorNFe(0);
-                    icmsTot.vIPI = formataValorNFe(0);
-                    icmsTot.vPIS = formataValorNFe(0);
-                    icmsTot.vCOFINS = formataValorNFe(0);
-                    icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
-                    icmsTot.vNF = formataValorNFe(valorTotalNota);
+                    icmsTot.vDesc = formataValorNFe(saida.Desconto);
                 }
-
+                else
+                {
+                    icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
+                }
+                icmsTot.vII = formataValorNFe(0);
+                icmsTot.vIPI = formataValorNFe(0);
+                icmsTot.vPIS = formataValorNFe(0);
+                icmsTot.vCOFINS = formataValorNFe(0);
+                icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
+                icmsTot.vNF = formataValorNFe(valorTotalNota);
+                
+                //}
                 TNFeInfNFeTotal total = new TNFeInfNFeTotal();
                 total.ICMSTot = icmsTot;
                 nfe.infNFe.total = total;

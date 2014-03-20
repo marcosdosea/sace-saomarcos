@@ -14,15 +14,19 @@ namespace Dominio
         public const int TIPO_PRE_REMESSA = 9;
         public const int TIPO_REMESSA_DEPOSITO = 4;
 
-        public const int TIPO_RETORNO_DEPOSITO = 11;
-        public const int TIPO_PRE_RETORNO_DEPOSITO = 12;
-
         public const int TIPO_PRE_DEVOLUCAO = 10;
         public const int TIPO_DEVOLUCAO_FORNECEDOR = 7;
         
-        //public const int TIPO_CONSUMO_INTERNO = 5;
-        //public const int TIPO_PRODUTOS_DANIFICADOS = 6;
+        public const int TIPO_RETORNO_DEPOSITO = 11;
+        public const int TIPO_PRE_RETORNO_DEPOSITO = 12;
 
+        public const int TIPO_REMESSA_CONSERTO = 6;
+        public const int TIPO_PRE_REMESSA_CONSERTO = 13;
+
+
+        //public const int TIPO_CONSUMO_INTERNO = 5;
+
+        public static List<int> LISTA_TIPOS_REMESSA_CONSERTO = new List<int>() { Saida.TIPO_PRE_REMESSA_CONSERTO, Saida.TIPO_REMESSA_CONSERTO };
         public static List<int> LISTA_TIPOS_REMESSA_DEPOSITO = new List<int>() { Saida.TIPO_PRE_REMESSA, Saida.TIPO_REMESSA_DEPOSITO };
         public static List<int> LISTA_TIPOS_RETORNO_DEPOSITO = new List<int>() { Saida.TIPO_PRE_RETORNO_DEPOSITO, Saida.TIPO_RETORNO_DEPOSITO };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_FORNECEDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO, Saida.TIPO_DEVOLUCAO_FORNECEDOR };

@@ -119,7 +119,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarNfePorPedidoGerado(string nfe, string observacao, string pedidoGerado)
+        public void AtualizarPorPedido(string nfe, string observacao, long codCliente, string pedidoGerado)
         {
             try
             {
@@ -130,6 +130,7 @@ namespace Negocio
                 {
                     _saidaE.nfe = nfe;
                     _saidaE.observacao = observacao;
+                    _saidaE.codCliente = codCliente;
                 }
                 repSaida.SaveChanges();
             }
@@ -242,7 +243,7 @@ namespace Negocio
                     saceContext.SaveChanges();
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                    || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO))
+                    || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
                 {
                     RegistrarEstornoEstoque(saida);
                     var query = from saidaE in saceContext.tb_saida
@@ -539,21 +540,28 @@ namespace Negocio
                         {
                             throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                         }
-
+                        Atualizar(saida);
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
-                        saceContext.SaveChanges();
                         RegistrarTransferenciaEstoque(saidaProdutos, saida.CodLojaOrigem, Global.LOJA_PADRAO);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     {
                         saida.TipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
-                        saceContext.SaveChanges();
+                        Atualizar(saida);
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos);
                         AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
                     }
+                    else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_CONSERTO))
+                    {
+                        saida.TipoSaida = Saida.TIPO_REMESSA_CONSERTO;
+                        Atualizar(saida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                        RegistrarBaixaEstoque(saidaProdutos);
+                        //AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
+                    }
+                    
                     transaction.Complete();
-
                 }
                 catch (Exception e)
                 {

@@ -165,7 +165,7 @@ namespace Negocio
         /// </summary>
         /// <param name="_produtoPesquisa"></param>
         /// <param name="ultimoCodigoBarraLido"></param>
-        public void AtualizarNcmshQtdAtacado(long codProduto, string ncsmsh, decimal quantidadeAtacado)
+        public void AtualizarNcmshQtdAtacado(long codProduto, string nomeProduto, string ncsmsh, decimal quantidadeAtacado, string codCST)
         {
             try
             {
@@ -178,7 +178,9 @@ namespace Negocio
                 foreach (ProdutoE _produtoE in query)
                 {
                     _produtoE.ncmsh = ncsmsh;
+                    _produtoE.nome = nomeProduto;
                     _produtoE.qtdProdutoAtacado = quantidadeAtacado;
+                    _produtoE.codCST = codCST;
                 }
                 repProduto.SaveChanges();
             }
@@ -455,19 +457,35 @@ namespace Negocio
                         orderby produto.nome
                         select new ProdutoPesquisa
                         {
-                            CodProduto = produto.codProduto,
-                            ExibeNaListagem = (bool) produto.exibeNaListagem,
-                            Nome = produto.nome,
-                            NomeProdutoFabricante = produto.nomeProdutoFabricante,
-                            PrecoVendaAtacado = (decimal) produto.precoVendaAtacado,
-                            PrecoVendaVarejo = (decimal) produto.precoVendaVarejo,
-                            PrecoRevenda = (decimal) produto.precoRevenda,
-                            QtdProdutoAtacado = (decimal) produto.qtdProdutoAtacado,
-                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
-                            Unidade = produto.unidade,
-                            EmPromocao = (bool) produto.emPromocao,
                             CodCST = produto.codCST,
-                            Ncmsh = produto.ncmsh
+                            CodigoBarra = produto.codigoBarra,
+                            CodProduto = produto.codProduto,
+                            Desconto = (decimal)produto.desconto,
+                            ExibeNaListagem = (bool)produto.exibeNaListagem,
+                            Frete = (decimal)produto.frete,
+                            Icms = (decimal)produto.icms,
+                            IcmsSubstituto = (decimal)produto.icms_substituto,
+                            Ipi = (decimal)produto.ipi,
+                            LucroPrecoVendaAtacado = (decimal)produto.lucroPrecoVendaAtacado,
+                            LucroPrecoVendaVarejo = (decimal)produto.lucroPrecoVendaVarejo,
+                            LucroPrecoRevenda = (decimal)produto.lucroPrecoRevenda,
+                            Ncmsh = produto.ncmsh,
+                            Nome = produto.nome,
+                            CodFabricante = produto.codFabricante,
+                            NomeProdutoFabricante = produto.nomeProdutoFabricante,
+                            PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
+                            PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
+                            PrecoRevenda = (decimal)produto.precoRevenda,
+                            QtdProdutoAtacado = (decimal)produto.qtdProdutoAtacado,
+                            QuantidadeEmbalagem = (decimal)produto.quantidadeEmbalagem,
+                            ReferenciaFabricante = produto.referenciaFabricante,
+                            Simples = (decimal)produto.simples,
+                            UltimaDataAtualizacao = (DateTime)produto.ultimaDataAtualizacao,
+                            Unidade = produto.unidade,
+                            TemVencimento = (bool)produto.temVencimento,
+                            EmPromocao = (bool)produto.emPromocao,
+                            UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
+                            UnidadeCompra = produto.unidadeCompra
                         };
             
             if ((nome.Length > 0) && (nome[0] == '%'))

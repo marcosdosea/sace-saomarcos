@@ -623,7 +623,6 @@
             this.codCSTTextBox.Name = "codCSTTextBox";
             this.codCSTTextBox.Size = new System.Drawing.Size(60, 20);
             this.codCSTTextBox.TabIndex = 20;
-            this.codCSTTextBox.TabStop = false;
             // 
             // dataValidadeDateTimePicker
             // 
@@ -653,7 +652,6 @@
             this.freteTextBox.Name = "freteTextBox";
             this.freteTextBox.Size = new System.Drawing.Size(61, 20);
             this.freteTextBox.TabIndex = 50;
-            this.freteTextBox.TabStop = false;
             // 
             // icmsTextBox
             // 
@@ -672,7 +670,6 @@
             this.icmsSubstitutoTextBox.Name = "icmsSubstitutoTextBox";
             this.icmsSubstitutoTextBox.Size = new System.Drawing.Size(82, 20);
             this.icmsSubstitutoTextBox.TabIndex = 42;
-            this.icmsSubstitutoTextBox.TabStop = false;
             // 
             // ipiTextBox
             // 
@@ -681,7 +678,6 @@
             this.ipiTextBox.Name = "ipiTextBox";
             this.ipiTextBox.Size = new System.Drawing.Size(49, 20);
             this.ipiTextBox.TabIndex = 46;
-            this.ipiTextBox.TabStop = false;
             // 
             // lucroPrecoRevendaTextBox
             // 
