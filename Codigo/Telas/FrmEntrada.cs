@@ -199,8 +199,8 @@ namespace Telas
                 valorICMSSTTextBox.Text = entradaProduto.ValorICMSST.ToString();
                 valorIPITextBox.Text = entradaProduto.ValorIPI.ToString();
                     preco_custoTextBox.Text = produto.PrecoCusto.ToString();
-                precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString();
-                precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString();
+                precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N3");
+                precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N3");
             }
         }
 
@@ -331,6 +331,7 @@ namespace Telas
                             entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = listaEntradaProduto[0].CodEntrada });
                         }
                     }
+                    entrada = (Entrada) entradaBindingSource.Current;
                     FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(entrada, listaEntradaProduto);
                     frmEntradaImportar.ShowDialog();
                     frmEntradaImportar.Dispose();

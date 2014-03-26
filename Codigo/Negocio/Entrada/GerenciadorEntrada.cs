@@ -189,7 +189,7 @@ namespace Negocio
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     if (nfe.infNFe.emit.IEST != null)
                         fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
-                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
+                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10):nfe.infNFe.emit.enderEmit.nro;
                     fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
                     fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
                     return GerenciadorPessoa.GetInstance().Inserir(fornecedor);
@@ -208,7 +208,7 @@ namespace Negocio
                     fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
-                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro;
+                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
                     fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
                     fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
                     GerenciadorPessoa.GetInstance().Atualizar(fornecedor);

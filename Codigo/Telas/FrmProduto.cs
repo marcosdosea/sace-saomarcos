@@ -59,7 +59,9 @@ namespace Telas
         {
             if (entradaProduto != null)
             {
-                IEnumerable<ProdutoPesquisa> listaProdutosPesquisa = GerenciadorProduto.GetInstance().ObterPorCodBarra(entradaProduto.CodigoBarra);
+                IEnumerable<ProdutoPesquisa> listaProdutosPesquisa = new List<ProdutoPesquisa>();
+                if (!string.IsNullOrWhiteSpace(entradaProduto.CodigoBarra))
+                    GerenciadorProduto.GetInstance().ObterPorCodBarra(entradaProduto.CodigoBarra);
                 if (listaProdutosPesquisa.Count() > 0)
                 {
                     ProdutoPesquisa _produto = listaProdutosPesquisa.ElementAtOrDefault(0);
@@ -71,7 +73,9 @@ namespace Telas
                     Produto produto = (Produto) produtoBindingSource.Current;
                     GerenciadorEntradaProduto.GetInstance(null).Atribuir(entradaProduto, produto);
                     produtoBindingSource.ResumeBinding();
+                    nomeTextBox.Text = entradaProduto.NomeProduto;
                     nomeTextBox.Focus();
+                    nomeTextBox.SelectAll();
                 }
             }
         }

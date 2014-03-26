@@ -739,7 +739,7 @@
             // 
             // precoVendaVarejoTextBox
             // 
-            this.precoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.precoVendaVarejoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVendaVarejoTextBox.ForeColor = System.Drawing.Color.Red;
             this.precoVendaVarejoTextBox.Location = new System.Drawing.Point(546, 397);
             this.precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
@@ -774,7 +774,7 @@
             // 
             // ultimoPrecoCompraTextBox
             // 
-            this.ultimoPrecoCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "UltimoPrecoCompra", true));
+            this.ultimoPrecoCompraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "UltimoPrecoCompra", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.ultimoPrecoCompraTextBox.Location = new System.Drawing.Point(10, 397);
             this.ultimoPrecoCompraTextBox.Name = "ultimoPrecoCompraTextBox";
             this.ultimoPrecoCompraTextBox.Size = new System.Drawing.Size(131, 20);
@@ -854,7 +854,7 @@
             // 
             // precoVarejoSugestaoTextBox
             // 
-            this.precoVarejoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejoSugestao", true));
+            this.precoVarejoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaVarejoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVarejoSugestaoTextBox.Location = new System.Drawing.Point(411, 397);
             this.precoVarejoSugestaoTextBox.Name = "precoVarejoSugestaoTextBox";
             this.precoVarejoSugestaoTextBox.ReadOnly = true;
@@ -866,7 +866,7 @@
             // 
             // precoAtacadoSugestaoTextBox
             // 
-            this.precoAtacadoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaAtacadoSugestao", true));
+            this.precoAtacadoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoVendaAtacadoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoAtacadoSugestaoTextBox.Location = new System.Drawing.Point(411, 440);
             this.precoAtacadoSugestaoTextBox.Name = "precoAtacadoSugestaoTextBox";
             this.precoAtacadoSugestaoTextBox.ReadOnly = true;
@@ -1125,7 +1125,7 @@
             // 
             // precoCustoTextBox
             // 
-            this.precoCustoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoCusto", true));
+            this.precoCustoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoCusto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoCustoTextBox.Location = new System.Drawing.Point(153, 397);
             this.precoCustoTextBox.Name = "precoCustoTextBox";
             this.precoCustoTextBox.ReadOnly = true;
@@ -1185,7 +1185,7 @@
             // 
             // precoRevendaSugestaoTextBox
             // 
-            this.precoRevendaSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoRevendaSugestao", true));
+            this.precoRevendaSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "PrecoRevendaSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoRevendaSugestaoTextBox.Location = new System.Drawing.Point(414, 479);
             this.precoRevendaSugestaoTextBox.Name = "precoRevendaSugestaoTextBox";
             this.precoRevendaSugestaoTextBox.ReadOnly = true;

@@ -746,7 +746,7 @@
             // precoRevendaSugestaoTextBox
             // 
             this.precoRevendaSugestaoTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.precoRevendaSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoRevendaSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.precoRevendaSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoRevendaSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoRevendaSugestaoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoRevendaSugestaoTextBox.Location = new System.Drawing.Point(674, 281);
             this.precoRevendaSugestaoTextBox.Name = "precoRevendaSugestaoTextBox";
@@ -767,7 +767,7 @@
             // precoVendaAtacadoSugestaoTextBox
             // 
             this.precoVendaAtacadoSugestaoTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.precoVendaAtacadoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoVendaAtacadoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.precoVendaAtacadoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoVendaAtacadoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVendaAtacadoSugestaoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendaAtacadoSugestaoTextBox.Location = new System.Drawing.Point(481, 281);
             this.precoVendaAtacadoSugestaoTextBox.Name = "precoVendaAtacadoSugestaoTextBox";
@@ -788,7 +788,7 @@
             // precoVendaVarejoSugestaoTextBox
             // 
             this.precoVendaVarejoSugestaoTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.precoVendaVarejoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoVendaVarejoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.precoVendaVarejoSugestaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "PrecoVendaVarejoSugestao", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
             this.precoVendaVarejoSugestaoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.precoVendaVarejoSugestaoTextBox.Location = new System.Drawing.Point(282, 281);
             this.precoVendaVarejoSugestaoTextBox.Name = "precoVendaVarejoSugestaoTextBox";
@@ -817,7 +817,7 @@
             // 
             // quantidadeEmbalagemTextBox
             // 
-            this.quantidadeEmbalagemTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "QuantidadeEmbalagem", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N3"));
+            this.quantidadeEmbalagemTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaProdutoBindingSource, "QuantidadeEmbalagem", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.quantidadeEmbalagemTextBox.Location = new System.Drawing.Point(114, 237);
             this.quantidadeEmbalagemTextBox.Name = "quantidadeEmbalagemTextBox";
             this.quantidadeEmbalagemTextBox.Size = new System.Drawing.Size(78, 20);

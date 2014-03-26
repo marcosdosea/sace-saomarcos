@@ -149,7 +149,8 @@ namespace Telas
                     Ipi = entradaProduto.Ipi,
                     Frete = entradaProduto.Frete,
                     Simples = entradaProduto.Simples,
-                    UltimoPrecoCompra = (entradaProduto.QuantidadeEmbalagem > 0) ? (entradaProduto.ValorUnitario / entradaProduto.QuantidadeEmbalagem) : entradaProduto.ValorUnitario
+                    UltimoPrecoCompra = entradaProduto.ValorUnitario,
+                    QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem
                 };
 
                 entradaProduto.PrecoCusto = produtoCalculo.PrecoCusto;

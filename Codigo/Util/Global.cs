@@ -67,9 +67,10 @@ namespace Util
         public static String
          AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
-
+         //NOME_SERVIDOR = "SONY-VAIO",
          NOME_SERVIDOR = "SERVIDOR",
          ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
+         //ENDERECO_SERVIDOR = "C:\\Users\\Marcos Dósea\\Dropbox\\",
          PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
