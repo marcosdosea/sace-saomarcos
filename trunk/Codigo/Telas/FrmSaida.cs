@@ -462,11 +462,11 @@ namespace Telas
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO) 
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
                 {
-                    precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVendaAVista.ToString("N2");
+                    precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVendaAVista.ToString("N3");
                 }
                 else
                 {
-                    precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVenda.ToString("N2");
+                    precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVenda.ToString("N3");
                 }
                 AtualizarSubTotal();
                 codSaidaTextBox_Leave(sender, e);
@@ -485,24 +485,24 @@ namespace Telas
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO)
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO))
                 {
-                    precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
-                    precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N2");
+                    precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
+                    precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
                 }
                 else
                 {
                     if (lblPreco.Text.Equals(PRECO_REVENDA))
                     {
-                        precoVendaSemDescontoTextBox.Text = produto.PrecoRevendaSemDesconto.ToString("N2");
-                        precoVendatextBox.Text = produto.PrecoRevenda.ToString("N2");
+                        precoVendaSemDescontoTextBox.Text = produto.PrecoRevendaSemDesconto.ToString("N3");
+                        precoVendatextBox.Text = produto.PrecoRevenda.ToString("N3");
                     }
                     else if (((produto.QtdProdutoAtacado != 0) && (Math.Abs(quantidade) >= produto.QtdProdutoAtacado)))
                     {
-                        precoVendaSemDescontoTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString("N2");
+                        precoVendaSemDescontoTextBox.Text = produto.PrecoVendaAtacadoSemDesconto.ToString("N3");
                         precoVendatextBox.Text = produto.PrecoVendaAtacado.ToString();
                     }
                     else if (lblPreco.Text.Equals(PRECO_VAREJO))
                     {
-                        precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N2");
+                        precoVendaSemDescontoTextBox.Text = produto.PrecoVendaVarejoSemDesconto.ToString("N3");
                         precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
                     }
                    

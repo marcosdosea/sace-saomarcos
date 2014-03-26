@@ -745,7 +745,6 @@ namespace Negocio
             produto.PrecoRevenda = entradaProduto.PrecoRevenda;
             produto.UltimoPrecoCompra = entradaProduto.ValorUnitario;
             produto.LucroPrecoRevenda = entradaProduto.LucroPrecoRevenda;
-            produto.ReferenciaFabricante = entradaProduto.ReferenciaFabricante;
             if (!string.IsNullOrEmpty(entradaProduto.CodigoBarra) && string.IsNullOrEmpty(produto.CodigoBarra))
             {
                 produto.CodigoBarra = entradaProduto.CodigoBarra;
@@ -755,6 +754,7 @@ namespace Negocio
             {
                 produto.CodFabricante = entradaProduto.CodFornecedor;
                 produto.NomeProdutoFabricante = entradaProduto.NomeProduto;
+                produto.ReferenciaFabricante = entradaProduto.ReferenciaFabricante;
             }
         }
 

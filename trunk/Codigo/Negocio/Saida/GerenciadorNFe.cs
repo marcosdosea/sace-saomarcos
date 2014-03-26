@@ -777,6 +777,8 @@ namespace Negocio
                         prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
                         prod.indTot = (TNFeInfNFeDetProdIndTot)1; // Valor = 1 deve entrar no valor total da nota
 
+                        if (saida.ValorFrete > 0)
+                            prod.vFrete = formataValorNFe(saida.ValorFrete / saida.TotalAVista * saidaProduto.SubtotalAVista);
                         TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
 
                         //if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) ||
@@ -1506,15 +1508,18 @@ namespace Negocio
                 {
                     DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeRetorno);
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
-                    FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
-                    if (Files.Length > 0)
+                    if (Dir.Exists)
                     {
-                        RecuperarLoteEnvio(loja.PastaNfeRetorno);
-                        RecuperarReciboEnvioNfe(loja.PastaNfeRetorno);
-                        RecuperarResultadoProcessamentoNfe(loja.PastaNfeRetorno);
-                        RecuperarResultadoCancelamentoNfe(loja.PastaNfeRetorno);
-                        RecuperarResultadoConsultaNfe(loja.PastaNfeRetorno);
-                        RecuperarResultadoCartaCorrecaoNfe(loja.PastaNfeRetorno);
+                        FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
+                        if (Files.Length > 0)
+                        {
+                            RecuperarLoteEnvio(loja.PastaNfeRetorno);
+                            RecuperarReciboEnvioNfe(loja.PastaNfeRetorno);
+                            RecuperarResultadoProcessamentoNfe(loja.PastaNfeRetorno);
+                            RecuperarResultadoCancelamentoNfe(loja.PastaNfeRetorno);
+                            RecuperarResultadoConsultaNfe(loja.PastaNfeRetorno);
+                            RecuperarResultadoCartaCorrecaoNfe(loja.PastaNfeRetorno);
+                        }
                     }
                 }
             }

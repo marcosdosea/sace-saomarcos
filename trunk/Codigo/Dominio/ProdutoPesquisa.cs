@@ -28,11 +28,11 @@ namespace Dominio
         public decimal PrecoVendaAtacado { get; set; }
         public decimal PrecoVendaAtacadoSemDesconto
         {
-            get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
+            get { return Math.Round((PrecoVendaAtacado * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }
         }
         public decimal TotalPrecoVendaAtacadoSemDesconto
         {
-            get { return Math.Round(QtdProdutoAtacado * PrecoVendaAtacadoSemDesconto, 2, MidpointRounding.AwayFromZero); }
+            get { return Math.Round(PrecoVendaAtacado * Global.ACRESCIMO_PADRAO, 2, MidpointRounding.AwayFromZero) * QtdProdutoAtacado; }
         }
         public decimal TotalPrecoVendaAtacado
         {
