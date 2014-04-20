@@ -75,9 +75,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_situacao_pagamentos1", "SituacaoPagamentosE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "TipoSaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "NfeE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.NfeE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_loja1", "LojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_ponta_estoque_tb_produto1", "ProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_ponta_estoque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_ponta_estoque), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
 
 #endregion
 
@@ -644,22 +644,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<NfeE> NfeSet
-        {
-            get
-            {
-                if ((_NfeSet == null))
-                {
-                    _NfeSet = base.CreateObjectSet<NfeE>("NfeSet");
-                }
-                return _NfeSet;
-            }
-        }
-        private ObjectSet<NfeE> _NfeSet;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<MunicipiosIbgeE> MunicipiosIbgeSet
         {
             get
@@ -736,6 +720,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_solicitacao_cupom> _tb_solicitacao_cupom;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_nfe> tb_nfe
+        {
+            get
+            {
+                if ((_tb_nfe == null))
+                {
+                    _tb_nfe = base.CreateObjectSet<tb_nfe>("tb_nfe");
+                }
+                return _tb_nfe;
+            }
+        }
+        private ObjectSet<tb_nfe> _tb_nfe;
 
         #endregion
 
@@ -998,14 +998,6 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the NfeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToNfeSet(NfeE nfeE)
-        {
-            base.AddObject("NfeSet", nfeE);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the MunicipiosIbgeSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToMunicipiosIbgeSet(MunicipiosIbgeE municipiosIbgeE)
@@ -1043,6 +1035,14 @@ namespace Dados
         public void AddTotb_solicitacao_cupom(tb_solicitacao_cupom tb_solicitacao_cupom)
         {
             base.AddObject("tb_solicitacao_cupom", tb_solicitacao_cupom);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_nfe EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_nfe(tb_nfe tb_nfe)
+        {
+            base.AddObject("tb_nfe", tb_nfe);
         }
 
         #endregion
@@ -5757,629 +5757,6 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="NfeE")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class NfeE : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new NfeE object.
-        /// </summary>
-        /// <param name="codNFe">Initial value of the codNFe property.</param>
-        /// <param name="chave">Initial value of the chave property.</param>
-        /// <param name="situacaoNfe">Initial value of the situacaoNfe property.</param>
-        /// <param name="numeroLoteEnvio">Initial value of the numeroLoteEnvio property.</param>
-        /// <param name="numeroRecibo">Initial value of the numeroRecibo property.</param>
-        /// <param name="situacaoReciboEnvio">Initial value of the situacaoReciboEnvio property.</param>
-        /// <param name="mensagemSituacaoReciboEnvio">Initial value of the mensagemSituacaoReciboEnvio property.</param>
-        /// <param name="numeroProtocoloUso">Initial value of the numeroProtocoloUso property.</param>
-        /// <param name="situacaoProtocoloUso">Initial value of the situacaoProtocoloUso property.</param>
-        /// <param name="mensagemSituacaoProtocoloUso">Initial value of the mensagemSituacaoProtocoloUso property.</param>
-        /// <param name="numeroProtocoloCancelamento">Initial value of the numeroProtocoloCancelamento property.</param>
-        /// <param name="situacaoProtocoloCancelamento">Initial value of the situacaoProtocoloCancelamento property.</param>
-        /// <param name="mensagemSituacaoProtocoloCancelamento">Initial value of the mensagemSituacaoProtocoloCancelamento property.</param>
-        /// <param name="justificativaCancelamento">Initial value of the justificativaCancelamento property.</param>
-        /// <param name="seqCartaCorrecao">Initial value of the seqCartaCorrecao property.</param>
-        /// <param name="correcao">Initial value of the correcao property.</param>
-        /// <param name="situacaoProtocoloCartaCorrecao">Initial value of the situacaoProtocoloCartaCorrecao property.</param>
-        /// <param name="mensagemSitucaoCartaCorrecao">Initial value of the mensagemSitucaoCartaCorrecao property.</param>
-        /// <param name="numeroProtocoloCartaCorrecao">Initial value of the numeroProtocoloCartaCorrecao property.</param>
-        public static NfeE CreateNfeE(global::System.Int32 codNFe, global::System.String chave, global::System.String situacaoNfe, global::System.String numeroLoteEnvio, global::System.String numeroRecibo, global::System.String situacaoReciboEnvio, global::System.String mensagemSituacaoReciboEnvio, global::System.String numeroProtocoloUso, global::System.String situacaoProtocoloUso, global::System.String mensagemSituacaoProtocoloUso, global::System.String numeroProtocoloCancelamento, global::System.String situacaoProtocoloCancelamento, global::System.String mensagemSituacaoProtocoloCancelamento, global::System.String justificativaCancelamento, global::System.Int32 seqCartaCorrecao, global::System.String correcao, global::System.String situacaoProtocoloCartaCorrecao, global::System.String mensagemSitucaoCartaCorrecao, global::System.String numeroProtocoloCartaCorrecao)
-        {
-            NfeE nfeE = new NfeE();
-            nfeE.codNFe = codNFe;
-            nfeE.chave = chave;
-            nfeE.situacaoNfe = situacaoNfe;
-            nfeE.numeroLoteEnvio = numeroLoteEnvio;
-            nfeE.numeroRecibo = numeroRecibo;
-            nfeE.situacaoReciboEnvio = situacaoReciboEnvio;
-            nfeE.mensagemSituacaoReciboEnvio = mensagemSituacaoReciboEnvio;
-            nfeE.numeroProtocoloUso = numeroProtocoloUso;
-            nfeE.situacaoProtocoloUso = situacaoProtocoloUso;
-            nfeE.mensagemSituacaoProtocoloUso = mensagemSituacaoProtocoloUso;
-            nfeE.numeroProtocoloCancelamento = numeroProtocoloCancelamento;
-            nfeE.situacaoProtocoloCancelamento = situacaoProtocoloCancelamento;
-            nfeE.mensagemSituacaoProtocoloCancelamento = mensagemSituacaoProtocoloCancelamento;
-            nfeE.justificativaCancelamento = justificativaCancelamento;
-            nfeE.seqCartaCorrecao = seqCartaCorrecao;
-            nfeE.correcao = correcao;
-            nfeE.situacaoProtocoloCartaCorrecao = situacaoProtocoloCartaCorrecao;
-            nfeE.mensagemSitucaoCartaCorrecao = mensagemSitucaoCartaCorrecao;
-            nfeE.numeroProtocoloCartaCorrecao = numeroProtocoloCartaCorrecao;
-            return nfeE;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codNFe
-        {
-            get
-            {
-                return _codNFe;
-            }
-            set
-            {
-                if (_codNFe != value)
-                {
-                    OncodNFeChanging(value);
-                    ReportPropertyChanging("codNFe");
-                    _codNFe = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codNFe");
-                    OncodNFeChanged();
-                }
-            }
-        }
-        private global::System.Int32 _codNFe;
-        partial void OncodNFeChanging(global::System.Int32 value);
-        partial void OncodNFeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String chave
-        {
-            get
-            {
-                return _chave;
-            }
-            set
-            {
-                OnchaveChanging(value);
-                ReportPropertyChanging("chave");
-                _chave = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("chave");
-                OnchaveChanged();
-            }
-        }
-        private global::System.String _chave;
-        partial void OnchaveChanging(global::System.String value);
-        partial void OnchaveChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String situacaoNfe
-        {
-            get
-            {
-                return _situacaoNfe;
-            }
-            set
-            {
-                OnsituacaoNfeChanging(value);
-                ReportPropertyChanging("situacaoNfe");
-                _situacaoNfe = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("situacaoNfe");
-                OnsituacaoNfeChanged();
-            }
-        }
-        private global::System.String _situacaoNfe;
-        partial void OnsituacaoNfeChanging(global::System.String value);
-        partial void OnsituacaoNfeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String numeroLoteEnvio
-        {
-            get
-            {
-                return _numeroLoteEnvio;
-            }
-            set
-            {
-                OnnumeroLoteEnvioChanging(value);
-                ReportPropertyChanging("numeroLoteEnvio");
-                _numeroLoteEnvio = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("numeroLoteEnvio");
-                OnnumeroLoteEnvioChanged();
-            }
-        }
-        private global::System.String _numeroLoteEnvio;
-        partial void OnnumeroLoteEnvioChanging(global::System.String value);
-        partial void OnnumeroLoteEnvioChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String numeroRecibo
-        {
-            get
-            {
-                return _numeroRecibo;
-            }
-            set
-            {
-                OnnumeroReciboChanging(value);
-                ReportPropertyChanging("numeroRecibo");
-                _numeroRecibo = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("numeroRecibo");
-                OnnumeroReciboChanged();
-            }
-        }
-        private global::System.String _numeroRecibo;
-        partial void OnnumeroReciboChanging(global::System.String value);
-        partial void OnnumeroReciboChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String situacaoReciboEnvio
-        {
-            get
-            {
-                return _situacaoReciboEnvio;
-            }
-            set
-            {
-                OnsituacaoReciboEnvioChanging(value);
-                ReportPropertyChanging("situacaoReciboEnvio");
-                _situacaoReciboEnvio = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("situacaoReciboEnvio");
-                OnsituacaoReciboEnvioChanged();
-            }
-        }
-        private global::System.String _situacaoReciboEnvio;
-        partial void OnsituacaoReciboEnvioChanging(global::System.String value);
-        partial void OnsituacaoReciboEnvioChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String mensagemSituacaoReciboEnvio
-        {
-            get
-            {
-                return _mensagemSituacaoReciboEnvio;
-            }
-            set
-            {
-                OnmensagemSituacaoReciboEnvioChanging(value);
-                ReportPropertyChanging("mensagemSituacaoReciboEnvio");
-                _mensagemSituacaoReciboEnvio = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("mensagemSituacaoReciboEnvio");
-                OnmensagemSituacaoReciboEnvioChanged();
-            }
-        }
-        private global::System.String _mensagemSituacaoReciboEnvio;
-        partial void OnmensagemSituacaoReciboEnvioChanging(global::System.String value);
-        partial void OnmensagemSituacaoReciboEnvioChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String numeroProtocoloUso
-        {
-            get
-            {
-                return _numeroProtocoloUso;
-            }
-            set
-            {
-                OnnumeroProtocoloUsoChanging(value);
-                ReportPropertyChanging("numeroProtocoloUso");
-                _numeroProtocoloUso = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("numeroProtocoloUso");
-                OnnumeroProtocoloUsoChanged();
-            }
-        }
-        private global::System.String _numeroProtocoloUso;
-        partial void OnnumeroProtocoloUsoChanging(global::System.String value);
-        partial void OnnumeroProtocoloUsoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String situacaoProtocoloUso
-        {
-            get
-            {
-                return _situacaoProtocoloUso;
-            }
-            set
-            {
-                OnsituacaoProtocoloUsoChanging(value);
-                ReportPropertyChanging("situacaoProtocoloUso");
-                _situacaoProtocoloUso = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("situacaoProtocoloUso");
-                OnsituacaoProtocoloUsoChanged();
-            }
-        }
-        private global::System.String _situacaoProtocoloUso;
-        partial void OnsituacaoProtocoloUsoChanging(global::System.String value);
-        partial void OnsituacaoProtocoloUsoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String mensagemSituacaoProtocoloUso
-        {
-            get
-            {
-                return _mensagemSituacaoProtocoloUso;
-            }
-            set
-            {
-                OnmensagemSituacaoProtocoloUsoChanging(value);
-                ReportPropertyChanging("mensagemSituacaoProtocoloUso");
-                _mensagemSituacaoProtocoloUso = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("mensagemSituacaoProtocoloUso");
-                OnmensagemSituacaoProtocoloUsoChanged();
-            }
-        }
-        private global::System.String _mensagemSituacaoProtocoloUso;
-        partial void OnmensagemSituacaoProtocoloUsoChanging(global::System.String value);
-        partial void OnmensagemSituacaoProtocoloUsoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String numeroProtocoloCancelamento
-        {
-            get
-            {
-                return _numeroProtocoloCancelamento;
-            }
-            set
-            {
-                OnnumeroProtocoloCancelamentoChanging(value);
-                ReportPropertyChanging("numeroProtocoloCancelamento");
-                _numeroProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("numeroProtocoloCancelamento");
-                OnnumeroProtocoloCancelamentoChanged();
-            }
-        }
-        private global::System.String _numeroProtocoloCancelamento;
-        partial void OnnumeroProtocoloCancelamentoChanging(global::System.String value);
-        partial void OnnumeroProtocoloCancelamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String situacaoProtocoloCancelamento
-        {
-            get
-            {
-                return _situacaoProtocoloCancelamento;
-            }
-            set
-            {
-                OnsituacaoProtocoloCancelamentoChanging(value);
-                ReportPropertyChanging("situacaoProtocoloCancelamento");
-                _situacaoProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("situacaoProtocoloCancelamento");
-                OnsituacaoProtocoloCancelamentoChanged();
-            }
-        }
-        private global::System.String _situacaoProtocoloCancelamento;
-        partial void OnsituacaoProtocoloCancelamentoChanging(global::System.String value);
-        partial void OnsituacaoProtocoloCancelamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String mensagemSituacaoProtocoloCancelamento
-        {
-            get
-            {
-                return _mensagemSituacaoProtocoloCancelamento;
-            }
-            set
-            {
-                OnmensagemSituacaoProtocoloCancelamentoChanging(value);
-                ReportPropertyChanging("mensagemSituacaoProtocoloCancelamento");
-                _mensagemSituacaoProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("mensagemSituacaoProtocoloCancelamento");
-                OnmensagemSituacaoProtocoloCancelamentoChanged();
-            }
-        }
-        private global::System.String _mensagemSituacaoProtocoloCancelamento;
-        partial void OnmensagemSituacaoProtocoloCancelamentoChanging(global::System.String value);
-        partial void OnmensagemSituacaoProtocoloCancelamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String justificativaCancelamento
-        {
-            get
-            {
-                return _justificativaCancelamento;
-            }
-            set
-            {
-                OnjustificativaCancelamentoChanging(value);
-                ReportPropertyChanging("justificativaCancelamento");
-                _justificativaCancelamento = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("justificativaCancelamento");
-                OnjustificativaCancelamentoChanged();
-            }
-        }
-        private global::System.String _justificativaCancelamento;
-        partial void OnjustificativaCancelamentoChanging(global::System.String value);
-        partial void OnjustificativaCancelamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> dataEmissao
-        {
-            get
-            {
-                return _dataEmissao;
-            }
-            set
-            {
-                OndataEmissaoChanging(value);
-                ReportPropertyChanging("dataEmissao");
-                _dataEmissao = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("dataEmissao");
-                OndataEmissaoChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _dataEmissao;
-        partial void OndataEmissaoChanging(Nullable<global::System.DateTime> value);
-        partial void OndataEmissaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> dataCancelamento
-        {
-            get
-            {
-                return _dataCancelamento;
-            }
-            set
-            {
-                OndataCancelamentoChanging(value);
-                ReportPropertyChanging("dataCancelamento");
-                _dataCancelamento = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("dataCancelamento");
-                OndataCancelamentoChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _dataCancelamento;
-        partial void OndataCancelamentoChanging(Nullable<global::System.DateTime> value);
-        partial void OndataCancelamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 seqCartaCorrecao
-        {
-            get
-            {
-                return _seqCartaCorrecao;
-            }
-            set
-            {
-                OnseqCartaCorrecaoChanging(value);
-                ReportPropertyChanging("seqCartaCorrecao");
-                _seqCartaCorrecao = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("seqCartaCorrecao");
-                OnseqCartaCorrecaoChanged();
-            }
-        }
-        private global::System.Int32 _seqCartaCorrecao;
-        partial void OnseqCartaCorrecaoChanging(global::System.Int32 value);
-        partial void OnseqCartaCorrecaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String correcao
-        {
-            get
-            {
-                return _correcao;
-            }
-            set
-            {
-                OncorrecaoChanging(value);
-                ReportPropertyChanging("correcao");
-                _correcao = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("correcao");
-                OncorrecaoChanged();
-            }
-        }
-        private global::System.String _correcao;
-        partial void OncorrecaoChanging(global::System.String value);
-        partial void OncorrecaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String situacaoProtocoloCartaCorrecao
-        {
-            get
-            {
-                return _situacaoProtocoloCartaCorrecao;
-            }
-            set
-            {
-                OnsituacaoProtocoloCartaCorrecaoChanging(value);
-                ReportPropertyChanging("situacaoProtocoloCartaCorrecao");
-                _situacaoProtocoloCartaCorrecao = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("situacaoProtocoloCartaCorrecao");
-                OnsituacaoProtocoloCartaCorrecaoChanged();
-            }
-        }
-        private global::System.String _situacaoProtocoloCartaCorrecao;
-        partial void OnsituacaoProtocoloCartaCorrecaoChanging(global::System.String value);
-        partial void OnsituacaoProtocoloCartaCorrecaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String mensagemSitucaoCartaCorrecao
-        {
-            get
-            {
-                return _mensagemSitucaoCartaCorrecao;
-            }
-            set
-            {
-                OnmensagemSitucaoCartaCorrecaoChanging(value);
-                ReportPropertyChanging("mensagemSitucaoCartaCorrecao");
-                _mensagemSitucaoCartaCorrecao = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("mensagemSitucaoCartaCorrecao");
-                OnmensagemSitucaoCartaCorrecaoChanged();
-            }
-        }
-        private global::System.String _mensagemSitucaoCartaCorrecao;
-        partial void OnmensagemSitucaoCartaCorrecaoChanging(global::System.String value);
-        partial void OnmensagemSitucaoCartaCorrecaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String numeroProtocoloCartaCorrecao
-        {
-            get
-            {
-                return _numeroProtocoloCartaCorrecao;
-            }
-            set
-            {
-                OnnumeroProtocoloCartaCorrecaoChanging(value);
-                ReportPropertyChanging("numeroProtocoloCartaCorrecao");
-                _numeroProtocoloCartaCorrecao = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("numeroProtocoloCartaCorrecao");
-                OnnumeroProtocoloCartaCorrecaoChanged();
-            }
-        }
-        private global::System.String _numeroProtocoloCartaCorrecao;
-        partial void OnnumeroProtocoloCartaCorrecaoChanging(global::System.String value);
-        partial void OnnumeroProtocoloCartaCorrecaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> dataCartaCorrecao
-        {
-            get
-            {
-                return _dataCartaCorrecao;
-            }
-            set
-            {
-                OndataCartaCorrecaoChanging(value);
-                ReportPropertyChanging("dataCartaCorrecao");
-                _dataCartaCorrecao = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("dataCartaCorrecao");
-                OndataCartaCorrecaoChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _dataCartaCorrecao;
-        partial void OndataCartaCorrecaoChanging(Nullable<global::System.DateTime> value);
-        partial void OndataCartaCorrecaoChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_saida")]
-        public EntityCollection<tb_saida> tb_saida
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_saida>("SaceModel.tb_saida_nfe", "tb_saida");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.tb_saida_nfe", "tb_saida", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="PerfilE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -10931,6 +10308,629 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_nfe")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_nfe : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_nfe object.
+        /// </summary>
+        /// <param name="codNFe">Initial value of the codNFe property.</param>
+        /// <param name="chave">Initial value of the chave property.</param>
+        /// <param name="situacaoNfe">Initial value of the situacaoNfe property.</param>
+        /// <param name="numeroLoteEnvio">Initial value of the numeroLoteEnvio property.</param>
+        /// <param name="numeroRecibo">Initial value of the numeroRecibo property.</param>
+        /// <param name="situacaoReciboEnvio">Initial value of the situacaoReciboEnvio property.</param>
+        /// <param name="mensagemSituacaoReciboEnvio">Initial value of the mensagemSituacaoReciboEnvio property.</param>
+        /// <param name="numeroProtocoloUso">Initial value of the numeroProtocoloUso property.</param>
+        /// <param name="situacaoProtocoloUso">Initial value of the situacaoProtocoloUso property.</param>
+        /// <param name="mensagemSituacaoProtocoloUso">Initial value of the mensagemSituacaoProtocoloUso property.</param>
+        /// <param name="numeroProtocoloCancelamento">Initial value of the numeroProtocoloCancelamento property.</param>
+        /// <param name="situacaoProtocoloCancelamento">Initial value of the situacaoProtocoloCancelamento property.</param>
+        /// <param name="mensagemSituacaoProtocoloCancelamento">Initial value of the mensagemSituacaoProtocoloCancelamento property.</param>
+        /// <param name="justificativaCancelamento">Initial value of the justificativaCancelamento property.</param>
+        /// <param name="seqCartaCorrecao">Initial value of the seqCartaCorrecao property.</param>
+        /// <param name="correcao">Initial value of the correcao property.</param>
+        /// <param name="situacaoProtocoloCartaCorrecao">Initial value of the situacaoProtocoloCartaCorrecao property.</param>
+        /// <param name="mensagemSitucaoCartaCorrecao">Initial value of the mensagemSitucaoCartaCorrecao property.</param>
+        /// <param name="numeroProtocoloCartaCorrecao">Initial value of the numeroProtocoloCartaCorrecao property.</param>
+        public static tb_nfe Createtb_nfe(global::System.Int32 codNFe, global::System.String chave, global::System.String situacaoNfe, global::System.String numeroLoteEnvio, global::System.String numeroRecibo, global::System.String situacaoReciboEnvio, global::System.String mensagemSituacaoReciboEnvio, global::System.String numeroProtocoloUso, global::System.String situacaoProtocoloUso, global::System.String mensagemSituacaoProtocoloUso, global::System.String numeroProtocoloCancelamento, global::System.String situacaoProtocoloCancelamento, global::System.String mensagemSituacaoProtocoloCancelamento, global::System.String justificativaCancelamento, global::System.Int32 seqCartaCorrecao, global::System.String correcao, global::System.String situacaoProtocoloCartaCorrecao, global::System.String mensagemSitucaoCartaCorrecao, global::System.String numeroProtocoloCartaCorrecao)
+        {
+            tb_nfe tb_nfe = new tb_nfe();
+            tb_nfe.codNFe = codNFe;
+            tb_nfe.chave = chave;
+            tb_nfe.situacaoNfe = situacaoNfe;
+            tb_nfe.numeroLoteEnvio = numeroLoteEnvio;
+            tb_nfe.numeroRecibo = numeroRecibo;
+            tb_nfe.situacaoReciboEnvio = situacaoReciboEnvio;
+            tb_nfe.mensagemSituacaoReciboEnvio = mensagemSituacaoReciboEnvio;
+            tb_nfe.numeroProtocoloUso = numeroProtocoloUso;
+            tb_nfe.situacaoProtocoloUso = situacaoProtocoloUso;
+            tb_nfe.mensagemSituacaoProtocoloUso = mensagemSituacaoProtocoloUso;
+            tb_nfe.numeroProtocoloCancelamento = numeroProtocoloCancelamento;
+            tb_nfe.situacaoProtocoloCancelamento = situacaoProtocoloCancelamento;
+            tb_nfe.mensagemSituacaoProtocoloCancelamento = mensagemSituacaoProtocoloCancelamento;
+            tb_nfe.justificativaCancelamento = justificativaCancelamento;
+            tb_nfe.seqCartaCorrecao = seqCartaCorrecao;
+            tb_nfe.correcao = correcao;
+            tb_nfe.situacaoProtocoloCartaCorrecao = situacaoProtocoloCartaCorrecao;
+            tb_nfe.mensagemSitucaoCartaCorrecao = mensagemSitucaoCartaCorrecao;
+            tb_nfe.numeroProtocoloCartaCorrecao = numeroProtocoloCartaCorrecao;
+            return tb_nfe;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codNFe
+        {
+            get
+            {
+                return _codNFe;
+            }
+            set
+            {
+                if (_codNFe != value)
+                {
+                    OncodNFeChanging(value);
+                    ReportPropertyChanging("codNFe");
+                    _codNFe = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codNFe");
+                    OncodNFeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _codNFe;
+        partial void OncodNFeChanging(global::System.Int32 value);
+        partial void OncodNFeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String chave
+        {
+            get
+            {
+                return _chave;
+            }
+            set
+            {
+                OnchaveChanging(value);
+                ReportPropertyChanging("chave");
+                _chave = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("chave");
+                OnchaveChanged();
+            }
+        }
+        private global::System.String _chave;
+        partial void OnchaveChanging(global::System.String value);
+        partial void OnchaveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoNfe
+        {
+            get
+            {
+                return _situacaoNfe;
+            }
+            set
+            {
+                OnsituacaoNfeChanging(value);
+                ReportPropertyChanging("situacaoNfe");
+                _situacaoNfe = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoNfe");
+                OnsituacaoNfeChanged();
+            }
+        }
+        private global::System.String _situacaoNfe;
+        partial void OnsituacaoNfeChanging(global::System.String value);
+        partial void OnsituacaoNfeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroLoteEnvio
+        {
+            get
+            {
+                return _numeroLoteEnvio;
+            }
+            set
+            {
+                OnnumeroLoteEnvioChanging(value);
+                ReportPropertyChanging("numeroLoteEnvio");
+                _numeroLoteEnvio = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroLoteEnvio");
+                OnnumeroLoteEnvioChanged();
+            }
+        }
+        private global::System.String _numeroLoteEnvio;
+        partial void OnnumeroLoteEnvioChanging(global::System.String value);
+        partial void OnnumeroLoteEnvioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroRecibo
+        {
+            get
+            {
+                return _numeroRecibo;
+            }
+            set
+            {
+                OnnumeroReciboChanging(value);
+                ReportPropertyChanging("numeroRecibo");
+                _numeroRecibo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroRecibo");
+                OnnumeroReciboChanged();
+            }
+        }
+        private global::System.String _numeroRecibo;
+        partial void OnnumeroReciboChanging(global::System.String value);
+        partial void OnnumeroReciboChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoReciboEnvio
+        {
+            get
+            {
+                return _situacaoReciboEnvio;
+            }
+            set
+            {
+                OnsituacaoReciboEnvioChanging(value);
+                ReportPropertyChanging("situacaoReciboEnvio");
+                _situacaoReciboEnvio = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoReciboEnvio");
+                OnsituacaoReciboEnvioChanged();
+            }
+        }
+        private global::System.String _situacaoReciboEnvio;
+        partial void OnsituacaoReciboEnvioChanging(global::System.String value);
+        partial void OnsituacaoReciboEnvioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSituacaoReciboEnvio
+        {
+            get
+            {
+                return _mensagemSituacaoReciboEnvio;
+            }
+            set
+            {
+                OnmensagemSituacaoReciboEnvioChanging(value);
+                ReportPropertyChanging("mensagemSituacaoReciboEnvio");
+                _mensagemSituacaoReciboEnvio = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSituacaoReciboEnvio");
+                OnmensagemSituacaoReciboEnvioChanged();
+            }
+        }
+        private global::System.String _mensagemSituacaoReciboEnvio;
+        partial void OnmensagemSituacaoReciboEnvioChanging(global::System.String value);
+        partial void OnmensagemSituacaoReciboEnvioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroProtocoloUso
+        {
+            get
+            {
+                return _numeroProtocoloUso;
+            }
+            set
+            {
+                OnnumeroProtocoloUsoChanging(value);
+                ReportPropertyChanging("numeroProtocoloUso");
+                _numeroProtocoloUso = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroProtocoloUso");
+                OnnumeroProtocoloUsoChanged();
+            }
+        }
+        private global::System.String _numeroProtocoloUso;
+        partial void OnnumeroProtocoloUsoChanging(global::System.String value);
+        partial void OnnumeroProtocoloUsoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoProtocoloUso
+        {
+            get
+            {
+                return _situacaoProtocoloUso;
+            }
+            set
+            {
+                OnsituacaoProtocoloUsoChanging(value);
+                ReportPropertyChanging("situacaoProtocoloUso");
+                _situacaoProtocoloUso = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoProtocoloUso");
+                OnsituacaoProtocoloUsoChanged();
+            }
+        }
+        private global::System.String _situacaoProtocoloUso;
+        partial void OnsituacaoProtocoloUsoChanging(global::System.String value);
+        partial void OnsituacaoProtocoloUsoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSituacaoProtocoloUso
+        {
+            get
+            {
+                return _mensagemSituacaoProtocoloUso;
+            }
+            set
+            {
+                OnmensagemSituacaoProtocoloUsoChanging(value);
+                ReportPropertyChanging("mensagemSituacaoProtocoloUso");
+                _mensagemSituacaoProtocoloUso = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSituacaoProtocoloUso");
+                OnmensagemSituacaoProtocoloUsoChanged();
+            }
+        }
+        private global::System.String _mensagemSituacaoProtocoloUso;
+        partial void OnmensagemSituacaoProtocoloUsoChanging(global::System.String value);
+        partial void OnmensagemSituacaoProtocoloUsoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroProtocoloCancelamento
+        {
+            get
+            {
+                return _numeroProtocoloCancelamento;
+            }
+            set
+            {
+                OnnumeroProtocoloCancelamentoChanging(value);
+                ReportPropertyChanging("numeroProtocoloCancelamento");
+                _numeroProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroProtocoloCancelamento");
+                OnnumeroProtocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _numeroProtocoloCancelamento;
+        partial void OnnumeroProtocoloCancelamentoChanging(global::System.String value);
+        partial void OnnumeroProtocoloCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoProtocoloCancelamento
+        {
+            get
+            {
+                return _situacaoProtocoloCancelamento;
+            }
+            set
+            {
+                OnsituacaoProtocoloCancelamentoChanging(value);
+                ReportPropertyChanging("situacaoProtocoloCancelamento");
+                _situacaoProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoProtocoloCancelamento");
+                OnsituacaoProtocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _situacaoProtocoloCancelamento;
+        partial void OnsituacaoProtocoloCancelamentoChanging(global::System.String value);
+        partial void OnsituacaoProtocoloCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSituacaoProtocoloCancelamento
+        {
+            get
+            {
+                return _mensagemSituacaoProtocoloCancelamento;
+            }
+            set
+            {
+                OnmensagemSituacaoProtocoloCancelamentoChanging(value);
+                ReportPropertyChanging("mensagemSituacaoProtocoloCancelamento");
+                _mensagemSituacaoProtocoloCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSituacaoProtocoloCancelamento");
+                OnmensagemSituacaoProtocoloCancelamentoChanged();
+            }
+        }
+        private global::System.String _mensagemSituacaoProtocoloCancelamento;
+        partial void OnmensagemSituacaoProtocoloCancelamentoChanging(global::System.String value);
+        partial void OnmensagemSituacaoProtocoloCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String justificativaCancelamento
+        {
+            get
+            {
+                return _justificativaCancelamento;
+            }
+            set
+            {
+                OnjustificativaCancelamentoChanging(value);
+                ReportPropertyChanging("justificativaCancelamento");
+                _justificativaCancelamento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("justificativaCancelamento");
+                OnjustificativaCancelamentoChanged();
+            }
+        }
+        private global::System.String _justificativaCancelamento;
+        partial void OnjustificativaCancelamentoChanging(global::System.String value);
+        partial void OnjustificativaCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> dataEmissao
+        {
+            get
+            {
+                return _dataEmissao;
+            }
+            set
+            {
+                OndataEmissaoChanging(value);
+                ReportPropertyChanging("dataEmissao");
+                _dataEmissao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataEmissao");
+                OndataEmissaoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _dataEmissao;
+        partial void OndataEmissaoChanging(Nullable<global::System.DateTime> value);
+        partial void OndataEmissaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> dataCancelamento
+        {
+            get
+            {
+                return _dataCancelamento;
+            }
+            set
+            {
+                OndataCancelamentoChanging(value);
+                ReportPropertyChanging("dataCancelamento");
+                _dataCancelamento = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataCancelamento");
+                OndataCancelamentoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _dataCancelamento;
+        partial void OndataCancelamentoChanging(Nullable<global::System.DateTime> value);
+        partial void OndataCancelamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 seqCartaCorrecao
+        {
+            get
+            {
+                return _seqCartaCorrecao;
+            }
+            set
+            {
+                OnseqCartaCorrecaoChanging(value);
+                ReportPropertyChanging("seqCartaCorrecao");
+                _seqCartaCorrecao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("seqCartaCorrecao");
+                OnseqCartaCorrecaoChanged();
+            }
+        }
+        private global::System.Int32 _seqCartaCorrecao;
+        partial void OnseqCartaCorrecaoChanging(global::System.Int32 value);
+        partial void OnseqCartaCorrecaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String correcao
+        {
+            get
+            {
+                return _correcao;
+            }
+            set
+            {
+                OncorrecaoChanging(value);
+                ReportPropertyChanging("correcao");
+                _correcao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("correcao");
+                OncorrecaoChanged();
+            }
+        }
+        private global::System.String _correcao;
+        partial void OncorrecaoChanging(global::System.String value);
+        partial void OncorrecaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacaoProtocoloCartaCorrecao
+        {
+            get
+            {
+                return _situacaoProtocoloCartaCorrecao;
+            }
+            set
+            {
+                OnsituacaoProtocoloCartaCorrecaoChanging(value);
+                ReportPropertyChanging("situacaoProtocoloCartaCorrecao");
+                _situacaoProtocoloCartaCorrecao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacaoProtocoloCartaCorrecao");
+                OnsituacaoProtocoloCartaCorrecaoChanged();
+            }
+        }
+        private global::System.String _situacaoProtocoloCartaCorrecao;
+        partial void OnsituacaoProtocoloCartaCorrecaoChanging(global::System.String value);
+        partial void OnsituacaoProtocoloCartaCorrecaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mensagemSitucaoCartaCorrecao
+        {
+            get
+            {
+                return _mensagemSitucaoCartaCorrecao;
+            }
+            set
+            {
+                OnmensagemSitucaoCartaCorrecaoChanging(value);
+                ReportPropertyChanging("mensagemSitucaoCartaCorrecao");
+                _mensagemSitucaoCartaCorrecao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mensagemSitucaoCartaCorrecao");
+                OnmensagemSitucaoCartaCorrecaoChanged();
+            }
+        }
+        private global::System.String _mensagemSitucaoCartaCorrecao;
+        partial void OnmensagemSitucaoCartaCorrecaoChanging(global::System.String value);
+        partial void OnmensagemSitucaoCartaCorrecaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroProtocoloCartaCorrecao
+        {
+            get
+            {
+                return _numeroProtocoloCartaCorrecao;
+            }
+            set
+            {
+                OnnumeroProtocoloCartaCorrecaoChanging(value);
+                ReportPropertyChanging("numeroProtocoloCartaCorrecao");
+                _numeroProtocoloCartaCorrecao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroProtocoloCartaCorrecao");
+                OnnumeroProtocoloCartaCorrecaoChanged();
+            }
+        }
+        private global::System.String _numeroProtocoloCartaCorrecao;
+        partial void OnnumeroProtocoloCartaCorrecaoChanging(global::System.String value);
+        partial void OnnumeroProtocoloCartaCorrecaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> dataCartaCorrecao
+        {
+            get
+            {
+                return _dataCartaCorrecao;
+            }
+            set
+            {
+                OndataCartaCorrecaoChanging(value);
+                ReportPropertyChanging("dataCartaCorrecao");
+                _dataCartaCorrecao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataCartaCorrecao");
+                OndataCartaCorrecaoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _dataCartaCorrecao;
+        partial void OndataCartaCorrecaoChanging(Nullable<global::System.DateTime> value);
+        partial void OndataCartaCorrecaoChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_saida")]
+        public EntityCollection<tb_saida> tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_saida>("SaceModel.tb_saida_nfe", "tb_saida");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.tb_saida_nfe", "tb_saida", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_permissao")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -12534,28 +12534,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "NfeE")]
-        public EntityCollection<NfeE> tb_nfe
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "NfeE");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<NfeE>("SaceModel.tb_saida_nfe", "NfeE", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_loja1", "LojaE")]
         public LojaE tb_loja
         {
@@ -12584,6 +12562,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<LojaE>("SaceModel.fk_tb_saida_tb_loja1", "LojaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_nfe")]
+        public EntityCollection<tb_nfe> tb_nfe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_nfe>("SaceModel.tb_saida_nfe", "tb_nfe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_nfe>("SaceModel.tb_saida_nfe", "tb_nfe", value);
                 }
             }
         }
