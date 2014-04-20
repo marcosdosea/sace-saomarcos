@@ -111,6 +111,7 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
+			<xs:maxLength value="14"/>
 			<xs:pattern value="[0-9]{0}|[0-9]{14}"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -348,7 +349,12 @@ acrescentado:
  4235 - LEBUAN,ILHAS
  4885 - MAYOTTE (ILHAS FRANCESAS)  
 // NT2011/004
- acrescentado a tabela de paises</xs:documentation>
+ acrescentado a tabela de paises
+//PL_006t - 21/03/2014
+acrescentado:
+5780 - Palestina
+7600 - Sudão do Sul 
+ </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
@@ -547,6 +553,7 @@ acrescentado:
 			<xs:enumeration value="5738"/>
 			<xs:enumeration value="5754"/>
 			<xs:enumeration value="5762"/>
+			<xs:enumeration value="5780"/>
 			<xs:enumeration value="5800"/>
 			<xs:enumeration value="5860"/>
 			<xs:enumeration value="5894"/>
@@ -589,6 +596,7 @@ acrescentado:
 			<xs:enumeration value="7544"/>
 			<xs:enumeration value="7560"/>
 			<xs:enumeration value="7595"/>
+			<xs:enumeration value="7600"/>
 			<xs:enumeration value="7641"/>
 			<xs:enumeration value="7676"/>
 			<xs:enumeration value="7706"/>

@@ -34,11 +34,17 @@ namespace Telas
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            String nomeProduto = nomeProdutoTextBox.Text;
-            produtoLojaBindingSource.AddNew();
+            ProdutoLoja produtoLoja = new ProdutoLoja();
+            produtoLoja.NomeProduto = ProdutoSelected.Nome;
+            produtoLoja.CodProduto = ProdutoSelected.CodProduto;
+            produtoLoja.CodLoja = Global.LOJA_PADRAO;
+            
+            produtoLojaBindingSource.Add(produtoLoja);
+            
             habilitaBotoes(false);
-            codProdutoTextBox.Text = ProdutoSelected.CodProduto.ToString();
-            nomeProdutoTextBox.Text = nomeProduto;
+            //codProdutoTextBox.Text = produtoLoja.CodProduto.ToString();
+            //nomeProdutoTextBox.Text = produtoLoja.NomeProduto;
+            produtoLojaBindingSource.ResumeBinding();
             codLojaComboBox.Focus();
             estado = EstadoFormulario.INSERIR;
         }

@@ -42,10 +42,7 @@ namespace Telas
         private void FrmSaida_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            produtoBindingSource.SuspendBinding();
-            produtoBindingSource.RaiseListChangedEvents = false;
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomesExibiveis();
-            produtoBindingSource.ResumeBinding();
             ObterSaidas(0);
 
             cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(tipoSaidaFormulario);
@@ -715,7 +712,7 @@ namespace Telas
         /// <param name="e"></param>
         private void baseCalculoICMSTextBox_Leave(object sender, EventArgs e)
         {
-            FormatTextBox.NumeroCom2CasasDecimais(precoVendatextBox);
+            FormatTextBox.NumeroCom3CasasDecimais(precoVendatextBox);
             AtualizarSubTotal();
         }
 

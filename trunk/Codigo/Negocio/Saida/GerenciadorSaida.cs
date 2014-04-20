@@ -438,11 +438,20 @@ namespace Negocio
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
             if (codSaidaInicial <= 0)
-                return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA).OrderByDescending(s => s.CodSaida).Take(20).OrderBy(s => s.CodSaida).ToList();
+            {
+                var query = (from saida in saceContext.tb_saida
+                             where saida.codTipoSaida == Saida.TIPO_ORCAMENTO || saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA
+                             orderby saida.codSaida descending
+                             select saida.codSaida).Take(20);
+                List<long> listaSaidas = query.ToList();
+
+                return GetQuery().Where(s => listaSaidas.Contains(s.CodSaida)).ToList();
+            }
             else
-                return GetQuery().Where(saida => saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA && saida.CodSaida >= codSaidaInicial).OrderBy(s => s.CodSaida).ToList();
+            {
+                return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
+                    saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA) && saida.CodSaida >= codSaidaInicial).OrderBy(s => s.CodSaida).ToList();
+            }
         }
 
         /// <summary>

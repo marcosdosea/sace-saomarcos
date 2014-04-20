@@ -57,7 +57,8 @@ namespace Telas
                     Entrada entrada = GerenciadorEntrada.GetInstance().Obter(Saida.CodEntrada).ElementAtOrDefault(0);
                     Saida.Observacao += " Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
                         " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
-                        Saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + Saida.BaseCalculoICMSSubst.ToString("N2") +
+                        Saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS = R$ " + Saida.BaseCalculoICMS.ToString("N2") +
+                        ". Valor do ICMS = R$ " + Saida.ValorICMS.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + Saida.BaseCalculoICMSSubst.ToString("N2") +
                         ". Valor do ICMS ST = R$ " + Saida.ValorICMSSubst.ToString("N2") + ". Valor do IPI = R$ " + Saida.ValorIPI.ToString("N2");
                 }
             }
@@ -87,11 +88,14 @@ namespace Telas
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+            nfeControleDataGridView.ResumeLayout();
             //nfeControleDataGridView.DataSource = nfeControleBindingSource.DataSource; 
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
+            // o evento foi disparo do butão que emite Nf-
+            bool ehNfeComplementar = (sender is Button) && ((Button)sender).Name.Equals("btnComplementar");
             if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
             {
                 if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -100,12 +104,18 @@ namespace Telas
                     Saida.Observacao = observacaoTextBox.Text;
                     if (Saida.CupomFiscal.Trim().Equals(""))
                         GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
-                    
+
+                    NfeControle nfe = (NfeControle) nfeControleBindingSource.Current;
                     // Gera chave e envia nota fiscal
-                    NfeControle nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
+                    nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, ehNfeComplementar);
+                    if (ehNfeComplementar)
+                    {
+                        //nfe.ComplementarImposto = ((NfeControle)nfeControleBindingSource.Current).ComplementarImposto;
+                        //GerenciadorNFe.GetInstance().Atualizar(nfe);
+                    }
                     if (!string.IsNullOrEmpty(nfe.Chave))
                     {
-                        GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, true);
+                        GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, true, ehNfeComplementar);
                     }
 
                 }   
@@ -121,12 +131,16 @@ namespace Telas
                 else
                     GerenciadorSaida.GetInstance(null).AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
 
+                NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
+                if (nfe != null)
+                    GerenciadorNFe.GetInstance().Atualizar(nfe);
+                    
                 // Gera chave e envia nota fiscal
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
-                NfeControle nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida);
+                nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, ehNfeComplementar);
                 if (!string.IsNullOrEmpty(nfe.Chave))
                 {
-                    GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, false);
+                    GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, false, ehNfeComplementar);
                 }
                 Cursor.Current = Cursors.Default;
                 nfeControleDataGridView.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
@@ -203,7 +217,5 @@ namespace Telas
             ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true);
             Cliente = (Pessoa)pessoaBindingSource.Current;
         }
-
- 
     }
 }

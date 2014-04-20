@@ -82,6 +82,7 @@
             this.seqCartaCorrecaoTextBox = new System.Windows.Forms.TextBox();
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
+            this.btnComplementar = new System.Windows.Forms.Button();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -269,10 +270,19 @@
             seqCartaCorrecaoLabel.TabIndex = 47;
             seqCartaCorrecaoLabel.Text = "Sequência Carta Correção:";
             // 
+            // codPessoaLabel
+            // 
+            codPessoaLabel.AutoSize = true;
+            codPessoaLabel.Location = new System.Drawing.Point(227, 298);
+            codPessoaLabel.Name = "codPessoaLabel";
+            codPessoaLabel.Size = new System.Drawing.Size(66, 13);
+            codPessoaLabel.TabIndex = 48;
+            codPessoaLabel.Text = "Destinatário:";
+            // 
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnImprimir.Location = new System.Drawing.Point(605, 558);
+            this.btnImprimir.Location = new System.Drawing.Point(667, 558);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(105, 26);
             this.btnImprimir.TabIndex = 7;
@@ -283,7 +293,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCancelar.Location = new System.Drawing.Point(289, 558);
+            this.btnCancelar.Location = new System.Drawing.Point(215, 558);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 26);
             this.btnCancelar.TabIndex = 4;
@@ -298,13 +308,13 @@
             this.observacaoTextBox.MaxLength = 350;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(815, 93);
+            this.observacaoTextBox.Size = new System.Drawing.Size(873, 93);
             this.observacaoTextBox.TabIndex = 14;
             // 
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnEnviar.Location = new System.Drawing.Point(183, 558);
+            this.btnEnviar.Location = new System.Drawing.Point(110, 558);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(105, 26);
             this.btnEnviar.TabIndex = 3;
@@ -329,7 +339,7 @@
             this.nfeControleDataGridView.Name = "nfeControleDataGridView";
             this.nfeControleDataGridView.ReadOnly = true;
             this.nfeControleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.nfeControleDataGridView.Size = new System.Drawing.Size(815, 114);
+            this.nfeControleDataGridView.Size = new System.Drawing.Size(873, 114);
             this.nfeControleDataGridView.TabIndex = 7;
             // 
             // dataGridViewTextBoxColumn1
@@ -375,7 +385,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnConsultar.Location = new System.Drawing.Point(76, 558);
+            this.btnConsultar.Location = new System.Drawing.Point(5, 558);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(105, 26);
             this.btnConsultar.TabIndex = 2;
@@ -386,7 +396,7 @@
             // btnFechar
             // 
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnFechar.Location = new System.Drawing.Point(714, 558);
+            this.btnFechar.Location = new System.Drawing.Point(772, 558);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(105, 26);
             this.btnFechar.TabIndex = 8;
@@ -402,7 +412,7 @@
             this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 454);
             this.justificativaCancelamentoTextBox1.Multiline = true;
             this.justificativaCancelamentoTextBox1.Name = "justificativaCancelamentoTextBox1";
-            this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(815, 39);
+            this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(873, 39);
             this.justificativaCancelamentoTextBox1.TabIndex = 16;
             // 
             // mensagemSituacaoReciboEnvioTextBox
@@ -411,7 +421,7 @@
             this.mensagemSituacaoReciboEnvioTextBox.Location = new System.Drawing.Point(485, 167);
             this.mensagemSituacaoReciboEnvioTextBox.Name = "mensagemSituacaoReciboEnvioTextBox";
             this.mensagemSituacaoReciboEnvioTextBox.ReadOnly = true;
-            this.mensagemSituacaoReciboEnvioTextBox.Size = new System.Drawing.Size(334, 20);
+            this.mensagemSituacaoReciboEnvioTextBox.Size = new System.Drawing.Size(392, 20);
             this.mensagemSituacaoReciboEnvioTextBox.TabIndex = 21;
             this.mensagemSituacaoReciboEnvioTextBox.TabStop = false;
             // 
@@ -421,7 +431,7 @@
             this.mensagemSitucaoProtocoloCancelamentoTextBox.Location = new System.Drawing.Point(485, 236);
             this.mensagemSitucaoProtocoloCancelamentoTextBox.Name = "mensagemSitucaoProtocoloCancelamentoTextBox";
             this.mensagemSitucaoProtocoloCancelamentoTextBox.ReadOnly = true;
-            this.mensagemSitucaoProtocoloCancelamentoTextBox.Size = new System.Drawing.Size(334, 20);
+            this.mensagemSitucaoProtocoloCancelamentoTextBox.Size = new System.Drawing.Size(392, 20);
             this.mensagemSitucaoProtocoloCancelamentoTextBox.TabIndex = 23;
             this.mensagemSitucaoProtocoloCancelamentoTextBox.TabStop = false;
             // 
@@ -431,7 +441,7 @@
             this.mensagemSitucaoProtocoloUsoTextBox.Location = new System.Drawing.Point(485, 198);
             this.mensagemSitucaoProtocoloUsoTextBox.Name = "mensagemSitucaoProtocoloUsoTextBox";
             this.mensagemSitucaoProtocoloUsoTextBox.ReadOnly = true;
-            this.mensagemSitucaoProtocoloUsoTextBox.Size = new System.Drawing.Size(334, 20);
+            this.mensagemSitucaoProtocoloUsoTextBox.Size = new System.Drawing.Size(392, 20);
             this.mensagemSitucaoProtocoloUsoTextBox.TabIndex = 25;
             this.mensagemSitucaoProtocoloUsoTextBox.TabStop = false;
             // 
@@ -519,7 +529,7 @@
             // btnSituacao
             // 
             this.btnSituacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnSituacao.Location = new System.Drawing.Point(499, 558);
+            this.btnSituacao.Location = new System.Drawing.Point(425, 558);
             this.btnSituacao.Name = "btnSituacao";
             this.btnSituacao.Size = new System.Drawing.Size(105, 26);
             this.btnSituacao.TabIndex = 6;
@@ -553,7 +563,7 @@
             this.mensagemSitucaoCartaCorrecaoTextBox.Location = new System.Drawing.Point(485, 267);
             this.mensagemSitucaoCartaCorrecaoTextBox.Name = "mensagemSitucaoCartaCorrecaoTextBox";
             this.mensagemSitucaoCartaCorrecaoTextBox.ReadOnly = true;
-            this.mensagemSitucaoCartaCorrecaoTextBox.Size = new System.Drawing.Size(334, 20);
+            this.mensagemSitucaoCartaCorrecaoTextBox.Size = new System.Drawing.Size(392, 20);
             this.mensagemSitucaoCartaCorrecaoTextBox.TabIndex = 45;
             this.mensagemSitucaoCartaCorrecaoTextBox.TabStop = false;
             // 
@@ -563,13 +573,13 @@
             this.correcaoTextBox.Location = new System.Drawing.Point(5, 512);
             this.correcaoTextBox.Multiline = true;
             this.correcaoTextBox.Name = "correcaoTextBox";
-            this.correcaoTextBox.Size = new System.Drawing.Size(814, 42);
+            this.correcaoTextBox.Size = new System.Drawing.Size(872, 42);
             this.correcaoTextBox.TabIndex = 18;
             // 
             // btnCartaCorrecao
             // 
             this.btnCartaCorrecao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCartaCorrecao.Location = new System.Drawing.Point(394, 558);
+            this.btnCartaCorrecao.Location = new System.Drawing.Point(320, 558);
             this.btnCartaCorrecao.Name = "btnCartaCorrecao";
             this.btnCartaCorrecao.Size = new System.Drawing.Size(105, 26);
             this.btnCartaCorrecao.TabIndex = 5;
@@ -591,15 +601,6 @@
             // 
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
-            // codPessoaLabel
-            // 
-            codPessoaLabel.AutoSize = true;
-            codPessoaLabel.Location = new System.Drawing.Point(227, 298);
-            codPessoaLabel.Name = "codPessoaLabel";
-            codPessoaLabel.Size = new System.Drawing.Size(66, 13);
-            codPessoaLabel.TabIndex = 48;
-            codPessoaLabel.Text = "Destinatário:";
-            // 
             // codPessoaComboBox
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -610,19 +611,31 @@
             this.codPessoaComboBox.FormattingEnabled = true;
             this.codPessoaComboBox.Location = new System.Drawing.Point(299, 298);
             this.codPessoaComboBox.Name = "codPessoaComboBox";
-            this.codPessoaComboBox.Size = new System.Drawing.Size(520, 21);
+            this.codPessoaComboBox.Size = new System.Drawing.Size(578, 21);
             this.codPessoaComboBox.TabIndex = 12;
             this.codPessoaComboBox.ValueMember = "CodPessoa";
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
             this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
+            // 
+            // btnComplementar
+            // 
+            this.btnComplementar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnComplementar.Location = new System.Drawing.Point(531, 558);
+            this.btnComplementar.Name = "btnComplementar";
+            this.btnComplementar.Size = new System.Drawing.Size(136, 26);
+            this.btnComplementar.TabIndex = 50;
+            this.btnComplementar.Text = "F7 - Complementar";
+            this.btnComplementar.UseVisualStyleBackColor = true;
+            this.btnComplementar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(826, 604);
+            this.ClientSize = new System.Drawing.Size(870, 588);
             this.ControlBox = false;
+            this.Controls.Add(this.btnComplementar);
             this.Controls.Add(codPessoaLabel);
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(seqCartaCorrecaoLabel);
@@ -722,5 +735,6 @@
         private System.Windows.Forms.TextBox seqCartaCorrecaoTextBox;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.ComboBox codPessoaComboBox;
+        private System.Windows.Forms.Button btnComplementar;
     }
 }

@@ -14,6 +14,7 @@ namespace Dominio
         public const string SITUACAO_INUTILIZADA = "I";
         public const string SITUACAO_NAO_VALIDADA = "N";
         public const string SITUACAO_REJEITADA = "R";
+        public const string SITUACAO_COMPLEMENTAR_IMPOSTO = "O";
 
         public NfeControle()
         {
