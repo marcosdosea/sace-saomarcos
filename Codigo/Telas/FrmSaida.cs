@@ -482,8 +482,9 @@ namespace Telas
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO)
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO))
                 {
-                    precoVendatextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
-                    precoVendaSemDescontoTextBox.Text = produto.UltimoPrecoCompra.ToString("N3");
+
+                    precoVendatextBox.Text = (produto.UltimoPrecoCompra / produto.QuantidadeEmbalagem).ToString("N3");
+                    precoVendaSemDescontoTextBox.Text = (produto.UltimoPrecoCompra / produto.QuantidadeEmbalagem).ToString("N3");
                 }
                 else
                 {
