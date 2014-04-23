@@ -649,7 +649,7 @@ namespace Negocio
                     if (nfeControleAutorizada == null)
                         throw new NegocioException("Não é possível emitir uma NF-e Complementar de imposto quando não houve Nf-e Autorizadas.");
                     else
-                        refNfe.Item = nfeControle.Chave;
+                        refNfe.Item = nfeControleAutorizada.Chave;
                     infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
                     infNFeIde.NFref[0] = refNfe;
                 }
@@ -731,7 +731,7 @@ namespace Negocio
                 {
                     TNFeInfNFeDetProd prod = new TNFeInfNFeDetProd();
                     prod.cProd = "CFOP9999";
-                    prod.xProd = "Nota Fiscal Complementar da NF-e " + nfeControleAutorizada.CodNfe + " de " + nfeControle.DataEmissao;
+                    prod.xProd = "Nota Fiscal Complementar da NF-e " + nfeControleAutorizada.CodNfe + " de " + nfeControleAutorizada.DataEmissao;
                     prod.cEAN = "";
                     prod.cEANTrib = "";
                     prod.CFOP = TCfop.Item6411;
@@ -741,11 +741,12 @@ namespace Negocio
                     prod.vUnCom = formataValorNFe(0);
                     prod.vProd = formataValorNFe(0);
                     prod.vUnTrib = formataValorNFe(0);
-                    prod.vDesc = formataValorNFe(0);
+                    prod.vOutro = formataValorNFe(saida.OutrasDespesas);
+                    //prod.vDesc = formataValorNFe(0);
                     prod.uTrib = "UN";
                     prod.qTrib = formataValorNFe(0);
                     prod.indTot = (TNFeInfNFeDetProdIndTot)0; // Valor = 1 deve entrar no valor total da nota
-                    prod.vFrete = formataValorNFe(0);
+                    //prod.vFrete = formataValorNFe(0);
                     TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
                     TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                     icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
