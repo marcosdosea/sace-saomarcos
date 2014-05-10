@@ -827,8 +827,10 @@ namespace Negocio
                         totalAVista = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) - saida.Desconto;
                     }
                     valorTotalDesconto = totalProdutos - totalAVista;
-                    valorTotalNota = totalAVista + saida.ValorFrete + saida.OutrasDespesas;
-
+                    if (valorTotalDesconto >= 0)
+                        valorTotalNota = totalAVista + saida.ValorFrete + saida.OutrasDespesas;
+                    else
+                        valorTotalNota = totalProdutos; // acontece quando são vendidos produtos que não podem sair no CF
                     // calcula fator de desconto para ser calculado sobre cada produto da nota
                     decimal fatorDesconto = valorTotalDesconto / totalProdutos;
                     decimal fatorValorOutros = saida.OutrasDespesas / totalProdutos;
@@ -948,9 +950,14 @@ namespace Negocio
                 {
                     icmsTot.vDesc = formataValorNFe(saida.Desconto);
                 }
-                else
+                else if (valorTotalDesconto >= 0)
                 {
                     icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
+                } 
+                else 
+                {
+                    // desconto fica negativo quand tirar cf de um item que não deveria entrar
+                    icmsTot.vDesc = formataValorNFe(0);
                 }
                 icmsTot.vII = formataValorNFe(0);
                 icmsTot.vIPI = formataValorNFe(0);
