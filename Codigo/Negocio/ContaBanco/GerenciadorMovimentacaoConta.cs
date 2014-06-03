@@ -97,7 +97,22 @@ namespace Negocio
 
                     foreach (ContaE _contaE in contasE)
                     {
-                        if (totalMovimentacao > 0)
+                        // Se conta de devolução já dá baixa
+                        if (_contaE.valor < 0)
+                        {
+                            movimentacaoConta.CodConta = _contaE.codConta;
+                            movimentacaoConta.Valor = Math.Round(_contaE.valor - _contaE.desconto, 2);
+                            MovimentacaoContaE _movimentacaoE = new MovimentacaoContaE();
+                            Atribuir(movimentacaoConta, _movimentacaoE);
+
+                            repMovimentacaoConta.Inserir(_movimentacaoE);
+                            saceContext.SaveChanges();
+
+                            AtualizaSituacaoConta(_contaE, _movimentacaoE, false);
+                            AtualizaSituacaoPagamentosEntrada(_contaE);
+                            AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoE, false);
+                        } 
+                        else if (totalMovimentacao >= 0)
                         {
 
                             if (!_contaE.codSituacao.Equals(SituacaoConta.SITUACAO_QUITADA))

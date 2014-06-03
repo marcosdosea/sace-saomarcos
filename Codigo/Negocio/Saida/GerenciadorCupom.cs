@@ -137,7 +137,7 @@ namespace Negocio
                 foreach (long codSaida in saidaValorComDesconto.Keys)
                 {
                     Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
-                    if (saida.TipoSaida == Saida.TIPO_VENDA)
+                    if (!string.IsNullOrEmpty(saida.CupomFiscal))// == Saida.TIPO_VENDA)
                     {
                         throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
                     }
