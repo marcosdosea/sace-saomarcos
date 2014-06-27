@@ -199,7 +199,7 @@ namespace Telas
                             saidaPagamentoDinheiro.CodFormaPagamento = FormaPagamento.DINHEIRO;
                             saidaPagamentoDinheiro.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamentoDinheiro.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
-                            saidaPagamentoDinheiro.Valor = valorPagamento - totalPago;
+                            saidaPagamentoDinheiro.Valor = totalPago;
                             listaSaidaPagamento.Add(saidaPagamentoDinheiro);
                         }
 
