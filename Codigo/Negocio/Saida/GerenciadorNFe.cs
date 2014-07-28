@@ -860,10 +860,10 @@ namespace Negocio
                                 prod.vUnTrib = formataValorNFe(saidaProduto.ValorVenda);
                             }
                             else
-                            {
-                                prod.vUnCom = formataValorNFe(saidaProduto.ValorVendaAVista);
+                            {   
+                                prod.vUnCom = formataValorNFe(saidaProduto.ValorVendaAVista, 3);
                                 prod.vProd = formataValorNFe(saidaProduto.SubtotalAVista);
-                                prod.vUnTrib = formataValorNFe(saidaProduto.ValorVendaAVista);
+                                prod.vUnTrib = formataValorNFe(saidaProduto.ValorVendaAVista, 3);
                             }
                             if (Math.Round(saidaProduto.Subtotal * fatorDesconto, 2) > 0)
                                 prod.vDesc = formataValorNFe(saidaProduto.Subtotal * fatorDesconto);
@@ -1649,6 +1649,28 @@ namespace Negocio
                 throw ex;
             }
         }
+
+        private string formataValorNFe(decimal? valor, int quantidadeDecimais)
+        {
+            try
+            {
+                if (valor == null)
+                    valor = 0;
+                if (quantidadeDecimais <= 2) 
+                    return ((decimal)valor).ToString("0.00", CultureInfo.InvariantCulture);
+                else 
+                    return ((decimal)valor).ToString("0.000", CultureInfo.InvariantCulture);
+                
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        
+
         private string formataQtdNFe(decimal? quantidade)
         {
             try

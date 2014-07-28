@@ -1,0 +1,16 @@
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Negocio.dll
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Dominio.dll
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Dados.dll
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Util.dll
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Ionic.Zip.dll
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Negocio.pdb
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Dominio.pdb
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Dados.pdb
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\Util.pdb
+D:\sace-saomarcos\trunk\Codigo\Backup\obj\x86\Debug\Backup.csprojResolveAssemblyReference.cache
+D:\sace-saomarcos\trunk\Codigo\Backup\obj\x86\Debug\Backup.Properties.Resources.resources
+D:\sace-saomarcos\trunk\Codigo\Backup\obj\x86\Debug\Backup.csproj.GenerateResource.Cache
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\SaceBackup.exe
+D:\sace-saomarcos\trunk\Codigo\Backup\bin\Debug\SaceBackup.pdb
+D:\sace-saomarcos\trunk\Codigo\Backup\obj\x86\Debug\SaceBackup.exe
+D:\sace-saomarcos\trunk\Codigo\Backup\obj\x86\Debug\SaceBackup.pdb
