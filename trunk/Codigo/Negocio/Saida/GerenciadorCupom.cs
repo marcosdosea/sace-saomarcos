@@ -45,7 +45,7 @@ namespace Negocio
 
                 return _cupomE.codSaida;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // se ocorrer erro na inserção provavelmente é reenvio do cupom fiscal
                 //throw new DadosException("Cupom", e.Message, e);

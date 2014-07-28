@@ -184,7 +184,10 @@ namespace Negocio
                     fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
                     fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
                     fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
-                    fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
+                    if (string.IsNullOrEmpty(nfe.infNFe.emit.enderEmit.fone))
+                        fornecedor.Fone1 = "";
+                    else
+                        fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone.Length <= 12 ? nfe.infNFe.emit.enderEmit.fone : nfe.infNFe.emit.enderEmit.fone.Substring(0, 12);
                     fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     if (nfe.infNFe.emit.IEST != null)
@@ -204,7 +207,10 @@ namespace Negocio
                     fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
                     fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
                     fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
-                    fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone;
+                    if (string.IsNullOrEmpty(nfe.infNFe.emit.enderEmit.fone))
+                        fornecedor.Fone1 = "";
+                    else
+                        fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone.Length <= 12 ? nfe.infNFe.emit.enderEmit.fone : nfe.infNFe.emit.enderEmit.fone.Substring(0, 12);
                     fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
                     fornecedor.Ie = nfe.infNFe.emit.IE;
                     fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;

@@ -77,7 +77,7 @@ namespace Telas
             if (MessageBox.Show("Confirma saída do Sistema?", "Confirmar Saída", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 //Negocio.GerenciadorCupom.GetInstance().EmitirCupomFiscalPreVendasPendentes();
-                Negocio.GerenciadorSeguranca.getInstance().Backup();
+                //Negocio.GerenciadorSeguranca.getInstance().Backup();
                 this.Close();
             }
         }
@@ -241,7 +241,6 @@ namespace Telas
             if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Negocio.GerenciadorSeguranca.getInstance().Backup();
-
             }
         }
 

@@ -76,6 +76,7 @@ namespace Util
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
 
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
+         
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",
