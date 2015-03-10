@@ -5,6 +5,7 @@ using Dados;
 using Dominio;
 using Util;
 using System.Transactions;
+using Dominio.Consultas;
 
 
 namespace Negocio
@@ -112,7 +113,7 @@ namespace Negocio
                             AtualizaSituacaoPagamentosEntrada(_contaE);
                             AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoE, false);
                         } 
-                        else if (totalMovimentacao >= 0)
+                        else if (totalMovimentacao > 0)
                         {
 
                             if (!_contaE.codSituacao.Equals(SituacaoConta.SITUACAO_QUITADA))
@@ -268,6 +269,28 @@ namespace Negocio
         public IEnumerable<MovimentacaoConta> ObterPorContas(List<long> listaCodContas)
         {
             return GetQuery().Where(m => listaCodContas.Contains(m.CodConta)).ToList();
+        }
+
+
+        /// <summary>
+        /// Obtém totais de movimentação em um dado período
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TotaisMovimentacaoConta> ObterTotalMovimentacaoContaPeriodo(int codContaBanco, DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = from movimentacao in saceContext.MovimentacaoContaSet
+                        where movimentacao.codContaBanco == codContaBanco &&
+                            movimentacao.dataHora >= dataInicial && movimentacao.dataHora <= dataFinal
+                        group movimentacao by movimentacao.codTipoMovimentacao into gmov 
+
+                        select new TotaisMovimentacaoConta
+                        {
+                            CodTipoMovimentacaoConta= gmov.Key,
+                            DescricaoMovimentacaoConta = gmov.FirstOrDefault().tb_tipo_movimentacao_conta.descricao,
+                            //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
+                            TotalMovimentacaoConta = gmov.Sum(mov => mov.valor)
+                        };
+            return query.ToList();
         }
 
         /// <summary>

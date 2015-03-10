@@ -7,6 +7,32 @@ namespace Util
 {
     public class Validacoes
     {
+
+        public static bool ValidarEAN13(string CodigoEAN13)
+        {
+            bool result = false;
+            if (CodigoEAN13 != null)
+            {
+                result = (CodigoEAN13.Length == 13);
+                if (result)
+                {
+                    const string checkSum = "131313131313";
+
+                    int digito = int.Parse(CodigoEAN13[CodigoEAN13.Length - 1].ToString());
+                    string ean = CodigoEAN13.Substring(0, CodigoEAN13.Length - 1);
+
+                    int sum = 0;
+                    for (int i = 0; i <= ean.Length - 1; i++)
+                    {
+                        sum += int.Parse(ean[i].ToString()) * int.Parse(checkSum[i].ToString());
+                    }
+                    int calculo = 10 - (sum % 10);
+                    result = (digito == calculo);
+                }
+            }
+            return result;
+        }
+
         public static bool ValidaCPF(string vrCPF)
         {
             string valor = vrCPF.Replace(".", "");

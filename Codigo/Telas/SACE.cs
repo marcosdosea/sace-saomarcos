@@ -291,7 +291,7 @@ namespace Telas
             {
                 backgroundWorkerAtualizarCupons.RunWorkerAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
             }
@@ -317,7 +317,7 @@ namespace Telas
 
         private void atualizarCSOSNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(true);
+            FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(false);
             frmCSOSN.ShowDialog();
             frmCSOSN.Dispose();
         }
@@ -342,6 +342,34 @@ namespace Telas
             FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(new ProdutoPesquisa() { CodProduto = 1 });
             frmPontaEstoque.ShowDialog();
             frmPontaEstoque.Dispose();
+        }
+
+        private void movimentaçãoDeCaixasContasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmMovimentacaoCaixa frmMovimentacaoCaixa = new FrmMovimentacaoCaixa();
+            frmMovimentacaoCaixa.ShowDialog();
+            frmMovimentacaoCaixa.Dispose();
+        }
+
+        private void solicitaçõesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProdutoSolicitacoesCompra frmProdutoSolicitacoesCompra = new FrmProdutoSolicitacoesCompra();
+            frmProdutoSolicitacoesCompra.ShowDialog();
+            frmProdutoSolicitacoesCompra.Dispose();
+        }
+
+        private void estatísticaPorGrupoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmGrupoEstatistica frmGrupoEstatistica = new FrmGrupoEstatistica();
+            frmGrupoEstatistica.ShowDialog();
+            frmGrupoEstatistica.Dispose();
+        }
+
+        private void exclusãoDeProdutoDoSistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProdutoExcluir frmProdutoExcluir = new FrmProdutoExcluir();
+            frmProdutoExcluir.ShowDialog();
+            frmProdutoExcluir.Dispose();
         }
 
      }

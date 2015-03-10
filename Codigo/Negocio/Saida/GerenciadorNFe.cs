@@ -726,6 +726,7 @@ namespace Negocio
                 decimal totalAVista = 0;
                 decimal valorTotalDesconto = 0;
                 decimal valorTotalNota = 0;
+                decimal totalTributos = 0;
 
                 if (ehNfeComplementar)
                 {
@@ -835,6 +836,8 @@ namespace Negocio
                     decimal fatorDesconto = valorTotalDesconto / totalProdutos;
                     decimal fatorValorOutros = saida.OutrasDespesas / totalProdutos;
 
+                    totalTributos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
+
                     // produtos da nota
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
@@ -843,8 +846,17 @@ namespace Negocio
                             TNFeInfNFeDetProd prod = new TNFeInfNFeDetProd();
                             prod.cProd = saidaProduto.CodProduto.ToString();
                             ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(saidaProduto.CodProduto).ElementAtOrDefault(0);
-                            prod.cEAN = produto.CodigoBarra;
-                            prod.cEANTrib = produto.CodigoBarra;
+
+                            if (Validacoes.ValidarEAN13(produto.CodigoBarra))
+                            {
+                                prod.cEANTrib = produto.CodigoBarra;
+                                prod.cEAN = produto.CodigoBarra;
+                            }
+                            else
+                            {
+                                prod.cEANTrib = "";
+                                prod.cEAN = "";
+                            }
                             prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), "Item" + saidaProduto.CodCfop);
                             if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
                                 prod.xProd = produto.NomeProdutoFabricante.Trim();
@@ -890,6 +902,7 @@ namespace Negocio
                             TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto();
                             imp.Items = new object[] { icms };
 
+                           
                             TNFeInfNFeDetImpostoPISPISOutr pisOutr = new TNFeInfNFeDetImpostoPISPISOutr();
                             pisOutr.CST = TNFeInfNFeDetImpostoPISPISOutrCST.Item99;
                             pisOutr.vPIS = formataValorNFe(0);
@@ -899,7 +912,7 @@ namespace Negocio
                             pisOutr.ItemsElementName = new ItemsChoiceType1[2];
                             pisOutr.ItemsElementName[0] = ItemsChoiceType1.vBC;
                             pisOutr.ItemsElementName[1] = ItemsChoiceType1.pPIS;
-
+                            
 
                             TNFeInfNFeDetImpostoPIS pis = new TNFeInfNFeDetImpostoPIS();
                             pis.Item = pisOutr;
@@ -946,6 +959,9 @@ namespace Negocio
                 icmsTot.vProd = formataValorNFe(totalProdutos);
                 icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
                 icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
+                //icmsTot.vTotTrib = formataValorNFe(totalTributos);
+
+
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
                     icmsTot.vDesc = formataValorNFe(saida.Desconto);
@@ -1020,11 +1036,17 @@ namespace Negocio
                 ////Informacoes Adicionais
                 TNFeInfNFeInfAdic infAdic = new TNFeInfNFeInfAdic();
                 //infAdic.infAdFisco = nfeSelected.informacoesAddFisco;
+                decimal valorImpostoPercentual = totalTributos / totalAVista * 100;
+                string mensagemTributos = "Valor Aproximado dos Tributos R$ " + totalTributos.ToString("N2") + " (" + valorImpostoPercentual.ToString("N2") + "%)  Fonte: IBPT. ";
+
+                infAdic.infCpl += mensagemTributos;
 
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
                     infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + saida.Observacao;
                 else
                     infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + saida.Observacao + ". ICMS RECOLHIDO NO";
+
+                
                 nfe.infNFe.infAdic = infAdic;
 
                 MemoryStream memStream = new MemoryStream();

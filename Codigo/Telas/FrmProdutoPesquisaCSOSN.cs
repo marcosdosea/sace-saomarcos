@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Windows.Forms;
-using Util;
 using Dominio;
 using Negocio;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Globalization;
 
 namespace Telas
 {
@@ -91,13 +88,35 @@ namespace Telas
                     }
 
                 }
+                else if (cmbBusca.SelectedIndex == 5) // códigos de barra inválidos
+                {
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigosBarraInvalidos();
+                }
+                else if (cmbBusca.SelectedIndex == 6) // códigos de barra inválidos
+                {
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigosBarraEmBranco();
+                }
+                else if ((cmbBusca.SelectedIndex == 7) && (txtTexto.Text.Length > 9))
+                {
+                    try
+                    {
+                        DateTime data = Convert.ToDateTime(txtTexto.Text);
+                        // se conseguir converter para uma data válida ele faz a busca
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataMudancaPrecoMaiorIgual(data);
+                    }
+                    catch (Exception)
+                    {
+                        // qualquer problema a busca não é realizada
+                    }
+
+                }
                 else
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1))))
                     {
                         if (ExibirTodos)
-                           produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
-                        else 
+                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                        else
                             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
                     }
                 }
@@ -182,6 +201,14 @@ namespace Telas
             {
                 label2.Text = "Data de Atualizacão Maior que (aaaa-mm-dd):";
             }
+            else if ((cmbBusca.SelectedIndex == 5) || (cmbBusca.SelectedIndex == 6))
+            {
+                label2.Text = "Digite um caractere para iniciar a pesquisa";
+            }
+            else if (cmbBusca.SelectedIndex == 7)
+            {
+                label2.Text = "Data Mudança Preço Etiqueta Maior que (aaaa-mm-dd):";
+            }
             txtTexto.Text = "";
         }
         
@@ -202,16 +229,95 @@ namespace Telas
                 {
                     long codProduto = Convert.ToInt64( tb_produtoDataGridView.Rows[i].Cells[0].Value );
                     string nomeProduto = tb_produtoDataGridView.Rows[i].Cells[1].Value.ToString();
-                    decimal qtdAtacado = Convert.ToDecimal(tb_produtoDataGridView.Rows[i].Cells[2].Value);
-                    string ncmsh = tb_produtoDataGridView.Rows[i].Cells[3].Value.ToString();
-                    string codCST = tb_produtoDataGridView.Rows[i].Cells[3].Value.ToString();
-                    List<ProdutoPesquisa> listaProduto = (List < ProdutoPesquisa >) tb_produtoDataGridView.DataSource;
-                    GerenciadorProduto.GetInstance().AtualizarNcmshQtdAtacado(codProduto, nomeProduto, ncmsh, qtdAtacado, codCST);
+                    string ncmsh = tb_produtoDataGridView.Rows[i].Cells[2].Value.ToString();
+                    string codigoEAN = "";
+                    if (tb_produtoDataGridView.Rows[i].Cells[3].Value != null)
+                        codigoEAN = tb_produtoDataGridView.Rows[i].Cells[3].Value.ToString();
+                    GerenciadorProduto.GetInstance().AtualizarNcmshQtdAtacado(codProduto, nomeProduto, ncmsh, codigoEAN);
                 }
 
             }
             Cursor.Current = Cursors.Default;
             MessageBox.Show("Produtos atualizados com sucesso");
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            DialogResult result = saveFileDialog.ShowDialog();
+            string nomeArquivo = saveFileDialog.FileName;
+
+            try
+            {
+                Excel.Application xlApp;
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+
+                xlApp = new Excel.Application();
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+
+                xlWorkSheet = (Excel.Worksheet) xlWorkBook.Worksheets.get_Item(1);
+                xlWorkSheet.Cells[1, 1] = "nomeProduto";
+                xlWorkSheet.Cells[1, 2] = "codigoBarra";
+                xlWorkSheet.Cells[1, 3] = "precoVendaAVista";
+                xlWorkSheet.Cells[1, 4] = "precoVendaParcelado";
+
+                for (int i = tb_produtoDataGridView.SelectedRows.Count - 1; i >= 0; i--)
+                {
+                    xlWorkSheet.Cells[i+2, 1] = tb_produtoDataGridView.SelectedRows[i].Cells[1].Value; //nome produto
+                    xlWorkSheet.Cells[i + 2, 2] = tb_produtoDataGridView.SelectedRows[i].Cells[3].Value; //código de barra
+                    xlWorkSheet.Cells[i + 2, 3] = "R$ " + formataValor((decimal)tb_produtoDataGridView.SelectedRows[i].Cells[4].Value); //preco venda varejo
+                    xlWorkSheet.Cells[i + 2, 4] = "R$ " + formataValor((decimal)tb_produtoDataGridView.SelectedRows[i].Cells[5].Value); //preço venda varejo sem desconto
+                }
+
+
+                xlWorkBook.SaveAs(nomeArquivo, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue,
+                        Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+
+                liberarObjetos(xlWorkSheet);
+                liberarObjetos(xlWorkBook);
+                liberarObjetos(xlApp);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private string formataValor(decimal? valor)
+        {
+            try
+            {
+                if (valor == null)
+                    valor = 0;
+
+                return ((decimal)valor).ToString("0.00", CultureInfo.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private void liberarObjetos(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
         }
     }
 }

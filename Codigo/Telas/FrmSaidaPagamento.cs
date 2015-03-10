@@ -80,7 +80,7 @@ namespace Telas
                 saidaPagamento.CodContaBanco = int.Parse(codContaBancoComboBox.SelectedValue.ToString());
                 saidaPagamento.CodFormaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 saidaPagamento.CodCartaoCredito = int.Parse(codCartaoComboBox.SelectedValue.ToString());
-                saidaPagamento.Data = DateTime.Now;
+                saidaPagamento.Data = saida.DataSaida;
                 saidaPagamento.Valor = decimal.Parse(valorRecebidoTextBox.Text);
                 saidaPagamento.CodSaida = saida.CodSaida;
                 saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);
@@ -168,7 +168,9 @@ namespace Telas
                             }
                             else
                             {
-                                GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
+                                // para não abrir cupons com valores negativos
+                                if (saida.TotalAVista > 0)
+                                    GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
                             }
                         }
                     }

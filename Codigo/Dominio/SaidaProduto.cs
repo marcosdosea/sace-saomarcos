@@ -13,6 +13,7 @@ namespace Dominio
         public string Nome { get; set; }
         public long CodSaida { get; set; }
         public decimal Quantidade { get; set; }
+        public string Ncmsh;
         public decimal ValorVenda 
         {
             get { return Math.Round((ValorVendaAVista * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }

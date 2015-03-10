@@ -11,16 +11,34 @@ namespace Telas
 {
     public partial class FrmProdutoEstatistica : Form
     {
+
+        private Produto produto;
+
         public FrmProdutoEstatistica()
         {
             InitializeComponent();
+            produto = null;
         }
+
+        public FrmProdutoEstatistica(Produto produto)
+        {
+            InitializeComponent();
+            this.produto = produto;
+        }
+
+
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             //this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, Global.ACRESCIMO_PADRAO);
+
+            if (produto != null)
+            {
+                produtoBindingSource.Position = produtoBindingSource.List.IndexOf(produto);
+            }
+
             codProdutoComboBox.SelectAll();
             codProdutoComboBox.Focus();
         }

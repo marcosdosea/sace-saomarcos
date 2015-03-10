@@ -19,7 +19,10 @@ namespace Telas
             DialogResult result = DialogResult.Cancel;
             string erro = t.Exception.Message;
             
-
+            // para exibir todo stacktrace completo quando difícil identificar o erro
+            //if (true)
+            //    MessageBox.Show(erro + t.Exception.StackTrace + t.Exception.InnerException + t.Exception.InnerException.StackTrace, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+           
             if (t.Exception is ApplicationException)
             {
                 erro = "Erro fatal!/n Entre em contato com o administrador/nErro: " + t.Exception.Message;

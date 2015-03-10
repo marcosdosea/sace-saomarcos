@@ -33,6 +33,7 @@ namespace Dados
         {
             _context = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
             _objectSet = _context.CreateObjectSet<T>();
+            
         }
 
         /// <summary>

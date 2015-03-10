@@ -147,7 +147,7 @@ namespace Telas
             {
                 if (pontaEstoqueDataGridView.Rows.Count > 0)
                 {
-                    long codPontaEstoque = long.Parse(pontaEstoqueDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+                    int codPontaEstoque = int.Parse(pontaEstoqueDataGridView.SelectedRows[0].Cells[0].Value.ToString());
                     GerenciadorPontaEstoque.GetInstace().Remover(codPontaEstoque);
                 }
             }

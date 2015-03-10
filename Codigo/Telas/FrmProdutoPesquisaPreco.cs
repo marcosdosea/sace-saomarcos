@@ -95,6 +95,21 @@ namespace Telas
                     }
 
                 }
+                else if ((cmbBusca.SelectedIndex == 6) && (txtTexto.Text.Length > 9))
+                {
+                    try
+                    {
+                        DateTime data = Convert.ToDateTime(txtTexto.Text);
+                        // se conseguir converter para uma data válida ele faz a busca
+                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataMudancaPrecoMaiorIgual(data);
+                    }
+                    catch (Exception)
+                    {
+                        // qualquer problema a busca não é realizada
+                    }
+
+                }
+                
                 else if ((cmbBusca.SelectedIndex == 5) && (txtTexto.Text.Length > 3))
                 {
                     produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNcmsh(txtTexto.Text);
@@ -166,6 +181,24 @@ namespace Telas
                     produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(_produto.CodProduto);
                 }
             }
+            else if (e.KeyCode == Keys.F9)
+            {
+                ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
+                _produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
+                MudarSituacaoProduto(sender, e, _produto);
+            }
+            else if (e.KeyCode == Keys.F10)
+            {
+                ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
+                _produto.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
+                MudarSituacaoProduto(sender, e, _produto);
+            }
+            else if (e.KeyCode == Keys.F11)
+            {
+                ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
+                _produto.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
+                MudarSituacaoProduto(sender, e, _produto);
+            }
         }
 
 
@@ -201,6 +234,10 @@ namespace Telas
             {
                 label2.Text = "Data de Atualizacão Maior que (aaaa-mm-dd):";
             }
+            else if (cmbBusca.SelectedIndex == 6)
+            {
+                label2.Text = "Data de Mudança de Preço Etiqueta Maior que (aaaa-mm-dd):";
+            }
             txtTexto.Text = "";
         }
         
@@ -220,6 +257,7 @@ namespace Telas
             {
                 bool emPromocao = Convert.ToBoolean(tb_produtoDataGridView.Rows[i].Cells[10].Value);
                 bool exibirListagem = Convert.ToBoolean(tb_produtoDataGridView.Rows[i].Cells[11].Value);
+                int codSituacaoProduto = Convert.ToInt32(tb_produtoDataGridView.Rows[i].Cells[12].Value);
                 if (!exibirListagem)
                 {
                     tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
@@ -233,8 +271,57 @@ namespace Telas
                 {
                     tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
                 }
+
+                if (codSituacaoProduto == SituacaoProduto.COMPRA_NECESSARIA)
+                {
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Yellow;
+                }
+                else if (codSituacaoProduto == SituacaoProduto.COMPRA_URGENTE)
+                {
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Red;
+                }
+                else if (codSituacaoProduto == SituacaoProduto.COMPRADO)
+                {
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Green;
+                }
+                else
+                {
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.White;
+                }
+
+
             }
         }
+
+        private void MudarSituacaoProduto(object sender, EventArgs e, ProdutoPesquisa produto)
+        {
+            SolicitacoesCompra solicitacao = new SolicitacoesCompra();
+            solicitacao.CodProduto = produto.CodProduto;
+            solicitacao.CodSituacaoProduto = produto.CodSituacaoProduto;
+                
+            string mensagem = "";
+            if (produto.CodSituacaoProduto == SituacaoProduto.COMPRA_NECESSARIA)
+            {
+                mensagem = "Confirma SOLICITAÇÃO DE COMPRA do produto?";
+                solicitacao.DataSolicitacaoCompra = DateTime.Now;
+            }
+            else if (produto.CodSituacaoProduto == SituacaoProduto.COMPRA_URGENTE)
+            {
+                mensagem = "Confirma SOLICITAÇÃO DE COMPRA URGENTE do produto?";
+                solicitacao.DataSolicitacaoCompra = DateTime.Now;
+            }
+            else 
+            {
+                mensagem = "Confirma que o produto possui DISPONIBILIDADE no estoque?";
+            }
+            if (MessageBox.Show(mensagem, "Confirmar Mudança Situação", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacao);
+                txtTexto_TextChanged(sender, e);
+            }
+        }
+
+
 
         private void tb_produtoDataGridView_SelectionChanged(object sender, EventArgs e)
         {
