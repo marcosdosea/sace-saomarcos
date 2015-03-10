@@ -78,6 +78,11 @@
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
     <Compile Include="Cfop.cs" />
+    <Compile Include="Consultas\TotaisGrupo.cs" />
+    <Compile Include="Consultas\VendasCartao.cs" />
+    <Compile Include="Consultas\TotaisMovimentacaoConta.cs" />
+    <Compile Include="Consultas\TotaisSaida.cs" />
+    <Compile Include="Imposto.cs" />
     <Compile Include="NFE_Schema\Nfe_v2_00.cs" />
     <Compile Include="SaidaPesquisa.cs" />
     <Compile Include="PontaEstoque.cs" />
@@ -116,6 +121,7 @@
     <Compile Include="SituacaoPagamentos.cs" />
     <Compile Include="SituacaoProduto.cs" />
     <Compile Include="NfeStatusResposta.cs" />
+    <Compile Include="SolicitacoesCompra.cs" />
     <Compile Include="Subgrupo.cs" />
     <Compile Include="TipoMovimentacaoConta.cs" />
     <Compile Include="Usuario.cs" />

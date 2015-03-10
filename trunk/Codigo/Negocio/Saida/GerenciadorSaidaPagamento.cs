@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Linq;
 using Dados;
 using Dominio;
+using Dominio.Consultas;
 
 namespace Negocio
 {
@@ -232,6 +233,26 @@ namespace Negocio
         public List<SaidaPagamento> ObterPorSaidaFormaPagamento(long codSaida, int codFormaPagamento)
         {
             return GetQuery().Where(sp => sp.CodSaida == codSaida && sp.CodFormaPagamento == codFormaPagamento).ToList();
+        }
+
+        /// <summary>
+        /// Obtém totais de movimentação em um dado período
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<VendasCartao> ObterVendasCartao(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
+                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
+                            (saidaPagamento.codFormaPagamento == FormaPagamento.CARTAO)
+                        select new VendasCartao
+                        {
+                            CodCartao = saidaPagamento.codCartao,
+                            DescricaoCartao = saidaPagamento.tb_cartao_credito.nome,
+                            TotalCartao = (decimal) saidaPagamento.valor,
+                            Parcelas = (int) saidaPagamento.parcelas,
+                            CodSaida = saidaPagamento.codSaida
+                        };
+            return query.ToList();
         }
     }
 }

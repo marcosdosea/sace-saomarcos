@@ -9,7 +9,8 @@ namespace Dominio
     {
         public const int DISPONIVEL = 1;
         public const int COMPRA_NECESSARIA = 2;
-        public const int COMPRADO = 3;
+        public const int COMPRA_URGENTE = 3;
+        public const int COMPRADO = 4;
 
         private sbyte codSituacaoProduto;
 

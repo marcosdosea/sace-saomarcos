@@ -77,6 +77,7 @@ namespace Negocio
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, Global.LOJA_PADRAO, entradaProduto.CodProduto);
 
                     Atribuir(entradaProduto, produto);
+                    produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
                     
                     // Atualiza os dados do produto se não foi na entrada padrão
                     if (entradaProduto.CodEntrada != Global.ENTRADA_PADRAO) 

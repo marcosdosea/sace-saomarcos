@@ -70,6 +70,7 @@
     <Compile Include="Conta\GerenciadorFormaPagamento.cs" />
     <Compile Include="Conta\GerenciadorConta.cs" />
     <Compile Include="Pessoa\GerenciadorMunicipios.cs" />
+    <Compile Include="Produto\GerenciadorImposto.cs" />
     <Compile Include="Produto\GerenciadorPontaEstoque.cs" />
     <Compile Include="Produto\GerenciadorCfop.cs" />
     <Compile Include="Produto\GerenciadorCst.cs" />

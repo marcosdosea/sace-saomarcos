@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Linq;
 using Dados;
 using Dominio;
+using Dominio.Consultas;
 
 
 namespace Negocio
@@ -210,7 +211,8 @@ namespace Negocio
                             ValorICMSSubst = (decimal) saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal) saidaProduto.valorIPI,
                             TemVencimento = (bool) saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo                            
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
                         };
             return query;
         }
@@ -266,7 +268,8 @@ namespace Negocio
                             ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal)saidaProduto.valorIPI,
                             TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal) saidaProduto.tb_produto.precoVendaVarejo
+                            PrecoVendaVarejo = (decimal) saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
                         };
             return query.ToList();
         }
@@ -300,7 +303,8 @@ namespace Negocio
                             ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
                             ValorIPI = (decimal)saidaProduto.valorIPI,
                             TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
                         };
             return query.ToList();
         }

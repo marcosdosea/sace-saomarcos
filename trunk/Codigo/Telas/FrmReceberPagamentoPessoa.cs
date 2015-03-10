@@ -531,14 +531,14 @@ namespace Telas
             totalAVistaTextBox.Text = (totalContas - totalDesconto).ToString("N2");
             totalPagamentosTextBox.Text = totalPagamentos.ToString("N2");
             faltaReceberTextBox.Text = (totalContas - totalDesconto - totalPagamentos).ToString("N2");
-            if (totalDesconto > 0)
+            if (totalContas != 0)
             {
                 descontoTextBox.Text = ((totalDesconto / totalContas) * 100).ToString("N2");
             }
-            else
-            {
-                descontoTextBox.Text = "0,00";
-            }
+            //else
+            //{
+            //    descontoTextBox.Text = "0,00";
+            //}
             valorPagamentoTextBox.Text = faltaReceberTextBox.Text;
             descontoCalculado = Convert.ToDecimal(descontoTextBox.Text);
         }

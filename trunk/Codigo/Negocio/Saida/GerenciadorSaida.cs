@@ -8,6 +8,7 @@ using Dados;
 using Dominio;
 using Util;
 using System.Transactions;
+using Dominio.Consultas;
 
 
 namespace Negocio
@@ -194,7 +195,7 @@ namespace Negocio
                         _saidaE.pedidoGerado = pedidoGerado;
                         _saidaE.dataEmissaoDocFiscal = DateTime.Now;
                     }
-                    _saidaE.totalAVista = totalAVista;
+                    //_saidaE.totalAVista = totalAVista;
                     _saidaE.totalPago = totalAVista;
                     if (_saidaE.total > 0)
                     {
@@ -438,7 +439,7 @@ namespace Negocio
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
             var query = (from saida in saceContext.tb_saida
-                         where saida.codTipoSaida == Saida.TIPO_ORCAMENTO || saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA
+                         where (saida.codTipoSaida == Saida.TIPO_ORCAMENTO || saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA) && (saida.codSaida >= codSaidaInicial) 
                          orderby saida.codSaida descending
                          select saida.codSaida).Take(20);
             List<long> listaSaidas = query.ToList();
@@ -573,6 +574,7 @@ namespace Negocio
                 {
                     throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
                 }
+
             }
         }
 
@@ -617,6 +619,27 @@ namespace Negocio
                 return saida.Total + saida.ValorICMSSubst + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
             else
                 return saida.Total + saida.ValorICMS + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
+        }
+
+        /// <summary>
+        /// Obtém totais de movimentação em um dado período
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TotaisSaida> ObterTotalSaida(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
+                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal && 
+                            (saidaPagamento.tb_saida.codSituacaoPagamentos != SituacaoPagamentos.ABERTA)
+                        group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
+
+                        select new TotaisSaida
+                        {
+                            CodFormaPagamentos = gsaida.Key,
+                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().tb_forma_pagamento.descricao,
+                            //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
+                            TotalPagamento = (decimal) gsaida.Sum(saidaPagamento => saidaPagamento.valor)
+                        };
+            return query.ToList();
         }
 
         /// <summary>
@@ -683,8 +706,16 @@ namespace Negocio
                 }
                 else if (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
                 {
-                    conta.Valor = ((decimal)saida.Total / pagamento.Parcelas);
-                    conta.Desconto = ((decimal)saida.Total - (decimal)saida.TotalAVista) / pagamento.Parcelas;
+                    if (pagamento.Valor == saida.TotalAVista)
+                    {
+                        conta.Valor = ((decimal)saida.Total / pagamento.Parcelas);
+                        conta.Desconto = ((decimal)saida.Total - (decimal)saida.TotalAVista) / pagamento.Parcelas;
+                    }
+                    else
+                    {
+                        conta.Valor = ((pagamento.Valor * saida.Total) / saida.TotalAVista) / pagamento.Parcelas;
+                        conta.Desconto = (conta.Valor - pagamento.Valor) / pagamento.Parcelas;
+                    }
                 }
                 else if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {

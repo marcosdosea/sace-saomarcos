@@ -81,7 +81,7 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                throw new DadosException("PontaEstoque", e.Message, e);
+                throw  e;//DadosException("PontaEstoque", e.Message, e);
             }
         }
 

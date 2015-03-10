@@ -190,6 +190,10 @@ namespace Telas
                 {
                     btnPontaEstoque_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F9)
+                {
+                    btnEstatistica_Click(sender, e);
+                }
                 else if (e.KeyCode == Keys.End)
                 {
                     produtoBindingSource.MoveLast();
@@ -455,6 +459,14 @@ namespace Telas
                 //produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
                 //produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
             //}
+        }
+
+        private void btnEstatistica_Click(object sender, EventArgs e)
+        {
+            Produto produto = (Produto) produtoBindingSource.Current;
+            FrmProdutoEstatistica frmProdutoEstatistica = new FrmProdutoEstatistica(produto);
+            frmProdutoEstatistica.ShowDialog();
+            frmProdutoEstatistica.Dispose();
         }
     }
 }

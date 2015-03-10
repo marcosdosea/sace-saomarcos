@@ -30,16 +30,13 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_movimentacao_conta_codcontabanco", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_conta_banco1", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_codentrada", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_tb_situacao_pagamentos1", "tb_situacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_tp_tipo_entrada1", "tp_tipo_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoEntradaE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_permissao_codfuncionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_funcionalidade), "tb_permissao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_permissao), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_codgrupo", "tb_grupo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_subgrupo_tb_grupo1", "tb_grupo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_subgrupo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SubgrupoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_codgrupoconta", "tb_grupo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
@@ -47,10 +44,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_acodperfil", "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PerfilE), "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_permissao_codpessoa", "tb_usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.UsuarioE), "tb_permissao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_permissao), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_tb_tipo_conta1", "tb_tipo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_produto_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoProdutoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_subgrupo1", "tb_subgrupo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SubgrupoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_saida_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_perfil_funcionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_funcionalidade), "tb_perfil", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PerfilE))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_tipo_saida_tb_cfop1", "tb_cfop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CfopE), "tb_tipo_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.TipoSaidaE), true)]
@@ -63,7 +56,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "LojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.LojaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_movimentacao_conta_codresponsavel", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "MovimentacaoContaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.MunicipiosIbgeE), "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "ProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "UsuarioE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), "tb_pessoa1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.tb_saida), "ContaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
@@ -76,8 +68,16 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_situacao_pagamentos1", "SituacaoPagamentosE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "TipoSaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_loja1", "LojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.LojaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_ponta_estoque_tb_produto1", "ProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_ponta_estoque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_ponta_estoque), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_cst1", "CstE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "EntradaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_codgrupo", "GrupoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "ProdutoLojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_situacao_produto1", "SituacaoProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoProdutoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_subgrupo1", "SubgrupoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SubgrupoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_ponta_estoque_tb_produto1", "ProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "tb_ponta_estoque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_ponta_estoque), true)]
 
 #endregion
 
@@ -420,22 +420,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ProdutoE> ProdutoSet
-        {
-            get
-            {
-                if ((_ProdutoSet == null))
-                {
-                    _ProdutoSet = base.CreateObjectSet<ProdutoE>("ProdutoSet");
-                }
-                return _ProdutoSet;
-            }
-        }
-        private ObjectSet<ProdutoE> _ProdutoSet;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ProdutoLojaE> ProdutoLojaSet
         {
             get
@@ -692,22 +676,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_ponta_estoque> tb_ponta_estoque
-        {
-            get
-            {
-                if ((_tb_ponta_estoque == null))
-                {
-                    _tb_ponta_estoque = base.CreateObjectSet<tb_ponta_estoque>("tb_ponta_estoque");
-                }
-                return _tb_ponta_estoque;
-            }
-        }
-        private ObjectSet<tb_ponta_estoque> _tb_ponta_estoque;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<tb_solicitacao_cupom> tb_solicitacao_cupom
         {
             get
@@ -736,6 +704,54 @@ namespace Dados
             }
         }
         private ObjectSet<tb_nfe> _tb_nfe;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_imposto> tb_imposto
+        {
+            get
+            {
+                if ((_tb_imposto == null))
+                {
+                    _tb_imposto = base.CreateObjectSet<tb_imposto>("tb_imposto");
+                }
+                return _tb_imposto;
+            }
+        }
+        private ObjectSet<tb_imposto> _tb_imposto;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProdutoE> ProdutoSet
+        {
+            get
+            {
+                if ((_ProdutoSet == null))
+                {
+                    _ProdutoSet = base.CreateObjectSet<ProdutoE>("ProdutoSet");
+                }
+                return _ProdutoSet;
+            }
+        }
+        private ObjectSet<ProdutoE> _ProdutoSet;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_ponta_estoque> tb_ponta_estoque
+        {
+            get
+            {
+                if ((_tb_ponta_estoque == null))
+                {
+                    _tb_ponta_estoque = base.CreateObjectSet<tb_ponta_estoque>("tb_ponta_estoque");
+                }
+                return _tb_ponta_estoque;
+            }
+        }
+        private ObjectSet<tb_ponta_estoque> _tb_ponta_estoque;
 
         #endregion
 
@@ -886,14 +902,6 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the ProdutoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProdutoSet(ProdutoE produtoE)
-        {
-            base.AddObject("ProdutoSet", produtoE);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ProdutoLojaSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToProdutoLojaSet(ProdutoLojaE produtoLojaE)
@@ -1022,14 +1030,6 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_ponta_estoque EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_ponta_estoque(tb_ponta_estoque tb_ponta_estoque)
-        {
-            base.AddObject("tb_ponta_estoque", tb_ponta_estoque);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the tb_solicitacao_cupom EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_solicitacao_cupom(tb_solicitacao_cupom tb_solicitacao_cupom)
@@ -1043,6 +1043,30 @@ namespace Dados
         public void AddTotb_nfe(tb_nfe tb_nfe)
         {
             base.AddObject("tb_nfe", tb_nfe);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_imposto EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_imposto(tb_imposto tb_imposto)
+        {
+            base.AddObject("tb_imposto", tb_imposto);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProdutoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProdutoSet(ProdutoE produtoE)
+        {
+            base.AddObject("ProdutoSet", produtoE);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_ponta_estoque EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_ponta_estoque(tb_ponta_estoque tb_ponta_estoque)
+        {
+            base.AddObject("tb_ponta_estoque", tb_ponta_estoque);
         }
 
         #endregion
@@ -2569,28 +2593,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_cst1", "tb_produto")]
-        public EntityCollection<ProdutoE> tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_cst1", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_cst1", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_entrada_produto")]
         public EntityCollection<EntradaProdutoE> tb_entrada_produto
         {
@@ -2625,6 +2627,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_tb_cst1", "SaidaProdutoE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_cst1", "tb_produto")]
+        public EntityCollection<ProdutoE> tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_cst1", "tb_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_cst1", "tb_produto", value);
                 }
             }
         }
@@ -4328,44 +4352,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "tb_produto")]
-        public ProdutoE tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ProdutoE> tb_produtoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_tb_cst1", "tb_cst")]
         public CstE tb_cst
         {
@@ -4394,6 +4380,44 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CstE>("SaceModel.fk_tb_entrada_produto_tb_cst1", "tb_cst", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "tb_produto")]
+        public ProdutoE tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ProdutoE> tb_produtoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto", value);
                 }
             }
         }
@@ -4807,28 +4831,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_codgrupo", "tb_produto")]
-        public EntityCollection<ProdutoE> tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_codgrupo", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_codgrupo", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_subgrupo_tb_grupo1", "tb_subgrupo")]
         public EntityCollection<SubgrupoE> tb_subgrupo
         {
@@ -4841,6 +4843,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SubgrupoE>("SaceModel.fk_tb_subgrupo_tb_grupo1", "tb_subgrupo", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_codgrupo", "tb_produto")]
+        public EntityCollection<ProdutoE> tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_codgrupo", "tb_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_codgrupo", "tb_produto", value);
                 }
             }
         }
@@ -6706,28 +6730,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "ProdutoE")]
-        public EntityCollection<ProdutoE> tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "ProdutoE");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "ProdutoE", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_usuario_codpessoa", "UsuarioE")]
         public UsuarioE tb_usuario
         {
@@ -6866,6 +6868,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.fk_tb_saida_tb_pessoa1", "tb_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_produto")]
+        public EntityCollection<ProdutoE> tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto", value);
                 }
             }
         }
@@ -7157,7 +7181,10 @@ namespace Dados
         /// <param name="codSituacaoProduto">Initial value of the codSituacaoProduto property.</param>
         /// <param name="codGrupo">Initial value of the codGrupo property.</param>
         /// <param name="codSubgrupo">Initial value of the codSubgrupo property.</param>
-        public static ProdutoE CreateProdutoE(global::System.Int64 codProduto, global::System.String nome, global::System.String unidade, global::System.String codCST, global::System.String ncmsh, global::System.Int64 codFabricante, global::System.SByte codSituacaoProduto, global::System.Int64 codGrupo, global::System.Int32 codSubgrupo)
+        /// <param name="dataSolicitacaoCompra">Initial value of the dataSolicitacaoCompra property.</param>
+        /// <param name="dataPedidoCompra">Initial value of the dataPedidoCompra property.</param>
+        /// <param name="dataUltimaMudancaPreco">Initial value of the dataUltimaMudancaPreco property.</param>
+        public static ProdutoE CreateProdutoE(global::System.Int64 codProduto, global::System.String nome, global::System.String unidade, global::System.String codCST, global::System.String ncmsh, global::System.Int64 codFabricante, global::System.SByte codSituacaoProduto, global::System.Int64 codGrupo, global::System.Int32 codSubgrupo, global::System.DateTime dataSolicitacaoCompra, global::System.DateTime dataPedidoCompra, global::System.DateTime dataUltimaMudancaPreco)
         {
             ProdutoE produtoE = new ProdutoE();
             produtoE.codProduto = codProduto;
@@ -7169,6 +7196,9 @@ namespace Dados
             produtoE.codSituacaoProduto = codSituacaoProduto;
             produtoE.codGrupo = codGrupo;
             produtoE.codSubgrupo = codSubgrupo;
+            produtoE.dataSolicitacaoCompra = dataSolicitacaoCompra;
+            produtoE.dataPedidoCompra = dataPedidoCompra;
+            produtoE.dataUltimaMudancaPreco = dataUltimaMudancaPreco;
             return produtoE;
         }
 
@@ -7970,6 +8000,78 @@ namespace Dados
         private Nullable<global::System.Boolean> _emPromocao;
         partial void OnemPromocaoChanging(Nullable<global::System.Boolean> value);
         partial void OnemPromocaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dataSolicitacaoCompra
+        {
+            get
+            {
+                return _dataSolicitacaoCompra;
+            }
+            set
+            {
+                OndataSolicitacaoCompraChanging(value);
+                ReportPropertyChanging("dataSolicitacaoCompra");
+                _dataSolicitacaoCompra = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataSolicitacaoCompra");
+                OndataSolicitacaoCompraChanged();
+            }
+        }
+        private global::System.DateTime _dataSolicitacaoCompra;
+        partial void OndataSolicitacaoCompraChanging(global::System.DateTime value);
+        partial void OndataSolicitacaoCompraChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dataPedidoCompra
+        {
+            get
+            {
+                return _dataPedidoCompra;
+            }
+            set
+            {
+                OndataPedidoCompraChanging(value);
+                ReportPropertyChanging("dataPedidoCompra");
+                _dataPedidoCompra = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataPedidoCompra");
+                OndataPedidoCompraChanged();
+            }
+        }
+        private global::System.DateTime _dataPedidoCompra;
+        partial void OndataPedidoCompraChanging(global::System.DateTime value);
+        partial void OndataPedidoCompraChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dataUltimaMudancaPreco
+        {
+            get
+            {
+                return _dataUltimaMudancaPreco;
+            }
+            set
+            {
+                OndataUltimaMudancaPrecoChanging(value);
+                ReportPropertyChanging("dataUltimaMudancaPreco");
+                _dataUltimaMudancaPreco = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataUltimaMudancaPreco");
+                OndataUltimaMudancaPrecoChanged();
+            }
+        }
+        private global::System.DateTime _dataUltimaMudancaPreco;
+        partial void OndataUltimaMudancaPrecoChanging(global::System.DateTime value);
+        partial void OndataUltimaMudancaPrecoChanged();
 
         #endregion
 
@@ -7982,16 +8084,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_cst1", "tb_cst")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_cst1", "CstE")]
         public CstE tb_cst
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "tb_cst").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "CstE").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "tb_cst").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "CstE").Value = value;
             }
         }
         /// <summary>
@@ -8003,13 +8105,13 @@ namespace Dados
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "tb_cst");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "CstE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "tb_cst", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CstE>("SaceModel.fk_tb_produto_tb_cst1", "CstE", value);
                 }
             }
         }
@@ -8020,18 +8122,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "tb_entrada_produto")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "EntradaProdutoE")]
         public EntityCollection<EntradaProdutoE> tb_entrada_produto
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_entrada_produto");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "EntradaProdutoE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_entrada_produto", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "EntradaProdutoE", value);
                 }
             }
         }
@@ -8042,16 +8144,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_codgrupo", "tb_grupo")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_codgrupo", "GrupoE")]
         public GrupoE tb_grupo
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "tb_grupo").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "GrupoE").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "tb_grupo").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "GrupoE").Value = value;
             }
         }
         /// <summary>
@@ -8063,13 +8165,13 @@ namespace Dados
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "tb_grupo");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "GrupoE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "tb_grupo", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GrupoE>("SaceModel.fk_tb_produto_codgrupo", "GrupoE", value);
                 }
             }
         }
@@ -8080,136 +8182,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "tb_produto_loja")]
-        public EntityCollection<ProdutoLojaE> tb_produto_loja
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codproduto", "tb_produto_loja");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codproduto", "tb_produto_loja", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto")]
-        public SituacaoProdutoE tb_situacao_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SituacaoProdutoE> tb_situacao_produtoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "tb_situacao_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_subgrupo1", "tb_subgrupo")]
-        public SubgrupoE tb_subgrupo
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "tb_subgrupo").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "tb_subgrupo").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<SubgrupoE> tb_subgrupoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "tb_subgrupo");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "tb_subgrupo", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "tb_saida_produto")]
-        public EntityCollection<SaidaProdutoE> tb_saida_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_saida_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_saida_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_pessoa")]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "PessoaE")]
         public PessoaE tb_pessoa
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "PessoaE").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "PessoaE").Value = value;
             }
         }
         /// <summary>
@@ -8221,13 +8203,133 @@ namespace Dados
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "PessoaE");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_pessoa", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PessoaE>("SaceModel.fk_tb_produto_tb_pessoa1", "PessoaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_loja_codproduto", "ProdutoLojaE")]
+        public EntityCollection<ProdutoLojaE> tb_produto_loja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codproduto", "ProdutoLojaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoLojaE>("SaceModel.fk_tb_produto_loja_codproduto", "ProdutoLojaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_situacao_produto1", "SituacaoProdutoE")]
+        public SituacaoProdutoE tb_situacao_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "SituacaoProdutoE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "SituacaoProdutoE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SituacaoProdutoE> tb_situacao_produtoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "SituacaoProdutoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SituacaoProdutoE>("SaceModel.fk_tb_produto_tb_situacao_produto1", "SituacaoProdutoE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_subgrupo1", "SubgrupoE")]
+        public SubgrupoE tb_subgrupo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "SubgrupoE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "SubgrupoE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SubgrupoE> tb_subgrupoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "SubgrupoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SubgrupoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "SubgrupoE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "SaidaProdutoE")]
+        public EntityCollection<SaidaProdutoE> tb_saida_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "SaidaProdutoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "SaidaProdutoE", value);
                 }
             }
         }
@@ -9506,44 +9608,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "tb_produto")]
-        public ProdutoE tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ProdutoE> tb_produtoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_tb_cfop1", "CfopE")]
         public CfopE tb_cfop
         {
@@ -9648,6 +9712,44 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "tb_produto")]
+        public ProdutoE tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ProdutoE> tb_produtoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto", value);
                 }
             }
         }
@@ -10303,6 +10405,111 @@ namespace Dados
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_imposto")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_imposto : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_imposto object.
+        /// </summary>
+        /// <param name="nCMSH">Initial value of the NCMSH property.</param>
+        public static tb_imposto Createtb_imposto(global::System.Int64 nCMSH)
+        {
+            tb_imposto tb_imposto = new tb_imposto();
+            tb_imposto.NCMSH = nCMSH;
+            return tb_imposto;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 NCMSH
+        {
+            get
+            {
+                return _NCMSH;
+            }
+            set
+            {
+                if (_NCMSH != value)
+                {
+                    OnNCMSHChanging(value);
+                    ReportPropertyChanging("NCMSH");
+                    _NCMSH = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("NCMSH");
+                    OnNCMSHChanged();
+                }
+            }
+        }
+        private global::System.Int64 _NCMSH;
+        partial void OnNCMSHChanging(global::System.Int64 value);
+        partial void OnNCMSHChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> aliqNac
+        {
+            get
+            {
+                return _aliqNac;
+            }
+            set
+            {
+                OnaliqNacChanging(value);
+                ReportPropertyChanging("aliqNac");
+                _aliqNac = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("aliqNac");
+                OnaliqNacChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _aliqNac;
+        partial void OnaliqNacChanging(Nullable<global::System.Decimal> value);
+        partial void OnaliqNacChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> aliqImp
+        {
+            get
+            {
+                return _aliqImp;
+            }
+            set
+            {
+                OnaliqImpChanging(value);
+                ReportPropertyChanging("aliqImp");
+                _aliqImp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("aliqImp");
+                OnaliqImpChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _aliqImp;
+        partial void OnaliqImpChanging(Nullable<global::System.Decimal> value);
+        partial void OnaliqImpChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
@@ -11136,7 +11343,7 @@ namespace Dados
         /// <param name="codPontaEstoque">Initial value of the codPontaEstoque property.</param>
         /// <param name="codProduto">Initial value of the codProduto property.</param>
         /// <param name="quantidade">Initial value of the quantidade property.</param>
-        public static tb_ponta_estoque Createtb_ponta_estoque(global::System.Int32 codPontaEstoque, global::System.Int64 codProduto, global::System.Decimal quantidade)
+        public static tb_ponta_estoque Createtb_ponta_estoque(global::System.Int64 codPontaEstoque, global::System.Int64 codProduto, global::System.Decimal quantidade)
         {
             tb_ponta_estoque tb_ponta_estoque = new tb_ponta_estoque();
             tb_ponta_estoque.codPontaEstoque = codPontaEstoque;
@@ -11154,7 +11361,7 @@ namespace Dados
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 codPontaEstoque
+        public global::System.Int64 codPontaEstoque
         {
             get
             {
@@ -11172,8 +11379,8 @@ namespace Dados
                 }
             }
         }
-        private global::System.Int32 _codPontaEstoque;
-        partial void OncodPontaEstoqueChanging(global::System.Int32 value);
+        private global::System.Int64 _codPontaEstoque;
+        partial void OncodPontaEstoqueChanging(global::System.Int64 value);
         partial void OncodPontaEstoqueChanged();
     
         /// <summary>

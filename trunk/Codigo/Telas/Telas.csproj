@@ -17,7 +17,8 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
-    <PublishUrl>publish\</PublishUrl>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Users\Marcos Dósea\Desktop\sace\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -30,8 +31,8 @@
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +51,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>4B8237280416E57191A7466B6E94476CFB29B77B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Telas_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualBasic" />
@@ -85,11 +99,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmGrupoEstatistica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGrupoEstatistica.Designer.cs">
+      <DependentUpon>FrmGrupoEstatistica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProdutoExcluir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProdutoExcluir.Designer.cs">
+      <DependentUpon>FrmProdutoExcluir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProdutoSolicitacoesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProdutoSolicitacoesCompra.Designer.cs">
+      <DependentUpon>FrmProdutoSolicitacoesCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmEntradaImportar.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmEntradaImportar.Designer.cs">
       <DependentUpon>FrmEntradaImportar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMovimentacaoCaixa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMovimentacaoCaixa.Designer.cs">
+      <DependentUpon>FrmMovimentacaoCaixa.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmPontaEstoquePesquisa.cs">
       <SubType>Form</SubType>
@@ -379,8 +417,22 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmGrupoEstatistica.resx">
+      <DependentUpon>FrmGrupoEstatistica.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProdutoExcluir.resx">
+      <DependentUpon>FrmProdutoExcluir.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProdutoSolicitacoesCompra.resx">
+      <DependentUpon>FrmProdutoSolicitacoesCompra.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmEntradaImportar.resx">
       <DependentUpon>FrmEntradaImportar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMovimentacaoCaixa.resx">
+      <DependentUpon>FrmMovimentacaoCaixa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPontaEstoquePesquisa.resx">
       <DependentUpon>FrmPontaEstoquePesquisa.cs</DependentUpon>
@@ -583,11 +635,14 @@
     <None Include="app.config" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultas.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter.datasource" />
-    <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dominio.Banco.datasource" />
     <None Include="Properties\DataSources\Dominio.CartaoCredito.datasource" />
     <None Include="Properties\DataSources\Dominio.Cfop.datasource" />
+    <None Include="Properties\DataSources\Dominio.Consultas.TotaisMovimentacaoConta.datasource" />
+    <None Include="Properties\DataSources\Dominio.Consultas.TotaisSaida.datasource" />
+    <None Include="Properties\DataSources\Dominio.Consultas.VendasCartao.datasource" />
     <None Include="Properties\DataSources\Dominio.Conta.datasource" />
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
     <None Include="Properties\DataSources\Dominio.Cst.datasource" />
@@ -616,6 +671,7 @@
     <None Include="Properties\DataSources\Dominio.SituacaoConta1.datasource" />
     <None Include="Properties\DataSources\Dominio.SituacaoPagamentos.datasource" />
     <None Include="Properties\DataSources\Dominio.SituacaoProduto.datasource" />
+    <None Include="Properties\DataSources\Dominio.SolicitacoesCompra.datasource" />
     <None Include="Properties\DataSources\Dominio.Subgrupo.datasource" />
     <None Include="Properties\DataSources\Dominio.Usuario.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
@@ -635,6 +691,7 @@
     <Compile Include="SACE.Designer.cs">
       <DependentUpon>SACE.cs</DependentUpon>
     </Compile>
+    <None Include="Telas_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\118.png" />
@@ -726,10 +783,37 @@
     <Content Include="Resources\dados.png" />
     <Content Include="Resources\ferramentas.png" />
     <None Include="Resources\fundo.PNG" />
-    <None Include="Resources\fundo1.PNG" />
     <None Include="Resources\fundo2.PNG" />
     <Content Include="Resources\grafico.png" />
-    <Content Include="Resources\Jellyfish.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

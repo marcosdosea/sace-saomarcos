@@ -15,6 +15,7 @@ namespace Dominio
         public string NomeProdutoFabricante { get; set; }
         public string Unidade { get; set; }
         public DateTime UltimaDataAtualizacao { get; set; }
+        public DateTime DataUltimaMudancaPreco { get; set; }
         public Boolean TemVencimento { get; set; }
         public Boolean EmPromocao { get; set; }
         public string CodCST { get; set; }
@@ -67,8 +68,8 @@ namespace Dominio
         public decimal LucroPrecoRevenda { get; set; }
         public string UnidadeCompra { get; set; }
         public decimal QuantidadeEmbalagem { get; set; }
-        
-        
+        public sbyte CodSituacaoProduto { get; set; }
+       
 
         // override object.Equals
         public override bool Equals(object obj)

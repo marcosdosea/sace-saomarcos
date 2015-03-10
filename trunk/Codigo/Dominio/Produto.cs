@@ -59,8 +59,7 @@ namespace Dominio
         }
 
         public DateTime DataUltimoPedido { get; set; }
-        public sbyte CodSituacaoProduto { get; set; }
-
+        
         private decimal CalculaPreco()
         {
             decimal _precoCalculado = 0;

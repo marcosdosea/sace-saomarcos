@@ -960,7 +960,7 @@ UNIT</Value>
                 <Value>=Parameters!TotalSaidas.Value</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
-                  <Format>'R$' 0.00;('R$' 0.00)</Format>
+                  <Format>'R$' 0.00;</Format>
                   <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                 </Style>
               </TextRun>
@@ -1001,7 +1001,7 @@ UNIT</Value>
                 <Value>=Parameters!Desconto.Value</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
-                  <Format>0.00;(0.00)</Format>
+                  <Format>0.00;</Format>
                 </Style>
               </TextRun>
               <TextRun>
@@ -1054,7 +1054,7 @@ UNIT</Value>
                 <Value>=Parameters!TotalPagar.Value</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
-                  <Format>'R$' 0.00;('R$' 0.00)</Format>
+                  <Format>'R$' 0.00;</Format>
                   <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                 </Style>
               </TextRun>

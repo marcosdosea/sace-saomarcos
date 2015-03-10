@@ -835,7 +835,7 @@ PARCELADO</Value>
                               <Value>=Fields!ValorVenda.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <Format>'R$'0.00;</Format>
                                 <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                               </Style>
                             </TextRun>
@@ -871,7 +871,7 @@ PARCELADO</Value>
                               <Value>=Fields!ValorVendaAVista.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <Format>'R$'0.00;</Format>
                                 <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                               </Style>
                             </TextRun>
@@ -939,7 +939,7 @@ PARCELADO</Value>
                               <Value>=Fields!SubtotalAVista.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
-                                <Format>'R$'0.00;('R$'0.00)</Format>
+                                <Format>'R$'0.00;</Format>
                                 <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                               </Style>
                             </TextRun>
@@ -1028,7 +1028,7 @@ PARCELADO</Value>
                 <Value>=Parameters!TotalPagar.Value</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
-                  <Format>'R$' 0.00;('R$' 0.00)</Format>
+                  <Format>'R$' 0.00;</Format>
                   <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                 </Style>
               </TextRun>
@@ -1077,7 +1077,7 @@ PARCELADO</Value>
                 <Value>=Parameters!TotalSaidas.Value</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
-                  <Format>'R$' 0.00;('R$' 0.00)</Format>
+                  <Format>'R$' 0.00;</Format>
                   <rd:FormatSymbolCulture>pt-BR</rd:FormatSymbolCulture>
                 </Style>
               </TextRun>

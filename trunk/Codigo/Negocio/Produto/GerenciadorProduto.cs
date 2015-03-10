@@ -37,6 +37,13 @@ namespace Negocio
                     throw new NegocioException("O nome do produto não pode ficar em branco.");
                 else if (produto.QuantidadeEmbalagem <= 0) 
                     throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
+                else if (!produto.CodigoBarra.Trim().Equals(""))
+                {
+                    if (ObterPorCodBarra(produto.CodigoBarra).Count() > 0)
+                    {
+                        throw new NegocioException("Já existe um produto cadastrado com esse código de barra. Favor verificar a possibilidade de ser o mesmo produto.");
+                    }
+                }
 
                 ProdutoE _produtoE = new ProdutoE();
                 Atribuir(produto, _produtoE);
@@ -91,6 +98,8 @@ namespace Negocio
             produto.Simples = entradaProduto.Simples;
             produto.UnidadeCompra = entradaProduto.UnidadeCompra;
             produto.Unidade = entradaProduto.UnidadeCompra;
+            produto.DataUltimaMudancaPreco = DateTime.Now;
+            produto.UltimaDataAtualizacao = DateTime.Now;
             return Inserir(produto);
         }
 
@@ -109,6 +118,13 @@ namespace Negocio
                 throw new NegocioException("O nome do produto não pode ficar em branco.");
             else if (produto.QuantidadeEmbalagem <= 0)
                 throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
+            else if (!produto.CodigoBarra.Trim().Equals(""))
+            {
+                if (ObterPorCodBarra(produto.CodigoBarra).Count() > 0)
+                {
+                    throw new NegocioException("Já existe um produto cadastrado com esse código de barra. Favor verificar a possibilidade de ser o mesmo produto.");
+                }
+            }
 
             try
             {
@@ -120,7 +136,16 @@ namespace Negocio
                     // Atualiza data da ultima atualizacao
                     if ((produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) || (produto.PrecoVendaAtacado != _produtoE.precoVendaAtacado)
                         || (produto.PrecoRevenda != _produtoE.precoRevenda))
+                    {
                         produto.UltimaDataAtualizacao = DateTime.Now;
+                        produto.DataUltimaMudancaPreco = DateTime.Now;
+                    }
+
+                    // Atualiza data para mudança da pasta e das etiquetas
+                    if (produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) 
+                    {
+                        produto.DataUltimaMudancaPreco = DateTime.Now;
+                    }
 
                     // Atualiza dados do produto
                     Atribuir(produto, _produtoE);
@@ -161,11 +186,81 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Substituir todas as referências de um produto por outro
+        /// </summary>
+        /// <param name="codProdutoExcluir"></param>
+        /// <param name="codProdutoManter"></param>
+        public void SubstituirProduto(long codProdutoExcluir, long codProdutoManter)
+        {
+            try
+            {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+                var saceEntities = (SaceEntities)repProduto.ObterContexto();
+                
+                // substitui todas as saídas
+                var querySaidas = from saidaProduto in saceEntities.SaidaProdutoSet
+                            where saidaProduto.codProduto == codProdutoExcluir
+                            select saidaProduto;
+                foreach (SaidaProdutoE _saidaProdutoE in querySaidas)
+                {
+                    _saidaProdutoE.codProduto = codProdutoManter;
+                }
+                repProduto.SaveChanges();
+                
+                // Substituti todas as entradas
+                var queryEntrada = from entradaProduto in saceEntities.EntradaProdutoSet
+                            where entradaProduto.codProduto == codProdutoExcluir
+                            select entradaProduto;
+                foreach (EntradaProdutoE _entradaProdutoE in queryEntrada)
+                {
+                    _entradaProdutoE.codProduto = codProdutoManter;
+                }
+                repProduto.SaveChanges();
+
+                // Exclui Produto
+                Remover(codProdutoExcluir);
+                                   
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Produto", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualizar situação do produto em relação ao estoque
+        /// </summary>
+        /// <param name="novaSituacao"></param>
+        public void AtualizarSituacaoProduto(SolicitacoesCompra solicitacaoCompra)
+        {
+            try
+            {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+
+                var saceEntities = (SaceEntities)repProduto.ObterContexto();
+                var query = from produtoSet in saceEntities.ProdutoSet
+                            where produtoSet.codProduto == solicitacaoCompra.CodProduto
+                            select produtoSet;
+                foreach (ProdutoE _produtoE in query)
+                {
+                    _produtoE.codSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
+                    _produtoE.dataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
+                    _produtoE.dataPedidoCompra = solicitacaoCompra.DataPedidoCompra;
+                }
+                repProduto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Produto", e.Message, e);
+           }
+            
+        }
+        /// <summary>
         /// Atualiza ncm e quantidade Atacado
         /// </summary>
         /// <param name="_produtoPesquisa"></param>
         /// <param name="ultimoCodigoBarraLido"></param>
-        public void AtualizarNcmshQtdAtacado(long codProduto, string nomeProduto, string ncsmsh, decimal quantidadeAtacado, string codCST)
+        public void AtualizarNcmshQtdAtacado(long codProduto, string nomeProduto, string ncsmsh, string codigoEAN)
         {
             try
             {
@@ -179,8 +274,7 @@ namespace Negocio
                 {
                     _produtoE.ncmsh = ncsmsh;
                     _produtoE.nome = nomeProduto;
-                    _produtoE.qtdProdutoAtacado = quantidadeAtacado;
-                    _produtoE.codCST = codCST;
+                    _produtoE.codigoBarra = codigoEAN;
                 }
                 repProduto.SaveChanges();
             }
@@ -258,7 +352,8 @@ namespace Negocio
                             Unidade = produto.unidade,
                             UnidadeCompra = produto.unidadeCompra,
                             UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
-                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao
+                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
+                            DataUltimaMudancaPreco = (DateTime) produto.dataUltimaMudancaPreco
                         };
             return query;
         }
@@ -304,7 +399,9 @@ namespace Negocio
                             TemVencimento = (bool) produto.temVencimento,
                             EmPromocao = (bool) produto.emPromocao,
                             UltimoPrecoCompra = (decimal) produto.ultimoPrecoCompra,
-                            UnidadeCompra = produto.unidadeCompra
+                            UnidadeCompra = produto.unidadeCompra,
+                            CodSituacaoProduto = produto.codSituacaoProduto,
+                            DataUltimaMudancaPreco = (DateTime) produto.dataUltimaMudancaPreco
                          };
             return query;
         }
@@ -443,6 +540,11 @@ namespace Negocio
             return GetQuerySimples().Where(p => p.UltimaDataAtualizacao >= dataAtualizacao).ToList();
         }
 
+        public IEnumerable<ProdutoPesquisa> ObterPorDataMudancaPrecoMaiorIgual(DateTime dataMudancaPreco)
+        {
+            return GetQuerySimples().Where(p => p.DataUltimaMudancaPreco >= dataMudancaPreco).ToList();
+        }
+
         /// <summary>
         /// Obtém produto pelo nome
         /// </summary>
@@ -485,7 +587,8 @@ namespace Negocio
                             TemVencimento = (bool)produto.temVencimento,
                             EmPromocao = (bool)produto.emPromocao,
                             UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
-                            UnidadeCompra = produto.unidadeCompra
+                            UnidadeCompra = produto.unidadeCompra,
+                            CodSituacaoProduto = produto.codSituacaoProduto
                         };
             
             if ((nome.Length > 0) && (nome[0] == '%'))
@@ -497,6 +600,62 @@ namespace Negocio
                 return query.Where(p => p.Nome.StartsWith(nome)).ToList();
             }
         }
+
+
+        /// <summary>
+        /// Obter solicitações de compras de produtos
+        /// </summary>
+        /// <param name="codBarra"></param>
+        /// <returns></returns>
+        public IEnumerable<SolicitacoesCompra> ObterSolicitacoesCompra(List<int> listaCodSituacoes, long codFornecedor)
+        {
+            var repProduto = new RepositorioGenerico<ProdutoE>();
+            var saceEntities = (SaceEntities)repProduto.ObterContexto();
+
+            
+            if (codFornecedor == 1)
+            {
+                var query = from produto in saceEntities.ProdutoSet
+                            orderby produto.nome
+                            where listaCodSituacoes.Contains(produto.codSituacaoProduto)
+                            select new SolicitacoesCompra
+                            {
+                                CodProduto = produto.codProduto,
+                                Nome = produto.nome,
+                                ReferenciaFabricante = produto.referenciaFabricante,
+                                Unidade = produto.unidade,
+                                CodSituacaoProduto = produto.codSituacaoProduto,
+                                DataSolicitacaoCompra = (DateTime)produto.dataSolicitacaoCompra,
+                                DataPedidoCompra = (DateTime)produto.dataPedidoCompra
+                            };
+                return query.ToList();
+            }
+            else
+            {
+                var queryProdutosFornecedor = saceEntities.EntradaProdutoSet.Where(e => e.tb_entrada.codFornecedor == codFornecedor);
+                List<long> listaCodigoProdutosFornecedor = queryProdutosFornecedor.Select(p => p.codProduto).Distinct().ToList();
+
+                var query = from produto in saceEntities.ProdutoSet
+                            orderby produto.nome
+                            where listaCodSituacoes.Contains(produto.codSituacaoProduto) && 
+                                (listaCodigoProdutosFornecedor.Contains(produto.codProduto) || produto.codFabricante.Equals(codFornecedor))
+                            select new SolicitacoesCompra
+                            {
+                                CodProduto = produto.codProduto,
+                                Nome = produto.nome,
+                                ReferenciaFabricante = produto.referenciaFabricante,
+                                Unidade = produto.unidade,
+                                CodSituacaoProduto = produto.codSituacaoProduto,
+                                DataSolicitacaoCompra = (DateTime)produto.dataSolicitacaoCompra,
+                                DataPedidoCompra = (DateTime)produto.dataPedidoCompra
+                            };
+                return query.ToList();
+
+            }
+
+            
+        }
+
 
         /// <summary>
         /// Obtém produto que podem ser exibidos na lista pelo nome 
@@ -535,6 +694,39 @@ namespace Negocio
             return query.ToList();
         }
 
+        /// <summary>
+        /// Obtém lista de produtos com códigos de barra inválidos
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorCodigosBarraInvalidos()
+        {
+            var listaProdutos = GetQuerySimples().ToList();
+            var listaProdutosEANInvalidos = new List<ProdutoPesquisa>();
+
+            foreach (ProdutoPesquisa produto in listaProdutos)
+            {
+                if (!string.IsNullOrWhiteSpace(produto.CodigoBarra) &&  (!Validacoes.ValidarEAN13(produto.CodigoBarra)))
+                    listaProdutosEANInvalidos.Add(produto);
+            }
+            return listaProdutosEANInvalidos;
+        }
+
+        /// <summary>
+        /// Obter lista de produtos com códigos de barra nulo ou branco
+        /// </summary>
+        /// <returns></returns>
+        public object ObterPorCodigosBarraEmBranco()
+        {
+            var listaProdutos = GetQuerySimples().ToList();
+            var listaProdutosEANEmBranco = new List<ProdutoPesquisa>();
+
+            foreach (ProdutoPesquisa produto in listaProdutos)
+            {
+                if (string.IsNullOrWhiteSpace(produto.CodigoBarra))
+                    listaProdutosEANEmBranco.Add(produto);
+            }
+            return listaProdutosEANEmBranco;
+        }
 
         /// <summary>
         /// Atribui entidade à entidade persistente
@@ -550,6 +742,7 @@ namespace Negocio
             _produtoE.codSituacaoProduto = Convert.ToSByte(produto.CodSituacaoProduto);
             _produtoE.codSubgrupo = produto.CodSubgrupo;
             _produtoE.dataUltimoPedido = produto.DataUltimoPedido;
+            _produtoE.dataUltimaMudancaPreco = produto.DataUltimaMudancaPreco;
             _produtoE.desconto = produto.Desconto;
             _produtoE.exibeNaListagem = produto.ExibeNaListagem;
             _produtoE.frete = produto.Frete;
@@ -576,6 +769,8 @@ namespace Negocio
             _produtoE.unidadeCompra = produto.UnidadeCompra;
             _produtoE.emPromocao = produto.EmPromocao;
         }
-        
+
+
+
     }
 }
