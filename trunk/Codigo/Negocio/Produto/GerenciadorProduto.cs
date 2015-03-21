@@ -39,7 +39,7 @@ namespace Negocio
                     throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
                 else if (!produto.CodigoBarra.Trim().Equals(""))
                 {
-                    if (ObterPorCodBarra(produto.CodigoBarra).Count() > 0)
+                    if (ObterPorCodigoBarraExato(produto.CodigoBarra).Count() > 0)
                     {
                         throw new NegocioException("Já existe um produto cadastrado com esse código de barra. Favor verificar a possibilidade de ser o mesmo produto.");
                     }
@@ -120,7 +120,8 @@ namespace Negocio
                 throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
             else if (!produto.CodigoBarra.Trim().Equals(""))
             {
-                if (ObterPorCodBarra(produto.CodigoBarra).Count() > 0)
+                ProdutoPesquisa produtoPesquisa = ObterPorCodigoBarraExato(produto.CodigoBarra).ElementAtOrDefault(0);
+                if ((produtoPesquisa != null) && (produtoPesquisa.CodProduto != produto.CodProduto))
                 {
                     throw new NegocioException("Já existe um produto cadastrado com esse código de barra. Favor verificar a possibilidade de ser o mesmo produto.");
                 }
@@ -486,9 +487,20 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<object> ObterPorReferenciaFabricante(string referenciaFabricante)
+        public IEnumerable<ProdutoPesquisa> ObterPorReferenciaFabricante(string referenciaFabricante)
         {
             return GetQuerySimples().Where(p => p.ReferenciaFabricante.Contains(referenciaFabricante)).ToList();
+        }
+
+
+        /// <summary>
+        /// Obter pela código de barra do produto
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public IEnumerable<ProdutoPesquisa> ObterPorCodigoBarra(string codigoBarra)
+        {
+            return GetQuerySimples().Where(p => p.CodigoBarra.StartsWith(codigoBarra)).ToList();
         }
 
         /// <summary>
@@ -506,7 +518,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorCodBarra(String codBarra)
+        public IEnumerable<ProdutoPesquisa> ObterPorCodigoBarraExato(String codBarra)
         {
             return GetQuerySimples().Where(p => p.CodigoBarra.Equals(codBarra)).ToList();
         }

@@ -61,7 +61,7 @@ namespace Telas
             {
                 IEnumerable<ProdutoPesquisa> listaProdutosPesquisa = new List<ProdutoPesquisa>();
                 if (!string.IsNullOrWhiteSpace(entradaProduto.CodigoBarra))
-                    GerenciadorProduto.GetInstance().ObterPorCodBarra(entradaProduto.CodigoBarra);
+                    GerenciadorProduto.GetInstance().ObterPorCodigoBarraExato(entradaProduto.CodigoBarra);
                 if (listaProdutosPesquisa.Count() > 0)
                 {
                     ProdutoPesquisa _produto = listaProdutosPesquisa.ElementAtOrDefault(0);
@@ -112,6 +112,7 @@ namespace Telas
             produto.UltimaDataAtualizacao = DateTime.Now;
             produto.Nome = "";
             produto.NomeProdutoFabricante = "";
+            produto.CodigoBarra = "";
             produtoBindingSource.ResumeBinding();
             estado = EstadoFormulario.INSERIR;
         }

@@ -109,7 +109,10 @@ namespace Telas
                     }
 
                 }
-                
+                else if ((cmbBusca.SelectedIndex == 7) && (txtTexto.Text.Length > 4))
+                {
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigoBarra(txtTexto.Text);
+                }
                 else if ((cmbBusca.SelectedIndex == 5) && (txtTexto.Text.Length > 3))
                 {
                     produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNcmsh(txtTexto.Text);

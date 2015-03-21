@@ -7325,7 +7325,7 @@ namespace Dados
                 OncodigoBarraChanged();
             }
         }
-        private global::System.String _codigoBarra;
+        private global::System.String _codigoBarra = "";
         partial void OncodigoBarraChanging(global::System.String value);
         partial void OncodigoBarraChanged();
     

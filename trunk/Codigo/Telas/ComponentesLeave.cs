@@ -107,7 +107,7 @@ namespace Telas
                         // Busca pelo código de barra
                         else
                         {
-                            _listaProdutos = GerenciadorProduto.GetInstance().ObterPorCodBarra(produtoComboBox.Text).ToList();
+                            _listaProdutos = GerenciadorProduto.GetInstance().ObterPorCodigoBarraExato(produtoComboBox.Text).ToList();
                         }
                         if (_listaProdutos.Count > 0)
                         {

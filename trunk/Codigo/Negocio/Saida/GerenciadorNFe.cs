@@ -20,7 +20,7 @@ namespace Negocio
     {
         private static GerenciadorNFe gNFe;
         private static string nomeComputador;
-        private static Loja loja;
+        //private static Loja loja;
 
 
         public static GerenciadorNFe GetInstance()
@@ -36,7 +36,7 @@ namespace Negocio
         private GerenciadorNFe()
         {
             nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            loja = GerenciadorLoja.GetInstance().ObterPorServidorNfe(nomeComputador).ElementAtOrDefault(0);
+            //loja = GerenciadorLoja.GetInstance().ObterPorServidorNfe(nomeComputador).ElementAtOrDefault(0);
             //pastaNfeRetorno = loja != null ? loja.PastaNfeRetorno : "";
         }
 
@@ -308,7 +308,8 @@ namespace Negocio
 
                 
                 // Verifica se chave já foi gerada
-                RecuperarChaveGerada(saida, 1, nfeControle, loja.PastaNfeRetorno);
+                Loja lojaOrigem = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                RecuperarChaveGerada(saida, 1, nfeControle, lojaOrigem.PastaNfeRetorno);
                 if (nfeControle.Chave.Equals(""))
                 {
                     //define um documento XML e carrega o seu conteúdo 
@@ -337,8 +338,7 @@ namespace Negocio
                     xmldoc.AppendChild(novoGerarChave);
 
                     //Salva a inclusão no arquivo XML
-                    Loja lojaOrigem = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                    xmldoc.Save(loja.PastaNfeEnvio + saida.Nfe + "-gerar-chave.xml");
+                    xmldoc.Save(lojaOrigem.PastaNfeEnvio + saida.Nfe + "-gerar-chave.xml");
 
                     RecuperarChaveGerada(saida, 10, nfeControle, lojaOrigem.PastaNfeRetorno);
                 }
@@ -401,9 +401,9 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public string RecuperarLoteEnvio(string pastaNfeRetorno)
+        public string RecuperarLoteEnvio(Loja loja)
         {
-              DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
+              DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeRetorno);
               string numeroLote = "";
               if (Dir.Exists)
               {
@@ -428,7 +428,7 @@ namespace Negocio
                               else if (files[i].Name.Contains("-num-lot."))
                               {
                                   XmlDocument xmldocRetorno = new XmlDocument();
-                                  xmldocRetorno.Load(pastaNfeRetorno + files[i].Name);
+                                  xmldocRetorno.Load(loja.PastaNfeRetorno + files[i].Name);
 
                                   numeroLote = xmldocRetorno.DocumentElement.InnerText;
                                   nfeControle.NumeroLoteEnvio = numeroLote.PadLeft(15, '0');
@@ -1631,8 +1631,8 @@ namespace Negocio
         {
             try
             {
-                if (loja != null)
-                {
+                IEnumerable<Loja> lojas = GerenciadorLoja.GetInstance().ObterTodos();
+                foreach(Loja loja in lojas) {
                     DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeRetorno);
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
                     if (Dir.Exists)
@@ -1640,7 +1640,7 @@ namespace Negocio
                         FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
                         if (Files.Length > 0)
                         {
-                            RecuperarLoteEnvio(loja.PastaNfeRetorno);
+                            RecuperarLoteEnvio(loja);
                             RecuperarReciboEnvioNfe(loja.PastaNfeRetorno);
                             RecuperarResultadoProcessamentoNfe(loja.PastaNfeRetorno);
                             RecuperarResultadoCancelamentoNfe(loja.PastaNfeRetorno);

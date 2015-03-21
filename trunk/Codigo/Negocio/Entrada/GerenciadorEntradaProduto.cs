@@ -168,7 +168,7 @@ namespace Negocio
                     ProdutoPesquisa produtoPesquisa = null;
                     if (!string.IsNullOrEmpty(produto.prod.cEAN))
                     {
-                        produtoPesquisa = GerenciadorProduto.GetInstance().ObterPorCodBarra(produto.prod.cEAN).ElementAtOrDefault(0);
+                        produtoPesquisa = GerenciadorProduto.GetInstance().ObterPorCodigoBarraExato(produto.prod.cEAN).ElementAtOrDefault(0);
                     }
                 
                     entradaProduto.CodProduto = (produtoPesquisa != null) ? produtoPesquisa.CodProduto : 1;

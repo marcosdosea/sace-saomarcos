@@ -3000,7 +3000,7 @@
           <Property Type="String" Name="nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="nomeProdutoFabricante" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="unidade" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="codigoBarra" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="codigoBarra" MaxLength="40" FixedLength="false" Unicode="false" DefaultValue="" />
           <Property Type="String" Name="codCST" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ncmsh" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="codFabricante" Nullable="false" />
