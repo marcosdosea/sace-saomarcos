@@ -1056,7 +1056,7 @@ namespace Negocio
                             imp.ImpCol(5, produto.Nome);
                         }
 
-                        imp.ImpColDireita(46, 52, produto.Quantidade.ToString());
+                        imp.ImpColDireita(46, 54, produto.Quantidade.ToString());
                         imp.ImpColLFDireita(57, 58, produto.Unidade);
                         imp.ImpColDireita(38, 46, produto.ValorVenda.ToString("N2"));
                         imp.ImpColLFDireita(48, 59, produto.Subtotal.ToString("N2"));

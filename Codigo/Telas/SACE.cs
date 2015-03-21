@@ -304,7 +304,10 @@ namespace Telas
             {
                 GerenciadorCupom.GetInstance().EnviarProximoCupom();
                 GerenciadorCupom.GetInstance().AtualizarPedidosComDocumentosFiscais();
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+            }
+            else if (nomeComputador.Equals(Global.NOME_SERVIDOR_NFE))
+            {
+                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
         }
 
