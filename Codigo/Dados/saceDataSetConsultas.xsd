@@ -9,11 +9,11 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProdutosVendidosTableAdapter" GeneratorDataComponentClassName="ProdutosVendidosTableAdapter" Name="ProdutosVendidos" UserDataComponentName="ProdutosVendidosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectName="sace.tb_produto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillQuantidadeProdutosVenvidosMesAnoDesc" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" GeneratorSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc" GetMethodModifier="Public" GetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" UserSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc">
+              <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillQuantidadeProdutosVenvidosMesAnoDesc" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" GeneratorSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc" GetMethodModifier="Public" GetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetQuantidadeProdutosVenvidosMesAnoDesc" UserSourceName="FillQuantidadeProdutosVenvidosMesAnoDesc">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
-                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano
+                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano, YEAR(dataSaida) as ano, MONTH(dataSaida) as mes 
 FROM            tb_saida_produto INNER JOIN
                          tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
                          tb_saida on tb_saida.codSaida = tb_saida_produto.codSaida
@@ -32,13 +32,15 @@ order by YEAR(dataSaida) desc, MONTH(dataSaida) desc</CommandText>
               <Mapping SourceColumn="nome" DataSetColumn="nome" />
               <Mapping SourceColumn="quantidadeVendida" DataSetColumn="quantidadeVendida" />
               <Mapping SourceColumn="mesano" DataSetColumn="mesano" />
+              <Mapping SourceColumn="ano" DataSetColumn="ano" />
+              <Mapping SourceColumn="mes" DataSetColumn="mes" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="saceConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillQuantidadeProdutosVendidosMesAnoAsc" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetQuantidadeProdutosVendidosMesAnoAsc" GeneratorSourceName="FillQuantidadeProdutosVendidosMesAnoAsc" GetMethodModifier="Public" GetMethodName="GetQuantidadeProdutosVendidosMesAnoAsc" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetQuantidadeProdutosVendidosMesAnoAsc" UserSourceName="FillQuantidadeProdutosVendidosMesAnoAsc">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
-                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano
+                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano, YEAR(dataSaida) as ano, MONTH(dataSaida) as mes
 FROM            tb_saida_produto INNER JOIN
                          tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
                          tb_saida on tb_saida.codSaida = tb_saida_produto.codSaida
@@ -144,6 +146,8 @@ ORDER BY YEAR(tb_saida.dataSaida), MONTH(tb_saida.dataSaida)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="ano" msprop:Generator_ColumnVarNameInTable="columnano" msprop:Generator_ColumnPropNameInRow="ano" msprop:Generator_ColumnPropNameInTable="anoColumn" msprop:Generator_UserColumnName="ano" type="xs:long" minOccurs="0" />
+              <xs:element name="mes" msprop:Generator_ColumnVarNameInTable="columnmes" msprop:Generator_ColumnPropNameInRow="mes" msprop:Generator_ColumnPropNameInTable="mesColumn" msprop:Generator_UserColumnName="mes" type="xs:long" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

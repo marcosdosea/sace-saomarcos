@@ -357,6 +357,10 @@ namespace Dados {
             
             private global::System.Data.DataColumn columnmesano;
             
+            private global::System.Data.DataColumn columnano;
+            
+            private global::System.Data.DataColumn columnmes;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProdutosVendidosDataTable() {
@@ -424,6 +428,22 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn anoColumn {
+                get {
+                    return this.columnano;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn mesColumn {
+                get {
+                    return this.columnmes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -459,13 +479,15 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProdutosVendidosRow AddProdutosVendidosRow(long codProduto, string nome, decimal quantidadeVendida, string mesano) {
+            public ProdutosVendidosRow AddProdutosVendidosRow(long codProduto, string nome, decimal quantidadeVendida, string mesano, long ano, long mes) {
                 ProdutosVendidosRow rowProdutosVendidosRow = ((ProdutosVendidosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         codProduto,
                         nome,
                         quantidadeVendida,
-                        mesano};
+                        mesano,
+                        ano,
+                        mes};
                 rowProdutosVendidosRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProdutosVendidosRow);
                 return rowProdutosVendidosRow;
@@ -492,6 +514,8 @@ namespace Dados {
                 this.columnnome = base.Columns["nome"];
                 this.columnquantidadeVendida = base.Columns["quantidadeVendida"];
                 this.columnmesano = base.Columns["mesano"];
+                this.columnano = base.Columns["ano"];
+                this.columnmes = base.Columns["mes"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -505,6 +529,10 @@ namespace Dados {
                 base.Columns.Add(this.columnquantidadeVendida);
                 this.columnmesano = new global::System.Data.DataColumn("mesano", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmesano);
+                this.columnano = new global::System.Data.DataColumn("ano", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnano);
+                this.columnmes = new global::System.Data.DataColumn("mes", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmes);
                 this.columncodProduto.AllowDBNull = false;
                 this.columnnome.AllowDBNull = false;
                 this.columnnome.MaxLength = 50;
@@ -1364,6 +1392,38 @@ namespace Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long ano {
+                get {
+                    try {
+                        return ((long)(this[this.tableProdutosVendidos.anoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ano\' in table \'ProdutosVendidos\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProdutosVendidos.anoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long mes {
+                get {
+                    try {
+                        return ((long)(this[this.tableProdutosVendidos.mesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'mes\' in table \'ProdutosVendidos\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProdutosVendidos.mesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsquantidadeVendidaNull() {
                 return this.IsNull(this.tableProdutosVendidos.quantidadeVendidaColumn);
             }
@@ -1384,6 +1444,30 @@ namespace Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetmesanoNull() {
                 this[this.tableProdutosVendidos.mesanoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsanoNull() {
+                return this.IsNull(this.tableProdutosVendidos.anoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetanoNull() {
+                this[this.tableProdutosVendidos.anoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsmesNull() {
+                return this.IsNull(this.tableProdutosVendidos.mesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetmesNull() {
+                this[this.tableProdutosVendidos.mesColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1882,6 +1966,8 @@ namespace Dados.saceDataSetConsultasTableAdapters {
             tableMapping.ColumnMappings.Add("nome", "nome");
             tableMapping.ColumnMappings.Add("quantidadeVendida", "quantidadeVendida");
             tableMapping.ColumnMappings.Add("mesano", "mesano");
+            tableMapping.ColumnMappings.Add("ano", "ano");
+            tableMapping.ColumnMappings.Add("mes", "mes");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1899,7 +1985,7 @@ namespace Dados.saceDataSetConsultasTableAdapters {
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
-                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano
+                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano, YEAR(dataSaida) as ano, MONTH(dataSaida) as mes 
 FROM            tb_saida_produto INNER JOIN
                          tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
                          tb_saida on tb_saida.codSaida = tb_saida_produto.codSaida
@@ -1917,7 +2003,7 @@ order by YEAR(dataSaida) desc, MONTH(dataSaida) desc";
             this._commandCollection[1] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = @"SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
-                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano
+                         concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano, YEAR(dataSaida) as ano, MONTH(dataSaida) as mes
 FROM            tb_saida_produto INNER JOIN
                          tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
                          tb_saida on tb_saida.codSaida = tb_saida_produto.codSaida

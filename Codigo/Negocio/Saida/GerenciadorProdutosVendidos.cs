@@ -35,7 +35,8 @@ namespace Negocio
                 produtoVendido.CodProduto = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).codProduto;
                 produtoVendido.Nome = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).nome;
                 produtoVendido.QuantidadeVendida = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).quantidadeVendida;
-
+                produtoVendido.Ano = (int) ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).ano;
+                produtoVendido.Mes = (int) ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).mes;
                 listaProdutosVendidos.Add(produtoVendido);
             }
 
