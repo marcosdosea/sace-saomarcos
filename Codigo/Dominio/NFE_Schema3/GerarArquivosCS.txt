@@ -1,0 +1,12 @@
+﻿1) Entrar no diretório dos schemas D:\Projetos\sace-saomarcos\Codigo\Dominio\NFE_Schema3
+
+2) Renomear os 18 xmls que devem ser acoplados com o NFe e a assinatura para usar na aplicação porque o utilizatário xsd.exe
+não permite definir o nome que vai ser gerado. Dessa forma se juntar tudo o nome do arquivo acaba passando o suportado pelo
+windows.
+
+3) Uma sugestão é renomear consStatServ_v2.00.xsd por 1.xsd e assim por diante
+
+4) Executar o comando:
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\x64\xsd.exe" nfe_v3.10.xsd 1.xsd 2.xsd 3.xsd 4.xsd 5.xsd 6.xsd 7.xsd 8.xsd 9.xsd 10.xsd 11.xsd 12.xsd xmldsig-core-schema_v1.01.xsd /c /l:c#
+
+5) Renomear o arquivo gerado para Nfe_v2_00.xsd

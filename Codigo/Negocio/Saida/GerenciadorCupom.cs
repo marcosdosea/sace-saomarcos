@@ -207,7 +207,7 @@ namespace Negocio
                             }
 
                             // imprimir imposto na nota
-                            decimal valorImposto = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(listaSaidaProdutos);
+                            decimal valorImposto = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(listaSaidaProdutos).Sum(sp => sp.ValorImposto);
                             decimal valorImpostoPercentual = valorImposto / saidas.Sum(s => s.TotalAVista) * 100;
                             arquivo.WriteLine("<OBS>Val Aprox dos Tributos R$ " + valorImposto.ToString("N2") + " ("+valorImpostoPercentual.ToString("N2")+"%) " + "  Fonte: IBPT" );
 

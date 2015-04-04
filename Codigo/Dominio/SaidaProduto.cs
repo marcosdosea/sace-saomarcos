@@ -40,6 +40,7 @@ namespace Dominio
         public decimal BaseCalculoICMSSubst { get; set; }
         public decimal ValorICMSSubst { get; set; }
         public decimal ValorIPI { get; set; }
+        public decimal ValorImposto { get; set; }
         public decimal PrecoVendaVarejo { get; set; }
         public bool TemVencimento { get; set; }
         

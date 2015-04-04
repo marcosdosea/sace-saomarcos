@@ -93,7 +93,7 @@ namespace Negocio
             entrada.CodFornecedor = ObterInserirFornecedor(nfe.NFe);
             entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
             entrada.CodTipoEntrada = Entrada.TIPO_ENTRADA;
-            entrada.DataEmissao = Convert.ToDateTime(nfe.NFe.infNFe.ide.dEmi);
+            entrada.DataEmissao = Convert.ToDateTime(nfe.NFe.infNFe.ide.dhEmi);
             entrada.DataEntrada = DateTime.Now;
             entrada.Desconto = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vDesc, ci);
             entrada.FretePagoEmitente = nfe.NFe.infNFe.transp.modFrete == TNFeInfNFeTranspModFrete.Item0; // Frete pago emitente

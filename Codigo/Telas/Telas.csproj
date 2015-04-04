@@ -691,7 +691,6 @@
     <Compile Include="SACE.Designer.cs">
       <DependentUpon>SACE.cs</DependentUpon>
     </Compile>
-    <None Include="Telas_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\118.png" />

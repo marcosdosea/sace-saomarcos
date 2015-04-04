@@ -66,23 +66,22 @@ namespace Negocio
         /// </summary>
         /// <param name="listaSaidaProdutos"></param>
         /// <returns></returns>
-        public decimal CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
+        public List<SaidaProduto> CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
         {
-            decimal impostoCalculado = 0;
             IEnumerable<Imposto> listaImpostos = ObterTodos(); ;
             foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
             {
                 Imposto imposto = listaImpostos.Where(imp => imp.Ncmsh.Equals(saidaProduto.Ncmsh)).ElementAtOrDefault(0);
                 if (imposto != null)
                 {
-                    impostoCalculado += saidaProduto.SubtotalAVista * (decimal)imposto.AliqNac / 100;
+                    saidaProduto.ValorImposto = saidaProduto.SubtotalAVista * (decimal)imposto.AliqNac / 100;
                 }
                 else
                 {
-                    impostoCalculado += saidaProduto.SubtotalAVista * (decimal)0.35;
+                    saidaProduto.ValorImposto = saidaProduto.SubtotalAVista * (decimal)0.35;
                 }
             }
-            return impostoCalculado;
+            return listaSaidaProdutos;
         }
 
 

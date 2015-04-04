@@ -147,10 +147,14 @@ namespace Negocio
         /// <param name="nfe"></param>
         public List<EntradaProduto> Importar(TNfeProc nfe)
         {
+            const string VERSAO2 = "2.00";
+            const string VERSAO3 = "3.10";
+
             try
             {
                 CultureInfo ci = new CultureInfo("en-US"); // usado para connversão dos números do xml
                 string numeroNF = nfe.NFe.infNFe.ide.nNF;
+                string versaoNF = nfe.NFe.infNFe.versao;
                 string cpf_cnpjFornecedor = nfe.NFe.infNFe.emit.Item;
                 IEnumerable<Entrada> entradas = GerenciadorEntrada.GetInstance().ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
                 if (entradas.Count() == 0)
@@ -190,10 +194,13 @@ namespace Negocio
                     entradaProduto.Desconto = Convert.ToDecimal(produto.prod.vDesc, ci) / entradaProduto.ValorTotal * 100;
                     entradaProduto.CodigoBarra = produto.prod.cEAN;
                     
+                    
+
                     entradaProduto.ReferenciaFabricante = produto.prod.cProd;
 
                     for (int i = 0; i < produto.imposto.Items.Length; i++)
                     {
+                        
                         if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoICMS)
                         {
                             var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
@@ -321,17 +328,24 @@ namespace Negocio
                                 throw new NegocioException("Existe um imposto ICMS não tratado pela importação. Avise ao administrador.");
                             }
                         }
-                        else if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoIPI)
-                        {
-                            TNFeInfNFeDetImpostoIPI impostoIPI = (TNFeInfNFeDetImpostoIPI)produto.imposto.Items[i];
+                        else if (versaoNF.Equals(VERSAO2)) {
 
-                            if (impostoIPI.Item is TNFeInfNFeDetImpostoIPIIPITrib)
+                            if (produto.imposto.Items[i] is Dominio.NFE2.TNFeInfNFeDetImpostoIPI)
                             {
-                                
-                                TNFeInfNFeDetImpostoIPIIPITrib ipiTrib = ((TNFeInfNFeDetImpostoIPIIPITrib) impostoIPI.Item);
-                                entradaProduto.Ipi = Convert.ToDecimal(ipiTrib.vIPI, ci) / entradaProduto.ValorTotal * 100;
-                             }
-                            
+                                Dominio.NFE2.TNFeInfNFeDetImpostoIPI impostoIPI = (Dominio.NFE2.TNFeInfNFeDetImpostoIPI)produto.imposto.Items[i];
+
+                                if (impostoIPI.Item is Dominio.NFE2.TNFeInfNFeDetImpostoIPIIPITrib)
+                                {
+
+                                    Dominio.NFE2.TNFeInfNFeDetImpostoIPIIPITrib ipiTrib = ((Dominio.NFE2.TNFeInfNFeDetImpostoIPIIPITrib)impostoIPI.Item);
+                                    entradaProduto.Ipi = Convert.ToDecimal(ipiTrib.vIPI, ci) / entradaProduto.ValorTotal * 100;
+                                }
+
+                            }
+                        }
+                        else if (versaoNF.Equals(VERSAO3))
+                        {
+                            //TODO: importar ipi na versão 3
                         }
                     }
 

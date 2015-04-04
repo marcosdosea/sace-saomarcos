@@ -321,16 +321,19 @@ namespace Negocio
                     XmlElement xmlserie = xmldoc.CreateElement("serie");
                     XmlElement xmlAAMM = xmldoc.CreateElement("AAMM");
                     XmlElement xmlcnpj = xmldoc.CreateElement("CNPJ");
+                    XmlElement xmlMod = xmldoc.CreateElement("mod");
 
                     xmlnNF.InnerText = nfeControle.CodNfe.ToString().PadLeft(8, '0');
                     xmlserie.InnerText = "1";
                     xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
                     long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem)[0].CodPessoa;
                     xmlcnpj.InnerText = GerenciadorPessoa.GetInstance().Obter(codPessoaLoja).ElementAt(0).CpfCnpj;
+                    xmlMod.InnerText = "55"; //55-NF-e 65-NFC-e
 
                     //inclui os novos elementos no elemento poemas
                     novoGerarChave.AppendChild(xmlnNF);
                     novoGerarChave.AppendChild(xmlserie);
+                    novoGerarChave.AppendChild(xmlMod);
                     novoGerarChave.AppendChild(xmlAAMM);
                     novoGerarChave.AppendChild(xmlcnpj);
 
@@ -381,7 +384,7 @@ namespace Negocio
                     }
                     else
                     {
-                        Thread.Sleep(1000);
+                        Thread.Sleep(200);
                     }
                 }
                 tentativas++;
@@ -485,10 +488,14 @@ namespace Negocio
                             XmlSerializer serializer = new XmlSerializer(typeof(TRetEnviNFe));
                             TRetEnviNFe retornoEnvioNfe = (TRetEnviNFe)serializer.Deserialize(xmlReaderRetorno);
                             
+
                             if (retornoEnvioNfe.cStat.Equals(NfeStatusResposta.NFE103_LOTE_RECEBIDO_SUCESSO))
                             {
-                                numeroRecibo = retornoEnvioNfe.infRec.nRec;
-                                nfeControle.NumeroRecibo = numeroRecibo;
+                                if (retornoEnvioNfe.Item != null)
+                                {
+                                    numeroRecibo = ((TRetEnviNFeInfRec)retornoEnvioNfe.Item).nRec;
+                                    nfeControle.NumeroRecibo = numeroRecibo;
+                                }
                             }
                             nfeControle.SituacaoReciboEnvio = retornoEnvioNfe.cStat;
                             nfeControle.MensagemSituacaoReciboEnvio = retornoEnvioNfe.xMotivo;
@@ -588,15 +595,16 @@ namespace Negocio
                 // utilizado como padrão quando não especificado pelos produtos
                 string cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(saida.TipoSaida).ToString();
                 
-                string FORMATO_DATA = "yyyy-MM-dd";
+                //string FORMATO_DATA = "yyyy-MM-dd";
+                string FORMATO_DATA_HORA = "yyyy-MM-ddTHH:mm:sszzz";
                 TNFe nfe = new TNFe();
                 
                 //Informacoes NFe
                 TNFeInfNFe infNFe = new TNFeInfNFe();
-                infNFe.versao = "2.00";
+                infNFe.versao = "3.10";
                 infNFe.Id = "NFe" + nfeControle.Chave;
                 nfe.infNFe = infNFe;
-                
+         
 
                 //Ide
                 TNFeInfNFeIde infNFeIde = new TNFeInfNFeIde();
@@ -606,18 +614,16 @@ namespace Negocio
                 Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 infNFeIde.cMunFG = loja.CodMunicipioIBGE.ToString();
                 infNFeIde.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + loja.CodMunicipioIBGE.ToString().Substring(0, 2));
+                infNFeIde.mod = TMod.Item55;
+                infNFeIde.dhEmi = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA_HORA);
 
-                infNFeIde.dEmi = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA);
-
-                infNFeIde.hSaiEnt = DateTime.Now.ToString("HH:mm:ss");
                 //infNFeIde.dSaiEnt = saida.CupomFiscal.Equals("") ? saida.DataSaida.ToString(FORMATO_DATA) : saida.DataEmissaoCupomFiscal.ToString(FORMATO_DATA);
-                infNFeIde.dSaiEnt = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA);
+                infNFeIde.dhSaiEnt = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA_HORA);
                 if (ehNfeComplementar)
-                    infNFeIde.finNFe = TFinNFe.Item2; //1 - Normal / 2 NF-e complementar / 3 - Nf-e Ajuste
+                    infNFeIde.finNFe = TFinNFe.Item2; //1 - Normal / 2 NF-e complementar / 3 - Nf-e Ajuste / 4 - devolução
                 else
                     infNFeIde.finNFe = TFinNFe.Item1; 
                 infNFeIde.indPag = (TNFeInfNFeIdeIndPag)0; // 0 - à Vista  1 - a prazo  2 - outros
-                infNFeIde.mod = TMod.Item55;
                 infNFeIde.natOp = GerenciadorCfop.GetInstance().Obter(Convert.ToInt32(cfopPadrao)).ElementAtOrDefault(0).Descricao;
                 infNFeIde.nNF = nfeControle.CodNfe.ToString(); // número do Documento Fiscal
                 infNFeIde.procEmi = TProcEmi.Item0; //0 - Emissão do aplicativo do contribuinte
@@ -626,7 +632,14 @@ namespace Negocio
                 infNFeIde.tpEmis = TNFeInfNFeIdeTpEmis.Item1; // emissão Normal
                 infNFeIde.tpImp = TNFeInfNFeIdeTpImp.Item1; // 1-Retratro / 2-Paisagem
                 infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item1; // 0 - entrada / 1 - saída de produtos
-                infNFeIde.verProc = "SACE 2.0.1"; //versão do aplicativo de emissão de nf-e   
+                infNFeIde.verProc = "SACE 3.0"; //versão do aplicativo de emissão de nf-e   
+                // Versão 3.1 da nf-e
+                infNFeIde.idDest = TNFeInfNFeIdeIdDest.Item1; //1- interna; 2-interestadual; 3-exterior
+                infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item1; // 0 - normal; 1-consumidor final
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                    infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item1; //1- presencial; 2-internet; 3-teleatendimento; 4-nfc-e com entrega domicilio 
+                else
+                    infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item0; // 0 - não se aplica; 
 
                 if (saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
@@ -708,15 +721,23 @@ namespace Negocio
                     dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
                 dest.Item = destinatario.CpfCnpj;
                 dest.ItemElementName = ItemChoiceType3.CPF;
-                if (destinatario.CpfCnpj.Length > 11)
+                if ((destinatario.CpfCnpj.Length > 11) && !destinatario.Ie.StartsWith("I"))
                 {
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
                     dest.IE = destinatario.Ie;
+                    dest.indIEDest = TNFeInfNFeDestIndIEDest.Item1; // 1-Contribuinte ICMS
+                }
+                else if (destinatario.CpfCnpj.Length > 11)
+                {
+                    dest.ItemElementName = ItemChoiceType3.CNPJ;
+                    dest.IE = "ISENTO";
+                    dest.indIEDest = TNFeInfNFeDestIndIEDest.Item2; // 2-Contribuinte ISENTO
                 }
                 else
                 {
-                    dest.IE = "";
+                    dest.indIEDest = TNFeInfNFeDestIndIEDest.Item9; // 9-Não contribuinte, que pode ou não possui ie
                 }
+                
                 nfe.infNFe.dest = dest;
                 dest.enderDest = enderDest;
 
@@ -724,9 +745,9 @@ namespace Negocio
                 List<TNFeInfNFeDet> listaNFeDet = new List<TNFeInfNFeDet>();
                 decimal totalProdutos = 0;
                 decimal totalAVista = 0;
+                decimal totalTributos = 0;
                 decimal valorTotalDesconto = 0;
                 decimal valorTotalNota = 0;
-                decimal totalTributos = 0;
 
                 if (ehNfeComplementar)
                 {
@@ -836,7 +857,9 @@ namespace Negocio
                     decimal fatorDesconto = valorTotalDesconto / totalProdutos;
                     decimal fatorValorOutros = saida.OutrasDespesas / totalProdutos;
 
-                    totalTributos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
+                    // Atualiza os produtos com os valores de impostos
+                    saidaProdutos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
+                    totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
 
                     // produtos da nota
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -917,7 +940,7 @@ namespace Negocio
                             TNFeInfNFeDetImpostoPIS pis = new TNFeInfNFeDetImpostoPIS();
                             pis.Item = pisOutr;
                             imp.PIS = pis;
-
+                            //imp.vTotTrib = formataValorNFe(saidaProduto.ValorImposto);
 
 
                             TNFeInfNFeDetImpostoCOFINSCOFINSOutr cofinsOutr = new TNFeInfNFeDetImpostoCOFINSCOFINSOutr();
@@ -934,7 +957,7 @@ namespace Negocio
                             TNFeInfNFeDetImpostoCOFINS cofins = new TNFeInfNFeDetImpostoCOFINS();
                             cofins.Item = cofinsOutr;
                             imp.COFINS = cofins;
-
+                            
                             TNFeInfNFeDet nfeDet = new TNFeInfNFeDet();
                             nfeDet.imposto = imp;
                             nfeDet.prod = prod;
@@ -947,11 +970,10 @@ namespace Negocio
                     }
                 }
                 nfe.infNFe.det = listaNFeDet.ToArray();
-
+                
+                // Totalizadores de tributos
+                
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
-                //if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) 
-                //    || (saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                //{
                 icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
                 icmsTot.vICMS = formataValorNFe(0);
                 icmsTot.vBCST = formataValorNFe(0);
@@ -979,6 +1001,7 @@ namespace Negocio
                 icmsTot.vIPI = formataValorNFe(0);
                 icmsTot.vPIS = formataValorNFe(0);
                 icmsTot.vCOFINS = formataValorNFe(0);
+                icmsTot.vICMSDeson = formataValorNFe(0);
                 icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
                 if (ehNfeComplementar)
                     icmsTot.vNF = formataValorNFe(saida.OutrasDespesas);
@@ -1042,9 +1065,9 @@ namespace Negocio
                 infAdic.infCpl += mensagemTributos;
 
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
-                    infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + saida.Observacao;
+                    infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + mensagemTributos + saida.Observacao;
                 else
-                    infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + saida.Observacao + ". ICMS RECOLHIDO NO";
+                    infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + mensagemTributos + saida.Observacao + ". ICMS RECOLHIDO NO";
 
                 
                 nfe.infNFe.infAdic = infAdic;
@@ -1093,25 +1116,25 @@ namespace Negocio
                     throw new NegocioException("É necessário adicionar uma justificativa para realizar o cancelamento da NF-e.");
                 }
 
-                TEnvEvento envEvento = new TEnvEvento();
+                Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
                 envEvento.idLote = nfeControle.CodNfe.ToString().PadLeft(15, '0');
                 envEvento.versao = "1.00";
 
-                TEvento evento = new TEvento();
-                evento.versao = TVerEvento.Item100;
-                
-                TEventoInfEvento infEvento = new TEventoInfEvento();
+                Dominio.NFE2.TEvento evento = new Dominio.NFE2.TEvento();
+                evento.versao = Dominio.NFE2.TVerEvento.Item100;
+
+                Dominio.NFE2.TEventoInfEvento infEvento = new Dominio.NFE2.TEventoInfEvento();
                 infEvento.chNFe = nfeControle.Chave;
-                infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
-                infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                infEvento.cOrgao = (Dominio.NFE2.TCOrgaoIBGE)Enum.Parse(typeof(Dominio.NFE2.TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
+                infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
                 Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
                 
                 if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
-                    infEvento.ItemElementName = ItemChoiceType7.CPF;
+                    infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
                 else
-                    infEvento.ItemElementName = ItemChoiceType7.CNPJ;
+                    infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CNPJ;
                 infEvento.Item = pessoa.CpfCnpj;
                 infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
                 infEvento.tpEvento = "110111";
@@ -1119,7 +1142,7 @@ namespace Negocio
                 infEvento.verEvento = "1.00";
                 infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
 
-                TEventoInfEventoDetEvento detEvento = new TEventoInfEventoDetEvento();
+                Dominio.NFE2.TEventoInfEventoDetEvento detEvento = new Dominio.NFE2.TEventoInfEventoDetEvento();
                 
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
@@ -1142,10 +1165,10 @@ namespace Negocio
                 
                 infEvento.detEvento = detEvento;
                 evento.infEvento = infEvento;
-                envEvento.evento = new TEvento[1]{ evento };
+                envEvento.evento = new Dominio.NFE2.TEvento[1] { evento };
 
                 MemoryStream memStream = new MemoryStream();
-                XmlSerializer serializer = new XmlSerializer(typeof(TEnvEvento));
+                XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TEnvEvento));
                 serializer.Serialize(memStream, envEvento, ns);
                 memStream.Position = 0;
                 xmlDoc.Load(memStream);
@@ -1203,11 +1226,11 @@ namespace Negocio
                         NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
                         if (nfeControle != null)
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof(TRetEnvEvento));
-                            TRetEnvEvento retEventoCancelamento = (TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
+                            XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TRetEnvEvento));
+                            Dominio.NFE2.TRetEnvEvento retEventoCancelamento = (Dominio.NFE2.TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
                             if (retEventoCancelamento.cStat.Equals(NfeStatusResposta.NFE128_LOTE_EVENTO_PROCESSADO))
                             {
-                                TRetEventoInfEvento retornoEvento = retEventoCancelamento.retEvento[0].infEvento;
+                                Dominio.NFE2.TRetEventoInfEvento retornoEvento = retEventoCancelamento.retEvento[0].infEvento;
                                 if (retornoEvento.cStat.Equals(NfeStatusResposta.NFE135_EVENTO_REGISTRADO_VINCULADO_NFE) ||
                                     retornoEvento.cStat.Equals(NfeStatusResposta.NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE))
                                 {
@@ -1327,11 +1350,11 @@ namespace Negocio
                         NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
                         if (nfeControle != null)
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof(TRetEnvEvento));
-                            TRetEnvEvento retEventoCancelamento = (TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
+                            XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TRetEnvEvento));
+                            Dominio.NFE2.TRetEnvEvento retEventoCancelamento = (Dominio.NFE2.TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
                             if (retEventoCancelamento.cStat.Equals(NfeStatusResposta.NFE128_LOTE_EVENTO_PROCESSADO))
                             {
-                                TRetEventoInfEvento retornoEvento = retEventoCancelamento.retEvento[0].infEvento;
+                                Dominio.NFE2.TRetEventoInfEvento retornoEvento = retEventoCancelamento.retEvento[0].infEvento;
                                 if (retornoEvento.cStat.Equals(NfeStatusResposta.NFE135_EVENTO_REGISTRADO_VINCULADO_NFE) ||
                                     retornoEvento.cStat.Equals(NfeStatusResposta.NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE))
                                 {
@@ -1364,7 +1387,7 @@ namespace Negocio
 
                 consultaNfe.chNFe = nfeControle.Chave;
                 consultaNfe.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                consultaNfe.versao = TVerConsSitNFe.Item201;
+                consultaNfe.versao = TVerConsSitNFe.Item310;
                 consultaNfe.xServ = TConsSitNFeXServ.CONSULTAR;
                 
                 XmlDocument xmlDoc = new XmlDocument();
@@ -1485,27 +1508,27 @@ namespace Negocio
                 }
 
 
-                TEnvEvento envEvento = new TEnvEvento();
+                Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
                 envEvento.idLote = nfeControle.CodNfe.ToString().PadLeft(15, '0');
                 envEvento.versao = "1.00";
-                
 
-                TEvento evento = new TEvento();
-                evento.versao = TVerEvento.Item100;
 
-                TEventoInfEvento infEvento = new TEventoInfEvento();
+                Dominio.NFE2.TEvento evento = new Dominio.NFE2.TEvento();
+                evento.versao = Dominio.NFE2.TVerEvento.Item100;
+
+                Dominio.NFE2.TEventoInfEvento infEvento = new Dominio.NFE2.TEventoInfEvento();
                 infEvento.chNFe = nfeControle.Chave;
-                infEvento.cOrgao = (TCOrgaoIBGE)Enum.Parse(typeof(TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
-                infEvento.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                infEvento.cOrgao = (Dominio.NFE2.TCOrgaoIBGE)Enum.Parse(typeof(Dominio.NFE2.TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
+                infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
                 
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
                 Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                 Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
                 if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
-                    infEvento.ItemElementName = ItemChoiceType7.CPF;
+                    infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
                 else
-                    infEvento.ItemElementName = ItemChoiceType7.CNPJ;
+                    infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CNPJ;
                 infEvento.Item = pessoa.CpfCnpj;
                 infEvento.chNFe = nfeControle.Chave;
                 infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
@@ -1514,8 +1537,8 @@ namespace Negocio
                 nfeControle.SeqCartaCorrecao = Convert.ToInt32(infEvento.nSeqEvento);
                 infEvento.verEvento = "1.00";
                 infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
-                
-                TEventoInfEventoDetEvento detEvento = new TEventoInfEventoDetEvento();
+
+                Dominio.NFE2.TEventoInfEventoDetEvento detEvento = new Dominio.NFE2.TEventoInfEventoDetEvento();
 
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
@@ -1538,10 +1561,10 @@ namespace Negocio
 
                 infEvento.detEvento = detEvento;
                 evento.infEvento = infEvento;
-                envEvento.evento = new TEvento[1] { evento };
+                envEvento.evento = new Dominio.NFE2.TEvento[1] { evento };
 
                 MemoryStream memStream = new MemoryStream();
-                XmlSerializer serializer = new XmlSerializer(typeof(TEnvEvento));
+                XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TEnvEvento));
                 serializer.Serialize(memStream, envEvento, ns);
                 memStream.Position = 0;
                 xmlDoc.Load(memStream);
@@ -1599,12 +1622,12 @@ namespace Negocio
                         NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
                         if (nfeControle != null)
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof(TRetEnvEvento));
-                            TRetEnvEvento retEventoCartaCorrecao = (TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
+                            XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TRetEnvEvento));
+                            Dominio.NFE2.TRetEnvEvento retEventoCartaCorrecao = (Dominio.NFE2.TRetEnvEvento)serializer.Deserialize(xmlReaderRetorno);
                             if (retEventoCartaCorrecao.cStat.Equals(NfeStatusResposta.NFE128_LOTE_EVENTO_PROCESSADO))
                             {
                                 //retEventoCartaCorrecao.
-                                TRetEventoInfEvento retornoEvento = retEventoCartaCorrecao.retEvento[0].infEvento;
+                                Dominio.NFE2.TRetEventoInfEvento retornoEvento = retEventoCartaCorrecao.retEvento[0].infEvento;
                                 if (retornoEvento.cStat.Equals(NfeStatusResposta.NFE135_EVENTO_REGISTRADO_VINCULADO_NFE) ||
                                     retornoEvento.cStat.Equals(NfeStatusResposta.NFE136_EVENTO_REGISTRADO_NAO_VINCULADO_NFE))
                                 {

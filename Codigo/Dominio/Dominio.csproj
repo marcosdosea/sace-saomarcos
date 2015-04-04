@@ -83,6 +83,7 @@
     <Compile Include="Consultas\TotaisMovimentacaoConta.cs" />
     <Compile Include="Consultas\TotaisSaida.cs" />
     <Compile Include="Imposto.cs" />
+    <Compile Include="NFE_Schema3\Nfe_v3.cs" />
     <Compile Include="NFE_Schema\Nfe_v2_00.cs" />
     <Compile Include="SaidaPesquisa.cs" />
     <Compile Include="PontaEstoque.cs" />
@@ -130,6 +131,63 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NFE_Schema3\consReciNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\consSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\consStatServ_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\enviNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\inutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\leiauteConsSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\leiauteConsStatServ_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\leiauteInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\leiauteNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\nfe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\procInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\procNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\retConsReciNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\retConsSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\retConsStatServ_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\retEnviNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\retInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\tiposBasico_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema3\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NFE_Schema\cancNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
