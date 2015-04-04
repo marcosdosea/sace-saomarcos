@@ -384,7 +384,7 @@ namespace Negocio
                     }
                     else
                     {
-                        Thread.Sleep(200);
+                        Thread.Sleep(1000);
                     }
                 }
                 tentativas++;
@@ -730,7 +730,7 @@ namespace Negocio
                 else if (destinatario.CpfCnpj.Length > 11)
                 {
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
-                    dest.IE = "ISENTO";
+                    //dest.IE = "";
                     dest.indIEDest = TNFeInfNFeDestIndIEDest.Item2; // 2-Contribuinte ISENTO
                 }
                 else
