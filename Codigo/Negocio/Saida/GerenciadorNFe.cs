@@ -621,6 +621,8 @@ namespace Negocio
                 infNFeIde.dhSaiEnt = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA_HORA);
                 if (ehNfeComplementar)
                     infNFeIde.finNFe = TFinNFe.Item2; //1 - Normal / 2 NF-e complementar / 3 - Nf-e Ajuste / 4 - devolução
+                else if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                    infNFeIde.finNFe = TFinNFe.Item4;
                 else
                     infNFeIde.finNFe = TFinNFe.Item1; 
                 infNFeIde.indPag = (TNFeInfNFeIdeIndPag)0; // 0 - à Vista  1 - a prazo  2 - outros
@@ -633,13 +635,9 @@ namespace Negocio
                 infNFeIde.tpImp = TNFeInfNFeIdeTpImp.Item1; // 1-Retratro / 2-Paisagem
                 infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item1; // 0 - entrada / 1 - saída de produtos
                 infNFeIde.verProc = "SACE 3.0"; //versão do aplicativo de emissão de nf-e   
-                // Versão 3.1 da nf-e
-                infNFeIde.idDest = TNFeInfNFeIdeIdDest.Item1; //1- interna; 2-interestadual; 3-exterior
-                infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item1; // 0 - normal; 1-consumidor final
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
-                    infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item1; //1- presencial; 2-internet; 3-teleatendimento; 4-nfc-e com entrega domicilio 
-                else
-                    infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item0; // 0 - não se aplica; 
+
+                Pessoa pessoaloja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                Pessoa destinatario = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
 
                 if (saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
@@ -650,6 +648,23 @@ namespace Negocio
                     TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
                     nfRef.ItemElementName = ItemChoiceType1.refECF;
                     nfRef.Item = refEcf;
+                    infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
+                    infNFeIde.NFref[0] = nfRef;
+                }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                {
+                    TNFeInfNFeIdeNFrefRefNF refNF = new TNFeInfNFeIdeNFrefRefNF();
+                    Entrada entrada = GerenciadorEntrada.GetInstance().Obter(saida.CodEntrada).ElementAtOrDefault(0);
+                    refNF.nNF = entrada.NumeroNotaFiscal;
+                    refNF.CNPJ = destinatario.CpfCnpj;
+                    refNF.AAMM = entrada.DataEmissao.ToString("yyMM");
+                    refNF.mod = TNFeInfNFeIdeNFrefRefNFMod.Item01;
+                    refNF.serie = entrada.Serie;
+                    refNF.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + destinatario.CodMunicipioIBGE.ToString().Substring(0, 2));
+                    //TODO  = TCodUfIBGE.
+                    TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
+                    nfRef.ItemElementName = ItemChoiceType1.refNF;
+                    nfRef.Item = refNF;
                     infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
                     infNFeIde.NFref[0] = nfRef;
                 }
@@ -667,22 +682,34 @@ namespace Negocio
                     infNFeIde.NFref[0] = refNfe;
                 }
 
+
+                // Versão 3.1 da nf-e
+                if (pessoaloja.Uf.Equals(destinatario.Uf))
+                    infNFeIde.idDest = TNFeInfNFeIdeIdDest.Item1; //1- interna; 2-interestadual; 3-exterior
+                else
+                    infNFeIde.idDest = TNFeInfNFeIdeIdDest.Item2;
+                
+                infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item1; // 0 - normal; 1-consumidor final
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                    infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item1; //1- presencial; 2-internet; 3-teleatendimento; 4-nfc-e com entrega domicilio 
+                else
+                    infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item0; // 0 - não se aplica; 
+
                 nfe.infNFe.ide = infNFeIde;
 
                 ////Endereco Emitente
                 TEnderEmi enderEmit = new TEnderEmi();
 
-                Pessoa pessoaloja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
                 enderEmit.CEP = pessoaloja.Cep;
                 enderEmit.cMun = pessoaloja.CodMunicipioIBGE.ToString();
                 enderEmit.cPais = TEnderEmiCPais.Item1058;
                 enderEmit.fone = pessoaloja.Fone1;
                 enderEmit.nro = pessoaloja.Numero;
                 enderEmit.UF = (TUfEmi)Enum.Parse(typeof(TUfEmi), pessoaloja.Uf);
-                enderEmit.xBairro = pessoaloja.Bairro;
+                enderEmit.xBairro = pessoaloja.Bairro.Trim();
                 if (!string.IsNullOrEmpty(pessoaloja.Complemento))
-                    enderEmit.xCpl = pessoaloja.Complemento;
-                enderEmit.xLgr = pessoaloja.Endereco;
+                    enderEmit.xCpl = pessoaloja.Complemento.Trim();
+                enderEmit.xLgr = pessoaloja.Endereco.Trim();
                 enderEmit.xMun = Util.StringUtil.RemoverAcentos(pessoaloja.NomeMunicipioIBGE);
                 enderEmit.xPais = TEnderEmiXPais.BRASIL;
                
@@ -699,7 +726,6 @@ namespace Negocio
 
                 ////Endereco destinatario
                 TEndereco enderDest = new TEndereco();
-                Pessoa destinatario = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
                 enderDest.CEP = destinatario.Cep.Trim();
                 enderDest.cMun = destinatario.CodMunicipioIBGE.ToString();
                 enderDest.cPais = Tpais.Item1058;
@@ -721,7 +747,8 @@ namespace Negocio
                     dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
                 dest.Item = destinatario.CpfCnpj;
                 dest.ItemElementName = ItemChoiceType3.CPF;
-                if ((destinatario.CpfCnpj.Length > 11) && !destinatario.Ie.StartsWith("I"))
+                if ((destinatario.CpfCnpj.Length > 11) && !destinatario.Ie.StartsWith("I") && 
+                    !String.IsNullOrWhiteSpace(destinatario.Ie) )
                 {
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
                     dest.IE = destinatario.Ie;
@@ -730,7 +757,7 @@ namespace Negocio
                 else if (destinatario.CpfCnpj.Length > 11)
                 {
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
-                    //dest.IE = "";
+                    //dest.IE = "ISENTO";
                     dest.indIEDest = TNFeInfNFeDestIndIEDest.Item2; // 2-Contribuinte ISENTO
                 }
                 else
@@ -861,6 +888,34 @@ namespace Negocio
                     saidaProdutos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
                     totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
 
+                    // distribui desconto entre todos os produtos da nota
+                    foreach (SaidaProduto saidaProduto in saidaProdutos)
+                    {
+                        saidaProduto.ValorDesconto = Math.Round(saidaProduto.Subtotal * fatorDesconto, 2);
+                    }
+                    decimal valorTotalDescontoCalculado = saidaProdutos.Sum(sp => sp.ValorDesconto);
+                    decimal diferenca = valorTotalDescontoCalculado - valorTotalDesconto;
+                    if (diferenca != 0) {
+                        foreach (SaidaProduto saidaProduto in saidaProdutos)
+                        {
+                            if (diferenca > 0)
+                            {
+                                saidaProduto.ValorDesconto -= new decimal(0.01);
+                                diferenca -= new decimal(0.01);
+                            }
+                            else if (diferenca < 0 )
+                            {
+                                saidaProduto.ValorDesconto += new decimal(0.01);
+                                diferenca += new decimal(0.01);
+                            } 
+                            else 
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+
                     // produtos da nota
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
@@ -870,6 +925,7 @@ namespace Negocio
                             prod.cProd = saidaProduto.CodProduto.ToString();
                             ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(saidaProduto.CodProduto).ElementAtOrDefault(0);
 
+                            
                             if (Validacoes.ValidarEAN13(produto.CodigoBarra))
                             {
                                 prod.cEANTrib = produto.CodigoBarra;
@@ -900,8 +956,13 @@ namespace Negocio
                                 prod.vProd = formataValorNFe(saidaProduto.SubtotalAVista);
                                 prod.vUnTrib = formataValorNFe(saidaProduto.ValorVendaAVista, 3);
                             }
-                            if (Math.Round(saidaProduto.Subtotal * fatorDesconto, 2) > 0)
-                                prod.vDesc = formataValorNFe(saidaProduto.Subtotal * fatorDesconto);
+                            if (saidaProduto.ValorDesconto > 0)
+                            {
+                                prod.vDesc = formataValorNFe(saidaProduto.ValorDesconto);
+                                valorTotalDescontoCalculado += Convert.ToDecimal(prod.vDesc);
+                            }
+                            
+
                             prod.uTrib = produto.Unidade;
                             prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
                             if (fatorValorOutros > 0)
@@ -965,10 +1026,13 @@ namespace Negocio
                             nfeDet.nItem = nItem.ToString();
                             nItem++; // número do item na nf-e
 
-                            listaNFeDet.Add(nfeDet);
+                            listaNFeDet.Add(nfeDet);                            
                         }
                     }
                 }
+
+                
+
                 nfe.infNFe.det = listaNFeDet.ToArray();
                 
                 // Totalizadores de tributos

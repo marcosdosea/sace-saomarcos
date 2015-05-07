@@ -741,6 +741,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmSaidaDevolucao";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Encerramento da Saída";
             this.Load += new System.EventHandler(this.FrmSaidaDevolucao_Load);

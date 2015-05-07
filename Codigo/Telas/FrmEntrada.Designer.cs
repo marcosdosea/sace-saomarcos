@@ -77,6 +77,7 @@
             System.Windows.Forms.Label totalProdutosSTLabel;
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label9;
+            System.Windows.Forms.Label serieLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntrada));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -178,6 +179,7 @@
             this.totalProdutosSTTextBox = new System.Windows.Forms.TextBox();
             this.btnImportarNfe = new System.Windows.Forms.Button();
             this.openFileDialogNfe = new System.Windows.Forms.OpenFileDialog();
+            this.serieTextBox = new System.Windows.Forms.TextBox();
             codEntradaLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -226,6 +228,7 @@
             totalProdutosSTLabel = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
+            serieLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ProdutosGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
@@ -244,7 +247,7 @@
             // codEntradaLabel
             // 
             codEntradaLabel.AutoSize = true;
-            codEntradaLabel.Location = new System.Drawing.Point(2, 67);
+            codEntradaLabel.Location = new System.Drawing.Point(6, 67);
             codEntradaLabel.Name = "codEntradaLabel";
             codEntradaLabel.Size = new System.Drawing.Size(43, 13);
             codEntradaLabel.TabIndex = 77;
@@ -253,11 +256,11 @@
             // numeroNotaFiscalLabel
             // 
             numeroNotaFiscalLabel.AutoSize = true;
-            numeroNotaFiscalLabel.Location = new System.Drawing.Point(88, 67);
+            numeroNotaFiscalLabel.Location = new System.Drawing.Point(68, 67);
             numeroNotaFiscalLabel.Name = "numeroNotaFiscalLabel";
-            numeroNotaFiscalLabel.Size = new System.Drawing.Size(103, 13);
+            numeroNotaFiscalLabel.Size = new System.Drawing.Size(64, 13);
             numeroNotaFiscalLabel.TabIndex = 79;
-            numeroNotaFiscalLabel.Text = "Número Nota Fiscal:";
+            numeroNotaFiscalLabel.Text = "Número NF:";
             // 
             // codEmpresaFreteLabel
             // 
@@ -673,6 +676,15 @@
             label9.Size = new System.Drawing.Size(85, 13);
             label9.TabIndex = 122;
             label9.Text = "Preço Revenda:";
+            // 
+            // serieLabel
+            // 
+            serieLabel.AutoSize = true;
+            serieLabel.Location = new System.Drawing.Point(145, 67);
+            serieLabel.Name = "serieLabel";
+            serieLabel.Size = new System.Drawing.Size(34, 13);
+            serieLabel.TabIndex = 112;
+            serieLabel.Text = "Serie:";
             // 
             // label1
             // 
@@ -1416,7 +1428,7 @@
             this.codEntradaTextBox.Enabled = false;
             this.codEntradaTextBox.Location = new System.Drawing.Point(5, 84);
             this.codEntradaTextBox.Name = "codEntradaTextBox";
-            this.codEntradaTextBox.Size = new System.Drawing.Size(75, 20);
+            this.codEntradaTextBox.Size = new System.Drawing.Size(60, 20);
             this.codEntradaTextBox.TabIndex = 12;
             this.codEntradaTextBox.TextChanged += new System.EventHandler(this.codEntradaTextBox_TextChanged);
             this.codEntradaTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
@@ -1426,9 +1438,9 @@
             // 
             this.numeroNotaFiscalTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.numeroNotaFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "NumeroNotaFiscal", true));
-            this.numeroNotaFiscalTextBox.Location = new System.Drawing.Point(91, 84);
+            this.numeroNotaFiscalTextBox.Location = new System.Drawing.Point(71, 83);
             this.numeroNotaFiscalTextBox.Name = "numeroNotaFiscalTextBox";
-            this.numeroNotaFiscalTextBox.Size = new System.Drawing.Size(100, 20);
+            this.numeroNotaFiscalTextBox.Size = new System.Drawing.Size(71, 20);
             this.numeroNotaFiscalTextBox.TabIndex = 14;
             this.numeroNotaFiscalTextBox.Enter += new System.EventHandler(this.codEntradaTextBox_Enter);
             this.numeroNotaFiscalTextBox.Leave += new System.EventHandler(this.codEntradaTextBox_Leave);
@@ -1766,12 +1778,22 @@
             this.openFileDialogNfe.DefaultExt = "nfe";
             this.openFileDialogNfe.Title = "Selecionar NF-e";
             // 
+            // serieTextBox
+            // 
+            this.serieTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "Serie", true));
+            this.serieTextBox.Location = new System.Drawing.Point(148, 84);
+            this.serieTextBox.Name = "serieTextBox";
+            this.serieTextBox.Size = new System.Drawing.Size(45, 20);
+            this.serieTextBox.TabIndex = 15;
+            // 
             // FrmEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 651);
+            this.ClientSize = new System.Drawing.Size(825, 651);
             this.ControlBox = false;
+            this.Controls.Add(serieLabel);
+            this.Controls.Add(this.serieTextBox);
             this.Controls.Add(this.btnImportarNfe);
             this.Controls.Add(totalProdutosSTLabel);
             this.Controls.Add(this.totalProdutosSTTextBox);
@@ -1959,5 +1981,6 @@
         private System.Windows.Forms.TextBox precoRevendaSugestaoTextBox;
         private System.Windows.Forms.Button btnImportarNfe;
         private System.Windows.Forms.OpenFileDialog openFileDialogNfe;
+        private System.Windows.Forms.TextBox serieTextBox;
     }
 }

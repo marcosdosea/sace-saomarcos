@@ -9,6 +9,9 @@
 }
 
 namespace Dados.saceDataSetConsultasTableAdapters {
+    partial class ProdutosVendidosTableAdapter
+    {
+    }
     
     
     public partial class EntradasPorProdutoTableAdapter {

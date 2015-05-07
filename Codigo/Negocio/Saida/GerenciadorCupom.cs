@@ -62,30 +62,30 @@ namespace Negocio
         {
             try
             {
-               string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-               if (nomeComputador.Equals(Global.NOME_SERVIDOR))
-               {
-                   var repCupom = new RepositorioGenerico<tb_solicitacao_cupom>();
-                   DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
-                   if (pastaECF.Exists)
-                   {
-                       FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
-                       if (files.Length == 0)
-                       {
-                           IQueryable<tb_solicitacao_cupom> solicitacoes = GetQuery().OrderBy(s => s.dataSolicitacao);
-                           if (solicitacoes.Count() > 0)
-                           {
-                               Thread.Sleep(1000); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
-                               SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-                               tb_solicitacao_cupom solicitacaoE = solicitacoes.FirstOrDefault();
-                               saidaTotalAVista.Add(solicitacaoE.codSaida, solicitacaoE.total);
-                               RemoverSolicitacaoCupom(solicitacaoE.codSaida);
-                               GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, null);
-                           }
-                       }
-                   }
-                   
-               }
+                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+                if (nomeComputador.Equals(Global.NOME_SERVIDOR))
+                {
+                    var repCupom = new RepositorioGenerico<tb_solicitacao_cupom>();
+                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
+                    if (pastaECF.Exists)
+                    {
+                        FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
+                        if (files.Length == 0)
+                        {
+                            IQueryable<tb_solicitacao_cupom> solicitacoes = GetQuery().OrderBy(s => s.dataSolicitacao);
+                            if (solicitacoes.Count() > 0)
+                            {
+                                Thread.Sleep(1000); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
+                                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
+                                tb_solicitacao_cupom solicitacaoE = solicitacoes.FirstOrDefault();
+                                saidaTotalAVista.Add(solicitacaoE.codSaida, solicitacaoE.total);
+                                RemoverSolicitacaoCupom(solicitacaoE.codSaida);
+                                GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, null);
+                            }
+                        }
+                    }
+
+                }
             }
             catch (Exception e)
             {
@@ -120,7 +120,7 @@ namespace Negocio
             var repCupom = new RepositorioGenerico<tb_solicitacao_cupom>();
             var saceEntities = (SaceEntities)repCupom.ObterContexto();
             var query = from cupom in saceEntities.tb_solicitacao_cupom
-                            select cupom;
+                        select cupom;
             return query;
         }
 
@@ -209,7 +209,7 @@ namespace Negocio
                             // imprimir imposto na nota
                             decimal valorImposto = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(listaSaidaProdutos).Sum(sp => sp.ValorImposto);
                             decimal valorImpostoPercentual = valorImposto / saidas.Sum(s => s.TotalAVista) * 100;
-                            arquivo.WriteLine("<OBS>Val Aprox dos Tributos R$ " + valorImposto.ToString("N2") + " ("+valorImpostoPercentual.ToString("N2")+"%) " + "  Fonte: IBPT" );
+                            arquivo.WriteLine("<OBS>Val Aprox dos Tributos R$ " + valorImposto.ToString("N2") + " (" + valorImpostoPercentual.ToString("N2") + "%) " + "  Fonte: IBPT");
 
 
                             // Buscar pagamentos quando não foram passados por parâmetro
@@ -302,7 +302,7 @@ namespace Negocio
             return quantidadeProdutosImpressos;
         }
 
-        
+
         public void ExcluirDocumentoFiscal(long codPedido)
         {
             try
@@ -331,22 +331,23 @@ namespace Negocio
         public Boolean AtualizarPedidosComDocumentosFiscais()
         {
             Boolean atualizou = false;
-            try
+            DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
+            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            if (nomeComputador.Equals(Global.NOME_SERVIDOR) && PastaRetorno.Exists)
             {
-                DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
-                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-                if (Dir.Exists && nomeComputador.Equals(Global.NOME_SERVIDOR))
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                FileInfo[] Files = PastaRetorno.GetFiles("*", SearchOption.TopDirectoryOnly);
+                if (Files.Length == 0)
                 {
-                    // Busca automaticamente todos os arquivos em todos os subdiretórios
-                    FileInfo[] Files = Dir.GetFiles("*", SearchOption.TopDirectoryOnly);
-                    if (Files.Length == 0)
+                    atualizou = true;
+                }
+                else
+                {
+                    foreach (FileInfo file in Files)
                     {
-                        atualizou = true;
-                    }
-                    else
-                    {
-                        foreach (FileInfo file in Files)
+                        try
                         {
+
                             bool sucesso = false;
                             String numeroCF = null;
                             String linha = null;
@@ -383,7 +384,7 @@ namespace Negocio
                                     if (!temPagamentoCrediario)
                                     {
                                         Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPedido.CodSaida);
-                                        if (saida != null)
+                                        if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
                                         {
                                             saida.TipoSaida = Saida.TIPO_PRE_VENDA;
                                             GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
@@ -392,18 +393,28 @@ namespace Negocio
                                 }
                             }
                             GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
-                            //transaction.Commit();
-                            file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
-                            file.Delete();
+                        }
+                        catch (Exception e)
+                        {
+                            // Se houver algum impossibilidade de trasnformar o pedido em pré-venda
+                            // não tem problema. Pode acontecer quando cliente quita a conta gerada
+                            // mas há algum problema na impressora para imprimir o cupom fiscal
+                            // Nesses casos é só fazer a reimpressão do cupom. 
+                        }
+                        finally
+                        {
+                            DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP);
+                            if (PastaBackup.Exists)
+                            {
+                                file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
+                            }
+                            if (file.Exists)
+                            {
+                                file.Delete();
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                //transaction.Rollback();
-                // Essa exceção não precisa ser tratada. Apenas os cupons fiscais não são recuperados.
-                //throw new NegocioException("Ocorreram problemas na recuperação dos dados dos cupons fiscais. Favor contactar o administrador informando o erro " + e.Message);
             }
             return atualizou;
         }

@@ -69,18 +69,101 @@
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
-            // produtoBindingSource
-            // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
             // codProdutoLabel
             // 
             codProdutoLabel.AutoSize = true;
+            codProdutoLabel.ForeColor = System.Drawing.Color.Red;
             codProdutoLabel.Location = new System.Drawing.Point(12, 9);
             codProdutoLabel.Name = "codProdutoLabel";
             codProdutoLabel.Size = new System.Drawing.Size(96, 13);
             codProdutoLabel.TabIndex = 1;
             codProdutoLabel.Text = "Produto EXCLUIR:";
+            // 
+            // ultimaDataAtualizacaoLabel
+            // 
+            ultimaDataAtualizacaoLabel.AutoSize = true;
+            ultimaDataAtualizacaoLabel.Location = new System.Drawing.Point(9, 59);
+            ultimaDataAtualizacaoLabel.Name = "ultimaDataAtualizacaoLabel";
+            ultimaDataAtualizacaoLabel.Size = new System.Drawing.Size(123, 13);
+            ultimaDataAtualizacaoLabel.TabIndex = 2;
+            ultimaDataAtualizacaoLabel.Text = "Ultima Data Atualizacao:";
+            // 
+            // precoVendaVarejoLabel
+            // 
+            precoVendaVarejoLabel.AutoSize = true;
+            precoVendaVarejoLabel.Location = new System.Drawing.Point(152, 59);
+            precoVendaVarejoLabel.Name = "precoVendaVarejoLabel";
+            precoVendaVarejoLabel.Size = new System.Drawing.Size(105, 13);
+            precoVendaVarejoLabel.TabIndex = 4;
+            precoVendaVarejoLabel.Text = "Preco Venda Varejo:";
+            // 
+            // codigoBarraLabel
+            // 
+            codigoBarraLabel.AutoSize = true;
+            codigoBarraLabel.Location = new System.Drawing.Point(289, 59);
+            codigoBarraLabel.Name = "codigoBarraLabel";
+            codigoBarraLabel.Size = new System.Drawing.Size(71, 13);
+            codigoBarraLabel.TabIndex = 7;
+            codigoBarraLabel.Text = "Codigo Barra:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = System.Drawing.Color.Green;
+            label1.Location = new System.Drawing.Point(13, 115);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(294, 13);
+            label1.TabIndex = 11;
+            label1.Text = "Produto SUBSTITUTO (usar para fazer MERGE de Vendas):";
+            // 
+            // codProdutoLabel1
+            // 
+            codProdutoLabel1.AutoSize = true;
+            codProdutoLabel1.Location = new System.Drawing.Point(448, 9);
+            codProdutoLabel1.Name = "codProdutoLabel1";
+            codProdutoLabel1.Size = new System.Drawing.Size(69, 13);
+            codProdutoLabel1.TabIndex = 11;
+            codProdutoLabel1.Text = "Cod Produto:";
+            // 
+            // codProdutoLabel2
+            // 
+            codProdutoLabel2.AutoSize = true;
+            codProdutoLabel2.Location = new System.Drawing.Point(448, 115);
+            codProdutoLabel2.Name = "codProdutoLabel2";
+            codProdutoLabel2.Size = new System.Drawing.Size(69, 13);
+            codProdutoLabel2.TabIndex = 14;
+            codProdutoLabel2.Text = "Cod Produto:";
+            // 
+            // ultimaDataAtualizacaoLabel1
+            // 
+            ultimaDataAtualizacaoLabel1.AutoSize = true;
+            ultimaDataAtualizacaoLabel1.Location = new System.Drawing.Point(9, 164);
+            ultimaDataAtualizacaoLabel1.Name = "ultimaDataAtualizacaoLabel1";
+            ultimaDataAtualizacaoLabel1.Size = new System.Drawing.Size(123, 13);
+            ultimaDataAtualizacaoLabel1.TabIndex = 15;
+            ultimaDataAtualizacaoLabel1.Text = "Ultima Data Atualizacao:";
+            // 
+            // precoVendaVarejoLabel1
+            // 
+            precoVendaVarejoLabel1.AutoSize = true;
+            precoVendaVarejoLabel1.Location = new System.Drawing.Point(152, 168);
+            precoVendaVarejoLabel1.Name = "precoVendaVarejoLabel1";
+            precoVendaVarejoLabel1.Size = new System.Drawing.Size(105, 13);
+            precoVendaVarejoLabel1.TabIndex = 17;
+            precoVendaVarejoLabel1.Text = "Preco Venda Varejo:";
+            // 
+            // codigoBarraLabel1
+            // 
+            codigoBarraLabel1.AutoSize = true;
+            codigoBarraLabel1.Location = new System.Drawing.Point(289, 169);
+            codigoBarraLabel1.Name = "codigoBarraLabel1";
+            codigoBarraLabel1.Size = new System.Drawing.Size(71, 13);
+            codigoBarraLabel1.TabIndex = 19;
+            codigoBarraLabel1.Text = "Codigo Barra:";
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // codProdutoComboBox
             // 
@@ -98,15 +181,6 @@
             this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
             this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
             // 
-            // ultimaDataAtualizacaoLabel
-            // 
-            ultimaDataAtualizacaoLabel.AutoSize = true;
-            ultimaDataAtualizacaoLabel.Location = new System.Drawing.Point(9, 59);
-            ultimaDataAtualizacaoLabel.Name = "ultimaDataAtualizacaoLabel";
-            ultimaDataAtualizacaoLabel.Size = new System.Drawing.Size(123, 13);
-            ultimaDataAtualizacaoLabel.TabIndex = 2;
-            ultimaDataAtualizacaoLabel.Text = "Ultima Data Atualizacao:";
-            // 
             // ultimaDataAtualizacaoDateTimePicker
             // 
             this.ultimaDataAtualizacaoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.produtoBindingSource, "UltimaDataAtualizacao", true));
@@ -117,15 +191,6 @@
             this.ultimaDataAtualizacaoDateTimePicker.Size = new System.Drawing.Size(123, 20);
             this.ultimaDataAtualizacaoDateTimePicker.TabIndex = 3;
             this.ultimaDataAtualizacaoDateTimePicker.TabStop = false;
-            // 
-            // precoVendaVarejoLabel
-            // 
-            precoVendaVarejoLabel.AutoSize = true;
-            precoVendaVarejoLabel.Location = new System.Drawing.Point(152, 59);
-            precoVendaVarejoLabel.Name = "precoVendaVarejoLabel";
-            precoVendaVarejoLabel.Size = new System.Drawing.Size(105, 13);
-            precoVendaVarejoLabel.TabIndex = 4;
-            precoVendaVarejoLabel.Text = "Preco Venda Varejo:";
             // 
             // precoVendaVarejoTextBox
             // 
@@ -149,15 +214,6 @@
             this.exibeNaListagemCheckBox.Text = "Exibe na Listagem?";
             this.exibeNaListagemCheckBox.UseVisualStyleBackColor = true;
             // 
-            // codigoBarraLabel
-            // 
-            codigoBarraLabel.AutoSize = true;
-            codigoBarraLabel.Location = new System.Drawing.Point(289, 59);
-            codigoBarraLabel.Name = "codigoBarraLabel";
-            codigoBarraLabel.Size = new System.Drawing.Size(71, 13);
-            codigoBarraLabel.TabIndex = 7;
-            codigoBarraLabel.Text = "Codigo Barra:";
-            // 
             // codigoBarraTextBox
             // 
             this.codigoBarraTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "CodigoBarra", true));
@@ -168,27 +224,9 @@
             this.codigoBarraTextBox.TabIndex = 8;
             this.codigoBarraTextBox.TabStop = false;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(13, 115);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(294, 13);
-            label1.TabIndex = 11;
-            label1.Text = "Produto SUBSTITUTO (usar para fazer MERGE de Vendas):";
-            // 
             // produtoBindingSource1
             // 
             this.produtoBindingSource1.DataSource = typeof(Dominio.Produto);
-            // 
-            // codProdutoLabel1
-            // 
-            codProdutoLabel1.AutoSize = true;
-            codProdutoLabel1.Location = new System.Drawing.Point(448, 9);
-            codProdutoLabel1.Name = "codProdutoLabel1";
-            codProdutoLabel1.Size = new System.Drawing.Size(69, 13);
-            codProdutoLabel1.TabIndex = 11;
-            codProdutoLabel1.Text = "Cod Produto:";
             // 
             // codProdutoTextBox
             // 
@@ -216,15 +254,6 @@
             this.codProdutoComboBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
             this.codProdutoComboBox1.Leave += new System.EventHandler(this.codProdutoComboBox1_Leave);
             // 
-            // codProdutoLabel2
-            // 
-            codProdutoLabel2.AutoSize = true;
-            codProdutoLabel2.Location = new System.Drawing.Point(448, 115);
-            codProdutoLabel2.Name = "codProdutoLabel2";
-            codProdutoLabel2.Size = new System.Drawing.Size(69, 13);
-            codProdutoLabel2.TabIndex = 14;
-            codProdutoLabel2.Text = "Cod Produto:";
-            // 
             // codProdutoTextBox1
             // 
             this.codProdutoTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource1, "CodProduto", true));
@@ -235,15 +264,6 @@
             this.codProdutoTextBox1.Size = new System.Drawing.Size(125, 20);
             this.codProdutoTextBox1.TabIndex = 15;
             this.codProdutoTextBox1.TabStop = false;
-            // 
-            // ultimaDataAtualizacaoLabel1
-            // 
-            ultimaDataAtualizacaoLabel1.AutoSize = true;
-            ultimaDataAtualizacaoLabel1.Location = new System.Drawing.Point(9, 164);
-            ultimaDataAtualizacaoLabel1.Name = "ultimaDataAtualizacaoLabel1";
-            ultimaDataAtualizacaoLabel1.Size = new System.Drawing.Size(123, 13);
-            ultimaDataAtualizacaoLabel1.TabIndex = 15;
-            ultimaDataAtualizacaoLabel1.Text = "Ultima Data Atualizacao:";
             // 
             // ultimaDataAtualizacaoDateTimePicker1
             // 
@@ -256,15 +276,6 @@
             this.ultimaDataAtualizacaoDateTimePicker1.TabIndex = 16;
             this.ultimaDataAtualizacaoDateTimePicker1.TabStop = false;
             // 
-            // precoVendaVarejoLabel1
-            // 
-            precoVendaVarejoLabel1.AutoSize = true;
-            precoVendaVarejoLabel1.Location = new System.Drawing.Point(152, 168);
-            precoVendaVarejoLabel1.Name = "precoVendaVarejoLabel1";
-            precoVendaVarejoLabel1.Size = new System.Drawing.Size(105, 13);
-            precoVendaVarejoLabel1.TabIndex = 17;
-            precoVendaVarejoLabel1.Text = "Preco Venda Varejo:";
-            // 
             // precoVendaVarejoTextBox1
             // 
             this.precoVendaVarejoTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource1, "PrecoVendaVarejo", true));
@@ -275,15 +286,6 @@
             this.precoVendaVarejoTextBox1.Size = new System.Drawing.Size(100, 20);
             this.precoVendaVarejoTextBox1.TabIndex = 18;
             this.precoVendaVarejoTextBox1.TabStop = false;
-            // 
-            // codigoBarraLabel1
-            // 
-            codigoBarraLabel1.AutoSize = true;
-            codigoBarraLabel1.Location = new System.Drawing.Point(289, 169);
-            codigoBarraLabel1.Name = "codigoBarraLabel1";
-            codigoBarraLabel1.Size = new System.Drawing.Size(71, 13);
-            codigoBarraLabel1.TabIndex = 19;
-            codigoBarraLabel1.Text = "Codigo Barra:";
             // 
             // codigoBarraTextBox1
             // 
@@ -358,8 +360,9 @@
             this.Controls.Add(this.codProdutoComboBox);
             this.KeyPreview = true;
             this.Name = "FrmProdutoExcluir";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FrmProdutoExcluir";
+            this.Text = "Exclusão / Merge de Produtos";
             this.Load += new System.EventHandler(this.FrmProdutoExcluir_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoExcluir_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();

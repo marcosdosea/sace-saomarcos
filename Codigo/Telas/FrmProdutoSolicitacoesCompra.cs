@@ -124,7 +124,7 @@ namespace Telas
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().obterProdutosVendidos(produto.CodProduto);
+            List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().ObterProdutosVendidosDezoitoMeses(produto.CodProduto);
 
             decimal somaVendidos = 0;
             if (produtosVendidos.Count == 0)

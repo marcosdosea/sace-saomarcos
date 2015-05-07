@@ -94,7 +94,7 @@ namespace Telas
             Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
             pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
 
-            chart1.DataSource = produtosVendidosTableAdapterBindingSource;
+           chart1.DataSource = produtosVendidosTableAdapterBindingSource;
 
             chart1.Series[0].Name = "Qtd Vendidos";
             chart1.Series[0].XValueMember = pVendidosTable.mesanoColumn.ToString();
@@ -105,14 +105,9 @@ namespace Telas
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().obterProdutosVendidos(produto.CodProduto);
+            List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().ObterProdutosVendidosDezoitoMeses(produto.CodProduto);
 
-            //DateTime TresMeses = DateTime.Now.AddMonths(-3);
-            //DateTime SeisMeses = DateTime.Now.AddMonths(-6);
-            //DateTime DozeMeses = DateTime.Now.AddMonths(-12);
-            //DateTime DezoitoMeses = DateTime.Now.AddMonths(-18);
-
-            decimal somaVendidos = 0;
+           decimal somaVendidos = 0;
             if (produtosVendidos.Count == 0)
             {
                 vendidos3textBox.Text = "0,00";

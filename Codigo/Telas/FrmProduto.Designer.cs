@@ -61,8 +61,8 @@
             System.Windows.Forms.Label precoRevendaSugestaoLabel;
             System.Windows.Forms.Label precoRevendaLabel;
             System.Windows.Forms.Label codCSTLabel1;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             System.Windows.Forms.Label dataUltimaMudancaPrecoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -472,6 +472,15 @@
             codCSTLabel1.Size = new System.Drawing.Size(31, 13);
             codCSTLabel1.TabIndex = 94;
             codCSTLabel1.Text = "CST:";
+            // 
+            // dataUltimaMudancaPrecoLabel
+            // 
+            dataUltimaMudancaPrecoLabel.AutoSize = true;
+            dataUltimaMudancaPrecoLabel.Location = new System.Drawing.Point(8, 465);
+            dataUltimaMudancaPrecoLabel.Name = "dataUltimaMudancaPrecoLabel";
+            dataUltimaMudancaPrecoLabel.Size = new System.Drawing.Size(128, 13);
+            dataUltimaMudancaPrecoLabel.TabIndex = 95;
+            dataUltimaMudancaPrecoLabel.Text = "Mudanca Preço Etiqueta:";
             // 
             // label1
             // 
@@ -1247,15 +1256,6 @@
             this.btnEstatistica.UseVisualStyleBackColor = true;
             this.btnEstatistica.Click += new System.EventHandler(this.btnEstatistica_Click);
             // 
-            // dataUltimaMudancaPrecoLabel
-            // 
-            dataUltimaMudancaPrecoLabel.AutoSize = true;
-            dataUltimaMudancaPrecoLabel.Location = new System.Drawing.Point(8, 465);
-            dataUltimaMudancaPrecoLabel.Name = "dataUltimaMudancaPrecoLabel";
-            dataUltimaMudancaPrecoLabel.Size = new System.Drawing.Size(128, 13);
-            dataUltimaMudancaPrecoLabel.TabIndex = 95;
-            dataUltimaMudancaPrecoLabel.Text = "Mudanca Preço Etiqueta:";
-            // 
             // dataUltimaMudancaPrecoDateTimePicker
             // 
             this.dataUltimaMudancaPrecoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.produtoBindingSource, "DataUltimaMudancaPreco", true));
@@ -1363,6 +1363,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
             this.Name = "FrmProduto";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cadastro de Produtos";

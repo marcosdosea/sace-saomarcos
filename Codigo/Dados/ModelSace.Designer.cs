@@ -3198,6 +3198,30 @@ namespace Dados
         private Nullable<global::System.Decimal> _totalProdutosST;
         partial void OntotalProdutosSTChanging(Nullable<global::System.Decimal> value);
         partial void OntotalProdutosSTChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String serie
+        {
+            get
+            {
+                return _serie;
+            }
+            set
+            {
+                OnserieChanging(value);
+                ReportPropertyChanging("serie");
+                _serie = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("serie");
+                OnserieChanged();
+            }
+        }
+        private global::System.String _serie;
+        partial void OnserieChanging(global::System.String value);
+        partial void OnserieChanged();
 
         #endregion
 

@@ -226,6 +226,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmSaidaDeposito";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Remessa ou Retorno de Depósito Fechado";
             this.Load += new System.EventHandler(this.FrmSaidaDeposito_Load);

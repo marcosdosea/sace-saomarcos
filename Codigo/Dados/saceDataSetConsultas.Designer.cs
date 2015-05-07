@@ -533,8 +533,6 @@ namespace Dados {
                 base.Columns.Add(this.columnano);
                 this.columnmes = new global::System.Data.DataColumn("mes", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmes);
-                this.columncodProduto.AllowDBNull = false;
-                this.columnnome.AllowDBNull = false;
                 this.columnnome.MaxLength = 50;
                 this.columnmesano.MaxLength = 7;
             }
@@ -1340,7 +1338,12 @@ namespace Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public long codProduto {
                 get {
-                    return ((long)(this[this.tableProdutosVendidos.codProdutoColumn]));
+                    try {
+                        return ((long)(this[this.tableProdutosVendidos.codProdutoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'codProduto\' in table \'ProdutosVendidos\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProdutosVendidos.codProdutoColumn] = value;
@@ -1351,7 +1354,12 @@ namespace Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string nome {
                 get {
-                    return ((string)(this[this.tableProdutosVendidos.nomeColumn]));
+                    try {
+                        return ((string)(this[this.tableProdutosVendidos.nomeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'nome\' in table \'ProdutosVendidos\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProdutosVendidos.nomeColumn] = value;
@@ -1420,6 +1428,30 @@ namespace Dados {
                 set {
                     this[this.tableProdutosVendidos.mesColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscodProdutoNull() {
+                return this.IsNull(this.tableProdutosVendidos.codProdutoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcodProdutoNull() {
+                this[this.tableProdutosVendidos.codProdutoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnomeNull() {
+                return this.IsNull(this.tableProdutosVendidos.nomeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnomeNull() {
+                this[this.tableProdutosVendidos.nomeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1987,7 +2019,7 @@ namespace Dados.saceDataSetConsultasTableAdapters {
             this._commandCollection[0].CommandText = @"SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
                          concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano, YEAR(dataSaida) as ano, MONTH(dataSaida) as mes 
 FROM            tb_saida_produto INNER JOIN
-                         tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
+                         tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto RIGHT JOIN
                          tb_saida on tb_saida.codSaida = tb_saida_produto.codSaida
 WHERE        (tb_saida_produto.codProduto = @codProduto) AND  (tb_saida.codTipoSaida in (2, 3))
 group by YEAR(dataSaida), MONTH(dataSaida)
@@ -2005,7 +2037,7 @@ order by YEAR(dataSaida) desc, MONTH(dataSaida) desc";
             this._commandCollection[1].CommandText = @"SELECT         tb_saida_produto.codProduto, tb_produto.nome, sum(tb_saida_produto.quantidade) as quantidadeVendida,  
                          concat(concat(MONTH(dataSaida), '/'), YEAR(dataSaida)) as mesano, YEAR(dataSaida) as ano, MONTH(dataSaida) as mes
 FROM            tb_saida_produto INNER JOIN
-                         tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto INNER JOIN
+                         tb_produto ON tb_saida_produto.codProduto = tb_produto.codProduto RIGHT JOIN
                          tb_saida on tb_saida.codSaida = tb_saida_produto.codSaida
 WHERE        (tb_saida_produto.codProduto = @codProduto) AND  (tb_saida.codTipoSaida in (2, 3))
 group by YEAR(dataSaida), MONTH(dataSaida)

@@ -422,5 +422,67 @@ namespace Negocio
             _pessoa.valorComissao = pessoa.ValorComissao;
             return _pessoa;
         }
+
+        public void SubstituirPessoa(long codPessoaExcluir, long codPessoaManter)
+        {
+            try
+            {
+                var repPessoa = new RepositorioGenerico<PessoaE>();
+                var saceEntities = (SaceEntities)repPessoa.ObterContexto();
+
+                // substitui todas as saídas
+                var querySaidas = from saida in saceEntities.tb_saida
+                                  where (saida.codCliente == codPessoaExcluir ||
+                                        saida.codEmpresaFrete == codPessoaExcluir || saida.codProfissional == codPessoaExcluir)
+                                  select saida;
+                foreach (tb_saida _saida in querySaidas)
+                {
+                    _saida.codCliente = codPessoaManter;
+                    _saida.codEmpresaFrete = codPessoaManter;
+                    _saida.codProfissional = codPessoaManter;
+                }
+                repPessoa.SaveChanges();
+
+                // Substituti todas as entradas
+                var queryEntrada = from entrada in saceEntities.EntradaSet
+                                   where entrada.codEmpresaFrete == codPessoaExcluir || 
+                                        entrada.codFornecedor == codPessoaExcluir
+                                   select entrada;
+                foreach (EntradaE _entrada in queryEntrada)
+                {
+                    _entrada.codEmpresaFrete = codPessoaManter;
+                    _entrada.codFornecedor = codPessoaManter;
+                }
+                repPessoa.SaveChanges();
+
+                // Substituti todas as contas dessa pessoa
+                var queryConta = from conta in saceEntities.ContaSet
+                                   where conta.codPessoa == codPessoaExcluir 
+                                   select conta;
+                foreach (ContaE _conta in queryConta)
+                {
+                    _conta.codPessoa = codPessoaManter;
+                }
+                repPessoa.SaveChanges();
+
+                // Substituti todas as contas dessa pessoa
+                var queryMovimentacaoConta = from movimentacaoConta in saceEntities.MovimentacaoContaSet
+                                 where movimentacaoConta.codResponsavel == codPessoaExcluir
+                                 select movimentacaoConta;
+                foreach (MovimentacaoContaE _movimentacaoConta in queryMovimentacaoConta)
+                {
+                    _movimentacaoConta.codResponsavel = codPessoaManter;
+                }
+                repPessoa.SaveChanges();
+
+                // Exclui Pessoa
+                Remover(codPessoaExcluir);
+
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Pessoa", e.Message, e);
+            }
+        }
     }
 }

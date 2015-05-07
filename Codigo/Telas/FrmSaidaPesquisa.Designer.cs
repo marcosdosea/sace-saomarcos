@@ -33,16 +33,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
-            this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.txtTexto = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbBusca = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.txtTexto = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbBusca = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -95,6 +95,42 @@
             this.tb_saidaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
             // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataSaida
+            // 
+            this.dataSaida.DataPropertyName = "dataSaida";
+            this.dataSaida.HeaderText = "Data";
+            this.dataSaida.Name = "dataSaida";
+            this.dataSaida.ReadOnly = true;
+            // 
+            // nomeCliente
+            // 
+            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeCliente.DataPropertyName = "NomeCliente";
+            this.nomeCliente.HeaderText = "Cliente";
+            this.nomeCliente.Name = "nomeCliente";
+            this.nomeCliente.ReadOnly = true;
+            // 
+            // pedidoGerado
+            // 
+            this.pedidoGerado.DataPropertyName = "CupomFiscal";
+            this.pedidoGerado.HeaderText = "CF";
+            this.pedidoGerado.Name = "pedidoGerado";
+            this.pedidoGerado.ReadOnly = true;
+            // 
+            // totalAVista
+            // 
+            this.totalAVista.DataPropertyName = "totalAVista";
+            this.totalAVista.HeaderText = "Total a Vista";
+            this.totalAVista.Name = "totalAVista";
+            this.totalAVista.ReadOnly = true;
+            // 
             // saidaBindingSource
             // 
             this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
@@ -146,42 +182,6 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Buscar Por:";
             // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataSaida
-            // 
-            this.dataSaida.DataPropertyName = "dataSaida";
-            this.dataSaida.HeaderText = "Data";
-            this.dataSaida.Name = "dataSaida";
-            this.dataSaida.ReadOnly = true;
-            // 
-            // nomeCliente
-            // 
-            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeCliente.DataPropertyName = "NomeCliente";
-            this.nomeCliente.HeaderText = "Cliente";
-            this.nomeCliente.Name = "nomeCliente";
-            this.nomeCliente.ReadOnly = true;
-            // 
-            // pedidoGerado
-            // 
-            this.pedidoGerado.DataPropertyName = "CupomFiscal";
-            this.pedidoGerado.HeaderText = "CF";
-            this.pedidoGerado.Name = "pedidoGerado";
-            this.pedidoGerado.ReadOnly = true;
-            // 
-            // totalAVista
-            // 
-            this.totalAVista.DataPropertyName = "totalAVista";
-            this.totalAVista.HeaderText = "Total a Vista";
-            this.totalAVista.Name = "totalAVista";
-            this.totalAVista.ReadOnly = true;
-            // 
             // FrmSaidaPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,6 +196,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmSaidaPesquisa";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pesquisa Saídas";
             this.Load += new System.EventHandler(this.FrmSaidaPesquisa_Load);

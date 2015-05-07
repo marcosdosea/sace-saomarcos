@@ -189,6 +189,7 @@
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
             this.Name = "FrmPessoaPesquisa";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pesquisa Pessoas";

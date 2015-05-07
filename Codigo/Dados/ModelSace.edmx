@@ -387,6 +387,7 @@
           <Property Name="totalNota" Type="decimal" Scale="2" />
           <Property Name="codSituacaoPagamentos" Type="int" Nullable="false" />
           <Property Name="fretePagoEmitente" Type="bool" Nullable="false" />
+          <Property Name="serie" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tb_entrada_forma_pagamento">
           <Key>
@@ -1962,6 +1963,7 @@
           <NavigationProperty Name="tb_pessoa" Relationship="SaceModel.fk_tb_entrada_codempresafrete" FromRole="EntradaE" ToRole="tb_pessoa" />
           <NavigationProperty Name="tb_pessoa1" Relationship="SaceModel.fk_tb_entrada_codfornecedor" FromRole="EntradaE" ToRole="tb_pessoa" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.fk_tb_saida_tb_entrada1" FromRole="EntradaE" ToRole="tb_saida" />
+          <Property Type="String" Name="serie" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EntradaFormaPagamentoE">
           <Key>
@@ -3210,7 +3212,8 @@
             <ScalarProperty Name="descricaoCST" ColumnName="descricaoCST" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="EntradaSet"><EntityTypeMapping TypeName="SaceModel.EntradaE"><MappingFragment StoreEntitySet="tb_entrada">
-            <ScalarProperty Name="totalProdutosST" ColumnName="totalProdutosST" />
+            <ScalarProperty Name="serie" ColumnName="serie" />
+                <ScalarProperty Name="totalProdutosST" ColumnName="totalProdutosST" />
                 <ScalarProperty Name="codEntrada" ColumnName="codEntrada" />
             <ScalarProperty Name="numeroNotaFiscal" ColumnName="numeroNotaFiscal" />
             <ScalarProperty Name="codEmpresaFrete" ColumnName="codEmpresaFrete" />

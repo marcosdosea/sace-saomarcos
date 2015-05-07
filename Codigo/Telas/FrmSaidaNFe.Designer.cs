@@ -633,7 +633,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 588);
+            this.ClientSize = new System.Drawing.Size(866, 584);
             this.ControlBox = false;
             this.Controls.Add(this.btnComplementar);
             this.Controls.Add(codPessoaLabel);
@@ -688,6 +688,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmSaidaNFe";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gerenciamento de NF-e";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaNF_KeyDown);

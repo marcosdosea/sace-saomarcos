@@ -375,5 +375,12 @@ namespace Telas
             frmProdutoExcluir.Dispose();
         }
 
+        private void exclusãoDePessoasDoSistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmPessoaExcluir frmPessoaExcluir = new FrmPessoaExcluir();
+            frmPessoaExcluir.ShowInTaskbar = false;
+            frmPessoaExcluir.ShowDialog();
+            frmPessoaExcluir.Dispose();
+        }
      }
 }

@@ -345,7 +345,19 @@ namespace Negocio
                         }
                         else if (versaoNF.Equals(VERSAO3))
                         {
-                            //TODO: importar ipi na versão 3
+                            if (produto.imposto.Items[i] is TIpi)
+                            {
+                                TIpi ipi = (TIpi)produto.imposto.Items[i];
+                                if (ipi.Item is TIpiIPITrib)
+                                {
+                                    TIpiIPITrib impostoIPI = (TIpiIPITrib)ipi.Item;
+                                    entradaProduto.Ipi = Convert.ToDecimal(impostoIPI.vIPI, ci) / entradaProduto.ValorTotal * 100;
+                                }
+                                else
+                                {
+                                    entradaProduto.Ipi = 0;
+                                }
+                            }
                         }
                     }
 

@@ -68,6 +68,7 @@
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atualizarCSOSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exclusãoDeProdutoDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosParaRevendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,7 @@
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.exclusãoDeProdutoDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -372,7 +373,8 @@
             this.backupToolStripMenuItem,
             this.restaurarBackupToolStripMenuItem,
             this.atualizarCSOSNToolStripMenuItem,
-            this.exclusãoDeProdutoDoSistemaToolStripMenuItem});
+            this.exclusãoDeProdutoDoSistemaToolStripMenuItem,
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem});
             this.utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
             this.utilitáriosToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.utilitáriosToolStripMenuItem.Text = "&Utilitários";
@@ -396,6 +398,13 @@
             this.atualizarCSOSNToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
             this.atualizarCSOSNToolStripMenuItem.Text = "Atualizar Códigos de Barras \\ Imprimir Etiquetas";
             this.atualizarCSOSNToolStripMenuItem.Click += new System.EventHandler(this.atualizarCSOSNToolStripMenuItem_Click);
+            // 
+            // exclusãoDeProdutoDoSistemaToolStripMenuItem
+            // 
+            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Name = "exclusãoDeProdutoDoSistemaToolStripMenuItem";
+            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Text = "Exclusão de Produto do Sistema";
+            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDeProdutoDoSistemaToolStripMenuItem_Click);
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -570,12 +579,12 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // exclusãoDeProdutoDoSistemaToolStripMenuItem
+            // exclusãoDePessoasDoSistemaToolStripMenuItem
             // 
-            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Name = "exclusãoDeProdutoDoSistemaToolStripMenuItem";
-            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
-            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Text = "Exclusão de Produto do Sistema";
-            this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDeProdutoDoSistemaToolStripMenuItem_Click);
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Name = "exclusãoDePessoasDoSistemaToolStripMenuItem";
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Text = "Exclusão de Pessoas do Sistema";
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDePessoasDoSistemaToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -673,6 +682,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem estatísticaPorGrupoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exclusãoDeProdutoDoSistemaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exclusãoDePessoasDoSistemaToolStripMenuItem;
 
     }
 }

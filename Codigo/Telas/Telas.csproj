@@ -99,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmPessoaExcluir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPessoaExcluir.Designer.cs">
+      <DependentUpon>FrmPessoaExcluir.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmGrupoEstatistica.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -417,6 +423,9 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmPessoaExcluir.resx">
+      <DependentUpon>FrmPessoaExcluir.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmGrupoEstatistica.resx">
       <DependentUpon>FrmGrupoEstatistica.cs</DependentUpon>
       <SubType>Designer</SubType>

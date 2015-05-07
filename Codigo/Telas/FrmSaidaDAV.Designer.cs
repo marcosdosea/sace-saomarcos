@@ -82,7 +82,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 106);
+            this.ClientSize = new System.Drawing.Size(293, 102);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnReduzido);
@@ -93,6 +93,7 @@
             this.MaximizeBox = false;
             this.Name = "FrmSaidaDAV";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Confirma Emissão do DAV";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaDAV_KeyDown);
