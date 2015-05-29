@@ -138,7 +138,10 @@ namespace Telas
                 }
                 else
                 {
-                    entradaProduto.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
+                    if (cstProduto.EhTributacaoSimples)
+                        entradaProduto.IcmsSubstituto = 0;
+                    else
+                        entradaProduto.IcmsSubstituto = Math.Round(entrada.TotalSubstituicao / entrada.TotalProdutosST * 100, 2);
                 }
                 Produto produtoCalculo = new Produto()
                 {

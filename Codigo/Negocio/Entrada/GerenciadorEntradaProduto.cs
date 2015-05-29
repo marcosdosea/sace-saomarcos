@@ -58,9 +58,16 @@ namespace Negocio
             {
                 throw new NegocioException("O campo % CRED ICMS não pode ser menor ou igual a zero quando o produto possui tributação normal.");
             }
-            else if ((ehTributacaoIntegral==false) && (entradaProduto.IcmsSubstituto <= 0) && (!entradaProduto.CodCST.Substring(1).Equals(Cst.ST_SUBSTITUICAO_ICMS_COBRADO)))
+            else if ((ehTributacaoIntegral==false) && (entradaProduto.IcmsSubstituto <= 0) && 
+                (!entradaProduto.CodCST.Substring(1).Equals(Cst.ST_SUBSTITUICAO_ICMS_COBRADO)) && !cstEntrada.EhTributacaoSimples)
             {
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
+            }
+
+
+            if (entradaProduto.CodCST.Length > 3)
+            {
+                entradaProduto.CodCST = entradaProduto.CodCST.Substring(1);
             }
 
             try
@@ -78,6 +85,7 @@ namespace Negocio
 
                     Atribuir(entradaProduto, produto);
                     produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
+                    produto.ExibeNaListagem = true;
                     
                     // Atualiza os dados do produto se não foi na entrada padrão
                     if (entradaProduto.CodEntrada != Global.ENTRADA_PADRAO) 

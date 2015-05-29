@@ -69,6 +69,7 @@
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atualizarCSOSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosParaRevendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +89,6 @@
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.exclusãoDePessoasDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -406,6 +406,13 @@
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Text = "Exclusão de Produto do Sistema";
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDeProdutoDoSistemaToolStripMenuItem_Click);
             // 
+            // exclusãoDePessoasDoSistemaToolStripMenuItem
+            // 
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Name = "exclusãoDePessoasDoSistemaToolStripMenuItem";
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Text = "Exclusão de Pessoas do Sistema";
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDePessoasDoSistemaToolStripMenuItem_Click);
+            // 
             // relatóriosToolStripMenuItem
             // 
             this.relatóriosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -471,7 +478,7 @@
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSair.Image = global::Telas.Properties.Resources._118;
-            this.btnSair.Location = new System.Drawing.Point(624, 27);
+            this.btnSair.Location = new System.Drawing.Point(624, 26);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(105, 78);
             this.btnSair.TabIndex = 12;
@@ -484,7 +491,7 @@
             // 
             this.btnEntradas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntradas.Image = global::Telas.Properties.Resources._66;
-            this.btnEntradas.Location = new System.Drawing.Point(312, 27);
+            this.btnEntradas.Location = new System.Drawing.Point(312, 26);
             this.btnEntradas.Name = "btnEntradas";
             this.btnEntradas.Size = new System.Drawing.Size(105, 78);
             this.btnEntradas.TabIndex = 8;
@@ -497,7 +504,7 @@
             // 
             this.btnContas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnContas.Image = global::Telas.Properties.Resources._86;
-            this.btnContas.Location = new System.Drawing.Point(416, 27);
+            this.btnContas.Location = new System.Drawing.Point(416, 26);
             this.btnContas.Name = "btnContas";
             this.btnContas.Size = new System.Drawing.Size(105, 78);
             this.btnContas.TabIndex = 9;
@@ -510,7 +517,7 @@
             // 
             this.btnCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCliente.Image = global::Telas.Properties.Resources._54;
-            this.btnCliente.Location = new System.Drawing.Point(208, 27);
+            this.btnCliente.Location = new System.Drawing.Point(208, 26);
             this.btnCliente.Name = "btnCliente";
             this.btnCliente.Size = new System.Drawing.Size(105, 78);
             this.btnCliente.TabIndex = 6;
@@ -523,7 +530,7 @@
             // 
             this.btnProdutos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProdutos.Image = global::Telas.Properties.Resources._68;
-            this.btnProdutos.Location = new System.Drawing.Point(104, 27);
+            this.btnProdutos.Location = new System.Drawing.Point(104, 26);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(105, 78);
             this.btnProdutos.TabIndex = 4;
@@ -536,7 +543,7 @@
             // 
             this.btnVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVenda.Image = global::Telas.Properties.Resources._761;
-            this.btnVenda.Location = new System.Drawing.Point(0, 27);
+            this.btnVenda.Location = new System.Drawing.Point(0, 26);
             this.btnVenda.Name = "btnVenda";
             this.btnVenda.Size = new System.Drawing.Size(105, 78);
             this.btnVenda.TabIndex = 3;
@@ -549,7 +556,7 @@
             // 
             this.btnReceber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReceber.Image = global::Telas.Properties.Resources.carteira2;
-            this.btnReceber.Location = new System.Drawing.Point(520, 27);
+            this.btnReceber.Location = new System.Drawing.Point(520, 26);
             this.btnReceber.Name = "btnReceber";
             this.btnReceber.Size = new System.Drawing.Size(105, 78);
             this.btnReceber.TabIndex = 10;
@@ -579,13 +586,6 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // exclusãoDePessoasDoSistemaToolStripMenuItem
-            // 
-            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Name = "exclusãoDePessoasDoSistemaToolStripMenuItem";
-            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
-            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Text = "Exclusão de Pessoas do Sistema";
-            this.exclusãoDePessoasDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDePessoasDoSistemaToolStripMenuItem_Click);
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -602,7 +602,6 @@
             this.Controls.Add(this.btnVenda);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";

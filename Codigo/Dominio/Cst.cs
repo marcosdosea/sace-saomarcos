@@ -44,6 +44,21 @@ namespace Dominio
             return this.CodCST.GetHashCode();
         }
 
+        public bool EhTributacaoSimples
+        {
+            get
+            {
+                if ((CodCST != null) && (CodCST.Trim().Length == 3))
+                {
+                    return (CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
+                        CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO) ||
+                        CodCST.Equals(ST_SIMPLES_NAO_TRIBUTADA));
+                }
+                return false;
+            }
+        }
+        
+        
         public bool EhTributacaoIntegral
         {
             get
