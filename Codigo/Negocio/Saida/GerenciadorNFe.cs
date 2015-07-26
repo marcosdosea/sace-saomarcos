@@ -747,14 +747,13 @@ namespace Negocio
                     dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
                 dest.Item = destinatario.CpfCnpj;
                 dest.ItemElementName = ItemChoiceType3.CPF;
-                if ((destinatario.CpfCnpj.Length > 11) && !destinatario.Ie.StartsWith("I") && 
-                    !String.IsNullOrWhiteSpace(destinatario.Ie) )
+                if ((destinatario.CpfCnpj.Length > 11) && !String.IsNullOrWhiteSpace(destinatario.Ie) && !destinatario.Ie.StartsWith("I") )
                 {
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
                     dest.IE = destinatario.Ie;
                     dest.indIEDest = TNFeInfNFeDestIndIEDest.Item1; // 1-Contribuinte ICMS
                 }
-                else if (destinatario.CpfCnpj.Length > 11)
+                else if (destinatario.CpfCnpj.Length > 11 && (String.IsNullOrWhiteSpace(destinatario.Ie) || destinatario.Ie.StartsWith("I")))
                 {
                     dest.ItemElementName = ItemChoiceType3.CNPJ;
                     //dest.IE = "ISENTO";

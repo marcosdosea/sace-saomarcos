@@ -287,6 +287,11 @@ namespace Telas
                 {
                     tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Green;
                 }
+                else if (codSituacaoProduto == SituacaoProduto.NAO_COMPRAR)
+                {
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Black;
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.White;
+                }
                 else
                 {
                     tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.White;

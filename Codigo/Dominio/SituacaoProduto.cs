@@ -11,6 +11,7 @@ namespace Dominio
         public const int COMPRA_NECESSARIA = 2;
         public const int COMPRA_URGENTE = 3;
         public const int COMPRADO = 4;
+        public const int NAO_COMPRAR = 5;
 
         private sbyte codSituacaoProduto;
 

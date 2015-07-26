@@ -450,16 +450,6 @@ namespace Telas
         private void produtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             produtoBindingSource.ResumeBinding();
-            //Produto produto = (Produto)produtoBindingSource.Current;
-            //if (grupoBindingSource.Current != null)
-            //{
-                //produto.CodGrupo = ((Grupo)grupoBindingSource.Current).CodGrupo;
-                //produto.CodFabricante = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
-                //produto.NomeFabricante = ((Pessoa)pessoaBindingSource.Current).NomeFantasia;
-                //produto.CodSituacaoProduto = ((SituacaoProduto)situacaoprodutoBindingSource.Current).CodSituacaoProduto;
-                //produto.CodCST = ((Cst)cstBindingSource.Current).CodCST;
-                //produto.CodSubgrupo = ((Subgrupo)subgrupoBindingSource.Current).CodSubgrupo;
-            //}
         }
 
         private void btnEstatistica_Click(object sender, EventArgs e)

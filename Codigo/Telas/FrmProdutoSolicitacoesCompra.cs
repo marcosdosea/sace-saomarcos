@@ -181,7 +181,7 @@ namespace Telas
                 listaSituacoesProdutoChecked.Add(SituacaoProduto.COMPRA_NECESSARIA);
             if (checkBoxCompraUrgente.Checked)
                 listaSituacoesProdutoChecked.Add(SituacaoProduto.COMPRA_URGENTE);
-
+            listaSituacoesProdutoChecked.Add(SituacaoProduto.NAO_COMPRAR); 
             long codFornecedor = 1;
             if (comboBoxFornecedor.SelectedValue != null)
                 codFornecedor = (long) comboBoxFornecedor.SelectedValue;
@@ -210,6 +210,11 @@ namespace Telas
                 else if (codSituacaoProduto == SituacaoProduto.COMPRADO)
                 {
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Green;
+                }
+                else if (codSituacaoProduto == SituacaoProduto.NAO_COMPRAR)
+                {
+                    solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Black;
+                    solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.White;
                 }
                 else
                 {
