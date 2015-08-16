@@ -888,33 +888,44 @@ namespace Negocio
                     totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
 
                     // distribui desconto entre todos os produtos da nota
+                    saidaProdutos = saidaProdutos.OrderBy(sp => sp.Subtotal).ToList();
+                    decimal totalDescontoDistribuido = 0;
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
-                        saidaProduto.ValorDesconto = Math.Round(saidaProduto.Subtotal * fatorDesconto, 2);
+                        if (saidaProduto.Quantidade > 0)
+                        {
+                            decimal valorDescontoProduto = Math.Round(saidaProduto.Subtotal * fatorDesconto, 2);
+
+                            if ((valorDescontoProduto + totalDescontoDistribuido) <= valorTotalDesconto)
+                            {
+                                saidaProduto.ValorDesconto = valorDescontoProduto;
+                            }
+                            else
+                            {
+                                saidaProduto.ValorDesconto = valorTotalDesconto - totalDescontoDistribuido;
+                            }
+                        }
+                        else
+                        {
+                            saidaProduto.ValorDesconto = 0;
+                        }
+                        totalDescontoDistribuido += saidaProduto.ValorDesconto;
                     }
-                    decimal valorTotalDescontoCalculado = saidaProdutos.Sum(sp => sp.ValorDesconto);
-                    decimal diferenca = valorTotalDescontoCalculado - valorTotalDesconto;
-                    if (diferenca != 0) {
+
+                    if (totalDescontoDistribuido < valorTotalDesconto)
+                    {
+                        decimal descontoRestante = valorTotalDesconto - totalDescontoDistribuido;
                         foreach (SaidaProduto saidaProduto in saidaProdutos)
                         {
-                            if (diferenca > 0)
+                            if ((saidaProduto.SubtotalAVista - saidaProduto.ValorDesconto - descontoRestante) > 0 )
                             {
-                                saidaProduto.ValorDesconto -= new decimal(0.01);
-                                diferenca -= new decimal(0.01);
-                            }
-                            else if (diferenca < 0 )
-                            {
-                                saidaProduto.ValorDesconto += new decimal(0.01);
-                                diferenca += new decimal(0.01);
-                            } 
-                            else 
-                            {
+                                saidaProduto.ValorDesconto += descontoRestante;
                                 break;
                             }
                         }
+                    
                     }
-
-
+                    
                     // produtos da nota
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
@@ -958,7 +969,6 @@ namespace Negocio
                             if (saidaProduto.ValorDesconto > 0)
                             {
                                 prod.vDesc = formataValorNFe(saidaProduto.ValorDesconto);
-                                valorTotalDescontoCalculado += Convert.ToDecimal(prod.vDesc);
                             }
                             
 

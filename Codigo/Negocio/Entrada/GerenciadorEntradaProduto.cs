@@ -65,10 +65,10 @@ namespace Negocio
             }
 
 
-            if (entradaProduto.CodCST.Length > 3)
-            {
-                entradaProduto.CodCST = entradaProduto.CodCST.Substring(1);
-            }
+            //if (entradaProduto.CodCST.Length > 3)
+            //{
+            //    entradaProduto.CodCST = entradaProduto.CodCST.Substring(1);
+            //}
 
             try
             {
