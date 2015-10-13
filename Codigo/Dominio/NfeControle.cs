@@ -37,6 +37,8 @@ namespace Dominio
         public long CodSaida { get; set; }
         public string Chave { get; set; }
         public string SituacaoNfe { get; set; }
+        public int NumeroSequenciaNfe { get; set; }
+        public int CodLoja { get; set; }
 
         public string DescricaoSituacaoNfe
         {

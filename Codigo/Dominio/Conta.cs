@@ -9,6 +9,12 @@ namespace Dominio
     {
         public const Char CONTA_PAGAR = 'P';
         public const Char CONTA_RECEBER = 'R';
+
+        public const string FORMATO_CONTA_FICHA = "FICHA";
+        public const string FORMATO_CONTA_BOLETO = "BOLETO";
+        public const string FORMATO_CONTA_CARTAO = "CARTAO";
+        public const string FORMATO_CONTA_CHEQUE = "CHEQUE";
+
         
         public long CodConta { get; set; }
         public long CodEntrada { get; set; }
@@ -30,6 +36,10 @@ namespace Dominio
       
         public long? CodPagamento { get; set; }
         public decimal Desconto { get; set; }
+
+        public string FormatoConta { get; set; }
+        public string NumeroDocumento { get; set; }
+
 
         // override object.Equals
         public override bool Equals(object obj)

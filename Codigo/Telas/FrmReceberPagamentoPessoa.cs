@@ -102,7 +102,7 @@ namespace Telas
                 {
                     listaContas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[0].Value.ToString())); //codConta 
                     long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //codSaida
-                    decimal valorAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[7].Value.ToString()); //totalAVista
+                    decimal valorAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //totalAVista
                     if (!saidaTotalAVista.ContainsKey(codSaidaTemp))
                     {
                         saidaTotalAVista.Add(codSaidaTemp, valorAVistaTemp);
@@ -143,7 +143,7 @@ namespace Telas
                     {
                         for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
                         {
-                            decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
+                            decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[8].Value;
                             long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
                             Conta conta = GerenciadorConta.GetInstance(null).Obter(codConta).ElementAt(0);
                             if (conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA))
@@ -218,7 +218,7 @@ namespace Telas
                         GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, listaSaidaPagamento);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            GerenciadorConta.GetInstance(null).SubstituirContas(listaContas, valorPagamento, cartaoCredito, parcelas);
+                            GerenciadorConta.GetInstance(null).QuitarContasCartaoCredito(listaContas, valorPagamento, cartaoCredito, parcelas);
                         }
                     }
                     codClienteComboBox_Leave(sender, e);
@@ -249,7 +249,7 @@ namespace Telas
         private void btnCFNfe_Click(object sender, EventArgs e)
         {
             SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-            string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[3].Value.ToString().Trim();
+            string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[4].Value.ToString().Trim();
 
             if (!pedidoGerado.Trim().Equals(""))
             {
@@ -267,7 +267,7 @@ namespace Telas
                 for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
                 {
                     long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //pre-venda
-                    decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[7].Value.ToString()); //total a vista
+                    decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //total a vista
                     saidaTotalAVista.Add(codSaidaTemp, totalAVistaTemp);
                 }
 
@@ -404,9 +404,9 @@ namespace Telas
             if (contasPessoaDataGridView.RowCount > 0)
             {
                 //Obter maior e menor data de vencimento para preencher corrretamente
-                dataInicioDateTimePicker.Text = contasPessoaDataGridView.Rows[0].Cells[2].Value.ToString();
+                dataInicioDateTimePicker.Text = contasPessoaDataGridView.Rows[0].Cells[3].Value.ToString();
                 int ultimaLinha = contasPessoaDataGridView.RowCount - 1;
-                dataFinalDateTimePicker.Text = contasPessoaDataGridView.Rows[ultimaLinha].Cells[2].Value.ToString();
+                dataFinalDateTimePicker.Text = contasPessoaDataGridView.Rows[ultimaLinha].Cells[3].Value.ToString();
 
                 // Guarda os dados das variáveis para verificar se há necessidade de uma nova consulta
                 dataInicio = Convert.ToDateTime(dataInicioDateTimePicker.Text);
@@ -489,12 +489,12 @@ namespace Telas
                 alterouDesconto = true;
                 for (int i = 0; i < contasPessoaDataGridView.SelectedRows.Count; i++)
                 {
-                    decimal valorConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[5].Value;
+                    decimal valorConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[7].Value;
                     // valor do desconto
-                    contasPessoaDataGridView.SelectedRows[i].Cells[6].Value = (valorConta * (descontoAtual / 100)).ToString("N2");
-                    decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[6].Value;
+                    contasPessoaDataGridView.SelectedRows[8].Cells[6].Value = (valorConta * (descontoAtual / 100)).ToString("N2");
+                    decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[8].Value;
                     // valor da conta a vista
-                    contasPessoaDataGridView.SelectedRows[i].Cells[7].Value = (valorConta - valorDescontoConta).ToString("N2");
+                    contasPessoaDataGridView.SelectedRows[i].Cells[9].Value = (valorConta - valorDescontoConta).ToString("N2");
                 }
                 CalcularTotalContasSelecionadas();
             }
@@ -519,8 +519,8 @@ namespace Telas
             decimal totalPagamentos = 0;
             for (int i = 0; i < contasPessoaDataGridView.SelectedRows.Count; i++)
             {
-                totalContas += Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[5].Value.ToString()); //total
-                totalDesconto += Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[6].Value.ToString()); //totalPagar
+                totalContas += Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[7].Value.ToString()); //total
+                totalDesconto += Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[8].Value.ToString()); //totalPagar
             }
 
             foreach (MovimentacaoConta movimentacaoConta in movimentacaoContaBindingSource)
@@ -554,8 +554,8 @@ namespace Telas
         {
             for (int i = 0; i < contasPessoaDataGridView.RowCount; i++)
             {
-                DateTime dataConta = Convert.ToDateTime(contasPessoaDataGridView.Rows[i].Cells[2].Value);
-                string situacaoConta = contasPessoaDataGridView.Rows[i].Cells[4].Value.ToString();
+                DateTime dataConta = Convert.ToDateTime(contasPessoaDataGridView.Rows[i].Cells[3].Value);
+                string situacaoConta = contasPessoaDataGridView.Rows[i].Cells[6].Value.ToString();
                 if ((dataConta < DateTime.Now) && (situacaoConta.Trim().Equals("ABERTA")))
                 {
                     contasPessoaDataGridView.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
@@ -568,8 +568,8 @@ namespace Telas
 
             for (int i = 0; i < contasPessoaDataGridView.SelectedRows.Count; i++)
             {
-                DateTime dataConta = Convert.ToDateTime(contasPessoaDataGridView.SelectedRows[i].Cells[2].Value);
-                string situacaoConta = contasPessoaDataGridView.SelectedRows[i].Cells[4].Value.ToString();
+                DateTime dataConta = Convert.ToDateTime(contasPessoaDataGridView.SelectedRows[i].Cells[3].Value);
+                string situacaoConta = contasPessoaDataGridView.SelectedRows[i].Cells[6].Value.ToString();
                 if ((dataConta < DateTime.Now) && (situacaoConta.Trim().Equals("ABERTA")))
                 {
                     contasPessoaDataGridView.SelectedRows[i].DefaultCellStyle.SelectionForeColor = Color.Red;

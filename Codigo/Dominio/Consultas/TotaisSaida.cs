@@ -14,7 +14,7 @@ namespace Dominio.Consultas
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class TotaisSaida
+    public class TotalPagamentoSaida
     {
         public int CodFormaPagamentos {get; set;}
         public string DescricaoFormaPagamentos { get; set; }

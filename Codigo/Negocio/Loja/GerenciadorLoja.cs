@@ -29,9 +29,9 @@ namespace Negocio
         {
             try
             {
-                var repLoja = new RepositorioGenerico<LojaE>();
+                var repLoja = new RepositorioGenerico<tb_loja>();
 
-                LojaE _lojaE = new LojaE();
+                tb_loja _lojaE = new tb_loja();
                 Atribuir(loja, _lojaE);
                 repLoja.Inserir(_lojaE);
                 repLoja.SaveChanges();
@@ -52,10 +52,31 @@ namespace Negocio
         {
             try
             {
-                var repLoja = new RepositorioGenerico<LojaE>();
+                var repLoja = new RepositorioGenerico<tb_loja>();
 
-                LojaE _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
+                tb_loja _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
                 Atribuir(loja, _lojaE);
+
+                repLoja.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Loja", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza apemas o número da nfe
+        /// </summary>
+        /// <param name="loja"></param>
+        internal void AtualizarNumeroNfe(Loja loja)
+        {
+            try
+            {
+                var repLoja = new RepositorioGenerico<tb_loja>();
+
+                tb_loja _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
+                _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNfeAtual;
 
                 repLoja.SaveChanges();
             }
@@ -76,7 +97,7 @@ namespace Negocio
                 
             try
             {
-                var repLoja = new RepositorioGenerico<LojaE>();
+                var repLoja = new RepositorioGenerico<tb_loja>();
 
                 repLoja.Remover(loja => loja.codLoja == codloja);
                 repLoja.SaveChanges();
@@ -93,16 +114,15 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Loja> GetQuery()
         {
-            var repLoja = new RepositorioGenerico<LojaE>();
+            var repLoja = new RepositorioGenerico<tb_loja>();
 
             var saceEntities = (SaceEntities) repLoja.ObterContexto();
-            var query = from loja in saceEntities.LojaSet
+            var query = from loja in saceEntities.tb_loja
                         select new Loja
                         {
                             CodLoja = loja.codLoja,
                             CodPessoa = loja.codPessoa,
                             Nome = loja.nome,
-                            EnderecoServidorNfe = loja.enderecoServidorNfe,
                             NomeServidorNfe = loja.nomeServidorNfe,
                             PastaNfeAutorizados = loja.pastaNfeAutorizados,
                             PastaNfeEnviado = loja.pastaNfeEnviado,
@@ -114,7 +134,8 @@ namespace Negocio
                             CodMunicipioIBGE = loja.tb_pessoa.codMunicipiosIBGE,
                             Estado = loja.tb_pessoa.uf,
                             Ie = loja.tb_pessoa.ie,
-                            NomePessoa = loja.tb_pessoa.nome
+                            NomePessoa = loja.tb_pessoa.nome,
+                            NumeroSequenciaNfeAtual = (int) loja.numeroSequenciaNfeAtual,
                         };
             return query;
         }
@@ -173,11 +194,10 @@ namespace Negocio
             return lojas;
         }
 
-        private static void Atribuir(Loja loja, LojaE _lojaE)
+        private static void Atribuir(Loja loja, tb_loja _lojaE)
         {
             _lojaE.codPessoa = loja.CodPessoa;
             _lojaE.nome = loja.Nome;
-            _lojaE.enderecoServidorNfe = loja.EnderecoServidorNfe;
             _lojaE.nomeServidorNfe = loja.NomeServidorNfe;
             _lojaE.pastaNfeAutorizados = loja.PastaNfeAutorizados;
             _lojaE.pastaNfeEnviado = loja.PastaNfeEnviado;
@@ -185,7 +205,7 @@ namespace Negocio
             _lojaE.pastaNfeErro = loja.PastaNfeErro;
             _lojaE.pastaNfeEspelho = loja.PastaNfeEspelho;
             _lojaE.pastaNfeRetorno = loja.PastaNfeRetorno;
-
+            _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNfeAtual;
         }
     }
 }

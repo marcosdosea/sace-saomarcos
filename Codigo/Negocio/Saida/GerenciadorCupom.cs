@@ -125,6 +125,28 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obtém lista de cupons emitidos
+        /// </summary>
+        /// <returns></returns>
+        public List<CupomFiscal> ObterTodos()
+        {
+            var repCupom = new RepositorioGenerico<tb_saida>();
+            var saceEntities = (SaceEntities)repCupom.ObterContexto();
+            var query = from saida in saceEntities.tb_saida
+                        where !saida.pedidoGerado.Trim().Equals("")
+                        orderby saida.pedidoGerado
+                        select new CupomFiscal
+                        {
+                            CodCliente = saida.codCliente,
+                            CodSaida = saida.codSaida,
+                            NumeroCupomFiscal = saida.pedidoGerado,
+                            DataEmissaoCupomFiscal = (DateTime) saida.dataEmissaoDocFiscal,
+                            NomeCliente = saida.tb_pessoa.nome
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
         /// Gera o cupom fiscal a partir das saídas e valores a vista de cada saía
         /// </summary>
         /// <param name="saidaValorComDesconto"> Contém a saída e o valor com desconto de cada saída</param>
@@ -394,7 +416,7 @@ namespace Negocio
                             }
                             GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             // Se houver algum impossibilidade de trasnformar o pedido em pré-venda
                             // não tem problema. Pode acontecer quando cliente quita a conta gerada

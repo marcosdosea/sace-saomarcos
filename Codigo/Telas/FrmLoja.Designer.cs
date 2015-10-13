@@ -36,6 +36,14 @@
             System.Windows.Forms.Label ieLabel;
             System.Windows.Forms.Label cidadeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
+            System.Windows.Forms.Label nomeServidorNfeLabel;
+            System.Windows.Forms.Label pastaNfeAutorizadosLabel;
+            System.Windows.Forms.Label pastaNfeEnviadoLabel;
+            System.Windows.Forms.Label pastaNfeEnvioLabel;
+            System.Windows.Forms.Label pastaNfeErroLabel;
+            System.Windows.Forms.Label pastaNfeEspelhoLabel;
+            System.Windows.Forms.Label pastaNfeRetornoLabel;
+            System.Windows.Forms.Label numeroSequenciaNfeAtualLabel;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -62,12 +70,28 @@
             this.cpf_CnpjTextBox = new System.Windows.Forms.TextBox();
             this.ieTextBox = new System.Windows.Forms.TextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
+            this.nomeServidorNfeTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeAutorizadosTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeEnviadoTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeEnvioTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeErroTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeEspelhoTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeRetornoTextBox = new System.Windows.Forms.TextBox();
+            this.numeroSequenciaNfeAtualTextBox = new System.Windows.Forms.TextBox();
             codLojaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             codPessoaLabel = new System.Windows.Forms.Label();
             cpf_CnpjLabel = new System.Windows.Forms.Label();
             ieLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
+            nomeServidorNfeLabel = new System.Windows.Forms.Label();
+            pastaNfeAutorizadosLabel = new System.Windows.Forms.Label();
+            pastaNfeEnviadoLabel = new System.Windows.Forms.Label();
+            pastaNfeEnvioLabel = new System.Windows.Forms.Label();
+            pastaNfeErroLabel = new System.Windows.Forms.Label();
+            pastaNfeEspelhoLabel = new System.Windows.Forms.Label();
+            pastaNfeRetornoLabel = new System.Windows.Forms.Label();
+            numeroSequenciaNfeAtualLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingNavigator)).BeginInit();
@@ -151,7 +175,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(302, 219);
+            this.btnSalvar.Location = new System.Drawing.Point(309, 390);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -161,7 +185,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(2, 219);
+            this.btnBuscar.Location = new System.Drawing.Point(9, 390);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -172,7 +196,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(383, 219);
+            this.btnCancelar.Location = new System.Drawing.Point(390, 390);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -182,7 +206,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(77, 219);
+            this.btnNovo.Location = new System.Drawing.Point(84, 390);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -192,7 +216,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(227, 219);
+            this.btnExcluir.Location = new System.Drawing.Point(234, 390);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -202,7 +226,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(152, 219);
+            this.btnEditar.Location = new System.Drawing.Point(159, 390);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -381,12 +405,166 @@
             this.cidadeTextBox.TabIndex = 29;
             this.cidadeTextBox.TabStop = false;
             // 
+            // nomeServidorNfeLabel
+            // 
+            nomeServidorNfeLabel.AutoSize = true;
+            nomeServidorNfeLabel.Location = new System.Drawing.Point(6, 219);
+            nomeServidorNfeLabel.Name = "nomeServidorNfeLabel";
+            nomeServidorNfeLabel.Size = new System.Drawing.Size(100, 13);
+            nomeServidorNfeLabel.TabIndex = 29;
+            nomeServidorNfeLabel.Text = "Nome Servidor Nfe:";
+            // 
+            // nomeServidorNfeTextBox
+            // 
+            this.nomeServidorNfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "NomeServidorNfe", true));
+            this.nomeServidorNfeTextBox.Location = new System.Drawing.Point(9, 235);
+            this.nomeServidorNfeTextBox.Name = "nomeServidorNfeTextBox";
+            this.nomeServidorNfeTextBox.Size = new System.Drawing.Size(261, 20);
+            this.nomeServidorNfeTextBox.TabIndex = 30;
+            // 
+            // pastaNfeAutorizadosLabel
+            // 
+            pastaNfeAutorizadosLabel.AutoSize = true;
+            pastaNfeAutorizadosLabel.Location = new System.Drawing.Point(4, 261);
+            pastaNfeAutorizadosLabel.Name = "pastaNfeAutorizadosLabel";
+            pastaNfeAutorizadosLabel.Size = new System.Drawing.Size(115, 13);
+            pastaNfeAutorizadosLabel.TabIndex = 30;
+            pastaNfeAutorizadosLabel.Text = "Pasta Nfe Autorizados:";
+            // 
+            // pastaNfeAutorizadosTextBox
+            // 
+            this.pastaNfeAutorizadosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeAutorizados", true));
+            this.pastaNfeAutorizadosTextBox.Location = new System.Drawing.Point(9, 280);
+            this.pastaNfeAutorizadosTextBox.Name = "pastaNfeAutorizadosTextBox";
+            this.pastaNfeAutorizadosTextBox.Size = new System.Drawing.Size(261, 20);
+            this.pastaNfeAutorizadosTextBox.TabIndex = 31;
+            // 
+            // pastaNfeEnviadoLabel
+            // 
+            pastaNfeEnviadoLabel.AutoSize = true;
+            pastaNfeEnviadoLabel.Location = new System.Drawing.Point(279, 264);
+            pastaNfeEnviadoLabel.Name = "pastaNfeEnviadoLabel";
+            pastaNfeEnviadoLabel.Size = new System.Drawing.Size(99, 13);
+            pastaNfeEnviadoLabel.TabIndex = 31;
+            pastaNfeEnviadoLabel.Text = "Pasta Nfe Enviado:";
+            // 
+            // pastaNfeEnviadoTextBox
+            // 
+            this.pastaNfeEnviadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeEnviado", true));
+            this.pastaNfeEnviadoTextBox.Location = new System.Drawing.Point(282, 280);
+            this.pastaNfeEnviadoTextBox.Name = "pastaNfeEnviadoTextBox";
+            this.pastaNfeEnviadoTextBox.Size = new System.Drawing.Size(183, 20);
+            this.pastaNfeEnviadoTextBox.TabIndex = 32;
+            // 
+            // pastaNfeEnvioLabel
+            // 
+            pastaNfeEnvioLabel.AutoSize = true;
+            pastaNfeEnvioLabel.Location = new System.Drawing.Point(4, 307);
+            pastaNfeEnvioLabel.Name = "pastaNfeEnvioLabel";
+            pastaNfeEnvioLabel.Size = new System.Drawing.Size(87, 13);
+            pastaNfeEnvioLabel.TabIndex = 32;
+            pastaNfeEnvioLabel.Text = "Pasta Nfe Envio:";
+            // 
+            // pastaNfeEnvioTextBox
+            // 
+            this.pastaNfeEnvioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeEnvio", true));
+            this.pastaNfeEnvioTextBox.Location = new System.Drawing.Point(9, 323);
+            this.pastaNfeEnvioTextBox.Name = "pastaNfeEnvioTextBox";
+            this.pastaNfeEnvioTextBox.Size = new System.Drawing.Size(261, 20);
+            this.pastaNfeEnvioTextBox.TabIndex = 33;
+            // 
+            // pastaNfeErroLabel
+            // 
+            pastaNfeErroLabel.AutoSize = true;
+            pastaNfeErroLabel.Location = new System.Drawing.Point(279, 303);
+            pastaNfeErroLabel.Name = "pastaNfeErroLabel";
+            pastaNfeErroLabel.Size = new System.Drawing.Size(79, 13);
+            pastaNfeErroLabel.TabIndex = 33;
+            pastaNfeErroLabel.Text = "Pasta Nfe Erro:";
+            // 
+            // pastaNfeErroTextBox
+            // 
+            this.pastaNfeErroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeErro", true));
+            this.pastaNfeErroTextBox.Location = new System.Drawing.Point(282, 323);
+            this.pastaNfeErroTextBox.Name = "pastaNfeErroTextBox";
+            this.pastaNfeErroTextBox.Size = new System.Drawing.Size(183, 20);
+            this.pastaNfeErroTextBox.TabIndex = 34;
+            // 
+            // pastaNfeEspelhoLabel
+            // 
+            pastaNfeEspelhoLabel.AutoSize = true;
+            pastaNfeEspelhoLabel.Location = new System.Drawing.Point(279, 348);
+            pastaNfeEspelhoLabel.Name = "pastaNfeEspelhoLabel";
+            pastaNfeEspelhoLabel.Size = new System.Drawing.Size(98, 13);
+            pastaNfeEspelhoLabel.TabIndex = 34;
+            pastaNfeEspelhoLabel.Text = "Pasta Nfe Espelho:";
+            // 
+            // pastaNfeEspelhoTextBox
+            // 
+            this.pastaNfeEspelhoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeEspelho", true));
+            this.pastaNfeEspelhoTextBox.Location = new System.Drawing.Point(9, 364);
+            this.pastaNfeEspelhoTextBox.Name = "pastaNfeEspelhoTextBox";
+            this.pastaNfeEspelhoTextBox.Size = new System.Drawing.Size(261, 20);
+            this.pastaNfeEspelhoTextBox.TabIndex = 35;
+            // 
+            // pastaNfeRetornoLabel
+            // 
+            pastaNfeRetornoLabel.AutoSize = true;
+            pastaNfeRetornoLabel.Location = new System.Drawing.Point(8, 348);
+            pastaNfeRetornoLabel.Name = "pastaNfeRetornoLabel";
+            pastaNfeRetornoLabel.Size = new System.Drawing.Size(98, 13);
+            pastaNfeRetornoLabel.TabIndex = 35;
+            pastaNfeRetornoLabel.Text = "Pasta Nfe Retorno:";
+            // 
+            // pastaNfeRetornoTextBox
+            // 
+            this.pastaNfeRetornoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeRetorno", true));
+            this.pastaNfeRetornoTextBox.Location = new System.Drawing.Point(282, 364);
+            this.pastaNfeRetornoTextBox.Name = "pastaNfeRetornoTextBox";
+            this.pastaNfeRetornoTextBox.Size = new System.Drawing.Size(183, 20);
+            this.pastaNfeRetornoTextBox.TabIndex = 36;
+            // 
+            // numeroSequenciaNfeAtualLabel
+            // 
+            numeroSequenciaNfeAtualLabel.AutoSize = true;
+            numeroSequenciaNfeAtualLabel.Location = new System.Drawing.Point(279, 215);
+            numeroSequenciaNfeAtualLabel.Name = "numeroSequenciaNfeAtualLabel";
+            numeroSequenciaNfeAtualLabel.Size = new System.Drawing.Size(148, 13);
+            numeroSequenciaNfeAtualLabel.TabIndex = 36;
+            numeroSequenciaNfeAtualLabel.Text = "Numero Sequencia Nfe Atual:";
+            // 
+            // numeroSequenciaNfeAtualTextBox
+            // 
+            this.numeroSequenciaNfeAtualTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "NumeroSequenciaNfeAtual", true));
+            this.numeroSequenciaNfeAtualTextBox.Location = new System.Drawing.Point(282, 235);
+            this.numeroSequenciaNfeAtualTextBox.Name = "numeroSequenciaNfeAtualTextBox";
+            this.numeroSequenciaNfeAtualTextBox.ReadOnly = true;
+            this.numeroSequenciaNfeAtualTextBox.Size = new System.Drawing.Size(183, 20);
+            this.numeroSequenciaNfeAtualTextBox.TabIndex = 37;
+            this.numeroSequenciaNfeAtualTextBox.TabStop = false;
+            // 
             // FrmLoja
             // 
             this.AccessibleDescription = "\'";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 246);
+            this.ClientSize = new System.Drawing.Size(479, 420);
+            this.Controls.Add(numeroSequenciaNfeAtualLabel);
+            this.Controls.Add(this.numeroSequenciaNfeAtualTextBox);
+            this.Controls.Add(pastaNfeRetornoLabel);
+            this.Controls.Add(this.pastaNfeRetornoTextBox);
+            this.Controls.Add(pastaNfeEspelhoLabel);
+            this.Controls.Add(this.pastaNfeEspelhoTextBox);
+            this.Controls.Add(pastaNfeErroLabel);
+            this.Controls.Add(this.pastaNfeErroTextBox);
+            this.Controls.Add(pastaNfeEnvioLabel);
+            this.Controls.Add(this.pastaNfeEnvioTextBox);
+            this.Controls.Add(pastaNfeEnviadoLabel);
+            this.Controls.Add(this.pastaNfeEnviadoTextBox);
+            this.Controls.Add(pastaNfeAutorizadosLabel);
+            this.Controls.Add(this.pastaNfeAutorizadosTextBox);
+            this.Controls.Add(nomeServidorNfeLabel);
+            this.Controls.Add(this.nomeServidorNfeTextBox);
             this.Controls.Add(cidadeLabel);
             this.Controls.Add(this.cidadeTextBox);
             this.Controls.Add(ieLabel);
@@ -456,5 +634,13 @@
         private System.Windows.Forms.TextBox ieTextBox;
         private System.Windows.Forms.TextBox cidadeTextBox;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
+        private System.Windows.Forms.TextBox nomeServidorNfeTextBox;
+        private System.Windows.Forms.TextBox pastaNfeAutorizadosTextBox;
+        private System.Windows.Forms.TextBox pastaNfeEnviadoTextBox;
+        private System.Windows.Forms.TextBox pastaNfeEnvioTextBox;
+        private System.Windows.Forms.TextBox pastaNfeErroTextBox;
+        private System.Windows.Forms.TextBox pastaNfeEspelhoTextBox;
+        private System.Windows.Forms.TextBox pastaNfeRetornoTextBox;
+        private System.Windows.Forms.TextBox numeroSequenciaNfeAtualTextBox;
     }
 }

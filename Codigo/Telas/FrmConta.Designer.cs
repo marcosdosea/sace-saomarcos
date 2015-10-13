@@ -39,6 +39,8 @@
             System.Windows.Forms.Label observacaoLabel;
             System.Windows.Forms.Label label5;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConta));
+            System.Windows.Forms.Label numeroDocumentoLabel;
+            System.Windows.Forms.Label formatoContaLabel;
             this.contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -79,6 +81,8 @@
             this.descricaoTipoContaLabel1 = new System.Windows.Forms.Label();
             this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
             this.situacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.numeroDocumentoTextBox = new System.Windows.Forms.TextBox();
+            this.formatoContaComboBox = new System.Windows.Forms.ComboBox();
             codBancoLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -88,6 +92,8 @@
             valorLabel = new System.Windows.Forms.Label();
             observacaoLabel = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
+            numeroDocumentoLabel = new System.Windows.Forms.Label();
+            formatoContaLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).BeginInit();
@@ -561,11 +567,55 @@
             // 
             this.situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
             // 
+            // numeroDocumentoLabel
+            // 
+            numeroDocumentoLabel.AutoSize = true;
+            numeroDocumentoLabel.Location = new System.Drawing.Point(136, 110);
+            numeroDocumentoLabel.Name = "numeroDocumentoLabel";
+            numeroDocumentoLabel.Size = new System.Drawing.Size(105, 13);
+            numeroDocumentoLabel.TabIndex = 61;
+            numeroDocumentoLabel.Text = "Numero Documento:";
+            // 
+            // numeroDocumentoTextBox
+            // 
+            this.numeroDocumentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "NumeroDocumento", true));
+            this.numeroDocumentoTextBox.Location = new System.Drawing.Point(141, 130);
+            this.numeroDocumentoTextBox.Name = "numeroDocumentoTextBox";
+            this.numeroDocumentoTextBox.Size = new System.Drawing.Size(100, 20);
+            this.numeroDocumentoTextBox.TabIndex = 62;
+            // 
+            // formatoContaLabel
+            // 
+            formatoContaLabel.AutoSize = true;
+            formatoContaLabel.Location = new System.Drawing.Point(4, 111);
+            formatoContaLabel.Name = "formatoContaLabel";
+            formatoContaLabel.Size = new System.Drawing.Size(79, 13);
+            formatoContaLabel.TabIndex = 62;
+            formatoContaLabel.Text = "Formato Conta:";
+            // 
+            // formatoContaComboBox
+            // 
+            this.formatoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "FormatoConta", true));
+            this.formatoContaComboBox.FormattingEnabled = true;
+            this.formatoContaComboBox.Items.AddRange(new object[] {
+            "FICHA",
+            "BOLETO",
+            "CARTAO",
+            "CHEQUE"});
+            this.formatoContaComboBox.Location = new System.Drawing.Point(6, 127);
+            this.formatoContaComboBox.Name = "formatoContaComboBox";
+            this.formatoContaComboBox.Size = new System.Drawing.Size(121, 21);
+            this.formatoContaComboBox.TabIndex = 63;
+            // 
             // FrmConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 458);
+            this.ClientSize = new System.Drawing.Size(662, 458);
+            this.Controls.Add(this.formatoContaComboBox);
+            this.Controls.Add(formatoContaLabel);
+            this.Controls.Add(numeroDocumentoLabel);
+            this.Controls.Add(this.numeroDocumentoTextBox);
             this.Controls.Add(this.codSituacaoComboBox);
             this.Controls.Add(this.descricaoTipoContaLabel1);
             this.Controls.Add(this.tb_movimentacao_contaDataGridView);
@@ -660,5 +710,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataHoraDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NomeResponsavel;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox numeroDocumentoTextBox;
+        private System.Windows.Forms.ComboBox formatoContaComboBox;
     }
 }

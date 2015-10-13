@@ -233,8 +233,9 @@ namespace Negocio
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
 
-                if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
+                if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) ||
+                    saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) || 
+                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
                 {
                     var query = from saidaE in saceContext.tb_saida
                                 where saidaE.codSaida == saida.CodSaida
@@ -246,7 +247,18 @@ namespace Negocio
                 else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                     || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
                 {
-                    RegistrarEstornoEstoque(saida);
+                    RegistrarEstornoEstoque(saida, null);
+                    var query = from saidaE in saceContext.tb_saida
+                                where saidaE.codSaida == saida.CodSaida
+                                select saidaE;
+                    tb_saida _saidaE = query.FirstOrDefault();
+                    saceContext.DeleteObject(_saidaE);
+                    saceContext.SaveChanges();
+                }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)) 
+                {
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    RegistrarBaixaEstoque(saidaProdutos);
                     var query = from saidaE in saceContext.tb_saida
                                 where saidaE.codSaida == saida.CodSaida
                                 select saidaE;
@@ -256,7 +268,7 @@ namespace Negocio
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
-                    RegistrarEstornoEstoque(saida);
+                    RegistrarEstornoEstoque(saida, null);
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                     saida.CupomFiscal = "";
                     Atualizar(saida);
@@ -311,14 +323,21 @@ namespace Negocio
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                 {
-                    RegistrarEstornoEstoque(saida);
+                    RegistrarEstornoEstoque(saida, null);
+                }
+                if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                {
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    RegistrarBaixaEstoque(saidaProdutos);
                 }
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO))
-                    saida.TipoSaida = Saida.TIPO_PRE_REMESSA;
+                    saida.TipoSaida = Saida.TIPO_PRE_REMESSA_DEPOSITO;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                    saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO;
+                    saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR;
+                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                    saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO))
                     saida.TipoSaida = Saida.TIPO_PRE_RETORNO_DEPOSITO;
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
@@ -453,6 +472,21 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obter Troco por Período
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public decimal ObterTrocoPorPeriodo(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = (from saida in saceContext.tb_saida
+                         where (saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA) 
+                         && (saida.dataSaida >= dataInicial && saida.dataSaida <= dataFinal)
+                         select saida.troco);
+
+            return query.Count() > 0 ? (decimal) query.Sum() : 0; 
+        }
+
+        /// <summary>
         /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
         /// </summary>
         /// <param name="codSaida"></param>
@@ -579,6 +613,49 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Faz o encerramento de um devolução de produtos pelo consumidor
+        /// </summary>
+        /// <param name="saida"></param>
+        /// <param name="consumidor"></param>
+        public void EncerrarDevolucaoConsumidor(Saida saida, Pessoa consumidor)
+        {
+            using (TransactionScope transaction = new TransactionScope())
+            {
+                try
+                {
+                    if (consumidor.CodPessoa == Global.CLIENTE_PADRAO)
+                    {
+                        throw new NegocioException("O cliente padrão não pode ser utilizado. Referencie o mesmo cliente que consta no Cupom Fiscal. Se o cliente não constar no cupom, deve-se cadastrar o cliente ou usar um cliente existente na base de dados.");
+                    }
+                    else if ((consumidor.CodPessoa != saida.CodCliente) && (saida.CodCliente != Global.CLIENTE_PADRAO))
+                    {
+                        throw new NegocioException("O consumidor referenciado deve ser o mesmo que consta no cupom fiscal de devolução.");
+                    }
+                    saida.TipoSaida = Saida.TIPO_DEVOLUCAO_CONSUMIDOR;
+                    saida.CodCliente = consumidor.CodPessoa;
+                    Atualizar(saida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                    RegistrarEstornoEstoque(saida, saidaProdutos);
+                    AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
+                    transaction.Complete();
+                }
+                catch (NegocioException ne)
+                {
+                    throw ne;
+                }
+                catch (DadosException de)
+                {
+                    throw de;
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
+                }
+
+            }
+        }
+
+        /// <summary>
         /// Atualiza os cfops de produtos de acordo com os dados de devolução na NF-e
         /// </summary>
         /// <param name="saidaProdutos"></param>
@@ -595,16 +672,28 @@ namespace Negocio
             }
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-
-                if (saidaProduto.EhTributacaoIntegral)
+                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
                 {
-                    saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOLUCAO_NORMAL_ESTADO : Cfop.DEVOLUCAO_NORMAL_FORA_ESTADO;
+                    if (saidaProduto.EhTributacaoIntegral)
+                    {
+                        saidaProduto.CodCfop = Cfop.DEVOLUCAO_CONSUMIDOR_NORMAL;
+                    }
+                    else if (!saidaProduto.EhTributacaoIntegral)
+                    {
+                        saidaProduto.CodCfop = Cfop.DEVOLUCAO_CONSUMIDOR_ST;
+                    }
                 }
-                else if (!saidaProduto.EhTributacaoIntegral)
+                else
                 {
-                    saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOUCAO_ST_ESTADO : Cfop.DEVOUCAO_ST_FORA_ESTADO;
+                    if (saidaProduto.EhTributacaoIntegral)
+                    {
+                        saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOLUCAO_NORMAL_ESTADO : Cfop.DEVOLUCAO_NORMAL_FORA_ESTADO;
+                    }
+                    else if (!saidaProduto.EhTributacaoIntegral)
+                    {
+                        saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOUCAO_ST_ESTADO : Cfop.DEVOUCAO_ST_FORA_ESTADO;
+                    }
                 }
-
                 GerenciadorSaidaProduto.GetInstance(null).AtualizarCFOP(saidaProduto.CodSaidaProduto, saidaProduto.CodCfop);
             }
         }
@@ -619,27 +708,6 @@ namespace Negocio
                 return saida.Total + saida.ValorICMSSubst + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
             else
                 return saida.Total + saida.ValorICMS + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
-        }
-
-        /// <summary>
-        /// Obtém totais de movimentação em um dado período
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TotaisSaida> ObterTotalSaida(DateTime dataInicial, DateTime dataFinal)
-        {
-            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
-                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal && 
-                            (saidaPagamento.tb_saida.codSituacaoPagamentos != SituacaoPagamentos.ABERTA)
-                        group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
-
-                        select new TotaisSaida
-                        {
-                            CodFormaPagamentos = gsaida.Key,
-                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().tb_forma_pagamento.descricao,
-                            //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
-                            TotalPagamento = (decimal) gsaida.Sum(saidaPagamento => saidaPagamento.valor)
-                        };
-            return query.ToList();
         }
 
         /// <summary>
@@ -686,6 +754,8 @@ namespace Negocio
                 conta.CodPessoa = saida.CodCliente;
                 conta.CodPagamento = pagamento.CodSaidaPagamento;
                 conta.Desconto = 0;
+                conta.FormatoConta = Conta.FORMATO_CONTA_FICHA;
+                conta.NumeroDocumento = "";
 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserida quitada
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
@@ -696,6 +766,7 @@ namespace Negocio
                 if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {
                     conta.CodPessoa = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.CodCartaoCredito).ElementAt(0).CodPessoa;
+                    conta.FormatoConta = Conta.FORMATO_CONTA_CARTAO;
                 }
 
                 conta.TipoConta = Conta.CONTA_RECEBER.ToString();
@@ -782,11 +853,14 @@ namespace Negocio
 
         /// <summary>
         /// Registra estorno de estoque no caso de devolução ou exclusão da saída
+        /// No caso de devolução do consumidor o estoque é incrementado.
         /// </summary>
         /// <param name="saidaProdutos"></param>
-        public void RegistrarEstornoEstoque(Saida saida)
+        public void RegistrarEstornoEstoque(Saida saida, List<SaidaProduto> saidaProdutos)
         {
-            List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+            if (saidaProdutos == null)
+                saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+            
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 if (saidaProduto.CodCST != Cst.ST_OUTRAS)
@@ -1045,15 +1119,15 @@ namespace Negocio
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
                     foreach (SaidaProduto produto in saidaProdutos)
                     {
-                        imp.ImpColDireita(0, 3, produto.CodProduto.ToString());
+                        imp.ImpColDireita(0, 4, produto.CodProduto.ToString());
 
-                        if (produto.Nome.Length > 40)
+                        if (produto.Nome.Length > 39)
                         {
-                            imp.ImpCol(5, produto.Nome.Substring(1, 40));
+                            imp.ImpCol(6, produto.Nome.Substring(1, 39));
                         }
                         else
                         {
-                            imp.ImpCol(5, produto.Nome);
+                            imp.ImpCol(6, produto.Nome);
                         }
 
                         imp.ImpColDireita(46, 54, produto.Quantidade.ToString());
@@ -1346,8 +1420,5 @@ namespace Negocio
             _saidaE.codEntrada = saida.CodEntrada;
             _saidaE.codLojaOrigem = saida.CodLojaOrigem;
         }
-
-
-
     }
 }

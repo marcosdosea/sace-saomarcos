@@ -82,6 +82,7 @@
     <Compile Include="Consultas\VendasCartao.cs" />
     <Compile Include="Consultas\TotaisMovimentacaoConta.cs" />
     <Compile Include="Consultas\TotaisSaida.cs" />
+    <Compile Include="CupomFiscal.cs" />
     <Compile Include="Imposto.cs" />
     <Compile Include="NFE_Schema3\Nfe_v3.cs" />
     <Compile Include="NFE_Schema\Nfe_v2_00.cs" />

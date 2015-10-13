@@ -98,7 +98,7 @@ namespace Telas
             conta.Observacao = observacaoTextBox.Text;
             conta.Valor = Convert.ToDecimal(valorTextBox.Text);
             conta.CodPagamento = 0;
-     
+            conta.FormatoConta = Conta.FORMATO_CONTA_FICHA;
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {

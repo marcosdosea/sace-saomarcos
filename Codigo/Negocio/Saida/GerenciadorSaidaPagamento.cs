@@ -239,6 +239,27 @@ namespace Negocio
         /// Obtém totais de movimentação em um dado período
         /// </summary>
         /// <returns></returns>
+        public IEnumerable<TotalPagamentoSaida> ObterTotalPagamentoSaida(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
+                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
+                            (saidaPagamento.tb_saida.codSituacaoPagamentos != SituacaoPagamentos.ABERTA)
+                        group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
+
+                        select new TotalPagamentoSaida
+                        {
+                            CodFormaPagamentos = gsaida.Key,
+                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().tb_forma_pagamento.descricao,
+                            //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
+                            TotalPagamento = (decimal)gsaida.Sum(saidaPagamento => saidaPagamento.valor)
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtém totais de movimentação em um dado período
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<VendasCartao> ObterVendasCartao(DateTime dataInicial, DateTime dataFinal)
         {
             var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet

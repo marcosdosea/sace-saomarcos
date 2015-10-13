@@ -30,7 +30,7 @@ namespace Telas
             List<Loja> listaLojas = GerenciadorLoja.GetInstance().ObterTodos();
             lojaBindingSourceDestino.DataSource = listaLojas;
             lojaBindingSourceOrigem.DataSource = listaLojas;
-            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA))
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO))
             {
                 codPessoaComboBoxOrigem.SelectedIndex = 0;
                 codPessoaComboBoxDestino.SelectedIndex = 1;
@@ -48,7 +48,7 @@ namespace Telas
             saida.CodCliente = long.Parse(codPessoaComboBoxDestino.SelectedValue.ToString());
             
             GerenciadorSaida.GetInstance(null).Atualizar(saida);
-            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA))
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO))
             {
                 if (MessageBox.Show("Confirma REMESSA para DEPÓSITO?", "Confirmar Remessa", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {

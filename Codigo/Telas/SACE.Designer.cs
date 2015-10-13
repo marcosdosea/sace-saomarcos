@@ -89,6 +89,8 @@
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.devoluçãoDeConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -220,6 +222,8 @@
             this.vendaAoConsumidorToolStripMenuItem,
             this.remessaDepositoToolStripMenuItem,
             this.toolStripSeparator4,
+            this.devoluçãoDeConsumidorToolStripMenuItem,
+            this.toolStripSeparator5,
             this.devoluçãoDeProdutosToolStripMenuItem,
             this.remessaParaConsertoToolStripMenuItem2,
             this.toolStripSeparator2,
@@ -586,6 +590,18 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(227, 6);
+            // 
+            // devoluçãoDeConsumidorToolStripMenuItem
+            // 
+            this.devoluçãoDeConsumidorToolStripMenuItem.Name = "devoluçãoDeConsumidorToolStripMenuItem";
+            this.devoluçãoDeConsumidorToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.devoluçãoDeConsumidorToolStripMenuItem.Text = "Devolução de Consumidor";
+            this.devoluçãoDeConsumidorToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeConsumidorToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -682,6 +698,8 @@
         private System.Windows.Forms.ToolStripMenuItem estatísticaPorGrupoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exclusãoDeProdutoDoSistemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exclusãoDePessoasDoSistemaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem devoluçãoDeConsumidorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 
     }
 }

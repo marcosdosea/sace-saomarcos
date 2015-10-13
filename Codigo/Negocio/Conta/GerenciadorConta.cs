@@ -178,6 +178,8 @@ namespace Negocio
                             Desconto = conta.desconto,
                             Observacao = conta.observacao,
                             TipoConta = planoConta.codTipoConta,
+                            FormatoConta = conta.formatoConta,
+                            NumeroDocumento = conta.numeroDocumento,
                             Valor = conta.valor
                         };
             return query;
@@ -327,33 +329,33 @@ namespace Negocio
             _conta.dataVencimento = conta.DataVencimento;
             _conta.desconto = conta.Desconto;
             _conta.observacao = conta.Observacao;
+            _conta.numeroDocumento = conta.NumeroDocumento;
+            _conta.formatoConta = conta.FormatoConta;
             _conta.valor = conta.Valor;
         }
 
 
         /// <summary>
-        /// Substitui um conjunto de contas por uma nova conta. 
+        /// Substitui um conjunto de contas por uma nova conta para receber do cartão de crédito. 
         /// </summary>
         /// <param name="listaContas">Contas que serão baixadas</param>
         /// <param name="valorPagamento">valor pago nessas contas</param>
         /// <param name="cartaoCredito">cartão de crédito quando necessário</param>
         /// <param name="parcelas">número de parcelas do pagamento</param>
-        public void SubstituirContas(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
+        public void QuitarContasCartaoCredito(List<long> listaContas, decimal valorPagamento, CartaoCredito cartaoCredito, int parcelas)
         {
-            //DbTransaction transaction = null;
             try
             {
-                //if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                //    saceContext.Connection.Open();
-                // transaction = saceContext.Connection.BeginTransaction();
-
                 string observacao = "Substituiu as contas: ";
                 foreach (long codConta in listaContas)
                 {
                     Atualizar(SituacaoConta.SITUACAO_QUITADA, codConta);
                     observacao += codConta + ", ";
+
                 }
                 DateTime dataVecimento = DateTime.Now;
+                Conta contaSubstituida = Obter((long) listaContas.ElementAtOrDefault(0)).ElementAtOrDefault(0);
+                
 
                 for (int i = 0; i < parcelas; i++)
                 {
@@ -369,18 +371,16 @@ namespace Negocio
                     conta.Desconto = 0;
                     conta.Valor = valorPagamento / parcelas;
                     conta.Observacao = observacao;
+                    conta.FormatoConta = Conta.FORMATO_CONTA_CARTAO;
+                    conta.NumeroDocumento = contaSubstituida.CF;
                     Inserir(conta);
                 }
             }
             catch (Exception e)
             {
-                //transaction.Rollback();
                 throw new DadosException("Não foi possível realizar a substituição de contas. Favor contactar o administrador.", e);
             }
-            finally
-            {
-                //saceContext.Connection.Close();
-            }
+
         }
     }
 }

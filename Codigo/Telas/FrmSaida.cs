@@ -342,6 +342,15 @@ namespace Telas
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_DEPOSITO);
                 tb_saida_produtoDataGridView.Height = 370;
             }
+            else if (Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR.Contains(tipoSaidaFormulario))
+            {
+                lblSaidaProdutos.Text = "Devolução de Consumidor";
+                this.Text = "Devolução de Consumidor";
+                lblBalcao.Text = "Devolução de Consumidor";
+
+                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR);
+                tb_saida_produtoDataGridView.Height = 370;
+            }
             else if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(tipoSaidaFormulario))
             {
                 lblSaidaProdutos.Text = "Devolução de Produtos para Fornecedor";
@@ -456,7 +465,7 @@ namespace Telas
                 SaidaProduto saidaProduto = new SaidaProduto();
                 saidaProduto.ValorVendaAVista = Convert.ToDecimal(precoVendatextBox.Text);
 
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO) 
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) 
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
                 {
                     precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVendaAVista.ToString("N3");
@@ -479,7 +488,7 @@ namespace Telas
 
             if (produto != null)
             {
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO)
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
                     || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO))
                 {
 
@@ -586,13 +595,13 @@ namespace Telas
 
                 if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(saida.TipoSaida))
                 {
-                    FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
+                    FrmSaidaDevolucaoConsumidor frmSaidaDeposito = new FrmSaidaDevolucaoConsumidor(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
                 }
                 if (Saida.LISTA_TIPOS_RETORNO_DEPOSITO.Contains(saida.TipoSaida))
                 {
-                    FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
+                    FrmSaidaDevolucaoConsumidor frmSaidaDeposito = new FrmSaidaDevolucaoConsumidor(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
                 }
@@ -607,6 +616,12 @@ namespace Telas
                     FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
                     frmSaidaDevolucao.ShowDialog();
                     frmSaidaDevolucao.Dispose();
+                }
+                else if (Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR.Contains(saida.TipoSaida))
+                {
+                    FrmSaidaDevolucaoConsumidor frmSaidaDevolucaoConsumidor = new FrmSaidaDevolucaoConsumidor(saida);
+                    frmSaidaDevolucaoConsumidor.ShowDialog();
+                    frmSaidaDevolucaoConsumidor.Dispose();
                 }
                 else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
                 {
@@ -657,7 +672,7 @@ namespace Telas
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || 
                 saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
+                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
             {
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();

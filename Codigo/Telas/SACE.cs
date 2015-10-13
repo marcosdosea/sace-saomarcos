@@ -159,6 +159,14 @@ namespace Telas
             frmPreVenda.Dispose();
         }
 
+        private void devoluçãoDeConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR);
+            frmPreVenda.ShowDialog();
+            frmPreVenda.Dispose();
+        }
+
+
         private void entradaDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Telas.FrmEntrada frmEntrada = new Telas.FrmEntrada();
@@ -246,7 +254,7 @@ namespace Telas
 
         private void transferênciaEntreLojasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_REMESSA);
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_REMESSA_DEPOSITO);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
         }
@@ -266,7 +274,7 @@ namespace Telas
 
         private void devoluçãoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO);
+            FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
         }
@@ -382,5 +390,6 @@ namespace Telas
             frmPessoaExcluir.ShowDialog();
             frmPessoaExcluir.Dispose();
         }
+
      }
 }

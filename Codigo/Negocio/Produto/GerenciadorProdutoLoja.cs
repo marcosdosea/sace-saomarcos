@@ -132,7 +132,7 @@ namespace Negocio
         {
             var query = from produtoLoja in saceContext.ProdutoLojaSet
                         join produto in saceContext.ProdutoSet on produtoLoja.codProduto equals produto.codProduto
-                        join loja in saceContext.LojaSet on produtoLoja.codLoja equals loja.codLoja
+                        join loja in saceContext.tb_loja on produtoLoja.codLoja equals loja.codLoja
                         select new ProdutoLoja
                         {
                             CodLoja = produtoLoja.codLoja,

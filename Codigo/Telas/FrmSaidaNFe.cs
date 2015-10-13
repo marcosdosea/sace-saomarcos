@@ -61,6 +61,18 @@ namespace Telas
                         ". Valor do ICMS = R$ " + Saida.ValorICMS.ToString("N2") + ". Base de Cálculo do ICMS ST = R$ " + Saida.BaseCalculoICMSSubst.ToString("N2") +
                         ". Valor do ICMS ST = R$ " + Saida.ValorICMSSubst.ToString("N2") + ". Valor do IPI = R$ " + Saida.ValorIPI.ToString("N2");
                 }
+                else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+                {
+                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.GetInstance(null).ObterPorPedido(Saida.CupomFiscal).ElementAtOrDefault(0);
+                    if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
+                    {
+                        Saida.Observacao += "Devolução Parcial referente ao cupom fiscal " + saidaCupomVenda.CupomFiscal + " emitido em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Cliente não precisou dos itens comprados. Cupom fiscal e Nf-e relativas a venda referenciadas abaixo";
+                    }
+                    else
+                    {
+                        Saida.Observacao += "Devolução Total referente ao cupom fiscal " + saidaCupomVenda.CupomFiscal + " emitido em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Cliente não precisou dos itens comprados. Cupom fiscal e Nf-e relativas a venda referenciadas abaixo";
+                    }
+                }
             }
             Saida.Nfe = "NF-e";
             observacaoTextBox.Text = Saida.Observacao;
@@ -96,7 +108,7 @@ namespace Telas
         {
             // o evento foi disparo do butão que emite Nf-
             bool ehNfeComplementar = (sender is Button) && ((Button)sender).Name.Equals("btnComplementar");
-            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
+            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
             {
                 if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {

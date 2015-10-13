@@ -54,6 +54,7 @@
             this.btnEnviar = new System.Windows.Forms.Button();
             this.nfeControleDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroSequenciaNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -330,6 +331,7 @@
             this.nfeControleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.nfeControleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
+            this.NumeroSequenciaNfe,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.DescricaoSituacaoNfe});
@@ -350,6 +352,13 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Código NF-e";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // NumeroSequenciaNfe
+            // 
+            this.NumeroSequenciaNfe.DataPropertyName = "NumeroSequenciaNfe";
+            this.NumeroSequenciaNfe.HeaderText = "Número NF-e";
+            this.NumeroSequenciaNfe.Name = "NumeroSequenciaNfe";
+            this.NumeroSequenciaNfe.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -633,7 +642,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 584);
+            this.ClientSize = new System.Drawing.Size(884, 587);
             this.ControlBox = false;
             this.Controls.Add(this.btnComplementar);
             this.Controls.Add(codPessoaLabel);
@@ -721,10 +730,6 @@
         private System.Windows.Forms.TextBox situacaoProtocoloCancelamentoTextBox;
         private System.Windows.Forms.TextBox situacaoProtocoloUsoTextBox;
         private System.Windows.Forms.TextBox situacaoReciboEnvioTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
         private System.Windows.Forms.DateTimePicker dataEmissaoDateTimePicker;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogNfe;
         private System.Windows.Forms.Button btnSituacao;
@@ -737,5 +742,10 @@
         private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.ComboBox codPessoaComboBox;
         private System.Windows.Forms.Button btnComplementar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroSequenciaNfe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
     }
 }

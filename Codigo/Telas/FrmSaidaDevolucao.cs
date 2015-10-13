@@ -70,7 +70,7 @@ namespace Telas
                     GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null);
                 }
             }
-            else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO)
+            else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
             {
                 if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {

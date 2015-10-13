@@ -16,48 +16,48 @@ namespace Dominio
         public int CodMunicipioIBGE { get; set; }
         public string Estado { get; set; }
         public string NomeServidorNfe { get; set; }
-        public string EnderecoServidorNfe { get; set; }
         
         private string pastaNfeEnvio;
         public string PastaNfeEnvio 
         {
-            get { return EnderecoServidorNfe + pastaNfeEnvio; }
+            get { return pastaNfeEnvio; }
             set { pastaNfeEnvio = value; }
         }
         private string pastaNfeEnviado;
         public string PastaNfeEnviado
         {
-            get { return EnderecoServidorNfe + pastaNfeEnviado; }
+            get { return pastaNfeEnviado; }
             set { pastaNfeEnviado = value; }
         }
 
         private string pastaNfeRetorno;
         public string PastaNfeRetorno
         {
-            get { return EnderecoServidorNfe + pastaNfeRetorno; }
+            get { return pastaNfeRetorno; }
             set { pastaNfeRetorno = value; }
         }
 
         private string pastaNfeErro;
         public string PastaNfeErro
         {
-            get { return EnderecoServidorNfe + pastaNfeErro; }
+            get { return pastaNfeErro; }
             set { pastaNfeErro = value; }
         }
 
         private string pastaNfeAutorizados;
         public string PastaNfeAutorizados
         {
-            get { return EnderecoServidorNfe + pastaNfeAutorizados; }
+            get { return pastaNfeAutorizados; }
             set { pastaNfeAutorizados = value; }
         }
 
         private string pastaNfeEspelho;
         public string PastaNfeEspelho
         {
-            get { return EnderecoServidorNfe + pastaNfeEspelho; }
+            get { return pastaNfeEspelho; }
             set { pastaNfeEspelho = value; }
         }
+        public int NumeroSequenciaNfeAtual { get; set; }
         
 
         // override object.Equals

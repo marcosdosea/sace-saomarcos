@@ -37,10 +37,14 @@ namespace Telas
             totaisMovimentacaoContaBindingSource.DataSource = totaisMovimentacaoConta;
             textTotalMovimentacao.Text = totaisMovimentacaoConta.Sum(t => t.TotalMovimentacaoConta).ToString("N2");
 
-            IEnumerable<TotaisSaida> totaisSaida = GerenciadorSaida.GetInstance(null).ObterTotalSaida(dataInicial, dataFinal);
+            IEnumerable<TotalPagamentoSaida> totaisSaida = GerenciadorSaidaPagamento.GetInstance(null).ObterTotalPagamentoSaida(dataInicial, dataFinal);
             totaisSaidaBindingSource.DataSource = totaisSaida;
-            textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
             
+            decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoPorPeriodo(dataInicial, dataFinal);
+            textTroco.Text = trocoPorPeriodo.ToString("N2");
+
+            textTotalVendas.Text = (totaisSaida.Sum(t => t.TotalPagamento) - trocoPorPeriodo).ToString("N2");
+
             IEnumerable<VendasCartao> vendasCartao = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasCartao(dataInicial, dataFinal);
             VendasCartaoBindingSource.DataSource = vendasCartao;
             textTotalCartao.Text = vendasCartao.Sum(t => t.TotalCartao).ToString("N2");
@@ -67,6 +71,11 @@ namespace Telas
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             ObterMovimentacaoPeriodo();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

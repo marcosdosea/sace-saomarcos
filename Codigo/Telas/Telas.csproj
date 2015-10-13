@@ -61,7 +61,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -99,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmSaidaDevolucaoConsumidor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaidaDevolucaoConsumidor.Designer.cs">
+      <DependentUpon>FrmSaidaDevolucaoConsumidor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPessoaExcluir.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -423,6 +429,10 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmSaidaDevolucaoConsumidor.resx">
+      <DependentUpon>FrmSaidaDevolucaoConsumidor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPessoaExcluir.resx">
       <DependentUpon>FrmPessoaExcluir.cs</DependentUpon>
     </EmbeddedResource>
@@ -655,6 +665,7 @@
     <None Include="Properties\DataSources\Dominio.Conta.datasource" />
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
     <None Include="Properties\DataSources\Dominio.Cst.datasource" />
+    <None Include="Properties\DataSources\Dominio.CupomFiscal.datasource" />
     <None Include="Properties\DataSources\Dominio.Entrada.datasource" />
     <None Include="Properties\DataSources\Dominio.EntradaPagamento.datasource" />
     <None Include="Properties\DataSources\Dominio.EntradaProduto.datasource" />

@@ -362,17 +362,14 @@ namespace Negocio
                 
                 conta.Valor = pagamento.Valor;
 
-                if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
+                if (pagamento.CodFormaPagamento == FormaPagamento.BOLETO) 
                 {
-                     //DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(pagamento.CodDocumentoPagamento);
-                     //conta.DataVencimento = documento.DataVencimento;
-                     //conta.Valor = documento.Valor;
+                    conta.FormatoConta = Conta.FORMATO_CONTA_BOLETO;
+                } else {
+                    conta.FormatoConta = Conta.FORMATO_CONTA_FICHA;
                 }
-                else
-                {
-                     conta.DataVencimento = pagamento.Data;
-                 }
-
+                conta.DataVencimento = pagamento.Data;
+            
                 conta.CodConta = GerenciadorConta.GetInstance(saceContext).Inserir(conta);
                 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
