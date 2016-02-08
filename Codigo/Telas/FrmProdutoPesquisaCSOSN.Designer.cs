@@ -37,16 +37,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ncmsh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodigoBarra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecoVendaVarejo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecoVendaVarejoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.QtdProdutoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoVendaAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoVendaAtacadoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -125,7 +128,10 @@
             this.Ncmsh,
             this.CodigoBarra,
             this.PrecoVendaVarejo,
-            this.PrecoVendaVarejoSemDesconto});
+            this.PrecoVendaVarejoSemDesconto,
+            this.QtdProdutoAtacado,
+            this.PrecoVendaAtacado,
+            this.PrecoVendaAtacadoSemDesconto});
             this.tb_produtoDataGridView.DataSource = this.produtoBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -148,6 +154,37 @@
             this.tb_produtoDataGridView.TabIndex = 5;
             this.tb_produtoDataGridView.TabStop = false;
             this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Location = new System.Drawing.Point(820, 508);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(146, 23);
+            this.btnSalvar.TabIndex = 6;
+            this.btnSalvar.Text = "SALVAR ALTERAÇÕES";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Location = new System.Drawing.Point(659, 508);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(155, 23);
+            this.btnExportar.TabIndex = 7;
+            this.btnExportar.Text = "Exportar Selecionados Excel";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "xls";
+            this.saveFileDialog.FileName = "ProdutosEtiquetas.xls";
+            this.saveFileDialog.InitialDirectory = "C:\\Documents and Settings\\vendas\\Meus documentos\\Dropbox\\Documentos\\etiquetas";
+            this.saveFileDialog.Title = "Exportar Excel";
             // 
             // CodProduto
             // 
@@ -198,36 +235,27 @@
             this.PrecoVendaVarejoSemDesconto.ReadOnly = true;
             this.PrecoVendaVarejoSemDesconto.Visible = false;
             // 
-            // produtoBindingSource
+            // QtdProdutoAtacado
             // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
+            this.QtdProdutoAtacado.DataPropertyName = "QtdProdutoAtacado";
+            this.QtdProdutoAtacado.HeaderText = "QtdProdutoAtacado";
+            this.QtdProdutoAtacado.Name = "QtdProdutoAtacado";
+            this.QtdProdutoAtacado.Visible = false;
             // 
-            // btnSalvar
+            // PrecoVendaAtacado
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(820, 508);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(146, 23);
-            this.btnSalvar.TabIndex = 6;
-            this.btnSalvar.Text = "SALVAR ALTERAÇÕES";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            this.PrecoVendaAtacado.DataPropertyName = "PrecoVendaAtacado";
+            this.PrecoVendaAtacado.HeaderText = "PrecoVendaAtacado";
+            this.PrecoVendaAtacado.Name = "PrecoVendaAtacado";
+            this.PrecoVendaAtacado.Visible = false;
             // 
-            // btnExportar
+            // PrecoVendaAtacadoSemDesconto
             // 
-            this.btnExportar.Location = new System.Drawing.Point(659, 508);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(155, 23);
-            this.btnExportar.TabIndex = 7;
-            this.btnExportar.Text = "Exportar Selecionados Excel";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "xls";
-            this.saveFileDialog.FileName = "ProdutosEtiquetas.xls";
-            this.saveFileDialog.InitialDirectory = "C:\\Documents and Settings\\vendas\\Meus documentos\\Dropbox\\Documentos\\etiquetas";
-            this.saveFileDialog.Title = "Exportar Excel";
+            this.PrecoVendaAtacadoSemDesconto.DataPropertyName = "PrecoVendaAtacadoSemDesconto";
+            this.PrecoVendaAtacadoSemDesconto.HeaderText = "PrecoVendaAtacadoSemDesconto";
+            this.PrecoVendaAtacadoSemDesconto.Name = "PrecoVendaAtacadoSemDesconto";
+            this.PrecoVendaAtacadoSemDesconto.ReadOnly = true;
+            this.PrecoVendaAtacadoSemDesconto.Visible = false;
             // 
             // FrmProdutoPesquisaCSON
             // 
@@ -274,6 +302,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CodigoBarra;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaVarejo;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaVarejoSemDesconto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QtdProdutoAtacado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaAtacado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaAtacadoSemDesconto;
   
     }
 }

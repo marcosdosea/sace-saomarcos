@@ -27,6 +27,7 @@ namespace Telas
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
             entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
+            saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             entradaBindingSource.Position = entradaBindingSource.IndexOf(new Entrada() { CodEntrada = saida.CodEntrada });
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             IEnumerable<Pessoa> pessoas = GerenciadorPessoa.GetInstance().ObterTodos();
@@ -67,14 +68,14 @@ namespace Telas
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO)) {
                 if (MessageBox.Show("Confirma Remessa de Produtos para Conserto?", "Confirmar Remessa para Conserto", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null);
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
                 }
             }
             else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
             {
                 if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null);
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
                 }
             }
             GerenciadorSaida.GetInstance(null).Atualizar(saida);

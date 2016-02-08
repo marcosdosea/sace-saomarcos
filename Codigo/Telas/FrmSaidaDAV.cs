@@ -48,7 +48,13 @@ namespace Telas
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, true);
+            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.REDUZIDA);
+        }
+
+        private void btnReduzido2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.REDUZIDA2);
         }
 
         private List<Saida> obterSaidas(List<long> listaCodSaidas)
@@ -78,5 +84,6 @@ namespace Telas
                 btnCancelar_Click(sender, e);
             }
         }
+
     }
 }

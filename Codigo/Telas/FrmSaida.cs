@@ -413,6 +413,11 @@ namespace Telas
             if (produto != null)
             {
                 quantidadeTextBox.Text = "1";
+
+                if (ehCodigoBarra && produto.QtdProdutoAtacado > 0)
+                {
+                    quantidadeTextBox.Text = produto.QtdProdutoAtacado.ToString();
+                }
                 IEnumerable<PontaEstoque> listaPontaEstoque = GerenciadorPontaEstoque.GetInstace().ObterPorProduto(produto.CodProduto);
                 if (listaPontaEstoque.Count() > 0)
                 {

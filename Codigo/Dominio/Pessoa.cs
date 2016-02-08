@@ -34,6 +34,7 @@ namespace Dominio
         public bool EhFabricante { get; set; }
         public bool ImprimirCF { get; set; }
         public bool ImprimirDAV { get; set; }
+        public bool BloquearCrediario { get; set; }
 
         // override object.Equals
         public override bool Equals(object obj)

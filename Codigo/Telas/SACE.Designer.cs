@@ -49,6 +49,8 @@
             this.vendaAoConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remessaDepositoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.devoluçãoDeConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.devoluçãoDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remessaParaConsertoToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -89,8 +91,7 @@
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.devoluçãoDeConsumidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerAtualizarProdutosParaCompra = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -266,6 +267,18 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
+            // 
+            // devoluçãoDeConsumidorToolStripMenuItem
+            // 
+            this.devoluçãoDeConsumidorToolStripMenuItem.Name = "devoluçãoDeConsumidorToolStripMenuItem";
+            this.devoluçãoDeConsumidorToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.devoluçãoDeConsumidorToolStripMenuItem.Text = "Devolução de Consumidor";
+            this.devoluçãoDeConsumidorToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeConsumidorToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(227, 6);
             // 
             // devoluçãoDeProdutosToolStripMenuItem
             // 
@@ -590,17 +603,11 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // toolStripSeparator5
+            // timerAtualizarProdutosParaCompra
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(227, 6);
-            // 
-            // devoluçãoDeConsumidorToolStripMenuItem
-            // 
-            this.devoluçãoDeConsumidorToolStripMenuItem.Name = "devoluçãoDeConsumidorToolStripMenuItem";
-            this.devoluçãoDeConsumidorToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.devoluçãoDeConsumidorToolStripMenuItem.Text = "Devolução de Consumidor";
-            this.devoluçãoDeConsumidorToolStripMenuItem.Click += new System.EventHandler(this.devoluçãoDeConsumidorToolStripMenuItem_Click);
+            this.timerAtualizarProdutosParaCompra.Enabled = true;
+            this.timerAtualizarProdutosParaCompra.Interval = 3600000;
+            this.timerAtualizarProdutosParaCompra.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Principal
             // 
@@ -700,6 +707,7 @@
         private System.Windows.Forms.ToolStripMenuItem exclusãoDePessoasDoSistemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeConsumidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.Timer timerAtualizarProdutosParaCompra;
 
     }
 }

@@ -143,10 +143,10 @@ namespace Telas
                     bool limiteCompraLiberado = true;
                     Pessoa cliente = (Pessoa) clienteBindingSource.Current;
                     // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
-                    if (cliente.LimiteCompra > 0)
+                    if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
                     {
                         decimal limiteCompraDisponivel = GerenciadorPessoa.GetInstance().ObterLimiteCompraDisponivel(cliente);
-                        if (limiteCompraDisponivel <= saida.TotalAVista)
+                        if (limiteCompraDisponivel <= saida.TotalAVista) 
                         {
                             if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
                             {
@@ -156,7 +156,7 @@ namespace Telas
                     }
                     if (limiteCompraLiberado)
                     {
-                        GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida);
+                        GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                         if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
                         {
                             // quando tem pagamento crediário imprime o DAV
@@ -164,7 +164,7 @@ namespace Telas
                             if (temPagamentoCrediario)
                             {
                                 if (cliente.ImprimirDAV)
-                                    GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, true);
+                                    GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.REDUZIDA);
                             }
                             else
                             {

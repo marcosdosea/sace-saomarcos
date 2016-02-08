@@ -536,7 +536,7 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="tipo_encerramento"></param>
-        public void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos)
+        public void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos, Pessoa cliente)
         {
             using (TransactionScope transaction = new TransactionScope())
             {
@@ -549,6 +549,15 @@ namespace Negocio
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA))
                     {
+
+                        if (cliente.BloquearCrediario)
+                        {
+                            foreach (SaidaPagamento sp in saidaPagamentos)
+                            {
+                                if (sp.CodFormaPagamento == FormaPagamento.CREDIARIO)
+                                    throw new NegocioException("CREDIÁRIO BLOQUEADO. Autorização da Gerência é necessária.");
+                            }
+                        }
                         saida.TipoSaida = Saida.TIPO_PRE_VENDA;
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
@@ -603,6 +612,14 @@ namespace Negocio
                     }
 
                     transaction.Complete();
+                }
+                catch (NegocioException ne)
+                {
+                    throw ne;
+                }
+                catch (DadosException de)
+                {
+                    throw de;
                 }
                 catch (Exception e)
                 {
@@ -664,15 +681,16 @@ namespace Negocio
         {
             Pessoa fornecedor = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
             Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+            Pessoa pessoaLoja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
             bool ehMesmoUF = false;
-            if (loja != null && fornecedor != null)
+            if (pessoaLoja != null && fornecedor != null)
             {
-                ehMesmoUF = loja.Estado.Equals(fornecedor.Uf);
+                ehMesmoUF = pessoaLoja.Uf.Equals(fornecedor.Uf);
             }
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+                if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                 {
                     if (saidaProduto.EhTributacaoIntegral)
                     {
@@ -689,7 +707,7 @@ namespace Negocio
                     {
                         saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOLUCAO_NORMAL_ESTADO : Cfop.DEVOLUCAO_NORMAL_FORA_ESTADO;
                     }
-                    else if (!saidaProduto.EhTributacaoIntegral)
+                    else 
                     {
                         saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOUCAO_ST_ESTADO : Cfop.DEVOUCAO_ST_FORA_ESTADO;
                     }
@@ -1056,24 +1074,34 @@ namespace Negocio
             }
         }
 
-        public void ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, bool comprimido)
+        public void ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
 
-            if (comprimido)
-                ImprimirDAVComprimido(saidas, total, totalAVista, desconto);
-            else
+            if (impressora.Equals(Global.Impressora.NORMAL))
                 ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
+            else
+                ImprimirDAVComprimido(saidas, total, totalAVista, desconto, impressora);                
         }
 
 
-        private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
             try
             {
                 ImprimeTexto imp = new ImprimeTexto();
-                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA))
+                if (impressora.Equals(Global.Impressora.REDUZIDA))
                 {
-                    return false;
+                    if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
+                    {
+                        return false;
+                    }
                 }
 
                 Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);

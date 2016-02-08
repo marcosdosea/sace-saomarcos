@@ -352,6 +352,65 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obter Produtos Vendidos nos últimos seis meses
+        /// </summary>
+        /// <returns></returns>
+        public List<ProdutoVendido> ObterProdutosVendidosUltimosMeses(int numerosMeses)
+        {
+            DateTime dataMesesAntes = DateTime.Now.AddDays(-30 * numerosMeses);
+
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where (saidaProduto.tb_saida.dataSaida > dataMesesAntes) && 
+                              (saidaProduto.tb_saida.codTipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saidaProduto.tb_saida.codTipoSaida.Equals(Saida.TIPO_VENDA))
+                        group saidaProduto by saidaProduto.codProduto into gVendidos
+                        select new ProdutoVendido
+                        {
+                            CodProduto = gVendidos.Key,
+                            QuantidadeVendida = (decimal) gVendidos.Sum(sp => sp.quantidade)
+                        };
+            return query.ToList();
+        }
+
+
+        /// <summary>
+        /// Atualizar Situação Produtos para Compra
+        /// </summary>
+        /// <returns></returns>
+        public void AtualizarSituacaoEstoqueProdutos()
+        {
+            const int NUMERO_MESES_ANALISAR = 3;
+
+            List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(NUMERO_MESES_ANALISAR);
+
+            List<ProdutoLoja> listaProdutoLoja = GerenciadorProdutoLoja.GetInstance(null).ObterTodos();
+            
+            var query = from produto in saceContext.ProdutoSet
+                        where produto.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR
+                        select produto; 
+
+            foreach( ProdutoE produtoE in query) {
+                ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produtoE.codProduto).FirstOrDefault();
+                decimal estoqueAtual = listaProdutoLoja.Where(pl => pl.CodProduto == produtoE.codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+
+                if (produtoVendido != null) {
+                    if (estoqueAtual <= produtoVendido.QuantidadeVendida) {
+                        if (produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR)
+                        {
+                            if (estoqueAtual <= (produtoVendido.QuantidadeVendida / 2))
+                                produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
+                            else
+                                produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
+                            produtoE.dataSolicitacaoCompra = DateTime.Now;
+                        }
+                    }
+                    
+                }
+            }
+            saceContext.SaveChanges();
+        }
+
+
+        /// <summary>
         /// Atribui entidade para entidade persistente
         /// </summary>
         /// <param name="saidaProduto"></param>

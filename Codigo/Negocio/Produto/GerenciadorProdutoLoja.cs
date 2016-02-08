@@ -178,6 +178,15 @@ namespace Negocio
         {
             return GetQuery().Where(pl => pl.CodLoja == codLoja).ToList();
         }
+
+        /// <summary>
+        /// Obter estoque de todos os produtos da estoque
+        /// </summary>
+        /// <returns></returns>
+        public List<ProdutoLoja> ObterTodos()
+        {
+            return GetQuery().ToList();
+        }
        
         /// <summary>
         /// Adiciona quantida e quantidadeAux ao produto loja
@@ -283,5 +292,7 @@ namespace Negocio
 
             }
         }
+
+       
     }
 }

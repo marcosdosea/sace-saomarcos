@@ -264,10 +264,22 @@ namespace Telas
 
                 for (int i = tb_produtoDataGridView.SelectedRows.Count - 1; i >= 0; i--)
                 {
-                    xlWorkSheet.Cells[i+2, 1] = tb_produtoDataGridView.SelectedRows[i].Cells[1].Value; //nome produto
+                    xlWorkSheet.Cells[i + 2, 1] = tb_produtoDataGridView.SelectedRows[i].Cells[1].Value; //nome produto
                     xlWorkSheet.Cells[i + 2, 2] = tb_produtoDataGridView.SelectedRows[i].Cells[3].Value; //código de barra
-                    xlWorkSheet.Cells[i + 2, 3] = "R$ " + formataValor((decimal)tb_produtoDataGridView.SelectedRows[i].Cells[4].Value); //preco venda varejo
-                    xlWorkSheet.Cells[i + 2, 4] = "R$ " + formataValor((decimal)tb_produtoDataGridView.SelectedRows[i].Cells[5].Value); //preço venda varejo sem desconto
+
+                    decimal quantidadeAtacado = (decimal)tb_produtoDataGridView.SelectedRows[i].Cells[6].Value;
+                    if (quantidadeAtacado == 0)
+                    {
+                        xlWorkSheet.Cells[i + 2, 3] = "R$ " + formataValor((decimal)tb_produtoDataGridView.SelectedRows[i].Cells[4].Value); //preco venda varejo
+                        xlWorkSheet.Cells[i + 2, 4] = "R$ " + formataValor((decimal)tb_produtoDataGridView.SelectedRows[i].Cells[5].Value); //preço venda varejo sem desconto
+                    }
+                    else
+                    {
+                        decimal precoVendaAtacado = (decimal)tb_produtoDataGridView.SelectedRows[i].Cells[7].Value;
+                        xlWorkSheet.Cells[i + 2, 3] = "R$ " + formataValor(precoVendaAtacado * quantidadeAtacado);
+                        decimal precoVendaAtacadoSemDesconto = (decimal)tb_produtoDataGridView.SelectedRows[i].Cells[8].Value;
+                        xlWorkSheet.Cells[i + 2, 4] = "R$ " + formataValor(precoVendaAtacadoSemDesconto * quantidadeAtacado); //preço venda atacado sem desconto
+                    }
                 }
 
 

@@ -340,7 +340,7 @@
           <Property Name="codPagamento" Type="bigint" />
           <Property Name="desconto" Type="decimal" Nullable="false" Scale="2" />
           <Property Name="formatoConta" Type="enum" Nullable="false" />
-          <Property Name="numeroDocumento" Type="varchar" MaxLength="45" />
+          <Property Name="numeroDocumento" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="tb_conta_banco">
           <Key>
@@ -589,6 +589,7 @@
           <Property Name="imprimirDAV" Type="bool" Nullable="false" />
           <Property Name="imprimirCF" Type="bool" Nullable="false" />
           <Property Name="nomeFantasia" Type="varchar" MaxLength="50" />
+          <Property Name="bloquearCrediario" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_plano_conta">
           <Key>
@@ -1929,7 +1930,7 @@
           <NavigationProperty Name="tb_pessoa" Relationship="SaceModel.fk_conta_pagar_codpessoa" FromRole="ContaE" ToRole="tb_pessoa" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.fk_tb_conta_pagar_codsaida" FromRole="ContaE" ToRole="tb_saida" />
           <Property Type="String" Name="formatoConta" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="numeroDocumento" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="numeroDocumento" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="ContaBancoE">
           <Key>
@@ -2667,6 +2668,7 @@
           <NavigationProperty Name="tb_saida2" Relationship="SaceModel.fk_tb_saida_tb_pessoa1" FromRole="PessoaE" ToRole="tb_saida" />
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_produto_tb_pessoa1" FromRole="PessoaE" ToRole="tb_produto" />
           <NavigationProperty Name="tb_loja" Relationship="SaceModel.fk_tb_loja_tb_pessoa1" FromRole="PessoaE" ToRole="tb_loja" />
+          <Property Type="Boolean" Name="bloquearCrediario" Nullable="false" />
           </EntityType>
         <Association Name="fk_tb_cartao_credito_tb_pessoa1">
           <End Type="SaceModel.PessoaE" Role="tb_pessoa" Multiplicity="1" />
@@ -3463,6 +3465,7 @@
           <EntitySetMapping Name="PessoaSet">
             <EntityTypeMapping TypeName="SaceModel.PessoaE">
               <MappingFragment StoreEntitySet="tb_pessoa">
+                <ScalarProperty Name="bloquearCrediario" ColumnName="bloquearCrediario" />
                 <ScalarProperty Name="nomeFantasia" ColumnName="nomeFantasia" />
                 <ScalarProperty Name="imprimirCF" ColumnName="imprimirCF" />
                 <ScalarProperty Name="imprimirDAV" ColumnName="imprimirDAV" />

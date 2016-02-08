@@ -660,7 +660,6 @@
     <None Include="Properties\DataSources\Dominio.CartaoCredito.datasource" />
     <None Include="Properties\DataSources\Dominio.Cfop.datasource" />
     <None Include="Properties\DataSources\Dominio.Consultas.TotaisMovimentacaoConta.datasource" />
-    <None Include="Properties\DataSources\Dominio.Consultas.TotaisSaida.datasource" />
     <None Include="Properties\DataSources\Dominio.Consultas.VendasCartao.datasource" />
     <None Include="Properties\DataSources\Dominio.Conta.datasource" />
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />

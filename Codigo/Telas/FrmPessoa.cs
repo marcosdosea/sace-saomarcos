@@ -115,6 +115,7 @@ namespace Telas
             _pessoa.EhFabricante = ehFabricanteCheckBox.Checked;
             _pessoa.ImprimirCF = imprimirCFCheckBox.Checked;
             _pessoa.ImprimirDAV = imprimirDAVCheckBox.Checked;
+            _pessoa.BloquearCrediario = bloquearCrediarioCheckBox.Checked;
 
             GerenciadorPessoa gPessoa = GerenciadorPessoa.GetInstance();
             if (estado.Equals(EstadoFormulario.INSERIR))

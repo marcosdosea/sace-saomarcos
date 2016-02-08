@@ -24,8 +24,15 @@ namespace Telas
         {
             produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
+
+            if (MessageBox.Show("Deseja ANALISAR ESTOQUE para atualizar SOLICITAÇÕES DE COMPRA?", "Confirmar Análise Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                GerenciadorSaidaProduto.GetInstance(null).AtualizarSituacaoEstoqueProdutos();
+                Cursor.Current = Cursors.Default;
+            }
             comboBoxFornecedor_SelectedIndexChanged(sender, e);
-            solicitacoesCompraDataGridView_SelectionChanged(sender, e);
+            //solicitacoesCompraDataGridView_SelectionChanged(sender, e);
         }
 
 
@@ -35,6 +42,17 @@ namespace Telas
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                if (MessageBox.Show("Confirma NÃO COMPRAR produto para o Estoque?", "Confirmar Não Comprar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
+                    solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
+                    solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.NAO_COMPRAR;
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra);
+                    comboBoxFornecedor_SelectedIndexChanged(sender, e);
+                }
             }
             else if (e.KeyCode == Keys.F9)
             {
@@ -173,6 +191,8 @@ namespace Telas
         private void comboBoxFornecedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<int> listaSituacoesProdutoChecked = new List<int>();
+            if (checkBoxNaoComprar.Checked)
+                listaSituacoesProdutoChecked.Add(SituacaoProduto.NAO_COMPRAR);
             if (checkBoxComprado.Checked)
                 listaSituacoesProdutoChecked.Add(SituacaoProduto.COMPRADO);
             if (checkBoxDisponivel.Checked)
@@ -181,16 +201,10 @@ namespace Telas
                 listaSituacoesProdutoChecked.Add(SituacaoProduto.COMPRA_NECESSARIA);
             if (checkBoxCompraUrgente.Checked)
                 listaSituacoesProdutoChecked.Add(SituacaoProduto.COMPRA_URGENTE);
-            listaSituacoesProdutoChecked.Add(SituacaoProduto.NAO_COMPRAR); 
             long codFornecedor = 1;
             if (comboBoxFornecedor.SelectedValue != null)
                 codFornecedor = (long) comboBoxFornecedor.SelectedValue;
             solicitacoesCompraBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSolicitacoesCompra(listaSituacoesProdutoChecked, codFornecedor);
-        }
-
-        private void solicitacoesCompraDataGridView_SelectionChanged(object sender, EventArgs e)
-        {
-            DestacarProdutos();
         }
 
         private void DestacarProdutos()
@@ -202,14 +216,17 @@ namespace Telas
                 if (codSituacaoProduto == SituacaoProduto.COMPRA_NECESSARIA)
                 {
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Yellow;
+                    solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
                 else if (codSituacaoProduto == SituacaoProduto.COMPRA_URGENTE)
                 {
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Red;
+                    solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
                 else if (codSituacaoProduto == SituacaoProduto.COMPRADO)
                 {
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.Green;
+                    solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
                 else if (codSituacaoProduto == SituacaoProduto.NAO_COMPRAR)
                 {
@@ -219,6 +236,7 @@ namespace Telas
                 else
                 {
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.White;
+                    solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
 
 
@@ -242,5 +260,9 @@ namespace Telas
 
         }
 
+        private void solicitacoesCompraDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DestacarProdutos();
+        }
     }
 }

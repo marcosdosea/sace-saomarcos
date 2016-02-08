@@ -56,6 +56,9 @@
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
             this.codGrupoComboBox = new System.Windows.Forms.ComboBox();
             this.grupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             codSubgrupoLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             codGrupoLabel = new System.Windows.Forms.Label();
@@ -64,6 +67,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_subgrupoBindingNavigator)).BeginInit();
             this.tb_subgrupoBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // codSubgrupoLabel
@@ -115,7 +119,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 162);
+            this.btnSalvar.Location = new System.Drawing.Point(304, 356);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -125,7 +129,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 162);
+            this.btnBuscar.Location = new System.Drawing.Point(4, 356);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -136,7 +140,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 162);
+            this.btnCancelar.Location = new System.Drawing.Point(385, 356);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -146,7 +150,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 162);
+            this.btnNovo.Location = new System.Drawing.Point(79, 356);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -156,7 +160,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 162);
+            this.btnExcluir.Location = new System.Drawing.Point(229, 356);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -166,7 +170,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 162);
+            this.btnEditar.Location = new System.Drawing.Point(154, 356);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -314,11 +318,34 @@
             // 
             this.grupoBindingSource.DataSource = typeof(Dominio.Grupo);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(9, 157);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(229, 193);
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(244, 327);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(123, 23);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Selecionar Imagem";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FrmSubgrupo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 190);
+            this.ClientSize = new System.Drawing.Size(474, 381);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(codGrupoLabel);
             this.Controls.Add(this.codGrupoComboBox);
             this.Controls.Add(descricaoLabel);
@@ -350,6 +377,7 @@
             this.tb_subgrupoBindingNavigator.ResumeLayout(false);
             this.tb_subgrupoBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -380,5 +408,8 @@
         private System.Windows.Forms.TextBox descricaoTextBox;
         private System.Windows.Forms.ComboBox codGrupoComboBox;
         private System.Windows.Forms.BindingSource grupoBindingSource;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }

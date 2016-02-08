@@ -207,7 +207,8 @@ namespace Negocio
                             Uf = pessoa.uf,
                             ValorComissao = (decimal) pessoa.valorComissao,
                             CodMunicipioIBGE = pessoa.codMunicipiosIBGE,
-                            NomeMunicipioIBGE = pessoa.tb_municipios_ibge.municipio
+                            NomeMunicipioIBGE = pessoa.tb_municipios_ibge.municipio,
+                            BloquearCrediario = pessoa.bloquearCrediario
                         };
             return query;
         }
@@ -420,6 +421,7 @@ namespace Negocio
             _pessoa.Tipo = pessoa.Tipo;
             _pessoa.uf = pessoa.Uf;
             _pessoa.valorComissao = pessoa.ValorComissao;
+            _pessoa.bloquearCrediario = pessoa.BloquearCrediario;
             return _pessoa;
         }
 

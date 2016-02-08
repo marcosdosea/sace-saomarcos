@@ -313,7 +313,7 @@ namespace Negocio
                     arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
                     arquivo.Write(situacaoFiscal + ";");
                     arquivo.Write("0;");
-                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
+                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");                             
                     arquivo.WriteLine(saidaProduto.Unidade + ";");
 
                     precoTotalProdutosVendidos += saidaProduto.Subtotal;

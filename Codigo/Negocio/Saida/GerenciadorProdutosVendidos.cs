@@ -21,7 +21,7 @@ namespace Negocio
             return gProdutosVendidos;
         }
 
-
+        
         public List<ProdutoVendido> ObterProdutosVendidosDezoitoMeses(Int64 codProduto)
         {
             saceDataSetConsultas.ProdutosVendidosDataTable pVendidos = tb_produtos_vendidosTA.GetQuantidadeProdutosVenvidosMesAnoDesc(codProduto);

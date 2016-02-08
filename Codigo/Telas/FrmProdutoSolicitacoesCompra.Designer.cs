@@ -103,9 +103,10 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxDisponivel = new System.Windows.Forms.CheckBox();
-            this.checkBoxSolicitacaoCompra = new System.Windows.Forms.CheckBox();
             this.checkBoxComprado = new System.Windows.Forms.CheckBox();
             this.checkBoxCompraUrgente = new System.Windows.Forms.CheckBox();
+            this.checkBoxNaoComprar = new System.Windows.Forms.CheckBox();
+            this.checkBoxSolicitacaoCompra = new System.Windows.Forms.CheckBox();
             valorUnitarioLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaAtacadoLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaVarejoLabel = new System.Windows.Forms.Label();
@@ -230,7 +231,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(872, 41);
+            this.panel1.Size = new System.Drawing.Size(872, 39);
             this.panel1.TabIndex = 20;
             // 
             // ProdutosGroupBox
@@ -755,7 +756,7 @@
             this.solicitacoesCompraDataGridView.Size = new System.Drawing.Size(851, 146);
             this.solicitacoesCompraDataGridView.TabIndex = 1;
             this.solicitacoesCompraDataGridView.CurrentCellChanged += new System.EventHandler(this.solicitacoesCompraDataGridView_CurrentCellChanged);
-            this.solicitacoesCompraDataGridView.SelectionChanged += new System.EventHandler(this.solicitacoesCompraDataGridView_SelectionChanged);
+            this.solicitacoesCompraDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.solicitacoesCompraDataGridView_DataBindingComplete);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -814,7 +815,7 @@
             this.checkBoxDisponivel.AutoSize = true;
             this.checkBoxDisponivel.BackColor = System.Drawing.Color.White;
             this.checkBoxDisponivel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBoxDisponivel.Location = new System.Drawing.Point(467, 47);
+            this.checkBoxDisponivel.Location = new System.Drawing.Point(467, 72);
             this.checkBoxDisponivel.Name = "checkBoxDisponivel";
             this.checkBoxDisponivel.Size = new System.Drawing.Size(196, 24);
             this.checkBoxDisponivel.TabIndex = 3;
@@ -822,27 +823,12 @@
             this.checkBoxDisponivel.UseVisualStyleBackColor = false;
             this.checkBoxDisponivel.CheckedChanged += new System.EventHandler(this.comboBoxFornecedor_SelectedIndexChanged);
             // 
-            // checkBoxSolicitacaoCompra
-            // 
-            this.checkBoxSolicitacaoCompra.AutoSize = true;
-            this.checkBoxSolicitacaoCompra.BackColor = System.Drawing.Color.Yellow;
-            this.checkBoxSolicitacaoCompra.Checked = true;
-            this.checkBoxSolicitacaoCompra.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSolicitacaoCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBoxSolicitacaoCompra.Location = new System.Drawing.Point(467, 77);
-            this.checkBoxSolicitacaoCompra.Name = "checkBoxSolicitacaoCompra";
-            this.checkBoxSolicitacaoCompra.Size = new System.Drawing.Size(198, 24);
-            this.checkBoxSolicitacaoCompra.TabIndex = 5;
-            this.checkBoxSolicitacaoCompra.Text = "Compra Solicitada - F10";
-            this.checkBoxSolicitacaoCompra.UseVisualStyleBackColor = false;
-            this.checkBoxSolicitacaoCompra.CheckStateChanged += new System.EventHandler(this.comboBoxFornecedor_SelectedIndexChanged);
-            // 
             // checkBoxComprado
             // 
             this.checkBoxComprado.AutoSize = true;
             this.checkBoxComprado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.checkBoxComprado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBoxComprado.Location = new System.Drawing.Point(675, 77);
+            this.checkBoxComprado.Location = new System.Drawing.Point(675, 72);
             this.checkBoxComprado.Name = "checkBoxComprado";
             this.checkBoxComprado.Size = new System.Drawing.Size(187, 24);
             this.checkBoxComprado.TabIndex = 4;
@@ -857,7 +843,7 @@
             this.checkBoxCompraUrgente.Checked = true;
             this.checkBoxCompraUrgente.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxCompraUrgente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBoxCompraUrgente.Location = new System.Drawing.Point(675, 47);
+            this.checkBoxCompraUrgente.Location = new System.Drawing.Point(675, 42);
             this.checkBoxCompraUrgente.Name = "checkBoxCompraUrgente";
             this.checkBoxCompraUrgente.Size = new System.Drawing.Size(187, 24);
             this.checkBoxCompraUrgente.TabIndex = 6;
@@ -865,12 +851,42 @@
             this.checkBoxCompraUrgente.UseVisualStyleBackColor = false;
             this.checkBoxCompraUrgente.CheckStateChanged += new System.EventHandler(this.comboBoxFornecedor_SelectedIndexChanged);
             // 
+            // checkBoxNaoComprar
+            // 
+            this.checkBoxNaoComprar.AutoSize = true;
+            this.checkBoxNaoComprar.BackColor = System.Drawing.Color.Black;
+            this.checkBoxNaoComprar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.checkBoxNaoComprar.ForeColor = System.Drawing.Color.White;
+            this.checkBoxNaoComprar.Location = new System.Drawing.Point(467, 43);
+            this.checkBoxNaoComprar.Name = "checkBoxNaoComprar";
+            this.checkBoxNaoComprar.Size = new System.Drawing.Size(194, 24);
+            this.checkBoxNaoComprar.TabIndex = 131;
+            this.checkBoxNaoComprar.Text = "Não Comprar - F8          ";
+            this.checkBoxNaoComprar.UseVisualStyleBackColor = false;
+            this.checkBoxNaoComprar.CheckStateChanged += new System.EventHandler(this.comboBoxFornecedor_SelectedIndexChanged);
+            // 
+            // checkBoxSolicitacaoCompra
+            // 
+            this.checkBoxSolicitacaoCompra.AutoSize = true;
+            this.checkBoxSolicitacaoCompra.BackColor = System.Drawing.Color.Yellow;
+            this.checkBoxSolicitacaoCompra.Checked = true;
+            this.checkBoxSolicitacaoCompra.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSolicitacaoCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.checkBoxSolicitacaoCompra.Location = new System.Drawing.Point(465, 100);
+            this.checkBoxSolicitacaoCompra.Name = "checkBoxSolicitacaoCompra";
+            this.checkBoxSolicitacaoCompra.Size = new System.Drawing.Size(198, 24);
+            this.checkBoxSolicitacaoCompra.TabIndex = 5;
+            this.checkBoxSolicitacaoCompra.Text = "Compra Solicitada - F10";
+            this.checkBoxSolicitacaoCompra.UseVisualStyleBackColor = false;
+            this.checkBoxSolicitacaoCompra.CheckStateChanged += new System.EventHandler(this.comboBoxFornecedor_SelectedIndexChanged);
+            // 
             // FrmProdutoSolicitacoesCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(871, 695);
             this.ControlBox = false;
+            this.Controls.Add(this.checkBoxNaoComprar);
             this.Controls.Add(this.checkBoxCompraUrgente);
             this.Controls.Add(this.checkBoxComprado);
             this.Controls.Add(this.checkBoxSolicitacaoCompra);
@@ -986,8 +1002,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.CheckBox checkBoxDisponivel;
-        private System.Windows.Forms.CheckBox checkBoxSolicitacaoCompra;
         private System.Windows.Forms.CheckBox checkBoxComprado;
         private System.Windows.Forms.CheckBox checkBoxCompraUrgente;
+        private System.Windows.Forms.CheckBox checkBoxNaoComprar;
+        private System.Windows.Forms.CheckBox checkBoxSolicitacaoCompra;
     }
 }

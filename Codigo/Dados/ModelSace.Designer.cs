@@ -2003,7 +2003,8 @@ namespace Dados
         /// <param name="valor">Initial value of the valor property.</param>
         /// <param name="desconto">Initial value of the desconto property.</param>
         /// <param name="formatoConta">Initial value of the formatoConta property.</param>
-        public static ContaE CreateContaE(global::System.Int64 codConta, global::System.Int64 codPlanoConta, global::System.Int64 codPessoa, global::System.String codSituacao, global::System.DateTime dataVencimento, global::System.Decimal valor, global::System.Decimal desconto, global::System.String formatoConta)
+        /// <param name="numeroDocumento">Initial value of the numeroDocumento property.</param>
+        public static ContaE CreateContaE(global::System.Int64 codConta, global::System.Int64 codPlanoConta, global::System.Int64 codPessoa, global::System.String codSituacao, global::System.DateTime dataVencimento, global::System.Decimal valor, global::System.Decimal desconto, global::System.String formatoConta, global::System.String numeroDocumento)
         {
             ContaE contaE = new ContaE();
             contaE.codConta = codConta;
@@ -2014,6 +2015,7 @@ namespace Dados
             contaE.valor = valor;
             contaE.desconto = desconto;
             contaE.formatoConta = formatoConta;
+            contaE.numeroDocumento = numeroDocumento;
             return contaE;
         }
 
@@ -2315,7 +2317,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String numeroDocumento
         {
@@ -2327,7 +2329,7 @@ namespace Dados
             {
                 OnnumeroDocumentoChanging(value);
                 ReportPropertyChanging("numeroDocumento");
-                _numeroDocumento = StructuralObject.SetValidValue(value, true);
+                _numeroDocumento = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("numeroDocumento");
                 OnnumeroDocumentoChanged();
             }
@@ -5601,7 +5603,8 @@ namespace Dados
         /// <param name="ehFabricante">Initial value of the ehFabricante property.</param>
         /// <param name="imprimirDAV">Initial value of the imprimirDAV property.</param>
         /// <param name="imprimirCF">Initial value of the imprimirCF property.</param>
-        public static PessoaE CreatePessoaE(global::System.Int64 codPessoa, global::System.String nome, global::System.Int32 codMunicipiosIBGE, global::System.String tipo, global::System.Boolean ehFabricante, global::System.Boolean imprimirDAV, global::System.Boolean imprimirCF)
+        /// <param name="bloquearCrediario">Initial value of the bloquearCrediario property.</param>
+        public static PessoaE CreatePessoaE(global::System.Int64 codPessoa, global::System.String nome, global::System.Int32 codMunicipiosIBGE, global::System.String tipo, global::System.Boolean ehFabricante, global::System.Boolean imprimirDAV, global::System.Boolean imprimirCF, global::System.Boolean bloquearCrediario)
         {
             PessoaE pessoaE = new PessoaE();
             pessoaE.codPessoa = codPessoa;
@@ -5611,6 +5614,7 @@ namespace Dados
             pessoaE.ehFabricante = ehFabricante;
             pessoaE.imprimirDAV = imprimirDAV;
             pessoaE.imprimirCF = imprimirCF;
+            pessoaE.bloquearCrediario = bloquearCrediario;
             return pessoaE;
         }
 
@@ -6220,6 +6224,30 @@ namespace Dados
         private global::System.String _nomeFantasia;
         partial void OnnomeFantasiaChanging(global::System.String value);
         partial void OnnomeFantasiaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean bloquearCrediario
+        {
+            get
+            {
+                return _bloquearCrediario;
+            }
+            set
+            {
+                OnbloquearCrediarioChanging(value);
+                ReportPropertyChanging("bloquearCrediario");
+                _bloquearCrediario = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("bloquearCrediario");
+                OnbloquearCrediarioChanged();
+            }
+        }
+        private global::System.Boolean _bloquearCrediario;
+        partial void OnbloquearCrediarioChanging(global::System.Boolean value);
+        partial void OnbloquearCrediarioChanged();
 
         #endregion
 

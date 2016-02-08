@@ -40,7 +40,9 @@ namespace Negocio
                 {
                     throw new NegocioException("O valor Total dos Produtos não pode ser maior que o valor total da Nota menos o desconto.");
                 }
-                else if (entrada.TotalProdutosST > entrada.TotalProdutos)
+
+                //margem de erro de 0.05 centavos por conta de problemas de distribuição de valores  
+                else if ((entrada.TotalProdutosST) > (entrada.TotalProdutos + new Decimal(0.05)))
                 {
                     throw new NegocioException("O valor Total dos Protudos ST não pode ser maior que o valor Total dos Produtos.");
                 }

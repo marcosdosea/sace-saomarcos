@@ -108,6 +108,7 @@
             this.cepMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.cidadeTextBox = new System.Windows.Forms.TextBox();
             this.codMunicipioIBGEComboBox = new System.Windows.Forms.ComboBox();
+            this.bloquearCrediarioCheckBox = new System.Windows.Forms.CheckBox();
             codPessoaLabel = new System.Windows.Forms.Label();
             enderecoLabel = new System.Windows.Forms.Label();
             cidadeLabel = new System.Windows.Forms.Label();
@@ -332,7 +333,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(307, 561);
+            this.btnSalvar.Location = new System.Drawing.Point(307, 602);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -342,7 +343,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(7, 561);
+            this.btnBuscar.Location = new System.Drawing.Point(7, 602);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -353,7 +354,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(388, 561);
+            this.btnCancelar.Location = new System.Drawing.Point(388, 602);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -363,7 +364,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(82, 561);
+            this.btnNovo.Location = new System.Drawing.Point(82, 602);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -373,7 +374,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(232, 561);
+            this.btnExcluir.Location = new System.Drawing.Point(232, 602);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -383,7 +384,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(157, 561);
+            this.btnEditar.Location = new System.Drawing.Point(157, 602);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -533,7 +534,7 @@
             this.observacaoTextBox.MaxLength = 300;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(630, 41);
+            this.observacaoTextBox.Size = new System.Drawing.Size(630, 80);
             this.observacaoTextBox.TabIndex = 64;
             // 
             // enderecoTextBox
@@ -670,7 +671,7 @@
             this.fone1DataGridViewTextBoxColumn,
             this.fone2DataGridViewTextBoxColumn});
             this.tb_contato_empresaDataGridView.DataSource = this.contatosBindingSource;
-            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 464);
+            this.tb_contato_empresaDataGridView.Location = new System.Drawing.Point(7, 505);
             this.tb_contato_empresaDataGridView.Name = "tb_contato_empresaDataGridView";
             this.tb_contato_empresaDataGridView.ReadOnly = true;
             this.tb_contato_empresaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -716,7 +717,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(88, 447);
+            this.label2.Location = new System.Drawing.Point(88, 488);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 63;
@@ -726,7 +727,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(7, 447);
+            this.label6.Location = new System.Drawing.Point(7, 488);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 62;
@@ -734,7 +735,7 @@
             // 
             // btnAdicionarContato
             // 
-            this.btnAdicionarContato.Location = new System.Drawing.Point(523, 437);
+            this.btnAdicionarContato.Location = new System.Drawing.Point(523, 478);
             this.btnAdicionarContato.Name = "btnAdicionarContato";
             this.btnAdicionarContato.Size = new System.Drawing.Size(114, 23);
             this.btnAdicionarContato.TabIndex = 66;
@@ -809,22 +810,22 @@
             this.cpf_CnpjTextBox.MaxLength = 14;
             this.cpf_CnpjTextBox.Name = "cpf_CnpjTextBox";
             this.cpf_CnpjTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cpf_CnpjTextBox.TabIndex = 28;
+            this.cpf_CnpjTextBox.TabIndex = 29;
             // 
             // ehFabricanteCheckBox
             // 
             this.ehFabricanteCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.pessoaBindingSource, "EhFabricante", true));
-            this.ehFabricanteCheckBox.Location = new System.Drawing.Point(516, 172);
+            this.ehFabricanteCheckBox.Location = new System.Drawing.Point(511, 128);
             this.ehFabricanteCheckBox.Name = "ehFabricanteCheckBox";
             this.ehFabricanteCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.ehFabricanteCheckBox.TabIndex = 35;
+            this.ehFabricanteCheckBox.TabIndex = 28;
             this.ehFabricanteCheckBox.Text = "É Fabricante";
             this.ehFabricanteCheckBox.UseVisualStyleBackColor = true;
             // 
             // imprimirDAVCheckBox
             // 
             this.imprimirDAVCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.pessoaBindingSource, "ImprimirDAV", true));
-            this.imprimirDAVCheckBox.Location = new System.Drawing.Point(545, 332);
+            this.imprimirDAVCheckBox.Location = new System.Drawing.Point(545, 329);
             this.imprimirDAVCheckBox.Name = "imprimirDAVCheckBox";
             this.imprimirDAVCheckBox.Size = new System.Drawing.Size(92, 24);
             this.imprimirDAVCheckBox.TabIndex = 60;
@@ -834,7 +835,7 @@
             // imprimirCFCheckBox
             // 
             this.imprimirCFCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.pessoaBindingSource, "ImprimirCF", true));
-            this.imprimirCFCheckBox.Location = new System.Drawing.Point(545, 358);
+            this.imprimirCFCheckBox.Location = new System.Drawing.Point(545, 350);
             this.imprimirCFCheckBox.Name = "imprimirCFCheckBox";
             this.imprimirCFCheckBox.Size = new System.Drawing.Size(92, 24);
             this.imprimirCFCheckBox.TabIndex = 62;
@@ -848,7 +849,7 @@
             this.nomeTextBox.Location = new System.Drawing.Point(7, 128);
             this.nomeTextBox.MaxLength = 50;
             this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(630, 20);
+            this.nomeTextBox.Size = new System.Drawing.Size(498, 20);
             this.nomeTextBox.TabIndex = 27;
             this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
@@ -858,7 +859,7 @@
             this.cepMaskedTextBox.Location = new System.Drawing.Point(404, 171);
             this.cepMaskedTextBox.Mask = "99.999-000";
             this.cepMaskedTextBox.Name = "cepMaskedTextBox";
-            this.cepMaskedTextBox.Size = new System.Drawing.Size(102, 20);
+            this.cepMaskedTextBox.Size = new System.Drawing.Size(101, 20);
             this.cepMaskedTextBox.TabIndex = 34;
             this.cepMaskedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.cepMaskedTextBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
@@ -888,11 +889,22 @@
             this.codMunicipioIBGEComboBox.ValueMember = "Codigo";
             this.codMunicipioIBGEComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codMunicipioIBGEComboBox_KeyPress);
             // 
+            // bloquearCrediarioCheckBox
+            // 
+            this.bloquearCrediarioCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.pessoaBindingSource, "BloquearCrediario", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.bloquearCrediarioCheckBox.Location = new System.Drawing.Point(511, 167);
+            this.bloquearCrediarioCheckBox.Name = "bloquearCrediarioCheckBox";
+            this.bloquearCrediarioCheckBox.Size = new System.Drawing.Size(130, 25);
+            this.bloquearCrediarioCheckBox.TabIndex = 35;
+            this.bloquearCrediarioCheckBox.Text = "Crediário Bloqueado";
+            this.bloquearCrediarioCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FrmPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 592);
+            this.ClientSize = new System.Drawing.Size(642, 628);
+            this.Controls.Add(this.bloquearCrediarioCheckBox);
             this.Controls.Add(this.codMunicipioIBGEComboBox);
             this.Controls.Add(cidadeLabel1);
             this.Controls.Add(this.cidadeTextBox);
@@ -1039,5 +1051,6 @@
         private System.Windows.Forms.BindingSource municipiosIBGEBindingSource;
         private System.Windows.Forms.TextBox cidadeTextBox;
         private System.Windows.Forms.ComboBox codMunicipioIBGEComboBox;
+        private System.Windows.Forms.CheckBox bloquearCrediarioCheckBox;
     }
 }

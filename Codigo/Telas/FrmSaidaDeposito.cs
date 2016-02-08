@@ -52,7 +52,7 @@ namespace Telas
             {
                 if (MessageBox.Show("Confirma REMESSA para DEPÓSITO?", "Confirmar Remessa", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null);
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null, null);
 
                     FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                     frmSaidaNF.ShowDialog();
@@ -64,7 +64,7 @@ namespace Telas
             {
                 if (MessageBox.Show("Confirma RETORNO de DEPÓSITO FECHADO?", "Confirmar Retorno", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null);
+                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null, null);
 
                     FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                     frmSaidaNF.ShowDialog();
