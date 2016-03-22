@@ -73,19 +73,18 @@
             this.btnCancelar.Location = new System.Drawing.Point(304, 73);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(83, 26);
-            this.btnCancelar.TabIndex = 3;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnReduzido2
             // 
-            this.btnReduzido2.Enabled = false;
             this.btnReduzido2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btnReduzido2.Location = new System.Drawing.Point(203, 73);
             this.btnReduzido2.Name = "btnReduzido2";
             this.btnReduzido2.Size = new System.Drawing.Size(101, 26);
-            this.btnReduzido2.TabIndex = 4;
+            this.btnReduzido2.TabIndex = 3;
             this.btnReduzido2.Text = "Reduzido 2";
             this.btnReduzido2.UseVisualStyleBackColor = true;
             this.btnReduzido2.Click += new System.EventHandler(this.btnReduzido2_Click);
@@ -95,7 +94,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 102);
+            this.ClientSize = new System.Drawing.Size(389, 102);
             this.ControlBox = false;
             this.Controls.Add(this.btnReduzido2);
             this.Controls.Add(this.btnCancelar);

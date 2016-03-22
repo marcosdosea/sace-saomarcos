@@ -600,13 +600,13 @@ namespace Telas
 
                 if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(saida.TipoSaida))
                 {
-                    FrmSaidaDevolucaoConsumidor frmSaidaDeposito = new FrmSaidaDevolucaoConsumidor(saida);
+                    FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
                 }
                 if (Saida.LISTA_TIPOS_RETORNO_DEPOSITO.Contains(saida.TipoSaida))
                 {
-                    FrmSaidaDevolucaoConsumidor frmSaidaDeposito = new FrmSaidaDevolucaoConsumidor(saida);
+                    FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
                     frmSaidaDeposito.ShowDialog();
                     frmSaidaDeposito.Dispose();
                 }

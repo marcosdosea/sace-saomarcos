@@ -53,7 +53,7 @@ namespace Util
         QUANTIDADE_EXIBIR_PEDIDOS = 100;
 
 
-        public enum Impressora { NORMAL, REDUZIDA, REDUZIDA2 };
+        public enum Impressora { NORMAL, DARUMA, BEMATECH };
 
         public static System.Drawing.Color
             BACKCOLOR_FOCUS = System.Drawing.Color.LightYellow,
@@ -84,8 +84,8 @@ namespace Util
          SGBD_SENHA = "sace",
          SGBD_IP = "192.168.0.3",
          PORTA_IMPRESSORA_NORMAL = "LPT1",
-         PORTA_IMPRESSORA_REDUZIDA = "\\\\SM-VENDAS01\\Daruma",
-         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\SM-VENDAS02\\Itautec",
+         PORTA_IMPRESSORA_REDUZIDA = "\\\\SERVIDOR\\Bematech",
+         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\SM-VENDAS01\\Daruma",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";

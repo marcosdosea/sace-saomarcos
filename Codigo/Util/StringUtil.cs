@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace Util
 {
-    public class StringUtil
+    public static class StringUtil
     {
         public static string RemoverAcentos(string texto)
         {
@@ -23,6 +23,11 @@ namespace Util
                 }
             }
             return sb.ToString();
+        }
+
+        public static string PadBoth(this string str, int length, char character = ' ')
+        {
+            return str.PadLeft((length - str.Length) / 2 + str.Length, character).PadRight(length, character);
         }
     }
 }

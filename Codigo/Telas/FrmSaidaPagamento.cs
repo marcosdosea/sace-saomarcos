@@ -164,7 +164,7 @@ namespace Telas
                             if (temPagamentoCrediario)
                             {
                                 if (cliente.ImprimirDAV)
-                                    GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.REDUZIDA);
+                                    GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.DARUMA);
                             }
                             else
                             {

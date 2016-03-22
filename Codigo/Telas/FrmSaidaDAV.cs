@@ -48,13 +48,13 @@ namespace Telas
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.REDUZIDA);
+            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.DARUMA);
         }
 
         private void btnReduzido2_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.REDUZIDA2);
+            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.BEMATECH);
         }
 
         private List<Saida> obterSaidas(List<long> listaCodSaidas)

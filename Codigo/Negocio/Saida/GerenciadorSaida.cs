@@ -9,6 +9,8 @@ using Dominio;
 using Util;
 using System.Transactions;
 using Dominio.Consultas;
+using System.Windows.Forms;
+
 
 
 namespace Negocio
@@ -1089,19 +1091,23 @@ namespace Negocio
             try
             {
                 ImprimeTexto imp = new ImprimeTexto();
-                if (impressora.Equals(Global.Impressora.REDUZIDA))
+                if (impressora.Equals(Global.Impressora.DARUMA))
                 {
                     if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA))
                     {
                         return false;
                     }
                 }
-                else
+                else if (impressora.Equals(Global.Impressora.BEMATECH))
                 {
                     if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
                     {
                         return false;
                     }
+                }
+                else
+                {
+                    ImprimirDAVComprimidoBematech(saidas, total, totalAVista, desconto);
                 }
 
                 Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
@@ -1193,6 +1199,112 @@ namespace Negocio
             {
                 throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.", e);
             }
+        }
+
+        private int FormataTX(string texto)
+        {
+            int tLetra = 1;
+            int italico = 0;
+            int sublinhado = 0;
+            int expandido = 0;
+            int enfatizado = 0;
+            return MP2032.FormataTX(texto, tLetra, italico, sublinhado, expandido, enfatizado);
+        }
+
+        private void ImprimirDAVComprimidoBematech(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        {
+            int iRetorno = 0; //Variável para retorno das chamadas
+            iRetorno = MP2032.ConfiguraModeloImpressora(1); // "MP 20 MI"
+
+            iRetorno = MP2032.IniciaPorta(Global.PORTA_IMPRESSORA_REDUZIDA2);
+
+            if (iRetorno <= 0) //testa se a conexão da porta foi bem sucedido
+            {
+                MessageBox.Show("Não foi possível conectar com a impressora!!!");
+            }
+
+            Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
+            Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
+
+            //chamando a função para impressão do texto
+            // \n - quebra de linha e \r retorno de impressão (comandos da impressora)
+            iRetorno = FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
+                FormataTX(StringUtil.PadBoth("DOCUMENTO AUXILIAR DE VENDA - ORCAMENTO" + "\n",60));
+            else
+                FormataTX(StringUtil.PadBoth("DOCUMENTO AUXILIAR DE VENDA - PEDIDO"+"\n",60));
+
+            FormataTX(StringUtil.PadBoth("NAO E DOCUMENTO FISCAL - NAO E VALIDO COMO RECIBO" + "\n", 60));
+            FormataTX(StringUtil.PadBoth("\n", 60));
+            FormataTX(StringUtil.PadBoth("E COMO GARANTIA DE MERCADORIA - NAO COMPROVA PAGAMENTO"+"\n", 60));
+            FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            
+            
+            FormataTX(StringUtil.PadBoth(pessoaLoja.Nome, 60));
+            FormataTX(StringUtil.PadBoth(pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1 + "\n", 60));
+            FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            
+            Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
+
+
+            FormataTX("Cliente: " + cliente.NomeFantasia+"  CPF/CNPJ: " + cliente.CpfCnpj + "\n");
+
+            if (saidas.Count == 1)
+            {
+                FormataTX("No do Documento: " + saidas[0].CodSaida + "   No do Documento Fiscal: " + saidas[0].CupomFiscal + "\n");
+                FormataTX("Data: " + saidas[0].DataSaida.ToShortDateString() + "\n");
+            }
+            FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            FormataTX("Cod  Produto                                   Qtdade    UN " + "\n");
+            FormataTX("                                      Preco(R$) Subtotal(R$)" + "\n");
+            foreach (Saida saida in saidas)
+            {
+                if (saidas.Count > 1)
+                {
+                    FormataTX("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal+ "\n");
+                }
+
+                List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                foreach (SaidaProduto produto in saidaProdutos)
+                {
+            //        imp.ImpColDireita(0, 4, produto.CodProduto.ToString());
+
+            //        if (produto.Nome.Length > 39)
+            //        {
+            //            imp.ImpCol(6, produto.Nome.Substring(1, 39));
+            //        }
+            //        else
+            //        {
+            //            imp.ImpCol(6, produto.Nome);
+            //        }
+
+            //        imp.ImpColDireita(46, 54, produto.Quantidade.ToString());
+            //        imp.ImpColLFDireita(57, 58, produto.Unidade);
+            //        imp.ImpColDireita(38, 46, produto.ValorVenda.ToString("N2"));
+            //        imp.ImpColLFDireita(48, 59, produto.Subtotal.ToString("N2"));
+                }
+            }
+
+            FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            //imp.ImpLF("Total Venda: " + total + "     Desconto: " + desconto.ToString("N2") + "%");
+            //imp.ImpColLFDireita(0, 32, imp.Expandido + imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.Comprimido + imp.NegritoOff);
+            FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            //imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
+            //if (!saidas[0].CupomFiscal.Equals(""))
+            //{
+            //    imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
+            //}
+            FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            if (!saidas[0].CodCliente.Equals(Global.CLIENTE_PADRAO))
+            {
+                FormataTX("\n");
+                FormataTX("Recebido por:"+"\n");
+                FormataTX(Global.LINHA_COMPRIMIDA + "\n");
+            }
+
+            //imp.Pula(8);
+            //imp.Imp(imp.Normal);
+            //imp.Fim();
         }
 
         private bool ImprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
