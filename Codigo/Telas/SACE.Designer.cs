@@ -70,6 +70,7 @@
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atualizarCSOSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.atualizarPreçoVarejoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exclusãoDePessoasDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -390,6 +391,7 @@
             this.backupToolStripMenuItem,
             this.restaurarBackupToolStripMenuItem,
             this.atualizarCSOSNToolStripMenuItem,
+            this.atualizarPreçoVarejoToolStripMenuItem,
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem,
             this.exclusãoDePessoasDoSistemaToolStripMenuItem});
             this.utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
@@ -415,6 +417,13 @@
             this.atualizarCSOSNToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
             this.atualizarCSOSNToolStripMenuItem.Text = "Atualizar Códigos de Barras \\ Imprimir Etiquetas";
             this.atualizarCSOSNToolStripMenuItem.Click += new System.EventHandler(this.atualizarCSOSNToolStripMenuItem_Click);
+            // 
+            // atualizarPreçoVarejoToolStripMenuItem
+            // 
+            this.atualizarPreçoVarejoToolStripMenuItem.Name = "atualizarPreçoVarejoToolStripMenuItem";
+            this.atualizarPreçoVarejoToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.atualizarPreçoVarejoToolStripMenuItem.Text = "Atualizar Preço Varejo \\ Atacado";
+            this.atualizarPreçoVarejoToolStripMenuItem.Click += new System.EventHandler(this.atualizarPreçoVarejoToolStripMenuItem_Click);
             // 
             // exclusãoDeProdutoDoSistemaToolStripMenuItem
             // 
@@ -607,7 +616,6 @@
             // 
             this.timerAtualizarProdutosParaCompra.Enabled = true;
             this.timerAtualizarProdutosParaCompra.Interval = 3600000;
-            this.timerAtualizarProdutosParaCompra.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Principal
             // 
@@ -708,6 +716,7 @@
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeConsumidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.Timer timerAtualizarProdutosParaCompra;
+        private System.Windows.Forms.ToolStripMenuItem atualizarPreçoVarejoToolStripMenuItem;
 
     }
 }

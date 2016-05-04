@@ -391,9 +391,11 @@ namespace Telas
             frmPessoaExcluir.Dispose();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void atualizarPreçoVarejoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmProdutoPreco frmProdutoPreco = new FrmProdutoPreco(false);
+            frmProdutoPreco.ShowDialog();
+            frmProdutoPreco.Dispose();
         }
 
      }

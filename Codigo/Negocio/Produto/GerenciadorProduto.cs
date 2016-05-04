@@ -284,6 +284,44 @@ namespace Negocio
                 throw new DadosException("Produto", e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Atualiza preços do produto
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <param name="nomeProduto"></param>
+        /// <param name="precoVarejo"></param>
+        /// <param name="precoAtacado"></param>
+        public void AtualizarPrecoVarejoAtacado(long codProduto, string nomeProduto, decimal precoVarejo, decimal precoAtacado, decimal precoRevenda)
+        {
+            try
+            {
+                var repProduto = new RepositorioGenerico<ProdutoE>();
+
+                var saceEntities = (SaceEntities)repProduto.ObterContexto();
+                var query = from produtoSet in saceEntities.ProdutoSet
+                            where produtoSet.codProduto == codProduto
+                            select produtoSet;
+                foreach (ProdutoE _produtoE in query)
+                {
+                    _produtoE.nome = nomeProduto;
+                    if (_produtoE.precoVendaVarejo != precoVarejo || _produtoE.precoVendaAtacado != precoAtacado)
+                    {
+                        _produtoE.precoVendaVarejo = precoVarejo;
+                        _produtoE.precoVendaAtacado = precoAtacado;
+                        _produtoE.precoRevenda = precoRevenda;
+                        _produtoE.dataUltimaMudancaPreco = DateTime.Now;
+                        _produtoE.ultimaDataAtualizacao = DateTime.Now;
+                    }
+                }
+                repProduto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Produto", e.Message, e);
+            }
+        }
+
         
         /// <summary>
         /// Remove produto da base de dados
@@ -542,6 +580,7 @@ namespace Negocio
         {
             return GetQuerySimples().Where(p =>  p.CodFabricante.Equals(codPessoa));//.ToList();
         }
+
         /// <summary>
         /// Obtém produto pela data de atualização
         /// </summary>
@@ -781,8 +820,6 @@ namespace Negocio
             _produtoE.unidadeCompra = produto.UnidadeCompra;
             _produtoE.emPromocao = produto.EmPromocao;
         }
-
-
 
     }
 }

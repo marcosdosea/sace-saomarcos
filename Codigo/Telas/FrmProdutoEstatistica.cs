@@ -26,6 +26,11 @@ namespace Telas
             this.produto = produto;
         }
 
+        public FrmProdutoEstatistica(long codProduto)
+        {
+            InitializeComponent();
+            this.produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = codProduto });
+        }
 
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)

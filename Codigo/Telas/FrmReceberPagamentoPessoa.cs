@@ -491,10 +491,11 @@ namespace Telas
                 {
                     decimal valorConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[7].Value;
                     // valor do desconto
-                    contasPessoaDataGridView.SelectedRows[8].Cells[6].Value = (valorConta * (descontoAtual / 100)).ToString("N2");
+                    contasPessoaDataGridView.SelectedRows[i].Cells[8].Value = (valorConta * (descontoAtual / 100)).ToString("N2");
                     decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[8].Value;
                     // valor da conta a vista
-                    contasPessoaDataGridView.SelectedRows[i].Cells[9].Value = (valorConta - valorDescontoConta).ToString("N2");
+                    contasPessoaDataGridView.SelectedRows[i].Cells[9].Value = valorConta - valorDescontoConta;
+                    contasPessoaDataGridView.Refresh();
                 }
                 CalcularTotalContasSelecionadas();
             }
