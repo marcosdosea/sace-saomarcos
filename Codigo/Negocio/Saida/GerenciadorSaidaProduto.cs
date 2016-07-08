@@ -394,7 +394,7 @@ namespace Negocio
 
                 if (produtoVendido != null) {
                     if (estoqueAtual <= produtoVendido.QuantidadeVendida) {
-                        if (produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR)
+                        if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO)) 
                         {
                             if (estoqueAtual <= (produtoVendido.QuantidadeVendida / 2))
                                 produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;

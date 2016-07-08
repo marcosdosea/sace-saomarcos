@@ -58,5 +58,11 @@ namespace Telas
             Opcao = Saida.TIPO_ORCAMENTO;
             this.Close();
         }
+
+        private void btnPreVendaNfce_Click(object sender, EventArgs e)
+        {
+            Opcao = Saida.TIPO_PRE_VENDA_NFCE;
+            this.Close();
+        }
     }
 }

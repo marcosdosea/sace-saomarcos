@@ -9,6 +9,7 @@ namespace Dominio
     {
         public const int TIPO_ORCAMENTO = 1;
         public const int TIPO_PRE_VENDA = 2;
+        public const int TIPO_PRE_VENDA_NFCE = 16;
         public const int TIPO_VENDA = 3;
 
         public const int TIPO_PRE_REMESSA_DEPOSITO = 9;

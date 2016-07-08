@@ -34,6 +34,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.trocoTextBox = new System.Windows.Forms.TextBox();
+            this.btnPreVendaNfce = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -50,7 +51,7 @@
             // 
             this.btnPreVenda.FlatAppearance.BorderSize = 3;
             this.btnPreVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreVenda.Location = new System.Drawing.Point(28, 137);
+            this.btnPreVenda.Location = new System.Drawing.Point(12, 137);
             this.btnPreVenda.Name = "btnPreVenda";
             this.btnPreVenda.Size = new System.Drawing.Size(112, 29);
             this.btnPreVenda.TabIndex = 1;
@@ -61,7 +62,7 @@
             // btnOrcamento
             // 
             this.btnOrcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrcamento.Location = new System.Drawing.Point(146, 137);
+            this.btnOrcamento.Location = new System.Drawing.Point(275, 137);
             this.btnOrcamento.Name = "btnOrcamento";
             this.btnOrcamento.Size = new System.Drawing.Size(121, 29);
             this.btnOrcamento.TabIndex = 2;
@@ -72,7 +73,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(272, 136);
+            this.btnCancelar.Location = new System.Drawing.Point(396, 136);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 29);
             this.btnCancelar.TabIndex = 3;
@@ -98,18 +99,31 @@
             this.trocoTextBox.Location = new System.Drawing.Point(6, 40);
             this.trocoTextBox.Name = "trocoTextBox";
             this.trocoTextBox.ReadOnly = true;
-            this.trocoTextBox.Size = new System.Drawing.Size(357, 45);
+            this.trocoTextBox.Size = new System.Drawing.Size(486, 45);
             this.trocoTextBox.TabIndex = 11;
             this.trocoTextBox.TabStop = false;
             this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnPreVendaNfce
+            // 
+            this.btnPreVendaNfce.FlatAppearance.BorderSize = 3;
+            this.btnPreVendaNfce.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreVendaNfce.Location = new System.Drawing.Point(125, 137);
+            this.btnPreVendaNfce.Name = "btnPreVendaNfce";
+            this.btnPreVendaNfce.Size = new System.Drawing.Size(149, 29);
+            this.btnPreVendaNfce.TabIndex = 12;
+            this.btnPreVendaNfce.Text = "Pré-Venda+NFC-e";
+            this.btnPreVendaNfce.UseVisualStyleBackColor = true;
+            this.btnPreVendaNfce.Click += new System.EventHandler(this.btnPreVendaNfce_Click);
             // 
             // FrmSaidaConfirma
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 167);
+            this.ClientSize = new System.Drawing.Size(500, 180);
             this.ControlBox = false;
+            this.Controls.Add(this.btnPreVendaNfce);
             this.Controls.Add(this.trocoTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancelar);
@@ -138,5 +152,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox trocoTextBox;
+        private System.Windows.Forms.Button btnPreVendaNfce;
     }
 }

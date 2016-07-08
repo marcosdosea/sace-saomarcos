@@ -612,7 +612,6 @@ namespace Negocio
                         RegistrarBaixaEstoque(saidaProdutos);
                         //AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
                     }
-
                     transaction.Complete();
                 }
                 catch (NegocioException ne)
@@ -1498,9 +1497,9 @@ namespace Negocio
 
             try
             {
-                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA_NFCE))
                 {
-                    GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
+                    GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista, saida.TipoSaida);
                     //SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                     //saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
                     //GerarDocumentoFiscal(saidaTotalAVista, null);

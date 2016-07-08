@@ -130,56 +130,62 @@ namespace Telas
         /// <param name="e"></param>
         private void EncerrarLancamentosPagamentos(object sender, EventArgs e)
         {
-            if ((saida.CupomFiscal == null) || saida.CupomFiscal.Equals(""))
+            try
             {
-
-                var frmSaidaConfirma = new FrmSaidaConfirma(saida);
-                frmSaidaConfirma.ShowDialog();
-                Cursor.Current = Cursors.WaitCursor;
-                
-                if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
+                if (String.IsNullOrWhiteSpace(saida.CupomFiscal))
                 {
-                    List<SaidaPagamento> listaPagamentosSaida = (List <SaidaPagamento> ) saidaPagamentoBindingSource.DataSource; 
-                    bool limiteCompraLiberado = true;
-                    Pessoa cliente = (Pessoa) clienteBindingSource.Current;
-                    // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
-                    if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
+                    var frmSaidaConfirma = new FrmSaidaConfirma(saida);
+                    frmSaidaConfirma.ShowDialog();
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                     {
-                        decimal limiteCompraDisponivel = GerenciadorPessoa.GetInstance().ObterLimiteCompraDisponivel(cliente);
-                        if (limiteCompraDisponivel <= saida.TotalAVista) 
+                        List<SaidaPagamento> listaPagamentosSaida = (List<SaidaPagamento>)saidaPagamentoBindingSource.DataSource;
+                        bool limiteCompraLiberado = true;
+                        Pessoa cliente = (Pessoa)clienteBindingSource.Current;
+                        // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
+                        if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
                         {
-                            if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
+                            decimal limiteCompraDisponivel = GerenciadorPessoa.GetInstance().ObterLimiteCompraDisponivel(cliente);
+                            if (limiteCompraDisponivel <= saida.TotalAVista)
                             {
-                                limiteCompraLiberado = false;
+                                if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
+                                {
+                                    limiteCompraLiberado = false;
+                                }
                             }
                         }
-                    }
-                    if (limiteCompraLiberado)
-                    {
-                        GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
-                        if (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA)
+                        if (limiteCompraLiberado)
                         {
-                            // quando tem pagamento crediário imprime o DAV
-                            bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
-                            if (temPagamentoCrediario)
+                            GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                            if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA) || frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
                             {
-                                if (cliente.ImprimirDAV)
+                                // quando tem pagamento crediário imprime o DAV
+                                bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
+                                if (temPagamentoCrediario && cliente.ImprimirDAV)
+                                {
                                     GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.DARUMA);
-                            }
-                            else
-                            {
-                                // para não abrir cupons com valores negativos
-                                if (saida.TotalAVista > 0)
-                                    GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista);
+                                }
+                                else
+                                {
+                                    // para não abrir cupons com valores negativos
+                                    if (saida.TotalAVista > 0)
+                                        GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista, frmSaidaConfirma.Opcao);
+                                }
                             }
                         }
                     }
+                    frmSaidaConfirma.Close();
+                    frmSaidaConfirma.Dispose();
                 }
-                frmSaidaConfirma.Close();               
-                frmSaidaConfirma.Dispose();
+                Cursor.Current = Cursors.Default;
+                this.Close();
             }
-            Cursor.Current = Cursors.Default;
-            this.Close();
+            catch (Exception)
+            {
+                MessageBox.Show("Problemas no Encerramento da Venda. Favor tentar novamente.", "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnSalvar_Click(sender, e);
+            }
         }
 
         /// <summary>

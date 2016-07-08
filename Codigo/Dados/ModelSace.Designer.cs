@@ -10237,7 +10237,8 @@ namespace Dados
         /// <param name="pastaNfeAutorizados">Initial value of the pastaNfeAutorizados property.</param>
         /// <param name="pastaNfeEspelho">Initial value of the pastaNfeEspelho property.</param>
         /// <param name="numeroSequenciaNfeAtual">Initial value of the numeroSequenciaNfeAtual property.</param>
-        public static tb_loja Createtb_loja(global::System.Int32 codLoja, global::System.String nome, global::System.Int64 codPessoa, global::System.String nomeServidorNfe, global::System.String enderecoServidorNfe, global::System.String pastaNfeEnvio, global::System.String pastaNfeEnviado, global::System.String pastaNfeRetorno, global::System.String pastaNfeErro, global::System.String pastaNfeAutorizados, global::System.String pastaNfeEspelho, global::System.Int32 numeroSequenciaNfeAtual)
+        /// <param name="numeroSequencialNFCeAtual">Initial value of the numeroSequencialNFCeAtual property.</param>
+        public static tb_loja Createtb_loja(global::System.Int32 codLoja, global::System.String nome, global::System.Int64 codPessoa, global::System.String nomeServidorNfe, global::System.String enderecoServidorNfe, global::System.String pastaNfeEnvio, global::System.String pastaNfeEnviado, global::System.String pastaNfeRetorno, global::System.String pastaNfeErro, global::System.String pastaNfeAutorizados, global::System.String pastaNfeEspelho, global::System.Int32 numeroSequenciaNfeAtual, global::System.Int32 numeroSequencialNFCeAtual)
         {
             tb_loja tb_loja = new tb_loja();
             tb_loja.codLoja = codLoja;
@@ -10252,6 +10253,7 @@ namespace Dados
             tb_loja.pastaNfeAutorizados = pastaNfeAutorizados;
             tb_loja.pastaNfeEspelho = pastaNfeEspelho;
             tb_loja.numeroSequenciaNfeAtual = numeroSequenciaNfeAtual;
+            tb_loja.numeroSequencialNFCeAtual = numeroSequencialNFCeAtual;
             return tb_loja;
         }
 
@@ -10549,6 +10551,30 @@ namespace Dados
         private global::System.Int32 _numeroSequenciaNfeAtual;
         partial void OnnumeroSequenciaNfeAtualChanging(global::System.Int32 value);
         partial void OnnumeroSequenciaNfeAtualChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 numeroSequencialNFCeAtual
+        {
+            get
+            {
+                return _numeroSequencialNFCeAtual;
+            }
+            set
+            {
+                OnnumeroSequencialNFCeAtualChanging(value);
+                ReportPropertyChanging("numeroSequencialNFCeAtual");
+                _numeroSequencialNFCeAtual = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("numeroSequencialNFCeAtual");
+                OnnumeroSequencialNFCeAtualChanged();
+            }
+        }
+        private global::System.Int32 _numeroSequencialNFCeAtual;
+        partial void OnnumeroSequencialNFCeAtualChanging(global::System.Int32 value);
+        partial void OnnumeroSequencialNFCeAtualChanged();
 
         #endregion
 
@@ -10697,7 +10723,8 @@ namespace Dados
         /// <param name="situacaoProtocoloCartaCorrecao">Initial value of the situacaoProtocoloCartaCorrecao property.</param>
         /// <param name="mensagemSitucaoCartaCorrecao">Initial value of the mensagemSitucaoCartaCorrecao property.</param>
         /// <param name="numeroProtocoloCartaCorrecao">Initial value of the numeroProtocoloCartaCorrecao property.</param>
-        public static tb_nfe Createtb_nfe(global::System.Int32 codNFe, global::System.Int32 codLoja, global::System.Int32 numeroSequenciaNFe, global::System.String chave, global::System.String situacaoNfe, global::System.String numeroLoteEnvio, global::System.String numeroRecibo, global::System.String situacaoReciboEnvio, global::System.String mensagemSituacaoReciboEnvio, global::System.String numeroProtocoloUso, global::System.String situacaoProtocoloUso, global::System.String mensagemSituacaoProtocoloUso, global::System.String numeroProtocoloCancelamento, global::System.String situacaoProtocoloCancelamento, global::System.String mensagemSituacaoProtocoloCancelamento, global::System.String justificativaCancelamento, global::System.Int32 seqCartaCorrecao, global::System.String correcao, global::System.String situacaoProtocoloCartaCorrecao, global::System.String mensagemSitucaoCartaCorrecao, global::System.String numeroProtocoloCartaCorrecao)
+        /// <param name="modelo">Initial value of the modelo property.</param>
+        public static tb_nfe Createtb_nfe(global::System.Int32 codNFe, global::System.Int32 codLoja, global::System.Int32 numeroSequenciaNFe, global::System.String chave, global::System.String situacaoNfe, global::System.String numeroLoteEnvio, global::System.String numeroRecibo, global::System.String situacaoReciboEnvio, global::System.String mensagemSituacaoReciboEnvio, global::System.String numeroProtocoloUso, global::System.String situacaoProtocoloUso, global::System.String mensagemSituacaoProtocoloUso, global::System.String numeroProtocoloCancelamento, global::System.String situacaoProtocoloCancelamento, global::System.String mensagemSituacaoProtocoloCancelamento, global::System.String justificativaCancelamento, global::System.Int32 seqCartaCorrecao, global::System.String correcao, global::System.String situacaoProtocoloCartaCorrecao, global::System.String mensagemSitucaoCartaCorrecao, global::System.String numeroProtocoloCartaCorrecao, global::System.String modelo)
         {
             tb_nfe tb_nfe = new tb_nfe();
             tb_nfe.codNFe = codNFe;
@@ -10721,6 +10748,7 @@ namespace Dados
             tb_nfe.situacaoProtocoloCartaCorrecao = situacaoProtocoloCartaCorrecao;
             tb_nfe.mensagemSitucaoCartaCorrecao = mensagemSitucaoCartaCorrecao;
             tb_nfe.numeroProtocoloCartaCorrecao = numeroProtocoloCartaCorrecao;
+            tb_nfe.modelo = modelo;
             return tb_nfe;
         }
 
@@ -11306,6 +11334,30 @@ namespace Dados
         private Nullable<global::System.DateTime> _dataCartaCorrecao;
         partial void OndataCartaCorrecaoChanging(Nullable<global::System.DateTime> value);
         partial void OndataCartaCorrecaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String modelo
+        {
+            get
+            {
+                return _modelo;
+            }
+            set
+            {
+                OnmodeloChanging(value);
+                ReportPropertyChanging("modelo");
+                _modelo = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("modelo");
+                OnmodeloChanged();
+            }
+        }
+        private global::System.String _modelo;
+        partial void OnmodeloChanging(global::System.String value);
+        partial void OnmodeloChanged();
 
         #endregion
 
@@ -13169,6 +13221,30 @@ namespace Dados
         private global::System.Decimal _total;
         partial void OntotalChanging(global::System.Decimal value);
         partial void OntotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tipoCupom
+        {
+            get
+            {
+                return _tipoCupom;
+            }
+            set
+            {
+                OntipoCupomChanging(value);
+                ReportPropertyChanging("tipoCupom");
+                _tipoCupom = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("tipoCupom");
+                OntipoCupomChanged();
+            }
+        }
+        private global::System.String _tipoCupom;
+        partial void OntipoCupomChanging(global::System.String value);
+        partial void OntipoCupomChanged();
 
         #endregion
 

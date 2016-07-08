@@ -486,6 +486,7 @@
           <Property Name="pastaNfeAutorizados" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="pastaNfeEspelho" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="numeroSequenciaNfeAtual" Type="int" Nullable="false" />
+          <Property Name="numeroSequencialNFCeAtual" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_movimentacao_conta">
           <Key>
@@ -514,6 +515,7 @@
           <Property Name="codNFe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="codLoja" Type="int" Nullable="false" />
           <Property Name="numeroSequenciaNFe" Type="int" Nullable="false" />
+          <Property Name="modelo" Type="char" Nullable="false" MaxLength="2" />
           <Property Name="chave" Type="varchar" Nullable="false" MaxLength="44" />
           <Property Name="situacaoNfe" Type="char" Nullable="false" MaxLength="1" />
           <Property Name="numeroLoteEnvio" Type="varchar" Nullable="false" MaxLength="15" />
@@ -787,6 +789,7 @@
           <Property Name="dataSolicitacao" Type="datetime" Nullable="false" />
           <Property Name="enviada" Type="bool" Nullable="false" />
           <Property Name="total" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="tipoCupom" Type="enum" />
         </EntityType>
         <EntityType Name="tb_subgrupo">
           <Key>
@@ -2927,6 +2930,7 @@
           <Property Type="DateTime" Name="dataSolicitacao" Nullable="false" />
           <Property Type="Boolean" Name="enviada" Nullable="false" />
           <Property Type="Decimal" Name="total" Nullable="false" />
+          <Property Type="String" Name="tipoCupom" MaxLength="65532" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tb_imposto">
           <Key>
@@ -3124,6 +3128,7 @@
           <NavigationProperty Name="tb_nfe" Relationship="SaceModel.fk_tb_nfe_tb_loja1" FromRole="tb_loja" ToRole="tb_nfe" />
           <NavigationProperty Name="tb_produto_loja" Relationship="SaceModel.fk_tb_produto_loja_codloja" FromRole="tb_loja" ToRole="ProdutoLojaE" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.fk_tb_saida_tb_loja1" FromRole="tb_loja" ToRole="tb_saida" />
+          <Property Type="Int32" Name="numeroSequencialNFCeAtual" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_nfe">
           <Key>
@@ -3155,6 +3160,7 @@
           <Property Type="DateTime" Name="dataCartaCorrecao" />
           <NavigationProperty Name="tb_loja" Relationship="SaceModel.fk_tb_nfe_tb_loja1" FromRole="tb_nfe" ToRole="tb_loja" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.tb_saida_nfe" FromRole="tb_nfe" ToRole="tb_saida" />
+          <Property Type="String" Name="modelo" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_tb_loja_tb_pessoa1">
           <End Type="SaceModel.PessoaE" Role="PessoaE" Multiplicity="1" />
@@ -3548,6 +3554,7 @@
           <EntitySetMapping Name="tb_solicitacao_cupom">
             <EntityTypeMapping TypeName="SaceModel.tb_solicitacao_cupom">
               <MappingFragment StoreEntitySet="tb_solicitacao_cupom">
+                <ScalarProperty Name="tipoCupom" ColumnName="tipoCupom" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="enviada" ColumnName="enviada" />
                 <ScalarProperty Name="dataSolicitacao" ColumnName="dataSolicitacao" />
@@ -3619,6 +3626,7 @@
           <EntitySetMapping Name="tb_loja">
             <EntityTypeMapping TypeName="SaceModel.tb_loja">
               <MappingFragment StoreEntitySet="tb_loja">
+                <ScalarProperty Name="numeroSequencialNFCeAtual" ColumnName="numeroSequencialNFCeAtual" />
                 <ScalarProperty Name="numeroSequenciaNfeAtual" ColumnName="numeroSequenciaNfeAtual" />
                 <ScalarProperty Name="pastaNfeEspelho" ColumnName="pastaNfeEspelho" />
                 <ScalarProperty Name="pastaNfeAutorizados" ColumnName="pastaNfeAutorizados" />
@@ -3637,6 +3645,7 @@
           <EntitySetMapping Name="tb_nfe">
             <EntityTypeMapping TypeName="SaceModel.tb_nfe">
               <MappingFragment StoreEntitySet="tb_nfe">
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
                 <ScalarProperty Name="dataCartaCorrecao" ColumnName="dataCartaCorrecao" />
                 <ScalarProperty Name="numeroProtocoloCartaCorrecao" ColumnName="numeroProtocoloCartaCorrecao" />
                 <ScalarProperty Name="mensagemSitucaoCartaCorrecao" ColumnName="mensagemSitucaoCartaCorrecao" />

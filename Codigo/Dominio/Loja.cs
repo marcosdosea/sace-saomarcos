@@ -57,9 +57,10 @@ namespace Dominio
             get { return pastaNfeEspelho; }
             set { pastaNfeEspelho = value; }
         }
-        public int NumeroSequenciaNfeAtual { get; set; }
-        
+        public int NumeroSequenciaNFeAtual { get; set; }
 
+        public int NumeroSequenciaNFCeAtual { get; set; }
+        
         // override object.Equals
         public override bool Equals(object obj)
         {

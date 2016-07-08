@@ -76,7 +76,8 @@ namespace Negocio
                 var repLoja = new RepositorioGenerico<tb_loja>();
 
                 tb_loja _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
-                _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNfeAtual;
+                _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNFeAtual;
+                _lojaE.numeroSequencialNFCeAtual = loja.NumeroSequenciaNFCeAtual;
 
                 repLoja.SaveChanges();
             }
@@ -135,7 +136,8 @@ namespace Negocio
                             Estado = loja.tb_pessoa.uf,
                             Ie = loja.tb_pessoa.ie,
                             NomePessoa = loja.tb_pessoa.nome,
-                            NumeroSequenciaNfeAtual = (int) loja.numeroSequenciaNfeAtual,
+                            NumeroSequenciaNFeAtual = (int) loja.numeroSequenciaNfeAtual,
+                            NumeroSequenciaNFCeAtual = (int)loja.numeroSequencialNFCeAtual
                         };
             return query;
         }
@@ -205,7 +207,8 @@ namespace Negocio
             _lojaE.pastaNfeErro = loja.PastaNfeErro;
             _lojaE.pastaNfeEspelho = loja.PastaNfeEspelho;
             _lojaE.pastaNfeRetorno = loja.PastaNfeRetorno;
-            _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNfeAtual;
+            _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNFeAtual;
+            _lojaE.numeroSequencialNFCeAtual = loja.NumeroSequenciaNFCeAtual;
         }
     }
 }

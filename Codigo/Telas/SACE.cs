@@ -398,5 +398,10 @@ namespace Telas
             frmProdutoPreco.Dispose();
         }
 
+        private void timerAtualizarProdutosParaCompra_Tick(object sender, EventArgs e)
+        {
+
+        }
+
      }
 }

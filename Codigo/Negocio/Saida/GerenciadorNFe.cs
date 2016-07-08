@@ -13,6 +13,7 @@ using System.Threading;
 using System.Globalization;
 using System.Data.Objects.DataClasses;
 using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Negocio
 {
@@ -171,6 +172,7 @@ namespace Negocio
                             SeqCartaCorrecao = nfe.seqCartaCorrecao,
                             SituacaoProtocoloCartaCorrecao = nfe.situacaoProtocoloCartaCorrecao,
                             NumeroSequenciaNfe = nfe.numeroSequenciaNFe,
+                            Modelo = nfe.modelo,
                             CodLoja = nfe.codLoja
                         };
             return query;
@@ -254,6 +256,7 @@ namespace Negocio
                             SeqCartaCorrecao = nfe.seqCartaCorrecao,
                             SituacaoProtocoloCartaCorrecao = nfe.situacaoProtocoloCartaCorrecao,
                             NumeroSequenciaNfe = nfe.numeroSequenciaNFe,
+                            Modelo = nfe.modelo,
                             CodLoja = nfe.codLoja
                         };
             return query.ToList();
@@ -275,9 +278,9 @@ namespace Negocio
         /// <param name="numeroSequenciaNfe">Número sequencial da nfe</param>
         /// <param name="codLoja">Código da loja</param>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorNumeroNfeLoja(int numeroSequenciaNfe, int codLoja)
+        public IEnumerable<NfeControle> ObterPorNumeroNfeLojaModelo(int numeroSequenciaNfe, int codLoja, string modelo)
         {
-            return GetQuery().Where(nfe => nfe.NumeroSequenciaNfe == numeroSequenciaNfe && nfe.CodLoja == codLoja).ToList();
+            return GetQuery().Where(nfe => nfe.NumeroSequenciaNfe == numeroSequenciaNfe && nfe.CodLoja == codLoja && nfe.Modelo.Equals(modelo)).ToList();
         }
 
         /// <summary>
@@ -290,7 +293,7 @@ namespace Negocio
             return GetQuery().Where(nfe => nfe.CodLoja == codLoja).ToList();
         }
 
-        public NfeControle GerarChaveNFE(Saida saida, bool ehNfeComplementar)
+        public NfeControle GerarChaveNFE(Saida saida, bool ehNfeComplementar, string modelo)
         {
             if (saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
             {
@@ -335,7 +338,8 @@ namespace Negocio
                     nfeControle.SituacaoProtocoloCartaCorrecao = "";
                     nfeControle.NumeroProtocoloCartaCorrecao = "";
                     nfeControle.CodLoja = saida.CodLojaOrigem;
-                    nfeControle.NumeroSequenciaNfe = ObterProximoNumeroSequenciaNfeLoja(saida.CodLojaOrigem);
+                    nfeControle.Modelo = modelo; 
+                    nfeControle.NumeroSequenciaNfe = ObterProximoNumeroSequenciaNfeLoja(saida.CodLojaOrigem, modelo);
                     nfeControle.CodNfe = GerenciadorNFe.GetInstance().Inserir(nfeControle, saida, ehNfeComplementar);
                 }
 
@@ -361,7 +365,7 @@ namespace Negocio
                     xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
                     long codPessoaLoja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem)[0].CodPessoa;
                     xmlcnpj.InnerText = GerenciadorPessoa.GetInstance().Obter(codPessoaLoja).ElementAt(0).CpfCnpj;
-                    xmlMod.InnerText = "55"; //55-NF-e 65-NFC-e
+                    xmlMod.InnerText = modelo; //55-NF-e 65-NFC-e
 
                     //inclui os novos elementos no elemento poemas
                     novoGerarChave.AppendChild(xmlnNF);
@@ -391,19 +395,26 @@ namespace Negocio
         /// </summary>
         /// <param name="codLoja">Identificação da loja</param>
         /// <returns></returns>
-        private int ObterProximoNumeroSequenciaNfeLoja(int codLoja)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        private int ObterProximoNumeroSequenciaNfeLoja(int codLoja, string modelo)
         {
             Loja loja = GerenciadorLoja.GetInstance().Obter(codLoja).ElementAtOrDefault(0);
-            loja.NumeroSequenciaNfeAtual += 1;
+            if (modelo.Equals(NfeControle.MODELO_NFE))
+                loja.NumeroSequenciaNFeAtual += 1;
+            else
+                loja.NumeroSequenciaNFCeAtual += 1;
+            
             bool existe = true;
             while (existe)
             {
-                existe = ObterPorNumeroNfeLoja(loja.NumeroSequenciaNfeAtual, codLoja).Count() > 0;
+                existe = ObterPorNumeroNfeLojaModelo(loja.NumeroSequenciaNFeAtual, codLoja, modelo).Count() > 0;
                 if (existe)
-                    loja.NumeroSequenciaNfeAtual += 1;
+                    loja.NumeroSequenciaNFeAtual += 1;
             }
             GerenciadorLoja.GetInstance().AtualizarNumeroNfe(loja);
-            return loja.NumeroSequenciaNfeAtual;
+            if (modelo.Equals(NfeControle.MODELO_NFE))
+                return loja.NumeroSequenciaNFeAtual;
+            return loja.NumeroSequenciaNFCeAtual;
         }
 
         /// <summary>
@@ -1950,12 +1961,13 @@ namespace Negocio
                     DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
 
                     Process unidanfe = new Process();
-                    unidanfe.StartInfo.FileName = @"\\retaguarda\UniNFe\unidanfe.exe";
+                    unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
                     unidanfe.StartInfo.Arguments = " arquivo=\"" + loja.PastaNfeAutorizados
                         + dataEmissao.Year
                         + dataEmissao.Month.ToString("00")
                         + dataEmissao.Day.ToString("00") + "\\"
-                        + nfeControle.Chave + "-nfe.xml";
+                        + nfeControle.Chave + "-nfe.xml\""
+                        + " t=danfe v=0 m=1 i=\"selecionar\"";
                     unidanfe.Start();
                 }
                 catch (Exception ex)

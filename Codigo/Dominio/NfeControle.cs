@@ -16,6 +16,9 @@ namespace Dominio
         public const string SITUACAO_REJEITADA = "R";
         public const string SITUACAO_COMPLEMENTAR_IMPOSTO = "O";
 
+        public const string MODELO_NFE = "55";
+        public const string MODELO_NFCE = "65";
+
         public NfeControle()
         {
             Chave = "";
@@ -39,6 +42,7 @@ namespace Dominio
         public string SituacaoNfe { get; set; }
         public int NumeroSequenciaNfe { get; set; }
         public int CodLoja { get; set; }
+        public string Modelo { get; set; }
 
         public string DescricaoSituacaoNfe
         {

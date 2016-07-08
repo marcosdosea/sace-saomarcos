@@ -92,7 +92,6 @@
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.timerAtualizarProdutosParaCompra = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -594,7 +593,6 @@
             // timerAtualizaCuponsFiscais
             // 
             this.timerAtualizaCuponsFiscais.Enabled = true;
-            this.timerAtualizaCuponsFiscais.Interval = 500;
             this.timerAtualizaCuponsFiscais.Tick += new System.EventHandler(this.timerAtualizaCuponsFiscais_Tick);
             // 
             // backgroundWorkerAtualizarCupons
@@ -611,11 +609,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(420, 121);
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
-            // 
-            // timerAtualizarProdutosParaCompra
-            // 
-            this.timerAtualizarProdutosParaCompra.Enabled = true;
-            this.timerAtualizarProdutosParaCompra.Interval = 3600000;
             // 
             // Principal
             // 
@@ -715,7 +708,6 @@
         private System.Windows.Forms.ToolStripMenuItem exclusãoDePessoasDoSistemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeConsumidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.Timer timerAtualizarProdutosParaCompra;
         private System.Windows.Forms.ToolStripMenuItem atualizarPreçoVarejoToolStripMenuItem;
 
     }

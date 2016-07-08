@@ -119,7 +119,7 @@ namespace Telas
 
                     NfeControle nfe = (NfeControle) nfeControleBindingSource.Current;
                     // Gera chave e envia nota fiscal
-                    nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, ehNfeComplementar);
+                    nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, ehNfeComplementar, NfeControle.MODELO_NFE);
                     if (ehNfeComplementar)
                     {
                         //nfe.ComplementarImposto = ((NfeControle)nfeControleBindingSource.Current).ComplementarImposto;
@@ -149,7 +149,7 @@ namespace Telas
                     
                 // Gera chave e envia nota fiscal
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
-                nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, ehNfeComplementar);
+                nfe = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, ehNfeComplementar, NfeControle.MODELO_NFE);
                 if (!string.IsNullOrEmpty(nfe.Chave))
                 {
                     GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe, false, ehNfeComplementar);

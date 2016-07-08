@@ -12,6 +12,8 @@ namespace Negocio
 {
     public class GerenciadorCupom
     {
+        private const string TIPO_CUPOM_ECF = "ECF";
+        private const string TIPO_CUPOM_NFCE = "NFCE";
 
         private static GerenciadorCupom gCupom;
 
@@ -29,7 +31,7 @@ namespace Negocio
         /// </summary>
         /// <param name="cupom"></param>
         /// <returns></returns>
-        public long InserirSolicitacaoCupom(long codSaida, decimal total)
+        public long InserirSolicitacaoCupom(long codSaida, decimal total, int tipoSaida)
         {
             var repCupom = new RepositorioGenerico<tb_solicitacao_cupom>();
             tb_solicitacao_cupom _cupomE = new tb_solicitacao_cupom();
@@ -39,7 +41,10 @@ namespace Negocio
                 _cupomE.dataSolicitacao = DateTime.Now;
                 _cupomE.enviada = false;
                 _cupomE.total = total;
-
+                if (tipoSaida.Equals(Saida.TIPO_PRE_VENDA))
+                    _cupomE.tipoCupom = TIPO_CUPOM_ECF;
+                else
+                    _cupomE.tipoCupom = TIPO_CUPOM_NFCE;
                 repCupom.Inserir(_cupomE);
                 repCupom.SaveChanges();
 
@@ -63,19 +68,19 @@ namespace Negocio
             try
             {
                 string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+                var repCupom = new RepositorioGenerico<tb_solicitacao_cupom>();
                 if (nomeComputador.Equals(Global.NOME_SERVIDOR))
                 {
-                    var repCupom = new RepositorioGenerico<tb_solicitacao_cupom>();
                     DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
                     if (pastaECF.Exists)
                     {
                         FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
                         if (files.Length == 0)
                         {
-                            IQueryable<tb_solicitacao_cupom> solicitacoes = GetQuery().OrderBy(s => s.dataSolicitacao);
+                            IQueryable<tb_solicitacao_cupom> solicitacoes = GetQuery().Where(C => C.tipoCupom.Equals(TIPO_CUPOM_ECF)).OrderBy(s => s.dataSolicitacao);
                             if (solicitacoes.Count() > 0)
                             {
-                                Thread.Sleep(1000); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
+                                Thread.Sleep(500); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
                                 SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
                                 tb_solicitacao_cupom solicitacaoE = solicitacoes.FirstOrDefault();
                                 saidaTotalAVista.Add(solicitacaoE.codSaida, solicitacaoE.total);
@@ -84,7 +89,24 @@ namespace Negocio
                             }
                         }
                     }
-
+                }
+                else if (nomeComputador.Equals(Global.NOME_SERVIDOR_NFE))
+                {
+                    IQueryable<tb_solicitacao_cupom> solicitacoes = GetQuery().Where(C => C.tipoCupom.Equals(TIPO_CUPOM_NFCE)).OrderBy(s => s.dataSolicitacao);
+                    if (solicitacoes.Count() > 0)
+                    {
+                        Thread.Sleep(500); // Aguarda 1 segundo para enviar o próximo cupum e evitar junção.
+                        SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
+                        tb_solicitacao_cupom solicitacaoE = solicitacoes.FirstOrDefault();
+                        saidaTotalAVista.Add(solicitacaoE.codSaida, solicitacaoE.total);
+                        RemoverSolicitacaoCupom(solicitacaoE.codSaida);
+                        Saida saida = GerenciadorSaida.GetInstance(null).Obter(solicitacaoE.codSaida);
+                        NfeControle nfeControle  = GerenciadorNFe.GetInstance().GerarChaveNFE(saida, false, NfeControle.MODELO_NFCE);
+                        if (!string.IsNullOrEmpty(nfeControle.Chave))
+                        {
+                            GerenciadorNFe.GetInstance().EnviarNFE(saida, nfeControle, false, false);
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -140,7 +162,7 @@ namespace Negocio
                             CodCliente = saida.codCliente,
                             CodSaida = saida.codSaida,
                             NumeroCupomFiscal = saida.pedidoGerado,
-                            DataEmissaoCupomFiscal = (DateTime) saida.dataEmissaoDocFiscal,
+                            DataEmissaoCupomFiscal = (DateTime)saida.dataEmissaoDocFiscal,
                             NomeCliente = saida.tb_pessoa.nome
                         };
             return query.ToList();
@@ -313,7 +335,7 @@ namespace Negocio
                     arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
                     arquivo.Write(situacaoFiscal + ";");
                     arquivo.Write("0;");
-                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");                             
+                    arquivo.Write(saidaProduto.ValorVenda.ToString() + ";");
                     arquivo.WriteLine(saidaProduto.Unidade + ";");
 
                     precoTotalProdutosVendidos += saidaProduto.Subtotal;
