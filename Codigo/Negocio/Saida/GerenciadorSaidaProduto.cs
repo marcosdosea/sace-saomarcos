@@ -240,6 +240,78 @@ namespace Negocio
             return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
         }
 
+
+        /// <summary>
+        /// Obtém os produtos por uma determinada NFC-e
+        /// </summary>
+        /// <param name="codPedido"></param>
+        /// <returns></returns>
+        public List<SaidaProduto> ObterPorNfeControle(long codNfeControle)
+        {
+            List<long> listaCodSaida = saceContext.tb_nfe.Where(nfe => nfe.codNFe.Equals(codNfeControle)).ElementAtOrDefault(0).tb_saida.Select(s=> s.codSaida).ToList();
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where listaCodSaida.Contains(saidaProduto.codSaida)
+                        select new SaidaProduto
+                        {
+                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
+                            CodProduto = saidaProduto.codProduto,
+                            CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
+                            CodCST = saidaProduto.tb_produto.codCST,
+                            CodCfop = saidaProduto.cfop,
+                            DataValidade = (DateTime)saidaProduto.data_validade,
+                            Desconto = (decimal)saidaProduto.desconto,
+                            Quantidade = (decimal)saidaProduto.quantidade,
+                            Nome = saidaProduto.tb_produto.nome,
+                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
+                            Unidade = saidaProduto.tb_produto.unidade,
+                            ValorICMS = (decimal)saidaProduto.valorICMS,
+                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
+                            ValorIPI = (decimal)saidaProduto.valorIPI,
+                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtém os produtos de um determinado pedido (cupom fiscal)
+        /// sem um determinado CST
+        /// </summary>
+        /// <param name="codPedido"></param>
+        /// <returns></returns>
+        public List<SaidaProduto> ObterPorNfeControleSemCST(long codNfeControle, string codCST)
+        {
+            List<long> listaCodSaida = saceContext.tb_nfe.Where(nfe => nfe.codNFe.Equals(codNfeControle)).ElementAtOrDefault(0).tb_saida.Select(s => s.codSaida).ToList();
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where listaCodSaida.Contains(saidaProduto.codSaida)  && !saidaProduto.codCST.EndsWith(codCST)
+                        select new SaidaProduto
+                        {
+                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
+                            CodProduto = saidaProduto.codProduto,
+                            CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
+                            CodCST = saidaProduto.tb_produto.codCST,
+                            CodCfop = saidaProduto.cfop,
+                            DataValidade = (DateTime)saidaProduto.data_validade,
+                            Desconto = (decimal)saidaProduto.desconto,
+                            Quantidade = (decimal)saidaProduto.quantidade,
+                            Nome = saidaProduto.tb_produto.nome,
+                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
+                            Unidade = saidaProduto.tb_produto.unidade,
+                            ValorICMS = (decimal)saidaProduto.valorICMS,
+                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
+                            ValorIPI = (decimal)saidaProduto.valorIPI,
+                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                        };
+            return query.ToList();
+        }
+        
         /// <summary>
         /// Obtém os produtos de um determinado pedido (cupom fiscal)
         /// </summary>

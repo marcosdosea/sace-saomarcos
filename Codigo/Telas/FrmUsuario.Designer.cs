@@ -301,8 +301,10 @@
             // 
             // pessoaBindingSource
             // 
+            this.pessoaBindingSource.AllowNew = false;
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             this.pessoaBindingSource.Sort = "codPessoa";
+            this.pessoaBindingSource.CurrentChanged += new System.EventHandler(this.pessoaBindingSource_CurrentChanged);
             // 
             // confirmarSenhaTextBox
             // 
@@ -327,23 +329,28 @@
             // 
             // perfilComboBox
             // 
-            this.perfilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "codPerfil", true));
+            this.perfilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "CodPerfil", true));
             this.perfilComboBox.DataSource = this.perfilBindingSource;
-            this.perfilComboBox.DisplayMember = "nome";
+            this.perfilComboBox.DisplayMember = "NomePerfil";
+            this.perfilComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.perfilComboBox.FormattingEnabled = true;
             this.perfilComboBox.Location = new System.Drawing.Point(10, 140);
             this.perfilComboBox.Name = "perfilComboBox";
             this.perfilComboBox.Size = new System.Drawing.Size(316, 21);
             this.perfilComboBox.TabIndex = 32;
-            this.perfilComboBox.ValueMember = "codPerfil";
-            this.perfilComboBox.Leave += new System.EventHandler(this.perfilComboBox_Leave);
+            this.perfilComboBox.ValueMember = "IdPerfil";
+            this.perfilComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
+            // 
+            // perfilBindingSource
+            // 
+            this.perfilBindingSource.AllowNew = false;
+            this.perfilBindingSource.DataSource = typeof(Dominio.Perfil);
             // 
             // codPessoaComboBox
             // 
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.usuarioBindingSource, "nomePessoa", true));
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "codPessoa", true));
+            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "CodPessoa", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
             this.codPessoaComboBox.DisplayMember = "Nome";
             this.codPessoaComboBox.FormattingEnabled = true;
@@ -352,7 +359,7 @@
             this.codPessoaComboBox.Size = new System.Drawing.Size(455, 21);
             this.codPessoaComboBox.TabIndex = 30;
             this.codPessoaComboBox.ValueMember = "CodPessoa";
-            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
+            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
             // 
             // loginTextBox
             // 
@@ -387,6 +394,7 @@
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.tb_usuarioBindingNavigator);
             this.Controls.Add(this.panel1);
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.KeyPreview = true;
             this.Name = "FrmUsuario";
             this.ShowInTaskbar = false;

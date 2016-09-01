@@ -98,8 +98,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="Properties\DataSources\SACE.Dados.saceDataSet.datasource" />
-    <None Include="Properties\DataSources\SACE.Dados.saceDataSetTableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -112,7 +110,7 @@
     <Compile Include="SaceConst.cs" />
     <Compile Include="GerenciadorSeguranca.cs" />
     <Compile Include="GerenciadorImprimir.cs" />
-    <Compile Include="Saida\GerenciadorCupom.cs" />
+    <Compile Include="Saida\GerenciadorDocumentoFiscal.cs" />
     <Compile Include="Saida\GerenciadorNFe.cs" />
     <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />
     <Compile Include="Saida\GerenciadorSaidaPagamento.cs" />
@@ -135,7 +133,9 @@
       <Name>Util</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

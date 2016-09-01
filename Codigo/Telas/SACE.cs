@@ -308,14 +308,19 @@ namespace Telas
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            if (nomeComputador.Equals(Global.NOME_SERVIDOR))
+            if (nomeComputador.ToUpper().Equals(Properties.Settings.Default.ServidorCartao.ToUpper()))
             {
-                GerenciadorCupom.GetInstance().EnviarProximoCupom();
-                GerenciadorCupom.GetInstance().AtualizarPedidosComDocumentosFiscais();
+                GerenciadorDocumentoFiscal.GetInstance().EnviarProximoCartao();
             }
-            else if (nomeComputador.Equals(Global.NOME_SERVIDOR_NFE))
+            if (nomeComputador.ToUpper().Equals(Global.NOME_SERVIDOR.ToUpper()))
             {
-                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+                GerenciadorDocumentoFiscal.GetInstance().EnviarProximoECF();
+                GerenciadorDocumentoFiscal.GetInstance().AtualizarPedidosComDocumentosFiscais();
+            }
+            else if (nomeComputador.ToUpper().Equals(Global.NOME_SERVIDOR_NFE.ToUpper()))
+            {
+                GerenciadorDocumentoFiscal.GetInstance().EnviarProximoNFCe();
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
         }
 

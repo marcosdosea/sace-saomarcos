@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Dominio;
 using Negocio;
+using Util;
 
 namespace Telas
 {
@@ -19,7 +20,7 @@ namespace Telas
         /// <param name="estado"></param>
         /// <param name="pessoaBindingSource"></param>
         /// <param name="retornaNomeFantasia"></param>
-        public static Pessoa PessoaComboBox_Leave(object sender, EventArgs e, ComboBox pessoaComboBox, EstadoFormulario estado, BindingSource pessoaBindingSource, bool retornaNomeFantasia)
+        public static Pessoa PessoaComboBox_Leave(object sender, EventArgs e, ComboBox pessoaComboBox, EstadoFormulario estado, BindingSource pessoaBindingSource, bool retornaNomeFantasia, bool precisaEscolherPessoa)
         {
             if (estado.Equals(EstadoFormulario.INSERIR) || estado.Equals(EstadoFormulario.ATUALIZAR))
             {
@@ -43,9 +44,14 @@ namespace Telas
                             pessoaNomeIgual = pessoa;
                     }
                 }
-                if ((pessoas.Count == 0) || ((pessoas.Count > 1) && (pessoaNomeIgual == null)))
+
+                if ((pessoas.Count == 0) || ((pessoas.Count > 1) && (pessoaNomeIgual == null)) || ((pessoaNomeIgual != null) && pessoaNomeIgual.CodPessoa.Equals(Global.CLIENTE_PADRAO) && precisaEscolherPessoa))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(pessoaComboBox.Text);
+                    Telas.FrmPessoaPesquisa frmPessoaPesquisa;
+                    if ((pessoaNomeIgual != null) && pessoaNomeIgual.CodPessoa.Equals(Global.CLIENTE_PADRAO))
+                        frmPessoaPesquisa = new Telas.FrmPessoaPesquisa("");
+                    else 
+                        frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(pessoaComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {

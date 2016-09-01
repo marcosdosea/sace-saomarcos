@@ -62,8 +62,8 @@ namespace Telas
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasiaComContasEmAtraso(txtTexto.Text);
+            if ((cmbBusca.SelectedIndex == 1) )
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasiaComContas60DiasAtraso(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(long.Parse(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
@@ -105,6 +105,8 @@ namespace Telas
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtTexto.Text = "";
+            if ((cmbBusca.SelectedIndex == 1))
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasiaComContas60DiasAtraso(txtTexto.Text);
         }
     }
 }

@@ -51,7 +51,7 @@
             // 
             this.btnPreVenda.FlatAppearance.BorderSize = 3;
             this.btnPreVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreVenda.Location = new System.Drawing.Point(12, 137);
+            this.btnPreVenda.Location = new System.Drawing.Point(51, 137);
             this.btnPreVenda.Name = "btnPreVenda";
             this.btnPreVenda.Size = new System.Drawing.Size(112, 29);
             this.btnPreVenda.TabIndex = 1;
@@ -62,7 +62,7 @@
             // btnOrcamento
             // 
             this.btnOrcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrcamento.Location = new System.Drawing.Point(275, 137);
+            this.btnOrcamento.Location = new System.Drawing.Point(163, 137);
             this.btnOrcamento.Name = "btnOrcamento";
             this.btnOrcamento.Size = new System.Drawing.Size(121, 29);
             this.btnOrcamento.TabIndex = 2;
@@ -76,7 +76,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(396, 136);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 29);
-            this.btnCancelar.TabIndex = 3;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -108,11 +108,11 @@
             // 
             this.btnPreVendaNfce.FlatAppearance.BorderSize = 3;
             this.btnPreVendaNfce.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreVendaNfce.Location = new System.Drawing.Point(125, 137);
+            this.btnPreVendaNfce.Location = new System.Drawing.Point(285, 136);
             this.btnPreVendaNfce.Name = "btnPreVendaNfce";
-            this.btnPreVendaNfce.Size = new System.Drawing.Size(149, 29);
-            this.btnPreVendaNfce.TabIndex = 12;
-            this.btnPreVendaNfce.Text = "Pré-Venda+NFC-e";
+            this.btnPreVendaNfce.Size = new System.Drawing.Size(112, 29);
+            this.btnPreVendaNfce.TabIndex = 3;
+            this.btnPreVendaNfce.Text = "NFC-e";
             this.btnPreVendaNfce.UseVisualStyleBackColor = true;
             this.btnPreVendaNfce.Click += new System.EventHandler(this.btnPreVendaNfce_Click);
             // 
@@ -121,7 +121,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 180);
+            this.ClientSize = new System.Drawing.Size(504, 171);
             this.ControlBox = false;
             this.Controls.Add(this.btnPreVendaNfce);
             this.Controls.Add(this.trocoTextBox);
@@ -138,6 +138,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Finalizar Orçamento / Pré-Venda";
+            this.Load += new System.EventHandler(this.FrmSaidaConfirma_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaConfirma_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

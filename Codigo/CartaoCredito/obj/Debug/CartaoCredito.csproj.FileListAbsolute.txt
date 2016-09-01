@@ -1,0 +1,9 @@
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\bin\Debug\CartaoCredito.dll.config
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\bin\Debug\CartaoCredito.dll
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\bin\Debug\CartaoCredito.pdb
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\bin\Debug\Cappta.Gp.Api.Com.dll
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.csproj.GenerateResource.Cache
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.dll
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.pdb
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\Cartao.Mensagens.resources
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.csprojResolveAssemblyReference.cache

@@ -319,7 +319,7 @@ namespace Negocio
                 }
                 // Se houver documento fiscal aguardando impressão
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-                    GerenciadorCupom.GetInstance().RemoverSolicitacaoCupom(saida.CodSaida);
+                    GerenciadorDocumentoFiscal.GetInstance().RemoverSolicitacaoDocumentoFiscal(saida.CodSaida);
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
@@ -460,7 +460,7 @@ namespace Negocio
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
             var query = (from saida in saceContext.tb_saida
-                         where (saida.codTipoSaida == Saida.TIPO_ORCAMENTO || saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA) && (saida.codSaida >= codSaidaInicial) 
+                         where Saida.LISTA_TIPOS_VENDA.Contains(saida.codTipoSaida) && (saida.codSaida >= codSaidaInicial) 
                          orderby saida.codSaida descending
                          select saida.codSaida).Take(20);
             List<long> listaSaidas = query.ToList();
@@ -468,8 +468,7 @@ namespace Negocio
             //if (codSaidaInicial > 0)
               //  listaSaidas.Add(codSaidaInicial);
 
-            return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_ORCAMENTO ||
-                saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
+            return GetQuery().Where(saida => Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
 
         }
 
@@ -549,7 +548,7 @@ namespace Negocio
                         saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                         Atualizar(saida);
                     }
-                    else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA))
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA) || tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA_NFCE)))
                     {
 
                         if (cliente.BloquearCrediario)
@@ -560,7 +559,7 @@ namespace Negocio
                                     throw new NegocioException("CREDIÁRIO BLOQUEADO. Autorização da Gerência é necessária.");
                             }
                         }
-                        saida.TipoSaida = Saida.TIPO_PRE_VENDA;
+                        saida.TipoSaida = tipo_encerramento;
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
@@ -1075,15 +1074,18 @@ namespace Negocio
             }
         }
 
-        public void ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
+        public bool ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
 
             if (impressora.Equals(Global.Impressora.NORMAL))
-                ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
+                return ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
             else
-                ImprimirDAVComprimido(saidas, total, totalAVista, desconto, impressora);                
+                return ImprimirDAVComprimido(saidas, total, totalAVista, desconto, impressora);                
         }
 
+        public bool EhPossivelImprimirDAV(Global.Impressora impressora) {
+            return true;
+        }
 
         private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
@@ -1196,7 +1198,7 @@ namespace Negocio
             }
             catch (Exception e)
             {
-                throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.", e);
+                return false;
             }
         }
 
@@ -1266,33 +1268,11 @@ namespace Negocio
                 List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
                 foreach (SaidaProduto produto in saidaProdutos)
                 {
-            //        imp.ImpColDireita(0, 4, produto.CodProduto.ToString());
-
-            //        if (produto.Nome.Length > 39)
-            //        {
-            //            imp.ImpCol(6, produto.Nome.Substring(1, 39));
-            //        }
-            //        else
-            //        {
-            //            imp.ImpCol(6, produto.Nome);
-            //        }
-
-            //        imp.ImpColDireita(46, 54, produto.Quantidade.ToString());
-            //        imp.ImpColLFDireita(57, 58, produto.Unidade);
-            //        imp.ImpColDireita(38, 46, produto.ValorVenda.ToString("N2"));
-            //        imp.ImpColLFDireita(48, 59, produto.Subtotal.ToString("N2"));
                 }
             }
 
             FormataTX(Global.LINHA_COMPRIMIDA + "\n");
-            //imp.ImpLF("Total Venda: " + total + "     Desconto: " + desconto.ToString("N2") + "%");
-            //imp.ImpColLFDireita(0, 32, imp.Expandido + imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.Comprimido + imp.NegritoOff);
             FormataTX(Global.LINHA_COMPRIMIDA + "\n");
-            //imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
-            //if (!saidas[0].CupomFiscal.Equals(""))
-            //{
-            //    imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
-            //}
             FormataTX(Global.LINHA_COMPRIMIDA + "\n");
             if (!saidas[0].CodCliente.Equals(Global.CLIENTE_PADRAO))
             {
@@ -1300,10 +1280,6 @@ namespace Negocio
                 FormataTX("Recebido por:"+"\n");
                 FormataTX(Global.LINHA_COMPRIMIDA + "\n");
             }
-
-            //imp.Pula(8);
-            //imp.Imp(imp.Normal);
-            //imp.Fim();
         }
 
         private bool ImprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
@@ -1396,7 +1372,7 @@ namespace Negocio
             }
         }
 
-        private void ImprimirDAVNormalTexto(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool ImprimirDAVNormalTexto(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
             {
@@ -1480,14 +1456,15 @@ namespace Negocio
                 sbImprimir.AppendLine("");
 
                 GerenciadorImprimir.GetInstance().Imprimir(sbImprimir.ToString());
+                return true;
             }
             catch (Exception e)
             {
-                throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.", e);
+                return false;
             }
         }
 
-        public void ImprimirNotaFiscal(Saida saida)
+        public void GerarCupomFiscal(Saida saida)
         {
 
             if (saida.TipoSaida == Saida.TIPO_ORCAMENTO)
@@ -1499,10 +1476,17 @@ namespace Negocio
             {
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA_NFCE))
                 {
-                    GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista, saida.TipoSaida);
-                    //SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
-                    //saidaTotalAVista.Add(saida.CodSaida, saida.TotalAVista);
-                    //GerarDocumentoFiscal(saidaTotalAVista, null);
+                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() {
+                        new SaidaPedido()
+                            {
+                                CodSaida=saida.CodSaida, 
+                                TotalAVista=saida.TotalAVista, 
+                                CodPedido=Int32.Parse(saida.CupomFiscal)
+                            }
+                    };
+                    
+                    List<SaidaPagamento> listaSaidaPagamentos = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamentos, saida.TipoSaida, false, false);
                 }
             }
             catch (Exception e)

@@ -164,13 +164,23 @@ namespace Telas
                                 bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
                                 if (temPagamentoCrediario && cliente.ImprimirDAV)
                                 {
-                                    GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.DARUMA);
+                                    if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.BEMATECH))
+                                    {
+                                        MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
-                                else
+                                // imprimir cupom fiscal
+                                if ((!temPagamentoCrediario) && (saida.TotalAVista > 0))
                                 {
-                                    // para não abrir cupons com valores negativos
-                                    if (saida.TotalAVista > 0)
-                                        GerenciadorCupom.GetInstance().InserirSolicitacaoCupom(saida.CodSaida, saida.TotalAVista, frmSaidaConfirma.Opcao);
+                                    bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
+                                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+                                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaPagamentosSaida, frmSaidaConfirma.Opcao, false, false);
+                                    if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                                    {
+                                        FrmSaidaNFCe frmSaidaNFCe = new FrmSaidaNFCe(saida.CodSaida);
+                                        frmSaidaNFCe.ShowDialog();
+                                        frmSaidaNFCe.Dispose();
+                                    }
                                 }
                             }
                         }
@@ -180,6 +190,10 @@ namespace Telas
                 }
                 Cursor.Current = Cursors.Default;
                 this.Close();
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
             }
             catch (Exception)
             {
@@ -334,14 +348,14 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, clienteBindingSource, true);
+            Pessoa cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, clienteBindingSource, true, false);
             cpf_CnpjTextBox.Text = cliente.CpfCnpj;
             codSaidaTextBox_Leave(sender, e);
         }
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codProfissionalComboBox, EstadoFormulario.INSERIR, profissionalBindingSource, true); 
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codProfissionalComboBox, EstadoFormulario.INSERIR, profissionalBindingSource, true, false); 
             codSaidaTextBox_Leave(sender, e);
         }
 

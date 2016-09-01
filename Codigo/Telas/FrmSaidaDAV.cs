@@ -48,13 +48,19 @@ namespace Telas
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.DARUMA);
+            if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.BEMATECH)) 
+            {
+                MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnReduzido2_Click(object sender, EventArgs e)
         {
             this.Close();
-            GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.BEMATECH);
+            if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(obterSaidas(listaCodSaidas.ToList<long>()), total, totalAVista, desconto, Util.Global.Impressora.DARUMA))
+            {
+                MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private List<Saida> obterSaidas(List<long> listaCodSaidas)

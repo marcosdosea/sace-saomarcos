@@ -17,6 +17,8 @@ namespace Dominio
         public const int DEVOLUCAO_NORMAL_FORA_ESTADO = 6202;
         public const int DEVOUCAO_ST_FORA_ESTADO = 6411;
 
+        public const int CUPOM_FISCAL_EMITIDO = 5929;
+
         
         public int CodCfop { get; set; }
         public string Descricao { get; set; }

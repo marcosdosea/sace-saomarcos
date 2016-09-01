@@ -309,7 +309,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorNomeFantasiaComContasEmAtraso(string nomeFantasia)
+        public IEnumerable<Pessoa> ObterPorNomeFantasiaComContas60DiasAtraso(string nomeFantasia)
         {
             var repPessoa = new RepositorioGenerico<PessoaE>();
 

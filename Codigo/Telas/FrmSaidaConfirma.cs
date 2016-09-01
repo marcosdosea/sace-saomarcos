@@ -64,5 +64,10 @@ namespace Telas
             Opcao = Saida.TIPO_PRE_VENDA_NFCE;
             this.Close();
         }
+
+        private void FrmSaidaConfirma_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

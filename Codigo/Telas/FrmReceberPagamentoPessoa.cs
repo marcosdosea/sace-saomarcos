@@ -95,7 +95,7 @@ namespace Telas
                 }
 
                 // Adicionar todas as saídas e totais para impressão do documento fiscal
-                SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
+                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                 List<long> listaContas = new List<long>();
                 
                 for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
@@ -103,9 +103,9 @@ namespace Telas
                     listaContas.Add(Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[0].Value.ToString())); //codConta 
                     long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //codSaida
                     decimal valorAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //totalAVista
-                    if (!saidaTotalAVista.ContainsKey(codSaidaTemp))
+                    if ( listaSaidaPedido.Where(sp=>sp.CodSaida.Equals(codSaidaTemp)).Count() == 0 )
                     {
-                        saidaTotalAVista.Add(codSaidaTemp, valorAVistaTemp);
+                        listaSaidaPedido.Add(new SaidaPedido() { CodSaida = codSaidaTemp, TotalAVista = valorAVistaTemp });
                     }
                 }
 
@@ -114,9 +114,9 @@ namespace Telas
                 bool podeImprimirCF = (valorPagamento == faltaReceber);
                 if (podeImprimirCF)
                 {
-                    foreach (long codSaida in saidaTotalAVista.Keys)
+                    foreach (SaidaPedido saidaPedido in listaSaidaPedido)
                     {
-                        List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance(null).ObterPorSaida(codSaida);
+                        List<Conta> contas = (List<Conta>)GerenciadorConta.GetInstance(null).ObterPorSaida(saidaPedido.CodSaida);
                         foreach (Conta conta in contas)
                         {
                             if ((!listaContas.Contains(conta.CodConta)) || ((conta.CF != null) && !conta.CF.Trim().Equals("")))
@@ -138,20 +138,7 @@ namespace Telas
 
                 if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO) || (formaPagamento.Equals(FormaPagamento.CARTAO) && podeImprimirCF))
                 {
-                    // atualiza descontos das contas de acordo com o especificado
-                    if (alterouDesconto)
-                    {
-                        for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
-                        {
-                            decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[8].Value;
-                            long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
-                            Conta conta = GerenciadorConta.GetInstance(null).Obter(codConta).ElementAt(0);
-                            if (conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA))
-                            {
-                                GerenciadorConta.GetInstance(null).Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
-                            }
-                        }
-                    }
+                    AtualizarValoresDescontosContas();
 
                     if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO))
                     {
@@ -181,7 +168,7 @@ namespace Telas
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
-                            GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
+                            GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, Saida.TIPO_PRE_VENDA, false, false);
                         }
                         else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
@@ -215,7 +202,7 @@ namespace Telas
                         saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
                         saidaPagamentoCartao.Valor = valorPagamento;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
-                        GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, listaSaidaPagamento);
+                        GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, Saida.TIPO_PRE_VENDA, false, false);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             GerenciadorConta.GetInstance(null).QuitarContasCartaoCredito(listaContas, valorPagamento, cartaoCredito, parcelas);
@@ -226,6 +213,23 @@ namespace Telas
             }
             habilitaBotoes(true);
             btnNovo.Focus();
+        }
+
+        private void AtualizarValoresDescontosContas()
+        {
+            if (alterouDesconto)
+            {
+                for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
+                {
+                    decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[8].Value;
+                    long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
+                    Conta conta = GerenciadorConta.GetInstance(null).Obter(codConta).ElementAt(0);
+                    if (conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA))
+                    {
+                        GerenciadorConta.GetInstance(null).Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
+                    }
+                }
+            }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -248,7 +252,6 @@ namespace Telas
 
         private void btnCFNfe_Click(object sender, EventArgs e)
         {
-            SortedList<long, decimal> saidaTotalAVista = new SortedList<long, decimal>();
             string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[4].Value.ToString().Trim();
 
             if (!pedidoGerado.Trim().Equals(""))
@@ -264,11 +267,12 @@ namespace Telas
             else
             {
 
+                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                 for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
                 {
                     long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //pre-venda
                     decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //total a vista
-                    saidaTotalAVista.Add(codSaidaTemp, totalAVistaTemp);
+                    SaidaPedido saidaPedido = new SaidaPedido() {CodSaida = codSaidaTemp, TotalAVista=totalAVistaTemp};
                 }
 
                 decimal total = Convert.ToDecimal(totalContasTextBox.Text);
@@ -283,7 +287,7 @@ namespace Telas
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
                    
-                    GerenciadorCupom.GetInstance().GerarDocumentoFiscal(saidaTotalAVista, new List<SaidaPagamento>() { saidaPagamento });
+                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, Saida.TIPO_PRE_VENDA, false, false);
                 }
             }
         }
@@ -374,8 +378,9 @@ namespace Telas
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true);
+            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true, true);
 
+           
             CartaoCredito cartao = GerenciadorCartaoCredito.GetInstance().ObterTodos().Where(c => c.CodPessoa == pessoa.CodPessoa).ElementAtOrDefault(0);
             OrganizarTelaAdministradoraCartoes();
             if (cartao != null)

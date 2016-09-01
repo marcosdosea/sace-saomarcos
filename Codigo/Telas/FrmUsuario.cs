@@ -60,9 +60,6 @@ namespace Telas
                 usuarioBindingSource.CancelEdit();
                 return;
             }
-            habilitaBotoes(true);
-            btnBuscar.Focus();
-
             Usuario usuario = new Usuario();
             usuario.CodPessoa = Convert.ToInt32(codPessoaComboBox.SelectedValue);
             usuario.Login = loginTextBox.Text;
@@ -79,18 +76,20 @@ namespace Telas
                 GerenciadorUsuario.GetInstace().Atualizar(usuario);
                 usuarioBindingSource.EndEdit();
             }
-
-
+            habilitaBotoes(true);
+            btnBuscar.Focus();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
             codPessoaComboBox.Focus();
             usuarioBindingSource.AddNew();
-            habilitaBotoes(false);
+            
             estado = EstadoFormulario.INSERIR;
             codPessoaComboBox.SelectedIndex = 0;
+            codPessoaComboBox.SelectAll();
             perfilComboBox.SelectedIndex = 0;
+            habilitaBotoes(false);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -122,24 +121,6 @@ namespace Telas
             if (habilita)
             {
                 estado = EstadoFormulario.ESPERA;
-            }
-        }
-
-        private void perfilComboBox_Leave(object sender, EventArgs e)
-        {
-            if (perfilComboBox.SelectedValue == null)
-            {
-                perfilComboBox.Focus();
-                throw new TelaException("Uma perfil válido precisa ser selecionado.");
-            }
-        }
-
-        private void codPessoaComboBox_Leave(object sender, EventArgs e)
-        {
-            if (codPessoaComboBox.SelectedValue == null)
-            {
-                codPessoaComboBox.Focus();
-                throw new TelaException("Uma pessoa válida precisa ser selecionada.");
             }
         }
 
@@ -186,6 +167,11 @@ namespace Telas
             }
             else
             {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.Handled = true;
+                    SendKeys.Send("{tab}");
+                }
                 if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
@@ -220,6 +206,16 @@ namespace Telas
         private void loginTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.RemoverAcentos((TextBox)sender);
+        }
+
+        private void pessoaBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void codPessoaComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
         }
     }
 }

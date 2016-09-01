@@ -672,7 +672,7 @@ namespace Telas
             {
                 if (MessageBox.Show("Confirma impressão do Cupom Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(saida);
+                    GerenciadorSaida.GetInstance(null).GerarCupomFiscal(saida);
                 }
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || 

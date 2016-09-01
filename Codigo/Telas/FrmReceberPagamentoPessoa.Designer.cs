@@ -35,13 +35,13 @@
             System.Windows.Forms.Label label12;
             System.Windows.Forms.Label codCartaoLabel;
             System.Windows.Forms.Label label13;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -57,6 +57,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dataFinalDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.contasPessoaDataGridView = new System.Windows.Forms.DataGridView();
+            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormatoConta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoSituacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorPagar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contasPessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.movimentacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
@@ -86,16 +96,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codContaBancoComboBox = new System.Windows.Forms.ComboBox();
-            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FormatoConta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumeroDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoSituacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorPagar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codClienteLabel = new System.Windows.Forms.Label();
             codFormaPagamentoLabel = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
@@ -243,6 +243,7 @@
             // 
             // pessoaBindingSource
             // 
+            this.pessoaBindingSource.AllowNew = false;
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // groupBox2
@@ -339,33 +340,124 @@
             this.desconto,
             this.valorPagar});
             this.contasPessoaDataGridView.DataSource = this.contasPessoaBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.contasPessoaDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.contasPessoaDataGridView.DefaultCellStyle = dataGridViewCellStyle26;
             this.contasPessoaDataGridView.Location = new System.Drawing.Point(7, 176);
             this.contasPessoaDataGridView.Name = "contasPessoaDataGridView";
             this.contasPessoaDataGridView.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contasPessoaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.contasPessoaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contasPessoaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.contasPessoaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle28;
             this.contasPessoaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.contasPessoaDataGridView.Size = new System.Drawing.Size(883, 303);
             this.contasPessoaDataGridView.StandardTab = true;
             this.contasPessoaDataGridView.TabIndex = 32;
             this.contasPessoaDataGridView.TabStop = false;
             this.contasPessoaDataGridView.SelectionChanged += new System.EventHandler(this.ContasPessoaDataGridView_SelectionChanged);
+            // 
+            // codContaDataGridViewTextBoxColumn
+            // 
+            this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle22;
+            this.codContaDataGridViewTextBoxColumn.FillWeight = 60F;
+            this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
+            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
+            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codSaidaDataGridViewTextBoxColumn
+            // 
+            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle23;
+            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 60F;
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // FormatoConta
+            // 
+            this.FormatoConta.DataPropertyName = "FormatoConta";
+            this.FormatoConta.HeaderText = "Formato";
+            this.FormatoConta.Name = "FormatoConta";
+            this.FormatoConta.ReadOnly = true;
+            // 
+            // dataVencimentoDataGridViewTextBoxColumn
+            // 
+            this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle24;
+            this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
+            this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
+            this.dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // CF
+            // 
+            this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CF.DataPropertyName = "CF";
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CF.DefaultCellStyle = dataGridViewCellStyle25;
+            this.CF.FillWeight = 60F;
+            this.CF.HeaderText = "CF";
+            this.CF.MinimumWidth = 60;
+            this.CF.Name = "CF";
+            this.CF.ReadOnly = true;
+            // 
+            // NumeroDocumento
+            // 
+            this.NumeroDocumento.DataPropertyName = "NumeroDocumento";
+            this.NumeroDocumento.HeaderText = "Dcto";
+            this.NumeroDocumento.Name = "NumeroDocumento";
+            this.NumeroDocumento.ReadOnly = true;
+            // 
+            // descricaoSituacaoDataGridViewTextBoxColumn
+            // 
+            this.descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
+            this.descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            this.valorDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
+            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // desconto
+            // 
+            this.desconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.desconto.DataPropertyName = "Desconto";
+            this.desconto.FillWeight = 70F;
+            this.desconto.HeaderText = "Descto (R$)";
+            this.desconto.Name = "desconto";
+            this.desconto.ReadOnly = true;
+            // 
+            // valorPagar
+            // 
+            this.valorPagar.DataPropertyName = "ValorPagar";
+            this.valorPagar.HeaderText = "À Vista (R$)";
+            this.valorPagar.Name = "valorPagar";
+            this.valorPagar.ReadOnly = true;
             // 
             // contasPessoaBindingSource
             // 
@@ -654,97 +746,6 @@
             this.codContaBancoComboBox.ValueMember = "CodContaBanco";
             this.codContaBancoComboBox.Visible = false;
             // 
-            // codContaDataGridViewTextBoxColumn
-            // 
-            this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.codContaDataGridViewTextBoxColumn.FillWeight = 60F;
-            this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
-            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
-            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 60F;
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // FormatoConta
-            // 
-            this.FormatoConta.DataPropertyName = "FormatoConta";
-            this.FormatoConta.HeaderText = "Formato";
-            this.FormatoConta.Name = "FormatoConta";
-            this.FormatoConta.ReadOnly = true;
-            // 
-            // dataVencimentoDataGridViewTextBoxColumn
-            // 
-            this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
-            this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
-            this.dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // CF
-            // 
-            this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CF.DataPropertyName = "CF";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CF.DefaultCellStyle = dataGridViewCellStyle4;
-            this.CF.FillWeight = 60F;
-            this.CF.HeaderText = "CF";
-            this.CF.MinimumWidth = 60;
-            this.CF.Name = "CF";
-            this.CF.ReadOnly = true;
-            // 
-            // NumeroDocumento
-            // 
-            this.NumeroDocumento.DataPropertyName = "NumeroDocumento";
-            this.NumeroDocumento.HeaderText = "Dcto";
-            this.NumeroDocumento.Name = "NumeroDocumento";
-            this.NumeroDocumento.ReadOnly = true;
-            // 
-            // descricaoSituacaoDataGridViewTextBoxColumn
-            // 
-            this.descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // valorDataGridViewTextBoxColumn
-            // 
-            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
-            this.valorDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
-            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // desconto
-            // 
-            this.desconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.desconto.DataPropertyName = "Desconto";
-            this.desconto.FillWeight = 70F;
-            this.desconto.HeaderText = "Descto (R$)";
-            this.desconto.Name = "desconto";
-            this.desconto.ReadOnly = true;
-            // 
-            // valorPagar
-            // 
-            this.valorPagar.DataPropertyName = "ValorPagar";
-            this.valorPagar.HeaderText = "À Vista (R$)";
-            this.valorPagar.Name = "valorPagar";
-            this.valorPagar.ReadOnly = true;
-            // 
             // FrmReceberPagamentoPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -850,7 +851,6 @@
          private System.Windows.Forms.Button btnImprimir;
          private System.Windows.Forms.Button btnCFNfe;
          private System.Windows.Forms.ComboBox codCartaoComboBox;
-         private System.Windows.Forms.BindingSource pessoaBindingSource;
          private System.Windows.Forms.BindingSource formaPagamentoBindingSource;
          private System.Windows.Forms.BindingSource cartaoCreditoBindingSource;
          private System.Windows.Forms.TextBox parcelasTextBox;
@@ -871,5 +871,6 @@
          private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
          private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
          private System.Windows.Forms.DataGridViewTextBoxColumn valorPagar;
+         private System.Windows.Forms.BindingSource pessoaBindingSource;
      }
  }

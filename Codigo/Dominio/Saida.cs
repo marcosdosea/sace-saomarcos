@@ -36,7 +36,7 @@ namespace Dominio
         public static List<int> LISTA_TIPOS_RETORNO_DEPOSITO = new List<int>() { Saida.TIPO_PRE_RETORNO_DEPOSITO, Saida.TIPO_RETORNO_DEPOSITO };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_FORNECEDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR, Saida.TIPO_DEVOLUCAO_FORNECEDOR };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR, Saida.TIPO_DEVOLUCAO_CONSUMIDOR };
-        public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA };
+        public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA, Saida.TIPO_PRE_VENDA_NFCE };
 
 
         public int CodLojaOrigem { get; set; }

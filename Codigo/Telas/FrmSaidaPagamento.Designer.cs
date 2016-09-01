@@ -661,7 +661,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(821, 607);
+            this.ClientSize = new System.Drawing.Size(821, 600);
             this.Controls.Add(cpf_CnpjLabel);
             this.Controls.Add(this.cpf_CnpjTextBox);
             this.Controls.Add(this.descricaoTipoSaidaTextBox);

@@ -185,7 +185,7 @@ namespace Telas
 
         private void comboBoxFornecedor_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true); 
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false); 
         }
 
         private void comboBoxFornecedor_SelectedIndexChanged(object sender, EventArgs e)
