@@ -310,7 +310,11 @@ namespace Telas
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
             if (nomeComputador.ToUpper().Equals(Properties.Settings.Default.ServidorCartao.ToUpper()))
             {
-                GerenciadorDocumentoFiscal.GetInstance().EnviarProximoCartao();
+                List<SolicitacaoPagamento> listaSolicitacaoPagamento = GerenciadorDocumentoFiscal.GetInstance().HaSolicitacaoPagamentoCartao()
+                if ()
+                {
+
+                }
             }
             if (nomeComputador.ToUpper().Equals(Global.NOME_SERVIDOR.ToUpper()))
             {
@@ -319,7 +323,7 @@ namespace Telas
             }
             else if (nomeComputador.ToUpper().Equals(Global.NOME_SERVIDOR_NFE.ToUpper()))
             {
-                GerenciadorDocumentoFiscal.GetInstance().EnviarProximoNFCe();
+                GerenciadorNFe.GetInstance().EnviarProximoNFe();
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
         }

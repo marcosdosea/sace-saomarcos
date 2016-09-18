@@ -70,14 +70,14 @@ namespace Util
          AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
          NOME_SERVIDOR = "SERVIDOR",
-         NOME_SERVIDOR_NFE = "MARCOSDÓSEA",
+         NOME_SERVIDOR_NFE = "RETAGUARDA",
          ENDERECO_SERVIDOR = "\\\\SERVIDOR\\C\\",
          PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
          PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
 
          PASTA_BACKUP = "C:\\DropBox\\BACKUP_SACE\\",
-         
+         PASTA_BACKUP2 = "\\\\retaguarda\\unimake\\",
          PASTA_MYSQL_SERVER = "C:\\Arquivos de Programas\\MySQL\\MySQL Server 5.5\\",
          SGBD_NOME = "sace",
          SGBD_USUARIO = "sace",

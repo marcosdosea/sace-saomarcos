@@ -259,7 +259,7 @@
             // 
             // cupomFiscalBindingSource
             // 
-            this.cupomFiscalBindingSource.DataSource = typeof(Dominio.CupomFiscal);
+            this.cupomFiscalBindingSource.DataSource = typeof(Dominio.DocumentoFiscal);
             // 
             // dataEmissaoCupomFiscalDateTimePicker
             // 

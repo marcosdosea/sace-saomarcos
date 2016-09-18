@@ -5,8 +5,10 @@ using System.Text;
 
 namespace Dominio
 {
-    public class CupomFiscal
+    public class DocumentoFiscal
     {
+        public enum TipoSolicitacao { ECF, NFCE, NFE, CARTAO };
+        
         public long CodSaida { get; set; }
         public string NumeroCupomFiscal { get; set; }
         public DateTime DataEmissaoCupomFiscal { get; set; }
@@ -20,7 +22,7 @@ namespace Dominio
                 return false;
             }
 
-            return this.CodSaida.Equals(((CupomFiscal)obj).CodSaida);
+            return this.CodSaida.Equals(((DocumentoFiscal)obj).CodSaida);
         }
 
         // override object.GetHashCode

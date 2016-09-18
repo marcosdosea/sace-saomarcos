@@ -685,7 +685,6 @@
     <None Include="Properties\DataSources\Dominio.Conta.datasource" />
     <None Include="Properties\DataSources\Dominio.ContaBanco.datasource" />
     <None Include="Properties\DataSources\Dominio.Cst.datasource" />
-    <None Include="Properties\DataSources\Dominio.CupomFiscal.datasource" />
     <None Include="Properties\DataSources\Dominio.Entrada.datasource" />
     <None Include="Properties\DataSources\Dominio.EntradaPagamento.datasource" />
     <None Include="Properties\DataSources\Dominio.EntradaProduto.datasource" />

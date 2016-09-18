@@ -10,8 +10,9 @@ namespace Cartao
         public enum Cartao {DEBITO, CREDITO, CREDIARIO};
         public enum Parcelamento { LOJA=2, ADMINISTRADORA=1, INDEFINIDO=0 };
 
+        public string NomeCartao { get; set; }
         public Cartao TipoCartao { get; set; }
-        public Parcelamento TipoParcelamento { get; set; }
+        public Parcelamento TipoParcelamento { get; set; }     
         public double Valor { get; set; }
         public int QuantidadeParcelas { get; set; }
     }

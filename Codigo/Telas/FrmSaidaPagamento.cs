@@ -174,12 +174,17 @@ namespace Telas
                                 {
                                     bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
                                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
-                                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaPagamentosSaida, frmSaidaConfirma.Opcao, false, false);
+
                                     if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
                                     {
+                                        GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                                         FrmSaidaNFCe frmSaidaNFCe = new FrmSaidaNFCe(saida.CodSaida);
                                         frmSaidaNFCe.ShowDialog();
                                         frmSaidaNFCe.Dispose();
+                                    }
+                                    else
+                                    {
+                                        GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                                     }
                                 }
                             }

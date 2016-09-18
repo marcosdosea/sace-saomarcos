@@ -7,3 +7,4 @@ D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.dll
 D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.pdb
 D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\Cartao.Mensagens.resources
 D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\CartaoCredito.csprojResolveAssemblyReference.cache
+D:\Projetos\sace-saomarcos\Codigo\CartaoCredito\obj\Debug\Cartao.FrmProcessarPagamentoCartao.resources

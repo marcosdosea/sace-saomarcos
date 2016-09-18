@@ -1486,7 +1486,8 @@ namespace Negocio
                     };
                     
                     List<SaidaPagamento> listaSaidaPagamentos = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
-                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamentos, saida.TipoSaida, false, false);
+                    if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA))
+                        GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                 }
             }
             catch (Exception e)

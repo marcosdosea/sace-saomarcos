@@ -15,14 +15,14 @@ namespace Dominio
         public const int DEPOSITO = 6;
         public const int PROMISSORIA = 7;
 
-        public const string MAPEAMENTO_DINHEIRO = "1";
-        public const string MAPEAMENTO_CHEQUE = "2";
-        public const string MAPEAMENTO_TROCA = "4";
-        public const string MAPEAMENTO_PRAZO = "5";
-        public const string MAPEAMENTO_FINANCEIRA = "6";
-        public const string MAPEAMENTO_VISA_MASTER = "7";
-        public const string MAPEAMENTO_BANESE = "8";
-        public const string MAPEAMENTO_HIPER = "9";
+        //public const string MAPEAMENTO_DINHEIRO = "1";
+        //public const string MAPEAMENTO_CHEQUE = "2";
+        //public const string MAPEAMENTO_TROCA = "4";
+        //public const string MAPEAMENTO_PRAZO = "5";
+        //public const string MAPEAMENTO_FINANCEIRA = "6";
+        //public const string MAPEAMENTO_VISA_MASTER = "7";
+        //public const string MAPEAMENTO_BANESE = "8";
+        //public const string MAPEAMENTO_HIPER = "9";
 
 
         private int codFormaPagamento;

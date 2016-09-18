@@ -699,7 +699,39 @@ namespace Negocio
             return nfe;
         }
 
-        public void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamentos> listaSaidaPagamentos, int tipoNFe, bool ehNfeComplementar, bool ehEspelho)
+        /// <summary>
+        /// Atualiza dados do cupom
+        /// </summary>
+        /// <param name="cupom"></param>
+        public void EnviarProximoNFe()
+        {
+            try
+            {
+                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
+
+                List<tb_solicitacao_documento_fiscal> solicitacoes = repSolicitacao.ObterTodos().Where(C => 
+                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
+                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
+                
+                if (solicitacoes.Count() > 0)
+                {
+                    tb_solicitacao_documento_fiscal solicitacaoE = solicitacoes.FirstOrDefault();
+                    List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList(); 
+                    List<tb_solicitacao_pagamentos> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamentos.ToList();
+                    
+                    repSolicitacao.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                    repSolicitacao.SaveChanges();
+                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, false, false);
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new DadosException("Cupom", e.Message, e);
+            }
+        }
+
+        private void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamentos> listaSaidaPagamentos, string tipaoNfe, bool ehNfeComplementar, bool ehEspelho)
         {
             Saida saida = GerenciadorSaida.GetInstance(null).Obter(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 

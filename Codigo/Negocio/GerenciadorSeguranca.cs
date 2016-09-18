@@ -43,7 +43,7 @@ namespace Negocio
             {
                 // recupera o nome do computador
                 String computerName = System.Windows.Forms.SystemInformation.ComputerName;
-                if (computerName.Equals(Global.NOME_SERVIDOR))
+                if (computerName.Equals(Global.NOME_SERVIDOR) || computerName.Equals(Global.NOME_SERVIDOR_NFE))
                 {
                     DirectoryInfo dir = new DirectoryInfo(Global.PASTA_BACKUP);
                     if (!dir.Exists)
@@ -85,6 +85,7 @@ namespace Negocio
                         // add the report into a different directory in the archive
                         zip.Save(path + ".zip");
                     }
+                    File.Copy(path + ".zip", Global.PASTA_BACKUP2, true);
                     File.Delete(path);
                     process.Close();
                 }
@@ -95,14 +96,17 @@ namespace Negocio
             }
         }
 
-        public void Restore()
+        public void Restore(string pathZip)
         {
             try
             {
-                //Read file from C:\
-                string path;
-                path = "C:\\Backup\\MySqlBackup.sql";
-                StreamReader file = new StreamReader(path);
+                using (ZipFile zip = new ZipFile())
+                {
+                    // add this map file into the "images" directory in the zip archive
+                    zip.ExtractAll(pathZip);
+                }
+
+                StreamReader file = new StreamReader(pathZip);
                 string input = file.ReadToEnd();
                 file.Close();
 

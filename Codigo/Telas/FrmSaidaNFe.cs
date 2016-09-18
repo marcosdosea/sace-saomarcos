@@ -119,7 +119,7 @@ namespace Telas
                         GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                     List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
-                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, Saida.TipoSaida, ehNfeComplementar, true);
+                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
                 }   
             }
             
@@ -141,7 +141,13 @@ namespace Telas
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
                 List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                 List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
-                GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, Saida.TipoSaida, ehNfeComplementar, false);
+                DocumentoFiscal.TipoSolicitacao tipoSolicitacao;
+                if (Saida.CupomFiscal.Trim().Equals("") && Saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                    tipoSolicitacao = DocumentoFiscal.TipoSolicitacao.NFCE;
+                else
+                    tipoSolicitacao = DocumentoFiscal.TipoSolicitacao.NFE;
+
+                GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
                 Cursor.Current = Cursors.Default;
                 nfeControleDataGridView.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             }
