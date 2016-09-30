@@ -116,9 +116,31 @@ namespace Negocio
                 var query = from contaSet in saceContext.ContaSet
                             where contaSet.codConta == codConta
                             select contaSet;
-
                 ContaE _conta = query.ToList().ElementAtOrDefault(0);
                 _conta.codSituacao = codSituacao;
+                
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualizar dados da conta no banco de dados.
+        /// </summary>
+        /// <param name="codSituacao">nova situação da conta</param>
+        /// <param name="codConta">conta pesquisada</param>
+        public void AtualizarDadosCartaoCredito(Conta conta)
+        {
+            try
+            {
+                var query = from contaSet in saceContext.ContaSet
+                            where contaSet.codConta == conta.CodConta
+                            select contaSet;
+                ContaE _conta = query.ToList().ElementAtOrDefault(0);
+                Atribuir(conta, _conta);
                 
                 saceContext.SaveChanges();
             }

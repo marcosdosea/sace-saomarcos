@@ -319,7 +319,7 @@ namespace Negocio
                 }
                 // Se houver documento fiscal aguardando impressão
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-                    GerenciadorDocumentoFiscal.GetInstance().RemoverSolicitacaoDocumentoFiscal(saida.CodSaida);
+                    GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
@@ -1487,7 +1487,7 @@ namespace Negocio
                     
                     List<SaidaPagamento> listaSaidaPagamentos = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
                     if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA))
-                        GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
+                        GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                 }
             }
             catch (Exception e)

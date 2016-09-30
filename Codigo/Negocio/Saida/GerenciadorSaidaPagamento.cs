@@ -79,6 +79,7 @@ namespace Negocio
                     _saidaPagamentoE.intervaloDias = saidaPagamento.IntervaloDias;
                     _saidaPagamentoE.parcelas = saidaPagamento.Parcelas;
                     _saidaPagamentoE.valor = saidaPagamento.Valor;
+                    _saidaPagamentoE.numeroControle = String.IsNullOrEmpty(saidaPagamento.NumeroControle) ? "" : saidaPagamento.NumeroControle;
 
 
                     repSaidaPagamento.Inserir(_saidaPagamentoE);
@@ -108,6 +109,31 @@ namespace Negocio
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// Atualiza o número da nota fiscal gerada num determinado codigo saida
+        /// </summary>
+        /// <param name="nfe"></param>
+        /// <param name="pedidoGerado"></param>
+        public void AtualizarPorAutorizacaoCartao(long codSaida, int codCartao, string numeroControle)
+        {
+            try
+            {
+                var query = from saidaPagamentoE in saceContext.SaidaFormaPagamentoSet
+                            where saidaPagamentoE.codSaida == codSaida && saidaPagamentoE.codFormaPagamento == FormaPagamento.CARTAO
+                            select saidaPagamentoE;
+                foreach (SaidaFormaPagamentoE _saidaPagamentoE in query)
+                {
+                    _saidaPagamentoE.codCartao = codCartao;
+                    _saidaPagamentoE.numeroControle = numeroControle;
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
         }
 
         /// <summary>
@@ -188,7 +214,8 @@ namespace Negocio
                             MapeamentoFormaPagamento = saidaPagamento.tb_forma_pagamento.mapeamento,
                             NomeCartaoCredito = saidaPagamento.tb_cartao_credito.nome,
                             Parcelas = (int)saidaPagamento.parcelas,
-                            Valor = (decimal)saidaPagamento.valor
+                            Valor = (decimal)saidaPagamento.valor,
+                            NumeroControle = saidaPagamento.numeroControle
                         };
             return query;
 

@@ -168,7 +168,7 @@ namespace Telas
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
-                            GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
+                            GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                         }
                         else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
@@ -202,7 +202,7 @@ namespace Telas
                         saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
                         saidaPagamentoCartao.Valor = valorPagamento;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
-                        GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                        GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             GerenciadorConta.GetInstance(null).QuitarContasCartaoCredito(listaContas, valorPagamento, cartaoCredito, parcelas);
@@ -287,7 +287,7 @@ namespace Telas
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
                    
-                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                 }
             }
         }

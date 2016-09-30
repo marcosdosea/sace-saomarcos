@@ -79,11 +79,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_loja), "ProdutoLojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_loja1", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_loja), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "CartaoCreditoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_solicitacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamentos), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_solicitacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamentos), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_saida1", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento_fiscal), "tb_solicitacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamentos), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento_fiscal), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_autorizacao_cartao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_autorizacao_cartao), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "CartaoCreditoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
 
 #endregion
 
@@ -746,38 +747,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_solicitacao_documento_fiscal> tb_solicitacao_documento_fiscal
-        {
-            get
-            {
-                if ((_tb_solicitacao_documento_fiscal == null))
-                {
-                    _tb_solicitacao_documento_fiscal = base.CreateObjectSet<tb_solicitacao_documento_fiscal>("tb_solicitacao_documento_fiscal");
-                }
-                return _tb_solicitacao_documento_fiscal;
-            }
-        }
-        private ObjectSet<tb_solicitacao_documento_fiscal> _tb_solicitacao_documento_fiscal;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_solicitacao_pagamentos> tb_solicitacao_pagamentos
-        {
-            get
-            {
-                if ((_tb_solicitacao_pagamentos == null))
-                {
-                    _tb_solicitacao_pagamentos = base.CreateObjectSet<tb_solicitacao_pagamentos>("tb_solicitacao_pagamentos");
-                }
-                return _tb_solicitacao_pagamentos;
-            }
-        }
-        private ObjectSet<tb_solicitacao_pagamentos> _tb_solicitacao_pagamentos;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<tb_solicitacao_saida> tb_solicitacao_saida
         {
             get
@@ -790,6 +759,54 @@ namespace Dados
             }
         }
         private ObjectSet<tb_solicitacao_saida> _tb_solicitacao_saida;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_autorizacao_cartao> tb_autorizacao_cartao
+        {
+            get
+            {
+                if ((_tb_autorizacao_cartao == null))
+                {
+                    _tb_autorizacao_cartao = base.CreateObjectSet<tb_autorizacao_cartao>("tb_autorizacao_cartao");
+                }
+                return _tb_autorizacao_cartao;
+            }
+        }
+        private ObjectSet<tb_autorizacao_cartao> _tb_autorizacao_cartao;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_solicitacao_pagamento> tb_solicitacao_pagamento
+        {
+            get
+            {
+                if ((_tb_solicitacao_pagamento == null))
+                {
+                    _tb_solicitacao_pagamento = base.CreateObjectSet<tb_solicitacao_pagamento>("tb_solicitacao_pagamento");
+                }
+                return _tb_solicitacao_pagamento;
+            }
+        }
+        private ObjectSet<tb_solicitacao_pagamento> _tb_solicitacao_pagamento;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_solicitacao_documento> tb_solicitacao_documento
+        {
+            get
+            {
+                if ((_tb_solicitacao_documento == null))
+                {
+                    _tb_solicitacao_documento = base.CreateObjectSet<tb_solicitacao_documento>("tb_solicitacao_documento");
+                }
+                return _tb_solicitacao_documento;
+            }
+        }
+        private ObjectSet<tb_solicitacao_documento> _tb_solicitacao_documento;
 
         #endregion
 
@@ -1100,27 +1117,35 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_solicitacao_documento_fiscal EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_solicitacao_documento_fiscal(tb_solicitacao_documento_fiscal tb_solicitacao_documento_fiscal)
-        {
-            base.AddObject("tb_solicitacao_documento_fiscal", tb_solicitacao_documento_fiscal);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_solicitacao_pagamentos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_solicitacao_pagamentos(tb_solicitacao_pagamentos tb_solicitacao_pagamentos)
-        {
-            base.AddObject("tb_solicitacao_pagamentos", tb_solicitacao_pagamentos);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the tb_solicitacao_saida EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_solicitacao_saida(tb_solicitacao_saida tb_solicitacao_saida)
         {
             base.AddObject("tb_solicitacao_saida", tb_solicitacao_saida);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_autorizacao_cartao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_autorizacao_cartao(tb_autorizacao_cartao tb_autorizacao_cartao)
+        {
+            base.AddObject("tb_autorizacao_cartao", tb_autorizacao_cartao);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_solicitacao_pagamento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_solicitacao_pagamento(tb_solicitacao_pagamento tb_solicitacao_pagamento)
+        {
+            base.AddObject("tb_solicitacao_pagamento", tb_solicitacao_pagamento);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_solicitacao_documento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_solicitacao_documento(tb_solicitacao_documento tb_solicitacao_documento)
+        {
+            base.AddObject("tb_solicitacao_documento", tb_solicitacao_documento);
         }
 
         #endregion
@@ -1258,7 +1283,9 @@ namespace Dados
         /// <param name="codContaBanco">Initial value of the codContaBanco property.</param>
         /// <param name="codPessoa">Initial value of the codPessoa property.</param>
         /// <param name="desconto">Initial value of the desconto property.</param>
-        public static CartaoCreditoE CreateCartaoCreditoE(global::System.Int32 codCartao, global::System.String nome, global::System.Int32 codContaBanco, global::System.Int64 codPessoa, global::System.Decimal desconto)
+        /// <param name="mapeamentoCappta">Initial value of the mapeamentoCappta property.</param>
+        /// <param name="tipoCartao">Initial value of the tipoCartao property.</param>
+        public static CartaoCreditoE CreateCartaoCreditoE(global::System.Int32 codCartao, global::System.String nome, global::System.Int32 codContaBanco, global::System.Int64 codPessoa, global::System.Decimal desconto, global::System.String mapeamentoCappta, global::System.String tipoCartao)
         {
             CartaoCreditoE cartaoCreditoE = new CartaoCreditoE();
             cartaoCreditoE.codCartao = codCartao;
@@ -1266,6 +1293,8 @@ namespace Dados
             cartaoCreditoE.codContaBanco = codContaBanco;
             cartaoCreditoE.codPessoa = codPessoa;
             cartaoCreditoE.desconto = desconto;
+            cartaoCreditoE.mapeamentoCappta = mapeamentoCappta;
+            cartaoCreditoE.tipoCartao = tipoCartao;
             return cartaoCreditoE;
         }
 
@@ -1443,6 +1472,54 @@ namespace Dados
         private global::System.Decimal _desconto;
         partial void OndescontoChanging(global::System.Decimal value);
         partial void OndescontoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mapeamentoCappta
+        {
+            get
+            {
+                return _mapeamentoCappta;
+            }
+            set
+            {
+                OnmapeamentoCapptaChanging(value);
+                ReportPropertyChanging("mapeamentoCappta");
+                _mapeamentoCappta = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mapeamentoCappta");
+                OnmapeamentoCapptaChanged();
+            }
+        }
+        private global::System.String _mapeamentoCappta;
+        partial void OnmapeamentoCapptaChanging(global::System.String value);
+        partial void OnmapeamentoCapptaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String tipoCartao
+        {
+            get
+            {
+                return _tipoCartao;
+            }
+            set
+            {
+                OntipoCartaoChanging(value);
+                ReportPropertyChanging("tipoCartao");
+                _tipoCartao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("tipoCartao");
+                OntipoCartaoChanged();
+            }
+        }
+        private global::System.String _tipoCartao;
+        partial void OntipoCartaoChanging(global::System.String value);
+        partial void OntipoCartaoChanged();
 
         #endregion
 
@@ -1553,18 +1630,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "tb_solicitacao_pagamentos")]
-        public EntityCollection<tb_solicitacao_pagamentos> tb_solicitacao_pagamentos
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "tb_solicitacao_pagamento")]
+        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamentos>("SaceModel.fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "tb_solicitacao_pagamentos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "tb_solicitacao_pagamento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamentos>("SaceModel.fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "tb_solicitacao_pagamentos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "tb_solicitacao_pagamento", value);
                 }
             }
         }
@@ -4787,18 +4864,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamentos")]
-        public EntityCollection<tb_solicitacao_pagamentos> tb_solicitacao_pagamentos
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento")]
+        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamentos>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamentos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamentos>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamentos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento", value);
                 }
             }
         }
@@ -8467,7 +8544,8 @@ namespace Dados
         /// <param name="codFormaPagamento">Initial value of the codFormaPagamento property.</param>
         /// <param name="codContaBanco">Initial value of the codContaBanco property.</param>
         /// <param name="codCartao">Initial value of the codCartao property.</param>
-        public static SaidaFormaPagamentoE CreateSaidaFormaPagamentoE(global::System.Int64 codSaidaFormaPagamento, global::System.Int64 codSaida, global::System.Int32 codFormaPagamento, global::System.Int32 codContaBanco, global::System.Int32 codCartao)
+        /// <param name="numeroControle">Initial value of the numeroControle property.</param>
+        public static SaidaFormaPagamentoE CreateSaidaFormaPagamentoE(global::System.Int64 codSaidaFormaPagamento, global::System.Int64 codSaida, global::System.Int32 codFormaPagamento, global::System.Int32 codContaBanco, global::System.Int32 codCartao, global::System.String numeroControle)
         {
             SaidaFormaPagamentoE saidaFormaPagamentoE = new SaidaFormaPagamentoE();
             saidaFormaPagamentoE.codSaidaFormaPagamento = codSaidaFormaPagamento;
@@ -8475,6 +8553,7 @@ namespace Dados
             saidaFormaPagamentoE.codFormaPagamento = codFormaPagamento;
             saidaFormaPagamentoE.codContaBanco = codContaBanco;
             saidaFormaPagamentoE.codCartao = codCartao;
+            saidaFormaPagamentoE.numeroControle = numeroControle;
             return saidaFormaPagamentoE;
         }
 
@@ -8700,6 +8779,30 @@ namespace Dados
         private Nullable<global::System.Int32> _intervaloDias;
         partial void OnintervaloDiasChanging(Nullable<global::System.Int32> value);
         partial void OnintervaloDiasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String numeroControle
+        {
+            get
+            {
+                return _numeroControle;
+            }
+            set
+            {
+                OnnumeroControleChanging(value);
+                ReportPropertyChanging("numeroControle");
+                _numeroControle = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("numeroControle");
+                OnnumeroControleChanged();
+            }
+        }
+        private global::System.String _numeroControle;
+        partial void OnnumeroControleChanging(global::System.String value);
+        partial void OnnumeroControleChanged();
 
         #endregion
 
@@ -10065,6 +10168,283 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_subgrupo1", "tb_produto", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_autorizacao_cartao")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_autorizacao_cartao : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_autorizacao_cartao object.
+        /// </summary>
+        /// <param name="codAutorizacao">Initial value of the codAutorizacao property.</param>
+        /// <param name="autorizado">Initial value of the autorizado property.</param>
+        public static tb_autorizacao_cartao Createtb_autorizacao_cartao(global::System.Int64 codAutorizacao, global::System.Boolean autorizado)
+        {
+            tb_autorizacao_cartao tb_autorizacao_cartao = new tb_autorizacao_cartao();
+            tb_autorizacao_cartao.codAutorizacao = codAutorizacao;
+            tb_autorizacao_cartao.autorizado = autorizado;
+            return tb_autorizacao_cartao;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codAutorizacao
+        {
+            get
+            {
+                return _codAutorizacao;
+            }
+            set
+            {
+                if (_codAutorizacao != value)
+                {
+                    OncodAutorizacaoChanging(value);
+                    ReportPropertyChanging("codAutorizacao");
+                    _codAutorizacao = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codAutorizacao");
+                    OncodAutorizacaoChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codAutorizacao;
+        partial void OncodAutorizacaoChanging(global::System.Int64 value);
+        partial void OncodAutorizacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String nsuTef
+        {
+            get
+            {
+                return _nsuTef;
+            }
+            set
+            {
+                OnnsuTefChanging(value);
+                ReportPropertyChanging("nsuTef");
+                _nsuTef = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("nsuTef");
+                OnnsuTefChanged();
+            }
+        }
+        private global::System.String _nsuTef;
+        partial void OnnsuTefChanging(global::System.String value);
+        partial void OnnsuTefChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String nsuAdquirentel
+        {
+            get
+            {
+                return _nsuAdquirentel;
+            }
+            set
+            {
+                OnnsuAdquirentelChanging(value);
+                ReportPropertyChanging("nsuAdquirentel");
+                _nsuAdquirentel = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("nsuAdquirentel");
+                OnnsuAdquirentelChanged();
+            }
+        }
+        private global::System.String _nsuAdquirentel;
+        partial void OnnsuAdquirentelChanging(global::System.String value);
+        partial void OnnsuAdquirentelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String codigoAutorizacaoAdquirente
+        {
+            get
+            {
+                return _codigoAutorizacaoAdquirente;
+            }
+            set
+            {
+                OncodigoAutorizacaoAdquirenteChanging(value);
+                ReportPropertyChanging("codigoAutorizacaoAdquirente");
+                _codigoAutorizacaoAdquirente = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("codigoAutorizacaoAdquirente");
+                OncodigoAutorizacaoAdquirenteChanged();
+            }
+        }
+        private global::System.String _codigoAutorizacaoAdquirente;
+        partial void OncodigoAutorizacaoAdquirenteChanging(global::System.String value);
+        partial void OncodigoAutorizacaoAdquirenteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String nomeAdquirente
+        {
+            get
+            {
+                return _nomeAdquirente;
+            }
+            set
+            {
+                OnnomeAdquirenteChanging(value);
+                ReportPropertyChanging("nomeAdquirente");
+                _nomeAdquirente = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("nomeAdquirente");
+                OnnomeAdquirenteChanged();
+            }
+        }
+        private global::System.String _nomeAdquirente;
+        partial void OnnomeAdquirenteChanging(global::System.String value);
+        partial void OnnomeAdquirenteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String nomeBandeiraCartao
+        {
+            get
+            {
+                return _nomeBandeiraCartao;
+            }
+            set
+            {
+                OnnomeBandeiraCartaoChanging(value);
+                ReportPropertyChanging("nomeBandeiraCartao");
+                _nomeBandeiraCartao = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("nomeBandeiraCartao");
+                OnnomeBandeiraCartaoChanged();
+            }
+        }
+        private global::System.String _nomeBandeiraCartao;
+        partial void OnnomeBandeiraCartaoChanging(global::System.String value);
+        partial void OnnomeBandeiraCartaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String numeroControle
+        {
+            get
+            {
+                return _numeroControle;
+            }
+            set
+            {
+                OnnumeroControleChanging(value);
+                ReportPropertyChanging("numeroControle");
+                _numeroControle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("numeroControle");
+                OnnumeroControleChanged();
+            }
+        }
+        private global::System.String _numeroControle;
+        partial void OnnumeroControleChanging(global::System.String value);
+        partial void OnnumeroControleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String dataHoraAutorizacao
+        {
+            get
+            {
+                return _dataHoraAutorizacao;
+            }
+            set
+            {
+                OndataHoraAutorizacaoChanging(value);
+                ReportPropertyChanging("dataHoraAutorizacao");
+                _dataHoraAutorizacao = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("dataHoraAutorizacao");
+                OndataHoraAutorizacaoChanged();
+            }
+        }
+        private global::System.String _dataHoraAutorizacao;
+        partial void OndataHoraAutorizacaoChanging(global::System.String value);
+        partial void OndataHoraAutorizacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean autorizado
+        {
+            get
+            {
+                return _autorizado;
+            }
+            set
+            {
+                OnautorizadoChanging(value);
+                ReportPropertyChanging("autorizado");
+                _autorizado = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("autorizado");
+                OnautorizadoChanged();
+            }
+        }
+        private global::System.Boolean _autorizado;
+        partial void OnautorizadoChanging(global::System.Boolean value);
+        partial void OnautorizadoChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_saida")]
+        public EntityCollection<tb_saida> tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_saida>("SaceModel.tb_autorizacao_cartao_saida", "tb_saida");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.tb_autorizacao_cartao_saida", "tb_saida", value);
                 }
             }
         }
@@ -13206,6 +13586,28 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_autorizacao_cartao")]
+        public EntityCollection<tb_autorizacao_cartao> tb_autorizacao_cartao
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_autorizacao_cartao>("SaceModel.tb_autorizacao_cartao_saida", "tb_autorizacao_cartao");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_autorizacao_cartao>("SaceModel.tb_autorizacao_cartao_saida", "tb_autorizacao_cartao", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -13214,15 +13616,15 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_solicitacao_documento_fiscal")]
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_solicitacao_documento")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class tb_solicitacao_documento_fiscal : EntityObject
+    public partial class tb_solicitacao_documento : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new tb_solicitacao_documento_fiscal object.
+        /// Create a new tb_solicitacao_documento object.
         /// </summary>
         /// <param name="codSolicitacao">Initial value of the codSolicitacao property.</param>
         /// <param name="dataSolicitacao">Initial value of the dataSolicitacao property.</param>
@@ -13230,16 +13632,16 @@ namespace Dados
         /// <param name="cartaoAprovado">Initial value of the cartaoAprovado property.</param>
         /// <param name="ehEspelho">Initial value of the ehEspelho property.</param>
         /// <param name="ehComplementar">Initial value of the ehComplementar property.</param>
-        public static tb_solicitacao_documento_fiscal Createtb_solicitacao_documento_fiscal(global::System.Int64 codSolicitacao, global::System.DateTime dataSolicitacao, global::System.Boolean haPagamentoCartao, global::System.Boolean cartaoAprovado, global::System.Boolean ehEspelho, global::System.Boolean ehComplementar)
+        public static tb_solicitacao_documento Createtb_solicitacao_documento(global::System.Int64 codSolicitacao, global::System.DateTime dataSolicitacao, global::System.Boolean haPagamentoCartao, global::System.Boolean cartaoAprovado, global::System.Boolean ehEspelho, global::System.Boolean ehComplementar)
         {
-            tb_solicitacao_documento_fiscal tb_solicitacao_documento_fiscal = new tb_solicitacao_documento_fiscal();
-            tb_solicitacao_documento_fiscal.codSolicitacao = codSolicitacao;
-            tb_solicitacao_documento_fiscal.dataSolicitacao = dataSolicitacao;
-            tb_solicitacao_documento_fiscal.haPagamentoCartao = haPagamentoCartao;
-            tb_solicitacao_documento_fiscal.cartaoAprovado = cartaoAprovado;
-            tb_solicitacao_documento_fiscal.ehEspelho = ehEspelho;
-            tb_solicitacao_documento_fiscal.ehComplementar = ehComplementar;
-            return tb_solicitacao_documento_fiscal;
+            tb_solicitacao_documento tb_solicitacao_documento = new tb_solicitacao_documento();
+            tb_solicitacao_documento.codSolicitacao = codSolicitacao;
+            tb_solicitacao_documento.dataSolicitacao = dataSolicitacao;
+            tb_solicitacao_documento.haPagamentoCartao = haPagamentoCartao;
+            tb_solicitacao_documento.cartaoAprovado = cartaoAprovado;
+            tb_solicitacao_documento.ehEspelho = ehEspelho;
+            tb_solicitacao_documento.ehComplementar = ehComplementar;
+            return tb_solicitacao_documento;
         }
 
         #endregion
@@ -13428,18 +13830,18 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamentos")]
-        public EntityCollection<tb_solicitacao_pagamentos> tb_solicitacao_pagamentos
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento")]
+        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamentos>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamentos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamentos>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamentos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento", value);
                 }
             }
         }
@@ -13473,15 +13875,15 @@ namespace Dados
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_solicitacao_pagamentos")]
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_solicitacao_pagamento")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class tb_solicitacao_pagamentos : EntityObject
+    public partial class tb_solicitacao_pagamento : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new tb_solicitacao_pagamentos object.
+        /// Create a new tb_solicitacao_pagamento object.
         /// </summary>
         /// <param name="codSolicitacaoPagamento">Initial value of the codSolicitacaoPagamento property.</param>
         /// <param name="codSolicitacao">Initial value of the codSolicitacao property.</param>
@@ -13489,16 +13891,16 @@ namespace Dados
         /// <param name="codFormaPagamento">Initial value of the codFormaPagamento property.</param>
         /// <param name="valor">Initial value of the valor property.</param>
         /// <param name="parcelas">Initial value of the parcelas property.</param>
-        public static tb_solicitacao_pagamentos Createtb_solicitacao_pagamentos(global::System.Decimal codSolicitacaoPagamento, global::System.Int64 codSolicitacao, global::System.Int32 codCartao, global::System.Int32 codFormaPagamento, global::System.Decimal valor, global::System.Int64 parcelas)
+        public static tb_solicitacao_pagamento Createtb_solicitacao_pagamento(global::System.Decimal codSolicitacaoPagamento, global::System.Int64 codSolicitacao, global::System.Int32 codCartao, global::System.Int32 codFormaPagamento, global::System.Decimal valor, global::System.Int64 parcelas)
         {
-            tb_solicitacao_pagamentos tb_solicitacao_pagamentos = new tb_solicitacao_pagamentos();
-            tb_solicitacao_pagamentos.codSolicitacaoPagamento = codSolicitacaoPagamento;
-            tb_solicitacao_pagamentos.codSolicitacao = codSolicitacao;
-            tb_solicitacao_pagamentos.codCartao = codCartao;
-            tb_solicitacao_pagamentos.codFormaPagamento = codFormaPagamento;
-            tb_solicitacao_pagamentos.valor = valor;
-            tb_solicitacao_pagamentos.parcelas = parcelas;
-            return tb_solicitacao_pagamentos;
+            tb_solicitacao_pagamento tb_solicitacao_pagamento = new tb_solicitacao_pagamento();
+            tb_solicitacao_pagamento.codSolicitacaoPagamento = codSolicitacaoPagamento;
+            tb_solicitacao_pagamento.codSolicitacao = codSolicitacao;
+            tb_solicitacao_pagamento.codCartao = codCartao;
+            tb_solicitacao_pagamento.codFormaPagamento = codFormaPagamento;
+            tb_solicitacao_pagamento.valor = valor;
+            tb_solicitacao_pagamento.parcelas = parcelas;
+            return tb_solicitacao_pagamento;
         }
 
         #endregion
@@ -13739,16 +14141,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal")]
-        public tb_solicitacao_documento_fiscal tb_solicitacao_documento_fiscal
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento")]
+        public tb_solicitacao_documento tb_solicitacao_documento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento").Value = value;
             }
         }
         /// <summary>
@@ -13756,17 +14158,17 @@ namespace Dados
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<tb_solicitacao_documento_fiscal> tb_solicitacao_documento_fiscalReference
+        public EntityReference<tb_solicitacao_documento> tb_solicitacao_documentoReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", value);
                 }
             }
         }
@@ -13931,16 +14333,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal")]
-        public tb_solicitacao_documento_fiscal tb_solicitacao_documento_fiscal
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento")]
+        public tb_solicitacao_documento tb_solicitacao_documento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento").Value = value;
             }
         }
         /// <summary>
@@ -13948,17 +14350,17 @@ namespace Dados
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<tb_solicitacao_documento_fiscal> tb_solicitacao_documento_fiscalReference
+        public EntityReference<tb_solicitacao_documento> tb_solicitacao_documentoReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_solicitacao_documento_fiscal>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento_fiscal", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_solicitacao_documento>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", value);
                 }
             }
         }

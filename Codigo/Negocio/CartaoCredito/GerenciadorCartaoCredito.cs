@@ -111,7 +111,9 @@ namespace Negocio
                             Nome = cartao.nome,
                             DescricaoContaBanco = contaBanco.descricao,
                             NomePessoa = pessoa.nomeFantasia,
-                            Desconto = cartao.desconto
+                            Desconto = cartao.desconto,
+                            MapeamentoCappta = cartao.mapeamentoCappta,
+                            TipoCartao = cartao.tipoCartao
                         };
             return query;
          
@@ -136,6 +138,16 @@ namespace Negocio
             return GetQuery().Where(cartao => cartao.CodCartao == codCartaoCredito).ToList();
         }
 
+
+        /// <summary>
+        /// Obtém os dados do cartão pelo código
+        /// </summary>
+        /// <param name="codCartaoCredito"></param>
+        /// <returns>código do cartão</returns>
+        public IEnumerable<CartaoCredito> ObterPorMapeamentoCappta(String nomeBandeira)
+        {
+            return GetQuery().Where(cartao => cartao.MapeamentoCappta == nomeBandeira).ToList();
+        }
         /// <summary>
         /// Obtém os dados do cartão pelo nome
         /// </summary>
@@ -160,6 +172,8 @@ namespace Negocio
             _cartaoCredito.mapeamento = cartaoCredito.Mapeamento;
             _cartaoCredito.nome = cartaoCredito.Nome;
             _cartaoCredito.desconto = cartaoCredito.Desconto;
+            _cartaoCredito.mapeamentoCappta = cartaoCredito.MapeamentoCappta;
+            _cartaoCredito.tipoCartao = cartaoCredito.TipoCartao;
         }
         
     }

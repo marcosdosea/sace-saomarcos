@@ -35,7 +35,7 @@ namespace Telas
             codPessoaConsumidorComboBox.SelectedIndex = 0;
 
             int codLoja = ((Loja) codPessoaComboBoxOrigem.SelectedItem).CodLoja;
-            cupomFiscalBindingSource.DataSource = GerenciadorDocumentoFiscal.GetInstance().ObterTodos();
+            cupomFiscalBindingSource.DataSource = GerenciadorSolicitacaoDocumento.GetInstance().ObterDocumentosFiscais();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)

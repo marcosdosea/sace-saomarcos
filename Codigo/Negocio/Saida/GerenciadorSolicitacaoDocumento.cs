@@ -8,17 +8,18 @@ using System.IO;
 using System.Threading;
 using System.Text;
 
+
 namespace Negocio
 {
-    public class GerenciadorDocumentoFiscal
+    public class GerenciadorSolicitacaoDocumento
     {
-        private static GerenciadorDocumentoFiscal gCupom;
+        private static GerenciadorSolicitacaoDocumento gCupom;
 
-        public static GerenciadorDocumentoFiscal GetInstance()
+        public static GerenciadorSolicitacaoDocumento GetInstance()
         {
             if (gCupom == null)
             {
-                gCupom = new GerenciadorDocumentoFiscal();
+                gCupom = new GerenciadorSolicitacaoDocumento();
             }
             return gCupom;
         }
@@ -28,19 +29,19 @@ namespace Negocio
         /// </summary>
         /// <param name="cupom"></param>
         /// <returns></returns>
-        public long InserirSolicitacaoDocumentoFiscal(List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao tipoSolicitacao, bool ehComplementar, bool ehEspelho)
+        public long InserirSolicitacaoDocumento(List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao tipoSolicitacao, bool ehComplementar, bool ehEspelho)
         {
-            var repCupom = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
-            tb_solicitacao_documento_fiscal _solicitacao_documento_fiscalE = new tb_solicitacao_documento_fiscal();
+            var repCupom = new RepositorioGenerico<tb_solicitacao_documento>();
+            tb_solicitacao_documento _solicitacao_documentoE = new tb_solicitacao_documento();
             try
             {
-                _solicitacao_documento_fiscalE.dataSolicitacao = DateTime.Now;
-                _solicitacao_documento_fiscalE.haPagamentoCartao = listaSaidaPagamento.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
-                _solicitacao_documento_fiscalE.cartaoAprovado = false;
-                _solicitacao_documento_fiscalE.ehComplementar = ehComplementar;
-                _solicitacao_documento_fiscalE.ehEspelho = ehEspelho;
-                _solicitacao_documento_fiscalE.tipoSolicitacao = tipoSolicitacao.ToString();
-                repCupom.Inserir(_solicitacao_documento_fiscalE);
+                _solicitacao_documentoE.dataSolicitacao = DateTime.Now;
+                _solicitacao_documentoE.haPagamentoCartao = listaSaidaPagamento.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
+                _solicitacao_documentoE.cartaoAprovado = false;
+                _solicitacao_documentoE.ehComplementar = ehComplementar;
+                _solicitacao_documentoE.ehEspelho = ehEspelho;
+                _solicitacao_documentoE.tipoSolicitacao = tipoSolicitacao.ToString();
+                repCupom.Inserir(_solicitacao_documentoE);
 
                 repCupom.SaveChanges();
 
@@ -49,7 +50,7 @@ namespace Negocio
                 {
                     tb_solicitacao_saida _solicitacao_saida = new tb_solicitacao_saida();
                     _solicitacao_saida.codSaida = _saidaPedido.CodSaida;
-                    _solicitacao_saida.codSolicitacao = _solicitacao_documento_fiscalE.codSolicitacao;
+                    _solicitacao_saida.codSolicitacao = _solicitacao_documentoE.codSolicitacao;
                     _solicitacao_saida.valorTotal = _saidaPedido.TotalAVista;
                     repSolicitacaoSaida.Inserir(_solicitacao_saida);
                 }
@@ -58,8 +59,8 @@ namespace Negocio
 
                 foreach (SaidaPagamento _solicitacaoPagamento in listaSaidaPagamento)
                 {
-                    _solicitacao_documento_fiscalE.tb_solicitacao_pagamentos.Add(
-                        new tb_solicitacao_pagamentos()
+                    _solicitacao_documentoE.tb_solicitacao_pagamento.Add(
+                        new tb_solicitacao_pagamento()
                         {
                             codCartao = _solicitacaoPagamento.CodCartaoCredito,
                             codFormaPagamento = _solicitacaoPagamento.CodFormaPagamento,
@@ -71,7 +72,7 @@ namespace Negocio
 
                 repCupom.SaveChanges();
 
-                return _solicitacao_documento_fiscalE.codSolicitacao;
+                return _solicitacao_documentoE.codSolicitacao;
             }
             catch (Exception)
             {
@@ -84,20 +85,20 @@ namespace Negocio
 
         public List<SolicitacaoPagamento> ObterSolicitacaoPagamentoCartao()
         {
-            var repSolicitacoes = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
+            var repSolicitacoes = new RepositorioGenerico<tb_solicitacao_documento>();
             var saceEntities = (SaceEntities)repSolicitacoes.ObterContexto();
-            var query = from solicitacao in saceEntities.tb_solicitacao_documento_fiscal
+            var query = from solicitacao in saceEntities.tb_solicitacao_documento
                         where solicitacao.tipoSolicitacao.Equals("NFCE") && solicitacao.haPagamentoCartao == true &&
                             solicitacao.cartaoAprovado == false
                         orderby solicitacao.dataSolicitacao
                         select solicitacao;
-            List<tb_solicitacao_documento_fiscal> listaSolicitacoes = query.ToList();
+            List<tb_solicitacao_documento> listaSolicitacoes = query.ToList();
             List<SolicitacaoPagamento> listaPagamentos = new List<SolicitacaoPagamento>();
 
             if (listaSolicitacoes.Count > 0)
             {
-                tb_solicitacao_documento_fiscal solicitacao = listaSolicitacoes.First();
-                foreach (tb_solicitacao_pagamentos pagamento in solicitacao.tb_solicitacao_pagamentos)
+                tb_solicitacao_documento solicitacao = listaSolicitacoes.First();
+                foreach (tb_solicitacao_pagamento pagamento in solicitacao.tb_solicitacao_pagamento)
                 {
                     listaPagamentos.Add(
                         new SolicitacaoPagamento()
@@ -107,7 +108,8 @@ namespace Negocio
                             CodCartaoCredito = pagamento.codCartao,
                             NomeCartaoCredito = pagamento.tb_cartao_credito.nome,
                             CodFormaPagamento = pagamento.codFormaPagamento,
-                            Parcelas = pagamento.parcelas,
+                            QtdDiasPagar = (int) pagamento.tb_cartao_credito.diaBase,
+                            Parcelas = (int) pagamento.parcelas,
                             Valor = pagamento.valor
                         }
                     );
@@ -125,21 +127,21 @@ namespace Negocio
         {
             try
             {
-                var repCupom = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
+                var repCupom = new RepositorioGenerico<tb_solicitacao_documento>();
                 DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
                 if (pastaECF.Exists)
                 {
                     FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
                     if (files.Length == 0)
                     {
-                        IQueryable<tb_solicitacao_documento_fiscal> solicitacoes = GetQuery().Where(C => C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.ECF)).OrderBy(s => s.dataSolicitacao);
+                        IQueryable<tb_solicitacao_documento> solicitacoes = GetQuery().Where(C => C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.ECF)).OrderBy(s => s.dataSolicitacao);
                         if (solicitacoes.Count() > 0)
                         {
-                            tb_solicitacao_documento_fiscal solicitacaoE = solicitacoes.FirstOrDefault();
+                            tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
                             List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
-                            List<tb_solicitacao_pagamentos> listaPagamentos = solicitacaoE.tb_solicitacao_pagamentos.ToList();
+                            List<tb_solicitacao_pagamento> listaPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
                             GerarDocumentoECF(listaSolicitacaoSaida, listaPagamentos);
-                            RemoverSolicitacaoDocumentoFiscal(solicitacaoE.codSolicitacao);
+                            RemoverSolicitacaoDocumento(solicitacaoE.codSolicitacao);
 
                         }
                     }
@@ -156,11 +158,11 @@ namespace Negocio
         /// Remove dados do cupom
         /// </summary>
         /// <param name="codCupom"></param>
-        public void RemoverSolicitacaoDocumentoFiscal(long codSolicitacao)
+        public void RemoverSolicitacaoDocumento(long codSolicitacao)
         {
             try
             {
-                var repCupom = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
+                var repCupom = new RepositorioGenerico<tb_solicitacao_documento>();
                 repCupom.Remover(s => s.codSolicitacao == codSolicitacao);
                 repCupom.SaveChanges();
             }
@@ -174,12 +176,27 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<tb_solicitacao_documento_fiscal> GetQuery()
+        private IQueryable<tb_solicitacao_documento> GetQuery()
         {
-            var repCupom = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
-            var saceEntities = (SaceEntities)repCupom.ObterContexto();
-            var query = from documento in saceEntities.tb_solicitacao_documento_fiscal
+            var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+            var saceEntities = (SaceEntities)repSolicitacao.ObterContexto();
+            var query = from documento in saceEntities.tb_solicitacao_documento
                         select documento;
+            return query;
+        }
+
+
+        /// <summary>
+        /// Consulta para retornar dados da entidade
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<tb_solicitacao_saida> ObterSolicitacaoSaida(long codSolicitacao)
+        {
+            var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
+            var saceEntities = (SaceEntities)repSolicitacaoSaida.ObterContexto();
+            var query = from solicitacao_saida in saceEntities.tb_solicitacao_saida
+                        where solicitacao_saida.codSolicitacao == codSolicitacao
+                        select solicitacao_saida;
             return query;
         }
 
@@ -187,7 +204,7 @@ namespace Negocio
         /// Obtém lista de cupons emitidos
         /// </summary>
         /// <returns></returns>
-        public List<DocumentoFiscal> ObterTodos()
+        public List<DocumentoFiscal> ObterDocumentosFiscais()
         {
             var repCupom = new RepositorioGenerico<tb_saida>();
             var saceEntities = (SaceEntities)repCupom.ObterContexto();
@@ -209,7 +226,7 @@ namespace Negocio
         /// Gera o cupom fiscal a partir das saídas e valores a vista de cada saía
         /// </summary>
         /// <param name="saidaPagamentos"></param>
-        private void GerarDocumentoECF(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamentos> listaPagamentos)
+        private void GerarDocumentoECF(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamento> listaPagamentos)
         {
             try
             {
@@ -300,7 +317,7 @@ namespace Negocio
                                 arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
                             }
                             //arquivo.WriteLine("<OBS> Total de Impostos pagos:" + saida.
-                            foreach (tb_solicitacao_pagamentos pagamento in listaPagamentos)
+                            foreach (tb_solicitacao_pagamento pagamento in listaPagamentos)
                             {
                                 if (pagamento.codFormaPagamento != FormaPagamento.CARTAO)
                                 {
@@ -446,7 +463,7 @@ namespace Negocio
                                 foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
                                 {
                                     GerenciadorSaida.GetInstance(null).AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, numeroCF, saidaPedido.TotalAVista, saidaPedido.CodSaida);
-                                    RemoverSolicitacaoDocumentoFiscal(saidaPedido.CodSaida);
+                                    RemoverSolicitacaoDocumento(saidaPedido.CodSaida);
                                     atualizou = true;
                                 }
                             }
@@ -491,6 +508,44 @@ namespace Negocio
                 }
             }
             return atualizou;
+        }
+
+        public void InserirRespostaCartao(Cartao.ResultadoProcessamento resultado)
+        {
+            List<tb_solicitacao_saida> listaSolicitacaoSaida = ObterSolicitacaoSaida(resultado.CodSolicitacao).ToList();
+            if (resultado.Aprovado)
+            {
+                // Pode passar mais de um cartão de crédito
+                if (listaSolicitacaoSaida.Count == 1)
+                {
+                    tb_solicitacao_saida solicitacaoSaida = listaSolicitacaoSaida.FirstOrDefault();
+                    IEnumerable<Conta> listaContas = GerenciadorConta.GetInstance(null).ObterPorSaida(solicitacaoSaida.codSaida);
+                    List<Cartao.RespostaAprovada> listaAprovadas = resultado.ListaRespostaAprovada;
+                    foreach (Cartao.RespostaAprovada aprovada in listaAprovadas)
+                    {
+                        String tipoCartaoString = Enum.GetName(typeof(Cartao.TipoCartao), aprovada.TipoCartao);
+                        CartaoCredito cartao = GerenciadorCartaoCredito.GetInstance().ObterPorMapeamentoCappta(aprovada.NomeBandeiraCartao).Where(c=>c.TipoCartao.Equals(tipoCartaoString)).ElementAtOrDefault(0);
+                        Conta conta = listaContas.Where(c => c.ValorPagar == (decimal)aprovada.Valor && String.IsNullOrWhiteSpace(c.NumeroDocumento)).FirstOrDefault();
+                        GerenciadorSaidaPagamento.GetInstance(null).AtualizarPorAutorizacaoCartao(conta.CodSaida, cartao.CodCartao, aprovada.NumeroControle);
+                        
+                        conta.CodPessoa = cartao.CodPessoa;
+                        conta.NumeroDocumento = aprovada.NumeroControle;
+                        conta.DataVencimento = DateTime.Now.AddDays(cartao.DiaBase);
+                        GerenciadorConta.GetInstance(null).AtualizarDadosCartaoCredito(conta);
+                    }
+                }
+                else
+                {
+                    foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
+                    {
+                        IEnumerable<Conta> contas = GerenciadorConta.GetInstance(null).ObterPorSaida(solicitacaoSaida.codSaida);
+
+                    }
+                }
+                
+            }
+            RemoverSolicitacaoDocumento(resultado.CodSolicitacao);
+            
         }
     }
 }

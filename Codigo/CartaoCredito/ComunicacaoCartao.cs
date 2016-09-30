@@ -13,16 +13,20 @@ namespace Cartao
 {
     public class ComunicacaoCartao
     {
+        public enum ViasImpressao { TODAS = 1, CLIENTE = 2, LOJA = 3 }
+        
         private const int INTERVALO_MILISEGUNDOS = 500;
-        private const int TIPO_VIA_TODAS = 1;
-        private const int TIPO_VIA_CLIENTE = 2;
-        private const int TIPO_VIA_LOJA = 3;
-
-
         private ClienteCappta clienteCappta;
         private bool processandoPagamento;
         private bool sessaoMultiTefEmAndamento;
-        private int tipoVia = TIPO_VIA_TODAS;
+        private int quantidadeCartoes;
+        private ResultadoProcessamento resultadoProcessamento;
+
+        public ComunicacaoCartao()
+        {
+            clienteCappta = new ClienteCappta();
+            AutenticarPdv();
+        }
 
         public bool AutenticarPdv()
         {
@@ -37,6 +41,7 @@ namespace Cartao
             {
                 this.InvalidarAutenticacao("PDV inválido");
             }
+            
 
             int resultadoAutenticacao = clienteCappta.AutenticarPdv(cnpj, pdv, chaveAutenticacao);
             if (resultadoAutenticacao == 0) { return true; }
@@ -47,24 +52,34 @@ namespace Cartao
         }
 
 
-        public void ProcessarPagamentos(List<Pagamento> pagamentos)
+        public ResultadoProcessamento ProcessarPagamentos(List<Pagamento> pagamentos)
         {
+            resultadoProcessamento = new ResultadoProcessamento();
+            resultadoProcessamento.ListaRespostaAprovada = new List<RespostaAprovada>();
+            if (pagamentos.Count() > 1)
+            {
+                quantidadeCartoes = pagamentos.Count;
+                clienteCappta.IniciarMultiCartoes(pagamentos.Count);
+                sessaoMultiTefEmAndamento = true;
+            }
+
             foreach(Pagamento pagamento in pagamentos) {
-                if (pagamento.TipoCartao.Equals(Pagamento.Cartao.CREDITO))
+                if (pagamento.TipoCartao.Equals(TipoCartao.CREDITO))
                 {
                     PagarCredito(pagamento.Valor, pagamento.QuantidadeParcelas, (int) pagamento.TipoParcelamento);
                 }
-                else if (pagamento.TipoCartao.Equals(Pagamento.Cartao.DEBITO))
+                else if (pagamento.TipoCartao.Equals(TipoCartao.DEBITO))
                 {
                     PagarDebito(pagamento.Valor);
                 }
-                else if (pagamento.TipoCartao.Equals(Pagamento.Cartao.CREDIARIO))
+                else if (pagamento.TipoCartao.Equals(TipoCartao.CREDIARIO))
                 {
                     PagarCrediario(pagamento.Valor, pagamento.QuantidadeParcelas);
                 }
-
+                resultadoProcessamento.CodSolicitacao = pagamento.CodSolicitacao;
             }
             FinalizarPagamento();
+            return resultadoProcessamento;
         }
 
 
@@ -80,7 +95,7 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = true;
-            this.IterarOperacaoTef();
+            this.IterarOperacaoTef(valor, TipoCartao.DEBITO);
         }
 
         private void PagarCredito(double valor, int quantidadeParcelas, int tipoParcelamento)
@@ -96,7 +111,7 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = true;
-            this.IterarOperacaoTef();
+            this.IterarOperacaoTef(valor, TipoCartao.CREDITO);
         }
 
         private void PagarCrediario(double valor, int quantidadeParcelas)
@@ -110,10 +125,10 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = true;
-            this.IterarOperacaoTef();
+            this.IterarOperacaoTef(valor, TipoCartao.CREDIARIO);
         }
 
-        public void ReimprimirCupom(bool ehUltimoCupom, int numeroCupom, int tipoVia)
+        public void ReimprimirCupom(bool ehUltimoCupom, int numeroCupom, ViasImpressao vias)
         {
             if (this.sessaoMultiTefEmAndamento == true)
             {
@@ -121,13 +136,13 @@ namespace Cartao
             }
 
             int resultado = ehUltimoCupom
-                ? this.clienteCappta.ReimprimirUltimoCupom(tipoVia)
-                : this.clienteCappta.ReimprimirCupom(numeroCupom.ToString("00000000000"), tipoVia);
+                ? this.clienteCappta.ReimprimirUltimoCupom((int) vias)
+                : this.clienteCappta.ReimprimirCupom(numeroCupom.ToString("00000000000"), (int) vias);
 
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = false;
-            this.IterarOperacaoTef();
+            this.IterarOperacaoTef(0, TipoCartao.CREDITO);
         }
 
         public void Cancelar(string senhaAdministrativa, long numeroControle)
@@ -143,7 +158,7 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = false;
-            this.IterarOperacaoTef();
+            this.IterarOperacaoTef(0, TipoCartao.CREDITO);
         }
 
 
@@ -160,7 +175,7 @@ namespace Cartao
             MessageBox.Show(mensagem, "Erro");
         }
 
-        public void IterarOperacaoTef()
+        public void IterarOperacaoTef(double valor, TipoCartao tipoCartao)
         {
             IIteracaoTef iteracaoTef = null;
 
@@ -176,10 +191,35 @@ namespace Cartao
 
                 if (iteracaoTef is IRequisicaoParametro) { this.RequisitarParametros((IRequisicaoParametro)iteracaoTef); }
 
-                if (iteracaoTef is IRespostaOperacaoRecusada) { this.ExibirDadosOperacaoRecusada((IRespostaOperacaoRecusada)iteracaoTef); }
+                if (iteracaoTef is IRespostaOperacaoRecusada) { 
+                    this.ExibirDadosOperacaoRecusada((IRespostaOperacaoRecusada)iteracaoTef);
+
+                    IRespostaOperacaoRecusada recusada = (IRespostaOperacaoRecusada)iteracaoTef;
+                    RespostaRecusada respostaRecusada = new RespostaRecusada();
+                    respostaRecusada.CodMotivo = recusada.CodigoMotivo;
+                    respostaRecusada.Motivo = recusada.Motivo;
+                    resultadoProcessamento.RespostaRecusada = respostaRecusada;
+                    resultadoProcessamento.Aprovado = false;
+                }
                 if (iteracaoTef is IRespostaOperacaoAprovada)
                 {
                     this.ExibirDadosOperacaoAprovada((IRespostaOperacaoAprovada)iteracaoTef);
+                    IRespostaOperacaoAprovada aprovada = (IRespostaOperacaoAprovada)iteracaoTef;
+                    RespostaAprovada respostaAprovada = new RespostaAprovada();
+                    respostaAprovada.CodAutorizacaoAdquirente = aprovada.CodigoAutorizacaoAdquirente;
+                    respostaAprovada.CupomCliente = aprovada.CupomCliente;
+                    respostaAprovada.CupomLojista = aprovada.CupomLojista;
+                    respostaAprovada.CupomReduzido = aprovada.CupomReduzido;
+                    respostaAprovada.DataHoraAutorizacao = aprovada.DataHoraAutorizacao;
+                    respostaAprovada.NomeAdquirente = aprovada.NomeAdquirente;
+                    respostaAprovada.NomeBandeiraCartao = aprovada.NomeBandeiraCartao;
+                    respostaAprovada.NsuAdquirente = aprovada.NsuAdquirente;
+                    respostaAprovada.NsuTef = aprovada.NsuTef;
+                    respostaAprovada.NumeroControle = aprovada.NumeroControle;
+                    respostaAprovada.Valor = valor;
+                    respostaAprovada.TipoCartao = tipoCartao;
+                    resultadoProcessamento.ListaRespostaAprovada.Add(respostaAprovada);
+                    resultadoProcessamento.Aprovado = true;
                     this.FinalizarPagamento();
                 }
 
@@ -230,14 +270,31 @@ namespace Cartao
         {
             if (this.processandoPagamento == false) { return; }
 
+
+            if (this.processandoPagamento == false) { return; }
+
+            if (this.sessaoMultiTefEmAndamento)
+            {
+                quantidadeCartoes--;
+                if (this.quantidadeCartoes > 0) { return; }
+            };
+            
             string mensagem = this.GerarMensagemTransacaoAprovada();
 
             this.processandoPagamento = false;
             this.sessaoMultiTefEmAndamento = false;
 
             DialogResult result = MessageBox.Show(mensagem.ToString(), "Sample API COM", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            if (result == System.Windows.Forms.DialogResult.OK) { this.clienteCappta.ConfirmarPagamentos(); }
-            else { this.clienteCappta.DesfazerPagamentos(); }
+            if (result == System.Windows.Forms.DialogResult.OK) 
+            { 
+                this.clienteCappta.ConfirmarPagamentos();
+                resultadoProcessamento.Aprovado = true;
+            }
+            else 
+            { 
+                this.clienteCappta.DesfazerPagamentos();
+                resultadoProcessamento.Aprovado = false;
+            }
         }
 
         private string GerarMensagemTransacaoAprovada()

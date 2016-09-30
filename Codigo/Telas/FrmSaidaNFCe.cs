@@ -14,15 +14,17 @@ namespace Telas
     public partial class FrmSaidaNFCe : Form
     {
         private long codSaida;
-        private bool retornouResultado;
+        private bool retornouResultadoNfe;
+        private bool retornouResultadoCartao;
         NfeControle nfeControle;
 
-        public FrmSaidaNFCe(long codSaida)
+        public FrmSaidaNFCe(long codSaida, bool haPagamentoCartao)
         {
             InitializeComponent();
             btnImprimir.Enabled = false;
             this.codSaida = codSaida;
-            retornouResultado = false;
+            retornouResultadoNfe = false;
+            retornouResultadoCartao = (haPagamentoCartao) ? false : true;
             progressBarEnvio.Maximum = 100;
             progressBarEnvio.Minimum = 0;
             progressBarEnvio.Step = 10;
@@ -37,18 +39,33 @@ namespace Telas
 
         private void timerAtualizaNFCe_Tick(object sender, EventArgs e)
         {
-            if (retornouResultado)
+            if (retornouResultadoNfe && retornouResultadoCartao)
             {
                 progressBarEnvio.Value = 100;
+                this.Close();
+            }
+            else if (retornouResultadoCartao == false)
+            {
+                progressBarEnvio.Increment(5);
+                lblEnvio.Text = "Aguardando Processamento Cartão Crédito...";
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+                if (saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA)
+                {
+                    retornouResultadoCartao = true;
+                    lblEnvio.Text = "Transação AUTORIZADA!";
+                    progressBarEnvio.Increment(5);
+                }
             }
             else
             {
+                lblEnvio.Text = "Enviando NFC-e. Aguarde...";
+
                 progressBarEnvio.Increment(5);
                 // recupera a último envio da nfe
                 NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).LastOrDefault();
                 if (nfeControle != null && !nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA))
                 {
-                    retornouResultado = true;
+                    retornouResultadoNfe = true;
                     progressBarEnvio.Value = 100;
                     if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
                     {
@@ -73,6 +90,11 @@ namespace Telas
                     }
                 }
             }            
+        }
+
+        private void lblEnvio_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Cartao.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("32799603000191")]
+        [global::System.Configuration.DefaultSettingValueAttribute("42724382000146")]
         public string Cnpj {
             get {
                 return ((string)(this["Cnpj"]));
@@ -52,7 +52,7 @@ namespace Cartao.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("001")]
+        [global::System.Configuration.DefaultSettingValueAttribute("32")]
         public string Pdv {
             get {
                 return ((string)(this["Pdv"]));

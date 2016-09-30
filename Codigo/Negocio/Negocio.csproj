@@ -110,7 +110,7 @@
     <Compile Include="SaceConst.cs" />
     <Compile Include="GerenciadorSeguranca.cs" />
     <Compile Include="GerenciadorImprimir.cs" />
-    <Compile Include="Saida\GerenciadorDocumentoFiscal.cs" />
+    <Compile Include="Saida\GerenciadorSolicitacaoDocumento.cs" />
     <Compile Include="Saida\GerenciadorNFe.cs" />
     <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />
     <Compile Include="Saida\GerenciadorSaidaPagamento.cs" />
@@ -120,6 +120,10 @@
     <Compile Include="Usuario\GerenciadorUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CartaoCredito\CartaoCredito.csproj">
+      <Project>{A59D26DC-2CCB-449A-AF26-68C3CD7B85C5}</Project>
+      <Name>CartaoCredito</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dados\Dados.csproj">
       <Project>{5B533C27-8137-48D2-881B-CF1131DDB8E3}</Project>
       <Name>Dados</Name>

@@ -707,17 +707,17 @@ namespace Negocio
         {
             try
             {
-                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento_fiscal>();
+                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
 
-                List<tb_solicitacao_documento_fiscal> solicitacoes = repSolicitacao.ObterTodos().Where(C => 
+                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C => 
                     C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
                     C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
                 
                 if (solicitacoes.Count() > 0)
                 {
-                    tb_solicitacao_documento_fiscal solicitacaoE = solicitacoes.FirstOrDefault();
+                    tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
                     List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList(); 
-                    List<tb_solicitacao_pagamentos> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamentos.ToList();
+                    List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
                     
                     repSolicitacao.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
                     repSolicitacao.SaveChanges();
@@ -731,7 +731,7 @@ namespace Negocio
             }
         }
 
-        private void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamentos> listaSaidaPagamentos, string tipaoNfe, bool ehNfeComplementar, bool ehEspelho)
+        private void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamento> listaSaidaPagamentos, string tipaoNfe, bool ehNfeComplementar, bool ehEspelho)
         {
             Saida saida = GerenciadorSaida.GetInstance(null).Obter(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 

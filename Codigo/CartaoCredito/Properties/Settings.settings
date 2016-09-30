@@ -9,10 +9,10 @@
       <Value Profile="(Default)">00000000000000</Value>
     </Setting>
     <Setting Name="Cnpj" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">32799603000191</Value>
+      <Value Profile="(Default)">42724382000146</Value>
     </Setting>
     <Setting Name="Pdv" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">001</Value>
+      <Value Profile="(Default)">32</Value>
     </Setting>
   </Settings>
 </SettingsFile>

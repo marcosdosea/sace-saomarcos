@@ -19,6 +19,11 @@ namespace Telas
     public partial class Principal : Form
     {
         static Autenticacao autenticacao = new Autenticacao();
+        static Cartao.ComunicacaoCartao comunicacaoCartao;
+        static string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
+        static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
+        static string SERVIDOR_CARTAO = Properties.Settings.Default.ServidorCartao.ToUpper();
+            
        
         public static Autenticacao Autenticacao
         {
@@ -37,7 +42,6 @@ namespace Telas
             TratamentoException eh = new TratamentoException();
             Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarException);
             Application.Run(new Principal());
-            
         }
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)
@@ -205,30 +209,6 @@ namespace Telas
             this.Visible = true;
         }
 
-        //private static void MapearImpressorasSeriais()
-        //{
-        //    DirectoryInfo Dir = new DirectoryInfo(Global.MAPEAMENTO_IMPRESSORA_REDUZIDA);
-        //    if (Dir.Exists)
-        //    {
-        //        ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
-        //        processStartInfo.RedirectStandardInput = true;
-        //        processStartInfo.RedirectStandardOutput = true;
-        //        processStartInfo.UseShellExecute = false;
-        //        processStartInfo.CreateNoWindow = false;
-
-        //        Process process = Process.Start(processStartInfo);
-        //        if (process != null)
-        //        {
-        //            process.StandardInput.WriteLine(@"net use " + Global.PORTA_IMPRESSORA_REDUZIDA + " /delete");
-        //            process.StandardInput.WriteLine(@"net use " + Global.PORTA_IMPRESSORA_REDUZIDA + " " + Global.MAPEAMENTO_IMPRESSORA_REDUZIDA + " /yes");
-
-        //            process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
-        //            process.StandardOutput.ReadToEnd();
-        //        }
-        //        process.Close();
-        //    }
-        //}
-
         private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Telas.FrmConta frmConta = new Telas.FrmConta();
@@ -308,20 +288,40 @@ namespace Telas
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            if (nomeComputador.ToUpper().Equals(Properties.Settings.Default.ServidorCartao.ToUpper()))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
             {
-                List<SolicitacaoPagamento> listaSolicitacaoPagamento = GerenciadorDocumentoFiscal.GetInstance().HaSolicitacaoPagamentoCartao()
-                if ()
+                List<SolicitacaoPagamento> listaSolicitacaoPagamento = GerenciadorSolicitacaoDocumento.GetInstance().ObterSolicitacaoPagamentoCartao();
+                if (listaSolicitacaoPagamento.Count() > 0)
                 {
-
+                    List<Cartao.Pagamento> listaPagamento = new List<Cartao.Pagamento>();
+                    foreach (SolicitacaoPagamento solicitacaoPagamento in listaSolicitacaoPagamento)
+                    {
+                        listaPagamento.Add(new Cartao.Pagamento()
+                        {
+                            NomeCartao = solicitacaoPagamento.NomeCartaoCredito,
+                            QuantidadeParcelas = (int) solicitacaoPagamento.Parcelas,
+                            TipoCartao = solicitacaoPagamento.TipoCartao.Equals(SolicitacaoPagamento.TCartao.CREDITO) ? Cartao.TipoCartao.CREDITO : Cartao.TipoCartao.DEBITO,
+                            TipoParcelamento = Cartao.TipoParcelamento.LOJA,
+                            CodSolicitacaoPagamento = solicitacaoPagamento.CodSolicitacaoPagamento,
+                            CodSolicitacao = solicitacaoPagamento.CodSolicitacao,
+                            Situacao = Cartao.Pagamento.SituacaoPagamento.SOLICITADA,
+                            Valor = (double) solicitacaoPagamento.Valor,
+                        });
+                    }
+                    if (comunicacaoCartao == null)
+                        comunicacaoCartao = new Cartao.ComunicacaoCartao();
+                    Cartao.FrmProcessarPagamentoCartao frmProcessarPagamentoCartao = new Cartao.FrmProcessarPagamentoCartao(comunicacaoCartao, listaPagamento);
+                    frmProcessarPagamentoCartao.ShowDialog();
+                    GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarPagamentoCartao.ResultadoProcessamento);
+                    frmProcessarPagamentoCartao.Close();
                 }
             }
-            if (nomeComputador.ToUpper().Equals(Global.NOME_SERVIDOR.ToUpper()))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR))
             {
-                GerenciadorDocumentoFiscal.GetInstance().EnviarProximoECF();
-                GerenciadorDocumentoFiscal.GetInstance().AtualizarPedidosComDocumentosFiscais();
+                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
+                GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosFiscais();
             }
-            else if (nomeComputador.ToUpper().Equals(Global.NOME_SERVIDOR_NFE.ToUpper()))
+            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {
                 GerenciadorNFe.GetInstance().EnviarProximoNFe();
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
@@ -405,11 +405,6 @@ namespace Telas
             FrmProdutoPreco frmProdutoPreco = new FrmProdutoPreco(false);
             frmProdutoPreco.ShowDialog();
             frmProdutoPreco.Dispose();
-        }
-
-        private void timerAtualizarProdutosParaCompra_Tick(object sender, EventArgs e)
-        {
-
         }
 
      }

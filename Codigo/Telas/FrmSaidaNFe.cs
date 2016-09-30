@@ -119,7 +119,7 @@ namespace Telas
                         GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                     List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
-                    GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
+                    GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
                 }   
             }
             
@@ -147,7 +147,7 @@ namespace Telas
                 else
                     tipoSolicitacao = DocumentoFiscal.TipoSolicitacao.NFE;
 
-                GerenciadorDocumentoFiscal.GetInstance().InserirSolicitacaoDocumentoFiscal(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
+                GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
                 Cursor.Current = Cursors.Default;
                 nfeControleDataGridView.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             }

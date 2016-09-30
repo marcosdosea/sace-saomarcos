@@ -5,15 +5,19 @@ using System.Text;
 
 namespace Cartao
 {
+    public enum TipoCartao { DEBITO, CREDITO, CREDIARIO };
+    public enum TipoParcelamento { ADMINISTRADORA = 1, LOJA = 2, INDEFINIDO = 0 };
+           
     public class Pagamento
     {
-        public enum Cartao {DEBITO, CREDITO, CREDIARIO};
-        public enum Parcelamento { LOJA=2, ADMINISTRADORA=1, INDEFINIDO=0 };
-
+        public enum SituacaoPagamento { AUTORIZADA, SOLICITADA };
         public string NomeCartao { get; set; }
-        public Cartao TipoCartao { get; set; }
-        public Parcelamento TipoParcelamento { get; set; }     
+        public TipoCartao TipoCartao { get; set; }
+        public TipoParcelamento TipoParcelamento { get; set; }     
         public double Valor { get; set; }
         public int QuantidadeParcelas { get; set; }
+        public long CodSolicitacaoPagamento { get; set; }
+        public long CodSolicitacao { get; set; }
+        public SituacaoPagamento Situacao { get; set; }
     }
 }

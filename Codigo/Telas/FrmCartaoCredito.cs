@@ -267,5 +267,45 @@ namespace Telas
             FormatTextBox.RemoverAcentos((TextBox)sender);
             codCartaoTextBox_Leave(sender, e);
         }
+
+        private void mapeamentoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mapeamentoTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void diaBaseTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void descontoTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void descontoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void diaBaseLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void codPessoaComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tipoCartaoComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

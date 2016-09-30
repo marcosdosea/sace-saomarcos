@@ -52,6 +52,7 @@
             this.lblEnvio.Size = new System.Drawing.Size(237, 20);
             this.lblEnvio.TabIndex = 1;
             this.lblEnvio.Text = "Enviando NFC-e. Aguarde... ";
+            this.lblEnvio.Click += new System.EventHandler(this.lblEnvio_Click);
             // 
             // btnImprimir
             // 
@@ -88,6 +89,7 @@
             this.Controls.Add(this.lblEnvio);
             this.Controls.Add(this.progressBarEnvio);
             this.Name = "FrmSaidaNFCe";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Envio de NFC-e";
             this.ResumeLayout(false);
             this.PerformLayout();
