@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio.Consultas;
+using Dominio;
 
 namespace Telas
 {
@@ -38,12 +39,15 @@ namespace Telas
             textTotalMovimentacao.Text = totaisMovimentacaoConta.Sum(t => t.TotalMovimentacaoConta).ToString("N2");
 
             IEnumerable<TotalPagamentoSaida> totaisSaida = GerenciadorSaidaPagamento.GetInstance(null).ObterTotalPagamentoSaida(dataInicial, dataFinal);
+            TotalPagamentoSaida totalPagamentoSaidaDinheiro = totaisSaida.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
+            if (totalPagamentoSaidaDinheiro != null)
+            {
+                decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoPorPeriodo(dataInicial, dataFinal);
+                totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
+            }
             totaisSaidaBindingSource.DataSource = totaisSaida;
             
-            decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoPorPeriodo(dataInicial, dataFinal);
-            textTroco.Text = trocoPorPeriodo.ToString("N2");
-
-            textTotalVendas.Text = (totaisSaida.Sum(t => t.TotalPagamento) - trocoPorPeriodo).ToString("N2");
+            textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
             IEnumerable<VendasCartao> vendasCartao = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasCartao(dataInicial, dataFinal);
             VendasCartaoBindingSource.DataSource = vendasCartao;

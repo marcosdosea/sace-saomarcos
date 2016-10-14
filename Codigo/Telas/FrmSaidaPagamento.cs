@@ -177,10 +177,10 @@ namespace Telas
 
                                     if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
                                     {
-                                        GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                        FrmSaidaNFCe frmSaidaNFCe = new FrmSaidaNFCe(saida.CodSaida, haPagamentoCartao);
-                                        frmSaidaNFCe.ShowDialog();
-                                        frmSaidaNFCe.Dispose();
+                                        long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(codSolicitacao);
+                                        frmSaidaAutorizacao.ShowDialog();
+                                        frmSaidaAutorizacao.Dispose();
                                     }
                                     else
                                     {

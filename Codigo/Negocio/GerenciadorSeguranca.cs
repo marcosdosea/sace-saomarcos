@@ -10,6 +10,7 @@ namespace Negocio
     public class GerenciadorSeguranca
     {
         private static GerenciadorSeguranca seguranca;
+        
 
         public static GerenciadorSeguranca getInstance()
         {
@@ -37,13 +38,13 @@ namespace Negocio
             return true;
         }
 
-        public void Backup()
+        public void Backup(string nomeServidor)
         {
             try
             {
                 // recupera o nome do computador
                 String computerName = System.Windows.Forms.SystemInformation.ComputerName;
-                if (computerName.Equals(Global.NOME_SERVIDOR) || computerName.Equals(Global.NOME_SERVIDOR_NFE))
+                if (computerName.Equals(nomeServidor))
                 {
                     DirectoryInfo dir = new DirectoryInfo(Global.PASTA_BACKUP);
                     if (!dir.Exists)

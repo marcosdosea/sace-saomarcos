@@ -21,5 +21,6 @@ namespace Dominio.Consultas
         public string DescricaoCartao { get; set; }
         public int Parcelas { get; set; }
         public decimal TotalCartao { get; set; }
+        public string NumeroControle { get; set; }
     }
 }

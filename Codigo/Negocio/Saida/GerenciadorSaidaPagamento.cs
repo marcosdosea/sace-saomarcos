@@ -243,7 +243,7 @@ namespace Negocio
 
 
         /// <summary>
-        /// Obter os todos os pagamentos de uma saída
+        /// Obter os todos os pagamentos de uma saída 
         /// </summary>
         /// <param name="codSaidaPagamento"></param>
         /// <returns></returns>
@@ -298,7 +298,8 @@ namespace Negocio
                             DescricaoCartao = saidaPagamento.tb_cartao_credito.nome,
                             TotalCartao = (decimal) saidaPagamento.valor,
                             Parcelas = (int) saidaPagamento.parcelas,
-                            CodSaida = saidaPagamento.codSaida
+                            CodSaida = saidaPagamento.codSaida,
+                            NumeroControle = saidaPagamento.numeroControle
                         };
             return query.ToList();
         }

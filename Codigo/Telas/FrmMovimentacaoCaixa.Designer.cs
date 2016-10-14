@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codContaBancoLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,18 +56,17 @@
             this.totalPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VendasCartaoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totaisCartaoDataGridView = new System.Windows.Forms.DataGridView();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoCartaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.parcelasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalCartaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.textTotalVendas = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textTotalCartao = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnAtualizar = new System.Windows.Forms.Button();
-            this.textTroco = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroControle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricaoCartaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcelasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalCartaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codContaBancoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
@@ -106,7 +105,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(866, 53);
+            this.panel1.Size = new System.Drawing.Size(1009, 53);
             this.panel1.TabIndex = 21;
             // 
             // label2
@@ -139,12 +138,13 @@
             // 
             // dateTimePickerInicial
             // 
+            this.dateTimePickerInicial.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimePickerInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePickerInicial.Location = new System.Drawing.Point(486, 88);
             this.dateTimePickerInicial.Name = "dateTimePickerInicial";
-            this.dateTimePickerInicial.Size = new System.Drawing.Size(100, 20);
+            this.dateTimePickerInicial.Size = new System.Drawing.Size(96, 20);
             this.dateTimePickerInicial.TabIndex = 24;
-            this.dateTimePickerInicial.Value = new System.DateTime(2015, 1, 8, 0, 0, 0, 0);
+            this.dateTimePickerInicial.Value = new System.DateTime(2016, 9, 30, 0, 0, 0, 0);
             this.dateTimePickerInicial.ValueChanged += new System.EventHandler(this.dateTimePickerInicial_ValueChanged);
             // 
             // dateTimePickerFinal
@@ -217,9 +217,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "TotalMovimentacaoConta";
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn2.HeaderText = "Total (R$)";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -230,14 +230,14 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(13, 117);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(206, 18);
+            this.label5.Size = new System.Drawing.Size(194, 18);
             this.label5.TabIndex = 28;
-            this.label5.Text = "Movimentação do Período";
+            this.label5.Text = "Movimentação do Caixa:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(765, 578);
+            this.btnCancelar.Location = new System.Drawing.Point(826, 84);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 29;
@@ -272,9 +272,9 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(13, 330);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(151, 18);
+            this.label7.Size = new System.Drawing.Size(156, 18);
             this.label7.TabIndex = 32;
-            this.label7.Text = "Vendas no Período";
+            this.label7.Text = "Vendas Realizadas:";
             // 
             // totaisSaidaBindingSource
             // 
@@ -325,6 +325,7 @@
             this.totaisCartaoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.totaisCartaoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaDataGridViewTextBoxColumn,
+            this.NumeroControle,
             this.descricaoCartaoDataGridViewTextBoxColumn,
             this.parcelasDataGridViewTextBoxColumn,
             this.totalCartaoDataGridViewTextBoxColumn});
@@ -333,44 +334,8 @@
             this.totaisCartaoDataGridView.Name = "totaisCartaoDataGridView";
             this.totaisCartaoDataGridView.ReadOnly = true;
             this.totaisCartaoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.totaisCartaoDataGridView.Size = new System.Drawing.Size(363, 387);
+            this.totaisCartaoDataGridView.Size = new System.Drawing.Size(511, 387);
             this.totaisCartaoDataGridView.TabIndex = 32;
-            // 
-            // codSaidaDataGridViewTextBoxColumn
-            // 
-            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 20F;
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Saída";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descricaoCartaoDataGridViewTextBoxColumn
-            // 
-            this.descricaoCartaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descricaoCartaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoCartao";
-            this.descricaoCartaoDataGridViewTextBoxColumn.FillWeight = 50F;
-            this.descricaoCartaoDataGridViewTextBoxColumn.HeaderText = "Cartão";
-            this.descricaoCartaoDataGridViewTextBoxColumn.Name = "descricaoCartaoDataGridViewTextBoxColumn";
-            this.descricaoCartaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // parcelasDataGridViewTextBoxColumn
-            // 
-            this.parcelasDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.parcelasDataGridViewTextBoxColumn.DataPropertyName = "Parcelas";
-            this.parcelasDataGridViewTextBoxColumn.FillWeight = 20F;
-            this.parcelasDataGridViewTextBoxColumn.HeaderText = "Parcelas";
-            this.parcelasDataGridViewTextBoxColumn.Name = "parcelasDataGridViewTextBoxColumn";
-            this.parcelasDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // totalCartaoDataGridViewTextBoxColumn
-            // 
-            this.totalCartaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.totalCartaoDataGridViewTextBoxColumn.DataPropertyName = "TotalCartao";
-            this.totalCartaoDataGridViewTextBoxColumn.FillWeight = 30F;
-            this.totalCartaoDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
-            this.totalCartaoDataGridViewTextBoxColumn.Name = "totalCartaoDataGridViewTextBoxColumn";
-            this.totalCartaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // label8
             // 
@@ -406,7 +371,7 @@
             // 
             this.textTotalCartao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textTotalCartao.ForeColor = System.Drawing.Color.Red;
-            this.textTotalCartao.Location = new System.Drawing.Point(720, 546);
+            this.textTotalCartao.Location = new System.Drawing.Point(868, 546);
             this.textTotalCartao.Name = "textTotalCartao";
             this.textTotalCartao.Size = new System.Drawing.Size(129, 26);
             this.textTotalCartao.TabIndex = 37;
@@ -417,7 +382,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(623, 546);
+            this.label10.Location = new System.Drawing.Point(813, 552);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(49, 20);
             this.label10.TabIndex = 36;
@@ -425,7 +390,7 @@
             // 
             // btnAtualizar
             // 
-            this.btnAtualizar.Location = new System.Drawing.Point(774, 84);
+            this.btnAtualizar.Location = new System.Drawing.Point(745, 84);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(75, 23);
             this.btnAtualizar.TabIndex = 26;
@@ -433,34 +398,54 @@
             this.btnAtualizar.UseVisualStyleBackColor = true;
             this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
-            // textTroco
+            // codSaidaDataGridViewTextBoxColumn
             // 
-            this.textTroco.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTroco.ForeColor = System.Drawing.Color.Red;
-            this.textTroco.Location = new System.Drawing.Point(90, 543);
-            this.textTroco.Name = "textTroco";
-            this.textTroco.Size = new System.Drawing.Size(129, 26);
-            this.textTroco.TabIndex = 39;
-            this.textTroco.TabStop = false;
-            this.textTroco.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 20F;
+            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Saída";
+            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // label11
+            // NumeroControle
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(18, 546);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 20);
-            this.label11.TabIndex = 38;
-            this.label11.Text = "Troco";
+            this.NumeroControle.DataPropertyName = "NumeroControle";
+            this.NumeroControle.HeaderText = "Autorização";
+            this.NumeroControle.Name = "NumeroControle";
+            this.NumeroControle.ReadOnly = true;
+            // 
+            // descricaoCartaoDataGridViewTextBoxColumn
+            // 
+            this.descricaoCartaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoCartaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoCartao";
+            this.descricaoCartaoDataGridViewTextBoxColumn.FillWeight = 50F;
+            this.descricaoCartaoDataGridViewTextBoxColumn.HeaderText = "Cartão";
+            this.descricaoCartaoDataGridViewTextBoxColumn.Name = "descricaoCartaoDataGridViewTextBoxColumn";
+            this.descricaoCartaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // parcelasDataGridViewTextBoxColumn
+            // 
+            this.parcelasDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.parcelasDataGridViewTextBoxColumn.DataPropertyName = "Parcelas";
+            this.parcelasDataGridViewTextBoxColumn.FillWeight = 20F;
+            this.parcelasDataGridViewTextBoxColumn.HeaderText = "Parcelas";
+            this.parcelasDataGridViewTextBoxColumn.Name = "parcelasDataGridViewTextBoxColumn";
+            this.parcelasDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalCartaoDataGridViewTextBoxColumn
+            // 
+            this.totalCartaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.totalCartaoDataGridViewTextBoxColumn.DataPropertyName = "TotalCartao";
+            this.totalCartaoDataGridViewTextBoxColumn.FillWeight = 30F;
+            this.totalCartaoDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
+            this.totalCartaoDataGridViewTextBoxColumn.Name = "totalCartaoDataGridViewTextBoxColumn";
+            this.totalCartaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmMovimentacaoCaixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 601);
-            this.Controls.Add(this.textTroco);
-            this.Controls.Add(this.label11);
+            this.ClientSize = new System.Drawing.Size(1009, 601);
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.textTotalCartao);
             this.Controls.Add(this.label10);
@@ -531,15 +516,14 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textTotalCartao;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descricaoCartaoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn parcelasDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalCartaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnAtualizar;
         private System.Windows.Forms.DataGridViewTextBoxColumn descricaoFormaPagamentosDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPagamentoDataGridViewTextBoxColumn;
-        private System.Windows.Forms.TextBox textTroco;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroControle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descricaoCartaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcelasDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalCartaoDataGridViewTextBoxColumn;
 
     }
 }

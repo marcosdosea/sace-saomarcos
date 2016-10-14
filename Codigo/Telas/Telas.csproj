@@ -210,11 +210,11 @@
     <Compile Include="FrmSaidaDeposito.Designer.cs">
       <DependentUpon>FrmSaidaDeposito.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSaidaNFCe.cs">
+    <Compile Include="FrmSaidaAutorizacao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSaidaNFCe.Designer.cs">
-      <DependentUpon>FrmSaidaNFCe.cs</DependentUpon>
+    <Compile Include="FrmSaidaAutorizacao.Designer.cs">
+      <DependentUpon>FrmSaidaAutorizacao.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmSaidaNFe.cs">
       <SubType>Form</SubType>
@@ -510,8 +510,8 @@
       <DependentUpon>FrmSaidaDeposito.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSaidaNFCe.resx">
-      <DependentUpon>FrmSaidaNFCe.cs</DependentUpon>
+    <EmbeddedResource Include="FrmSaidaAutorizacao.resx">
+      <DependentUpon>FrmSaidaAutorizacao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSaidaNFe.resx">
       <DependentUpon>FrmSaidaNFe.cs</DependentUpon>
@@ -820,8 +820,13 @@
     <Content Include="Resources\caixa2.png" />
     <Content Include="Resources\calendario.png" />
     <Content Include="Resources\carteira.png" />
+    <None Include="Resources\nfe-150x150.png" />
+    <None Include="Resources\credit-cards-icon-150x1501.png" />
+    <Content Include="Resources\nfce.png" />
+    <None Include="Resources\nfce1.png" />
     <None Include="Resources\mascote.png" />
     <None Include="Resources\carteira2.png" />
+    <Content Include="Resources\credit-cards-icon-150x150.png" />
     <Content Include="Resources\dados.png" />
     <Content Include="Resources\ferramentas.png" />
     <None Include="Resources\fundo.PNG" />

@@ -66,15 +66,15 @@ namespace Cartao
             foreach(Pagamento pagamento in pagamentos) {
                 if (pagamento.TipoCartao.Equals(TipoCartao.CREDITO))
                 {
-                    PagarCredito(pagamento.Valor, pagamento.QuantidadeParcelas, (int) pagamento.TipoParcelamento);
+                    PagarCredito(pagamento.Valor, pagamento.QuantidadeParcelas, (int) pagamento.TipoParcelamento, pagamento.CodSolicitacaoPagamento);
                 }
                 else if (pagamento.TipoCartao.Equals(TipoCartao.DEBITO))
                 {
-                    PagarDebito(pagamento.Valor);
+                    PagarDebito(pagamento.Valor, pagamento.CodSolicitacaoPagamento);
                 }
                 else if (pagamento.TipoCartao.Equals(TipoCartao.CREDIARIO))
                 {
-                    PagarCrediario(pagamento.Valor, pagamento.QuantidadeParcelas);
+                    PagarCrediario(pagamento.Valor, pagamento.QuantidadeParcelas, pagamento.CodSolicitacaoPagamento);
                 }
                 resultadoProcessamento.CodSolicitacao = pagamento.CodSolicitacao;
             }
@@ -89,16 +89,16 @@ namespace Cartao
             System.Environment.Exit(0);
         }
 
-        private void PagarDebito(double valor)
+        private void PagarDebito(double valor, long codSolicitacaoPagamento)
         {
             int resultado = clienteCappta.PagamentoDebito(valor);
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = true;
-            this.IterarOperacaoTef(valor, TipoCartao.DEBITO);
+            this.IterarOperacaoTef(valor, TipoCartao.DEBITO, codSolicitacaoPagamento);
         }
 
-        private void PagarCredito(double valor, int quantidadeParcelas, int tipoParcelamento)
+        private void PagarCredito(double valor, int quantidadeParcelas, int tipoParcelamento, long codSolicitacaoPagamento)
         {
             IDetalhesCredito details = new DetalhesCredito
             {
@@ -111,10 +111,10 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = true;
-            this.IterarOperacaoTef(valor, TipoCartao.CREDITO);
+            this.IterarOperacaoTef(valor, TipoCartao.CREDITO, codSolicitacaoPagamento);
         }
 
-        private void PagarCrediario(double valor, int quantidadeParcelas)
+        private void PagarCrediario(double valor, int quantidadeParcelas, long codSolicitacaoPagamento)
         {
             IDetalhesCrediario detalhes = new DetalhesCrediario
             {
@@ -125,7 +125,7 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = true;
-            this.IterarOperacaoTef(valor, TipoCartao.CREDIARIO);
+            this.IterarOperacaoTef(valor, TipoCartao.CREDIARIO, codSolicitacaoPagamento);
         }
 
         public void ReimprimirCupom(bool ehUltimoCupom, int numeroCupom, ViasImpressao vias)
@@ -142,7 +142,7 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = false;
-            this.IterarOperacaoTef(0, TipoCartao.CREDITO);
+            this.IterarOperacaoTef(0, TipoCartao.CREDITO, -1);
         }
 
         public void Cancelar(string senhaAdministrativa, long numeroControle)
@@ -158,7 +158,7 @@ namespace Cartao
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
             this.processandoPagamento = false;
-            this.IterarOperacaoTef(0, TipoCartao.CREDITO);
+            this.IterarOperacaoTef(0, TipoCartao.CREDITO, -1);
         }
 
 
@@ -175,7 +175,7 @@ namespace Cartao
             MessageBox.Show(mensagem, "Erro");
         }
 
-        public void IterarOperacaoTef(double valor, TipoCartao tipoCartao)
+        public void IterarOperacaoTef(double valor, TipoCartao tipoCartao, long codSolicitacaoPagamento)
         {
             IIteracaoTef iteracaoTef = null;
 
@@ -214,12 +214,14 @@ namespace Cartao
                     respostaAprovada.NomeAdquirente = aprovada.NomeAdquirente;
                     respostaAprovada.NomeBandeiraCartao = aprovada.NomeBandeiraCartao;
                     respostaAprovada.NsuAdquirente = aprovada.NsuAdquirente;
-                    respostaAprovada.NsuTef = aprovada.NsuTef;
+                    respostaAprovada.NsuTef = (long) aprovada.NsuTef;
                     respostaAprovada.NumeroControle = aprovada.NumeroControle;
                     respostaAprovada.Valor = valor;
                     respostaAprovada.TipoCartao = tipoCartao;
+                    respostaAprovada.CodSolicitacaoPagamento = codSolicitacaoPagamento;
                     resultadoProcessamento.ListaRespostaAprovada.Add(respostaAprovada);
                     resultadoProcessamento.Aprovado = true;
+                   
                     this.FinalizarPagamento();
                 }
 

@@ -228,7 +228,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Negocio.GerenciadorSeguranca.getInstance().Backup();
+                Negocio.GerenciadorSeguranca.getInstance().Backup(SERVIDOR);
             }
         }
 
@@ -310,7 +310,7 @@ namespace Telas
                     }
                     if (comunicacaoCartao == null)
                         comunicacaoCartao = new Cartao.ComunicacaoCartao();
-                    Cartao.FrmProcessarPagamentoCartao frmProcessarPagamentoCartao = new Cartao.FrmProcessarPagamentoCartao(comunicacaoCartao, listaPagamento);
+                    Cartao.FrmProcessarPagamentoCartao frmProcessarPagamentoCartao = new Cartao.FrmProcessarPagamentoCartao(comunicacaoCartao, listaPagamento, Cartao.TipoProcessamento.PAGAMENTO);
                     frmProcessarPagamentoCartao.ShowDialog();
                     GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarPagamentoCartao.ResultadoProcessamento);
                     frmProcessarPagamentoCartao.Close();
@@ -319,7 +319,7 @@ namespace Telas
             if (nomeComputador.ToUpper().Equals(SERVIDOR))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
-                GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosFiscais();
+                GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosFiscais(SERVIDOR);
             }
             else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {

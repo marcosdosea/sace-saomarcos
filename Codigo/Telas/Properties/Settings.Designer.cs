@@ -25,7 +25,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Servidor")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MarcosDósea")]
         public string Servidor {
             get {
                 return ((string)(this["Servidor"]));

@@ -37,9 +37,11 @@ namespace Negocio
             {
                 _solicitacao_documentoE.dataSolicitacao = DateTime.Now;
                 _solicitacao_documentoE.haPagamentoCartao = listaSaidaPagamento.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
-                _solicitacao_documentoE.cartaoAprovado = false;
+                _solicitacao_documentoE.cartaoProcessado = false;
+                _solicitacao_documentoE.cartaoAutorizado = false;
                 _solicitacao_documentoE.ehComplementar = ehComplementar;
                 _solicitacao_documentoE.ehEspelho = ehEspelho;
+                _solicitacao_documentoE.motivoCartaoNegado = "";
                 _solicitacao_documentoE.tipoSolicitacao = tipoSolicitacao.ToString();
                 repCupom.Inserir(_solicitacao_documentoE);
 
@@ -65,7 +67,11 @@ namespace Negocio
                             codCartao = _solicitacaoPagamento.CodCartaoCredito,
                             codFormaPagamento = _solicitacaoPagamento.CodFormaPagamento,
                             parcelas = _solicitacaoPagamento.Parcelas,
-                            valor = _solicitacaoPagamento.Valor
+                            valor = _solicitacaoPagamento.Valor,
+                            codSolicitacao = _solicitacao_documentoE.codSolicitacao,
+                            cupomCliente = "",
+                            cupomEstabelecimento = "",
+                            cupomReduzido = ""
                         }
                     );
                 }
@@ -83,13 +89,39 @@ namespace Negocio
 
         }
 
+        public void AtualizarSolicitacaoDocumentoCartao(Cartao.ResultadoProcessamento resultado)
+        {
+            var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+            
+            var saceContext = (SaceEntities)repSolicitacao.ObterContexto();
+            tb_solicitacao_documento documentoE = repSolicitacao.ObterEntidade(sd => sd.codSolicitacao == resultado.CodSolicitacao);
+            documentoE.cartaoProcessado = true;
+            documentoE.cartaoAutorizado = resultado.Aprovado;
+            if (resultado.Aprovado)
+            {
+                foreach (Cartao.RespostaAprovada respostaAprovada in resultado.ListaRespostaAprovada)
+                {
+                    tb_solicitacao_pagamento solicitacaoPagamento = documentoE.tb_solicitacao_pagamento.Where(sp => sp.codSolicitacaoPagamento == respostaAprovada.CodSolicitacaoPagamento).FirstOrDefault();
+                    solicitacaoPagamento.cupomCliente = respostaAprovada.CupomCliente;
+                    solicitacaoPagamento.cupomEstabelecimento = respostaAprovada.CupomLojista;
+                    solicitacaoPagamento.cupomReduzido = respostaAprovada.CupomReduzido;
+                }
+            }
+            else
+            {
+                Cartao.RespostaRecusada recusada = resultado.RespostaRecusada;
+                //recusada.
+            }
+            repSolicitacao.SaveChanges();
+        }
+
         public List<SolicitacaoPagamento> ObterSolicitacaoPagamentoCartao()
         {
             var repSolicitacoes = new RepositorioGenerico<tb_solicitacao_documento>();
             var saceEntities = (SaceEntities)repSolicitacoes.ObterContexto();
             var query = from solicitacao in saceEntities.tb_solicitacao_documento
                         where solicitacao.tipoSolicitacao.Equals("NFCE") && solicitacao.haPagamentoCartao == true &&
-                            solicitacao.cartaoAprovado == false
+                            solicitacao.cartaoProcessado == false
                         orderby solicitacao.dataSolicitacao
                         select solicitacao;
             List<tb_solicitacao_documento> listaSolicitacoes = query.ToList();
@@ -127,21 +159,28 @@ namespace Negocio
         {
             try
             {
-                var repCupom = new RepositorioGenerico<tb_solicitacao_documento>();
+                var repSolicitacoes = new RepositorioGenerico<tb_solicitacao_documento>();
                 DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
                 if (pastaECF.Exists)
                 {
                     FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
                     if (files.Length == 0)
                     {
-                        IQueryable<tb_solicitacao_documento> solicitacoes = GetQuery().Where(C => C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.ECF)).OrderBy(s => s.dataSolicitacao);
+                        var saceEntities = (SaceEntities)repSolicitacoes.ObterContexto();
+                        var query = from solicitacao in saceEntities.tb_solicitacao_documento
+                                    where solicitacao.tipoSolicitacao.Equals("ECF")
+                                    orderby solicitacao.dataSolicitacao
+                                    select solicitacao;
+                        List<tb_solicitacao_documento> solicitacoes = query.ToList();        
                         if (solicitacoes.Count() > 0)
                         {
                             tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
+                            // solicitacaoE.emProcessamento = true; precisaria ter sempre retorno sem erro do aplicativo ECF para controlar dessa forma
+                            //repSolicitacoes.SaveChanges();
                             List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
                             List<tb_solicitacao_pagamento> listaPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
                             GerarDocumentoECF(listaSolicitacaoSaida, listaPagamentos);
-                            RemoverSolicitacaoDocumento(solicitacaoE.codSolicitacao);
+                            RemoverSolicitacaoDocumento(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 
                         }
                     }
@@ -158,13 +197,27 @@ namespace Negocio
         /// Remove dados do cupom
         /// </summary>
         /// <param name="codCupom"></param>
-        public void RemoverSolicitacaoDocumento(long codSolicitacao)
+        public void RemoverSolicitacaoDocumento(long codSaida)
         {
             try
             {
-                var repCupom = new RepositorioGenerico<tb_solicitacao_documento>();
-                repCupom.Remover(s => s.codSolicitacao == codSolicitacao);
-                repCupom.SaveChanges();
+                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+                var saceEntities = (SaceEntities)repSolicitacao.ObterContexto();
+                var query = from solicitacaoSaida in saceEntities.tb_solicitacao_saida
+                            where solicitacaoSaida.codSaida == codSaida
+                            select solicitacaoSaida;
+                tb_solicitacao_saida solicitacao_saidaE = query.ToList().FirstOrDefault();
+                if (solicitacao_saidaE != null)
+                {
+                    if (solicitacao_saidaE.tb_solicitacao_documento.emProcessamento == true) 
+                    {
+                        throw new NegocioException("Não é possível editar/remover esse pedido. Documento sendo autorizado/impresso. Favor aguardar até a conclusão do processamento.");
+                    }
+
+                    repSolicitacao.Remover(s => s.codSolicitacao == solicitacao_saidaE.codSolicitacao);
+                    repSolicitacao.SaveChanges();
+                }
+                
             }
             catch (Exception e)
             {
@@ -176,13 +229,14 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<tb_solicitacao_documento> GetQuery()
+        public tb_solicitacao_documento ObterSolicitacaoDocumento(long codSolicitacao)
         {
             var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
             var saceEntities = (SaceEntities)repSolicitacao.ObterContexto();
             var query = from documento in saceEntities.tb_solicitacao_documento
+                        where documento.codSolicitacao == codSolicitacao
                         select documento;
-            return query;
+            return query.FirstOrDefault();
         }
 
 
@@ -419,12 +473,12 @@ namespace Negocio
         }
 
 
-        public Boolean AtualizarPedidosComDocumentosFiscais()
+        public Boolean AtualizarPedidosComDocumentosFiscais(string nomeServidor)
         {
             Boolean atualizou = false;
             DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO);
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            if (nomeComputador.Equals(Global.NOME_SERVIDOR) && PastaRetorno.Exists)
+            if (nomeComputador.Equals(nomeServidor) && PastaRetorno.Exists)
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
                 FileInfo[] Files = PastaRetorno.GetFiles("*", SearchOption.TopDirectoryOnly);
@@ -512,9 +566,10 @@ namespace Negocio
 
         public void InserirRespostaCartao(Cartao.ResultadoProcessamento resultado)
         {
-            List<tb_solicitacao_saida> listaSolicitacaoSaida = ObterSolicitacaoSaida(resultado.CodSolicitacao).ToList();
+            List<tb_solicitacao_saida> listaSolicitacaoSaida;
             if (resultado.Aprovado)
             {
+                 listaSolicitacaoSaida = ObterSolicitacaoSaida(resultado.CodSolicitacao).ToList();
                 // Pode passar mais de um cartão de crédito
                 if (listaSolicitacaoSaida.Count == 1)
                 {
@@ -542,10 +597,44 @@ namespace Negocio
 
                     }
                 }
-                
+                InserirAutorizacaoCartao(resultado, listaSolicitacaoSaida);
+
             }
-            RemoverSolicitacaoDocumento(resultado.CodSolicitacao);
-            
+            AtualizarSolicitacaoDocumentoCartao(resultado);
+        }
+
+
+        public long InserirAutorizacaoCartao(Cartao.ResultadoProcessamento resultadoProcessamento, List<tb_solicitacao_saida> listaSolicitacaoSaida)
+        {
+            var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
+            tb_autorizacao_cartao _autorizacao_cartaoE; 
+            try
+            {
+                foreach (Cartao.RespostaAprovada respostaAprovada in resultadoProcessamento.ListaRespostaAprovada)
+                {
+                    _autorizacao_cartaoE = new tb_autorizacao_cartao();
+                    _autorizacao_cartaoE.codigoAutorizacaoAdquirente = respostaAprovada.CodAutorizacaoAdquirente;
+                    _autorizacao_cartaoE.dataHoraAutorizacao = respostaAprovada.DataHoraAutorizacao;
+                    _autorizacao_cartaoE.nomeAdquirente = respostaAprovada.NomeAdquirente;
+                    _autorizacao_cartaoE.nomeBandeiraCartao = respostaAprovada.NomeBandeiraCartao;
+                    _autorizacao_cartaoE.nsuAdquirente = respostaAprovada.NsuAdquirente;
+                    _autorizacao_cartaoE.nsuTef = respostaAprovada.NsuTef;
+                    _autorizacao_cartaoE.numeroControle = respostaAprovada.NumeroControle;
+                    
+                    foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
+                    {
+                        _autorizacao_cartaoE.tb_saida.Add(new tb_saida() { codSaida = solicitacaoSaida.codSaida });
+                    }
+                    repAutorizacao.Inserir(_autorizacao_cartaoE);
+                    repAutorizacao.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Autorização Cartão", e.Message, e);
+            }
+            return 0;
+
         }
     }
 }

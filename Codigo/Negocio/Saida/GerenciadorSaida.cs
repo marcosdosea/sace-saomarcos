@@ -318,8 +318,13 @@ namespace Negocio
                     }
                 }
                 // Se houver documento fiscal aguardando impressão
-                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA_NFCE)
                     GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
+                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                {
+                    GerenciadorSolicitacaoDocumento.GetInstance().ExcluirDocumentoFiscal(saida.CodSaida);
+                    GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
+                }
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||

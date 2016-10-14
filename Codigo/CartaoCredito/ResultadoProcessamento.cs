@@ -22,10 +22,11 @@ namespace Cartao
         public string NomeAdquirente { get; set; }
         public string NomeBandeiraCartao { get; set; }
         public string NsuAdquirente { get; set; }
-        public ulong NsuTef { get; set; }
+        public long NsuTef { get; set; }
         public string NumeroControle { get; set; }
         public double Valor { get; set; }
         public TipoCartao TipoCartao { get; set; }
+        public long CodSolicitacaoPagamento { get; set; }
     }
     
     public class ResultadoProcessamento
