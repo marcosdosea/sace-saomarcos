@@ -82,9 +82,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_saida1", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "CartaoCreditoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), "tb_autorizacao_cartao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_autorizacao_cartao))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_autorizacao_cartao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_autorizacao_cartao), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
 
 #endregion
 
@@ -779,22 +779,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_autorizacao_cartao> tb_autorizacao_cartao
-        {
-            get
-            {
-                if ((_tb_autorizacao_cartao == null))
-                {
-                    _tb_autorizacao_cartao = base.CreateObjectSet<tb_autorizacao_cartao>("tb_autorizacao_cartao");
-                }
-                return _tb_autorizacao_cartao;
-            }
-        }
-        private ObjectSet<tb_autorizacao_cartao> _tb_autorizacao_cartao;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<tb_solicitacao_documento> tb_solicitacao_documento
         {
             get
@@ -807,6 +791,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_solicitacao_documento> _tb_solicitacao_documento;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_autorizacao_cartao> tb_autorizacao_cartao
+        {
+            get
+            {
+                if ((_tb_autorizacao_cartao == null))
+                {
+                    _tb_autorizacao_cartao = base.CreateObjectSet<tb_autorizacao_cartao>("tb_autorizacao_cartao");
+                }
+                return _tb_autorizacao_cartao;
+            }
+        }
+        private ObjectSet<tb_autorizacao_cartao> _tb_autorizacao_cartao;
 
         #endregion
 
@@ -1133,19 +1133,19 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_autorizacao_cartao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_autorizacao_cartao(tb_autorizacao_cartao tb_autorizacao_cartao)
-        {
-            base.AddObject("tb_autorizacao_cartao", tb_autorizacao_cartao);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the tb_solicitacao_documento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_solicitacao_documento(tb_solicitacao_documento tb_solicitacao_documento)
         {
             base.AddObject("tb_solicitacao_documento", tb_solicitacao_documento);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_autorizacao_cartao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_autorizacao_cartao(tb_autorizacao_cartao tb_autorizacao_cartao)
+        {
+            base.AddObject("tb_autorizacao_cartao", tb_autorizacao_cartao);
         }
 
         #endregion
@@ -10190,24 +10190,12 @@ namespace Dados
         /// Create a new tb_autorizacao_cartao object.
         /// </summary>
         /// <param name="codAutorizacao">Initial value of the codAutorizacao property.</param>
-        /// <param name="nsuTef">Initial value of the nsuTef property.</param>
-        /// <param name="nsuAdquirente">Initial value of the nsuAdquirente property.</param>
-        /// <param name="codigoAutorizacaoAdquirente">Initial value of the codigoAutorizacaoAdquirente property.</param>
-        /// <param name="nomeAdquirente">Initial value of the nomeAdquirente property.</param>
-        /// <param name="nomeBandeiraCartao">Initial value of the nomeBandeiraCartao property.</param>
-        /// <param name="numeroControle">Initial value of the numeroControle property.</param>
-        /// <param name="dataHoraAutorizacao">Initial value of the dataHoraAutorizacao property.</param>
-        public static tb_autorizacao_cartao Createtb_autorizacao_cartao(global::System.Int32 codAutorizacao, global::System.Int64 nsuTef, global::System.String nsuAdquirente, global::System.String codigoAutorizacaoAdquirente, global::System.String nomeAdquirente, global::System.String nomeBandeiraCartao, global::System.String numeroControle, global::System.DateTime dataHoraAutorizacao)
+        /// <param name="autorizado">Initial value of the autorizado property.</param>
+        public static tb_autorizacao_cartao Createtb_autorizacao_cartao(global::System.Int64 codAutorizacao, global::System.Boolean autorizado)
         {
             tb_autorizacao_cartao tb_autorizacao_cartao = new tb_autorizacao_cartao();
             tb_autorizacao_cartao.codAutorizacao = codAutorizacao;
-            tb_autorizacao_cartao.nsuTef = nsuTef;
-            tb_autorizacao_cartao.nsuAdquirente = nsuAdquirente;
-            tb_autorizacao_cartao.codigoAutorizacaoAdquirente = codigoAutorizacaoAdquirente;
-            tb_autorizacao_cartao.nomeAdquirente = nomeAdquirente;
-            tb_autorizacao_cartao.nomeBandeiraCartao = nomeBandeiraCartao;
-            tb_autorizacao_cartao.numeroControle = numeroControle;
-            tb_autorizacao_cartao.dataHoraAutorizacao = dataHoraAutorizacao;
+            tb_autorizacao_cartao.autorizado = autorizado;
             return tb_autorizacao_cartao;
         }
 
@@ -10220,7 +10208,7 @@ namespace Dados
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 codAutorizacao
+        public global::System.Int64 codAutorizacao
         {
             get
             {
@@ -10238,16 +10226,16 @@ namespace Dados
                 }
             }
         }
-        private global::System.Int32 _codAutorizacao;
-        partial void OncodAutorizacaoChanging(global::System.Int32 value);
+        private global::System.Int64 _codAutorizacao;
+        partial void OncodAutorizacaoChanging(global::System.Int64 value);
         partial void OncodAutorizacaoChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int64 nsuTef
+        public global::System.String nsuTef
         {
             get
             {
@@ -10257,19 +10245,19 @@ namespace Dados
             {
                 OnnsuTefChanging(value);
                 ReportPropertyChanging("nsuTef");
-                _nsuTef = StructuralObject.SetValidValue(value);
+                _nsuTef = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("nsuTef");
                 OnnsuTefChanged();
             }
         }
-        private global::System.Int64 _nsuTef;
-        partial void OnnsuTefChanging(global::System.Int64 value);
+        private global::System.String _nsuTef;
+        partial void OnnsuTefChanging(global::System.String value);
         partial void OnnsuTefChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String nsuAdquirente
         {
@@ -10281,7 +10269,7 @@ namespace Dados
             {
                 OnnsuAdquirenteChanging(value);
                 ReportPropertyChanging("nsuAdquirente");
-                _nsuAdquirente = StructuralObject.SetValidValue(value, false);
+                _nsuAdquirente = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("nsuAdquirente");
                 OnnsuAdquirenteChanged();
             }
@@ -10293,7 +10281,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String codigoAutorizacaoAdquirente
         {
@@ -10305,7 +10293,7 @@ namespace Dados
             {
                 OncodigoAutorizacaoAdquirenteChanging(value);
                 ReportPropertyChanging("codigoAutorizacaoAdquirente");
-                _codigoAutorizacaoAdquirente = StructuralObject.SetValidValue(value, false);
+                _codigoAutorizacaoAdquirente = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("codigoAutorizacaoAdquirente");
                 OncodigoAutorizacaoAdquirenteChanged();
             }
@@ -10317,7 +10305,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String nomeAdquirente
         {
@@ -10329,7 +10317,7 @@ namespace Dados
             {
                 OnnomeAdquirenteChanging(value);
                 ReportPropertyChanging("nomeAdquirente");
-                _nomeAdquirente = StructuralObject.SetValidValue(value, false);
+                _nomeAdquirente = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("nomeAdquirente");
                 OnnomeAdquirenteChanged();
             }
@@ -10341,7 +10329,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String nomeBandeiraCartao
         {
@@ -10353,7 +10341,7 @@ namespace Dados
             {
                 OnnomeBandeiraCartaoChanging(value);
                 ReportPropertyChanging("nomeBandeiraCartao");
-                _nomeBandeiraCartao = StructuralObject.SetValidValue(value, false);
+                _nomeBandeiraCartao = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("nomeBandeiraCartao");
                 OnnomeBandeiraCartaoChanged();
             }
@@ -10365,7 +10353,7 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String numeroControle
         {
@@ -10377,7 +10365,7 @@ namespace Dados
             {
                 OnnumeroControleChanging(value);
                 ReportPropertyChanging("numeroControle");
-                _numeroControle = StructuralObject.SetValidValue(value, false);
+                _numeroControle = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("numeroControle");
                 OnnumeroControleChanged();
             }
@@ -10389,9 +10377,9 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime dataHoraAutorizacao
+        public Nullable<global::System.DateTime> dataHoraAutorizacao
         {
             get
             {
@@ -10406,9 +10394,33 @@ namespace Dados
                 OndataHoraAutorizacaoChanged();
             }
         }
-        private global::System.DateTime _dataHoraAutorizacao;
-        partial void OndataHoraAutorizacaoChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _dataHoraAutorizacao;
+        partial void OndataHoraAutorizacaoChanging(Nullable<global::System.DateTime> value);
         partial void OndataHoraAutorizacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean autorizado
+        {
+            get
+            {
+                return _autorizado;
+            }
+            set
+            {
+                OnautorizadoChanging(value);
+                ReportPropertyChanging("autorizado");
+                _autorizado = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("autorizado");
+                OnautorizadoChanged();
+            }
+        }
+        private global::System.Boolean _autorizado;
+        partial void OnautorizadoChanging(global::System.Boolean value);
+        partial void OnautorizadoChanged();
 
         #endregion
 

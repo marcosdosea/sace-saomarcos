@@ -310,7 +310,7 @@ namespace Telas
                     }
                     if (comunicacaoCartao == null)
                         comunicacaoCartao = new Cartao.ComunicacaoCartao();
-                    Cartao.FrmProcessarPagamentoCartao frmProcessarPagamentoCartao = new Cartao.FrmProcessarPagamentoCartao(comunicacaoCartao, listaPagamento, Cartao.TipoProcessamento.PAGAMENTO);
+                    Cartao.FrmProcessarPagamentoCartao frmProcessarPagamentoCartao = new Cartao.FrmProcessarPagamentoCartao(comunicacaoCartao, listaPagamento);
                     frmProcessarPagamentoCartao.ShowDialog();
                     GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarPagamentoCartao.ResultadoProcessamento);
                     frmProcessarPagamentoCartao.Close();

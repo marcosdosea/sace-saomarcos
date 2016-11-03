@@ -78,7 +78,8 @@ namespace Cartao
                 }
                 resultadoProcessamento.CodSolicitacao = pagamento.CodSolicitacao;
             }
-            FinalizarPagamento();
+            if (resultadoProcessamento.Aprovado)
+                FinalizarPagamento();
             return resultadoProcessamento;
         }
 
@@ -214,7 +215,7 @@ namespace Cartao
                     respostaAprovada.NomeAdquirente = aprovada.NomeAdquirente;
                     respostaAprovada.NomeBandeiraCartao = aprovada.NomeBandeiraCartao;
                     respostaAprovada.NsuAdquirente = aprovada.NsuAdquirente;
-                    respostaAprovada.NsuTef = (long) aprovada.NsuTef;
+                    respostaAprovada.NsuTef = aprovada.NsuTef.ToString();
                     respostaAprovada.NumeroControle = aprovada.NumeroControle;
                     respostaAprovada.Valor = valor;
                     respostaAprovada.TipoCartao = tipoCartao;

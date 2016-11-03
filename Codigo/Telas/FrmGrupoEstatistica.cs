@@ -24,7 +24,7 @@ namespace Telas
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
 
-            dataInicioTimePicker.Value = DateTime.Now.AddMonths(-18);
+            dataInicioTimePicker.Value = DateTime.Now.AddMonths(-10);
             dataFimTimePicker.Value = DateTime.Now;
             codGrupoComboBox_SelectedIndexChanged(sender, e);
             codGrupoComboBox.SelectAll();
@@ -58,6 +58,7 @@ namespace Telas
             DateTime dataFinal = dataFimTimePicker.Value;
             if (codGrupoComboBox.SelectedValue != null)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 int codGrupo = (int)codGrupoComboBox.SelectedValue;
 
                 saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
@@ -73,6 +74,7 @@ namespace Telas
 
                 chart1.DataBind();
                 chart1.Visible = true;
+                Cursor.Current = Cursors.Default;
             }
         }
     }

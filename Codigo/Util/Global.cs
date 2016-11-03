@@ -50,6 +50,7 @@ namespace Util
         QUANTIDADE_DIAS_CREDIARIO = 30,
         DOCUMENTO_PADRAO = 1,
         CAIXA_PADRAO = 1,
+        CARTAO_LOJA = 1,
         QUANTIDADE_EXIBIR_PEDIDOS = 100;
 
 
@@ -88,5 +89,6 @@ namespace Util
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";
+        
     }
 }

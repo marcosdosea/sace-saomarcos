@@ -66,6 +66,12 @@ namespace Negocio
                 {
                     throw new NegocioException("É necessário informar um cliente para utilizar essa forma de pagamento.");
                 }
+                else if ((saidaPagamento.CodFormaPagamento == FormaPagamento.CARTAO) && (saidaPagamento.CodCartaoCredito == Util.Global.CARTAO_LOJA))
+                {
+                    throw new NegocioException("Esse cartão de crédito não pode ser utilizado como forma de pagamento. Favor selecionar um novo cartão.");
+                }
+
+
                 //decimal total = totalPagamentos(saida.CodSaida);
 
                 if (Math.Abs(saida.TotalAVista - saida.TotalPago) > 0)

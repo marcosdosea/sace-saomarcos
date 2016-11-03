@@ -97,6 +97,7 @@ namespace Negocio
             tb_solicitacao_documento documentoE = repSolicitacao.ObterEntidade(sd => sd.codSolicitacao == resultado.CodSolicitacao);
             documentoE.cartaoProcessado = true;
             documentoE.cartaoAutorizado = resultado.Aprovado;
+            documentoE.emProcessamento = false;
             if (resultado.Aprovado)
             {
                 foreach (Cartao.RespostaAprovada respostaAprovada in resultado.ListaRespostaAprovada)
@@ -110,7 +111,8 @@ namespace Negocio
             else
             {
                 Cartao.RespostaRecusada recusada = resultado.RespostaRecusada;
-                //recusada.
+                documentoE.codMotivoCartaoNegado = recusada.CodMotivo;
+                documentoE.motivoCartaoNegado = recusada.Motivo;
             }
             repSolicitacao.SaveChanges();
         }
@@ -567,9 +569,10 @@ namespace Negocio
         public void InserirRespostaCartao(Cartao.ResultadoProcessamento resultado)
         {
             List<tb_solicitacao_saida> listaSolicitacaoSaida;
+
             if (resultado.Aprovado)
             {
-                 listaSolicitacaoSaida = ObterSolicitacaoSaida(resultado.CodSolicitacao).ToList();
+                listaSolicitacaoSaida = ObterSolicitacaoSaida(resultado.CodSolicitacao).ToList();
                 // Pode passar mais de um cartão de crédito
                 if (listaSolicitacaoSaida.Count == 1)
                 {
@@ -579,34 +582,34 @@ namespace Negocio
                     foreach (Cartao.RespostaAprovada aprovada in listaAprovadas)
                     {
                         String tipoCartaoString = Enum.GetName(typeof(Cartao.TipoCartao), aprovada.TipoCartao);
-                        CartaoCredito cartao = GerenciadorCartaoCredito.GetInstance().ObterPorMapeamentoCappta(aprovada.NomeBandeiraCartao).Where(c=>c.TipoCartao.Equals(tipoCartaoString)).ElementAtOrDefault(0);
+                        CartaoCredito cartao = GerenciadorCartaoCredito.GetInstance().ObterPorMapeamentoCappta(aprovada.NomeBandeiraCartao).Where(c => c.TipoCartao.Equals(tipoCartaoString)).ElementAtOrDefault(0);
                         Conta conta = listaContas.Where(c => c.ValorPagar == (decimal)aprovada.Valor && String.IsNullOrWhiteSpace(c.NumeroDocumento)).FirstOrDefault();
                         GerenciadorSaidaPagamento.GetInstance(null).AtualizarPorAutorizacaoCartao(conta.CodSaida, cartao.CodCartao, aprovada.NumeroControle);
-                        
+
                         conta.CodPessoa = cartao.CodPessoa;
                         conta.NumeroDocumento = aprovada.NumeroControle;
                         conta.DataVencimento = DateTime.Now.AddDays(cartao.DiaBase);
                         GerenciadorConta.GetInstance(null).AtualizarDadosCartaoCredito(conta);
                     }
                 }
-                else
-                {
-                    foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
-                    {
-                        IEnumerable<Conta> contas = GerenciadorConta.GetInstance(null).ObterPorSaida(solicitacaoSaida.codSaida);
+                //else
+                //{
+                //    foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
+                //    {
+                //        IEnumerable<Conta> contas = GerenciadorConta.GetInstance(null).ObterPorSaida(solicitacaoSaida.codSaida);
 
-                    }
-                }
+                //    }
+                //}
                 InserirAutorizacaoCartao(resultado, listaSolicitacaoSaida);
-
             }
+            
             AtualizarSolicitacaoDocumentoCartao(resultado);
         }
-
 
         public long InserirAutorizacaoCartao(Cartao.ResultadoProcessamento resultadoProcessamento, List<tb_solicitacao_saida> listaSolicitacaoSaida)
         {
             var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
+            //var repSaida = new RepositorioGenerico<tb_saida>();
             tb_autorizacao_cartao _autorizacao_cartaoE; 
             try
             {
@@ -617,15 +620,24 @@ namespace Negocio
                     _autorizacao_cartaoE.dataHoraAutorizacao = respostaAprovada.DataHoraAutorizacao;
                     _autorizacao_cartaoE.nomeAdquirente = respostaAprovada.NomeAdquirente;
                     _autorizacao_cartaoE.nomeBandeiraCartao = respostaAprovada.NomeBandeiraCartao;
-                    _autorizacao_cartaoE.nsuAdquirente = respostaAprovada.NsuAdquirente;
-                    _autorizacao_cartaoE.nsuTef = respostaAprovada.NsuTef;
-                    _autorizacao_cartaoE.numeroControle = respostaAprovada.NumeroControle;
-                    
+                    _autorizacao_cartaoE.nsuAdquirente = String.IsNullOrEmpty(respostaAprovada.NsuAdquirente)?"":respostaAprovada.NsuAdquirente;
+                    _autorizacao_cartaoE.nsuTef = String.IsNullOrEmpty(respostaAprovada.NsuTef)?"": respostaAprovada.NsuTef;
+                    _autorizacao_cartaoE.numeroControle = String.IsNullOrEmpty(respostaAprovada.NumeroControle)?"":respostaAprovada.NumeroControle;
+
+                    repAutorizacao.Inserir(_autorizacao_cartaoE);
+                    repAutorizacao.SaveChanges();
                     foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
                     {
-                        _autorizacao_cartaoE.tb_saida.Add(new tb_saida() { codSaida = solicitacaoSaida.codSaida });
+                        var saceEntities = (SaceEntities)repAutorizacao.ObterContexto();
+                        var query = from saida in saceEntities.tb_saida
+                                    where saida.codSaida == solicitacaoSaida.codSaida
+                                    select saida;
+
+                        tb_saida saidaE = query.FirstOrDefault(); 
+                        
+                        _autorizacao_cartaoE.tb_saida.Add(saidaE);
                     }
-                    repAutorizacao.Inserir(_autorizacao_cartaoE);
+                    
                     repAutorizacao.SaveChanges();
                 }
             }

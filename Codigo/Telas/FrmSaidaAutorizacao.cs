@@ -45,10 +45,10 @@ namespace Telas
                     lblCartao.Text = "Cartão de crédito/débito não utilizado.";
                     exibiuResultadoCartao = true;
                 }
-                else if (!exibiuResultadoNfe)
-                {
-                    ExibirResultadoProcessamentoNfe(documentoE);
-                }
+                //else if (!exibiuResultadoNfe)
+                //{
+                //    ExibirResultadoProcessamentoNfe(documentoE);
+                //}
             }
         }
 
@@ -108,7 +108,7 @@ namespace Telas
                     lblCartao.Text = "Transação AUTORIZADA!";
                     foreach (Dados.tb_solicitacao_pagamento pagamento in documentoE.tb_solicitacao_pagamento)
                     {
-                        textCartao.Text += pagamento.cupomReduzido;
+                        textCartao.Text += pagamento.cupomCliente;
                     }
                 }
                 else
