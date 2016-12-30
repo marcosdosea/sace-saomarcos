@@ -7,6 +7,7 @@ using Util;
 using System.IO;
 using System.Threading;
 using System.Text;
+using System.Transactions;
 
 
 namespace Negocio
@@ -31,68 +32,109 @@ namespace Negocio
         /// <returns></returns>
         public long InserirSolicitacaoDocumento(List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao tipoSolicitacao, bool ehComplementar, bool ehEspelho)
         {
-            var repCupom = new RepositorioGenerico<tb_solicitacao_documento>();
-            tb_solicitacao_documento _solicitacao_documentoE = new tb_solicitacao_documento();
-            try
+            using (TransactionScope transaction = new TransactionScope())
             {
-                _solicitacao_documentoE.dataSolicitacao = DateTime.Now;
-                _solicitacao_documentoE.haPagamentoCartao = listaSaidaPagamento.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
-                _solicitacao_documentoE.cartaoProcessado = false;
-                _solicitacao_documentoE.cartaoAutorizado = false;
-                _solicitacao_documentoE.ehComplementar = ehComplementar;
-                _solicitacao_documentoE.ehEspelho = ehEspelho;
-                _solicitacao_documentoE.motivoCartaoNegado = "";
-                _solicitacao_documentoE.tipoSolicitacao = tipoSolicitacao.ToString();
-                repCupom.Inserir(_solicitacao_documentoE);
+                EhPossivelEnviarSolicitacao(listaSaidaPedido, tipoSolicitacao, ehComplementar);
 
-                repCupom.SaveChanges();
-
-                var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
-                foreach (SaidaPedido _saidaPedido in listaSaidaPedido)
+                var repSolicitacaoDocumento = new RepositorioGenerico<tb_solicitacao_documento>();
+                tb_solicitacao_documento _solicitacao_documentoE = new tb_solicitacao_documento();
+                try
                 {
-                    tb_solicitacao_saida _solicitacao_saida = new tb_solicitacao_saida();
-                    _solicitacao_saida.codSaida = _saidaPedido.CodSaida;
-                    _solicitacao_saida.codSolicitacao = _solicitacao_documentoE.codSolicitacao;
-                    _solicitacao_saida.valorTotal = _saidaPedido.TotalAVista;
-                    repSolicitacaoSaida.Inserir(_solicitacao_saida);
+                    _solicitacao_documentoE.dataSolicitacao = DateTime.Now;
+                    _solicitacao_documentoE.haPagamentoCartao = listaSaidaPagamento.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
+                    _solicitacao_documentoE.cartaoProcessado = false;
+                    _solicitacao_documentoE.cartaoAutorizado = false;
+                    _solicitacao_documentoE.ehComplementar = ehComplementar;
+                    _solicitacao_documentoE.ehEspelho = ehEspelho;
+                    _solicitacao_documentoE.motivoCartaoNegado = "";
+                    _solicitacao_documentoE.tipoSolicitacao = tipoSolicitacao.ToString();
+                    repSolicitacaoDocumento.Inserir(_solicitacao_documentoE);
+
+                    repSolicitacaoDocumento.SaveChanges();
+
+                    var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
+                    foreach (SaidaPedido _saidaPedido in listaSaidaPedido)
+                    {
+                        tb_solicitacao_saida _solicitacao_saida = new tb_solicitacao_saida();
+                        _solicitacao_saida.codSaida = _saidaPedido.CodSaida;
+                        _solicitacao_saida.codSolicitacao = _solicitacao_documentoE.codSolicitacao;
+                        _solicitacao_saida.valorTotal = _saidaPedido.TotalAVista;
+                        repSolicitacaoSaida.Inserir(_solicitacao_saida);
+                    }
+                    repSolicitacaoSaida.SaveChanges();
+
+                    var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
+                    foreach (SaidaPagamento _solicitacaoPagamento in listaSaidaPagamento)
+                    {
+
+                        tb_solicitacao_pagamento pagamento = new tb_solicitacao_pagamento();
+                        pagamento.codCartao = _solicitacaoPagamento.CodCartaoCredito;
+                        pagamento.codFormaPagamento = _solicitacaoPagamento.CodFormaPagamento;
+                        pagamento.parcelas = _solicitacaoPagamento.Parcelas;
+                        pagamento.valor = _solicitacaoPagamento.Valor;
+                        pagamento.codSolicitacao = _solicitacao_documentoE.codSolicitacao;
+                        pagamento.cupomCliente = "";
+                        pagamento.cupomEstabelecimento = "";
+                        pagamento.cupomReduzido = "";
+                        repSolicitacaoPagamento.Inserir(pagamento);
+                    }
+                    repSolicitacaoPagamento.SaveChanges();
+                    transaction.Complete();
+                    return _solicitacao_documentoE.codSolicitacao;
                 }
-                repSolicitacaoSaida.SaveChanges();
-
-
-                foreach (SaidaPagamento _solicitacaoPagamento in listaSaidaPagamento)
+                catch (Exception e)
                 {
-                    _solicitacao_documentoE.tb_solicitacao_pagamento.Add(
-                        new tb_solicitacao_pagamento()
-                        {
-                            codCartao = _solicitacaoPagamento.CodCartaoCredito,
-                            codFormaPagamento = _solicitacaoPagamento.CodFormaPagamento,
-                            parcelas = _solicitacaoPagamento.Parcelas,
-                            valor = _solicitacaoPagamento.Valor,
-                            codSolicitacao = _solicitacao_documentoE.codSolicitacao,
-                            cupomCliente = "",
-                            cupomEstabelecimento = "",
-                            cupomReduzido = ""
-                        }
-                    );
+                    throw new DadosException("Cupom", e.Message, e);
                 }
-
-                repCupom.SaveChanges();
-
-                return _solicitacao_documentoE.codSolicitacao;
+                
             }
-            catch (Exception)
+        }
+
+        private void EhPossivelEnviarSolicitacao(List<SaidaPedido> listaSaidaPedido, DocumentoFiscal.TipoSolicitacao tipoSolicitacao, bool ehComplementar)
+        {
+            var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
+            List<long> listaCodSaidas = listaSaidaPedido.Select(s => s.CodSaida).ToList();
+
+            var solicitacoes = repSolicitacaoSaida.Obter(ss => listaCodSaidas.Contains(ss.codSaida));
+            if (solicitacoes.Count() > 0)
+                throw new NegocioException("A solicitação já foi enviada. Favor aguardar processamento.");
+            // Verifica se cupom fiscal já foi emitido em algumas das saidas
+            if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.ECF))
             {
-                // se ocorrer erro na inserção provavelmente é reenvio do cupom fiscal
-                //throw new DadosException("Cupom", e.Message, e);
+                var repSaida = new RepositorioGenerico<tb_saida>();
+                SaceEntities saceEntities = (SaceEntities)repSaida.ObterContexto();
+                var query = from saida in saceEntities.tb_saida
+                            where listaCodSaidas.Contains(saida.codSaida) && !String.IsNullOrEmpty(saida.pedidoGerado)
+                            select saida;
+                if (query.Count() > 0)
+                    throw new NegocioException("Cumpom Fiscal já foi emitido para algum dos pedidos dessa solicitação.");
             }
-            return 0;
+            if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE) || tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE))
+            {
+                var repSaida = new RepositorioGenerico<tb_nfe>();
+                SaceEntities saceEntities = (SaceEntities) repSaida.ObterContexto();
+                foreach (long codSaida in listaCodSaidas)
+                {
+                    // Verifica se existem notas emitidas
+                    IEnumerable<NfeControle> nfeControles = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+
+                    if (!ehComplementar && nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
+                    {
+                        throw new NegocioException("Uma NF-e já foi AUTORIZADA para esse pedido.");
+                    }
+                    if ((ehComplementar) && nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() == 0)
+                    {
+                        throw new NegocioException("Uma NF-e Complementar só pode ser emitida quando existe uma NF-e enviada e Autorizada.");
+                    }
+                }
+            }
 
         }
 
         public void AtualizarSolicitacaoDocumentoCartao(Cartao.ResultadoProcessamento resultado)
         {
             var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
-            
+
             var saceContext = (SaceEntities)repSolicitacao.ObterContexto();
             tb_solicitacao_documento documentoE = repSolicitacao.ObterEntidade(sd => sd.codSolicitacao == resultado.CodSolicitacao);
             documentoE.cartaoProcessado = true;
@@ -142,8 +184,8 @@ namespace Negocio
                             CodCartaoCredito = pagamento.codCartao,
                             NomeCartaoCredito = pagamento.tb_cartao_credito.nome,
                             CodFormaPagamento = pagamento.codFormaPagamento,
-                            QtdDiasPagar = (int) pagamento.tb_cartao_credito.diaBase,
-                            Parcelas = (int) pagamento.parcelas,
+                            QtdDiasPagar = (int)pagamento.tb_cartao_credito.diaBase,
+                            Parcelas = (int)pagamento.parcelas,
                             Valor = pagamento.valor
                         }
                     );
@@ -161,29 +203,34 @@ namespace Negocio
         {
             try
             {
-                var repSolicitacoes = new RepositorioGenerico<tb_solicitacao_documento>();
+                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+                var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
                 DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA);
                 if (pastaECF.Exists)
                 {
                     FileInfo[] files = pastaECF.GetFiles("*.TXT", SearchOption.TopDirectoryOnly);
                     if (files.Length == 0)
                     {
-                        var saceEntities = (SaceEntities)repSolicitacoes.ObterContexto();
+                        var saceEntities = (SaceEntities)repSolicitacao.ObterContexto();
                         var query = from solicitacao in saceEntities.tb_solicitacao_documento
                                     where solicitacao.tipoSolicitacao.Equals("ECF")
                                     orderby solicitacao.dataSolicitacao
                                     select solicitacao;
-                        List<tb_solicitacao_documento> solicitacoes = query.ToList();        
+                        List<tb_solicitacao_documento> solicitacoes = query.ToList();
                         if (solicitacoes.Count() > 0)
                         {
                             tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
-                            // solicitacaoE.emProcessamento = true; precisaria ter sempre retorno sem erro do aplicativo ECF para controlar dessa forma
-                            //repSolicitacoes.SaveChanges();
                             List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
                             List<tb_solicitacao_pagamento> listaPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
-                            GerarDocumentoECF(listaSolicitacaoSaida, listaPagamentos);
-                            RemoverSolicitacaoDocumento(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 
+                            repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                            repSolicitacao2.SaveChanges();
+                            
+                            
+                            //repSolicitacoesRemover.Remover(solicitacaoE);
+                            //repSolicitacoes.SaveChanges();
+                            GerarDocumentoECF(listaSolicitacaoSaida, listaPagamentos);
+                            //RemoverSolicitacaoDocumento(listaSolicitacaoSaida.FirstOrDefault().codSaida);
                         }
                     }
                 }
@@ -211,7 +258,7 @@ namespace Negocio
                 tb_solicitacao_saida solicitacao_saidaE = query.ToList().FirstOrDefault();
                 if (solicitacao_saidaE != null)
                 {
-                    if (solicitacao_saidaE.tb_solicitacao_documento.emProcessamento == true) 
+                    if (solicitacao_saidaE.tb_solicitacao_documento.emProcessamento == true)
                     {
                         throw new NegocioException("Não é possível editar/remover esse pedido. Documento sendo autorizado/impresso. Favor aguardar até a conclusão do processamento.");
                     }
@@ -219,7 +266,7 @@ namespace Negocio
                     repSolicitacao.Remover(s => s.codSolicitacao == solicitacao_saidaE.codSolicitacao);
                     repSolicitacao.SaveChanges();
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -602,7 +649,7 @@ namespace Negocio
                 //}
                 InserirAutorizacaoCartao(resultado, listaSolicitacaoSaida);
             }
-            
+
             AtualizarSolicitacaoDocumentoCartao(resultado);
         }
 
@@ -610,7 +657,7 @@ namespace Negocio
         {
             var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
             //var repSaida = new RepositorioGenerico<tb_saida>();
-            tb_autorizacao_cartao _autorizacao_cartaoE; 
+            tb_autorizacao_cartao _autorizacao_cartaoE;
             try
             {
                 foreach (Cartao.RespostaAprovada respostaAprovada in resultadoProcessamento.ListaRespostaAprovada)
@@ -620,9 +667,9 @@ namespace Negocio
                     _autorizacao_cartaoE.dataHoraAutorizacao = respostaAprovada.DataHoraAutorizacao;
                     _autorizacao_cartaoE.nomeAdquirente = respostaAprovada.NomeAdquirente;
                     _autorizacao_cartaoE.nomeBandeiraCartao = respostaAprovada.NomeBandeiraCartao;
-                    _autorizacao_cartaoE.nsuAdquirente = String.IsNullOrEmpty(respostaAprovada.NsuAdquirente)?"":respostaAprovada.NsuAdquirente;
-                    _autorizacao_cartaoE.nsuTef = String.IsNullOrEmpty(respostaAprovada.NsuTef)?"": respostaAprovada.NsuTef;
-                    _autorizacao_cartaoE.numeroControle = String.IsNullOrEmpty(respostaAprovada.NumeroControle)?"":respostaAprovada.NumeroControle;
+                    _autorizacao_cartaoE.nsuAdquirente = String.IsNullOrEmpty(respostaAprovada.NsuAdquirente) ? "" : respostaAprovada.NsuAdquirente;
+                    _autorizacao_cartaoE.nsuTef = String.IsNullOrEmpty(respostaAprovada.NsuTef) ? "" : respostaAprovada.NsuTef;
+                    _autorizacao_cartaoE.numeroControle = String.IsNullOrEmpty(respostaAprovada.NumeroControle) ? "" : respostaAprovada.NumeroControle;
 
                     repAutorizacao.Inserir(_autorizacao_cartaoE);
                     repAutorizacao.SaveChanges();
@@ -633,11 +680,11 @@ namespace Negocio
                                     where saida.codSaida == solicitacaoSaida.codSaida
                                     select saida;
 
-                        tb_saida saidaE = query.FirstOrDefault(); 
-                        
+                        tb_saida saidaE = query.FirstOrDefault();
+
                         _autorizacao_cartaoE.tb_saida.Add(saidaE);
                     }
-                    
+
                     repAutorizacao.SaveChanges();
                 }
             }

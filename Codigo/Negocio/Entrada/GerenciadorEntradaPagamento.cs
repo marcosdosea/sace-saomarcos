@@ -46,10 +46,10 @@ namespace Negocio
                     throw new NegocioException("O valor dos pagamentos não pode ultrapassar o valor da nota mais o valor do frete");
                 }
 
-                EntradaFormaPagamentoE _entradaFormaPagamentoE = new EntradaFormaPagamentoE();
+                tb_entrada_forma_pagamento _entradaFormaPagamentoE = new tb_entrada_forma_pagamento();
                 Atribuir(entradaPagamento, _entradaFormaPagamentoE);
-                
-                var repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE>();
+
+                var repEntradaPagamento = new RepositorioGenerico<tb_entrada_forma_pagamento>();
 
                 repEntradaPagamento.Inserir(_entradaFormaPagamentoE);
                 repEntradaPagamento.SaveChanges();
@@ -62,7 +62,7 @@ namespace Negocio
             }
         }
 
-        private static void Atribuir(EntradaPagamento entradaPagamento, EntradaFormaPagamentoE _entradaFormaPagamentoE)
+        private static void Atribuir(EntradaPagamento entradaPagamento, tb_entrada_forma_pagamento _entradaFormaPagamentoE)
         {
             _entradaFormaPagamentoE.codContaBanco = entradaPagamento.CodContaBanco;
             _entradaFormaPagamentoE.codEntrada = entradaPagamento.CodEntrada;
@@ -80,7 +80,7 @@ namespace Negocio
         {
             try
             {
-                var repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE>();
+                var repEntradaPagamento = new RepositorioGenerico<tb_entrada_forma_pagamento>();
                 repEntradaPagamento.Remover(ep => ep.codEntradaFormaPagamento == codEntradaPagamento);
                 repEntradaPagamento.SaveChanges();
             }
@@ -96,9 +96,9 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<EntradaPagamento> GetQuery()
         {
-            var repEntradaPagamento = new RepositorioGenerico<EntradaFormaPagamentoE>();
+            var repEntradaPagamento = new RepositorioGenerico<tb_entrada_forma_pagamento>();
             var saceEntities = (SaceEntities)repEntradaPagamento.ObterContexto();
-            var query = from entradaFormaPagamento in saceEntities.EntradaFormaPagamentoSet
+            var query = from entradaFormaPagamento in saceEntities.tb_entrada_forma_pagamento
                         select new EntradaPagamento
                         {
                             CodContaBanco = entradaFormaPagamento.codContaBanco,

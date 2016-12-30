@@ -22,6 +22,8 @@ namespace Telas
         static Cartao.ComunicacaoCartao comunicacaoCartao;
         static string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
         static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
+        static string SERVIDOR_NFE_DEPOSITO = Properties.Settings.Default.ServidorNfeDeposito.ToUpper();
+
         static string SERVIDOR_CARTAO = Properties.Settings.Default.ServidorCartao.ToUpper();
             
        
@@ -228,7 +230,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Negocio.GerenciadorSeguranca.getInstance().Backup(SERVIDOR);
+                Negocio.GerenciadorSeguranca.getInstance().Backup(System.Windows.Forms.SystemInformation.ComputerName);
             }
         }
 
@@ -321,7 +323,7 @@ namespace Telas
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
                 GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosFiscais(SERVIDOR);
             }
-            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE) || nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
                 GerenciadorNFe.GetInstance().EnviarProximoNFe();
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
@@ -405,6 +407,11 @@ namespace Telas
             FrmProdutoPreco frmProdutoPreco = new FrmProdutoPreco(false);
             frmProdutoPreco.ShowDialog();
             frmProdutoPreco.Dispose();
+        }
+
+        private void utilitáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
      }

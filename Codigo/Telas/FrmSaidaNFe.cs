@@ -23,8 +23,6 @@ namespace Telas
         public FrmSaidaNFe(long codSaida)
         {
             InitializeComponent();
-            
-
             this.codSaida = codSaida;
             this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
             IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.GetInstance().Obter(Saida.CodCliente);
@@ -97,13 +95,6 @@ namespace Telas
             GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
         }
 
-        private void btnConsultar_Click(object sender, EventArgs e)
-        {
-            nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
-            nfeControleDataGridView.ResumeLayout();
-            //nfeControleDataGridView.DataSource = nfeControleBindingSource.DataSource; 
-        }
-
         private void btnEnviar_Click(object sender, EventArgs e)
         {
             // o evento foi disparo do butão que emite Nf-
@@ -149,7 +140,6 @@ namespace Telas
 
                 GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
                 Cursor.Current = Cursors.Default;
-                nfeControleDataGridView.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             }
         }
 
@@ -164,10 +154,6 @@ namespace Telas
             {
                 e.Handled = true;
                 SendKeys.Send("{tab}");
-            }
-            else if (e.KeyCode == Keys.F2)
-            {
-                btnConsultar_Click(sender, e);
             }
             else if (e.KeyCode == Keys.F3)
             {
@@ -222,6 +208,14 @@ namespace Telas
         {
             ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false);
             Cliente = (Pessoa)pessoaBindingSource.Current;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            int posicao = nfeControleBindingSource.Position;
+            nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+            nfeControleBindingSource.Position = posicao;
+            nfeControleBindingSource.ResumeBinding();
         }
     }
 }

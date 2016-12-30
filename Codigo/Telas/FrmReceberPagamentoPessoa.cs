@@ -165,9 +165,12 @@ namespace Telas
                         {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();
                             FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+                            saidaPagamento.CodFormaPagamento = formaPagamentoDinheiro.CodFormaPagamento;
                             saidaPagamento.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
                             saidaPagamento.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
                             saidaPagamento.Valor = valorPagamento;
+                            saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
+                            //saidaPagamento.CodContaBanco
                             GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                         }
                         else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -179,16 +182,16 @@ namespace Telas
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
                     {
                         List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
-                        if (totalPago > 0)
-                        {
-                            SaidaPagamento saidaPagamentoDinheiro = new SaidaPagamento();
-                            FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
-                            saidaPagamentoDinheiro.CodFormaPagamento = FormaPagamento.DINHEIRO;
-                            saidaPagamentoDinheiro.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
-                            saidaPagamentoDinheiro.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
-                            saidaPagamentoDinheiro.Valor = totalPago;
-                            listaSaidaPagamento.Add(saidaPagamentoDinheiro);
-                        }
+                        //if (totalPago > 0)
+                        //{
+                        //    SaidaPagamento saidaPagamentoDinheiro = new SaidaPagamento();
+                        //    FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+                        //    saidaPagamentoDinheiro.CodFormaPagamento = FormaPagamento.DINHEIRO;
+                        //    saidaPagamentoDinheiro.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
+                        //    saidaPagamentoDinheiro.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
+                        //    saidaPagamentoDinheiro.Valor = totalPago;
+                        //    listaSaidaPagamento.Add(saidaPagamentoDinheiro);
+                        //}
 
                         SaidaPagamento saidaPagamentoCartao = new SaidaPagamento();
 
@@ -201,6 +204,8 @@ namespace Telas
                         saidaPagamentoCartao.NomeCartaoCredito = cartaoCredito.Nome;
                         saidaPagamentoCartao.DescricaoFormaPagamento = cartaoCredito.Nome;
                         saidaPagamentoCartao.Valor = valorPagamento;
+                        saidaPagamentoCartao.Parcelas = parcelas;
+                        saidaPagamentoCartao.CodCartaoCredito = codCartao;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
                         GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -273,6 +278,7 @@ namespace Telas
                     long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //pre-venda
                     decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //total a vista
                     SaidaPedido saidaPedido = new SaidaPedido() {CodSaida = codSaidaTemp, TotalAVista=totalAVistaTemp};
+                    listaSaidaPedido.Add(saidaPedido);
                 }
 
                 decimal total = Convert.ToDecimal(totalContasTextBox.Text);
@@ -283,6 +289,7 @@ namespace Telas
                     SaidaPagamento saidaPagamento = new SaidaPagamento();
                     FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
                     saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
+                    saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);

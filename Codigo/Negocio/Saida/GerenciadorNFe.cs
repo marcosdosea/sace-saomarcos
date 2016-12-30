@@ -57,18 +57,6 @@ namespace Negocio
                 tb_nfe _nfeE = new tb_nfe();
                 Atribuir(nfe, _nfeE);
 
-                // Verifica se existem notas emitidas
-                IEnumerable<NfeControle> nfeControles = ObterPorSaida(saida.CodSaida);
-
-                if (!ehNfeComplementar && nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
-                {
-                    throw new NegocioException("Uma NF-e já foi AUTORIZADA para esse pedido.");
-                }
-                if ((ehNfeComplementar) && nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() == 0)
-                {
-                    throw new NegocioException("Uma NF-e Complementar só pode ser emitida quando existe uma NF-e enviada e Autorizada.");
-                }
-
                 repNfe.Inserir(_nfeE);
 
                 // Associa saídas as nova nfe
@@ -709,18 +697,22 @@ namespace Negocio
             {
                 var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
 
-                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C => 
+                var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
+                var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
+                var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
+
+                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C =>
                     C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
                     C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
-                
+
                 if (solicitacoes.Count() > 0)
                 {
                     tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
-                    List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList(); 
+                    List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
                     List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
-                    
-                    repSolicitacao.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
-                    repSolicitacao.SaveChanges();
+
+                    repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                    repSolicitacao2.SaveChanges();
                     GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, false, false);
                 }
             }
@@ -986,6 +978,16 @@ namespace Negocio
                     }
                     nfe.infNFe.dest = dest;
                 }
+
+                // Informações de pagamento da NFE. Obrigatória para NFCE
+                //nfe.infNFe.pag = new TNFeInfNFePag[];
+
+                TNFeInfNFePag infNfePag = new TNFeInfNFePag();
+                infNfePag.card = new TNFeInfNFePagCard() { cAut = "XX", CNPJ = "xxx", tBand = TNFeInfNFePagCardTBand.Item99 };
+                infNfePag.tPag = TNFeInfNFePagTPag.Item01; //DINHEIRO
+
+
+
                 //totais da nota
                 List<TNFeInfNFeDet> listaNFeDet = new List<TNFeInfNFeDet>();
                 decimal totalProdutos = 0;
@@ -1175,7 +1177,13 @@ namespace Negocio
                                 prod.cEANTrib = "";
                                 prod.cEAN = "";
                             }
-                            prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), "Item" + saidaProduto.CodCfop);
+
+                            
+                            string cfopItem = "Item" + saidaProduto.CodCfop;
+                            if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2))
+                                cfopItem = cfopItem.Replace("5", "6"); // cfop vira interestadual 
+
+                            prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), cfopItem);
 
 
                             bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
@@ -1281,6 +1289,7 @@ namespace Negocio
 
                             TNFeInfNFeDet nfeDet = new TNFeInfNFeDet();
                             nfeDet.imposto = imp;
+                            
                             nfeDet.prod = prod;
                             //nfeDet.infAdProd = detalhe.informacoesAdicionais;
                             nfeDet.nItem = nItem.ToString();
@@ -1393,6 +1402,7 @@ namespace Negocio
                 else
                     infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + mensagemTributos + saida.Observacao + ". ICMS RECOLHIDO NO";
 
+                infAdic.infCpl = infAdic.infCpl.Trim(); 
 
                 nfe.infNFe.infAdic = infAdic;
 

@@ -396,6 +396,7 @@
             this.utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
             this.utilitáriosToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.utilitáriosToolStripMenuItem.Text = "&Utilitários";
+            this.utilitáriosToolStripMenuItem.Click += new System.EventHandler(this.utilitáriosToolStripMenuItem_Click);
             // 
             // backupToolStripMenuItem
             // 

@@ -27,15 +27,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codentrada", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.EntradaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_tb_situacao_conta1", "tb_situacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoContaE), "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_movimentacao_conta_tb_conta1", "tb_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.ContaE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_movimentacao_conta_codcontabanco", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_movimentacao_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.MovimentacaoContaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_conta_banco1", "tb_conta_banco", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ContaBancoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_codentrada", "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_tb_situacao_pagamentos1", "tb_situacao_pagamentos", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_tp_tipo_entrada1", "tp_tipo_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoEntradaE), "tb_entrada", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaFormaPagamentoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_saida_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_permissao_codfuncionalidade", "tb_funcionalidade", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_funcionalidade), "tb_permissao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_permissao), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_subgrupo_tb_grupo1", "tb_grupo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_subgrupo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SubgrupoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_plano_conta_codgrupoconta", "tb_grupo_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoContaE), "tb_plano_conta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PlanoContaE), true)]
@@ -56,15 +52,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_pessoa_tb_municipios_ibge1", "MunicipiosIbgeE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.MunicipiosIbgeE), "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_usuario_codpessoa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "UsuarioE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.UsuarioE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_contato_empresa", "tb_pessoa", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE), "tb_pessoa1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.PessoaE))]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.tb_saida), "ContaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_entrada1", "EntradaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codcliente", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codprofissional", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_saida1", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "SaidaFormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_situacao_pagamentos1", "SituacaoPagamentosE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "TipoSaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_tb_cst1", "CstE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CstE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_produto_codproduto", "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.ProdutoE), "EntradaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.EntradaProdutoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_codgrupo", "GrupoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.GrupoE), "tb_produto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoE), true)]
@@ -77,14 +64,26 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_loja), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_nfe_tb_loja1", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_loja), "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_produto_loja_codloja", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_loja), "ProdutoLojaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ProdutoLojaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_conta_pagar_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.tb_saida), "ContaE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.ContaE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "EntradaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_entrada_forma_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_entrada1", "EntradaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.EntradaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_forma_pagamento), "tb_entrada_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_entrada_forma_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_forma_pagamento), "SaidaFormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_loja1", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_loja), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codcliente", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_codprofissional", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_pessoa1", "PessoaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.PessoaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_pagamento_tb_saida1", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "SaidaFormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaFormaPagamentoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "SaidaProdutoE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.SaidaProdutoE), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_situacao_pagamentos1", "SituacaoPagamentosE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.SituacaoPagamentosE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_saida_tb_tipo_saida1", "TipoSaidaE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.TipoSaidaE), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_saida1", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_saida), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "CartaoCreditoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.FormaPagamentoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
-[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_saida), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_autorizacao_cartao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_autorizacao_cartao), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_cartao_credito1", "CartaoCreditoE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.CartaoCreditoE), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_forma_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_forma_pagamento), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_solicitacao_documento), "tb_solicitacao_pagamento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_pagamento), true)]
 
 #endregion
 
@@ -251,22 +250,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<EntradaFormaPagamentoE> EntradaFormaPagamentoSet
-        {
-            get
-            {
-                if ((_EntradaFormaPagamentoSet == null))
-                {
-                    _EntradaFormaPagamentoSet = base.CreateObjectSet<EntradaFormaPagamentoE>("EntradaFormaPagamentoSet");
-                }
-                return _EntradaFormaPagamentoSet;
-            }
-        }
-        private ObjectSet<EntradaFormaPagamentoE> _EntradaFormaPagamentoSet;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<EntradaProdutoE> EntradaProdutoSet
         {
             get
@@ -279,22 +262,6 @@ namespace Dados
             }
         }
         private ObjectSet<EntradaProdutoE> _EntradaProdutoSet;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<FormaPagamentoE> FormaPagamentoSet
-        {
-            get
-            {
-                if ((_FormaPagamentoSet == null))
-                {
-                    _FormaPagamentoSet = base.CreateObjectSet<FormaPagamentoE>("FormaPagamentoSet");
-                }
-                return _FormaPagamentoSet;
-            }
-        }
-        private ObjectSet<FormaPagamentoE> _FormaPagamentoSet;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -651,22 +618,6 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<tb_saida> tb_saida
-        {
-            get
-            {
-                if ((_tb_saida == null))
-                {
-                    _tb_saida = base.CreateObjectSet<tb_saida>("tb_saida");
-                }
-                return _tb_saida;
-            }
-        }
-        private ObjectSet<tb_saida> _tb_saida;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<tb_imposto> tb_imposto
         {
             get
@@ -747,6 +698,86 @@ namespace Dados
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<tb_autorizacao_cartao> tb_autorizacao_cartao
+        {
+            get
+            {
+                if ((_tb_autorizacao_cartao == null))
+                {
+                    _tb_autorizacao_cartao = base.CreateObjectSet<tb_autorizacao_cartao>("tb_autorizacao_cartao");
+                }
+                return _tb_autorizacao_cartao;
+            }
+        }
+        private ObjectSet<tb_autorizacao_cartao> _tb_autorizacao_cartao;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_entrada_forma_pagamento> tb_entrada_forma_pagamento
+        {
+            get
+            {
+                if ((_tb_entrada_forma_pagamento == null))
+                {
+                    _tb_entrada_forma_pagamento = base.CreateObjectSet<tb_entrada_forma_pagamento>("tb_entrada_forma_pagamento");
+                }
+                return _tb_entrada_forma_pagamento;
+            }
+        }
+        private ObjectSet<tb_entrada_forma_pagamento> _tb_entrada_forma_pagamento;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_forma_pagamento> tb_forma_pagamento
+        {
+            get
+            {
+                if ((_tb_forma_pagamento == null))
+                {
+                    _tb_forma_pagamento = base.CreateObjectSet<tb_forma_pagamento>("tb_forma_pagamento");
+                }
+                return _tb_forma_pagamento;
+            }
+        }
+        private ObjectSet<tb_forma_pagamento> _tb_forma_pagamento;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_saida> tb_saida
+        {
+            get
+            {
+                if ((_tb_saida == null))
+                {
+                    _tb_saida = base.CreateObjectSet<tb_saida>("tb_saida");
+                }
+                return _tb_saida;
+            }
+        }
+        private ObjectSet<tb_saida> _tb_saida;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_solicitacao_documento> tb_solicitacao_documento
+        {
+            get
+            {
+                if ((_tb_solicitacao_documento == null))
+                {
+                    _tb_solicitacao_documento = base.CreateObjectSet<tb_solicitacao_documento>("tb_solicitacao_documento");
+                }
+                return _tb_solicitacao_documento;
+            }
+        }
+        private ObjectSet<tb_solicitacao_documento> _tb_solicitacao_documento;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<tb_solicitacao_saida> tb_solicitacao_saida
         {
             get
@@ -775,38 +806,6 @@ namespace Dados
             }
         }
         private ObjectSet<tb_solicitacao_pagamento> _tb_solicitacao_pagamento;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_solicitacao_documento> tb_solicitacao_documento
-        {
-            get
-            {
-                if ((_tb_solicitacao_documento == null))
-                {
-                    _tb_solicitacao_documento = base.CreateObjectSet<tb_solicitacao_documento>("tb_solicitacao_documento");
-                }
-                return _tb_solicitacao_documento;
-            }
-        }
-        private ObjectSet<tb_solicitacao_documento> _tb_solicitacao_documento;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<tb_autorizacao_cartao> tb_autorizacao_cartao
-        {
-            get
-            {
-                if ((_tb_autorizacao_cartao == null))
-                {
-                    _tb_autorizacao_cartao = base.CreateObjectSet<tb_autorizacao_cartao>("tb_autorizacao_cartao");
-                }
-                return _tb_autorizacao_cartao;
-            }
-        }
-        private ObjectSet<tb_autorizacao_cartao> _tb_autorizacao_cartao;
 
         #endregion
 
@@ -869,27 +868,11 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the EntradaFormaPagamentoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToEntradaFormaPagamentoSet(EntradaFormaPagamentoE entradaFormaPagamentoE)
-        {
-            base.AddObject("EntradaFormaPagamentoSet", entradaFormaPagamentoE);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the EntradaProdutoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToEntradaProdutoSet(EntradaProdutoE entradaProdutoE)
         {
             base.AddObject("EntradaProdutoSet", entradaProdutoE);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the FormaPagamentoSet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToFormaPagamentoSet(FormaPagamentoE formaPagamentoE)
-        {
-            base.AddObject("FormaPagamentoSet", formaPagamentoE);
         }
     
         /// <summary>
@@ -1069,14 +1052,6 @@ namespace Dados
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the tb_saida EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_saida(tb_saida tb_saida)
-        {
-            base.AddObject("tb_saida", tb_saida);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the tb_imposto EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_imposto(tb_imposto tb_imposto)
@@ -1117,6 +1092,46 @@ namespace Dados
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the tb_autorizacao_cartao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_autorizacao_cartao(tb_autorizacao_cartao tb_autorizacao_cartao)
+        {
+            base.AddObject("tb_autorizacao_cartao", tb_autorizacao_cartao);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_entrada_forma_pagamento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_entrada_forma_pagamento(tb_entrada_forma_pagamento tb_entrada_forma_pagamento)
+        {
+            base.AddObject("tb_entrada_forma_pagamento", tb_entrada_forma_pagamento);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_forma_pagamento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_forma_pagamento(tb_forma_pagamento tb_forma_pagamento)
+        {
+            base.AddObject("tb_forma_pagamento", tb_forma_pagamento);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_saida EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_saida(tb_saida tb_saida)
+        {
+            base.AddObject("tb_saida", tb_saida);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_solicitacao_documento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_solicitacao_documento(tb_solicitacao_documento tb_solicitacao_documento)
+        {
+            base.AddObject("tb_solicitacao_documento", tb_solicitacao_documento);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the tb_solicitacao_saida EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotb_solicitacao_saida(tb_solicitacao_saida tb_solicitacao_saida)
@@ -1130,22 +1145,6 @@ namespace Dados
         public void AddTotb_solicitacao_pagamento(tb_solicitacao_pagamento tb_solicitacao_pagamento)
         {
             base.AddObject("tb_solicitacao_pagamento", tb_solicitacao_pagamento);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_solicitacao_documento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_solicitacao_documento(tb_solicitacao_documento tb_solicitacao_documento)
-        {
-            base.AddObject("tb_solicitacao_documento", tb_solicitacao_documento);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the tb_autorizacao_cartao EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTotb_autorizacao_cartao(tb_autorizacao_cartao tb_autorizacao_cartao)
-        {
-            base.AddObject("tb_autorizacao_cartao", tb_autorizacao_cartao);
         }
 
         #endregion
@@ -2060,28 +2059,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CartaoCreditoE>("SaceModel.fk_tb_cartao_credito_codcontabanco", "tb_cartao_credito", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_entrada_forma_pagamento")]
-        public EntityCollection<EntradaFormaPagamentoE> tb_entrada_forma_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaFormaPagamentoE>("SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_entrada_forma_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaFormaPagamentoE>("SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_entrada_forma_pagamento", value);
                 }
             }
         }
@@ -3461,28 +3438,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada_forma_pagamento")]
-        public EntityCollection<EntradaFormaPagamentoE> tb_entrada_forma_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaFormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada_forma_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaFormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada_forma_pagamento", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_produto_codentrada", "tb_entrada_produto")]
         public EntityCollection<EntradaProdutoE> tb_entrada_produto
         {
@@ -3657,6 +3612,28 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada_forma_pagamento")]
+        public EntityCollection<tb_entrada_forma_pagamento> tb_entrada_forma_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_entrada_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada_forma_pagamento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_entrada_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada_forma_pagamento", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_entrada1", "tb_saida")]
         public EntityCollection<tb_saida> tb_saida
         {
@@ -3669,331 +3646,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.fk_tb_saida_tb_entrada1", "tb_saida", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="EntradaFormaPagamentoE")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class EntradaFormaPagamentoE : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new EntradaFormaPagamentoE object.
-        /// </summary>
-        /// <param name="codEntradaFormaPagamento">Initial value of the codEntradaFormaPagamento property.</param>
-        /// <param name="codEntrada">Initial value of the codEntrada property.</param>
-        /// <param name="codFormaPagamento">Initial value of the codFormaPagamento property.</param>
-        /// <param name="codContaBanco">Initial value of the codContaBanco property.</param>
-        public static EntradaFormaPagamentoE CreateEntradaFormaPagamentoE(global::System.Int64 codEntradaFormaPagamento, global::System.Int64 codEntrada, global::System.Int32 codFormaPagamento, global::System.Int32 codContaBanco)
-        {
-            EntradaFormaPagamentoE entradaFormaPagamentoE = new EntradaFormaPagamentoE();
-            entradaFormaPagamentoE.codEntradaFormaPagamento = codEntradaFormaPagamento;
-            entradaFormaPagamentoE.codEntrada = codEntrada;
-            entradaFormaPagamentoE.codFormaPagamento = codFormaPagamento;
-            entradaFormaPagamentoE.codContaBanco = codContaBanco;
-            return entradaFormaPagamentoE;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 codEntradaFormaPagamento
-        {
-            get
-            {
-                return _codEntradaFormaPagamento;
-            }
-            set
-            {
-                if (_codEntradaFormaPagamento != value)
-                {
-                    OncodEntradaFormaPagamentoChanging(value);
-                    ReportPropertyChanging("codEntradaFormaPagamento");
-                    _codEntradaFormaPagamento = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codEntradaFormaPagamento");
-                    OncodEntradaFormaPagamentoChanged();
-                }
-            }
-        }
-        private global::System.Int64 _codEntradaFormaPagamento;
-        partial void OncodEntradaFormaPagamentoChanging(global::System.Int64 value);
-        partial void OncodEntradaFormaPagamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 codEntrada
-        {
-            get
-            {
-                return _codEntrada;
-            }
-            set
-            {
-                OncodEntradaChanging(value);
-                ReportPropertyChanging("codEntrada");
-                _codEntrada = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("codEntrada");
-                OncodEntradaChanged();
-            }
-        }
-        private global::System.Int64 _codEntrada;
-        partial void OncodEntradaChanging(global::System.Int64 value);
-        partial void OncodEntradaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codFormaPagamento
-        {
-            get
-            {
-                return _codFormaPagamento;
-            }
-            set
-            {
-                OncodFormaPagamentoChanging(value);
-                ReportPropertyChanging("codFormaPagamento");
-                _codFormaPagamento = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("codFormaPagamento");
-                OncodFormaPagamentoChanged();
-            }
-        }
-        private global::System.Int32 _codFormaPagamento;
-        partial void OncodFormaPagamentoChanging(global::System.Int32 value);
-        partial void OncodFormaPagamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codContaBanco
-        {
-            get
-            {
-                return _codContaBanco;
-            }
-            set
-            {
-                OncodContaBancoChanging(value);
-                ReportPropertyChanging("codContaBanco");
-                _codContaBanco = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("codContaBanco");
-                OncodContaBancoChanged();
-            }
-        }
-        private global::System.Int32 _codContaBanco;
-        partial void OncodContaBancoChanging(global::System.Int32 value);
-        partial void OncodContaBancoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> valor
-        {
-            get
-            {
-                return _valor;
-            }
-            set
-            {
-                OnvalorChanging(value);
-                ReportPropertyChanging("valor");
-                _valor = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("valor");
-                OnvalorChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _valor;
-        partial void OnvalorChanging(Nullable<global::System.Decimal> value);
-        partial void OnvalorChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> data
-        {
-            get
-            {
-                return _data;
-            }
-            set
-            {
-                OndataChanging(value);
-                ReportPropertyChanging("data");
-                _data = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("data");
-                OndataChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _data;
-        partial void OndataChanging(Nullable<global::System.DateTime> value);
-        partial void OndataChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> pagamentoDoFrete
-        {
-            get
-            {
-                return _pagamentoDoFrete;
-            }
-            set
-            {
-                OnpagamentoDoFreteChanging(value);
-                ReportPropertyChanging("pagamentoDoFrete");
-                _pagamentoDoFrete = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("pagamentoDoFrete");
-                OnpagamentoDoFreteChanged();
-            }
-        }
-        private Nullable<global::System.Boolean> _pagamentoDoFrete;
-        partial void OnpagamentoDoFreteChanging(Nullable<global::System.Boolean> value);
-        partial void OnpagamentoDoFreteChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco")]
-        public ContaBancoE tb_conta_banco
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ContaBancoE>("SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ContaBancoE>("SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ContaBancoE> tb_conta_bancoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ContaBancoE>("SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ContaBancoE>("SaceModel.fk_tb_entrada_forma_pagamento_tb_conta_banco1", "tb_conta_banco", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada")]
-        public EntradaE tb_entrada
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<EntradaE> tb_entradaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "tb_entrada", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento")]
-        public FormaPagamentoE tb_forma_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<FormaPagamentoE> tb_forma_pagamentoReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", value);
                 }
             }
         }
@@ -4647,235 +4299,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_entrada_produto_codproduto", "tb_produto", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="FormaPagamentoE")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class FormaPagamentoE : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new FormaPagamentoE object.
-        /// </summary>
-        /// <param name="codFormaPagamento">Initial value of the codFormaPagamento property.</param>
-        /// <param name="descricao">Initial value of the descricao property.</param>
-        /// <param name="parcelas">Initial value of the parcelas property.</param>
-        /// <param name="descontoAcrescimo">Initial value of the descontoAcrescimo property.</param>
-        public static FormaPagamentoE CreateFormaPagamentoE(global::System.Int32 codFormaPagamento, global::System.String descricao, global::System.Int32 parcelas, global::System.Decimal descontoAcrescimo)
-        {
-            FormaPagamentoE formaPagamentoE = new FormaPagamentoE();
-            formaPagamentoE.codFormaPagamento = codFormaPagamento;
-            formaPagamentoE.descricao = descricao;
-            formaPagamentoE.parcelas = parcelas;
-            formaPagamentoE.descontoAcrescimo = descontoAcrescimo;
-            return formaPagamentoE;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codFormaPagamento
-        {
-            get
-            {
-                return _codFormaPagamento;
-            }
-            set
-            {
-                if (_codFormaPagamento != value)
-                {
-                    OncodFormaPagamentoChanging(value);
-                    ReportPropertyChanging("codFormaPagamento");
-                    _codFormaPagamento = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codFormaPagamento");
-                    OncodFormaPagamentoChanged();
-                }
-            }
-        }
-        private global::System.Int32 _codFormaPagamento;
-        partial void OncodFormaPagamentoChanging(global::System.Int32 value);
-        partial void OncodFormaPagamentoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String descricao
-        {
-            get
-            {
-                return _descricao;
-            }
-            set
-            {
-                OndescricaoChanging(value);
-                ReportPropertyChanging("descricao");
-                _descricao = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("descricao");
-                OndescricaoChanged();
-            }
-        }
-        private global::System.String _descricao;
-        partial void OndescricaoChanging(global::System.String value);
-        partial void OndescricaoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 parcelas
-        {
-            get
-            {
-                return _parcelas;
-            }
-            set
-            {
-                OnparcelasChanging(value);
-                ReportPropertyChanging("parcelas");
-                _parcelas = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("parcelas");
-                OnparcelasChanged();
-            }
-        }
-        private global::System.Int32 _parcelas;
-        partial void OnparcelasChanging(global::System.Int32 value);
-        partial void OnparcelasChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal descontoAcrescimo
-        {
-            get
-            {
-                return _descontoAcrescimo;
-            }
-            set
-            {
-                OndescontoAcrescimoChanging(value);
-                ReportPropertyChanging("descontoAcrescimo");
-                _descontoAcrescimo = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("descontoAcrescimo");
-                OndescontoAcrescimoChanged();
-            }
-        }
-        private global::System.Decimal _descontoAcrescimo;
-        partial void OndescontoAcrescimoChanging(global::System.Decimal value);
-        partial void OndescontoAcrescimoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String mapeamento
-        {
-            get
-            {
-                return _mapeamento;
-            }
-            set
-            {
-                OnmapeamentoChanging(value);
-                ReportPropertyChanging("mapeamento");
-                _mapeamento = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("mapeamento");
-                OnmapeamentoChanged();
-            }
-        }
-        private global::System.String _mapeamento;
-        partial void OnmapeamentoChanging(global::System.String value);
-        partial void OnmapeamentoChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_entrada_forma_pagamento")]
-        public EntityCollection<EntradaFormaPagamentoE> tb_entrada_forma_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EntradaFormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_entrada_forma_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EntradaFormaPagamentoE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_entrada_forma_pagamento", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_saida_forma_pagamento")]
-        public EntityCollection<SaidaFormaPagamentoE> tb_saida_forma_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_saida_forma_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_saida_forma_pagamento", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento")]
-        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento", value);
                 }
             }
         }
@@ -6664,6 +6087,50 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_produto")]
+        public EntityCollection<ProdutoE> tb_produto
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "tb_loja")]
+        public EntityCollection<tb_loja> tb_loja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_loja>("SaceModel.fk_tb_loja_tb_pessoa1", "tb_loja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_loja>("SaceModel.fk_tb_loja_tb_pessoa1", "tb_loja", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_codcliente", "tb_saida")]
         public EntityCollection<tb_saida> tb_saida
         {
@@ -6720,50 +6187,6 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.fk_tb_saida_tb_pessoa1", "tb_saida", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_produto_tb_pessoa1", "tb_produto")]
-        public EntityCollection<ProdutoE> tb_produto
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProdutoE>("SaceModel.fk_tb_produto_tb_pessoa1", "tb_produto", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_loja_tb_pessoa1", "tb_loja")]
-        public EntityCollection<tb_loja> tb_loja
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_loja>("SaceModel.fk_tb_loja_tb_pessoa1", "tb_loja");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_loja>("SaceModel.fk_tb_loja_tb_pessoa1", "tb_loja", value);
                 }
             }
         }
@@ -8892,15 +8315,15 @@ namespace Dados
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento")]
-        public FormaPagamentoE tb_forma_pagamento
+        public tb_forma_pagamento tb_forma_pagamento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value = value;
             }
         }
         /// <summary>
@@ -8908,17 +8331,17 @@ namespace Dados
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<FormaPagamentoE> tb_forma_pagamentoReference
+        public EntityReference<tb_forma_pagamento> tb_forma_pagamentoReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", value);
                 }
             }
         }
@@ -9584,44 +9007,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida")]
-        public tb_saida tb_saida
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<tb_saida> tb_saidaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codproduto", "tb_produto")]
         public ProdutoE tb_produto
         {
@@ -9650,6 +9035,44 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProdutoE>("SaceModel.fk_tb_saida_produto_codproduto", "tb_produto", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_produto_codsaida", "tb_saida")]
+        public tb_saida tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_saida> tb_saidaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_saida>("SaceModel.fk_tb_saida_produto_codsaida", "tb_saida", value);
                 }
             }
         }
@@ -10445,6 +9868,522 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.tb_autorizacao_cartao_saida", "tb_saida", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_entrada_forma_pagamento")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_entrada_forma_pagamento : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_entrada_forma_pagamento object.
+        /// </summary>
+        /// <param name="codEntradaFormaPagamento">Initial value of the codEntradaFormaPagamento property.</param>
+        /// <param name="codEntrada">Initial value of the codEntrada property.</param>
+        /// <param name="codFormaPagamento">Initial value of the codFormaPagamento property.</param>
+        /// <param name="codContaBanco">Initial value of the codContaBanco property.</param>
+        public static tb_entrada_forma_pagamento Createtb_entrada_forma_pagamento(global::System.Int64 codEntradaFormaPagamento, global::System.Int64 codEntrada, global::System.Int32 codFormaPagamento, global::System.Int32 codContaBanco)
+        {
+            tb_entrada_forma_pagamento tb_entrada_forma_pagamento = new tb_entrada_forma_pagamento();
+            tb_entrada_forma_pagamento.codEntradaFormaPagamento = codEntradaFormaPagamento;
+            tb_entrada_forma_pagamento.codEntrada = codEntrada;
+            tb_entrada_forma_pagamento.codFormaPagamento = codFormaPagamento;
+            tb_entrada_forma_pagamento.codContaBanco = codContaBanco;
+            return tb_entrada_forma_pagamento;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codEntradaFormaPagamento
+        {
+            get
+            {
+                return _codEntradaFormaPagamento;
+            }
+            set
+            {
+                if (_codEntradaFormaPagamento != value)
+                {
+                    OncodEntradaFormaPagamentoChanging(value);
+                    ReportPropertyChanging("codEntradaFormaPagamento");
+                    _codEntradaFormaPagamento = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codEntradaFormaPagamento");
+                    OncodEntradaFormaPagamentoChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codEntradaFormaPagamento;
+        partial void OncodEntradaFormaPagamentoChanging(global::System.Int64 value);
+        partial void OncodEntradaFormaPagamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codEntrada
+        {
+            get
+            {
+                return _codEntrada;
+            }
+            set
+            {
+                OncodEntradaChanging(value);
+                ReportPropertyChanging("codEntrada");
+                _codEntrada = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codEntrada");
+                OncodEntradaChanged();
+            }
+        }
+        private global::System.Int64 _codEntrada;
+        partial void OncodEntradaChanging(global::System.Int64 value);
+        partial void OncodEntradaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codFormaPagamento
+        {
+            get
+            {
+                return _codFormaPagamento;
+            }
+            set
+            {
+                OncodFormaPagamentoChanging(value);
+                ReportPropertyChanging("codFormaPagamento");
+                _codFormaPagamento = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codFormaPagamento");
+                OncodFormaPagamentoChanged();
+            }
+        }
+        private global::System.Int32 _codFormaPagamento;
+        partial void OncodFormaPagamentoChanging(global::System.Int32 value);
+        partial void OncodFormaPagamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codContaBanco
+        {
+            get
+            {
+                return _codContaBanco;
+            }
+            set
+            {
+                OncodContaBancoChanging(value);
+                ReportPropertyChanging("codContaBanco");
+                _codContaBanco = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codContaBanco");
+                OncodContaBancoChanged();
+            }
+        }
+        private global::System.Int32 _codContaBanco;
+        partial void OncodContaBancoChanging(global::System.Int32 value);
+        partial void OncodContaBancoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> valor
+        {
+            get
+            {
+                return _valor;
+            }
+            set
+            {
+                OnvalorChanging(value);
+                ReportPropertyChanging("valor");
+                _valor = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("valor");
+                OnvalorChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _valor;
+        partial void OnvalorChanging(Nullable<global::System.Decimal> value);
+        partial void OnvalorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> data
+        {
+            get
+            {
+                return _data;
+            }
+            set
+            {
+                OndataChanging(value);
+                ReportPropertyChanging("data");
+                _data = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("data");
+                OndataChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _data;
+        partial void OndataChanging(Nullable<global::System.DateTime> value);
+        partial void OndataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> pagamentoDoFrete
+        {
+            get
+            {
+                return _pagamentoDoFrete;
+            }
+            set
+            {
+                OnpagamentoDoFreteChanging(value);
+                ReportPropertyChanging("pagamentoDoFrete");
+                _pagamentoDoFrete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("pagamentoDoFrete");
+                OnpagamentoDoFreteChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _pagamentoDoFrete;
+        partial void OnpagamentoDoFreteChanging(Nullable<global::System.Boolean> value);
+        partial void OnpagamentoDoFreteChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "EntradaE")]
+        public EntradaE tb_entrada
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "EntradaE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "EntradaE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<EntradaE> tb_entradaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "EntradaE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EntradaE>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_entrada1", "EntradaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento")]
+        public tb_forma_pagamento tb_forma_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_forma_pagamento> tb_forma_pagamentoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_forma_pagamento", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_forma_pagamento")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_forma_pagamento : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_forma_pagamento object.
+        /// </summary>
+        /// <param name="codFormaPagamento">Initial value of the codFormaPagamento property.</param>
+        /// <param name="descricao">Initial value of the descricao property.</param>
+        /// <param name="parcelas">Initial value of the parcelas property.</param>
+        /// <param name="descontoAcrescimo">Initial value of the descontoAcrescimo property.</param>
+        public static tb_forma_pagamento Createtb_forma_pagamento(global::System.Int32 codFormaPagamento, global::System.String descricao, global::System.Int32 parcelas, global::System.Decimal descontoAcrescimo)
+        {
+            tb_forma_pagamento tb_forma_pagamento = new tb_forma_pagamento();
+            tb_forma_pagamento.codFormaPagamento = codFormaPagamento;
+            tb_forma_pagamento.descricao = descricao;
+            tb_forma_pagamento.parcelas = parcelas;
+            tb_forma_pagamento.descontoAcrescimo = descontoAcrescimo;
+            return tb_forma_pagamento;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codFormaPagamento
+        {
+            get
+            {
+                return _codFormaPagamento;
+            }
+            set
+            {
+                if (_codFormaPagamento != value)
+                {
+                    OncodFormaPagamentoChanging(value);
+                    ReportPropertyChanging("codFormaPagamento");
+                    _codFormaPagamento = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codFormaPagamento");
+                    OncodFormaPagamentoChanged();
+                }
+            }
+        }
+        private global::System.Int32 _codFormaPagamento;
+        partial void OncodFormaPagamentoChanging(global::System.Int32 value);
+        partial void OncodFormaPagamentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String descricao
+        {
+            get
+            {
+                return _descricao;
+            }
+            set
+            {
+                OndescricaoChanging(value);
+                ReportPropertyChanging("descricao");
+                _descricao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("descricao");
+                OndescricaoChanged();
+            }
+        }
+        private global::System.String _descricao;
+        partial void OndescricaoChanging(global::System.String value);
+        partial void OndescricaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 parcelas
+        {
+            get
+            {
+                return _parcelas;
+            }
+            set
+            {
+                OnparcelasChanging(value);
+                ReportPropertyChanging("parcelas");
+                _parcelas = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("parcelas");
+                OnparcelasChanged();
+            }
+        }
+        private global::System.Int32 _parcelas;
+        partial void OnparcelasChanging(global::System.Int32 value);
+        partial void OnparcelasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal descontoAcrescimo
+        {
+            get
+            {
+                return _descontoAcrescimo;
+            }
+            set
+            {
+                OndescontoAcrescimoChanging(value);
+                ReportPropertyChanging("descontoAcrescimo");
+                _descontoAcrescimo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("descontoAcrescimo");
+                OndescontoAcrescimoChanged();
+            }
+        }
+        private global::System.Decimal _descontoAcrescimo;
+        partial void OndescontoAcrescimoChanging(global::System.Decimal value);
+        partial void OndescontoAcrescimoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String mapeamento
+        {
+            get
+            {
+                return _mapeamento;
+            }
+            set
+            {
+                OnmapeamentoChanging(value);
+                ReportPropertyChanging("mapeamento");
+                _mapeamento = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("mapeamento");
+                OnmapeamentoChanged();
+            }
+        }
+        private global::System.String _mapeamento;
+        partial void OnmapeamentoChanging(global::System.String value);
+        partial void OnmapeamentoChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_entrada_forma_pagamento")]
+        public EntityCollection<tb_entrada_forma_pagamento> tb_entrada_forma_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_entrada_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_entrada_forma_pagamento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_entrada_forma_pagamento>("SaceModel.fk_tb_entrada_has_tb_forma_pagamento_tb_forma_pagamento1", "tb_entrada_forma_pagamento", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_pagamento_tb_forma_pagamento1", "SaidaFormaPagamentoE")]
+        public EntityCollection<SaidaFormaPagamentoE> tb_saida_forma_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "SaidaFormaPagamentoE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SaidaFormaPagamentoE>("SaceModel.fk_tb_saida_pagamento_tb_forma_pagamento1", "SaidaFormaPagamentoE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento")]
+        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_solicitacao_pagamento", value);
                 }
             }
         }
@@ -12289,25 +12228,25 @@ namespace Dados
         /// <param name="dataSaida">Initial value of the dataSaida property.</param>
         /// <param name="codCliente">Initial value of the codCliente property.</param>
         /// <param name="codTipoSaida">Initial value of the codTipoSaida property.</param>
+        /// <param name="codLojaOrigem">Initial value of the codLojaOrigem property.</param>
         /// <param name="codSituacaoPagamentos">Initial value of the codSituacaoPagamentos property.</param>
         /// <param name="entregaRealizada">Initial value of the entregaRealizada property.</param>
         /// <param name="codEmpresaFrete">Initial value of the codEmpresaFrete property.</param>
         /// <param name="observacao">Initial value of the observacao property.</param>
         /// <param name="codEntrada">Initial value of the codEntrada property.</param>
-        /// <param name="codLojaOrigem">Initial value of the codLojaOrigem property.</param>
-        public static tb_saida Createtb_saida(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao, global::System.Int64 codEntrada, global::System.Int32 codLojaOrigem)
+        public static tb_saida Createtb_saida(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codLojaOrigem, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao, global::System.Int64 codEntrada)
         {
             tb_saida tb_saida = new tb_saida();
             tb_saida.codSaida = codSaida;
             tb_saida.dataSaida = dataSaida;
             tb_saida.codCliente = codCliente;
             tb_saida.codTipoSaida = codTipoSaida;
+            tb_saida.codLojaOrigem = codLojaOrigem;
             tb_saida.codSituacaoPagamentos = codSituacaoPagamentos;
             tb_saida.entregaRealizada = entregaRealizada;
             tb_saida.codEmpresaFrete = codEmpresaFrete;
             tb_saida.observacao = observacao;
             tb_saida.codEntrada = codEntrada;
-            tb_saida.codLojaOrigem = codLojaOrigem;
             return tb_saida;
         }
 
@@ -12413,6 +12352,30 @@ namespace Dados
         private global::System.Int32 _codTipoSaida;
         partial void OncodTipoSaidaChanging(global::System.Int32 value);
         partial void OncodTipoSaidaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codLojaOrigem
+        {
+            get
+            {
+                return _codLojaOrigem;
+            }
+            set
+            {
+                OncodLojaOrigemChanging(value);
+                ReportPropertyChanging("codLojaOrigem");
+                _codLojaOrigem = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codLojaOrigem");
+                OncodLojaOrigemChanged();
+            }
+        }
+        private global::System.Int32 _codLojaOrigem;
+        partial void OncodLojaOrigemChanging(global::System.Int32 value);
+        partial void OncodLojaOrigemChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -13181,30 +13144,6 @@ namespace Dados
         private global::System.Int64 _codEntrada;
         partial void OncodEntradaChanging(global::System.Int64 value);
         partial void OncodEntradaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 codLojaOrigem
-        {
-            get
-            {
-                return _codLojaOrigem;
-            }
-            set
-            {
-                OncodLojaOrigemChanging(value);
-                ReportPropertyChanging("codLojaOrigem");
-                _codLojaOrigem = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("codLojaOrigem");
-                OncodLojaOrigemChanged();
-            }
-        }
-        private global::System.Int32 _codLojaOrigem;
-        partial void OncodLojaOrigemChanging(global::System.Int32 value);
-        partial void OncodLojaOrigemChanged();
 
         #endregion
 
@@ -13267,6 +13206,44 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<EntradaE>("SaceModel.fk_tb_saida_tb_entrada1", "EntradaE", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_loja1", "tb_loja")]
+        public tb_loja tb_loja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_loja> tb_lojaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja", value);
                 }
             }
         }
@@ -13511,66 +13488,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_saida_tb_loja1", "tb_loja")]
-        public tb_loja tb_loja
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<tb_loja> tb_lojaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_loja>("SaceModel.fk_tb_saida_tb_loja1", "tb_loja", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_nfe")]
-        public EntityCollection<tb_nfe> tb_nfe
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_nfe>("SaceModel.tb_saida_nfe", "tb_nfe");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_nfe>("SaceModel.tb_saida_nfe", "tb_nfe", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_saida1", "tb_solicitacao_saida")]
         public EntityCollection<tb_solicitacao_saida> tb_solicitacao_saida
         {
@@ -13605,6 +13522,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_autorizacao_cartao>("SaceModel.tb_autorizacao_cartao_saida", "tb_autorizacao_cartao", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_saida_nfe", "tb_nfe")]
+        public EntityCollection<tb_nfe> tb_nfe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_nfe>("SaceModel.tb_saida_nfe", "tb_nfe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_nfe>("SaceModel.tb_saida_nfe", "tb_nfe", value);
                 }
             }
         }
@@ -13960,28 +13899,6 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento")]
-        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_saida")]
         public EntityCollection<tb_solicitacao_saida> tb_solicitacao_saida
         {
@@ -13994,6 +13911,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_saida>("SaceModel.fk_tb_solicitacao_saida_tb_solicitacao_documento_fiscal1", "tb_solicitacao_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento")]
+        public EntityCollection<tb_solicitacao_pagamento> tb_solicitacao_pagamento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento", value);
                 }
             }
         }
@@ -14311,16 +14250,16 @@ namespace Dados
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE")]
-        public FormaPagamentoE tb_forma_pagamento
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_forma_pagamento")]
+        public tb_forma_pagamento tb_forma_pagamento
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_forma_pagamento").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_forma_pagamento").Value = value;
             }
         }
         /// <summary>
@@ -14328,17 +14267,17 @@ namespace Dados
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<FormaPagamentoE> tb_forma_pagamentoReference
+        public EntityReference<tb_forma_pagamento> tb_forma_pagamentoReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_forma_pagamento");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FormaPagamentoE>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "FormaPagamentoE", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_forma_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_forma_pagamento1", "tb_forma_pagamento", value);
                 }
             }
         }

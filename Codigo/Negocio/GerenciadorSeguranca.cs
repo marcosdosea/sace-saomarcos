@@ -86,7 +86,7 @@ namespace Negocio
                         // add the report into a different directory in the archive
                         zip.Save(path + ".zip");
                     }
-                    File.Copy(path + ".zip", Global.PASTA_BACKUP2, true);
+                    //File.Copy(path + ".zip", Global.PASTA_BACKUP2, true);
                     File.Delete(path);
                     process.Close();
                 }

@@ -59,7 +59,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nfeControleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnConsultar = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.justificativaCancelamentoTextBox1 = new System.Windows.Forms.TextBox();
             this.mensagemSituacaoReciboEnvioTextBox = new System.Windows.Forms.TextBox();
@@ -84,6 +83,7 @@
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
             this.btnComplementar = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -283,7 +283,7 @@
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnImprimir.Location = new System.Drawing.Point(667, 558);
+            this.btnImprimir.Location = new System.Drawing.Point(662, 558);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(105, 26);
             this.btnImprimir.TabIndex = 7;
@@ -294,7 +294,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCancelar.Location = new System.Drawing.Point(215, 558);
+            this.btnCancelar.Location = new System.Drawing.Point(210, 558);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 26);
             this.btnCancelar.TabIndex = 4;
@@ -315,7 +315,7 @@
             // btnEnviar
             // 
             this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnEnviar.Location = new System.Drawing.Point(110, 558);
+            this.btnEnviar.Location = new System.Drawing.Point(105, 558);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(105, 26);
             this.btnEnviar.TabIndex = 3;
@@ -391,21 +391,10 @@
             // 
             this.nfeControleBindingSource.DataSource = typeof(Dominio.NfeControle);
             // 
-            // btnConsultar
-            // 
-            this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnConsultar.Location = new System.Drawing.Point(5, 558);
-            this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(105, 26);
-            this.btnConsultar.TabIndex = 2;
-            this.btnConsultar.Text = "F2 - Consultar";
-            this.btnConsultar.UseVisualStyleBackColor = true;
-            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
-            // 
             // btnFechar
             // 
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnFechar.Location = new System.Drawing.Point(772, 558);
+            this.btnFechar.Location = new System.Drawing.Point(767, 558);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(105, 26);
             this.btnFechar.TabIndex = 8;
@@ -538,7 +527,7 @@
             // btnSituacao
             // 
             this.btnSituacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnSituacao.Location = new System.Drawing.Point(425, 558);
+            this.btnSituacao.Location = new System.Drawing.Point(420, 558);
             this.btnSituacao.Name = "btnSituacao";
             this.btnSituacao.Size = new System.Drawing.Size(105, 26);
             this.btnSituacao.TabIndex = 6;
@@ -588,7 +577,7 @@
             // btnCartaCorrecao
             // 
             this.btnCartaCorrecao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCartaCorrecao.Location = new System.Drawing.Point(320, 558);
+            this.btnCartaCorrecao.Location = new System.Drawing.Point(315, 558);
             this.btnCartaCorrecao.Name = "btnCartaCorrecao";
             this.btnCartaCorrecao.Size = new System.Drawing.Size(105, 26);
             this.btnCartaCorrecao.TabIndex = 5;
@@ -629,7 +618,7 @@
             // btnComplementar
             // 
             this.btnComplementar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnComplementar.Location = new System.Drawing.Point(531, 558);
+            this.btnComplementar.Location = new System.Drawing.Point(526, 558);
             this.btnComplementar.Name = "btnComplementar";
             this.btnComplementar.Size = new System.Drawing.Size(136, 26);
             this.btnComplementar.TabIndex = 50;
@@ -637,13 +626,25 @@
             this.btnComplementar.UseVisualStyleBackColor = true;
             this.btnComplementar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnBuscar.Location = new System.Drawing.Point(5, 558);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(100, 26);
+            this.btnBuscar.TabIndex = 2;
+            this.btnBuscar.Text = "F2 - Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 587);
+            this.ClientSize = new System.Drawing.Size(881, 585);
             this.ControlBox = false;
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnComplementar);
             this.Controls.Add(codPessoaLabel);
             this.Controls.Add(this.codPessoaComboBox);
@@ -683,7 +684,6 @@
             this.Controls.Add(situacaoReciboEnvioLabel);
             this.Controls.Add(this.situacaoReciboEnvioTextBox);
             this.Controls.Add(this.btnFechar);
-            this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.nfeControleDataGridView);
             this.Controls.Add(this.btnEnviar);
             this.Controls.Add(observacaoLabel);
@@ -717,7 +717,6 @@
         private System.Windows.Forms.Button btnEnviar;
         private System.Windows.Forms.BindingSource nfeControleBindingSource;
         private System.Windows.Forms.DataGridView nfeControleDataGridView;
-        private System.Windows.Forms.Button btnConsultar;
         private System.Windows.Forms.Button btnFechar;
         private System.Windows.Forms.TextBox justificativaCancelamentoTextBox1;
         private System.Windows.Forms.TextBox mensagemSituacaoReciboEnvioTextBox;
@@ -747,5 +746,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

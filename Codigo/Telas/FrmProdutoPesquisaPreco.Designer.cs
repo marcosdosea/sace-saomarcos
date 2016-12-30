@@ -446,9 +446,9 @@
             this.label4.BackColor = System.Drawing.Color.Yellow;
             this.label4.Location = new System.Drawing.Point(323, 624);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
+            this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 72;
-            this.label4.Text = "F10 - ";
+            this.label4.Text = "       ";
             // 
             // label5
             // 
@@ -456,9 +456,9 @@
             this.label5.BackColor = System.Drawing.Color.Red;
             this.label5.Location = new System.Drawing.Point(461, 624);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.Size = new System.Drawing.Size(28, 13);
             this.label5.TabIndex = 73;
-            this.label5.Text = "F11 - ";
+            this.label5.Text = "       ";
             // 
             // label7
             // 
@@ -478,7 +478,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(28, 13);
             this.label8.TabIndex = 75;
-            this.label8.Text = "F9 - ";
+            this.label8.Text = "       ";
             // 
             // label9
             // 

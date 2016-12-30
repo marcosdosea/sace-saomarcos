@@ -28,9 +28,9 @@ namespace Negocio
         {
             try
             {
-                var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+                var repFormaPagamento = new RepositorioGenerico<tb_forma_pagamento>();
 
-                FormaPagamentoE _formaPagamento = new FormaPagamentoE();
+                tb_forma_pagamento _formaPagamento = new tb_forma_pagamento();
                 Atribuir(formaPagamento, _formaPagamento);
 
                 repFormaPagamento.Inserir(_formaPagamento);
@@ -52,9 +52,9 @@ namespace Negocio
         {
             try
             {
-                var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+                var repFormaPagamento = new RepositorioGenerico<tb_forma_pagamento>();
 
-                FormaPagamentoE _formaPagamento = repFormaPagamento.Obter(f => f.codFormaPagamento == formaPagamento.CodFormaPagamento).ElementAt(0) ;
+                tb_forma_pagamento _formaPagamento = repFormaPagamento.Obter(f => f.codFormaPagamento == formaPagamento.CodFormaPagamento).ElementAt(0);
                 Atribuir(formaPagamento, _formaPagamento);
 
                 repFormaPagamento.SaveChanges();
@@ -73,7 +73,7 @@ namespace Negocio
         {
             try
             {
-                var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+                var repFormaPagamento = new RepositorioGenerico<tb_forma_pagamento>();
 
                 repFormaPagamento.Remover(f => f.codFormaPagamento == codformaPagamento);
                 repFormaPagamento.SaveChanges();
@@ -90,9 +90,9 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<FormaPagamento> GetQuery()
         {
-            var repFormaPagamento = new RepositorioGenerico<FormaPagamentoE>();
+            var repFormaPagamento = new RepositorioGenerico<tb_forma_pagamento>();
             var saceEntities = (SaceEntities)repFormaPagamento.ObterContexto();
-            var query = from formaPagamento in saceEntities.FormaPagamentoSet
+            var query = from formaPagamento in saceEntities.tb_forma_pagamento
                         select new FormaPagamento
                         {
                             CodFormaPagamento = formaPagamento.codFormaPagamento,
@@ -128,7 +128,7 @@ namespace Negocio
         /// </summary>
         /// <param name="formaPagamento"></param>
         /// <param name="_formaPagamento"></param>
-        private void Atribuir(FormaPagamento formaPagamento, FormaPagamentoE _formaPagamento)
+        private void Atribuir(FormaPagamento formaPagamento, tb_forma_pagamento _formaPagamento)
         {
             _formaPagamento.codFormaPagamento = formaPagamento.CodFormaPagamento;
             _formaPagamento.descontoAcrescimo = formaPagamento.DescontoAcrescimo;

@@ -184,24 +184,24 @@ namespace Telas
                     produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(_produto.CodProduto);
                 }
             }
-            else if (e.KeyCode == Keys.F9)
-            {
-                ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
-                _produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                MudarSituacaoProduto(sender, e, _produto);
-            }
-            else if (e.KeyCode == Keys.F10)
-            {
-                ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
-                _produto.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
-                MudarSituacaoProduto(sender, e, _produto);
-            }
-            else if (e.KeyCode == Keys.F11)
-            {
-                ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
-                _produto.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
-                MudarSituacaoProduto(sender, e, _produto);
-            }
+            //else if (e.KeyCode == Keys.F9)
+            //{
+            //    ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
+            //    _produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
+            //    MudarSituacaoProduto(sender, e, _produto);
+            //}
+            //else if (e.KeyCode == Keys.F10)
+            //{
+            //    ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
+            //    _produto.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
+            //    MudarSituacaoProduto(sender, e, _produto);
+            //}
+            //else if (e.KeyCode == Keys.F11)
+            //{
+            //    ProdutoPesquisa _produto = (ProdutoPesquisa)produtoBindingSource.Current;
+            //    _produto.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
+            //    MudarSituacaoProduto(sender, e, _produto);
+            //}
         }
 
 

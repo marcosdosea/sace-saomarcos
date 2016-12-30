@@ -1034,7 +1034,7 @@ namespace Negocio
             try
             {
                 ImprimeTexto imp = new ImprimeTexto();
-                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA))
+                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
                 {
                     return false;
                 }
@@ -1081,7 +1081,6 @@ namespace Negocio
 
         public bool ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
-
             if (impressora.Equals(Global.Impressora.NORMAL))
                 return ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
             else
@@ -1500,7 +1499,7 @@ namespace Negocio
                 if (e is NegocioException)
                     throw e;
                 else
-                    throw new NegocioException("Não foi possível realizar a impressão. Por Favor Verifique se a impressora MATRICIAL está LIGADA.");
+                    throw new NegocioException("Não foi possível enviar cupom fiscal. Por Favor verifique conexões de REDE.");
             }
         }
 
