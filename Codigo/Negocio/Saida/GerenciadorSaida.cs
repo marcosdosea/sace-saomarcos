@@ -1485,7 +1485,7 @@ namespace Negocio
                             {
                                 CodSaida=saida.CodSaida, 
                                 TotalAVista=saida.TotalAVista, 
-                                CodPedido=Int32.Parse(saida.CupomFiscal)
+                                CodPedido=saida.CodSaida
                             }
                     };
                     

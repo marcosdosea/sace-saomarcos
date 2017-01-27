@@ -452,6 +452,8 @@ namespace Negocio
         {
             const int NUMERO_MESES_ANALISAR = 3;
 
+            AtualizarSituacaoProdutosComprados(NUMERO_MESES_ANALISAR);
+
             List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(NUMERO_MESES_ANALISAR);
 
             List<ProdutoLoja> listaProdutoLoja = GerenciadorProdutoLoja.GetInstance(null).ObterTodos();
@@ -480,6 +482,28 @@ namespace Negocio
             }
             saceContext.SaveChanges();
         }
+
+
+        /// <summary>
+        /// Se produto não foi recebido no númeor de meses especificado então a situação dele volta a ser Disponível.
+        /// O sistema irá avaliar se uma nova solicitação de compra será necessária.
+        /// </summary>
+        /// <param name="NUMERO_MESES_ANALISAR"></param>
+        private void AtualizarSituacaoProdutosComprados(int NUMERO_MESES_ANALISAR)
+        {
+            DateTime dataAnalise = DateTime.Now.AddMonths(NUMERO_MESES_ANALISAR * (-2));
+            
+            var query = from produto in saceContext.ProdutoSet
+                         where produto.codSituacaoProduto == SituacaoProduto.COMPRADO &&
+                               produto.dataPedidoCompra <= dataAnalise                        
+                         select produto; 
+
+            foreach( ProdutoE produtoE in query) {
+                produtoE.codSituacaoProduto = SituacaoProduto.DISPONIVEL;
+            }
+            saceContext.SaveChanges();
+        }
+        
 
 
         /// <summary>
