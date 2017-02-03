@@ -12,7 +12,7 @@ using Util;
 
 namespace Telas
 {
-    public partial class FrmSaidaNFe: Form
+    public partial class FrmSaidaNFe : Form
     {
 
         public Saida Saida { get; set; }
@@ -39,7 +39,7 @@ namespace Telas
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
                 codPessoaComboBox.Focus();
             }
-            
+
             if (Saida.Observacao.Trim().Equals(""))
             {
                 if (Saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO)
@@ -80,7 +80,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma envio de pedido de cancelamento da NF-e?", "Cancelar NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                
+
                 NfeControle _nfeCurrent = (NfeControle)nfeControleBindingSource.Current;
                 NfeControle _nfeControle = GerenciadorNFe.GetInstance().Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
                 _nfeControle.JustificativaCancelamento = _nfeCurrent.JustificativaCancelamento;
@@ -91,7 +91,7 @@ namespace Telas
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            NfeControle nfeControle = (NfeControle) nfeControleBindingSource.Current;
+            NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
             GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
         }
 
@@ -99,7 +99,7 @@ namespace Telas
         {
             // o evento foi disparo do butão que emite Nf-
             bool ehNfeComplementar = (sender is Button) && ((Button)sender).Name.Equals("btnComplementar");
-            
+
             if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
             {
                 if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -111,9 +111,9 @@ namespace Telas
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                     List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
                     GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
-                }   
+                }
             }
-            
+
             if (MessageBox.Show("Confirma envio da NF-e?", "Enviar NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -127,7 +127,7 @@ namespace Telas
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
                 if (nfe != null)
                     GerenciadorNFe.GetInstance().Atualizar(nfe);
-                    
+
                 // envia nota fiscal
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
                 List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
@@ -213,9 +213,19 @@ namespace Telas
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             int posicao = nfeControleBindingSource.Position;
-            nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
-            nfeControleBindingSource.Position = posicao;
-            nfeControleBindingSource.ResumeBinding();
+            IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>) nfeControleBindingSource.DataSource;
+            IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+            if ((listaNfeControleExibida.Count() != listaNfeControle.Count()) && 
+                !listaNfeControleExibida.Select(nfe=>nfe.SituacaoNfe).Equals(listaNfeControle.Select(nfe=>nfe.SituacaoNfe)) ){
+                nfeControleBindingSource.DataSource = listaNfeControle;
+                nfeControleBindingSource.Position = posicao;
+                nfeControleBindingSource.ResumeBinding();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            btnBuscar_Click(sender, e);
         }
     }
 }

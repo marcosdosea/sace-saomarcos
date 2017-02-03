@@ -713,7 +713,7 @@ namespace Negocio
 
                     repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
                     repSolicitacao2.SaveChanges();
-                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, false, false);
+                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
                 }
             }
 

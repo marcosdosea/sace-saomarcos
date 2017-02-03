@@ -84,6 +84,7 @@
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
             this.btnComplementar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -637,12 +638,18 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 585);
+            this.ClientSize = new System.Drawing.Size(877, 587);
             this.ControlBox = false;
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnComplementar);
@@ -747,5 +754,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Timer timer1;
     }
 }

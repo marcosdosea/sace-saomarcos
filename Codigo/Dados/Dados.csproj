@@ -80,7 +80,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DadosException.cs" />
     <Compile Include="saceDataSetConsultas.cs">
       <DependentUpon>saceDataSetConsultas.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -164,6 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Exception\Exception.csproj">
+      <Project>{332E9382-1D7B-4AEB-8517-08C19B8C17DF}</Project>
+      <Name>Exception</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
