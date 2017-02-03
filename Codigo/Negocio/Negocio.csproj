@@ -132,6 +132,10 @@
       <Project>{34CA1C95-6E9C-4C01-A6B2-45F895DBC49B}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Exception\Exception.csproj">
+      <Project>{332E9382-1D7B-4AEB-8517-08C19B8C17DF}</Project>
+      <Name>Exception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{6C434BD3-4E07-4BD0-8B5F-B9ED31580119}</Project>
       <Name>Util</Name>

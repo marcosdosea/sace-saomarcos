@@ -41,8 +41,8 @@ namespace Telas
        [STAThread]
         static void Main(string[] args)
         {
-            TratamentoException eh = new TratamentoException();
-            Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarException);
+            TratarException eh = new TratarException();
+            Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
             Application.Run(new Principal());
         }
 

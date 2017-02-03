@@ -1200,7 +1200,7 @@ namespace Negocio
                 imp.Fim();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return false;
             }
@@ -1462,7 +1462,7 @@ namespace Negocio
                 GerenciadorImprimir.GetInstance().Imprimir(sbImprimir.ToString());
                 return true;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return false;
             }
