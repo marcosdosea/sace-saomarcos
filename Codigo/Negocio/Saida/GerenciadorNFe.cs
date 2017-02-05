@@ -843,7 +843,7 @@ namespace Negocio
                     TNFeInfNFeIdeNFrefRefNF refNF = new TNFeInfNFeIdeNFrefRefNF();
                     Entrada entrada = GerenciadorEntrada.GetInstance().Obter(saida.CodEntrada).ElementAtOrDefault(0);
                     refNF.nNF = entrada.NumeroNotaFiscal;
-                    refNF.CNPJ = destinatario.CpfCnpj;
+                    refNF.CNPJ = destinatario.CpfCnpj.Trim();
                     refNF.AAMM = entrada.DataEmissao.ToString("yyMM");
                     refNF.mod = TNFeInfNFeIdeNFrefRefNFMod.Item01;
                     refNF.serie = entrada.Serie;
@@ -940,7 +940,7 @@ namespace Negocio
                         dest.indIEDest = TNFeInfNFeDestIndIEDest.Item9; // 9-Não contribuinte, que pode ou não possui ie
                     }
                     if (!String.IsNullOrWhiteSpace(destinatario.Email))
-                        dest.email = destinatario.Email;
+                        dest.email = destinatario.Email.Trim();
                     nfe.infNFe.dest = dest;
 
                     ////Endereco destinatario
@@ -958,9 +958,6 @@ namespace Negocio
                     enderDest.xMun = Util.StringUtil.RemoverAcentos(destinatario.NomeMunicipioIBGE);
                     enderDest.xPais = "Brasil";
                 
-                    
-                    
-                    
                     dest.enderDest = enderDest;
                 }
                 else if (destinatario.CodPessoa.Equals(Global.CLIENTE_PADRAO) && !String.IsNullOrWhiteSpace(saida.CpfCnpj))
@@ -980,11 +977,28 @@ namespace Negocio
                 }
 
                 // Informações de pagamento da NFE. Obrigatória para NFCE
-                //nfe.infNFe.pag = new TNFeInfNFePag[];
-
-                TNFeInfNFePag infNfePag = new TNFeInfNFePag();
-                infNfePag.card = new TNFeInfNFePagCard() { cAut = "XX", CNPJ = "xxx", tBand = TNFeInfNFePagCardTBand.Item99 };
-                infNfePag.tPag = TNFeInfNFePagTPag.Item01; //DINHEIRO
+                if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE) && (listaSaidaPagamentos.Count > 0))
+                {
+                    nfe.infNFe.pag = new TNFeInfNFePag[listaSaidaPagamentos.Count];
+                    int countPag = 0;
+                    foreach (tb_solicitacao_pagamento pagamento in listaSaidaPagamentos)
+                    {
+                        TNFeInfNFePag infNfePag = new TNFeInfNFePag();
+                        //infNfePag.card = new TNFeInfNFePagCard() { cAut = "XX", CNPJ = "xxx", tBand = TNFeInfNFePagCardTBand.Item99 }; //01-Visa 02-Master 03-American 04-Sorocred 99-Outros
+                        if (pagamento.codFormaPagamento == FormaPagamento.DINHEIRO)
+                        {
+                            infNfePag.tPag = TNFeInfNFePagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.vPag = formataValorNFe(pagamento.valor);
+                        }
+                        else
+                        {
+                            infNfePag.tPag = TNFeInfNFePagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.vPag = formataValorNFe(pagamento.valor);
+                        }
+                        nfe.infNFe.pag[countPag] = infNfePag;
+                        countPag++;
+                    }
+                }
 
 
 
@@ -1320,6 +1334,11 @@ namespace Negocio
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
                     icmsTot.vDesc = formataValorNFe(saida.Desconto);
+                    icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS); // o valor da base de cálculo deve ser a dos produtos.
+                    icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
+                    icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
+                    icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
+                
                 }
                 else if (valorTotalDesconto >= 0)
                 {

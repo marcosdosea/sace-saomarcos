@@ -61,9 +61,8 @@ order by YEAR(dataSaida) asc, MONTH(dataSaida) asc</CommandText>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        tb_entrada_produto.codEntrada, tb_entrada.dataEntrada, tb_pessoa.nome AS nomeFornecedor, tp_tipo_entrada.descricaoTipoEntrada, 
-                         tb_entrada_produto.quantidade * tb_entrada_produto.quantidadeEmbalagem AS quantidade, 
-                         tb_entrada_produto.valorUnitario / tb_entrada_produto.quantidadeEmbalagem AS valorUnitario, tb_entrada_produto.preco_custo, 
-                         tb_entrada_produto.codEntradaProduto, tb_entrada_produto.codCST
+                         tb_entrada_produto.quantidade * tb_entrada_produto.quantidadeEmbalagem AS quantidade, tb_entrada_produto.valorUnitario / tb_entrada_produto.quantidadeEmbalagem AS valorUnitario, 
+                         tb_entrada_produto.preco_custo, tb_entrada_produto.codEntradaProduto, tb_entrada_produto.codCST
 FROM            tb_entrada INNER JOIN
                          tb_entrada_produto ON tb_entrada.codEntrada = tb_entrada_produto.codEntrada INNER JOIN
                          tp_tipo_entrada ON tb_entrada.codTipoEntrada = tp_tipo_entrada.codTipoEntrada INNER JOIN

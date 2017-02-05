@@ -23,7 +23,7 @@ namespace Telas
         static string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
         static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
         static string SERVIDOR_NFE_DEPOSITO = Properties.Settings.Default.ServidorNfeDeposito.ToUpper();
-
+        static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
         static string SERVIDOR_CARTAO = Properties.Settings.Default.ServidorCartao.ToUpper();
             
        
@@ -36,6 +36,7 @@ namespace Telas
         public Principal()
         {
             InitializeComponent();
+            
         }
 
        [STAThread]
@@ -279,7 +280,8 @@ namespace Telas
         {
             try
             {
-                backgroundWorkerAtualizarCupons.RunWorkerAsync();
+                ProcessarDocumentosFiscais();
+                //backgroundWorkerAtualizarCupons.RunWorkerAsync();
             }
             catch (Exception)
             {
@@ -289,7 +291,11 @@ namespace Telas
 
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
         {
-            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            ProcessarDocumentosFiscais();
+        }
+
+        private static void ProcessarDocumentosFiscais()
+        {
             if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
             {
                 List<SolicitacaoPagamento> listaSolicitacaoPagamento = GerenciadorSolicitacaoDocumento.GetInstance().ObterSolicitacaoPagamentoCartao();
@@ -301,13 +307,13 @@ namespace Telas
                         listaPagamento.Add(new Cartao.Pagamento()
                         {
                             NomeCartao = solicitacaoPagamento.NomeCartaoCredito,
-                            QuantidadeParcelas = (int) solicitacaoPagamento.Parcelas,
+                            QuantidadeParcelas = (int)solicitacaoPagamento.Parcelas,
                             TipoCartao = solicitacaoPagamento.TipoCartao.Equals(SolicitacaoPagamento.TCartao.CREDITO) ? Cartao.TipoCartao.CREDITO : Cartao.TipoCartao.DEBITO,
                             TipoParcelamento = Cartao.TipoParcelamento.LOJA,
                             CodSolicitacaoPagamento = solicitacaoPagamento.CodSolicitacaoPagamento,
                             CodSolicitacao = solicitacaoPagamento.CodSolicitacao,
                             Situacao = Cartao.Pagamento.SituacaoPagamento.SOLICITADA,
-                            Valor = (double) solicitacaoPagamento.Valor,
+                            Valor = (double)solicitacaoPagamento.Valor,
                         });
                     }
                     if (comunicacaoCartao == null)

@@ -215,11 +215,20 @@ namespace Telas
             int posicao = nfeControleBindingSource.Position;
             IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>) nfeControleBindingSource.DataSource;
             IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
-            if ((listaNfeControleExibida.Count() != listaNfeControle.Count()) && 
-                !listaNfeControleExibida.Select(nfe=>nfe.SituacaoNfe).Equals(listaNfeControle.Select(nfe=>nfe.SituacaoNfe)) ){
-                nfeControleBindingSource.DataSource = listaNfeControle;
-                nfeControleBindingSource.Position = posicao;
-                nfeControleBindingSource.ResumeBinding();
+            if (listaNfeControle.Count() > 0)
+            {
+                var listaControleExibida = new HashSet<String>(listaNfeControleExibida.Select(nfe => nfe.SituacaoNfe).ToList());
+                var listaControle = new HashSet<String>(listaNfeControle.Select(nfe => nfe.SituacaoNfe).ToList());
+                //Boolean iguais = listaControle.SetEquals(listaControleExibida);
+
+
+                if ((listaNfeControleExibida.Count() != listaNfeControle.Count()) ||
+                    !listaControle.SetEquals(listaControleExibida))
+                {
+                    nfeControleBindingSource.DataSource = listaNfeControle;
+                    nfeControleBindingSource.Position = posicao;
+                    nfeControleBindingSource.ResumeBinding();
+                }
             }
         }
 
