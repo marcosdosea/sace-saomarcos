@@ -117,20 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RESULTADO_CAPPTA_1" xml:space="preserve">
-    <value>Não autorizado. Por favor, realize a autenticação para utilizar o CapptaGpPlus</value>
-  </data>
-  <data name="RESULTADO_CAPPTA_10" xml:space="preserve">
-    <value>Uma reimpressão ou cancelamento foi executada dentro de uma sessão multi-cartões</value>
-  </data>
-  <data name="RESULTADO_CAPPTA_2" xml:space="preserve">
-    <value>O CapptaGpPlus esta sendo inicializado, tente novamente em alguns instantes</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="hipercard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\hipercard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RESULTADO_CAPPTA_3" xml:space="preserve">
     <value>O formato da requisição recebida pelo CapptaGpPlus é inválido</value>
   </data>
-  <data name="RESULTADO_CAPPTA_4" xml:space="preserve">
-    <value>Operação cancelada pelo operador</value>
+  <data name="master" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\master.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RESULTADO_CAPPTA_10" xml:space="preserve">
+    <value>Uma reimpressão ou cancelamento foi executada dentro de uma sessão multi-cartões</value>
+  </data>
+  <data name="RESULTADO_CAPPTA_8" xml:space="preserve">
+    <value>Ocorreu um erro na comunicação entre a CappAPI e o CapptaGpPlus</value>
+  </data>
+  <data name="RESULTADO_CAPPTA_2" xml:space="preserve">
+    <value>O CapptaGpPlus esta sendo inicializado, tente novamente em alguns instantes</value>
+  </data>
+  <data name="hipercard2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\hipercard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RESULTADO_CAPPTA_1" xml:space="preserve">
+    <value>Não autorizado. Por favor, realize a autenticação para utilizar o CapptaGpPlus</value>
+  </data>
+  <data name="RESULTADO_CAPPTA_7" xml:space="preserve">
+    <value>Ocorreu um erro interno no CapptaGpPlus</value>
+  </data>
+  <data name="hipercard3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\hipercard1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hipercard1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\hipercard1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mastercard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\mastercard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RESULTADO_CAPPTA_5" xml:space="preserve">
     <value>Pagamento não autorizado/pendente/não encontrado</value>
@@ -138,13 +160,19 @@
   <data name="RESULTADO_CAPPTA_6" xml:space="preserve">
     <value>Pagamento ou cancelamento negados pela rede adquirente</value>
   </data>
-  <data name="RESULTADO_CAPPTA_7" xml:space="preserve">
-    <value>Ocorreu um erro interno no CapptaGpPlus</value>
+  <data name="RESULTADO_CAPPTA_4" xml:space="preserve">
+    <value>Operação cancelada pelo operador</value>
   </data>
-  <data name="RESULTADO_CAPPTA_8" xml:space="preserve">
-    <value>Ocorreu um erro na comunicação entre a CappAPI e o CapptaGpPlus</value>
+  <data name="elo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\elo.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="banese" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\banese.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RESULTADO_CAPPTA_9" xml:space="preserve">
     <value>Não é possível realizar uma operação sem que se tenha finalizado o último pagamento</value>
+  </data>
+  <data name="visa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\visa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

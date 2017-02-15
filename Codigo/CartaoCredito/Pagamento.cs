@@ -7,6 +7,8 @@ namespace Cartao
 {
     public enum TipoCartao { DEBITO, CREDITO, CREDIARIO };
     public enum TipoParcelamento { ADMINISTRADORA = 1, LOJA = 2, INDEFINIDO = 0 };
+   
+
     //public enum TipoProcessamento { PAGAMENTO, CANCELAMENTO, REIMPRESSAO, CREDITO } 
         
     public class Pagamento

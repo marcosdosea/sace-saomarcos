@@ -43,7 +43,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Servidor")]
+        [global::System.Configuration.DefaultSettingValueAttribute("lenovo-elielma")]
         public string ServidorCartao {
             get {
                 return ((string)(this["ServidorCartao"]));

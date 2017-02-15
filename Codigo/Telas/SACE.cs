@@ -280,13 +280,19 @@ namespace Telas
         {
             try
             {
-                ProcessarDocumentosFiscais();
-                //backgroundWorkerAtualizarCupons.RunWorkerAsync();
+                //ProcessarDocumentosFiscais();
+                backgroundWorkerAtualizarCupons.RunWorkerAsync();
             }
-            catch (Exception)
+            catch (System.Data.EntityException ee)
+            {
+                throw new TelaException("Problemas na comunicação com a base de dados do sistema. Favor entrar em contato com o administrador do sistema.", ee);
+            }
+            catch (Exception )
             {
                 // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
             }
+            
+            
         }
 
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
@@ -318,10 +324,10 @@ namespace Telas
                     }
                     if (comunicacaoCartao == null)
                         comunicacaoCartao = new Cartao.ComunicacaoCartao();
-                    Cartao.FrmProcessarPagamentoCartao frmProcessarPagamentoCartao = new Cartao.FrmProcessarPagamentoCartao(comunicacaoCartao, listaPagamento);
-                    frmProcessarPagamentoCartao.ShowDialog();
-                    GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarPagamentoCartao.ResultadoProcessamento);
-                    frmProcessarPagamentoCartao.Close();
+                    Cartao.FrmProcessarCartao frmProcessarCartao = new Cartao.FrmProcessarCartao(comunicacaoCartao, listaPagamento);
+                    frmProcessarCartao.ShowDialog();
+                    GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarCartao.ResultadoProcessamento);
+                    frmProcessarCartao.Close();
                 }
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR))

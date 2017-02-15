@@ -1244,8 +1244,22 @@ namespace Negocio
                                 prod.vFrete = formataValorNFe(saida.ValorFrete / saida.TotalAVista * saidaProduto.SubtotalAVista);
                             TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
 
-                            if (saidaProduto.CodCfop.Equals(Cfop.CUPOM_FISCAL_EMITIDO)) {
-                            TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
+                            if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN900 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN900();
+                                icms900.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN900CSOSN.Item900;
+                                icms900.orig = Torig.Item0;
+                                
+                                icms900.vBC = formataValorNFe(saidaProduto.BaseCalculoICMS);
+                                icms900.vICMS = formataValorNFe(saidaProduto.ValorICMS);
+                                icms900.vBCST = formataValorNFe(saidaProduto.BaseCalculoICMSSubst);
+                                icms900.vICMSST = formataValorNFe(saidaProduto.ValorICMSSubst);
+                                icms900.pRedBC = formataValorNFe(0);
+                                icms900.pICMS = formataValorNFe(saidaProduto.ValorICMS / saidaProduto.BaseCalculoICMS * 100);
+                                icms.Item = icms900;
+                            }
+                            else if (saidaProduto.CodCfop.Equals(Cfop.CUPOM_FISCAL_EMITIDO)) {
+                                TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                                 icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
                                 icms102.orig = Torig.Item0;
                                 icms.Item = icms102;
@@ -1338,7 +1352,6 @@ namespace Negocio
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
                     icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
                     icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
-                
                 }
                 else if (valorTotalDesconto >= 0)
                 {

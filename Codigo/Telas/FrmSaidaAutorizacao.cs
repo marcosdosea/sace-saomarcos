@@ -14,7 +14,7 @@ namespace Telas
     public partial class FrmSaidaAutorizacao : Form
     {
         private long codSolicitacao;
-        NfeControle nfeControle;
+        //NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
 
@@ -28,7 +28,7 @@ namespace Telas
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
+            //GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
         }
 
         private void timerAtualizaNFCe_Tick(object sender, EventArgs e)
