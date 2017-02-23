@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Servidor</Value>
     </Setting>
     <Setting Name="ServidorNfe" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Retaguarda</Value>
+      <Value Profile="(Default)">retaguarda</Value>
     </Setting>
     <Setting Name="ServidorCartao" Type="System.String" Scope="Application">
       <Value Profile="(Default)">lenovo-elielma</Value>

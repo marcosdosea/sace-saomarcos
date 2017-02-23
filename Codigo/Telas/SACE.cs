@@ -326,7 +326,7 @@ namespace Telas
                         comunicacaoCartao = new Cartao.ComunicacaoCartao();
                     Cartao.FrmProcessarCartao frmProcessarCartao = new Cartao.FrmProcessarCartao(comunicacaoCartao, listaPagamento);
                     frmProcessarCartao.ShowDialog();
-                    GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarCartao.ResultadoProcessamento);
+                    GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarCartao.Resultado);
                     frmProcessarCartao.Close();
                 }
             }

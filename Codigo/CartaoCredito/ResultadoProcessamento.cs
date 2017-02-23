@@ -31,6 +31,10 @@ namespace Cartao
     
     public class ResultadoProcessamento
     {
+        public ResultadoProcessamento()
+        {
+            ListaRespostaAprovada = new List<RespostaAprovada>();
+        }
         public bool Aprovado { get; set; }
         public long CodSolicitacao { get; set; }
         public RespostaRecusada RespostaRecusada { get; set; }

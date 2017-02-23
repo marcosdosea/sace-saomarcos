@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.btnProcessar = new System.Windows.Forms.Button();
-            this.lblParcelas = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.pictureBanese = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureHipercard = new System.Windows.Forms.PictureBox();
@@ -45,7 +45,7 @@
             this.lblOperacao = new System.Windows.Forms.Label();
             this.lblCodPedido = new System.Windows.Forms.Label();
             this.lblValor = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblParcelas = new System.Windows.Forms.Label();
             this.lblAutorizacao = new System.Windows.Forms.Label();
             this.lblNumeroCartoes = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBanese)).BeginInit();
@@ -67,15 +67,15 @@
             this.btnProcessar.UseVisualStyleBackColor = true;
             this.btnProcessar.Click += new System.EventHandler(this.btnProcessar_Click);
             // 
-            // lblParcelas
+            // btnCancelar
             // 
-            this.lblParcelas.Location = new System.Drawing.Point(593, 363);
-            this.lblParcelas.Name = "lblParcelas";
-            this.lblParcelas.Size = new System.Drawing.Size(97, 27);
-            this.lblParcelas.TabIndex = 28;
-            this.lblParcelas.Tag = "";
-            this.lblParcelas.Text = "ESC - Cancelar";
-            this.lblParcelas.UseVisualStyleBackColor = true;
+            this.btnCancelar.Location = new System.Drawing.Point(593, 363);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(97, 27);
+            this.btnCancelar.TabIndex = 28;
+            this.btnCancelar.Tag = "";
+            this.btnCancelar.Text = "ESC - Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // pictureBanese
             // 
@@ -223,16 +223,16 @@
             this.lblValor.TabIndex = 43;
             this.lblValor.Text = "10000,00";
             // 
-            // label7
+            // lblParcelas
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(361, 311);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 24);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "06";
+            this.lblParcelas.AutoSize = true;
+            this.lblParcelas.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblParcelas.ForeColor = System.Drawing.Color.Red;
+            this.lblParcelas.Location = new System.Drawing.Point(361, 311);
+            this.lblParcelas.Name = "lblParcelas";
+            this.lblParcelas.Size = new System.Drawing.Size(32, 24);
+            this.lblParcelas.TabIndex = 44;
+            this.lblParcelas.Text = "06";
             // 
             // lblAutorizacao
             // 
@@ -263,7 +263,7 @@
             this.ClientSize = new System.Drawing.Size(693, 393);
             this.Controls.Add(this.lblNumeroCartoes);
             this.Controls.Add(this.lblAutorizacao);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblParcelas);
             this.Controls.Add(this.lblValor);
             this.Controls.Add(this.lblCodPedido);
             this.Controls.Add(this.lblOperacao);
@@ -276,7 +276,7 @@
             this.Controls.Add(this.pictureElo);
             this.Controls.Add(this.pictureHipercard);
             this.Controls.Add(this.pictureBanese);
-            this.Controls.Add(this.lblParcelas);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnProcessar);
             this.Controls.Add(this.pictureMastercard);
             this.Controls.Add(this.pictureVisa);
@@ -285,6 +285,7 @@
             this.Name = "FrmProcessarCartao";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Processar Pagamento de Cartões de Crédito";
+            this.Load += new System.EventHandler(this.FrmProcessarCartao_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBanese)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureHipercard)).EndInit();
@@ -299,7 +300,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnProcessar;
-        private System.Windows.Forms.Button lblParcelas;
+        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.PictureBox pictureBanese;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureHipercard;
@@ -315,7 +316,7 @@
         private System.Windows.Forms.Label lblOperacao;
         private System.Windows.Forms.Label lblCodPedido;
         private System.Windows.Forms.Label lblValor;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblParcelas;
         private System.Windows.Forms.Label lblAutorizacao;
         private System.Windows.Forms.Label lblNumeroCartoes;
     }

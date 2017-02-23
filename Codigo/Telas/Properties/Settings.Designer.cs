@@ -34,7 +34,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
+        [global::System.Configuration.DefaultSettingValueAttribute("retaguarda")]
         public string ServidorNfe {
             get {
                 return ((string)(this["ServidorNfe"]));

@@ -14,53 +14,55 @@ namespace Cartao
         private List<Pagamento> listaPagamentos;
         private ComunicacaoCartao comunicacaoCartao;
         private int quantidadePagamentosProcessada = 0;
-
-        public ResultadoProcessamento ResultadoProcessamento { get; set; }
-
+        public ResultadoProcessamento Resultado { get; set; }
+        
         public FrmProcessarCartao(ComunicacaoCartao comunicacaoCartao, List<Pagamento> listaPagamentos)
         {
             InitializeComponent();
             this.listaPagamentos = listaPagamentos;
-            ResultadoProcessamento = new ResultadoProcessamento();
             this.comunicacaoCartao = comunicacaoCartao;
-            ProcessarCartao(comunicacaoCartao, listaPagamentos);
+            this.Resultado = comunicacaoCartao.Resultado;
+        }
+
+        private void FrmProcessarCartao_Load(object sender, EventArgs e)
+        {
             btnProcessar.Focus();
         }
 
         private void ProcessarCartao(ComunicacaoCartao comunicacaoCartao, List<Pagamento> listaPagamentos)
         {
-            bool cartoesAprovados = true;
-            while (cartoesAprovados && quantidadePagamentosProcessada < listaPagamentos.Count) {
+            if (listaPagamentos.Count > 1)
+                comunicacaoCartao.IniciarMultiCartoes(listaPagamentos.Count);
+            comunicacaoCartao.Resultado.Aprovado = true;
+            while (comunicacaoCartao.Resultado.Aprovado && quantidadePagamentosProcessada < listaPagamentos.Count)
+            {
                 Pagamento pagamento = listaPagamentos.ElementAt(quantidadePagamentosProcessada);
-                quantidadePagamentosProcessada++;
                 AtualizarDadosTela(pagamento, quantidadePagamentosProcessada);
-                ResultadoProcessamento resultado = null;// comunicacaoCartao.ProcessarPagamentos(pagamento);
-                cartoesAprovados = resultado.Aprovado;
+                comunicacaoCartao.ProcessarPagamento(listaPagamentos.ElementAt(quantidadePagamentosProcessada));
+                quantidadePagamentosProcessada++;
             }
-            //if (cartoesAprovados)
-            //    comunicacaoCartao.FinalizarPagamento();
+            if (comunicacaoCartao.Resultado.Aprovado)
+                comunicacaoCartao.FinalizarPagamento();
         }
 
         private void AtualizarDadosTela(Pagamento pagamento, int ordemPagamento)
         {
-            pictureBanese.Visible = pagamento.NomeCartao.Equals("BANESECARD");
-            pictureVisa.Visible = pagamento.NomeCartao.Equals("VISA");
-            pictureMastercard.Visible = pagamento.NomeCartao.Equals("MASTERCARD");
-            pictureElo.Visible = pagamento.NomeCartao.Equals("ELO");
+            pictureBanese.Visible = pagamento.NomeCartao.Contains("BANESECARD");
+            pictureVisa.Visible = pagamento.NomeCartao.Contains("VISA");
+            pictureMastercard.Visible = pagamento.NomeCartao.Contains("MASTERCARD");
+            pictureElo.Visible = pagamento.NomeCartao.Contains("ELO");
+            pictureHipercard.Visible = pagamento.NomeCartao.Contains("HIPERCARD");
             lblAutorizacao.Text = "";
             lblCodPedido.Text = "";
             lblNumeroCartoes.Text = ordemPagamento + "/" + listaPagamentos.Count;
             lblOperacao.Text = pagamento.TipoCartao.ToString();
-            lblParcelas.Text = pagamento.QuantidadeParcelas.ToString("N2");
+            btnCancelar.Text = pagamento.QuantidadeParcelas.ToString("N2");
             lblValor.Text = pagamento.Valor.ToString("N2");
         }
-
 
         private void btnProcessar_Click(object sender, EventArgs e)
         {
             ProcessarCartao(comunicacaoCartao, listaPagamentos);
-            this.Close();
         }
-
    }
 }

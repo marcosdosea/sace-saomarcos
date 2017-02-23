@@ -14,17 +14,18 @@ namespace Cartao
     public class ComunicacaoCartao
     {
         public enum ViasImpressao { TODAS = 1, CLIENTE = 2, LOJA = 3 }
-        
+
         private const int INTERVALO_MILISEGUNDOS = 500;
         private ClienteCappta clienteCappta;
         private bool processandoPagamento;
         private bool sessaoMultiTefEmAndamento;
         private int quantidadeCartoes;
-        private ResultadoProcessamento resultadoProcessamento;
+        public ResultadoProcessamento Resultado { get; set; }
 
         public ComunicacaoCartao()
         {
             clienteCappta = new ClienteCappta();
+            Resultado = new ResultadoProcessamento();
             AutenticarPdv();
         }
 
@@ -41,7 +42,7 @@ namespace Cartao
             {
                 this.InvalidarAutenticacao("PDV inválido");
             }
-            
+
 
             int resultadoAutenticacao = clienteCappta.AutenticarPdv(cnpj, pdv, chaveAutenticacao);
             if (resultadoAutenticacao == 0) { return true; }
@@ -51,36 +52,28 @@ namespace Cartao
             return false;
         }
 
-
-        public ResultadoProcessamento ProcessarPagamentos(List<Pagamento> pagamentos)
+        public void IniciarMultiCartoes(int quantidadeCartoes)
         {
-            resultadoProcessamento = new ResultadoProcessamento();
-            resultadoProcessamento.ListaRespostaAprovada = new List<RespostaAprovada>();
-            if (pagamentos.Count() > 1)
-            {
-                quantidadeCartoes = pagamentos.Count;
-                clienteCappta.IniciarMultiCartoes(pagamentos.Count);
-                sessaoMultiTefEmAndamento = true;
-            }
+            this.quantidadeCartoes = quantidadeCartoes;
+            clienteCappta.IniciarMultiCartoes(quantidadeCartoes);
+            sessaoMultiTefEmAndamento = true;
+        }
 
-            foreach(Pagamento pagamento in pagamentos) {
-                if (pagamento.TipoCartao.Equals(TipoCartao.CREDITO))
-                {
-                    PagarCredito(pagamento.Valor, pagamento.QuantidadeParcelas, (int) pagamento.TipoParcelamento, pagamento.CodSolicitacaoPagamento);
-                }
-                else if (pagamento.TipoCartao.Equals(TipoCartao.DEBITO))
-                {
-                    PagarDebito(pagamento.Valor, pagamento.CodSolicitacaoPagamento);
-                }
-                else if (pagamento.TipoCartao.Equals(TipoCartao.CREDIARIO))
-                {
-                    PagarCrediario(pagamento.Valor, pagamento.QuantidadeParcelas, pagamento.CodSolicitacaoPagamento);
-                }
-                resultadoProcessamento.CodSolicitacao = pagamento.CodSolicitacao;
+        public void ProcessarPagamento(Pagamento pagamento)
+        {
+            if (pagamento.TipoCartao.Equals(TipoCartao.CREDITO))
+            {
+                PagarCredito(pagamento.Valor, pagamento.QuantidadeParcelas, (int)pagamento.TipoParcelamento, pagamento.CodSolicitacaoPagamento);
             }
-            if (resultadoProcessamento.Aprovado)
-                FinalizarPagamento();
-            return resultadoProcessamento;
+            else if (pagamento.TipoCartao.Equals(TipoCartao.DEBITO))
+            {
+                PagarDebito(pagamento.Valor, pagamento.CodSolicitacaoPagamento);
+            }
+            else if (pagamento.TipoCartao.Equals(TipoCartao.CREDIARIO))
+            {
+                PagarCrediario(pagamento.Valor, pagamento.QuantidadeParcelas, pagamento.CodSolicitacaoPagamento);
+            }
+            Resultado.CodSolicitacao = pagamento.CodSolicitacao;
         }
 
 
@@ -137,8 +130,8 @@ namespace Cartao
             }
 
             int resultado = ehUltimoCupom
-                ? this.clienteCappta.ReimprimirUltimoCupom((int) vias)
-                : this.clienteCappta.ReimprimirCupom(numeroCupom.ToString("00000000000"), (int) vias);
+                ? this.clienteCappta.ReimprimirUltimoCupom((int)vias)
+                : this.clienteCappta.ReimprimirCupom(numeroCupom.ToString("00000000000"), (int)vias);
 
             if (resultado != 0) { this.CriarMensagemErroPainel(resultado); return; }
 
@@ -192,15 +185,16 @@ namespace Cartao
 
                 if (iteracaoTef is IRequisicaoParametro) { this.RequisitarParametros((IRequisicaoParametro)iteracaoTef); }
 
-                if (iteracaoTef is IRespostaOperacaoRecusada) { 
+                if (iteracaoTef is IRespostaOperacaoRecusada)
+                {
                     this.ExibirDadosOperacaoRecusada((IRespostaOperacaoRecusada)iteracaoTef);
 
                     IRespostaOperacaoRecusada recusada = (IRespostaOperacaoRecusada)iteracaoTef;
                     RespostaRecusada respostaRecusada = new RespostaRecusada();
                     respostaRecusada.CodMotivo = recusada.CodigoMotivo;
                     respostaRecusada.Motivo = recusada.Motivo;
-                    resultadoProcessamento.RespostaRecusada = respostaRecusada;
-                    resultadoProcessamento.Aprovado = false;
+                    Resultado.RespostaRecusada = respostaRecusada;
+                    Resultado.Aprovado = false;
                 }
                 if (iteracaoTef is IRespostaOperacaoAprovada)
                 {
@@ -220,9 +214,9 @@ namespace Cartao
                     respostaAprovada.Valor = valor;
                     respostaAprovada.TipoCartao = tipoCartao;
                     respostaAprovada.CodSolicitacaoPagamento = codSolicitacaoPagamento;
-                    resultadoProcessamento.ListaRespostaAprovada.Add(respostaAprovada);
-                    resultadoProcessamento.Aprovado = true;
-                   
+                    Resultado.ListaRespostaAprovada.Add(respostaAprovada);
+                    Resultado.Aprovado = true;
+
                     this.FinalizarPagamento();
                 }
 
@@ -269,7 +263,7 @@ namespace Cartao
             this.AtualizarResultado(mensagemAprovada.ToString());
         }
 
-        private void FinalizarPagamento()
+        public void FinalizarPagamento()
         {
             if (this.processandoPagamento == false) { return; }
 
@@ -281,22 +275,22 @@ namespace Cartao
                 quantidadeCartoes--;
                 if (this.quantidadeCartoes > 0) { return; }
             };
-            
+
             string mensagem = this.GerarMensagemTransacaoAprovada();
 
             this.processandoPagamento = false;
             this.sessaoMultiTefEmAndamento = false;
 
             DialogResult result = MessageBox.Show(mensagem.ToString(), "Sample API COM", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            if (result == System.Windows.Forms.DialogResult.OK) 
-            { 
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
                 this.clienteCappta.ConfirmarPagamentos();
-                resultadoProcessamento.Aprovado = true;
+                Resultado.Aprovado = true;
             }
-            else 
-            { 
+            else
+            {
                 this.clienteCappta.DesfazerPagamentos();
-                resultadoProcessamento.Aprovado = false;
+                Resultado.Aprovado = false;
             }
         }
 

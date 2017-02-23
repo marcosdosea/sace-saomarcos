@@ -1252,10 +1252,16 @@ namespace Negocio
                                 
                                 icms900.vBC = formataValorNFe(saidaProduto.BaseCalculoICMS);
                                 icms900.vICMS = formataValorNFe(saidaProduto.ValorICMS);
+                                icms900.pICMS = formataValorNFe(0);
+                                if (saidaProduto.BaseCalculoICMS > 0)
+                                    icms900.pICMS = formataValorNFe(saidaProduto.ValorICMS / saidaProduto.BaseCalculoICMS * 100);
                                 icms900.vBCST = formataValorNFe(saidaProduto.BaseCalculoICMSSubst);
                                 icms900.vICMSST = formataValorNFe(saidaProduto.ValorICMSSubst);
+                                icms900.pICMSST = formataValorNFe(0);
+                                if (saidaProduto.BaseCalculoICMSSubst > 0)
+                                    icms900.pICMSST = formataValorNFe(saidaProduto.ValorICMSSubst / saidaProduto.BaseCalculoICMSSubst * 100);
+                                
                                 icms900.pRedBC = formataValorNFe(0);
-                                icms900.pICMS = formataValorNFe(saidaProduto.ValorICMS / saidaProduto.BaseCalculoICMS * 100);
                                 icms.Item = icms900;
                             }
                             else if (saidaProduto.CodCfop.Equals(Cfop.CUPOM_FISCAL_EMITIDO)) {
@@ -1352,6 +1358,7 @@ namespace Negocio
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
                     icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
                     icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
+                    valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto;
                 }
                 else if (valorTotalDesconto >= 0)
                 {
