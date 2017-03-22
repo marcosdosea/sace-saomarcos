@@ -170,7 +170,7 @@ namespace Negocio
             {
                 Pessoa fornecedor = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
                 if (fornecedor == null)
-                   fornecedor = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.emit.xNome).ElementAtOrDefault(0);
+                    fornecedor = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50)).ElementAtOrDefault(0);
                 if (fornecedor == null)
                 {
                     fornecedor = new Pessoa();
@@ -201,26 +201,59 @@ namespace Negocio
                 }
                 else
                 {
-                    fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
-                    fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 50 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xNome.ToUpper();
-                    fornecedor.Ie = nfe.infNFe.emit.IE;
-                    fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
-                    fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
-                    fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
-                    fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
-                    fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
-                    if (string.IsNullOrEmpty(nfe.infNFe.emit.enderEmit.fone))
-                        fornecedor.Fone1 = "";
+                    if (fornecedor.CpfCnpj.Equals(nfe.infNFe.emit.Item))
+                    {
+                        fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
+                        fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 50 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xNome.ToUpper();
+                        fornecedor.Ie = nfe.infNFe.emit.IE;
+                        fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
+                        fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
+                        fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
+                        fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
+                        fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
+                        if (string.IsNullOrEmpty(nfe.infNFe.emit.enderEmit.fone))
+                            fornecedor.Fone1 = "";
+                        else
+                            fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone.Length <= 12 ? nfe.infNFe.emit.enderEmit.fone : nfe.infNFe.emit.enderEmit.fone.Substring(0, 12);
+                        fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
+                        fornecedor.Ie = nfe.infNFe.emit.IE;
+                        fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
+                        fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
+                        fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
+                        fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
+                        GerenciadorPessoa.GetInstance().Atualizar(fornecedor);
+                        return fornecedor.CodPessoa;
+                    }
                     else
-                        fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone.Length <= 12 ? nfe.infNFe.emit.enderEmit.fone : nfe.infNFe.emit.enderEmit.fone.Substring(0, 12);
-                    fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
-                    fornecedor.Ie = nfe.infNFe.emit.IE;
-                    fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
-                    fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
-                    fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
-                    fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
-                    GerenciadorPessoa.GetInstance().Atualizar(fornecedor);
-                    return fornecedor.CodPessoa;
+                    {
+                        // fornecedor com mesmo nome mas com cnpjs distintos.
+                        fornecedor = new Pessoa();
+                        fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
+                        fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 36 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 36) + nfe.infNFe.emit.Item : nfe.infNFe.emit.xNome.ToUpper() + nfe.infNFe.emit.Item;
+                        if (nfe.infNFe.emit.xFant != null)
+                            fornecedor.NomeFantasia = nfe.infNFe.emit.xFant.Length > 50 ? nfe.infNFe.emit.xFant.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xFant.ToUpper();
+                        else
+                            fornecedor.NomeFantasia = fornecedor.Nome;
+                        fornecedor.Ie = nfe.infNFe.emit.IE;
+                        fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
+                        fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
+                        fornecedor.Cidade = nfe.infNFe.emit.enderEmit.xMun.ToUpper();
+                        fornecedor.CodMunicipioIBGE = Convert.ToInt32(nfe.infNFe.emit.enderEmit.cMun);
+                        fornecedor.Complemento = (nfe.infNFe.emit.enderEmit.xCpl != null) ? nfe.infNFe.emit.enderEmit.xCpl.ToUpper() : "";
+                        if (string.IsNullOrEmpty(nfe.infNFe.emit.enderEmit.fone))
+                            fornecedor.Fone1 = "";
+                        else
+                            fornecedor.Fone1 = nfe.infNFe.emit.enderEmit.fone.Length <= 12 ? nfe.infNFe.emit.enderEmit.fone : nfe.infNFe.emit.enderEmit.fone.Substring(0, 12);
+                        fornecedor.Bairro = nfe.infNFe.emit.enderEmit.xBairro.ToUpper();
+                        fornecedor.Ie = nfe.infNFe.emit.IE;
+                        if (nfe.infNFe.emit.IEST != null)
+                            fornecedor.IeSubstituto = nfe.infNFe.emit.IEST;
+                        fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
+                        fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
+                        fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
+                        return GerenciadorPessoa.GetInstance().Inserir(fornecedor);
+
+                    }
                 }
             }
             else

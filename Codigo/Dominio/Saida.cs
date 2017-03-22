@@ -12,6 +12,9 @@ namespace Dominio
         public const int TIPO_PRE_VENDA_NFCE = 16;
         public const int TIPO_VENDA = 3;
 
+        public const int TIPO_PRE_CREDITO = 17;
+        public const int TIPO_CREDITO = 18;
+
         public const int TIPO_PRE_REMESSA_DEPOSITO = 9;
         public const int TIPO_REMESSA_DEPOSITO = 4;
 
@@ -29,6 +32,8 @@ namespace Dominio
         public const int TIPO_PRE_REMESSA_CONSERTO = 13;
 
 
+
+
         //public const int TIPO_CONSUMO_INTERNO = 5;
 
         public static List<int> LISTA_TIPOS_REMESSA_CONSERTO = new List<int>() { Saida.TIPO_PRE_REMESSA_CONSERTO, Saida.TIPO_REMESSA_CONSERTO };
@@ -36,7 +41,7 @@ namespace Dominio
         public static List<int> LISTA_TIPOS_RETORNO_DEPOSITO = new List<int>() { Saida.TIPO_PRE_RETORNO_DEPOSITO, Saida.TIPO_RETORNO_DEPOSITO };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_FORNECEDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR, Saida.TIPO_DEVOLUCAO_FORNECEDOR };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR, Saida.TIPO_DEVOLUCAO_CONSUMIDOR };
-        public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA, Saida.TIPO_PRE_VENDA_NFCE };
+        public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA, Saida.TIPO_PRE_VENDA_NFCE, Saida.TIPO_CREDITO, Saida.TIPO_PRE_CREDITO };
 
 
         public int CodLojaOrigem { get; set; }

@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label tipoSaidaLabel;
             System.Windows.Forms.Label descricaoLabel;
-            System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label parcelasLabel;
             System.Windows.Forms.Label descontoAcrescimoLabel;
@@ -46,6 +45,7 @@
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label cpf_CnpjLabel;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.totalPagarLabel = new System.Windows.Forms.Label();
             this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saidaPagamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalPagarTextBox = new System.Windows.Forms.TextBox();
@@ -82,7 +82,6 @@
             this.trocoTextBox = new System.Windows.Forms.TextBox();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             parcelasLabel = new System.Windows.Forms.Label();
             descontoAcrescimoLabel = new System.Windows.Forms.Label();
@@ -125,16 +124,6 @@
             descricaoLabel.Size = new System.Drawing.Size(171, 24);
             descricaoLabel.TabIndex = 13;
             descricaoLabel.Text = "Forma Pagamento:";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label1.Location = new System.Drawing.Point(8, 171);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(163, 29);
-            label1.TabIndex = 15;
-            label1.Text = "Total a Pagar:";
             // 
             // label2
             // 
@@ -266,6 +255,16 @@
             cpf_CnpjLabel.Size = new System.Drawing.Size(106, 24);
             cpf_CnpjLabel.TabIndex = 75;
             cpf_CnpjLabel.Text = "CPF / Cnpj:";
+            // 
+            // totalPagarLabel
+            // 
+            this.totalPagarLabel.AutoSize = true;
+            this.totalPagarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPagarLabel.Location = new System.Drawing.Point(11, 171);
+            this.totalPagarLabel.Name = "totalPagarLabel";
+            this.totalPagarLabel.Size = new System.Drawing.Size(163, 29);
+            this.totalPagarLabel.TabIndex = 76;
+            this.totalPagarLabel.Text = "Total a Pagar:";
             // 
             // saidaBindingSource
             // 
@@ -696,9 +695,9 @@
             this.Controls.Add(label4);
             this.Controls.Add(descontoAcrescimoLabel);
             this.Controls.Add(label3);
-            this.Controls.Add(label1);
             this.Controls.Add(parcelasLabel);
             this.Controls.Add(intervaloDiasLabel);
+            this.Controls.Add(this.totalPagarLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmSaidaPagamento";
@@ -756,5 +755,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeCartaoCreditoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn parcelas;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label totalPagarLabel;
     }
 }

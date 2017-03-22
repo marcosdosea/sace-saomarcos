@@ -235,9 +235,20 @@ namespace Negocio
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
 
+                if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
+                {
+                    List<Conta> listaContas = GerenciadorConta.GetInstance(null).ObterPorSaida(saida.CodSaida).ToList();
+                    GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
+                    foreach(Conta conta in listaContas) {
+                        GerenciadorConta.GetInstance(saceContext).Remover(conta.CodConta);
+
+                    }
+                }
+
                 if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) || 
-                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
+                    saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) ||
+                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) || 
+                    saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
                 {
                     var query = from saidaE in saceContext.tb_saida
                                 where saidaE.codSaida == saida.CodSaida
@@ -575,6 +586,17 @@ namespace Negocio
 
                         RegistrarPagamentosSaida(saidaPagamentos, saida);
                     }
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA) || tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA_NFCE)))
+                    {
+                        if (saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
+                        {
+                            throw new NegocioException("Nenhum cliente selecionado. É necessário selecionar um cliente para realizar o crédito.");
+                        }
+                        saida.TipoSaida = Saida.TIPO_CREDITO;
+                        saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+                        Atualizar(saida);
+                        RegistrarPagamentosSaida(saidaPagamentos, saida);
+                    }
                     else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     {
                         saida.TipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
@@ -757,6 +779,28 @@ namespace Negocio
         public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
         {
             decimal totalRegistrado = 0;
+
+            if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO)) {
+                // Para cada pagamento é criada uma nova conta
+                Conta conta = new Conta();
+                conta.CodPessoa = saida.CodCliente;
+                conta.CodPlanoConta = PlanoConta.SAIDA_PRODUTOS;
+                conta.CodSaida = saida.CodSaida;
+                conta.CodEntrada = Global.ENTRADA_PADRAO; // entrada não válida
+                conta.CodPessoa = saida.CodCliente;
+                conta.CodPagamento = 0; //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+                conta.Desconto = 0;
+                conta.FormatoConta = Conta.FORMATO_CONTA_CREDITO;
+                conta.NumeroDocumento = "";
+                conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA.ToString();
+                conta.TipoConta = Conta.CONTA_RECEBER.ToString();
+                conta.Valor = (decimal)saida.TotalAVista * (-1);
+                
+                conta.DataVencimento = saida.DataSaida;
+                conta.Desconto = 0;
+                conta.CodConta = GerenciadorConta.GetInstance(saceContext).Inserir(conta);
+            }
+
 
             foreach (SaidaPagamento pagamento in pagamentos)
             {

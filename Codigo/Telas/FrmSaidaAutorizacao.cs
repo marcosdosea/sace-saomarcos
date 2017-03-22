@@ -36,19 +36,18 @@ namespace Telas
             if (!exibiuResultadoCartao || !exibiuResultadoNfe)
             {
                 Dados.tb_solicitacao_documento documentoE = GerenciadorSolicitacaoDocumento.GetInstance().ObterSolicitacaoDocumento(codSolicitacao);
-                if (documentoE.haPagamentoCartao && !exibiuResultadoCartao)
+                if (documentoE != null)
                 {
-                    ExibirResultadoProcessamentoCartao(documentoE);
+                    if (documentoE.haPagamentoCartao && !exibiuResultadoCartao)
+                    {
+                        ExibirResultadoProcessamentoCartao(documentoE);
+                    }
+                    else if (!documentoE.haPagamentoCartao && !exibiuResultadoCartao)
+                    {
+                        lblCartao.Text = "Cartão de crédito/débito não utilizado.";
+                        exibiuResultadoCartao = true;
+                    }
                 }
-                else if (!documentoE.haPagamentoCartao && !exibiuResultadoCartao)
-                {
-                    lblCartao.Text = "Cartão de crédito/débito não utilizado.";
-                    exibiuResultadoCartao = true;
-                }
-                //else if (!exibiuResultadoNfe)
-                //{
-                //    ExibirResultadoProcessamentoNfe(documentoE);
-                //}
             }
         }
 

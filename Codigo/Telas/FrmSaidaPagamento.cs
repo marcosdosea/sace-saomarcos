@@ -48,6 +48,12 @@ namespace Telas
             {
                 formaPagamentoBindingSource.Position = 0;
             }
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+            {
+                totalTextBox.TabStop = true;
+                totalPagarLabel.Text = "Total a Creditar";
+            }
+
             InicializaVariaveis();
             AtualizaValores();
         }
@@ -143,48 +149,66 @@ namespace Telas
                         List<SaidaPagamento> listaPagamentosSaida = (List<SaidaPagamento>)saidaPagamentoBindingSource.DataSource;
                         bool limiteCompraLiberado = true;
                         Pessoa cliente = (Pessoa)clienteBindingSource.Current;
-                        // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
-                        if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
-                        {
-                            decimal limiteCompraDisponivel = GerenciadorPessoa.GetInstance().ObterLimiteCompraDisponivel(cliente);
-                            if (limiteCompraDisponivel <= saida.TotalAVista)
-                            {
-                                if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
-                                {
-                                    limiteCompraLiberado = false;
-                                }
-                            }
-                        }
-                        if (limiteCompraLiberado)
+
+                        if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                         {
                             GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
-                            if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA) || frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
-                            {
-                                // quando tem pagamento crediário imprime o DAV
-                                bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
-                                if (temPagamentoCrediario && cliente.ImprimirDAV)
+                            if (listaPagamentosSaida.Where(ps=> ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0) {
+                                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+                                GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
+                                if (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No)
                                 {
-                                    if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.BEMATECH))
+                                    GerenciadorSaida.GetInstance(null).Remover(saida);
+                                }
+                            
+                            }
+                        }
+                        else
+                        {
+
+                            // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
+                            if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
+                            {
+                                decimal limiteCompraDisponivel = GerenciadorPessoa.GetInstance().ObterLimiteCompraDisponivel(cliente);
+                                if (limiteCompraDisponivel <= saida.TotalAVista)
+                                {
+                                    if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
                                     {
-                                        MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        limiteCompraLiberado = false;
                                     }
                                 }
-                                // imprimir cupom fiscal
-                                if ((!temPagamentoCrediario) && (saida.TotalAVista > 0))
+                            }
+                            if (limiteCompraLiberado)
+                            {
+                                GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                                if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA) || frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
                                 {
-                                    bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
-                                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
-
-                                    if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                                    // quando tem pagamento crediário imprime o DAV
+                                    bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
+                                    if (temPagamentoCrediario && cliente.ImprimirDAV)
                                     {
-                                        long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(codSolicitacao);
-                                        frmSaidaAutorizacao.ShowDialog();
-                                        frmSaidaAutorizacao.Dispose();
+                                        if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.BEMATECH))
+                                        {
+                                            MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        }
                                     }
-                                    else
+                                    // imprimir cupom fiscal
+                                    if ((!temPagamentoCrediario) && (saida.TotalAVista > 0))
                                     {
-                                        GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
+                                        bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
+                                        List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+
+                                        if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                                        {
+                                            long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(codSolicitacao);
+                                            frmSaidaAutorizacao.ShowDialog();
+                                            frmSaidaAutorizacao.Dispose();
+                                        }
+                                        else
+                                        {
+                                            GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
+                                        }
                                     }
                                 }
                             }
@@ -250,25 +274,37 @@ namespace Telas
 
             //Preenche de forma automática o valor recebido com o valor que falta receber
             Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
-            if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
             {
                 //if ((saida.TotalAVista - saida.TotalPago) > 0)
-                if (Math.Abs(saida.TotalAVista) > Math.Abs(saida.TotalPago))
+                if (Math.Abs(saida.Total) > Math.Abs(saida.TotalPago))
                 {
-                    valorRecebidoTextBox.Text = (saida.TotalAVista - saida.TotalPago).ToString("N2");
+                    valorRecebidoTextBox.Text = (saida.Total - saida.TotalPago).ToString("N2");
                 }
-            }
 
-            // Ajusta o valor do desconto que está sendo exibido de acordo com o total a vista
-            if (saida.TotalAVista != 0)
-            {
-                saida.Desconto = (saida.Total - saida.TotalAVista) / saida.Total * 100;
             }
             else
             {
-                saida.Desconto = 0;
+                if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
+                {
+                    //if ((saida.TotalAVista - saida.TotalPago) > 0)
+                    if (Math.Abs(saida.TotalAVista) > Math.Abs(saida.TotalPago))
+                    {
+                        valorRecebidoTextBox.Text = (saida.TotalAVista - saida.TotalPago).ToString("N2");
+                    }
+                }
+
+                // Ajusta o valor do desconto que está sendo exibido de acordo com o total a vista
+                if (saida.TotalAVista != 0)
+                {
+                    saida.Desconto = (saida.Total - saida.TotalAVista) / saida.Total * 100;
+                }
+                else
+                {
+                    saida.Desconto = 0;
+                }
+                descontoTextBox.Text = saida.Desconto.ToString("N2");
             }
-            descontoTextBox.Text = saida.Desconto.ToString("N2");
         }
 
         private void FrmSaidaPagamento_KeyDown(object sender, KeyEventArgs e)

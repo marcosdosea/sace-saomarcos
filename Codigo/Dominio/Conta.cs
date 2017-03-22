@@ -14,7 +14,8 @@ namespace Dominio
         public const string FORMATO_CONTA_BOLETO = "BOLETO";
         public const string FORMATO_CONTA_CARTAO = "CARTAO";
         public const string FORMATO_CONTA_CHEQUE = "CHEQUE";
-
+        public const string FORMATO_CONTA_CREDITO = "CREDITO";
+        
         
         public long CodConta { get; set; }
         public long CodEntrada { get; set; }

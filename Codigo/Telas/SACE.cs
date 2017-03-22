@@ -36,7 +36,6 @@ namespace Telas
         public Principal()
         {
             InitializeComponent();
-            
         }
 
        [STAThread]
@@ -276,23 +275,10 @@ namespace Telas
             frmCfop.Dispose();
         }
 
-        private void timerAtualizaCuponsFiscais_Tick(object sender, EventArgs e)
+        private void timerDocumentos_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                //ProcessarDocumentosFiscais();
+            if (!backgroundWorkerAtualizarCupons.IsBusy)
                 backgroundWorkerAtualizarCupons.RunWorkerAsync();
-            }
-            catch (System.Data.EntityException ee)
-            {
-                throw new TelaException("Problemas na comunicação com a base de dados do sistema. Favor entrar em contato com o administrador do sistema.", ee);
-            }
-            catch (Exception )
-            {
-                // nao precisa lançar nenhuma exceção apenas os cupons ficais emitidos não atualização o SACE
-            }
-            
-            
         }
 
         private void backgroundWorkerAtualizarCupons_DoWork(object sender, DoWorkEventArgs e)
@@ -419,11 +405,6 @@ namespace Telas
             FrmProdutoPreco frmProdutoPreco = new FrmProdutoPreco(false);
             frmProdutoPreco.ShowDialog();
             frmProdutoPreco.Dispose();
-        }
-
-        private void utilitáriosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
      }

@@ -51,7 +51,9 @@ namespace Negocio
             try
             {
                 var repNfe = new RepositorioGenerico<tb_nfe>();
-                var repSaida = new RepositorioGenerico<tb_saida>(repNfe.ObterContexto());
+                var saceContext = (SaceEntities)repNfe.ObterContexto();
+                
+                var repSaida = new RepositorioGenerico<tb_saida>(saceContext);
 
 
                 tb_nfe _nfeE = new tb_nfe();
@@ -60,22 +62,28 @@ namespace Negocio
                 repNfe.Inserir(_nfeE);
 
                 // Associa saídas as nova nfe
-                IEnumerable<tb_saida> saidas;
                 if (string.IsNullOrEmpty(saida.CupomFiscal))
                 {
-                    saidas = repSaida.Obter(s => s.codSaida == saida.CodSaida);
+                    var query = from tb_saida in saceContext.tb_saida
+                                where tb_saida.codSaida == saida.CodSaida
+                                select tb_saida;
+                    foreach (tb_saida _saida in query)
+                    {
+                        _nfeE.tb_saida.Add(_saida);
+                    }
                 }
                 else
                 {
-                    saidas = repSaida.Obter(s => s.pedidoGerado == saida.CupomFiscal);
+                    var query = from tb_saida in saceContext.tb_saida
+                                where tb_saida.pedidoGerado == saida.CupomFiscal
+                                select tb_saida;
+                    foreach (tb_saida _saida in query)
+                    {
+                        _nfeE.tb_saida.Add(_saida);
+                    }
                 }
-                foreach (tb_saida _saidaE in saidas)
-                {
-                    _nfeE.tb_saida.Add(_saidaE);
-                }
-
+                
                 repNfe.SaveChanges();
-
                 return _nfeE.codNFe;
             }
             catch (Exception e)
@@ -432,7 +440,7 @@ namespace Negocio
                 if (Dir.Exists)
                 {
                     // Busca automaticamente todos os arquivos em todos os subdiretórios
-                    string arquivoRetornoChave = "*-ret-gerar-chave.xml";
+                    string arquivoRetornoChave = "NF-e-ret-gerar-chave.xml";
                     FileInfo[] files = Dir.GetFiles(arquivoRetornoChave, SearchOption.TopDirectoryOnly);
                     if (files.Length > 0)
                     {
@@ -444,7 +452,7 @@ namespace Negocio
                     }
                     else
                     {
-                        Thread.Sleep(500);
+                        Thread.Sleep(1000);
                     }
                 }
                 tentativas++;
@@ -957,6 +965,7 @@ namespace Negocio
                     enderDest.xLgr = destinatario.Endereco.Trim();
                     enderDest.xMun = Util.StringUtil.RemoverAcentos(destinatario.NomeMunicipioIBGE);
                     enderDest.xPais = "Brasil";
+                    
                 
                     dest.enderDest = enderDest;
                 }
@@ -1235,6 +1244,7 @@ namespace Negocio
 
 
                             prod.uTrib = produto.Unidade;
+                            
                             prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
                             if (fatorValorOutros > 0)
                                 prod.vOutro = formataValorNFe(saidaProduto.SubtotalAVista * fatorValorOutros);
@@ -1246,6 +1256,7 @@ namespace Negocio
 
                             if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                             {
+                                //TNFeInfNFeDetImpostoICMSICMSSN400 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN400();
                                 TNFeInfNFeDetImpostoICMSICMSSN900 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN900();
                                 icms900.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN900CSOSN.Item900;
                                 icms900.orig = Torig.Item0;
@@ -1284,10 +1295,8 @@ namespace Negocio
                                 icms500.orig = Torig.Item0;
                                 icms.Item = icms500;
                             }
-
                             TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto();
                             imp.Items = new object[] { icms };
-
 
                             TNFeInfNFeDetImpostoPISPISOutr pisOutr = new TNFeInfNFeDetImpostoPISPISOutr();
                             pisOutr.CST = TNFeInfNFeDetImpostoPISPISOutrCST.Item99;
@@ -1323,12 +1332,18 @@ namespace Negocio
 
                             TNFeInfNFeDet nfeDet = new TNFeInfNFeDet();
                             nfeDet.imposto = imp;
-                            
                             nfeDet.prod = prod;
-                            //nfeDet.infAdProd = detalhe.informacoesAdicionais;
                             nfeDet.nItem = nItem.ToString();
-                            nItem++; // número do item na nf-e
+                            if (saidaProduto.ValorIPI > 0 && saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                            {
+                                TNFeInfNFeDetImpostoDevol dev = new TNFeInfNFeDetImpostoDevol();
+                                dev.IPI = new TNFeInfNFeDetImpostoDevolIPI() { vIPIDevol = formataValorNFe(saidaProduto.ValorIPI) };
+                                dev.pDevol = "100"; //TODO: corresponde a 100% da compra realizada. precisa 
+                                nfeDet.impostoDevol = dev;
+                            }
 
+                            nItem++; // número do item na nf-e
+                            
                             listaNFeDet.Add(nfeDet);
                         }
                     }
@@ -1349,18 +1364,26 @@ namespace Negocio
                 icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
                 icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
                 //icmsTot.vTotTrib = formataValorNFe(totalTributos);
-
-
+                icmsTot.vII = formataValorNFe(0);
+                icmsTot.vIPI = formataValorNFe(0);
+                icmsTot.vPIS = formataValorNFe(0);
+                icmsTot.vCOFINS = formataValorNFe(0);
+                icmsTot.vICMSDeson = formataValorNFe(0);
+                icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
+                
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
-                    icmsTot.vDesc = formataValorNFe(saida.Desconto);
                     icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
                     icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
                     icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
-                    valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto;
+                    icmsTot.vIPI = formataValorNFe(0); // não pode destacar o total do ipi na nota de devolução
+
+
+                    valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto; // +saida.ValorIPI;
                 }
-                else if (valorTotalDesconto >= 0)
+                
+                if (valorTotalDesconto >= 0)
                 {
                     icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
                 }
@@ -1369,19 +1392,11 @@ namespace Negocio
                     // desconto fica negativo quand tirar cf de um item que não deveria entrar
                     icmsTot.vDesc = formataValorNFe(0);
                 }
-                icmsTot.vII = formataValorNFe(0);
-                icmsTot.vIPI = formataValorNFe(0);
-                icmsTot.vPIS = formataValorNFe(0);
-                icmsTot.vCOFINS = formataValorNFe(0);
-                icmsTot.vICMSDeson = formataValorNFe(0);
-                icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
                 if (ehNfeComplementar)
                     icmsTot.vNF = formataValorNFe(saida.OutrasDespesas);
                 else
                     icmsTot.vNF = formataValorNFe(valorTotalNota);
 
-
-                //}
                 TNFeInfNFeTotal total = new TNFeInfNFeTotal();
                 total.ICMSTot = icmsTot;
                 nfe.infNFe.total = total;

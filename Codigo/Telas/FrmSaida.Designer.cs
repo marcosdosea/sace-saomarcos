@@ -118,6 +118,7 @@
             this.valorIPITextBox = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
             this.labelAtualizarPrecos = new System.Windows.Forms.Label();
+            this.btnCredito = new System.Windows.Forms.Button();
             codSaidaLabel = new System.Windows.Forms.Label();
             quantidadeLabel = new System.Windows.Forms.Label();
             valorVendaLabel = new System.Windows.Forms.Label();
@@ -442,10 +443,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(593, 661);
+            this.btnCancelar.Location = new System.Drawing.Point(675, 661);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 9;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Esc - Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -1031,12 +1032,23 @@
             this.labelAtualizarPrecos.TabIndex = 79;
             this.labelAtualizarPrecos.Text = "CTRL+A - Atualizar com Preços do Dia";
             // 
+            // btnCredito
+            // 
+            this.btnCredito.Location = new System.Drawing.Point(595, 661);
+            this.btnCredito.Name = "btnCredito";
+            this.btnCredito.Size = new System.Drawing.Size(80, 23);
+            this.btnCredito.TabIndex = 9;
+            this.btnCredito.Text = "F10 - Crédito";
+            this.btnCredito.UseVisualStyleBackColor = true;
+            this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
+            // 
             // FrmSaida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 686);
             this.ControlBox = false;
+            this.Controls.Add(this.btnCredito);
             this.Controls.Add(this.tb_saida_produtoDataGridView);
             this.Controls.Add(valorIPILabel);
             this.Controls.Add(this.valorIPITextBox);
@@ -1188,5 +1200,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn valorVendaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalAVistaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnCredito;
     }
 }

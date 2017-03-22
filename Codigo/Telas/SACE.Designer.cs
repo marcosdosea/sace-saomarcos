@@ -88,10 +88,11 @@
             this.btnProdutos = new System.Windows.Forms.Button();
             this.btnVenda = new System.Windows.Forms.Button();
             this.btnReceber = new System.Windows.Forms.Button();
-            this.timerAtualizaCuponsFiscais = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerAtualizarCupons = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.timerDocumentos = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -396,7 +397,6 @@
             this.utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
             this.utilitáriosToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.utilitáriosToolStripMenuItem.Text = "&Utilitários";
-            this.utilitáriosToolStripMenuItem.Click += new System.EventHandler(this.utilitáriosToolStripMenuItem_Click);
             // 
             // backupToolStripMenuItem
             // 
@@ -591,11 +591,6 @@
             this.btnReceber.UseVisualStyleBackColor = true;
             this.btnReceber.Click += new System.EventHandler(this.receberPagamentosToolStripMenuItem_Click);
             // 
-            // timerAtualizaCuponsFiscais
-            // 
-            this.timerAtualizaCuponsFiscais.Enabled = true;
-            this.timerAtualizaCuponsFiscais.Tick += new System.EventHandler(this.timerAtualizaCuponsFiscais_Tick);
-            // 
             // backgroundWorkerAtualizarCupons
             // 
             this.backgroundWorkerAtualizarCupons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAtualizarCupons_DoWork);
@@ -610,6 +605,12 @@
             this.pictureBox1.Size = new System.Drawing.Size(420, 121);
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
+            // 
+            // timerDocumentos
+            // 
+            this.timerDocumentos.Enabled = true;
+            this.timerDocumentos.Interval = 1000;
+            this.timerDocumentos.Tick += new System.EventHandler(this.timerDocumentos_Tick);
             // 
             // Principal
             // 
@@ -684,7 +685,6 @@
         private System.Windows.Forms.Button btnReceber;
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeProdutosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem códigoFiscalDeOperaçãoCFOPToolStripMenuItem;
-        private System.Windows.Forms.Timer timerAtualizaCuponsFiscais;
         private System.ComponentModel.BackgroundWorker backgroundWorkerAtualizarCupons;
         private System.Windows.Forms.ToolStripMenuItem estatísticaPorProdutoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -710,6 +710,8 @@
         private System.Windows.Forms.ToolStripMenuItem devoluçãoDeConsumidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem atualizarPreçoVarejoToolStripMenuItem;
+        private System.Windows.Forms.Timer timerDocumentos;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
     }
 }

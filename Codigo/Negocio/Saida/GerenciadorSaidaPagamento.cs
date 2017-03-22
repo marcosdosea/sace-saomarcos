@@ -61,6 +61,15 @@ namespace Negocio
                 {
                     throw new NegocioException("Não é necessário registrar mais outro pagamento.");
                 }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (saida.CodCliente == Util.Global.CLIENTE_PADRAO))
+                {
+                    throw new NegocioException("É necessário informar o cliente que será creditado.");
+                }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && saidaPagamento.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO))
+                {
+                    throw new NegocioException("Forma de pagamento Crediário não pode ser utilizada para operação de crédito.");
+                }
+                
                 else if ((saidaPagamento.CodFormaPagamento != FormaPagamento.DINHEIRO) && (saidaPagamento.CodFormaPagamento != FormaPagamento.CARTAO)
                     && (saida.CodCliente == Util.Global.CLIENTE_PADRAO))
                 {

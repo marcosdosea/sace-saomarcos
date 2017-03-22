@@ -322,8 +322,6 @@ namespace Telas
         /// </summary>
         private void ObterSaidas(long codSaidaInicial)
         {
-            //saidaBindingSource.SuspendBinding();
-            //saidaBindingSource.RaiseListChangedEvents = false;
             if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(tipoSaidaFormulario))
             {
                 lblSaidaProdutos.Text = "Remessa para Depósito";
@@ -634,6 +632,12 @@ namespace Telas
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
                 }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+                {
+                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
+                    frmSaidaPagamento.ShowDialog();
+                    frmSaidaPagamento.Dispose();
+                }
                 produtoBindingSource.MoveFirst();
                 codSaidaTextBox_TextChanged(sender, e);
                 btnNovo.Focus();
@@ -688,6 +692,16 @@ namespace Telas
                 throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e de a partir de um ORÇAMENTO OU PRÉ REMESSA. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");
             }
         }
+
+        private void btnCredito_Click(object sender, EventArgs e)
+        {
+            btnNovo_Click(sender, e);
+            saida = (Saida)saidaBindingSource.Current;
+            saida.TipoSaida = Saida.TIPO_PRE_CREDITO;
+            btnSalvar_Click(sender, e);
+            btnEncerrar_Click(sender, e);
+        }
+
 
         /// <summary>
         /// Verifica se existem produtos com data de valida menor
@@ -778,6 +792,10 @@ namespace Telas
                 else if (e.KeyCode == Keys.F9)
                 {
                     btnCfNfe_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.F10)
+                {
+                    btnCredito_Click(sender, e);
                 }
                 else if (e.KeyCode == Keys.End)
                 {
@@ -881,6 +899,7 @@ namespace Telas
             btnCancelar.Enabled = !(habilita);
             btnBuscar.Enabled = habilita;
             btnNovo.Enabled = habilita;
+            btnCredito.Enabled = habilita;
             btnImprimir.Enabled = habilita;
             btnEditar.Enabled = habilita;
             btnExcluir.Enabled = habilita;

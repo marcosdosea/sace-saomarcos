@@ -410,33 +410,19 @@ namespace Negocio
                             arquivo.WriteLine("<OBS>Val Aprox dos Tributos R$ " + valorImposto.ToString("N2") + " (" + valorImpostoPercentual.ToString("N2") + "%) " + "  Fonte: IBPT");
 
 
-                            // Buscar pagamentos quando não foram passados por parâmetro
-                            //List<SaidaPagamento> saidaPagamentos = (List<SaidaPagamento>)GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidas(listaSolicitacaoCupomSaida.Select(cs=>cs.codSaida).ToList());
-
                             // imprime desconto
                             decimal desconto = (precoTotalProdutosVendidos - listaSolicitacaoSaida.Sum(cs => cs.valorTotal));
                             if (desconto >= 0)
                             {
                                 arquivo.WriteLine("<DESCONTO>" + desconto.ToString("N2"));
                             }
+
                             //arquivo.WriteLine("<OBS> Total de Impostos pagos:" + saida.
-                            foreach (tb_solicitacao_pagamento pagamento in listaPagamentos)
-                            {
-                                if (pagamento.codFormaPagamento != FormaPagamento.CARTAO)
-                                {
-                                    arquivo.Write("<PGTO> 01;DINHEIRO;");
-                                    arquivo.Write(pagamento.valor + ";");
-                                    arquivo.WriteLine("N;"); //N ou V
-                                }
-                                else
-                                {
-                                    CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.codCartao).ElementAtOrDefault(0);
-                                    arquivo.Write("<PGTO>" + cartaoCredito.Mapeamento + ";");
-                                    arquivo.Write(cartaoCredito.Nome + ";");
-                                    arquivo.Write(pagamento.valor + ";");
-                                    arquivo.WriteLine("V;"); //N ou V vinculado ao TEF
-                                }
-                            }
+                            ImprimirPagamentosCF(listaPagamentos, arquivo);
+                            arquivo.Close();
+                        }
+                        else if (saidas.FirstOrDefault().TipoSaida.Equals(Saida.TIPO_CREDITO)) {
+                            ImprimirPagamentosCF(listaPagamentos, arquivo);
                             arquivo.Close();
                         }
                         else
@@ -444,6 +430,7 @@ namespace Negocio
                             arquivo.Close();
                             ExcluirDocumentoFiscal(saidas[0].CodSaida);
                         }
+                        
                     }
                 }
                 //transaction.Commit();
@@ -462,6 +449,27 @@ namespace Negocio
             //    saceContext.Connection.Close();
             //}
 
+        }
+
+        private static void ImprimirPagamentosCF(List<tb_solicitacao_pagamento> listaPagamentos, StreamWriter arquivo)
+        {
+            foreach (tb_solicitacao_pagamento pagamento in listaPagamentos)
+            {
+                if (pagamento.codFormaPagamento != FormaPagamento.CARTAO)
+                {
+                    arquivo.Write("<PGTO> 01;DINHEIRO;");
+                    arquivo.Write(pagamento.valor + ";");
+                    arquivo.WriteLine("N;"); //N ou V
+                }
+                else
+                {
+                    CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.codCartao).ElementAtOrDefault(0);
+                    arquivo.Write("<PGTO>" + cartaoCredito.Mapeamento + ";");
+                    arquivo.Write(cartaoCredito.Nome + ";");
+                    arquivo.Write(pagamento.valor + ";");
+                    arquivo.WriteLine("V;"); //N ou V vinculado ao TEF
+                }
+            }
         }
 
 
@@ -613,6 +621,97 @@ namespace Negocio
             return atualizou;
         }
 
+        public Boolean AtualizarPedidosComRespostaCartaoTexto(string nomeServidor)
+        {
+            Boolean atualizou = false;
+            DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_CARTAO);
+            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            if (nomeComputador.Equals(nomeServidor) && PastaRetorno.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                FileInfo[] Files = PastaRetorno.GetFiles("*", SearchOption.TopDirectoryOnly);
+                if (Files.Length == 0)
+                {
+                    atualizou = true;
+                }
+                else
+                {
+                    foreach (FileInfo file in Files)
+                    {
+                        try
+                        {
+
+                            bool sucesso = false;
+                            String numeroCF = null;
+                            String linha = null;
+                            StreamReader reader = new StreamReader(file.FullName);
+
+                            // sucesso = true quando cupum fiscal foi impresso
+                            if ((linha = reader.ReadLine()) != null)
+                            {
+                                sucesso = linha.Equals("OK");
+                                if (sucesso && ((linha = reader.ReadLine()) != null))
+                                {
+                                    numeroCF = linha;
+                                }
+                            }
+                            reader.Close();
+
+                            // quando cupom fiscal impresso com sucesso atualiza saidas
+                            long codPedido = Convert.ToInt64(file.Name.Replace(".TXT", ""));
+                            List<SaidaPedido> _listaSaidaPedido = GerenciadorSaidaPedido.GetInstance().ObterPorPedido(codPedido);
+                            if (sucesso)
+                            {
+                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
+                                {
+                                    GerenciadorSaida.GetInstance(null).AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, numeroCF, saidaPedido.TotalAVista, saidaPedido.CodSaida);
+                                    RemoverSolicitacaoDocumento(saidaPedido.CodSaida);
+                                    atualizou = true;
+                                }
+                            }
+                            else
+                            {
+                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
+                                {
+                                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(saidaPedido.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
+                                    if (!temPagamentoCrediario)
+                                    {
+                                        Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPedido.CodSaida);
+                                        if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
+                                        {
+                                            saida.TipoSaida = Saida.TIPO_PRE_VENDA;
+                                            GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
+                                        }
+                                    }
+                                }
+                            }
+                            GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
+                        }
+                        catch (Exception)
+                        {
+                            // Se houver algum impossibilidade de trasnformar o pedido em pré-venda
+                            // não tem problema. Pode acontecer quando cliente quita a conta gerada
+                            // mas há algum problema na impressora para imprimir o cupom fiscal
+                            // Nesses casos é só fazer a reimpressão do cupom. 
+                        }
+                        finally
+                        {
+                            DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP);
+                            if (PastaBackup.Exists)
+                            {
+                                file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
+                            }
+                            if (file.Exists)
+                            {
+                                file.Delete();
+                            }
+                        }
+                    }
+                }
+            }
+            return atualizou;
+        }
+
         public void InserirRespostaCartao(Cartao.ResultadoProcessamento resultado)
         {
             List<tb_solicitacao_saida> listaSolicitacaoSaida;
@@ -639,14 +738,6 @@ namespace Negocio
                         GerenciadorConta.GetInstance(null).AtualizarDadosCartaoCredito(conta);
                     }
                 }
-                //else
-                //{
-                //    foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
-                //    {
-                //        IEnumerable<Conta> contas = GerenciadorConta.GetInstance(null).ObterPorSaida(solicitacaoSaida.codSaida);
-
-                //    }
-                //}
                 InserirAutorizacaoCartao(resultado, listaSolicitacaoSaida);
             }
 
