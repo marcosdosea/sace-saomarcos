@@ -34,7 +34,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("lenovo-elielma")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
         public string ServidorNfe {
             get {
                 return ((string)(this["ServidorNfe"]));

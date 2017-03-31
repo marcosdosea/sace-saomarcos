@@ -485,7 +485,7 @@ namespace Negocio
                     Produto produto = new Produto();
                     produto.CodProduto = saidaProduto.CodProduto;
                     produto.CodCST = saidaProduto.CodCST;
-                    String situacaoFiscal = produto.EhTributacaoIntegral ? "01" : "FF";
+                    String situacaoFiscal = produto.EhTributacaoIntegral ? "18" : "FF";
 
                     arquivo.Write(saidaProduto.CodProduto + ";");
                     arquivo.Write(saidaProduto.Nome + ";");

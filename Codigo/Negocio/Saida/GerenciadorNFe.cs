@@ -1377,10 +1377,16 @@ namespace Negocio
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
                     icmsTot.vBCST = formataValorNFe(saida.BaseCalculoICMSSubst);
                     icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
-                    icmsTot.vIPI = formataValorNFe(0); // não pode destacar o total do ipi na nota de devolução
+                    if (saida.ValorIPI > 0) {
+                        saida.OutrasDespesas += saida.ValorIPI;
+                        icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
+                    }
+                    else 
+                    {
+                        icmsTot.vIPI = formataValorNFe(0); // não pode destacar o total do ipi na nota de devolução
+                    }
 
-
-                    valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto; // +saida.ValorIPI;
+                    valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto + saida.OutrasDespesas; // +saida.ValorIPI;
                 }
                 
                 if (valorTotalDesconto >= 0)
