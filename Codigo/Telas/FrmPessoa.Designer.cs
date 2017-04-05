@@ -561,7 +561,7 @@
             // 
             // municipiosIBGEBindingSource
             // 
-            this.municipiosIBGEBindingSource.AllowNew = true;
+            this.municipiosIBGEBindingSource.AllowNew = false;
             this.municipiosIBGEBindingSource.DataSource = typeof(Dominio.MunicipiosIBGE);
             // 
             // groupBox1
@@ -881,6 +881,7 @@
             this.codMunicipioIBGEComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.municipiosIBGEBindingSource, "Municipio", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.codMunicipioIBGEComboBox.DataSource = this.municipiosIBGEBindingSource;
             this.codMunicipioIBGEComboBox.DisplayMember = "Municipio";
+            this.codMunicipioIBGEComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.codMunicipioIBGEComboBox.FormattingEnabled = true;
             this.codMunicipioIBGEComboBox.Location = new System.Drawing.Point(10, 305);
             this.codMunicipioIBGEComboBox.Name = "codMunicipioIBGEComboBox";
