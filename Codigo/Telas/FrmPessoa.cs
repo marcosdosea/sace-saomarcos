@@ -16,7 +16,8 @@ namespace Telas
     {
         private EstadoFormulario estado;
         public Pessoa PessoaSelected { get; set; }
-
+        private Loja loja;
+ 
         public FrmPessoa()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace Telas
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.PESSOAS, Principal.Autenticacao.CodUsuario);
             pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             municipiosIBGEBindingSource.DataSource = GerenciadorMunicipio.GetInstance().ObterTodos();
+            loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
             if (!codPessoaTextBox.Text.Trim().Equals(""))
                 contatosBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterContatos(long.Parse(codPessoaTextBox.Text));
             habilitaBotoes(true);
@@ -53,9 +55,9 @@ namespace Telas
             pessoa.ImprimirDAV = true;
             pessoa.Tipo = Pessoa.PESSOA_JURIDICA;
 
-            Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
             pessoa.CodMunicipioIBGE = loja.CodMunicipioIBGE;
-            
+            MunicipiosIBGE defaultMunicipio = new MunicipiosIBGE() { Codigo = pessoa.CodMunicipioIBGE };
+            municipiosIBGEBindingSource.Position = municipiosIBGEBindingSource.List.IndexOf(defaultMunicipio);
             nomeFantasiaTextBox.Focus();
              
             habilitaBotoes(false);
