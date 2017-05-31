@@ -56,7 +56,7 @@ namespace Telas
                     // Tratamento de banco de dados inacessível
                     if (exception.Number == 1042)
                     {
-                        erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede.";
+                        erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede. " ;
                     }
                 }
                 else if ((t.Exception is DadosException) || (t.Exception is System.Data.EntityException))
@@ -107,6 +107,8 @@ namespace Telas
                             erro = "Erro da Base de Dados Número " + exception.Number + ": Favor contactar administrador do sistema.";
                         }
                     }
+
+                    erro += exception.Number + ": " + exception.Message + "\n" + exception.InnerException;
 
                 }
                

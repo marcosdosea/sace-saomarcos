@@ -230,8 +230,27 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Negocio.GerenciadorSeguranca.getInstance().Backup(System.Windows.Forms.SystemInformation.ComputerName);
+                Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void restaurarBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            openFileDialog.Title = "Selecionar Arquivo ZIP do Backup";
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                Negocio.GerenciadorSeguranca.getInstance().Restore(openFileDialog.FileName);
+                Cursor.Current = Cursors.Default;
+            }
+                
+
         }
 
         private void transferênciaEntreLojasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,5 +426,6 @@ namespace Telas
             frmProdutoPreco.Dispose();
         }
 
+        
      }
 }

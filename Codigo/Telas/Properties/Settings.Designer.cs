@@ -25,7 +25,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Servidor")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
         public string Servidor {
             get {
                 return ((string)(this["Servidor"]));
@@ -43,7 +43,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("lenovo-elielma")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
         public string ServidorCartao {
             get {
                 return ((string)(this["ServidorCartao"]));
@@ -52,7 +52,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RetaguardaDell")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ServidorDell")]
         public string ServidorNfeDeposito {
             get {
                 return ((string)(this["ServidorNfeDeposito"]));

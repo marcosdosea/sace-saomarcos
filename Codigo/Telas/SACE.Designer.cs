@@ -410,6 +410,7 @@
             this.restaurarBackupToolStripMenuItem.Name = "restaurarBackupToolStripMenuItem";
             this.restaurarBackupToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
             this.restaurarBackupToolStripMenuItem.Text = "Restaurar Backup";
+            this.restaurarBackupToolStripMenuItem.Click += new System.EventHandler(this.restaurarBackupToolStripMenuItem_Click);
             // 
             // atualizarCSOSNToolStripMenuItem
             // 

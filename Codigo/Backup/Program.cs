@@ -18,7 +18,7 @@ namespace Backup
         [STAThread]
         static void Main()
         {
-            string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
+            string SERVIDOR = Properties.Settings.Default.SERVIDOR.ToUpper();
             Negocio.GerenciadorSeguranca.getInstance().Backup(SERVIDOR);
         }
     }

@@ -26,7 +26,7 @@ namespace Dados.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=192.168.0.3;User Id=sace;database=sace;password=sace;Persist Security Info" +
+        [global::System.Configuration.DefaultSettingValueAttribute("server=192.168.1.3;User Id=sace;database=sace;password=sace;Persist Security Info" +
             "=True")]
         public string saceConnectionString {
             get {
@@ -38,7 +38,7 @@ namespace Dados.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("metadata=res://*/ModelSace.csdl|res://*/ModelSace.ssdl|res://*/ModelSace.msl;prov" +
-            "ider=MySql.Data.MySqlClient;provider connection string=\"server=192.168.0.3;User " +
+            "ider=MySql.Data.MySqlClient;provider connection string=\"server=192.168.1.3;User " +
             "Id=sace;password=sace;Persist Security Info=True;database=sace\"")]
         public string SaceEntities {
             get {

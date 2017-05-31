@@ -60,9 +60,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
@@ -75,6 +77,10 @@
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{1C8236BB-B81C-43F4-9D32-E0B6C9D6FE24}</Project>
       <Name>Negocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Telas\Telas.csproj">
+      <Project>{EEBD240B-AFF1-45F7-8AD3-3474466F7945}</Project>
+      <Name>Telas</Name>
     </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{6C434BD3-4E07-4BD0-8B5F-B9ED31580119}</Project>

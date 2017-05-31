@@ -41,6 +41,13 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\Util\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Util\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlBackup">
+      <HintPath>..\Util\MySqlBackup.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -99,7 +106,7 @@
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
@@ -117,6 +124,7 @@
     <Compile Include="Saida\GerenciadorSaidaPedido.cs" />
     <Compile Include="Saida\GerenciadorSaidaProduto.cs" />
     <Compile Include="Saida\GerenciadorSaida.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Usuario\GerenciadorUsuario.cs" />
   </ItemGroup>
   <ItemGroup>

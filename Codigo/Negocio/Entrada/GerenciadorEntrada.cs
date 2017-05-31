@@ -170,7 +170,12 @@ namespace Negocio
             {
                 Pessoa fornecedor = GerenciadorPessoa.GetInstance().ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
                 if (fornecedor == null)
-                    fornecedor = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50)).ElementAtOrDefault(0);
+                {
+                    if (nfe.infNFe.emit.xNome.Length > 50)
+                        fornecedor = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50)).ElementAtOrDefault(0);
+                    else
+                        fornecedor = GerenciadorPessoa.GetInstance().ObterPorNome(nfe.infNFe.emit.xNome.ToUpper()).ElementAtOrDefault(0);
+                }
                 if (fornecedor == null)
                 {
                     fornecedor = new Pessoa();
@@ -204,7 +209,6 @@ namespace Negocio
                     if (fornecedor.CpfCnpj.Equals(nfe.infNFe.emit.Item))
                     {
                         fornecedor.CpfCnpj = nfe.infNFe.emit.Item;
-                        fornecedor.Nome = nfe.infNFe.emit.xNome.Length > 50 ? nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50) : nfe.infNFe.emit.xNome.ToUpper();
                         fornecedor.Ie = nfe.infNFe.emit.IE;
                         fornecedor.Endereco = nfe.infNFe.emit.enderEmit.xLgr.ToUpper();
                         fornecedor.Cep = nfe.infNFe.emit.enderEmit.CEP;
