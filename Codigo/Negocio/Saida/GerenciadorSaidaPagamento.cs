@@ -310,6 +310,7 @@ namespace Negocio
                         select new VendasCartao
                         {
                             CodCartao = saidaPagamento.codCartao,
+                            TipoCartao = saidaPagamento.tb_cartao_credito.tipoCartao,
                             DescricaoCartao = saidaPagamento.tb_cartao_credito.nome,
                             TotalCartao = (decimal) saidaPagamento.valor,
                             Parcelas = (int) saidaPagamento.parcelas,

@@ -220,7 +220,7 @@ namespace Negocio
         }
 
         
-        private void AtualizarEstoqueEntradasProduto(long codProduto)
+        public void AtualizarEstoqueEntradasProduto(long codProduto)
         {
             IEnumerable<ProdutoLoja> listaProdutosLoja = ObterPorProduto(codProduto);
 
@@ -235,64 +235,61 @@ namespace Negocio
             decimal quantidadeEstoqueAuxEntradaProduto = entradasProdutoAuxiliar.Sum(ep => ep.QuantidadeDisponivel);
             
             // Atualiza as entradas principais com os valores do estoque totais dos produto / loja
-            if (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto)
+            if ((quantidadeEstoquePrincipalLojas > 0) && (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto))
             {
+                var repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>();
+                var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
+                var query = from entradaProdutoE in saceEntities.EntradaProdutoSet
+                            where entradaProdutoE.tb_entrada.codTipoEntrada == Entrada.TIPO_ENTRADA && entradaProdutoE.codProduto == codProduto
+                            orderby entradaProdutoE.codEntradaProduto
+                            select entradaProdutoE;
 
-                for (int i = 0; (entradasProdutoPrincipal != null) && (i < entradasProdutoPrincipal.Count); i++)
+                List<EntradaProdutoE> entradasProdutoPrincipalE = query.ToList();
+                int cont = entradasProdutoPrincipalE.Count;
+                
+                while (cont > 0)
                 {
-                    // Vai decremetar o contador até organizar a quantidade disponível dos lotes de entrada
-                    if (quantidadeEstoquePrincipalLojas > 0)
+                    cont--;
+                    if (entradasProdutoPrincipalE[cont].codProduto == 11002)
+                        Console.Write("");
+                    
+                    decimal quantidadeEntrada = (decimal) (entradasProdutoPrincipalE[cont].quantidade * entradasProdutoPrincipalE[cont].quantidadeEmbalagem);
+                    if (quantidadeEntrada > quantidadeEstoquePrincipalLojas)
                     {
-                        if (entradasProdutoPrincipal[i].Quantidade < quantidadeEstoquePrincipalLojas)
-                        {
-                            entradasProdutoPrincipal[i].QuantidadeDisponivel = entradasProdutoPrincipal[i].Quantidade;
-                            quantidadeEstoquePrincipalLojas -= entradasProdutoPrincipal[i].Quantidade;
-                        }
-                        else
-                        {
-                            entradasProdutoPrincipal[i].QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
-                            quantidadeEstoquePrincipalLojas = 0;
-                        }
+                        entradasProdutoPrincipalE[cont].quantidade_disponivel = quantidadeEstoquePrincipalLojas;
+                        quantidadeEstoquePrincipalLojas = 0;
                     }
                     else
                     {
-                        entradasProdutoPrincipal[i].QuantidadeDisponivel = 0;
+                        entradasProdutoPrincipalE[cont].quantidade_disponivel = quantidadeEntrada;
+                        quantidadeEstoquePrincipalLojas -= quantidadeEntrada;
                     }
-                    GerenciadorEntradaProduto.GetInstance(saceContext).Atualizar(entradasProdutoPrincipal[i]);
                 }
-
+                saceEntities.SaveChanges();
             }
-
 
             // Atualiza as entradas auxiliares com os valores do estoque totais dos produto / loja
             if (quantidadeEstoqueAuxLojas != quantidadeEstoqueAuxEntradaProduto)
             {
-                for (int i = 0; (entradasProdutoAuxiliar != null) && (i < entradasProdutoAuxiliar.Count); i++)
+                entradasProdutoAuxiliar.OrderByDescending(ep => ep.DataEntrada);
+                int cont = entradasProdutoAuxiliar.Count;
+                while (cont > 0)
                 {
-                    // Vai decremetar o contador até organizar a quantidade disponível dos lotes de entrada
-                    if (quantidadeEstoqueAuxLojas > 0)
+                    cont--;
+                    if (entradasProdutoAuxiliar[cont].Quantidade > quantidadeEstoqueAuxLojas)
                     {
-                        if (entradasProdutoAuxiliar[i].Quantidade < quantidadeEstoqueAuxLojas)
-                        {
-                            entradasProdutoAuxiliar[i].QuantidadeDisponivel = entradasProdutoAuxiliar[i].Quantidade;
-                            quantidadeEstoqueAuxLojas -= entradasProdutoAuxiliar[i].Quantidade;
-                        }
-                        else
-                        {
-                            entradasProdutoAuxiliar[i].QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
-                            quantidadeEstoqueAuxLojas = 0;
-                        }
+                        entradasProdutoAuxiliar[cont].QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
+                        quantidadeEstoqueAuxLojas = 0;
                     }
                     else
                     {
-                        entradasProdutoAuxiliar[i].QuantidadeDisponivel = 0;
+                        entradasProdutoAuxiliar[cont].QuantidadeDisponivel = entradasProdutoAuxiliar[cont].Quantidade;
+                        quantidadeEstoqueAuxLojas -= entradasProdutoAuxiliar[cont].Quantidade;
                     }
-                    GerenciadorEntradaProduto.GetInstance(saceContext).Atualizar(entradasProdutoAuxiliar[i]);
+                    GerenciadorEntradaProduto.GetInstance(saceContext).Atualizar(entradasProdutoAuxiliar[cont]);
                 }
 
             }
         }
-
-       
     }
 }

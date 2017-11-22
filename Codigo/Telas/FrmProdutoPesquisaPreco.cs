@@ -20,6 +20,7 @@ namespace Telas
 
         public bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
+        IEnumerable<ProdutoPesquisa> listaProdutoBuffer;
         
         
         public FrmProdutoPesquisaPreco(bool exibirTodos)
@@ -121,10 +122,27 @@ namespace Telas
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
                     {
-                        if (ExibirTodos)
-                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
-                        else
-                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                        if ( (txtTexto.Text.Length == 4) || (listaProdutoBuffer == null) )
+                        {
+                            if (ExibirTodos)
+                                listaProdutoBuffer = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                            else
+                                listaProdutoBuffer = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                            produtoBindingSource.DataSource = listaProdutoBuffer;
+                        }
+                        else if (txtTexto.Text.Length > 4)
+                        {
+                            if (txtTexto.Text[0] == '%')
+                            {
+                                produtoBindingSource.DataSource = listaProdutoBuffer.Where(p => p.Nome.Contains(txtTexto.Text.Remove(0, 1))).ToList();
+                            }
+                            else
+                            {
+                                produtoBindingSource.DataSource = listaProdutoBuffer.Where(p => p.Nome.StartsWith(txtTexto.Text)).ToList();
+                            }
+
+                        }
+
                     }
                 }
             }

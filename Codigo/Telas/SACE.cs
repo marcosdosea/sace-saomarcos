@@ -426,6 +426,41 @@ namespace Telas
             frmProdutoPreco.Dispose();
         }
 
-        
-     }
+        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            //IEnumerable<Produto> produtos = GerenciadorProduto.GetInstance().ObterTodos();
+            //int cont = 0;
+            //foreach (Produto p in produtos)
+            //{
+            //    GerenciadorProdutoLoja.GetInstance(null).AtualizarEstoqueEntradasProduto(p.CodProduto);
+            //    cont++;
+            //    if (cont % 2000 == 0)
+            //    {
+            //        MessageBox.Show("Processado mais 1000");
+            //    }
+            //}
+
+            int mes = 0;
+            IEnumerable<Saida> saidas = GerenciadorSaida.GetInstance(null).ObterSaidaPorAno(2017);
+            foreach (Saida saida in saidas)
+            {
+                if (saida.DataSaida.Month != mes)
+                {
+                    mes = saida.DataSaida.Month;
+                    MessageBox.Show("Iniciando processamento mes " + mes);
+                }
+                IEnumerable<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                decimal somaCusto = 0;
+                foreach (SaidaProduto sp in saidaProdutos)
+                {
+                    Produto p = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa(){CodProduto = sp.CodProduto});
+                    somaCusto += p.PrecoCusto * sp.Quantidade; 
+                }
+                saida.TotalLucro = saida.TotalAVista - somaCusto;
+                GerenciadorSaida.GetInstance(null).Atualizar(saida);
+            }
+            Cursor.Current = Cursors.Default;
+        }
+    }
 }

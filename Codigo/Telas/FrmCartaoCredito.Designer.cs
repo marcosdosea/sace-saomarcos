@@ -37,8 +37,8 @@
             System.Windows.Forms.Label mapeamentoLabel;
             System.Windows.Forms.Label descontoLabel;
             System.Windows.Forms.Label mapeamentoCapptaLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCartaoCredito));
             System.Windows.Forms.Label tipoCartaoLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCartaoCredito));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -160,6 +160,15 @@
             mapeamentoCapptaLabel.Size = new System.Drawing.Size(109, 13);
             mapeamentoCapptaLabel.TabIndex = 34;
             mapeamentoCapptaLabel.Text = "Mapeamento Cappta:";
+            // 
+            // tipoCartaoLabel
+            // 
+            tipoCartaoLabel.AutoSize = true;
+            tipoCartaoLabel.Location = new System.Drawing.Point(8, 105);
+            tipoCartaoLabel.Name = "tipoCartaoLabel";
+            tipoCartaoLabel.Size = new System.Drawing.Size(65, 13);
+            tipoCartaoLabel.TabIndex = 35;
+            tipoCartaoLabel.Text = "Tipo Cartao:";
             // 
             // label1
             // 
@@ -447,24 +456,15 @@
             this.mapeamentoCapptaTextBox.Size = new System.Drawing.Size(315, 20);
             this.mapeamentoCapptaTextBox.TabIndex = 35;
             // 
-            // tipoCartaoLabel
-            // 
-            tipoCartaoLabel.AutoSize = true;
-            tipoCartaoLabel.Location = new System.Drawing.Point(8, 105);
-            tipoCartaoLabel.Name = "tipoCartaoLabel";
-            tipoCartaoLabel.Size = new System.Drawing.Size(65, 13);
-            tipoCartaoLabel.TabIndex = 35;
-            tipoCartaoLabel.Text = "Tipo Cartao:";
-            // 
             // tipoCartaoComboBox
             // 
             this.tipoCartaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "TipoCartao", true));
+            this.tipoCartaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.cartaoCreditoBindingSource, "TipoCartao", true));
             this.tipoCartaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoCartaoComboBox.FormattingEnabled = true;
             this.tipoCartaoComboBox.Items.AddRange(new object[] {
             "CREDITO",
-            "DEBITO",
-            "CREDIARIO"});
+            "DEBITO"});
             this.tipoCartaoComboBox.Location = new System.Drawing.Point(11, 121);
             this.tipoCartaoComboBox.Name = "tipoCartaoComboBox";
             this.tipoCartaoComboBox.Size = new System.Drawing.Size(113, 21);
@@ -475,7 +475,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 290);
+            this.ClientSize = new System.Drawing.Size(475, 290);
             this.Controls.Add(tipoCartaoLabel);
             this.Controls.Add(this.tipoCartaoComboBox);
             this.Controls.Add(mapeamentoCapptaLabel);

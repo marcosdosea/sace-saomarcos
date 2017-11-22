@@ -312,10 +312,10 @@ namespace Negocio
         public IEnumerable<Pessoa> ObterPorNomeFantasiaComContas60DiasAtraso(string nomeFantasia)
         {
             var repPessoa = new RepositorioGenerico<PessoaE>();
-
+            DateTime dataHojeMenos30 = DateTime.Now.AddDays(-30);
             var saceEntities = (SaceEntities)repPessoa.ObterContexto();
             var query = from contas in saceEntities.ContaSet
-                        where contas.dataVencimento <= DateTime.Now && contas.codSituacao == SituacaoConta.SITUACAO_ABERTA
+                        where contas.dataVencimento <= dataHojeMenos30 && contas.codSituacao == SituacaoConta.SITUACAO_ABERTA
                         select contas.codPessoa;
             List<long> pessoasEmAtraso = query.Distinct().ToList();
 
@@ -432,6 +432,17 @@ namespace Negocio
                 var repPessoa = new RepositorioGenerico<PessoaE>();
                 var saceEntities = (SaceEntities)repPessoa.ObterContexto();
 
+                // substitui todas as saídas
+                var queryProduto = from produto in saceEntities.ProdutoSet
+                                  where (produto.codFabricante == codPessoaExcluir)
+                                  select produto;
+                foreach (ProdutoE _produto in queryProduto)
+                {
+                    _produto.codFabricante = codPessoaManter;
+                }
+                repPessoa.SaveChanges();
+
+                
                 // substitui todas as saídas
                 var querySaidas = from saida in saceEntities.tb_saida
                                   where (saida.codCliente == codPessoaExcluir ||

@@ -448,6 +448,7 @@ namespace Negocio
                             CodProduto = entradaProduto.codProduto,
                             NomeProduto = produto.nome,
                             DataValidade = (DateTime)entradaProduto.data_validade,
+                            //DataEntrada = (DateTime) entradaProduto.tb_entrada.dataEntrada, deixou conxulta muito lenta
                             Desconto = (decimal)entradaProduto.desconto,
                             PrecoCusto = (decimal)entradaProduto.preco_custo,
                             Quantidade = (decimal)entradaProduto.quantidade,
@@ -494,10 +495,10 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<EntradaProduto> ObterDisponiveisOrdenadoPorValidade(long codProduto)
+        public IEnumerable<EntradaProduto> ObterDisponiveisPorEntrada(long codProduto)
         {
             return GetQuery().Where(ep => ep.CodProduto == codProduto
-                && ep.QuantidadeDisponivel > 0).OrderBy(ep => ep.DataValidade).ToList();
+                && ep.QuantidadeDisponivel > 0).OrderBy(ep => ep.CodEntradaProduto).ToList();
         }
 
         /// <summary>
@@ -507,7 +508,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<EntradaProduto> ObterOrdenadoPorValidade(long codProduto)
         {
-            return GetQuery().Where(ep => ep.CodProduto == codProduto).OrderBy(ep => ep.DataValidade).ToList();
+            return GetQuery().Where(ep => ep.CodProduto == codProduto).OrderBy(ep => ep.CodEntradaProduto).ToList();
         }
 
         /// <summary>
@@ -515,10 +516,10 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        private List<EntradaProduto> ObterVendidosOrdenadoPorValidade(long codProduto)
+        private List<EntradaProduto> ObterVendidosOrdenadoPorEntrada(long codProduto)
         {
             return GetQuery().Where(ep => ep.CodProduto == codProduto && ep.Quantidade > ep.QuantidadeDisponivel).
-                OrderBy(ep => ep.DataValidade).ToList();
+                OrderBy(ep => ep.DataEntrada).ToList();
         }
 
         /// <summary>
@@ -528,7 +529,7 @@ namespace Negocio
         /// <returns></returns>
         public DateTime GetDataProdutoMaisAntigoEstoque(ProdutoPesquisa produto)
         {
-            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisOrdenadoPorValidade(produto.CodProduto);
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisPorEntrada(produto.CodProduto);
             if (entradaProdutos.Count > 0)
             {
                 return entradaProdutos[0].DataValidade;
@@ -542,7 +543,7 @@ namespace Negocio
 
             var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
             var query = from entradaProduto in saceEntities.EntradaProdutoSet
-                        where entradaProduto.tb_entrada.codTipoEntrada == Entrada.TIPO_ENTRADA && entradaProduto.codProduto == codProduto 
+                        where entradaProduto.tb_entrada.codTipoEntrada == tipoEntrada && entradaProduto.codProduto == codProduto 
                         select new EntradaProduto
                         {
                             BaseCalculoICMS = (decimal)entradaProduto.baseCalculoICMS,
@@ -554,6 +555,7 @@ namespace Negocio
                             CodProduto = entradaProduto.codProduto,
                             DataValidade = (DateTime)entradaProduto.data_validade,
                             Desconto = (decimal)entradaProduto.desconto,
+                            DataEntrada = (DateTime) entradaProduto.tb_entrada.dataEntrada,
                             PrecoCusto = (decimal)entradaProduto.preco_custo,
                             Quantidade = (decimal)entradaProduto.quantidade,
                             QuantidadeDisponivel = (decimal)entradaProduto.quantidade_disponivel,
@@ -574,7 +576,7 @@ namespace Negocio
         private void EstornarItensVendidosEstoque(SaidaProduto saidaProduto)
         {
             decimal quantidadeDevolvida = Math.Abs(saidaProduto.Quantidade);
-            List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorValidade(saidaProduto.CodProduto);
+            List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorEntrada(saidaProduto.CodProduto);
             Decimal quantidadeRetornada = 0;
 
             if (entradaProdutos != null)
@@ -635,7 +637,7 @@ namespace Negocio
         /// <param name="quantidadeVendida"></param>
         /// <returns></returns>
         public Decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto) {
-            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisOrdenadoPorValidade(saidaProduto.CodProduto);
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisPorEntrada(saidaProduto.CodProduto);
 
             decimal somaPrecosCusto = 0;
             decimal quantidadeBaixas = 0;

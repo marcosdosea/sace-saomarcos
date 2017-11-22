@@ -81,6 +81,7 @@ namespace Telas
             try
             {
                 CartaoCredito _cartaoCredito = (CartaoCredito) cartaoCreditoBindingSource.Current;
+                _cartaoCredito.TipoCartao = tipoCartaoComboBox.Text;
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {

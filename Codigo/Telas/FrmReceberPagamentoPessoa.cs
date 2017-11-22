@@ -333,6 +333,10 @@ namespace Telas
                 {
                     btnCFNfe_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F9)
+                {
+                    btnBoleto_Click(sender, e);
+                }
                 else if (e.KeyCode == Keys.Escape)
                 {
                     btnCancelar_Click(sender, e);
@@ -370,6 +374,7 @@ namespace Telas
 
             btnImprimir.Enabled = contasPessoaDataGridView.RowCount > 0;
             btnCFNfe.Enabled = contasPessoaDataGridView.RowCount > 0;
+            btnBoleto.Enabled = contasPessoaDataGridView.RowCount > 0;
 
             if (habilita)
             {
@@ -625,6 +630,24 @@ namespace Telas
         private void faltaReceberTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
+        }
+
+        private void btnBoleto_Click(object sender, EventArgs e)
+        {
+            HashSet<long> codSaidas = new HashSet<long>();
+
+            String cupomFiscal = contasPessoaDataGridView.SelectedRows[0].Cells[4].Value.ToString(); //cupom fiscal
+            for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
+            {
+                if (!cupomFiscal.Equals(contasPessoaDataGridView.SelectedRows[i].Cells[4].Value.ToString()))//cupom fiscal
+                {
+                    throw new TelaException("Não é possível associar boletos a cupons fiscais distintos ou pedidos que não foram tirados o cupom fiscal.");
+                }
+            }
+
+            FrmSaidaPagamentoBoleto frmSaidaPagamentoBoleto = new FrmSaidaPagamentoBoleto(cupomFiscal);
+            frmSaidaPagamentoBoleto.ShowDialog();
+            frmSaidaPagamentoBoleto.Dispose();
         }
 
 

@@ -14,6 +14,8 @@ namespace Telas
 {
     public partial class FrmMovimentacaoCaixa : Form
     {
+        const int BANESECARD_CREDITO = 5;
+
         public FrmMovimentacaoCaixa()
         {
             InitializeComponent();
@@ -50,8 +52,17 @@ namespace Telas
             textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
             IEnumerable<VendasCartao> vendasCartao = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasCartao(dataInicial, dataFinal);
-            VendasCartaoBindingSource.DataSource = vendasCartao;
-            textTotalCartao.Text = vendasCartao.Sum(t => t.TotalCartao).ToString("N2");
+            IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
+            IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO");
+            IEnumerable<VendasCartao> baneseCredito = vendasCartao.Where(vendas => vendas.CodCartao == BANESECARD_CREDITO);
+            
+            vendasCartaoRede.DataSource = redeCredito.Union(redeDebito);
+            vendasCartaoBaneseCredito.DataSource = baneseCredito;
+
+            totalCreditoRede.Text = redeCredito.Sum(t => t.TotalCartao).ToString("N2");
+            totalDebitoRede.Text = redeDebito.Sum(t => t.TotalCartao).ToString("N2");
+            totalRede.Text = (redeCredito.Sum(t => t.TotalCartao) + redeDebito.Sum(t => t.TotalCartao)).ToString("N2"); 
+            totalCreditoBanese.Text = baneseCredito.Sum(t => t.TotalCartao).ToString("N2");
         }
 
         private void dateTimePickerInicial_ValueChanged(object sender, EventArgs e)

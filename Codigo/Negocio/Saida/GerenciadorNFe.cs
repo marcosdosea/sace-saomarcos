@@ -605,11 +605,11 @@ namespace Negocio
                         XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
 
                         string numero = files[i].Name.Substring(0, 15);  // pode ser o número do lote ou do recibo
-                        NfeControle nfeControle = ObterPorLote(numero).ElementAtOrDefault(0);
+                        NfeControle nfeControle = ObterPorLote(numero).LastOrDefault();
                         // Retorno no caso de envio assíncrono
                         if (nfeControle == null)
                         {
-                            nfeControle = ObterPorRecibo(numero).ElementAtOrDefault(0);
+                            nfeControle = ObterPorRecibo(numero).LastOrDefault();
                             if (nfeControle != null)
                             {
                                 XmlSerializer serializer = new XmlSerializer(typeof(TRetConsReciNFe));
@@ -1204,7 +1204,8 @@ namespace Negocio
                             
                             string cfopItem = "Item" + saidaProduto.CodCfop;
                             if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2))
-                                cfopItem = cfopItem.Replace("5", "6"); // cfop vira interestadual 
+                                cfopItem = cfopItem.Replace("Item5", "Item6"); // cfop vira interestadual 
+                            
 
                             prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), cfopItem);
 

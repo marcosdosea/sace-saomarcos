@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using Util;
 using System.Diagnostics;
-using Ionic.Zip;
+//using Ionic.Zip;
 using Negocio;
 
 namespace Backup

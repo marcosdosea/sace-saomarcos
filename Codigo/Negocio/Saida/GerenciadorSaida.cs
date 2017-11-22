@@ -468,6 +468,30 @@ namespace Negocio
             return GetQuery().Where(saida => listaTiposSaida.Contains(saida.TipoSaida)).OrderBy(s => s.CodSaida).ToList();
         }
 
+
+        /// <summary>
+        /// Obtme todos os dados de uma saída por cupom fiscal
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<SaidaPesquisa> ObterPorCupomFiscal(String cupomFiscal)
+        {
+            var query = from saida in saceContext.tb_saida
+                        where saida.pedidoGerado.Equals(cupomFiscal)
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente,
+                            NomeCliente = saida.tb_pessoa.nomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            TipoSaida = saida.codTipoSaida
+                        };
+            return query.ToList();
+        }
+
         /// <summary>
         /// Obtme todos os dados de uma saída
         /// </summary>
@@ -485,6 +509,18 @@ namespace Negocio
               //  listaSaidas.Add(codSaidaInicial);
 
             return GetQuery().Where(saida => Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
+
+        }
+
+
+        /// <summary>
+        /// Obtme todos os dados de uma saída
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterSaidaPorAno(int ano)
+        {
+            return GetQuery().Where(saida => saida.DataSaida.Year==2017).OrderBy(s => s.CodSaida).ToList();
 
         }
 

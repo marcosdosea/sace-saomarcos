@@ -465,7 +465,11 @@ namespace Negocio
             foreach( ProdutoE produtoE in query) {
                 ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produtoE.codProduto).FirstOrDefault();
                 decimal estoqueAtual = listaProdutoLoja.Where(pl => pl.CodProduto == produtoE.codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
-
+                
+                // necessário deixar os itens como disponível antes da análise por conta das mudanças no estoque
+                if (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO)
+                    produtoE.codSituacaoProduto = SituacaoProduto.DISPONIVEL;
+                
                 if (produtoVendido != null) {
                     if (estoqueAtual <= produtoVendido.QuantidadeVendida) {
                         if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO)) 
@@ -491,7 +495,9 @@ namespace Negocio
         /// <param name="NUMERO_MESES_ANALISAR"></param>
         private void AtualizarSituacaoProdutosComprados(int NUMERO_MESES_ANALISAR)
         {
-            DateTime dataAnalise = DateTime.Now.AddMonths(NUMERO_MESES_ANALISAR * (-2));
+            const int NUMERO_DIAS_PRODUTO_STATUS_COMPRADO = -60;
+
+            DateTime dataAnalise = DateTime.Now.AddDays(NUMERO_DIAS_PRODUTO_STATUS_COMPRADO);
             
             var query = from produto in saceContext.ProdutoSet
                          where produto.codSituacaoProduto == SituacaoProduto.COMPRADO &&

@@ -35,13 +35,13 @@
             System.Windows.Forms.Label label12;
             System.Windows.Forms.Label codCartaoLabel;
             System.Windows.Forms.Label label13;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -96,6 +96,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codContaBancoComboBox = new System.Windows.Forms.ComboBox();
+            this.btnBoleto = new System.Windows.Forms.Button();
             codClienteLabel = new System.Windows.Forms.Label();
             codFormaPagamentoLabel = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
@@ -206,7 +207,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(340, 588);
+            this.btnCancelar.Location = new System.Drawing.Point(429, 588);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 62;
@@ -340,27 +341,27 @@
             this.desconto,
             this.valorPagar});
             this.contasPessoaDataGridView.DataSource = this.contasPessoaBindingSource;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.contasPessoaDataGridView.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.contasPessoaDataGridView.DefaultCellStyle = dataGridViewCellStyle19;
             this.contasPessoaDataGridView.Location = new System.Drawing.Point(7, 176);
             this.contasPessoaDataGridView.Name = "contasPessoaDataGridView";
             this.contasPessoaDataGridView.ReadOnly = true;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contasPessoaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle27;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.contasPessoaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contasPessoaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.contasPessoaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle21;
             this.contasPessoaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.contasPessoaDataGridView.Size = new System.Drawing.Size(883, 303);
             this.contasPessoaDataGridView.StandardTab = true;
@@ -372,8 +373,8 @@
             // 
             this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
             this.codContaDataGridViewTextBoxColumn.FillWeight = 60F;
             this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
             this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
@@ -383,8 +384,8 @@
             // 
             this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle16;
             this.codSaidaDataGridViewTextBoxColumn.FillWeight = 60F;
             this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
             this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
@@ -401,8 +402,8 @@
             // 
             this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
             this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
             this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
@@ -412,8 +413,8 @@
             // 
             this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.CF.DataPropertyName = "CF";
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CF.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CF.DefaultCellStyle = dataGridViewCellStyle18;
             this.CF.FillWeight = 60F;
             this.CF.HeaderText = "CF";
             this.CF.MinimumWidth = 60;
@@ -746,12 +747,23 @@
             this.codContaBancoComboBox.ValueMember = "CodContaBanco";
             this.codContaBancoComboBox.Visible = false;
             // 
+            // btnBoleto
+            // 
+            this.btnBoleto.Location = new System.Drawing.Point(340, 588);
+            this.btnBoleto.Name = "btnBoleto";
+            this.btnBoleto.Size = new System.Drawing.Size(88, 23);
+            this.btnBoleto.TabIndex = 61;
+            this.btnBoleto.Text = "F9 - Boleto";
+            this.btnBoleto.UseVisualStyleBackColor = true;
+            this.btnBoleto.Click += new System.EventHandler(this.btnBoleto_Click);
+            // 
             // FrmReceberPagamentoPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1172, 617);
+            this.Controls.Add(this.btnBoleto);
             this.Controls.Add(this.codContaBancoComboBox);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
@@ -872,5 +884,6 @@
          private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
          private System.Windows.Forms.DataGridViewTextBoxColumn valorPagar;
          private System.Windows.Forms.BindingSource pessoaBindingSource;
+         private System.Windows.Forms.Button btnBoleto;
      }
  }
