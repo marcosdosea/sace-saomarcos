@@ -319,5 +319,33 @@ namespace Negocio
                         };
             return query.ToList();
         }
+
+        internal void Atualizar(SaidaPagamento saidaPagamento)
+        {
+            try
+            {
+                var query = from saidaPagamentoE in saceContext.SaidaFormaPagamentoSet
+                            where saidaPagamentoE.codSaida == saidaPagamento.CodSaida
+                            select saidaPagamentoE;
+                foreach (SaidaFormaPagamentoE _saidaPagamentoE in query)
+                {
+                    _saidaPagamentoE.codCartao = saidaPagamento.CodCartaoCredito;
+                    _saidaPagamentoE.numeroControle = saidaPagamento.NumeroControle;
+                    _saidaPagamentoE.codContaBanco = saidaPagamento.CodContaBanco;
+                    _saidaPagamentoE.codFormaPagamento = saidaPagamento.CodFormaPagamento;
+                    _saidaPagamentoE.codSaida = saidaPagamento.CodSaida;
+                    _saidaPagamentoE.data = saidaPagamento.Data;
+                    _saidaPagamentoE.intervaloDias = saidaPagamento.IntervaloDias;
+                    _saidaPagamentoE.numeroControle = saidaPagamento.NumeroControle;
+                    _saidaPagamentoE.parcelas = saidaPagamento.Parcelas;
+                    _saidaPagamentoE.valor = saidaPagamento.Valor;
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
+        }
     }
 }

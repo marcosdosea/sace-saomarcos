@@ -519,7 +519,7 @@ namespace Negocio
         private List<EntradaProduto> ObterVendidosOrdenadoPorEntrada(long codProduto)
         {
             return GetQuery().Where(ep => ep.CodProduto == codProduto && ep.Quantidade > ep.QuantidadeDisponivel).
-                OrderBy(ep => ep.DataEntrada).ToList();
+                OrderBy(ep => ep.CodEntradaProduto).ToList();
         }
 
         /// <summary>

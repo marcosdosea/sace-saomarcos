@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Dados;
 using Dominio;
+using System.IO;
+using Util;
+using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
     public class GerenciadorCartaoCredito
     {
         private static GerenciadorCartaoCredito gCartaoCredito;
-        
+
         public static GerenciadorCartaoCredito GetInstance()
         {
             if (gCartaoCredito == null)
@@ -32,10 +35,10 @@ namespace Negocio
 
                 CartaoCreditoE _cartaoCredito = new CartaoCreditoE();
                 Atribuir(cartaoCredito, _cartaoCredito);
-                
+
                 repCartaoCredito.Inserir(_cartaoCredito);
                 repCartaoCredito.SaveChanges();
-                
+
                 return _cartaoCredito.codCartao;
             }
             catch (Exception e)
@@ -43,7 +46,7 @@ namespace Negocio
                 throw new DadosException("Cartão de Crédito", e.Message, e);
             }
         }
-        
+
         /// <summary>
         /// Atualiza os dados de um cartão de crédito
         /// </summary>
@@ -105,8 +108,8 @@ namespace Negocio
                         {
                             CodCartao = cartao.codCartao,
                             CodContaBanco = cartao.codContaBanco,
-                            CodPessoa = (int) cartao.codPessoa,
-                            DiaBase = (int) cartao.diaBase,
+                            CodPessoa = (int)cartao.codPessoa,
+                            DiaBase = (int)cartao.diaBase,
                             Mapeamento = cartao.mapeamento,
                             Nome = cartao.nome,
                             DescricaoContaBanco = contaBanco.descricao,
@@ -116,7 +119,7 @@ namespace Negocio
                             TipoCartao = cartao.tipoCartao
                         };
             return query;
-         
+
         }
 
         /// <summary>
@@ -148,6 +151,7 @@ namespace Negocio
         {
             return GetQuery().Where(cartao => cartao.MapeamentoCappta == nomeBandeira).ToList();
         }
+
         /// <summary>
         /// Obtém os dados do cartão pelo nome
         /// </summary>
@@ -157,6 +161,296 @@ namespace Negocio
         {
             return GetQuery().Where(cartao => cartao.Nome.StartsWith(nome)).ToList();
         }
+
+
+        public Boolean AtualizarRespostaCartoes(string nomeServidor)
+        {
+            Boolean atualizou = false;
+            DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_CARTAO);
+            DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP);
+                            
+            string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+            if (nomeComputador.Equals(nomeServidor) && PastaRetorno.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                FileInfo[] Files = PastaRetorno.GetFiles("*.TEF", SearchOption.TopDirectoryOnly);
+                if (Files.Length == 0)
+                {
+                    atualizou = true;
+                }
+                else
+                {
+                    foreach (FileInfo file in Files)
+                    {
+                        try
+                        {
+                            CartaoCreditoAutorizacao autorizacao = new CartaoCreditoAutorizacao();
+                            StreamReader reader = new StreamReader(file.FullName);
+                            String linha = null;
+                            String data = null;
+                            while ((linha = reader.ReadLine()) != null)
+                            {
+                                if (linha.StartsWith("000-000"))
+                                    autorizacao.Header = linha.Substring(10);
+                                else if (linha.StartsWith("001-000"))
+                                    autorizacao.CodIndentificacao = Int32.Parse(linha.Substring(10));
+                                else if (linha.StartsWith("002-000"))
+                                    autorizacao.CupomFiscal = linha.Substring(10);
+                                else if (linha.StartsWith("003-000"))
+                                    autorizacao.Valor = Decimal.Parse(linha.Substring(10)) / 100;
+                                else if (linha.StartsWith("009-000"))
+                                    autorizacao.StatusTransacao = linha.Substring(10);
+                                else if (linha.StartsWith("011-000"))
+                                    autorizacao.TipoTransacao = int.Parse(linha.Substring(10));
+                                else if (linha.StartsWith("012-000"))
+                                    autorizacao.NsuTransacao = long.Parse(linha.Substring(10));
+                                else if (linha.StartsWith("013-000"))
+                                    autorizacao.AutorizacaoTransacao = linha.Substring(10);
+                                else if (linha.StartsWith("017-000"))
+                                    autorizacao.TipoParcelamento = int.Parse(linha.Substring(10));
+                                else if (linha.StartsWith("018-000"))
+                                    autorizacao.QuantidadeParcelas = int.Parse(linha.Substring(10));
+                                else if (linha.StartsWith("022-000"))
+                                    data = linha.Substring(10);
+                                else if (linha.StartsWith("023-000"))
+                                    autorizacao.DataHoraAutorizacao = DateTime.ParseExact((data+linha.Substring(10)), "ddMMyyyyHHmmss", null);
+                                else if (linha.StartsWith("040-000"))
+                                    autorizacao.NomeBandeiraCartao = linha.Substring(10);
+                            }
+                            reader.Close();
+                            if (autorizacao.Header.Equals("CRT") || autorizacao.Header.Equals("CNC")) 
+                                InserirAutorizacao(autorizacao);
+                            if (PastaBackup.Exists)
+                            {
+                                file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
+                                file.Delete();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // Se houver algum impossibilidade de processa a transação ela fica na pasta. 
+                        }
+                    }         
+                }
+            }
+            return atualizou;
+        }
+
+
+        /// <summary>
+        /// Grava autorização e relaciona as saídas
+        /// </summary>
+        /// <param name="resultadoProcessamento"></param>
+        /// <param name="listaSolicitacaoSaida"></param>
+        /// <returns></returns>
+        private long InserirAutorizacao(CartaoCreditoAutorizacao autorizacao)
+        {
+            var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
+            tb_autorizacao_cartao _autorizacao_cartaoE;
+            try
+            {
+                _autorizacao_cartaoE = new tb_autorizacao_cartao();
+                _autorizacao_cartaoE.header = autorizacao.Header;
+                _autorizacao_cartaoE.codIdentificacao = autorizacao.CodIndentificacao;
+                _autorizacao_cartaoE.cupomFiscal = autorizacao.CupomFiscal;
+                _autorizacao_cartaoE.valor = autorizacao.Valor;
+                _autorizacao_cartaoE.nomeBandeiraCartao = autorizacao.NomeBandeiraCartao;
+                _autorizacao_cartaoE.statusTransacao = autorizacao.StatusTransacao;
+                _autorizacao_cartaoE.tipoTransacao = autorizacao.TipoTransacao;
+                _autorizacao_cartaoE.processado = autorizacao.Processado;
+                _autorizacao_cartaoE.tipoParcelamento = autorizacao.TipoParcelamento;
+                if (autorizacao.StatusTransacao.Equals("0"))
+                {
+                    _autorizacao_cartaoE.autorizacaoTransacao = autorizacao.AutorizacaoTransacao;
+                    _autorizacao_cartaoE.dataHoraAutorizacao = autorizacao.DataHoraAutorizacao;
+                    _autorizacao_cartaoE.nsuTransacao = autorizacao.NsuTransacao;
+                    _autorizacao_cartaoE.quantidadeParcelas = autorizacao.QuantidadeParcelas == 0 ? 1 : autorizacao.QuantidadeParcelas;
+                }
+                repAutorizacao.Inserir(_autorizacao_cartaoE);
+                repAutorizacao.SaveChanges();
+
+                var saceEntities = (SaceEntities)repAutorizacao.ObterContexto();
+                var query = from saida in saceEntities.tb_saida
+                            where saida.pedidoGerado.Equals(autorizacao.CupomFiscal)
+                            select saida;
+                List<tb_saida> listaSaidas = query.ToList();
+                foreach (tb_saida saidaE in listaSaidas)
+                {
+                    _autorizacao_cartaoE.tb_saida.Add(saidaE);
+                }
+                repAutorizacao.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException is MySqlException)
+                {
+                    MySqlException exception = (MySqlException)e.InnerException;
+                    if (exception.Number != 1062) // quando a autorização já foi inserida na base não precisa enviar erro.
+                        throw new DadosException("Autorização Cartão", e.Message, e);
+                }
+            }
+            return 0;
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resultado"></param>
+        public void AtualizarPedidosComAutorizacaoCartao()
+        {
+            var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
+            var saceEntities = (SaceEntities)repAutorizacao.ObterContexto();
+            var query = from autorizacao in saceEntities.tb_autorizacao_cartao
+                        where autorizacao.processado.Equals(false)
+                        select autorizacao;
+            List<tb_autorizacao_cartao> listaAutorizacoes = query.ToList();
+            if (listaAutorizacoes.Count > 0)
+            {
+                var repConta = new RepositorioGenerico<ContaE>();
+                var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
+                List<CartaoCredito> listaCartoes = GerenciadorCartaoCredito.GetInstance().ObterTodos().ToList();
+                // Varre todas as transações ainda não processadas
+                foreach (tb_autorizacao_cartao autorizacaoCartaoE in listaAutorizacoes)
+                {
+                    if (!autorizacaoCartaoE.processado)
+                    {
+                        IEnumerable<tb_autorizacao_cartao> listaAprovadas = listaAutorizacoes.Where(aut => aut.statusTransacao.Equals("0") && aut.cupomFiscal.Equals(autorizacaoCartaoE.cupomFiscal));
+                        IEnumerable<tb_autorizacao_cartao> listaNegadas = listaAutorizacoes.Where(aut => !aut.statusTransacao.Equals("0") && aut.cupomFiscal.Equals(autorizacaoCartaoE.cupomFiscal));
+                        if (listaAprovadas.Count() > 0)
+                        {
+                            foreach (tb_autorizacao_cartao autorizacaoAprovada in listaAprovadas)
+                            {
+                                if (autorizacaoAprovada.tb_saida.Count() == 0)
+                                {
+
+                                    var query2 = from saida in saceEntities.tb_saida
+                                                 where saida.pedidoGerado.Equals(autorizacaoAprovada.cupomFiscal)
+                                                 select saida;
+                                    List<tb_saida> listaSaidas = query2.ToList();
+                                    foreach (tb_saida saidaE in listaSaidas)
+                                    {
+                                        autorizacaoAprovada.tb_saida.Add(saidaE);
+                                    }
+                                    repAutorizacao.SaveChanges();
+                                }
+                
+                                
+                                foreach (tb_saida saidaE in autorizacaoAprovada.tb_saida)
+                                {
+                                    String tipoCartaoString = "CREDITO";
+                                    if (autorizacaoAprovada.tipoTransacao.Equals(20))
+                                        tipoCartaoString = "DEBITO";
+                                    if (autorizacaoAprovada.nomeBandeiraCartao == null)
+                                        autorizacaoAprovada.nomeBandeiraCartao = "BANESE";
+                                    CartaoCredito cartao = listaCartoes.Where(c => c.TipoCartao.Equals(tipoCartaoString) && autorizacaoAprovada.nomeBandeiraCartao.Equals(c.MapeamentoCappta)).ElementAtOrDefault(0);
+                                    if (cartao == null)
+                                    {
+                                        // ajustes nos nomes dos cartões recuperados para que possa ser associado a um cartão cadastrado 
+                                        if (autorizacaoAprovada.nomeBandeiraCartao.ToUpper().Equals("HIPER"))
+                                            autorizacaoAprovada.nomeBandeiraCartao = "HIPERCARD";
+                                        else if (autorizacaoAprovada.nomeBandeiraCartao.ToUpper().Equals("BANESE"))
+                                            autorizacaoAprovada.nomeBandeiraCartao = "BANESECARD";
+                                        else if (autorizacaoAprovada.nomeBandeiraCartao.ToUpper().Equals("MASTER"))
+                                            autorizacaoAprovada.nomeBandeiraCartao = "MASTERCARD";
+                                        if (autorizacaoAprovada.nomeBandeiraCartao.ToUpper().Equals("HIPERCARD") && tipoCartaoString.Equals("DEBITO"))
+                                            autorizacaoAprovada.nomeBandeiraCartao = "MASTERCARD";
+
+                                        cartao = listaCartoes.Where(c => c.TipoCartao.Equals(tipoCartaoString) && autorizacaoAprovada.nomeBandeiraCartao.Equals(c.MapeamentoCappta)).ElementAtOrDefault(0);
+                                        // cartões autorizados não cadastro são processados pela mastercard
+                                        if (cartao == null)
+                                            cartao = listaCartoes.Where(c => c.TipoCartao.Equals(tipoCartaoString) && c.MapeamentoCappta.Equals("MASTERCARD")).ElementAtOrDefault(0);
+                                    }
+
+                                    IEnumerable<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saidaE.codSaida);
+                                    IEnumerable<Conta> listaConta = GerenciadorConta.GetInstance(null).ObterPorSaida(saidaE.codSaida);
+                                    if ((listaAprovadas.Count() == 1) && (listaSaidaPagamento.Count() == 1) && (listaConta.Count() == autorizacaoAprovada.quantidadeParcelas))
+                                    {
+                                        AtualizaFormaPagamentoUnica(autorizacaoAprovada, cartao, listaSaidaPagamento.First(), listaConta);
+                                    }
+                                    else
+                                    {
+                                        // quando existe mais de uma forma de pagamento associada na saida
+                                        //AtualizaFormaPagamentoMultipla(autorizacaoAprovada, cartao, listaSaidaPagamento, listaConta);
+                                    }
+                                }
+                                autorizacaoAprovada.processado = true;
+                            }
+                        }
+                        else
+                        {
+                            foreach (tb_autorizacao_cartao negada in listaNegadas)
+                            {
+                                IEnumerable<SaidaPesquisa> listaSaida = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(negada.cupomFiscal);
+                                foreach (SaidaPesquisa saidaPesquisa in listaSaida)
+                                {
+                                    Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
+                                    if (!saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+                                    {
+                                        GerenciadorSaidaPagamento.GetInstance(null).RemoverPorSaida(saida);
+                                        GerenciadorSaida.GetInstance(null).RegistrarEstornoEstoque(saida, null);
+                                        saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                                        saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
+                                        saida.CupomFiscal = "";
+                                        saida.TotalPago = 0;
+                                        GerenciadorSaida.GetInstance(null).Atualizar(saida);
+                                    }
+                                }
+                            }
+                        }
+                        foreach (tb_autorizacao_cartao negada in listaNegadas)
+                        {
+                            negada.processado = true;
+                        }
+                    }
+                    //autorizacaoCartaoE.processado = true;
+                    repAutorizacao.SaveChanges();
+                }
+            }
+       }
+
+        private void AtualizaFormaPagamentoUnica(tb_autorizacao_cartao autorizacaoAprovada, CartaoCredito cartao, SaidaPagamento saidaPagamento, IEnumerable<Conta> listaContas)
+        {
+            saidaPagamento.CodCartaoCredito = cartao.CodCartao;
+            saidaPagamento.CodFormaPagamento = FormaPagamento.CARTAO;
+            saidaPagamento.Data = (DateTime) autorizacaoAprovada.dataHoraAutorizacao;
+            saidaPagamento.NumeroControle = autorizacaoAprovada.nsuTransacao.ToString();
+            saidaPagamento.Parcelas = (int) autorizacaoAprovada.quantidadeParcelas;
+            saidaPagamento.Valor = autorizacaoAprovada.valor;
+            GerenciadorSaidaPagamento.GetInstance(null).Atualizar(saidaPagamento);
+            int parcela = 1;
+            foreach (Conta conta in listaContas)
+            {
+                GerenciadorConta.GetInstance(null).Atualizar(cartao.CodPessoa,
+                    autorizacaoAprovada.dataHoraAutorizacao.Value.AddDays(cartao.DiaBase * parcela),
+                    Conta.FORMATO_CONTA_CARTAO,
+                    autorizacaoAprovada.nsuTransacao.ToString(),
+                    autorizacaoAprovada.valor, conta.CodConta);
+                parcela++;
+            }
+        }
+
+
+        private static void RemoverContasSaida(tb_saida saidaE, SaceEntities saceEntities, RepositorioGenerico<ContaE> repConta)
+        {
+            try
+            {
+                var query = from contaSet in saceEntities.ContaSet
+                            where contaSet.codSaida == saidaE.codSaida
+                            select contaSet;
+
+                foreach (ContaE _contaE in query)
+                {
+                    repConta.Remover(_contaE);
+                }
+                repConta.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
+        }
+
 
         /// <summary>
         /// Atribuição ente entidade e entidade persistente
@@ -175,6 +469,6 @@ namespace Negocio
             _cartaoCredito.mapeamentoCappta = cartaoCredito.MapeamentoCappta;
             _cartaoCredito.tipoCartao = cartaoCredito.TipoCartao;
         }
-        
+
     }
 }

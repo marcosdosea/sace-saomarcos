@@ -43,7 +43,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MARCOSDOSEA")]
         public string ServidorCartao {
             get {
                 return ((string)(this["ServidorCartao"]));
@@ -52,7 +52,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ServidorDell")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Servidor")]
         public string ServidorNfeDeposito {
             get {
                 return ((string)(this["ServidorNfeDeposito"]));

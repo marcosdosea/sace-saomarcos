@@ -138,7 +138,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <None Include="SaceEntities1.datasource" />
+    <None Include="SaceEntities1.datasource">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

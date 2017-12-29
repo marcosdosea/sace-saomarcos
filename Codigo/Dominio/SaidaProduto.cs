@@ -53,6 +53,14 @@ namespace Dominio
                 return cst.EhTributacaoIntegral;
             }
         }
+
+        public String Cest
+        {
+            get
+            {
+                return "CEST";
+            }
+        }
         
         // override object.Equals
         public override bool Equals(object obj)

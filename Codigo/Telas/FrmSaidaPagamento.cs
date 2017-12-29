@@ -165,7 +165,6 @@ namespace Telas
                         }
                         else
                         {
-
                             // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
                             if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
                             {

@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using System.Text;
 using System.Transactions;
+using System.Globalization;
 
 
 namespace Negocio
@@ -48,6 +49,7 @@ namespace Negocio
                     _solicitacao_documentoE.ehEspelho = ehEspelho;
                     _solicitacao_documentoE.motivoCartaoNegado = "";
                     _solicitacao_documentoE.tipoSolicitacao = tipoSolicitacao.ToString();
+                    _solicitacao_documentoE.hostSolicitante = System.Windows.Forms.SystemInformation.ComputerName;
                     repSolicitacaoDocumento.Inserir(_solicitacao_documentoE);
 
                     repSolicitacaoDocumento.SaveChanges();
@@ -86,7 +88,7 @@ namespace Negocio
                 {
                     throw new DadosException("Cupom", e.Message, e);
                 }
-                
+
             }
         }
 
@@ -112,7 +114,7 @@ namespace Negocio
             if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE) || tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE))
             {
                 var repSaida = new RepositorioGenerico<tb_nfe>();
-                SaceEntities saceEntities = (SaceEntities) repSaida.ObterContexto();
+                SaceEntities saceEntities = (SaceEntities)repSaida.ObterContexto();
                 foreach (long codSaida in listaCodSaidas)
                 {
                     // Verifica se existem notas emitidas
@@ -225,10 +227,8 @@ namespace Negocio
 
                             repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
                             repSolicitacao2.SaveChanges();
-                            
-                            
-                            //repSolicitacoesRemover.Remover(solicitacaoE);
-                            //repSolicitacoes.SaveChanges();
+
+
                             GerarDocumentoECF(listaSolicitacaoSaida, listaPagamentos);
                             //RemoverSolicitacaoDocumento(listaSolicitacaoSaida.FirstOrDefault().codSaida);
                         }
@@ -326,6 +326,234 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Atualiza dados do cupom
+        /// </summary>
+        /// <param name="cupom"></param>
+        public void EnviarProximoNFe()
+        {
+            try
+            {
+                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+
+                var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
+                var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
+                var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
+
+                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C =>
+                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
+                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
+
+                if (solicitacoes.Count() > 0)
+                {
+                    tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
+                    List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
+                    List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
+
+                    repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                    repSolicitacao2.SaveChanges();
+                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new DadosException("Cupom", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza dados do cupom NFCe
+        /// </summary>
+        /// <param name="cupom"></param>
+        public void EnviarProximoNFCe()
+        {
+            try
+            {
+                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+
+                var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
+                var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
+                var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
+
+                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C =>
+                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) &&
+                    C.hostSolicitante.Equals(System.Windows.Forms.SystemInformation.ComputerName)).OrderBy(s => s.dataSolicitacao).ToList();
+
+                if (solicitacoes.Count() > 0)
+                {
+                    tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
+                    List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
+                    List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
+
+                    repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                    repSolicitacao2.SaveChanges();
+                    GerarDocumentoNFCe(listaSolicitacaoSaida, listaSolicitacaoPagamentos);
+                    //GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new DadosException("Cupom", e.Message, e);
+            }
+        }
+
+
+        /// <summary>
+        /// Gera o cupom fiscal a partir das saídas e valores a vista de cada saía
+        /// </summary>
+        /// <param name="saidaPagamentos"></param>
+        private void GerarDocumentoNFCe(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos)
+        {
+            // nome dos arquivos padronizado pelo MKS
+            String nomeArqDocumento = Global.PASTA_COMUNICACAO_NFCE_RECEBER + "DOCUMENTO.txt";
+            String nomeArqPagamento = Global.PASTA_COMUNICACAO_NFCE_RECEBER + "PAGAMENTO.txt";
+            String nomeArqProdutos = Global.PASTA_COMUNICACAO_NFCE_RECEBER + "PRODUTOS.txt";
+
+            StreamWriter arqDocumento = new StreamWriter(nomeArqDocumento, false, Encoding.ASCII);
+            StreamWriter arqPagamento = new StreamWriter(nomeArqPagamento, false, Encoding.ASCII);
+            StreamWriter arqProdutos = new StreamWriter(nomeArqProdutos, false, Encoding.ASCII);
+
+            try
+            {
+                List<Saida> saidas = new List<Saida>();
+                decimal totalSolicitacaoSaidas = 0;
+                foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
+                {
+                    Saida saida = GerenciadorSaida.GetInstance(null).Obter(solicitacaoSaida.codSaida);
+                    if (!string.IsNullOrEmpty(saida.CupomFiscal))
+                    {
+                        throw new NegocioException("Cupom Fiscal referente a essa pré-venda já foi impresso.");
+                    }
+                    saidas.Add(saida);
+                    totalSolicitacaoSaidas += solicitacaoSaida.valorTotal;
+                }
+
+                if (saidas.Count > 0)
+                {
+                    DirectoryInfo pastaECF = new DirectoryInfo(Global.PASTA_COMUNICACAO_NFCE_RECEBER);
+
+                    if (pastaECF.Exists)
+                    {
+                        // imprime produtos dos cupons fiscais
+                        List<SaidaProduto> listaSaidaProdutos = new List<SaidaProduto>();
+                        Pessoa cliente = (Pessoa)GerenciadorPessoa.GetInstance().Obter(saidas[0].CodCliente).ElementAt(0);
+                        foreach (Saida saida in saidas)
+                        {
+                            List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
+                            if (cliente.ImprimirCF)
+                                saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                            else
+                                saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaidaSemCST(saida.CodSaida, Cst.ST_OUTRAS);
+
+                            decimal totalAVista = listaSolicitacaoSaida.Where(cs => cs.codSaida.Equals(saida.CodSaida)).Sum(cs => cs.valorTotal);
+                            if (saidaProdutos.Count > 0)
+                            {
+                                // associa as saídas ao pedido que foi gerado para emissão do cupom fiscal
+                                if (GerenciadorSaidaPedido.GetInstance().ObterPorSaida(saida.CodSaida).Count == 0)
+                                {
+                                    GerenciadorSaidaPedido.GetInstance().Inserir(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida, TotalAVista = totalAVista });
+                                }
+                                else
+                                {
+                                    GerenciadorSaidaPedido.GetInstance().Atualizar(new SaidaPedido() { CodSaida = saida.CodSaida, CodPedido = saidas[0].CodSaida, TotalAVista = totalAVista });
+                                }
+                                listaSaidaProdutos.AddRange(saidaProdutos);
+                            }
+                            else
+                            {
+                                GerenciadorSaida.GetInstance(null).AtualizarTipoPedidoGeradoPorSaida(Saida.TIPO_VENDA, "", totalAVista, saida.CodSaida);
+                            }
+                        }
+
+                        // imprimir DOCUMENTO
+                        decimal valorImposto = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(listaSaidaProdutos).Sum(sp => sp.ValorImposto);
+                        decimal valorImpostoPercentual = valorImposto / saidas.Sum(s => s.TotalAVista) * 100;
+                        decimal troco = listaSolicitacaoSaida.Sum(cs => cs.valorTotal) - listaSolicitacaoPagamentos.Sum(p => p.valor);
+                        int numeroCupom = GerenciadorNFe.GetInstance().ObterProximoNumeroSequenciaNfeLoja(Global.LOJA_PADRAO, NfeControle.MODELO_NFCE);
+
+                        String linhaArqDocumento = numeroCupom + "|";
+                        linhaArqDocumento += "Val Aprox dos Tributos R$ " + valorImposto.ToString("N2") + " (" + valorImpostoPercentual.ToString("N2") + "%) " + "  Fonte: IBPT|";
+                        linhaArqDocumento += saidas[0].CpfCnpj + "|";
+                        linhaArqDocumento += troco + "";
+                        arqDocumento.WriteLine(linhaArqDocumento);
+
+                        // imprimir PRODUTOS
+                        listaSaidaProdutos = GerenciadorSaida.GetInstance(null).ExcluirProdutosDevolvidosMesmoPreco(listaSaidaProdutos);
+                        decimal desconto = listaSaidaProdutos.Sum(s => s.Subtotal) - listaSolicitacaoSaida.Sum(cs => cs.valorTotal);
+                        decimal totalProdutos = totalProdutos = listaSaidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
+                        listaSaidaProdutos = GerenciadorNFe.GetInstance().DistribuirDescontoProdutos(listaSaidaProdutos, desconto, totalProdutos);
+
+                        foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
+                        {
+                            if ((saidaProduto.Quantidade > 0) && (saidaProduto.ValorVenda > 0))
+                            {
+                                Produto produto = new Produto();
+                                produto.CodProduto = saidaProduto.CodProduto;
+                                produto.CodCST = saidaProduto.CodCST;
+                                String cst = produto.EhTributacaoIntegral ? "102" : "500";  //01-17%  02-25% 03-27%
+                                String linhaArqProdutos = saidaProduto.CodProduto + "|";
+                                linhaArqProdutos += saidaProduto.Nome + "|";
+                                linhaArqProdutos += saidaProduto.Quantidade.ToString() + "|";
+                                linhaArqProdutos += saidaProduto.ValorVenda.ToString() + "|";
+                                linhaArqProdutos += cst + "|";
+                                linhaArqProdutos += saidaProduto.Ncmsh + "|";
+                                linhaArqProdutos += saidaProduto.Cest + "|";
+                                linhaArqProdutos += "5102|";
+                                linhaArqProdutos += saidaProduto.Unidade + "|";
+                                linhaArqProdutos += "18,00";
+                                arqProdutos.WriteLine(linhaArqProdutos);
+                            }
+                        }
+                        // PAGAMENTOS
+                        if (listaSaidaProdutos.Count > 0)
+                        {
+                            foreach (tb_solicitacao_pagamento pagamento in listaSolicitacaoPagamentos)
+                            {
+                                if (pagamento.codFormaPagamento != FormaPagamento.CARTAO)
+                                {
+                                    arqPagamento.WriteLine("DINHEIRO|"+pagamento.valor);
+                                }
+                                else
+                                {
+                                    CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.codCartao).ElementAtOrDefault(0);
+                                    if (cartaoCredito.TipoCartao.Equals(CartaoCredito.TIPO_CARTAO_CREDITO))
+                                        arqPagamento.WriteLine("CARTAOCREDITO|" + pagamento.valor);
+                                    else
+                                        arqPagamento.WriteLine("CARTAODEBITO|" + pagamento.valor);
+                                        
+                                }
+                                //CHEQUE CREDITOLOJA VALEALIMENTACAO VALEREFEICAO VALEPRESENTE VALECOMBUSTIVEL OUTRO
+                            }
+                        }
+                        else
+                        {
+                            ExcluirDocumentoFiscal(saidas[0].CodSaida);
+                        }
+
+                    }
+                }
+                //transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                //transaction.Rollback();
+                if (e is NegocioException)
+                {
+                    throw e;
+                }
+                //TODO: definir mecanismo para lançar exceção de processo background
+            }
+            finally
+            {
+                arqDocumento.Close();
+                arqProdutos.Close();
+                arqPagamento.Close();
+            }
+        }
+
+
+        /// <summary>
         /// Gera o cupom fiscal a partir das saídas e valores a vista de cada saía
         /// </summary>
         /// <param name="saidaPagamentos"></param>
@@ -421,7 +649,8 @@ namespace Negocio
                             ImprimirPagamentosCF(listaPagamentos, arquivo);
                             arquivo.Close();
                         }
-                        else if (saidas.FirstOrDefault().TipoSaida.Equals(Saida.TIPO_CREDITO)) {
+                        else if (saidas.FirstOrDefault().TipoSaida.Equals(Saida.TIPO_CREDITO))
+                        {
                             ImprimirPagamentosCF(listaPagamentos, arquivo);
                             arquivo.Close();
                         }
@@ -430,7 +659,7 @@ namespace Negocio
                             arquivo.Close();
                             ExcluirDocumentoFiscal(saidas[0].CodSaida);
                         }
-                        
+
                     }
                 }
                 //transaction.Commit();
@@ -444,11 +673,6 @@ namespace Negocio
                 }
                 //TODO: definir mecanismo para lançar exceção de processo background
             }
-            //finally
-            //{
-            //    saceContext.Connection.Close();
-            //}
-
         }
 
         private static void ImprimirPagamentosCF(List<tb_solicitacao_pagamento> listaPagamentos, StreamWriter arquivo)
@@ -621,7 +845,7 @@ namespace Negocio
             return atualizou;
         }
 
-        public Boolean AtualizarPedidosComRespostaCartaoTexto(string nomeServidor)
+        public Boolean AtualizarPedidosComRespostaCartaoCappta(string nomeServidor)
         {
             Boolean atualizou = false;
             DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_CARTAO);
@@ -710,81 +934,6 @@ namespace Negocio
                 }
             }
             return atualizou;
-        }
-
-        public void InserirRespostaCartao(Cartao.ResultadoProcessamento resultado)
-        {
-            List<tb_solicitacao_saida> listaSolicitacaoSaida;
-
-            if (resultado.Aprovado)
-            {
-                listaSolicitacaoSaida = ObterSolicitacaoSaida(resultado.CodSolicitacao).ToList();
-                // Pode passar mais de um cartão de crédito
-                if (listaSolicitacaoSaida.Count == 1)
-                {
-                    tb_solicitacao_saida solicitacaoSaida = listaSolicitacaoSaida.FirstOrDefault();
-                    IEnumerable<Conta> listaContas = GerenciadorConta.GetInstance(null).ObterPorSaida(solicitacaoSaida.codSaida);
-                    List<Cartao.RespostaAprovada> listaAprovadas = resultado.ListaRespostaAprovada;
-                    foreach (Cartao.RespostaAprovada aprovada in listaAprovadas)
-                    {
-                        String tipoCartaoString = Enum.GetName(typeof(Cartao.TipoCartao), aprovada.TipoCartao);
-                        CartaoCredito cartao = GerenciadorCartaoCredito.GetInstance().ObterPorMapeamentoCappta(aprovada.NomeBandeiraCartao).Where(c => c.TipoCartao.Equals(tipoCartaoString)).ElementAtOrDefault(0);
-                        Conta conta = listaContas.Where(c => c.ValorPagar == (decimal)aprovada.Valor && String.IsNullOrWhiteSpace(c.NumeroDocumento)).FirstOrDefault();
-                        GerenciadorSaidaPagamento.GetInstance(null).AtualizarPorAutorizacaoCartao(conta.CodSaida, cartao.CodCartao, aprovada.NumeroControle);
-
-                        conta.CodPessoa = cartao.CodPessoa;
-                        conta.NumeroDocumento = aprovada.NumeroControle;
-                        conta.DataVencimento = DateTime.Now.AddDays(cartao.DiaBase);
-                        GerenciadorConta.GetInstance(null).AtualizarDadosCartaoCredito(conta);
-                    }
-                }
-                InserirAutorizacaoCartao(resultado, listaSolicitacaoSaida);
-            }
-
-            AtualizarSolicitacaoDocumentoCartao(resultado);
-        }
-
-        public long InserirAutorizacaoCartao(Cartao.ResultadoProcessamento resultadoProcessamento, List<tb_solicitacao_saida> listaSolicitacaoSaida)
-        {
-            var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
-            //var repSaida = new RepositorioGenerico<tb_saida>();
-            tb_autorizacao_cartao _autorizacao_cartaoE;
-            try
-            {
-                foreach (Cartao.RespostaAprovada respostaAprovada in resultadoProcessamento.ListaRespostaAprovada)
-                {
-                    _autorizacao_cartaoE = new tb_autorizacao_cartao();
-                    _autorizacao_cartaoE.codigoAutorizacaoAdquirente = respostaAprovada.CodAutorizacaoAdquirente;
-                    _autorizacao_cartaoE.dataHoraAutorizacao = respostaAprovada.DataHoraAutorizacao;
-                    _autorizacao_cartaoE.nomeAdquirente = respostaAprovada.NomeAdquirente;
-                    _autorizacao_cartaoE.nomeBandeiraCartao = respostaAprovada.NomeBandeiraCartao;
-                    _autorizacao_cartaoE.nsuAdquirente = String.IsNullOrEmpty(respostaAprovada.NsuAdquirente) ? "" : respostaAprovada.NsuAdquirente;
-                    _autorizacao_cartaoE.nsuTef = String.IsNullOrEmpty(respostaAprovada.NsuTef) ? "" : respostaAprovada.NsuTef;
-                    _autorizacao_cartaoE.numeroControle = String.IsNullOrEmpty(respostaAprovada.NumeroControle) ? "" : respostaAprovada.NumeroControle;
-
-                    repAutorizacao.Inserir(_autorizacao_cartaoE);
-                    repAutorizacao.SaveChanges();
-                    foreach (tb_solicitacao_saida solicitacaoSaida in listaSolicitacaoSaida)
-                    {
-                        var saceEntities = (SaceEntities)repAutorizacao.ObterContexto();
-                        var query = from saida in saceEntities.tb_saida
-                                    where saida.codSaida == solicitacaoSaida.codSaida
-                                    select saida;
-
-                        tb_saida saidaE = query.FirstOrDefault();
-
-                        _autorizacao_cartaoE.tb_saida.Add(saidaE);
-                    }
-
-                    repAutorizacao.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Autorização Cartão", e.Message, e);
-            }
-            return 0;
-
         }
     }
 }

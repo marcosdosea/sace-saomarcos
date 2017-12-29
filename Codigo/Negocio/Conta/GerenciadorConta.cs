@@ -104,6 +104,32 @@ namespace Negocio
             }
         }
 
+        public void Atualizar(long codPessoa, DateTime dataVencimento, string formatoConta, 
+            string nsuTransacao, decimal valor, long codConta)
+        {
+            try
+            {
+                var query = from contaSet in saceContext.ContaSet
+                            where contaSet.codConta == codConta
+                            select contaSet;
+
+                ContaE _conta = query.ToList().ElementAtOrDefault(0);
+                _conta.codPessoa= codPessoa;
+                _conta.dataVencimento = dataVencimento;
+                _conta.formatoConta = formatoConta;
+                _conta.numeroDocumento = nsuTransacao.ToString();
+                _conta.valor = valor;
+
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
+        }
+
+
+        
         /// <summary>
         /// Atualizar dados da conta no banco de dados.
         /// </summary>

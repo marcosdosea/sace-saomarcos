@@ -307,44 +307,26 @@ namespace Telas
 
         private static void ProcessarDocumentosFiscais()
         {
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
-            {
-                List<SolicitacaoPagamento> listaSolicitacaoPagamento = GerenciadorSolicitacaoDocumento.GetInstance().ObterSolicitacaoPagamentoCartao();
-                if (listaSolicitacaoPagamento.Count() > 0)
-                {
-                    List<Cartao.Pagamento> listaPagamento = new List<Cartao.Pagamento>();
-                    foreach (SolicitacaoPagamento solicitacaoPagamento in listaSolicitacaoPagamento)
-                    {
-                        listaPagamento.Add(new Cartao.Pagamento()
-                        {
-                            NomeCartao = solicitacaoPagamento.NomeCartaoCredito,
-                            QuantidadeParcelas = (int)solicitacaoPagamento.Parcelas,
-                            TipoCartao = solicitacaoPagamento.TipoCartao.Equals(SolicitacaoPagamento.TCartao.CREDITO) ? Cartao.TipoCartao.CREDITO : Cartao.TipoCartao.DEBITO,
-                            TipoParcelamento = Cartao.TipoParcelamento.LOJA,
-                            CodSolicitacaoPagamento = solicitacaoPagamento.CodSolicitacaoPagamento,
-                            CodSolicitacao = solicitacaoPagamento.CodSolicitacao,
-                            Situacao = Cartao.Pagamento.SituacaoPagamento.SOLICITADA,
-                            Valor = (double)solicitacaoPagamento.Valor,
-                        });
-                    }
-                    if (comunicacaoCartao == null)
-                        comunicacaoCartao = new Cartao.ComunicacaoCartao();
-                    Cartao.FrmProcessarCartao frmProcessarCartao = new Cartao.FrmProcessarCartao(comunicacaoCartao, listaPagamento);
-                    frmProcessarCartao.ShowDialog();
-                    GerenciadorSolicitacaoDocumento.GetInstance().InserirRespostaCartao(frmProcessarCartao.Resultado);
-                    frmProcessarCartao.Close();
-                }
-            }
+            GerenciadorSolicitacaoDocumento.GetInstance().ObterDocumentosFiscais();
             if (nomeComputador.ToUpper().Equals(SERVIDOR))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
                 GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosFiscais(SERVIDOR);
+                GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
+            }
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
+            {
+                GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE) || nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
-                GerenciadorNFe.GetInstance().EnviarProximoNFe();
+                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe();
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
+
+            GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe();
+
+
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -428,39 +410,6 @@ namespace Telas
 
         private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            //IEnumerable<Produto> produtos = GerenciadorProduto.GetInstance().ObterTodos();
-            //int cont = 0;
-            //foreach (Produto p in produtos)
-            //{
-            //    GerenciadorProdutoLoja.GetInstance(null).AtualizarEstoqueEntradasProduto(p.CodProduto);
-            //    cont++;
-            //    if (cont % 2000 == 0)
-            //    {
-            //        MessageBox.Show("Processado mais 1000");
-            //    }
-            //}
-
-            int mes = 0;
-            IEnumerable<Saida> saidas = GerenciadorSaida.GetInstance(null).ObterSaidaPorAno(2017);
-            foreach (Saida saida in saidas)
-            {
-                if (saida.DataSaida.Month != mes)
-                {
-                    mes = saida.DataSaida.Month;
-                    MessageBox.Show("Iniciando processamento mes " + mes);
-                }
-                IEnumerable<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
-                decimal somaCusto = 0;
-                foreach (SaidaProduto sp in saidaProdutos)
-                {
-                    Produto p = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa(){CodProduto = sp.CodProduto});
-                    somaCusto += p.PrecoCusto * sp.Quantidade; 
-                }
-                saida.TotalLucro = saida.TotalAVista - somaCusto;
-                GerenciadorSaida.GetInstance(null).Atualizar(saida);
-            }
-            Cursor.Current = Cursors.Default;
         }
     }
 }

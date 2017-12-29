@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Autenticacao.cs" />
     <Compile Include="Banco.cs" />
+    <Compile Include="CartaoCreditoAutorizacao.cs" />
     <Compile Include="Cfop.cs" />
     <Compile Include="Consultas\TotaisGrupo.cs" />
     <Compile Include="Consultas\VendasCartao.cs" />

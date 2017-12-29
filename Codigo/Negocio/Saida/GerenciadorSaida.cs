@@ -1008,7 +1008,7 @@ namespace Negocio
                 // Se não houver preço de custo do produto
                 if (custoAtual <= 0)
                 {
-                    custoAtual = Convert.ToDecimal(0.8) * saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                    custoAtual = Convert.ToDecimal(0.7) * saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
                 else if (custoAtual >= (saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade))
                 {
@@ -1017,20 +1017,20 @@ namespace Negocio
 
                 if (custoEstoque <= 0)
                 {
-                    custoEstoque = Convert.ToDecimal(0.8) * saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
+                    custoEstoque = Convert.ToDecimal(0.7) * saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
                 else if (custoEstoque >= (saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade))
                 {
                     custoEstoque = saidaProduto.PrecoVendaVarejo * saidaProduto.Quantidade;
                 }
 
-                if ((Convert.ToDecimal(0.8) * custoAtual) > custoEstoque)
+                if (custoEstoque < custoAtual)
                 {
-                    somaPrecosCusto += custoAtual;
+                    somaPrecosCusto += custoEstoque;
                 }
                 else
                 {
-                    somaPrecosCusto += custoEstoque;
+                    somaPrecosCusto += custoAtual;
                 }
             }
             return somaPrecosCusto;

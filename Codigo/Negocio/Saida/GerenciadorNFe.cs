@@ -308,7 +308,7 @@ namespace Negocio
                 {
                     nfeControle = nfeControlesAutorizadas.ElementAtOrDefault(0);
                     if (nfeControle.Modelo.Equals(modelo)) 
-                        throw new NegocioException("Uma Nf-e desse mmesmo modelo já foi Enviada e Autorizadas.");
+                        throw new NegocioException("Uma Nf-e desse mesmo modelo já foi Enviada e Autorizadas.");
                     else if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE) && modelo.Equals(NfeControle.MODELO_NFCE))
                         throw new NegocioException("Não é possível emitir a NFC-e. Uma NF-e já foi emitida para esse pedido.");
                 }
@@ -395,7 +395,7 @@ namespace Negocio
         /// <param name="codLoja">Identificação da loja</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private int ObterProximoNumeroSequenciaNfeLoja(int codLoja, string modelo)
+        public int ObterProximoNumeroSequenciaNfeLoja(int codLoja, string modelo)
         {
             Loja loja = GerenciadorLoja.GetInstance().Obter(codLoja).ElementAtOrDefault(0);
             if (modelo.Equals(NfeControle.MODELO_NFE))
@@ -695,43 +695,7 @@ namespace Negocio
             return nfe;
         }
 
-        /// <summary>
-        /// Atualiza dados do cupom
-        /// </summary>
-        /// <param name="cupom"></param>
-        public void EnviarProximoNFe()
-        {
-            try
-            {
-                var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
-
-                var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
-                var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
-                var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
-
-                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C =>
-                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
-                    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
-
-                if (solicitacoes.Count() > 0)
-                {
-                    tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
-                    List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
-                    List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
-
-                    repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
-                    repSolicitacao2.SaveChanges();
-                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, solicitacaoE.tipoSolicitacao, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
-                }
-            }
-
-            catch (Exception e)
-            {
-                throw new DadosException("Cupom", e.Message, e);
-            }
-        }
-
-        private void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamento> listaSaidaPagamentos, string tipaoNfe, bool ehNfeComplementar, bool ehEspelho)
+        public void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamento> listaSaidaPagamentos, string tipaoNfe, bool ehNfeComplementar, bool ehEspelho)
         {
             Saida saida = GerenciadorSaida.GetInstance(null).Obter(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 
@@ -1134,7 +1098,7 @@ namespace Negocio
                     else
                         valorTotalNota = totalProdutos; // acontece quando são vendidos produtos que não podem sair no CF
                     // calcula fator de desconto para ser calculado sobre cada produto da nota
-                    decimal fatorDesconto = valorTotalDesconto / totalProdutos;
+                    
                     decimal fatorValorOutros = saida.OutrasDespesas / totalProdutos;
 
                     // Atualiza os produtos com os valores de impostos
@@ -1142,43 +1106,7 @@ namespace Negocio
                     totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
 
                     // distribui desconto entre todos os produtos da nota
-                    saidaProdutos = saidaProdutos.OrderBy(sp => sp.Subtotal).ToList();
-                    decimal totalDescontoDistribuido = 0;
-                    foreach (SaidaProduto saidaProduto in saidaProdutos)
-                    {
-                        if (saidaProduto.Quantidade > 0)
-                        {
-                            decimal valorDescontoProduto = Math.Round(saidaProduto.Subtotal * fatorDesconto, 2);
-
-                            if ((valorDescontoProduto + totalDescontoDistribuido) <= valorTotalDesconto)
-                            {
-                                saidaProduto.ValorDesconto = valorDescontoProduto;
-                            }
-                            else
-                            {
-                                saidaProduto.ValorDesconto = valorTotalDesconto - totalDescontoDistribuido;
-                            }
-                        }
-                        else
-                        {
-                            saidaProduto.ValorDesconto = 0;
-                        }
-                        totalDescontoDistribuido += saidaProduto.ValorDesconto;
-                    }
-
-                    if (totalDescontoDistribuido < valorTotalDesconto)
-                    {
-                        decimal descontoRestante = valorTotalDesconto - totalDescontoDistribuido;
-                        foreach (SaidaProduto saidaProduto in saidaProdutos)
-                        {
-                            if ((saidaProduto.SubtotalAVista - saidaProduto.ValorDesconto - descontoRestante) > 0)
-                            {
-                                saidaProduto.ValorDesconto += descontoRestante;
-                                break;
-                            }
-                        }
-
-                    }
+                    saidaProdutos = DistribuirDescontoProdutos(saidaProdutos, valorTotalDesconto, totalProdutos);
 
                     // produtos da nota
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -1494,6 +1422,49 @@ namespace Negocio
             {
                 throw new NegocioException("Problemas na geração do arquivo da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
             }
+        }
+
+        public List<SaidaProduto> DistribuirDescontoProdutos(List<SaidaProduto> saidaProdutos, decimal valorTotalDesconto, decimal totalProdutos)
+        {
+            decimal fatorDesconto = valorTotalDesconto / totalProdutos;
+            saidaProdutos = saidaProdutos.OrderBy(sp => sp.Subtotal).ToList();
+            decimal totalDescontoDistribuido = 0;
+            foreach (SaidaProduto saidaProduto in saidaProdutos)
+            {
+                if (saidaProduto.Quantidade > 0)
+                {
+                    decimal valorDescontoProduto = Math.Round(saidaProduto.Subtotal * fatorDesconto, 2);
+
+                    if ((valorDescontoProduto + totalDescontoDistribuido) <= valorTotalDesconto)
+                    {
+                        saidaProduto.ValorDesconto = valorDescontoProduto;
+                    }
+                    else
+                    {
+                        saidaProduto.ValorDesconto = valorTotalDesconto - totalDescontoDistribuido;
+                    }
+                }
+                else
+                {
+                    saidaProduto.ValorDesconto = 0;
+                }
+                totalDescontoDistribuido += saidaProduto.ValorDesconto;
+            }
+
+            if (totalDescontoDistribuido < valorTotalDesconto)
+            {
+                decimal descontoRestante = valorTotalDesconto - totalDescontoDistribuido;
+                foreach (SaidaProduto saidaProduto in saidaProdutos)
+                {
+                    if ((saidaProduto.SubtotalAVista - saidaProduto.ValorDesconto - descontoRestante) > 0)
+                    {
+                        saidaProduto.ValorDesconto += descontoRestante;
+                        break;
+                    }
+                }
+
+            }
+            return saidaProdutos;
         }
 
 
