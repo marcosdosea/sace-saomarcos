@@ -218,6 +218,7 @@ namespace Negocio
                                     autorizacao.NomeBandeiraCartao = linha.Substring(10);
                             }
                             reader.Close();
+                            autorizacao.TipoDocumentoFiscal = Saida.TIPO_DOCUMENTO_ECF;
                             if (autorizacao.Header.Equals("CRT") || autorizacao.Header.Equals("CNC")) 
                                 InserirAutorizacao(autorizacao);
                             if (PastaBackup.Exists)
@@ -226,7 +227,7 @@ namespace Negocio
                                 file.Delete();
                             }
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
                             // Se houver algum impossibilidade de processa a transação ela fica na pasta. 
                         }
@@ -246,13 +247,13 @@ namespace Negocio
         private long InserirAutorizacao(CartaoCreditoAutorizacao autorizacao)
         {
             var repAutorizacao = new RepositorioGenerico<tb_autorizacao_cartao>();
-            tb_autorizacao_cartao _autorizacao_cartaoE;
+            tb_autorizacao_cartao _autorizacao_cartaoE = new tb_autorizacao_cartao();
             try
             {
-                _autorizacao_cartaoE = new tb_autorizacao_cartao();
                 _autorizacao_cartaoE.header = autorizacao.Header;
                 _autorizacao_cartaoE.codIdentificacao = autorizacao.CodIndentificacao;
                 _autorizacao_cartaoE.cupomFiscal = autorizacao.CupomFiscal;
+                _autorizacao_cartaoE.tipoDocumentoFiscal = autorizacao.TipoDocumentoFiscal;
                 _autorizacao_cartaoE.valor = autorizacao.Valor;
                 _autorizacao_cartaoE.nomeBandeiraCartao = autorizacao.NomeBandeiraCartao;
                 _autorizacao_cartaoE.statusTransacao = autorizacao.StatusTransacao;
@@ -271,7 +272,7 @@ namespace Negocio
 
                 var saceEntities = (SaceEntities)repAutorizacao.ObterContexto();
                 var query = from saida in saceEntities.tb_saida
-                            where saida.pedidoGerado.Equals(autorizacao.CupomFiscal)
+                            where saida.pedidoGerado.Equals(autorizacao.CupomFiscal) 
                             select saida;
                 List<tb_saida> listaSaidas = query.ToList();
                 foreach (tb_saida saidaE in listaSaidas)
@@ -289,7 +290,7 @@ namespace Negocio
                         throw new DadosException("Autorização Cartão", e.Message, e);
                 }
             }
-            return 0;
+            return _autorizacao_cartaoE.codAutorizacao;
 
         }
 
@@ -362,8 +363,8 @@ namespace Negocio
                                             cartao = listaCartoes.Where(c => c.TipoCartao.Equals(tipoCartaoString) && c.MapeamentoCappta.Equals("MASTERCARD")).ElementAtOrDefault(0);
                                     }
 
-                                    IEnumerable<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saidaE.codSaida);
-                                    IEnumerable<Conta> listaConta = GerenciadorConta.GetInstance(null).ObterPorSaida(saidaE.codSaida);
+                                    IEnumerable<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saidaE.codSaida).Where(sp=>sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO));
+                                    IEnumerable<Conta> listaConta = GerenciadorConta.GetInstance(null).ObterPorSaida(saidaE.codSaida).Where(c => c.FormatoConta.Equals(Conta.FORMATO_CONTA_CARTAO));
                                     if ((listaAprovadas.Count() == 1) && (listaSaidaPagamento.Count() == 1) && (listaConta.Count() == autorizacaoAprovada.quantidadeParcelas))
                                     {
                                         AtualizaFormaPagamentoUnica(autorizacaoAprovada, cartao, listaSaidaPagamento.First(), listaConta);

@@ -8,8 +8,10 @@ namespace Dominio
     public class CartaoCreditoAutorizacao
     {
         public string Header { get; set; }
+        public long CodAutorizacao { get; set; }
         public int CodIndentificacao { get; set; }
         public string CupomFiscal { get; set; }
+        public string TipoDocumentoFiscal { get; set; }
         public decimal Valor { get; set; }
         public string StatusTransacao { get; set; }
         public int TipoTransacao { get; set; }

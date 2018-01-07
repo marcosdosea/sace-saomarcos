@@ -7,9 +7,11 @@ namespace Dominio
 {
     public class Saida : SaidaPesquisa
     {
+        public const string TIPO_DOCUMENTO_ECF  = "ECF";
+        public const string TIPO_DOCUMENTO_NFCE = "NFCE";
+
         public const int TIPO_ORCAMENTO = 1;
         public const int TIPO_PRE_VENDA = 2;
-        public const int TIPO_PRE_VENDA_NFCE = 16;
         public const int TIPO_VENDA = 3;
 
         public const int TIPO_PRE_CREDITO = 17;
@@ -41,11 +43,12 @@ namespace Dominio
         public static List<int> LISTA_TIPOS_RETORNO_DEPOSITO = new List<int>() { Saida.TIPO_PRE_RETORNO_DEPOSITO, Saida.TIPO_RETORNO_DEPOSITO };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_FORNECEDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR, Saida.TIPO_DEVOLUCAO_FORNECEDOR };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR, Saida.TIPO_DEVOLUCAO_CONSUMIDOR };
-        public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA, Saida.TIPO_PRE_VENDA_NFCE, Saida.TIPO_CREDITO, Saida.TIPO_PRE_CREDITO };
+        public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA, Saida.TIPO_CREDITO, Saida.TIPO_PRE_CREDITO };
 
 
         public int CodLojaOrigem { get; set; }
         public string CpfCnpj { get; set; }
+        public string TipoDocumentoFiscal { get; set; }
         public long CodProfissional { get; set; }
         public long CodEntrada { get; set; }
         public int NumeroCartaoVenda { get; set; }

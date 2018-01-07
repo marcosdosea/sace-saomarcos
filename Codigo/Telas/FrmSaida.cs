@@ -91,6 +91,8 @@ namespace Telas
             saida.CodCliente = Global.CLIENTE_PADRAO;
             saida.CodProfissional = Global.PROFISSIONAL_PADRAO;
             saida.CodEmpresaFrete = Global.CLIENTE_PADRAO;
+            saida.TipoDocumentoFiscal = Saida.TIPO_DOCUMENTO_ECF;
+
             saida.DataSaida = DateTime.Now;
             saida.Desconto = 0;
             saida.NumeroCartaoVenda = 0;

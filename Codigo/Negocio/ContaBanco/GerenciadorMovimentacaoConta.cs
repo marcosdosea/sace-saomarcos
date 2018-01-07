@@ -331,7 +331,7 @@ namespace Negocio
                             {
                                 somaMovimentacoes += movimentacao.Valor;
                             }
-                            GerenciadorSaida.GetInstance(saceContext).AtualizarTipoPedidoGeradoPorSaida(_saidaE.codTipoSaida, _saidaE.pedidoGerado, somaMovimentacoes, _saidaE.codSaida);
+                            GerenciadorSaida.GetInstance(saceContext).AtualizarTipoPedidoGeradoPorSaida(_saidaE.codTipoSaida, _saidaE.pedidoGerado, _saidaE.tipoDocumentoFiscal, somaMovimentacoes, _saidaE.codSaida);
                             //_saidaE.totalAVista = somaMovimentacoes;
                         }
                         else

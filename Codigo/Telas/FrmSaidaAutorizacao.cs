@@ -44,9 +44,14 @@ namespace Telas
                     }
                     else if (!documentoE.haPagamentoCartao && !exibiuResultadoCartao)
                     {
-                        lblCartao.Text = "Cartão de crédito/débito não utilizado.";
+                        lblCartao.Text = "Cartão de Crédito/Débito não utilizado.";
                         exibiuResultadoCartao = true;
                     }
+                    ExibirResultadoProcessamentoNfe(documentoE);
+                }
+                else
+                {
+                    this.Close();
                 }
             }
         }
@@ -118,6 +123,11 @@ namespace Telas
                 }
                 exibiuResultadoCartao = true;
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

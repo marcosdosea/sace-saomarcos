@@ -54,7 +54,7 @@
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(368, 427);
+            this.btnImprimir.Location = new System.Drawing.Point(377, 356);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(75, 23);
             this.btnImprimir.TabIndex = 2;
@@ -64,12 +64,13 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(449, 427);
+            this.btnCancelar.Location = new System.Drawing.Point(458, 356);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // timerAtualizaNFCe
             // 
@@ -79,35 +80,35 @@
             // 
             // textCartao
             // 
-            this.textCartao.Location = new System.Drawing.Point(169, 42);
+            this.textCartao.Location = new System.Drawing.Point(12, 51);
             this.textCartao.Name = "textCartao";
-            this.textCartao.Size = new System.Drawing.Size(355, 161);
+            this.textCartao.Size = new System.Drawing.Size(355, 115);
             this.textCartao.TabIndex = 5;
             this.textCartao.Text = "";
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Telas.Properties.Resources.nfe_150x150;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 253);
+            this.pictureBox2.Location = new System.Drawing.Point(386, 205);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(151, 161);
+            this.pictureBox2.Size = new System.Drawing.Size(151, 145);
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Telas.Properties.Resources.credit_cards_icon_150x150;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 42);
+            this.pictureBox1.Location = new System.Drawing.Point(386, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(151, 161);
+            this.pictureBox1.Size = new System.Drawing.Size(138, 154);
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
             // textNfe
             // 
-            this.textNfe.Location = new System.Drawing.Point(169, 253);
+            this.textNfe.Location = new System.Drawing.Point(16, 205);
             this.textNfe.Name = "textNfe";
-            this.textNfe.Size = new System.Drawing.Size(355, 161);
+            this.textNfe.Size = new System.Drawing.Size(355, 145);
             this.textNfe.TabIndex = 7;
             this.textNfe.Text = "";
             // 
@@ -115,7 +116,7 @@
             // 
             this.lblNffe.AutoSize = true;
             this.lblNffe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNffe.Location = new System.Drawing.Point(12, 230);
+            this.lblNffe.Location = new System.Drawing.Point(12, 182);
             this.lblNffe.Name = "lblNffe";
             this.lblNffe.Size = new System.Drawing.Size(272, 20);
             this.lblNffe.TabIndex = 8;
@@ -125,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 455);
+            this.ClientSize = new System.Drawing.Size(534, 382);
             this.Controls.Add(this.lblNffe);
             this.Controls.Add(this.textNfe);
             this.Controls.Add(this.pictureBox2);

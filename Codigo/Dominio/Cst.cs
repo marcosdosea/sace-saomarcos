@@ -19,6 +19,7 @@ namespace Dominio
         public const string ST_SIMPLES_TRIBUTADA_SEM_PERM_CREDITO = "102";
         public const string ST_SIMPLES_OUTRAS = "900";
 
+        public const string ST_SIMPLES_SUBSTITUICAO_COM_PERM_CREDITO = "201";
         public const string ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
         public const string ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
         public const string ST_SIMPLES_NAO_TRIBUTADA = "400";
@@ -52,6 +53,7 @@ namespace Dominio
                 {
                     return (CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
                         CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO) ||
+                        CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_COM_PERM_CREDITO) ||
                         CodCST.Equals(ST_SIMPLES_NAO_TRIBUTADA));
                 }
                 return false;
@@ -86,6 +88,7 @@ namespace Dominio
                 {
                     return !(CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO) ||
                         CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO) ||
+                        CodCST.Equals(ST_SIMPLES_SUBSTITUICAO_COM_PERM_CREDITO) ||
                         CodCST.Equals(ST_SIMPLES_NAO_TRIBUTADA));
                 }
 

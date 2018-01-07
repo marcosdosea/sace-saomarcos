@@ -117,7 +117,8 @@ namespace Negocio
                         var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
                         if ((icms is TNFeInfNFeDetImpostoICMSICMS10) || (icms is TNFeInfNFeDetImpostoICMSICMS30) ||
                             (icms is TNFeInfNFeDetImpostoICMSICMS60) || (icms is TNFeInfNFeDetImpostoICMSICMS70) ||
-                            (icms is TNFeInfNFeDetImpostoICMSICMSSN202) || (icms is TNFeInfNFeDetImpostoICMSICMSSN500))  
+                            (icms is TNFeInfNFeDetImpostoICMSICMSSN202) || (icms is TNFeInfNFeDetImpostoICMSICMSSN201) || 
+                            (icms is TNFeInfNFeDetImpostoICMSICMSSN500))  
                         {
                             entrada.TotalProdutosST += Convert.ToDecimal(produto.prod.vProd, ci);
                         }

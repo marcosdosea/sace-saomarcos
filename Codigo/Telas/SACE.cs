@@ -307,16 +307,16 @@ namespace Telas
 
         private static void ProcessarDocumentosFiscais()
         {
-            GerenciadorSolicitacaoDocumento.GetInstance().ObterDocumentosFiscais();
             if (nomeComputador.ToUpper().Equals(SERVIDOR))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
-                GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosFiscais(SERVIDOR);
-                GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
+                GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosECF(SERVIDOR);
+                // GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
             {
                 GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
+                GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE) || nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
@@ -325,8 +325,7 @@ namespace Telas
             }
 
             GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe();
-
-
+            GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosNFCE();
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)

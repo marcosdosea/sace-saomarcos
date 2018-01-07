@@ -9612,20 +9612,24 @@ namespace Dados
         /// <summary>
         /// Create a new tb_autorizacao_cartao object.
         /// </summary>
+        /// <param name="codAutorizacao">Initial value of the codAutorizacao property.</param>
         /// <param name="codIdentificacao">Initial value of the codIdentificacao property.</param>
         /// <param name="header">Initial value of the header property.</param>
         /// <param name="cupomFiscal">Initial value of the cupomFiscal property.</param>
+        /// <param name="tipoDocumentoFiscal">Initial value of the tipoDocumentoFiscal property.</param>
         /// <param name="valor">Initial value of the valor property.</param>
         /// <param name="statusTransacao">Initial value of the statusTransacao property.</param>
         /// <param name="tipoTransacao">Initial value of the tipoTransacao property.</param>
         /// <param name="nsuTransacao">Initial value of the nsuTransacao property.</param>
         /// <param name="processado">Initial value of the processado property.</param>
-        public static tb_autorizacao_cartao Createtb_autorizacao_cartao(global::System.Int64 codIdentificacao, global::System.String header, global::System.String cupomFiscal, global::System.Decimal valor, global::System.String statusTransacao, global::System.Int32 tipoTransacao, global::System.Int64 nsuTransacao, global::System.Boolean processado)
+        public static tb_autorizacao_cartao Createtb_autorizacao_cartao(global::System.Int64 codAutorizacao, global::System.Int64 codIdentificacao, global::System.String header, global::System.String cupomFiscal, global::System.String tipoDocumentoFiscal, global::System.Decimal valor, global::System.String statusTransacao, global::System.Int32 tipoTransacao, global::System.Int64 nsuTransacao, global::System.Boolean processado)
         {
             tb_autorizacao_cartao tb_autorizacao_cartao = new tb_autorizacao_cartao();
+            tb_autorizacao_cartao.codAutorizacao = codAutorizacao;
             tb_autorizacao_cartao.codIdentificacao = codIdentificacao;
             tb_autorizacao_cartao.header = header;
             tb_autorizacao_cartao.cupomFiscal = cupomFiscal;
+            tb_autorizacao_cartao.tipoDocumentoFiscal = tipoDocumentoFiscal;
             tb_autorizacao_cartao.valor = valor;
             tb_autorizacao_cartao.statusTransacao = statusTransacao;
             tb_autorizacao_cartao.tipoTransacao = tipoTransacao;
@@ -9643,6 +9647,33 @@ namespace Dados
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int64 codAutorizacao
+        {
+            get
+            {
+                return _codAutorizacao;
+            }
+            set
+            {
+                if (_codAutorizacao != value)
+                {
+                    OncodAutorizacaoChanging(value);
+                    ReportPropertyChanging("codAutorizacao");
+                    _codAutorizacao = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codAutorizacao");
+                    OncodAutorizacaoChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codAutorizacao;
+        partial void OncodAutorizacaoChanging(global::System.Int64 value);
+        partial void OncodAutorizacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Int64 codIdentificacao
         {
             get
@@ -9651,14 +9682,11 @@ namespace Dados
             }
             set
             {
-                if (_codIdentificacao != value)
-                {
-                    OncodIdentificacaoChanging(value);
-                    ReportPropertyChanging("codIdentificacao");
-                    _codIdentificacao = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("codIdentificacao");
-                    OncodIdentificacaoChanged();
-                }
+                OncodIdentificacaoChanging(value);
+                ReportPropertyChanging("codIdentificacao");
+                _codIdentificacao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codIdentificacao");
+                OncodIdentificacaoChanged();
             }
         }
         private global::System.Int64 _codIdentificacao;
@@ -9712,6 +9740,30 @@ namespace Dados
         private global::System.String _cupomFiscal;
         partial void OncupomFiscalChanging(global::System.String value);
         partial void OncupomFiscalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String tipoDocumentoFiscal
+        {
+            get
+            {
+                return _tipoDocumentoFiscal;
+            }
+            set
+            {
+                OntipoDocumentoFiscalChanging(value);
+                ReportPropertyChanging("tipoDocumentoFiscal");
+                _tipoDocumentoFiscal = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("tipoDocumentoFiscal");
+                OntipoDocumentoFiscalChanged();
+            }
+        }
+        private global::System.String _tipoDocumentoFiscal;
+        partial void OntipoDocumentoFiscalChanging(global::System.String value);
+        partial void OntipoDocumentoFiscalChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -12342,7 +12394,8 @@ namespace Dados
         /// <param name="codEmpresaFrete">Initial value of the codEmpresaFrete property.</param>
         /// <param name="observacao">Initial value of the observacao property.</param>
         /// <param name="codEntrada">Initial value of the codEntrada property.</param>
-        public static tb_saida Createtb_saida(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codLojaOrigem, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao, global::System.Int64 codEntrada)
+        /// <param name="tipoDocumentoFiscal">Initial value of the tipoDocumentoFiscal property.</param>
+        public static tb_saida Createtb_saida(global::System.Int64 codSaida, global::System.DateTime dataSaida, global::System.Int64 codCliente, global::System.Int32 codTipoSaida, global::System.Int32 codLojaOrigem, global::System.Int32 codSituacaoPagamentos, global::System.Boolean entregaRealizada, global::System.Int64 codEmpresaFrete, global::System.String observacao, global::System.Int64 codEntrada, global::System.String tipoDocumentoFiscal)
         {
             tb_saida tb_saida = new tb_saida();
             tb_saida.codSaida = codSaida;
@@ -12355,6 +12408,7 @@ namespace Dados
             tb_saida.codEmpresaFrete = codEmpresaFrete;
             tb_saida.observacao = observacao;
             tb_saida.codEntrada = codEntrada;
+            tb_saida.tipoDocumentoFiscal = tipoDocumentoFiscal;
             return tb_saida;
         }
 
@@ -13252,6 +13306,30 @@ namespace Dados
         private global::System.Int64 _codEntrada;
         partial void OncodEntradaChanging(global::System.Int64 value);
         partial void OncodEntradaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String tipoDocumentoFiscal
+        {
+            get
+            {
+                return _tipoDocumentoFiscal;
+            }
+            set
+            {
+                OntipoDocumentoFiscalChanging(value);
+                ReportPropertyChanging("tipoDocumentoFiscal");
+                _tipoDocumentoFiscal = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("tipoDocumentoFiscal");
+                OntipoDocumentoFiscalChanged();
+            }
+        }
+        private global::System.String _tipoDocumentoFiscal;
+        partial void OntipoDocumentoFiscalChanging(global::System.String value);
+        partial void OntipoDocumentoFiscalChanged();
 
         #endregion
 

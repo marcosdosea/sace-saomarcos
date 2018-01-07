@@ -173,7 +173,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarTipoPedidoGeradoPorSaida(int codTipoSaida, string pedidoGerado, decimal totalAVista, long codSaida)
+        public void AtualizarTipoPedidoGeradoPorSaida(int codTipoSaida, string pedidoGerado, string tipoDocumentoFiscal, decimal totalAVista, long codSaida)
         {
             try
             {
@@ -194,11 +194,12 @@ namespace Negocio
                     _saidaE.codTipoSaida = codTipoSaida;
                     if (string.IsNullOrEmpty(_saidaE.pedidoGerado))
                     {
-                        _saidaE.pedidoGerado = pedidoGerado;
+                        _saidaE.pedidoGerado = pedidoGerado.ToString();
                         _saidaE.dataEmissaoDocFiscal = DateTime.Now;
                     }
                     //_saidaE.totalAVista = totalAVista;
                     _saidaE.totalPago = totalAVista;
+                    _saidaE.tipoDocumentoFiscal = tipoDocumentoFiscal;
                     if (_saidaE.total > 0)
                     {
                         _saidaE.desconto = Math.Round(Convert.ToDecimal((1 - (_saidaE.totalAVista / _saidaE.total)) * 100), 2);
@@ -329,8 +330,8 @@ namespace Negocio
                     }
                 }
                 // Se houver documento fiscal aguardando impressão
-                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA_NFCE)
-                    GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
+                //if (saida.TipoSaida == Saida.TIPO_PRE_VENDA_NFCE)
+                //    GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
                     GerenciadorSolicitacaoDocumento.GetInstance().ExcluirDocumentoFiscal(saida.CodSaida);
@@ -417,7 +418,8 @@ namespace Negocio
                             ValorICMSSubst = (decimal)saida.valorICMSSubst,
                             ValorIPI = (decimal)saida.valorIPI,
                             ValorSeguro = (decimal)saida.valorSeguro,
-                            CodLojaOrigem = saida.codLojaOrigem
+                            CodLojaOrigem = saida.codLojaOrigem,
+                            TipoDocumentoFiscal = saida.tipoDocumentoFiscal
                         };
             return query;
         }
@@ -600,7 +602,7 @@ namespace Negocio
                         saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                         Atualizar(saida);
                     }
-                    else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA) || tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA_NFCE)))
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA)))
                     {
 
                         if (cliente.BloquearCrediario)
@@ -622,7 +624,7 @@ namespace Negocio
 
                         RegistrarPagamentosSaida(saidaPagamentos, saida);
                     }
-                    else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA) || tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA_NFCE)))
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA)))
                     {
                         if (saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
                         {
@@ -1558,7 +1560,7 @@ namespace Negocio
 
             try
             {
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA))
                 {
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() {
                         new SaidaPedido()
@@ -1627,6 +1629,8 @@ namespace Negocio
             _saidaE.observacao = saida.Observacao;
             _saidaE.codEntrada = saida.CodEntrada;
             _saidaE.codLojaOrigem = saida.CodLojaOrigem;
+            _saidaE.tipoDocumentoFiscal = saida.TipoDocumentoFiscal;
+            
         }
     }
 }

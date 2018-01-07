@@ -180,7 +180,7 @@ namespace Telas
                             if (limiteCompraLiberado)
                             {
                                 GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
-                                if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA) || frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                                if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                                 {
                                     // quando tem pagamento crediário imprime o DAV
                                     bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
@@ -197,7 +197,7 @@ namespace Telas
                                         bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
                                         List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
-                                        if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                                        if (frmSaidaConfirma.GerarNFCe)
                                         {
                                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                                             FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(codSolicitacao);

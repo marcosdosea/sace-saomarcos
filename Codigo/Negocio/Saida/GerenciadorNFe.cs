@@ -225,7 +225,7 @@ namespace Negocio
                         {
                             Chave = nfe.chave,
                             CodNfe = nfe.codNFe,
-                            CodSaida = codSaida,
+                            //CodSaida = codSaida,
                             JustificativaCancelamento = nfe.justificativaCancelamento,
                             MensagemSituacaoReciboEnvio = nfe.mensagemSituacaoReciboEnvio,
                             MensagemSitucaoProtocoloCancelamento = nfe.mensagemSituacaoProtocoloCancelamento,
@@ -765,7 +765,7 @@ namespace Negocio
                 NfeControle nfeControleAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
 
                 if ((saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA_NFCE))
+                    saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)))
                 {
                     TNFeInfNFeIdeNFrefRefECF refEcf = new TNFeInfNFeIdeNFrefRefECF();
                     refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;

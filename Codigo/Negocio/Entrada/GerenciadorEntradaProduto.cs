@@ -308,6 +308,17 @@ namespace Negocio
                                 if (entrada.TotalProdutosST > 0)
                                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
                             }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMSSN201)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMSSN201 icms201 = ((TNFeInfNFeDetImpostoICMSICMSSN201)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms201.vBCST, ci);
+                                entradaProduto.CodCST = icms201.orig.ToString().Substring(4) + icms201.CSOSN.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms201.orig.ToString().Substring(4) + icms201.CSOSN.ToString().Substring(4);
+                                entradaProduto.Icms = 0;
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
+                            }
                             else if (icms is TNFeInfNFeDetImpostoICMSICMSSN202)
                             {
                                 TNFeInfNFeDetImpostoICMSICMSSN202 icms202 = ((TNFeInfNFeDetImpostoICMSICMSSN202)icms); ;
