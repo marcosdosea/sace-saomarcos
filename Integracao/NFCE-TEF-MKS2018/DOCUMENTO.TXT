@@ -1,0 +1,3 @@
+NUMERO 
+DOC      MENSAGEM RODAPE                       CPF CLIENTE TROCO
+123454|Vl.aprox.imp. 12,00 15,00% fonte ibpt  |40043444504|000,12

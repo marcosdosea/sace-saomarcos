@@ -1,0 +1,44 @@
+pastas PARA NFC-E
+
+C:\MKS-Desenvolvimento\CaixaTerceiro\XmlProducao
+retorno do XML APROVADO
+
+C:\MKS-Desenvolvimento\CaixaTerceiro\Receber
+PASTA ONDE DEVEM SER CRIADOS OS ARQUIVOS DE SOLICTACOES: DOCUMENTO, PAGAMENTO, PRODUTOS
+
+C:\MKS-Desenvolvimento\CaixaTerceiro\Devolver
+PASTA ONDE RETORNA SE O DOCUMENTO FOI APROVADO OU NÃO:   NUMERO DO DOCUMENTO.TXT
+
+DOC   OK=QUANDO FOR APROVADO
+123454OK
+
+DOC   ERRO=QUANDO NAO FOR APROVADO
+123454ERRO
+
+
+=========================================================
+
+PASTAS PARA TEF
+
+C:\MKS-Desenvolvimento\TefMKS\Requisicao
+PASTA PARA REQUISICAO 
+CRIAR ARQUIVO SEMPRE COM O NOME DE:  VENDA.TXT
+SEU CONTEUDO:
+
+
+VendaSCA0000000120000001
+
+/////      Vendas.Txt - nome do arquivo que deve ser gerado na pasta conforme PASTAREQUSICAO acima
+//////     Venda - padrao
+//////     SCA - SCA=Crédito a Vista / SCP=Crédito parcelado /  SDA=Débito a vista / SDP=Debito parcelado administradora / SPR=Debito pre-datado
+//////     0000000120 - valor 1,20
+//////     0000001 - numero do cupom fiscal NFC-e 
+
+
+C:\MKS-Desenvolvimento\TefMKS\Retorno
+PASTA DE RETORNO
+RETORNA SEMPRE COMO:
+
+000001.TXT = NUMERO DO DOCUMENTO E EM SEU CONTEUDO
+
+000001APROVADO OU  000001NAOAPROVADO
