@@ -63,5 +63,10 @@ namespace Telas
             GerarNFCe = checkBoxNFCe.Checked;
             this.Close();
         }
+
+        private void checkBoxNFCe_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

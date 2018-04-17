@@ -382,6 +382,76 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obtém os produtos de uma lista de saidas
+        /// </summary>
+        /// <param name="codPedido"></param>
+        /// <returns></returns>
+        public List<SaidaProduto> ObterPorSolicitacaoSaidas(List<tb_solicitacao_saida> listaSolicitacaoSaidas)
+        {
+            List<long> listaCodSaidas = listaSolicitacaoSaidas.Select(s => s.codSaida).ToList();
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where listaCodSaidas.Contains(saidaProduto.codSaida)
+                        select new SaidaProduto
+                        {
+                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
+                            CodProduto = saidaProduto.codProduto,
+                            CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
+                            CodCST = saidaProduto.tb_produto.codCST,
+                            CodCfop = saidaProduto.cfop,
+                            DataValidade = (DateTime)saidaProduto.data_validade,
+                            Desconto = (decimal)saidaProduto.desconto,
+                            Quantidade = (decimal)saidaProduto.quantidade,
+                            Nome = saidaProduto.tb_produto.nome,
+                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
+                            Unidade = saidaProduto.tb_produto.unidade,
+                            ValorICMS = (decimal)saidaProduto.valorICMS,
+                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
+                            ValorIPI = (decimal)saidaProduto.valorIPI,
+                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtém os produtos de uma lista de saidas
+        /// </summary>
+        /// <param name="codPedido"></param>
+        /// <returns></returns>
+        public List<SaidaProduto> ObterPorSolicitacaoSaidasSemCST(List<tb_solicitacao_saida> listaSolicitacaoSaidas, string codCST)
+        {
+            List<long> listaCodSaidas = listaSolicitacaoSaidas.Select(s => s.codSaida).ToList();
+            var query = from saidaProduto in saceContext.SaidaProdutoSet
+                        where listaCodSaidas.Contains(saidaProduto.codSaida) && !saidaProduto.codCST.EndsWith(codCST)
+                        select new SaidaProduto
+                        {
+                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
+                            CodProduto = saidaProduto.codProduto,
+                            CodSaida = saidaProduto.codSaida,
+                            CodSaidaProduto = saidaProduto.codSaidaProduto,
+                            CodCST = saidaProduto.tb_produto.codCST,
+                            CodCfop = saidaProduto.cfop,
+                            DataValidade = (DateTime)saidaProduto.data_validade,
+                            Desconto = (decimal)saidaProduto.desconto,
+                            Quantidade = (decimal)saidaProduto.quantidade,
+                            Nome = saidaProduto.tb_produto.nome,
+                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
+                            Unidade = saidaProduto.tb_produto.unidade,
+                            ValorICMS = (decimal)saidaProduto.valorICMS,
+                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
+                            ValorIPI = (decimal)saidaProduto.valorIPI,
+                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
+                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
         /// Consulta para retornar dados dos produtos para relatório
         /// </summary>
         /// <returns></returns>

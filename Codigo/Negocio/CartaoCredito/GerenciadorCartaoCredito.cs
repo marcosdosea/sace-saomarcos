@@ -167,8 +167,8 @@ namespace Negocio
         {
             Boolean atualizou = false;
             DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_CARTAO);
-            DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP);
-                            
+            DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_TEF_BACKUP);
+
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
             if (nomeComputador.Equals(nomeServidor) && PastaRetorno.Exists)
             {
@@ -213,13 +213,13 @@ namespace Negocio
                                 else if (linha.StartsWith("022-000"))
                                     data = linha.Substring(10);
                                 else if (linha.StartsWith("023-000"))
-                                    autorizacao.DataHoraAutorizacao = DateTime.ParseExact((data+linha.Substring(10)), "ddMMyyyyHHmmss", null);
+                                    autorizacao.DataHoraAutorizacao = DateTime.ParseExact((data + linha.Substring(10)), "ddMMyyyyHHmmss", null);
                                 else if (linha.StartsWith("040-000"))
                                     autorizacao.NomeBandeiraCartao = linha.Substring(10);
                             }
                             reader.Close();
                             autorizacao.TipoDocumentoFiscal = Saida.TIPO_DOCUMENTO_ECF;
-                            if (autorizacao.Header.Equals("CRT") || autorizacao.Header.Equals("CNC")) 
+                            if (autorizacao.Header.Equals("CRT") || autorizacao.Header.Equals("CNC"))
                                 InserirAutorizacao(autorizacao);
                             if (PastaBackup.Exists)
                             {
@@ -231,7 +231,7 @@ namespace Negocio
                         {
                             // Se houver algum impossibilidade de processa a transação ela fica na pasta. 
                         }
-                    }         
+                    }
                 }
             }
             return atualizou;
@@ -272,7 +272,7 @@ namespace Negocio
 
                 var saceEntities = (SaceEntities)repAutorizacao.ObterContexto();
                 var query = from saida in saceEntities.tb_saida
-                            where saida.pedidoGerado.Equals(autorizacao.CupomFiscal) 
+                            where saida.pedidoGerado.Equals(autorizacao.CupomFiscal)
                             select saida;
                 List<tb_saida> listaSaidas = query.ToList();
                 foreach (tb_saida saidaE in listaSaidas)
@@ -322,21 +322,30 @@ namespace Negocio
                         {
                             foreach (tb_autorizacao_cartao autorizacaoAprovada in listaAprovadas)
                             {
+                                autorizacaoAprovada.processado = true;
+                                List<tb_saida> listaSaidas = null;
                                 if (autorizacaoAprovada.tb_saida.Count() == 0)
                                 {
 
                                     var query2 = from saida in saceEntities.tb_saida
                                                  where saida.pedidoGerado.Equals(autorizacaoAprovada.cupomFiscal)
                                                  select saida;
-                                    List<tb_saida> listaSaidas = query2.ToList();
-                                    foreach (tb_saida saidaE in listaSaidas)
+                                    listaSaidas = query2.ToList();
+                                    if (listaSaidas.Count == 0)
                                     {
-                                        autorizacaoAprovada.tb_saida.Add(saidaE);
+                                        autorizacaoAprovada.processado = false;
                                     }
-                                    repAutorizacao.SaveChanges();
+                                    else
+                                    {
+                                        foreach (tb_saida saidaE in listaSaidas)
+                                        {
+                                            autorizacaoAprovada.tb_saida.Add(saidaE);
+                                        }
+                                    }
                                 }
-                
-                                
+                                repAutorizacao.SaveChanges();
+
+
                                 foreach (tb_saida saidaE in autorizacaoAprovada.tb_saida)
                                 {
                                     String tipoCartaoString = "CREDITO";
@@ -363,16 +372,16 @@ namespace Negocio
                                             cartao = listaCartoes.Where(c => c.TipoCartao.Equals(tipoCartaoString) && c.MapeamentoCappta.Equals("MASTERCARD")).ElementAtOrDefault(0);
                                     }
 
-                                    IEnumerable<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saidaE.codSaida).Where(sp=>sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO));
+                                    IEnumerable<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saidaE.codSaida).Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CARTAO));
                                     IEnumerable<Conta> listaConta = GerenciadorConta.GetInstance(null).ObterPorSaida(saidaE.codSaida).Where(c => c.FormatoConta.Equals(Conta.FORMATO_CONTA_CARTAO));
                                     if ((listaAprovadas.Count() == 1) && (listaSaidaPagamento.Count() == 1) && (listaConta.Count() == autorizacaoAprovada.quantidadeParcelas))
                                     {
                                         AtualizaFormaPagamentoUnica(autorizacaoAprovada, cartao, listaSaidaPagamento.First(), listaConta);
                                     }
-                                    else
+                                    else if (listaAprovadas.Count() == 1)
                                     {
                                         // quando existe mais de uma forma de pagamento associada na saida
-                                        //AtualizaFormaPagamentoMultipla(autorizacaoAprovada, cartao, listaSaidaPagamento, listaConta);
+                                        AtualizaFormaPagamentoMultipla(autorizacaoAprovada, cartao, listaSaidaPagamento, listaConta);
                                     }
                                 }
                                 autorizacaoAprovada.processado = true;
@@ -380,21 +389,46 @@ namespace Negocio
                         }
                         else
                         {
-                            foreach (tb_autorizacao_cartao negada in listaNegadas)
+                            if (listaNegadas.Count() > 0)
                             {
-                                IEnumerable<SaidaPesquisa> listaSaida = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(negada.cupomFiscal);
-                                foreach (SaidaPesquisa saidaPesquisa in listaSaida)
+                                String cupomFiscal = listaNegadas.First().cupomFiscal;
+                                IEnumerable<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(cupomFiscal);
+                                // Cupom Fiscal foi emitido com venda em dinheiro
+                                if (listaSaidas.Count() > 0)
                                 {
-                                    Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
-                                    if (!saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+                                    foreach (SaidaPesquisa saidaPesquisa in listaSaidas)
                                     {
+                                        Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
                                         GerenciadorSaidaPagamento.GetInstance(null).RemoverPorSaida(saida);
-                                        GerenciadorSaida.GetInstance(null).RegistrarEstornoEstoque(saida, null);
-                                        saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                                        saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-                                        saida.CupomFiscal = "";
-                                        saida.TotalPago = 0;
-                                        GerenciadorSaida.GetInstance(null).Atualizar(saida);
+                                        SaidaPagamento saidaPagamento = new SaidaPagamento();
+                                        saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
+                                        saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
+                                        saidaPagamento.CodSaida = saida.CodSaida;
+                                        saidaPagamento.Data = saida.DataSaida;
+                                        saidaPagamento.Valor = saida.TotalAVista;
+                                        saidaPagamento.CodContaBanco = Global.CAIXA_PADRAO;
+                                        saidaPagamento.Parcelas = 1;
+                                        List<SaidaPagamento> listaPagamentos = new List<SaidaPagamento>() { saidaPagamento };
+                                        GerenciadorSaida.GetInstance(null).RegistrarPagamentosSaida(listaPagamentos, saida);
+                                    }
+
+                                }
+                                // Cupom Fiscal não foi emitido
+                                else
+                                {
+                                    foreach (SaidaPesquisa saidaPesquisa in listaSaidas)
+                                    {
+                                        Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
+                                        if (!saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
+                                        {
+                                            GerenciadorSaidaPagamento.GetInstance(null).RemoverPorSaida(saida);
+                                            GerenciadorSaida.GetInstance(null).RegistrarEstornoEstoque(saida, null);
+                                            saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                                            saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
+                                            saida.CupomFiscal = "";
+                                            saida.TotalPago = 0;
+                                            GerenciadorSaida.GetInstance(null).Atualizar(saida);
+                                        }
                                     }
                                 }
                             }
@@ -404,19 +438,18 @@ namespace Negocio
                             negada.processado = true;
                         }
                     }
-                    //autorizacaoCartaoE.processado = true;
                     repAutorizacao.SaveChanges();
                 }
             }
-       }
+        }
 
         private void AtualizaFormaPagamentoUnica(tb_autorizacao_cartao autorizacaoAprovada, CartaoCredito cartao, SaidaPagamento saidaPagamento, IEnumerable<Conta> listaContas)
         {
             saidaPagamento.CodCartaoCredito = cartao.CodCartao;
             saidaPagamento.CodFormaPagamento = FormaPagamento.CARTAO;
-            saidaPagamento.Data = (DateTime) autorizacaoAprovada.dataHoraAutorizacao;
+            saidaPagamento.Data = (DateTime)autorizacaoAprovada.dataHoraAutorizacao;
             saidaPagamento.NumeroControle = autorizacaoAprovada.nsuTransacao.ToString();
-            saidaPagamento.Parcelas = (int) autorizacaoAprovada.quantidadeParcelas;
+            saidaPagamento.Parcelas = (int)autorizacaoAprovada.quantidadeParcelas;
             saidaPagamento.Valor = autorizacaoAprovada.valor;
             GerenciadorSaidaPagamento.GetInstance(null).Atualizar(saidaPagamento);
             int parcela = 1;
@@ -430,7 +463,39 @@ namespace Negocio
                 parcela++;
             }
         }
+            
+        private void AtualizaFormaPagamentoMultipla(tb_autorizacao_cartao autorizacaoAprovada, CartaoCredito cartao, IEnumerable<SaidaPagamento> pagamentos, IEnumerable<Conta> listaContas)
+        {
+            SaidaPagamento saidaPagamento = pagamentos.Where(p => p.CodFormaPagamento == FormaPagamento.CARTAO).FirstOrDefault();
+            if (saidaPagamento == null)
+                saidaPagamento = new SaidaPagamento();
+            saidaPagamento.CodCartaoCredito = cartao.CodCartao;
+            saidaPagamento.CodFormaPagamento = FormaPagamento.CARTAO;
+            saidaPagamento.Data = (DateTime)autorizacaoAprovada.dataHoraAutorizacao;
+            saidaPagamento.NumeroControle = autorizacaoAprovada.nsuTransacao.ToString();
+            saidaPagamento.Parcelas = (int)autorizacaoAprovada.quantidadeParcelas;
+            saidaPagamento.Valor = autorizacaoAprovada.valor;
+            
+            if (pagamentos.Where(p => p.CodFormaPagamento == FormaPagamento.CARTAO).Count() == 1)
+            {
+                GerenciadorSaidaPagamento.GetInstance(null).Atualizar(saidaPagamento);
+            }
 
+            foreach (Conta conta in listaContas)
+            {
+                GerenciadorConta.GetInstance(null).Remover(conta.CodConta);
+            }
+            
+            List<SaidaPagamento> listaPagamentos = new List<SaidaPagamento>() { saidaPagamento };
+            List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(autorizacaoAprovada.cupomFiscal);
+            
+            foreach (SaidaPesquisa saidaPesquisa in listaSaidas)
+            {
+                Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
+                GerenciadorSaidaPagamento.GetInstance(null).RemoverPorSaida(saida);
+                GerenciadorSaida.GetInstance(null).RegistrarPagamentosSaida(listaPagamentos, saida);
+            }
+        }
 
         private static void RemoverContasSaida(tb_saida saidaE, SaceEntities saceEntities, RepositorioGenerico<ContaE> repConta)
         {

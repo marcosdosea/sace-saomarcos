@@ -23,8 +23,11 @@ namespace Telas
         static string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
         static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
         static string SERVIDOR_NFE_DEPOSITO = Properties.Settings.Default.ServidorNfeDeposito.ToUpper();
-        static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
         static string SERVIDOR_CARTAO = Properties.Settings.Default.ServidorCartao.ToUpper();
+        static int NFCE_SERVIDOR = Properties.Settings.Default.NfceServidor;
+        static int NFCE_ONLINE = Properties.Settings.Default.NfceOnline;
+
+        static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
             
        
         public static Autenticacao Autenticacao
@@ -321,11 +324,11 @@ namespace Telas
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE) || nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe();
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
-
-            GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe();
-            GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosNFCE();
+            GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
+            GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+            //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO, NFCE_SERVIDOR, NFCE_ONLINE);
+            //GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosNFCE();
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)

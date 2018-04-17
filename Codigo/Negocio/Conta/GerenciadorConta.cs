@@ -297,16 +297,6 @@ namespace Negocio
             return GetQuery().Where(conta => conta.CodSaida == codSaida && conta.CodPagamento == codPagamento).ToList();
         }
 
-        /// <summary>
-        /// Obter contas de uma determinada entrada numa situação
-        /// </summary>
-        /// <param name="codSituacao">situação das contas</param>
-        /// <param name="codEntrada">código da entrada</param>
-        /// <returns></returns>
-        public IEnumerable<Conta> ObterPorSituacaoEntrada(string codSituacao, long codEntrada)
-        {
-            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodEntrada == codEntrada).ToList();
-        }
 
         /// <summary>
         /// Obter contas de uma determinada saida na situação
@@ -429,6 +419,38 @@ namespace Negocio
                 throw new DadosException("Não foi possível realizar a substituição de contas. Favor contactar o administrador.", e);
             }
 
+        }
+
+        /// <summary>
+        /// Substitui as contas associadas a um documento fiscal por uma lista de boletos
+        /// </summary>
+        /// <param name="cupomFiscal"></param>
+        /// <param name="listaContaBoletos"></param>
+        public void Substituir(string cupomFiscal, List<Conta> listaContaBoletos)
+        {
+            try
+            {
+                var query = from conta in saceContext.ContaSet
+                            where conta.numeroDocumento.Equals(cupomFiscal)
+                            select conta;
+                List<ContaE> listaContas = query.ToList();
+                foreach (ContaE conta in listaContas)
+                {
+                    conta.codSituacao = SituacaoConta.SITUACAO_SUBTITUIDA;
+                }
+
+                foreach (Conta boleto in listaContaBoletos)
+                {
+                    ContaE _conta = new ContaE();
+                    Atribuir(boleto, _conta);
+                    repConta.Inserir(_conta);
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Conta", e.Message, e);
+            }
         }
     }
 }

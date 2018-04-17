@@ -55,9 +55,9 @@ namespace Telas
             IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
             IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO");
             IEnumerable<VendasCartao> baneseCredito = vendasCartao.Where(vendas => vendas.CodCartao == BANESECARD_CREDITO);
-            
-            vendasCartaoRede.DataSource = redeCredito.Union(redeDebito);
-            vendasCartaoBaneseCredito.DataSource = baneseCredito;
+
+            vendasCartaoRede.DataSource = RemoverDuplicados(redeCredito.Union(redeDebito));
+            vendasCartaoBaneseCredito.DataSource = RemoverDuplicados(baneseCredito);
 
             totalCreditoRede.Text = redeCredito.Sum(t => t.TotalCartao).ToString("N2");
             totalDebitoRede.Text = redeDebito.Sum(t => t.TotalCartao).ToString("N2");
@@ -65,9 +65,22 @@ namespace Telas
             totalCreditoBanese.Text = baneseCredito.Sum(t => t.TotalCartao).ToString("N2");
         }
 
-        private void dateTimePickerInicial_ValueChanged(object sender, EventArgs e)
+
+        private IEnumerable<VendasCartao> RemoverDuplicados(IEnumerable<VendasCartao> vendasCartao)
         {
-            
+            List<VendasCartao> final = new List<VendasCartao>();
+            foreach (VendasCartao venda in vendasCartao)
+            {
+                if (String.IsNullOrEmpty(venda.NumeroControle))
+                {
+                    final.Add(venda);
+                }
+                else if (final.Where(v => v.NumeroControle.Equals(venda.NumeroControle)).Count() == 0)
+                {
+                    final.Add(venda);
+                }
+            }
+            return final;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

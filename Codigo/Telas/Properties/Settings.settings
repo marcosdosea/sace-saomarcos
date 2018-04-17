@@ -14,5 +14,11 @@
     <Setting Name="ServidorNfeDeposito" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Servidor</Value>
     </Setting>
+    <Setting Name="NfceServidor" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="NfceOnline" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

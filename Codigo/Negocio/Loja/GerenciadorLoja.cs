@@ -69,17 +69,21 @@ namespace Negocio
         /// Atualiza apemas o número da nfe
         /// </summary>
         /// <param name="loja"></param>
-        internal void AtualizarNumeroNfe(Loja loja)
+        public int IncrementarNumeroNfe(int codLoja, SaceEntities saceContext)
         {
             try
             {
-                var repLoja = new RepositorioGenerico<tb_loja>();
+                var query = from loja in saceContext.tb_loja
+                            where loja.codLoja == codLoja
+                            select loja;
 
-                tb_loja _lojaE = repLoja.ObterEntidade(l => l.codLoja == loja.CodLoja);
-                _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNFeAtual;
-                _lojaE.numeroSequencialNFCeAtual = loja.NumeroSequenciaNFCeAtual;
-
-                repLoja.SaveChanges();
+                tb_loja _loja = query.FirstOrDefault();
+                if (_loja != null)
+                {
+                    _loja.numeroSequenciaNfeAtual += 1;
+                }
+                saceContext.SaveChanges();
+                return _loja.numeroSequenciaNfeAtual;
             }
             catch (Exception e)
             {

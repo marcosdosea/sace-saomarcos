@@ -107,19 +107,22 @@
             // checkBoxNFCe
             // 
             this.checkBoxNFCe.AutoSize = true;
+            this.checkBoxNFCe.Checked = true;
+            this.checkBoxNFCe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxNFCe.Location = new System.Drawing.Point(430, 91);
             this.checkBoxNFCe.Name = "checkBoxNFCe";
             this.checkBoxNFCe.Size = new System.Drawing.Size(62, 17);
             this.checkBoxNFCe.TabIndex = 12;
             this.checkBoxNFCe.Text = "NFC-e?";
             this.checkBoxNFCe.UseVisualStyleBackColor = true;
+            this.checkBoxNFCe.CheckedChanged += new System.EventHandler(this.checkBoxNFCe_CheckedChanged);
             // 
             // FrmSaidaConfirma
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 170);
+            this.ClientSize = new System.Drawing.Size(496, 166);
             this.ControlBox = false;
             this.Controls.Add(this.checkBoxNFCe);
             this.Controls.Add(this.trocoTextBox);

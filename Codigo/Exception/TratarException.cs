@@ -108,7 +108,7 @@ namespace Telas
                         }
                     }
 
-                    erro += exception.Number + ": " + exception.Message + "\n" + exception.InnerException;
+                    //erro += t.Exception.Message;// +"\n" + t.Exception.InnerException;
 
                 }
                

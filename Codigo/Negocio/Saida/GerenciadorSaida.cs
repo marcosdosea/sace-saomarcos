@@ -551,6 +551,19 @@ namespace Negocio
             return GetQueryPesquisa().Where(saida => saida.CupomFiscal.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
         }
 
+
+        /// <summary>
+        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<SaidaPesquisa> ObterPorSolicitacaoSaida(List<tb_solicitacao_saida> listaSolicitacaoSaida)
+        {
+            List<long> listaCodSaida = listaSolicitacaoSaida.Select(s => s.codSaida).ToList();
+            return GetQueryPesquisa().Where(saida => listaCodSaida.Contains(saida.CodSaida)).OrderBy(s => s.CodSaida).ToList();
+        }
+        
+
         /// <summary>
         /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
         /// </summary>
@@ -939,7 +952,7 @@ namespace Negocio
                     movimentacao.CodContaBanco = pagamento.CodContaBanco;
                     movimentacao.CodConta = conta.CodConta;
                     movimentacao.CodResponsavel = saida.CodCliente;
-                    movimentacao.DataHora = DateTime.Now;
+                    movimentacao.DataHora = pagamento.Data;
                     if (totalRegistrado > saida.TotalAVista)
                     {
                         movimentacao.Valor = pagamento.Valor - (decimal)saida.Troco;

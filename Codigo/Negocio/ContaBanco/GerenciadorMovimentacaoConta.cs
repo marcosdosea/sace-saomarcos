@@ -359,7 +359,12 @@ namespace Negocio
             {
                 if (!_contaE.codEntrada.Equals(Global.ENTRADA_PADRAO))
                 {
-                    if (GerenciadorConta.GetInstance(saceContext).ObterPorSituacaoEntrada(SituacaoConta.SITUACAO_ABERTA, (long)_contaE.codEntrada).ToList().Count == 0)
+                    var query2 = from conta in saceContext.ContaSet
+                                 where conta.codSituacao.Equals(SituacaoConta.SITUACAO_ABERTA) && conta.codEntrada == _contaE.codEntrada
+                                select conta;
+
+
+                    if (query2.Count() == 0)
                     {
                         _entradaE.codSituacaoPagamentos = SituacaoPagamentos.QUITADA;
                     }

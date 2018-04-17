@@ -200,9 +200,9 @@ namespace Telas
                                         if (frmSaidaConfirma.GerarNFCe)
                                         {
                                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(codSolicitacao);
-                                            frmSaidaAutorizacao.ShowDialog();
-                                            frmSaidaAutorizacao.Dispose();
+                                            //FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(codSolicitacao);
+                                            //frmSaidaAutorizacao.ShowDialog();
+                                            //frmSaidaAutorizacao.Dispose();
                                         }
                                         else
                                         {

@@ -806,6 +806,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_autorizacao_cartao> _tb_autorizacao_cartao;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_documento_fiscal> tb_documento_fiscal
+        {
+            get
+            {
+                if ((_tb_documento_fiscal == null))
+                {
+                    _tb_documento_fiscal = base.CreateObjectSet<tb_documento_fiscal>("tb_documento_fiscal");
+                }
+                return _tb_documento_fiscal;
+            }
+        }
+        private ObjectSet<tb_documento_fiscal> _tb_documento_fiscal;
 
         #endregion
 
@@ -1145,6 +1161,14 @@ namespace Dados
         public void AddTotb_autorizacao_cartao(tb_autorizacao_cartao tb_autorizacao_cartao)
         {
             base.AddObject("tb_autorizacao_cartao", tb_autorizacao_cartao);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_documento_fiscal EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_documento_fiscal(tb_documento_fiscal tb_documento_fiscal)
+        {
+            base.AddObject("tb_documento_fiscal", tb_documento_fiscal);
         }
 
         #endregion
@@ -10034,6 +10058,115 @@ namespace Dados
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_documento_fiscal")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_documento_fiscal : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_documento_fiscal object.
+        /// </summary>
+        /// <param name="numeroDocumentoFiscal">Initial value of the numeroDocumentoFiscal property.</param>
+        /// <param name="dataSoliciticao">Initial value of the dataSoliciticao property.</param>
+        /// <param name="situacao">Initial value of the situacao property.</param>
+        public static tb_documento_fiscal Createtb_documento_fiscal(global::System.Int64 numeroDocumentoFiscal, global::System.DateTime dataSoliciticao, global::System.String situacao)
+        {
+            tb_documento_fiscal tb_documento_fiscal = new tb_documento_fiscal();
+            tb_documento_fiscal.numeroDocumentoFiscal = numeroDocumentoFiscal;
+            tb_documento_fiscal.dataSoliciticao = dataSoliciticao;
+            tb_documento_fiscal.situacao = situacao;
+            return tb_documento_fiscal;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 numeroDocumentoFiscal
+        {
+            get
+            {
+                return _numeroDocumentoFiscal;
+            }
+            set
+            {
+                if (_numeroDocumentoFiscal != value)
+                {
+                    OnnumeroDocumentoFiscalChanging(value);
+                    ReportPropertyChanging("numeroDocumentoFiscal");
+                    _numeroDocumentoFiscal = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("numeroDocumentoFiscal");
+                    OnnumeroDocumentoFiscalChanged();
+                }
+            }
+        }
+        private global::System.Int64 _numeroDocumentoFiscal;
+        partial void OnnumeroDocumentoFiscalChanging(global::System.Int64 value);
+        partial void OnnumeroDocumentoFiscalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dataSoliciticao
+        {
+            get
+            {
+                return _dataSoliciticao;
+            }
+            set
+            {
+                OndataSoliciticaoChanging(value);
+                ReportPropertyChanging("dataSoliciticao");
+                _dataSoliciticao = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dataSoliciticao");
+                OndataSoliciticaoChanged();
+            }
+        }
+        private global::System.DateTime _dataSoliciticao;
+        partial void OndataSoliciticaoChanging(global::System.DateTime value);
+        partial void OndataSoliciticaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String situacao
+        {
+            get
+            {
+                return _situacao;
+            }
+            set
+            {
+                OnsituacaoChanging(value);
+                ReportPropertyChanging("situacao");
+                _situacao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("situacao");
+                OnsituacaoChanged();
+            }
+        }
+        private global::System.String _situacao;
+        partial void OnsituacaoChanging(global::System.String value);
+        partial void OnsituacaoChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

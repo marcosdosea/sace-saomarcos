@@ -161,7 +161,6 @@
             this.dateTimePickerInicial.Size = new System.Drawing.Size(96, 20);
             this.dateTimePickerInicial.TabIndex = 24;
             this.dateTimePickerInicial.Value = new System.DateTime(2016, 9, 30, 0, 0, 0, 0);
-            this.dateTimePickerInicial.ValueChanged += new System.EventHandler(this.dateTimePickerInicial_ValueChanged);
             // 
             // dateTimePickerFinal
             // 
@@ -171,7 +170,6 @@
             this.dateTimePickerFinal.Size = new System.Drawing.Size(113, 20);
             this.dateTimePickerFinal.TabIndex = 25;
             this.dateTimePickerFinal.Value = new System.DateTime(2014, 12, 29, 22, 49, 42, 0);
-            this.dateTimePickerFinal.ValueChanged += new System.EventHandler(this.dateTimePickerInicial_ValueChanged);
             // 
             // label3
             // 

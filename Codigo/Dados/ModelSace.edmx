@@ -15,6 +15,7 @@
           <EntitySet Name="tb_conta_banco" EntityType="SaceModel.Store.tb_conta_banco" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_contato_empresa" EntityType="SaceModel.Store.tb_contato_empresa" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_cst" EntityType="SaceModel.Store.tb_cst" store:Type="Tables" Schema="sace" />
+          <EntitySet Name="tb_documento_fiscal" EntityType="SaceModel.Store.tb_documento_fiscal" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_entrada" EntityType="SaceModel.Store.tb_entrada" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_entrada_forma_pagamento" EntityType="SaceModel.Store.tb_entrada_forma_pagamento" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_entrada_produto" EntityType="SaceModel.Store.tb_entrada_produto" store:Type="Tables" Schema="sace" />
@@ -429,6 +430,14 @@
           </Key>
           <Property Name="codCST" Type="char" Nullable="false" MaxLength="4" />
           <Property Name="descricaoCST" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tb_documento_fiscal">
+          <Key>
+            <PropertyRef Name="numeroDocumentoFiscal" />
+          </Key>
+          <Property Name="numeroDocumentoFiscal" Type="uint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="dataSoliciticao" Type="datetime" Nullable="false" />
+          <Property Name="situacao" Type="enum" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_entrada">
           <Key>
@@ -1779,6 +1788,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="IncrementarNFCe" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="sace">
+          <Parameter Name="codLoja" Type="int" Mode="In" />
+        </Function>
+        <Function Name="IncrementarNFe" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="sace">
+          <Parameter Name="codLoja" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2086,6 +2101,7 @@
             <End Role="tb_saida" EntitySet="tb_saida" />
             <End Role="tb_autorizacao_cartao" EntitySet="tb_autorizacao_cartao" />
           </AssociationSet>
+          <EntitySet Name="tb_documento_fiscal" EntityType="SaceModel.tb_documento_fiscal" />
           </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -3541,6 +3557,14 @@
           <End Type="SaceModel.tb_saida" Role="tb_saida" Multiplicity="*" />
           <End Type="SaceModel.tb_autorizacao_cartao" Role="tb_autorizacao_cartao" Multiplicity="*" />
         </Association>
+        <EntityType Name="tb_documento_fiscal">
+          <Key>
+            <PropertyRef Name="numeroDocumentoFiscal" />
+          </Key>
+          <Property Type="Int64" Name="numeroDocumentoFiscal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="dataSoliciticao" Nullable="false" />
+          <Property Type="String" Name="situacao" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4081,6 +4105,15 @@
               <ScalarProperty Name="codSaida" ColumnName="codSaida" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tb_documento_fiscal">
+            <EntityTypeMapping TypeName="SaceModel.tb_documento_fiscal">
+              <MappingFragment StoreEntitySet="tb_documento_fiscal">
+                <ScalarProperty Name="situacao" ColumnName="situacao" />
+                <ScalarProperty Name="dataSoliciticao" ColumnName="dataSoliciticao" />
+                <ScalarProperty Name="numeroDocumentoFiscal" ColumnName="numeroDocumentoFiscal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -4101,7 +4134,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ModelSace" ZoomLevel="75">
+      <Diagram Name="ModelSace" ZoomLevel="42">
         <EntityTypeShape EntityType="SaceModel.BancoE" Width="1.5" PointX="5.75" PointY="36.625" Height="1.5956835937500102" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CartaoCreditoE" Width="1.5" PointX="10.25" PointY="24" Height="2.749492187499996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CfopE" Width="1.5" PointX="7.5" PointY="11.875" Height="2.3648893229166674" IsExpanded="true" />
@@ -4408,7 +4441,7 @@
           <ConnectorPoint PointX="4.8761528461538433" PointY="30.5" />
           <ConnectorPoint PointX="4.5" PointY="30.876152846153843" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="SaceModel.SaidaPedidoE" Width="1.5" PointX="0.75" PointY="0.625" Height="1.59568359375" />
+        <EntityTypeShape EntityType="SaceModel.SaidaPedidoE" Width="1.5" PointX="3.25" PointY="3.625" Height="1.59568359375" />
         <AssociationConnector Association="SaceModel.fk_tb_saida_produto_tb_cfop1" >
           <ConnectorPoint PointX="9" PointY="12.714845625" />
           <ConnectorPoint PointX="10.635416666666666" PointY="12.714845625" />
@@ -4860,6 +4893,7 @@
           <ConnectorPoint PointX="17.458333333333332" PointY="43.975576171875" />
           <ConnectorPoint PointX="17.75" PointY="43.975576171875" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="SaceModel.tb_documento_fiscal" Width="1.5" PointX="3.375" PointY="0.75" Height="1.595683593749996" />
         </Diagram>
     </Diagrams>
   </Designer>

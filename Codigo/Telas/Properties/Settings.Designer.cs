@@ -58,5 +58,23 @@ namespace Telas.Properties {
                 return ((string)(this["ServidorNfeDeposito"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int NfceServidor {
+            get {
+                return ((int)(this["NfceServidor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int NfceOnline {
+            get {
+                return ((int)(this["NfceOnline"]));
+            }
+        }
     }
 }

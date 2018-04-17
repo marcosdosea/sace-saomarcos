@@ -72,6 +72,8 @@ namespace Telas
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorEndereco(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 5) && !txtTexto.Text.Equals(""))
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorBairro(txtTexto.Text);
+            else if ((cmbBusca.SelectedIndex == 6) && !txtTexto.Text.Equals(""))
+                pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNome(txtTexto.Text);
             else
                 pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorNomeFantasia(txtTexto.Text);
         }

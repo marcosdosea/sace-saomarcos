@@ -64,9 +64,10 @@
             "Nome Fantasia",
             "Nome Fantasia com Contas em Atraso",
             "Código",
-            "CPF",
+            "CPF/CNPJ",
             "Endereço",
-            "Bairro"});
+            "Bairro",
+            "Nome"});
             this.cmbBusca.Location = new System.Drawing.Point(10, 26);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(222, 21);
