@@ -42,7 +42,7 @@ namespace Telas
                        saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(long.Parse(txtTexto.Text));
                     else if (cmbBusca.SelectedIndex == 2)
                     {
-                        if (txtTexto.Text.Trim().Length > 3)
+                        if (txtTexto.Text.Trim().Length >= 3)
                         {
                             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorPedido(txtTexto.Text);
                         }
@@ -54,6 +54,10 @@ namespace Telas
 
                             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorNomeCliente(txtTexto.Text);
                         }
+                    } 
+                    else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Trim().Length >= 10))
+                    {
+                        saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorDataPedido(txtTexto.Text);
                     }
             }
             catch (System.Exception ex)
@@ -62,7 +66,7 @@ namespace Telas
             }
             finally
             {
-                Cursor.Current = Cursors.WaitCursor;
+                Cursor.Current = Cursors.Default;
             }
         }
 

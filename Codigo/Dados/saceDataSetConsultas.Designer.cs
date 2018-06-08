@@ -1913,7 +1913,7 @@ namespace Dados.saceDataSetConsultasTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+        public global::MySql.Data.MySqlClient.MySqlConnection Connection {
             get {
                 if ((this._connection == null)) {
                     this.InitConnection();
@@ -2145,7 +2145,7 @@ order by YEAR(dataSaida) asc, MONTH(dataSaida) asc";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+        public global::MySql.Data.MySqlClient.MySqlConnection Connection {
             get {
                 if ((this._connection == null)) {
                     this.InitConnection();
@@ -2337,7 +2337,7 @@ ORDER BY tb_entrada_produto.codEntradaProduto DESC";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+        public global::MySql.Data.MySqlClient.MySqlConnection Connection {
             get {
                 if ((this._connection == null)) {
                     this.InitConnection();

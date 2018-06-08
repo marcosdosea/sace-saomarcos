@@ -8,27 +8,25 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using System.IO;
 
 namespace Telas
 {
     public partial class FrmSaidaAutorizacao : Form
     {
+        private long codSaida;
         private long codSolicitacao;
-        //NfeControle nfeControle;
+        NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
 
-        public FrmSaidaAutorizacao(long codSolicitacao)
+        public FrmSaidaAutorizacao(long codSaida, long codSolicitacao)
         {
             InitializeComponent();
-            btnImprimir.Enabled = false;
+            this.codSaida = codSaida;
             this.codSolicitacao = codSolicitacao;
+            nfeControle = null;
             lblCartao.ForeColor = Color.Black;
-        }
-
-        private void btnImprimir_Click(object sender, EventArgs e)
-        {
-            //GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
         }
 
         private void timerAtualizaNFCe_Tick(object sender, EventArgs e)
@@ -42,57 +40,63 @@ namespace Telas
                     {
                         ExibirResultadoProcessamentoCartao(documentoE);
                     }
-                    else if (!documentoE.haPagamentoCartao && !exibiuResultadoCartao)
-                    {
-                        lblCartao.Text = "Cartão de Crédito/Débito não utilizado.";
-                        exibiuResultadoCartao = true;
-                    }
-                    ExibirResultadoProcessamentoNfe(documentoE);
                 }
-                else
-                {
-                    this.Close();
-                }
+                textCartao.Text = "Cartão de Crédito/Débito não utilizado.";
+                ExibirResultadoProcessamentoNFCe();
             }
         }
 
-        private void ExibirResultadoProcessamentoNfe(Dados.tb_solicitacao_documento documentoE)
+        private void ExibirResultadoProcessamentoNFCe()
         {
-            if (!documentoE.nfeProcessada)
+            lblCartao.Text = "Aguardando Autorização NF-e... ";
+            textNfe.Text = "Favor aguardar....";
+            Cursor.Current = Cursors.WaitCursor;
+            // recupera a último envio da nfe
+            NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).LastOrDefault();
+            if (nfeControle != null && !nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA))
             {
-                lblCartao.Text = "Aguardando Autorização NF-e... ";
                 Cursor.Current = Cursors.WaitCursor;
-            }
-            else
-            {
-                Dados.tb_solicitacao_saida solicitacaoSaida = documentoE.tb_solicitacao_saida.FirstOrDefault();
-                // recupera a último envio da nfe
-                NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(solicitacaoSaida.codSaida).OrderBy(nfe => nfe.CodNfe).LastOrDefault();
-                if (nfeControle != null && !nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA))
+                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-                    if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                    lblNffe.Text = "NFC-e AUTORIZADA.";
+                    lblNffe.ForeColor = Color.Green;
+                    Cursor.Current = Cursors.Default;
+                    this.Close();
+                }
+                else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_REJEITADA))
+                {
+                    lblNffe.Text = "NFC-e rejeitada. ";
+                    textNfe.Text = nfeControle.MensagemSitucaoProtocoloUso;
+                    lblNffe.ForeColor = Color.Red;
+                    Cursor.Current = Cursors.Default;
+                    btnCancelar.Focus();
+                }
+                else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA))
+                {
+                    lblNffe.Text = "NFC-e não Validada.";
+                    //textNfe.Text = "Favor verificar {0} (1) NCM ausentes nos produtos {0} (2) CNPJ/CPF ou IE do cliente incorretos. {0}";
+                    lblNffe.ForeColor = Color.Red;
+                    Cursor.Current = Cursors.Default;
+                    Loja loja = GerenciadorLoja.GetInstance().Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
+                    if (loja != null)
                     {
-                        lblCartao.Text = "NFC-e AUTORIZADA.";
-                        lblCartao.ForeColor = Color.Green;
-                        btnImprimir.Enabled = true;
-                        btnImprimir.Focus();
-                    }
-                    else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_REJEITADA))
-                    {
-                        lblCartao.Text = "NFC-e rejeitada. " + nfeControle.MensagemSitucaoProtocoloUso;
-                        lblCartao.ForeColor = Color.Red;
-                        btnImprimir.Enabled = false;
-                        btnCancelar.Focus();
-                    }
-                    else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA))
-                    {
-                        lblCartao.Text = "NFC-e não validada. Alguns dos produtos do pedido precisam de atualizações no cadastro.";
-                        lblCartao.ForeColor = Color.Red;
-                        btnImprimir.Enabled = false;
-                        btnCancelar.Focus();
+                        DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeErro);
+                        string numeroLote = "";
+                        if (Dir.Exists)
+                        {
+                            string arquivoRetornoLote = nfeControle.Chave + "-nfe.err";
+                            FileInfo[] files = Dir.GetFiles(arquivoRetornoLote, SearchOption.TopDirectoryOnly);
+                            if (files.Length > 0)
+                            {
+                                StreamReader reader = new StreamReader(files[0].FullName);
+                                textNfe.Text = reader.ReadToEnd();
+                            }
+                        }
                     }
                 }
+                timerAtualizaNFCe.Enabled = false;
+                btnCancelar.Enabled = true;
+                btnCancelar.Focus();
             }
         }
 
@@ -103,7 +107,7 @@ namespace Telas
                 lblCartao.Text = "Aguardando Autorização Cartão...";
                 Cursor.Current = Cursors.WaitCursor;
             }
-            else 
+            else
             {
                 Cursor.Current = Cursors.Default;
                 if (documentoE.cartaoAutorizado)
@@ -128,6 +132,14 @@ namespace Telas
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FrmSaidaAutorizacao_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                btnCancelar_Click(sender, e);
+            }
         }
 
     }

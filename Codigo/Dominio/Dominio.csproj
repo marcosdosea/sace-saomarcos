@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -41,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -189,6 +191,63 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema3\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\consReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\consSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\consStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\enviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\inutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\leiauteConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\leiauteConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\leiauteInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\nfe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\procInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\procNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\retConsReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\retConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\retConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\retEnviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\retInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\tiposBasico_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema4\xmldsig-core-schema_v1.01.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema\cancNFe_v2.00.xsd">

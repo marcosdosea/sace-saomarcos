@@ -674,8 +674,7 @@ namespace Telas
         {
             saida = GerenciadorSaida.GetInstance(null).Obter(long.Parse(codSaidaTextBox.Text));
 
-            if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-            {
+            if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) && String.IsNullOrEmpty(saida.TipoDocumentoFiscal) ){
                 if (MessageBox.Show("Confirma impressão do Cupom Fiscal?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     GerenciadorSaida.GetInstance(null).GerarCupomFiscal(saida);
@@ -683,7 +682,8 @@ namespace Telas
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || 
                 saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+                || (saida.TipoSaida == Saida.TIPO_PRE_VENDA) )
             {
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();

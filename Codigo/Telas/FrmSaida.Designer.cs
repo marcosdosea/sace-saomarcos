@@ -50,12 +50,12 @@
             System.Windows.Forms.Label valorICMSSubstLabel;
             System.Windows.Forms.Label valorIPILabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblSaidaProdutos = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblFormaEntrada = new System.Windows.Forms.Label();
@@ -228,9 +228,9 @@
             pedidoGeradoLabel.ForeColor = System.Drawing.Color.Black;
             pedidoGeradoLabel.Location = new System.Drawing.Point(480, 534);
             pedidoGeradoLabel.Name = "pedidoGeradoLabel";
-            pedidoGeradoLabel.Size = new System.Drawing.Size(34, 20);
+            pedidoGeradoLabel.Size = new System.Drawing.Size(76, 20);
             pedidoGeradoLabel.TabIndex = 27;
-            pedidoGeradoLabel.Text = "CF:";
+            pedidoGeradoLabel.Text = "CF / NFe:";
             // 
             // label4
             // 
@@ -280,9 +280,9 @@
             nfeLabel.ForeColor = System.Drawing.Color.Black;
             nfeLabel.Location = new System.Drawing.Point(591, 534);
             nfeLabel.Name = "nfeLabel";
-            nfeLabel.Size = new System.Drawing.Size(38, 20);
+            nfeLabel.Size = new System.Drawing.Size(42, 20);
             nfeLabel.TabIndex = 69;
-            nfeLabel.Text = "Nfe:";
+            nfeLabel.Text = "Doc:";
             // 
             // descricaoSituacaoPagamentosLabel
             // 
@@ -609,14 +609,14 @@
             this.tb_saida_produtoDataGridView.AllowUserToAddRows = false;
             this.tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
             this.tb_saida_produtoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_saida_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codSaidaProdutoDataGridViewTextBoxColumn,
@@ -627,20 +627,20 @@
             this.subtotalDataGridViewTextBoxColumn,
             this.subtotalAVistaDataGridViewTextBoxColumn});
             this.tb_saida_produtoDataGridView.DataSource = this.saidaProdutoBindingSource;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 150);
             this.tb_saida_produtoDataGridView.MultiSelect = false;
             this.tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
             this.tb_saida_produtoDataGridView.ReadOnly = true;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 300);
@@ -685,8 +685,8 @@
             // valorVendaDataGridViewTextBoxColumn
             // 
             this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
-            dataGridViewCellStyle8.Format = "C2";
-            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Format = "C2";
+            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
             this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
             this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -694,9 +694,9 @@
             // subtotalDataGridViewTextBoxColumn
             // 
             this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
-            dataGridViewCellStyle9.Format = "C2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
             this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
             this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
@@ -704,8 +704,8 @@
             // subtotalAVistaDataGridViewTextBoxColumn
             // 
             this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
-            dataGridViewCellStyle10.Format = "C2";
-            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Format = "C2";
+            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
             this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
             this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;

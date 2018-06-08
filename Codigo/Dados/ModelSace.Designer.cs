@@ -1173,6 +1173,50 @@ namespace Dados
 
         #endregion
 
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="codLoja">No Metadata Documentation available.</param>
+        /// <param name="numeroNFCe">No Metadata Documentation available.</param>
+        public int IncrementarNFCe(Nullable<global::System.Int32> codLoja, ObjectParameter numeroNFCe)
+        {
+            ObjectParameter codLojaParameter;
+            if (codLoja.HasValue)
+            {
+                codLojaParameter = new ObjectParameter("codLoja", codLoja);
+            }
+            else
+            {
+                codLojaParameter = new ObjectParameter("codLoja", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("IncrementarNFCe", codLojaParameter, numeroNFCe);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="codLoja">No Metadata Documentation available.</param>
+        /// <param name="numeroNFe">No Metadata Documentation available.</param>
+        public int IncrementarNFe(Nullable<global::System.Int32> codLoja, ObjectParameter numeroNFe)
+        {
+            ObjectParameter codLojaParameter;
+            if (codLoja.HasValue)
+            {
+                codLojaParameter = new ObjectParameter("codLoja", codLoja);
+            }
+            else
+            {
+                codLojaParameter = new ObjectParameter("codLoja", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("IncrementarNFe", codLojaParameter, numeroNFe);
+        }
+
+        #endregion
+
     }
 
     #endregion

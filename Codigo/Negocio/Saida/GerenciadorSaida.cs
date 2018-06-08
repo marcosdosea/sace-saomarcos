@@ -148,6 +148,48 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
+        public void AtualizarSaidasPorNFCe(NfeControle nfeControle)
+        {
+            try
+            {
+                var query = from nfe in saceContext.tb_nfe
+                            where nfe.codNFe == nfeControle.CodNfe
+                            select nfe;
+                List<tb_nfe> listaNfes = query.ToList();
+
+                if (listaNfes.Count() > 0)
+                {
+                    tb_nfe nfe = listaNfes.FirstOrDefault();
+                    List<tb_saida> saidas = nfe.tb_saida.ToList();
+                    foreach (tb_saida saida in saidas)
+                    {
+                        saida.nfe = "NFCe";
+                    }
+                }
+
+                tb_nfe nfeAutorizada = listaNfes.Where(nfe => nfe.situacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).SingleOrDefault();
+                if (nfeAutorizada != null)
+                {
+                    List<tb_saida> saidas = nfeAutorizada.tb_saida.ToList(); 
+                    foreach (tb_saida saida in saidas) {
+                        saida.nfe = "NFCe";
+                        saida.pedidoGerado = "E" + nfeAutorizada.numeroSequenciaNFe;
+                        saida.codTipoSaida = Saida.TIPO_VENDA;
+                    }
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza o número da nota fiscal gerada num determinado codigo saida
+        /// </summary>
+        /// <param name="nfe"></param>
+        /// <param name="pedidoGerado"></param>
         public void AtualizarNfePorCodSaida(string nfe, string observacao, long codSaida)
         {
             try
@@ -197,7 +239,7 @@ namespace Negocio
                         _saidaE.pedidoGerado = pedidoGerado.ToString();
                         _saidaE.dataEmissaoDocFiscal = DateTime.Now;
                     }
-                    //_saidaE.totalAVista = totalAVista;
+                    _saidaE.totalAVista = totalAVista;
                     _saidaE.totalPago = totalAVista;
                     _saidaE.tipoDocumentoFiscal = tipoDocumentoFiscal;
                     if (_saidaE.total > 0)
@@ -468,6 +510,23 @@ namespace Negocio
         public List<Saida> ObterPorTipoSaida(List<int> listaTiposSaida)
         {
             return GetQuery().Where(saida => listaTiposSaida.Contains(saida.TipoSaida)).OrderBy(s => s.CodSaida).ToList();
+        }
+
+        /// <summary>
+        /// Obtem saidas pela data do pedido informada
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public object ObterPorDataPedido(string data)
+        {
+            DateTime dataConvertida = DateTime.Now;
+            try
+            {
+                dataConvertida = Convert.ToDateTime(data);
+            } catch (Exception) {
+                // não precisa fazer nada
+            }
+            return GetQuery().Where(saida => saida.DataSaida >= dataConvertida).OrderBy(s => s.CodSaida).ToList();
         }
 
 

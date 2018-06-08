@@ -120,7 +120,7 @@ namespace Negocio
                     // Verifica se existem notas emitidas
                     IEnumerable<NfeControle> nfeControles = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
 
-                    if (!ehComplementar && nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
+                    if (!ehComplementar && nfeControles.Where(nfeC => nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) && nfeC.Modelo.Equals(NfeControle.MODELO_NFE)).Count() > 0)
                     {
                         throw new NegocioException("Uma NF-e já foi AUTORIZADA para esse pedido.");
                     }
@@ -329,17 +329,18 @@ namespace Negocio
         /// Atualiza dados do cupom
         /// </summary>
         /// <param name="cupom"></param>
-        public void EnviarProximoNFe()
+        public void EnviarProximoNFe(string servidorNfeDeposito)
         {
             try
             {
+                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
                 var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
 
                 var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
                 var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
                 var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
 
-                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C =>
+                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C => 
                     //    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
                     C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
 
@@ -347,11 +348,13 @@ namespace Negocio
                 {
                     tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
                     List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
-                    List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
-
-                    repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
-                    repSolicitacao2.SaveChanges();
-                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
+                    int codLoja = listaSolicitacaoSaida.FirstOrDefault().tb_saida.codLojaOrigem;
+                    if (codLoja.Equals(Global.LOJA_PADRAO) || nomeComputador.Equals(servidorNfeDeposito)) {
+                        List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
+                        repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                        repSolicitacao2.SaveChanges();
+                        GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
+                    }
                 }
             }
 
@@ -517,7 +520,8 @@ namespace Negocio
                             }
                         }
 
-                        long numeroCupom = GerenciadorNFe.GetInstance().ObterProximoNumeroSequenciaNfeLoja(Global.LOJA_PADRAO, NfeControle.MODELO_NFCE);
+                        Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                        long numeroCupom = GerenciadorNFe.GetInstance().ObterProximoNumeroSequenciaNfeLoja(loja, NfeControle.MODELO_NFCE);
                         bool haPagamentoCartao = listaSolicitacaoPagamentos.Where(s => s.codFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
                         if (haPagamentoCartao)
                             SolicitarAutorizacaoCartao(numeroCupom, listaSolicitacaoPagamentos, solicitacaoE, repSolicitacao);

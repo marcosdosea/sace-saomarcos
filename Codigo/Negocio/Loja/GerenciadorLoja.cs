@@ -4,13 +4,14 @@ using System.Linq;
 using Dados;
 using Dominio;
 using Util;
+using MySql.Data.MySqlClient;
 
 namespace Negocio
 {
     public class GerenciadorLoja
     {
         private static GerenciadorLoja gLoja;
-        
+
         public static GerenciadorLoja GetInstance()
         {
             if (gLoja == null)
@@ -35,7 +36,7 @@ namespace Negocio
                 Atribuir(loja, _lojaE);
                 repLoja.Inserir(_lojaE);
                 repLoja.SaveChanges();
-                
+
                 return _lojaE.codLoja;
             }
             catch (Exception e)
@@ -69,21 +70,39 @@ namespace Negocio
         /// Atualiza apemas o número da nfe
         /// </summary>
         /// <param name="loja"></param>
-        public int IncrementarNumeroNfe(int codLoja, SaceEntities saceContext)
+        public int IncrementarNumeroNFe(int codLoja, string modelo)
         {
             try
             {
-                var query = from loja in saceContext.tb_loja
-                            where loja.codLoja == codLoja
-                            select loja;
+                SaceEntities saceEntities = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
+                System.Data.Objects.ObjectParameter numero;
 
-                tb_loja _loja = query.FirstOrDefault();
-                if (_loja != null)
+                DateTime ontem = DateTime.Now.AddDays(-1);
+                var query = from nfe in saceEntities.tb_nfe
+                            where (nfe.situacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) || nfe.situacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)) &&
+                                  (nfe.dataEmissao.Value <= ontem)  && nfe.modelo.Equals(modelo) 
+                            select nfe;
+                List<tb_nfe> nfes = query.ToList();
+                if (nfes.Count > 0)
                 {
-                    _loja.numeroSequenciaNfeAtual += 1;
+                    int codigo = nfes.ElementAtOrDefault(0).numeroSequenciaNFe;
+                    saceEntities.DeleteObject(nfes.ElementAtOrDefault(0));
+                    saceEntities.SaveChanges();
+                    return codigo;
                 }
-                saceContext.SaveChanges();
-                return _loja.numeroSequenciaNfeAtual;
+                if (modelo.Equals(NfeControle.MODELO_NFCE))
+                {
+                    numero = new System.Data.Objects.ObjectParameter("numeroNFCe", typeof(Int32));
+                    saceEntities.IncrementarNFCe(codLoja, numero);
+                }
+                else
+                {
+                    numero = new System.Data.Objects.ObjectParameter("numeroNFe", typeof(Int32));
+                    saceEntities.IncrementarNFCe(codLoja, numero);
+                }
+                if (numero != null && numero.Value != null)
+                    return Int32.Parse(numero.Value.ToString());
+                return -1;
             }
             catch (Exception e)
             {
@@ -99,7 +118,7 @@ namespace Negocio
         {
             if (codloja == 1)
                 throw new NegocioException("A loja matriz não pode ser excluída.");
-                
+
             try
             {
                 var repLoja = new RepositorioGenerico<tb_loja>();
@@ -121,7 +140,7 @@ namespace Negocio
         {
             var repLoja = new RepositorioGenerico<tb_loja>();
 
-            var saceEntities = (SaceEntities) repLoja.ObterContexto();
+            var saceEntities = (SaceEntities)repLoja.ObterContexto();
             var query = from loja in saceEntities.tb_loja
                         select new Loja
                         {
@@ -140,7 +159,7 @@ namespace Negocio
                             Estado = loja.tb_pessoa.uf,
                             Ie = loja.tb_pessoa.ie,
                             NomePessoa = loja.tb_pessoa.nome,
-                            NumeroSequenciaNFeAtual = (int) loja.numeroSequenciaNfeAtual,
+                            NumeroSequenciaNFeAtual = (int)loja.numeroSequenciaNfeAtual,
                             NumeroSequenciaNFCeAtual = (int)loja.numeroSequencialNFCeAtual
                         };
             return query;

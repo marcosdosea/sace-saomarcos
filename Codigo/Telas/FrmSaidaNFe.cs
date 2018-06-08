@@ -105,7 +105,7 @@ namespace Telas
                 if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     // Atualiza os dados da saída
-                    Saida.Observacao = observacaoTextBox.Text;
+                    Saida.Observacao = observacaoTextBox.Text.Trim();
                     if (Saida.CupomFiscal.Trim().Equals(""))
                         GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
@@ -202,8 +202,7 @@ namespace Telas
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false);
-            Cliente = (Pessoa)pessoaBindingSource.Current;
+            Cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -231,6 +230,20 @@ namespace Telas
         private void timer1_Tick(object sender, EventArgs e)
         {
             btnBuscar_Click(sender, e);
+        }
+
+        private void codPessoaComboBox_Enter(object sender, EventArgs e)
+        {
+            if ((sender is Control) && !(sender is Form))
+            {
+                Control control = (Control)sender;
+                control.BackColor = Global.BACKCOLOR_FOCUS;
+            }
+        }
+
+        private void codPessoaComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

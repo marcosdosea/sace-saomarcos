@@ -165,7 +165,8 @@
             "Pré-Vendas Pendentes",
             "Código",
             "Cupom Fiscal",
-            "Nome Cliente"});
+            "Nome Cliente",
+            "Data Pedido"});
             this.cmbBusca.Location = new System.Drawing.Point(8, 27);
             this.cmbBusca.Name = "cmbBusca";
             this.cmbBusca.Size = new System.Drawing.Size(268, 26);
