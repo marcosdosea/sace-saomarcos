@@ -839,7 +839,7 @@
             this.imprimirCFCheckBox.Name = "imprimirCFCheckBox";
             this.imprimirCFCheckBox.Size = new System.Drawing.Size(92, 24);
             this.imprimirCFCheckBox.TabIndex = 62;
-            this.imprimirCFCheckBox.Text = "Imprimir CF";
+            this.imprimirCFCheckBox.Text = "Imprimir NFe";
             this.imprimirCFCheckBox.UseVisualStyleBackColor = true;
             // 
             // nomeTextBox

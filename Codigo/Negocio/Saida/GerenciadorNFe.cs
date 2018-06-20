@@ -210,6 +210,7 @@ namespace Negocio
         {
             return GetQuery().Where(nc => nc.NumeroRecibo.Equals(numeroRecibo)).ToList();
         }
+        
         /// <summary>
         /// Obtém todos as nfe relacioanadas a uma saída
         /// </summary>
@@ -253,6 +254,7 @@ namespace Negocio
             return query.ToList();
         }
 
+        
         /// <summary>
         /// Obtém Nfe com o código especificiado
         /// </summary>
@@ -346,6 +348,7 @@ namespace Negocio
 
                 // Verifica se chave já foi gerada
                 RecuperarChaveGerada(nfeControle, lojaOrigem, 1);
+                nfeControle.Modelo = modelo;
                 if (nfeControle.Chave.Equals(""))
                 {
                     //define um documento XML e carrega o seu conteúdo 
@@ -495,6 +498,8 @@ namespace Negocio
                                 files[i].Delete();
                             }
                             GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                            if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA))
+                                AvaliaTransformarPreVendaOrcamento(nfeControle);
                         }
                     }
                 }
@@ -573,6 +578,7 @@ namespace Negocio
             if (Dir.Exists)
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
+                
                 string arquivoRetornoReciboNfe = "*-pro-rec.*";
                 FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < files.Length; i++)
@@ -641,8 +647,8 @@ namespace Negocio
                             if (retornoEnvioNfe.cStat.Equals(NfeStatusResposta.NFE104_LOTE_PROCESSADO))
                             {
                                 TProtNFeInfProt protocoloNfe = ((TProtNFe)retornoEnvioNfe.Item).infProt;
-                                if (protocoloNfe.chNFe.Equals(nfeControle.Chave))
-                                {
+                                //if (protocoloNfe.chNFe.Equals(nfeControle.Chave))
+                                //{
                                     if (protocoloNfe.cStat.Equals(NfeStatusResposta.NFE100_AUTORIZADO_USO_NFE))
                                     {
                                         numeroProtocolo = protocoloNfe.nProt;
@@ -660,22 +666,32 @@ namespace Negocio
                                     nfeControle.SituacaoProtocoloUso = protocoloNfe.cStat;
                                     nfeControle.MensagemSitucaoProtocoloUso = protocoloNfe.xMotivo;
 
-                                }
+                                //}
+                                files[0].Delete();
                             }
                             nfeControle.SituacaoReciboEnvio = retornoEnvioNfe.cStat;
                             nfeControle.MensagemSituacaoReciboEnvio = retornoEnvioNfe.xMotivo;
                             GerenciadorNFe.GetInstance().Atualizar(nfeControle);
-                            files[0].Delete();
+                            
                         }
-                        if (nfeControle != null && nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
-                        {
-                            GerenciadorSaida.GetInstance(null).AtualizarSaidasPorNFCe(nfeControle);
-
-                        }
+                        AvaliaTransformarPreVendaOrcamento(nfeControle);
                     }
                 }
             }
             return numeroProtocolo;
+        }
+
+        private static void AvaliaTransformarPreVendaOrcamento(NfeControle nfeControle)
+        {
+            if (nfeControle != null)
+            {
+                bool possuiAutorizada = GerenciadorSaida.GetInstance(null).AtualizarSaidasPorNFCeAutorizadas(nfeControle);
+                if (!possuiAutorizada)
+                {
+                    List<SaidaPesquisa> saidas = GerenciadorSaida.GetInstance(null).ObterSaidaPorNfe(nfeControle.CodNfe);
+                    GerenciadorSaidaPedido.GetInstance().TransformarOrcamentoPorRecusaDocumentoFiscal(saidas.Select(s => s.CodSaida));
+                }
+            }
         }
 
         public TNfeProc LerNFE(string arquivo)
@@ -693,6 +709,15 @@ namespace Negocio
         {
             Saida saida = GerenciadorSaida.GetInstance(null).Obter(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 
+            // Clientes que não pode ser impresso CFe
+            Pessoa destinatario = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
+            Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+            Pessoa pessoaloja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                
+            if ((destinatario.ImprimirCF) || (destinatario.CodMunicipioIBGE != pessoaloja.CodMunicipioIBGE))
+                modelo = DocumentoFiscal.TipoSolicitacao.NFE;
+
+
             NfeControle nfeControle;
             if (modelo.Equals(DocumentoFiscal.TipoSolicitacao.NFE))
                 nfeControle = GerarChaveNFE(saida, ehNfeComplementar, NfeControle.MODELO_NFE);
@@ -701,13 +726,18 @@ namespace Negocio
 
             if (string.IsNullOrEmpty(nfeControle.Chave))
                 return;
+            //bool haPagamentoCartao = listaSaidaPagamentos.Where(s => s.codFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
+            //if (haPagamentoCartao)
+            //{
+               // GerenciadorSolicitacaoDocumento gSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento();
+                //gSolicitacaoDocumento.SolicitarAutorizacaoCartao(nfeControle.CodNfe, listaSaidaPagamentos, listaSolicitacaoSaida.FirstOrDefault().codSolicitacao);
+            //}
+
+
             try
             {
                 nfeControle = Obter(nfeControle.CodNfe).ElementAtOrDefault(0);
-                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                Pessoa pessoaloja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
-                Pessoa destinatario = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
-
+                
 
                 // utilizado como padrão quando não especificado pelos produtos
                 string cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(saida.TipoSaida).ToString();
@@ -751,7 +781,7 @@ namespace Negocio
                 infNFeIde.procEmi = TProcEmi.Item0; //0 - Emissão do aplicativo do contribuinte
                 infNFeIde.serie = "1";
                 infNFeIde.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                infNFeIde.tpEmis = TNFeInfNFeIdeTpEmis.Item1; // emissão Normal
+                infNFeIde.tpEmis = TNFeInfNFeIdeTpEmis.Item1; // 1-emissão Normal 9-emissao off-line
                 infNFeIde.tpImp = (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE)) ? TNFeInfNFeIdeTpImp.Item1 : TNFeInfNFeIdeTpImp.Item4; // 1-Retratro / 2-Paisagem 3-Simplificado 4-Danfe NFCE
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
                     infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item0; // 0 - entrada / 1 - saída de produtos
@@ -840,7 +870,7 @@ namespace Negocio
                     {
                         dest.ItemElementName = ItemChoiceType3.CNPJ;
                         //dest.IE = "ISENTO";
-                        dest.indIEDest = TNFeInfNFeDestIndIEDest.Item2; // 2-Contribuinte ISENTO
+                        dest.indIEDest = TNFeInfNFeDestIndIEDest.Item9; // 2-Contribuinte ISENTO
                     }
                     else
                     {
@@ -897,10 +927,16 @@ namespace Negocio
                         {
                             infNfePag.tPag = TNFeInfNFePagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
+                        } 
+                        else if (pagamento.codFormaPagamento == FormaPagamento.CARTAO)
+                        {
+                            infNfePag.tPag = TNFeInfNFePagTPag.Item03; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
+
                         else
                         {
-                            infNfePag.tPag = TNFeInfNFePagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.tPag = TNFeInfNFePagTPag.Item05; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
                         nfe.infNFe.pag[countPag] = infNfePag;
@@ -912,12 +948,13 @@ namespace Negocio
 
                 //totais da nota
                 List<TNFeInfNFeDet> listaNFeDet = new List<TNFeInfNFeDet>();
+                List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
                 decimal totalProdutos = 0;
                 decimal totalAVista = 0;
                 decimal totalTributos = 0;
                 decimal valorTotalDesconto = 0;
                 decimal valorTotalNota = 0;
-
+                decimal descontoDevolucoes = 0;
                 if (ehNfeComplementar)
                 {
                     TNFeInfNFeDetProd prod = new TNFeInfNFeDetProd();
@@ -984,7 +1021,6 @@ namespace Negocio
                 }
                 else
                 {
-                    List<SaidaProduto> saidaProdutos;
                     if (saida.TipoSaida == Saida.TIPO_VENDA)
                     {
                         if (nfeControleAutorizada != null)
@@ -1018,10 +1054,17 @@ namespace Negocio
                     }
                     saidaProdutos = GerenciadorSaida.GetInstance(null).ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
 
+                    if (saidaProdutos.Count == 0)
+                    {
+                        List<long> listaCodSaidas = (List<long>) listaSolicitacaoSaida.Select(s => s.codSaida).ToList();
+                        foreach( long codSaida in listaCodSaidas) 
+                            GerenciadorSaidaPedido.GetInstance().Atualizar(new SaidaPedido() { CodSaida = codSaida, CodPedido = codSaida, TotalAVista = totalAVista });
+                        return;
+                    }
+                    
                     int nItem = 1; // número do item processado
 
-                   //decimal descontoDevolucoes = saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.SubtotalAVista);
-
+                   
                     if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                     {
                         totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
@@ -1057,7 +1100,16 @@ namespace Negocio
                     // distribui desconto entre todos os produtos da nota
                     saidaProdutos = DistribuirDescontoProdutos(saidaProdutos, valorTotalDesconto, totalProdutos);
 
-                    // produtos da nota
+                    // subtrai o desconto das devolucoes para calcular o percentual a ser aplicado sobre os produtos
+
+                    decimal percentualDescontoProdutos = totalAVista / saidaProdutos.Sum(sp=> sp.Subtotal);
+                    descontoDevolucoes = saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.Subtotal) * percentualDescontoProdutos;
+                 
+                    if (descontoDevolucoes <= valorTotalDesconto)
+                        valorTotalDesconto += descontoDevolucoes;
+                    else
+                        valorTotalDesconto = 0;
+                    //percentualDescontoProdutos = valorTotalDesconto / totalProdutos;
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
                         if (saidaProduto.Quantidade > 0)
@@ -1087,13 +1139,24 @@ namespace Negocio
                             prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), cfopItem);
 
 
-                            bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
-                            if (EhEmissaoNfeNfceVenda)
+                            //bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
+                            bool naoHaNfeAutorizada = (nfeControleAutorizada == null);
+                            if (naoHaNfeAutorizada)
                             {
-                                if (saidaProduto.EhTributacaoIntegral)
-                                    prod.CFOP = TCfop.Item5102;
+                                if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item1)) //1- interna; 2-interestadual; 3-exterior
+                                {
+                                    if (saidaProduto.EhTributacaoIntegral)
+                                        prod.CFOP = TCfop.Item5102;
+                                    else
+                                        prod.CFOP = TCfop.Item5405;
+                                }
                                 else
-                                    prod.CFOP = TCfop.Item5405;
+                                {
+                                    if (saidaProduto.EhTributacaoIntegral)
+                                        prod.CFOP = TCfop.Item6102;
+                                    else
+                                        prod.CFOP = TCfop.Item6404;
+                                }
                             }
 
                             if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
@@ -1110,9 +1173,29 @@ namespace Negocio
                             prod.qCom = formataValorNFe(saidaProduto.Quantidade);
                             if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                             {
-                                prod.vUnCom = formataValorNFe(saidaProduto.ValorVenda);
-                                prod.vProd = formataValorNFe(saidaProduto.Subtotal);
-                                prod.vUnTrib = formataValorNFe(saidaProduto.ValorVenda);
+
+                                decimal valorDescontoPorProduto = Math.Round((saidaProduto.ValorVenda* (1-percentualDescontoProdutos)), 2, MidpointRounding.AwayFromZero);
+                                decimal valorDescontoPorProdutoOriginal = saidaProduto.ValorVenda - saidaProduto.ValorVendaAVista;
+                                if (valorDescontoPorProdutoOriginal == (valorDescontoPorProduto + new Decimal(0.01)) ||
+                                    valorDescontoPorProdutoOriginal == (valorDescontoPorProduto - new Decimal(0.01)))
+                                    valorDescontoPorProduto = valorDescontoPorProdutoOriginal;
+                                decimal valorProdutoNota = saidaProduto.ValorVenda - valorDescontoPorProduto;
+                                prod.vUnCom = formataValorNFe(valorProdutoNota);
+                                prod.vProd = formataValorNFe(valorProdutoNota * saidaProduto.Quantidade);
+                                prod.vUnTrib = formataValorNFe(valorProdutoNota);
+                                decimal valorDescontoProdutos = valorDescontoPorProduto * saidaProduto.Quantidade;
+                                if (valorDescontoProdutos <= saidaProduto.ValorDesconto)
+                                      saidaProduto.ValorDesconto -= valorDescontoProdutos;
+                                else
+                                    saidaProduto.ValorDesconto = 0;
+                                if (valorDescontoProdutos <= valorTotalDesconto)
+                                    valorTotalDesconto -= valorDescontoProdutos;
+                                else
+                                    valorTotalDesconto = 0;
+                                if (valorDescontoProdutos <= totalProdutos)
+                                    totalProdutos -= valorDescontoProdutos;
+                                else
+                                    totalProdutos = 0;
                             }
                             else
                             {
@@ -1158,13 +1241,13 @@ namespace Negocio
                                 icms900.pRedBC = formataValorNFe(0);
                                 icms.Item = icms900;
                             }
-                            else if (saidaProduto.CodCfop.Equals(Cfop.CUPOM_FISCAL_EMITIDO))
-                            {
-                                TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
-                                icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
-                                icms102.orig = Torig.Item0;
-                                icms.Item = icms102;
-                            }
+                            //else if (saidaProduto.CodCfop.Equals(Cfop.CUPOM_FISCAL_EMITIDO))
+                            //{
+                            //    TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
+                            //    icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item400;
+                            //    icms102.orig = Torig.Item0;
+                            //    icms.Item = icms102;
+                            //}
                             else if (saidaProduto.EhTributacaoIntegral)
                             {
                                 TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
@@ -1274,6 +1357,7 @@ namespace Negocio
                     valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto + saida.OutrasDespesas; // +saida.ValorIPI;
                 }
 
+                valorTotalDesconto = (decimal) saidaProdutos.Sum(sp => sp.ValorDesconto);
                 if (valorTotalDesconto >= 0)
                 {
                     icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
@@ -1388,7 +1472,7 @@ namespace Negocio
                 saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)))
             {
                 TNFeInfNFeIdeNFref nfeRefECF = null;
-                if (saida.CupomFiscal.Trim().Count() > 0)
+                if (saida.TipoDocumentoFiscal.Trim().Equals(Saida.TIPO_DOCUMENTO_ECF) && !String.IsNullOrEmpty(saida.CupomFiscal))
                 {
                     // referenciar cupom fiscal
                     TNFeInfNFeIdeNFrefRefECF refEcf = null;
@@ -1453,43 +1537,99 @@ namespace Negocio
 
         public List<SaidaProduto> DistribuirDescontoProdutos(List<SaidaProduto> saidaProdutos, decimal valorTotalDesconto, decimal totalProdutos)
         {
-            decimal fatorDesconto = valorTotalDesconto / totalProdutos;
-            saidaProdutos = saidaProdutos.OrderBy(sp => sp.Subtotal).ToList();
-            decimal totalDescontoDistribuido = 0;
-            foreach (SaidaProduto saidaProduto in saidaProdutos)
-            {
-                if (saidaProduto.Quantidade > 0)
-                {
-                    decimal valorDescontoProduto = Math.Round(saidaProduto.Subtotal * fatorDesconto, 2);
+            // Agrupa produtos iguais
+            saidaProdutos = saidaProdutos.OrderBy(sp => sp.CodProduto).ToList();
+            SaidaProduto saidaProdutoAnterior = null;
+            SaidaProduto saidaProdutoAtual = null;
 
-                    if ((valorDescontoProduto + totalDescontoDistribuido) <= valorTotalDesconto)
-                    {
-                        saidaProduto.ValorDesconto = valorDescontoProduto;
-                    }
-                    else
-                    {
-                        saidaProduto.ValorDesconto = valorTotalDesconto - totalDescontoDistribuido;
-                    }
+            int cont = 0;
+            while (cont < saidaProdutos.Count) {
+                saidaProdutoAtual = saidaProdutos.ElementAt(cont);
+                if (cont == 0)
+                {
+                    saidaProdutoAnterior = saidaProdutoAtual;
+                    cont++;
                 }
                 else
                 {
-                    saidaProduto.ValorDesconto = 0;
-                }
-                totalDescontoDistribuido += saidaProduto.ValorDesconto;
-            }
-
-            if (totalDescontoDistribuido < valorTotalDesconto)
-            {
-                decimal descontoRestante = valorTotalDesconto - totalDescontoDistribuido;
-                foreach (SaidaProduto saidaProduto in saidaProdutos)
-                {
-                    if ((saidaProduto.SubtotalAVista - saidaProduto.ValorDesconto - descontoRestante) > 0)
+                    if (saidaProdutoAtual.CodProduto.Equals(saidaProdutoAnterior.CodProduto))
                     {
-                        saidaProduto.ValorDesconto += descontoRestante;
-                        break;
+                        if (saidaProdutoAtual.ValorVendaAVista > 0 && saidaProdutoAtual.Quantidade > 0)
+                        {
+                            saidaProdutoAnterior.BaseCalculoICMS += saidaProdutoAtual.BaseCalculoICMS;
+                            saidaProdutoAnterior.BaseCalculoICMSSubst += saidaProdutoAtual.BaseCalculoICMSSubst;
+                            saidaProdutoAnterior.Quantidade += saidaProdutoAtual.Quantidade;
+                            saidaProdutoAnterior.ValorDesconto += saidaProdutoAtual.ValorDesconto;
+                            saidaProdutoAnterior.ValorICMS += saidaProdutoAtual.ValorICMS;
+                            saidaProdutoAnterior.ValorICMSSubst += saidaProdutoAtual.ValorICMSSubst;
+                            saidaProdutoAnterior.ValorImposto += saidaProdutoAtual.ValorImposto;
+                            saidaProdutoAnterior.ValorIPI += saidaProdutoAtual.ValorIPI;
+                            saidaProdutoAnterior.ValorVendaAVista = ((saidaProdutoAtual.ValorVendaAVista * saidaProdutoAtual.Quantidade) +
+                                (saidaProdutoAnterior.ValorVendaAVista * saidaProdutoAnterior.Quantidade)) / (saidaProdutoAtual.Quantidade + saidaProdutoAnterior.Quantidade);
+                            saidaProdutos.Remove(saidaProdutoAtual);
+                        }
+                        else
+                        {
+                            saidaProdutos.Remove(saidaProdutoAtual);
+                        }
+                    }
+                    else
+                    {
+                        saidaProdutoAnterior = saidaProdutoAtual;
+                        cont++;
                     }
                 }
+            }
 
+            decimal descontoCalculado = saidaProdutos.Sum(sp => sp.Subtotal) - saidaProdutos.Sum(sp => sp.SubtotalAVista);
+            if (descontoCalculado == valorTotalDesconto)
+            {
+                foreach (SaidaProduto saidaProduto in saidaProdutos)
+                {
+                    saidaProduto.ValorDesconto = saidaProduto.Subtotal - saidaProduto.SubtotalAVista;
+                }
+            }
+            else
+            {
+                // distribui descontos calculado um novo fator
+                decimal fatorDesconto = valorTotalDesconto / totalProdutos;
+                saidaProdutos = saidaProdutos.OrderBy(sp => sp.Subtotal).ToList();
+                decimal totalDescontoDistribuido = 0;
+                foreach (SaidaProduto saidaProduto in saidaProdutos)
+                {
+                    if (saidaProduto.Quantidade > 0)
+                    {
+                        decimal valorDescontoProduto = Math.Round(saidaProduto.ValorVenda * fatorDesconto, 2, MidpointRounding.AwayFromZero) * saidaProduto.Quantidade;
+
+                        if ((valorDescontoProduto + totalDescontoDistribuido) <= valorTotalDesconto)
+                        {
+                            saidaProduto.ValorDesconto = valorDescontoProduto;
+                        }
+                        else
+                        {
+                            saidaProduto.ValorDesconto = valorTotalDesconto - totalDescontoDistribuido;
+                        }
+                    }
+                    else
+                    {
+                        saidaProduto.ValorDesconto = 0;
+                    }
+                    totalDescontoDistribuido += saidaProduto.ValorDesconto;
+                }
+
+                if (totalDescontoDistribuido < valorTotalDesconto)
+                {
+                    decimal descontoRestante = valorTotalDesconto - totalDescontoDistribuido;
+                    foreach (SaidaProduto saidaProduto in saidaProdutos)
+                    {
+                        if ((saidaProduto.SubtotalAVista - saidaProduto.ValorDesconto - descontoRestante) > 0)
+                        {
+                            saidaProduto.ValorDesconto += descontoRestante;
+                            break;
+                        }
+                    }
+
+                }
             }
             return saidaProdutos;
         }
@@ -2205,7 +2345,9 @@ namespace Negocio
                     if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
                         unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
                     else
-                        unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                        unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+
+                        //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
                     unidanfe.Start();
                 }
                 catch (Exception ex)

@@ -53,8 +53,6 @@
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.nfeControleDataGridView = new System.Windows.Forms.DataGridView();
-            this.NumeroSequenciaNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnFechar = new System.Windows.Forms.Button();
             this.justificativaCancelamentoTextBox1 = new System.Windows.Forms.TextBox();
             this.mensagemSituacaoReciboEnvioTextBox = new System.Windows.Forms.TextBox();
@@ -81,10 +79,13 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
             this.nfeControleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescricaoModelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroSequenciaNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -332,6 +333,7 @@
             this.nfeControleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.nfeControleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
+            this.DescricaoModelo,
             this.NumeroSequenciaNfe,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
@@ -344,22 +346,6 @@
             this.nfeControleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.nfeControleDataGridView.Size = new System.Drawing.Size(873, 114);
             this.nfeControleDataGridView.TabIndex = 7;
-            // 
-            // NumeroSequenciaNfe
-            // 
-            this.NumeroSequenciaNfe.DataPropertyName = "NumeroSequenciaNfe";
-            this.NumeroSequenciaNfe.HeaderText = "Número NF-e";
-            this.NumeroSequenciaNfe.Name = "NumeroSequenciaNfe";
-            this.NumeroSequenciaNfe.ReadOnly = true;
-            // 
-            // DescricaoSituacaoNfe
-            // 
-            this.DescricaoSituacaoNfe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DescricaoSituacaoNfe.DataPropertyName = "DescricaoSituacaoNfe";
-            this.DescricaoSituacaoNfe.FillWeight = 78.97854F;
-            this.DescricaoSituacaoNfe.HeaderText = "Situação";
-            this.DescricaoSituacaoNfe.Name = "DescricaoSituacaoNfe";
-            this.DescricaoSituacaoNfe.ReadOnly = true;
             // 
             // btnFechar
             // 
@@ -598,6 +584,7 @@
             this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.codPessoaComboBox.CausesValidation = false;
+            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
             this.codPessoaComboBox.DisplayMember = "NomeFantasia";
             this.codPessoaComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.codPessoaComboBox.FormattingEnabled = true;
@@ -606,10 +593,18 @@
             this.codPessoaComboBox.Size = new System.Drawing.Size(578, 24);
             this.codPessoaComboBox.TabIndex = 51;
             this.codPessoaComboBox.ValueMember = "CodPessoa";
+            this.codPessoaComboBox.Enter += new System.EventHandler(this.codPessoaComboBox_Enter);
+            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
+            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
             // 
             // nfeControleBindingSource
             // 
             this.nfeControleBindingSource.DataSource = typeof(Dominio.NfeControle);
+            // 
+            // pessoaBindingSource
+            // 
+            this.pessoaBindingSource.AllowNew = false;
+            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -619,6 +614,22 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Código NF-e";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // DescricaoModelo
+            // 
+            this.DescricaoModelo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DescricaoModelo.DataPropertyName = "DescricaoModelo";
+            this.DescricaoModelo.FillWeight = 30F;
+            this.DescricaoModelo.HeaderText = "Modelo";
+            this.DescricaoModelo.Name = "DescricaoModelo";
+            this.DescricaoModelo.ReadOnly = true;
+            // 
+            // NumeroSequenciaNfe
+            // 
+            this.NumeroSequenciaNfe.DataPropertyName = "NumeroSequenciaNfe";
+            this.NumeroSequenciaNfe.HeaderText = "Número NF-e";
+            this.NumeroSequenciaNfe.Name = "NumeroSequenciaNfe";
+            this.NumeroSequenciaNfe.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -638,17 +649,21 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // pessoaBindingSource
+            // DescricaoSituacaoNfe
             // 
-            this.pessoaBindingSource.AllowNew = false;
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            this.DescricaoSituacaoNfe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DescricaoSituacaoNfe.DataPropertyName = "DescricaoSituacaoNfe";
+            this.DescricaoSituacaoNfe.FillWeight = 78.97854F;
+            this.DescricaoSituacaoNfe.HeaderText = "Situação";
+            this.DescricaoSituacaoNfe.Name = "DescricaoSituacaoNfe";
+            this.DescricaoSituacaoNfe.ReadOnly = true;
             // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(883, 590);
+            this.ClientSize = new System.Drawing.Size(879, 586);
             this.ControlBox = false;
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(this.btnBuscar);
@@ -744,15 +759,16 @@
         private System.Windows.Forms.TextBox correcaoTextBox;
         private System.Windows.Forms.Button btnCartaCorrecao;
         private System.Windows.Forms.TextBox seqCartaCorrecaoTextBox;
-        private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.Button btnComplementar;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ComboBox codPessoaComboBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoModelo;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumeroSequenciaNfe;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoSituacaoNfe;
-        private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ComboBox codPessoaComboBox;
+        private System.Windows.Forms.BindingSource pessoaBindingSource;
     }
 }

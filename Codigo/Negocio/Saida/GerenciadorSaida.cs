@@ -144,12 +144,38 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Mudar o tipo do documento fiscal a ser gerado
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <param name="tipoDocumento"></param>
+        public void AtualizarTipoDocumentoFiscal(long codSaida, string tipoDocumento)
+        {
+            try
+            {
+                var query = from saidaE in saceContext.tb_saida
+                            where saidaE.codSaida.Equals(codSaida)
+                            select saidaE;
+                foreach (tb_saida _saidaE in query)
+                {
+                    _saidaE.tipoDocumentoFiscal = tipoDocumento;
+                }
+                repSaida.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
+        }
+
+
+        /// <summary>
         /// Atualiza o número da nota fiscal gerada num determinado codigo saida
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarSaidasPorNFCe(NfeControle nfeControle)
+        public bool AtualizarSaidasPorNFCeAutorizadas(NfeControle nfeControle)
         {
+            bool notasAutorizadas = false;
             try
             {
                 var query = from nfe in saceContext.tb_nfe
@@ -163,26 +189,43 @@ namespace Negocio
                     List<tb_saida> saidas = nfe.tb_saida.ToList();
                     foreach (tb_saida saida in saidas)
                     {
-                        saida.nfe = "NFCe";
+                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                            saida.nfe = "NFCe";
+                        else
+                            saida.nfe = "NFe";
                     }
                 }
 
                 tb_nfe nfeAutorizada = listaNfes.Where(nfe => nfe.situacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).SingleOrDefault();
                 if (nfeAutorizada != null)
                 {
-                    List<tb_saida> saidas = nfeAutorizada.tb_saida.ToList(); 
-                    foreach (tb_saida saida in saidas) {
-                        saida.nfe = "NFCe";
-                        saida.pedidoGerado = "E" + nfeAutorizada.numeroSequenciaNFe;
-                        saida.codTipoSaida = Saida.TIPO_VENDA;
+                    List<tb_saida> saidas = nfeAutorizada.tb_saida.ToList();
+                    foreach (tb_saida saida in saidas)
+                    {
+                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                        {
+                            saida.nfe = "NFCe";
+                            saida.pedidoGerado = "C" + nfeAutorizada.numeroSequenciaNFe;
+                            saida.codTipoSaida = Saida.TIPO_VENDA;
+                        }
+                        else
+                        {
+                            saida.nfe = "NFe";
+                            saida.pedidoGerado = "N" + nfeAutorizada.numeroSequenciaNFe;
+                            saida.codTipoSaida = Saida.TIPO_VENDA;
+                        }
+                        
                     }
+                    notasAutorizadas = true;
                 }
+                
                 saceContext.SaveChanges();
             }
             catch (Exception e)
             {
                 throw new DadosException("Saida", e.Message, e);
             }
+            return notasAutorizadas;
         }
 
         /// <summary>
@@ -363,12 +406,17 @@ namespace Negocio
                     throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida e autorizada.");
                 else if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) && (saida.CodCliente != Global.CLIENTE_PADRAO))
                 {
-                    IEnumerable<Conta> contas = GerenciadorConta.GetInstance(null).ObterPorSaida(saida.CodSaida);
-                    foreach (Conta conta in contas)
+                    IEnumerable<SaidaPagamento> pagamentos = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    // houve pagamento não realizado em dinheiro
+                    if (pagamentos.Where(p => p.CodFormaPagamento.Equals(FormaPagamento.DINHEIRO)).Count() != pagamentos.Count())
                     {
-                        bool possuiMovimentacaoFinanceira = GerenciadorMovimentacaoConta.GetInstance(null).ObterPorConta(conta.CodConta).Count() > 0;
-                        if (possuiMovimentacaoFinanceira)
-                            throw new NegocioException("Não é possível editar pedidos que já possuem PAGAMENTOS REALIZADOS.");
+                        IEnumerable<Conta> contas = GerenciadorConta.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                        foreach (Conta conta in contas)
+                        {
+                            bool possuiMovimentacaoFinanceira = GerenciadorMovimentacaoConta.GetInstance(null).ObterPorConta(conta.CodConta).Count() > 0;
+                            if (possuiMovimentacaoFinanceira)
+                                throw new NegocioException("Não é possível editar pedidos que já possuem PAGAMENTOS REALIZADOS.");
+                        }
                     }
                 }
                 // Se houver documento fiscal aguardando impressão
@@ -553,7 +601,25 @@ namespace Negocio
             return query.ToList();
         }
 
-        /// <summary>
+        public List<SaidaPesquisa> ObterSaidaPorNfe(int codNfe)
+        {
+            var query = from saida in saceContext.tb_saida
+                        where saida.tb_nfe.Select(nfe => nfe.codNFe).Contains(codNfe)
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente,
+                            NomeCliente = saida.tb_pessoa.nomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            TipoSaida = saida.codTipoSaida
+                        };
+            return query.ToList();
+        }
+
+         /// <summary>
         /// Obtme todos os dados de uma saída
         /// </summary>
         /// <param name="codSaida"></param>

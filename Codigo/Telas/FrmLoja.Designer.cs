@@ -43,8 +43,8 @@
             System.Windows.Forms.Label pastaNfeEspelhoLabel;
             System.Windows.Forms.Label pastaNfeRetornoLabel;
             System.Windows.Forms.Label numeroSequenciaNfeAtualLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
             System.Windows.Forms.Label label2;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -150,7 +150,7 @@
             // cidadeLabel
             // 
             cidadeLabel.AutoSize = true;
-            cidadeLabel.Location = new System.Drawing.Point(299, 172);
+            cidadeLabel.Location = new System.Drawing.Point(279, 175);
             cidadeLabel.Name = "cidadeLabel";
             cidadeLabel.Size = new System.Drawing.Size(43, 13);
             cidadeLabel.TabIndex = 28;
@@ -222,11 +222,20 @@
             // numeroSequenciaNfeAtualLabel
             // 
             numeroSequenciaNfeAtualLabel.AutoSize = true;
-            numeroSequenciaNfeAtualLabel.Location = new System.Drawing.Point(387, 213);
+            numeroSequenciaNfeAtualLabel.Location = new System.Drawing.Point(421, 216);
             numeroSequenciaNfeAtualLabel.Name = "numeroSequenciaNfeAtualLabel";
             numeroSequenciaNfeAtualLabel.Size = new System.Drawing.Size(70, 13);
             numeroSequenciaNfeAtualLabel.TabIndex = 36;
             numeroSequenciaNfeAtualLabel.Text = "Numero NFe:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(279, 216);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(77, 13);
+            label2.TabIndex = 38;
+            label2.Text = "Numero NFCe:";
             // 
             // label1
             // 
@@ -245,7 +254,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(477, 41);
+            this.panel1.Size = new System.Drawing.Size(547, 41);
             this.panel1.TabIndex = 20;
             // 
             // btnSalvar
@@ -331,7 +340,7 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.tb_lojaBindingNavigator.Location = new System.Drawing.Point(272, 41);
+            this.tb_lojaBindingNavigator.Location = new System.Drawing.Point(342, 43);
             this.tb_lojaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tb_lojaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.tb_lojaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -426,7 +435,7 @@
             this.nomeTextBox.Location = new System.Drawing.Point(123, 89);
             this.nomeTextBox.MaxLength = 40;
             this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(342, 20);
+            this.nomeTextBox.Size = new System.Drawing.Size(412, 20);
             this.nomeTextBox.TabIndex = 24;
             this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
             // 
@@ -440,7 +449,7 @@
             this.codPessoaComboBox.FormattingEnabled = true;
             this.codPessoaComboBox.Location = new System.Drawing.Point(2, 140);
             this.codPessoaComboBox.Name = "codPessoaComboBox";
-            this.codPessoaComboBox.Size = new System.Drawing.Size(456, 21);
+            this.codPessoaComboBox.Size = new System.Drawing.Size(533, 21);
             this.codPessoaComboBox.TabIndex = 25;
             this.codPessoaComboBox.ValueMember = "CodPessoa";
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
@@ -473,10 +482,10 @@
             // cidadeTextBox
             // 
             this.cidadeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "Cidade", true));
-            this.cidadeTextBox.Location = new System.Drawing.Point(302, 190);
+            this.cidadeTextBox.Location = new System.Drawing.Point(282, 193);
             this.cidadeTextBox.Name = "cidadeTextBox";
             this.cidadeTextBox.ReadOnly = true;
-            this.cidadeTextBox.Size = new System.Drawing.Size(163, 20);
+            this.cidadeTextBox.Size = new System.Drawing.Size(253, 20);
             this.cidadeTextBox.TabIndex = 29;
             this.cidadeTextBox.TabStop = false;
             // 
@@ -501,7 +510,7 @@
             this.pastaNfeEnviadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeEnviado", true));
             this.pastaNfeEnviadoTextBox.Location = new System.Drawing.Point(282, 280);
             this.pastaNfeEnviadoTextBox.Name = "pastaNfeEnviadoTextBox";
-            this.pastaNfeEnviadoTextBox.Size = new System.Drawing.Size(183, 20);
+            this.pastaNfeEnviadoTextBox.Size = new System.Drawing.Size(253, 20);
             this.pastaNfeEnviadoTextBox.TabIndex = 32;
             // 
             // pastaNfeEnvioTextBox
@@ -517,7 +526,7 @@
             this.pastaNfeErroTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeErro", true));
             this.pastaNfeErroTextBox.Location = new System.Drawing.Point(282, 323);
             this.pastaNfeErroTextBox.Name = "pastaNfeErroTextBox";
-            this.pastaNfeErroTextBox.Size = new System.Drawing.Size(183, 20);
+            this.pastaNfeErroTextBox.Size = new System.Drawing.Size(253, 20);
             this.pastaNfeErroTextBox.TabIndex = 34;
             // 
             // pastaNfeEspelhoTextBox
@@ -533,35 +542,26 @@
             this.pastaNfeRetornoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeRetorno", true));
             this.pastaNfeRetornoTextBox.Location = new System.Drawing.Point(282, 364);
             this.pastaNfeRetornoTextBox.Name = "pastaNfeRetornoTextBox";
-            this.pastaNfeRetornoTextBox.Size = new System.Drawing.Size(183, 20);
+            this.pastaNfeRetornoTextBox.Size = new System.Drawing.Size(253, 20);
             this.pastaNfeRetornoTextBox.TabIndex = 36;
             // 
             // numeroSequenciaNfeAtualTextBox
             // 
             this.numeroSequenciaNfeAtualTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "NumeroSequenciaNfeAtual", true));
-            this.numeroSequenciaNfeAtualTextBox.Location = new System.Drawing.Point(390, 235);
+            this.numeroSequenciaNfeAtualTextBox.Location = new System.Drawing.Point(424, 235);
             this.numeroSequenciaNfeAtualTextBox.Name = "numeroSequenciaNfeAtualTextBox";
             this.numeroSequenciaNfeAtualTextBox.ReadOnly = true;
-            this.numeroSequenciaNfeAtualTextBox.Size = new System.Drawing.Size(75, 20);
+            this.numeroSequenciaNfeAtualTextBox.Size = new System.Drawing.Size(111, 20);
             this.numeroSequenciaNfeAtualTextBox.TabIndex = 37;
             this.numeroSequenciaNfeAtualTextBox.TabStop = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(299, 213);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(77, 13);
-            label2.TabIndex = 38;
-            label2.Text = "Numero NFCe:";
             // 
             // numeroSequenciaNFCeAtual
             // 
             this.numeroSequenciaNFCeAtual.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "NumeroSequenciaNFCeAtual", true));
-            this.numeroSequenciaNFCeAtual.Location = new System.Drawing.Point(302, 235);
+            this.numeroSequenciaNFCeAtual.Location = new System.Drawing.Point(282, 238);
             this.numeroSequenciaNFCeAtual.Name = "numeroSequenciaNFCeAtual";
             this.numeroSequenciaNFCeAtual.ReadOnly = true;
-            this.numeroSequenciaNFCeAtual.Size = new System.Drawing.Size(75, 20);
+            this.numeroSequenciaNFCeAtual.Size = new System.Drawing.Size(124, 20);
             this.numeroSequenciaNFCeAtual.TabIndex = 36;
             this.numeroSequenciaNFCeAtual.TabStop = false;
             // 
@@ -570,7 +570,7 @@
             this.AccessibleDescription = "\'";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 420);
+            this.ClientSize = new System.Drawing.Size(547, 420);
             this.Controls.Add(label2);
             this.Controls.Add(this.numeroSequenciaNFCeAtual);
             this.Controls.Add(numeroSequenciaNfeAtualLabel);

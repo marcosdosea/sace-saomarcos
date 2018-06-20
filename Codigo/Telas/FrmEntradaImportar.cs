@@ -58,6 +58,8 @@ namespace Telas
                 entradaProduto.PrecoVendaAtacado = produtoPesquisa.PrecoVendaAtacado;
                 entradaProduto.PrecoRevenda = produtoPesquisa.PrecoRevenda;
                 entradaProdutoBindingSource.ResumeBinding();
+                this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produtoPesquisa.CodProduto);
+            
             }
         }
         

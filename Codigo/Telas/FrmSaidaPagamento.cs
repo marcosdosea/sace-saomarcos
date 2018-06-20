@@ -155,7 +155,7 @@ namespace Telas
                             GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                             if (listaPagamentosSaida.Where(ps=> ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0) {
                                 List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
-                                GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
+                                GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                                 if (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No)
                                     GerenciadorSaida.GetInstance(null).Remover(saida);
                             }
@@ -203,6 +203,9 @@ namespace Telas
                                         }
                                         else
                                         {
+                                            foreach (SaidaPedido saidaPedido in listaSaidaPedido) {
+                                                GerenciadorSaida.GetInstance(null).AtualizarTipoDocumentoFiscal(saidaPedido.CodSaida, Saida.TIPO_DOCUMENTO_ECF);
+                                            }
                                             GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
                                         }
                                     }

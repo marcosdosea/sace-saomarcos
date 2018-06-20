@@ -159,6 +159,37 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
+        public List<SaidaPedido> ObterPorSaida(List<SaidaPesquisa> saidas)
+        {
+            return GetQuery().Where(sp => saidas.Select(s=>s.CodSaida).Contains(sp.CodSaida)).ToList();
+        }
+
+        /// <summary>
+        /// Trasnformar Pre-vendas em orçamento quando não há crediários
+        /// </summary>
+        /// <param name="_listaSaidaPedido"></param>
+        public void TransformarOrcamentoPorRecusaDocumentoFiscal(IEnumerable<long> listaCodSaidas)
+        {
+            foreach (long codSaida in listaCodSaidas)
+            {
+                bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
+                if (!temPagamentoCrediario)
+                {
+                    Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+                    if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
+                    {
+                        saida.TipoSaida = Saida.TIPO_PRE_VENDA;
+                        GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtém todos os pedidos associados a uma saída
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
         public List<SaidaPedido> ObterPorPedido(long codPedido)
         {
             return GetQuery().Where(sp => sp.CodPedido == codPedido).ToList();

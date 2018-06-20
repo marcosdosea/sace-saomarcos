@@ -143,8 +143,8 @@ namespace Negocio
                 {
                     empresaFrete = new Pessoa();
                     empresaFrete.CpfCnpj = nfe.infNFe.transp.transporta.Item;
-                    empresaFrete.Nome = nfe.infNFe.transp.transporta.xNome.ToUpper();
-                    empresaFrete.NomeFantasia = nfe.infNFe.transp.transporta.xNome.ToUpper();
+                    empresaFrete.Nome = (nfe.infNFe.transp.transporta.xNome.Length > 50) ? nfe.infNFe.transp.transporta.xNome.Substring(0,50).ToUpper() : nfe.infNFe.transp.transporta.xNome.ToUpper();
+                    empresaFrete.NomeFantasia = (nfe.infNFe.transp.transporta.xNome.Length > 50) ? nfe.infNFe.transp.transporta.xNome.Substring(0, 50).ToUpper() : nfe.infNFe.transp.transporta.xNome.ToUpper();
                     empresaFrete.Ie = nfe.infNFe.transp.transporta.IE;
                     empresaFrete.Endereco = nfe.infNFe.transp.transporta.xEnder.ToUpper();
                     empresaFrete.Uf = nfe.infNFe.transp.transporta.UF.ToString().ToUpper();

@@ -16,6 +16,8 @@ namespace Negocio
     public class GerenciadorSolicitacaoDocumento
     {
         private static GerenciadorSolicitacaoDocumento gCupom;
+        private static SaceEntities saceContext;
+        private static RepositorioGenerico<tb_solicitacao_documento> repSolicitacaoDocumento;
 
         public static GerenciadorSolicitacaoDocumento GetInstance()
         {
@@ -23,6 +25,8 @@ namespace Negocio
             {
                 gCupom = new GerenciadorSolicitacaoDocumento();
             }
+            repSolicitacaoDocumento = new RepositorioGenerico<tb_solicitacao_documento>();
+            saceContext = (SaceEntities)repSolicitacaoDocumento.ObterContexto();
             return gCupom;
         }
 
@@ -37,7 +41,7 @@ namespace Negocio
             {
                 EhPossivelEnviarSolicitacao(listaSaidaPedido, tipoSolicitacao, ehComplementar);
 
-                var repSolicitacaoDocumento = new RepositorioGenerico<tb_solicitacao_documento>();
+                //var repSolicitacaoDocumento = new RepositorioGenerico<tb_solicitacao_documento>();
                 tb_solicitacao_documento _solicitacao_documentoE = new tb_solicitacao_documento();
                 try
                 {
@@ -280,9 +284,9 @@ namespace Negocio
         /// <returns></returns>
         public tb_solicitacao_documento ObterSolicitacaoDocumento(long codSolicitacao)
         {
-            var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
-            var saceEntities = (SaceEntities)repSolicitacao.ObterContexto();
-            var query = from documento in saceEntities.tb_solicitacao_documento
+            //var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
+            //var saceEntities = (SaceEntities)repSolicitacao.ObterContexto();
+            var query = from documento in saceContext.tb_solicitacao_documento
                         where documento.codSolicitacao == codSolicitacao
                         select documento;
             return query.FirstOrDefault();
@@ -380,14 +384,16 @@ namespace Negocio
                 IEnumerable<tb_solicitacao_documento> todasSolicitacoesNFCE = repSolicitacao.ObterTodos().Where(s => s.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) && !s.emProcessamento);
 
                 IEnumerable<tb_solicitacao_documento> solicitacoes;
-                if (nomeComputador.Equals(servidorCartao))
-                {
-                    solicitacoes = todasSolicitacoesNFCE.Where(s => s.haPagamentoCartao || s.hostSolicitante.Equals(nomeComputador)).ToList();
-                }
-                else
-                {
-                    solicitacoes = todasSolicitacoesNFCE.Where(s => s.hostSolicitante.Equals(nomeComputador)).ToList();
-                }
+                //if (nomeComputador.Equals(servidorCartao))
+                //{
+                //    solicitacoes = todasSolicitacoesNFCE.Where(s => s.haPagamentoCartao || s.hostSolicitante.Equals(nomeComputador)).ToList();
+                //}
+                //else
+                //{
+                //    solicitacoes = todasSolicitacoesNFCE.Where(s => s.hostSolicitante.Equals(nomeComputador)).ToList();
+                //}
+                solicitacoes = todasSolicitacoesNFCE.ToList();
+                
 
 
                 if (solicitacoes.Count() > 0)
@@ -411,7 +417,7 @@ namespace Negocio
         /// Atualiza dados do cupom NFCe
         /// </summary>
         /// <param name="cupom"></param>
-        public void EnviarProximoNFCe(string servidorCartao, int nfceServidor, int nfceOnline)
+        public void EnviarProximoNFCeMKS(string servidorCartao, int nfceServidor, int nfceOnline)
         {
             try
             {
@@ -434,7 +440,7 @@ namespace Negocio
                 if (solicitacoes.Count() > 0)
                 {
                     tb_solicitacao_documento solicitacaoE = solicitacoes.OrderBy(s => s.dataSolicitacao).FirstOrDefault();
-                    SolicitarNFCe(solicitacaoE, nfceServidor, nfceOnline);
+                    SolicitarNFCeMKS(solicitacaoE, nfceServidor, nfceOnline);
                 }
             }
             catch (Exception e)
@@ -447,7 +453,7 @@ namespace Negocio
         /// Gera o NFCe a partir das saídas e valores a vista de cada saía
         /// </summary>
         /// <param name="saidaPagamentos"></param>
-        private void SolicitarNFCe(tb_solicitacao_documento solicitacaoE, int nfceServidor, int nfceOnline)
+        private void SolicitarNFCeMKS(tb_solicitacao_documento solicitacaoE, int nfceServidor, int nfceOnline)
         {
             var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
             List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
@@ -524,7 +530,7 @@ namespace Negocio
                         long numeroCupom = GerenciadorNFe.GetInstance().ObterProximoNumeroSequenciaNfeLoja(loja, NfeControle.MODELO_NFCE);
                         bool haPagamentoCartao = listaSolicitacaoPagamentos.Where(s => s.codFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0;
                         if (haPagamentoCartao)
-                            SolicitarAutorizacaoCartao(numeroCupom, listaSolicitacaoPagamentos, solicitacaoE, repSolicitacao);
+                            SolicitarAutorizacaoCartao(numeroCupom, listaSolicitacaoPagamentos, solicitacaoE.codSolicitacao);
 
                         // gravar DOCUMENTO.txt
                         StreamWriter arqDocumento = new StreamWriter(nomeArqDocumento, false, Encoding.ASCII);
@@ -623,7 +629,7 @@ namespace Negocio
         /// Gera o arquivo para solicitar autorização de cartão de crédito.
         /// </summary>
         /// <param name="solicitacaoE"></param>
-        private void SolicitarAutorizacaoCartao(long numeroCupom, List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos, tb_solicitacao_documento solicitacao, RepositorioGenerico<tb_solicitacao_documento> repSolicitacao)
+        public void SolicitarAutorizacaoCartao(long numeroCupom, List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos, long codSolicitacao)
         {
             // nome dos arquivos padronizado pelo MKS
             String nomeArqVendas = Global.PASTA_COMUNICACAO_TEF_REQUISICAO + "Vendas.txt";
@@ -659,7 +665,7 @@ namespace Negocio
                 bool retornouRespostaCartao = false;
                 while (!retornouRespostaCartao)
                 {
-                    retornouRespostaCartao = ReceberRespostaCartao(solicitacao, repSolicitacao);
+                    retornouRespostaCartao = ReceberRespostaCartao(codSolicitacao);
                     Thread.Sleep(500);
                 }
             }
@@ -672,8 +678,9 @@ namespace Negocio
             }
         }
 
-        private bool ReceberRespostaCartao(tb_solicitacao_documento solicitacao, RepositorioGenerico<tb_solicitacao_documento> repSolicitacao)
+        private bool ReceberRespostaCartao(long codSolicitacao)
         {
+            bool processouCartao = false;
             DirectoryInfo PastaRetornoCartao = new DirectoryInfo(Global.PASTA_COMUNICACAO_TEF_RETORNO);
             if (PastaRetornoCartao.Exists)
             {
@@ -694,6 +701,12 @@ namespace Negocio
                         // quando cupom fiscal impresso com sucesso atualiza saidas
                         long numeroNFCE = Convert.ToInt64(file.Name.Replace(".TXT", ""));
                         List<SaidaPedido> _listaSaidaPedido = GerenciadorSaidaPedido.GetInstance().ObterPorPedido(numeroNFCE);
+                       
+                        var query = from documento in saceContext.tb_solicitacao_documento
+                        where documento.codSolicitacao == codSolicitacao
+                        select documento;
+                        tb_solicitacao_documento solicitacao = query.FirstOrDefault();
+                        
                         if (aprovado)
                         {
                             foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
@@ -703,6 +716,7 @@ namespace Negocio
                             }
                             solicitacao.cartaoProcessado = true;
                             solicitacao.cartaoAutorizado = true;
+                            processouCartao = true;
                         }
                         else
                         {
@@ -721,8 +735,9 @@ namespace Negocio
                             }
                             solicitacao.cartaoProcessado = true;
                             solicitacao.cartaoAutorizado = false;
+                            processouCartao = true;
                         }
-                        repSolicitacao.SaveChanges();
+                        repSolicitacaoDocumento.SaveChanges();
                         GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(numeroNFCE);
                         DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP);
                         if (PastaBackup.Exists)
@@ -736,7 +751,7 @@ namespace Negocio
                     }
                 }
             }
-            return solicitacao.cartaoProcessado;
+            return processouCartao;
         }
 
 
@@ -744,7 +759,7 @@ namespace Negocio
         /// Atualiza documento NFCE com retorno da GestorMKS
         /// </summary>
         /// <returns></returns>
-        public Boolean AtualizarPedidosComDocumentosNFCE()
+        public Boolean AtualizarPedidosComDocumentosNFCEMKS()
         {
             Boolean atualizou = false;
             string FORMATO_DATA_HORA = "yyyy-MM-ddTHH:mm:sszzz";
@@ -832,19 +847,7 @@ namespace Negocio
                             }
                             else
                             {
-                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
-                                {
-                                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(saidaPedido.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
-                                    if (!temPagamentoCrediario)
-                                    {
-                                        Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPedido.CodSaida);
-                                        if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
-                                        {
-                                            saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-                                            GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
-                                        }
-                                    }
-                                }
+                                GerenciadorSaidaPedido.GetInstance().TransformarOrcamentoPorRecusaDocumentoFiscal(_listaSaidaPedido.Select(s=>s.CodSaida));
                             }
                             GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(numeroNFCE);
                         }
@@ -1125,19 +1128,7 @@ namespace Negocio
                             }
                             else
                             {
-                                foreach (SaidaPedido saidaPedido in _listaSaidaPedido)
-                                {
-                                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(saidaPedido.CodSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
-                                    if (!temPagamentoCrediario)
-                                    {
-                                        Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPedido.CodSaida);
-                                        if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
-                                        {
-                                            saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-                                            GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
-                                        }
-                                    }
-                                }
+                                GerenciadorSaidaPedido.GetInstance().TransformarOrcamentoPorRecusaDocumentoFiscal(_listaSaidaPedido.Select(s=>s.CodSaida));
                             }
                             GerenciadorSaidaPedido.GetInstance().RemoverPorPedido(codPedido);
                         }

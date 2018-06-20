@@ -37,6 +37,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textNfe = new System.Windows.Forms.RichTextBox();
             this.lblNffe = new System.Windows.Forms.Label();
+            this.btnImprimir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -114,11 +115,23 @@
             this.lblNffe.TabIndex = 8;
             this.lblNffe.Text = "Aguardando Autorização NF-e... ";
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Enabled = false;
+            this.btnImprimir.Location = new System.Drawing.Point(339, 333);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(91, 23);
+            this.btnImprimir.TabIndex = 2;
+            this.btnImprimir.Text = "F8 - Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
             // FrmSaidaAutorizacao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 360);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.lblNffe);
             this.Controls.Add(this.textNfe);
             this.Controls.Add(this.pictureBox2);
@@ -149,5 +162,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.RichTextBox textNfe;
         private System.Windows.Forms.Label lblNffe;
+        private System.Windows.Forms.Button btnImprimir;
     }
 }

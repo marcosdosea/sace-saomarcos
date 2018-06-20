@@ -44,6 +44,18 @@ namespace Dominio
         public int CodLoja { get; set; }
         public string Modelo { get; set; }
 
+        public string DescricaoModelo
+        {
+            get
+            {
+                if (Modelo.Equals(MODELO_NFE))
+                    return "NFe";
+                else
+                    return "NFCe";
+            }
+        }
+
+
         public string DescricaoSituacaoNfe
         {
             get

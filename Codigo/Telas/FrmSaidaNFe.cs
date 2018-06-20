@@ -118,6 +118,10 @@ namespace Telas
             {
                 Cursor.Current = Cursors.WaitCursor;
                 // Atualiza os dados da saída
+                if ((Cliente == null) || Cliente.CodPessoa.Equals(Global.CLIENTE_PADRAO))
+                {
+                    throw new TelaException("Para emissão de uma NF-e deve-se selecionar um Cliente.");
+                }
                 Saida.Observacao = observacaoTextBox.Text;
                 if (Saida.CupomFiscal.Trim().Equals(""))
                     GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
@@ -239,11 +243,6 @@ namespace Telas
                 Control control = (Control)sender;
                 control.BackColor = Global.BACKCOLOR_FOCUS;
             }
-        }
-
-        private void codPessoaComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

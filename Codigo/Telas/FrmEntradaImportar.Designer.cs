@@ -66,6 +66,10 @@
             System.Windows.Forms.Label codigoBarrasLabel;
             System.Windows.Forms.Label codCSTNFeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntradaImportar));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.entradaProdutoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.entradaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -119,6 +123,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnNovoProduto = new System.Windows.Forms.Button();
             this.codCSTNFeTextBox = new System.Windows.Forms.TextBox();
+            this.entradasPorProdutoDataGridView = new System.Windows.Forms.DataGridView();
+            this.entradasPorProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.entradasPorProdutoTableAdapter = new Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter();
+            this.saceDataSetConsultas = new Dados.saceDataSetConsultas();
+            this.codEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeFornecedorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codCSTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precocustoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label11 = new System.Windows.Forms.Label();
             baseCalculoICMSLabel = new System.Windows.Forms.Label();
             baseCalculoICMSSTLabel = new System.Windows.Forms.Label();
             cfopLabel = new System.Windows.Forms.Label();
@@ -160,6 +176,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.entradaProdutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).BeginInit();
             this.SuspendLayout();
             // 
             // baseCalculoICMSLabel
@@ -993,12 +1012,134 @@
             this.codCSTNFeTextBox.TabIndex = 19;
             this.codCSTNFeTextBox.TabStop = false;
             // 
+            // entradasPorProdutoDataGridView
+            // 
+            this.entradasPorProdutoDataGridView.AllowUserToAddRows = false;
+            this.entradasPorProdutoDataGridView.AllowUserToDeleteRows = false;
+            this.entradasPorProdutoDataGridView.AutoGenerateColumns = false;
+            this.entradasPorProdutoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.entradasPorProdutoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.codEntradaDataGridViewTextBoxColumn,
+            this.dataEntradaDataGridViewTextBoxColumn,
+            this.nomeFornecedorDataGridViewTextBoxColumn,
+            this.codCSTDataGridViewTextBoxColumn,
+            this.quantidadeDataGridViewTextBoxColumn,
+            this.valorUnitarioDataGridViewTextBoxColumn,
+            this.precocustoDataGridViewTextBoxColumn});
+            this.entradasPorProdutoDataGridView.DataSource = this.entradasPorProdutoBindingSource;
+            this.entradasPorProdutoDataGridView.Location = new System.Drawing.Point(6, 388);
+            this.entradasPorProdutoDataGridView.MultiSelect = false;
+            this.entradasPorProdutoDataGridView.Name = "entradasPorProdutoDataGridView";
+            this.entradasPorProdutoDataGridView.ReadOnly = true;
+            this.entradasPorProdutoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.entradasPorProdutoDataGridView.Size = new System.Drawing.Size(871, 102);
+            this.entradasPorProdutoDataGridView.TabIndex = 125;
+            this.entradasPorProdutoDataGridView.TabStop = false;
+            // 
+            // entradasPorProdutoBindingSource
+            // 
+            this.entradasPorProdutoBindingSource.DataMember = "EntradasPorProduto";
+            this.entradasPorProdutoBindingSource.DataSource = this.saceDataSetConsultas;
+            // 
+            // entradasPorProdutoTableAdapter
+            // 
+            this.entradasPorProdutoTableAdapter.ClearBeforeFill = true;
+            // 
+            // saceDataSetConsultas
+            // 
+            this.saceDataSetConsultas.DataSetName = "saceDataSetConsultas";
+            this.saceDataSetConsultas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // codEntradaDataGridViewTextBoxColumn
+            // 
+            this.codEntradaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.codEntradaDataGridViewTextBoxColumn.DataPropertyName = "codEntrada";
+            this.codEntradaDataGridViewTextBoxColumn.HeaderText = "Entrada";
+            this.codEntradaDataGridViewTextBoxColumn.Name = "codEntradaDataGridViewTextBoxColumn";
+            this.codEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codEntradaDataGridViewTextBoxColumn.Width = 69;
+            // 
+            // dataEntradaDataGridViewTextBoxColumn
+            // 
+            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "dataEntrada";
+            dataGridViewCellStyle5.Format = "d";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dataEntradaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data";
+            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
+            this.dataEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeFornecedorDataGridViewTextBoxColumn
+            // 
+            this.nomeFornecedorDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeFornecedorDataGridViewTextBoxColumn.DataPropertyName = "nomeFornecedor";
+            this.nomeFornecedorDataGridViewTextBoxColumn.HeaderText = "Fornecedor";
+            this.nomeFornecedorDataGridViewTextBoxColumn.MinimumWidth = 50;
+            this.nomeFornecedorDataGridViewTextBoxColumn.Name = "nomeFornecedorDataGridViewTextBoxColumn";
+            this.nomeFornecedorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codCSTDataGridViewTextBoxColumn
+            // 
+            this.codCSTDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.codCSTDataGridViewTextBoxColumn.DataPropertyName = "codCST";
+            this.codCSTDataGridViewTextBoxColumn.HeaderText = "CST";
+            this.codCSTDataGridViewTextBoxColumn.Name = "codCSTDataGridViewTextBoxColumn";
+            this.codCSTDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codCSTDataGridViewTextBoxColumn.Width = 53;
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            this.quantidadeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "quantidade";
+            dataGridViewCellStyle6.Format = "N2";
+            this.quantidadeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.quantidadeDataGridViewTextBoxColumn.Width = 87;
+            // 
+            // valorUnitarioDataGridViewTextBoxColumn
+            // 
+            this.valorUnitarioDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.valorUnitarioDataGridViewTextBoxColumn.DataPropertyName = "valorUnitario";
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.valorUnitarioDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.valorUnitarioDataGridViewTextBoxColumn.FillWeight = 35F;
+            this.valorUnitarioDataGridViewTextBoxColumn.HeaderText = "Valor UN (R$)";
+            this.valorUnitarioDataGridViewTextBoxColumn.Name = "valorUnitarioDataGridViewTextBoxColumn";
+            this.valorUnitarioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // precocustoDataGridViewTextBoxColumn
+            // 
+            this.precocustoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.precocustoDataGridViewTextBoxColumn.DataPropertyName = "preco_custo";
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.precocustoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            this.precocustoDataGridViewTextBoxColumn.FillWeight = 40F;
+            this.precocustoDataGridViewTextBoxColumn.HeaderText = "Preço Custo (R$)";
+            this.precocustoDataGridViewTextBoxColumn.Name = "precocustoDataGridViewTextBoxColumn";
+            this.precocustoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(3, 367);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(179, 18);
+            this.label11.TabIndex = 126;
+            this.label11.Text = "Últimas Entradas/Pedidos";
+            // 
             // FrmEntradaImportar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(906, 402);
+            this.ClientSize = new System.Drawing.Size(887, 496);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.entradasPorProdutoDataGridView);
             this.Controls.Add(codCSTNFeLabel);
             this.Controls.Add(this.codCSTNFeTextBox);
             this.Controls.Add(this.btnNovoProduto);
@@ -1089,6 +1230,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1149,5 +1293,17 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnNovoProduto;
         private System.Windows.Forms.TextBox codCSTNFeTextBox;
+        private System.Windows.Forms.DataGridView entradasPorProdutoDataGridView;
+        private System.Windows.Forms.BindingSource entradasPorProdutoBindingSource;
+        private Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter entradasPorProdutoTableAdapter;
+        private Dados.saceDataSetConsultas saceDataSetConsultas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codEntradaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataEntradaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeFornecedorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codCSTDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorUnitarioDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precocustoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label11;
     }
 }

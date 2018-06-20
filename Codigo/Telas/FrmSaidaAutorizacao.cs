@@ -52,7 +52,9 @@ namespace Telas
             textNfe.Text = "Favor aguardar....";
             Cursor.Current = Cursors.WaitCursor;
             // recupera a último envio da nfe
-            NfeControle nfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).LastOrDefault();
+            List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            nfeControle = listaNfe.LastOrDefault();
+
             if (nfeControle != null && !nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA))
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -61,7 +63,7 @@ namespace Telas
                     lblNffe.Text = "NFC-e AUTORIZADA.";
                     lblNffe.ForeColor = Color.Green;
                     Cursor.Current = Cursors.Default;
-                    this.Close();
+                    //this.Close();
                 }
                 else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_REJEITADA))
                 {
@@ -94,9 +96,20 @@ namespace Telas
                         }
                     }
                 }
-                timerAtualizaNFCe.Enabled = false;
+                
+                
                 btnCancelar.Enabled = true;
-                btnCancelar.Focus();
+                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                {
+                    timerAtualizaNFCe.Enabled = false;
+                
+                    btnImprimir.Enabled = true;
+                    btnImprimir.Focus();
+                }
+                else
+                {
+                    btnCancelar.Focus();
+                }
             }
         }
 
@@ -139,8 +152,20 @@ namespace Telas
             if (e.KeyCode == Keys.Escape)
             {
                 btnCancelar_Click(sender, e);
+            } else if (e.KeyCode == Keys.F8)
+            {
+                btnImprimir_Click(sender, e);
             }
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            if (nfeControle != null)
+                GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
+            this.Close();
+        }
+
+
 
     }
 }
