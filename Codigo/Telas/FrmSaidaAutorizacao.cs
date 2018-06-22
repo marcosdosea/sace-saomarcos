@@ -51,7 +51,7 @@ namespace Telas
         private void ExibirResultadoProcessamentoNFCe()
         {
             lblCartao.Text = "Aguardando Autorização NF-e... ";
-            textNfe.Text = "Favor aguardar....";
+            textNfe.Text = "Favor aguardar.";
             Cursor.Current = Cursors.WaitCursor;
             // recupera a último envio da nfe
             List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
@@ -62,14 +62,17 @@ namespace Telas
                 Cursor.Current = Cursors.WaitCursor;
                 if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
                 {
-                    lblNffe.Text = "NFC-e AUTORIZADA.";
+                    if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                        lblNffe.Text = "NFe CONSUMIDOR AUTORIZADA.";
+                    else
+                        lblNffe.Text = "NFe AUTORIZADA.";
                     lblNffe.ForeColor = Color.Green;
                     Cursor.Current = Cursors.Default;
                     //this.Close();
                 }
                 else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_REJEITADA))
                 {
-                    lblNffe.Text = "NFC-e rejeitada. ";
+                    lblNffe.Text = "NFe/NFCe REJEITADA. ";
                     textNfe.Text = nfeControle.MensagemSitucaoProtocoloUso;
                     lblNffe.ForeColor = Color.Red;
                     Cursor.Current = Cursors.Default;
@@ -77,7 +80,7 @@ namespace Telas
                 }
                 else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA))
                 {
-                    lblNffe.Text = "NFC-e não Validada.";
+                    lblNffe.Text = "NFe/NFCe NÃO VALIDADA.";
                     //textNfe.Text = "Favor verificar {0} (1) NCM ausentes nos produtos {0} (2) CNPJ/CPF ou IE do cliente incorretos. {0}";
                     lblNffe.ForeColor = Color.Red;
                     Cursor.Current = Cursors.Default;

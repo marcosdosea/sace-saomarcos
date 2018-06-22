@@ -155,7 +155,13 @@ namespace Telas
                             GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                             if (listaPagamentosSaida.Where(ps=> ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0) {
                                 List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
-                                GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+
+                                long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao);
+                                frmSaidaAutorizacao.ShowDialog();
+                                frmSaidaAutorizacao.Dispose();
+
+                                
                                 if (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No)
                                     GerenciadorSaida.GetInstance(null).Remover(saida);
                             }
@@ -194,20 +200,20 @@ namespace Telas
                                         bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
                                         List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
-                                        if (frmSaidaConfirma.GerarNFCe)
-                                        {
+                                        //if (frmSaidaConfirma.GerarNFCe)
+                                        //{
                                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                                             FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao);
                                             frmSaidaAutorizacao.ShowDialog();
                                             frmSaidaAutorizacao.Dispose();
-                                        }
-                                        else
-                                        {
-                                            foreach (SaidaPedido saidaPedido in listaSaidaPedido) {
-                                                GerenciadorSaida.GetInstance(null).AtualizarTipoDocumentoFiscal(saidaPedido.CodSaida, Saida.TIPO_DOCUMENTO_ECF);
-                                            }
-                                            GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
-                                        }
+                                        //}
+                                        //else
+                                        //{
+                                        //    foreach (SaidaPedido saidaPedido in listaSaidaPedido) {
+                                        //        GerenciadorSaida.GetInstance(null).AtualizarTipoDocumentoFiscal(saidaPedido.CodSaida, Saida.TIPO_DOCUMENTO_ECF);
+                                        //    }
+                                        //    GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
+                                        //}
                                     }
                                 }
                             }

@@ -138,10 +138,12 @@ namespace Telas
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
                 List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                 List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
-
-
-                GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, false);
                 Cursor.Current = Cursors.Default;
+
+                long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, false);
+                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao);
+                frmSaidaAutorizacao.ShowDialog();
+                frmSaidaAutorizacao.Dispose();
             }
         }
 

@@ -674,14 +674,14 @@ namespace Negocio
                             GerenciadorNFe.GetInstance().Atualizar(nfeControle);
                             
                         }
-                        AvaliaTransformarPreVendaOrcamento(nfeControle);
+                        AtualizarVendas(nfeControle);
                     }
                 }
             }
             return numeroProtocolo;
         }
 
-        private static void AvaliaTransformarPreVendaOrcamento(NfeControle nfeControle)
+        private static void AtualizarVendas(NfeControle nfeControle)
         {
             if (nfeControle != null)
             {

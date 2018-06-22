@@ -16,8 +16,7 @@ namespace Telas
 
         public Saida saida { get; set; }
         public int Opcao { get; set; }
-        public bool GerarNFCe { get; set; }
-        
+    
         public FrmSaidaConfirma(Saida saida)
         {
             InitializeComponent();
@@ -27,13 +26,11 @@ namespace Telas
             trocoTextBox.Text = saida.Troco.ToString("N2");
             btnPreVenda.Enabled = Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago); 
             Opcao = 0; // Cancelar  
-            GerarNFCe = false;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Opcao = 0;
-            GerarNFCe = checkBoxNFCe.Checked;
             this.Close();
         }
 
@@ -53,20 +50,13 @@ namespace Telas
         private void btnPreVenda_Click(object sender, EventArgs e)
         {
             Opcao = Saida.TIPO_PRE_VENDA;
-            GerarNFCe = checkBoxNFCe.Checked;
             this.Close();
         }
 
         private void btnOrcamento_Click(object sender, EventArgs e)
         {
             Opcao = Saida.TIPO_ORCAMENTO;
-            GerarNFCe = checkBoxNFCe.Checked;
             this.Close();
-        }
-
-        private void checkBoxNFCe_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

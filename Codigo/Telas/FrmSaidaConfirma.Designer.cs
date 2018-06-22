@@ -34,7 +34,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.trocoTextBox = new System.Windows.Forms.TextBox();
-            this.checkBoxNFCe = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -104,27 +103,13 @@
             this.trocoTextBox.TabStop = false;
             this.trocoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // checkBoxNFCe
-            // 
-            this.checkBoxNFCe.AutoSize = true;
-            this.checkBoxNFCe.Checked = true;
-            this.checkBoxNFCe.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxNFCe.Location = new System.Drawing.Point(430, 91);
-            this.checkBoxNFCe.Name = "checkBoxNFCe";
-            this.checkBoxNFCe.Size = new System.Drawing.Size(62, 17);
-            this.checkBoxNFCe.TabIndex = 12;
-            this.checkBoxNFCe.Text = "NFC-e?";
-            this.checkBoxNFCe.UseVisualStyleBackColor = true;
-            this.checkBoxNFCe.CheckedChanged += new System.EventHandler(this.checkBoxNFCe_CheckedChanged);
-            // 
             // FrmSaidaConfirma
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 165);
+            this.ClientSize = new System.Drawing.Size(501, 166);
             this.ControlBox = false;
-            this.Controls.Add(this.checkBoxNFCe);
             this.Controls.Add(this.trocoTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancelar);
@@ -153,6 +138,5 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox trocoTextBox;
-        private System.Windows.Forms.CheckBox checkBoxNFCe;
     }
 }
