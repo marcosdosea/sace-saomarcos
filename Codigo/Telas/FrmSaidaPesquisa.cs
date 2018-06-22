@@ -106,6 +106,10 @@ namespace Telas
             {
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
             }
+            else if (cmbBusca.SelectedIndex == 4)
+            {
+                txtTexto.Text = DateTime.Now.Year + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00");
+            }
         }
       
     }

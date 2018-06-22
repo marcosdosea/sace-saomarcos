@@ -43,7 +43,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
         public string ServidorCartao {
             get {
                 return ((string)(this["ServidorCartao"]));
@@ -74,6 +74,42 @@ namespace Telas.Properties {
         public int NfceOnline {
             get {
                 return ((int)(this["NfceOnline"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        public string ServidorImprimirNfe {
+            get {
+                return ((string)(this["ServidorImprimirNfe"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
+        public string ServidorImprimirNfce {
+            get {
+                return ((string)(this["ServidorImprimirNfce"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
+        public string ServidorImprimirReduzido1 {
+            get {
+                return ((string)(this["ServidorImprimirReduzido1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
+        public string ServidorImprimirReduzido2 {
+            get {
+                return ((string)(this["ServidorImprimirReduzido2"]));
             }
         }
     }

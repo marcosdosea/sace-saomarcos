@@ -286,9 +286,15 @@ namespace Negocio
         /// </summary>
         /// <param name="codPedido"></param>
         /// <returns></returns>
-        public List<SaidaProduto> ObterPorNfeControleSemCST(long codNfeControle, string codCST)
+        public List<SaidaProduto> ObterPorNfeControleSemCST(int codNfeControle, string codCST)
         {
-            List<long> listaCodSaida = saceContext.tb_nfe.Where(nfe => nfe.codNFe.Equals(codNfeControle)).ElementAtOrDefault(0).tb_saida.Select(s => s.codSaida).ToList();
+            var query1 = from saida in saceContext.tb_saida
+                         where saida.tb_nfe.Select(nfe => nfe.codNFe).Contains(codNfeControle)
+                         select saida.codSaida;
+
+            List<long> listaCodSaida = query1.ToList();
+            
+            
             var query = from saidaProduto in saceContext.SaidaProdutoSet
                         where listaCodSaida.Contains(saidaProduto.codSaida)  && !saidaProduto.codCST.EndsWith(codCST)
                         select new SaidaProduto

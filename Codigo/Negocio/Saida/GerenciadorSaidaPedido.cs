@@ -170,16 +170,20 @@ namespace Negocio
         /// <param name="_listaSaidaPedido"></param>
         public void TransformarOrcamentoPorRecusaDocumentoFiscal(IEnumerable<long> listaCodSaidas)
         {
-            foreach (long codSaida in listaCodSaidas)
+            Saida saida = GerenciadorSaida.GetInstance(null).Obter(listaCodSaidas.ElementAt(0));
+            if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
             {
-                bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
-                if (!temPagamentoCrediario)
+                foreach (long codSaida in listaCodSaidas)
                 {
-                    Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
-                    if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
+                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
+                    if (!temPagamentoCrediario)
                     {
-                        saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-                        GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
+                        saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+                        if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
+                        {
+                            saida.TipoSaida = Saida.TIPO_PRE_VENDA;
+                            GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
+                        }
                     }
                 }
             }

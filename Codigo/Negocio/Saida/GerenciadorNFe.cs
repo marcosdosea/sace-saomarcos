@@ -22,8 +22,7 @@ namespace Negocio
         private static GerenciadorNFe gNFe;
         private static string nomeComputador;
         //private static Loja loja;
-
-
+        
         public static GerenciadorNFe GetInstance()
         {
             if (gNFe == null)
@@ -579,6 +578,7 @@ namespace Negocio
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
                 
+                
                 string arquivoRetornoReciboNfe = "*-pro-rec.*";
                 FileInfo[] files = Dir.GetFiles(arquivoRetornoReciboNfe, SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < files.Length; i++)
@@ -689,6 +689,7 @@ namespace Negocio
                 if (!possuiAutorizada)
                 {
                     List<SaidaPesquisa> saidas = GerenciadorSaida.GetInstance(null).ObterSaidaPorNfe(nfeControle.CodNfe);
+                    SaidaPesquisa saida = saidas.FirstOrDefault();
                     GerenciadorSaidaPedido.GetInstance().TransformarOrcamentoPorRecusaDocumentoFiscal(saidas.Select(s => s.CodSaida));
                 }
             }
@@ -1141,7 +1142,7 @@ namespace Negocio
 
                             //bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
                             bool naoHaNfeAutorizada = (nfeControleAutorizada == null);
-                            if (naoHaNfeAutorizada)
+                            if (naoHaNfeAutorizada && Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
                             {
                                 if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item1)) //1- interna; 2-interestadual; 3-exterior
                                 {
@@ -1176,26 +1177,36 @@ namespace Negocio
 
                                 decimal valorDescontoPorProduto = Math.Round((saidaProduto.ValorVenda* (1-percentualDescontoProdutos)), 2, MidpointRounding.AwayFromZero);
                                 decimal valorDescontoPorProdutoOriginal = saidaProduto.ValorVenda - saidaProduto.ValorVendaAVista;
-                                if (valorDescontoPorProdutoOriginal == (valorDescontoPorProduto + new Decimal(0.01)) ||
-                                    valorDescontoPorProdutoOriginal == (valorDescontoPorProduto - new Decimal(0.01)))
+                                decimal valorProdutoNota = 0;
+                                if  ( Math.Abs(valorDescontoPorProdutoOriginal) <= (new Decimal(0.01)) )
+                                {
+                                    //valorDescontoPorProduto = valorDescontoPorProdutoOriginal;
                                     valorDescontoPorProduto = valorDescontoPorProdutoOriginal;
-                                decimal valorProdutoNota = saidaProduto.ValorVenda - valorDescontoPorProduto;
+                                    valorProdutoNota = saidaProduto.ValorVenda;
+                                }
+                                else
+                                {
+                                    valorProdutoNota = saidaProduto.ValorVenda - valorDescontoPorProduto;
+                                    decimal valorDescontoProdutos = valorDescontoPorProduto * saidaProduto.Quantidade;
+                                    if (valorDescontoProdutos <= saidaProduto.ValorDesconto)
+                                        saidaProduto.ValorDesconto -= valorDescontoProdutos;
+                                    else
+                                        saidaProduto.ValorDesconto = 0;
+
+                                    if (valorDescontoProdutos <= totalProdutos)
+                                        totalProdutos -= valorDescontoProdutos;
+                                    else
+                                        totalProdutos = 0;
+                                }
+                                if (saidaProduto.ValorDesconto <= valorTotalDesconto)
+                                    valorTotalDesconto -= saidaProduto.ValorDesconto;
+                                else
+                                    valorTotalDesconto = 0;
+                                    
                                 prod.vUnCom = formataValorNFe(valorProdutoNota);
                                 prod.vProd = formataValorNFe(valorProdutoNota * saidaProduto.Quantidade);
                                 prod.vUnTrib = formataValorNFe(valorProdutoNota);
-                                decimal valorDescontoProdutos = valorDescontoPorProduto * saidaProduto.Quantidade;
-                                if (valorDescontoProdutos <= saidaProduto.ValorDesconto)
-                                      saidaProduto.ValorDesconto -= valorDescontoProdutos;
-                                else
-                                    saidaProduto.ValorDesconto = 0;
-                                if (valorDescontoProdutos <= valorTotalDesconto)
-                                    valorTotalDesconto -= valorDescontoProdutos;
-                                else
-                                    valorTotalDesconto = 0;
-                                if (valorDescontoProdutos <= totalProdutos)
-                                    totalProdutos -= valorDescontoProdutos;
-                                else
-                                    totalProdutos = 0;
+                                
                             }
                             else
                             {
@@ -1208,12 +1219,13 @@ namespace Negocio
                                 prod.vDesc = formataValorNFe(saidaProduto.ValorDesconto);
                             }
 
-
+                            
                             prod.uTrib = produto.Unidade;
 
                             prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
+                            decimal valorOutrosProduto = 0;
                             if (fatorValorOutros > 0)
-                                prod.vOutro = formataValorNFe(saidaProduto.SubtotalAVista * fatorValorOutros);
+                                valorOutrosProduto = saidaProduto.SubtotalAVista * fatorValorOutros;
                             prod.indTot = (TNFeInfNFeDetProdIndTot)1; // Valor = 1 deve entrar no valor total da nota
 
                             if (saida.ValorFrete > 0)
@@ -1237,7 +1249,6 @@ namespace Negocio
                                 icms900.pICMSST = formataValorNFe(0);
                                 if (saidaProduto.BaseCalculoICMSSubst > 0)
                                     icms900.pICMSST = formataValorNFe(saidaProduto.ValorICMSSubst / saidaProduto.BaseCalculoICMSSubst * 100);
-
                                 icms900.pRedBC = formataValorNFe(0);
                                 icms.Item = icms900;
                             }
@@ -1303,10 +1314,11 @@ namespace Negocio
                             nfeDet.nItem = nItem.ToString();
                             if (saidaProduto.ValorIPI > 0 && saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                             {
-                                TNFeInfNFeDetImpostoDevol dev = new TNFeInfNFeDetImpostoDevol();
-                                dev.IPI = new TNFeInfNFeDetImpostoDevolIPI() { vIPIDevol = formataValorNFe(saidaProduto.ValorIPI) };
-                                dev.pDevol = "100"; //TODO: corresponde a 100% da compra realizada. precisa 
-                                nfeDet.impostoDevol = dev;
+                                //TNFeInfNFeDetImpostoDevol dev = new TNFeInfNFeDetImpostoDevol();
+                                //dev.IPI = new TNFeInfNFeDetImpostoDevolIPI() { vIPIDevol = formataValorNFe(saidaProduto.ValorIPI) };
+                                //dev.pDevol = "100"; //TODO: corresponde a 100% da compra realizada. precisa 
+                                //nfeDet.impostoDevol = dev;
+                                prod.vOutro = formataValorNFe(saidaProduto.ValorIPI+valorOutrosProduto);
                             }
 
                             nItem++; // número do item na nf-e
@@ -1321,7 +1333,6 @@ namespace Negocio
                 nfe.infNFe.det = listaNFeDet.ToArray();
 
                 // Totalizadores de tributos
-
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
                 icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
                 icmsTot.vICMS = formataValorNFe(0);
@@ -1333,10 +1344,13 @@ namespace Negocio
                 //icmsTot.vTotTrib = formataValorNFe(totalTributos);
                 icmsTot.vII = formataValorNFe(0);
                 icmsTot.vIPI = formataValorNFe(0);
+                
                 icmsTot.vPIS = formataValorNFe(0);
                 icmsTot.vCOFINS = formataValorNFe(0);
                 icmsTot.vICMSDeson = formataValorNFe(0);
                 icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
+                
+
 
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
@@ -1346,6 +1360,7 @@ namespace Negocio
                     icmsTot.vST = formataValorNFe(saida.ValorICMSSubst);
                     if (saida.ValorIPI > 0)
                     {
+                        //icmsTot.vIPI = formataValorNFe(saida.ValorIPI);
                         saida.OutrasDespesas += saida.ValorIPI;
                         icmsTot.vOutro = formataValorNFe(saida.OutrasDespesas);
                     }
@@ -1367,15 +1382,16 @@ namespace Negocio
                     // desconto fica negativo quand tirar cf de um item que não deveria entrar
                     icmsTot.vDesc = formataValorNFe(0);
                 }
+                
                 if (ehNfeComplementar)
                     icmsTot.vNF = formataValorNFe(saida.OutrasDespesas);
                 else
                     icmsTot.vNF = formataValorNFe(valorTotalNota);
-
+                
                 TNFeInfNFeTotal total = new TNFeInfNFeTotal();
                 total.ICMSTot = icmsTot;
                 nfe.infNFe.total = total;
-
+                
                 TNFeInfNFeTranspTransporta transporta = new TNFeInfNFeTranspTransporta();
                 TNFeInfNFeTransp transp = new TNFeInfNFeTransp();
                 if ((saida.CodEmpresaFrete == saida.CodCliente) || (saida.CodEmpresaFrete == Global.CLIENTE_PADRAO) || ehNfeComplementar)
@@ -1390,13 +1406,13 @@ namespace Negocio
                     transporta.IE = transportadora.Ie;
                     transporta.UF = (TUf)Enum.Parse(typeof(TUf), transportadora.Uf);
                     transporta.UFSpecified = true;
-                    transporta.xEnder = transportadora.Endereco;
+                    transporta.xEnder = transportadora.Endereco.Trim();
                     transporta.xMun = Util.StringUtil.RemoverAcentos(transportadora.Cidade);
-                    transporta.xNome = transportadora.Nome;
+                    transporta.xNome = transportadora.Nome.Trim();
                     transp.vol = new TNFeInfNFeTranspVol[1];
                     TNFeInfNFeTranspVol volumes = new TNFeInfNFeTranspVol();
                     volumes.esp = saida.EspecieVolumes;
-                    volumes.marca = saida.Marca;
+                    volumes.marca = saida.Marca.Trim();
                     volumes.nVol = formataValorNFe(saida.Numero);
                     volumes.pesoB = formataPesoNFe(saida.PesoBruto);
                     volumes.pesoL = formataPesoNFe(saida.PesoLiquido);
@@ -1472,19 +1488,19 @@ namespace Negocio
                 saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)))
             {
                 TNFeInfNFeIdeNFref nfeRefECF = null;
-                if (saida.TipoDocumentoFiscal.Trim().Equals(Saida.TIPO_DOCUMENTO_ECF) && !String.IsNullOrEmpty(saida.CupomFiscal))
-                {
-                    // referenciar cupom fiscal
-                    TNFeInfNFeIdeNFrefRefECF refEcf = null;
-                    refEcf = new TNFeInfNFeIdeNFrefRefECF();
-                    refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;
-                    refEcf.nCOO = saida.CupomFiscal;
-                    refEcf.nECF = saida.NumeroECF;
+                //if (saida.TipoDocumentoFiscal.Trim().Equals(Saida.TIPO_DOCUMENTO_ECF) && !String.IsNullOrEmpty(saida.CupomFiscal))
+                //{
+                //    // referenciar cupom fiscal
+                //    TNFeInfNFeIdeNFrefRefECF refEcf = null;
+                //    refEcf = new TNFeInfNFeIdeNFrefRefECF();
+                //    refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;
+                //    refEcf.nCOO = saida.CupomFiscal;
+                //    refEcf.nECF = saida.NumeroECF;
 
-                    nfeRefECF = new TNFeInfNFeIdeNFref();
-                    nfeRefECF.ItemElementName = ItemChoiceType1.refECF;
-                    nfeRefECF.Item = refEcf;
-                }
+                //    nfeRefECF = new TNFeInfNFeIdeNFref();
+                //    nfeRefECF.ItemElementName = ItemChoiceType1.refECF;
+                //    nfeRefECF.Item = refEcf;
+                //}
 
                 TNFeInfNFeIdeNFref nfeRefNfe = null;
                 if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
@@ -2325,38 +2341,73 @@ namespace Negocio
             return texto;
         }
 
-        public void imprimirDANFE(NfeControle nfeControle)
+        public void imprimirDANFE(NfeControle nfeControle,  string servidorImprimirNfe, string servidorImprimirNfce)
         {
-            if (nfeControle.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA)
+            if (nfeControle != null)
             {
-                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
-                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                try
+                tb_imprimir_documento imprimir = new tb_imprimir_documento();
+                imprimir.codDocumento = nfeControle.CodNfe;
+                if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                    imprimir.tipoDocumento = "NFCE";
+                else
+                    imprimir.tipoDocumento = "NFE";
+                imprimir.hostSolicitante = nomeComputador;
+                GerenciadorImprimirDocumento.GetInstance().Inserir(imprimir);
+            }
+            else
+            {
+                List<tb_imprimir_documento> listaImprimirNfe = GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
+                List<tb_imprimir_documento> listaImprimirNfce = new List<tb_imprimir_documento>();
+                if (nomeComputador.Equals(servidorImprimirNfce))
+                    listaImprimirNfce = GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumento("NFCE").ToList();
+                IEnumerable<tb_imprimir_documento> listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
+                if (listaImprimir != null && listaImprimir.Count() > 0)
                 {
-                    DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
+                    tb_imprimir_documento documento = listaImprimir.FirstOrDefault();
+                    GerenciadorImprimirDocumento.GetInstance().Remover(documento.codImprimir);
+                    nfeControle = Obter((int) documento.codDocumento).FirstOrDefault();
 
-                    Process unidanfe = new Process();
-                    unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
-                    unidanfe.StartInfo.Arguments = " arquivo=\"" + loja.PastaNfeAutorizados
-                        + dataEmissao.Year
-                        + dataEmissao.Month.ToString("00")
-                        + dataEmissao.Day.ToString("00") + "\\"
-                        + nfeControle.Chave + "-nfe.xml\"";
-                    if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
-                        unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
-                    else
-                        unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
 
-                        //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
-                    unidanfe.Start();
-                }
-                catch (Exception ex)
-                {
-                    throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.", ex);
+                    if ((nfeControle != null) && nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                    {
+                        //Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                        Loja loja;
+                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                            loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                        else
+                        {
+                            SaidaPesquisa saidaPesquisa = GerenciadorSaida.GetInstance(null).ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
+                            Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
+                            loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                        }
+
+                        try
+                        {
+                            DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
+
+                            Process unidanfe = new Process();
+                            unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
+                            unidanfe.StartInfo.Arguments = " arquivo=\"" + loja.PastaNfeAutorizados
+                                + dataEmissao.Year
+                                + dataEmissao.Month.ToString("00")
+                                + dataEmissao.Day.ToString("00") + "\\"
+                                + nfeControle.Chave + "-nfe.xml\"";
+                            if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
+                                unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
+                            else
+                                unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+
+                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                            unidanfe.Start();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.", ex);
+                        }
+                    }
                 }
             }
         }
-
 
     }
 }

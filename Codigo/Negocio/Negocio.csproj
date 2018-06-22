@@ -111,6 +111,7 @@
     <Compile Include="SaceConst.cs" />
     <Compile Include="GerenciadorSeguranca.cs" />
     <Compile Include="GerenciadorImprimir.cs" />
+    <Compile Include="Saida\GerenciadorImprimirDocumento.cs" />
     <Compile Include="Saida\GerenciadorSolicitacaoDocumento.cs" />
     <Compile Include="Saida\GerenciadorNFe.cs" />
     <Compile Include="Saida\GerenciadorProdutosVendidos.cs" />

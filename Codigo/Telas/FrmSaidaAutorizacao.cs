@@ -19,6 +19,8 @@ namespace Telas
         NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
+        static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
+        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
 
         public FrmSaidaAutorizacao(long codSaida, long codSolicitacao)
         {
@@ -161,7 +163,7 @@ namespace Telas
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             if (nfeControle != null)
-                GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle);
+                GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
             this.Close();
         }
 

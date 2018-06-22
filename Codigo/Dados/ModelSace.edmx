@@ -24,6 +24,7 @@
           <EntitySet Name="tb_grupo" EntityType="SaceModel.Store.tb_grupo" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_grupo_conta" EntityType="SaceModel.Store.tb_grupo_conta" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_imposto" EntityType="SaceModel.Store.tb_imposto" store:Type="Tables" Schema="sace" />
+          <EntitySet Name="tb_imprimir_documento" EntityType="SaceModel.Store.tb_imprimir_documento" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_loja" EntityType="SaceModel.Store.tb_loja" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_movimentacao_conta" EntityType="SaceModel.Store.tb_movimentacao_conta" store:Type="Tables" Schema="sace" />
           <EntitySet Name="tb_municipios_ibge" EntityType="SaceModel.Store.tb_municipios_ibge" store:Type="Tables" Schema="sace" />
@@ -540,6 +541,15 @@
           <Property Name="NCMSH" Type="bigint" Nullable="false" />
           <Property Name="aliqNac" Type="decimal" Scale="2" />
           <Property Name="aliqImp" Type="decimal" Scale="2" />
+        </EntityType>
+        <EntityType Name="tb_imprimir_documento">
+          <Key>
+            <PropertyRef Name="codImprimir" />
+          </Key>
+          <Property Name="codImprimir" Type="bigint" Nullable="false" />
+          <Property Name="tipoDocumento" Type="enum" Nullable="false" />
+          <Property Name="codDocumento" Type="bigint" Nullable="false" />
+          <Property Name="hostSolicitante" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="tb_loja">
           <Key>
@@ -1493,7 +1503,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_has_tb_nfe_tb_nfe1">
-          <End Role="tb_nfe" Type="SaceModel.Store.tb_nfe" Multiplicity="1" />
+          <End Role="tb_nfe" Type="SaceModel.Store.tb_nfe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tb_saida_nfe" Type="SaceModel.Store.tb_saida_nfe" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_nfe">
@@ -1505,7 +1517,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tb_saida_has_tb_nfe_tb_saida1">
-          <End Role="tb_saida" Type="SaceModel.Store.tb_saida" Multiplicity="1" />
+          <End Role="tb_saida" Type="SaceModel.Store.tb_saida" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tb_saida_nfe" Type="SaceModel.Store.tb_saida_nfe" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tb_saida">
@@ -2112,6 +2126,7 @@
             <Parameter Name="codLoja" Mode="In" Type="Int32" />
             <Parameter Name="numeroNFe" Mode="Out" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tb_imprimir_documento" EntityType="SaceModel.tb_imprimir_documento" />
           </EntityContainer>
         <EntityType Name="BancoE">
           <Key>
@@ -3575,6 +3590,15 @@
           <Property Type="DateTime" Name="dataSoliciticao" Nullable="false" />
           <Property Type="String" Name="situacao" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tb_imprimir_documento">
+          <Key>
+            <PropertyRef Name="codImprimir" />
+          </Key>
+          <Property Type="Int64" Name="codImprimir" Nullable="false" />
+          <Property Type="String" Name="tipoDocumento" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="codDocumento" Nullable="false" />
+          <Property Type="String" Name="hostSolicitante" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4126,6 +4150,16 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="IncrementarNFCe" FunctionName="SaceModel.Store.IncrementarNFCe" />
           <FunctionImportMapping FunctionImportName="IncrementarNFe" FunctionName="SaceModel.Store.IncrementarNFe" />
+          <EntitySetMapping Name="tb_imprimir_documento">
+            <EntityTypeMapping TypeName="SaceModel.tb_imprimir_documento">
+              <MappingFragment StoreEntitySet="tb_imprimir_documento">
+                <ScalarProperty Name="hostSolicitante" ColumnName="hostSolicitante" />
+                <ScalarProperty Name="codDocumento" ColumnName="codDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="codImprimir" ColumnName="codImprimir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -4906,6 +4940,7 @@
           <ConnectorPoint PointX="17.75" PointY="43.975576171875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SaceModel.tb_documento_fiscal" Width="1.5" PointX="3.375" PointY="0.75" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="SaceModel.tb_imprimir_documento" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937500102" />
         </Diagram>
     </Diagrams>
   </Designer>

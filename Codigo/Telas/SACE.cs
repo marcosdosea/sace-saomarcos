@@ -27,6 +27,12 @@ namespace Telas
         static int NFCE_SERVIDOR = Properties.Settings.Default.NfceServidor;
         static int NFCE_ONLINE = Properties.Settings.Default.NfceOnline;
 
+        static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
+        static string SERVIDOR_IMPRIMIR_NFE  = Properties.Settings.Default.ServidorImprimirNfce;
+        //static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
+
+
+
         static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
             
        
@@ -310,12 +316,12 @@ namespace Telas
 
         private static void ProcessarDocumentosFiscais()
         {
-            if (nomeComputador.ToUpper().Equals(SERVIDOR))
-            {
-                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
-                GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosECF(SERVIDOR);
+            //if (nomeComputador.ToUpper().Equals(SERVIDOR))
+            //{
+                //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
+                //GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosECF(SERVIDOR);
                 // GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
-            }
+            //}
             if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
             {
                 GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
@@ -327,7 +333,7 @@ namespace Telas
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
-            
+            GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
             
             
             //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO, NFCE_SERVIDOR, NFCE_ONLINE);

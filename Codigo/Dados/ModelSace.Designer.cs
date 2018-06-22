@@ -822,6 +822,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_documento_fiscal> _tb_documento_fiscal;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_imprimir_documento> tb_imprimir_documento
+        {
+            get
+            {
+                if ((_tb_imprimir_documento == null))
+                {
+                    _tb_imprimir_documento = base.CreateObjectSet<tb_imprimir_documento>("tb_imprimir_documento");
+                }
+                return _tb_imprimir_documento;
+            }
+        }
+        private ObjectSet<tb_imprimir_documento> _tb_imprimir_documento;
 
         #endregion
 
@@ -1169,6 +1185,14 @@ namespace Dados
         public void AddTotb_documento_fiscal(tb_documento_fiscal tb_documento_fiscal)
         {
             base.AddObject("tb_documento_fiscal", tb_documento_fiscal);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_imprimir_documento EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_imprimir_documento(tb_imprimir_documento tb_imprimir_documento)
+        {
+            base.AddObject("tb_imprimir_documento", tb_imprimir_documento);
         }
 
         #endregion
@@ -10959,6 +10983,141 @@ namespace Dados
         private Nullable<global::System.Decimal> _aliqImp;
         partial void OnaliqImpChanging(Nullable<global::System.Decimal> value);
         partial void OnaliqImpChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_imprimir_documento")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_imprimir_documento : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_imprimir_documento object.
+        /// </summary>
+        /// <param name="codImprimir">Initial value of the codImprimir property.</param>
+        /// <param name="tipoDocumento">Initial value of the tipoDocumento property.</param>
+        /// <param name="codDocumento">Initial value of the codDocumento property.</param>
+        /// <param name="hostSolicitante">Initial value of the hostSolicitante property.</param>
+        public static tb_imprimir_documento Createtb_imprimir_documento(global::System.Int64 codImprimir, global::System.String tipoDocumento, global::System.Int64 codDocumento, global::System.String hostSolicitante)
+        {
+            tb_imprimir_documento tb_imprimir_documento = new tb_imprimir_documento();
+            tb_imprimir_documento.codImprimir = codImprimir;
+            tb_imprimir_documento.tipoDocumento = tipoDocumento;
+            tb_imprimir_documento.codDocumento = codDocumento;
+            tb_imprimir_documento.hostSolicitante = hostSolicitante;
+            return tb_imprimir_documento;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codImprimir
+        {
+            get
+            {
+                return _codImprimir;
+            }
+            set
+            {
+                if (_codImprimir != value)
+                {
+                    OncodImprimirChanging(value);
+                    ReportPropertyChanging("codImprimir");
+                    _codImprimir = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("codImprimir");
+                    OncodImprimirChanged();
+                }
+            }
+        }
+        private global::System.Int64 _codImprimir;
+        partial void OncodImprimirChanging(global::System.Int64 value);
+        partial void OncodImprimirChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String tipoDocumento
+        {
+            get
+            {
+                return _tipoDocumento;
+            }
+            set
+            {
+                OntipoDocumentoChanging(value);
+                ReportPropertyChanging("tipoDocumento");
+                _tipoDocumento = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("tipoDocumento");
+                OntipoDocumentoChanged();
+            }
+        }
+        private global::System.String _tipoDocumento;
+        partial void OntipoDocumentoChanging(global::System.String value);
+        partial void OntipoDocumentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 codDocumento
+        {
+            get
+            {
+                return _codDocumento;
+            }
+            set
+            {
+                OncodDocumentoChanging(value);
+                ReportPropertyChanging("codDocumento");
+                _codDocumento = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codDocumento");
+                OncodDocumentoChanged();
+            }
+        }
+        private global::System.Int64 _codDocumento;
+        partial void OncodDocumentoChanging(global::System.Int64 value);
+        partial void OncodDocumentoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String hostSolicitante
+        {
+            get
+            {
+                return _hostSolicitante;
+            }
+            set
+            {
+                OnhostSolicitanteChanging(value);
+                ReportPropertyChanging("hostSolicitante");
+                _hostSolicitante = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("hostSolicitante");
+                OnhostSolicitanteChanged();
+            }
+        }
+        private global::System.String _hostSolicitante;
+        partial void OnhostSolicitanteChanging(global::System.String value);
+        partial void OnhostSolicitanteChanged();
 
         #endregion
 
