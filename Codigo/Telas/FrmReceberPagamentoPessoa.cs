@@ -174,7 +174,7 @@ namespace Telas
 
 
                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao);
+                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
                             frmSaidaAutorizacao.ShowDialog();
                             frmSaidaAutorizacao.Dispose();
 
@@ -215,7 +215,7 @@ namespace Telas
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
 
                         long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao);
+                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
                         frmSaidaAutorizacao.ShowDialog();
                         frmSaidaAutorizacao.Dispose();
 
@@ -306,7 +306,10 @@ namespace Telas
                     saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
                     saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
                    
-                    GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                    frmSaidaAutorizacao.ShowDialog();
+                    frmSaidaAutorizacao.Dispose();
                 }
             }
         }

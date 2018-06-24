@@ -182,7 +182,7 @@ namespace Negocio
                         if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
                         {
                             saida.TipoSaida = Saida.TIPO_PRE_VENDA;
-                            GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
+                            //GerenciadorSaida.GetInstance(null).PrepararEdicaoSaida(saida);
                         }
                     }
                 }

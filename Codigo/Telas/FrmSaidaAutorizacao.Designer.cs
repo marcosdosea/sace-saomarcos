@@ -74,6 +74,7 @@
             this.textCartao.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textCartao.Location = new System.Drawing.Point(16, 203);
             this.textCartao.Name = "textCartao";
+            this.textCartao.ReadOnly = true;
             this.textCartao.Size = new System.Drawing.Size(355, 115);
             this.textCartao.TabIndex = 5;
             this.textCartao.Text = "";
@@ -81,9 +82,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Telas.Properties.Resources.nfe_150x150;
-            this.pictureBox2.Location = new System.Drawing.Point(386, 37);
+            this.pictureBox2.Location = new System.Drawing.Point(375, 38);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(151, 145);
+            this.pictureBox2.Size = new System.Drawing.Size(152, 135);
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
@@ -99,21 +100,22 @@
             // textNfe
             // 
             this.textNfe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textNfe.Location = new System.Drawing.Point(16, 37);
+            this.textNfe.Location = new System.Drawing.Point(16, 38);
             this.textNfe.Name = "textNfe";
-            this.textNfe.Size = new System.Drawing.Size(355, 136);
+            this.textNfe.ReadOnly = true;
+            this.textNfe.Size = new System.Drawing.Size(355, 135);
             this.textNfe.TabIndex = 7;
             this.textNfe.Text = "";
             // 
             // lblNffe
             // 
             this.lblNffe.AutoSize = true;
-            this.lblNffe.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNffe.Location = new System.Drawing.Point(12, 5);
+            this.lblNffe.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.lblNffe.Location = new System.Drawing.Point(12, 8);
             this.lblNffe.Name = "lblNffe";
-            this.lblNffe.Size = new System.Drawing.Size(391, 29);
+            this.lblNffe.Size = new System.Drawing.Size(291, 26);
             this.lblNffe.TabIndex = 8;
-            this.lblNffe.Text = "Aguardando Autorização NF-e... ";
+            this.lblNffe.Text = "Solicitando Autorização... ";
             // 
             // btnImprimir
             // 

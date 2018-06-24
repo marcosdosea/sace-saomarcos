@@ -21,6 +21,7 @@ namespace Dominio
         public decimal ValorVendaAVista { get; set; }
         public decimal Desconto { get; set; }
         public decimal ValorDesconto { get; set; }
+        public decimal ValorProdutoNota { get; set; }
         public decimal Subtotal
         {
             get { return ValorVenda * Quantidade; }

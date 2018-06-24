@@ -34,6 +34,7 @@ namespace Dominio
             SituacaoProtocoloCancelamento = "";
             MensagemSitucaoProtocoloCancelamento = "";
             JustificativaCancelamento = "";
+            CodSolicitacao = 0;
         }
 
         public int CodNfe { get; set; }
@@ -42,6 +43,8 @@ namespace Dominio
         public string SituacaoNfe { get; set; }
         public int NumeroSequenciaNfe { get; set; }
         public int CodLoja { get; set; }
+        public long CodSolicitacao { get; set; }
+        
         public string Modelo { get; set; }
 
         public string DescricaoModelo

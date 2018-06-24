@@ -680,18 +680,21 @@ namespace Telas
                     GerenciadorSaida.GetInstance(null).GerarCupomFiscal(saida);
                 }
             }
-            else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || 
-                saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
-                || (saida.TipoSaida == Saida.TIPO_PRE_VENDA) )
+            //else if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || 
+            //    saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+            //    || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+            //    || (saida.TipoSaida == Saida.TIPO_PRE_VENDA) )
+            //{
+            //    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+            //    frmSaidaNF.ShowDialog();
+            //    frmSaidaNF.Dispose();
+            //}
+            else
             {
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
-            }
-            else
-            {
-                throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e de a partir de um ORÇAMENTO OU PRÉ REMESSA. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");
+                //throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e de a partir de um ORÇAMENTO OU PRÉ REMESSA. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");
             }
         }
 

@@ -357,7 +357,8 @@ namespace Negocio
                         List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
                         repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
                         repSolicitacao2.SaveChanges();
-                        GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
+                        
+                        GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE);
                     }
                 }
             }
@@ -404,7 +405,7 @@ namespace Negocio
 
                     repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
                     repSolicitacao2.SaveChanges();
-                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, solicitacaoE.ehComplementar, solicitacaoE.ehEspelho);
+                    GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, solicitacaoE);
                 }
             }
             catch (Exception e)
@@ -826,7 +827,7 @@ namespace Negocio
                                         nfeControle.SituacaoNfe = NfeControle.SITUACAO_REJEITADA;
                                     nfeControle.SituacaoProtocoloUso = nfce.protNFe.infProt.cStat;
                                     Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
-                                    GerenciadorNFe.GetInstance().Inserir(nfeControle, saida, false);
+                                    //GerenciadorNFe.GetInstance().Inserir(nfeControle, saida, false, listaSolicitacaoSaida);
                                     Loja loja = GerenciadorLoja.GetInstance().Obter(nfeControle.CodLoja).FirstOrDefault();
 
                                     string dirDestino = loja.PastaNfeAutorizados

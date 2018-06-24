@@ -141,7 +141,7 @@ namespace Telas
                 Cursor.Current = Cursors.Default;
 
                 long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, false);
-                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao);
+                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFE);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
             }

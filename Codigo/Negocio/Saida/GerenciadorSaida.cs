@@ -173,7 +173,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public bool AtualizarSaidasPorNFCeAutorizadas(NfeControle nfeControle)
+        public bool AtualizarSaidasPorNFAutorizadas(NfeControle nfeControle)
         {
             bool notasAutorizadas = false;
             try

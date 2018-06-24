@@ -21,14 +21,16 @@ namespace Telas
         private bool exibiuResultadoNfe = false;
         static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
         static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
-
-        public FrmSaidaAutorizacao(long codSaida, long codSolicitacao)
+        bool novaSolicitacao = false;
+        DocumentoFiscal.TipoSolicitacao tipoNfe;
+        public FrmSaidaAutorizacao(long codSaida, long codSolicitacao, DocumentoFiscal.TipoSolicitacao tipo)
         {
             InitializeComponent();
             this.codSaida = codSaida;
             this.codSolicitacao = codSolicitacao;
             nfeControle = null;
             lblCartao.ForeColor = Color.Black;
+            tipoNfe = tipo;
         }
 
         private void timerAtualizaNFCe_Tick(object sender, EventArgs e)
@@ -50,17 +52,29 @@ namespace Telas
 
         private void ExibirResultadoProcessamentoNFCe()
         {
-            lblCartao.Text = "Aguardando Autorização NF-e... ";
+            lblCartao.Text = "Solicitando Autorização... ";
             textNfe.Text = "Favor aguardar.";
             Cursor.Current = Cursors.WaitCursor;
             // recupera a último envio da nfe
-            List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSolicitacao(codSolicitacao).OrderBy(nfe => nfe.CodNfe).ToList();
+
+            if (listaNfe.Count == 0)
+            {
+                listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            }
+            else
+            {
+                novaSolicitacao = true;
+            }
             nfeControle = listaNfe.LastOrDefault();
+
 
             if (nfeControle != null && !nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA))
             {
                 Cursor.Current = Cursors.WaitCursor;
-                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                bool modeloSolicitado = (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE) && (tipoNfe==DocumentoFiscal.TipoSolicitacao.NFE)) ||
+                    (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE) && (tipoNfe == DocumentoFiscal.TipoSolicitacao.NFCE));
+                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) && modeloSolicitado)
                 {
                     if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
                         lblNffe.Text = "NFe CONSUMIDOR AUTORIZADA.";
@@ -72,7 +86,7 @@ namespace Telas
                 }
                 else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_REJEITADA))
                 {
-                    lblNffe.Text = "NFe/NFCe REJEITADA. ";
+                    lblNffe.Text = "NF REJEITADA. ";
                     textNfe.Text = nfeControle.MensagemSitucaoProtocoloUso;
                     lblNffe.ForeColor = Color.Red;
                     Cursor.Current = Cursors.Default;
@@ -80,7 +94,7 @@ namespace Telas
                 }
                 else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA))
                 {
-                    lblNffe.Text = "NFe/NFCe NÃO VALIDADA.";
+                    lblNffe.Text = "NF NÃO VALIDADA.";
                     //textNfe.Text = "Favor verificar {0} (1) NCM ausentes nos produtos {0} (2) CNPJ/CPF ou IE do cliente incorretos. {0}";
                     lblNffe.ForeColor = Color.Red;
                     Cursor.Current = Cursors.Default;
@@ -104,12 +118,17 @@ namespace Telas
                 
                 
                 btnCancelar.Enabled = true;
-                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) && modeloSolicitado)
                 {
                     timerAtualizaNFCe.Enabled = false;
                 
                     btnImprimir.Enabled = true;
                     btnImprimir.Focus();
+                } 
+                else if (!nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA) && (novaSolicitacao))
+                {
+                    timerAtualizaNFCe.Enabled = false;
+                    btnCancelar.Focus();
                 }
                 else
                 {
