@@ -168,6 +168,11 @@ namespace Telas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            if (nfeControle != null)
+            {
+                nfeControle.CodSolicitacao = 0;
+                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+            }
             this.Close();
         }
 
@@ -184,8 +189,11 @@ namespace Telas
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
+            //nfeControle = GerenciadorNFe.GetInstance().ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
             if (nfeControle != null)
+            {
                 GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
+            }
             this.Close();
         }
 

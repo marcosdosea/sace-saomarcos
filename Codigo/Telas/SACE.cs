@@ -322,6 +322,8 @@ namespace Telas
                 //GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosECF(SERVIDOR);
                 // GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
             //}
+            GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
+            
             if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
             {
                 GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
@@ -333,7 +335,6 @@ namespace Telas
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }
-            GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
             
             
             //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO, NFCE_SERVIDOR, NFCE_ONLINE);

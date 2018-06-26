@@ -554,7 +554,7 @@ namespace Negocio
                         decimal valorDesconto = listaSaidaProdutos.Sum(s => s.Subtotal) - totalSolicitacaoSaidas;
                         decimal valorDescontoPadrao = listaSaidaProdutos.Sum(s => s.Subtotal) - listaSaidaProdutos.Sum(s => s.SubtotalAVista);
                         decimal totalProdutos = listaSaidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-                        listaSaidaProdutos = GerenciadorNFe.GetInstance().DistribuirDescontoProdutos(listaSaidaProdutos, valorDesconto, totalProdutos);
+                        listaSaidaProdutos = GerenciadorNFe.GetInstance().DistribuirDescontoProdutos(listaSaidaProdutos, totalProdutos);
 
                         foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
                         {

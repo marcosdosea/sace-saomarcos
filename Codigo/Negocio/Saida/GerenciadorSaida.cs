@@ -167,15 +167,13 @@ namespace Negocio
             }
         }
 
-
         /// <summary>
         /// Atualiza o número da nota fiscal gerada num determinado codigo saida
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public bool AtualizarSaidasPorNFAutorizadas(NfeControle nfeControle)
+        public void AtualizarSaidasPorNfeSituacao(NfeControle nfeControle)
         {
-            bool notasAutorizadas = false;
             try
             {
                 var query = from nfe in saceContext.tb_nfe
@@ -189,44 +187,37 @@ namespace Negocio
                     List<tb_saida> saidas = nfe.tb_saida.ToList();
                     foreach (tb_saida saida in saidas)
                     {
-                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
-                            saida.nfe = "NFCe";
-                        else
-                            saida.nfe = "NFe";
-                    }
-                }
-
-                tb_nfe nfeAutorizada = listaNfes.Where(nfe => nfe.situacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).SingleOrDefault();
-                if (nfeAutorizada != null)
-                {
-                    List<tb_saida> saidas = nfeAutorizada.tb_saida.ToList();
-                    foreach (tb_saida saida in saidas)
-                    {
-                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                        if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)) {
+                            if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                            {
+                                saida.nfe = "NFCe";
+                                saida.pedidoGerado = "C" + nfe.numeroSequenciaNFe;
+                                saida.codTipoSaida = Saida.TIPO_VENDA;
+                            }
+                            else
+                            {
+                                saida.nfe = "NFe";
+                                saida.pedidoGerado = "N" + nfe.numeroSequenciaNFe;
+                                saida.codTipoSaida = Saida.TIPO_VENDA;
+                            }
+                        } 
+                        else 
                         {
-                            saida.nfe = "NFCe";
-                            saida.pedidoGerado = "C" + nfeAutorizada.numeroSequenciaNFe;
-                            saida.codTipoSaida = Saida.TIPO_VENDA;
-                        }
-                        else
-                        {
-                            saida.nfe = "NFe";
-                            saida.pedidoGerado = "N" + nfeAutorizada.numeroSequenciaNFe;
-                            saida.codTipoSaida = Saida.TIPO_VENDA;
+                            saida.nfe = "";
+                            saida.pedidoGerado = "";
+                            saida.codTipoSaida = Saida.TIPO_PRE_VENDA;
                         }
                         
                     }
-                    notasAutorizadas = true;
                 }
-                
                 saceContext.SaveChanges();
             }
             catch (Exception e)
             {
                 throw new DadosException("Saida", e.Message, e);
             }
-            return notasAutorizadas;
         }
+
 
         /// <summary>
         /// Atualiza o número da nota fiscal gerada num determinado codigo saida
@@ -673,7 +664,21 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaPesquisa> ObterPorPedido(string pedidoGerado)
         {
-            return GetQueryPesquisa().Where(saida => saida.CupomFiscal.StartsWith(pedidoGerado)).OrderBy(s => s.CodSaida).ToList();
+            var query = from saida in saceContext.tb_saida
+                        where saida.pedidoGerado.StartsWith(pedidoGerado)
+                        orderby saida.codSaida
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente,
+                            NomeCliente = saida.tb_pessoa.nomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            TipoSaida = saida.codTipoSaida
+                        };
+            return query.ToList();
         }
 
 
@@ -685,7 +690,21 @@ namespace Negocio
         public List<SaidaPesquisa> ObterPorSolicitacaoSaida(List<tb_solicitacao_saida> listaSolicitacaoSaida)
         {
             List<long> listaCodSaida = listaSolicitacaoSaida.Select(s => s.codSaida).ToList();
-            return GetQueryPesquisa().Where(saida => listaCodSaida.Contains(saida.CodSaida)).OrderBy(s => s.CodSaida).ToList();
+            var query = from saida in saceContext.tb_saida
+                        where listaCodSaida.Contains(saida.codSaida)
+                        orderby saida.codSaida
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente,
+                            NomeCliente = saida.tb_pessoa.nomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            TipoSaida = saida.codTipoSaida
+                        };
+            return query.ToList();
         }
         
 

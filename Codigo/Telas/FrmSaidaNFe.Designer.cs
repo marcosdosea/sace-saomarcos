@@ -53,6 +53,13 @@
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.nfeControleDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescricaoModelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroSequenciaNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nfeControleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnFechar = new System.Windows.Forms.Button();
             this.justificativaCancelamentoTextBox1 = new System.Windows.Forms.TextBox();
             this.mensagemSituacaoReciboEnvioTextBox = new System.Windows.Forms.TextBox();
@@ -78,14 +85,7 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.nfeControleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescricaoModelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumeroSequenciaNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescricaoSituacaoNfe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             observacaoLabel = new System.Windows.Forms.Label();
             justificativaCancelamentoLabel1 = new System.Windows.Forms.Label();
             mensagemSituacaoReciboEnvioLabel = new System.Windows.Forms.Label();
@@ -123,7 +123,7 @@
             // justificativaCancelamentoLabel1
             // 
             justificativaCancelamentoLabel1.AutoSize = true;
-            justificativaCancelamentoLabel1.Location = new System.Drawing.Point(2, 438);
+            justificativaCancelamentoLabel1.Location = new System.Drawing.Point(2, 422);
             justificativaCancelamentoLabel1.Name = "justificativaCancelamentoLabel1";
             justificativaCancelamentoLabel1.Size = new System.Drawing.Size(269, 13);
             justificativaCancelamentoLabel1.TabIndex = 18;
@@ -168,7 +168,7 @@
             // numeroProtocoloCancelamentoLabel
             // 
             numeroProtocoloCancelamentoLabel.AutoSize = true;
-            numeroProtocoloCancelamentoLabel.Location = new System.Drawing.Point(1, 239);
+            numeroProtocoloCancelamentoLabel.Location = new System.Drawing.Point(-1, 239);
             numeroProtocoloCancelamentoLabel.Name = "numeroProtocoloCancelamentoLabel";
             numeroProtocoloCancelamentoLabel.Size = new System.Drawing.Size(100, 13);
             numeroProtocoloCancelamentoLabel.TabIndex = 28;
@@ -195,7 +195,7 @@
             // situacaoProtocoloCancelamentoLabel
             // 
             situacaoProtocoloCancelamentoLabel.AutoSize = true;
-            situacaoProtocoloCancelamentoLabel.Location = new System.Drawing.Point(227, 239);
+            situacaoProtocoloCancelamentoLabel.Location = new System.Drawing.Point(225, 239);
             situacaoProtocoloCancelamentoLabel.Name = "situacaoProtocoloCancelamentoLabel";
             situacaoProtocoloCancelamentoLabel.Size = new System.Drawing.Size(123, 13);
             situacaoProtocoloCancelamentoLabel.TabIndex = 36;
@@ -204,7 +204,7 @@
             // situacaoProtocoloUsoLabel
             // 
             situacaoProtocoloUsoLabel.AutoSize = true;
-            situacaoProtocoloUsoLabel.Location = new System.Drawing.Point(231, 205);
+            situacaoProtocoloUsoLabel.Location = new System.Drawing.Point(227, 203);
             situacaoProtocoloUsoLabel.Name = "situacaoProtocoloUsoLabel";
             situacaoProtocoloUsoLabel.Size = new System.Drawing.Size(122, 13);
             situacaoProtocoloUsoLabel.TabIndex = 38;
@@ -222,7 +222,7 @@
             // dataEmissaoLabel
             // 
             dataEmissaoLabel.AutoSize = true;
-            dataEmissaoLabel.Location = new System.Drawing.Point(275, 143);
+            dataEmissaoLabel.Location = new System.Drawing.Point(273, 143);
             dataEmissaoLabel.Name = "dataEmissaoLabel";
             dataEmissaoLabel.Size = new System.Drawing.Size(75, 13);
             dataEmissaoLabel.TabIndex = 41;
@@ -231,7 +231,7 @@
             // numeroProtocoloCartaCorrecaoLabel
             // 
             numeroProtocoloCartaCorrecaoLabel.AutoSize = true;
-            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-2, 270);
+            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-3, 270);
             numeroProtocoloCartaCorrecaoLabel.Name = "numeroProtocoloCartaCorrecaoLabel";
             numeroProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(103, 13);
             numeroProtocoloCartaCorrecaoLabel.TabIndex = 42;
@@ -240,7 +240,7 @@
             // situacaoProtocoloCartaCorrecaoLabel
             // 
             situacaoProtocoloCartaCorrecaoLabel.AutoSize = true;
-            situacaoProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(227, 270);
+            situacaoProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(224, 270);
             situacaoProtocoloCartaCorrecaoLabel.Name = "situacaoProtocoloCartaCorrecaoLabel";
             situacaoProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(126, 13);
             situacaoProtocoloCartaCorrecaoLabel.TabIndex = 43;
@@ -311,7 +311,7 @@
             this.observacaoTextBox.MaxLength = 350;
             this.observacaoTextBox.Multiline = true;
             this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(873, 93);
+            this.observacaoTextBox.Size = new System.Drawing.Size(873, 76);
             this.observacaoTextBox.TabIndex = 14;
             // 
             // btnEnviar
@@ -347,6 +347,62 @@
             this.nfeControleDataGridView.Size = new System.Drawing.Size(873, 114);
             this.nfeControleDataGridView.TabIndex = 7;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodNfe";
+            this.dataGridViewTextBoxColumn1.FillWeight = 42.56329F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Código NF-e";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // DescricaoModelo
+            // 
+            this.DescricaoModelo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DescricaoModelo.DataPropertyName = "DescricaoModelo";
+            this.DescricaoModelo.FillWeight = 30F;
+            this.DescricaoModelo.HeaderText = "Modelo";
+            this.DescricaoModelo.Name = "DescricaoModelo";
+            this.DescricaoModelo.ReadOnly = true;
+            // 
+            // NumeroSequenciaNfe
+            // 
+            this.NumeroSequenciaNfe.DataPropertyName = "NumeroSequenciaNfe";
+            this.NumeroSequenciaNfe.HeaderText = "Número NF-e";
+            this.NumeroSequenciaNfe.Name = "NumeroSequenciaNfe";
+            this.NumeroSequenciaNfe.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "CodSaida";
+            this.dataGridViewTextBoxColumn2.FillWeight = 36.02162F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Saída";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Chave";
+            this.dataGridViewTextBoxColumn3.FillWeight = 162.4366F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Chave";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // DescricaoSituacaoNfe
+            // 
+            this.DescricaoSituacaoNfe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DescricaoSituacaoNfe.DataPropertyName = "DescricaoSituacaoNfe";
+            this.DescricaoSituacaoNfe.FillWeight = 78.97854F;
+            this.DescricaoSituacaoNfe.HeaderText = "Situação";
+            this.DescricaoSituacaoNfe.Name = "DescricaoSituacaoNfe";
+            this.DescricaoSituacaoNfe.ReadOnly = true;
+            // 
+            // nfeControleBindingSource
+            // 
+            this.nfeControleBindingSource.DataSource = typeof(Dominio.NfeControle);
+            // 
             // btnFechar
             // 
             this.btnFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -363,10 +419,10 @@
             this.justificativaCancelamentoTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.justificativaCancelamentoTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "JustificativaCancelamento", true));
             this.justificativaCancelamentoTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 454);
+            this.justificativaCancelamentoTextBox1.Location = new System.Drawing.Point(4, 438);
             this.justificativaCancelamentoTextBox1.Multiline = true;
             this.justificativaCancelamentoTextBox1.Name = "justificativaCancelamentoTextBox1";
-            this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(873, 39);
+            this.justificativaCancelamentoTextBox1.Size = new System.Drawing.Size(873, 55);
             this.justificativaCancelamentoTextBox1.TabIndex = 16;
             // 
             // mensagemSituacaoReciboEnvioTextBox
@@ -597,73 +653,17 @@
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
             this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
             // 
-            // nfeControleBindingSource
-            // 
-            this.nfeControleBindingSource.DataSource = typeof(Dominio.NfeControle);
-            // 
             // pessoaBindingSource
             // 
             this.pessoaBindingSource.AllowNew = false;
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodNfe";
-            this.dataGridViewTextBoxColumn1.FillWeight = 42.56329F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Código NF-e";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // DescricaoModelo
-            // 
-            this.DescricaoModelo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DescricaoModelo.DataPropertyName = "DescricaoModelo";
-            this.DescricaoModelo.FillWeight = 30F;
-            this.DescricaoModelo.HeaderText = "Modelo";
-            this.DescricaoModelo.Name = "DescricaoModelo";
-            this.DescricaoModelo.ReadOnly = true;
-            // 
-            // NumeroSequenciaNfe
-            // 
-            this.NumeroSequenciaNfe.DataPropertyName = "NumeroSequenciaNfe";
-            this.NumeroSequenciaNfe.HeaderText = "Número NF-e";
-            this.NumeroSequenciaNfe.Name = "NumeroSequenciaNfe";
-            this.NumeroSequenciaNfe.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "CodSaida";
-            this.dataGridViewTextBoxColumn2.FillWeight = 36.02162F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Saída";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Chave";
-            this.dataGridViewTextBoxColumn3.FillWeight = 162.4366F;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Chave";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // DescricaoSituacaoNfe
-            // 
-            this.DescricaoSituacaoNfe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DescricaoSituacaoNfe.DataPropertyName = "DescricaoSituacaoNfe";
-            this.DescricaoSituacaoNfe.FillWeight = 78.97854F;
-            this.DescricaoSituacaoNfe.HeaderText = "Situação";
-            this.DescricaoSituacaoNfe.Name = "DescricaoSituacaoNfe";
-            this.DescricaoSituacaoNfe.ReadOnly = true;
             // 
             // FrmSaidaNFe
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 586);
+            this.ClientSize = new System.Drawing.Size(879, 587);
             this.ControlBox = false;
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(this.btnBuscar);

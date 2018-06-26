@@ -16,11 +16,12 @@ namespace Telas
     public partial class FrmSaidaPagamento : Form
     {
         private Saida saida;
-
-        public FrmSaidaPagamento(Saida saida)
+        private List<SaidaProduto> listaSaidaProduto;
+        public FrmSaidaPagamento(Saida saida, List<SaidaProduto> listaSaidaProduto)
         {
             InitializeComponent();
             this.saida = saida;
+            this.listaSaidaProduto = listaSaidaProduto;
         }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace Telas
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
-            saida = (Saida) saidaBindingSource.Current;
+            saida = (Saida)saidaBindingSource.Current;
             if (saida.CodCliente != Global.CLIENTE_PADRAO)
             {
                 formaPagamentoBindingSource.Position = formaPagamentoBindingSource.IndexOf(new FormaPagamento() { CodFormaPagamento = FormaPagamento.CREDIARIO });
@@ -98,7 +99,7 @@ namespace Telas
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
                 saida.Total = decimal.Parse(totalTextBox.Text);
-                
+
                 codFormaPagamentoComboBox.Focus();
                 GerenciadorSaidaPagamento.GetInstance(null).Inserir(saidaPagamento, saida);
 
@@ -128,7 +129,7 @@ namespace Telas
             EncerrarLancamentosPagamentos(sender, e);
         }
 
-        
+
         /// <summary>
         /// Encerra o lançamento de pagamentos
         /// </summary>
@@ -153,15 +154,17 @@ namespace Telas
                         if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                         {
                             GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
-                            if (listaPagamentosSaida.Where(ps=> ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0) {
-                                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+                            if (listaPagamentosSaida.Where(ps => ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0)
+                            {
+                                if ((listaSaidaProduto != null) && (listaSaidaProduto.Select(sp => sp.CodCST.Contains(Cst.ST_OUTRAS)).ToList().Count < listaSaidaProduto.Count))
+                                {
+                                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+                                    long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                                    frmSaidaAutorizacao.ShowDialog();
+                                    frmSaidaAutorizacao.Dispose();
 
-                                long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
-                                frmSaidaAutorizacao.ShowDialog();
-                                frmSaidaAutorizacao.Dispose();
-
-                                
+                                }
                                 if (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No)
                                     GerenciadorSaida.GetInstance(null).Remover(saida);
                             }
@@ -197,23 +200,16 @@ namespace Telas
                                     // imprimir cupom fiscal
                                     if ((!temPagamentoCrediario) && (saida.TotalAVista > 0))
                                     {
-                                        bool haPagamentoCartao = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento == FormaPagamento.CARTAO).Count() > 0;
-                                        List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+                                        List<SaidaProduto> listaSaidaProdutoOutros = (listaSaidaProduto == null) ? null : listaSaidaProduto.Where(sp => sp.CodCST.EndsWith(Cst.ST_OUTRAS)).ToList();
+                                        if ((listaSaidaProduto != null) && (listaSaidaProdutoOutros.Count < listaSaidaProduto.Count))
+                                        {
+                                            List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
-                                        //if (frmSaidaConfirma.GerarNFCe)
-                                        //{
                                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                                             FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
                                             frmSaidaAutorizacao.ShowDialog();
                                             frmSaidaAutorizacao.Dispose();
-                                        //}
-                                        //else
-                                        //{
-                                        //    foreach (SaidaPedido saidaPedido in listaSaidaPedido) {
-                                        //        GerenciadorSaida.GetInstance(null).AtualizarTipoDocumentoFiscal(saidaPedido.CodSaida, Saida.TIPO_DOCUMENTO_ECF);
-                                        //    }
-                                        //    GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.ECF, false, false);
-                                        //}
+                                        }
                                     }
                                 }
                             }
@@ -265,7 +261,7 @@ namespace Telas
         private void AtualizaValores()
         {
             totalRecebidoLabel.Text = saida.TotalPago.ToString("N2");
-            
+
             // Cálculo do troco em relação aos pagamento efetuados
             if (saida.Troco > 0)
             {
@@ -337,8 +333,8 @@ namespace Telas
             {
                 ExcluirPagamento(sender, e);
             }
-            
-            
+
+
             else if (e.KeyCode == Keys.Enter)
             {
                 if (codClienteComboBox.Focused)
@@ -349,7 +345,7 @@ namespace Telas
                 {
                     codProfissionalComboBox_Leave(sender, e);
                 }
-                
+
                 e.Handled = true;
                 SendKeys.Send("{tab}");
             }
@@ -378,13 +374,13 @@ namespace Telas
             }
         }
 
-        
+
         private void codTipoSaidaComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.Parse(e.KeyChar.ToString().ToUpper());
         }
 
-              
+
         private void totalPagarTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
@@ -401,7 +397,7 @@ namespace Telas
 
         private void codProfissionalComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codProfissionalComboBox, EstadoFormulario.INSERIR, profissionalBindingSource, true, false); 
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codProfissionalComboBox, EstadoFormulario.INSERIR, profissionalBindingSource, true, false);
             codSaidaTextBox_Leave(sender, e);
         }
 
@@ -411,7 +407,7 @@ namespace Telas
             codSaidaTextBox_Leave(sender, e);
         }
 
-        
+
         private void descontoTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.NumeroCom2CasasDecimais((TextBox)sender);
@@ -421,7 +417,7 @@ namespace Telas
 
         private void calcularDesconto()
         {
-            saida = (Saida) saidaBindingSource.Current;
+            saida = (Saida)saidaBindingSource.Current;
             const decimal ERRO = 0.02M;
             saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
             decimal totalCalculado = saida.Total * (1 - (saida.Desconto / 100));
@@ -440,12 +436,13 @@ namespace Telas
                 codFormaPagamentoComboBox.Focus();
                 throw new TelaException("Uma forma de pagamento válida precisa ser selecionada.");
             }
-            else {
+            else
+            {
                 Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
                 Int32 codCliente = Convert.ToInt32(codClienteComboBox.SelectedValue);
 
                 if (((codFormaPagamento == FormaPagamento.BOLETO) || (codFormaPagamento == FormaPagamento.CHEQUE) ||
-                (codFormaPagamento== FormaPagamento.CREDIARIO)) && (codCliente == Global.CLIENTE_PADRAO) )
+                (codFormaPagamento == FormaPagamento.CREDIARIO)) && (codCliente == Global.CLIENTE_PADRAO))
                 {
                     codFormaPagamentoComboBox.Focus();
                     codFormaPagamentoComboBox.SelectedIndex = 0;
@@ -460,10 +457,10 @@ namespace Telas
             {
                 codCartaoComboBox.Focus();
                 throw new TelaException("Um cartão de crédito válido precisa ser selecionado.");
-            }            
+            }
         }
 
-        
+
         private void codContaBancoComboBox_Leave(object sender, EventArgs e)
         {
             if (codContaBancoComboBox.SelectedValue == null)
@@ -489,7 +486,7 @@ namespace Telas
 
         private void codClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ( codClienteComboBox.SelectedValue != null) 
+            if (codClienteComboBox.SelectedValue != null)
             {
                 cpf_CnpjTextBox.Enabled = Convert.ToInt64(codClienteComboBox.SelectedValue.ToString()) == 1;
             }

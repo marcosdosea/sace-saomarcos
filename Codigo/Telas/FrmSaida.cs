@@ -182,11 +182,12 @@ namespace Telas
             saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             if (saida.TipoSaida == Saida.TIPO_VENDA) 
             {
-                if (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    GerenciadorSaida.GetInstance(null).Remover(saida);
-                    codSaidaTextBox_TextChanged(sender, e);
-                }
+                throw new TelaException("Pedido possui Nota Fiscal AUTORIZADA. Para ele ser editado é necessário CANCELAR a nota.");
+                // if (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //{
+                //    GerenciadorSaida.GetInstance(null).Remover(saida);
+                //    codSaidaTextBox_TextChanged(sender, e);
+                //}
             } 
             else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)  
             {
@@ -591,6 +592,7 @@ namespace Telas
         {
             Cursor.Current = Cursors.WaitCursor;
             saida = (Saida)saidaBindingSource.Current;
+            
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
                 habilitaBotoes(true);
@@ -630,13 +632,14 @@ namespace Telas
                 }
                 else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
                 {
-                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
+                    List<SaidaProduto> listaSaidaProduto = (List<SaidaProduto>) saidaProdutoBindingSource.DataSource;
+                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, listaSaidaProduto);
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                 {
-                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida);
+                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
                 }
@@ -696,6 +699,7 @@ namespace Telas
                 frmSaidaNF.Dispose();
                 //throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e de a partir de um ORÇAMENTO OU PRÉ REMESSA. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");
             }
+            codSaidaTextBox_TextChanged(sender, e);
         }
 
         private void btnCredito_Click(object sender, EventArgs e)
