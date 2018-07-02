@@ -329,13 +329,18 @@ namespace Telas
                 GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
                 GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE) )
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
-            }
-            
+            } 
+            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+            {
+                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
+                //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+            }  
             
             //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO, NFCE_SERVIDOR, NFCE_ONLINE);
             //GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosNFCE();

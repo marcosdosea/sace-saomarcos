@@ -192,20 +192,23 @@ namespace Negocio
                             {
                                 saida.nfe = "NFCe";
                                 saida.pedidoGerado = "C" + nfe.numeroSequenciaNFe;
-                                saida.codTipoSaida = Saida.TIPO_VENDA;
+                                if (saida.codTipoSaida.Equals(Saida.TIPO_PRE_VENDA)) 
+                                    saida.codTipoSaida = Saida.TIPO_VENDA;
                             }
                             else
                             {
                                 saida.nfe = "NFe";
                                 saida.pedidoGerado = "N" + nfe.numeroSequenciaNFe;
-                                saida.codTipoSaida = Saida.TIPO_VENDA;
+                                if (saida.codTipoSaida.Equals(Saida.TIPO_PRE_VENDA))
+                                    saida.codTipoSaida = Saida.TIPO_VENDA;
                             }
                         } 
                         else 
                         {
                             saida.nfe = "";
                             saida.pedidoGerado = "";
-                            saida.codTipoSaida = Saida.TIPO_PRE_VENDA;
+                            if (saida.codTipoSaida.Equals(Saida.TIPO_VENDA))
+                                saida.codTipoSaida = Saida.TIPO_PRE_VENDA;
                         }
                         
                     }

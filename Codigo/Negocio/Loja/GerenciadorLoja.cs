@@ -98,7 +98,7 @@ namespace Negocio
                 else
                 {
                     numero = new System.Data.Objects.ObjectParameter("numeroNFe", typeof(Int32));
-                    saceEntities.IncrementarNFCe(codLoja, numero);
+                    saceEntities.IncrementarNFe(codLoja, numero);
                 }
                 if (numero != null && numero.Value != null)
                     return Int32.Parse(numero.Value.ToString());

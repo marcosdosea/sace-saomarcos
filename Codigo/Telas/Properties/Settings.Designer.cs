@@ -52,7 +52,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Servidor")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
         public string ServidorNfeDeposito {
             get {
                 return ((string)(this["ServidorNfeDeposito"]));

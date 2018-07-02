@@ -15,6 +15,7 @@ namespace Dominio
         public const string SITUACAO_NAO_VALIDADA = "N";
         public const string SITUACAO_REJEITADA = "R";
         public const string SITUACAO_COMPLEMENTAR_IMPOSTO = "O";
+        public const string SITUACAO_DEVOLUCAO_TOTAL = "T";
 
         public const string MODELO_NFE = "55";
         public const string MODELO_NFCE = "65";
@@ -75,6 +76,8 @@ namespace Dominio
                     return "NÃO VALIDADA";
                 else if (SituacaoNfe.Equals(SITUACAO_REJEITADA))
                     return "REJEITADA";
+                else if (SituacaoNfe.Equals(SITUACAO_DEVOLUCAO_TOTAL))
+                    return "DEVOLUCAO TOTAL";
                 else 
                     return "SOLICITADA";
             }

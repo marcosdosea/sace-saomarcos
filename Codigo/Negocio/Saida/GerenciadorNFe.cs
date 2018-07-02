@@ -1539,7 +1539,7 @@ namespace Negocio
 
             decimal totalDescontoDistribuirPreco = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal) - totalSaidas;
             decimal totalDescontoCalculado = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal) - saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) + totalDescontoDevolucoes;
-            if (totalDescontoCalculado == totalDescontoDistribuirPreco)
+            if ((totalDescontoCalculado == totalDescontoDistribuirPreco) && (totalDescontoDevolucoes == 0))
             {
                 foreach (SaidaProduto saidaProduto in saidaProdutos)
                 {
@@ -1547,7 +1547,7 @@ namespace Negocio
                     saidaProduto.ValorDesconto = 0;
                 }
             }
-            else if (totalDescontoDistribuirPreco == 0)
+            else if ((totalDescontoDistribuirPreco == 0) && (totalDescontoDevolucoes == 0))
             {
                 foreach (SaidaProduto saidaProduto in saidaProdutos)
                 {
