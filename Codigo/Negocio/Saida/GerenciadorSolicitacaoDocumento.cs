@@ -352,13 +352,22 @@ namespace Negocio
                 {
                     tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
                     List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
-                    int codLoja = listaSolicitacaoSaida.FirstOrDefault().tb_saida.codLojaOrigem;
-                    if (codLoja.Equals(Global.LOJA_PADRAO) || nomeComputador.Equals(servidorNfeDeposito)) {
-                        List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
+                    if (listaSolicitacaoSaida.Count > 0)
+                    {
+                        int codLoja = listaSolicitacaoSaida.FirstOrDefault().tb_saida.codLojaOrigem;
+                        if (codLoja.Equals(Global.LOJA_PADRAO) || nomeComputador.Equals(servidorNfeDeposito))
+                        {
+                            List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
+                            repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
+                            repSolicitacao2.SaveChanges();
+
+                            GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE);
+                        }
+                    }
+                    else
+                    {
                         repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);
                         repSolicitacao2.SaveChanges();
-                        
-                        GerenciadorNFe.GetInstance().EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE);
                     }
                 }
             }

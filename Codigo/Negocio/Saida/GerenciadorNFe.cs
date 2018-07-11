@@ -494,6 +494,17 @@ namespace Negocio
 
                         if (nfeControle != null)
                         {
+                            if (files[i].Name.Contains("-sit.err"))
+                            {
+                                files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
+                                files[i].Delete();
+                            }
+                            if (files[i].Name.Contains("nfe-ret.xml"))
+                            {
+                                files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
+                                nfeControle.SituacaoNfe = NfeControle.SITUACAO_CONTINGENCIA_OFFLINE;
+                                files[i].Delete();
+                            }
                             if (files[i].Name.Contains("nfe.err"))
                             {
                                 files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
@@ -535,10 +546,18 @@ namespace Negocio
                 FileInfo[] files = Dir.GetFiles(arquivoRetornoEnvioNfe, SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < files.Length; i++)
                 {
-                    // apenas exclui o arquivo texto que não será utilizado  
+                    // nesse momento deve enviar nfce em ambiente de contigencia 
                     if (files[i].Name.Contains("-rec.err"))
                     {
-                        // não processa nesse método
+                        string numeroLote = files[i].Name.Substring(0, 15);
+                        NfeControle nfeControle = ObterPorLote(numeroLote).LastOrDefault();
+
+                        Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).FirstOrDefault();
+                        if (loja != null)
+                            files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
+                        files[i].Delete();
+                        if (nfeControle != null)
+                            EmitirNfeContigencia(nfeControle, loja);
                     }
                     else if (files[i].Name.Contains("-pro-rec."))
                     {
@@ -583,6 +602,88 @@ namespace Negocio
             return numeroRecibo;
         }
 
+        private void EmitirNfeContigencia(NfeControle nfeControle, Loja loja)
+        {
+            // Habilitar uninfe para contigencia
+            //StreamWriter arqHabilitaContingencia = new StreamWriter(loja.PastaNfeEnvio+"uninfe-alt-con.txt", false, Encoding.ASCII);
+            //arqHabilitaContingencia.WriteLine("tpEmis|9");
+            //arqHabilitaContingencia.Close();
+
+            // Verifica contingencia habilitada no uninfe
+            bool alterouConfiguracaoComSucesso = true; //alterouConfiguracaoSucesso(loja);
+
+            if (alterouConfiguracaoComSucesso)
+            {
+                XmlDocument xmldocRetorno = new XmlDocument();
+                xmldocRetorno.Load(loja.PastaNfeEnviado + nfeControle.Chave + "-nfe.xml");
+                XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+                XmlSerializer serializer = new XmlSerializer(typeof(TNFe));
+                TNFe nfe = (TNFe)serializer.Deserialize(xmlReaderRetorno);
+
+                nfe.infNFe.ide.tpEmis = TNFeInfNFeIdeTpEmis.Item9; // contingencia
+                
+                MemoryStream memStream = new MemoryStream();
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+                serializer.Serialize(memStream, nfe, ns);
+
+                memStream.Position = 0;
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(memStream);
+                xmlDoc.Save(loja.PastaNfeValidar + nfeControle.Chave + "-nfe.xml");
+            }
+
+            // Desabilitar uninfe para contigencia
+            //StreamWriter arqDesabilitaContingencia = new StreamWriter(loja.PastaNfeEnvio + "uninfe-alt-con.txt", false, Encoding.ASCII);
+            //arqDesabilitaContingencia.WriteLine("tpEmis|1");
+            //arqDesabilitaContingencia.Close();
+
+            // Verifica contingencia habilitada
+            //alterouConfiguracaoComSucesso = alterouConfiguracaoSucesso(loja);
+
+            // Se XML foi validado habilita para impressao
+            //DirectoryInfo pastaRetorno = new DirectoryInfo(loja.PastaNfeValidado);
+            //if (pastaRetorno.Exists)
+            //{
+            //    // Busca automaticamente todos os arquivos em todos os subdiretórios
+            //    FileInfo[] files = pastaRetorno.GetFiles(nfeControle.Chave + "-nfe.xml", SearchOption.TopDirectoryOnly);
+            //    if (files.Length > 0)
+            //    {
+            //        nfeControle.SituacaoNfe = NfeControle.SITUACAO_CONTINGENCIA_OFFLINE;
+            //        Atualizar(nfeControle);
+            //    }
+            //}
+        }
+
+        private static bool alterouConfiguracaoSucesso(Loja loja)
+        {
+            bool alterouConfiguracaoComSucesso = false;
+            DirectoryInfo pastaRetorno = new DirectoryInfo(loja.PastaNfeRetorno);
+            if (pastaRetorno.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                FileInfo[] Files = pastaRetorno.GetFiles("uninfe-ret-alt-con.txt", SearchOption.TopDirectoryOnly);
+                foreach (FileInfo file in Files)
+                {
+                    try
+                    {
+                        string linha;
+                        StreamReader reader = new StreamReader(file.FullName);
+                        if ((linha = reader.ReadLine()) != null)
+                        {
+                            alterouConfiguracaoComSucesso = linha.EndsWith("cStat|1");
+                        }
+                        reader.Close();
+                        file.Delete();
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                }
+            }
+            return alterouConfiguracaoComSucesso;
+        }
+
         public string RecuperarResultadoProcessamentoNfe(string pastaNfeRetorno)
         {
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
@@ -600,7 +701,10 @@ namespace Negocio
 
                     if (files[i].Name.Contains("-pro-rec.err"))
                     {
-                        //TODO: faz nada
+                        Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).FirstOrDefault();
+                        if (loja != null)
+                            files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
+                        files[i].Delete();        
                     }
                     else if (files[i].Name.Contains("-pro-rec.txt"))
                     {
@@ -708,7 +812,6 @@ namespace Negocio
 
         public void EnviarNFE(List<tb_solicitacao_saida> listaSolicitacaoSaida, List<tb_solicitacao_pagamento> listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao modelo, tb_solicitacao_documento solicitacao)
         {
-
             Saida saida = GerenciadorSaida.GetInstance(null).Obter(listaSolicitacaoSaida.FirstOrDefault().codSaida);
 
             // Clientes que não pode ser impresso CFe
@@ -1048,8 +1151,11 @@ namespace Negocio
                                 prod.xProd = produto.NomeProdutoFabricante.Trim();
                             else
                             {
-                                if (Global.AMBIENTE_NFE.Equals("2")) //homologação
+                                if (Global.AMBIENTE_NFE.Equals("2"))
+                                {//homologação
                                     prod.xProd = "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+                                    prod.CFOP = TCfop.Item5102;
+                                }
                                 else
                                     prod.xProd = produto.Nome.Trim();
                             }
@@ -1087,7 +1193,6 @@ namespace Negocio
                             if (saida.ValorFrete > 0)
                                 prod.vFrete = formataValorNFe(saida.ValorFrete / saida.TotalAVista * saidaProduto.SubtotalAVista);
                             TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
-
                             if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                             {
                                 //TNFeInfNFeDetImpostoICMSICMSSN400 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN400();
@@ -1115,7 +1220,7 @@ namespace Negocio
                             //    icms102.orig = Torig.Item0;
                             //    icms.Item = icms102;
                             //}
-                            else if (saidaProduto.EhTributacaoIntegral)
+                            else if ( (saidaProduto.EhTributacaoIntegral) || Global.AMBIENTE_NFE.Equals("2")) //homologação
                             {
                                 TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                                 icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item102;
@@ -1555,20 +1660,20 @@ namespace Negocio
                     saidaProduto.ValorDesconto = 0;
                 }
             }
-            else if (totalDescontoDistribuirPreco > totalDescontoCalculado)
-            {
-                foreach (SaidaProduto saidaProduto in saidaProdutos)
-                    saidaProduto.ValorProdutoNota = saidaProduto.ValorVendaAVista;
-
-                totalDescontoDistribuirPreco = totalDescontoDistribuirPreco - totalDescontoCalculado + totalDescontoDevolucoes;
-                decimal fatorDesconto = totalDescontoDistribuirPreco / totalSaidas;
-                saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
-            }
             else if (saidaProdutos.Sum(sp => sp.SubtotalAVista) == totalSaidas)
             {
                 foreach (SaidaProduto sp in saidaProdutos)
                     sp.ValorProdutoNota = sp.ValorVendaAVista;
                 totalDescontoDistribuirPreco = Math.Abs(saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.SubtotalAVista));
+                decimal fatorDesconto = totalDescontoDistribuirPreco / Math.Abs(saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista)); 
+                saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
+            }
+            else if (totalDescontoDistribuirPreco > totalDescontoCalculado)
+            {
+                foreach (SaidaProduto saidaProduto in saidaProdutos)
+                    saidaProduto.ValorProdutoNota = saidaProduto.ValorVendaAVista;
+
+                totalDescontoDistribuirPreco = totalDescontoDistribuirPreco - totalDescontoCalculado; //+ totalDescontoDevolucoes;
                 decimal fatorDesconto = totalDescontoDistribuirPreco / totalSaidas;
                 saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
             }
@@ -2021,7 +2126,10 @@ namespace Negocio
                     }
                     else if (files[i].Name.Contains("-sit.err"))
                     {
-                        files[i].Delete();
+                        Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).FirstOrDefault();
+                        if (loja != null)
+                            files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
+                        files[i].Delete();        
                     }
                     else
                     {
@@ -2404,51 +2512,49 @@ namespace Negocio
                 IEnumerable<tb_imprimir_documento> listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
                 if (listaImprimir != null && listaImprimir.Count() > 0)
                 {
-                    tb_imprimir_documento documento = listaImprimir.FirstOrDefault();
-                    GerenciadorImprimirDocumento.GetInstance().Remover(documento.codImprimir);
-                    nfeControle = Obter((int)documento.codDocumento).FirstOrDefault();
-
-
-                    if ((nfeControle != null) && nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                    foreach (tb_imprimir_documento documento in listaImprimir)
                     {
-                        //Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
-                        Loja loja;
-                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
-                            loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
-                        else
-                        {
-                            SaidaPesquisa saidaPesquisa = GerenciadorSaida.GetInstance(null).ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
-                            Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
-                            loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                        }
+                        GerenciadorImprimirDocumento.GetInstance().Remover(documento.codImprimir);
+                        nfeControle = Obter((int)documento.codDocumento).FirstOrDefault();
 
-                        try
+                        if ((nfeControle != null) && (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) || nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE)))
                         {
-                            DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
-
-                            Process unidanfe = new Process();
-                            unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
-                            unidanfe.StartInfo.Arguments = " arquivo=\"" + loja.PastaNfeAutorizados
-                                + dataEmissao.Year
-                                + dataEmissao.Month.ToString("00")
-                                + dataEmissao.Day.ToString("00") + "\\"
-                                + nfeControle.Chave + "-nfe.xml\"";
-                            if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
-                                unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
+                            //Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                            Loja loja;
+                            if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                                loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
                             else
-                                unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=padrao";
-                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                            {
+                                SaidaPesquisa saidaPesquisa = GerenciadorSaida.GetInstance(null).ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
+                                Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
+                                loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                            }
 
-                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
-                            unidanfe.Start();
+                            try
+                            {
+                                DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
+                                string pastaNfe = loja.PastaNfeAutorizados + dataEmissao.Year
+                                    + dataEmissao.Month.ToString("00")
+                                    + dataEmissao.Day.ToString("00") + "\\";
+                                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE))
+                                    pastaNfe = loja.PastaNfeValidado;
 
-                            // 
-                            nfeControle.CodSolicitacao = 0;
-                            GerenciadorNFe.GetInstance().Atualizar(nfeControle);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.", ex);
+                                Process unidanfe = new Process();
+                                unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
+                                unidanfe.StartInfo.Arguments = " arquivo=\"" + pastaNfe
+                                    + nfeControle.Chave + "-nfe.xml\"";
+                                if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
+                                    unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
+                                else
+                                    unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=1 m=1 i=padrao";
+                                    //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                                    //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                                unidanfe.Start();
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.", ex);
+                            }
                         }
                     }
                 }

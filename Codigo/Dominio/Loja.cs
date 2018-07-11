@@ -16,6 +16,8 @@ namespace Dominio
         public int CodMunicipioIBGE { get; set; }
         public string Estado { get; set; }
         public string NomeServidorNfe { get; set; }
+        public string PastaNfeValidar { get; set; }
+        public string PastaNfeValidado { get; set; }
         
         private string pastaNfeEnvio;
         public string PastaNfeEnvio 

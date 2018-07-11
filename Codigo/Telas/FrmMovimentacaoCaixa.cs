@@ -21,8 +21,9 @@ namespace Telas
             InitializeComponent();
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             dateTimePickerFinal.Value = DateTime.Now;
-            dateTimePickerInicial.Value = DateTime.Now;            
+            dateTimePickerInicial.Value = DateTime.Now;
             ObterMovimentacaoPeriodo();
+
         }
 
         /// <summary>
@@ -33,8 +34,8 @@ namespace Telas
             DateTime dataInicial = dateTimePickerInicial.Value.Date;
             DateTime dataFinal = dateTimePickerFinal.Value.Date;
             dataFinal = dataFinal.AddMinutes(24 * 60);
-            
-            int codContaBanco = (int) codContaBancoComboBox.SelectedValue;
+
+            int codContaBanco = (int)codContaBancoComboBox.SelectedValue;
 
             IEnumerable<TotaisMovimentacaoConta> totaisMovimentacaoConta = GerenciadorMovimentacaoConta.GetInstance(null).ObterTotalMovimentacaoContaPeriodo(codContaBanco, dataInicial, dataFinal);
             totaisMovimentacaoContaBindingSource.DataSource = totaisMovimentacaoConta;
@@ -48,7 +49,7 @@ namespace Telas
                 totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisSaidaBindingSource.DataSource = totaisSaida;
-            
+
             textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
             IEnumerable<VendasCartao> vendasCartao = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasCartao(dataInicial, dataFinal);
@@ -61,7 +62,7 @@ namespace Telas
 
             totalCreditoRede.Text = redeCredito.Sum(t => t.TotalCartao).ToString("N2");
             totalDebitoRede.Text = redeDebito.Sum(t => t.TotalCartao).ToString("N2");
-            totalRede.Text = (redeCredito.Sum(t => t.TotalCartao) + redeDebito.Sum(t => t.TotalCartao)).ToString("N2"); 
+            totalRede.Text = (redeCredito.Sum(t => t.TotalCartao) + redeDebito.Sum(t => t.TotalCartao)).ToString("N2");
             totalCreditoBanese.Text = baneseCredito.Sum(t => t.TotalCartao).ToString("N2");
         }
 

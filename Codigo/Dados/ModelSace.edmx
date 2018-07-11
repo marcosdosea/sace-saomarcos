@@ -546,7 +546,7 @@
           <Key>
             <PropertyRef Name="codImprimir" />
           </Key>
-          <Property Name="codImprimir" Type="bigint" Nullable="false" />
+          <Property Name="codImprimir" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="tipoDocumento" Type="enum" Nullable="false" />
           <Property Name="codDocumento" Type="bigint" Nullable="false" />
           <Property Name="hostSolicitante" Type="varchar" Nullable="false" MaxLength="45" />
@@ -568,6 +568,8 @@
           <Property Name="pastaNfeEspelho" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="numeroSequenciaNfeAtual" Type="int" Nullable="false" />
           <Property Name="numeroSequencialNFCeAtual" Type="int" Nullable="false" />
+          <Property Name="pastaNfeValidar" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="pastaNfeValidado" Type="varchar" Nullable="false" MaxLength="150" />
         </EntityType>
         <EntityType Name="tb_movimentacao_conta">
           <Key>
@@ -3138,6 +3140,8 @@
           <Property Type="Int32" Name="numeroSequencialNFCeAtual" Nullable="false" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.fk_tb_saida_tb_loja1" FromRole="tb_loja" ToRole="tb_saida" />
           <NavigationProperty Name="tb_nfe" Relationship="SaceModel.fk_tb_nfe_tb_loja1" FromRole="tb_loja" ToRole="tb_nfe" />
+          <Property Type="String" Name="pastaNfeValidar" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="pastaNfeValidado" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_tb_loja_tb_pessoa1">
           <End Type="SaceModel.PessoaE" Role="PessoaE" Multiplicity="1" />
@@ -3946,6 +3950,8 @@
           <EntitySetMapping Name="tb_loja">
             <EntityTypeMapping TypeName="SaceModel.tb_loja">
               <MappingFragment StoreEntitySet="tb_loja">
+                <ScalarProperty Name="pastaNfeValidado" ColumnName="pastaNfeValidado" />
+                <ScalarProperty Name="pastaNfeValidar" ColumnName="pastaNfeValidar" />
                 <ScalarProperty Name="numeroSequencialNFCeAtual" ColumnName="numeroSequencialNFCeAtual" />
                 <ScalarProperty Name="numeroSequenciaNfeAtual" ColumnName="numeroSequenciaNfeAtual" />
                 <ScalarProperty Name="pastaNfeEspelho" ColumnName="pastaNfeEspelho" />

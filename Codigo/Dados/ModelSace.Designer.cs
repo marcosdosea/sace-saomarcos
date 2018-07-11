@@ -11150,7 +11150,9 @@ namespace Dados
         /// <param name="pastaNfeEspelho">Initial value of the pastaNfeEspelho property.</param>
         /// <param name="numeroSequenciaNfeAtual">Initial value of the numeroSequenciaNfeAtual property.</param>
         /// <param name="numeroSequencialNFCeAtual">Initial value of the numeroSequencialNFCeAtual property.</param>
-        public static tb_loja Createtb_loja(global::System.Int32 codLoja, global::System.String nome, global::System.Int64 codPessoa, global::System.String nomeServidorNfe, global::System.String enderecoServidorNfe, global::System.String pastaNfeEnvio, global::System.String pastaNfeEnviado, global::System.String pastaNfeRetorno, global::System.String pastaNfeErro, global::System.String pastaNfeAutorizados, global::System.String pastaNfeEspelho, global::System.Int32 numeroSequenciaNfeAtual, global::System.Int32 numeroSequencialNFCeAtual)
+        /// <param name="pastaNfeValidar">Initial value of the pastaNfeValidar property.</param>
+        /// <param name="pastaNfeValidado">Initial value of the pastaNfeValidado property.</param>
+        public static tb_loja Createtb_loja(global::System.Int32 codLoja, global::System.String nome, global::System.Int64 codPessoa, global::System.String nomeServidorNfe, global::System.String enderecoServidorNfe, global::System.String pastaNfeEnvio, global::System.String pastaNfeEnviado, global::System.String pastaNfeRetorno, global::System.String pastaNfeErro, global::System.String pastaNfeAutorizados, global::System.String pastaNfeEspelho, global::System.Int32 numeroSequenciaNfeAtual, global::System.Int32 numeroSequencialNFCeAtual, global::System.String pastaNfeValidar, global::System.String pastaNfeValidado)
         {
             tb_loja tb_loja = new tb_loja();
             tb_loja.codLoja = codLoja;
@@ -11166,6 +11168,8 @@ namespace Dados
             tb_loja.pastaNfeEspelho = pastaNfeEspelho;
             tb_loja.numeroSequenciaNfeAtual = numeroSequenciaNfeAtual;
             tb_loja.numeroSequencialNFCeAtual = numeroSequencialNFCeAtual;
+            tb_loja.pastaNfeValidar = pastaNfeValidar;
+            tb_loja.pastaNfeValidado = pastaNfeValidado;
             return tb_loja;
         }
 
@@ -11487,6 +11491,54 @@ namespace Dados
         private global::System.Int32 _numeroSequencialNFCeAtual;
         partial void OnnumeroSequencialNFCeAtualChanging(global::System.Int32 value);
         partial void OnnumeroSequencialNFCeAtualChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String pastaNfeValidar
+        {
+            get
+            {
+                return _pastaNfeValidar;
+            }
+            set
+            {
+                OnpastaNfeValidarChanging(value);
+                ReportPropertyChanging("pastaNfeValidar");
+                _pastaNfeValidar = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("pastaNfeValidar");
+                OnpastaNfeValidarChanged();
+            }
+        }
+        private global::System.String _pastaNfeValidar;
+        partial void OnpastaNfeValidarChanging(global::System.String value);
+        partial void OnpastaNfeValidarChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String pastaNfeValidado
+        {
+            get
+            {
+                return _pastaNfeValidado;
+            }
+            set
+            {
+                OnpastaNfeValidadoChanging(value);
+                ReportPropertyChanging("pastaNfeValidado");
+                _pastaNfeValidado = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("pastaNfeValidado");
+                OnpastaNfeValidadoChanged();
+            }
+        }
+        private global::System.String _pastaNfeValidado;
+        partial void OnpastaNfeValidadoChanging(global::System.String value);
+        partial void OnpastaNfeValidadoChanged();
 
         #endregion
 

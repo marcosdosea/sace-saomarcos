@@ -53,8 +53,12 @@ namespace Telas
                 if (MessageBox.Show("Confirma REMESSA para DEPÓSITO?", "Confirmar Remessa", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null, null);
-
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
+                    listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
+                    List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
+                    listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();
@@ -65,8 +69,12 @@ namespace Telas
                 if (MessageBox.Show("Confirma RETORNO de DEPÓSITO FECHADO?", "Confirmar Retorno", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null, null);
-
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
+                    listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
+                    List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
+                    listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();

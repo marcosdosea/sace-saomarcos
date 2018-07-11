@@ -133,7 +133,7 @@ namespace Telas
                 if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF)
                 {
                     Cursor.Current = Cursors.Default;
-                    throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se algum cupom referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
+                    throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se alguma NFe referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
                 }
 
                 if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO) || (formaPagamento.Equals(FormaPagamento.CARTAO) && podeImprimirCF))
@@ -161,7 +161,7 @@ namespace Telas
                         List<MovimentacaoConta> listaMovimentacaoConta = (List<MovimentacaoConta>) movimentacaoContaBindingSource.DataSource;
                         GerenciadorMovimentacaoConta.GetInstance(null).Inserir(movimentacao, listaContas, listaMovimentacaoConta);
                         Cursor.Current = Cursors.Default;
-                        if (podeImprimirCF && MessageBox.Show("Deseja imprimir cupom fiscal das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (podeImprimirCF && MessageBox.Show("Deseja imprimir NFe/NFCe das contas selecionadas?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             SaidaPagamento saidaPagamento = new SaidaPagamento();
                             FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
@@ -174,7 +174,7 @@ namespace Telas
 
 
                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                             frmSaidaAutorizacao.ShowDialog();
                             frmSaidaAutorizacao.Dispose();
 
@@ -215,7 +215,7 @@ namespace Telas
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
 
                         long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                         frmSaidaAutorizacao.ShowDialog();
                         frmSaidaAutorizacao.Dispose();
 
@@ -270,44 +270,43 @@ namespace Telas
         private void btnCFNfe_Click(object sender, EventArgs e)
         {
             string pedidoGerado = contasPessoaDataGridView.SelectedRows[0].Cells[4].Value.ToString().Trim();
+            List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
+            for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
+            {
+                long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //pre-venda
+                decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //total a vista
+                SaidaPedido saidaPedido = new SaidaPedido() { CodSaida = codSaidaTemp, TotalAVista = totalAVistaTemp };
+                listaSaidaPedido.Add(saidaPedido);
+            }
 
-            if (!pedidoGerado.Trim().Equals(""))
+            decimal total = Convert.ToDecimal(totalContasTextBox.Text);
+            decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
+
+            SaidaPagamento saidaPagamento = new SaidaPagamento();
+            FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+            saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
+            saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
+            saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
+            saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
+            saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
+            List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>() { saidaPagamento };
+
+            if (!pedidoGerado.Trim().Equals("") || (pessoa.ImprimirCF))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
 
-                decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
-                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+                //decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
+                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }
             else
             {
-
-                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
-                for (int i = contasPessoaDataGridView.SelectedRows.Count - 1; i >= 0; i--)
+                if (MessageBox.Show("Confirma emisssão da NFe das Contas Selecionadas?", "Confirmar Impressão NFe/NFCe", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    long codSaidaTemp = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[i].Cells[1].Value.ToString()); //pre-venda
-                    decimal totalAVistaTemp = Convert.ToDecimal(contasPessoaDataGridView.SelectedRows[i].Cells[9].Value.ToString()); //total a vista
-                    SaidaPedido saidaPedido = new SaidaPedido() {CodSaida = codSaidaTemp, TotalAVista=totalAVistaTemp};
-                    listaSaidaPedido.Add(saidaPedido);
-                }
-
-                decimal total = Convert.ToDecimal(totalContasTextBox.Text);
-                decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
-
-                if (MessageBox.Show("Confirma emisssão do Cupom Fiscal das Contas Selecionadas?", "Confirmar Impressão Cupom Fiscal", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    SaidaPagamento saidaPagamento = new SaidaPagamento();
-                    FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
-                    saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
-                    saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
-                    saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
-                    saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
-                    saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
-                   
-                    long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, new List<SaidaPagamento>() { saidaPagamento }, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                    long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
                 }
@@ -656,7 +655,7 @@ namespace Telas
             {
                 if (!cupomFiscal.Equals(contasPessoaDataGridView.SelectedRows[i].Cells[4].Value.ToString()))//cupom fiscal
                 {
-                    throw new TelaException("Não é possível associar boletos a cupons fiscais distintos ou pedidos que não foram tirados o cupom fiscal.");
+                    throw new TelaException("Não é possível associar boletos a NFe distintas ou pedidos que não foram tiradas a NFe.");
                 }
             }
 

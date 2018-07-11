@@ -273,6 +273,41 @@ namespace Negocio
             return GetQuery().Where(conta => conta.CodSaida == codSaida).ToList();
         }
 
+
+        /// <summary>
+        /// Obtém os dados da conta pela saída
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns>código da saida</returns>
+        public IEnumerable<Conta> ObterPorNfe(string notaFiscal)
+        {
+            var query = from conta in saceContext.ContaSet
+                        join planoConta in saceContext.PlanoContaSet on conta.codPlanoConta equals planoConta.codPlanoConta
+                        join situacaoConta in saceContext.SituacaoContaSet on conta.codSituacao equals situacaoConta.codSituacao
+                        join saida in saceContext.tb_saida on conta.codSaida equals saida.codSaida
+                        where saida.pedidoGerado.Equals(notaFiscal)
+                        orderby conta.codConta
+                        select new Conta
+                        {
+                            CodConta = conta.codConta,
+                            CodEntrada = (long)conta.codEntrada,
+                            CodPagamento = conta.codPagamento,
+                            CodPessoa = conta.codPessoa,
+                            CF = saida.pedidoGerado,
+                            CodPlanoConta = conta.codPlanoConta,
+                            CodSaida = (long)conta.codSaida,
+                            CodSituacao = conta.codSituacao,
+                            DescricaoSituacao = situacaoConta.descricaoSituacao,
+                            DataVencimento = conta.dataVencimento,
+                            Desconto = conta.desconto,
+                            Observacao = conta.observacao,
+                            TipoConta = planoConta.codTipoConta,
+                            FormatoConta = conta.formatoConta,
+                            NumeroDocumento = conta.numeroDocumento,
+                            Valor = conta.valor
+                        };
+            return query;
+        }
     
         /// <summary>
         /// Obter contas por entrada e pagamento da entrada

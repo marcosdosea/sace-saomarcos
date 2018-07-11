@@ -16,6 +16,7 @@ namespace Dominio
         public const string SITUACAO_REJEITADA = "R";
         public const string SITUACAO_COMPLEMENTAR_IMPOSTO = "O";
         public const string SITUACAO_DEVOLUCAO_TOTAL = "T";
+        public const string SITUACAO_CONTINGENCIA_OFFLINE = "G";
 
         public const string MODELO_NFE = "55";
         public const string MODELO_NFCE = "65";
@@ -78,6 +79,8 @@ namespace Dominio
                     return "REJEITADA";
                 else if (SituacaoNfe.Equals(SITUACAO_DEVOLUCAO_TOTAL))
                     return "DEVOLUCAO TOTAL";
+                else if (SituacaoNfe.Equals(SITUACAO_CONTINGENCIA_OFFLINE))
+                    return "CONTINGENCIA OFF-LINE";
                 else 
                     return "SOLICITADA";
             }

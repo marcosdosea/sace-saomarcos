@@ -29,7 +29,8 @@ namespace Telas
 
         static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
         static string SERVIDOR_IMPRIMIR_NFE  = Properties.Settings.Default.ServidorImprimirNfce;
-        //static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
+        static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
+        static string SERVIDOR_IMPRIMIR_REDUZIDO2 = Properties.Settings.Default.ServidorImprimirReduzido2;
 
 
 
@@ -47,12 +48,36 @@ namespace Telas
             InitializeComponent();
         }
 
+        private static bool IsAppAlreadyRunning()
+        {
+
+            Process currentProcess = Process.GetCurrentProcess();
+
+            if (Process.GetProcessesByName(currentProcess.ProcessName).Any(p => p.Id != currentProcess.Id && !p.HasExited))
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+
        [STAThread]
         static void Main(string[] args)
         {
-            TratarException eh = new TratarException();
-            Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
-            Application.Run(new Principal());
+            if (IsAppAlreadyRunning() && nomeComputador.Equals(SERVIDOR_NFE))
+            {
+                MessageBox.Show("Esse computador é o AUTORIZADOR de NFE! Apenas uma instância do SACE pode ser aberta.");
+                Process.GetCurrentProcess().Kill();
+            }
+            else
+            {
+                TratarException eh = new TratarException();
+                Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
+                Application.Run(new Principal());
+            }
         }
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)
@@ -384,9 +409,18 @@ namespace Telas
 
         private void movimentaçãoDeCaixasContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoCaixa frmMovimentacaoCaixa = new FrmMovimentacaoCaixa();
-            frmMovimentacaoCaixa.ShowDialog();
-            frmMovimentacaoCaixa.Dispose();
+            DateTime agora = DateTime.Now;
+            if ((agora.Hour > 12) && (agora.Hour < 16))
+            {
+                MessageBox.Show("Funcionalidade indisponível após às 12:30 para processamento interno do SACE.");
+                this.Close();
+            }
+            else
+            {
+                FrmMovimentacaoCaixa frmMovimentacaoCaixa = new FrmMovimentacaoCaixa();
+                frmMovimentacaoCaixa.ShowDialog();
+                frmMovimentacaoCaixa.Dispose();
+            }
         }
 
         private void solicitaçõesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)

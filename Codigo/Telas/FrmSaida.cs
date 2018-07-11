@@ -694,7 +694,13 @@ namespace Telas
             //}
             else
             {
-                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida);
+                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
+                List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
+                
+                listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
+                listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
+                    
+                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
                 //throw new TelaException("Impossível imprimir um Cupom Fiscal ou NF-e de a partir de um ORÇAMENTO OU PRÉ REMESSA. Faça a edição do pedido e transforme-o numa PRÉ-VENDA.");

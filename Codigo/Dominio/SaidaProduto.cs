@@ -30,7 +30,7 @@ namespace Dominio
         public decimal SubtotalAVista
         {
             get { return ValorVendaAVista * Quantidade; }
-            set { ValorVendaAVista = value / Quantidade; }
+            set { ValorVendaAVista = (Quantidade != 0) ? value / Quantidade : 0; }
         }
 
         public DateTime DataValidade { get; set; }

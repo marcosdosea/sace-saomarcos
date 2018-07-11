@@ -154,6 +154,8 @@ namespace Negocio
                             PastaNfeErro = loja.pastaNfeErro,
                             PastaNfeEspelho = loja.pastaNfeEspelho,
                             PastaNfeRetorno = loja.pastaNfeRetorno,
+                            PastaNfeValidado = loja.pastaNfeValidado,
+                            PastaNfeValidar = loja.pastaNfeValidar,
                             Cnpj = loja.tb_pessoa.cpf_Cnpj,
                             CodMunicipioIBGE = loja.tb_pessoa.codMunicipiosIBGE,
                             Estado = loja.tb_pessoa.uf,
@@ -230,6 +232,8 @@ namespace Negocio
             _lojaE.pastaNfeErro = loja.PastaNfeErro;
             _lojaE.pastaNfeEspelho = loja.PastaNfeEspelho;
             _lojaE.pastaNfeRetorno = loja.PastaNfeRetorno;
+            _lojaE.pastaNfeValidar = loja.PastaNfeValidar;
+            _lojaE.pastaNfeValidado = loja.PastaNfeValidado;
             _lojaE.numeroSequenciaNfeAtual = loja.NumeroSequenciaNFeAtual;
             _lojaE.numeroSequencialNFCeAtual = loja.NumeroSequenciaNFCeAtual;
         }

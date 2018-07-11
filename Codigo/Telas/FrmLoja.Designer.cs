@@ -45,6 +45,8 @@
             System.Windows.Forms.Label numeroSequenciaNfeAtualLabel;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
+            System.Windows.Forms.Label pastaNfeValidadoLabel;
+            System.Windows.Forms.Label pastaNfeValidarLabel;
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -80,6 +82,8 @@
             this.pastaNfeRetornoTextBox = new System.Windows.Forms.TextBox();
             this.numeroSequenciaNfeAtualTextBox = new System.Windows.Forms.TextBox();
             this.numeroSequenciaNFCeAtual = new System.Windows.Forms.TextBox();
+            this.pastaNfeValidadoTextBox = new System.Windows.Forms.TextBox();
+            this.pastaNfeValidarTextBox = new System.Windows.Forms.TextBox();
             codLojaLabel = new System.Windows.Forms.Label();
             nomeLabel = new System.Windows.Forms.Label();
             codPessoaLabel = new System.Windows.Forms.Label();
@@ -95,6 +99,8 @@
             pastaNfeRetornoLabel = new System.Windows.Forms.Label();
             numeroSequenciaNfeAtualLabel = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
+            pastaNfeValidadoLabel = new System.Windows.Forms.Label();
+            pastaNfeValidarLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_lojaBindingNavigator)).BeginInit();
@@ -204,7 +210,7 @@
             // pastaNfeEspelhoLabel
             // 
             pastaNfeEspelhoLabel.AutoSize = true;
-            pastaNfeEspelhoLabel.Location = new System.Drawing.Point(279, 348);
+            pastaNfeEspelhoLabel.Location = new System.Drawing.Point(8, 348);
             pastaNfeEspelhoLabel.Name = "pastaNfeEspelhoLabel";
             pastaNfeEspelhoLabel.Size = new System.Drawing.Size(98, 13);
             pastaNfeEspelhoLabel.TabIndex = 34;
@@ -213,7 +219,7 @@
             // pastaNfeRetornoLabel
             // 
             pastaNfeRetornoLabel.AutoSize = true;
-            pastaNfeRetornoLabel.Location = new System.Drawing.Point(8, 348);
+            pastaNfeRetornoLabel.Location = new System.Drawing.Point(280, 348);
             pastaNfeRetornoLabel.Name = "pastaNfeRetornoLabel";
             pastaNfeRetornoLabel.Size = new System.Drawing.Size(98, 13);
             pastaNfeRetornoLabel.TabIndex = 35;
@@ -259,7 +265,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(309, 390);
+            this.btnSalvar.Location = new System.Drawing.Point(309, 440);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 4;
@@ -269,7 +275,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(9, 390);
+            this.btnBuscar.Location = new System.Drawing.Point(9, 440);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 0;
@@ -280,7 +286,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(390, 390);
+            this.btnCancelar.Location = new System.Drawing.Point(390, 440);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 5;
@@ -290,7 +296,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(84, 390);
+            this.btnNovo.Location = new System.Drawing.Point(84, 440);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 23);
             this.btnNovo.TabIndex = 1;
@@ -300,7 +306,7 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(234, 390);
+            this.btnExcluir.Location = new System.Drawing.Point(234, 440);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(75, 23);
             this.btnExcluir.TabIndex = 3;
@@ -310,7 +316,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(159, 390);
+            this.btnEditar.Location = new System.Drawing.Point(159, 440);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 2;
@@ -565,12 +571,50 @@
             this.numeroSequenciaNFCeAtual.TabIndex = 36;
             this.numeroSequenciaNFCeAtual.TabStop = false;
             // 
+            // pastaNfeValidadoLabel
+            // 
+            pastaNfeValidadoLabel.AutoSize = true;
+            pastaNfeValidadoLabel.Location = new System.Drawing.Point(280, 388);
+            pastaNfeValidadoLabel.Name = "pastaNfeValidadoLabel";
+            pastaNfeValidadoLabel.Size = new System.Drawing.Size(101, 13);
+            pastaNfeValidadoLabel.TabIndex = 38;
+            pastaNfeValidadoLabel.Text = "Pasta Nfe Validado:";
+            // 
+            // pastaNfeValidadoTextBox
+            // 
+            this.pastaNfeValidadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeValidado", true));
+            this.pastaNfeValidadoTextBox.Location = new System.Drawing.Point(283, 405);
+            this.pastaNfeValidadoTextBox.Name = "pastaNfeValidadoTextBox";
+            this.pastaNfeValidadoTextBox.Size = new System.Drawing.Size(252, 20);
+            this.pastaNfeValidadoTextBox.TabIndex = 40;
+            // 
+            // pastaNfeValidarLabel
+            // 
+            pastaNfeValidarLabel.AutoSize = true;
+            pastaNfeValidarLabel.Location = new System.Drawing.Point(8, 388);
+            pastaNfeValidarLabel.Name = "pastaNfeValidarLabel";
+            pastaNfeValidarLabel.Size = new System.Drawing.Size(92, 13);
+            pastaNfeValidarLabel.TabIndex = 40;
+            pastaNfeValidarLabel.Text = "Pasta Nfe Validar:";
+            // 
+            // pastaNfeValidarTextBox
+            // 
+            this.pastaNfeValidarTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeValidar", true));
+            this.pastaNfeValidarTextBox.Location = new System.Drawing.Point(9, 405);
+            this.pastaNfeValidarTextBox.Name = "pastaNfeValidarTextBox";
+            this.pastaNfeValidarTextBox.Size = new System.Drawing.Size(261, 20);
+            this.pastaNfeValidarTextBox.TabIndex = 38;
+            // 
             // FrmLoja
             // 
             this.AccessibleDescription = "\'";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 420);
+            this.ClientSize = new System.Drawing.Size(547, 466);
+            this.Controls.Add(pastaNfeValidarLabel);
+            this.Controls.Add(this.pastaNfeValidarTextBox);
+            this.Controls.Add(pastaNfeValidadoLabel);
+            this.Controls.Add(this.pastaNfeValidadoTextBox);
             this.Controls.Add(label2);
             this.Controls.Add(this.numeroSequenciaNFCeAtual);
             this.Controls.Add(numeroSequenciaNfeAtualLabel);
@@ -667,5 +711,7 @@
         private System.Windows.Forms.TextBox pastaNfeRetornoTextBox;
         private System.Windows.Forms.TextBox numeroSequenciaNfeAtualTextBox;
         private System.Windows.Forms.TextBox numeroSequenciaNFCeAtual;
+        private System.Windows.Forms.TextBox pastaNfeValidadoTextBox;
+        private System.Windows.Forms.TextBox pastaNfeValidarTextBox;
     }
 }

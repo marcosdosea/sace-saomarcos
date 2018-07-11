@@ -15,36 +15,43 @@ namespace Telas
     public partial class FrmSaidaAutorizacao : Form
     {
         private long codSaida;
-        private long codSolicitacao;
         NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
         static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
         static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
-        bool novaSolicitacao = false;
+        //bool novaSolicitacao = false;
         DocumentoFiscal.TipoSolicitacao tipoNfe;
-        public FrmSaidaAutorizacao(long codSaida, long codSolicitacao, DocumentoFiscal.TipoSolicitacao tipo)
+        int contConsultas;
+        
+        public FrmSaidaAutorizacao(long codSaida, long codCliente, DocumentoFiscal.TipoSolicitacao tipo)
         {
             InitializeComponent();
             this.codSaida = codSaida;
-            this.codSolicitacao = codSolicitacao;
             nfeControle = null;
             lblCartao.ForeColor = Color.Black;
             tipoNfe = tipo;
+            if (codCliente != Util.Global.CLIENTE_PADRAO)
+            {
+                Pessoa cliente = GerenciadorPessoa.GetInstance().Obter(codCliente).FirstOrDefault();
+                if ((cliente != null) && (cliente.ImprimirCF))
+                    tipoNfe = DocumentoFiscal.TipoSolicitacao.NFE;
+            }
+            contConsultas = 0;
         }
 
         private void timerAtualizaNFCe_Tick(object sender, EventArgs e)
         {
             if (!exibiuResultadoCartao || !exibiuResultadoNfe)
             {
-                Dados.tb_solicitacao_documento documentoE = GerenciadorSolicitacaoDocumento.GetInstance().ObterSolicitacaoDocumento(codSolicitacao);
-                if (documentoE != null)
-                {
-                    if (documentoE.haPagamentoCartao && !exibiuResultadoCartao)
-                    {
-                        ExibirResultadoProcessamentoCartao(documentoE);
-                    }
-                }
+                //Dados.tb_solicitacao_documento documentoE = GerenciadorSolicitacaoDocumento.GetInstance().ObterSolicitacaoDocumento(codSolicitacao);
+                //if (documentoE != null)
+                //{
+                //    if (documentoE.haPagamentoCartao && !exibiuResultadoCartao)
+                //    {
+                //        ExibirResultadoProcessamentoCartao(documentoE);
+                //    }
+                //}
                 textCartao.Text = "Cartão de Crédito/Débito não utilizado.";
                 ExibirResultadoProcessamentoNFCe();
             }
@@ -55,20 +62,25 @@ namespace Telas
             lblCartao.Text = "Solicitando Autorização... ";
             textNfe.Text = "Favor aguardar.";
             Cursor.Current = Cursors.WaitCursor;
+            contConsultas++;
             // recupera a último envio da nfe
-            List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSolicitacao(codSolicitacao).OrderBy(nfe => nfe.CodNfe).ToList();
-
-            if (listaNfe.Count == 0)
-            {
-                listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
-            }
+            List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            if (tipoNfe==DocumentoFiscal.TipoSolicitacao.NFE)
+                listaNfe = listaNfe.Where(nfe => nfe.Modelo.Equals(NfeControle.MODELO_NFE)).OrderBy(nfe => nfe.CodNfe).ToList();
             else
-            {
-                novaSolicitacao = true;
-            }
+                listaNfe = listaNfe.Where(nfe => nfe.Modelo.Equals(NfeControle.MODELO_NFCE)).OrderBy(nfe => nfe.CodNfe).ToList();
+            
+            //if (listaNfe.Count == 0)
+            //{
+            //    listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            //}
+            //else
+            //{
+            //    novaSolicitacao = true;
+            //}
             nfeControle = listaNfe.LastOrDefault();
 
-
+            
             if (nfeControle != null && !nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA))
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -84,9 +96,19 @@ namespace Telas
                     Cursor.Current = Cursors.Default;
                     //this.Close();
                 }
+                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE) && modeloSolicitado)
+                {
+                    if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                        lblNffe.Text = "NFe CONSUMIDOR OFF-LINE";
+                    else
+                        lblNffe.Text = "NFe OFF-LINE";
+                    lblNffe.ForeColor = Color.Green;
+                    Cursor.Current = Cursors.Default;
+                    //this.Close();
+                }
                 else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_REJEITADA))
                 {
-                    lblNffe.Text = "NF REJEITADA. ";
+                    lblNffe.Text = "NF REJEITADA";
                     textNfe.Text = nfeControle.MensagemSitucaoProtocoloUso;
                     lblNffe.ForeColor = Color.Red;
                     Cursor.Current = Cursors.Default;
@@ -116,7 +138,6 @@ namespace Telas
                     }
                 }
                 
-                
                 btnCancelar.Enabled = true;
                 if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) && modeloSolicitado)
                 {
@@ -124,8 +145,15 @@ namespace Telas
                 
                     btnImprimir.Enabled = true;
                     btnImprimir.Focus();
+                }
+                else if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE) && modeloSolicitado)
+                {
+                    timerAtualizaNFCe.Enabled = false;
+
+                    btnImprimir.Enabled = true;
+                    btnImprimir.Focus();
                 } 
-                else if (!nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA) && (novaSolicitacao))
+                else if (!nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA) && (contConsultas > 5))
                 {
                     timerAtualizaNFCe.Enabled = false;
                     btnCancelar.Focus();

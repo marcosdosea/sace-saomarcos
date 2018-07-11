@@ -20,13 +20,18 @@ namespace Telas
         public Saida Saida { get; set; }
         private Pessoa Cliente { get; set; }
         private long codSaida;
+        private List<SaidaPedido> listaSaidaPedido;
+        private List<SaidaPagamento> listaSaidaPagamento;
 
 
-        public FrmSaidaNFe(long codSaida)
+
+        public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento)
         {
             InitializeComponent();
             this.codSaida = codSaida;
             this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+            this.listaSaidaPedido = listaSaidaPedido;
+            this.listaSaidaPagamento = listaSaidaPagamento;
             IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.GetInstance().Obter(Saida.CodCliente);
             nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             if (Saida.CodCliente != Global.CLIENTE_PADRAO)
@@ -110,8 +115,8 @@ namespace Telas
                     Saida.Observacao = observacaoTextBox.Text.Trim();
                     if (Saida.CupomFiscal.Trim().Equals(""))
                         GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
-                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
-                    List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
+                    //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
+                    //List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
                     GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
                 }
             }
@@ -126,22 +131,43 @@ namespace Telas
                 }
                 Saida.Observacao = observacaoTextBox.Text;
                 if (Saida.CupomFiscal.Trim().Equals(""))
-                    GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
+                {
+                    foreach (SaidaPedido saidaPedido in listaSaidaPedido)
+                        GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, saidaPedido.CodSaida);
+                }
                 else
+                {
                     GerenciadorSaida.GetInstance(null).AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
-
+                }
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
                 if (nfe != null)
                     GerenciadorNFe.GetInstance().Atualizar(nfe);
 
                 // envia nota fiscal
-                Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
-                List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
-                List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(Saida.CodSaida);
+                //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
+                //Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
+                if (!Saida.CupomFiscal.Trim().Equals(""))
+                {
+                    List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(Saida.CupomFiscal);
+                    foreach (SaidaPesquisa s in listaSaidas)
+                        listaSaidaPedido.Add(new SaidaPedido() { CodSaida = s.CodSaida, TotalAVista = s.TotalAVista });
+                    List<Conta> listaContas = GerenciadorConta.GetInstance(null).ObterPorNfe(Saida.CupomFiscal).ToList();
+
+                    decimal valorTotalPagamento = listaContas.Sum(c => c.Valor) - listaContas.Sum(c => c.Desconto);
+                    SaidaPagamento saidaPagamento = new SaidaPagamento();
+                    FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+                    saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
+                    saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
+                    saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
+                    saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
+                    saidaPagamento.Valor = valorTotalPagamento;
+                    listaSaidaPagamento.Add(saidaPagamento);
+                }
+
                 Cursor.Current = Cursors.Default;
 
                 long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, false);
-                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFE);
+                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
             }
@@ -216,7 +242,7 @@ namespace Telas
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             int posicao = nfeControleBindingSource.Position;
-            IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>) nfeControleBindingSource.DataSource;
+            IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>)nfeControleBindingSource.DataSource;
             IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
             if (listaNfeControle.Count() > 0)
             {

@@ -160,7 +160,7 @@ namespace Telas
                                 {
                                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
                                     long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFCE);
                                     frmSaidaAutorizacao.ShowDialog();
                                     frmSaidaAutorizacao.Dispose();
 
@@ -206,7 +206,7 @@ namespace Telas
                                             List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
                                             long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, codSolicitacao, DocumentoFiscal.TipoSolicitacao.NFCE);
+                                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFCE);
                                             frmSaidaAutorizacao.ShowDialog();
                                             frmSaidaAutorizacao.Dispose();
                                         }
