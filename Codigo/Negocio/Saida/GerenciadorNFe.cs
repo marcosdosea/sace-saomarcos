@@ -277,6 +277,16 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Obtém Nfe com o código especificiado
+        /// </summary>
+        /// <param name="codBanco"></param>
+        /// <returns></returns>
+        public IEnumerable<NfeControle> ObterPorSituacao(string situacao)
+        {
+            return GetQuery().Where(nfe => nfe.SituacaoNfe.Equals(situacao)).ToList();
+        }
+
+        /// <summary>
         /// Obtém pelo numero de Sequencia da nfe na Loja
         /// </summary>
         /// <param name="numeroSequenciaNfe">Número sequencial da nfe</param>
@@ -610,49 +620,28 @@ namespace Negocio
             //arqHabilitaContingencia.Close();
 
             // Verifica contingencia habilitada no uninfe
-            bool alterouConfiguracaoComSucesso = true; //alterouConfiguracaoSucesso(loja);
+            //bool alterouConfiguracaoComSucesso = true; //alterouConfiguracaoSucesso(loja);
 
-            if (alterouConfiguracaoComSucesso)
-            {
-                XmlDocument xmldocRetorno = new XmlDocument();
-                xmldocRetorno.Load(loja.PastaNfeEnviado + nfeControle.Chave + "-nfe.xml");
-                XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
-                XmlSerializer serializer = new XmlSerializer(typeof(TNFe));
-                TNFe nfe = (TNFe)serializer.Deserialize(xmlReaderRetorno);
-
-                nfe.infNFe.ide.tpEmis = TNFeInfNFeIdeTpEmis.Item9; // contingencia
-                
-                MemoryStream memStream = new MemoryStream();
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
-                serializer.Serialize(memStream, nfe, ns);
-
-                memStream.Position = 0;
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(memStream);
-                xmlDoc.Save(loja.PastaNfeValidar + nfeControle.Chave + "-nfe.xml");
-            }
-
-            // Desabilitar uninfe para contigencia
-            //StreamWriter arqDesabilitaContingencia = new StreamWriter(loja.PastaNfeEnvio + "uninfe-alt-con.txt", false, Encoding.ASCII);
-            //arqDesabilitaContingencia.WriteLine("tpEmis|1");
-            //arqDesabilitaContingencia.Close();
-
-            // Verifica contingencia habilitada
-            //alterouConfiguracaoComSucesso = alterouConfiguracaoSucesso(loja);
-
-            // Se XML foi validado habilita para impressao
-            //DirectoryInfo pastaRetorno = new DirectoryInfo(loja.PastaNfeValidado);
-            //if (pastaRetorno.Exists)
+            //if (alterouConfiguracaoComSucesso)
             //{
-            //    // Busca automaticamente todos os arquivos em todos os subdiretórios
-            //    FileInfo[] files = pastaRetorno.GetFiles(nfeControle.Chave + "-nfe.xml", SearchOption.TopDirectoryOnly);
-            //    if (files.Length > 0)
-            //    {
-            //        nfeControle.SituacaoNfe = NfeControle.SITUACAO_CONTINGENCIA_OFFLINE;
-            //        Atualizar(nfeControle);
-            //    }
-            //}
+            XmlDocument xmldocRetorno = new XmlDocument();
+            xmldocRetorno.Load(loja.PastaNfeEnviado + nfeControle.Chave + "-nfe.xml");
+            XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+            XmlSerializer serializer = new XmlSerializer(typeof(TNFe));
+            TNFe nfe = (TNFe)serializer.Deserialize(xmlReaderRetorno);
+
+            nfe.infNFe.ide.tpEmis = TNFeInfNFeIdeTpEmis.Item9; // contingencia
+
+            MemoryStream memStream = new MemoryStream();
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+            serializer.Serialize(memStream, nfe, ns);
+
+            memStream.Position = 0;
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(memStream);
+            xmlDoc.Save(loja.PastaNfeValidar + nfeControle.Chave + "-nfe.xml");
+
         }
 
         private static bool alterouConfiguracaoSucesso(Loja loja)
@@ -704,7 +693,7 @@ namespace Negocio
                         Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).FirstOrDefault();
                         if (loja != null)
                             files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
-                        files[i].Delete();        
+                        files[i].Delete();
                     }
                     else if (files[i].Name.Contains("-pro-rec.txt"))
                     {
@@ -1220,7 +1209,7 @@ namespace Negocio
                             //    icms102.orig = Torig.Item0;
                             //    icms.Item = icms102;
                             //}
-                            else if ( (saidaProduto.EhTributacaoIntegral) || Global.AMBIENTE_NFE.Equals("2")) //homologação
+                            else if ((saidaProduto.EhTributacaoIntegral) || Global.AMBIENTE_NFE.Equals("2")) //homologação
                             {
                                 TNFeInfNFeDetImpostoICMSICMSSN102 icms102 = new TNFeInfNFeDetImpostoICMSICMSSN102();
                                 icms102.CSOSN = TNFeInfNFeDetImpostoICMSICMSSN102CSOSN.Item102;
@@ -1665,7 +1654,7 @@ namespace Negocio
                 foreach (SaidaProduto sp in saidaProdutos)
                     sp.ValorProdutoNota = sp.ValorVendaAVista;
                 totalDescontoDistribuirPreco = Math.Abs(saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.SubtotalAVista));
-                decimal fatorDesconto = totalDescontoDistribuirPreco / Math.Abs(saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista)); 
+                decimal fatorDesconto = totalDescontoDistribuirPreco / Math.Abs(saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista));
                 saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
             }
             else if (totalDescontoDistribuirPreco > totalDescontoCalculado)
@@ -2129,7 +2118,7 @@ namespace Negocio
                         Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).FirstOrDefault();
                         if (loja != null)
                             files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
-                        files[i].Delete();        
+                        files[i].Delete();
                     }
                     else
                     {
@@ -2546,9 +2535,9 @@ namespace Negocio
                                 if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
                                     unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
                                 else
-                                    unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=1 m=1 i=padrao";
-                                    //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
-                                    //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                                    unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=padrao";
+                                //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                                //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
                                 unidanfe.Start();
                             }
                             catch (Exception ex)
@@ -2561,5 +2550,24 @@ namespace Negocio
             }
         }
 
+
+        public void EnviarNFEsOffLine()
+        {
+            Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).FirstOrDefault();
+            if (loja != null)
+            {
+                List<NfeControle> listaNfe = ObterPorSituacao(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE).ToList();
+                foreach (NfeControle nfe in listaNfe)
+                {
+                    DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeEnviado);
+                    if (Dir.Exists)
+                    {
+                        FileInfo[] files = Dir.GetFiles(nfe.Chave + "-nfe.xml", SearchOption.TopDirectoryOnly);
+                        for (int i = 0; i < files.Length; i++)
+                            files[i].CopyTo(loja.PastaNfeEnvio + files[i].Name, true);
+                    }
+                }
+            }
+        }
     }
 }

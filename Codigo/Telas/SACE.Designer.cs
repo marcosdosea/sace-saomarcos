@@ -93,6 +93,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timerDocumentos = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.enviarNFesEmitidasOffLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -393,7 +394,8 @@
             this.atualizarCSOSNToolStripMenuItem,
             this.atualizarPreçoVarejoToolStripMenuItem,
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem,
-            this.exclusãoDePessoasDoSistemaToolStripMenuItem});
+            this.exclusãoDePessoasDoSistemaToolStripMenuItem,
+            this.enviarNFesEmitidasOffLineToolStripMenuItem});
             this.utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
             this.utilitáriosToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.utilitáriosToolStripMenuItem.Text = "&Utilitários";
@@ -482,7 +484,7 @@
             // sobreToolStripMenuItem
             // 
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
@@ -614,6 +616,13 @@
             this.timerDocumentos.Interval = 1000;
             this.timerDocumentos.Tick += new System.EventHandler(this.timerDocumentos_Tick);
             // 
+            // enviarNFesEmitidasOffLineToolStripMenuItem
+            // 
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Name = "enviarNFesEmitidasOffLineToolStripMenuItem";
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Text = "Enviar NFes Emitidas Off-Line";
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Click += new System.EventHandler(this.enviarNFesEmitidasOffLineToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -714,6 +723,7 @@
         private System.Windows.Forms.ToolStripMenuItem atualizarPreçoVarejoToolStripMenuItem;
         private System.Windows.Forms.Timer timerDocumentos;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ToolStripMenuItem enviarNFesEmitidasOffLineToolStripMenuItem;
 
     }
 }

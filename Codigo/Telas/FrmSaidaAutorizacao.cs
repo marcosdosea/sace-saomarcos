@@ -102,7 +102,7 @@ namespace Telas
                         lblNffe.Text = "NFe CONSUMIDOR OFF-LINE";
                     else
                         lblNffe.Text = "NFe OFF-LINE";
-                    lblNffe.ForeColor = Color.Green;
+                    lblNffe.ForeColor = Color.Blue;
                     Cursor.Current = Cursors.Default;
                     //this.Close();
                 }

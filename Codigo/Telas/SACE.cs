@@ -462,5 +462,11 @@ namespace Telas
         private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
+
+        private void enviarNFesEmitidasOffLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirma que Ambiente está On-line para Autorizar NFEs emitidas Off-Line?", "Confirma Ambiente On-Line", MessageBoxButtons.YesNo) == DialogResult.Yes) 
+                GerenciadorNFe.GetInstance().EnviarNFEsOffLine();
+        }
     }
 }

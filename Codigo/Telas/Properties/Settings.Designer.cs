@@ -88,7 +88,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("MARCOSDOSEA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
         public string ServidorImprimirNfce {
             get {
                 return ((string)(this["ServidorImprimirNfce"]));
