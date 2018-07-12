@@ -84,6 +84,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_autorizacao_cartao_saida", "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida), "tb_autorizacao_cartao", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_autorizacao_cartao))]
 [assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_nfe_tb_loja1", "tb_loja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_loja), "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), true)]
 [assembly: EdmRelationshipAttribute("SaceModel", "tb_saida_nfe", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_nfe), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
+[assembly: EdmRelationshipAttribute("SaceModel", "fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Dados.tb_nfe), "tb_solicitacao_evento_nfe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_solicitacao_evento_nfe), true)]
+[assembly: EdmRelationshipAttribute("SaceModel", "tb_imprimir_documento_saida", "tb_imprimir_documento", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_imprimir_documento), "tb_saida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Dados.tb_saida))]
 
 #endregion
 
@@ -838,6 +840,22 @@ namespace Dados
             }
         }
         private ObjectSet<tb_nfe> _tb_nfe;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<tb_solicitacao_evento_nfe> tb_solicitacao_evento_nfe
+        {
+            get
+            {
+                if ((_tb_solicitacao_evento_nfe == null))
+                {
+                    _tb_solicitacao_evento_nfe = base.CreateObjectSet<tb_solicitacao_evento_nfe>("tb_solicitacao_evento_nfe");
+                }
+                return _tb_solicitacao_evento_nfe;
+            }
+        }
+        private ObjectSet<tb_solicitacao_evento_nfe> _tb_solicitacao_evento_nfe;
 
         #endregion
 
@@ -1193,6 +1211,14 @@ namespace Dados
         public void AddTotb_nfe(tb_nfe tb_nfe)
         {
             base.AddObject("tb_nfe", tb_nfe);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the tb_solicitacao_evento_nfe EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTotb_solicitacao_evento_nfe(tb_solicitacao_evento_nfe tb_solicitacao_evento_nfe)
+        {
+            base.AddObject("tb_solicitacao_evento_nfe", tb_solicitacao_evento_nfe);
         }
 
         #endregion
@@ -11122,6 +11148,32 @@ namespace Dados
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_imprimir_documento_saida", "tb_saida")]
+        public EntityCollection<tb_saida> tb_saida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_saida>("SaceModel.tb_imprimir_documento_saida", "tb_saida");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.tb_imprimir_documento_saida", "tb_saida", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -12410,6 +12462,28 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_saida>("SaceModel.tb_saida_nfe", "tb_saida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_solicitacao_evento_nfe")]
+        public EntityCollection<tb_solicitacao_evento_nfe> tb_solicitacao_evento_nfe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_solicitacao_evento_nfe>("SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_solicitacao_evento_nfe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_evento_nfe>("SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_solicitacao_evento_nfe", value);
                 }
             }
         }
@@ -14147,6 +14221,28 @@ namespace Dados
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "tb_imprimir_documento_saida", "tb_imprimir_documento")]
+        public EntityCollection<tb_imprimir_documento> tb_imprimir_documento
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<tb_imprimir_documento>("SaceModel.tb_imprimir_documento_saida", "tb_imprimir_documento");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_imprimir_documento>("SaceModel.tb_imprimir_documento_saida", "tb_imprimir_documento", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -14559,6 +14655,157 @@ namespace Dados
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<tb_solicitacao_pagamento>("SaceModel.fk_tb_solicitacao_pagamentos_tb_solicitacao_documento_fiscal1", "tb_solicitacao_pagamento", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SaceModel", Name="tb_solicitacao_evento_nfe")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class tb_solicitacao_evento_nfe : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new tb_solicitacao_evento_nfe object.
+        /// </summary>
+        /// <param name="idSolicitacaoEvento">Initial value of the idSolicitacaoEvento property.</param>
+        /// <param name="tipoSolicitacao">Initial value of the tipoSolicitacao property.</param>
+        /// <param name="codNFe">Initial value of the codNFe property.</param>
+        public static tb_solicitacao_evento_nfe Createtb_solicitacao_evento_nfe(global::System.Int64 idSolicitacaoEvento, global::System.String tipoSolicitacao, global::System.Int32 codNFe)
+        {
+            tb_solicitacao_evento_nfe tb_solicitacao_evento_nfe = new tb_solicitacao_evento_nfe();
+            tb_solicitacao_evento_nfe.idSolicitacaoEvento = idSolicitacaoEvento;
+            tb_solicitacao_evento_nfe.tipoSolicitacao = tipoSolicitacao;
+            tb_solicitacao_evento_nfe.codNFe = codNFe;
+            return tb_solicitacao_evento_nfe;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 idSolicitacaoEvento
+        {
+            get
+            {
+                return _idSolicitacaoEvento;
+            }
+            set
+            {
+                if (_idSolicitacaoEvento != value)
+                {
+                    OnidSolicitacaoEventoChanging(value);
+                    ReportPropertyChanging("idSolicitacaoEvento");
+                    _idSolicitacaoEvento = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idSolicitacaoEvento");
+                    OnidSolicitacaoEventoChanged();
+                }
+            }
+        }
+        private global::System.Int64 _idSolicitacaoEvento;
+        partial void OnidSolicitacaoEventoChanging(global::System.Int64 value);
+        partial void OnidSolicitacaoEventoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String tipoSolicitacao
+        {
+            get
+            {
+                return _tipoSolicitacao;
+            }
+            set
+            {
+                OntipoSolicitacaoChanging(value);
+                ReportPropertyChanging("tipoSolicitacao");
+                _tipoSolicitacao = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("tipoSolicitacao");
+                OntipoSolicitacaoChanged();
+            }
+        }
+        private global::System.String _tipoSolicitacao;
+        partial void OntipoSolicitacaoChanging(global::System.String value);
+        partial void OntipoSolicitacaoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 codNFe
+        {
+            get
+            {
+                return _codNFe;
+            }
+            set
+            {
+                OncodNFeChanging(value);
+                ReportPropertyChanging("codNFe");
+                _codNFe = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("codNFe");
+                OncodNFeChanged();
+            }
+        }
+        private global::System.Int32 _codNFe;
+        partial void OncodNFeChanging(global::System.Int32 value);
+        partial void OncodNFeChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SaceModel", "fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_nfe")]
+        public tb_nfe tb_nfe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_nfe>("SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_nfe").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_nfe>("SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_nfe").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<tb_nfe> tb_nfeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<tb_nfe>("SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_nfe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<tb_nfe>("SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1", "tb_nfe", value);
                 }
             }
         }

@@ -105,16 +105,34 @@ namespace Negocio
             if (solicitacoes.Count() > 0)
                 throw new NegocioException("A solicitação já foi enviada. Favor aguardar processamento.");
             // Verifica se cupom fiscal já foi emitido em algumas das saidas
-            if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.ECF))
+
+            if (listaSaidaPedido.Count > 1)
             {
-                var repSaida = new RepositorioGenerico<tb_saida>();
-                SaceEntities saceEntities = (SaceEntities)repSaida.ObterContexto();
-                var query = from saida in saceEntities.tb_saida
-                            where listaCodSaidas.Contains(saida.codSaida) && !String.IsNullOrEmpty(saida.pedidoGerado)
-                            select saida;
-                if (query.Count() > 0)
-                    throw new NegocioException("Cumpom Fiscal já foi emitido para algum dos pedidos dessa solicitação.");
+                List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCodSaidas(listaSaidaPedido.Select(s => s.CodSaida).ToList());
+                HashSet<string> listaDocumentosFiscais = new HashSet<string>();
+                foreach (SaidaPesquisa saida in listaSaidas)
+                    listaDocumentosFiscais.Add(saida.CupomFiscal.Trim());
+                if (listaDocumentosFiscais.Count > 1)
+                {
+                    if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE))
+                        throw new NegocioException("NFC-e só pode ser emitida se nenhum dos pedidos selecionados possui NFC-e já autorizada.");
+                    if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE))
+                    {
+                        int contIniciaComC = 0;
+                        int contDocBranco = 0;
+                        foreach(string documento in listaDocumentosFiscais) {
+                            if (documento.StartsWith("C"))
+                                contIniciaComC++;
+                            if (string.IsNullOrEmpty(documento))
+                                contDocBranco++;
+                        }
+                        if ((contIniciaComC != listaDocumentosFiscais.Count()) && (contDocBranco != listaDocumentosFiscais.Count()))
+                            throw new NegocioException("NF-e só pode ser emitida se nenhuma NF-e já foi autorizada para os pedidos selecioados ou se todos os pedidos possuem uma NFCe associada.");
+                    }
+                    
+                }
             }
+            
             if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE) || tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE))
             {
                 var repSaida = new RepositorioGenerico<tb_nfe>();

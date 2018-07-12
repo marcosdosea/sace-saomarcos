@@ -309,9 +309,13 @@ namespace Negocio
                     saceContext.Connection.Open();
                 transaction = saceContext.Connection.BeginTransaction();
 
-                bool possuiNfeEmitida = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Count() > 0;
-                if (possuiNfeEmitida)
-                    throw new NegocioException("Não é possível remover saídas / devoluções com NF-e emitidas pelo sistema");
+                List<NfeControle> listaNfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).ToList();
+                if (listaNfeControle.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
+                    throw new NegocioException("Não é possível remover saídas / devoluções com NF-e AUTORIZADAS pelo sistema");
+
+                if ((listaNfeControle.Count() > 0) && (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO)))
+                    throw new NegocioException("Não é possível remover pedidos com NF-e associadas");
+
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
 
@@ -669,6 +673,30 @@ namespace Negocio
         {
             var query = from saida in saceContext.tb_saida
                         where saida.pedidoGerado.StartsWith(pedidoGerado)
+                        orderby saida.codSaida
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            CodCliente = saida.codCliente,
+                            NomeCliente = saida.tb_pessoa.nomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.pedidoGerado == null ? "" : saida.pedidoGerado,
+                            TotalAVista = (decimal)saida.totalAVista,
+                            CodSituacaoPagamentos = saida.codSituacaoPagamentos,
+                            TipoSaida = saida.codTipoSaida
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<SaidaPesquisa> ObterPorCodSaidas(List<long> listaCodSaidas)
+        {
+            var query = from saida in saceContext.tb_saida
+                        where listaCodSaidas.Contains(saida.codSaida)
                         orderby saida.codSaida
                         select new SaidaPesquisa
                         {
@@ -1321,22 +1349,20 @@ namespace Negocio
             }
         }
 
-        public bool ImprimirDAV(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
+        public bool ImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
             if (impressora.Equals(Global.Impressora.NORMAL))
-                return ImprimirDAVNormalTexto(saidas, total, totalAVista, desconto);
+                return ImprimirDAVNormalTexto(listaCodSaidas, total, totalAVista, desconto);
             else
-                return ImprimirDAVComprimido(saidas, total, totalAVista, desconto, impressora);                
+                return ImprimirDAVComprimido(listaCodSaidas, total, totalAVista, desconto, impressora);                
         }
 
-        public bool EhPossivelImprimirDAV(Global.Impressora impressora) {
-            return true;
-        }
-
-        private bool ImprimirDAVComprimido(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
+ 
+        private bool ImprimirDAVComprimido(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
             try
             {
+                List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
                 ImprimeTexto imp = new ImprimeTexto();
                 if (impressora.Equals(Global.Impressora.DARUMA))
                 {
@@ -1458,7 +1484,7 @@ namespace Negocio
             return MP2032.FormataTX(texto, tLetra, italico, sublinhado, expandido, enfatizado);
         }
 
-        private void ImprimirDAVComprimidoBematech(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private void ImprimirDAVComprimidoBematech(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             int iRetorno = 0; //Variável para retorno das chamadas
             iRetorno = MP2032.ConfiguraModeloImpressora(1); // "MP 20 MI"
@@ -1618,10 +1644,11 @@ namespace Negocio
             }
         }
 
-        private bool ImprimirDAVNormalTexto(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool ImprimirDAVNormalTexto(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto)
         {
             try
             {
+                List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
                 StringBuilderImprimir sbImprimir = new StringBuilderImprimir();
 
 

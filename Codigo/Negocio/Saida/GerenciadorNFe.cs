@@ -1783,75 +1783,20 @@ namespace Negocio
         /// <param name="nfeControle"></param>
         public void EnviarSolicitacaoCancelamento(NfeControle nfeControle)
         {
-
             try
             {
-                if (!nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
-                    throw new NegocioException("Não é possível solicitar cancelamento dessa nota. Apenas NFe AUTORIZADAS podem ser canceladas.");
-                else if (string.IsNullOrEmpty(nfeControle.JustificativaCancelamento) || (nfeControle.JustificativaCancelamento.Trim().Length < 15))
-                    throw new NegocioException("É necessário adicionar uma justificativa para realizar o cancelamento da NF-e com pelo menos 15 caracteres.");
+                if (nfeControle != null)
+                {
+                    if (!nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                        throw new NegocioException("Não é possível solicitar cancelamento dessa nota. Apenas NFe AUTORIZADAS podem ser canceladas.");
+                    else if (string.IsNullOrEmpty(nfeControle.JustificativaCancelamento) || (nfeControle.JustificativaCancelamento.Trim().Length < 15))
+                        throw new NegocioException("É necessário adicionar uma justificativa para realizar o cancelamento da NF-e com pelo menos 15 caracteres.");
 
-                Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
-                envEvento.idLote = nfeControle.NumeroSequenciaNfe.ToString().PadLeft(15, '0');
-                envEvento.versao = "1.00";
-
-                Dominio.NFE2.TEvento evento = new Dominio.NFE2.TEvento();
-                evento.versao = Dominio.NFE2.TVerEvento.Item100;
-
-                Dominio.NFE2.TEventoInfEvento infEvento = new Dominio.NFE2.TEventoInfEvento();
-                infEvento.chNFe = nfeControle.Chave;
-                infEvento.cOrgao = (Dominio.NFE2.TCOrgaoIBGE)Enum.Parse(typeof(Dominio.NFE2.TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
-                infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
-                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
-
-                if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
-                    infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
-                else
-                    infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CNPJ;
-                infEvento.Item = pessoa.CpfCnpj;
-                infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
-                infEvento.tpEvento = "110111";
-                infEvento.nSeqEvento = "1"; // carta correção pode haver mais de uma
-                infEvento.verEvento = "1.00";
-                infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
-
-                Dominio.NFE2.TEventoInfEventoDetEvento detEvento = new Dominio.NFE2.TEventoInfEventoDetEvento();
-
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-
-                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
-
-                XmlAttribute[] atributos = new XmlAttribute[1];
-                atributos[0] = xmlDoc.CreateAttribute("versao");
-                atributos[0].Value = "1.00";
-                detEvento.AnyAttr = atributos;
-
-                XmlElement[] elementos = new XmlElement[3];
-                elementos[0] = xmlDoc.CreateElement("descEvento", "http://www.portalfiscal.inf.br/nfe");
-                elementos[0].InnerText = "Cancelamento";
-                elementos[1] = xmlDoc.CreateElement("nProt", "http://www.portalfiscal.inf.br/nfe");
-                elementos[1].InnerText = nfeControle.NumeroProtocoloUso;
-                elementos[2] = xmlDoc.CreateElement("xJust", "http://www.portalfiscal.inf.br/nfe");
-                elementos[2].InnerText = nfeControle.JustificativaCancelamento.Trim();
-                detEvento.Any = elementos;
-
-                infEvento.detEvento = detEvento;
-                evento.infEvento = infEvento;
-                envEvento.evento = new Dominio.NFE2.TEvento[1] { evento };
-
-                MemoryStream memStream = new MemoryStream();
-                XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TEnvEvento));
-                serializer.Serialize(memStream, envEvento, ns);
-                memStream.Position = 0;
-                xmlDoc.Load(memStream);
-
-                xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-env-canc.xml");
-                xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-env-canc.xml");
-
-                Atualizar(nfeControle);
+                    tb_solicitacao_evento_nfe solicitaEvento = new tb_solicitacao_evento_nfe();
+                    solicitaEvento.codNFe = nfeControle.CodNfe;
+                    solicitaEvento.tipoSolicitacao = EventoNfe.TIPO_CANCELAMENTO;
+                    GerenciadorSolicitacaoEvento.GetInstance().Inserir(solicitaEvento);
+                }
             }
             catch (NegocioException ne)
             {
@@ -1861,6 +1806,98 @@ namespace Negocio
             {
                 throw new NegocioException("Problemas na geração do arquivo de cancelamento da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
             }
+
+        }
+
+        /// <summary>
+        /// Envia solicitação de cancelamanto usando Eventos.
+        /// </summary>
+        /// <param name="nfeControle"></param>
+        public void ProcessarSolicitacoesCancelamento()
+        {
+            try
+            {
+                List<tb_solicitacao_evento_nfe> listaSolicitacaoEvento = GerenciadorSolicitacaoEvento.GetInstance().ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CANCELAMENTO).ToList();
+
+                foreach (tb_solicitacao_evento_nfe eventoNfe in listaSolicitacaoEvento)
+                {
+                    NfeControle nfeControle = GerenciadorNFe.GetInstance().Obter(eventoNfe.codNFe).FirstOrDefault();
+                    GerenciadorSolicitacaoEvento.GetInstance().Remover(eventoNfe.idSolicitacaoEvento);
+                    if (nfeControle == null)
+                        return;
+                    Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
+                    envEvento.idLote = nfeControle.NumeroSequenciaNfe.ToString().PadLeft(15, '0');
+                    envEvento.versao = "1.00";
+
+                    Dominio.NFE2.TEvento evento = new Dominio.NFE2.TEvento();
+                    evento.versao = Dominio.NFE2.TVerEvento.Item100;
+
+                    Dominio.NFE2.TEventoInfEvento infEvento = new Dominio.NFE2.TEventoInfEvento();
+                    infEvento.chNFe = nfeControle.Chave;
+                    infEvento.cOrgao = (Dominio.NFE2.TCOrgaoIBGE)Enum.Parse(typeof(Dominio.NFE2.TCOrgaoIBGE), "Item" + Global.C_ORGAO_IBGE_SERGIPE);
+                    infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                    //Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
+                    Loja loja = GerenciadorLoja.GetInstance().Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
+                    Pessoa pessoa = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
+
+                    if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
+                        infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
+                    else
+                        infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CNPJ;
+                    infEvento.Item = pessoa.CpfCnpj;
+                    infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+                    infEvento.tpEvento = "110111";
+                    infEvento.nSeqEvento = "1"; // carta correção pode haver mais de uma
+                    infEvento.verEvento = "1.00";
+                    infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
+
+                    Dominio.NFE2.TEventoInfEventoDetEvento detEvento = new Dominio.NFE2.TEventoInfEventoDetEvento();
+
+                    XmlDocument xmlDoc = new XmlDocument();
+                    XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                    ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+
+                    XmlAttribute[] atributos = new XmlAttribute[1];
+                    atributos[0] = xmlDoc.CreateAttribute("versao");
+                    atributos[0].Value = "1.00";
+                    detEvento.AnyAttr = atributos;
+
+                    XmlElement[] elementos = new XmlElement[3];
+                    elementos[0] = xmlDoc.CreateElement("descEvento", "http://www.portalfiscal.inf.br/nfe");
+                    elementos[0].InnerText = "Cancelamento";
+                    elementos[1] = xmlDoc.CreateElement("nProt", "http://www.portalfiscal.inf.br/nfe");
+                    elementos[1].InnerText = nfeControle.NumeroProtocoloUso;
+                    elementos[2] = xmlDoc.CreateElement("xJust", "http://www.portalfiscal.inf.br/nfe");
+                    elementos[2].InnerText = nfeControle.JustificativaCancelamento.Trim();
+                    detEvento.Any = elementos;
+
+                    infEvento.detEvento = detEvento;
+                    evento.infEvento = infEvento;
+                    envEvento.evento = new Dominio.NFE2.TEvento[1] { evento };
+
+                    MemoryStream memStream = new MemoryStream();
+                    XmlSerializer serializer = new XmlSerializer(typeof(Dominio.NFE2.TEnvEvento));
+                    serializer.Serialize(memStream, envEvento, ns);
+                    memStream.Position = 0;
+                    xmlDoc.Load(memStream);
+
+                    xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-env-canc.xml");
+                    xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-env-canc.xml");
+
+                    Atualizar(nfeControle);
+
+                }
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException("Problemas na geração do arquivo de cancelamento da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+            }
+
         }
 
         /// <summary>
@@ -2057,31 +2094,65 @@ namespace Negocio
         /// <param name="nfeControle"></param>
         public void EnviarConsultaNfe(NfeControle nfeControle)
         {
+            try
+            {
+                if (nfeControle != null)
+                {
+                    tb_solicitacao_evento_nfe solicitaEvento = new tb_solicitacao_evento_nfe();
+                    solicitaEvento.codNFe = nfeControle.CodNfe;
+                    solicitaEvento.tipoSolicitacao = EventoNfe.TIPO_CONSULTA;
+                    GerenciadorSolicitacaoEvento.GetInstance().Inserir(solicitaEvento);
+                }
+            }
+            catch (NegocioException ne)
+            {
+                throw ne;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException("Problemas na geração do arquivo de consulta da situação da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+            }
+        }
+
+
+
+        public void ProcessaSolicitacaoConsultaNfe()
+        {
 
             try
             {
-                TConsSitNFe consultaNfe = new TConsSitNFe();
 
-                consultaNfe.chNFe = nfeControle.Chave;
-                consultaNfe.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                consultaNfe.versao = TVerConsSitNFe.Item310;
-                consultaNfe.xServ = TConsSitNFeXServ.CONSULTAR;
+                List<tb_solicitacao_evento_nfe> listaSolicitacaoEvento = GerenciadorSolicitacaoEvento.GetInstance().ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CONSULTA).ToList();
 
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                foreach (tb_solicitacao_evento_nfe eventoNfe in listaSolicitacaoEvento)
+                {
+                    NfeControle nfeControle = GerenciadorNFe.GetInstance().Obter(eventoNfe.codNFe).FirstOrDefault();
+                    GerenciadorSolicitacaoEvento.GetInstance().Remover(eventoNfe.idSolicitacaoEvento);
+                    if (nfeControle == null)
+                        return;
 
-                ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+                    TConsSitNFe consultaNfe = new TConsSitNFe();
 
-                MemoryStream memStream = new MemoryStream();
-                XmlSerializer serializer = new XmlSerializer(typeof(TConsSitNFe));
-                serializer.Serialize(memStream, consultaNfe, ns);
-                memStream.Position = 0;
-                xmlDoc.Load(memStream);
+                    consultaNfe.chNFe = nfeControle.Chave;
+                    consultaNfe.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
+                    consultaNfe.versao = TVerConsSitNFe.Item310;
+                    consultaNfe.xServ = TConsSitNFeXServ.CONSULTAR;
 
-                Saida saida = GerenciadorSaida.GetInstance(null).Obter(nfeControle.CodSaida);
-                Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-ped-sit.xml");
-                xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-ped-sit.xml");
+                    XmlDocument xmlDoc = new XmlDocument();
+                    XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                    ns.Add("", "http://www.portalfiscal.inf.br/nfe");
+
+                    MemoryStream memStream = new MemoryStream();
+                    XmlSerializer serializer = new XmlSerializer(typeof(TConsSitNFe));
+                    serializer.Serialize(memStream, consultaNfe, ns);
+                    memStream.Position = 0;
+                    xmlDoc.Load(memStream);
+
+                    Loja loja = GerenciadorLoja.GetInstance().Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
+                    xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-ped-sit.xml");
+                    xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-ped-sit.xml");
+                }
             }
             catch (NegocioException ne)
             {

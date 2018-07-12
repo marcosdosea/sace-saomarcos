@@ -92,6 +92,7 @@ namespace Telas
                 NfeControle _nfeControle = GerenciadorNFe.GetInstance().Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
                 _nfeControle.JustificativaCancelamento = _nfeCurrent.JustificativaCancelamento;
                 _nfeControle.CodSaida = _nfeCurrent.CodSaida;
+                GerenciadorNFe.GetInstance().Atualizar(_nfeControle);
                 GerenciadorNFe.GetInstance().EnviarSolicitacaoCancelamento(_nfeControle);
             }
         }
@@ -146,9 +147,21 @@ namespace Telas
                 // envia nota fiscal
                 //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                 //Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
-                if (!Saida.CupomFiscal.Trim().Equals(""))
+                List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCodSaidas(listaSaidaPedido.Select(s=>s.CodSaida).ToList());
+                List<string> listaDocumentosFiscais = listaSaidas.Select(s => s.CupomFiscal).Distinct().ToList();
+                if (listaSaidas.Where(s=> !string.IsNullOrEmpty(s.CupomFiscal)).Count() > 0)
                 {
-                    List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(Saida.CupomFiscal);
+                    listaSaidas = listaSaidas.Where(s => string.IsNullOrEmpty(s.CupomFiscal)).ToList();
+                    foreach (string docFiscal in listaDocumentosFiscais)
+                    {
+                        if (!string.IsNullOrEmpty(docFiscal))
+                        {
+                            listaSaidas.AddRange(GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(Saida.CupomFiscal));    
+                        }
+                    }
+                        
+                    
+                    listaSaidaPedido = new List<SaidaPedido>();
                     foreach (SaidaPesquisa s in listaSaidas)
                         listaSaidaPedido.Add(new SaidaPedido() { CodSaida = s.CodSaida, TotalAVista = s.TotalAVista });
                     List<Conta> listaContas = GerenciadorConta.GetInstance(null).ObterPorNfe(Saida.CupomFiscal).ToList();

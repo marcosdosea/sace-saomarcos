@@ -358,17 +358,17 @@ namespace Telas
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
+                GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
+                GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
+                
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             } 
             else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
-                //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
             }  
             
-            //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO, NFCE_SERVIDOR, NFCE_ONLINE);
-            //GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosNFCE();
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)

@@ -192,7 +192,7 @@ namespace Telas
                                     bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
                                     if (temPagamentoCrediario && cliente.ImprimirDAV)
                                     {
-                                        if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<Saida>() { saida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.BEMATECH))
+                                        if (!GerenciadorSaida.GetInstance(null).ImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.BEMATECH))
                                         {
                                             MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         }
