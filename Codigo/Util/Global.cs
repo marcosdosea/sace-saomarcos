@@ -54,7 +54,7 @@ namespace Util
         QUANTIDADE_EXIBIR_PEDIDOS = 100;
 
 
-        public enum Impressora { NORMAL, DARUMA, BEMATECH };
+        public enum Impressora { NORMAL, REDUZIDO1, REDUZIDO2 };
 
         public static System.Drawing.Color
             BACKCOLOR_FOCUS = System.Drawing.Color.LightYellow,
@@ -68,7 +68,7 @@ namespace Util
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String
-         AMBIENTE_NFE = "2", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
+         AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
          ENDERECO_SERVIDOR = "C:\\",
          PASTA_COMUNICACAO_CARTAO = ENDERECO_SERVIDOR + "MKS\\CAIXA1\\CUPONS",
@@ -86,8 +86,8 @@ namespace Util
 
 
          PORTA_IMPRESSORA_NORMAL = "LPT1",
-         PORTA_IMPRESSORA_REDUZIDA = "\\\\SERVIDOR\\Bematech",
-         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\SM-VENDAS01\\Daruma",
+         PORTA_IMPRESSORA_REDUZIDA1 = "\\\\sm-vendas01\\daruma",
+         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\RETAGUARDA\\VSPaguePrinter",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";

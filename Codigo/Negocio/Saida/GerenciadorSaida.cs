@@ -1349,14 +1349,72 @@ namespace Negocio
             }
         }
 
-        public bool ImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
+        public bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
-            if (impressora.Equals(Global.Impressora.NORMAL))
-                return ImprimirDAVNormalTexto(listaCodSaidas, total, totalAVista, desconto);
-            else
-                return ImprimirDAVComprimido(listaCodSaidas, total, totalAVista, desconto, impressora);                
+            string tipoDocumento = impressora.Equals(Global.Impressora.REDUZIDO1) ? "REDUZIDO1" : "REDUZIDO2";
+
+            if (GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
+                throw new NegocioException("Documento já foi solicitado para impressão. Verifique se impressora ligada.");
+
+
+            var repImprimirDocumento = new RepositorioGenerico<tb_imprimir_documento>();
+
+            var context = (SaceEntities)repImprimirDocumento.ObterContexto();
+
+            //if (context.Connection.State == System.Data.ConnectionState.Closed)
+            //    context.Connection.Open();
+            //DbTransaction transaction = saceContext.Connection.BeginTransaction();
+
+            tb_imprimir_documento documento = new tb_imprimir_documento();
+            documento.desconto = desconto;
+            documento.hostSolicitante = System.Windows.Forms.SystemInformation.ComputerName;
+            documento.tipoDocumento = tipoDocumento;
+            documento.total = total;
+            documento.totalAVista = totalAVista;
+            documento.codDocumento = listaCodSaidas.Min();
+            repImprimirDocumento.Inserir(documento);
+            //repImprimirDocumento.SaveChanges();
+
+            var query = from saida in context.tb_saida
+                        where listaCodSaidas.Contains(saida.codSaida)
+                       select saida;
+
+            List<tb_saida> saidas = query.ToList();
+            foreach(tb_saida saida in saidas) {
+                documento.tb_saida.Add(saida);
+            }
+            repImprimirDocumento.SaveChanges();
+            //transaction.Commit();
+            return true;
         }
 
+
+        public bool ImprimirDAV(Global.Impressora impressora)
+        {
+            string tipoDocumento = impressora.Equals(Global.Impressora.REDUZIDO1) ? "REDUZIDO1" : "REDUZIDO2";
+
+            var repImprimirDocumento = new RepositorioGenerico<tb_imprimir_documento>();
+            
+            var saceContext = (SaceEntities)repImprimirDocumento.ObterContexto();
+
+            var query = from documento in saceContext.tb_imprimir_documento
+                        where tipoDocumento.Equals(documento.tipoDocumento)
+                        select documento;
+
+            List<tb_imprimir_documento> documentos = query.ToList();
+            foreach (tb_imprimir_documento documento in documentos)
+            {
+                List<long> listaCodSaidas = documento.tb_saida.Select(s=>s.codSaida).ToList();
+                repImprimirDocumento.Remover(documento);
+                repImprimirDocumento.SaveChanges();
+
+                if (impressora.Equals(Global.Impressora.NORMAL))
+                    return ImprimirDAVNormalTexto(listaCodSaidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto);
+                else
+                    return ImprimirDAVComprimido(listaCodSaidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto, impressora);    
+            }
+            return true;
+        }
  
         private bool ImprimirDAVComprimido(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Global.Impressora impressora)
         {
@@ -1364,14 +1422,14 @@ namespace Negocio
             {
                 List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
                 ImprimeTexto imp = new ImprimeTexto();
-                if (impressora.Equals(Global.Impressora.DARUMA))
+                if (impressora.Equals(Global.Impressora.REDUZIDO1))
                 {
-                    if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA))
+                    if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA1))
                     {
                         return false;
                     }
                 }
-                else if (impressora.Equals(Global.Impressora.BEMATECH))
+                else if (impressora.Equals(Global.Impressora.REDUZIDO2))
                 {
                     if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
                     {
@@ -1416,7 +1474,7 @@ namespace Negocio
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpLF("Cod  Produto                                   Qtdade    UN ");
                 imp.ImpLF("                                      Preco(R$) Subtotal(R$)");
-                foreach (Saida saida in saidas)
+                foreach (SaidaPesquisa saida in saidas)
                 {
                     if (saidas.Count > 1)
                     {
@@ -1468,7 +1526,7 @@ namespace Negocio
                 imp.Fim();
                 return true;
             }
-            catch (Exception )
+            catch (Exception e)
             {
                 return false;
             }

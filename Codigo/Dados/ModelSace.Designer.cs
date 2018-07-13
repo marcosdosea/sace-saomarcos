@@ -11144,6 +11144,78 @@ namespace Dados
         private global::System.String _hostSolicitante;
         partial void OnhostSolicitanteChanging(global::System.String value);
         partial void OnhostSolicitanteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> total
+        {
+            get
+            {
+                return _total;
+            }
+            set
+            {
+                OntotalChanging(value);
+                ReportPropertyChanging("total");
+                _total = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("total");
+                OntotalChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _total;
+        partial void OntotalChanging(Nullable<global::System.Decimal> value);
+        partial void OntotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> totalAVista
+        {
+            get
+            {
+                return _totalAVista;
+            }
+            set
+            {
+                OntotalAVistaChanging(value);
+                ReportPropertyChanging("totalAVista");
+                _totalAVista = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("totalAVista");
+                OntotalAVistaChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _totalAVista;
+        partial void OntotalAVistaChanging(Nullable<global::System.Decimal> value);
+        partial void OntotalAVistaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> desconto
+        {
+            get
+            {
+                return _desconto;
+            }
+            set
+            {
+                OndescontoChanging(value);
+                ReportPropertyChanging("desconto");
+                _desconto = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("desconto");
+                OndescontoChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _desconto;
+        partial void OndescontoChanging(Nullable<global::System.Decimal> value);
+        partial void OndescontoChanged();
 
         #endregion
 

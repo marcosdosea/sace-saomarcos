@@ -348,7 +348,15 @@ namespace Telas
                 // GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
             //}
             GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
-            
+
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1))
+            {
+                GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO1);
+            }
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2))
+            {
+                GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO2);
+            }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
             {
                 GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);

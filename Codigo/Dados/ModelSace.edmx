@@ -564,6 +564,9 @@
           <Property Name="tipoDocumento" Type="enum" Nullable="false" />
           <Property Name="codDocumento" Type="bigint" Nullable="false" />
           <Property Name="hostSolicitante" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="total" Type="decimal" Scale="2" />
+          <Property Name="totalAVista" Type="decimal" Scale="2" />
+          <Property Name="desconto" Type="decimal" Scale="2" />
         </EntityType>
         <EntityType Name="tb_imprimir_documento_saida">
           <Key>
@@ -3638,6 +3641,9 @@
           <Property Type="Int64" Name="codDocumento" Nullable="false" />
           <Property Type="String" Name="hostSolicitante" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tb_saida" Relationship="SaceModel.tb_imprimir_documento_saida" FromRole="tb_imprimir_documento" ToRole="tb_saida" />
+          <Property Type="Decimal" Name="total" />
+          <Property Type="Decimal" Name="totalAVista" />
+          <Property Type="Decimal" Name="desconto" />
         </EntityType>
         <EntityType Name="tb_nfe">
           <Key>
@@ -4231,6 +4237,9 @@
           <EntitySetMapping Name="tb_imprimir_documento">
             <EntityTypeMapping TypeName="SaceModel.tb_imprimir_documento">
               <MappingFragment StoreEntitySet="tb_imprimir_documento">
+                <ScalarProperty Name="desconto" ColumnName="desconto" />
+                <ScalarProperty Name="totalAVista" ColumnName="totalAVista" />
+                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="hostSolicitante" ColumnName="hostSolicitante" />
                 <ScalarProperty Name="codDocumento" ColumnName="codDocumento" />
                 <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />

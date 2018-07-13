@@ -25,7 +25,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Retaguarda")]
+        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
         public string Servidor {
             get {
                 return ((string)(this["Servidor"]));
@@ -34,7 +34,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("MARCOSDOSEA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
         public string ServidorNfe {
             get {
                 return ((string)(this["ServidorNfe"]));
@@ -97,7 +97,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SM-VENDAS01")]
         public string ServidorImprimirReduzido1 {
             get {
                 return ((string)(this["ServidorImprimirReduzido1"]));
