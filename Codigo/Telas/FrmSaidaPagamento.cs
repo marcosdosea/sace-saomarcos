@@ -527,5 +527,20 @@ namespace Telas
             }
         }
 
+        private void cpf_CnpjTextBox_Leave(object sender, EventArgs e)
+        {
+            codSaidaTextBox_Leave(sender, e);
+            if (!string.IsNullOrWhiteSpace(cpf_CnpjTextBox.Text))
+            {
+                string numero = cpf_CnpjTextBox.Text;
+                if (!Validacoes.ValidaCPF(numero) && !Validacoes.ValidaCNPJ(numero))
+                {
+                    MessageBox.Show("CPF/CNPJ inválidos!");
+                    cpf_CnpjTextBox.Focus();
+                }
+            }
+
+        }
+
     }
 }

@@ -640,7 +640,7 @@
             this.cpf_CnpjTextBox.Size = new System.Drawing.Size(179, 29);
             this.cpf_CnpjTextBox.TabIndex = 17;
             this.cpf_CnpjTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.cpf_CnpjTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
+            this.cpf_CnpjTextBox.Leave += new System.EventHandler(this.cpf_CnpjTextBox_Leave);
             // 
             // trocoTextBox
             // 
