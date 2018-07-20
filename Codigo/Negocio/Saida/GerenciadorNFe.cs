@@ -1016,6 +1016,7 @@ namespace Negocio
                 //decimal totalProdutos = 0;
                 decimal totalSaidas = 0;
                 decimal totalTributos = 0;
+                decimal valorTotalDesconto = 0;
                 if (solicitacao.ehComplementar)
                 {
                     PreencherProdutoNFEComplementar(saida, nfeControleAutorizadaComp, listaNFeDet);
@@ -1069,23 +1070,29 @@ namespace Negocio
                         totalSaidas = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) - saida.Desconto;
                     }
 
+                    List<SaidaProduto> listaSaidaProdutosNfe = new List<SaidaProduto>();
+                    foreach (SaidaProduto saidaProduto in saidaProdutos)
+                    {
+                        if ((!destinatario.ImprimirCF) && (saidaProduto.CodCST.Contains(Cst.ST_OUTRAS)))
+                        {
+                            totalSaidas -= saidaProduto.SubtotalAVista;
+                        }
+                        else
+                        {
+                            listaSaidaProdutosNfe.Add(saidaProduto);
+                        }
+                    }
+                    saidaProdutos = listaSaidaProdutosNfe;
+
+                    
                     // distribui desconto entre todos os produtos da nota
                     saidaProdutos = DistribuirDescontoProdutos(saidaProdutos, totalSaidas);
 
                     // Atualiza os produtos com os valores de impostos
                     saidaProdutos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
                     totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
-
-                    foreach (SaidaProduto saidaProduto in saidaProdutos)
-                    {
-                        if ((!destinatario.ImprimirCF) && (saidaProduto.CodCST.Contains(Cst.ST_OUTRAS)))
-                        {
-                            totalTributos -= saidaProduto.ValorImposto;
-                            totalSaidas -= saidaProduto.ValorProdutoNota * saidaProduto.Quantidade;
-                            saidaProduto.Quantidade = 0;
-                        }
-                    }
-
+                    
+               
                     //decimal fatorValorOutros = saida.OutrasDespesas / totalProdutos;
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
@@ -1165,9 +1172,10 @@ namespace Negocio
                                 prod.vProd = formataValorNFe(saidaProduto.SubtotalAVista);
                                 prod.vUnTrib = formataValorNFe(saidaProduto.ValorVendaAVista, 3);
                             }
-                            if (saidaProduto.ValorDesconto > 0)
+                            if (Decimal.Parse(formataValorNFe(saidaProduto.ValorDesconto), CultureInfo.InvariantCulture) > 0)
                             {
                                 prod.vDesc = formataValorNFe(saidaProduto.ValorDesconto);
+                                valorTotalDesconto += Decimal.Parse(formataValorNFe(saidaProduto.ValorDesconto), CultureInfo.InvariantCulture);
                             }
 
 
@@ -1284,7 +1292,6 @@ namespace Negocio
 
                 // Totalizadores de tributos
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
-                decimal valorTotalDesconto = (decimal)saidaProdutos.Sum(sp => sp.ValorDesconto);
                 decimal valorTotalNota = totalSaidas + saida.ValorFrete + saida.OutrasDespesas;
 
                 icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
@@ -1631,8 +1638,12 @@ namespace Negocio
             decimal percentualDesconto = totalSaidas / saidaProdutos.Sum(sp => sp.Subtotal);
             decimal totalDescontoDevolucoes = Math.Round(Math.Abs(saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.Subtotal) * percentualDesconto), 2);
 
-            decimal totalDescontoDistribuirPreco = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal) - totalSaidas;
-            decimal totalDescontoCalculado = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal) - saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) + totalDescontoDevolucoes;
+            decimal totalSaidaProdutosPositivo = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
+            decimal totalAVistaSaidaProdutosPositivo = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista);
+
+
+            decimal totalDescontoDistribuirPreco = totalSaidaProdutosPositivo - totalSaidas;
+            decimal totalDescontoCalculado = totalSaidaProdutosPositivo - totalAVistaSaidaProdutosPositivo + totalDescontoDevolucoes;
             if ((totalDescontoCalculado == totalDescontoDistribuirPreco) && (totalDescontoDevolucoes == 0))
             {
                 foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -1662,7 +1673,8 @@ namespace Negocio
                 foreach (SaidaProduto saidaProduto in saidaProdutos)
                     saidaProduto.ValorProdutoNota = saidaProduto.ValorVendaAVista;
 
-                totalDescontoDistribuirPreco = totalDescontoDistribuirPreco - totalDescontoCalculado; //+ totalDescontoDevolucoes;
+                //totalDescontoDistribuirPreco = totalDescontoDistribuirPreco - totalDescontoCalculado; //+ totalDescontoDevolucoes;
+                totalDescontoDistribuirPreco = totalAVistaSaidaProdutosPositivo - totalSaidas; 
                 decimal fatorDesconto = totalDescontoDistribuirPreco / totalSaidas;
                 saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
             }
@@ -2639,6 +2651,60 @@ namespace Negocio
                     }
                 }
             }
+        }
+
+        public void CalcularTotaisNFCe(String pasta)
+        {
+            DirectoryInfo Dir = new DirectoryInfo(pasta);
+            if (Dir.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                string arquivosNfce = "*procNFe.xml";
+                FileInfo[] files = Dir.GetFiles(arquivosNfce, SearchOption.TopDirectoryOnly);
+                decimal totalSubstituto = 0;
+                decimal totalDescontoSubstituto = 0;
+                decimal totalNormal = 0;
+                decimal totalDescontoNormal = 0;
+                decimal totalOutros = 0;
+                decimal totalDescontoOutros = 0;
+                
+                
+                for (int i = 0; i < files.Length; i++)
+                {
+                    XmlDocument xmldocRetorno = new XmlDocument();
+                    xmldocRetorno.Load(files[i].FullName);
+                    XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+                    XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
+                    TNfeProc nfe = (TNfeProc)serializer.Deserialize(xmlReaderRetorno);
+                    TNFeInfNFeDet[] produtos = nfe.NFe.infNFe.det;
+                    foreach (TNFeInfNFeDet produto in produtos)
+                    {
+                        if (produto.prod.CFOP.Equals(TCfop.Item5102)) {
+                            totalNormal += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
+                            if (produto.prod.vDesc != null)
+                                totalDescontoNormal += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                        }
+                        else if (produto.prod.CFOP.Equals(TCfop.Item5405))
+                        {
+                            totalSubstituto += decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
+                            if (produto.prod.vDesc != null)
+                                totalDescontoSubstituto += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                        }
+                        else if (produto.prod.CFOP.Equals(TCfop.Item6929))
+                        {
+                            totalOutros += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
+                            if (produto.prod.vDesc != null)
+                                totalDescontoOutros += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                        }
+                    }
+                }
+
+                throw new Negocio.NegocioException("Valor Normal : " + totalNormal + " Desconto normal: " + totalDescontoNormal +
+                    "Valor Substituto : " + totalSubstituto + " Desconto substituto : " + totalDescontoSubstituto + 
+                    "Valor Outros : " + totalOutros + " Desconto Outros : " + totalDescontoOutros);
+
+            }
+            
         }
     }
 }

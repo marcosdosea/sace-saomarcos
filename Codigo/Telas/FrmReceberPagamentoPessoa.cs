@@ -278,6 +278,7 @@ namespace Telas
                 SaidaPedido saidaPedido = new SaidaPedido() { CodSaida = codSaidaTemp, TotalAVista = totalAVistaTemp };
                 listaSaidaPedido.Add(saidaPedido);
             }
+            
 
             decimal total = Convert.ToDecimal(totalContasTextBox.Text);
             decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
@@ -288,14 +289,14 @@ namespace Telas
             saidaPagamento.CodCartaoCredito = Global.CARTAO_LOJA;
             saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
             saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
-            saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text);
+            saidaPagamento.Valor = Convert.ToDecimal(valorPagamentoTextBox.Text) + Convert.ToDecimal(totalPagamentosTextBox.Text);
             List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>() { saidaPagamento };
 
             if (!pedidoGerado.Trim().Equals("") || (pessoa.ImprimirCF))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
-
+                AtualizarValoresDescontosContas();
                 //decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                 frmSaidaNF.ShowDialog();
@@ -303,8 +304,9 @@ namespace Telas
             }
             else
             {
-                if (MessageBox.Show("Confirma emisssão da NFe das Contas Selecionadas?", "Confirmar Impressão NFe/NFCe", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Confirma emisssão da NFce das Contas Selecionadas?", "Confirmar Impressão NFe/NFCe", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
+                    AtualizarValoresDescontosContas();
                     long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                     FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                     frmSaidaAutorizacao.ShowDialog();

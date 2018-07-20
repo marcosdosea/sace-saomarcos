@@ -96,7 +96,24 @@ namespace Negocio
                 _conta.codSituacao = codSituacao;
                 _conta.desconto = desconto;
 
+
+                var query2 = from contaSet in saceContext.ContaSet
+                            where contaSet.codSaida == _conta.codSaida
+                            select contaSet;
+
+                decimal somaContas = query2.ToList().Sum(c => (c.valor - c.desconto));
+
+                var query3 = from saida in saceContext.tb_saida
+                            where saida.codSaida == _conta.codSaida
+                            select saida;
+
+                tb_saida _saida = query3.ToList().ElementAtOrDefault(0);
+                if (_saida != null)
+                    _saida.totalAVista = somaContas;
                 saceContext.SaveChanges();
+
+
+
             }
             catch (Exception e)
             {

@@ -73,6 +73,8 @@
             this.atualizarPreçoVarejoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exclusãoDePessoasDoSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarNFesEmitidasOffLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calcularImpostoNFCECtempToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosParaRevendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +95,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timerDocumentos = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.enviarNFesEmitidasOffLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -395,7 +396,8 @@
             this.atualizarPreçoVarejoToolStripMenuItem,
             this.exclusãoDeProdutoDoSistemaToolStripMenuItem,
             this.exclusãoDePessoasDoSistemaToolStripMenuItem,
-            this.enviarNFesEmitidasOffLineToolStripMenuItem});
+            this.enviarNFesEmitidasOffLineToolStripMenuItem,
+            this.calcularImpostoNFCECtempToolStripMenuItem});
             this.utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
             this.utilitáriosToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.utilitáriosToolStripMenuItem.Text = "&Utilitários";
@@ -441,6 +443,20 @@
             this.exclusãoDePessoasDoSistemaToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
             this.exclusãoDePessoasDoSistemaToolStripMenuItem.Text = "Exclusão de Pessoas do Sistema";
             this.exclusãoDePessoasDoSistemaToolStripMenuItem.Click += new System.EventHandler(this.exclusãoDePessoasDoSistemaToolStripMenuItem_Click);
+            // 
+            // enviarNFesEmitidasOffLineToolStripMenuItem
+            // 
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Name = "enviarNFesEmitidasOffLineToolStripMenuItem";
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Text = "Enviar NFes Emitidas Off-Line";
+            this.enviarNFesEmitidasOffLineToolStripMenuItem.Click += new System.EventHandler(this.enviarNFesEmitidasOffLineToolStripMenuItem_Click);
+            // 
+            // calcularImpostoNFCECtempToolStripMenuItem
+            // 
+            this.calcularImpostoNFCECtempToolStripMenuItem.Name = "calcularImpostoNFCECtempToolStripMenuItem";
+            this.calcularImpostoNFCECtempToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
+            this.calcularImpostoNFCECtempToolStripMenuItem.Text = "Calcular Totais NFCe";
+            this.calcularImpostoNFCECtempToolStripMenuItem.Click += new System.EventHandler(this.calcularImpostoNFCECtempToolStripMenuItem_Click);
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -616,13 +632,6 @@
             this.timerDocumentos.Interval = 1000;
             this.timerDocumentos.Tick += new System.EventHandler(this.timerDocumentos_Tick);
             // 
-            // enviarNFesEmitidasOffLineToolStripMenuItem
-            // 
-            this.enviarNFesEmitidasOffLineToolStripMenuItem.Name = "enviarNFesEmitidasOffLineToolStripMenuItem";
-            this.enviarNFesEmitidasOffLineToolStripMenuItem.Size = new System.Drawing.Size(326, 22);
-            this.enviarNFesEmitidasOffLineToolStripMenuItem.Text = "Enviar NFes Emitidas Off-Line";
-            this.enviarNFesEmitidasOffLineToolStripMenuItem.Click += new System.EventHandler(this.enviarNFesEmitidasOffLineToolStripMenuItem_Click);
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -724,6 +733,7 @@
         private System.Windows.Forms.Timer timerDocumentos;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem enviarNFesEmitidasOffLineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem calcularImpostoNFCECtempToolStripMenuItem;
 
     }
 }
