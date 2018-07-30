@@ -742,8 +742,8 @@ namespace Negocio
                                 nfeControle.SituacaoReciboEnvio = retornoConsReciboNfe.cStat;
                                 nfeControle.MensagemSituacaoReciboEnvio = retornoConsReciboNfe.xMotivo;
                                 GerenciadorNFe.GetInstance().Atualizar(nfeControle);
-                                files[0].Delete();
                             }
+                            files[i].Delete();
                         }
                         // Retorno no caso de envio síncrono
                         else
@@ -781,7 +781,8 @@ namespace Negocio
                             GerenciadorNFe.GetInstance().Atualizar(nfeControle);
 
                         }
-                        GerenciadorSaida.GetInstance(null).AtualizarSaidasPorNfeSituacao(nfeControle);
+                        if (nfeControle != null)
+                            GerenciadorSaida.GetInstance(null).AtualizarSaidasPorNfeSituacao(nfeControle);
                     }
                 }
             }
@@ -2420,12 +2421,11 @@ namespace Negocio
         /// Recupera os vários retornos do processamento de Nfes
         /// </summary>
 
-        public void RecuperarRetornosNfe()
+        public void RecuperarRetornosNfe(Loja loja)
         {
             try
             {
-                IEnumerable<Loja> lojas = GerenciadorLoja.GetInstance().ObterTodos();
-                foreach (Loja loja in lojas)
+                if (loja != null)
                 {
                     DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeRetorno);
                     // Busca automaticamente todos os arquivos em todos os subdiretórios

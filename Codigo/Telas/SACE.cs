@@ -31,6 +31,8 @@ namespace Telas
         static string SERVIDOR_IMPRIMIR_NFE  = Properties.Settings.Default.ServidorImprimirNfce;
         static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
         static string SERVIDOR_IMPRIMIR_REDUZIDO2 = Properties.Settings.Default.ServidorImprimirReduzido2;
+        static Loja lojaMatriz;
+        static Loja lojaDeposito;
 
 
 
@@ -78,6 +80,7 @@ namespace Telas
                 Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
                 Application.Run(new Principal());
             }
+
         }
 
         private void Principal_KeyDown(object sender, KeyEventArgs e)
@@ -341,12 +344,6 @@ namespace Telas
 
         private static void ProcessarDocumentosFiscais()
         {
-            //if (nomeComputador.ToUpper().Equals(SERVIDOR))
-            //{
-                //GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoECF();
-                //GerenciadorSolicitacaoDocumento.GetInstance().AtualizarPedidosComDocumentosECF(SERVIDOR);
-                // GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
-            //}
             GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
 
             if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1))
@@ -368,13 +365,17 @@ namespace Telas
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
                 GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
-                
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+                if (lojaMatriz == null)
+                    lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaMatriz);
             } 
             else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
+                if (lojaDeposito == null)
+                    lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
+
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe();
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaDeposito);
             }  
             
         }
@@ -418,7 +419,7 @@ namespace Telas
         private void movimentaçãoDeCaixasContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DateTime agora = DateTime.Now;
-            if ((agora.Hour > 12) && (agora.Hour < 16))
+            if ((agora.Hour > 12) && (agora.Hour < 15))
             {
                 MessageBox.Show("Funcionalidade indisponível após às 12:30 para processamento interno do SACE.");
                 this.Close();

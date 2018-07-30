@@ -6,7 +6,7 @@
       <Value Profile="(Default)">RETAGUARDA</Value>
     </Setting>
     <Setting Name="ServidorNfe" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SERVIDOR</Value>
+      <Value Profile="(Default)">MARCOSDOSEA</Value>
     </Setting>
     <Setting Name="ServidorCartao" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SERVIDOR</Value>
