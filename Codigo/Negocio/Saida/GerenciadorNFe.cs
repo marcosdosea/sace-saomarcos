@@ -842,7 +842,7 @@ namespace Negocio
 
                 //Informacoes NFe
                 TNFeInfNFe infNFe = new TNFeInfNFe();
-                infNFe.versao = "3.10";
+                infNFe.versao = "4.00";
                 infNFe.Id = "NFe" + nfeControle.Chave;
                 nfe.infNFe = infNFe;
 
@@ -867,10 +867,6 @@ namespace Negocio
                     infNFeIde.finNFe = TFinNFe.Item4;
                 else
                     infNFeIde.finNFe = TFinNFe.Item1;
-                if (saida.CodSituacaoPagamentos.Equals(SituacaoPagamentos.QUITADA))
-                    infNFeIde.indPag = (TNFeInfNFeIdeIndPag)0; // 0 - à Vista  1 - a prazo  2 - outros
-                else
-                    infNFeIde.indPag = (TNFeInfNFeIdeIndPag)1;
                 infNFeIde.natOp = GerenciadorCfop.GetInstance().Obter(Convert.ToInt32(cfopPadrao)).ElementAtOrDefault(0).Descricao;
                 infNFeIde.nNF = nfeControle.NumeroSequenciaNfe.ToString(); // número do Documento Fiscal
                 infNFeIde.procEmi = TProcEmi.Item0; //0 - Emissão do aplicativo do contribuinte
@@ -980,7 +976,8 @@ namespace Negocio
                     TEndereco enderDest = new TEndereco();
                     enderDest.CEP = destinatario.Cep.Trim();
                     enderDest.cMun = destinatario.CodMunicipioIBGE.ToString();
-                    enderDest.cPais = Tpais.Item1058;
+                    enderDest.cPais = "1058"; //Brasil
+                    enderDest.xPais = "Brasil";
                     enderDest.fone = destinatario.Fone1;
                     enderDest.nro = destinatario.Numero.Trim();
                     enderDest.UF = (TUf)Enum.Parse(typeof(TUf), destinatario.Uf);
@@ -989,9 +986,6 @@ namespace Negocio
                         enderDest.xCpl = destinatario.Complemento.Trim();
                     enderDest.xLgr = destinatario.Endereco.Trim();
                     enderDest.xMun = Util.StringUtil.RemoverAcentos(destinatario.NomeMunicipioIBGE);
-                    enderDest.xPais = "Brasil";
-
-
                     dest.enderDest = enderDest;
                 }
                 else if (!String.IsNullOrWhiteSpace(saida.CpfCnpj))
@@ -1111,17 +1105,17 @@ namespace Negocio
                             }
                             else
                             {
-                                prod.cEANTrib = "";
-                                prod.cEAN = "";
+                                prod.cEANTrib = "SEM GTIN";
+                                prod.cEAN = "SEM GTIN";
                             }
 
 
-                            string cfopItem = "Item" + saidaProduto.CodCfop;
+                            
                             if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2))
-                                cfopItem = cfopItem.Replace("Item5", "Item6"); // cfop vira interestadual 
+                                saidaProduto.CodCfop += 1000; // cfop vira interestadual 5405 => 6405
 
 
-                            prod.CFOP = (TCfop)Enum.Parse(typeof(TCfop), cfopItem);
+                            prod.CFOP = saidaProduto.CodCfop.ToString();
 
 
                             //bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
@@ -1131,16 +1125,16 @@ namespace Negocio
                                 if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item1)) //1- interna; 2-interestadual; 3-exterior
                                 {
                                     if (saidaProduto.EhTributacaoIntegral)
-                                        prod.CFOP = TCfop.Item5102;
+                                        prod.CFOP = "5102";
                                     else
-                                        prod.CFOP = TCfop.Item5405;
+                                        prod.CFOP = "5405";
                                 }
                                 else
                                 {
                                     if (saidaProduto.EhTributacaoIntegral)
-                                        prod.CFOP = TCfop.Item6102;
+                                        prod.CFOP = "6102";
                                     else
-                                        prod.CFOP = TCfop.Item6404;
+                                        prod.CFOP = "6404";
                                 }
                             }
 
@@ -1151,7 +1145,7 @@ namespace Negocio
                                 if (Global.AMBIENTE_NFE.Equals("2"))
                                 {//homologação
                                     prod.xProd = "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
-                                    prod.CFOP = TCfop.Item5102;
+                                    prod.CFOP = "5102";
                                 }
                                 else
                                     prod.xProd = produto.Nome.Trim();
@@ -1295,6 +1289,9 @@ namespace Negocio
                 TNFeInfNFeTotalICMSTot icmsTot = new TNFeInfNFeTotalICMSTot();
                 decimal valorTotalNota = totalSaidas + saida.ValorFrete + saida.OutrasDespesas;
 
+                icmsTot.vFCP = formataValorNFe(0);
+                icmsTot.vFCPST = formataValorNFe(0);
+                icmsTot.vFCPSTRet = formataValorNFe(0);
                 icmsTot.vBC = formataValorNFe(0); // o valor da base de cálculo deve ser a dos produtos.
                 icmsTot.vICMS = formataValorNFe(0);
                 icmsTot.vBCST = formataValorNFe(0);
@@ -1305,7 +1302,7 @@ namespace Negocio
                 //icmsTot.vTotTrib = formataValorNFe(totalTributos);
                 icmsTot.vII = formataValorNFe(0);
                 icmsTot.vIPI = formataValorNFe(0);
-
+                icmsTot.vIPIDevol = formataValorNFe(0);
                 icmsTot.vPIS = formataValorNFe(0);
                 icmsTot.vCOFINS = formataValorNFe(0);
                 icmsTot.vICMSDeson = formataValorNFe(0);
@@ -1381,7 +1378,7 @@ namespace Negocio
                     transp.vol[0] = volumes;
                     transp.transporta = transporta;
                     TNFeInfNFeTranspRetTransp retTransp = new TNFeInfNFeTranspRetTransp();
-                    retTransp.CFOP = TCfopTransp.Item6352;
+                    retTransp.CFOP = "6352";
                     retTransp.cMunFG = transportadora.CodMunicipioIBGE.ToString();
                     retTransp.vServ = formataValorNFe(saida.ValorFrete);
                     retTransp.vBCRet = "0";
@@ -1419,32 +1416,34 @@ namespace Negocio
                 }
 
                 // Informações de pagamento da NFE. Obrigatória para NFCE
-                if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE) && (listaSaidaPagamentos.Count > 0))
+                if (listaSaidaPagamentos.Count > 0)
                 {
-                    nfe.infNFe.pag = new TNFeInfNFePag[listaSaidaPagamentos.Count];
+                    nfe.infNFe.pag = new TNFeInfNFePag();
+                    nfe.infNFe.pag.detPag = new TNFeInfNFePagDetPag[listaSaidaPagamentos.Count];
+
                     int countPag = 0;
                     foreach (tb_solicitacao_pagamento pagamento in listaSaidaPagamentos)
                     {
-                        TNFeInfNFePag infNfePag = new TNFeInfNFePag();
+                        TNFeInfNFePagDetPag infNfePag = new TNFeInfNFePagDetPag();
                         //infNfePag.card = new TNFeInfNFePagCard() { cAut = "XX", CNPJ = "xxx", tBand = TNFeInfNFePagCardTBand.Item99 }; //01-Visa 02-Master 03-American 04-Sorocred 99-Outros
                         if (pagamento.codFormaPagamento == FormaPagamento.DINHEIRO)
                         {
-                            infNfePag.tPag = TNFeInfNFePagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
                         else if (pagamento.codFormaPagamento == FormaPagamento.CARTAO)
                         {
-                            infNfePag.tPag = TNFeInfNFePagTPag.Item03; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item03; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
 
                         else
                         {
-                            infNfePag.tPag = TNFeInfNFePagTPag.Item05; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item05; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
 
-                        nfe.infNFe.pag[countPag] = infNfePag;
+                        nfe.infNFe.pag.detPag[countPag] = infNfePag;
                         countPag++;
                     }
                 }
@@ -1502,7 +1501,7 @@ namespace Negocio
             prod.xProd = "Nota Fiscal Complementar da NF-e " + nfeControleAutorizadaComp.NumeroSequenciaNfe + " de " + nfeControleAutorizadaComp.DataEmissao;
             prod.cEAN = "";
             prod.cEANTrib = "";
-            prod.CFOP = TCfop.Item6411;
+            prod.CFOP = "6411";
             prod.NCM = "00";
             prod.uCom = "UN";
             prod.qCom = formataValorNFe(0);
@@ -2148,7 +2147,7 @@ namespace Negocio
 
                     consultaNfe.chNFe = nfeControle.Chave;
                     consultaNfe.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
-                    consultaNfe.versao = TVerConsSitNFe.Item310;
+                    consultaNfe.versao = TVerConsSitNFe.Item400;
                     consultaNfe.xServ = TConsSitNFeXServ.CONSULTAR;
 
                     XmlDocument xmlDoc = new XmlDocument();
@@ -2679,18 +2678,18 @@ namespace Negocio
                     TNFeInfNFeDet[] produtos = nfe.NFe.infNFe.det;
                     foreach (TNFeInfNFeDet produto in produtos)
                     {
-                        if (produto.prod.CFOP.Equals(TCfop.Item5102)) {
+                        if (produto.prod.CFOP.Equals("5102")) {
                             totalNormal += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
                             if (produto.prod.vDesc != null)
                                 totalDescontoNormal += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
                         }
-                        else if (produto.prod.CFOP.Equals(TCfop.Item5405))
+                        else if (produto.prod.CFOP.Equals("5405"))
                         {
                             totalSubstituto += decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
                             if (produto.prod.vDesc != null)
                                 totalDescontoSubstituto += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
                         }
-                        else if (produto.prod.CFOP.Equals(TCfop.Item6929))
+                        else if (produto.prod.CFOP.Equals("6929"))
                         {
                             totalOutros += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
                             if (produto.prod.vDesc != null)
