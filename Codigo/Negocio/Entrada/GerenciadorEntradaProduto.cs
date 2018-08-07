@@ -157,6 +157,7 @@ namespace Negocio
         {
             const string VERSAO2 = "2.00";
             const string VERSAO3 = "3.10";
+            const string VERSAO4 = "4.00";
 
             try
             {
@@ -174,7 +175,7 @@ namespace Negocio
                 foreach (TNFeInfNFeDet produto in nfe.NFe.infNFe.det)
                 {
                     EntradaProduto entradaProduto = new EntradaProduto();
-                    entradaProduto.Cfop = Convert.ToInt32(produto.prod.CFOP.ToString().Substring(4));
+                    entradaProduto.Cfop = Convert.ToInt32(produto.prod.CFOP);
                     entradaProduto.CodEntrada = entrada.CodEntrada;
                     entradaProduto.CodFornecedor = entrada.CodFornecedor;
                     ProdutoPesquisa produtoPesquisa = null;
@@ -362,7 +363,7 @@ namespace Negocio
 
                             }
                         }
-                        else if (versaoNF.Equals(VERSAO3))
+                        else if (versaoNF.Equals(VERSAO3) || versaoNF.Equals(VERSAO4))
                         {
                             if (produto.imposto.Items[i] is TIpi)
                             {
