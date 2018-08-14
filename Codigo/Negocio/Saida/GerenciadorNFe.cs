@@ -1447,6 +1447,16 @@ namespace Negocio
                         countPag++;
                     }
                 }
+                else
+                {
+                    nfe.infNFe.pag = new TNFeInfNFePag();
+                    nfe.infNFe.pag.detPag = new TNFeInfNFePagDetPag[1];
+
+                    TNFeInfNFePagDetPag infNfePag = new TNFeInfNFePagDetPag();
+                    infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item90; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 90-Sem pagamento
+                    infNfePag.vPag = formataValorNFe(0);
+                    nfe.infNFe.pag.detPag[0] = infNfePag;
+                }
 
                 ////Informacoes Adicionais
                 TNFeInfNFeInfAdic infAdic = new TNFeInfNFeInfAdic();
