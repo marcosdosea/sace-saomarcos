@@ -37,7 +37,7 @@ namespace Negocio
                     throw new NegocioException("O nome do produto não pode ficar em branco.");
                 else if (produto.QuantidadeEmbalagem <= 0) 
                     throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
-                else if (!produto.CodigoBarra.Trim().Equals(""))
+                else if (!produto.CodigoBarra.Trim().Equals("") && !produto.CodigoBarra.Trim().Equals("SEM GTIN"))
                 {
                     if (ObterPorCodigoBarraExato(produto.CodigoBarra).Count() > 0)
                     {
@@ -118,7 +118,7 @@ namespace Negocio
                 throw new NegocioException("O nome do produto não pode ficar em branco.");
             else if (produto.QuantidadeEmbalagem <= 0)
                 throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
-            else if (!produto.CodigoBarra.Trim().Equals(""))
+            else if (!produto.CodigoBarra.Trim().Equals("") && !produto.CodigoBarra.Trim().Equals("SEM GTIN"))
             {
                 ProdutoPesquisa produtoPesquisa = ObterPorCodigoBarraExato(produto.CodigoBarra).ElementAtOrDefault(0);
                 if ((produtoPesquisa != null) && (produtoPesquisa.CodProduto != produto.CodProduto))

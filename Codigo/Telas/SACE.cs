@@ -481,7 +481,7 @@ namespace Telas
         private void calcularImpostoNFCECtempToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma o Cálculo de Totais das NFCE da pasta C:\temp?", "Confirma Cálculo Totais", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                GerenciadorNFe.GetInstance().CalcularTotaisNFCe("C:\\temp\\");
+                GerenciadorNFe.GetInstance().CalcularTotaisNFCe("C:\\temp\\nfe\\");
         }
 
      }

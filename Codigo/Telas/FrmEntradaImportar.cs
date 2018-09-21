@@ -32,6 +32,8 @@ namespace Telas
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             EntradaProduto entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+            entradaProduto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem == 0 ? 1 : entradaProduto.QuantidadeEmbalagem;
+            entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem;
             GerenciadorEntradaProduto.GetInstance(null).Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             entradaProdutoBindingSource.RemoveCurrent();
             codProdutoComboBox.Focus();

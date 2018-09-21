@@ -735,8 +735,9 @@ namespace Negocio
                 entradaProduto.CodProduto = produto.CodProduto; 
 
                 entradaProduto.UnidadeCompra = produto.Unidade;
-                entradaProduto.Quantidade = (produto.TemVencimento) ? quantidade : 10000;
-                entradaProduto.QuantidadeEmbalagem = 1;
+                entradaProduto.Quantidade = 10000;
+                entradaProduto.QuantidadeEmbalagem = produto.QuantidadeEmbalagem == 0 ? 1 : produto.QuantidadeEmbalagem;
+                entradaProduto.QuantidadeDisponivel = (entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem) - quantidade; 
                 entradaProduto.ValorUnitario = produto.UltimoPrecoCompra;
                 //entradaProduto.ValorTotal = 0;
                 entradaProduto.BaseCalculoICMS = 0;
@@ -756,7 +757,6 @@ namespace Negocio
                 entradaProduto.DataEntrada = produto.DataUltimoPedido;
                 entradaProduto.Desconto = produto.Desconto;
                 entradaProduto.PrecoCusto = produto.PrecoCusto; 
-                entradaProduto.QuantidadeDisponivel = (produto.TemVencimento) ? 0 : 10000 - quantidade; 
                 entradaProduto.ValorDesconto = 0;
                 entradaProduto.CodCST = produto.CodCST;
                 entradaProduto.Cfop = 9999;
@@ -825,8 +825,8 @@ namespace Negocio
             _entradaProdutoE.desconto = entradaProduto.Desconto;
             _entradaProdutoE.preco_custo = entradaProduto.PrecoCusto;
             _entradaProdutoE.quantidade = entradaProduto.Quantidade;
+            _entradaProdutoE.quantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem == 0 ? 1 : entradaProduto.QuantidadeEmbalagem;
             _entradaProdutoE.quantidade_disponivel = entradaProduto.QuantidadeDisponivel;
-            _entradaProdutoE.quantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem;
             _entradaProdutoE.unidadeCompra = entradaProduto.UnidadeCompra;
             _entradaProdutoE.valorICMS = entradaProduto.ValorICMS;
             _entradaProdutoE.valorICMSST = entradaProduto.ValorICMSST;

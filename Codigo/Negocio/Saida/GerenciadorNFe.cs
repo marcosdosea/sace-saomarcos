@@ -1110,8 +1110,8 @@ namespace Negocio
                             }
 
 
-                            
-                            if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2))
+
+                            if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2) && (saidaProduto.CodCfop <= 6000) && (saidaProduto.CodCfop >= 5000))
                                 saidaProduto.CodCfop += 1000; // cfop vira interestadual 5405 => 6405
 
 
@@ -2668,49 +2668,78 @@ namespace Negocio
             if (Dir.Exists)
             {
                 // Busca automaticamente todos os arquivos em todos os subdiretórios
-                string arquivosNfce = "*procNFe.xml";
-                FileInfo[] files = Dir.GetFiles(arquivosNfce, SearchOption.TopDirectoryOnly);
-                decimal totalSubstituto = 0;
-                decimal totalDescontoSubstituto = 0;
-                decimal totalNormal = 0;
-                decimal totalDescontoNormal = 0;
-                decimal totalOutros = 0;
-                decimal totalDescontoOutros = 0;
+                string arquivosNf = "*procNFe.xml";
+                FileInfo[] filesNf = Dir.GetFiles(arquivosNf, SearchOption.TopDirectoryOnly);
+                string arquivosCancelado = "*procEventoNFe.xml";
+                FileInfo[] filesCancelado = Dir.GetFiles(arquivosCancelado, SearchOption.TopDirectoryOnly);
                 
+                //N_28180732799603000191650010000061911061363420_SE_279054513_procEventoNFe
                 
-                for (int i = 0; i < files.Length; i++)
+                Dictionary<string, decimal> mapValores = new Dictionary<string, decimal>();
+                Dictionary<string, decimal> mapDesconto = new Dictionary<string, decimal>();
+
+
+                for (int i = 0; i < filesNf.Length; i++)
                 {
-                    XmlDocument xmldocRetorno = new XmlDocument();
-                    xmldocRetorno.Load(files[i].FullName);
-                    XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
-                    XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
-                    TNfeProc nfe = (TNfeProc)serializer.Deserialize(xmlReaderRetorno);
-                    TNFeInfNFeDet[] produtos = nfe.NFe.infNFe.det;
-                    foreach (TNFeInfNFeDet produto in produtos)
+                    bool notaCancelada = false;
+                    string chave = filesNf[i].Name.Substring(0, 50);
+                    for (int j = 0; j < filesCancelado.Length; j++)
                     {
-                        if (produto.prod.CFOP.Equals("5102")) {
-                            totalNormal += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
-                            if (produto.prod.vDesc != null)
-                                totalDescontoNormal += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
-                        }
-                        else if (produto.prod.CFOP.Equals("5405"))
+                        if (filesCancelado[j].Name.StartsWith(chave))
                         {
-                            totalSubstituto += decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
-                            if (produto.prod.vDesc != null)
-                                totalDescontoSubstituto += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                            notaCancelada = true;
+                            break;
                         }
-                        else if (produto.prod.CFOP.Equals("6929"))
+                    }
+                    if (!notaCancelada)
+                    {
+                        XmlDocument xmldocRetorno = new XmlDocument();
+                        xmldocRetorno.Load(filesNf[i].FullName);
+                        XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
+                        XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
+                        TNfeProc nfe = (TNfeProc)serializer.Deserialize(xmlReaderRetorno);
+                        TNFeInfNFeDet[] produtos = nfe.NFe.infNFe.det;
+                        foreach (TNFeInfNFeDet produto in produtos)
                         {
-                            totalOutros += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
-                            if (produto.prod.vDesc != null)
-                                totalDescontoOutros += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                            decimal valor = 0;
+                            decimal valorDesconto = 0;
+                            if (mapValores.TryGetValue(produto.prod.CFOP, out valor))
+                            {
+                                valor += Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
+                                mapValores[produto.prod.CFOP] = valor;
+                            }
+                            else
+                            {
+                                valor = Decimal.Parse(produto.prod.vProd, CultureInfo.InvariantCulture);
+                                mapValores.Add(produto.prod.CFOP, valor);
+                            }
+
+                            if (mapDesconto.TryGetValue(produto.prod.CFOP, out valorDesconto))
+                            {
+                                if (produto.prod.vDesc != null)
+                                    valorDesconto += Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                                mapDesconto[produto.prod.CFOP] = valorDesconto;
+                            }
+                            else
+                            {
+                                if (produto.prod.vDesc != null)
+                                    valorDesconto = Decimal.Parse(produto.prod.vDesc, CultureInfo.InvariantCulture);
+                                mapDesconto.Add(produto.prod.CFOP, valorDesconto);
+                            }
                         }
                     }
                 }
-
-                throw new Negocio.NegocioException("Valor Normal : " + totalNormal + " Desconto normal: " + totalDescontoNormal +
-                    "Valor Substituto : " + totalSubstituto + " Desconto substituto : " + totalDescontoSubstituto + 
-                    "Valor Outros : " + totalOutros + " Desconto Outros : " + totalDescontoOutros);
+                String resultado = "";
+                foreach (string cfop in mapValores.Keys)
+                {
+                    decimal somaValores;
+                    decimal somaDescontos;
+                    mapValores.TryGetValue(cfop, out somaValores);
+                    mapDesconto.TryGetValue(cfop, out somaDescontos);
+                    string resultadoIndividual = "CFOP=" + cfop + ",valor=" + somaValores + ",desconto=" + somaDescontos + ";";
+                    resultado += resultadoIndividual;
+                }
+                throw new Negocio.NegocioException(resultado);
 
             }
             

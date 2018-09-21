@@ -1164,7 +1164,7 @@ namespace Negocio
                 {
                     GerenciadorProdutoLoja.GetInstance(saceContext).AdicionaQuantidade(0, saidaProduto.Quantidade, Global.LOJA_PADRAO, saidaProduto.CodProduto);
                 }
-
+                saidaProduto.Quantidade *= (-1); // inverte sinal da quantidade para fazer o retorno
                 GerenciadorEntradaProduto.GetInstance(saceContext).BaixarItensVendidosEstoque(saidaProduto);
             }
             saceContext.SaveChanges();
