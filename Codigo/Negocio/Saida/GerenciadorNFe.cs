@@ -1008,6 +1008,7 @@ namespace Negocio
                 //totais da nota
                 List<TNFeInfNFeDet> listaNFeDet = new List<TNFeInfNFeDet>();
                 List<SaidaProduto> saidaProdutos = new List<SaidaProduto>();
+                List<SaidaPesquisa> listaSaidas = new List<SaidaPesquisa>();
                 //decimal totalProdutos = 0;
                 decimal totalSaidas = 0;
                 decimal totalTributos = 0;
@@ -1048,14 +1049,14 @@ namespace Negocio
                     if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                     {
                         //totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-                        List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(saida.CupomFiscal);
+                        listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(saida.CupomFiscal);
 
                         totalSaidas = listaSaidas.Where(s => s.TipoSaida == Saida.TIPO_VENDA).Sum(s => s.TotalAVista);
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA))
                     {
                         //totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-                        List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorSolicitacaoSaida(listaSolicitacaoSaida);
+                        listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorSolicitacaoSaida(listaSolicitacaoSaida);
 
                         totalSaidas = listaSaidas.Where(s => s.TipoSaida == Saida.TIPO_PRE_VENDA).Sum(s => s.TotalAVista);
                     }
@@ -1471,6 +1472,20 @@ namespace Negocio
                 else
                     infAdic.infCpl = Global.NFE_MENSAGEM_PADRAO + mensagemTributos + saida.Observacao + ". ICMS RECOLHIDO NO";
 
+                infAdic.infCpl = infAdic.infCpl.Trim();
+
+                if (listaSaidas.Count() > 0)
+                {
+                    infAdic.infCpl += " Lista Pedido-Data: ";
+                    int count = 0;
+                    foreach (SaidaPesquisa saidaPesquisa in listaSaidas)
+                    {
+                        infAdic.infCpl += saidaPesquisa.CodSaida + "-" + saidaPesquisa.DataSaida.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+                        count++;
+                        if (listaSaidas.Count > count)
+                            infAdic.infCpl += ", ";
+                    }
+                }
                 infAdic.infCpl = infAdic.infCpl.Trim();
 
                 nfe.infNFe.infAdic = infAdic;
