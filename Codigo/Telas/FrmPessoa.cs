@@ -53,7 +53,9 @@ namespace Telas
             pessoa.EhFabricante = false;
             pessoa.ImprimirCF = false;
             pessoa.ImprimirDAV = true;
-            pessoa.Tipo = Pessoa.PESSOA_JURIDICA;
+            PfRadioButton.Checked = true;
+            pessoa.Tipo = Pessoa.PESSOA_FISICA;
+            pessoa.BloquearCrediario = true;
 
             pessoa.CodMunicipioIBGE = loja.CodMunicipioIBGE;
             MunicipiosIBGE defaultMunicipio = new MunicipiosIBGE() { Codigo = pessoa.CodMunicipioIBGE };

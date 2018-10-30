@@ -760,6 +760,23 @@ namespace Negocio
                 saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente == Global.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
         }
 
+
+        /// <summary>
+        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public List<Saida> ObterVendasParticipacaoLucros(DateTime dataInicial, DateTime dataFinal, decimal valorVenda)
+        {
+            return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA) &&
+                saida.CodCliente != 1324 &&  
+                saida.DataSaida >= dataInicial &&
+                saida.DataSaida <= dataFinal &&
+                saida.TotalAVista >= valorVenda).ToList();
+        }
+
+
+
         /// <summary>
         /// Obter cfop padrão de um determinado tipo de saída do sistema
         /// </summary>

@@ -66,6 +66,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.movimentaçãoDeCaixasContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cálculoParticipaçãoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -343,7 +344,8 @@
             this.receberPagamentosCartõesDeCréditoToolStripMenuItem,
             this.toolStripMenuItem1,
             this.movimentaçãoDeCaixasContasToolStripMenuItem,
-            this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem});
+            this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem,
+            this.cálculoParticipaçãoMensalToolStripMenuItem});
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
             this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.contasAPagarToolStripMenuItem.Text = "&Financeiro";
@@ -386,6 +388,13 @@
             this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Name = "tranferênciaEntreCaixasContasBancáriasToolStripMenuItem";
             this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Text = "Tranferência entre Caixas / Contas Bancárias";
+            // 
+            // cálculoParticipaçãoMensalToolStripMenuItem
+            // 
+            this.cálculoParticipaçãoMensalToolStripMenuItem.Name = "cálculoParticipaçãoMensalToolStripMenuItem";
+            this.cálculoParticipaçãoMensalToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.cálculoParticipaçãoMensalToolStripMenuItem.Text = "Cálculo Participação Mensal";
+            this.cálculoParticipaçãoMensalToolStripMenuItem.Click += new System.EventHandler(this.cálculoParticipaçãoMensalToolStripMenuItem_Click);
             // 
             // utilitáriosToolStripMenuItem
             // 
@@ -734,6 +743,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem enviarNFesEmitidasOffLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calcularImpostoNFCECtempToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cálculoParticipaçãoMensalToolStripMenuItem;
 
     }
 }

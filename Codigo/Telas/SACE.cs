@@ -484,5 +484,12 @@ namespace Telas
                 GerenciadorNFe.GetInstance().CalcularTotaisNFCe("C:\\temp\\nfe\\");
         }
 
+        private void cálculoParticipaçãoMensalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCalculoParticipacao frmCalculoParticipacao = new FrmCalculoParticipacao();
+            frmCalculoParticipacao.ShowDialog();
+            frmCalculoParticipacao.Dispose();
+        }
+
      }
 }
