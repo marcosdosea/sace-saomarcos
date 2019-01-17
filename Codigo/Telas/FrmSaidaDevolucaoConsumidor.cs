@@ -29,25 +29,22 @@ namespace Telas
             saida = (Saida) saidaBindingSource.Current;
             
             lojaBindingSourceOrigem.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
-            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-
-            codPessoaComboBoxOrigem.SelectedIndex = 0;
-            codPessoaConsumidorComboBox.SelectedIndex = 0;
-
             int codLoja = ((Loja) codPessoaComboBoxOrigem.SelectedItem).CodLoja;
-            cupomFiscalBindingSource.DataSource = GerenciadorSolicitacaoDocumento.GetInstance().ObterDocumentosFiscais();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             saida.CodProfissional = Global.CLIENTE_PADRAO;
-            Pessoa consumidor = (Pessoa) codPessoaConsumidorComboBox.SelectedItem;
+            saida.CodCliente = ((Saida)saidaCupomBindingSource.Current).CodCliente;
+            string docFiscalReferenciado = ((Saida)saidaCupomBindingSource.Current).CupomFiscal;
+            //Pessoa consumidor = (Pessoa) codPessoaConsumidorComboBox.SelectedItem;
             
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR))
             {
                 if (MessageBox.Show("Confirma DEVOLUÇÃO do CONSUMIDOR?", "Confirmar Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).EncerrarDevolucaoConsumidor(saida, consumidor);
+                    saida.Nfe = docFiscalReferenciado;
+                    GerenciadorSaida.GetInstance(null).EncerrarDevolucaoConsumidor(saida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
@@ -68,6 +65,10 @@ namespace Telas
 
         private void FrmSaidaDeposito_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.F2)
+            {
+                btnBuscar_Click(sender, e);
+            }
             if (e.KeyCode == Keys.F6)
             {
                 btnSalvar_Click(sender, e);
@@ -81,6 +82,22 @@ namespace Telas
                 e.Handled = true;
                 SendKeys.Send("{tab}");
             }
+        }
+
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
+            frmSaidaPesquisa.ShowDialog();
+            if (frmSaidaPesquisa.SaidaSelected != null)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                saidaCupomBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
+                Cursor.Current = Cursors.Default;
+            }
+            frmSaidaPesquisa.Dispose();
+            btnSalvar.Focus();
         }
     }
 }

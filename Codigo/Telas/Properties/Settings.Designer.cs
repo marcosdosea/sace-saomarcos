@@ -88,7 +88,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RETAGUARDA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
         public string ServidorImprimirNfce {
             get {
                 return ((string)(this["ServidorImprimirNfce"]));
@@ -110,6 +110,24 @@ namespace Telas.Properties {
         public string ServidorImprimirReduzido2 {
             get {
                 return ((string)(this["ServidorImprimirReduzido2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1324")]
+        public int ClienteBaixaEstoque {
+            get {
+                return ((int)(this["ClienteBaixaEstoque"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2048")]
+        public int ClientePrejuizo {
+            get {
+                return ((int)(this["ClientePrejuizo"]));
             }
         }
     }

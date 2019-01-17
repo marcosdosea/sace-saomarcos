@@ -231,7 +231,7 @@
             // numeroProtocoloCartaCorrecaoLabel
             // 
             numeroProtocoloCartaCorrecaoLabel.AutoSize = true;
-            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-3, 270);
+            numeroProtocoloCartaCorrecaoLabel.Location = new System.Drawing.Point(-4, 274);
             numeroProtocoloCartaCorrecaoLabel.Name = "numeroProtocoloCartaCorrecaoLabel";
             numeroProtocoloCartaCorrecaoLabel.Size = new System.Drawing.Size(103, 13);
             numeroProtocoloCartaCorrecaoLabel.TabIndex = 42;
@@ -267,7 +267,7 @@
             // seqCartaCorrecaoLabel
             // 
             seqCartaCorrecaoLabel.AutoSize = true;
-            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(1, 298);
+            seqCartaCorrecaoLabel.Location = new System.Drawing.Point(1, 305);
             seqCartaCorrecaoLabel.Name = "seqCartaCorrecaoLabel";
             seqCartaCorrecaoLabel.Size = new System.Drawing.Size(135, 13);
             seqCartaCorrecaoLabel.TabIndex = 47;
@@ -276,11 +276,11 @@
             // codPessoaLabel
             // 
             codPessoaLabel.AutoSize = true;
-            codPessoaLabel.Location = new System.Drawing.Point(227, 298);
+            codPessoaLabel.Location = new System.Drawing.Point(229, 305);
             codPessoaLabel.Name = "codPessoaLabel";
-            codPessoaLabel.Size = new System.Drawing.Size(66, 13);
+            codPessoaLabel.Size = new System.Drawing.Size(42, 13);
             codPessoaLabel.TabIndex = 48;
-            codPessoaLabel.Text = "Destinatário:";
+            codPessoaLabel.Text = "Cliente:";
             // 
             // btnImprimir
             // 
@@ -663,7 +663,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 587);
+            this.ClientSize = new System.Drawing.Size(880, 586);
             this.ControlBox = false;
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(this.btnBuscar);

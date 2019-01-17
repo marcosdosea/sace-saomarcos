@@ -391,11 +391,18 @@ namespace Negocio
         {
             try
             {
+                if (saida.TipoSaida == Saida.TIPO_CREDITO)
+                    throw new NegocioException("Não é possível editar créditos. Se necessário, exclua o crédito e lançe um novo.");
+
                 if (saida.TipoSaida == Saida.TIPO_VENDA)
                     throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
 
+                
                 bool possuiNfeAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
-
+                if ((saida.TipoSaida == Saida.TIPO_PREJUIZO) && (possuiNfeAutorizada))
+                    throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
+                if ((saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE) && (possuiNfeAutorizada))
+                    throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
                 if ((saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) && (possuiNfeAutorizada))
                     throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida e autorizada.");
                 if ((saida.TipoSaida == Saida.TIPO_RETORNO_DEPOSITO) && (possuiNfeAutorizada))
@@ -428,7 +435,8 @@ namespace Negocio
 
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                    saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
+                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE) || saida.TipoSaida.Equals(Saida.TIPO_PREJUIZO))
                 {
                     RegistrarEstornoEstoque(saida, null);
                 }
@@ -437,7 +445,8 @@ namespace Negocio
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
                     RegistrarBaixaEstoque(saidaProdutos);
                 }
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA) ||
+                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE) || saida.TipoSaida.Equals(Saida.TIPO_PREJUIZO))
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     saida.TipoSaida = Saida.TIPO_PRE_REMESSA_DEPOSITO;
@@ -625,7 +634,7 @@ namespace Negocio
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
             var query = (from saida in saceContext.tb_saida
-                         where Saida.LISTA_TIPOS_VENDA.Contains(saida.codTipoSaida) && (saida.codSaida >= codSaidaInicial) 
+                         where (Saida.LISTA_TIPOS_VENDA.Contains(saida.codTipoSaida) || (saida.codSaida == Saida.TIPO_BAIXA_ESTOQUE) || (saida.codSaida == Saida.TIPO_PREJUIZO)) && (saida.codSaida >= codSaidaInicial) 
                          orderby saida.codSaida descending
                          select saida.codSaida).Take(20);
             List<long> listaSaidas = query.ToList();
@@ -809,7 +818,6 @@ namespace Negocio
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA)))
                     {
-
                         if (cliente.BloquearCrediario)
                         {
                             foreach (SaidaPagamento sp in saidaPagamentos)
@@ -839,6 +847,17 @@ namespace Negocio
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
                         Atualizar(saida);
                         RegistrarPagamentosSaida(saidaPagamentos, saida);
+                    }
+                    else if (tipo_encerramento.Equals(Saida.TIPO_BAIXA_ESTOQUE) || tipo_encerramento.Equals(Saida.TIPO_PREJUIZO))
+                    {
+                        saida.TipoSaida = tipo_encerramento;
+                        saida.CodSituacaoPagamentos = SituacaoPagamentos.QUITADA;
+
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
+                        saida.TotalLucro = 0;
+                        saida.TotalLucro -=  somaPrecosCusto;
+                        Atualizar(saida);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     {
@@ -904,22 +923,22 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="consumidor"></param>
-        public void EncerrarDevolucaoConsumidor(Saida saida, Pessoa consumidor)
+        public void EncerrarDevolucaoConsumidor(Saida saida)
         {
             using (TransactionScope transaction = new TransactionScope())
             {
                 try
                 {
-                    if (consumidor.CodPessoa == Global.CLIENTE_PADRAO)
-                    {
-                        throw new NegocioException("O cliente padrão não pode ser utilizado. Referencie o mesmo cliente que consta no Cupom Fiscal. Se o cliente não constar no cupom, deve-se cadastrar o cliente ou usar um cliente existente na base de dados.");
-                    }
-                    else if ((consumidor.CodPessoa != saida.CodCliente) && (saida.CodCliente != Global.CLIENTE_PADRAO))
-                    {
-                        throw new NegocioException("O consumidor referenciado deve ser o mesmo que consta no cupom fiscal de devolução.");
-                    }
+                    //if (saida.CodCliente == Global.CLIENTE_PADRAO)
+                    //{
+                    //    throw new NegocioException("O cliente padrão não pode ser utilizado. Referencie o mesmo cliente que consta no Cupom Fiscal. Se o cliente não constar no cupom, deve-se cadastrar o cliente ou usar um cliente existente na base de dados.");
+                    //}
+                    //else if ((consumidor.CodPessoa != saida.CodCliente) && (saida.CodCliente != Global.CLIENTE_PADRAO))
+                    //{
+                    //    throw new NegocioException("O consumidor referenciado deve ser o mesmo que consta no cupom fiscal de devolução.");
+                    //}
                     saida.TipoSaida = Saida.TIPO_DEVOLUCAO_CONSUMIDOR;
-                    saida.CodCliente = consumidor.CodPessoa;
+                    //saida.CodCliente = consumidor.CodPessoa;
                     Atualizar(saida);
                     List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
                     RegistrarEstornoEstoque(saida, saidaProdutos);

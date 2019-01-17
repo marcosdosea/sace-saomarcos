@@ -96,9 +96,11 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timerDocumentos = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.fileSystemWatcher = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -638,8 +640,14 @@
             // timerDocumentos
             // 
             this.timerDocumentos.Enabled = true;
-            this.timerDocumentos.Interval = 1000;
+            this.timerDocumentos.Interval = 500;
             this.timerDocumentos.Tick += new System.EventHandler(this.timerDocumentos_Tick);
+            // 
+            // fileSystemWatcher
+            // 
+            this.fileSystemWatcher.EnableRaisingEvents = true;
+            this.fileSystemWatcher.SynchronizingObject = this;
+            this.fileSystemWatcher.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher_Changed);
             // 
             // Principal
             // 
@@ -670,6 +678,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -744,6 +753,7 @@
         private System.Windows.Forms.ToolStripMenuItem enviarNFesEmitidasOffLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calcularImpostoNFCECtempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cálculoParticipaçãoMensalToolStripMenuItem;
+        private System.IO.FileSystemWatcher fileSystemWatcher;
 
     }
 }

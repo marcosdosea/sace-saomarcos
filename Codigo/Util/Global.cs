@@ -68,6 +68,7 @@ namespace Util
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String
+         chaveNFe = "",
          AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
          ENDERECO_SERVIDOR = "C:\\",

@@ -28,7 +28,7 @@ namespace Telas
         static int NFCE_ONLINE = Properties.Settings.Default.NfceOnline;
 
         static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
-        static string SERVIDOR_IMPRIMIR_NFE  = Properties.Settings.Default.ServidorImprimirNfce;
+        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
         static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
         static string SERVIDOR_IMPRIMIR_REDUZIDO2 = Properties.Settings.Default.ServidorImprimirReduzido2;
         static Loja lojaMatriz;
@@ -37,8 +37,8 @@ namespace Telas
 
 
         static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-            
-       
+
+
         public static Autenticacao Autenticacao
         {
             get { return Principal.autenticacao; }
@@ -66,7 +66,7 @@ namespace Telas
 
 
 
-       [STAThread]
+        [STAThread]
         static void Main(string[] args)
         {
             if (IsAppAlreadyRunning() && nomeComputador.Equals(SERVIDOR_NFE))
@@ -242,6 +242,18 @@ namespace Telas
             //}
 
             //MapearImpressorasSeriais();
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            {
+                if (lojaMatriz == null)
+                    lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
+                fileSystemWatcher.Path = lojaMatriz.PastaNfeRetorno;
+            }
+            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+            {
+                if (lojaDeposito == null)
+                    lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
+                fileSystemWatcher.Path = lojaDeposito.PastaNfeRetorno;
+            }
 
             autenticacao.CodUsuario = 1;
             autenticacao.Login = "1";
@@ -286,7 +298,7 @@ namespace Telas
                 Negocio.GerenciadorSeguranca.getInstance().Restore(openFileDialog.FileName);
                 Cursor.Current = Cursors.Default;
             }
-                
+
 
         }
 
@@ -302,7 +314,7 @@ namespace Telas
             FrmSaida frmSaida = new FrmSaida(Saida.TIPO_PRE_RETORNO_DEPOSITO);
             frmSaida.ShowDialog();
             frmSaida.Dispose();
-        }        
+        }
         private void receberPagamentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(false);
@@ -359,25 +371,17 @@ namespace Telas
                 GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
                 GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE) )
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
                 GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
-                if (lojaMatriz == null)
-                    lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaMatriz);
-            } 
+            }
             else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
-                if (lojaDeposito == null)
-                    lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
-
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaDeposito);
-            }  
-            
+            }
         }
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -474,7 +478,7 @@ namespace Telas
 
         private void enviarNFesEmitidasOffLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Confirma que Ambiente está On-line para Autorizar NFEs emitidas Off-Line?", "Confirma Ambiente On-Line", MessageBoxButtons.YesNo) == DialogResult.Yes) 
+            if (MessageBox.Show("Confirma que Ambiente está On-line para Autorizar NFEs emitidas Off-Line?", "Confirma Ambiente On-Line", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 GerenciadorNFe.GetInstance().EnviarNFEsOffLine();
         }
 
@@ -491,5 +495,21 @@ namespace Telas
             frmCalculoParticipacao.Dispose();
         }
 
-     }
+        private void fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            {
+                if (lojaMatriz == null)
+                    lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaMatriz);
+            }
+            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+            {
+                if (lojaDeposito == null)
+                    lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaDeposito);
+            }
+        }
+
+    }
 }

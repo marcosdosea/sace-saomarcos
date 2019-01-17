@@ -175,7 +175,7 @@ namespace Negocio
         {
             try
             {
-                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA))
+                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_CREDITO))
                 {
                     List<Conta> contas = GerenciadorConta.GetInstance(saceContext).ObterPorSaidaPagamento(saida.CodSaida, codSaidaPagamento).ToList();
 

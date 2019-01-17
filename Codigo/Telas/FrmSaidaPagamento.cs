@@ -145,7 +145,11 @@ namespace Telas
                     frmSaidaConfirma.ShowDialog();
                     Cursor.Current = Cursors.WaitCursor;
 
-                    if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
+                    if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (frmSaidaConfirma.Opcao != Saida.TIPO_PRE_VENDA))
+                    {
+                        GerenciadorSaida.GetInstance(null).Remover(saida);
+                    }
+                    else if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                     {
                         List<SaidaPagamento> listaPagamentosSaida = (List<SaidaPagamento>)saidaPagamentoBindingSource.DataSource;
                         bool limiteCompraLiberado = true;
@@ -153,22 +157,66 @@ namespace Telas
 
                         if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                         {
-                            GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
-                            if (listaPagamentosSaida.Where(ps => ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0)
+                            if ((listaPagamentosSaida.Where(ps => ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0) &&
+                               (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No))
                             {
-                                if ((listaSaidaProduto != null) && (listaSaidaProduto.Select(sp => sp.CodCST.Contains(Cst.ST_OUTRAS)).ToList().Count < listaSaidaProduto.Count))
+                                GerenciadorSaida.GetInstance(null).Remover(saida);
+                            }
+                            else
+                            {
+                                GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                                if (cliente.ImprimirDAV)
                                 {
-                                    List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
-                                    long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFCE);
-                                    frmSaidaAutorizacao.ShowDialog();
-                                    frmSaidaAutorizacao.Dispose();
-
+                                    if (!GerenciadorSaida.GetInstance(null).SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.REDUZIDO1))
+                                    {
+                                        MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
-                                if (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No)
-                                    GerenciadorSaida.GetInstance(null).Remover(saida);
+                            }
+
+
+                        }
+                        else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteBaixaEstoque))
+                        {
+                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE, listaPagamentosSaida, cliente);
+                            if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
+                            {
+                                if (saida.TotalAVista > 0)
+                                {
+                                    List<SaidaProduto> listaSaidaProdutoOutros = (listaSaidaProduto == null) ? null : listaSaidaProduto.Where(sp => sp.CodCST.EndsWith(Cst.ST_OUTRAS)).ToList();
+                                    if ((listaSaidaProduto != null) && (listaSaidaProdutoOutros.Count < listaSaidaProduto.Count))
+                                    {
+                                        List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+
+                                        long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
+                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE);
+                                        frmSaidaAutorizacao.ShowDialog();
+                                        frmSaidaAutorizacao.Dispose();
+                                    }
+                                }
                             }
                         }
+                        else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClientePrejuizo))
+                        {
+                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_PREJUIZO, listaPagamentosSaida, cliente);
+                            if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
+                            {
+                                if (saida.TotalAVista > 0)
+                                {
+                                    List<SaidaProduto> listaSaidaProdutoOutros = (listaSaidaProduto == null) ? null : listaSaidaProduto.Where(sp => sp.CodCST.EndsWith(Cst.ST_OUTRAS)).ToList();
+                                    if ((listaSaidaProduto != null) && (listaSaidaProdutoOutros.Count < listaSaidaProduto.Count))
+                                    {
+                                        List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
+
+                                        long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
+                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE);
+                                        frmSaidaAutorizacao.ShowDialog();
+                                        frmSaidaAutorizacao.Dispose();
+                                    }
+                                }
+                            }
+                        }
+                        
                         else
                         {
                             // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente

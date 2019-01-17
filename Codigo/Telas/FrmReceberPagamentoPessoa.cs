@@ -130,13 +130,13 @@ namespace Telas
                     }
                 }
 
-                if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF)
-                {
-                    Cursor.Current = Cursors.Default;
-                    throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se alguma NFe referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
-                }
+                //if (formaPagamento.Equals(FormaPagamento.CARTAO) && !podeImprimirCF)
+                //{
+                //    Cursor.Current = Cursors.Default;
+                //    throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se alguma NFe referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
+                //}
 
-                if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO) || (formaPagamento.Equals(FormaPagamento.CARTAO) && podeImprimirCF))
+                if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO) || formaPagamento.Equals(FormaPagamento.CARTAO)) //&& podeImprimirCF))
                 {
                     AtualizarValoresDescontosContas();
 
@@ -214,10 +214,13 @@ namespace Telas
                         saidaPagamentoCartao.CodCartaoCredito = codCartao;
                         listaSaidaPagamento.Add(saidaPagamentoCartao);
 
-                        long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
-                        frmSaidaAutorizacao.ShowDialog();
-                        frmSaidaAutorizacao.Dispose();
+                        if (podeImprimirCF)
+                        {
+                            long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
+                            frmSaidaAutorizacao.ShowDialog();
+                            frmSaidaAutorizacao.Dispose();
+                        }
 
                         
                         if (MessageBox.Show("A compra foi confirmada pela administradora do cartão selecionado?", "Confirma Cartão de Crédito", MessageBoxButtons.YesNo) == DialogResult.Yes)

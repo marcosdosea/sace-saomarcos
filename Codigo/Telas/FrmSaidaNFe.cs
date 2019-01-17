@@ -22,8 +22,8 @@ namespace Telas
         private long codSaida;
         private List<SaidaPedido> listaSaidaPedido;
         private List<SaidaPagamento> listaSaidaPagamento;
-
-
+        
+       
 
         public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento)
         {
@@ -68,7 +68,7 @@ namespace Telas
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
                 {
-                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.GetInstance(null).ObterPorPedido(Saida.CupomFiscal).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.GetInstance(null).ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
                     if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
                     {
                         Saida.Observacao += "Devolução Parcial referente ao cupom fiscal " + saidaCupomVenda.CupomFiscal + " emitido em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Cliente não precisou dos itens comprados. Cupom fiscal e Nf-e relativas a venda referenciadas abaixo";
@@ -79,7 +79,8 @@ namespace Telas
                     }
                 }
             }
-            Saida.Nfe = "NF-e";
+            if (string.IsNullOrEmpty(Saida.Nfe))
+                Saida.Nfe = "NF-e";
             observacaoTextBox.Text = Saida.Observacao;
         }
 
@@ -108,7 +109,7 @@ namespace Telas
             // o evento foi disparo do butão que emite Nf-
             bool ehNfeComplementar = (sender is Button) && ((Button)sender).Name.Equals("btnComplementar");
 
-            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO) || Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+            if (Saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || Saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
             {
                 if (MessageBox.Show("Deseja gerar espelho da NF-e para Validação?", "Criar Espelho da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
@@ -129,6 +130,11 @@ namespace Telas
                 if ((Cliente == null) || Cliente.CodPessoa.Equals(Global.CLIENTE_PADRAO))
                 {
                     throw new TelaException("Para emissão de uma NF-e deve-se selecionar um Cliente.");
+                }
+                if (Cliente.CodPessoa != Saida.CodCliente)
+                {
+                    Saida.CodCliente = Cliente.CodPessoa;
+                    GerenciadorSaida.GetInstance(null).Atualizar(Saida);
                 }
                 Saida.Observacao = observacaoTextBox.Text;
                 if (Saida.CupomFiscal.Trim().Equals(""))
@@ -158,7 +164,7 @@ namespace Telas
                         {
                             listaSaidas.AddRange(GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(Saida.CupomFiscal));    
                         }
-                    }
+                    }  
                         
                     
                     listaSaidaPedido = new List<SaidaPedido>();

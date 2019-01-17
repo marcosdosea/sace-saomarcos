@@ -33,7 +33,6 @@
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label codSaidaLabel;
             System.Windows.Forms.Label codPessoaLabel;
-            System.Windows.Forms.Label codPessoaLabel1;
             System.Windows.Forms.Label cupomFiscalLabel;
             System.Windows.Forms.Label dataEmissaoCupomFiscalLabel;
             System.Windows.Forms.Label nomeClienteLabel;
@@ -45,24 +44,21 @@
             this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
             this.lojaBindingSourceOrigem = new System.Windows.Forms.BindingSource(this.components);
             this.codPessoaComboBoxOrigem = new System.Windows.Forms.ComboBox();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codPessoaConsumidorComboBox = new System.Windows.Forms.ComboBox();
-            this.cupomFiscalComboBox = new System.Windows.Forms.ComboBox();
-            this.cupomFiscalBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataEmissaoCupomFiscalDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.cupomFiscalTextBox = new System.Windows.Forms.TextBox();
+            this.saidaCupomBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nomeClienteTextBox = new System.Windows.Forms.TextBox();
+            this.dataEmissaoCupomFiscalDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.btnBuscar = new System.Windows.Forms.Button();
             tipoSaidaLabel = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             codSaidaLabel = new System.Windows.Forms.Label();
             codPessoaLabel = new System.Windows.Forms.Label();
-            codPessoaLabel1 = new System.Windows.Forms.Label();
             cupomFiscalLabel = new System.Windows.Forms.Label();
             dataEmissaoCupomFiscalLabel = new System.Windows.Forms.Label();
             nomeClienteLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceOrigem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cupomFiscalBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saidaCupomBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tipoSaidaLabel
@@ -105,41 +101,31 @@
             codPessoaLabel.TabIndex = 65;
             codPessoaLabel.Text = "Loja Retorno:";
             // 
-            // codPessoaLabel1
-            // 
-            codPessoaLabel1.AutoSize = true;
-            codPessoaLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            codPessoaLabel1.Location = new System.Drawing.Point(7, 162);
-            codPessoaLabel1.Name = "codPessoaLabel1";
-            codPessoaLabel1.Size = new System.Drawing.Size(150, 29);
-            codPessoaLabel1.TabIndex = 65;
-            codPessoaLabel1.Text = "Consumidor:";
-            // 
             // cupomFiscalLabel
             // 
             cupomFiscalLabel.AutoSize = true;
             cupomFiscalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            cupomFiscalLabel.Location = new System.Drawing.Point(7, 245);
+            cupomFiscalLabel.Location = new System.Drawing.Point(8, 203);
             cupomFiscalLabel.Name = "cupomFiscalLabel";
-            cupomFiscalLabel.Size = new System.Drawing.Size(167, 29);
+            cupomFiscalLabel.Size = new System.Drawing.Size(132, 29);
             cupomFiscalLabel.TabIndex = 66;
-            cupomFiscalLabel.Text = "Cupom Fiscal:";
+            cupomFiscalLabel.Text = "Doc Fiscal:";
             // 
             // dataEmissaoCupomFiscalLabel
             // 
             dataEmissaoCupomFiscalLabel.AutoSize = true;
             dataEmissaoCupomFiscalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            dataEmissaoCupomFiscalLabel.Location = new System.Drawing.Point(181, 245);
+            dataEmissaoCupomFiscalLabel.Location = new System.Drawing.Point(647, 203);
             dataEmissaoCupomFiscalLabel.Name = "dataEmissaoCupomFiscalLabel";
-            dataEmissaoCupomFiscalLabel.Size = new System.Drawing.Size(167, 29);
+            dataEmissaoCupomFiscalLabel.Size = new System.Drawing.Size(141, 29);
             dataEmissaoCupomFiscalLabel.TabIndex = 67;
-            dataEmissaoCupomFiscalLabel.Text = "Data Emissão:";
+            dataEmissaoCupomFiscalLabel.Text = "Dt Emissão:";
             // 
             // nomeClienteLabel
             // 
             nomeClienteLabel.AutoSize = true;
             nomeClienteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            nomeClienteLabel.Location = new System.Drawing.Point(365, 245);
+            nomeClienteLabel.Location = new System.Drawing.Point(188, 203);
             nomeClienteLabel.Name = "nomeClienteLabel";
             nomeClienteLabel.Size = new System.Drawing.Size(95, 29);
             nomeClienteLabel.TabIndex = 68;
@@ -165,7 +151,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(617, 338);
+            this.btnSalvar.Location = new System.Drawing.Point(618, 276);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(81, 23);
             this.btnSalvar.TabIndex = 33;
@@ -175,7 +161,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(704, 338);
+            this.btnCancelar.Location = new System.Drawing.Point(705, 276);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 36;
@@ -225,76 +211,66 @@
             this.codPessoaComboBoxOrigem.TabStop = false;
             this.codPessoaComboBoxOrigem.ValueMember = "codPessoa";
             // 
-            // pessoaBindingSource
+            // cupomFiscalTextBox
             // 
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            this.cupomFiscalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaCupomBindingSource, "CupomFiscal", true));
+            this.cupomFiscalTextBox.Enabled = false;
+            this.cupomFiscalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.cupomFiscalTextBox.Location = new System.Drawing.Point(13, 235);
+            this.cupomFiscalTextBox.Name = "cupomFiscalTextBox";
+            this.cupomFiscalTextBox.Size = new System.Drawing.Size(166, 35);
+            this.cupomFiscalTextBox.TabIndex = 69;
+            this.cupomFiscalTextBox.TabStop = false;
             // 
-            // codPessoaConsumidorComboBox
+            // saidaCupomBindingSource
             // 
-            this.codPessoaConsumidorComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codPessoaConsumidorComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaConsumidorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pessoaBindingSource, "Nome", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.codPessoaConsumidorComboBox.DataSource = this.pessoaBindingSource;
-            this.codPessoaConsumidorComboBox.DisplayMember = "Nome";
-            this.codPessoaConsumidorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.codPessoaConsumidorComboBox.FormattingEnabled = true;
-            this.codPessoaConsumidorComboBox.Location = new System.Drawing.Point(11, 198);
-            this.codPessoaConsumidorComboBox.Name = "codPessoaConsumidorComboBox";
-            this.codPessoaConsumidorComboBox.Size = new System.Drawing.Size(777, 37);
-            this.codPessoaConsumidorComboBox.TabIndex = 66;
-            this.codPessoaConsumidorComboBox.ValueMember = "CodPessoa";
-            // 
-            // cupomFiscalComboBox
-            // 
-            this.cupomFiscalComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "CupomFiscal", true));
-            this.cupomFiscalComboBox.DataSource = this.cupomFiscalBindingSource;
-            this.cupomFiscalComboBox.DisplayMember = "NumeroCupomFiscal";
-            this.cupomFiscalComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.cupomFiscalComboBox.FormattingEnabled = true;
-            this.cupomFiscalComboBox.Location = new System.Drawing.Point(12, 284);
-            this.cupomFiscalComboBox.Name = "cupomFiscalComboBox";
-            this.cupomFiscalComboBox.Size = new System.Drawing.Size(151, 37);
-            this.cupomFiscalComboBox.TabIndex = 67;
-            this.cupomFiscalComboBox.ValueMember = "CodSaida";
-            // 
-            // cupomFiscalBindingSource
-            // 
-            this.cupomFiscalBindingSource.DataSource = typeof(Dominio.DocumentoFiscal);
-            // 
-            // dataEmissaoCupomFiscalDateTimePicker
-            // 
-            this.dataEmissaoCupomFiscalDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.cupomFiscalBindingSource, "DataEmissaoCupomFiscal", true));
-            this.dataEmissaoCupomFiscalDateTimePicker.Enabled = false;
-            this.dataEmissaoCupomFiscalDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.dataEmissaoCupomFiscalDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataEmissaoCupomFiscalDateTimePicker.Location = new System.Drawing.Point(186, 284);
-            this.dataEmissaoCupomFiscalDateTimePicker.Name = "dataEmissaoCupomFiscalDateTimePicker";
-            this.dataEmissaoCupomFiscalDateTimePicker.Size = new System.Drawing.Size(162, 35);
-            this.dataEmissaoCupomFiscalDateTimePicker.TabIndex = 68;
+            this.saidaCupomBindingSource.DataSource = typeof(Dominio.Saida);
             // 
             // nomeClienteTextBox
             // 
-            this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cupomFiscalBindingSource, "NomeCliente", true));
+            this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaCupomBindingSource, "NomeCliente", true));
+            this.nomeClienteTextBox.Enabled = false;
             this.nomeClienteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.nomeClienteTextBox.Location = new System.Drawing.Point(370, 284);
+            this.nomeClienteTextBox.Location = new System.Drawing.Point(193, 235);
             this.nomeClienteTextBox.Name = "nomeClienteTextBox";
-            this.nomeClienteTextBox.ReadOnly = true;
-            this.nomeClienteTextBox.Size = new System.Drawing.Size(418, 35);
-            this.nomeClienteTextBox.TabIndex = 69;
+            this.nomeClienteTextBox.Size = new System.Drawing.Size(453, 35);
+            this.nomeClienteTextBox.TabIndex = 70;
+            this.nomeClienteTextBox.TabStop = false;
+            // 
+            // dataEmissaoCupomFiscalDateTimePicker
+            // 
+            this.dataEmissaoCupomFiscalDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.saidaCupomBindingSource, "DataEmissaoCupomFiscal", true));
+            this.dataEmissaoCupomFiscalDateTimePicker.Enabled = false;
+            this.dataEmissaoCupomFiscalDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.dataEmissaoCupomFiscalDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dataEmissaoCupomFiscalDateTimePicker.Location = new System.Drawing.Point(652, 235);
+            this.dataEmissaoCupomFiscalDateTimePicker.Name = "dataEmissaoCupomFiscalDateTimePicker";
+            this.dataEmissaoCupomFiscalDateTimePicker.Size = new System.Drawing.Size(136, 35);
+            this.dataEmissaoCupomFiscalDateTimePicker.TabIndex = 71;
+            this.dataEmissaoCupomFiscalDateTimePicker.TabStop = false;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(13, 177);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(166, 23);
+            this.btnBuscar.TabIndex = 30;
+            this.btnBuscar.Text = "F2 - Buscar Documento Fiscal";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // FrmSaidaDevolucaoConsumidor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 369);
-            this.Controls.Add(nomeClienteLabel);
-            this.Controls.Add(this.nomeClienteTextBox);
-            this.Controls.Add(dataEmissaoCupomFiscalLabel);
+            this.ClientSize = new System.Drawing.Size(796, 305);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.dataEmissaoCupomFiscalDateTimePicker);
+            this.Controls.Add(this.nomeClienteTextBox);
+            this.Controls.Add(this.cupomFiscalTextBox);
+            this.Controls.Add(nomeClienteLabel);
+            this.Controls.Add(dataEmissaoCupomFiscalLabel);
             this.Controls.Add(cupomFiscalLabel);
-            this.Controls.Add(this.cupomFiscalComboBox);
-            this.Controls.Add(codPessoaLabel1);
-            this.Controls.Add(this.codPessoaConsumidorComboBox);
             this.Controls.Add(codPessoaLabel);
             this.Controls.Add(this.codPessoaComboBoxOrigem);
             this.Controls.Add(this.descricaoTipoSaidaTextBox);
@@ -315,8 +291,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaDeposito_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lojaBindingSourceOrigem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cupomFiscalBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.saidaCupomBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,11 +307,10 @@
         private System.Windows.Forms.TextBox descricaoTipoSaidaTextBox;
         private System.Windows.Forms.BindingSource lojaBindingSourceOrigem;
         private System.Windows.Forms.ComboBox codPessoaComboBoxOrigem;
-        private System.Windows.Forms.BindingSource pessoaBindingSource;
-        private System.Windows.Forms.ComboBox codPessoaConsumidorComboBox;
-        private System.Windows.Forms.ComboBox cupomFiscalComboBox;
-        private System.Windows.Forms.DateTimePicker dataEmissaoCupomFiscalDateTimePicker;
+        private System.Windows.Forms.TextBox cupomFiscalTextBox;
         private System.Windows.Forms.TextBox nomeClienteTextBox;
-        private System.Windows.Forms.BindingSource cupomFiscalBindingSource;
+        private System.Windows.Forms.DateTimePicker dataEmissaoCupomFiscalDateTimePicker;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.BindingSource saidaCupomBindingSource;
     }
 }

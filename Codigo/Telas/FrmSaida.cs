@@ -184,12 +184,8 @@ namespace Telas
             if (saida.TipoSaida == Saida.TIPO_VENDA)
             {
                 throw new TelaException("Pedido possui Nota Fiscal AUTORIZADA. Para ele ser editado é necessário CANCELAR a nota.");
-                // if (MessageBox.Show("Houve Cancelamento do Cupom Fiscal? Confirma transformar VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                //{
-                //    GerenciadorSaida.GetInstance(null).Remover(saida);
-                //    codSaidaTextBox_TextChanged(sender, e);
-                //}
-            }
+           }
+            
             else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
             {
                 if (MessageBox.Show("Confirma transformar PRÉ-VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -351,6 +347,7 @@ namespace Telas
                 lblSaidaProdutos.Text = "Devolução de Consumidor";
                 this.Text = "Devolução de Consumidor";
                 lblBalcao.Text = "Devolução de Consumidor";
+                
 
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR);
                 tb_saida_produtoDataGridView.Height = 370;
@@ -633,6 +630,13 @@ namespace Telas
                     frmSaidaDevolucaoConsumidor.ShowDialog();
                     frmSaidaDevolucaoConsumidor.Dispose();
                 }
+                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+                {
+                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
+                    frmSaidaPagamento.ShowDialog();
+                    frmSaidaPagamento.Dispose();
+                    saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+                }
                 else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
                 {
                     List<SaidaProduto> listaSaidaProduto = (List<SaidaProduto>)saidaProdutoBindingSource.DataSource;
@@ -640,12 +644,8 @@ namespace Telas
                     frmSaidaPagamento.ShowDialog();
                     frmSaidaPagamento.Dispose();
                 }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
-                {
-                    FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
-                    frmSaidaPagamento.ShowDialog();
-                    frmSaidaPagamento.Dispose();
-                }
+                if ((saida == null) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+                    saidaBindingSource.RemoveCurrent();
                 produtoBindingSource.MoveFirst();
                 codSaidaTextBox_TextChanged(sender, e);
                 btnNovo.Focus();
