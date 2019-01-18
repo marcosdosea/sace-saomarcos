@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SERVIDOR" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ServidorHP</Value>
+      <Value Profile="(Default)">Servidor</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -25,7 +25,7 @@ namespace Backup.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ServidorHP")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Servidor")]
         public string SERVIDOR {
             get {
                 return ((string)(this["SERVIDOR"]));

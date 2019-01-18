@@ -325,14 +325,12 @@ namespace Negocio
                     GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
                     foreach(Conta conta in listaContas) {
                         GerenciadorConta.GetInstance(saceContext).Remover(conta.CodConta);
-
                     }
                 }
 
                 if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) ||
                     saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) || 
-                    saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
+                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                 {
                     var query = from saidaE in saceContext.tb_saida
                                 where saidaE.codSaida == saida.CodSaida
@@ -633,8 +631,12 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
+            List<int> listaCodSaidasExibir = Saida.LISTA_TIPOS_VENDA;
+            listaCodSaidasExibir.Add(Saida.TIPO_BAIXA_ESTOQUE);
+            listaCodSaidasExibir.Add(Saida.TIPO_PREJUIZO);
+
             var query = (from saida in saceContext.tb_saida
-                         where (Saida.LISTA_TIPOS_VENDA.Contains(saida.codTipoSaida) || (saida.codSaida == Saida.TIPO_BAIXA_ESTOQUE) || (saida.codSaida == Saida.TIPO_PREJUIZO)) && (saida.codSaida >= codSaidaInicial) 
+                         where (listaCodSaidasExibir.Contains(saida.codTipoSaida) && (saida.codSaida >= codSaidaInicial) )
                          orderby saida.codSaida descending
                          select saida.codSaida).Take(20);
             List<long> listaSaidas = query.ToList();
@@ -642,7 +644,7 @@ namespace Negocio
             //if (codSaidaInicial > 0)
               //  listaSaidas.Add(codSaidaInicial);
 
-            return GetQuery().Where(saida => Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
+            return GetQuery().Where(saida => listaCodSaidasExibir.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
 
         }
 
