@@ -803,7 +803,7 @@ namespace Negocio
             Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
             Pessoa pessoaloja = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAtOrDefault(0);
             Pessoa destinatario;
-            if (saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE) || saida.TipoSaida.Equals(Saida.TIPO_PREJUIZO))
+            if (saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
                 destinatario = pessoaloja;
             else
                 destinatario = GerenciadorPessoa.GetInstance().Obter(saida.CodCliente).ElementAtOrDefault(0);
@@ -1162,7 +1162,10 @@ namespace Negocio
                             if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                             {
                                 prod.vUnCom = formataValorNFe(saidaProduto.ValorProdutoNota, 3);
-                                prod.vProd = formataValorNFe(saidaProduto.ValorProdutoNota * saidaProduto.Quantidade);
+                                //CultureInfo culturePonto = new CultureInfo("en-US");
+                                //decimal valorUnComTruncada = Convert.ToDecimal(prod.vUnCom, culturePonto);
+                                //decimal valorMultiplicacao = Math.Round(valorUnComTruncada * saidaProduto.Quantidade, 2);
+                                prod.vProd = formataValorNFe(Math.Round(saidaProduto.ValorProdutoNota * saidaProduto.Quantidade, 2));
                                 prod.vUnTrib = formataValorNFe(saidaProduto.ValorProdutoNota, 3);
                             }
                             else
@@ -1658,6 +1661,10 @@ namespace Negocio
         public List<SaidaProduto> DistribuirDescontoProdutos(List<SaidaProduto> saidaProdutos, decimal totalSaidas)
         {
             saidaProdutos = AgruparSaidaProdutos(saidaProdutos);
+            foreach (SaidaProduto saidaProduto in saidaProdutos)
+            {
+                saidaProduto.ValorVendaAVista = Math.Truncate(saidaProduto.ValorVendaAVista * 1000) / 1000;
+            }
 
             // calcula descontos
             decimal percentualDesconto = totalSaidas / saidaProdutos.Sum(sp => sp.Subtotal);
@@ -1700,7 +1707,7 @@ namespace Negocio
 
                 //totalDescontoDistribuirPreco = totalDescontoDistribuirPreco - totalDescontoCalculado; //+ totalDescontoDevolucoes;
                 totalDescontoDistribuirPreco = totalAVistaSaidaProdutosPositivo - totalSaidas;
-                decimal fatorDesconto = totalDescontoDistribuirPreco / totalSaidas;
+                decimal fatorDesconto = totalDescontoDistribuirPreco / totalAVistaSaidaProdutosPositivo;
                 saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
             }
             else if (saidaProdutos.Sum(sp => sp.Subtotal) == totalSaidas)

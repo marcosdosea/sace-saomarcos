@@ -397,10 +397,10 @@ namespace Negocio
 
                 
                 bool possuiNfeAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
-                if ((saida.TipoSaida == Saida.TIPO_PREJUIZO) && (possuiNfeAutorizada))
+                if ((saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA) && (possuiNfeAutorizada))
                     throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
-                if ((saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE) && (possuiNfeAutorizada))
-                    throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
+                if ((saida.TipoSaida == Saida.TIPO_USO_INTERNO) && (possuiNfeAutorizada))
+                    throw new NegocioException("Não é possível editar Uso Interno cuja Nota Fiscal já foi emitida e autorizada.");
                 if ((saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) && (possuiNfeAutorizada))
                     throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida e autorizada.");
                 if ((saida.TipoSaida == Saida.TIPO_RETORNO_DEPOSITO) && (possuiNfeAutorizada))
@@ -434,7 +434,7 @@ namespace Negocio
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE) || saida.TipoSaida.Equals(Saida.TIPO_PREJUIZO))
+                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
                 {
                     RegistrarEstornoEstoque(saida, null);
                 }
@@ -444,7 +444,7 @@ namespace Negocio
                     RegistrarBaixaEstoque(saidaProdutos);
                 }
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE) || saida.TipoSaida.Equals(Saida.TIPO_PREJUIZO))
+                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     saida.TipoSaida = Saida.TIPO_PRE_REMESSA_DEPOSITO;
@@ -631,9 +631,10 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
-            List<int> listaCodSaidasExibir = Saida.LISTA_TIPOS_VENDA;
-            listaCodSaidasExibir.Add(Saida.TIPO_BAIXA_ESTOQUE);
-            listaCodSaidasExibir.Add(Saida.TIPO_PREJUIZO);
+            List<int> listaCodSaidasExibir = new List<int>();
+            listaCodSaidasExibir.AddRange(Saida.LISTA_TIPOS_VENDA);
+            listaCodSaidasExibir.Add(Saida.TIPO_BAIXA_ESTOQUE_PERDA);
+            listaCodSaidasExibir.Add(Saida.TIPO_USO_INTERNO);
 
             var query = (from saida in saceContext.tb_saida
                          where (listaCodSaidasExibir.Contains(saida.codTipoSaida) && (saida.codSaida >= codSaidaInicial) )
@@ -779,7 +780,7 @@ namespace Negocio
         /// <returns></returns>
         public List<Saida> ObterVendasParticipacaoLucros(DateTime dataInicial, DateTime dataFinal, decimal valorVenda)
         {
-            return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA) &&
+            return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA || saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA || saida.TipoSaida == Saida.TIPO_USO_INTERNO) &&
                 saida.CodCliente != 1324 &&  
                 saida.DataSaida >= dataInicial &&
                 saida.DataSaida <= dataFinal &&
@@ -850,7 +851,7 @@ namespace Negocio
                         Atualizar(saida);
                         RegistrarPagamentosSaida(saidaPagamentos, saida);
                     }
-                    else if (tipo_encerramento.Equals(Saida.TIPO_BAIXA_ESTOQUE) || tipo_encerramento.Equals(Saida.TIPO_PREJUIZO))
+                    else if (tipo_encerramento.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || tipo_encerramento.Equals(Saida.TIPO_USO_INTERNO))
                     {
                         saida.TipoSaida = tipo_encerramento;
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.QUITADA;

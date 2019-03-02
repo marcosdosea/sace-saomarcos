@@ -47,13 +47,32 @@ namespace Telas
             decimal.TryParse(textValorVenda.Text, out valorMinimoVenda);
             int numeroFuncionarios = 0;
             int.TryParse(textFuncionarios.Text, out numeroFuncionarios);
-
+            decimal avaliacaoClientes = 0;
+            decimal.TryParse(textAvaliacaoClientes.Text, out avaliacaoClientes);
+            decimal metaVendas = 0;
+            decimal.TryParse(textMetaVendas.Text, out metaVendas);
+            
             List<Saida> saidas = GerenciadorSaida.GetInstance(null).ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
             decimal lucroBruto = saidas.Sum(s => s.TotalLucro);
-            
+
+            decimal descontoAvaliacaoClientes = avaliacaoClientes / 5;
+            decimal descontoMetaVendas = metaVendas / 100;
+
             decimal valorParticipacao = lucroBruto * new Decimal(0.01);
+            valorParticipacao *= descontoAvaliacaoClientes;
+            valorParticipacao *= descontoMetaVendas;
             textValorCalculado.Text = (valorParticipacao / numeroFuncionarios).ToString("N2");
             Cursor.Current = Cursors.Default; 
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

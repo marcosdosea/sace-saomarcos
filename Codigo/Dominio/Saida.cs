@@ -33,9 +33,9 @@ namespace Dominio
         public const int TIPO_REMESSA_CONSERTO = 6;
         public const int TIPO_PRE_REMESSA_CONSERTO = 13;
 
-        public const int TIPO_BAIXA_ESTOQUE = 5;
+        public const int TIPO_USO_INTERNO = 5;
 
-        public const int TIPO_PREJUIZO = 6;
+        public const int TIPO_BAIXA_ESTOQUE_PERDA = 21;
 
         public static List<int> LISTA_TIPOS_REMESSA_CONSERTO = new List<int>() { Saida.TIPO_PRE_REMESSA_CONSERTO, Saida.TIPO_REMESSA_CONSERTO };
         public static List<int> LISTA_TIPOS_REMESSA_DEPOSITO = new List<int>() { Saida.TIPO_PRE_REMESSA_DEPOSITO, Saida.TIPO_REMESSA_DEPOSITO };

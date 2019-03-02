@@ -43,7 +43,7 @@ namespace Negocio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sace")]
         public string SGBD_USUARIO {
             get {
                 return ((string)(this["SGBD_USUARIO"]));
@@ -52,7 +52,7 @@ namespace Negocio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("123456")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sace")]
         public string SGBD_SENHA {
             get {
                 return ((string)(this["SGBD_SENHA"]));

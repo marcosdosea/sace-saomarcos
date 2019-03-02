@@ -40,6 +40,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textValorCalculado = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.textAvaliacaoClientes = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textMetaVendas = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCalcular
@@ -134,20 +138,56 @@
             // 
             // textValorCalculado
             // 
-            this.textValorCalculado.Location = new System.Drawing.Point(15, 76);
+            this.textValorCalculado.Location = new System.Drawing.Point(360, 76);
             this.textValorCalculado.Name = "textValorCalculado";
-            this.textValorCalculado.Size = new System.Drawing.Size(206, 20);
+            this.textValorCalculado.Size = new System.Drawing.Size(137, 20);
             this.textValorCalculado.TabIndex = 14;
             this.textValorCalculado.Text = "0";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 60);
+            this.label5.Location = new System.Drawing.Point(357, 60);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 13;
             this.label5.Text = "Valor Calculado:";
+            // 
+            // textAvaliacaoClientes
+            // 
+            this.textAvaliacaoClientes.Location = new System.Drawing.Point(15, 76);
+            this.textAvaliacaoClientes.Name = "textAvaliacaoClientes";
+            this.textAvaliacaoClientes.Size = new System.Drawing.Size(150, 20);
+            this.textAvaliacaoClientes.TabIndex = 16;
+            this.textAvaliacaoClientes.Text = "5";
+            this.textAvaliacaoClientes.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(153, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Avaliação Media Clientes (0-5):";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // textMetaVendas
+            // 
+            this.textMetaVendas.Location = new System.Drawing.Point(192, 76);
+            this.textMetaVendas.Name = "textMetaVendas";
+            this.textMetaVendas.Size = new System.Drawing.Size(150, 20);
+            this.textMetaVendas.TabIndex = 18;
+            this.textMetaVendas.Text = "100";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(189, 60);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(124, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Meta de Vendas (0-100):";
             // 
             // FrmCalculoParticipacao
             // 
@@ -155,6 +195,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 136);
+            this.Controls.Add(this.textMetaVendas);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textAvaliacaoClientes);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.textValorCalculado);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textValorVenda);
@@ -194,5 +238,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textValorCalculado;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textAvaliacaoClientes;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textMetaVendas;
+        private System.Windows.Forms.Label label7;
     }
 }

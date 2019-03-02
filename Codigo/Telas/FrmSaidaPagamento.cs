@@ -176,9 +176,9 @@ namespace Telas
 
 
                         }
-                        else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteBaixaEstoque))
+                        else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteUsoInterno))
                         {
-                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE, listaPagamentosSaida, cliente);
+                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_USO_INTERNO, listaPagamentosSaida, cliente);
                             if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                             {
                                 if (saida.TotalAVista > 0)
@@ -196,9 +196,9 @@ namespace Telas
                                 }
                             }
                         }
-                        else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClientePrejuizo))
+                        else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteBaixaEstoque))
                         {
-                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_PREJUIZO, listaPagamentosSaida, cliente);
+                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE_PERDA, listaPagamentosSaida, cliente);
                             if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                             {
                                 if (saida.TotalAVista > 0)

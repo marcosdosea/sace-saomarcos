@@ -116,18 +116,18 @@ namespace Telas.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1324")]
-        public int ClienteBaixaEstoque {
+        public int ClienteUsoInterno {
             get {
-                return ((int)(this["ClienteBaixaEstoque"]));
+                return ((int)(this["ClienteUsoInterno"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2048")]
-        public int ClientePrejuizo {
+        public int ClienteBaixaEstoque {
             get {
-                return ((int)(this["ClientePrejuizo"]));
+                return ((int)(this["ClienteBaixaEstoque"]));
             }
         }
     }

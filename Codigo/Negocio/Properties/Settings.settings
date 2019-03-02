@@ -9,10 +9,10 @@
       <Value Profile="(Default)">sace</Value>
     </Setting>
     <Setting Name="SGBD_USUARIO" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">root</Value>
+      <Value Profile="(Default)">sace</Value>
     </Setting>
     <Setting Name="SGBD_SENHA" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">123456</Value>
+      <Value Profile="(Default)">sace</Value>
     </Setting>
     <Setting Name="SGBD_IP" Type="System.String" Scope="Application">
       <Value Profile="(Default)">127.0.0.1</Value>
