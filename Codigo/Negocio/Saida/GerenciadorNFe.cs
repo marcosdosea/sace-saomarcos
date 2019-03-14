@@ -1684,7 +1684,7 @@ namespace Negocio
                     saidaProduto.ValorDesconto = 0;
                 }
             }
-            else if ((totalDescontoDistribuirPreco == 0) && (totalDescontoDevolucoes == 0))
+            else if ((totalDescontoDistribuirPreco <= 0) && (totalDescontoDevolucoes == 0))
             {
                 foreach (SaidaProduto saidaProduto in saidaProdutos)
                 {
@@ -1727,6 +1727,13 @@ namespace Negocio
 
                 saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
             }
+
+            decimal somaProdutosAVista = saidaProdutos.Where(sp=>sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista);
+            decimal somaProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
+
+
+
+
             return saidaProdutos;
         }
 
@@ -1795,7 +1802,6 @@ namespace Negocio
                         {
                             saidaProdutoAnterior.BaseCalculoICMS += saidaProdutoAtual.BaseCalculoICMS;
                             saidaProdutoAnterior.BaseCalculoICMSSubst += saidaProdutoAtual.BaseCalculoICMSSubst;
-                            saidaProdutoAnterior.Quantidade += saidaProdutoAtual.Quantidade;
                             saidaProdutoAnterior.ValorDesconto += saidaProdutoAtual.ValorDesconto;
                             saidaProdutoAnterior.ValorICMS += saidaProdutoAtual.ValorICMS;
                             saidaProdutoAnterior.ValorICMSSubst += saidaProdutoAtual.ValorICMSSubst;
@@ -1803,6 +1809,7 @@ namespace Negocio
                             saidaProdutoAnterior.ValorIPI += saidaProdutoAtual.ValorIPI;
                             saidaProdutoAnterior.ValorVendaAVista = ((saidaProdutoAtual.ValorVendaAVista * saidaProdutoAtual.Quantidade) +
                                 (saidaProdutoAnterior.ValorVendaAVista * saidaProdutoAnterior.Quantidade)) / (saidaProdutoAtual.Quantidade + saidaProdutoAnterior.Quantidade);
+                            saidaProdutoAnterior.Quantidade += saidaProdutoAtual.Quantidade;
                             saidaProdutos.Remove(saidaProdutoAtual);
                         }
                         else
