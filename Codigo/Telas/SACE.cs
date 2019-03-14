@@ -69,17 +69,17 @@ namespace Telas
         [STAThread]
         static void Main(string[] args)
         {
-            if (IsAppAlreadyRunning() && nomeComputador.Equals(SERVIDOR_NFE))
-            {
-                MessageBox.Show("Esse computador é o AUTORIZADOR de NFE! Apenas uma instância do SACE pode ser aberta.");
-                Process.GetCurrentProcess().Kill();
-            }
-            else
-            {
+            //if (IsAppAlreadyRunning() && nomeComputador.Equals(SERVIDOR_NFE))
+            //{
+            //    MessageBox.Show("Esse computador é o AUTORIZADOR de NFE! Apenas uma instância do SACE pode ser aberta.");
+            //    Process.GetCurrentProcess().Kill();
+            //}
+            //else
+            //{
                 TratarException eh = new TratarException();
                 Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
                 Application.Run(new Principal());
-            }
+            //}
 
         }
 
