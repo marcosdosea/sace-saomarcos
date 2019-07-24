@@ -16,7 +16,7 @@ namespace Dominio
         public string Ncmsh;
         public decimal ValorVenda 
         {
-            get { return Math.Round((ValorVendaAVista * Global.ACRESCIMO_PADRAO), 2, MidpointRounding.AwayFromZero); }
+            get { return Math.Round((ValorVendaAVista * Global.ACRESCIMO_PADRAO), 3, MidpointRounding.AwayFromZero); }
         }
         public decimal ValorVendaAVista { get; set; }
         public decimal Desconto { get; set; }
