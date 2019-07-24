@@ -77,6 +77,7 @@ namespace Negocio
                 SaceEntities saceEntities = new SaceEntities(global::Dados.Properties.Settings.Default.SaceEntities);
                 System.Data.Objects.ObjectParameter numero;
 
+
                 DateTime ontem = DateTime.Now.AddDays(-1);
                 var query = from nfe in saceEntities.tb_nfe
                             where (nfe.situacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) || nfe.situacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)) &&

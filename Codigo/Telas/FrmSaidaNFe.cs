@@ -79,8 +79,8 @@ namespace Telas
                     }
                 }
             }
-            if (string.IsNullOrEmpty(Saida.Nfe))
-                Saida.Nfe = "NF-e";
+            //if (string.IsNullOrEmpty(Saida.Nfe))
+            //    Saida.Nfe = "NF-e";
             observacaoTextBox.Text = Saida.Observacao;
         }
 

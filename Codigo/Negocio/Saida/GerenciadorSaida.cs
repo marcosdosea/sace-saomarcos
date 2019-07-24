@@ -205,7 +205,8 @@ namespace Negocio
                         } 
                         else 
                         {
-                            saida.nfe = "";
+                            if (!saida.codTipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR) && !saida.codTipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                                saida.nfe = "";
                             saida.pedidoGerado = "";
                             if (saida.codTipoSaida.Equals(Saida.TIPO_VENDA))
                                 saida.codTipoSaida = Saida.TIPO_PRE_VENDA;

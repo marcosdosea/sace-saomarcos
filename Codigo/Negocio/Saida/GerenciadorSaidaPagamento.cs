@@ -79,6 +79,10 @@ namespace Negocio
                 {
                     throw new NegocioException("Esse cartão de crédito não pode ser utilizado como forma de pagamento. Favor selecionar um novo cartão.");
                 }
+                else if ((saidaPagamento.CodFormaPagamento == FormaPagamento.BOLETO))
+                {
+                    throw new NegocioException("Boletos não podem ser usados como forma de pagamento. Favor selecionar um nova forma de pagamento.");
+                }
 
 
                 //decimal total = totalPagamentos(saida.CodSaida);

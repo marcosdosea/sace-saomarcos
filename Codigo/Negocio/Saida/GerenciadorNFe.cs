@@ -21,6 +21,7 @@ namespace Negocio
     {
         private static GerenciadorNFe gNFe;
         private static string nomeComputador;
+        const string FORMATO_DATA_HORA = "yyyy-MM-ddTHH:mm:sszzz";
 
         public static GerenciadorNFe GetInstance()
         {
@@ -611,16 +612,6 @@ namespace Negocio
 
         private void EmitirNfeContigencia(NfeControle nfeControle, Loja loja)
         {
-            // Habilitar uninfe para contigencia
-            //StreamWriter arqHabilitaContingencia = new StreamWriter(loja.PastaNfeEnvio+"uninfe-alt-con.txt", false, Encoding.ASCII);
-            //arqHabilitaContingencia.WriteLine("tpEmis|9");
-            //arqHabilitaContingencia.Close();
-
-            // Verifica contingencia habilitada no uninfe
-            //bool alterouConfiguracaoComSucesso = true; //alterouConfiguracaoSucesso(loja);
-
-            //if (alterouConfiguracaoComSucesso)
-            //{
             XmlDocument xmldocRetorno = new XmlDocument();
             xmldocRetorno.Load(loja.PastaNfeEnviado + nfeControle.Chave + "-nfe.xml");
             XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
@@ -628,6 +619,8 @@ namespace Negocio
             TNFe nfe = (TNFe)serializer.Deserialize(xmlReaderRetorno);
 
             nfe.infNFe.ide.tpEmis = TNFeInfNFeIdeTpEmis.Item9; // contingencia
+            nfe.infNFe.ide.dhCont = ((DateTime)nfeControle.DataEmissao).ToString(FORMATO_DATA_HORA);
+            nfe.infNFe.ide.xJust = "Falha de comunicacao com a SEFAZ";
 
             MemoryStream memStream = new MemoryStream();
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
@@ -835,7 +828,7 @@ namespace Negocio
 
                 // utilizado como padrão quando não especificado pelos produtos
                 string cfopPadrao = GerenciadorSaida.GetInstance(null).ObterCfopTipoSaida(saida.TipoSaida).ToString();
-                string FORMATO_DATA_HORA = "yyyy-MM-ddTHH:mm:sszzz";
+               
 
                 TNFe nfe = new TNFe();
 
@@ -1114,11 +1107,19 @@ namespace Negocio
                             if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2) && (saidaProduto.CodCfop <= 6000) && (saidaProduto.CodCfop >= 5000))
                                 saidaProduto.CodCfop += 1000; // cfop vira interestadual 5405 => 6405
 
+                            // devolução de consumidor interestadual
+                            if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2) && (saidaProduto.CodCfop == 1202)) 
+                                saidaProduto.CodCfop = 2202;
+
+                            // devolução de consumidor interestadual mercadoria substituicao
+                            if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2) && (saidaProduto.CodCfop == 1411))
+                                saidaProduto.CodCfop = 2411;
+
 
                             //if (saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE))
                             prod.CFOP = cfopPadrao;
-                            //else
-                            //    prod.CFOP = saidaProduto.CodCfop.ToString();
+                            if (saidaProduto.CodCfop != 0)
+                                prod.CFOP = saidaProduto.CodCfop.ToString();
 
 
                             //bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
@@ -2342,7 +2343,6 @@ namespace Negocio
                 infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
                 infEvento.tpEvento = "110110";
                 infEvento.nSeqEvento = (nfeControle.SeqCartaCorrecao + 1).ToString(); // carta correção pode haver mais de uma
-                nfeControle.SeqCartaCorrecao = Convert.ToInt32(infEvento.nSeqEvento);
                 infEvento.verEvento = "1.00";
                 infEvento.Id = "ID" + infEvento.tpEvento + infEvento.chNFe + infEvento.nSeqEvento.PadLeft(2, '0');
 
@@ -2673,7 +2673,7 @@ namespace Negocio
                                         if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
                                             unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
                                         else
-                                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=padrao";
+                                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=1 m=1 i=padrao";
                                             unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
                                         //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
                                         unidanfe.Start();
