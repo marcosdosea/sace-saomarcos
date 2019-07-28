@@ -24,7 +24,7 @@
       <Value Profile="(Default)">SERVIDOR</Value>
     </Setting>
     <Setting Name="ServidorImprimirNfce" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">RETAGUARDA</Value>
+      <Value Profile="(Default)">SERVIDOR</Value>
     </Setting>
     <Setting Name="ServidorImprimirReduzido1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SM-VENDAS01</Value>

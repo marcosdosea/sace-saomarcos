@@ -19,6 +19,9 @@ namespace Telas
     public partial class Principal : Form
     {
         static Autenticacao autenticacao = new Autenticacao();
+
+        static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+
         static Cartao.ComunicacaoCartao comunicacaoCartao;
         static string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
         static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
@@ -28,7 +31,7 @@ namespace Telas
         static int NFCE_ONLINE = Properties.Settings.Default.NfceOnline;
 
         static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
-        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
+        static string SERVIDOR_IMPRIMIR_NFE = nomeComputador; //Properties.Settings.Default.ServidorImprimirNfe;
         static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
         static string SERVIDOR_IMPRIMIR_REDUZIDO2 = Properties.Settings.Default.ServidorImprimirReduzido2;
         static Loja lojaMatriz;
@@ -36,8 +39,7 @@ namespace Telas
 
 
 
-        static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-
+        
 
         public static Autenticacao Autenticacao
         {
