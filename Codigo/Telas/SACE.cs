@@ -250,11 +250,11 @@ namespace Telas
                     lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
                 fileSystemWatcher.Path = lojaMatriz.PastaNfeRetorno;
             }
-            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
                 if (lojaDeposito == null)
                     lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
-                fileSystemWatcher.Path = lojaDeposito.PastaNfeRetorno;
+                fileSystemWatcherDeposito.Path = lojaDeposito.PastaNfeRetorno;
             }
 
             autenticacao.CodUsuario = 1;
@@ -377,14 +377,17 @@ namespace Telas
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {
-                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
+                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE);
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
                 GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
             }
-            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
+                if (lojaDeposito == null)
+                    lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
+                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaDeposito);
             }
         }
 
@@ -507,7 +510,11 @@ namespace Telas
                     lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
                 GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaMatriz);
             }
-            else if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+        }
+
+        private void fileSystemWatcherDeposito_Changed(object sender, FileSystemEventArgs e)
+        {
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {
                 if (lojaDeposito == null)
                     lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);

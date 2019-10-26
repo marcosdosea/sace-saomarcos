@@ -108,7 +108,7 @@ namespace Negocio
             entrada.TotalNota = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vNF, ci);
             entrada.TotalProdutos = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vProd, ci);
             entrada.Serie = nfe.NFe.infNFe.ide.serie;
-            // precisa calcular
+            entrada.Chave = nfe.NFe.infNFe.Id.Substring(3); // retira o inicio nfe            // precisa calcular
             entrada.TotalProdutosST = 0;
             foreach(TNFeInfNFeDet produto in nfe.NFe.infNFe.det) {
                 for(int i = 0; i < produto.imposto.Items.Length; i++) {
@@ -467,7 +467,8 @@ namespace Negocio
                             TotalSubstituicao = (decimal) entrada.totalSubstituicao,
                             ValorFrete = (decimal) entrada.valorFrete,
                             ValorSeguro = (decimal) entrada.valorSeguro,
-                            Serie = entrada.serie
+                            Serie = entrada.serie,
+                            Chave = entrada.chave
                         };
             return query;
         }
@@ -580,6 +581,7 @@ namespace Negocio
             _entradaE.valorFrete = entrada.ValorFrete;
             _entradaE.valorSeguro = entrada.ValorSeguro;
             _entradaE.serie = entrada.Serie;
+            _entradaE.chave = entrada.Chave != null ? entrada.Chave : "";
         }
 
     }

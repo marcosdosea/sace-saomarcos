@@ -97,10 +97,12 @@
             this.timerDocumentos = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.fileSystemWatcher = new System.IO.FileSystemWatcher();
+            this.fileSystemWatcherDeposito = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcherDeposito)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -649,6 +651,12 @@
             this.fileSystemWatcher.SynchronizingObject = this;
             this.fileSystemWatcher.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher_Changed);
             // 
+            // fileSystemWatcherDeposito
+            // 
+            this.fileSystemWatcherDeposito.EnableRaisingEvents = true;
+            this.fileSystemWatcherDeposito.SynchronizingObject = this;
+            this.fileSystemWatcherDeposito.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcherDeposito_Changed);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -679,6 +687,7 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcherDeposito)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -754,6 +763,7 @@
         private System.Windows.Forms.ToolStripMenuItem calcularImpostoNFCECtempToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cálculoParticipaçãoMensalToolStripMenuItem;
         private System.IO.FileSystemWatcher fileSystemWatcher;
+        private System.IO.FileSystemWatcher fileSystemWatcherDeposito;
 
     }
 }

@@ -62,7 +62,6 @@ namespace Telas
             numeroNotaFiscalTextBox.Focus();
             codEmpresaFreteComboBox.SelectedIndex = 0;
             codFornecedorComboBox.SelectedIndex = 0;
-            codSituacaoPagamentosComboBox.SelectedIndex = 0;
             fretePagoEmitenteCheckBox.Checked = true;
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -606,6 +605,25 @@ namespace Telas
         {
             codEntradaTextBox_Leave(sender, e);
             btnSalvar.Focus();
+        }
+
+        private void descricaoSituacaoPagamentosLabel_Click(object sender, EventArgs e)
+        {
+                    }
+
+        private void codEntradaLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

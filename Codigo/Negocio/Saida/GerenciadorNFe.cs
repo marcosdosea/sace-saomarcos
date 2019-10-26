@@ -1005,6 +1005,10 @@ namespace Negocio
                 decimal totalSaidas = 0;
                 decimal totalTributos = 0;
                 decimal valorTotalDesconto = 0;
+                decimal totalVProd = 0;
+                decimal totalVDesc = 0;
+                CultureInfo culturePonto = new CultureInfo("en-US");
+                    
                 if (solicitacao.ehComplementar)
                 {
                     PreencherProdutoNFEComplementar(saida, nfeControleAutorizadaComp, listaNFeDet);
@@ -1080,8 +1084,6 @@ namespace Negocio
                     saidaProdutos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
                     totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
 
-
-                    //decimal fatorValorOutros = saida.OutrasDespesas / totalProdutos;
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
                     {
                         if (saidaProduto.Quantidade > 0)
@@ -1175,9 +1177,11 @@ namespace Negocio
                                 prod.vProd = formataValorNFe(saidaProduto.SubtotalAVista);
                                 prod.vUnTrib = formataValorNFe(saidaProduto.ValorVendaAVista, 3);
                             }
+                            totalVProd += Convert.ToDecimal(prod.vProd, culturePonto);
                             if (Decimal.Parse(formataValorNFe(saidaProduto.ValorDesconto), CultureInfo.InvariantCulture) > 0)
                             {
                                 prod.vDesc = formataValorNFe(saidaProduto.ValorDesconto);
+                                totalVDesc += Convert.ToDecimal(prod.vDesc, culturePonto);
                                 valorTotalDesconto += Decimal.Parse(formataValorNFe(saidaProduto.ValorDesconto), CultureInfo.InvariantCulture);
                             }
 
@@ -1301,7 +1305,7 @@ namespace Negocio
                 icmsTot.vICMS = formataValorNFe(0);
                 icmsTot.vBCST = formataValorNFe(0);
                 icmsTot.vST = formataValorNFe(0);
-                icmsTot.vProd = formataValorNFe((valorTotalNota + valorTotalDesconto));
+                icmsTot.vProd = formataValorNFe(totalVProd);
                 icmsTot.vFrete = formataValorNFe(saida.ValorFrete);
                 icmsTot.vSeg = formataValorNFe(saida.ValorSeguro);
                 //icmsTot.vTotTrib = formataValorNFe(totalTributos);
@@ -1335,9 +1339,19 @@ namespace Negocio
                     valorTotalNota = totalProdutos + saida.ValorICMSSubst - saida.Desconto + saida.OutrasDespesas; // +saida.ValorIPI;
                 }
 
-                if (valorTotalDesconto >= 0)
+
+                //CultureInfo culturePonto = new CultureInfo("en-US");
+                //decimal valorTotalProdutos = Convert.ToDecimal(icmsTot.vProd, culturePonto);
+
+
+                //decimal somatorioItens = saidaProdutos.Sum(sp => sp.Subtotal);
+
+
+                //valorTotalDesconto = valorTotalProdutos - valorTotalNota;
+
+                if (totalVDesc >= 0)
                 {
-                    icmsTot.vDesc = formataValorNFe(valorTotalDesconto);
+                    icmsTot.vDesc = formataValorNFe( totalVDesc );
                 }
                 else
                 {
@@ -1641,20 +1655,31 @@ namespace Negocio
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
             {
-                TNFeInfNFeIdeNFrefRefNF refNF = new TNFeInfNFeIdeNFrefRefNF();
                 Entrada entrada = GerenciadorEntrada.GetInstance().Obter(saida.CodEntrada).ElementAtOrDefault(0);
-                refNF.nNF = entrada.NumeroNotaFiscal;
-                refNF.CNPJ = destinatario.CpfCnpj.Trim();
-                refNF.AAMM = entrada.DataEmissao.ToString("yyMM");
-                refNF.mod = TNFeInfNFeIdeNFrefRefNFMod.Item01;
-                refNF.serie = entrada.Serie;
-                refNF.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + destinatario.CodMunicipioIBGE.ToString().Substring(0, 2));
-                //TODO  = TCodUfIBGE.
-                TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
-                nfRef.ItemElementName = ItemChoiceType1.refNF;
-                nfRef.Item = refNF;
-                infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
-                infNFeIde.NFref[0] = nfRef;
+
+                if (String.IsNullOrEmpty(entrada.Chave))
+                {
+                    TNFeInfNFeIdeNFrefRefNF refNF = new TNFeInfNFeIdeNFrefRefNF();
+                    refNF.nNF = entrada.NumeroNotaFiscal;
+                    refNF.CNPJ = destinatario.CpfCnpj.Trim();
+                    refNF.AAMM = entrada.DataEmissao.ToString("yyMM");
+                    refNF.mod = TNFeInfNFeIdeNFrefRefNFMod.Item01;
+                    refNF.serie = entrada.Serie;
+                    refNF.cUF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), "Item" + destinatario.CodMunicipioIBGE.ToString().Substring(0, 2));
+                    TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
+                    nfRef.ItemElementName = ItemChoiceType1.refNF;
+                    nfRef.Item = refNF;
+                    infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
+                    infNFeIde.NFref[0] = nfRef;
+                }
+                else
+                {
+                    TNFeInfNFeIdeNFref nfRef = new TNFeInfNFeIdeNFref();
+                    nfRef.ItemElementName = ItemChoiceType1.refNFe;
+                    nfRef.Item = entrada.Chave;
+                    infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
+                    infNFeIde.NFref[0] = nfRef;
+                }
             }
             return nfeControleAutorizada;
         }
@@ -1671,8 +1696,8 @@ namespace Negocio
             decimal percentualDesconto = totalSaidas / saidaProdutos.Sum(sp => sp.Subtotal);
             decimal totalDescontoDevolucoes = Math.Round(Math.Abs(saidaProdutos.Where(sp => sp.Quantidade < 0).Sum(sp => sp.Subtotal) * percentualDesconto), 2);
 
-            decimal totalSaidaProdutosPositivo = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-            decimal totalAVistaSaidaProdutosPositivo = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista);
+            decimal totalSaidaProdutosPositivo = Math.Round(saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal), 2);
+            decimal totalAVistaSaidaProdutosPositivo = Math.Round(saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista), 2);
 
 
             decimal totalDescontoDistribuirPreco = totalSaidaProdutosPositivo - totalSaidas;
@@ -1728,12 +1753,6 @@ namespace Negocio
 
                 saidaProdutos = DistribuirDescontoFator(saidaProdutos, totalDescontoDistribuirPreco, fatorDesconto);
             }
-
-            decimal somaProdutosAVista = saidaProdutos.Where(sp=>sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista);
-            decimal somaProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-
-
-
 
             return saidaProdutos;
         }
@@ -1921,6 +1940,14 @@ namespace Negocio
                     elementos[1] = xmlDoc.CreateElement("nProt", "http://www.portalfiscal.inf.br/nfe");
                     elementos[1].InnerText = nfeControle.NumeroProtocoloUso;
                     elementos[2] = xmlDoc.CreateElement("xJust", "http://www.portalfiscal.inf.br/nfe");
+
+
+
+                    nfeControle.JustificativaCancelamento = nfeControle.JustificativaCancelamento.Replace("\n", " ");
+                    nfeControle.JustificativaCancelamento = nfeControle.JustificativaCancelamento.Replace("\r", " ");
+                    nfeControle.JustificativaCancelamento = nfeControle.JustificativaCancelamento.Replace("\t", String.Empty);
+
+                    
                     elementos[2].InnerText = nfeControle.JustificativaCancelamento.Trim();
                     detEvento.Any = elementos;
 
@@ -2307,6 +2334,8 @@ namespace Negocio
         {
             try
             {
+                NfeControle nfeControleSeq = GerenciadorNFe.GetInstance().Obter(nfeControle.CodNfe).FirstOrDefault();
+                nfeControle.SeqCartaCorrecao = nfeControleSeq.SeqCartaCorrecao;
                 if (nfeControle.SituacaoNfe != NfeControle.SITUACAO_AUTORIZADA)
                 {
                     throw new NegocioException("Só é possível enviar cartas de correção de NF-e AUTORIZADAS.");
@@ -2315,6 +2344,7 @@ namespace Negocio
                 {
                     throw new NegocioException("É necessário adicionar uma texto de correção para enviar uma Carta de Correção da NF-e.");
                 }
+
 
 
                 Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
@@ -2362,7 +2392,17 @@ namespace Negocio
                 elementos[0] = xmlDoc.CreateElement("descEvento", "http://www.portalfiscal.inf.br/nfe");
                 elementos[0].InnerText = "Carta de Correcao";
                 elementos[1] = xmlDoc.CreateElement("xCorrecao", "http://www.portalfiscal.inf.br/nfe");
-                elementos[1].InnerText = nfeControle.Correcao;
+
+
+                nfeControle.Correcao = nfeControle.Correcao.Replace("\n", " ");
+                nfeControle.Correcao = nfeControle.Correcao.Replace("\r", " ");
+                //nfeControle.Correcao = nfeControle.Correcao.Replace("\"", String.Empty);
+                //nfeControle.Correcao = nfeControle.Correcao.Replace("\'", String.Empty);
+                nfeControle.Correcao = nfeControle.Correcao.Replace("”", "'");
+                nfeControle.Correcao = nfeControle.Correcao.Replace("’", "'");
+                nfeControle.Correcao = nfeControle.Correcao.Replace("\t", String.Empty);
+                
+                elementos[1].InnerText = nfeControle.Correcao.Trim();
                 elementos[2] = xmlDoc.CreateElement("xCondUso", "http://www.portalfiscal.inf.br/nfe");
                 elementos[2].InnerText = ("A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.");
                 detEvento.Any = elementos;
@@ -2442,7 +2482,23 @@ namespace Negocio
                                     nfeControle.NumeroProtocoloCartaCorrecao = retornoEvento.nProt;
                                     nfeControle.DataCartaCorrecao = Convert.ToDateTime(retornoEvento.dhRegEvento);
                                     nfeControle.SeqCartaCorrecao = Convert.ToInt32(retornoEvento.nSeqEvento);
-                                    //nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
+                                    
+                                    
+                                    DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
+                                    Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAtOrDefault(0);
+                                    string pastaNfe = loja.PastaNfeAutorizados + dataEmissao.Year
+                                        + dataEmissao.Month.ToString("00")
+                                        + dataEmissao.Day.ToString("00") + "\\";
+                                    DirectoryInfo DirCCe = new DirectoryInfo(pastaNfe);
+                                    if (DirCCe.Exists)
+                                    {
+                                        Process unidanfe = new Process();
+                                        unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
+                                        unidanfe.StartInfo.Arguments = " arquivo=\"" + pastaNfe +
+                                            nfeControle.Chave + "_" + nfeControle.SeqCartaCorrecao.ToString("00") + "-procEventoNFe.xml\""; ;
+                                        unidanfe.StartInfo.Arguments += " t=cce ee=1 v=1 m=1 i=\"selecionar\"";
+                                        unidanfe.Start();
+                                    }
                                 }
                                 nfeControle.SituacaoProtocoloCartaCorrecao = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoCartaCorrecao = retornoEvento.xMotivo;

@@ -63,8 +63,9 @@ namespace Util
         public static Decimal
             ACRESCIMO_PADRAO = (decimal)1.111111,
             DESCONTO_PADRAO = (decimal) 10,
-            SIMPLES = (decimal)11.5,
-            ICMS_LOCAL = (decimal)19,
+            SIMPLES = (decimal)11.0,  // para mercadorias tributação normal
+            SIMPLES_ST = (decimal)7.5, // para mercadorias ST e Encerramento de fase
+            ICMS_LOCAL = (decimal)18,
             CUSTO_MANUTENCAO_LOJA = 0;
 
         public static String

@@ -39,6 +39,7 @@ namespace Dominio
         public int CodSituacaoPagamentos { get; set; }
         public Boolean FretePagoEmitente { get; set; }
         public string Serie { get; set; }
+        public string Chave { get; set; }
 
         // override object.Equals
         public override bool Equals(object obj)

@@ -72,12 +72,12 @@
             System.Windows.Forms.Label qtdProdutoAtacadoLabel;
             System.Windows.Forms.Label precoVendaAtacadoLabel;
             System.Windows.Forms.Label preco_custoLabel;
-            System.Windows.Forms.Label descricaoSituacaoPagamentosLabel;
             System.Windows.Forms.Label valorDescontoLabel;
             System.Windows.Forms.Label totalProdutosSTLabel;
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label9;
             System.Windows.Forms.Label serieLabel;
+            System.Windows.Forms.Label label10;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntrada));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -174,12 +174,12 @@
             this.valorUnitarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorTotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fretePagoEmitenteCheckBox = new System.Windows.Forms.CheckBox();
-            this.codSituacaoPagamentosComboBox = new System.Windows.Forms.ComboBox();
             this.situacaoPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totalProdutosSTTextBox = new System.Windows.Forms.TextBox();
             this.btnImportarNfe = new System.Windows.Forms.Button();
             this.openFileDialogNfe = new System.Windows.Forms.OpenFileDialog();
             this.serieTextBox = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             codEntradaLabel = new System.Windows.Forms.Label();
             numeroNotaFiscalLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
@@ -223,12 +223,12 @@
             qtdProdutoAtacadoLabel = new System.Windows.Forms.Label();
             precoVendaAtacadoLabel = new System.Windows.Forms.Label();
             preco_custoLabel = new System.Windows.Forms.Label();
-            descricaoSituacaoPagamentosLabel = new System.Windows.Forms.Label();
             valorDescontoLabel = new System.Windows.Forms.Label();
             totalProdutosSTLabel = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
             serieLabel = new System.Windows.Forms.Label();
+            label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ProdutosGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
@@ -252,6 +252,7 @@
             codEntradaLabel.Size = new System.Drawing.Size(43, 13);
             codEntradaLabel.TabIndex = 77;
             codEntradaLabel.Text = "Código:";
+            codEntradaLabel.Click += new System.EventHandler(this.codEntradaLabel_Click);
             // 
             // numeroNotaFiscalLabel
             // 
@@ -631,16 +632,6 @@
             preco_custoLabel.TabIndex = 115;
             preco_custoLabel.Text = "Preço Custo:";
             // 
-            // descricaoSituacaoPagamentosLabel
-            // 
-            descricaoSituacaoPagamentosLabel.AutoSize = true;
-            descricaoSituacaoPagamentosLabel.Location = new System.Drawing.Point(410, 43);
-            descricaoSituacaoPagamentosLabel.Name = "descricaoSituacaoPagamentosLabel";
-            descricaoSituacaoPagamentosLabel.Size = new System.Drawing.Size(69, 13);
-            descricaoSituacaoPagamentosLabel.TabIndex = 111;
-            descricaoSituacaoPagamentosLabel.Text = "Pagamentos:";
-            descricaoSituacaoPagamentosLabel.Visible = false;
-            // 
             // valorDescontoLabel
             // 
             valorDescontoLabel.AutoSize = true;
@@ -685,6 +676,16 @@
             serieLabel.Size = new System.Drawing.Size(34, 13);
             serieLabel.TabIndex = 112;
             serieLabel.Text = "Serie:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(7, 49);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(64, 13);
+            label10.TabIndex = 114;
+            label10.Text = "Chave NFe:";
+            label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label1
             // 
@@ -1734,20 +1735,6 @@
             this.fretePagoEmitenteCheckBox.Text = "Pago Emitente";
             this.fretePagoEmitenteCheckBox.UseVisualStyleBackColor = true;
             // 
-            // codSituacaoPagamentosComboBox
-            // 
-            this.codSituacaoPagamentosComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entradaBindingSource, "CodSituacaoPagamentos", true));
-            this.codSituacaoPagamentosComboBox.DataSource = this.situacaoPagamentosBindingSource;
-            this.codSituacaoPagamentosComboBox.DisplayMember = "DescricaoSituacaoPagamentos";
-            this.codSituacaoPagamentosComboBox.Enabled = false;
-            this.codSituacaoPagamentosComboBox.FormattingEnabled = true;
-            this.codSituacaoPagamentosComboBox.Location = new System.Drawing.Point(485, 40);
-            this.codSituacaoPagamentosComboBox.Name = "codSituacaoPagamentosComboBox";
-            this.codSituacaoPagamentosComboBox.Size = new System.Drawing.Size(103, 21);
-            this.codSituacaoPagamentosComboBox.TabIndex = 112;
-            this.codSituacaoPagamentosComboBox.ValueMember = "CodSituacaoPagamentos";
-            this.codSituacaoPagamentosComboBox.Visible = false;
-            // 
             // situacaoPagamentosBindingSource
             // 
             this.situacaoPagamentosBindingSource.DataSource = typeof(Dominio.SituacaoPagamentos);
@@ -1786,20 +1773,31 @@
             this.serieTextBox.Size = new System.Drawing.Size(45, 20);
             this.serieTextBox.TabIndex = 15;
             // 
+            // textBox1
+            // 
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.entradaBindingSource, "Chave", true));
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(71, 46);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(528, 20);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // FrmEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 651);
             this.ControlBox = false;
+            this.Controls.Add(label10);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(serieLabel);
             this.Controls.Add(this.serieTextBox);
             this.Controls.Add(this.btnImportarNfe);
             this.Controls.Add(totalProdutosSTLabel);
             this.Controls.Add(this.totalProdutosSTTextBox);
-            this.Controls.Add(this.codSituacaoPagamentosComboBox);
             this.Controls.Add(this.fretePagoEmitenteCheckBox);
-            this.Controls.Add(descricaoSituacaoPagamentosLabel);
             this.Controls.Add(this.tb_entrada_produtoDataGridView);
             this.Controls.Add(codEntradaLabel);
             this.Controls.Add(this.tb_entradaBindingNavigator);
@@ -1960,7 +1958,6 @@
         private System.Windows.Forms.ComboBox cfopComboBox;
         private System.Windows.Forms.BindingSource cfopBindingSource;
         private System.Windows.Forms.CheckBox fretePagoEmitenteCheckBox;
-        private System.Windows.Forms.ComboBox codSituacaoPagamentosComboBox;
         private System.Windows.Forms.BindingSource situacaoPagamentosBindingSource;
         private System.Windows.Forms.CheckBox temVencimentoCheckBox;
         private System.Windows.Forms.ComboBox codCSTComboBox;
@@ -1982,5 +1979,6 @@
         private System.Windows.Forms.Button btnImportarNfe;
         private System.Windows.Forms.OpenFileDialog openFileDialogNfe;
         private System.Windows.Forms.TextBox serieTextBox;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

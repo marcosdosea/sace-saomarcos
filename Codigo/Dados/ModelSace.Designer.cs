@@ -3522,6 +3522,30 @@ namespace Dados
         private global::System.String _serie;
         partial void OnserieChanging(global::System.String value);
         partial void OnserieChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String chave
+        {
+            get
+            {
+                return _chave;
+            }
+            set
+            {
+                OnchaveChanging(value);
+                ReportPropertyChanging("chave");
+                _chave = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("chave");
+                OnchaveChanged();
+            }
+        }
+        private global::System.String _chave;
+        partial void OnchaveChanging(global::System.String value);
+        partial void OnchaveChanged();
 
         #endregion
 
