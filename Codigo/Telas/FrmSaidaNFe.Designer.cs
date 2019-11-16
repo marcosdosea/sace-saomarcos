@@ -260,9 +260,10 @@
             correcaoLabel.AutoSize = true;
             correcaoLabel.Location = new System.Drawing.Point(2, 496);
             correcaoLabel.Name = "correcaoLabel";
-            correcaoLabel.Size = new System.Drawing.Size(380, 13);
+            correcaoLabel.Size = new System.Drawing.Size(517, 13);
             correcaoLabel.TabIndex = 45;
-            correcaoLabel.Text = "Correções (Para NF-e Autorizadas e Situação previstas na legislação em vigor):";
+            correcaoLabel.Text = "Correções (Para NF-e Autorizadas e Situação previstas na legislação em vigor. Máx" +
+    "imo de 1000 caracteres):";
             // 
             // seqCartaCorrecaoLabel
             // 
@@ -581,6 +582,7 @@
             // 
             this.correcaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.nfeControleBindingSource, "Correcao", true));
             this.correcaoTextBox.Location = new System.Drawing.Point(5, 512);
+            this.correcaoTextBox.MaxLength = 1000;
             this.correcaoTextBox.Multiline = true;
             this.correcaoTextBox.Name = "correcaoTextBox";
             this.correcaoTextBox.Size = new System.Drawing.Size(872, 42);
@@ -663,7 +665,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 586);
+            this.ClientSize = new System.Drawing.Size(872, 589);
             this.ControlBox = false;
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(this.btnBuscar);

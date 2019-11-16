@@ -3671,7 +3671,7 @@
           <Property Type="DateTime" Name="dataEmissao" />
           <Property Type="DateTime" Name="dataCancelamento" />
           <Property Type="Int32" Name="seqCartaCorrecao" Nullable="false" />
-          <Property Type="String" Name="correcao" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="correcao" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="situacaoProtocoloCartaCorrecao" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="mensagemSitucaoCartaCorrecao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="numeroProtocoloCartaCorrecao" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />

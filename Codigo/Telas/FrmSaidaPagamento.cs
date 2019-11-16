@@ -87,7 +87,7 @@ namespace Telas
                 saidaPagamento.CodContaBanco = int.Parse(codContaBancoComboBox.SelectedValue.ToString());
                 saidaPagamento.CodFormaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 saidaPagamento.CodCartaoCredito = int.Parse(codCartaoComboBox.SelectedValue.ToString());
-                saidaPagamento.Data = saida.DataSaida;
+                saidaPagamento.Data = DateTime.Now;
                 saidaPagamento.Valor = decimal.Parse(valorRecebidoTextBox.Text);
                 saidaPagamento.CodSaida = saida.CodSaida;
                 saidaPagamento.IntervaloDias = Convert.ToInt32(intervaloDiasTextBox.Text);

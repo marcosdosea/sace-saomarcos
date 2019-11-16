@@ -855,7 +855,7 @@ namespace Negocio
 
                 if (solicitacao.ehComplementar)
                     infNFeIde.finNFe = TFinNFe.Item2; //1 - Normal / 2 NF-e complementar / 3 - Nf-e Ajuste / 4 - devolução
-                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                     infNFeIde.finNFe = TFinNFe.Item4;
                 else
                     infNFeIde.finNFe = TFinNFe.Item1;
@@ -949,6 +949,8 @@ namespace Negocio
                         dest.ItemElementName = ItemChoiceType3.CNPJ;
                         dest.IE = destinatario.Ie;
                         dest.indIEDest = TNFeInfNFeDestIndIEDest.Item1; // 1-Contribuinte ICMS
+                        
+
                     }
                     else if (destinatario.CpfCnpj.Length > 11 && (String.IsNullOrWhiteSpace(destinatario.Ie) || destinatario.Ie.StartsWith("I")))
                     {
@@ -1104,7 +1106,7 @@ namespace Negocio
                                 prod.cEAN = "SEM GTIN";
                             }
 
-
+                            
 
                             if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2) && (saidaProduto.CodCfop <= 6000) && (saidaProduto.CodCfop >= 5000))
                                 saidaProduto.CodCfop += 1000; // cfop vira interestadual 5405 => 6405
@@ -1116,8 +1118,7 @@ namespace Negocio
                             // devolução de consumidor interestadual mercadoria substituicao
                             if (infNFeIde.idDest.Equals(TNFeInfNFeIdeIdDest.Item2) && (saidaProduto.CodCfop == 1411))
                                 saidaProduto.CodCfop = 2411;
-
-
+                         
                             //if (saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE))
                             prod.CFOP = cfopPadrao;
                             if (saidaProduto.CodCfop != 0)
@@ -1189,9 +1190,6 @@ namespace Negocio
                             prod.uTrib = produto.Unidade;
 
                             prod.qTrib = formataQtdNFe(saidaProduto.Quantidade);
-                            decimal valorOutrosProduto = 0;
-                            //if (fatorValorOutros > 0)
-                            //    valorOutrosProduto = saidaProduto.SubtotalAVista * fatorValorOutros;
                             prod.indTot = (TNFeInfNFeDetProdIndTot)1; // Valor = 1 deve entrar no valor total da nota
 
                             if (saida.ValorFrete > 0)
@@ -1277,13 +1275,10 @@ namespace Negocio
                             nfeDet.imposto = imp;
                             nfeDet.prod = prod;
                             nfeDet.nItem = nItem.ToString();
-                            if (saidaProduto.ValorIPI > 0 && saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                            if ((saida.OutrasDespesas > 0 || saida.ValorIPI > 0) && saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                             {
-                                //TNFeInfNFeDetImpostoDevol dev = new TNFeInfNFeDetImpostoDevol();
-                                //dev.IPI = new TNFeInfNFeDetImpostoDevolIPI() { vIPIDevol = formataValorNFe(saidaProduto.ValorIPI) };
-                                //dev.pDevol = "100"; //TODO: corresponde a 100% da compra realizada. precisa 
-                                //nfeDet.impostoDevol = dev;
-                                prod.vOutro = formataValorNFe(saidaProduto.ValorIPI + valorOutrosProduto);
+                                var valorOutros = saida.OutrasDespesas + saida.ValorIPI;                                
+                                prod.vOutro = formataValorNFe(valorOutros * (saidaProduto.SubtotalAVista / saida.TotalAVista));
                             }
 
                             nItem++; // número do item na nf-e
@@ -2641,7 +2636,7 @@ namespace Negocio
             _nfe.dataCancelamento = nfe.DataCancelamento;
             _nfe.codSolicitacao = nfe.CodSolicitacao;
 
-            _nfe.correcao = truncate(string.IsNullOrEmpty(nfe.Correcao) ? "" : nfe.Correcao, 200);
+            _nfe.correcao = truncate(string.IsNullOrEmpty(nfe.Correcao) ? "" : nfe.Correcao, 1000);
             _nfe.dataCartaCorrecao = nfe.DataCartaCorrecao;
             _nfe.mensagemSitucaoCartaCorrecao = truncate(string.IsNullOrEmpty(nfe.MensagemSitucaoCartaCorrecao) ? "" : nfe.MensagemSitucaoCartaCorrecao, 100);
             _nfe.numeroProtocoloCartaCorrecao = string.IsNullOrEmpty(nfe.NumeroProtocoloCartaCorrecao) ? "" : nfe.NumeroProtocoloCartaCorrecao;
