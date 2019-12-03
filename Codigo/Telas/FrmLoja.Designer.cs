@@ -44,9 +44,9 @@
             System.Windows.Forms.Label pastaNfeRetornoLabel;
             System.Windows.Forms.Label numeroSequenciaNfeAtualLabel;
             System.Windows.Forms.Label label2;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
             System.Windows.Forms.Label pastaNfeValidadoLabel;
             System.Windows.Forms.Label pastaNfeValidarLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLoja));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -242,6 +242,24 @@
             label2.Size = new System.Drawing.Size(77, 13);
             label2.TabIndex = 38;
             label2.Text = "Numero NFCe:";
+            // 
+            // pastaNfeValidadoLabel
+            // 
+            pastaNfeValidadoLabel.AutoSize = true;
+            pastaNfeValidadoLabel.Location = new System.Drawing.Point(280, 388);
+            pastaNfeValidadoLabel.Name = "pastaNfeValidadoLabel";
+            pastaNfeValidadoLabel.Size = new System.Drawing.Size(150, 13);
+            pastaNfeValidadoLabel.TabIndex = 38;
+            pastaNfeValidadoLabel.Text = "Pasta Nfe em Processamento:";
+            // 
+            // pastaNfeValidarLabel
+            // 
+            pastaNfeValidarLabel.AutoSize = true;
+            pastaNfeValidarLabel.Location = new System.Drawing.Point(8, 388);
+            pastaNfeValidarLabel.Name = "pastaNfeValidarLabel";
+            pastaNfeValidarLabel.Size = new System.Drawing.Size(92, 13);
+            pastaNfeValidarLabel.TabIndex = 40;
+            pastaNfeValidarLabel.Text = "Pasta Nfe Validar:";
             // 
             // label1
             // 
@@ -571,15 +589,6 @@
             this.numeroSequenciaNFCeAtual.TabIndex = 36;
             this.numeroSequenciaNFCeAtual.TabStop = false;
             // 
-            // pastaNfeValidadoLabel
-            // 
-            pastaNfeValidadoLabel.AutoSize = true;
-            pastaNfeValidadoLabel.Location = new System.Drawing.Point(280, 388);
-            pastaNfeValidadoLabel.Name = "pastaNfeValidadoLabel";
-            pastaNfeValidadoLabel.Size = new System.Drawing.Size(101, 13);
-            pastaNfeValidadoLabel.TabIndex = 38;
-            pastaNfeValidadoLabel.Text = "Pasta Nfe Validado:";
-            // 
             // pastaNfeValidadoTextBox
             // 
             this.pastaNfeValidadoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.lojaBindingSource, "PastaNfeValidado", true));
@@ -587,15 +596,6 @@
             this.pastaNfeValidadoTextBox.Name = "pastaNfeValidadoTextBox";
             this.pastaNfeValidadoTextBox.Size = new System.Drawing.Size(252, 20);
             this.pastaNfeValidadoTextBox.TabIndex = 40;
-            // 
-            // pastaNfeValidarLabel
-            // 
-            pastaNfeValidarLabel.AutoSize = true;
-            pastaNfeValidarLabel.Location = new System.Drawing.Point(8, 388);
-            pastaNfeValidarLabel.Name = "pastaNfeValidarLabel";
-            pastaNfeValidarLabel.Size = new System.Drawing.Size(92, 13);
-            pastaNfeValidarLabel.TabIndex = 40;
-            pastaNfeValidarLabel.Text = "Pasta Nfe Validar:";
             // 
             // pastaNfeValidarTextBox
             // 

@@ -2750,7 +2750,7 @@ namespace Negocio
                 List<NfeControle> listaNfe = ObterPorSituacao(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE).ToList();
                 foreach (NfeControle nfe in listaNfe)
                 {
-                    DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeEnviado);
+                    DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeValidado);
                     if (Dir.Exists)
                     {
                         FileInfo[] files = Dir.GetFiles(nfe.Chave + "-nfe.xml", SearchOption.TopDirectoryOnly);
