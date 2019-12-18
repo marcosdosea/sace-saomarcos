@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codContaBancoLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -81,6 +81,7 @@
             this.vendasCartaoBaneseCredito = new System.Windows.Forms.BindingSource(this.components);
             this.totalRede = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.btnDetalhes = new System.Windows.Forms.Button();
             codContaBancoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
@@ -231,9 +232,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "TotalMovimentacaoConta";
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn2.HeaderText = "Total (R$)";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -247,7 +248,6 @@
             this.label5.Size = new System.Drawing.Size(194, 18);
             this.label5.TabIndex = 28;
             this.label5.Text = "Movimentação do Caixa:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // btnCancelar
             // 
@@ -596,11 +596,22 @@
             this.label11.TabIndex = 46;
             this.label11.Text = "Total";
             // 
+            // btnDetalhes
+            // 
+            this.btnDetalhes.Location = new System.Drawing.Point(388, 114);
+            this.btnDetalhes.Name = "btnDetalhes";
+            this.btnDetalhes.Size = new System.Drawing.Size(75, 23);
+            this.btnDetalhes.TabIndex = 48;
+            this.btnDetalhes.Text = "Detalhes";
+            this.btnDetalhes.UseVisualStyleBackColor = true;
+            this.btnDetalhes.Click += new System.EventHandler(this.btnDetalhes_Click);
+            // 
             // FrmMovimentacaoCaixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 619);
+            this.Controls.Add(this.btnDetalhes);
             this.Controls.Add(this.totalRede);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.totalCreditoBanese);
@@ -703,6 +714,7 @@
         private System.Windows.Forms.BindingSource vendasCartaoBaneseCredito;
         private System.Windows.Forms.TextBox totalRede;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnDetalhes;
 
     }
 }

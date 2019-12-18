@@ -30,27 +30,27 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
-            this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.btnEstatistica = new System.Windows.Forms.Button();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UltimaDataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UltimoPrecoCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoVendaVarejoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoVendaAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecoRevenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoVendaAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoVendaVarejoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UltimoPrecoCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UltimaDataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -107,6 +107,81 @@
             this.txtTexto.TabIndex = 1;
             this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
             // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Location = new System.Drawing.Point(1149, 508);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(146, 23);
+            this.btnSalvar.TabIndex = 6;
+            this.btnSalvar.Text = "SALVAR ALTERAÇÕES";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "xls";
+            this.saveFileDialog.FileName = "ProdutosEtiquetas.xls";
+            this.saveFileDialog.InitialDirectory = "C:\\Documents and Settings\\vendas\\Meus documentos\\Dropbox\\Documentos\\etiquetas";
+            this.saveFileDialog.Title = "Exportar Excel";
+            // 
+            // btnEstatistica
+            // 
+            this.btnEstatistica.Location = new System.Drawing.Point(1055, 508);
+            this.btnEstatistica.Name = "btnEstatistica";
+            this.btnEstatistica.Size = new System.Drawing.Size(88, 23);
+            this.btnEstatistica.TabIndex = 8;
+            this.btnEstatistica.Text = "F9 - Estatística";
+            this.btnEstatistica.UseVisualStyleBackColor = true;
+            this.btnEstatistica.Click += new System.EventHandler(this.btnEstatistica_Click);
+            // 
+            // PrecoRevenda
+            // 
+            this.PrecoRevenda.DataPropertyName = "PrecoRevenda";
+            dataGridViewCellStyle1.Format = "C3";
+            this.PrecoRevenda.DefaultCellStyle = dataGridViewCellStyle1;
+            this.PrecoRevenda.HeaderText = "Preco Revenda";
+            this.PrecoRevenda.Name = "PrecoRevenda";
+            // 
+            // PrecoVendaAtacado
+            // 
+            this.PrecoVendaAtacado.DataPropertyName = "PrecoVendaAtacado";
+            dataGridViewCellStyle2.Format = "C3";
+            dataGridViewCellStyle2.NullValue = null;
+            this.PrecoVendaAtacado.DefaultCellStyle = dataGridViewCellStyle2;
+            this.PrecoVendaAtacado.HeaderText = "Preço Atacado";
+            this.PrecoVendaAtacado.Name = "PrecoVendaAtacado";
+            // 
+            // PrecoVendaVarejoSemDesconto
+            // 
+            this.PrecoVendaVarejoSemDesconto.DataPropertyName = "PrecoVendaVarejo";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.PrecoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle3;
+            this.PrecoVendaVarejoSemDesconto.HeaderText = "Preço Varejo";
+            this.PrecoVendaVarejoSemDesconto.Name = "PrecoVendaVarejoSemDesconto";
+            // 
+            // UltimoPrecoCompra
+            // 
+            this.UltimoPrecoCompra.DataPropertyName = "UltimoPrecoCompra";
+            this.UltimoPrecoCompra.HeaderText = "Ultimo Preco Compra";
+            this.UltimoPrecoCompra.Name = "UltimoPrecoCompra";
+            // 
+            // UltimaDataAtualizacao
+            // 
+            this.UltimaDataAtualizacao.DataPropertyName = "UltimaDataAtualizacao";
+            this.UltimaDataAtualizacao.HeaderText = "Última Atualização";
+            this.UltimaDataAtualizacao.Name = "UltimaDataAtualizacao";
+            this.UltimaDataAtualizacao.ReadOnly = true;
+            // 
+            // CodProduto
+            // 
+            this.CodProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CodProduto.DataPropertyName = "CodProduto";
+            this.CodProduto.FillWeight = 15F;
+            this.CodProduto.HeaderText = "Código";
+            this.CodProduto.Name = "CodProduto";
+            this.CodProduto.ReadOnly = true;
+            // 
             // tb_produtoDataGridView
             // 
             this.tb_produtoDataGridView.AllowUserToAddRows = false;
@@ -115,14 +190,14 @@
             this.tb_produtoDataGridView.AllowUserToResizeRows = false;
             this.tb_produtoDataGridView.AutoGenerateColumns = false;
             this.tb_produtoDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.tb_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CodProduto,
@@ -155,45 +230,9 @@
             this.tb_produtoDataGridView.TabStop = false;
             this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
             // 
-            // btnSalvar
-            // 
-            this.btnSalvar.Location = new System.Drawing.Point(1149, 508);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(146, 23);
-            this.btnSalvar.TabIndex = 6;
-            this.btnSalvar.Text = "SALVAR ALTERAÇÕES";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "xls";
-            this.saveFileDialog.FileName = "ProdutosEtiquetas.xls";
-            this.saveFileDialog.InitialDirectory = "C:\\Documents and Settings\\vendas\\Meus documentos\\Dropbox\\Documentos\\etiquetas";
-            this.saveFileDialog.Title = "Exportar Excel";
-            // 
-            // btnEstatistica
-            // 
-            this.btnEstatistica.Location = new System.Drawing.Point(1055, 508);
-            this.btnEstatistica.Name = "btnEstatistica";
-            this.btnEstatistica.Size = new System.Drawing.Size(88, 23);
-            this.btnEstatistica.TabIndex = 8;
-            this.btnEstatistica.Text = "F9 - Estatística";
-            this.btnEstatistica.UseVisualStyleBackColor = true;
-            this.btnEstatistica.Click += new System.EventHandler(this.btnEstatistica_Click);
-            // 
             // produtoBindingSource
             // 
             this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
-            // CodProduto
-            // 
-            this.CodProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CodProduto.DataPropertyName = "CodProduto";
-            this.CodProduto.FillWeight = 15F;
-            this.CodProduto.HeaderText = "Código";
-            this.CodProduto.Name = "CodProduto";
-            this.CodProduto.ReadOnly = true;
             // 
             // nomeDataGridViewTextBoxColumn
             // 
@@ -202,45 +241,6 @@
             this.nomeDataGridViewTextBoxColumn.FillWeight = 84.26873F;
             this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
             this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            // 
-            // UltimaDataAtualizacao
-            // 
-            this.UltimaDataAtualizacao.DataPropertyName = "UltimaDataAtualizacao";
-            this.UltimaDataAtualizacao.HeaderText = "Última Atualização";
-            this.UltimaDataAtualizacao.Name = "UltimaDataAtualizacao";
-            this.UltimaDataAtualizacao.ReadOnly = true;
-            // 
-            // UltimoPrecoCompra
-            // 
-            this.UltimoPrecoCompra.DataPropertyName = "UltimoPrecoCompra";
-            this.UltimoPrecoCompra.HeaderText = "Ultimo Preco Compra";
-            this.UltimoPrecoCompra.Name = "UltimoPrecoCompra";
-            // 
-            // PrecoVendaVarejoSemDesconto
-            // 
-            this.PrecoVendaVarejoSemDesconto.DataPropertyName = "PrecoVendaVarejo";
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.PrecoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle2;
-            this.PrecoVendaVarejoSemDesconto.HeaderText = "Preço Varejo";
-            this.PrecoVendaVarejoSemDesconto.Name = "PrecoVendaVarejoSemDesconto";
-            // 
-            // PrecoVendaAtacado
-            // 
-            this.PrecoVendaAtacado.DataPropertyName = "PrecoVendaAtacado";
-            dataGridViewCellStyle3.Format = "C3";
-            dataGridViewCellStyle3.NullValue = null;
-            this.PrecoVendaAtacado.DefaultCellStyle = dataGridViewCellStyle3;
-            this.PrecoVendaAtacado.HeaderText = "Preço Atacado";
-            this.PrecoVendaAtacado.Name = "PrecoVendaAtacado";
-            // 
-            // PrecoRevenda
-            // 
-            this.PrecoRevenda.DataPropertyName = "PrecoRevenda";
-            dataGridViewCellStyle4.Format = "C3";
-            this.PrecoRevenda.DefaultCellStyle = dataGridViewCellStyle4;
-            this.PrecoRevenda.HeaderText = "Preco Revenda";
-            this.PrecoRevenda.Name = "PrecoRevenda";
             // 
             // FrmProdutoPreco
             // 
@@ -277,17 +277,17 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTexto;
         private System.Windows.Forms.BindingSource produtoBindingSource;
-        private System.Windows.Forms.DataGridView tb_produtoDataGridView;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.Button btnEstatistica;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodProduto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UltimaDataAtualizacao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UltimoPrecoCompra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaVarejoSemDesconto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaAtacado;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoRevenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaAtacado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoVendaVarejoSemDesconto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UltimoPrecoCompra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UltimaDataAtualizacao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodProduto;
+        private System.Windows.Forms.DataGridView tb_produtoDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
   
     }
 }

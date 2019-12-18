@@ -118,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentesLeave.cs" />
+    <Compile Include="FrmMovimentacaoCaixaRecebido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMovimentacaoCaixaRecebido.Designer.cs">
+      <DependentUpon>FrmMovimentacaoCaixaRecebido.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCalculoParticipacao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -470,6 +476,10 @@
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmMovimentacaoCaixaRecebido.resx">
+      <DependentUpon>FrmMovimentacaoCaixaRecebido.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmCalculoParticipacao.resx">
       <DependentUpon>FrmCalculoParticipacao.cs</DependentUpon>
     </EmbeddedResource>
@@ -709,12 +719,14 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\Dados.saceDataSetConsultas.datasource" />
+    <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.PagamentosRecebidosPeriodoTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\DataSources\Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter.datasource" />
     <None Include="Properties\DataSources\Dominio.Banco.datasource" />
     <None Include="Properties\DataSources\Dominio.CartaoCredito.datasource" />
     <None Include="Properties\DataSources\Dominio.Cfop.datasource" />
+    <None Include="Properties\DataSources\Dominio.Consultas.MovimentacaoPeriodo.datasource" />
     <None Include="Properties\DataSources\Dominio.Consultas.TotaisMovimentacaoConta.datasource" />
     <None Include="Properties\DataSources\Dominio.Consultas.VendasCartao.datasource" />
     <None Include="Properties\DataSources\Dominio.Conta.datasource" />

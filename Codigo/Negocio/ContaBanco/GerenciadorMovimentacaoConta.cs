@@ -293,6 +293,31 @@ namespace Negocio
             return query.ToList();
         }
 
+
+
+        public IQueryable<MovimentacaoPeriodo> ObterMovimentacaoContaPeriodo(DateTime dataInicio, DateTime dataFim)
+        {
+            var query = from movimentacaoConta in saceContext.MovimentacaoContaSet
+                        join tipoMovimentacao in saceContext.TipoMovimentacaoContaSet on movimentacaoConta.codTipoMovimentacao equals tipoMovimentacao.codTipoMovimentacao
+                        join conta in saceContext.ContaSet on movimentacaoConta.codConta equals conta.codConta
+                        join saida in saceContext.tb_saida on conta.codSaida equals saida.codSaida
+                        join pessoa in saceContext.PessoaSet on saida.codCliente equals pessoa.codPessoa
+                        where movimentacaoConta.dataHora >= dataInicio && movimentacaoConta.dataHora <= dataFim
+                        select new MovimentacaoPeriodo
+                        {
+                            CodSaida = saida.codSaida,
+                            DataSaida = saida.dataSaida,
+                            DescricaoTipoMovimentacao = tipoMovimentacao.descricao,
+                            NomeCliente = pessoa.nomeFantasia,
+                            Valor = movimentacaoConta.valor,
+                            DataHora = movimentacaoConta.dataHora
+                        };
+            return query;
+        }
+
+
+
+
         /// <summary>
         /// Atualiza Situacao dos pagamentos da saída para quitado quando todas as contas estão quitadas
         /// </summary>

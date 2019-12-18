@@ -102,9 +102,11 @@ namespace Telas
             ObterMovimentacaoPeriodo();
         }
 
-        private void label5_Click(object sender, EventArgs e)
+        private void btnDetalhes_Click(object sender, EventArgs e)
         {
-
+            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value);
+            frmRecebido.ShowDialog();
+            frmRecebido.Dispose();
         }
     }
 }
