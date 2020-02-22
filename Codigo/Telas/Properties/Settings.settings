@@ -30,7 +30,7 @@
       <Value Profile="(Default)">SM-VENDAS01</Value>
     </Setting>
     <Setting Name="ServidorImprimirReduzido2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">RETAGUARDA</Value>
+      <Value Profile="(Default)">SERVIDOR</Value>
     </Setting>
     <Setting Name="ClienteUsoInterno" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1324</Value>
@@ -41,16 +41,16 @@
     <Setting Name="saceConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;server=localhost;User Id=sace;database=sace;password=sace;Persist Security Info=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;server=192.168.2.34;User Id=sace;database=sace;password=sace;Persist Security Info=True&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">server=localhost;User Id=sace;database=sace;password=sace;Persist Security Info=True</Value>
+      <Value Profile="(Default)">server=192.168.2.34;User Id=sace;database=sace;password=sace;Persist Security Info=True</Value>
     </Setting>
     <Setting Name="SaceEntities" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;metadata=res://*/ModelSace.csdl|res://*/ModelSace.ssdl|res://*/ModelSace.msl;provider=MySql.Data.MySqlClient;provider connection string="server=localhost;User Id=sace;password=sace;Persist Security Info=True;database=sace"&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;metadata=res://*/ModelSace.csdl|res://*/ModelSace.ssdl|res://*/ModelSace.msl;provider=MySql.Data.MySqlClient;provider connection string="server=192.168.2.34;User Id=sace;password=sace;Persist Security Info=True;database=sace"&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">metadata=res://*/ModelSace.csdl|res://*/ModelSace.ssdl|res://*/ModelSace.msl;provider=MySql.Data.MySqlClient;provider connection string="server=localhost;User Id=sace;password=sace;Persist Security Info=True;database=sace"</Value>
+      <Value Profile="(Default)">metadata=res://*/ModelSace.csdl|res://*/ModelSace.ssdl|res://*/ModelSace.msl;provider=MySql.Data.MySqlClient;provider connection string="server=192.168.2.34;User Id=sace;password=sace;Persist Security Info=True;database=sace"</Value>
     </Setting>
   </Settings>
 </SettingsFile>

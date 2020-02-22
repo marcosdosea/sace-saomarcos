@@ -297,12 +297,14 @@ namespace Negocio
 
         public IQueryable<MovimentacaoPeriodo> ObterMovimentacaoContaPeriodo(DateTime dataInicio, DateTime dataFim)
         {
+            DateTime dataBuscaInicio = dataInicio.Date;
+            DateTime dataBuscaFim = dataFim.Date.AddDays(1).AddMinutes(-1);
             var query = from movimentacaoConta in saceContext.MovimentacaoContaSet
                         join tipoMovimentacao in saceContext.TipoMovimentacaoContaSet on movimentacaoConta.codTipoMovimentacao equals tipoMovimentacao.codTipoMovimentacao
                         join conta in saceContext.ContaSet on movimentacaoConta.codConta equals conta.codConta
                         join saida in saceContext.tb_saida on conta.codSaida equals saida.codSaida
                         join pessoa in saceContext.PessoaSet on saida.codCliente equals pessoa.codPessoa
-                        where movimentacaoConta.dataHora >= dataInicio && movimentacaoConta.dataHora <= dataFim
+                        where movimentacaoConta.dataHora >= dataBuscaInicio && movimentacaoConta.dataHora <= dataBuscaFim
                         select new MovimentacaoPeriodo
                         {
                             CodSaida = saida.codSaida,

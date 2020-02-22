@@ -933,14 +933,6 @@ namespace Negocio
             {
                 try
                 {
-                    //if (saida.CodCliente == Global.CLIENTE_PADRAO)
-                    //{
-                    //    throw new NegocioException("O cliente padrão não pode ser utilizado. Referencie o mesmo cliente que consta no Cupom Fiscal. Se o cliente não constar no cupom, deve-se cadastrar o cliente ou usar um cliente existente na base de dados.");
-                    //}
-                    //else if ((consumidor.CodPessoa != saida.CodCliente) && (saida.CodCliente != Global.CLIENTE_PADRAO))
-                    //{
-                    //    throw new NegocioException("O consumidor referenciado deve ser o mesmo que consta no cupom fiscal de devolução.");
-                    //}
                     saida.TipoSaida = Saida.TIPO_DEVOLUCAO_CONSUMIDOR;
                     //saida.CodCliente = consumidor.CodPessoa;
                     Atualizar(saida);
@@ -1585,7 +1577,7 @@ namespace Negocio
         private void ImprimirDAVComprimidoBematech(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto)
         {
             int iRetorno = 0; //Variável para retorno das chamadas
-            iRetorno = MP2032.ConfiguraModeloImpressora(1); // "MP 20 MI"
+            iRetorno = MP2032.ConfiguraModeloImpressora(7); // "MP-4200 TH"
 
             iRetorno = MP2032.IniciaPorta(Global.PORTA_IMPRESSORA_REDUZIDA2);
 
@@ -1650,6 +1642,7 @@ namespace Negocio
                 FormataTX("Recebido por:"+"\n");
                 FormataTX(Global.LINHA_COMPRIMIDA + "\n");
             }
+            MP2032.AcionaGuilhotina(1);
         }
 
         private bool ImprimirDAVNormal(List<Saida> saidas, decimal total, decimal totalAVista, decimal desconto)

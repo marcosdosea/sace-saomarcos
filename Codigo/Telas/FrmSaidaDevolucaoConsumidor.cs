@@ -41,7 +41,7 @@ namespace Telas
             
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR))
             {
-                if (MessageBox.Show("Confirma DEVOLUÇÃO do CONSUMIDOR?", "Confirmar Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Confirma DEVOLUÇÃO do CONSUMIDOR/Fornecedor?", "Confirmar Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     saida.Nfe = docFiscalReferenciado;
                     GerenciadorSaida.GetInstance(null).EncerrarDevolucaoConsumidor(saida);
@@ -49,7 +49,7 @@ namespace Telas
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
                     listaSaidaPagamento = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
-                    
+                
                     FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
