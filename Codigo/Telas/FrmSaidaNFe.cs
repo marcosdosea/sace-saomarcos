@@ -78,6 +78,18 @@ namespace Telas
                         Saida.Observacao += "Devolução Total referente ao cupom fiscal " + saidaCupomVenda.CupomFiscal + " emitido em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Cliente não precisou dos itens comprados. Cupom fiscal e Nf-e relativas a venda referenciadas abaixo";
                     }
                 }
+                else if (Saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR)
+                {
+                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.GetInstance(null).ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
+                    if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
+                    {
+                        Saida.Observacao += "Devolução Parcial referente a nota fiscal " + saidaCupomVenda.CupomFiscal + " emitida em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Fornecedor não aceitou receber os itens devolvidos porque estavam danificados. Nf-e relativa a devolução referenciada abaixo";
+                    }
+                    else
+                    {
+                        Saida.Observacao += "Devolução Total referente a nota fiscal " + saidaCupomVenda.CupomFiscal + " emitida em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Fornecedor não aceitou receber os itens devolvidos porque estavam danificados. Nf-e relativa a devolução referenciada abaixo";
+                    }
+                }
             }
             //if (string.IsNullOrEmpty(Saida.Nfe))
             //    Saida.Nfe = "NF-e";

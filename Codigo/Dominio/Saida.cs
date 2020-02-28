@@ -23,6 +23,9 @@ namespace Dominio
         public const int TIPO_PRE_DEVOLUCAO_FORNECEDOR = 10;
         public const int TIPO_DEVOLUCAO_FORNECEDOR = 7;
 
+        public const int TIPO_PRE_RETORNO_FORNECEDOR = 22;
+        public const int TIPO_RETORNO_FORNECEDOR = 23;
+
         public const int TIPO_PRE_DEVOLUCAO_CONSUMIDOR = 14;
         public const int TIPO_DEVOLUCAO_CONSUMIDOR = 15;
         
@@ -41,6 +44,7 @@ namespace Dominio
         public static List<int> LISTA_TIPOS_REMESSA_DEPOSITO = new List<int>() { Saida.TIPO_PRE_REMESSA_DEPOSITO, Saida.TIPO_REMESSA_DEPOSITO };
         public static List<int> LISTA_TIPOS_RETORNO_DEPOSITO = new List<int>() { Saida.TIPO_PRE_RETORNO_DEPOSITO, Saida.TIPO_RETORNO_DEPOSITO };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_FORNECEDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR, Saida.TIPO_DEVOLUCAO_FORNECEDOR };
+        public static List<int> LISTA_TIPOS_RETORNO_FORNECEDOR = new List<int>() { Saida.TIPO_PRE_RETORNO_FORNECEDOR, Saida.TIPO_RETORNO_FORNECEDOR };
         public static List<int> LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR = new List<int>() { Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR, Saida.TIPO_DEVOLUCAO_CONSUMIDOR };
         public static List<int> LISTA_TIPOS_VENDA = new List<int>() { Saida.TIPO_ORCAMENTO, Saida.TIPO_PRE_VENDA, Saida.TIPO_VENDA, Saida.TIPO_CREDITO, Saida.TIPO_PRE_CREDITO };
 

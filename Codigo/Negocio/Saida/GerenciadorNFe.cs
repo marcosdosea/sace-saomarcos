@@ -855,7 +855,8 @@ namespace Negocio
 
                 if (solicitacao.ehComplementar)
                     infNFeIde.finNFe = TFinNFe.Item2; //1 - Normal / 2 NF-e complementar / 3 - Nf-e Ajuste / 4 - devolução
-                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR) ||
+                    (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
                     infNFeIde.finNFe = TFinNFe.Item4;
                 else
                     infNFeIde.finNFe = TFinNFe.Item1;
@@ -866,7 +867,7 @@ namespace Negocio
                 infNFeIde.tpAmb = (TAmb)Enum.Parse(typeof(TAmb), "Item" + Global.AMBIENTE_NFE); // 1-produção / 2-homologação
                 infNFeIde.tpEmis = TNFeInfNFeIdeTpEmis.Item1; // 1-emissão Normal 9-emissao off-line
                 infNFeIde.tpImp = (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE)) ? TNFeInfNFeIdeTpImp.Item1 : TNFeInfNFeIdeTpImp.Item4; // 1-Retratro / 2-Paisagem 3-Simplificado 4-Danfe NFCE
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR) || (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
                     infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item0; // 0 - entrada / 1 - saída de produtos
                 else
                     infNFeIde.tpNF = TNFeInfNFeIdeTpNF.Item1; // 0 - entrada / 1 - saída de produtos
@@ -1145,7 +1146,8 @@ namespace Negocio
                                 }
                             }
 
-                            if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
+                            if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO) ||
+                                (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
                                 prod.xProd = produto.NomeProdutoFabricante.Trim();
                             else
                             {
@@ -1195,7 +1197,8 @@ namespace Negocio
                             if (saida.ValorFrete > 0)
                                 prod.vFrete = formataValorNFe(saida.ValorFrete / saida.TotalAVista * saidaProduto.SubtotalAVista);
                             TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
-                            if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                            if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
+                                (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
                             {
                                 //TNFeInfNFeDetImpostoICMSICMSSN400 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN400();
                                 TNFeInfNFeDetImpostoICMSICMSSN900 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN900();
@@ -1314,7 +1317,7 @@ namespace Negocio
 
 
 
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
                 {
                     icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);

@@ -958,6 +958,40 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Faz o encerramento de um retorno de mercadorias que o fornecedor não aceitou a devolução
+        /// </summary>
+        /// <param name="saida"></param>
+        /// <param name="consumidor"></param>
+        public void EncerrarRetornoFornecedor(Saida saida)
+        {
+            using (TransactionScope transaction = new TransactionScope())
+            {
+                try
+                {
+                    saida.TipoSaida = Saida.TIPO_RETORNO_FORNECEDOR;
+                    Atualizar(saida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.GetInstance(saceContext).ObterPorSaida(saida.CodSaida);
+                    RegistrarEstornoEstoque(saida, saidaProdutos);
+                    AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
+                    transaction.Complete();
+                }
+                catch (NegocioException ne)
+                {
+                    throw ne;
+                }
+                catch (DadosException de)
+                {
+                    throw de;
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
+                }
+
+            }
+        }
+
+        /// <summary>
         /// Atualiza os cfops de produtos de acordo com os dados de devolução na NF-e
         /// </summary>
         /// <param name="saidaProdutos"></param>

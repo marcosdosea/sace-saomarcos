@@ -56,6 +56,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.retornoDepositoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.retornoDeFornecedorvariaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.estatísticaPorProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pontaDeEstoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.solicitaçõesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -238,12 +240,15 @@
             this.toolStripSeparator2,
             this.retornoDepositoMenuItem,
             this.toolStripSeparator3,
+            this.retornoDeFornecedorvariaToolStripMenuItem,
+            this.toolStripSeparator6,
             this.estatísticaPorProdutoToolStripMenuItem,
             this.pontaDeEstoqueToolStripMenuItem,
             this.solicitaçõesDeCompraToolStripMenuItem});
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.movimentaçãoToolStripMenuItem.Text = "&Estoque";
+            this.movimentaçãoToolStripMenuItem.Click += new System.EventHandler(this.movimentaçãoToolStripMenuItem_Click);
             // 
             // entradaDeProdutosToolStripMenuItem
             // 
@@ -318,6 +323,18 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
+            // 
+            // retornoDeFornecedorvariaToolStripMenuItem
+            // 
+            this.retornoDeFornecedorvariaToolStripMenuItem.Name = "retornoDeFornecedorvariaToolStripMenuItem";
+            this.retornoDeFornecedorvariaToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.retornoDeFornecedorvariaToolStripMenuItem.Text = "Retorno de Fornecedor";
+            this.retornoDeFornecedorvariaToolStripMenuItem.Click += new System.EventHandler(this.retornoDeFornecedorvariaToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(227, 6);
             // 
             // estatísticaPorProdutoToolStripMenuItem
             // 
@@ -764,6 +781,8 @@
         private System.Windows.Forms.ToolStripMenuItem cálculoParticipaçãoMensalToolStripMenuItem;
         private System.IO.FileSystemWatcher fileSystemWatcher;
         private System.IO.FileSystemWatcher fileSystemWatcherDeposito;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem retornoDeFornecedorvariaToolStripMenuItem;
 
     }
 }

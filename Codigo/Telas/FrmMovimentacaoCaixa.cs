@@ -33,7 +33,7 @@ namespace Telas
         {
             DateTime dataInicial = dateTimePickerInicial.Value.Date;
             DateTime dataFinal = dateTimePickerFinal.Value.Date;
-            dataFinal = dataFinal.AddMinutes(24 * 60);
+            dataFinal = dataFinal.AddDays(1).AddSeconds(-1);
 
             int codContaBanco = (int)codContaBancoComboBox.SelectedValue;
 

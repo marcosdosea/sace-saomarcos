@@ -372,6 +372,26 @@ namespace Telas
 
                 saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR);
             }
+            else if (Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(tipoSaidaFormulario))
+            {
+                lblSaidaProdutos.Text = "Retorno de Produtos do Fornecedor";
+                this.Text = "Retorno de Produtos do Fornecedor";
+                lblBalcao.Text = "Retorno Fornecedor";
+                baseCalculoICMSSubstTextBox.ReadOnly = false;
+                baseCalculoICMSTextBox.ReadOnly = false;
+                valorICMSSubstTextBox.ReadOnly = false;
+                valorICMSTextBox.ReadOnly = false;
+                valorIPITextBox.ReadOnly = false;
+
+                baseCalculoICMSTextBox.TabStop = true;
+                baseCalculoICMSSubstTextBox.TabStop = true;
+                valorICMSTextBox.TabStop = true;
+                valorICMSSubstTextBox.TabStop = true;
+                valorIPITextBox.TabStop = true;
+                tb_saida_produtoDataGridView.Height = 300;
+
+                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_FORNECEDOR);
+            }
             else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(tipoSaidaFormulario))
             {
                 lblSaidaProdutos.Text = "Remessa para Conserto pelo Fornecedor";
@@ -472,7 +492,7 @@ namespace Telas
                 saidaProduto.ValorVendaAVista = Convert.ToDecimal(precoVendatextBox.Text);
 
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
-                    || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO))
+                    || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_FORNECEDOR))
                 {
                     precoVendaSemDescontoTextBox.Text = saidaProduto.ValorVendaAVista.ToString("N3");
                 }
@@ -495,7 +515,8 @@ namespace Telas
             if (produto != null)
             {
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
-                    || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO))
+                    || saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO) ||
+                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_FORNECEDOR))
                 {
 
                     precoVendatextBox.Text = (produto.UltimoPrecoCompra / produto.QuantidadeEmbalagem).ToString("N3");
@@ -617,6 +638,12 @@ namespace Telas
                     FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
                     frmSaidaDevolucao.ShowDialog();
                     frmSaidaDevolucao.Dispose();
+                }
+                else if (Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(saida.TipoSaida))
+                {
+                    FrmSaidaRetornoFornecedor frmSaidaRetornoFornecedor = new FrmSaidaRetornoFornecedor(saida);
+                    frmSaidaRetornoFornecedor.ShowDialog();
+                    frmSaidaRetornoFornecedor.Dispose();
                 }
                 else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(saida.TipoSaida))
                 {

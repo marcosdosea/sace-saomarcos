@@ -522,5 +522,17 @@ namespace Telas
             }
         }
 
+        private void retornoDeFornecedorvariaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_PRE_RETORNO_FORNECEDOR);
+            frmPreVenda.ShowDialog();
+            frmPreVenda.Dispose();
+        }
+
+        private void movimentaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

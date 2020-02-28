@@ -146,9 +146,12 @@ namespace Negocio
                     empresaFrete.Nome = (nfe.infNFe.transp.transporta.xNome.Length > 50) ? nfe.infNFe.transp.transporta.xNome.Substring(0,50).ToUpper() : nfe.infNFe.transp.transporta.xNome.ToUpper();
                     empresaFrete.NomeFantasia = (nfe.infNFe.transp.transporta.xNome.Length > 50) ? nfe.infNFe.transp.transporta.xNome.Substring(0, 50).ToUpper() : nfe.infNFe.transp.transporta.xNome.ToUpper();
                     empresaFrete.Ie = nfe.infNFe.transp.transporta.IE;
-                    empresaFrete.Endereco = nfe.infNFe.transp.transporta.xEnder.ToUpper();
-                    empresaFrete.Uf = nfe.infNFe.transp.transporta.UF.ToString().ToUpper();
-                    empresaFrete.Cidade = nfe.infNFe.transp.transporta.xMun.ToUpper();
+                    if (nfe.infNFe.transp.transporta.xEnder != null)
+                        empresaFrete.Endereco = nfe.infNFe.transp.transporta.xEnder.ToUpper();
+                    if (nfe.infNFe.transp.transporta.UF != null)
+                        empresaFrete.Uf = nfe.infNFe.transp.transporta.UF.ToString().ToUpper();
+                    if (nfe.infNFe.transp.transporta.xMun != null)
+                        empresaFrete.Cidade = nfe.infNFe.transp.transporta.xMun.ToUpper();
 
                     empresaFrete.CodMunicipioIBGE = GerenciadorMunicipio.GetInstance().ObterPorCidadeEstado(empresaFrete.Cidade, empresaFrete.Uf).Codigo;
                     empresaFrete.Tipo = empresaFrete.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;

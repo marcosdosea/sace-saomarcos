@@ -53,7 +53,7 @@ namespace Telas
             saida.QuantidadeVolumes = Convert.ToDecimal(quantidadeVolumesTextBox.Text);
             saida.TotalNotaFiscal = Convert.ToDecimal(totalNotaFiscalTextBox.Text);
             saida.Total = Convert.ToDecimal(totalProdutosTextBox.Text);
-            saida.TotalAVista = Convert.ToDecimal(totalProdutosTextBox.Text);
+            saida.TotalAVista = Convert.ToDecimal(totalNotaFiscalTextBox.Text);
             saida.ValorFrete = Convert.ToDecimal(valorFreteTextBox.Text);
             saida.ValorICMS = Convert.ToDecimal(valorICMSTextBox.Text);
             saida.ValorICMSSubst = Convert.ToDecimal(valorICMSSubstTextBox.Text);
