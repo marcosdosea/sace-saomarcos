@@ -898,6 +898,9 @@ namespace Negocio
                     infNFeIde.idDest = TNFeInfNFeIdeIdDest.Item2;
 
                 infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item1; // 0 - normal; 1-consumidor final
+                if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(saida.TipoSaida) ||
+                        Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(saida.TipoSaida))
+                    infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item0;
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                     infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item1; //1- presencial; 2-internet; 3-teleatendimento; 4-nfc-e com entrega domicilio 
                 else
@@ -1059,6 +1062,10 @@ namespace Negocio
 
                         totalSaidas = listaSaidas.Where(s => s.TipoSaida == Saida.TIPO_PRE_VENDA).Sum(s => s.TotalAVista);
                     }
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                    {
+                        totalSaidas = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) - saida.Desconto;
+                    }
                     else
                     {
                         totalSaidas = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista);
@@ -1124,7 +1131,8 @@ namespace Negocio
                             prod.CFOP = cfopPadrao;
                             if (saidaProduto.CodCfop != 0)
                                 prod.CFOP = saidaProduto.CodCfop.ToString();
-
+                            if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
+                                prod.CFOP = "2209";
 
                             //bool EhEmissaoNfeNfceVenda = (nfeControleAutorizada == null) && String.IsNullOrWhiteSpace(saida.CupomFiscal) && (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida));
                             bool naoHaNfeAutorizada = (nfeControleAutorizada == null);
@@ -1278,7 +1286,7 @@ namespace Negocio
                             nfeDet.imposto = imp;
                             nfeDet.prod = prod;
                             nfeDet.nItem = nItem.ToString();
-                            if ((saida.OutrasDespesas > 0 || saida.ValorIPI > 0) && saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                            if ((saida.OutrasDespesas > 0 || saida.ValorIPI > 0) && (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR)))
                             {
                                 var valorOutros = saida.OutrasDespesas + saida.ValorIPI;                                
                                 prod.vOutro = formataValorNFe(valorOutros * (saidaProduto.SubtotalAVista / saida.TotalAVista));
@@ -1604,26 +1612,11 @@ namespace Negocio
         {
             NfeControle nfeControleAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
 
-            if ((saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) ||
-                saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR)))
+            if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) ||
+                saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
             {
-                TNFeInfNFeIdeNFref nfeRefECF = null;
-                //if (saida.TipoDocumentoFiscal.Trim().Equals(Saida.TIPO_DOCUMENTO_ECF) && !String.IsNullOrEmpty(saida.CupomFiscal))
-                //{
-                //    // referenciar cupom fiscal
-                //    TNFeInfNFeIdeNFrefRefECF refEcf = null;
-                //    refEcf = new TNFeInfNFeIdeNFrefRefECF();
-                //    refEcf.mod = TNFeInfNFeIdeNFrefRefECFMod.Item2D;
-                //    refEcf.nCOO = saida.CupomFiscal;
-                //    refEcf.nECF = saida.NumeroECF;
-
-                //    nfeRefECF = new TNFeInfNFeIdeNFref();
-                //    nfeRefECF.ItemElementName = ItemChoiceType1.refECF;
-                //    nfeRefECF.Item = refEcf;
-                //}
-
                 TNFeInfNFeIdeNFref nfeRefNfe = null;
-                if (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+                if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                 {
                     SaidaPesquisa saidaVendaCupom = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(saida.Nfe).ElementAtOrDefault(0);
                     nfeControleAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saidaVendaCupom.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
@@ -1633,23 +1626,27 @@ namespace Negocio
                     nfeRefNfe = new TNFeInfNFeIdeNFref();
                     nfeRefNfe.ItemElementName = ItemChoiceType1.refNFe;
                     nfeRefNfe.Item = nfeControleAutorizada.Chave;
-                }
-                if (nfeRefNfe != null && nfeRefECF != null)
-                {
-                    infNFeIde.NFref = new TNFeInfNFeIdeNFref[2];
-                    infNFeIde.NFref[0] = nfeRefNfe;
-                    infNFeIde.NFref[1] = nfeRefECF;
-                }
-                else if (nfeRefNfe != null)
-                {
                     infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
                     infNFeIde.NFref[0] = nfeRefNfe;
                 }
-                else if (nfeRefECF != null)
+
+            }
+            else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
+            {
+                TNFeInfNFeIdeNFref nfeRefNfe = null;
+                SaidaPesquisa saidaDevolucao = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(saida.Marca).ElementAtOrDefault(0);
+                nfeControleAutorizada = GerenciadorNFe.GetInstance().ObterPorSaida(saidaDevolucao.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
+                saida.Marca = "DIVERSAS";
+                GerenciadorSaida.GetInstance(null).Atualizar(saida);
+                if (nfeControleAutorizada != null)
                 {
+                    nfeRefNfe = new TNFeInfNFeIdeNFref();
+                    nfeRefNfe.ItemElementName = ItemChoiceType1.refNFe;
+                    nfeRefNfe.Item = nfeControleAutorizada.Chave;
                     infNFeIde.NFref = new TNFeInfNFeIdeNFref[1];
-                    infNFeIde.NFref[0] = nfeRefECF;
+                    infNFeIde.NFref[0] = nfeRefNfe;
                 }
+
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
             {

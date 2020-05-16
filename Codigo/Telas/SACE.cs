@@ -27,8 +27,6 @@ namespace Telas
         static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
         static string SERVIDOR_NFE_DEPOSITO = Properties.Settings.Default.ServidorNfeDeposito.ToUpper();
         static string SERVIDOR_CARTAO = Properties.Settings.Default.ServidorCartao.ToUpper();
-        static int NFCE_SERVIDOR = Properties.Settings.Default.NfceServidor;
-        static int NFCE_ONLINE = Properties.Settings.Default.NfceOnline;
 
         static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
         static string SERVIDOR_IMPRIMIR_NFE = nomeComputador; //Properties.Settings.Default.ServidorImprimirNfe;

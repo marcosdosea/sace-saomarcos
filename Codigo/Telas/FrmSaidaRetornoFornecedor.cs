@@ -37,12 +37,11 @@ namespace Telas
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            //saida.CodEntrada = Convert.ToInt32(cupomFiscalTextBox.Text); ;
+            saida.Marca = cupomFiscalTextBox.Text; // temporário para não criar um novo campo
             saida.CodCliente = ((Saida)saidaCupomBindingSource.Current).CodCliente;
             saida.CodEmpresaFrete = Convert.ToInt64( codEmpresaFreteComboBox.SelectedValue.ToString() );
             saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
             saida.EspecieVolumes = especieVolumesTextBox.Text;
-            saida.Marca = marcaTextBox.Text;
             saida.Numero = Convert.ToDecimal(numeroTextBox.Text);
             saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
             saida.PesoBruto = Convert.ToDecimal(pesoBrutoTextBox.Text);

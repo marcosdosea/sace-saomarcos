@@ -435,7 +435,8 @@ namespace Negocio
                 GerenciadorSaidaPagamento.GetInstance(saceContext).RemoverPorSaida(saida);
                 if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                     saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
+                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO) ||
+                    saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
                 {
                     RegistrarEstornoEstoque(saida, null);
                 }
@@ -455,6 +456,8 @@ namespace Negocio
                     saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR;
                 else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO))
                     saida.TipoSaida = Saida.TIPO_PRE_RETORNO_DEPOSITO;
+                else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
+                    saida.TipoSaida = Saida.TIPO_PRE_RETORNO_FORNECEDOR;
                 saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
                 saida.CupomFiscal = "";
                 saida.TotalPago = 0;

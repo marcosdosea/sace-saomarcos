@@ -35,15 +35,6 @@ namespace Telas.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
-        public string ServidorNfe {
-            get {
-                return ((string)(this["ServidorNfe"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
         public string ServidorCartao {
             get {
                 return ((string)(this["ServidorCartao"]));
@@ -56,24 +47,6 @@ namespace Telas.Properties {
         public string ServidorNfeDeposito {
             get {
                 return ((string)(this["ServidorNfeDeposito"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int NfceServidor {
-            get {
-                return ((int)(this["NfceServidor"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int NfceOnline {
-            get {
-                return ((int)(this["NfceOnline"]));
             }
         }
         
@@ -128,6 +101,15 @@ namespace Telas.Properties {
         public int ClienteBaixaEstoque {
             get {
                 return ((int)(this["ClienteBaixaEstoque"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        public string ServidorNfe {
+            get {
+                return ((string)(this["ServidorNfe"]));
             }
         }
     }

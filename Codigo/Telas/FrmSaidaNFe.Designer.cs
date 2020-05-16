@@ -533,7 +533,7 @@
             this.dataEmissaoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dataEmissaoDateTimePicker.Location = new System.Drawing.Point(353, 137);
             this.dataEmissaoDateTimePicker.Name = "dataEmissaoDateTimePicker";
-            this.dataEmissaoDateTimePicker.Size = new System.Drawing.Size(82, 20);
+            this.dataEmissaoDateTimePicker.Size = new System.Drawing.Size(126, 20);
             this.dataEmissaoDateTimePicker.TabIndex = 42;
             this.dataEmissaoDateTimePicker.TabStop = false;
             // 
@@ -665,7 +665,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(872, 589);
+            this.ClientSize = new System.Drawing.Size(879, 585);
             this.ControlBox = false;
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(this.btnBuscar);
