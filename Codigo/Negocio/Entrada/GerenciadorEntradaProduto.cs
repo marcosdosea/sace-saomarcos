@@ -255,6 +255,17 @@ namespace Negocio
                                 if (entrada.TotalProdutosST > 0)
                                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
                             }
+                            else if (icms is TNFeInfNFeDetImpostoICMSICMS40)
+                            {
+                                TNFeInfNFeDetImpostoICMSICMS40 icms40 = ((TNFeInfNFeDetImpostoICMSICMS40)icms); ;
+                                entradaProduto.BaseCalculoICMS = 0;
+                                entradaProduto.BaseCalculoICMSST = 0;
+                                entradaProduto.CodCST = icms40.orig.ToString().Substring(4) + icms40.CST.ToString().Substring(4);
+                                entradaProduto.CodCSTNFe = icms40.orig.ToString().Substring(4) + icms40.CST.ToString().Substring(4);
+                                entradaProduto.Icms = 0;
+                                if (entrada.TotalProdutosST > 0)
+                                    entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
+                            }
                             else if (icms is TNFeInfNFeDetImpostoICMSICMS60)
                             {
                                 TNFeInfNFeDetImpostoICMSICMS60 icms60 = ((TNFeInfNFeDetImpostoICMSICMS60)icms); ;

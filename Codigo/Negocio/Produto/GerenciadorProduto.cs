@@ -7,6 +7,7 @@ using Dominio;
 using Dados;
 using Util;
 using System.Data.Common;
+using System.IO;
 
 namespace Negocio
 {
@@ -35,7 +36,7 @@ namespace Negocio
             {
                 if (produto.Nome.Trim().Equals(""))
                     throw new NegocioException("O nome do produto não pode ficar em branco.");
-                else if (produto.QuantidadeEmbalagem <= 0) 
+                else if (produto.QuantidadeEmbalagem <= 0)
                     throw new NegocioException("A quantidade de produtos na embalagem deve ser maior que zero.");
                 else if (!produto.CodigoBarra.Trim().Equals("") && !produto.CodigoBarra.Trim().Equals("SEM GTIN"))
                 {
@@ -110,7 +111,7 @@ namespace Negocio
         public void Atualizar(Produto produto)
         {
             var repProduto = new RepositorioGenerico<ProdutoE>();
-            SaceEntities contexto = (SaceEntities) repProduto.ObterContexto();
+            SaceEntities contexto = (SaceEntities)repProduto.ObterContexto();
 
             if (produto.CodProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
@@ -143,7 +144,7 @@ namespace Negocio
                     }
 
                     // Atualiza data para mudança da pasta e das etiquetas
-                    if (produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo) 
+                    if (produto.PrecoVendaVarejo != _produtoE.precoVendaVarejo)
                     {
                         produto.DataUltimaMudancaPreco = DateTime.Now;
                     }
@@ -197,21 +198,21 @@ namespace Negocio
             {
                 var repProduto = new RepositorioGenerico<ProdutoE>();
                 var saceEntities = (SaceEntities)repProduto.ObterContexto();
-                
+
                 // substitui todas as saídas
                 var querySaidas = from saidaProduto in saceEntities.SaidaProdutoSet
-                            where saidaProduto.codProduto == codProdutoExcluir
-                            select saidaProduto;
+                                  where saidaProduto.codProduto == codProdutoExcluir
+                                  select saidaProduto;
                 foreach (SaidaProdutoE _saidaProdutoE in querySaidas)
                 {
                     _saidaProdutoE.codProduto = codProdutoManter;
                 }
                 repProduto.SaveChanges();
-                
+
                 // Substituti todas as entradas
                 var queryEntrada = from entradaProduto in saceEntities.EntradaProdutoSet
-                            where entradaProduto.codProduto == codProdutoExcluir
-                            select entradaProduto;
+                                   where entradaProduto.codProduto == codProdutoExcluir
+                                   select entradaProduto;
                 foreach (EntradaProdutoE _entradaProdutoE in queryEntrada)
                 {
                     _entradaProdutoE.codProduto = codProdutoManter;
@@ -220,7 +221,7 @@ namespace Negocio
 
                 // Exclui Produto
                 Remover(codProdutoExcluir);
-                                   
+
             }
             catch (Exception e)
             {
@@ -232,7 +233,7 @@ namespace Negocio
         /// Atualizar situação do produto em relação ao estoque
         /// </summary>
         /// <param name="novaSituacao"></param>
-        public void AtualizarSituacaoProduto(SolicitacoesCompra solicitacaoCompra)
+        public void AtualizarSituacaoProduto(SolicitacoesCompra solicitacaoCompra, string nomeServidor)
         {
             try
             {
@@ -242,20 +243,74 @@ namespace Negocio
                 var query = from produtoSet in saceEntities.ProdutoSet
                             where produtoSet.codProduto == solicitacaoCompra.CodProduto
                             select produtoSet;
+                DirectoryInfo pastaProdutosAtualizados = new DirectoryInfo(Global.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
                 foreach (ProdutoE _produtoE in query)
                 {
                     _produtoE.codSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
                     _produtoE.dataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
                     _produtoE.dataPedidoCompra = solicitacaoCompra.DataPedidoCompra;
+                    var nomeComputador = System.Windows.Forms.SystemInformation.ComputerName.ToUpper();
+                    if (pastaProdutosAtualizados.Exists && !nomeComputador.Equals(nomeServidor.ToUpper()))
+                    {
+                        String nomeArquivo = Global.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS + solicitacaoCompra.CodProduto + ".txt";
+                        StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
+                        arquivo.WriteLine("[CodProduto]" + solicitacaoCompra.CodProduto);
+                        arquivo.WriteLine("[CodSituacaoProduto]" + solicitacaoCompra.CodSituacaoProduto);
+                        arquivo.WriteLine("[DataSolicitacaoCompra]" + solicitacaoCompra.DataSolicitacaoCompra);
+                        arquivo.WriteLine("[DataPedidoCompra]" + solicitacaoCompra.DataPedidoCompra);
+                        arquivo.Close();
+                    }
                 }
                 repProduto.SaveChanges();
             }
             catch (Exception e)
             {
                 throw new DadosException("Produto", e.Message, e);
-           }
-            
+            }
+
         }
+
+
+        public void AtualizarSituacaoProdutoServidor(string nomeServidor)
+        {
+            DirectoryInfo Dir = new DirectoryInfo(Global.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
+            if (Dir.Exists)
+            {
+                // Busca automaticamente todos os arquivos em todos os subdiretórios
+                string arquivosProduto = "*.txt";
+                FileInfo[] files = Dir.GetFiles(arquivosProduto, SearchOption.TopDirectoryOnly);
+                foreach (FileInfo file in files)
+                {
+                    try
+                    {
+                        String linha = null;
+                        StreamReader reader = new StreamReader(file.FullName);
+                        SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
+                        while ((linha = reader.ReadLine()) != null)
+                        {
+                            if (linha.StartsWith("[CodProduto]"))
+                                solicitacaoCompra.CodProduto = Convert.ToInt32(linha.Substring("[CodProduto]".Length));
+                            else if (linha.StartsWith("[CodSituacaoProduto]"))
+                                solicitacaoCompra.CodSituacaoProduto = Convert.ToSByte(linha.Substring("[CodSituacaoProduto]".Length));
+                            else if (linha.StartsWith("[DataSolicitacaoCompra]"))
+                                solicitacaoCompra.DataSolicitacaoCompra = Convert.ToDateTime(linha.Substring("[DataSolicitacaoCompra]".Length));
+                            else if (linha.StartsWith("[DataPedidoCompra]"))
+                                solicitacaoCompra.DataPedidoCompra = Convert.ToDateTime(linha.Substring("[DataPedidoCompra]".Length));
+                        }
+                        AtualizarSituacaoProduto(solicitacaoCompra, nomeServidor);
+                        reader.Close();
+                        file.Delete();
+                    }
+                    catch (Exception)
+                    {
+                        // não atualiza produto no servidor
+                    }
+                }
+            }
+
+        }
+
+
         /// <summary>
         /// Atualiza ncm e quantidade Atacado
         /// </summary>
@@ -322,7 +377,7 @@ namespace Negocio
             }
         }
 
-        
+
         /// <summary>
         /// Remove produto da base de dados
         /// </summary>
@@ -361,38 +416,38 @@ namespace Negocio
                             CodCST = produto.codCST,
                             CodFabricante = produto.codFabricante,
                             NomeFabricante = produto.tb_pessoa.nomeFantasia,
-                            CodGrupo = (int) produto.codGrupo,
+                            CodGrupo = (int)produto.codGrupo,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,
                             CodSituacaoProduto = produto.codSituacaoProduto,
                             CodSubgrupo = produto.codSubgrupo,
-                            DataUltimoPedido = (DateTime) produto.dataUltimoPedido,
-                            Desconto = (decimal) produto.desconto,
-                            ExibeNaListagem = (bool) produto.exibeNaListagem,
-                            Frete = (decimal) produto.frete,
-                            Icms = (decimal) produto.icms,
-                            IcmsSubstituto = (decimal) produto.icms_substituto,
-                            Ipi = (decimal) produto.ipi,
-                            LucroPrecoVendaAtacado = (decimal) produto.lucroPrecoVendaAtacado,
-                            LucroPrecoVendaVarejo = (decimal) produto.lucroPrecoVendaVarejo,
-                            LucroPrecoRevenda = (decimal) produto.lucroPrecoRevenda,
+                            DataUltimoPedido = (DateTime)produto.dataUltimoPedido,
+                            Desconto = (decimal)produto.desconto,
+                            ExibeNaListagem = (bool)produto.exibeNaListagem,
+                            Frete = (decimal)produto.frete,
+                            Icms = (decimal)produto.icms,
+                            IcmsSubstituto = (decimal)produto.icms_substituto,
+                            Ipi = (decimal)produto.ipi,
+                            LucroPrecoVendaAtacado = (decimal)produto.lucroPrecoVendaAtacado,
+                            LucroPrecoVendaVarejo = (decimal)produto.lucroPrecoVendaVarejo,
+                            LucroPrecoRevenda = (decimal)produto.lucroPrecoRevenda,
                             Ncmsh = produto.ncmsh,
                             Nome = produto.nome,
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
-                            PrecoVendaAtacado = (decimal) produto.precoVendaAtacado,
-                            PrecoVendaVarejo = (decimal) produto.precoVendaVarejo,
-                            PrecoRevenda = (decimal) produto.precoRevenda,
-                            QtdProdutoAtacado = (decimal) produto.qtdProdutoAtacado,
-                            QuantidadeEmbalagem = (decimal) produto.quantidadeEmbalagem,
+                            PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
+                            PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
+                            PrecoRevenda = (decimal)produto.precoRevenda,
+                            QtdProdutoAtacado = (decimal)produto.qtdProdutoAtacado,
+                            QuantidadeEmbalagem = (decimal)produto.quantidadeEmbalagem,
                             ReferenciaFabricante = produto.referenciaFabricante,
-                            Simples = (decimal) produto.simples,
-                            TemVencimento = (bool) produto.temVencimento,
-                            EmPromocao = (bool) produto.emPromocao,
+                            Simples = (decimal)produto.simples,
+                            TemVencimento = (bool)produto.temVencimento,
+                            EmPromocao = (bool)produto.emPromocao,
                             Unidade = produto.unidade,
                             UnidadeCompra = produto.unidadeCompra,
                             UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
-                            UltimaDataAtualizacao = (DateTime) produto.ultimaDataAtualizacao,
-                            DataUltimaMudancaPreco = (DateTime) produto.dataUltimaMudancaPreco
+                            UltimaDataAtualizacao = (DateTime)produto.ultimaDataAtualizacao,
+                            DataUltimaMudancaPreco = (DateTime)produto.dataUltimaMudancaPreco
                         };
             return query;
         }
@@ -413,39 +468,39 @@ namespace Negocio
                             CodCST = produto.codCST,
                             CodigoBarra = produto.codigoBarra,
                             CodProduto = produto.codProduto,
-                            Desconto = (decimal) produto.desconto,
-                            ExibeNaListagem = (bool) produto.exibeNaListagem,
+                            Desconto = (decimal)produto.desconto,
+                            ExibeNaListagem = (bool)produto.exibeNaListagem,
                             Frete = (decimal)produto.frete,
                             Icms = (decimal)produto.icms,
                             IcmsSubstituto = (decimal)produto.icms_substituto,
                             Ipi = (decimal)produto.ipi,
                             LucroPrecoVendaAtacado = (decimal)produto.lucroPrecoVendaAtacado,
                             LucroPrecoVendaVarejo = (decimal)produto.lucroPrecoVendaVarejo,
-                            LucroPrecoRevenda = (decimal) produto.lucroPrecoRevenda,
+                            LucroPrecoRevenda = (decimal)produto.lucroPrecoRevenda,
                             Ncmsh = produto.ncmsh,
                             Nome = produto.nome,
                             CodFabricante = produto.codFabricante,
                             NomeProdutoFabricante = produto.nomeProdutoFabricante,
                             PrecoVendaAtacado = (decimal)produto.precoVendaAtacado,
                             PrecoVendaVarejo = (decimal)produto.precoVendaVarejo,
-                            PrecoRevenda = (decimal) produto.precoRevenda,
+                            PrecoRevenda = (decimal)produto.precoRevenda,
                             QtdProdutoAtacado = (decimal)produto.qtdProdutoAtacado,
-                            QuantidadeEmbalagem = (decimal) produto.quantidadeEmbalagem,
+                            QuantidadeEmbalagem = (decimal)produto.quantidadeEmbalagem,
                             ReferenciaFabricante = produto.referenciaFabricante,
-                            Simples = (decimal) produto.simples,
+                            Simples = (decimal)produto.simples,
                             UltimaDataAtualizacao = (DateTime)produto.ultimaDataAtualizacao,
                             Unidade = produto.unidade,
-                            TemVencimento = (bool) produto.temVencimento,
-                            EmPromocao = (bool) produto.emPromocao,
-                            UltimoPrecoCompra = (decimal) produto.ultimoPrecoCompra,
+                            TemVencimento = (bool)produto.temVencimento,
+                            EmPromocao = (bool)produto.emPromocao,
+                            UltimoPrecoCompra = (decimal)produto.ultimoPrecoCompra,
                             UnidadeCompra = produto.unidadeCompra,
                             CodSituacaoProduto = produto.codSituacaoProduto,
-                            DataUltimaMudancaPreco = (DateTime) produto.dataUltimaMudancaPreco
-                         };
+                            DataUltimaMudancaPreco = (DateTime)produto.dataUltimaMudancaPreco
+                        };
             return query;
         }
 
-        
+
         /// <summary>
         /// Obter todos os produtos
         /// </summary>
@@ -578,7 +633,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoPesquisa> ObterPorCodigoFabricante(long codPessoa)
         {
-            return GetQuerySimples().Where(p =>  p.CodFabricante.Equals(codPessoa));//.ToList();
+            return GetQuerySimples().Where(p => p.CodFabricante.Equals(codPessoa));//.ToList();
         }
 
         /// <summary>
@@ -641,7 +696,7 @@ namespace Negocio
                             UnidadeCompra = produto.unidadeCompra,
                             CodSituacaoProduto = produto.codSituacaoProduto
                         };
-            
+
             if ((nome.Length > 0) && (nome[0] == '%'))
             {
                 return query.Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
@@ -663,7 +718,7 @@ namespace Negocio
             var repProduto = new RepositorioGenerico<ProdutoE>();
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
 
-            
+
             if (codFornecedor == 1)
             {
                 var query = from produto in saceEntities.ProdutoSet
@@ -688,7 +743,7 @@ namespace Negocio
 
                 var query = from produto in saceEntities.ProdutoSet
                             orderby produto.nome
-                            where listaCodSituacoes.Contains(produto.codSituacaoProduto) && 
+                            where listaCodSituacoes.Contains(produto.codSituacaoProduto) &&
                                 (listaCodigoProdutosFornecedor.Contains(produto.codProduto) || produto.codFabricante.Equals(codFornecedor))
                             select new SolicitacoesCompra
                             {
@@ -704,7 +759,7 @@ namespace Negocio
 
             }
 
-            
+
         }
 
 
@@ -756,7 +811,7 @@ namespace Negocio
 
             foreach (ProdutoPesquisa produto in listaProdutos)
             {
-                if (!string.IsNullOrWhiteSpace(produto.CodigoBarra) &&  (!Validacoes.ValidarEAN13(produto.CodigoBarra)))
+                if (!string.IsNullOrWhiteSpace(produto.CodigoBarra) && (!Validacoes.ValidarEAN13(produto.CodigoBarra)))
                     listaProdutosEANInvalidos.Add(produto);
             }
             return listaProdutosEANInvalidos;

@@ -342,7 +342,7 @@ namespace Telas
             }
             if (MessageBox.Show(mensagem, "Confirmar Mudança Situação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacao);
+                GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacao, Properties.Settings.Default.Servidor);
                 txtTexto_TextChanged(sender, e);
             }
         }

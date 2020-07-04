@@ -379,6 +379,7 @@ namespace Telas
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
                 GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
                 GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
+                GerenciadorProduto.GetInstance().AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
             {

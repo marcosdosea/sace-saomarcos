@@ -92,7 +92,9 @@ namespace Util
          PORTA_IMPRESSORA_REDUZIDA2 = "\\\\RETAGUARDA\\VSPaguePrinter",
          LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "============================================================",
-         NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.";
-        
+         NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.",
+
+
+        PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS = "C:\\Dropbox\\SACE\\ProdutosAtualizados\\";
     }
 }
