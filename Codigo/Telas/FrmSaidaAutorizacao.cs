@@ -18,9 +18,7 @@ namespace Telas
         NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
-        static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
-        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
-        //bool novaSolicitacao = false;
+        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorNfe;
         DocumentoFiscal.TipoSolicitacao tipoNfe;
         int contConsultas;
         
@@ -220,7 +218,7 @@ namespace Telas
             //nfeControle = GerenciadorNFe.GetInstance().ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
             if (nfeControle != null)
             {
-                GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
+                GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
             }
             this.Close();
         }

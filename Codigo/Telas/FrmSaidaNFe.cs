@@ -14,8 +14,7 @@ namespace Telas
 {
     public partial class FrmSaidaNFe : Form
     {
-        static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
-        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorImprimirNfce;
+        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorNfe;
 
         public Saida Saida { get; set; }
         private Pessoa Cliente { get; set; }
@@ -113,7 +112,7 @@ namespace Telas
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-            GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
+            GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)

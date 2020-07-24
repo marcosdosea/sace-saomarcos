@@ -351,7 +351,7 @@ namespace Negocio
         /// Atualiza dados do cupom
         /// </summary>
         /// <param name="cupom"></param>
-        public void EnviarProximoNFe(string servidorNfeDeposito)
+        public void EnviarProximoNFe(string servidor)
         {
             try
             {
@@ -373,7 +373,7 @@ namespace Negocio
                     if (listaSolicitacaoSaida.Count > 0)
                     {
                         int codLoja = listaSolicitacaoSaida.FirstOrDefault().tb_saida.codLojaOrigem;
-                        if (codLoja.Equals(Global.LOJA_PADRAO) || nomeComputador.Equals(servidorNfeDeposito))
+                        if (codLoja.Equals(Global.LOJA_PADRAO) || nomeComputador.Equals(servidor))
                         {
                             List<tb_solicitacao_pagamento> listaSolicitacaoPagamentos = solicitacaoE.tb_solicitacao_pagamento.ToList();
                             repSolicitacao2.Remover(s => s.codSolicitacao == solicitacaoE.codSolicitacao);

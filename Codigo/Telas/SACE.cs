@@ -22,22 +22,12 @@ namespace Telas
 
         static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
 
-        static Cartao.ComunicacaoCartao comunicacaoCartao;
-        static string SERVIDOR = Properties.Settings.Default.Servidor.ToUpper();
         static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
-        static string SERVIDOR_NFE_DEPOSITO = Properties.Settings.Default.ServidorNfeDeposito.ToUpper();
-        static string SERVIDOR_CARTAO = Properties.Settings.Default.ServidorCartao.ToUpper();
-
-        static string SERVIDOR_IMPRIMIR_NFCE = Properties.Settings.Default.ServidorImprimirNfce;
-        static string SERVIDOR_IMPRIMIR_NFE = nomeComputador; //Properties.Settings.Default.ServidorImprimirNfe;
         static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
         static string SERVIDOR_IMPRIMIR_REDUZIDO2 = Properties.Settings.Default.ServidorImprimirReduzido2;
         static Loja lojaMatriz;
         static Loja lojaDeposito;
 
-
-
-        
 
         public static Autenticacao Autenticacao
         {
@@ -247,10 +237,7 @@ namespace Telas
                 if (lojaMatriz == null)
                     lojaMatriz = GerenciadorLoja.GetInstance().Obter(1).ElementAtOrDefault(0);
                 fileSystemWatcher.Path = lojaMatriz.PastaNfeRetorno;
-            }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
-            {
-                if (lojaDeposito == null)
+               if (lojaDeposito == null)
                     lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
                 fileSystemWatcherDeposito.Path = lojaDeposito.PastaNfeRetorno;
             }
@@ -356,10 +343,7 @@ namespace Telas
 
         private static void ProcessarDocumentosFiscais()
         {
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_NFE) || nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_NFCE))
-            {
-                GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_IMPRIMIR_NFE, SERVIDOR_IMPRIMIR_NFCE);
-            }
+            GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_NFE);
             if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1))
             {
                 GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO1);
@@ -368,25 +352,13 @@ namespace Telas
             {
                 GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO2);
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_CARTAO))
-            {
-                GerenciadorCartaoCredito.GetInstance().AtualizarRespostaCartoes(SERVIDOR_CARTAO);
-                GerenciadorCartaoCredito.GetInstance().AtualizarPedidosComAutorizacaoCartao();
-            }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE);
-                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_CARTAO);
+                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_NFE);
                 GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
                 GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
                 GerenciadorProduto.GetInstance().AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
-            }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
-            {
-                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE_DEPOSITO);
-                if (lojaDeposito == null)
-                    lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaDeposito);
             }
         }
 
@@ -429,7 +401,7 @@ namespace Telas
         private void movimentaçãoDeCaixasContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DateTime agora = DateTime.Now;
-            if ((agora.Hour > 12) && (agora.Hour < 15))
+            if ((agora.Hour > 12) && (agora.Hour < 15) && nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {
                 MessageBox.Show("Funcionalidade indisponível após às 12:30 para processamento interno do SACE.");
                 this.Close();
@@ -513,7 +485,7 @@ namespace Telas
 
         private void fileSystemWatcherDeposito_Changed(object sender, FileSystemEventArgs e)
         {
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE_DEPOSITO))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
             {
                 if (lojaDeposito == null)
                     lojaDeposito = GerenciadorLoja.GetInstance().Obter(2).ElementAtOrDefault(0);

@@ -1288,12 +1288,17 @@ namespace Negocio
                             nfeDet.nItem = nItem.ToString();
                             if ((saida.OutrasDespesas > 0 || saida.ValorIPI > 0) && (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR)))
                             {
-                                var valorOutros = saida.OutrasDespesas + saida.ValorIPI;                                
-                                prod.vOutro = formataValorNFe(valorOutros * (saidaProduto.SubtotalAVista / saida.TotalAVista));
+                                if (saida.OutrasDespesas > 0)
+                                {
+                                    var valorOutros = saida.OutrasDespesas * (saidaProduto.SubtotalAVista / saida.TotalAVista);
+                                    prod.vOutro = formataValorNFe(saidaProduto.ValorIPI + valorOutros);
+                                }
+                                else
+                                {
+                                    prod.vOutro = formataValorNFe(saidaProduto.ValorIPI);
+                                }
                             }
-
                             nItem++; // número do item na nf-e
-
                             listaNFeDet.Add(nfeDet);
                         }
                     }
@@ -2652,7 +2657,7 @@ namespace Negocio
             return texto;
         }
 
-        public void imprimirDANFE(NfeControle nfeControle, string servidorImprimirNfe, string servidorImprimirNfce)
+        public void imprimirDANFE(NfeControle nfeControle, string servidorImprimirNFCe)
         {
             if (nfeControle != null)
             {
@@ -2669,7 +2674,7 @@ namespace Negocio
             {
                 List<tb_imprimir_documento> listaImprimirNfe = GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
                 List<tb_imprimir_documento> listaImprimirNfce = new List<tb_imprimir_documento>();
-                if (nomeComputador.Equals(servidorImprimirNfce))
+                if (nomeComputador.Equals(servidorImprimirNFCe))
                     listaImprimirNfce = GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumento("NFCE").ToList();
                 IEnumerable<tb_imprimir_documento> listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
                 if (listaImprimir != null && listaImprimir.Count() > 0)

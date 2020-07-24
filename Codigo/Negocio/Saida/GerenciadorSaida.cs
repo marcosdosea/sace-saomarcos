@@ -1045,9 +1045,9 @@ namespace Negocio
         public decimal ObterTotalNotaFiscal(Saida saida)
         {
             if (saida.BaseCalculoICMSSubst > 0)
-                return saida.Total + saida.ValorICMSSubst + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
+                return saida.TotalAVista + saida.ValorICMSSubst + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
             else
-                return saida.Total + saida.ValorICMS + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
+                return saida.TotalAVista + saida.ValorICMS + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
         }
 
         /// <summary>

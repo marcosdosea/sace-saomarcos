@@ -50,7 +50,7 @@ namespace Telas
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.NAO_COMPRAR;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.Servidor.ToUpper());
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe.ToUpper());
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -61,7 +61,7 @@ namespace Telas
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.Servidor);
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -73,7 +73,7 @@ namespace Telas
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.Servidor);
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -86,7 +86,7 @@ namespace Telas
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.Servidor);
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -99,7 +99,7 @@ namespace Telas
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRADO;
                     solicitacaoCompra.DataPedidoCompra = DateTime.Now;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.Servidor);
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
