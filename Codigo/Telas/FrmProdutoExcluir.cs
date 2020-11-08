@@ -26,7 +26,7 @@ namespace Telas
             if (MessageBox.Show("Confirma exclusão do PRODUTO DO SISTEMA?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 GerenciadorProduto.GetInstance().SubstituirProduto(codProdutoExcluir, codProdutoManter);
-                produtoBindingSource.RemoveCurrent();
+                //produtoBindingSource.RemoveCurrent();
             }
             codProdutoComboBox.Focus();
         }

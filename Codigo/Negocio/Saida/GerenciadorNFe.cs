@@ -2668,7 +2668,17 @@ namespace Negocio
                 else
                     imprimir.tipoDocumento = "NFE";
                 imprimir.hostSolicitante = nomeComputador;
-                GerenciadorImprimirDocumento.GetInstance().Inserir(imprimir);
+
+                FileInfo fileUnidanfeInfo = new FileInfo("C:\\Unimake\\UniNFe\\unidanfe.exe");
+                bool sucessoImprimirLocal = false;
+                if (imprimir.tipoDocumento.Equals("NFE") && fileUnidanfeInfo.Exists) {
+                    SaidaPesquisa saidaPesquisa = GerenciadorSaida.GetInstance(null).ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
+                    Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
+                    Loja loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                    sucessoImprimirLocal = ImprimirUnidanfe(nfeControle, loja); 
+                }
+                if (!sucessoImprimirLocal)
+                    GerenciadorImprimirDocumento.GetInstance().Inserir(imprimir);
             }
             else
             {
@@ -2696,54 +2706,65 @@ namespace Negocio
                                 Saida saida = GerenciadorSaida.GetInstance(null).Obter(saidaPesquisa.CodSaida);
                                 loja = GerenciadorLoja.GetInstance().Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                             }
-
-                            try
+                            if (!ImprimirUnidanfe(nfeControle, loja))
                             {
-                                DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
-                                string pastaNfe = loja.PastaNfeAutorizados + dataEmissao.Year
-                                    + dataEmissao.Month.ToString("00")
-                                    + dataEmissao.Day.ToString("00") + "\\";
-                                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE))
-                                    pastaNfe = loja.PastaNfeValidado;
-
-                                DirectoryInfo Dir = new DirectoryInfo(pastaNfe);
-                                if (Dir.Exists)
-                                {
-                                    string arquivoRetornoEnvioNfe = nfeControle.Chave + "-nfe.xml";
-                                    FileInfo[] files = Dir.GetFiles(arquivoRetornoEnvioNfe, SearchOption.TopDirectoryOnly);
-                                    int tentativas = 0;
-                                    while ((files.Count() == 0) && (tentativas < 6))
-                                    {
-                                        Thread.Sleep(1000);
-                                        files = Dir.GetFiles(arquivoRetornoEnvioNfe, SearchOption.TopDirectoryOnly);
-                                        if (files.Count() > 0)
-                                            break;
-                                        tentativas++;
-                                    }
-                                    if (files.Count() > 0)
-                                    {
-                                        Process unidanfe = new Process();
-                                        unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
-                                        unidanfe.StartInfo.Arguments = " arquivo=\"" + pastaNfe
-                                            + nfeControle.Chave + "-nfe.xml\"";
-                                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
-                                            unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
-                                        else
-                                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=1 m=1 i=padrao";
-                                            unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
-                                        //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
-                                        unidanfe.Start();
-                                    }
-                                }       
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.", ex);
+                                throw new NegocioException("Não foi possível realizar a impressão do DANFE. Favor contactar administrador.");
                             }
                         }
                     }
                 }
             }
+        }
+
+        private static bool ImprimirUnidanfe(NfeControle nfeControle, Loja loja)
+        {
+            bool sucessoImprimirUnidanfeLocal = false;
+            try
+            {
+                DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
+                string pastaNfe = loja.PastaNfeAutorizados + dataEmissao.Year
+                    + dataEmissao.Month.ToString("00")
+                    + dataEmissao.Day.ToString("00") + "\\";
+                if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE))
+                    pastaNfe = loja.PastaNfeValidado;
+
+                
+                DirectoryInfo Dir = new DirectoryInfo(pastaNfe);
+                if (Dir.Exists)
+                {
+                    string arquivoRetornoEnvioNfe = nfeControle.Chave + "-nfe.xml";
+                    FileInfo[] files = Dir.GetFiles(arquivoRetornoEnvioNfe, SearchOption.TopDirectoryOnly);
+                    int tentativas = 0;
+                    while ((files.Count() == 0) && (tentativas < 6))
+                    {
+                        Thread.Sleep(1000);
+                        files = Dir.GetFiles(arquivoRetornoEnvioNfe, SearchOption.TopDirectoryOnly);
+                        if (files.Count() > 0)
+                            break;
+                        tentativas++;
+                    }
+                    if (files.Count() > 0)
+                    {
+                        Process unidanfe = new Process();
+                        unidanfe.StartInfo.FileName = @"C:\Unimake\UniNFe\unidanfe.exe";
+                        unidanfe.StartInfo.Arguments = " arquivo=\"" + pastaNfe
+                            + nfeControle.Chave + "-nfe.xml\"";
+                        if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
+                            unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
+                        else
+                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=1 m=1 i=padrao";
+                            unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                        //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                        unidanfe.Start();
+                        sucessoImprimirUnidanfeLocal = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return sucessoImprimirUnidanfeLocal;
         }
 
 

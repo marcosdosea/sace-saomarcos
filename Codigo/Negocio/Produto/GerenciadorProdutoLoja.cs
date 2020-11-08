@@ -73,11 +73,11 @@ namespace Negocio
                 transaction = saceContext.Connection.BeginTransaction();
 
                 ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == produtoLoja.CodProduto && pl.codLoja == produtoLoja.CodLoja);
-                if ((produtoLoja.QtdEstoque < _produtoLojaE.qtdEstoque) &&
-                    (_produtoLojaE.qtdEstoque < 5000))
-                {
-                    throw new NegocioException("Ajuste de estoque não permitido. Por favor utilize o formulário de Pré-Venda, adicione os produtos e selecione o cliente BAIXA ESTOQUE POR PERDA ROUBO OU DANO");
-                }
+                //if ((produtoLoja.QtdEstoque < _produtoLojaE.qtdEstoque) &&
+                //    (_produtoLojaE.qtdEstoque < 5000))
+                //{
+                //    throw new NegocioException("Ajuste de estoque não permitido. Por favor utilize o formulário de Pré-Venda, adicione os produtos e selecione o cliente BAIXA ESTOQUE POR PERDA ROUBO OU DANO");
+                //}
 
                 _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
                 _produtoLojaE.localizacao = produtoLoja.Localizacao;
