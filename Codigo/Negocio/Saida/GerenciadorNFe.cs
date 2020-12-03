@@ -780,7 +780,10 @@ namespace Negocio
         public TNfeProc LerNFE(string arquivo)
         {
             XmlDocument xmldocRetorno = new XmlDocument();
-            xmldocRetorno.Load(arquivo);
+            StreamReader reader = new StreamReader(arquivo);
+            xmldocRetorno.Load(reader);
+            reader.Close();
+                  
             XmlNodeReader xmlReaderRetorno = new XmlNodeReader(xmldocRetorno.DocumentElement);
             XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
             TNfeProc nfe = (TNfeProc)serializer.Deserialize(xmlReaderRetorno);

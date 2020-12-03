@@ -87,7 +87,8 @@
     <Compile Include="Consultas\TotaisMovimentacaoConta.cs" />
     <Compile Include="Consultas\TotaisSaida.cs" />
     <Compile Include="EventoNfe.cs" />
-    <Compile Include="NFE_Schema4\Nfe_v4.cs" />
+    <Compile Include="NFE_Schema41\nfe_v4_00.cs" />
+    <None Include="NFE_Schema4\Nfe_v4.temp" />
     <Compile Include="SolicitacaoPagamento.cs" />
     <Compile Include="DocumentoFiscal.cs" />
     <Compile Include="Imposto.cs" />
@@ -194,6 +195,66 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema3\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\consReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\consSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\consStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\enviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\inutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\leiauteConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\leiauteConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\leiauteInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\nfe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\procInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\procNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\prod_leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\retConsReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\retConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\retConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\retEnviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\retInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\tiposBasico_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NFE_Schema41\xmldsig-core-schema_v1.01.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="NFE_Schema4\consReciNFe_v4.00.xsd">
@@ -375,6 +436,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NFE_Schema41\conversao.txt" />
     <Content Include="NFE_Schema\GerarArquivosCS.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
