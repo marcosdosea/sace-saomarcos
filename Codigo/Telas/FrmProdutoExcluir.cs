@@ -13,9 +13,11 @@ namespace Telas
 {
     public partial class FrmProdutoExcluir : Form
     {
+      
         public FrmProdutoExcluir()
         {
             InitializeComponent();
+            
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)

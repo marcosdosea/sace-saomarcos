@@ -17,6 +17,7 @@ namespace Telas
     {
         private EstadoFormulario estado;
         public ProdutoPesquisa ProdutoSelected { get; set; }
+        private IEnumerable<ProdutoPesquisa> listaProdutos;
 
         public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto)
         {
@@ -26,7 +27,7 @@ namespace Telas
 
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
+            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
             lojaBindingSource.DataSource = GerenciadorLoja.GetInstance().ObterTodos();
             produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(ProdutoSelected.CodProduto);
             habilitaBotoes(true);
@@ -203,7 +204,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true, new List<ProdutoPesquisa>());
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {

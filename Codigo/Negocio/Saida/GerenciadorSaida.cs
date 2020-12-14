@@ -1373,7 +1373,7 @@ namespace Negocio
             try
             {
                 ImprimeTexto imp = new ImprimeTexto();
-                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
+                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA1))
                 {
                     return false;
                 }
@@ -1384,11 +1384,12 @@ namespace Negocio
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpColLFCentralizado(0, 59, "DOCUMENTO AUXILIAR DE VENDA - PEDIDO");
                 imp.Pula(1);
-                imp.ImpColLFCentralizado(0, 59, "NAO E DOCUMENTO FISCAL - NAO E VALIDO COMO RECIBO ");
-                imp.ImpColLFCentralizado(0, 59, "E COMO GARANTIA DE MERCADORIA - NAO COMPROVA PAGAMENTO");
+                imp.ImpColLFCentralizado(0, 59, "NAO E DOCUMENTO FISCAL - NAO E VALIDO");
+                imp.ImpColLFCentralizado(0, 59, "COMO RECIBO E COMO GARANTIA DE MERCADORIA");
+                imp.ImpColLFCentralizado(0, 59, "- NAO COMPROVA PAGAMENTO");
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
                 imp.ImpColLFCentralizado(0, 59, imp.NegritoOn + pessoaLoja.Nome + imp.NegritoOff);
-                imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
+                imp.ImpColLFCentralizado(0, 59, "  Fone: " + pessoaLoja.Fone1);
                 imp.ImpLF(Global.LINHA_COMPRIMIDA);
 
                 Pessoa cliente = GerenciadorPessoa.GetInstance().Obter(movimentacaoConta.CodResponsavel).ElementAt(0);
@@ -1498,13 +1499,13 @@ namespace Negocio
                         return false;
                     }
                 }
-                else if (impressora.Equals(Global.Impressora.REDUZIDO2))
-                {
-                    if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
-                    {
-                        return false;
-                    }
-                }
+                //else if (impressora.Equals(Global.Impressora.REDUZIDO2))
+                //{
+                //    if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA2))
+                //    {
+                //        return false;
+                //    }
+                //}
                 else
                 {
                     ImprimirDAVComprimidoBematech(saidas, total, totalAVista, desconto);

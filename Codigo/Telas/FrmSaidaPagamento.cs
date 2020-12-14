@@ -34,9 +34,9 @@ namespace Telas
             saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
             clienteBindingSource.SuspendBinding();
-            profissionalBindingSource.SuspendBinding();
+            //profissionalBindingSource.SuspendBinding();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            profissionalBindingSource.DataSource = clienteBindingSource.DataSource;
+            //profissionalBindingSource.DataSource = clienteBindingSource.DataSource;
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
@@ -97,7 +97,7 @@ namespace Telas
                 saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
 
                 saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
-                saida.CodProfissional = long.Parse(codProfissionalComboBox.SelectedValue.ToString());
+                saida.CodProfissional = Global.PROFISSIONAL_PADRAO;// long.Parse(codProfissionalComboBox.SelectedValue.ToString());
                 saida.CodEmpresaFrete = saida.CodCliente;
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;

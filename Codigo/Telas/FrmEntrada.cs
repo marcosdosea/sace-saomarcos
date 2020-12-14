@@ -27,7 +27,7 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
 
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos(); 
             fornecedorBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             empresaFreteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
@@ -544,7 +544,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true);
+                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true, new List<ProdutoPesquisa>());
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {

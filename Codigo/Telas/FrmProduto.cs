@@ -20,6 +20,7 @@ namespace Telas
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
         // Usado para criar um produto a partir de uma Entrada
         private EntradaProduto entradaProduto;
+        private IEnumerable<ProdutoPesquisa> listaBufferProdutos;
 
 
         public FrmProduto()
@@ -47,7 +48,8 @@ namespace Telas
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            listaBufferProdutos = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = listaBufferProdutos;
             
             habilitaBotoes(true);
             InserirEntradaProduto(sender, e);
@@ -82,7 +84,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true, listaBufferProdutos);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {

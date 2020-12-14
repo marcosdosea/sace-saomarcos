@@ -13,6 +13,7 @@ namespace Telas
     {
         private EstadoFormulario estado;
         public ProdutoPesquisa ProdutoSelected { get; set; }
+        private IEnumerable<ProdutoPesquisa> bufferListaProdutos;
 
         public FrmPontaEstoque(ProdutoPesquisa _produto)
         {
@@ -23,7 +24,8 @@ namespace Telas
         private void FrmPontaEstoque_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            bufferListaProdutos = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = bufferListaProdutos;
             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = ProdutoSelected.CodProduto });
             produtoBindingSource.ResumeBinding();
             ProdutoSelected  = (ProdutoPesquisa) produtoBindingSource.Current;
@@ -175,7 +177,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true, new List<ProdutoPesquisa>());
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {

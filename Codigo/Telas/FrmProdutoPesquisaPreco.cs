@@ -16,29 +16,34 @@ namespace Telas
     {
         private String filtroNome;
         private String textoAtual;
-        private DateTime horarioUltimaBusca;
-
-        public bool ExibirTodos { get; set;}
+        private bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
+        IEnumerable<ProdutoPesquisa> listaProduto;
         IEnumerable<ProdutoPesquisa> listaProdutoBuffer;
-        
-        
-        public FrmProdutoPesquisaPreco(bool exibirTodos)
+
+
+        public FrmProdutoPesquisaPreco(bool exibirTodos, IEnumerable<ProdutoPesquisa> listaProdutoPesquisa)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = null;
-            horarioUltimaBusca = DateTime.Now;
             ExibirTodos = exibirTodos;
-
+            if (listaProdutoPesquisa != null && listaProdutoPesquisa.Count() > 0)
+                listaProduto = listaProdutoPesquisa;
+            else
+                listaProduto = GerenciadorProduto.GetInstance().ObterTodos();
         }
 
-        public FrmProdutoPesquisaPreco(String nome, bool exibirTodos)
+        public FrmProdutoPesquisaPreco(bool exibirTodos, String nome, IEnumerable<ProdutoPesquisa> listaProdutoPesquisa)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = nome;
             ExibirTodos = exibirTodos;
+            if (listaProdutoPesquisa != null && listaProdutoPesquisa.Count() > 0)
+                listaProduto = listaProdutoPesquisa;
+            else
+                listaProduto = GerenciadorProduto.GetInstance().ObterTodos();
         }
 
         private void FrmProdutoPesquisaPreco_Load(object sender, EventArgs e)
@@ -53,11 +58,17 @@ namespace Telas
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                    produtoBindingSource.DataSource = listaProduto.Where(p => p.Nome.StartsWith(txtTexto.Text)).ToList();
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                    produtoBindingSource.DataSource = listaProduto.Where(p => p.ExibeNaListagem = true && p.Nome.StartsWith(txtTexto.Text)).ToList();
+                }
+                if (produtoBindingSource.Count > 0)
+                {
+                    ProdutoPesquisa produto = (ProdutoPesquisa)produtoBindingSource.Current;
+                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(produto.CodProduto);
+                    listaProdutoBuffer = (IEnumerable<ProdutoPesquisa>)produtoBindingSource.DataSource;
                 }
             }
             else
@@ -122,13 +133,23 @@ namespace Telas
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 3)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length > 2))))
                     {
-                        if ( (txtTexto.Text.Length == 4) || (listaProdutoBuffer == null) )
+                        if ((txtTexto.Text.Length == 4) || (listaProdutoBuffer == null) || listaProdutoBuffer.Count() == 0)
                         {
-                            if (ExibirTodos)
-                                listaProdutoBuffer = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                            if (txtTexto.Text[0] == '%')
+                            {
+                                if (ExibirTodos)
+                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.Nome.Contains(txtTexto.Text.Remove(0, 1))).ToList();
+                                else
+                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.ExibeNaListagem = true && p.Nome.Contains(txtTexto.Text.Remove(0, 1))).ToList();
+                            }
                             else
-                                listaProdutoBuffer = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
-                            produtoBindingSource.DataSource = listaProdutoBuffer;
+                            {
+                                if (ExibirTodos)
+                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.Nome.StartsWith(txtTexto.Text)).ToList();
+                                else
+                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.ExibeNaListagem = true && p.Nome.StartsWith(txtTexto.Text)).ToList();
+
+                            }
                         }
                         else if (txtTexto.Text.Length > 4)
                         {
@@ -140,13 +161,17 @@ namespace Telas
                             {
                                 produtoBindingSource.DataSource = listaProdutoBuffer.Where(p => p.Nome.StartsWith(txtTexto.Text)).ToList();
                             }
-
                         }
-
+                        listaProdutoBuffer = (IEnumerable<ProdutoPesquisa>)produtoBindingSource.DataSource;
                     }
                 }
             }
+            else if (txtTexto.Text.Length < textoAtual.Length)
+            {
+                listaProdutoBuffer = null;
+            }
             textoAtual = txtTexto.Text;
+            
 
             if (produtoBindingSource.Count > 0)
             {
@@ -313,6 +338,7 @@ namespace Telas
                 else
                 {
                     tb_produtoDataGridView.Rows[i].Cells[0].Style.BackColor = Color.White;
+                    tb_produtoDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
 
 
