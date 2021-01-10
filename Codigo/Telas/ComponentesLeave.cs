@@ -135,7 +135,7 @@ namespace Telas
                         }
                         if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count >= 1) && (produtoNomeIgual == null)))
                         {
-                            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(exibirTodos, produtoComboBox.Text, new List<ProdutoPesquisa>());
+                            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(exibirTodos, produtoComboBox.Text);
                             frmProdutoPesquisaPreco.ShowDialog();
                             if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                             {

@@ -18,32 +18,23 @@ namespace Telas
         private String textoAtual;
         private bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
-        IEnumerable<ProdutoPesquisa> listaProduto;
         IEnumerable<ProdutoPesquisa> listaProdutoBuffer;
 
 
-        public FrmProdutoPesquisaPreco(bool exibirTodos, IEnumerable<ProdutoPesquisa> listaProdutoPesquisa)
+        public FrmProdutoPesquisaPreco(bool exibirTodos)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
-            if (listaProdutoPesquisa != null && listaProdutoPesquisa.Count() > 0)
-                listaProduto = listaProdutoPesquisa;
-            else
-                listaProduto = GerenciadorProduto.GetInstance().ObterTodos();
         }
 
-        public FrmProdutoPesquisaPreco(bool exibirTodos, String nome, IEnumerable<ProdutoPesquisa> listaProdutoPesquisa)
+        public FrmProdutoPesquisaPreco(bool exibirTodos, String nome)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = nome;
             ExibirTodos = exibirTodos;
-            if (listaProdutoPesquisa != null && listaProdutoPesquisa.Count() > 0)
-                listaProduto = listaProdutoPesquisa;
-            else
-                listaProduto = GerenciadorProduto.GetInstance().ObterTodos();
         }
 
         private void FrmProdutoPesquisaPreco_Load(object sender, EventArgs e)
@@ -58,11 +49,12 @@ namespace Telas
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    produtoBindingSource.DataSource = listaProduto.Where(p => p.Nome.StartsWith(txtTexto.Text)).ToList();
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = listaProduto.Where(p => p.ExibeNaListagem = true && p.Nome.StartsWith(txtTexto.Text)).ToList();
+                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+
                 }
                 if (produtoBindingSource.Count > 0)
                 {
@@ -135,21 +127,11 @@ namespace Telas
                     {
                         if ((txtTexto.Text.Length == 4) || (listaProdutoBuffer == null) || listaProdutoBuffer.Count() == 0)
                         {
-                            if (txtTexto.Text[0] == '%')
-                            {
-                                if (ExibirTodos)
-                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.Nome.Contains(txtTexto.Text.Remove(0, 1))).ToList();
-                                else
-                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.ExibeNaListagem = true && p.Nome.Contains(txtTexto.Text.Remove(0, 1))).ToList();
-                            }
+                            if (ExibirTodos)
+                                produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
                             else
-                            {
-                                if (ExibirTodos)
-                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.Nome.StartsWith(txtTexto.Text)).ToList();
-                                else
-                                    produtoBindingSource.DataSource = listaProduto.Where(p => p.ExibeNaListagem = true && p.Nome.StartsWith(txtTexto.Text)).ToList();
-
-                            }
+                                produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                           
                         }
                         else if (txtTexto.Text.Length > 4)
                         {
@@ -168,7 +150,7 @@ namespace Telas
             }
             else if (txtTexto.Text.Length < textoAtual.Length)
             {
-                listaProdutoBuffer = null;
+               listaProdutoBuffer = null;
             }
             textoAtual = txtTexto.Text;
             

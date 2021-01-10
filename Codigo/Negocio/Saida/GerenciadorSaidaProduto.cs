@@ -545,14 +545,17 @@ namespace Negocio
             foreach( ProdutoE produtoE in query) {
                 ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produtoE.codProduto).FirstOrDefault();
                 decimal estoqueAtual = listaProdutoLoja.Where(pl => pl.CodProduto == produtoE.codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
-                
+
                 // necessário deixar os itens como disponível antes da análise por conta das mudanças no estoque
                 if (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO)
                     produtoE.codSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                
-                if (produtoVendido != null) {
-                    if (estoqueAtual <= produtoVendido.QuantidadeVendida) {
-                        if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO)) 
+
+
+                if (produtoVendido != null)
+                {
+                    if (estoqueAtual <= produtoVendido.QuantidadeVendida)
+                    {
+                        if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO))
                         {
                             if (estoqueAtual <= (produtoVendido.QuantidadeVendida / 2))
                                 produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
@@ -561,7 +564,17 @@ namespace Negocio
                             produtoE.dataSolicitacaoCompra = DateTime.Now;
                         }
                     }
-                    
+                }
+                else
+                {
+                    if (estoqueAtual <= 0)
+                    {
+                        if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO))
+                        {
+                            produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
+                            produtoE.dataSolicitacaoCompra = DateTime.Now;
+                        }
+                    }
                 }
             }
             saceContext.SaveChanges();

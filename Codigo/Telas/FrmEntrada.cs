@@ -544,7 +544,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true, new List<ProdutoPesquisa>());
+                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true);
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {

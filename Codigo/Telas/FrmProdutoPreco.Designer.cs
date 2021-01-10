@@ -49,8 +49,8 @@
             this.UltimaDataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -221,7 +221,7 @@
             this.tb_produtoDataGridView.Location = new System.Drawing.Point(12, 83);
             this.tb_produtoDataGridView.Name = "tb_produtoDataGridView";
             this.tb_produtoDataGridView.RowHeadersWidth = 7;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.tb_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.tb_produtoDataGridView.RowTemplate.Height = 30;
             this.tb_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -230,10 +230,6 @@
             this.tb_produtoDataGridView.TabStop = false;
             this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
             // 
-            // produtoBindingSource
-            // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
             // nomeDataGridViewTextBoxColumn
             // 
             this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -241,6 +237,10 @@
             this.nomeDataGridViewTextBoxColumn.FillWeight = 84.26873F;
             this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
             this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // FrmProdutoPreco
             // 
