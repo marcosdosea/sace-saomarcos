@@ -963,7 +963,7 @@ namespace Negocio
                     {
                         dest.ItemElementName = ItemChoiceType3.CNPJ;
                         //dest.IE = "ISENTO";
-                        dest.indIEDest = TNFeInfNFeDestIndIEDest.Item2; // 2-Contribuinte ISENTO
+                        dest.indIEDest = TNFeInfNFeDestIndIEDest.Item9; // 2-Contribuinte ISENTO (não existe) Agora é sempre 9
                     }
                     else
                     {

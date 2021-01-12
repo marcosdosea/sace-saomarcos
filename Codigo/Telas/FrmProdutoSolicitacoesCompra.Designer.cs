@@ -44,6 +44,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ProdutosGroupBox = new System.Windows.Forms.GroupBox();
@@ -96,17 +98,17 @@
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.solicitacoesCompraBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.solicitacoesCompraDataGridView = new System.Windows.Forms.DataGridView();
+            this.checkBoxDisponivel = new System.Windows.Forms.CheckBox();
+            this.checkBoxComprado = new System.Windows.Forms.CheckBox();
+            this.checkBoxCompraUrgente = new System.Windows.Forms.CheckBox();
+            this.checkBoxNaoComprar = new System.Windows.Forms.CheckBox();
+            this.checkBoxSolicitacaoCompra = new System.Windows.Forms.CheckBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkBoxDisponivel = new System.Windows.Forms.CheckBox();
-            this.checkBoxComprado = new System.Windows.Forms.CheckBox();
-            this.checkBoxCompraUrgente = new System.Windows.Forms.CheckBox();
-            this.checkBoxNaoComprar = new System.Windows.Forms.CheckBox();
-            this.checkBoxSolicitacaoCompra = new System.Windows.Forms.CheckBox();
             valorUnitarioLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaAtacadoLabel = new System.Windows.Forms.Label();
             lucroPrecoVendaVarejoLabel = new System.Windows.Forms.Label();
@@ -740,6 +742,14 @@
             this.solicitacoesCompraDataGridView.AllowUserToAddRows = false;
             this.solicitacoesCompraDataGridView.AllowUserToDeleteRows = false;
             this.solicitacoesCompraDataGridView.AutoGenerateColumns = false;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.solicitacoesCompraDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.solicitacoesCompraDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.solicitacoesCompraDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -749,6 +759,14 @@
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9});
             this.solicitacoesCompraDataGridView.DataSource = this.solicitacoesCompraBindingSource;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.solicitacoesCompraDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.solicitacoesCompraDataGridView.Location = new System.Drawing.Point(9, 127);
             this.solicitacoesCompraDataGridView.Name = "solicitacoesCompraDataGridView";
             this.solicitacoesCompraDataGridView.ReadOnly = true;
@@ -757,58 +775,6 @@
             this.solicitacoesCompraDataGridView.TabIndex = 1;
             this.solicitacoesCompraDataGridView.CurrentCellChanged += new System.EventHandler(this.solicitacoesCompraDataGridView_CurrentCellChanged);
             this.solicitacoesCompraDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.solicitacoesCompraDataGridView_DataBindingComplete);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodProduto";
-            this.dataGridViewTextBoxColumn1.FillWeight = 20F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Código";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
-            this.dataGridViewTextBoxColumn4.FillWeight = 80F;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Produto";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "ReferenciaFabricante";
-            this.dataGridViewTextBoxColumn5.FillWeight = 30F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Ref Fabricante";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "DataSolicitacaoCompra";
-            this.dataGridViewTextBoxColumn7.FillWeight = 30F;
-            this.dataGridViewTextBoxColumn7.HeaderText = "Data Solicitação";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "DataPedidoCompra";
-            this.dataGridViewTextBoxColumn8.FillWeight = 30F;
-            this.dataGridViewTextBoxColumn8.HeaderText = "Data Pedido";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "CodSituacaoProduto";
-            this.dataGridViewTextBoxColumn9.HeaderText = "CodSituacaoProduto";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Visible = false;
             // 
             // checkBoxDisponivel
             // 
@@ -879,6 +845,59 @@
             this.checkBoxSolicitacaoCompra.Text = "Compra Solicitada - F10";
             this.checkBoxSolicitacaoCompra.UseVisualStyleBackColor = false;
             this.checkBoxSolicitacaoCompra.CheckStateChanged += new System.EventHandler(this.comboBoxFornecedor_SelectedIndexChanged);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodProduto";
+            this.dataGridViewTextBoxColumn1.FillWeight = 15F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Código";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
+            this.dataGridViewTextBoxColumn4.FillWeight = 80F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Produto";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "ReferenciaFabricante";
+            this.dataGridViewTextBoxColumn5.FillWeight = 25F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Ref Fabricante";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "DataSolicitacaoCompra";
+            this.dataGridViewTextBoxColumn7.FillWeight = 18F;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Data Solicitação";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "DataPedidoCompra";
+            this.dataGridViewTextBoxColumn8.FillWeight = 18F;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Data Pedido";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "CodSituacaoProduto";
+            this.dataGridViewTextBoxColumn9.HeaderText = "CodSituacaoProduto";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Visible = false;
             // 
             // FrmProdutoSolicitacoesCompra
             // 
@@ -995,16 +1014,16 @@
         private System.Windows.Forms.BindingSource pessoaBindingSource;
         private System.Windows.Forms.BindingSource solicitacoesCompraBindingSource;
         private System.Windows.Forms.DataGridView solicitacoesCompraDataGridView;
+        private System.Windows.Forms.CheckBox checkBoxDisponivel;
+        private System.Windows.Forms.CheckBox checkBoxComprado;
+        private System.Windows.Forms.CheckBox checkBoxCompraUrgente;
+        private System.Windows.Forms.CheckBox checkBoxNaoComprar;
+        private System.Windows.Forms.CheckBox checkBoxSolicitacaoCompra;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.CheckBox checkBoxDisponivel;
-        private System.Windows.Forms.CheckBox checkBoxComprado;
-        private System.Windows.Forms.CheckBox checkBoxCompraUrgente;
-        private System.Windows.Forms.CheckBox checkBoxNaoComprar;
-        private System.Windows.Forms.CheckBox checkBoxSolicitacaoCompra;
     }
 }
