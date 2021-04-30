@@ -290,6 +290,12 @@ namespace Telas
                     GerenciadorSaidaProduto.GetInstance(null).Inserir(saidaProduto, saida);
                     codSaidaTextBox_TextChanged(sender, e);
                     saidaProdutoBindingSource.MoveLast();
+                    if (saida.TipoSaida == Saida.TIPO_ORCAMENTO && 
+                        GerenciadorProdutoLoja.GetInstance(null).ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
+                    {
+                        MessageBox.Show("Estoque INSUFICIENTE em caso de VENDA", "ATENÇÃO", MessageBoxButtons.OK);
+                    }
+ 
                 }
             }
             saidaBindingSource.ResumeBinding();

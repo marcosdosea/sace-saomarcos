@@ -186,6 +186,15 @@ namespace Negocio
         }
 
         /// <summary>
+        /// Retorna a soma do estoque de todas as lojas
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public decimal ObterEstoque(long codProduto)
+        {
+            return GetQuery().Where(pl => pl.CodProduto == codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+        }
+        /// <summary>
         /// Obter estoque de todos os produtos da estoque
         /// </summary>
         /// <returns></returns>
