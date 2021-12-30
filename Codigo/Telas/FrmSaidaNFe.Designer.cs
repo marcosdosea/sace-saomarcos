@@ -263,7 +263,7 @@
             correcaoLabel.Size = new System.Drawing.Size(517, 13);
             correcaoLabel.TabIndex = 45;
             correcaoLabel.Text = "Correções (Para NF-e Autorizadas e Situação previstas na legislação em vigor. Máx" +
-    "imo de 1000 caracteres):";
+                "imo de 1000 caracteres):";
             // 
             // seqCartaCorrecaoLabel
             // 
@@ -528,12 +528,13 @@
             // 
             // dataEmissaoDateTimePicker
             // 
+            this.dataEmissaoDateTimePicker.CustomFormat = "dd/MM/yyyy hh:mm";
             this.dataEmissaoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.nfeControleBindingSource, "DataEmissao", true));
             this.dataEmissaoDateTimePicker.Enabled = false;
-            this.dataEmissaoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dataEmissaoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataEmissaoDateTimePicker.Location = new System.Drawing.Point(353, 137);
             this.dataEmissaoDateTimePicker.Name = "dataEmissaoDateTimePicker";
-            this.dataEmissaoDateTimePicker.Size = new System.Drawing.Size(126, 20);
+            this.dataEmissaoDateTimePicker.Size = new System.Drawing.Size(134, 20);
             this.dataEmissaoDateTimePicker.TabIndex = 42;
             this.dataEmissaoDateTimePicker.TabStop = false;
             // 
@@ -665,7 +666,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 585);
+            this.ClientSize = new System.Drawing.Size(880, 587);
             this.ControlBox = false;
             this.Controls.Add(this.codPessoaComboBox);
             this.Controls.Add(this.btnBuscar);

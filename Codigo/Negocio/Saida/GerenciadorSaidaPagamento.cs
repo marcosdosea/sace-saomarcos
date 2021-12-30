@@ -71,7 +71,7 @@ namespace Negocio
                 }
                 
                 else if ((saidaPagamento.CodFormaPagamento != FormaPagamento.DINHEIRO) && (saidaPagamento.CodFormaPagamento != FormaPagamento.CARTAO)
-                    && (saida.CodCliente == Util.Global.CLIENTE_PADRAO))
+                    && (saidaPagamento.CodFormaPagamento != FormaPagamento.DEPOSITO_PIX) && (saida.CodCliente == Util.Global.CLIENTE_PADRAO))
                 {
                     throw new NegocioException("É necessário informar um cliente para utilizar essa forma de pagamento.");
                 }
@@ -87,7 +87,7 @@ namespace Negocio
 
                 //decimal total = totalPagamentos(saida.CodSaida);
 
-                 if (Math.Abs(saida.TotalAVista - saida.TotalPago) > 0)
+                if (Math.Abs(saida.TotalAVista - saida.TotalPago) > 0)
                 {
                     SaidaFormaPagamentoE _saidaPagamentoE = new SaidaFormaPagamentoE();
                     _saidaPagamentoE.codCartao = saidaPagamento.CodCartaoCredito;

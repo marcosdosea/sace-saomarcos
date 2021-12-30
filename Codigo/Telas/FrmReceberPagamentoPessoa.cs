@@ -136,11 +136,12 @@ namespace Telas
                 //    throw new TelaException("Não é possível realizar o pagamento com cartão de crédito. Verifique se alguma NFe referente às contas selecionadas já foi impresso OU se todas as contas referente às saídas escolhidas estão selecionadas.");
                 //}
 
-                if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO) || formaPagamento.Equals(FormaPagamento.CARTAO)) //&& podeImprimirCF))
+                if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO_PIX)
+                    || formaPagamento.Equals(FormaPagamento.CARTAO) )
                 {
                     AtualizarValoresDescontosContas();
 
-                    if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO))
+                    if (formaPagamento.Equals(FormaPagamento.DINHEIRO) || formaPagamento.Equals(FormaPagamento.DEPOSITO_PIX))
                     {
                         MovimentacaoConta movimentacao = new MovimentacaoConta();
                         movimentacao.CodConta = listaContas.ElementAt(0); // valor é irrelevante
@@ -188,19 +189,9 @@ namespace Telas
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
                     {
                         List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
-                        //if (totalPago > 0)
-                        //{
-                        //    SaidaPagamento saidaPagamentoDinheiro = new SaidaPagamento();
-                        //    FormaPagamento formaPagamentoDinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
-                        //    saidaPagamentoDinheiro.CodFormaPagamento = FormaPagamento.DINHEIRO;
-                        //    saidaPagamentoDinheiro.MapeamentoFormaPagamento = formaPagamentoDinheiro.Mapeamento;
-                        //    saidaPagamentoDinheiro.DescricaoFormaPagamento = formaPagamentoDinheiro.Descricao;
-                        //    saidaPagamentoDinheiro.Valor = totalPago;
-                        //    listaSaidaPagamento.Add(saidaPagamentoDinheiro);
-                        //}
 
                         SaidaPagamento saidaPagamentoCartao = new SaidaPagamento();
-
+ 
                         int codCartao = Convert.ToInt32(codCartaoComboBox.SelectedValue.ToString());
                         int parcelas = Convert.ToInt32(parcelasTextBox.Text);
                         CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(codCartao).ElementAt(0);
@@ -416,7 +407,7 @@ namespace Telas
             OrganizarTelaAdministradoraCartoes();
             if (cartao != null)
             {
-                formaPagamentoBindingSource.Position = formaPagamentoBindingSource.IndexOf(new FormaPagamento() { CodFormaPagamento = FormaPagamento.DEPOSITO });
+                formaPagamentoBindingSource.Position = formaPagamentoBindingSource.IndexOf(new FormaPagamento() { CodFormaPagamento = FormaPagamento.DEPOSITO_PIX });
                 contaBancoBindingSource.Position = contaBancoBindingSource.IndexOf(new ContaBanco() { CodContaBanco = cartao.CodContaBanco });
                 codFormaPagamentoComboBox.Enabled = false;
                 codContaBancoComboBox.Enabled = false;
@@ -625,12 +616,12 @@ namespace Telas
             {
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
-                codCartaoComboBox.Visible = (formaPagamento != FormaPagamento.DEPOSITO);
+                codCartaoComboBox.Visible = (formaPagamento != FormaPagamento.DEPOSITO_PIX);
                 
                 valorPagamentoTextBox.Enabled = (formaPagamento != FormaPagamento.CARTAO);
                 parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
-                codContaBancoComboBox.Visible = (formaPagamento == FormaPagamento.DEPOSITO);
-                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
+                codContaBancoComboBox.Visible = (formaPagamento == FormaPagamento.DEPOSITO_PIX);
+                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO_PIX);
                 
             }
         }
@@ -638,7 +629,7 @@ namespace Telas
         private void codFormaPagamentoComboBox_Leave(object sender, EventArgs e)
         {
             int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
-            if ((formaPagamento != FormaPagamento.DINHEIRO) && (formaPagamento != FormaPagamento.CARTAO) && (formaPagamento != FormaPagamento.DEPOSITO))
+            if ((formaPagamento != FormaPagamento.DINHEIRO) && (formaPagamento != FormaPagamento.CARTAO) && (formaPagamento != FormaPagamento.DEPOSITO_PIX))
             {
                 codFormaPagamentoComboBox.Focus();
                 throw new TelaException("Essa forma de pagamento não pode ser utilizada no recebimento de contas.");

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codContaBancoLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,6 +82,8 @@
             this.totalRede = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btnDetalhes = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.totalPix = new System.Windows.Forms.TextBox();
             codContaBancoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
@@ -122,7 +124,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1009, 53);
+            this.panel1.Size = new System.Drawing.Size(996, 53);
             this.panel1.TabIndex = 21;
             // 
             // label2
@@ -159,23 +161,23 @@
             this.dateTimePickerInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePickerInicial.Location = new System.Drawing.Point(486, 88);
             this.dateTimePickerInicial.Name = "dateTimePickerInicial";
-            this.dateTimePickerInicial.Size = new System.Drawing.Size(96, 20);
+            this.dateTimePickerInicial.Size = new System.Drawing.Size(146, 20);
             this.dateTimePickerInicial.TabIndex = 24;
             this.dateTimePickerInicial.Value = new System.DateTime(2016, 9, 30, 0, 0, 0, 0);
             // 
             // dateTimePickerFinal
             // 
             this.dateTimePickerFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerFinal.Location = new System.Drawing.Point(612, 87);
+            this.dateTimePickerFinal.Location = new System.Drawing.Point(654, 86);
             this.dateTimePickerFinal.Name = "dateTimePickerFinal";
-            this.dateTimePickerFinal.Size = new System.Drawing.Size(113, 20);
+            this.dateTimePickerFinal.Size = new System.Drawing.Size(141, 20);
             this.dateTimePickerFinal.TabIndex = 25;
             this.dateTimePickerFinal.Value = new System.DateTime(2014, 12, 29, 22, 49, 42, 0);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(483, 71);
+            this.label3.Location = new System.Drawing.Point(487, 70);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 26;
@@ -184,7 +186,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(609, 70);
+            this.label4.Location = new System.Drawing.Point(654, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 27;
@@ -232,9 +234,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "TotalMovimentacaoConta";
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn2.HeaderText = "Total (R$)";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -251,7 +253,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(826, 84);
+            this.btnCancelar.Location = new System.Drawing.Point(901, 84);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 29;
@@ -348,7 +350,7 @@
             this.totaisCartaoDataGridView.Name = "totaisCartaoDataGridView";
             this.totaisCartaoDataGridView.ReadOnly = true;
             this.totaisCartaoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.totaisCartaoDataGridView.Size = new System.Drawing.Size(511, 277);
+            this.totaisCartaoDataGridView.Size = new System.Drawing.Size(499, 246);
             this.totaisCartaoDataGridView.TabIndex = 32;
             // 
             // codSaidaDataGridViewTextBoxColumn
@@ -429,9 +431,9 @@
             // 
             this.totalCreditoRede.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalCreditoRede.ForeColor = System.Drawing.Color.Red;
-            this.totalCreditoRede.Location = new System.Drawing.Point(556, 426);
+            this.totalCreditoRede.Location = new System.Drawing.Point(559, 392);
             this.totalCreditoRede.Name = "totalCreditoRede";
-            this.totalCreditoRede.Size = new System.Drawing.Size(85, 22);
+            this.totalCreditoRede.Size = new System.Drawing.Size(153, 22);
             this.totalCreditoRede.TabIndex = 37;
             this.totalCreditoRede.TabStop = false;
             this.totalCreditoRede.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -440,7 +442,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(483, 429);
+            this.label10.Location = new System.Drawing.Point(486, 394);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 20);
             this.label10.TabIndex = 36;
@@ -448,7 +450,7 @@
             // 
             // btnAtualizar
             // 
-            this.btnAtualizar.Location = new System.Drawing.Point(745, 84);
+            this.btnAtualizar.Location = new System.Drawing.Point(817, 84);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(75, 23);
             this.btnAtualizar.TabIndex = 26;
@@ -460,9 +462,9 @@
             // 
             this.totalDebitoRede.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalDebitoRede.ForeColor = System.Drawing.Color.Red;
-            this.totalDebitoRede.Location = new System.Drawing.Point(718, 426);
+            this.totalDebitoRede.Location = new System.Drawing.Point(801, 392);
             this.totalDebitoRede.Name = "totalDebitoRede";
-            this.totalDebitoRede.Size = new System.Drawing.Size(91, 22);
+            this.totalDebitoRede.Size = new System.Drawing.Size(184, 22);
             this.totalDebitoRede.TabIndex = 41;
             this.totalDebitoRede.TabStop = false;
             this.totalDebitoRede.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -471,7 +473,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(650, 429);
+            this.label12.Location = new System.Drawing.Point(733, 394);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(62, 20);
             this.label12.TabIndex = 40;
@@ -579,9 +581,9 @@
             // 
             this.totalRede.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalRede.ForeColor = System.Drawing.Color.Red;
-            this.totalRede.Location = new System.Drawing.Point(868, 423);
+            this.totalRede.Location = new System.Drawing.Point(801, 428);
             this.totalRede.Name = "totalRede";
-            this.totalRede.Size = new System.Drawing.Size(129, 26);
+            this.totalRede.Size = new System.Drawing.Size(184, 26);
             this.totalRede.TabIndex = 47;
             this.totalRede.TabStop = false;
             this.totalRede.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -590,7 +592,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(813, 429);
+            this.label11.Location = new System.Drawing.Point(733, 431);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 20);
             this.label11.TabIndex = 46;
@@ -606,11 +608,34 @@
             this.btnDetalhes.UseVisualStyleBackColor = true;
             this.btnDetalhes.Click += new System.EventHandler(this.btnDetalhes_Click);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(512, 434);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(38, 20);
+            this.label15.TabIndex = 49;
+            this.label15.Text = "PIX";
+            // 
+            // totalPix
+            // 
+            this.totalPix.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPix.ForeColor = System.Drawing.Color.Red;
+            this.totalPix.Location = new System.Drawing.Point(559, 434);
+            this.totalPix.Name = "totalPix";
+            this.totalPix.Size = new System.Drawing.Size(153, 22);
+            this.totalPix.TabIndex = 50;
+            this.totalPix.TabStop = false;
+            this.totalPix.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // FrmMovimentacaoCaixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 619);
+            this.ClientSize = new System.Drawing.Size(1000, 599);
+            this.Controls.Add(this.totalPix);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.btnDetalhes);
             this.Controls.Add(this.totalRede);
             this.Controls.Add(this.label11);
@@ -641,6 +666,7 @@
             this.Controls.Add(codContaBancoLabel);
             this.Controls.Add(this.codContaBancoComboBox);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "FrmMovimentacaoCaixa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -715,6 +741,8 @@
         private System.Windows.Forms.TextBox totalRede;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnDetalhes;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox totalPix;
 
     }
 }

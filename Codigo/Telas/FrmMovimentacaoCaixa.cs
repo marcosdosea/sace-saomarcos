@@ -9,13 +9,12 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio.Consultas;
 using Dominio;
+using Util;
 
 namespace Telas
 {
     public partial class FrmMovimentacaoCaixa : Form
     {
-        const int BANESECARD_CREDITO = 5;
-
         public FrmMovimentacaoCaixa()
         {
             InitializeComponent();
@@ -53,16 +52,18 @@ namespace Telas
             textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
             IEnumerable<VendasCartao> vendasCartao = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasCartao(dataInicial, dataFinal);
-            IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
-            IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO");
-            IEnumerable<VendasCartao> baneseCredito = vendasCartao.Where(vendas => vendas.CodCartao == BANESECARD_CREDITO);
+            IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != Global.CARTAO_BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
+            IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO" && vendas.CodCartao != Global.CARTAO_PIX);
+            IEnumerable<VendasCartao> redePix = vendasCartao.Where(vendas => vendas.CodCartao == Global.CARTAO_PIX);
+            IEnumerable<VendasCartao> baneseCredito = vendasCartao.Where(vendas => vendas.CodCartao == Global.CARTAO_BANESECARD_CREDITO);
 
-            vendasCartaoRede.DataSource = RemoverDuplicados(redeCredito.Union(redeDebito));
+            vendasCartaoRede.DataSource = RemoverDuplicados(redeCredito.Union(redeDebito).Union(redePix));
             vendasCartaoBaneseCredito.DataSource = RemoverDuplicados(baneseCredito);
 
             totalCreditoRede.Text = redeCredito.Sum(t => t.TotalCartao).ToString("N2");
             totalDebitoRede.Text = redeDebito.Sum(t => t.TotalCartao).ToString("N2");
-            totalRede.Text = (redeCredito.Sum(t => t.TotalCartao) + redeDebito.Sum(t => t.TotalCartao)).ToString("N2");
+            totalPix.Text = redePix.Sum(t => t.TotalCartao).ToString("N2");
+            totalRede.Text = (redeCredito.Sum(t => t.TotalCartao) + redeDebito.Sum(t => t.TotalCartao) + redePix.Sum(t => t.TotalCartao)).ToString("N2");
             totalCreditoBanese.Text = baneseCredito.Sum(t => t.TotalCartao).ToString("N2");
         }
 
@@ -108,5 +109,6 @@ namespace Telas
             frmRecebido.ShowDialog();
             frmRecebido.Dispose();
         }
+
     }
 }

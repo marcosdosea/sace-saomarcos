@@ -377,19 +377,18 @@ namespace Negocio
         /// <param name="_contaE"></param>
         private void AtualizaSituacaoPagamentosEntrada(ContaE _contaE)
         {
-            var query = from entrada in saceContext.EntradaSet
-                        where entrada.codEntrada == _contaE.codEntrada
-                        select entrada;
-            EntradaE _entradaE = query.ToList().ElementAtOrDefault(0);
-
-            if (_entradaE != null)
+            if (_contaE.codEntrada != Global.ENTRADA_PADRAO)
             {
-                if (!_contaE.codEntrada.Equals(Global.ENTRADA_PADRAO))
+                var query = from entrada in saceContext.EntradaSet
+                            where entrada.codEntrada == _contaE.codEntrada
+                            select entrada;
+                EntradaE _entradaE = query.ToList().ElementAtOrDefault(0);
+
+                if (_entradaE != null)
                 {
                     var query2 = from conta in saceContext.ContaSet
                                  where conta.codSituacao.Equals(SituacaoConta.SITUACAO_ABERTA) && conta.codEntrada == _contaE.codEntrada
-                                select conta;
-
+                                 select conta;
 
                     if (query2.Count() == 0)
                     {
@@ -399,9 +398,10 @@ namespace Negocio
                     {
                         _entradaE.codSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
                     }
+
                 }
+                saceContext.SaveChanges();
             }
-            saceContext.SaveChanges();
         }
 
         /// <summary>

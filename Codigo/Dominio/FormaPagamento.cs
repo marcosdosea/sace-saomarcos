@@ -12,8 +12,7 @@ namespace Dominio
         public const int CARTAO = 3;
         public const int BOLETO = 4;
         public const int CHEQUE = 5;
-        public const int DEPOSITO = 6;
-        public const int PROMISSORIA = 7;
+        public const int DEPOSITO_PIX = 6;
 
         //public const string MAPEAMENTO_DINHEIRO = "1";
         //public const string MAPEAMENTO_CHEQUE = "2";

@@ -364,6 +364,7 @@ namespace Negocio
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
+                    GerenciadorSolicitacaoDocumento.GetInstance().RemoverSolicitacaoDocumento(saida.CodSaida);
                     RegistrarEstornoEstoque(saida, null);
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                     saida.CupomFiscal = "";
@@ -612,10 +613,12 @@ namespace Negocio
 
         public List<SaidaPesquisa> ObterSaidaPorNfe(int codNfe)
         {
+
             var query = from saida in saceContext.tb_saida
                         where saida.tb_nfe.Select(nfe => nfe.codNFe).Contains(codNfe)
                         select new SaidaPesquisa
                         {
+                            
                             CodSaida = saida.codSaida,
                             DataSaida = saida.dataSaida,
                             CodCliente = saida.codCliente,
@@ -1155,11 +1158,10 @@ namespace Negocio
                     conta.Valor = pagamento.Valor / pagamento.Parcelas;
                 }
 
-                //Int64 codConta = -1;
 
                 for (int i = 0; i < pagamento.Parcelas; i++)
                 {
-                    if (pagamento.CodFormaPagamento == (FormaPagamento.CARTAO))
+                    if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                     {
                         CartaoCredito cartaoCredito = GerenciadorCartaoCredito.GetInstance().Obter(pagamento.CodCartaoCredito).ElementAt(0);
                         pagamento.Data = pagamento.Data.AddDays((double)cartaoCredito.DiaBase);
@@ -1167,14 +1169,7 @@ namespace Negocio
                         conta.Desconto = (pagamento.Valor * cartaoCredito.Desconto / 100) / pagamento.Parcelas;
 
                     }
-                    else if ((pagamento.CodFormaPagamento == FormaPagamento.BOLETO) || (pagamento.CodFormaPagamento == FormaPagamento.CHEQUE))
-                    {
-                        //DocumentoPagamento documento = GerenciadorDocumentoPagamento.getInstace().obterDocumentoPagamento(pagamento.CodDocumentoPagamento);
-                        //conta.DataVencimento = documento.DataVencimento;
-                        //conta.Valor = documento.Valor;
-                    }
-                    else if ((pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO) || (pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO) ||
-                      (pagamento.CodFormaPagamento == FormaPagamento.PROMISSORIA))
+                    else if (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
                     {
                         conta.DataVencimento = saida.DataSaida.AddDays(pagamento.IntervaloDias);
                     }

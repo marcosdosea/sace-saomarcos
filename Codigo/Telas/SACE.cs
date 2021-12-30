@@ -400,18 +400,18 @@ namespace Telas
 
         private void movimentaçãoDeCaixasContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DateTime agora = DateTime.Now;
-            if ((agora.Hour > 12) && (agora.Hour < 15) && nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
-            {
-                MessageBox.Show("Funcionalidade indisponível após às 12:30 para processamento interno do SACE.");
-                this.Close();
-            }
-            else
-            {
+            //DateTime agora = DateTime.Now;
+            //if ((agora.Hour > 12) && (agora.Hour < 15) && nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            //{
+            //    MessageBox.Show("Funcionalidade indisponível após às 12:30 para processamento interno do SACE.");
+            //    this.Close();
+            //}
+            //else
+            //{
                 FrmMovimentacaoCaixa frmMovimentacaoCaixa = new FrmMovimentacaoCaixa();
                 frmMovimentacaoCaixa.ShowDialog();
                 frmMovimentacaoCaixa.Dispose();
-            }
+            //}
         }
 
         private void solicitaçõesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)

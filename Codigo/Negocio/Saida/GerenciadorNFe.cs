@@ -1469,10 +1469,9 @@ namespace Negocio
                             infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item03; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
-
                         else
                         {
-                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item05; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
+                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item04; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
                             infNfePag.vPag = formataValorNFe(pagamento.valor);
                         }
 

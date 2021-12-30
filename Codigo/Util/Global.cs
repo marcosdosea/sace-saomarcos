@@ -7,7 +7,7 @@ namespace Util
 {
     public static class Global
     {
-       
+
         public static int
         PRODUTOS = 1,
         PESSOAS = 2,
@@ -51,7 +51,9 @@ namespace Util
         DOCUMENTO_PADRAO = 1,
         CAIXA_PADRAO = 1,
         CARTAO_LOJA = 1,
-        QUANTIDADE_EXIBIR_PEDIDOS = 100;
+        QUANTIDADE_EXIBIR_PEDIDOS = 100,
+        CARTAO_BANESECARD_CREDITO = 5,
+        CARTAO_PIX = 11;
 
 
         public enum Impressora { NORMAL, REDUZIDO1, REDUZIDO2 };

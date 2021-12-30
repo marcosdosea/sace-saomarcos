@@ -101,6 +101,7 @@ namespace Telas
                 saida.CodEmpresaFrete = saida.CodCliente;
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
+                
                 saida.Total = decimal.Parse(totalTextBox.Text);
 
                 codFormaPagamentoComboBox.Focus();
@@ -328,7 +329,6 @@ namespace Telas
             Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
             {
-                //if ((saida.TotalAVista - saida.TotalPago) > 0)
                 if (Math.Abs(saida.Total) > Math.Abs(saida.TotalPago))
                 {
                     valorRecebidoTextBox.Text = (saida.Total - saida.TotalPago).ToString("N2");
@@ -337,9 +337,8 @@ namespace Telas
             }
             else
             {
-                if ((codFormaPagamento != FormaPagamento.CHEQUE) && (codFormaPagamento != FormaPagamento.BOLETO))
+                if (codFormaPagamento != FormaPagamento.BOLETO)
                 {
-                    //if ((saida.TotalAVista - saida.TotalPago) > 0)
                     if (Math.Abs(saida.TotalAVista) > Math.Abs(saida.TotalPago))
                     {
                         valorRecebidoTextBox.Text = (saida.TotalAVista - saida.TotalPago).ToString("N2");
@@ -492,8 +491,8 @@ namespace Telas
                 Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
                 Int32 codCliente = Convert.ToInt32(codClienteComboBox.SelectedValue);
 
-                if (((codFormaPagamento == FormaPagamento.BOLETO) || (codFormaPagamento == FormaPagamento.CHEQUE) ||
-                (codFormaPagamento == FormaPagamento.CREDIARIO)) && (codCliente == Global.CLIENTE_PADRAO))
+                if (((codFormaPagamento == FormaPagamento.BOLETO) || (codFormaPagamento == FormaPagamento.CREDIARIO)) 
+                    && (codCliente == Global.CLIENTE_PADRAO))
                 {
                     codFormaPagamentoComboBox.Focus();
                     codFormaPagamentoComboBox.SelectedIndex = 0;
@@ -552,11 +551,11 @@ namespace Telas
             if (codFormaPagamentoComboBox.SelectedValue != null)
             {
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
-                parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO) || (formaPagamento == FormaPagamento.PROMISSORIA);
+                parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
-                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO);
-                valorRecebidoTextBox.Enabled = !((formaPagamento == FormaPagamento.CHEQUE) || (formaPagamento == FormaPagamento.BOLETO));
-                intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO) || (formaPagamento == FormaPagamento.PROMISSORIA);
+                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO_PIX);
+                valorRecebidoTextBox.Enabled = (formaPagamento != FormaPagamento.BOLETO);
+                intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE);
             }
         }
 
