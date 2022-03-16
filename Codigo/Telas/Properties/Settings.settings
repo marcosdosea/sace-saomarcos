@@ -5,9 +5,6 @@
     <Setting Name="ServidorImprimirReduzido1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SM-VENDAS01</Value>
     </Setting>
-    <Setting Name="ServidorImprimirReduzido2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SERVIDOR</Value>
-    </Setting>
     <Setting Name="ClienteUsoInterno" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1324</Value>
     </Setting>
@@ -15,7 +12,10 @@
       <Value Profile="(Default)">2048</Value>
     </Setting>
     <Setting Name="ServidorNfe" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">DOSEADELL</Value>
+      <Value Profile="(Default)">SERVIDOR</Value>
+    </Setting>
+    <Setting Name="ServidorImprimirReduzido2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SERVIDOR</Value>
     </Setting>
   </Settings>
 </SettingsFile>

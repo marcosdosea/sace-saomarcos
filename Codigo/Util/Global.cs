@@ -55,8 +55,7 @@ namespace Util
         CARTAO_BANESECARD_CREDITO = 5,
         CARTAO_PIX = 11;
 
-
-        public enum Impressora { NORMAL, REDUZIDO1, REDUZIDO2 };
+        public enum Impressora { REDUZIDO1, REDUZIDO2 };
 
         public static System.Drawing.Color
             BACKCOLOR_FOCUS = System.Drawing.Color.LightYellow,
@@ -64,36 +63,22 @@ namespace Util
 
         public static Decimal
             ACRESCIMO_PADRAO = (decimal)1.111111,
-            DESCONTO_PADRAO = (decimal) 10,
+            DESCONTO_PADRAO = (decimal)10,
             SIMPLES = (decimal)11.0,  // para mercadorias tributação normal
-            SIMPLES_ST = (decimal)7.5, // para mercadorias ST e Encerramento de fase
-            ICMS_LOCAL = (decimal)18,
-            CUSTO_MANUTENCAO_LOJA = 0;
+            ICMS_LOCAL = (decimal)18;
 
         public static String
          chaveNFe = "",
          AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
          ENDERECO_SERVIDOR = "C:\\",
-         PASTA_COMUNICACAO_CARTAO = ENDERECO_SERVIDOR + "MKS\\CAIXA1\\CUPONS",
-         PASTA_COMUNICACAO_FRENTE_LOJA = ENDERECO_SERVIDOR + "MKS\\PEDIDOS\\",
-         PASTA_COMUNICACAO_FRENTE_LOJA_RETORNO = ENDERECO_SERVIDOR + "MKS\\CAIXA\\Retorno\\",
-         PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUP\\",
-
-         PASTA_COMUNICACAO_NFCE_RECEBER  = ENDERECO_SERVIDOR + "MKS\\CAIXATERCEIRO\\RECEBER\\",
-         PASTA_COMUNICACAO_NFCE_DEVOLVER = ENDERECO_SERVIDOR + "MKS\\CAIXATERCEIRO\\DEVOLVER\\",
-         PASTA_COMUNICACAO_NFCE_XML = ENDERECO_SERVIDOR + "MKS\\CAIXATERCEIRO\\XMLPRODUCAO\\",
-
-         PASTA_COMUNICACAO_TEF_REQUISICAO = ENDERECO_SERVIDOR + "MKS\\TefMKS\\REQUISICAO\\",
-         PASTA_COMUNICACAO_TEF_RETORNO = ENDERECO_SERVIDOR + "MKS\\TefMKS\\RETORNO\\",
-         PASTA_COMUNICACAO_TEF_BACKUP = ENDERECO_SERVIDOR + "MKS\\CAIXA\\BACKUPTEF\\",
 
 
-         PORTA_IMPRESSORA_NORMAL = "LPT1",
+
          PORTA_IMPRESSORA_REDUZIDA1 = "\\\\sm-vendas01\\daruma",
-         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\RETAGUARDA\\VSPaguePrinter",
-         LINHA = "================================================================================",
-         LINHA_COMPRIMIDA = "============================================================",
+         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\PC-BANESE\\mp-4200 th",
+         //LINHA = "================================================================================",
+         LINHA_COMPRIMIDA = "==========================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.",
 
 

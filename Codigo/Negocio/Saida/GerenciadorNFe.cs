@@ -927,16 +927,18 @@ namespace Negocio
                 enderEmit.xMun = Util.StringUtil.RemoverAcentos(pessoaloja.NomeMunicipioIBGE);
                 enderEmit.xPais = TEnderEmiXPais.BRASIL;
 
-                ////Emitente
-                TNFeInfNFeEmit emit = new TNFeInfNFeEmit();
-                emit.CRT = TNFeInfNFeEmitCRT.Item1;   // 1- Simples Nacional
-                emit.IE = pessoaloja.Ie.Trim();
-                emit.enderEmit = enderEmit;
-                emit.xFant = pessoaloja.NomeFantasia.Trim();
-                emit.xNome = pessoaloja.Nome.Trim();
-                emit.Item = pessoaloja.CpfCnpj.Trim();
+				////Emitente
+				TNFeInfNFeEmit emit = new TNFeInfNFeEmit
+				{
+					CRT = TNFeInfNFeEmitCRT.Item1,   // 1- Simples Nacional
+					IE = pessoaloja.Ie.Trim(),
+					enderEmit = enderEmit,
+					xFant = pessoaloja.NomeFantasia.Trim(),
+					xNome = pessoaloja.Nome.Trim(),
+					Item = pessoaloja.CpfCnpj.Trim()
+				};
 
-                nfe.infNFe.emit = emit;
+				nfe.infNFe.emit = emit;
 
 
                 ////Destinatario
@@ -1577,10 +1579,12 @@ namespace Negocio
 
             icms.Item = icms102;
 
-            TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto();
-            imp.Items = new object[] { icms };
+			TNFeInfNFeDetImposto imp = new TNFeInfNFeDetImposto
+			{
+				Items = new object[] { icms }
+			};
 
-            TNFeInfNFeDetImpostoPISPISOutr pisOutr = new TNFeInfNFeDetImpostoPISPISOutr();
+			TNFeInfNFeDetImpostoPISPISOutr pisOutr = new TNFeInfNFeDetImpostoPISPISOutr();
             pisOutr.CST = TNFeInfNFeDetImpostoPISPISOutrCST.Item99;
             pisOutr.vPIS = formataValorNFe(0);
             pisOutr.Items = new string[2];
@@ -2754,8 +2758,8 @@ namespace Negocio
                         if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFE))
                             unidanfe.StartInfo.Arguments += " t=danfe ee=1 v=1 m=1 i=\"selecionar\"";
                         else
-                            //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=1 m=1 i=padrao";
-                            unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\retaguarda\\VSPaguePrinter";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
+                            unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=padrao";
+                        //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\\PC-BANESE\\mp-4200 th";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
                         //unidanfe.StartInfo.Arguments += " t=nfce ee=1 v=0 m=1 i=\"selecionar\"";  // ou colocar o nome da impressora de rede i=\\servidor\\lasesrjet
                         unidanfe.Start();
                         sucessoImprimirUnidanfeLocal = true;

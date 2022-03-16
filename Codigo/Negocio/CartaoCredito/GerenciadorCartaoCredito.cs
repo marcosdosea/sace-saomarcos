@@ -166,8 +166,8 @@ namespace Negocio
         public Boolean AtualizarRespostaCartoes(string nomeServidor)
         {
             Boolean atualizou = false;
-            DirectoryInfo PastaRetorno = new DirectoryInfo(Global.PASTA_COMUNICACAO_CARTAO);
-            DirectoryInfo PastaBackup = new DirectoryInfo(Global.PASTA_COMUNICACAO_TEF_BACKUP);
+            DirectoryInfo PastaRetorno = new DirectoryInfo("C://");
+            DirectoryInfo PastaBackup = new DirectoryInfo("C://");
 
             string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
             if (nomeComputador.Equals(nomeServidor) && PastaRetorno.Exists)
@@ -223,7 +223,7 @@ namespace Negocio
                                 InserirAutorizacao(autorizacao);
                             if (PastaBackup.Exists)
                             {
-                                file.CopyTo(Global.PASTA_COMUNICACAO_FRENTE_LOJA_BACKUP + file.Name, true);
+                                file.CopyTo("C://" + file.Name, true);
                                 file.Delete();
                             }
                         }

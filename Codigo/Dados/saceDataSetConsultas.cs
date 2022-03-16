@@ -1,15 +1,17 @@
-﻿namespace Dados {
-    
-    
-    public partial class saceDataSetConsultas {
-        partial class DataTable1DataTable
-        {
-        }
-    
-        partial class EntradasPorProdutoDataTable
-        {
-        }
-    }
+﻿namespace Dados
+{
+
+
+	public partial class saceDataSetConsultas
+	{
+		partial class DataTable1DataTable
+		{
+		}
+
+		partial class EntradasPorProdutoDataTable
+		{
+		}
+	}
 }
 
 namespace Dados.saceDataSetConsultasTableAdapters {

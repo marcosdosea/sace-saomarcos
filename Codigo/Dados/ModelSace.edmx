@@ -1,61 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SaceModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SaceModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SaceModelStoreContainer">
-          <EntitySet Name="tb_autorizacao_cartao" EntityType="SaceModel.Store.tb_autorizacao_cartao" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_autorizacao_cartao_saida" EntityType="SaceModel.Store.tb_autorizacao_cartao_saida" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_banco" EntityType="SaceModel.Store.tb_banco" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_cartao_credito" EntityType="SaceModel.Store.tb_cartao_credito" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_cfop" EntityType="SaceModel.Store.tb_cfop" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_conta" EntityType="SaceModel.Store.tb_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_conta_banco" EntityType="SaceModel.Store.tb_conta_banco" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_contato_empresa" EntityType="SaceModel.Store.tb_contato_empresa" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_cst" EntityType="SaceModel.Store.tb_cst" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_documento_fiscal" EntityType="SaceModel.Store.tb_documento_fiscal" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_entrada" EntityType="SaceModel.Store.tb_entrada" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_entrada_forma_pagamento" EntityType="SaceModel.Store.tb_entrada_forma_pagamento" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_entrada_produto" EntityType="SaceModel.Store.tb_entrada_produto" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_forma_pagamento" EntityType="SaceModel.Store.tb_forma_pagamento" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_funcionalidade" EntityType="SaceModel.Store.tb_funcionalidade" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_grupo" EntityType="SaceModel.Store.tb_grupo" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_grupo_conta" EntityType="SaceModel.Store.tb_grupo_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_imposto" EntityType="SaceModel.Store.tb_imposto" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_imprimir_documento" EntityType="SaceModel.Store.tb_imprimir_documento" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_imprimir_documento_saida" EntityType="SaceModel.Store.tb_imprimir_documento_saida" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_loja" EntityType="SaceModel.Store.tb_loja" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_movimentacao_conta" EntityType="SaceModel.Store.tb_movimentacao_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_municipios_ibge" EntityType="SaceModel.Store.tb_municipios_ibge" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_nfe" EntityType="SaceModel.Store.tb_nfe" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_perfil" EntityType="SaceModel.Store.tb_perfil" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_perfil_funcionalidade" EntityType="SaceModel.Store.tb_perfil_funcionalidade" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_permissao" EntityType="SaceModel.Store.tb_permissao" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_pessoa" EntityType="SaceModel.Store.tb_pessoa" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_plano_conta" EntityType="SaceModel.Store.tb_plano_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_ponta_estoque" EntityType="SaceModel.Store.tb_ponta_estoque" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_produto" EntityType="SaceModel.Store.tb_produto" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_produto_loja" EntityType="SaceModel.Store.tb_produto_loja" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_saida" EntityType="SaceModel.Store.tb_saida" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_saida_forma_pagamento" EntityType="SaceModel.Store.tb_saida_forma_pagamento" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_saida_nfe" EntityType="SaceModel.Store.tb_saida_nfe" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_saida_pedido" EntityType="SaceModel.Store.tb_saida_pedido" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_saida_produto" EntityType="SaceModel.Store.tb_saida_produto" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_situacao_conta" EntityType="SaceModel.Store.tb_situacao_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_situacao_pagamentos" EntityType="SaceModel.Store.tb_situacao_pagamentos" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_situacao_produto" EntityType="SaceModel.Store.tb_situacao_produto" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_solicitacao_documento" EntityType="SaceModel.Store.tb_solicitacao_documento" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_solicitacao_evento_nfe" EntityType="SaceModel.Store.tb_solicitacao_evento_nfe" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_solicitacao_pagamento" EntityType="SaceModel.Store.tb_solicitacao_pagamento" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_solicitacao_saida" EntityType="SaceModel.Store.tb_solicitacao_saida" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_subgrupo" EntityType="SaceModel.Store.tb_subgrupo" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_tipo_conta" EntityType="SaceModel.Store.tb_tipo_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_tipo_movimentacao_conta" EntityType="SaceModel.Store.tb_tipo_movimentacao_conta" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_tipo_saida" EntityType="SaceModel.Store.tb_tipo_saida" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tb_usuario" EntityType="SaceModel.Store.tb_usuario" store:Type="Tables" Schema="sace" />
-          <EntitySet Name="tp_tipo_entrada" EntityType="SaceModel.Store.tp_tipo_entrada" store:Type="Tables" Schema="sace" />
+          <EntitySet Name="tb_autorizacao_cartao" EntityType="SaceModel.Store.tb_autorizacao_cartao" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_autorizacao_cartao_saida" EntityType="SaceModel.Store.tb_autorizacao_cartao_saida" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_banco" EntityType="SaceModel.Store.tb_banco" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_cartao_credito" EntityType="SaceModel.Store.tb_cartao_credito" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_cfop" EntityType="SaceModel.Store.tb_cfop" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_conta" EntityType="SaceModel.Store.tb_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_conta_banco" EntityType="SaceModel.Store.tb_conta_banco" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_contato_empresa" EntityType="SaceModel.Store.tb_contato_empresa" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_cst" EntityType="SaceModel.Store.tb_cst" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_documento_fiscal" EntityType="SaceModel.Store.tb_documento_fiscal" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_entrada" EntityType="SaceModel.Store.tb_entrada" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_entrada_forma_pagamento" EntityType="SaceModel.Store.tb_entrada_forma_pagamento" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_entrada_produto" EntityType="SaceModel.Store.tb_entrada_produto" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_forma_pagamento" EntityType="SaceModel.Store.tb_forma_pagamento" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_funcionalidade" EntityType="SaceModel.Store.tb_funcionalidade" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_grupo" EntityType="SaceModel.Store.tb_grupo" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_grupo_conta" EntityType="SaceModel.Store.tb_grupo_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_imposto" EntityType="SaceModel.Store.tb_imposto" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_imprimir_documento" EntityType="SaceModel.Store.tb_imprimir_documento" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_imprimir_documento_saida" EntityType="SaceModel.Store.tb_imprimir_documento_saida" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_loja" EntityType="SaceModel.Store.tb_loja" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_movimentacao_conta" EntityType="SaceModel.Store.tb_movimentacao_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_municipios_ibge" EntityType="SaceModel.Store.tb_municipios_ibge" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_nfe" EntityType="SaceModel.Store.tb_nfe" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_perfil" EntityType="SaceModel.Store.tb_perfil" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_perfil_funcionalidade" EntityType="SaceModel.Store.tb_perfil_funcionalidade" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_permissao" EntityType="SaceModel.Store.tb_permissao" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_pessoa" EntityType="SaceModel.Store.tb_pessoa" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_plano_conta" EntityType="SaceModel.Store.tb_plano_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_ponta_estoque" EntityType="SaceModel.Store.tb_ponta_estoque" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_produto" EntityType="SaceModel.Store.tb_produto" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_produto_loja" EntityType="SaceModel.Store.tb_produto_loja" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_saida" EntityType="SaceModel.Store.tb_saida" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_saida_forma_pagamento" EntityType="SaceModel.Store.tb_saida_forma_pagamento" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_saida_nfe" EntityType="SaceModel.Store.tb_saida_nfe" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_saida_pedido" EntityType="SaceModel.Store.tb_saida_pedido" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_saida_produto" EntityType="SaceModel.Store.tb_saida_produto" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_situacao_conta" EntityType="SaceModel.Store.tb_situacao_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_situacao_pagamentos" EntityType="SaceModel.Store.tb_situacao_pagamentos" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_situacao_produto" EntityType="SaceModel.Store.tb_situacao_produto" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_solicitacao_documento" EntityType="SaceModel.Store.tb_solicitacao_documento" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_solicitacao_evento_nfe" EntityType="SaceModel.Store.tb_solicitacao_evento_nfe" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_solicitacao_pagamento" EntityType="SaceModel.Store.tb_solicitacao_pagamento" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_solicitacao_saida" EntityType="SaceModel.Store.tb_solicitacao_saida" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_subgrupo" EntityType="SaceModel.Store.tb_subgrupo" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_tipo_conta" EntityType="SaceModel.Store.tb_tipo_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_tipo_movimentacao_conta" EntityType="SaceModel.Store.tb_tipo_movimentacao_conta" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_tipo_saida" EntityType="SaceModel.Store.tb_tipo_saida" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tb_usuario" EntityType="SaceModel.Store.tb_usuario" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tp_tipo_entrada" EntityType="SaceModel.Store.tp_tipo_entrada" store:Type="Tables" Schema="sace" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="fk_conta_pagar_codpessoa" Association="SaceModel.Store.fk_conta_pagar_codpessoa">
             <End Role="tb_pessoa" EntitySet="tb_pessoa" />
             <End Role="tb_conta" EntitySet="tb_conta" />
@@ -641,7 +641,7 @@
           <Property Name="dataEmissao" Type="datetime" />
           <Property Name="dataCancelamento" Type="datetime" />
           <Property Name="seqCartaCorrecao" Type="int" Nullable="false" />
-          <Property Name="correcao" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="correcao" Type="varchar" Nullable="false" />
           <Property Name="situacaoProtocoloCartaCorrecao" Type="varchar" Nullable="false" MaxLength="4" />
           <Property Name="mensagemSitucaoCartaCorrecao" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="numeroProtocoloCartaCorrecao" Type="varchar" Nullable="false" MaxLength="15" />
@@ -1892,8 +1892,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SaceModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="SaceEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="SaceModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="SaceEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="BancoSet" EntityType="SaceModel.BancoE" />
           <EntitySet Name="CartaoCreditoSet" EntityType="SaceModel.CartaoCreditoE" />
           <EntitySet Name="CfopSet" EntityType="SaceModel.CfopE" />
@@ -2220,7 +2220,7 @@
           <Key>
             <PropertyRef Name="codBanco" />
           </Key>
-          <Property Name="codBanco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codBanco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="nome" Type="String" Nullable="false" />
           <NavigationProperty Name="tb_conta_banco" Relationship="SaceModel.fk_tb_conta_banco_codbanco" FromRole="tb_banco" ToRole="tb_conta_banco" />
         </EntityType>
@@ -2228,7 +2228,7 @@
           <Key>
             <PropertyRef Name="codCartao" />
           </Key>
-          <Property Name="codCartao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codCartao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="nome" Type="String" Nullable="false" />
           <Property Name="diaBase" Type="Int32" />
           <Property Name="codContaBanco" Type="Int32" Nullable="false" />
@@ -2257,7 +2257,7 @@
           <Key>
             <PropertyRef Name="codConta" />
           </Key>
-          <Property Name="codConta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codConta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="codPlanoConta" Type="Int64" Nullable="false" />
           <Property Name="codPessoa" Type="Int64" Nullable="false" />
           <Property Name="codSituacao" Type="String" Nullable="false" />
@@ -2281,7 +2281,7 @@
           <Key>
             <PropertyRef Name="codContaBanco" />
           </Key>
-          <Property Name="codContaBanco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codContaBanco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="numeroconta" Type="String" Nullable="false" />
           <Property Name="agencia" Type="String" />
           <Property Name="descricao" Type="String" />
@@ -2306,7 +2306,7 @@
           <Key>
             <PropertyRef Name="codEntrada" />
           </Key>
-          <Property Name="codEntrada" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codEntrada" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="numeroNotaFiscal" Type="String" />
           <Property Name="codEmpresaFrete" Type="Int64" Nullable="false" />
           <Property Name="codFornecedor" Type="Int64" Nullable="false" />
@@ -2342,7 +2342,7 @@
           <Key>
             <PropertyRef Name="codEntradaProduto" />
           </Key>
-          <Property Name="codEntradaProduto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codEntradaProduto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="codEntrada" Type="Int64" Nullable="false" />
           <Property Name="codProduto" Type="Int64" Nullable="false" />
           <Property Name="cfop" Type="Int32" Nullable="false" />
@@ -2370,7 +2370,7 @@
           <Key>
             <PropertyRef Name="codFuncionalidade" />
           </Key>
-          <Property Name="codFuncionalidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codFuncionalidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="descricao" Type="String" Nullable="false" />
           <NavigationProperty Name="tb_permissao" Relationship="SaceModel.fk_tb_permissao_codfuncionalidade" FromRole="tb_funcionalidade" ToRole="tb_permissao" />
           <NavigationProperty Name="tb_perfil" Relationship="SaceModel.tb_perfil_funcionalidade" FromRole="tb_funcionalidade" ToRole="tb_perfil" />
@@ -2379,7 +2379,7 @@
           <Key>
             <PropertyRef Name="codGrupo" />
           </Key>
-          <Property Name="codGrupo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codGrupo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="descricao" Type="String" Nullable="false" />
           <NavigationProperty Name="tb_subgrupo" Relationship="SaceModel.fk_tb_subgrupo_tb_grupo1" FromRole="tb_grupo" ToRole="tb_subgrupo" />
           <NavigationProperty Name="tb_produto" Relationship="SaceModel.fk_tb_produto_codgrupo" FromRole="GrupoE" ToRole="tb_produto" />
@@ -2388,7 +2388,7 @@
           <Key>
             <PropertyRef Name="codGrupoConta" />
           </Key>
-          <Property Name="codGrupoConta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codGrupoConta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="descricao" Type="String" Nullable="false" />
           <NavigationProperty Name="tb_plano_conta" Relationship="SaceModel.fk_tb_plano_conta_codgrupoconta" FromRole="tb_grupo_conta" ToRole="tb_plano_conta" />
         </EntityType>
@@ -2396,7 +2396,7 @@
           <Key>
             <PropertyRef Name="codMovimentacao" />
           </Key>
-          <Property Name="codMovimentacao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codMovimentacao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="codContaBanco" Type="Int32" Nullable="false" />
           <Property Name="codResponsavel" Type="Int64" Nullable="false" />
           <Property Name="codTipoMovimentacao" Type="Int32" Nullable="false" />
@@ -2432,7 +2432,7 @@
           <Key>
             <PropertyRef Name="codPlanoConta" />
           </Key>
-          <Property Name="codPlanoConta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codPlanoConta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="codGrupoConta" Type="Int32" Nullable="false" />
           <Property Name="codTipoConta" Type="String" Nullable="false" />
           <Property Name="descricao" Type="String" Nullable="false" />
@@ -2460,7 +2460,7 @@
           <Key>
             <PropertyRef Name="codSaidaFormaPagamento" />
           </Key>
-          <Property Name="codSaidaFormaPagamento" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codSaidaFormaPagamento" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="codSaida" Type="Int64" Nullable="false" />
           <Property Name="codFormaPagamento" Type="Int32" Nullable="false" />
           <Property Name="codContaBanco" Type="Int32" Nullable="false" />
@@ -2479,7 +2479,7 @@
           <Key>
             <PropertyRef Name="codSaidaProduto" />
           </Key>
-          <Property Name="codSaidaProduto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codSaidaProduto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="codProduto" Type="Int64" Nullable="false" />
           <Property Name="codSaida" Type="Int64" Nullable="false" />
           <Property Name="quantidade" Type="Decimal" />
@@ -2529,7 +2529,7 @@
           <Key>
             <PropertyRef Name="codSubgrupo" />
           </Key>
-          <Property Name="codSubgrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codSubgrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="descricao" Type="String" />
           <Property Name="codGrupo" Type="Int64" Nullable="false" />
           <NavigationProperty Name="tb_grupo" Relationship="SaceModel.fk_tb_subgrupo_tb_grupo1" FromRole="tb_subgrupo" ToRole="tb_grupo" />
@@ -2547,7 +2547,7 @@
           <Key>
             <PropertyRef Name="codTipoMovimentacao" />
           </Key>
-          <Property Name="codTipoMovimentacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codTipoMovimentacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="descricao" Type="String" />
           <Property Name="somaSaldo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tb_movimentacao_conta" Relationship="SaceModel.fk_movimentacao_conta_codtipomovimentacao" FromRole="tb_tipo_movimentacao_conta" ToRole="tb_movimentacao_conta" />
@@ -2900,7 +2900,7 @@
           <Key>
             <PropertyRef Name="codPessoa" />
           </Key>
-          <Property Type="Int64" Name="codPessoa" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codPessoa" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="cpf_Cnpj" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="endereco" MaxLength="60" FixedLength="false" Unicode="false" />
@@ -3041,7 +3041,7 @@
           <Key>
             <PropertyRef Name="codProduto" />
           </Key>
-          <Property Type="Int64" Name="codProduto" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codProduto" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="nome" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="nomeProdutoFabricante" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="unidade" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
@@ -3187,7 +3187,7 @@
           <Key>
             <PropertyRef Name="codPontaEstoque" />
           </Key>
-          <Property Type="Int64" Name="codPontaEstoque" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codPontaEstoque" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int64" Name="codProduto" Nullable="false" />
           <Property Type="Decimal" Name="quantidade" Nullable="false" />
           <Property Type="String" Name="caracteristica" MaxLength="45" FixedLength="false" Unicode="false" />
@@ -3209,7 +3209,7 @@
           <Key>
             <PropertyRef Name="codLoja" />
           </Key>
-          <Property Type="Int32" Name="codLoja" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="codLoja" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="nome" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="codPessoa" Nullable="false" />
           <Property Type="String" Name="nomeServidorNfe" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -3257,7 +3257,7 @@
           <Key>
             <PropertyRef Name="codEntradaFormaPagamento" />
           </Key>
-          <Property Type="Int64" Name="codEntradaFormaPagamento" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codEntradaFormaPagamento" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int64" Name="codEntrada" Nullable="false" />
           <Property Type="Int32" Name="codFormaPagamento" Nullable="false" />
           <Property Type="Int32" Name="codContaBanco" Nullable="false" />
@@ -3284,7 +3284,7 @@
           <Key>
             <PropertyRef Name="codSaida" />
           </Key>
-          <Property Type="Int64" Name="codSaida" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codSaida" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="DateTime" Name="dataSaida" Nullable="false" />
           <Property Type="Int64" Name="codCliente" Nullable="false" />
           <Property Type="Int32" Name="codTipoSaida" Nullable="false" />
@@ -3341,7 +3341,7 @@
           <Key>
             <PropertyRef Name="codSolicitacao" />
           </Key>
-          <Property Type="Int64" Name="codSolicitacao" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codSolicitacao" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="DateTime" Name="dataSolicitacao" Nullable="false" />
           <Property Type="String" Name="tipoSolicitacao" MaxLength="65532" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="haPagamentoCartao" Nullable="false" />
@@ -3552,7 +3552,7 @@
           <Key>
             <PropertyRef Name="codSolicitacaoPagamento" />
           </Key>
-          <Property Type="Decimal" Name="codSolicitacaoPagamento" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="codSolicitacaoPagamento" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int64" Name="codSolicitacao" Nullable="false" />
           <Property Type="Int32" Name="codCartao" Nullable="false" />
           <Property Type="Int32" Name="codFormaPagamento" Nullable="false" />
@@ -3605,7 +3605,7 @@
           <Key>
             <PropertyRef Name="codAutorizacao" />
           </Key>
-          <Property Type="Int64" Name="codAutorizacao" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="codAutorizacao" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int64" Name="codIdentificacao" Nullable="false" />
           <Property Type="String" Name="header" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="cupomFiscal" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -3630,7 +3630,7 @@
           <Key>
             <PropertyRef Name="numeroDocumentoFiscal" />
           </Key>
-          <Property Type="Int64" Name="numeroDocumentoFiscal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="numeroDocumentoFiscal" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="DateTime" Name="dataSoliciticao" Nullable="false" />
           <Property Type="String" Name="situacao" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -3651,7 +3651,7 @@
           <Key>
             <PropertyRef Name="codNFe" />
           </Key>
-          <Property Type="Int32" Name="codNFe" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="codNFe" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int32" Name="codLoja" Nullable="false" />
           <Property Type="Int32" Name="numeroSequenciaNFe" Nullable="false" />
           <Property Type="String" Name="modelo" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -3701,7 +3701,7 @@
           <Key>
             <PropertyRef Name="idSolicitacaoEvento" />
           </Key>
-          <Property Type="Int64" Name="idSolicitacaoEvento" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="idSolicitacaoEvento" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="tipoSolicitacao" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="codNFe" Nullable="false" />
           <NavigationProperty Name="tb_nfe" Relationship="SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1" FromRole="tb_solicitacao_evento_nfe" ToRole="tb_nfe" />
@@ -3726,7 +3726,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SaceModelStoreContainer" CdmEntityContainer="SaceEntities">
           <EntitySetMapping Name="BancoSet"><EntityTypeMapping TypeName="SaceModel.BancoE"><MappingFragment StoreEntitySet="tb_banco">
             <ScalarProperty Name="codBanco" ColumnName="codBanco" />
@@ -4312,7 +4312,7 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -4327,7 +4327,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ModelSace" ZoomLevel="63">
+      <Diagram Name="ModelSace" ZoomLevel="82">
         <EntityTypeShape EntityType="SaceModel.BancoE" Width="1.5" PointX="5.75" PointY="36.625" Height="1.5956835937500102" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CartaoCreditoE" Width="1.5" PointX="10.25" PointY="24" Height="2.749492187499996" IsExpanded="true" />
         <EntityTypeShape EntityType="SaceModel.CfopE" Width="1.5" PointX="7.5" PointY="11.875" Height="2.3648893229166674" IsExpanded="true" />
@@ -5082,22 +5082,22 @@
         <EntityTypeShape EntityType="SaceModel.tb_documento_fiscal" Width="1.5" PointX="3.375" PointY="0.75" Height="1.595683593749996" />
         <EntityTypeShape EntityType="SaceModel.tb_imprimir_documento" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937500102" />
         <EntityTypeShape EntityType="SaceModel.tb_nfe" Width="1.5" PointX="7.875" PointY="44.75" Height="6.21091796875001" />
-        <AssociationConnector Association="SaceModel.fk_tb_nfe_tb_loja1" >
+        <AssociationConnector Association="SaceModel.fk_tb_nfe_tb_loja1">
           <ConnectorPoint PointX="7.125" PointY="48.086253255208334" />
           <ConnectorPoint PointX="7.875" PointY="48.086253255208334" />
         </AssociationConnector>
-        <AssociationConnector Association="SaceModel.tb_saida_nfe" >
+        <AssociationConnector Association="SaceModel.tb_saida_nfe">
           <ConnectorPoint PointX="9.375" PointY="45.321726888020834" />
           <ConnectorPoint PointX="15.072916666666666" PointY="45.321726888020834" />
           <ConnectorPoint PointX="15.239583333333334" PointY="45.321726888020834" />
           <ConnectorPoint PointX="15.5" PointY="45.321726888020834" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SaceModel.tb_solicitacao_evento_nfe" Width="1.5" PointX="10.125" PointY="47.125" Height="1.7879850260416674" />
-        <AssociationConnector Association="SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1" >
+        <AssociationConnector Association="SaceModel.fk_tb_solicitacao_evento_nfe_tb_nfe1">
           <ConnectorPoint PointX="9.375" PointY="48.018992513020834" />
           <ConnectorPoint PointX="10.125" PointY="48.018992513020834" />
         </AssociationConnector>
-        <AssociationConnector Association="SaceModel.tb_imprimir_documento_saida" >
+        <AssociationConnector Association="SaceModel.tb_imprimir_documento_saida">
           <ConnectorPoint PointX="0.90625" PointY="2.7302864583333339" />
           <ConnectorPoint PointX="0.90625" PointY="43.08049670564327" />
           <ConnectorPoint PointX="1.7916666666666667" PointY="43.08049670564327" />

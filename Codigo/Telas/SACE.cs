@@ -344,15 +344,15 @@ namespace Telas
         private static void ProcessarDocumentosFiscais()
         {
             GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_NFE);
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
             {
                 GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO1);
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2.ToUpper()))
             {
                 GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO2);
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
             {
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE);
                 GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_NFE);

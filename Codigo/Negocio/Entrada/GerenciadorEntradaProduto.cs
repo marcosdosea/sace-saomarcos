@@ -196,7 +196,7 @@ namespace Negocio
                     
                     entradaProduto.Quantidade = Convert.ToDecimal(produto.prod.qCom, ci);
                     entradaProduto.QuantidadeEmbalagem = (produtoPesquisa == null) ? 1 : produtoPesquisa.QuantidadeEmbalagem;
-                    entradaProduto.Simples = (produtoPesquisa == null) ? 8 : produtoPesquisa.Simples;
+                    entradaProduto.Simples = (produtoPesquisa == null) ? Global.SIMPLES : produtoPesquisa.Simples;
                     entradaProduto.UnidadeCompra = produto.prod.uCom;
                     entradaProduto.ValorDesconto = Convert.ToDecimal(produto.prod.vDesc, ci);
                     entradaProduto.ValorUnitario = Convert.ToDecimal(produto.prod.vUnCom, ci);
