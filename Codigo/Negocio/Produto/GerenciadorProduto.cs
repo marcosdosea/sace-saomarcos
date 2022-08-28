@@ -219,6 +219,16 @@ namespace Negocio
                 }
                 repProduto.SaveChanges();
 
+                // Substituti todas as pontas de estoque
+                var queryPontaEstoque = from pontaEstoque in saceEntities.tb_ponta_estoque
+                                   where pontaEstoque.codProduto == codProdutoExcluir
+                                   select pontaEstoque;
+                foreach (tb_ponta_estoque _pontaEstoque in queryPontaEstoque)
+                {
+                    _pontaEstoque.codProduto = codProdutoManter;
+                }
+                repProduto.SaveChanges();
+
                 // Exclui Produto
                 Remover(codProdutoExcluir);
 
