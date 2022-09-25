@@ -88,6 +88,7 @@
     <Compile Include="Consultas\TotaisSaida.cs" />
     <Compile Include="EventoNfe.cs" />
     <Compile Include="NFE_Schema41\nfe_v4_00.cs" />
+    <None Include="App.Config" />
     <None Include="NFE_Schema4\Nfe_v4.temp" />
     <Compile Include="SolicitacaoPagamento.cs" />
     <Compile Include="DocumentoFiscal.cs" />

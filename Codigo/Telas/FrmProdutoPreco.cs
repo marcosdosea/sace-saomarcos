@@ -1,11 +1,8 @@
-﻿using System;
-using System.Data;
-using System.Reflection;
-using System.Windows.Forms;
-using Dominio;
+﻿using Dominio;
 using Negocio;
-using Excel = Microsoft.Office.Interop.Excel;
+using System;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Telas
 {
