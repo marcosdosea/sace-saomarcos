@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +70,7 @@
             this.movimentaçãoDeCaixasContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cálculoParticipaçãoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vendasPorProfissionaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurarBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,8 +86,6 @@
             this.estatísticaPorGrupoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnSair = new System.Windows.Forms.Button();
             this.btnEntradas = new System.Windows.Forms.Button();
             this.btnContas = new System.Windows.Forms.Button();
@@ -101,7 +101,6 @@
             this.fileSystemWatcher = new System.IO.FileSystemWatcher();
             this.fileSystemWatcherDeposito = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcherDeposito)).BeginInit();
@@ -248,7 +247,6 @@
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.movimentaçãoToolStripMenuItem.Text = "&Estoque";
-            this.movimentaçãoToolStripMenuItem.Click += new System.EventHandler(this.movimentaçãoToolStripMenuItem_Click);
             // 
             // entradaDeProdutosToolStripMenuItem
             // 
@@ -366,7 +364,8 @@
             this.toolStripMenuItem1,
             this.movimentaçãoDeCaixasContasToolStripMenuItem,
             this.tranferênciaEntreCaixasContasBancáriasToolStripMenuItem,
-            this.cálculoParticipaçãoMensalToolStripMenuItem});
+            this.cálculoParticipaçãoMensalToolStripMenuItem,
+            this.vendasPorProfissionaisToolStripMenuItem});
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
             this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.contasAPagarToolStripMenuItem.Text = "&Financeiro";
@@ -416,6 +415,13 @@
             this.cálculoParticipaçãoMensalToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.cálculoParticipaçãoMensalToolStripMenuItem.Text = "Cálculo Participação Mensal";
             this.cálculoParticipaçãoMensalToolStripMenuItem.Click += new System.EventHandler(this.cálculoParticipaçãoMensalToolStripMenuItem_Click);
+            // 
+            // vendasPorProfissionaisToolStripMenuItem
+            // 
+            this.vendasPorProfissionaisToolStripMenuItem.Name = "vendasPorProfissionaisToolStripMenuItem";
+            this.vendasPorProfissionaisToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.vendasPorProfissionaisToolStripMenuItem.Text = "Vendas por Vendedores + Curva ABC";
+            this.vendasPorProfissionaisToolStripMenuItem.Click += new System.EventHandler(this.vendasPorProfissionaisToolStripMenuItem_Click);
             // 
             // utilitáriosToolStripMenuItem
             // 
@@ -534,22 +540,6 @@
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 574);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(982, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(97, 17);
-            this.toolStripStatusLabel1.Text = "Usuário: VENDAS";
-            // 
             // btnSair
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -648,9 +638,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::Telas.Properties.Resources.dados;
-            this.pictureBox1.Location = new System.Drawing.Point(562, 450);
+            this.pictureBox1.Location = new System.Drawing.Point(559, 473);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(420, 121);
             this.pictureBox1.TabIndex = 18;
@@ -678,6 +669,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.BackgroundImage = global::Telas.Properties.Resources.fundo;
             this.ClientSize = new System.Drawing.Size(982, 596);
             this.Controls.Add(this.pictureBox1);
@@ -688,8 +680,8 @@
             this.Controls.Add(this.btnCliente);
             this.Controls.Add(this.btnProdutos);
             this.Controls.Add(this.btnVenda);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";
@@ -700,8 +692,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Principal_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcherDeposito)).EndInit();
@@ -725,8 +715,6 @@
         private System.Windows.Forms.ToolStripMenuItem contasAPagarToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem relatóriosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ajudaToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button btnVenda;
         private System.Windows.Forms.Button btnProdutos;
         private System.Windows.Forms.Button btnCliente;
@@ -783,7 +771,7 @@
         private System.IO.FileSystemWatcher fileSystemWatcherDeposito;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem retornoDeFornecedorvariaToolStripMenuItem;
-
+        private System.Windows.Forms.ToolStripMenuItem vendasPorProfissionaisToolStripMenuItem;
     }
 }
 

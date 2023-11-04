@@ -728,7 +728,6 @@ namespace Negocio
             var repProduto = new RepositorioGenerico<ProdutoE>();
             var saceEntities = (SaceEntities)repProduto.ObterContexto();
 
-
             if (codFornecedor == 1)
             {
                 var query = from produto in saceEntities.ProdutoSet

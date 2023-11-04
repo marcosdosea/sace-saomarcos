@@ -21,10 +21,9 @@ namespace Telas
 
         private void FrmGrupoEstatistica_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
 
-            dataInicioTimePicker.Value = DateTime.Now.AddMonths(-10);
+            dataInicioTimePicker.Value = DateTime.Now.AddMonths(-12);
             dataFimTimePicker.Value = DateTime.Now;
             codGrupoComboBox_SelectedIndexChanged(sender, e);
             codGrupoComboBox.SelectAll();

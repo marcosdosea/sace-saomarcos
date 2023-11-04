@@ -11,10 +11,7 @@ namespace Dominio
     using System.Linq;
     using System.Text;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public class SolicitacoesCompra
+      public class SolicitacoesCompra
     {
         public long CodProduto { get; set; }
         public string Nome { get; set; }

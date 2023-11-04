@@ -3,19 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="PASTA_MYSQL_SERVER" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Program Files (x86)\MySQL\MySQL Server 5.5</Value>
+      <Value Profile="(Default)">C:\Program Files\MySQL\MySQL Server 5.7</Value>
     </Setting>
     <Setting Name="SGBD_NOME" Type="System.String" Scope="Application">
       <Value Profile="(Default)">sace</Value>
     </Setting>
     <Setting Name="SGBD_USUARIO" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">sace</Value>
+      <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="SGBD_SENHA" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">sace</Value>
+      <Value Profile="(Default)">123456</Value>
     </Setting>
     <Setting Name="SGBD_IP" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">127.0.0.1</Value>
+      <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="PASTA_BACKUP" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\DROPBOX\BACKUP_SACE</Value>

@@ -56,8 +56,8 @@
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.codClienteComboBox = new System.Windows.Forms.ComboBox();
             this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codProfissionalComboBox = new System.Windows.Forms.ComboBox();
-            this.profissionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codVendedorComboBox = new System.Windows.Forms.ComboBox();
+            this.usuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -99,7 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.saidaPagamentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.formaPagamentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profissionalBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saida_forma_pagamentoDataGridView)).BeginInit();
@@ -192,9 +192,9 @@
             codProfissionalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             codProfissionalLabel.Location = new System.Drawing.Point(218, 137);
             codProfissionalLabel.Name = "codProfissionalLabel";
-            codProfissionalLabel.Size = new System.Drawing.Size(110, 24);
+            codProfissionalLabel.Size = new System.Drawing.Size(100, 24);
             codProfissionalLabel.TabIndex = 25;
-            codProfissionalLabel.Text = "Profissional:";
+            codProfissionalLabel.Text = "Vendedor:";
             // 
             // codSaidaLabel
             // 
@@ -370,30 +370,28 @@
             this.clienteBindingSource.AllowNew = false;
             this.clienteBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
-            // codProfissionalComboBox
+            // codVendedorComboBox
             // 
-            this.codProfissionalComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codProfissionalComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codProfissionalComboBox.CausesValidation = false;
-            this.codProfissionalComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "codProfissional", true));
-            this.codProfissionalComboBox.DataSource = this.profissionalBindingSource;
-            this.codProfissionalComboBox.DisplayMember = "NomeFantasia";
-            this.codProfissionalComboBox.Enabled = false;
-            this.codProfissionalComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codProfissionalComboBox.FormattingEnabled = true;
-            this.codProfissionalComboBox.Location = new System.Drawing.Point(224, 165);
-            this.codProfissionalComboBox.Name = "codProfissionalComboBox";
-            this.codProfissionalComboBox.Size = new System.Drawing.Size(592, 32);
-            this.codProfissionalComboBox.TabIndex = 18;
-            this.codProfissionalComboBox.TabStop = false;
-            this.codProfissionalComboBox.ValueMember = "CodPessoa";
-            this.codProfissionalComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.codProfissionalComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
-            this.codProfissionalComboBox.Leave += new System.EventHandler(this.codProfissionalComboBox_Leave);
+            this.codVendedorComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.codVendedorComboBox.CausesValidation = false;
+            this.codVendedorComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.saidaBindingSource, "CodProfissional", true));
+            this.codVendedorComboBox.DataSource = this.usuarioBindingSource;
+            this.codVendedorComboBox.DisplayMember = "Login";
+            this.codVendedorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.codVendedorComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codVendedorComboBox.FormattingEnabled = true;
+            this.codVendedorComboBox.Location = new System.Drawing.Point(224, 165);
+            this.codVendedorComboBox.Name = "codVendedorComboBox";
+            this.codVendedorComboBox.Size = new System.Drawing.Size(592, 32);
+            this.codVendedorComboBox.TabIndex = 18;
+            this.codVendedorComboBox.ValueMember = "CodPessoa";
+            this.codVendedorComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
+            this.codVendedorComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codTipoSaidaComboBox_KeyPress);
             // 
-            // profissionalBindingSource
+            // usuarioBindingSource
             // 
-            this.profissionalBindingSource.DataSource = typeof(Dominio.Pessoa);
+            this.usuarioBindingSource.AllowNew = false;
+            this.usuarioBindingSource.DataSource = typeof(Dominio.Usuario);
             // 
             // label5
             // 
@@ -679,7 +677,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(codProfissionalLabel);
-            this.Controls.Add(this.codProfissionalComboBox);
+            this.Controls.Add(this.codVendedorComboBox);
             this.Controls.Add(codClienteLabel);
             this.Controls.Add(this.codClienteComboBox);
             this.Controls.Add(this.trocoTextBox);
@@ -710,7 +708,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.saidaPagamentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.formaPagamentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profissionalBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_saida_forma_pagamentoDataGridView)).EndInit();
@@ -729,7 +727,7 @@
         private System.Windows.Forms.TextBox descontoTextBox;
         private System.Windows.Forms.TextBox totalTextBox;
         private System.Windows.Forms.ComboBox codClienteComboBox;
-        private System.Windows.Forms.ComboBox codProfissionalComboBox;
+        private System.Windows.Forms.ComboBox codVendedorComboBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSalvar;
@@ -739,7 +737,7 @@
         private System.Windows.Forms.BindingSource contaBancoBindingSource;
         private System.Windows.Forms.ComboBox codContaBancoComboBox;
         private System.Windows.Forms.BindingSource clienteBindingSource;
-        private System.Windows.Forms.BindingSource profissionalBindingSource;
+        private System.Windows.Forms.BindingSource usuarioBindingSource;
         private System.Windows.Forms.ComboBox codFormaPagamentoComboBox;
         private System.Windows.Forms.ComboBox codCartaoComboBox;
         private System.Windows.Forms.BindingSource cartaoCreditoBindingSource;

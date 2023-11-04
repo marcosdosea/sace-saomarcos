@@ -14,7 +14,12 @@
 	}
 }
 
-namespace Dados.saceDataSetConsultasTableAdapters {
+namespace Dados.saceDataSetConsultasTableAdapters
+{
+    partial class VendasPorGrupoTableAdapter
+    {
+    }
+
     partial class PagamentosRecebidosPeriodoTableAdapter
     {
     }

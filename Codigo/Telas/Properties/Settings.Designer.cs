@@ -12,7 +12,7 @@ namespace Telas.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.6.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -53,6 +53,15 @@ namespace Telas.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        public string ServidorImprimirReduzido2 {
+            get {
+                return ((string)(this["ServidorImprimirReduzido2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DOSEADELL")]
         public string ServidorNfe {
             get {
                 return ((string)(this["ServidorNfe"]));
@@ -61,10 +70,19 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
-        public string ServidorImprimirReduzido2 {
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int VENDEDOR_DOSEADELL {
             get {
-                return ((string)(this["ServidorImprimirReduzido2"]));
+                return ((int)(this["VENDEDOR_DOSEADELL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int VENDEDOR_SERVIDOR {
+            get {
+                return ((int)(this["VENDEDOR_SERVIDOR"]));
             }
         }
     }

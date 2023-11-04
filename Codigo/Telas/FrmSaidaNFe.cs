@@ -33,10 +33,10 @@ namespace Telas
             this.listaSaidaPagamento = listaSaidaPagamento;
             IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.GetInstance().Obter(Saida.CodCliente);
             nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
-            if (Saida.CodCliente != Global.CLIENTE_PADRAO)
+			Cliente = listaPessoas.FirstOrDefault();
+			if (Saida.CodCliente != Global.CLIENTE_PADRAO)
             {
                 pessoaBindingSource.DataSource = listaPessoas;
-                Cliente = listaPessoas.FirstOrDefault();
                 codPessoaComboBox.Enabled = false;
                 codPessoaComboBox.TabStop = false;
             }
@@ -138,10 +138,10 @@ namespace Telas
             {
                 Cursor.Current = Cursors.WaitCursor;
                 // Atualiza os dados da saída
-                if ((Cliente == null) || Cliente.CodPessoa.Equals(Global.CLIENTE_PADRAO))
-                {
-                    throw new TelaException("Para emissão de uma NF-e deve-se selecionar um Cliente.");
-                }
+                //if (Cliente.CodPessoa.Equals(Global.CLIENTE_PADRAO))
+                //{
+                //    throw new TelaException("Para emissão de uma NF-e deve-se selecionar um Cliente.");
+                //}
                 if (Cliente.CodPessoa != Saida.CodCliente)
                 {
                     Saida.CodCliente = Cliente.CodPessoa;
@@ -195,9 +195,14 @@ namespace Telas
                 }
 
                 Cursor.Current = Cursors.Default;
+                DocumentoFiscal.TipoSolicitacao tipoSolicitacao = (Cliente.CodPessoa.Equals(Global.CLIENTE_PADRAO)) ?
+                    DocumentoFiscal.TipoSolicitacao.NFCE :
+                    DocumentoFiscal.TipoSolicitacao.NFE;
 
-                long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, false);
-                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE);
+
+
+				long codSolicitacao = GerenciadorSolicitacaoDocumento.GetInstance().InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
+                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
             }

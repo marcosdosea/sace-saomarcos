@@ -88,6 +88,8 @@
     <Compile Include="Consultas\TotaisSaida.cs" />
     <Compile Include="EventoNfe.cs" />
     <Compile Include="NFE_Schema41\nfe_v4_00.cs" />
+    <Compile Include="VendasGrupoProduto.cs" />
+    <Compile Include="VendasVendedor.cs" />
     <None Include="App.Config" />
     <None Include="NFE_Schema4\Nfe_v4.temp" />
     <Compile Include="SolicitacaoPagamento.cs" />
@@ -136,6 +138,8 @@
     <Compile Include="Subgrupo.cs" />
     <Compile Include="TipoMovimentacaoConta.cs" />
     <Compile Include="Usuario.cs" />
+    <None Include="Properties\DataSources\VendasGrupoProduto.datasource" />
+    <None Include="Properties\DataSources\VendasVendedor.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

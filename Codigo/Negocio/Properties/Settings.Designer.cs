@@ -12,7 +12,7 @@ namespace Negocio.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace Negocio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\MySQL\\MySQL Server 5.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\MySQL\\MySQL Server 5.7")]
         public string PASTA_MYSQL_SERVER {
             get {
                 return ((string)(this["PASTA_MYSQL_SERVER"]));
@@ -43,7 +43,7 @@ namespace Negocio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sace")]
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
         public string SGBD_USUARIO {
             get {
                 return ((string)(this["SGBD_USUARIO"]));
@@ -52,7 +52,7 @@ namespace Negocio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sace")]
+        [global::System.Configuration.DefaultSettingValueAttribute("123456")]
         public string SGBD_SENHA {
             get {
                 return ((string)(this["SGBD_SENHA"]));
@@ -61,7 +61,7 @@ namespace Negocio.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
         public string SGBD_IP {
             get {
                 return ((string)(this["SGBD_IP"]));

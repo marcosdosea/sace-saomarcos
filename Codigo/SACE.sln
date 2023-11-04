@@ -1,5 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33801.468
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telas", "Telas\Telas.csproj", "{EEBD240B-AFF1-45F7-8AD3-3474466F7945}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1C8236BB-B81C-43F4-9D32-E0B6C9D6FE24} = {1C8236BB-B81C-43F4-9D32-E0B6C9D6FE24}
@@ -22,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartaoCredito", "CartaoCredito\CartaoCredito.csproj", "{A59D26DC-2CCB-449A-AF26-68C3CD7B85C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exception", "Exception\Exception.csproj", "{332E9382-1D7B-4AEB-8517-08C19B8C17DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,9 +124,24 @@ Global
 		{332E9382-1D7B-4AEB-8517-08C19B8C17DF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{332E9382-1D7B-4AEB-8517-08C19B8C17DF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{332E9382-1D7B-4AEB-8517-08C19B8C17DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Debug|x86.Build.0 = Debug|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Release|x86.ActiveCfg = Release|Any CPU
+		{D7EC96DA-3D9B-45D7-A87E-A2E0EB942F5B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA3FF425-564D-4640-B8AA-4D5DDAFC24CA}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\SACE.ndproj"

@@ -499,11 +499,11 @@ namespace Telas
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
-
-        private void movimentaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void vendasPorProfissionaisToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmCalcularVendasPorVendedor frmCalcularVendasPorVendedor = new FrmCalcularVendasPorVendedor();
+            frmCalcularVendasPorVendedor.ShowDialog();
+            frmCalcularVendasPorVendedor.Dispose();
         }
-
     }
 }

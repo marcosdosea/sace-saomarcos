@@ -82,6 +82,7 @@ namespace Dominio
         public string DescricaoTipoSaida { get; set; }
         public string DescricaoSituacaoPagamentos { get; set; }
         public string Observacao { get; set; }
+        public string LoginVendedor { get; set;  }
 
         // override object.Equals
         public override bool Equals(object obj)

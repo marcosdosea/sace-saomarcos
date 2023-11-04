@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using Dominio;
+﻿using Dominio;
 using Negocio;
-using Util;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Windows.Forms;
-using Dados;
+using Util;
 
 namespace Telas
 {
@@ -34,9 +30,9 @@ namespace Telas
             saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.GetInstance().ObterTodos();
             clienteBindingSource.SuspendBinding();
-            //profissionalBindingSource.SuspendBinding();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            //profissionalBindingSource.DataSource = clienteBindingSource.DataSource;
+            usuarioBindingSource.DataSource = GerenciadorUsuario.GetInstace().ObterTodos().OrderBy(u => u.Login);
+            
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
@@ -54,7 +50,18 @@ namespace Telas
                 totalTextBox.TabStop = true;
                 totalPagarLabel.Text = "Total a Creditar";
             }
+            if (saida.CodProfissional == Global.PROFISSIONAL_PADRAO)
+            {
+                string vendedorMaquina = "VENDEDOR_" + System.Windows.Forms.SystemInformation.ComputerName;
+                if (Properties.Settings.Default.PropertyValues[vendedorMaquina] != null)
+                {
+                    int vendedorNumero = (int)Properties.Settings.Default.PropertyValues[vendedorMaquina].PropertyValue;
+                    usuarioBindingSource.Position = vendedorNumero;
+                    Usuario usuarioSelecionado = usuarioBindingSource.Current as Usuario;
+                    ((Saida)saidaBindingSource.DataSource).CodProfissional = usuarioSelecionado.CodPessoa;
 
+                }
+            }
             InicializaVariaveis();
             AtualizaValores();
         }
@@ -97,7 +104,7 @@ namespace Telas
                 saidaPagamento.Parcelas = Convert.ToInt32(parcelasTextBox.Text);
 
                 saida.CodCliente = long.Parse(codClienteComboBox.SelectedValue.ToString());
-                saida.CodProfissional = Global.PROFISSIONAL_PADRAO;// long.Parse(codProfissionalComboBox.SelectedValue.ToString());
+                saida.CodProfissional = long.Parse(codVendedorComboBox.SelectedValue.ToString());
                 saida.CodEmpresaFrete = saida.CodCliente;
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
@@ -391,11 +398,7 @@ namespace Telas
                 {
                     codClienteComboBox_Leave(sender, e);
                 }
-                else if (codProfissionalComboBox.Focused)
-                {
-                    codProfissionalComboBox_Leave(sender, e);
-                }
-
+                
                 e.Handled = true;
                 SendKeys.Send("{tab}");
             }
@@ -412,13 +415,13 @@ namespace Telas
                 frmPessoa.Dispose();
             }
 
-            else if ((e.KeyCode == Keys.F3) && (codProfissionalComboBox.Focused))
+            else if ((e.KeyCode == Keys.F3) && (codVendedorComboBox.Focused))
             {
                 FrmPessoa frmPessoa = new FrmPessoa();
                 frmPessoa.ShowDialog();
                 if (frmPessoa.PessoaSelected != null)
                 {
-                    profissionalBindingSource.Position = profissionalBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
+                    usuarioBindingSource.Position = usuarioBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                 }
                 frmPessoa.Dispose();
             }
@@ -442,12 +445,6 @@ namespace Telas
         {
             Pessoa cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, clienteBindingSource, true, false);
             cpf_CnpjTextBox.Text = cliente.CpfCnpj;
-            codSaidaTextBox_Leave(sender, e);
-        }
-
-        private void codProfissionalComboBox_Leave(object sender, EventArgs e)
-        {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codProfissionalComboBox, EstadoFormulario.INSERIR, profissionalBindingSource, true, false);
             codSaidaTextBox_Leave(sender, e);
         }
 
