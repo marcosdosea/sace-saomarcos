@@ -1,34 +1,21 @@
-﻿using System;
+﻿using Dados;
+using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dados;
-using Dominio;
-using System.Data.Objects;
-using System.Transactions;
 
 
 namespace Negocio
 {
-    public class GerenciadorBanco
+    public static class GerenciadorBanco
     {
-
-        private static GerenciadorBanco gBanco;
-
-        public static GerenciadorBanco GetInstace()
-        {
-            if (gBanco == null)
-            {
-                gBanco = new GerenciadorBanco();
-            }
-            return gBanco;
-        }
 
         /// <summary>
         /// Insere dados do banco
         /// </summary>
         /// <param name="banco"></param>
         /// <returns></returns>
-        public Int64 inserir(Banco banco)
+        public static Int64 Inserir(Banco banco)
         {
             var repBanco = new RepositorioGenerico<BancoE>();
             BancoE _bancoE = new BancoE();
@@ -54,7 +41,7 @@ namespace Negocio
         /// Atualiza dados do banco
         /// </summary>
         /// <param name="banco"></param>
-        public void atualizar(Banco banco)
+        public static void Atualizar(Banco banco)
         {
             try
             {
@@ -77,7 +64,7 @@ namespace Negocio
         /// Remove dados do banco
         /// </summary>
         /// <param name="codBanco"></param>
-        public void remover(Int32 codBanco)
+        public static void Remover(Int32 codBanco)
         {
             if (codBanco == 1)
                 throw new NegocioException("O banco não pode ser removido.");
@@ -97,7 +84,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Banco> GetQuery()
+        private static IQueryable<Banco> GetQuery()
         {
             var repBanco = new RepositorioGenerico<BancoE>();
             var saceEntities = (SaceEntities)repBanco.ObterContexto();
@@ -114,7 +101,7 @@ namespace Negocio
         /// Obtém todos os banco cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Banco> ObterTodos()
+        public static IEnumerable<Banco> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -124,7 +111,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Banco> Obter(int codBanco)
+        public static IEnumerable<Banco> Obter(int codBanco)
         {
             return GetQuery().Where(banco => banco.CodBanco == codBanco).ToList();
         }
@@ -134,7 +121,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Banco> ObterPorNome(string nome)
+        public static IEnumerable<Banco> ObterPorNome(string nome)
         {
             return GetQuery().Where(banco => banco.Nome.StartsWith(nome)).ToList();
         }

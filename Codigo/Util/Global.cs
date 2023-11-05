@@ -8,7 +8,7 @@ namespace Util
     public static class Global
     {
 
-        public static int
+        public const int
         PRODUTOS = 1,
         PESSOAS = 2,
         EMPRESAS = 3,
@@ -61,14 +61,15 @@ namespace Util
             BACKCOLOR_FOCUS = System.Drawing.Color.LightYellow,
             BACKCOLOR_FOCUS_LEAVE = System.Drawing.Color.White;
 
-        public static Decimal
+        public const Decimal
             ACRESCIMO_PADRAO = (decimal)1.111111,
             DESCONTO_PADRAO = (decimal)10,
             SIMPLES = (decimal)11.0,  // para mercadorias tributação normal
             ICMS_LOCAL = (decimal)18;
 
-        public static String
-         chaveNFe = "",
+        public static String chaveNFe = "";
+
+        public const String
          AMBIENTE_NFE = "1", //1-PRODUÇÃO, 2- HOMOLOGAÇÃO
          C_ORGAO_IBGE_SERGIPE = "28",
          ENDERECO_SERVIDOR = "C:\\",

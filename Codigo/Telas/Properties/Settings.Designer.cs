@@ -71,18 +71,18 @@ namespace Telas.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int VENDEDOR_DOSEADELL {
+        public string VENDEDOR_DOSEADELL {
             get {
-                return ((int)(this["VENDEDOR_DOSEADELL"]));
+                return ((string)(this["VENDEDOR_DOSEADELL"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int VENDEDOR_SERVIDOR {
+        public string VENDEDOR_SERVIDOR {
             get {
-                return ((int)(this["VENDEDOR_SERVIDOR"]));
+                return ((string)(this["VENDEDOR_SERVIDOR"]));
             }
         }
     }

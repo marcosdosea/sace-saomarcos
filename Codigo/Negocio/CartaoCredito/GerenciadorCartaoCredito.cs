@@ -308,8 +308,6 @@ namespace Negocio
             List<tb_autorizacao_cartao> listaAutorizacoes = query.ToList();
             if (listaAutorizacoes.Count > 0)
             {
-                var repConta = new RepositorioGenerico<ContaE>();
-                var repSaidaPagamento = new RepositorioGenerico<SaidaFormaPagamentoE>();
                 List<CartaoCredito> listaCartoes = GerenciadorCartaoCredito.GetInstance().ObterTodos().ToList();
                 // Varre todas as transações ainda não processadas
                 foreach (tb_autorizacao_cartao autorizacaoCartaoE in listaAutorizacoes)
@@ -466,7 +464,7 @@ namespace Negocio
             
         private void AtualizaFormaPagamentoMultipla(tb_autorizacao_cartao autorizacaoAprovada, CartaoCredito cartao, IEnumerable<SaidaPagamento> pagamentos, IEnumerable<Conta> listaContas)
         {
-            SaidaPagamento saidaPagamento = pagamentos.Where(p => p.CodFormaPagamento == FormaPagamento.CARTAO).FirstOrDefault();
+            SaidaPagamento saidaPagamento = pagamentos.FirstOrDefault(p => p.CodFormaPagamento == FormaPagamento.CARTAO);
             if (saidaPagamento == null)
                 saidaPagamento = new SaidaPagamento();
             saidaPagamento.CodCartaoCredito = cartao.CodCartao;

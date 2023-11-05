@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Dominio
 {
@@ -101,7 +99,6 @@ namespace Dominio
             return this.CodSaida.GetHashCode();
         }
 
-        //TODO: colocar núemro da ecf no banco de dados.
         public string NumeroECF { get { return "01"; } }
     }
 }

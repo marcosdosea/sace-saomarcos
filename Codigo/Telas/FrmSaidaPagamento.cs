@@ -52,11 +52,11 @@ namespace Telas
             }
             if (saida.CodProfissional == Global.PROFISSIONAL_PADRAO)
             {
-                string vendedorMaquina = "VENDEDOR_" + System.Windows.Forms.SystemInformation.ComputerName;
+                string vendedorMaquina = "VENDEDOR_" + System.Windows.Forms.SystemInformation.ComputerName.ToUpper();
                 if (Properties.Settings.Default.PropertyValues[vendedorMaquina] != null)
                 {
-                    int vendedorNumero = (int)Properties.Settings.Default.PropertyValues[vendedorMaquina].PropertyValue;
-                    usuarioBindingSource.Position = vendedorNumero;
+                    int vendedorNumero = Convert.ToInt32(Properties.Settings.Default.PropertyValues[vendedorMaquina].PropertyValue);
+                    usuarioBindingSource.Position = vendedorNumero-1;
                     Usuario usuarioSelecionado = usuarioBindingSource.Current as Usuario;
                     ((Saida)saidaBindingSource.DataSource).CodProfissional = usuarioSelecionado.CodPessoa;
 

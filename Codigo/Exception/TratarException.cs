@@ -11,16 +11,16 @@ namespace Telas
         public void TratarMySqlException(object sender, ThreadExceptionEventArgs t)
         {
             DialogResult result = DialogResult.Cancel;
-                string erro = t.Exception.Message;
-            
+            string erro = t.Exception.Message;
+
             // para exibir todo stacktrace completo quando difícil identificar o erro
             //if (true)
             //    MessageBox.Show(erro + t.Exception.StackTrace + t.Exception.InnerException + t.Exception.InnerException.StackTrace, "Erro da Aplicação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-           
+
             if (t.Exception is ApplicationException)
             {
                 erro = "Erro fatal!/n Entre em contato com o administrador/nErro: " + t.Exception.Message;
-            } 
+            }
             else if (t.Exception is SystemException)
             {
 
@@ -46,23 +46,26 @@ namespace Telas
                     erro = "Referência para um objeto não encontrado.";
                 if (t.Exception is MySqlException)
                 {
-                    MySqlException exception = (MySqlException) t.Exception;
+                    MySqlException exception = (MySqlException)t.Exception;
                     // Tratamento de banco de dados inacessível
                     if (exception.Number == 1042)
                     {
-                        erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede. " ;
+                        erro = "O banco de dados do sistema está inacessível. Favor verificar as conexões da rede. ";
                     }
                 }
                 else if ((t.Exception is DadosException) || (t.Exception is System.Data.EntityException))
                 {
 
                     MySqlException exception = null;
-                    if (t.Exception.InnerException is MySqlException ) {
-                        exception = (MySqlException)t.Exception.InnerException; 
-                    } else if (t.Exception.InnerException.InnerException is MySqlException ) {
-                        exception = (MySqlException)t.Exception.InnerException.InnerException; 
+                    if (t.Exception.InnerException is MySqlException)
+                    {
+                        exception = (MySqlException)t.Exception.InnerException;
                     }
-                    
+                    else if (t.Exception.InnerException.InnerException is MySqlException)
+                    {
+                        exception = (MySqlException)t.Exception.InnerException.InnerException;
+                    }
+
                     if (exception != null)
                     {
                         // Tratamento de chaves únicas
@@ -105,14 +108,14 @@ namespace Telas
                     //erro += t.Exception.Message;// +"\n" + t.Exception.InnerException;
 
                 }
-               
+
             }
 
             string[] palavras = erro.Split(' ');
             string erroQuebraLinha = "";
             for (int i = 0; i < palavras.Length; i++)
             {
-                if ((i> 0) && (i % 10 == 0))
+                if ((i > 0) && (i % 10 == 0))
                 {
                     erroQuebraLinha += Environment.NewLine;
                 }

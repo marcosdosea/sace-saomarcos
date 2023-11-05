@@ -26,7 +26,7 @@ namespace Telas
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
-            bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos();
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }

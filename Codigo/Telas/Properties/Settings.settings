@@ -17,10 +17,10 @@
     <Setting Name="ServidorNfe" Type="System.String" Scope="Application">
       <Value Profile="(Default)">DOSEADELL</Value>
     </Setting>
-    <Setting Name="VENDEDOR_DOSEADELL" Type="System.Int32" Scope="Application">
+    <Setting Name="VENDEDOR_DOSEADELL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="VENDEDOR_SERVIDOR" Type="System.Int32" Scope="Application">
+    <Setting Name="VENDEDOR_SERVIDOR" Type="System.String" Scope="Application">
       <Value Profile="(Default)">2</Value>
     </Setting>
   </Settings>

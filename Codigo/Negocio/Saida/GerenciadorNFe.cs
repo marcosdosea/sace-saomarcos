@@ -742,8 +742,7 @@ namespace Negocio
                             {
                                 TProtNFeInfProt protocoloNfe = ((TProtNFe)retornoEnvioNfe.Item).infProt;
                                 nfeControle = ObterPorChave(protocoloNfe.chNFe).OrderBy(nfe => nfe.CodNfe).ToList().LastOrDefault();
-                                //if (protocoloNfe.chNFe.Equals(nfeControle.Chave))
-                                //{
+                                
                                 if (protocoloNfe.cStat.Equals(NfeStatusResposta.NFE100_AUTORIZADO_USO_NFE))
                                 {
                                     numeroProtocolo = protocoloNfe.nProt;

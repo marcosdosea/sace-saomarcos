@@ -23,7 +23,7 @@ namespace Telas
         private void FrmBanco_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.BANCOS, Principal.Autenticacao.CodUsuario);
-            bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos(); 
+            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos(); 
             habilitaBotoes(true);
         }
 
@@ -58,7 +58,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorBanco.GetInstace().remover(int.Parse(codBancoTextBox.Text));
+                GerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
                 bancoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -80,12 +80,12 @@ namespace Telas
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    int codBanco = (int)GerenciadorBanco.GetInstace().inserir(banco);
+                    int codBanco = (int)GerenciadorBanco.Inserir(banco);
                     codBancoTextBox.Text =  codBanco.ToString();
                 }
                 else
                 {
-                    GerenciadorBanco.GetInstace().atualizar(banco);
+                    GerenciadorBanco.Atualizar(banco);
                 }
                 bancoBindingSource.EndEdit();
             }

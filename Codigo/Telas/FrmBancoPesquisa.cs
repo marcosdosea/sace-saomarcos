@@ -23,16 +23,16 @@ namespace Telas
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterTodos();
+            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().Obter(int.Parse(txtTexto.Text));
+                bancoBindingSource.DataSource = GerenciadorBanco.Obter(int.Parse(txtTexto.Text));
             else
-                bancoBindingSource.DataSource = GerenciadorBanco.GetInstace().ObterPorNome(txtTexto.Text);
+                bancoBindingSource.DataSource = GerenciadorBanco.ObterPorNome(txtTexto.Text);
 
         }
 

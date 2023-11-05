@@ -17,7 +17,7 @@ namespace Telas
     {
         private EstadoFormulario estado;
         public ProdutoPesquisa ProdutoSelected { get; set; }
-        private IEnumerable<ProdutoPesquisa> listaProdutos;
+     
 
         public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto)
         {
