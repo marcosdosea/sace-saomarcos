@@ -59,7 +59,6 @@ namespace Telas
                     usuarioBindingSource.Position = vendedorNumero-1;
                     Usuario usuarioSelecionado = usuarioBindingSource.Current as Usuario;
                     ((Saida)saidaBindingSource.DataSource).CodProfissional = usuarioSelecionado.CodPessoa;
-
                 }
             }
             InicializaVariaveis();
