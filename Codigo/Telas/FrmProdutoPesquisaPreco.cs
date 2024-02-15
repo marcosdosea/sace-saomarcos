@@ -292,7 +292,7 @@ namespace Telas
                 }
                 else if (emPromocao)
                 {
-                    tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.Wheat;
+                    tb_produtoDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
 
                 }
                 else

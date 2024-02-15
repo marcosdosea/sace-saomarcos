@@ -676,14 +676,15 @@ namespace Negocio
         {
             var query = (from saida in saceContext.tb_saida
                          where (saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA)
-                         && (saida.dataSaida >= dataInicial && saida.dataSaida <= dataFinal)
+                               && saida.dataSaida >= dataInicial 
+                               && saida.dataSaida <= dataFinal
                          select saida.troco);
 
             return query.Count() > 0 ? (decimal)query.Sum() : 0;
         }
 
         /// <summary>
-        /// Obtme todos as pré-vendas cujo cupom fiscal não foi emitido
+        /// Obtem todos as pré-vendas cujo cupom fiscal não foi emitido
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
@@ -791,6 +792,51 @@ namespace Negocio
                 saida.DataSaida >= dataInicial &&
                 saida.DataSaida <= dataFinal &&
                 saida.TotalAVista >= valorVenda).ToList();
+        }
+
+        public NumerosPeriodo ObterVendasMensalComparandoAnoAnterior()
+        {
+            DateTime dataAtual = DateTime.Now.AddDays(-1);
+           
+            var query = from saida in saceContext.tb_saida
+                        where saida.dataSaida.Year == dataAtual.Year 
+                        && saida.dataSaida.Month == dataAtual.Month
+                        && saida.dataSaida.Day <= dataAtual.Day
+                        && (saida.codTipoSaida == 2 || saida.codTipoSaida == 3)
+                        group saida by new
+                        {
+                            PeriodoAno = saida.dataSaida.Year,
+
+                        } into saidaPeriodoAno
+                        select new NumerosPeriodo
+                        {
+                            NumeroVendas = saidaPeriodoAno.Count(),
+                            TotalVendas = (decimal) saidaPeriodoAno.Sum(s => s.totalAVista)
+                        };
+            NumerosPeriodo numerosPeriodo = query.First();
+
+
+            var query2 = from saida in saceContext.tb_saida
+                        where saida.dataSaida.Year == (dataAtual.Year-1)
+                        && saida.dataSaida.Month == dataAtual.Month
+                        && saida.dataSaida.Day <= dataAtual.Day
+                        && (saida.codTipoSaida == 2 || saida.codTipoSaida == 3)
+                        group saida by new
+                        {
+                            PeriodoAno = saida.dataSaida.Year,
+
+                        } into saidaPeriodoAno
+                        select new NumerosPeriodo
+                        {
+                            NumeroVendas = saidaPeriodoAno.Count(),
+                            TotalVendas = (decimal)saidaPeriodoAno.Sum(s => s.totalAVista)
+                        };
+            NumerosPeriodo numerosPeriodoAnoAnterior = query2.First();
+
+            NumerosPeriodo resultado = new NumerosPeriodo();
+            resultado.NumeroVendas = (numerosPeriodo.NumeroVendas / numerosPeriodoAnoAnterior.NumeroVendas - 1) * 100;
+            resultado.TotalVendas =  (numerosPeriodo.TotalVendas / numerosPeriodoAnoAnterior.TotalVendas - 1) * 100;
+            return resultado;
         }
 
 
@@ -1460,7 +1506,7 @@ namespace Negocio
         }
 
 
-        public bool ImprimirDAV(Global.Impressora impressora)
+        public bool ImprimirDAV(Global.Impressora impressora, string portaImpressora)
         {
             string tipoDocumento = impressora.Equals(Global.Impressora.REDUZIDO1) ? "REDUZIDO1" : "REDUZIDO2";
 
@@ -1480,20 +1526,20 @@ namespace Negocio
                 repImprimirDocumento.SaveChanges();
                 List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
                 if (impressora.Equals(Global.Impressora.REDUZIDO1))
-                    return ImprimirDAVComprimido(saidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto);
+                    return ImprimirDAVComprimido(saidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto, portaImpressora);
                 else
-                    ImprimirDAVComprimidoVip(saidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto);
+                    ImprimirDAVComprimidoVip(saidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto, portaImpressora);
 
             }
             return true;
         }
 
-        private bool ImprimirDAVComprimido(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private bool ImprimirDAVComprimido(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string portaImpressora)
         {
             try
             {
                 ImprimeTexto imp = new ImprimeTexto();
-                if (!imp.Inicio(Global.PORTA_IMPRESSORA_REDUZIDA1))
+                if (!imp.Inicio(portaImpressora))
                 {
                     return false;
                 }
@@ -1591,10 +1637,9 @@ namespace Negocio
         }
 
 
-        private void ImprimirDAVComprimidoVip(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto)
+        private void ImprimirDAVComprimidoVip(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string porta)
         {
-
-            var printer = new Printer(Global.PORTA_IMPRESSORA_REDUZIDA2, PrinterType.Bematech);
+            var printer = new Printer(porta, PrinterType.Bematech);
 
             Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
             Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
@@ -1694,9 +1739,9 @@ namespace Negocio
 
         }
 
-        public void ImprimirCreditoPagamento(MovimentacaoConta movimentacaoConta)
+        public void ImprimirCreditoPagamento(MovimentacaoConta movimentacaoConta, string portaImpressora)
         {
-            var printer = new Printer(Global.PORTA_IMPRESSORA_REDUZIDA2, PrinterType.Bematech);
+            var printer = new Printer(portaImpressora, PrinterType.Bematech);
             Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
             Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa).ElementAt(0);
 

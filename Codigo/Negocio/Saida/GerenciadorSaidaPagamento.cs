@@ -289,7 +289,7 @@ namespace Negocio
         {
             var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
                         where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codSituacaoPagamentos != SituacaoPagamentos.ABERTA)
+                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA)
                         group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
 
                         select new TotalPagamentoSaida
@@ -310,6 +310,7 @@ namespace Negocio
         {
             var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
                         where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
+                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA) &&
                             (saidaPagamento.codFormaPagamento == FormaPagamento.CARTAO)
                         select new VendasCartao
                         {
@@ -320,6 +321,26 @@ namespace Negocio
                             Parcelas = (int) saidaPagamento.parcelas,
                             CodSaida = saidaPagamento.codSaida,
                             NumeroControle = saidaPagamento.numeroControle
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtém totais de movimentação em um dado período
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<VendasPixDeposito> ObterVendasPixDeposito(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
+                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
+                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA) &&
+                            (saidaPagamento.codFormaPagamento == FormaPagamento.DEPOSITO_PIX)
+                        select new VendasPixDeposito
+                        {
+                            CodSaida = saidaPagamento.codSaida,
+                            Vendedor = saidaPagamento.tb_saida.tb_pessoa1.nome,
+                            DataHora = saidaPagamento.data,
+                            Valor = (decimal)saidaPagamento.valor,
                         };
             return query.ToList();
         }

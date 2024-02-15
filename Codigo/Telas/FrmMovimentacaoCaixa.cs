@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dominio;
 using Dominio.Consultas;
-using Dominio;
+using Negocio;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 using Util;
 
 namespace Telas
@@ -32,8 +29,9 @@ namespace Telas
         {
             DateTime dataInicial = dateTimePickerInicial.Value.Date;
             DateTime dataFinal = dateTimePickerFinal.Value.Date;
-            dataFinal = dataFinal.AddDays(1).AddSeconds(-1);
+            dataFinal = dataFinal.AddHours(23).AddMinutes(59).AddSeconds(59);
 
+            
             int codContaBanco = (int)codContaBancoComboBox.SelectedValue;
 
             IEnumerable<TotaisMovimentacaoConta> totaisMovimentacaoConta = GerenciadorMovimentacaoConta.GetInstance(null).ObterTotalMovimentacaoContaPeriodo(codContaBanco, dataInicial, dataFinal);
@@ -63,8 +61,11 @@ namespace Telas
             totalCreditoRede.Text = redeCredito.Sum(t => t.TotalCartao).ToString("N2");
             totalDebitoRede.Text = redeDebito.Sum(t => t.TotalCartao).ToString("N2");
             totalPix.Text = redePix.Sum(t => t.TotalCartao).ToString("N2");
-            totalRede.Text = (redeCredito.Sum(t => t.TotalCartao) + redeDebito.Sum(t => t.TotalCartao) + redePix.Sum(t => t.TotalCartao)).ToString("N2");
             totalCreditoBanese.Text = baneseCredito.Sum(t => t.TotalCartao).ToString("N2");
+
+            var vendasPixDeposito = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasPixDeposito(dataInicial, dataFinal);
+            vendasPixDepositoBindingSource.DataSource = vendasPixDeposito;
+            totalPixDepositoText.Text = vendasPixDeposito.Sum(t => t.Valor).ToString("N2");
         }
 
 
@@ -110,5 +111,9 @@ namespace Telas
             frmRecebido.Dispose();
         }
 
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

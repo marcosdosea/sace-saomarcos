@@ -808,6 +808,7 @@
     <None Include="Properties\DataSources\Dominio.Subgrupo.datasource" />
     <None Include="Properties\DataSources\Dominio.Usuario.datasource" />
     <None Include="Properties\DataSources\Dominio.VendasGrupoProduto.datasource" />
+    <None Include="Properties\DataSources\Dominio.VendasPixDeposito.datasource" />
     <None Include="Properties\DataSources\Dominio.VendasVendedor.datasource" />
     <None Include="Properties\DataSources\saceEntities.datasource" />
     <None Include="Properties\DataSources\saceEntities1.datasource" />

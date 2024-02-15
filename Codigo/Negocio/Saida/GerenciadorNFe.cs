@@ -2105,7 +2105,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw new NegocioException("Problemas na geração do arquivo de cancelamento da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
+                throw new NegocioException("Problemas na geração do arquivo de inutilização da Nota Fiscal Eletrônica. Favor consultar administrador do sistema.", ex);
             }
         }
 

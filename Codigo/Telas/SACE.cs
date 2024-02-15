@@ -38,6 +38,21 @@ namespace Telas
         public Principal()
         {
             InitializeComponent();
+            lblAno.Text = DateTime.Now.AddYears(-1).Year + " x " + DateTime.Now.Year;
+            NumerosPeriodo numeros = GerenciadorSaida.GetInstance(null).ObterVendasMensalComparandoAnoAnterior();
+
+            if (numeros.NumeroVendas > 0)
+                lblNumeroVendas.ForeColor = Color.Green;
+            else
+                lblNumeroVendas.ForeColor = Color.Red;
+            lblNumeroVendas.Text = "Número de Vendas: " + numeros.NumeroVendas.ToString("N2") + "%";
+            if (numeros.TotalVendas > 0)
+                lblTicketMedio.ForeColor = Color.Green;
+            else
+                lblTicketMedio.ForeColor = Color.Red;
+
+            lblTicketMedio.Text = "Total Vendas (R$): " + numeros.TotalVendas.ToString("N2") + "%";
+
         }
 
         private static bool IsAppAlreadyRunning()
@@ -346,11 +361,11 @@ namespace Telas
             GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_NFE);
             if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
             {
-                GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO1);
+                GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO1, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA1);
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2.ToUpper()))
             {
-                GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO2);
+                GerenciadorSaida.GetInstance(null).ImprimirDAV(Global.Impressora.REDUZIDO2, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA2);
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
             {

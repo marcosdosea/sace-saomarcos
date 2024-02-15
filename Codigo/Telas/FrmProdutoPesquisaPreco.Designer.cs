@@ -42,14 +42,22 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.NomeLoja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localizacao2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.produtoLojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBusca = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTexto = new System.Windows.Forms.TextBox();
             this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
             this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precoVendaVarejoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoVendaVarejoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.qtdProdutoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPrecoAtacadoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPrecoAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +65,7 @@
             this.EmPromocao = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ExibeNaListagem = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CodSituacaoProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,19 +76,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.localizacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.localizacao2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.produtoLojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoVendaVarejoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             tb_produto_lojaDataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(tb_produto_lojaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,6 +140,40 @@
             this.NomeLoja.HeaderText = "Loja";
             this.NomeLoja.Name = "NomeLoja";
             this.NomeLoja.ReadOnly = true;
+            // 
+            // qtdEstoqueDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
+            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
+            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtdEstoqueAuxDataGridViewTextBoxColumn
+            // 
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoqueAux";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Auxiliar";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
+            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacaoDataGridViewTextBoxColumn
+            // 
+            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "Localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localizacao";
+            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
+            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // localizacao2DataGridViewTextBoxColumn
+            // 
+            this.localizacao2DataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.localizacao2DataGridViewTextBoxColumn.DataPropertyName = "Localizacao2";
+            this.localizacao2DataGridViewTextBoxColumn.HeaderText = "Localizacao 2";
+            this.localizacao2DataGridViewTextBoxColumn.Name = "localizacao2DataGridViewTextBoxColumn";
+            this.localizacao2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // produtoLojaBindingSource
+            // 
+            this.produtoLojaBindingSource.DataSource = typeof(Dominio.ProdutoLoja);
             // 
             // label1
             // 
@@ -258,6 +292,24 @@
             this.CodProduto.Name = "CodProduto";
             this.CodProduto.ReadOnly = true;
             // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            this.nomeDataGridViewTextBoxColumn.FillWeight = 120F;
+            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
+            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeProdutoFabricanteDataGridViewTextBoxColumn
+            // 
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.DataPropertyName = "NomeProdutoFabricante";
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.HeaderText = "Nome Produto conforme Fabricante";
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.Name = "nomeProdutoFabricanteDataGridViewTextBoxColumn";
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.Visible = false;
+            // 
             // unidade
             // 
             this.unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -281,6 +333,13 @@
             this.precoVendaVarejoSemDesconto.Name = "precoVendaVarejoSemDesconto";
             this.precoVendaVarejoSemDesconto.ReadOnly = true;
             this.precoVendaVarejoSemDesconto.Width = 90;
+            // 
+            // precoVendaVarejoDataGridViewTextBoxColumn
+            // 
+            this.precoVendaVarejoDataGridViewTextBoxColumn.DataPropertyName = "PrecoVendaVarejo";
+            this.precoVendaVarejoDataGridViewTextBoxColumn.HeaderText = "Varejo à Vista";
+            this.precoVendaVarejoDataGridViewTextBoxColumn.Name = "precoVendaVarejoDataGridViewTextBoxColumn";
+            this.precoVendaVarejoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // qtdProdutoAtacado
             // 
@@ -356,6 +415,10 @@
             this.CodSituacaoProduto.Name = "CodSituacaoProduto";
             this.CodSituacaoProduto.ReadOnly = true;
             this.CodSituacaoProduto.Visible = false;
+            // 
+            // produtoBindingSource
+            // 
+            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // label6
             // 
@@ -453,69 +516,6 @@
             this.label12.TabIndex = 79;
             this.label12.Text = "Comprado";
             // 
-            // qtdEstoqueDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.HeaderText = "Estoque";
-            this.qtdEstoqueDataGridViewTextBoxColumn.Name = "qtdEstoqueDataGridViewTextBoxColumn";
-            this.qtdEstoqueDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // qtdEstoqueAuxDataGridViewTextBoxColumn
-            // 
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.DataPropertyName = "QtdEstoqueAux";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.HeaderText = "Auxiliar";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.Name = "qtdEstoqueAuxDataGridViewTextBoxColumn";
-            this.qtdEstoqueAuxDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // localizacaoDataGridViewTextBoxColumn
-            // 
-            this.localizacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.localizacaoDataGridViewTextBoxColumn.DataPropertyName = "Localizacao";
-            this.localizacaoDataGridViewTextBoxColumn.HeaderText = "Localizacao";
-            this.localizacaoDataGridViewTextBoxColumn.Name = "localizacaoDataGridViewTextBoxColumn";
-            this.localizacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // localizacao2DataGridViewTextBoxColumn
-            // 
-            this.localizacao2DataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.localizacao2DataGridViewTextBoxColumn.DataPropertyName = "Localizacao2";
-            this.localizacao2DataGridViewTextBoxColumn.HeaderText = "Localizacao 2";
-            this.localizacao2DataGridViewTextBoxColumn.Name = "localizacao2DataGridViewTextBoxColumn";
-            this.localizacao2DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // produtoLojaBindingSource
-            // 
-            this.produtoLojaBindingSource.DataSource = typeof(Dominio.ProdutoLoja);
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.FillWeight = 120F;
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nomeProdutoFabricanteDataGridViewTextBoxColumn
-            // 
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.DataPropertyName = "NomeProdutoFabricante";
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.HeaderText = "Nome Produto conforme Fabricante";
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.Name = "nomeProdutoFabricanteDataGridViewTextBoxColumn";
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nomeProdutoFabricanteDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // precoVendaVarejoDataGridViewTextBoxColumn
-            // 
-            this.precoVendaVarejoDataGridViewTextBoxColumn.DataPropertyName = "PrecoVendaVarejo";
-            this.precoVendaVarejoDataGridViewTextBoxColumn.HeaderText = "Varejo à Vista";
-            this.precoVendaVarejoDataGridViewTextBoxColumn.Name = "precoVendaVarejoDataGridViewTextBoxColumn";
-            this.precoVendaVarejoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // produtoBindingSource
-            // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            // 
             // FrmProdutoPesquisaPreco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -548,8 +548,8 @@
             this.Load += new System.EventHandler(this.FrmProdutoPesquisaPreco_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoPesquisaPreco_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(tb_produto_lojaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

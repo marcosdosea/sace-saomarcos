@@ -280,7 +280,8 @@ namespace Negocio
         {
             var query = from movimentacao in saceContext.MovimentacaoContaSet
                         where movimentacao.codContaBanco == codContaBanco &&
-                            movimentacao.dataHora >= dataInicial && movimentacao.dataHora <= dataFinal
+                            movimentacao.dataHora >= dataInicial 
+                            && movimentacao.dataHora <= dataFinal
                         group movimentacao by movimentacao.codTipoMovimentacao into gmov 
 
                         select new TotaisMovimentacaoConta

@@ -183,7 +183,7 @@ namespace Telas
                         else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             movimentacao.Valor = valorPagamento;
-                            GerenciadorSaida.GetInstance(null).ImprimirCreditoPagamento(movimentacao);
+                            GerenciadorSaida.GetInstance(null).ImprimirCreditoPagamento(movimentacao, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA2);
                         }
                     }
                     else if (formaPagamento.Equals(FormaPagamento.CARTAO))
@@ -618,7 +618,6 @@ namespace Telas
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
                 codCartaoComboBox.Visible = (formaPagamento != FormaPagamento.DEPOSITO_PIX);
                 
-                valorPagamentoTextBox.Enabled = (formaPagamento != FormaPagamento.CARTAO);
                 parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
                 codContaBancoComboBox.Visible = (formaPagamento == FormaPagamento.DEPOSITO_PIX);
                 codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO_PIX);

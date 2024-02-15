@@ -74,14 +74,8 @@ namespace Util
          C_ORGAO_IBGE_SERGIPE = "28",
          ENDERECO_SERVIDOR = "C:\\",
 
-
-
-         PORTA_IMPRESSORA_REDUZIDA1 = "\\\\sm-vendas01\\daruma",
-         PORTA_IMPRESSORA_REDUZIDA2 = "\\\\PC-BANESE\\mp-4200 th",
-         //LINHA = "================================================================================",
          LINHA_COMPRIMIDA = "==========================================",
          NFE_MENSAGEM_PADRAO = "DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.",
-
 
         PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS = "C:\\Dropbox\\SACE\\ProdutosAtualizados\\";
     }

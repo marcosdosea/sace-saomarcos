@@ -100,6 +100,9 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.fileSystemWatcher = new System.IO.FileSystemWatcher();
             this.fileSystemWatcherDeposito = new System.IO.FileSystemWatcher();
+            this.lblNumeroVendas = new System.Windows.Forms.Label();
+            this.lblTicketMedio = new System.Windows.Forms.Label();
+            this.lblAno = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
@@ -665,6 +668,39 @@
             this.fileSystemWatcherDeposito.SynchronizingObject = this;
             this.fileSystemWatcherDeposito.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcherDeposito_Changed);
             // 
+            // lblNumeroVendas
+            // 
+            this.lblNumeroVendas.AutoSize = true;
+            this.lblNumeroVendas.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblNumeroVendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumeroVendas.Location = new System.Drawing.Point(748, 52);
+            this.lblNumeroVendas.Name = "lblNumeroVendas";
+            this.lblNumeroVendas.Size = new System.Drawing.Size(128, 20);
+            this.lblNumeroVendas.TabIndex = 19;
+            this.lblNumeroVendas.Text = "Número Vendas:";
+            // 
+            // lblTicketMedio
+            // 
+            this.lblTicketMedio.AutoSize = true;
+            this.lblTicketMedio.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblTicketMedio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTicketMedio.Location = new System.Drawing.Point(748, 82);
+            this.lblTicketMedio.Name = "lblTicketMedio";
+            this.lblTicketMedio.Size = new System.Drawing.Size(102, 20);
+            this.lblTicketMedio.TabIndex = 20;
+            this.lblTicketMedio.Text = "Ticket Médio:";
+            // 
+            // lblAno
+            // 
+            this.lblAno.AutoSize = true;
+            this.lblAno.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblAno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAno.Location = new System.Drawing.Point(748, 24);
+            this.lblAno.Name = "lblAno";
+            this.lblAno.Size = new System.Drawing.Size(57, 20);
+            this.lblAno.TabIndex = 21;
+            this.lblAno.Text = "lblAno:";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,6 +708,9 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.BackgroundImage = global::Telas.Properties.Resources.fundo;
             this.ClientSize = new System.Drawing.Size(982, 596);
+            this.Controls.Add(this.lblAno);
+            this.Controls.Add(this.lblTicketMedio);
+            this.Controls.Add(this.lblNumeroVendas);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnReceber);
             this.Controls.Add(this.btnSair);
@@ -772,6 +811,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem retornoDeFornecedorvariaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vendasPorProfissionaisToolStripMenuItem;
+        private System.Windows.Forms.Label lblTicketMedio;
+        private System.Windows.Forms.Label lblNumeroVendas;
+        private System.Windows.Forms.Label lblAno;
     }
 }
 

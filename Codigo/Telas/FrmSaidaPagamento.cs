@@ -53,6 +53,7 @@ namespace Telas
             if (saida.CodProfissional == Global.PROFISSIONAL_PADRAO)
             {
                 string vendedorMaquina = "VENDEDOR_" + System.Windows.Forms.SystemInformation.ComputerName.ToUpper();
+
                 if (Properties.Settings.Default.PropertyValues[vendedorMaquina] != null)
                 {
                     int vendedorNumero = Convert.ToInt32(Properties.Settings.Default.PropertyValues[vendedorMaquina].PropertyValue);
@@ -525,11 +526,6 @@ namespace Telas
             codSaidaTextBox_Leave(sender, e);
         }
 
-        //private void faltaReceberTextBox_TextChanged(object sender, EventArgs e)
-        //{
-        //    faltaReceber = Convert.ToDecimal(faltaReceberTextBox.Text);
-        //}
-
         private void codClienteComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (codClienteComboBox.SelectedValue != null)
@@ -549,7 +545,14 @@ namespace Telas
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
-                codContaBancoComboBox.Enabled = (formaPagamento == FormaPagamento.DEPOSITO_PIX);
+                if (formaPagamento == FormaPagamento.DEPOSITO_PIX)
+                {
+                    codContaBancoComboBox.SelectedIndex = 1;
+                    codCartaoComboBox.SelectedIndex = 0;
+                }
+                else
+                    codContaBancoComboBox.SelectedIndex = 0;
+
                 valorRecebidoTextBox.Enabled = (formaPagamento != FormaPagamento.BOLETO);
                 intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE);
             }
@@ -587,6 +590,5 @@ namespace Telas
             }
 
         }
-
     }
 }

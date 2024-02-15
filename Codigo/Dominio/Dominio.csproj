@@ -88,7 +88,9 @@
     <Compile Include="Consultas\TotaisSaida.cs" />
     <Compile Include="EventoNfe.cs" />
     <Compile Include="NFE_Schema41\nfe_v4_00.cs" />
+    <Compile Include="NumerosPeriodo.cs" />
     <Compile Include="VendasGrupoProduto.cs" />
+    <Compile Include="VendasPixDeposito.cs" />
     <Compile Include="VendasVendedor.cs" />
     <None Include="App.Config" />
     <None Include="NFE_Schema4\Nfe_v4.temp" />
