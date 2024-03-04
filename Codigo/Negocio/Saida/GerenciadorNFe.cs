@@ -2872,7 +2872,6 @@ namespace Negocio
                 throw new Negocio.NegocioException(resultado);
 
             }
-
         }
     }
 }

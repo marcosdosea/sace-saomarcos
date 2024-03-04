@@ -382,6 +382,9 @@ namespace Negocio
                 repSaida.Dispose();
             }
         }
+
+        
+
         /// <summary>
         /// Verifica se é possível editar um saída e caso possível tranforma-a em um orçamento
         /// </summary>
@@ -666,13 +669,30 @@ namespace Negocio
             return GetQuery().Where(saida => saida.DataSaida.Year == 2017).OrderBy(s => s.CodSaida).ToList();
 
         }
-
         /// <summary>
-        /// Obter Troco por Período
+        /// Obter Troco por Período para todos os pagamentos
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public decimal ObterTrocoPorPeriodo(DateTime dataInicial, DateTime dataFinal)
+        public decimal ObterTrocoPagamentos(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = (from saida in saceContext.tb_saida
+                         where (saida.codTipoSaida == Saida.TIPO_PRE_VENDA 
+                         || saida.codTipoSaida == Saida.TIPO_VENDA
+                         || saida.codTipoSaida == Saida.TIPO_CREDITO)
+                               && saida.dataSaida >= dataInicial
+                               && saida.dataSaida <= dataFinal
+                         select saida.troco);
+
+            return query.Count() > 0 ? (decimal)query.Sum() : 0;
+        }
+
+        /// <summary>
+        /// Obter Troco por Período apenas para Saidas
+        /// </summary>
+        /// <param name="codSaida"></param>
+        /// <returns></returns>
+        public decimal ObterTrocoSaidas(DateTime dataInicial, DateTime dataFinal)
         {
             var query = (from saida in saceContext.tb_saida
                          where (saida.codTipoSaida == Saida.TIPO_PRE_VENDA || saida.codTipoSaida == Saida.TIPO_VENDA)
@@ -953,17 +973,6 @@ namespace Negocio
 
                         RegistrarPagamentosSaida(saidaPagamentos, saida);
                     }
-                    else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA)))
-                    {
-                        if (saida.CodCliente.Equals(Global.CLIENTE_PADRAO))
-                        {
-                            throw new NegocioException("Nenhum cliente selecionado. É necessário selecionar um cliente para realizar o crédito.");
-                        }
-                        saida.TipoSaida = Saida.TIPO_CREDITO;
-                        saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-                        Atualizar(saida);
-                        RegistrarPagamentosSaida(saidaPagamentos, saida);
-                    }
                     else if (tipo_encerramento.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || tipo_encerramento.Equals(Saida.TIPO_USO_INTERNO))
                     {
                         saida.TipoSaida = tipo_encerramento;
@@ -1184,7 +1193,7 @@ namespace Negocio
         {
             decimal totalRegistrado = 0;
 
-            if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
+            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
             {
                 // Para cada pagamento é criada uma nova conta
                 Conta conta = new Conta();
@@ -1230,7 +1239,7 @@ namespace Negocio
                 conta.NumeroDocumento = "";
 
                 // Quando o pagamento é realizado em dinheiro a conta já é inserida quitada
-                if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
+                if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO || pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO_PIX)
                     conta.CodSituacao = SituacaoConta.SITUACAO_QUITADA.ToString();
                 else
                     conta.CodSituacao = SituacaoConta.SITUACAO_ABERTA.ToString();
@@ -1292,7 +1301,8 @@ namespace Negocio
 
 
 
-                if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
+                if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO || 
+                    pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO_PIX)
                 {
                     MovimentacaoConta movimentacao = new MovimentacaoConta();
                     movimentacao.CodContaBanco = pagamento.CodContaBanco;
@@ -1739,7 +1749,7 @@ namespace Negocio
 
         }
 
-        public void ImprimirCreditoPagamento(MovimentacaoConta movimentacaoConta, string portaImpressora)
+        public void ImprimirCreditoPagamento(Saida saidaCredito, string portaImpressora)
         {
             var printer = new Printer(portaImpressora, PrinterType.Bematech);
             Loja loja = GerenciadorLoja.GetInstance().Obter(Global.LOJA_PADRAO).ElementAt(0);
@@ -1755,14 +1765,14 @@ namespace Negocio
             printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Nome, 42));
             printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1, 42));
             printer.WriteLine(Global.LINHA_COMPRIMIDA);
-            Pessoa cliente = GerenciadorPessoa.GetInstance().Obter(movimentacaoConta.CodResponsavel).ElementAt(0);
+            Pessoa cliente = GerenciadorPessoa.GetInstance().Obter(saidaCredito.CodCliente).ElementAt(0);
 
             printer.WriteLine("Cliente: " + cliente.NomeFantasia);
-            printer.WriteLine("Data/Hora: " + movimentacaoConta.DataHora);
+            printer.WriteLine("Data/Hora: " + saidaCredito.DataSaida);
 
             printer.WriteLine(Global.LINHA_COMPRIMIDA);
             printer.WriteLine(" ");
-            printer.WriteLine("Foi creditado na conta do cliente R$ " + movimentacaoConta.Valor);
+            printer.WriteLine("Foi creditado na conta do cliente R$ " + saidaCredito.TotalAVista);
             printer.WriteLine(" ");
 
             printer.WriteLine(" ");

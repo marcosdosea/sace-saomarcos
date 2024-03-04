@@ -17,7 +17,7 @@ namespace Dominio
         public const int TRANSFERENCIA_PARA_CONTA = 7;
         public const int RECEBIMENTO_TRANSFERENCIA = 8;
         public const int AJUSTE_SALDO = 9;
-
+        public const int RECEBIMENTO_CREDITO = 10;
         private int codTipoMovimentacao;
 
         public int CodTipoMovimentacao

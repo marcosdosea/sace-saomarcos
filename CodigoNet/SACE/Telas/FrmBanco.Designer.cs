@@ -1,344 +1,347 @@
 ﻿namespace Telas
- {
-     partial class FrmBanco
-     {
-         /// <summary>
-         /// Required designer variable.
-         /// </summary>
-         private System.ComponentModel.IContainer components = null;
+{
+    partial class FrmBanco
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-         /// <summary>
-         /// Clean up any resources being used.
-         /// </summary>
-         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-         protected override void Dispose(bool disposing)
-         {
-             if (disposing && (components != null))
-             {
-                 components.Dispose();
-             }
-             base.Dispose(disposing);
-         }
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-         #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-         /// <summary>
-         /// Required method for Designer support - do not modify
-         /// the contents of this method with the code editor.
-         /// </summary>
-         private void InitializeComponent()
-         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codBancoLabel;
-            System.Windows.Forms.Label nomeLabel;
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            components = new System.ComponentModel.Container();
+            Label codBancoLabel;
+            Label nomeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBanco));
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.bancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_bancoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codBancoTextBox = new System.Windows.Forms.TextBox();
-            this.nomeTextBox = new System.Windows.Forms.TextBox();
-            codBancoLabel = new System.Windows.Forms.Label();
-            nomeLabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bancoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).BeginInit();
-            this.tb_bancoBindingNavigator.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new Label();
+            panel1 = new Panel();
+            btnSalvar = new Button();
+            btnBuscar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            bancoBindingSource = new BindingSource(components);
+            tb_bancoBindingNavigator = new BindingNavigator(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            codBancoTextBox = new TextBox();
+            nomeTextBox = new TextBox();
+            codBancoLabel = new Label();
+            nomeLabel = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bancoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_bancoBindingNavigator).BeginInit();
+            tb_bancoBindingNavigator.SuspendLayout();
+            SuspendLayout();
             // 
             // codBancoLabel
             // 
             codBancoLabel.AutoSize = true;
-            codBancoLabel.Location = new System.Drawing.Point(4, 65);
+            codBancoLabel.Location = new Point(5, 75);
+            codBancoLabel.Margin = new Padding(4, 0, 4, 0);
             codBancoLabel.Name = "codBancoLabel";
-            codBancoLabel.Size = new System.Drawing.Size(43, 13);
+            codBancoLabel.Size = new Size(49, 15);
             codBancoLabel.TabIndex = 21;
             codBancoLabel.Text = "Código:";
             // 
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(127, 65);
+            nomeLabel.Location = new Point(148, 75);
+            nomeLabel.Margin = new Padding(4, 0, 4, 0);
             nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new System.Drawing.Size(38, 13);
+            nomeLabel.Size = new Size(43, 15);
             nomeLabel.TabIndex = 22;
             nomeLabel.Text = "Nome:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cadastro de Bancos";
+            label1.AutoSize = true;
+            label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(4, 10);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(151, 23);
+            label1.TabIndex = 0;
+            label1.Text = "Cadastro de Bancos";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 41);
-            this.panel1.TabIndex = 20;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, -1);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(554, 47);
+            panel1.TabIndex = 20;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 125);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 4;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(355, 144);
+            btnSalvar.Margin = new Padding(4, 3, 4, 3);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(94, 27);
+            btnSalvar.TabIndex = 4;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 125);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 0;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            btnBuscar.Location = new Point(5, 144);
+            btnBuscar.Margin = new Padding(4, 3, 4, 3);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(88, 27);
+            btnBuscar.TabIndex = 0;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 125);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 5;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(449, 144);
+            btnCancelar.Margin = new Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(98, 27);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 125);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(92, 144);
+            btnNovo.Margin = new Padding(4, 3, 4, 3);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(88, 27);
+            btnNovo.TabIndex = 1;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 125);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            btnExcluir.Location = new Point(267, 144);
+            btnExcluir.Margin = new Padding(4, 3, 4, 3);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(88, 27);
+            btnExcluir.TabIndex = 3;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 125);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 2;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            btnEditar.Location = new Point(180, 144);
+            btnEditar.Margin = new Padding(4, 3, 4, 3);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(88, 27);
+            btnEditar.TabIndex = 2;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // bancoBindingSource
             // 
-            this.bancoBindingSource.DataSource = typeof(Dominio.Banco);
-            this.bancoBindingSource.Sort = "codBanco";
+            bancoBindingSource.DataSource = typeof(Dominio.Banco);
+            bancoBindingSource.Sort = "codBanco";
             // 
             // tb_bancoBindingNavigator
             // 
-            this.tb_bancoBindingNavigator.AddNewItem = null;
-            this.tb_bancoBindingNavigator.BindingSource = this.bancoBindingSource;
-            this.tb_bancoBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_bancoBindingNavigator.DeleteItem = null;
-            this.tb_bancoBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_bancoBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_bancoBindingNavigator.Location = new System.Drawing.Point(269, 40);
-            this.tb_bancoBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_bancoBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_bancoBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_bancoBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_bancoBindingNavigator.Name = "tb_bancoBindingNavigator";
-            this.tb_bancoBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_bancoBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_bancoBindingNavigator.TabIndex = 21;
-            this.tb_bancoBindingNavigator.Text = "bindingNavigator1";
+            tb_bancoBindingNavigator.AddNewItem = null;
+            tb_bancoBindingNavigator.BindingSource = bancoBindingSource;
+            tb_bancoBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_bancoBindingNavigator.DeleteItem = null;
+            tb_bancoBindingNavigator.Dock = DockStyle.None;
+            tb_bancoBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_bancoBindingNavigator.Location = new Point(314, 46);
+            tb_bancoBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_bancoBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_bancoBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_bancoBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_bancoBindingNavigator.Name = "tb_bancoBindingNavigator";
+            tb_bancoBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_bancoBindingNavigator.Size = new Size(219, 25);
+            tb_bancoBindingNavigator.TabIndex = 21;
+            tb_bancoBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(37, 22);
+            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(23, 22);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(23, 22);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 25);
             // 
             // bindingNavigatorPositionItem
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(58, 23);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(23, 22);
+            bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(23, 22);
+            bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 25);
             // 
             // codBancoTextBox
             // 
-            this.codBancoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bancoBindingSource, "CodBanco", true));
-            this.codBancoTextBox.Location = new System.Drawing.Point(7, 86);
-            this.codBancoTextBox.Name = "codBancoTextBox";
-            this.codBancoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.codBancoTextBox.TabIndex = 22;
+            codBancoTextBox.DataBindings.Add(new Binding("Text", bancoBindingSource, "CodBanco", true));
+            codBancoTextBox.Location = new Point(8, 99);
+            codBancoTextBox.Margin = new Padding(4, 3, 4, 3);
+            codBancoTextBox.Name = "codBancoTextBox";
+            codBancoTextBox.Size = new Size(116, 23);
+            codBancoTextBox.TabIndex = 22;
             // 
             // nomeTextBox
             // 
-            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bancoBindingSource, "Nome", true));
-            this.nomeTextBox.Location = new System.Drawing.Point(130, 86);
-            this.nomeTextBox.MaxLength = 40;
-            this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(339, 20);
-            this.nomeTextBox.TabIndex = 23;
-            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
+            nomeTextBox.CharacterCasing = CharacterCasing.Upper;
+            nomeTextBox.DataBindings.Add(new Binding("Text", bancoBindingSource, "Nome", true));
+            nomeTextBox.Location = new Point(152, 99);
+            nomeTextBox.Margin = new Padding(4, 3, 4, 3);
+            nomeTextBox.MaxLength = 40;
+            nomeTextBox.Name = "nomeTextBox";
+            nomeTextBox.Size = new Size(395, 23);
+            nomeTextBox.TabIndex = 23;
+            nomeTextBox.Leave += nomeTextBox_Leave;
             // 
             // FrmBanco
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 158);
-            this.Controls.Add(nomeLabel);
-            this.Controls.Add(this.tb_bancoBindingNavigator);
-            this.Controls.Add(this.nomeTextBox);
-            this.Controls.Add(codBancoLabel);
-            this.Controls.Add(this.codBancoTextBox);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
-            this.Name = "FrmBanco";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Cadastro de Bancos";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmBanco_FormClosing);
-            this.Load += new System.EventHandler(this.FrmBanco_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmBanco_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bancoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_bancoBindingNavigator)).EndInit();
-            this.tb_bancoBindingNavigator.ResumeLayout(false);
-            this.tb_bancoBindingNavigator.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(552, 182);
+            Controls.Add(nomeLabel);
+            Controls.Add(tb_bancoBindingNavigator);
+            Controls.Add(nomeTextBox);
+            Controls.Add(codBancoLabel);
+            Controls.Add(codBancoTextBox);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnEditar);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmBanco";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Cadastro de Bancos";
+            FormClosing += FrmBanco_FormClosing;
+            Load += FrmBanco_Load;
+            KeyDown += FrmBanco_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)bancoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_bancoBindingNavigator).EndInit();
+            tb_bancoBindingNavigator.ResumeLayout(false);
+            tb_bancoBindingNavigator.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
 
-         }
+        #endregion
 
-         #endregion
-
-         private System.Windows.Forms.Label label1;
-         private System.Windows.Forms.Panel panel1;
-         private System.Windows.Forms.Button btnSalvar;
-         private System.Windows.Forms.Button btnBuscar;
-         private System.Windows.Forms.Button btnCancelar;
-         private System.Windows.Forms.Button btnNovo;
-         private System.Windows.Forms.Button btnExcluir;
-         private System.Windows.Forms.Button btnEditar;
-         private System.Windows.Forms.BindingSource bancoBindingSource;
-         private System.Windows.Forms.BindingNavigator tb_bancoBindingNavigator;
-         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
-         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
-         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
-         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
-         private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
-         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
-         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
-         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
-         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-         private System.Windows.Forms.TextBox codBancoTextBox;
-         private System.Windows.Forms.TextBox nomeTextBox;
-     }
- }
+        private Label label1;
+        private Panel panel1;
+        private Button btnSalvar;
+        private Button btnBuscar;
+        private Button btnCancelar;
+        private Button btnNovo;
+        private Button btnExcluir;
+        private Button btnEditar;
+        private BindingSource bancoBindingSource;
+        private BindingNavigator tb_bancoBindingNavigator;
+        private ToolStripLabel bindingNavigatorCountItem;
+        private ToolStripButton bindingNavigatorMoveFirstItem;
+        private ToolStripButton bindingNavigatorMovePreviousItem;
+        private ToolStripSeparator bindingNavigatorSeparator;
+        private ToolStripTextBox bindingNavigatorPositionItem;
+        private ToolStripSeparator bindingNavigatorSeparator1;
+        private ToolStripButton bindingNavigatorMoveNextItem;
+        private ToolStripButton bindingNavigatorMoveLastItem;
+        private ToolStripSeparator bindingNavigatorSeparator2;
+        private TextBox codBancoTextBox;
+        private TextBox nomeTextBox;
+    }
+}

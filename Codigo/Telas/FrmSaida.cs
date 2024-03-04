@@ -664,13 +664,6 @@ namespace Telas
 					frmSaidaDevolucaoConsumidor.ShowDialog();
 					frmSaidaDevolucaoConsumidor.Dispose();
 				}
-				else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
-				{
-					FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
-					frmSaidaPagamento.ShowDialog();
-					frmSaidaPagamento.Dispose();
-					saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
-				}
 				else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
 				{
 					List<SaidaProduto> listaSaidaProduto = (List<SaidaProduto>)saidaProdutoBindingSource.DataSource;
@@ -737,15 +730,6 @@ namespace Telas
 			codSaidaTextBox_TextChanged(sender, e);
 		}
 
-		private void btnCredito_Click(object sender, EventArgs e)
-		{
-			btnNovo_Click(sender, e);
-			saida = (Saida)saidaBindingSource.Current;
-			saida.TipoSaida = Saida.TIPO_PRE_CREDITO;
-			btnSalvar_Click(sender, e);
-			btnEncerrar_Click(sender, e);
-		}
-
 
 		/// <summary>
 		/// Verifica se existem produtos com data de valida menor
@@ -754,7 +738,6 @@ namespace Telas
 		/// <param name="e"></param>
 		private void data_validadeDateTimePicker_Leave(object sender, EventArgs e)
 		{
-			//ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
 			DateTime dataVencimento = Convert.ToDateTime(data_validadeDateTimePicker.Text);
 			if (!GerenciadorSaida.GetInstance(null).DataVencimentoProdutoAceitavel(produto, dataVencimento))
 			{
@@ -836,10 +819,6 @@ namespace Telas
 				else if (e.KeyCode == Keys.F9)
 				{
 					btnCfNfe_Click(sender, e);
-				}
-				else if (e.KeyCode == Keys.F10)
-				{
-					btnCredito_Click(sender, e);
 				}
 				else if (e.KeyCode == Keys.End)
 				{
@@ -944,7 +923,6 @@ namespace Telas
 			btnCancelar.Enabled = !(habilita);
 			btnBuscar.Enabled = habilita;
 			btnNovo.Enabled = habilita;
-			btnCredito.Enabled = habilita;
 			btnImprimir.Enabled = habilita;
 			btnEditar.Enabled = habilita;
 			btnExcluir.Enabled = habilita;

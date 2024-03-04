@@ -10,7 +10,7 @@ namespace Telas
     {
         public void TratarMySqlException(object sender, ThreadExceptionEventArgs t)
         {
-            DialogResult result = DialogResult.Cancel;
+                DialogResult result = DialogResult.Cancel;
             string erro = t.Exception.Message;
 
             // para exibir todo stacktrace completo quando difícil identificar o erro

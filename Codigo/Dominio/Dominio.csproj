@@ -86,6 +86,7 @@
     <Compile Include="Consultas\VendasCartao.cs" />
     <Compile Include="Consultas\TotaisMovimentacaoConta.cs" />
     <Compile Include="Consultas\TotaisSaida.cs" />
+    <Compile Include="ContaSaida.cs" />
     <Compile Include="EventoNfe.cs" />
     <Compile Include="NFE_Schema41\nfe_v4_00.cs" />
     <Compile Include="NumerosPeriodo.cs" />

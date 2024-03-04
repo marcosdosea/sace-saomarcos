@@ -120,7 +120,8 @@ namespace Negocio
                     {
                         int contIniciaComC = 0;
                         int contDocBranco = 0;
-                        foreach(string documento in listaDocumentosFiscais) {
+                        foreach (string documento in listaDocumentosFiscais)
+                        {
                             if (documento.StartsWith("C"))
                                 contIniciaComC++;
                             if (string.IsNullOrEmpty(documento))
@@ -129,10 +130,10 @@ namespace Negocio
                         if ((contIniciaComC != listaDocumentosFiscais.Count()) && (contDocBranco != listaDocumentosFiscais.Count()))
                             throw new NegocioException("NF-e só pode ser emitida se nenhuma NF-e já foi autorizada para os pedidos selecioados ou se todos os pedidos possuem uma NFCe associada.");
                     }
-                    
+
                 }
             }
-            
+
             if (tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE) || tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE))
             {
                 var repSaida = new RepositorioGenerico<tb_nfe>();
@@ -315,14 +316,12 @@ namespace Negocio
                 var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
 
                 var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
-                var repSolicitacaoPagamento = new RepositorioGenerico<tb_solicitacao_pagamento>();
-                var repSolicitacaoSaida = new RepositorioGenerico<tb_solicitacao_saida>();
 
-                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C => 
+                List<tb_solicitacao_documento> solicitacoes = repSolicitacao.ObterTodos().Where(C =>
                     //    C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) ||
                     C.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.dataSolicitacao).ToList();
 
-                if (solicitacoes.Count() > 0)
+                if (solicitacoes.Any())
                 {
                     tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
                     List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();
@@ -360,27 +359,15 @@ namespace Negocio
         {
             try
             {
-                string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
-
                 var repSolicitacao = new RepositorioGenerico<tb_solicitacao_documento>();
                 var repSolicitacao2 = new RepositorioGenerico<tb_solicitacao_documento>();
-                
+
                 IEnumerable<tb_solicitacao_documento> todasSolicitacoesNFCE = repSolicitacao.ObterTodos().Where(s => s.tipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) && !s.emProcessamento);
 
                 IEnumerable<tb_solicitacao_documento> solicitacoes;
-                //if (nomeComputador.Equals(servidorCartao))
-                //{
-                //    solicitacoes = todasSolicitacoesNFCE.Where(s => s.haPagamentoCartao || s.hostSolicitante.Equals(nomeComputador)).ToList();
-                //}
-                //else
-                //{
-                //    solicitacoes = todasSolicitacoesNFCE.Where(s => s.hostSolicitante.Equals(nomeComputador)).ToList();
-                //}
                 solicitacoes = todasSolicitacoesNFCE.ToList();
-                
 
-
-                if (solicitacoes.Count() > 0)
+                if (solicitacoes.Any())
                 {
                     tb_solicitacao_documento solicitacaoE = solicitacoes.FirstOrDefault();
                     List<tb_solicitacao_saida> listaSolicitacaoSaida = solicitacaoE.tb_solicitacao_saida.ToList();

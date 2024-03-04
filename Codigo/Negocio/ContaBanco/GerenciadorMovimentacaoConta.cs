@@ -73,90 +73,6 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Insere o valor de uma movimentacao, inserindo uma nova movimentacao para cada conta
-        /// </summary>
-        /// <param name="movimentacaoConta"></param>
-        /// <param name="listaContas"></param>
-        /// <returns></returns>
-        public Int64 Inserir(MovimentacaoConta movimentacaoConta, List<long> listaContas, List<MovimentacaoConta> listaMovimentacaoConta)
-        {
-            try
-            {
-                using (TransactionScope transaction = new TransactionScope())
-                {
-
-                    decimal totalMovimentacao = movimentacaoConta.Valor;
-                    var queryContas = from conta in saceContext.ContaSet
-                                      where listaContas.Contains(conta.codConta)
-                                      orderby conta.dataVencimento
-                                      select conta;
-                    IEnumerable<ContaE> contasE = queryContas.ToList();
-
-                    // adiciona os créditos de devolução ao valor da movimentação
-                    decimal totalCreditos = contasE.Where(c => c.valor < 0).Sum(c => (c.valor - c.desconto));
-                    totalMovimentacao += Math.Abs(totalCreditos);
-
-                    foreach (ContaE _contaE in contasE)
-                    {
-                        // Se conta de devolução já dá baixa
-                        if (_contaE.valor < 0)
-                        {
-                            movimentacaoConta.CodConta = _contaE.codConta;
-                            movimentacaoConta.Valor = Math.Round(_contaE.valor - _contaE.desconto, 2);
-                            MovimentacaoContaE _movimentacaoE = new MovimentacaoContaE();
-                            Atribuir(movimentacaoConta, _movimentacaoE);
-
-                            repMovimentacaoConta.Inserir(_movimentacaoE);
-                            saceContext.SaveChanges();
-
-                            AtualizaSituacaoConta(_contaE, _movimentacaoE, false);
-                            AtualizaSituacaoPagamentosEntrada(_contaE);
-                            AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoE, false);
-                        } 
-                        else if (totalMovimentacao > 0)
-                        {
-
-                            if (!_contaE.codSituacao.Equals(SituacaoConta.SITUACAO_QUITADA))
-                            {
-                                movimentacaoConta.CodConta = _contaE.codConta;
-                                decimal totalPago = listaMovimentacaoConta.Where(m => m.CodConta == _contaE.codConta).Sum(m => m.Valor);
-                                decimal valorPagar = Math.Round(_contaE.valor - _contaE.desconto, 2) - totalPago;
-
-                                if (valorPagar <= totalMovimentacao)
-                                {
-                                    movimentacaoConta.Valor = valorPagar;
-                                }
-                                else
-                                {
-                                    movimentacaoConta.Valor = totalMovimentacao;
-                                }
-                                totalMovimentacao -= movimentacaoConta.Valor;
-                                totalPago = 0;
-
-                                MovimentacaoContaE _movimentacaoE = new MovimentacaoContaE();
-                                Atribuir(movimentacaoConta, _movimentacaoE);
-
-                                repMovimentacaoConta.Inserir(_movimentacaoE);
-                                saceContext.SaveChanges();
-
-                                AtualizaSituacaoConta(_contaE, _movimentacaoE, false);
-                                AtualizaSituacaoPagamentosEntrada(_contaE);
-                                AtualizaSituacaoPagamentosSaida(_contaE, _movimentacaoE, false);
-                            }
-                        }
-                    }
-                    transaction.Complete();
-                }
-
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Movimentação de Conta", e.Message, e);
-            }
-            return 0;
-        }
-
-        /// <summary>
         /// Remover movimentacao
         /// </summary>
         /// <param name="codMovimentacaoConta"></param>
@@ -325,7 +241,7 @@ namespace Negocio
         /// Atualiza Situacao dos pagamentos da saída para quitado quando todas as contas estão quitadas
         /// </summary>
         /// <param name="_contaE"></param>
-        private void AtualizaSituacaoPagamentosSaida(ContaE contaE, MovimentacaoContaE movimentacaoContaE, bool removeuMovimento)
+        public void AtualizaSituacaoPagamentosSaida(ContaE contaE, MovimentacaoContaE movimentacaoContaE, bool removeuMovimento)
         {
             if (!contaE.codSaida.Equals(Global.SAIDA_PADRAO))
             {

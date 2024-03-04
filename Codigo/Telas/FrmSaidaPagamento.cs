@@ -32,12 +32,12 @@ namespace Telas
             clienteBindingSource.SuspendBinding();
             clienteBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
             usuarioBindingSource.DataSource = GerenciadorUsuario.GetInstace().ObterTodos().OrderBy(u => u.Login);
-            
+
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
             saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
             saida = (Saida)saidaBindingSource.Current;
-            if (saida.CodCliente != Global.CLIENTE_PADRAO)
+            if (saida.CodCliente != Global.CLIENTE_PADRAO && saida.TipoSaida != Saida.TIPO_PRE_CREDITO)
             {
                 formaPagamentoBindingSource.Position = formaPagamentoBindingSource.IndexOf(new FormaPagamento() { CodFormaPagamento = FormaPagamento.CREDIARIO });
             }
@@ -47,8 +47,18 @@ namespace Telas
             }
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
             {
-                totalTextBox.TabStop = true;
-                totalPagarLabel.Text = "Total a Creditar";
+                totalTextBox.ReadOnly = true;
+                totalTextBox.TabStop = false;
+                totalPagarLabel.Text = "Total a Creditar:";
+                descontoTextBox.ReadOnly = true;
+                descontoTextBox.TabStop = false;
+                totalPagarTextBox.ReadOnly = true;
+                totalPagarTextBox.TabStop = false;
+                codClienteComboBox.Enabled = false;
+                codClienteComboBox.TabStop = false;
+                valorRecebidoTextBox.Text = totalPagarTextBox.Text;
+                codVendedorComboBox.Focus();
+
             }
             if (saida.CodProfissional == Global.PROFISSIONAL_PADRAO)
             {
@@ -57,7 +67,7 @@ namespace Telas
                 if (Properties.Settings.Default.PropertyValues[vendedorMaquina] != null)
                 {
                     int vendedorNumero = Convert.ToInt32(Properties.Settings.Default.PropertyValues[vendedorMaquina].PropertyValue);
-                    usuarioBindingSource.Position = vendedorNumero-1;
+                    usuarioBindingSource.Position = vendedorNumero - 1;
                     Usuario usuarioSelecionado = usuarioBindingSource.Current as Usuario;
                     ((Saida)saidaBindingSource.DataSource).CodProfissional = usuarioSelecionado.CodPessoa;
                 }
@@ -108,7 +118,7 @@ namespace Telas
                 saida.CodEmpresaFrete = saida.CodCliente;
                 saida.Desconto = decimal.Parse(descontoTextBox.Text);
                 saida.CpfCnpj = cpf_CnpjTextBox.Text;
-                
+
                 saida.Total = decimal.Parse(totalTextBox.Text);
 
                 codFormaPagamentoComboBox.Focus();
@@ -127,7 +137,7 @@ namespace Telas
                     codFormaPagamentoComboBox.Focus();
                 }
             }
-            valorRecebidoTextBox.Enabled = true;
+                //valorRecebidoTextBox.Enabled = true;
         }
 
         /// <summary>
@@ -150,17 +160,13 @@ namespace Telas
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(saida.CupomFiscal))
+                if (String.IsNullOrWhiteSpace(saida.CupomFiscal) && !saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                 {
                     var frmSaidaConfirma = new FrmSaidaConfirma(saida);
                     frmSaidaConfirma.ShowDialog();
                     Cursor.Current = Cursors.WaitCursor;
 
-                    if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (frmSaidaConfirma.Opcao != Saida.TIPO_PRE_VENDA))
-                    {
-                        GerenciadorSaida.GetInstance(null).Remover(saida);
-                    }
-                    else if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
+                    if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                     {
                         List<SaidaPagamento> listaPagamentosSaida = (List<SaidaPagamento>)saidaPagamentoBindingSource.DataSource;
                         bool limiteCompraLiberado = true;
@@ -168,24 +174,14 @@ namespace Telas
 
                         if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                         {
-                            if ((listaPagamentosSaida.Where(ps => ps.CodFormaPagamento.Equals(FormaPagamento.CARTAO)).Count() > 0) &&
-                               (MessageBox.Show("Pagamentos confirmados pelas Administradoras dos CARTÕES?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.No))
+                            GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                            if (cliente.ImprimirDAV)
                             {
-                                GerenciadorSaida.GetInstance(null).Remover(saida);
-                            }
-                            else
-                            {
-                                GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
-                                if (cliente.ImprimirDAV)
+                                if (!GerenciadorSaida.GetInstance(null).SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.REDUZIDO2))
                                 {
-                                    if (!GerenciadorSaida.GetInstance(null).SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Global.Impressora.REDUZIDO2))
-                                    {
-                                        MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
+                                    MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
-
-
                         }
                         else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteUsoInterno))
                         {
@@ -227,7 +223,7 @@ namespace Telas
                                 }
                             }
                         }
-                        
+
                         else
                         {
                             // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
@@ -398,7 +394,7 @@ namespace Telas
                 {
                     codClienteComboBox_Leave(sender, e);
                 }
-                
+
                 e.Handled = true;
                 SendKeys.Send("{tab}");
             }
@@ -488,7 +484,7 @@ namespace Telas
                 Int32 codFormaPagamento = Convert.ToInt32(codFormaPagamentoComboBox.SelectedValue);
                 Int32 codCliente = Convert.ToInt32(codClienteComboBox.SelectedValue);
 
-                if (((codFormaPagamento == FormaPagamento.BOLETO) || (codFormaPagamento == FormaPagamento.CREDIARIO)) 
+                if (((codFormaPagamento == FormaPagamento.BOLETO) || (codFormaPagamento == FormaPagamento.CREDIARIO))
                     && (codCliente == Global.CLIENTE_PADRAO))
                 {
                     codFormaPagamentoComboBox.Focus();
@@ -545,14 +541,18 @@ namespace Telas
                 int formaPagamento = int.Parse(codFormaPagamentoComboBox.SelectedValue.ToString());
                 parcelasTextBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
                 codCartaoComboBox.Enabled = (formaPagamento == FormaPagamento.CARTAO);
-                if (formaPagamento == FormaPagamento.DEPOSITO_PIX)
+                if (codContaBancoComboBox.Items.Count > 0)
                 {
-                    codContaBancoComboBox.SelectedIndex = 1;
-                    codCartaoComboBox.SelectedIndex = 0;
+                    if (formaPagamento == FormaPagamento.DEPOSITO_PIX)
+                    {
+                        codContaBancoComboBox.SelectedIndex = 1;
+                        codCartaoComboBox.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        codContaBancoComboBox.SelectedIndex = 0;
+                    }
                 }
-                else
-                    codContaBancoComboBox.SelectedIndex = 0;
-
                 valorRecebidoTextBox.Enabled = (formaPagamento != FormaPagamento.BOLETO);
                 intervaloDiasTextBox.Enabled = (formaPagamento == FormaPagamento.CHEQUE);
             }

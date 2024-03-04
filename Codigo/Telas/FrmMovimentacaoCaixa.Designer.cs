@@ -30,11 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label codContaBancoLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,15 +43,15 @@
             this.dateTimePickerFinal = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.totaisMovimentacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.totaisMovimentacaoContaDataGridView = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.textTotalMovimentacao = new System.Windows.Forms.TextBox();
+            this.textTotalPagamentos = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.totaisSaidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.totaisSaidaDataGridView = new System.Windows.Forms.DataGridView();
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vendasCartaoRede = new System.Windows.Forms.BindingSource(this.components);
             this.totaisCartaoDataGridView = new System.Windows.Forms.DataGridView();
             this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,22 +81,19 @@
             this.totalPix = new System.Windows.Forms.TextBox();
             this.vendasPixDepositoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vendasPixDepositoDataGridView = new System.Windows.Forms.DataGridView();
-            this.totalPixDepositoText = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPagamentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPixDepositoText = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.totaisCreditoDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totaisPagamentosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             codContaBancoLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.totaisMovimentacaoContaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.totaisMovimentacaoContaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totaisSaidaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totaisSaidaDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendasCartaoRede)).BeginInit();
@@ -106,6 +102,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.vendasCartaoBaneseCredito)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendasPixDepositoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendasPixDepositoDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.totaisCreditoDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.totaisPagamentosBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // codContaBancoLabel
@@ -203,38 +201,15 @@
             this.label4.TabIndex = 27;
             this.label4.Text = "Data Final:";
             // 
-            // totaisMovimentacaoContaBindingSource
-            // 
-            this.totaisMovimentacaoContaBindingSource.DataSource = typeof(Dominio.Consultas.TotaisMovimentacaoConta);
-            // 
-            // totaisMovimentacaoContaDataGridView
-            // 
-            this.totaisMovimentacaoContaDataGridView.AllowUserToAddRows = false;
-            this.totaisMovimentacaoContaDataGridView.AllowUserToDeleteRows = false;
-            this.totaisMovimentacaoContaDataGridView.AutoGenerateColumns = false;
-            this.totaisMovimentacaoContaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.totaisMovimentacaoContaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn2});
-            this.totaisMovimentacaoContaDataGridView.DataSource = this.totaisMovimentacaoContaBindingSource;
-            this.totaisMovimentacaoContaDataGridView.Location = new System.Drawing.Point(16, 140);
-            this.totaisMovimentacaoContaDataGridView.Name = "totaisMovimentacaoContaDataGridView";
-            this.totaisMovimentacaoContaDataGridView.ReadOnly = true;
-            this.totaisMovimentacaoContaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.totaisMovimentacaoContaDataGridView.Size = new System.Drawing.Size(447, 149);
-            this.totaisMovimentacaoContaDataGridView.TabIndex = 27;
-            this.totaisMovimentacaoContaDataGridView.TabStop = false;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 117);
+            this.label5.Location = new System.Drawing.Point(13, 132);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(194, 18);
+            this.label5.Size = new System.Drawing.Size(192, 18);
             this.label5.TabIndex = 28;
-            this.label5.Text = "Movimentação do Caixa:";
+            this.label5.Text = "Pagamentos Recebidos:";
             // 
             // btnCancelar
             // 
@@ -256,16 +231,16 @@
             this.label6.TabIndex = 30;
             this.label6.Text = "TOTAL";
             // 
-            // textTotalMovimentacao
+            // textTotalPagamentos
             // 
-            this.textTotalMovimentacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTotalMovimentacao.ForeColor = System.Drawing.Color.Red;
-            this.textTotalMovimentacao.Location = new System.Drawing.Point(334, 295);
-            this.textTotalMovimentacao.Name = "textTotalMovimentacao";
-            this.textTotalMovimentacao.Size = new System.Drawing.Size(129, 26);
-            this.textTotalMovimentacao.TabIndex = 31;
-            this.textTotalMovimentacao.TabStop = false;
-            this.textTotalMovimentacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTotalPagamentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalPagamentos.ForeColor = System.Drawing.Color.Red;
+            this.textTotalPagamentos.Location = new System.Drawing.Point(334, 295);
+            this.textTotalPagamentos.Name = "textTotalPagamentos";
+            this.textTotalPagamentos.Size = new System.Drawing.Size(129, 26);
+            this.textTotalPagamentos.TabIndex = 31;
+            this.textTotalPagamentos.TabStop = false;
+            this.textTotalPagamentos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label7
             // 
@@ -273,9 +248,9 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(13, 330);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(324, 18);
+            this.label7.Size = new System.Drawing.Size(156, 18);
             this.label7.TabIndex = 32;
-            this.label7.Text = "Vendas Realizadas e Créditos Recebidos:";
+            this.label7.Text = "Vendas Realizadas:";
             // 
             // totaisSaidaBindingSource
             // 
@@ -297,6 +272,26 @@
             this.totaisSaidaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.totaisSaidaDataGridView.Size = new System.Drawing.Size(447, 255);
             this.totaisSaidaDataGridView.TabIndex = 32;
+            // 
+            // descricaoFormaPagamentosDataGridViewTextBoxColumn
+            // 
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.DataPropertyName = "DescricaoFormaPagamentos";
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.HeaderText = "Forma Pagamento";
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.Name = "descricaoFormaPagamentosDataGridViewTextBoxColumn";
+            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalPagamentoDataGridViewTextBoxColumn
+            // 
+            this.totalPagamentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.totalPagamentoDataGridViewTextBoxColumn.DataPropertyName = "TotalPagamento";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPagamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.totalPagamentoDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
+            this.totalPagamentoDataGridViewTextBoxColumn.Name = "totalPagamentoDataGridViewTextBoxColumn";
+            this.totalPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // vendasCartaoRede
             // 
@@ -371,9 +366,9 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(483, 120);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(207, 16);
+            this.label8.Size = new System.Drawing.Size(206, 16);
             this.label8.TabIndex = 33;
-            this.label8.Text = "Vendas no Cartão de Crédito";
+            this.label8.Text = "Destalhamento Pagamentos:";
             // 
             // textTotalVendas
             // 
@@ -555,7 +550,6 @@
             this.label15.Size = new System.Drawing.Size(97, 20);
             this.label15.TabIndex = 49;
             this.label15.Text = "PIX Cartão";
-            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // totalPix
             // 
@@ -589,47 +583,6 @@
             this.vendasPixDepositoDataGridView.ReadOnly = true;
             this.vendasPixDepositoDataGridView.Size = new System.Drawing.Size(499, 147);
             this.vendasPixDepositoDataGridView.TabIndex = 50;
-            // 
-            // totalPixDepositoText
-            // 
-            this.totalPixDepositoText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalPixDepositoText.ForeColor = System.Drawing.Color.Red;
-            this.totalPixDepositoText.Location = new System.Drawing.Point(886, 617);
-            this.totalPixDepositoText.Name = "totalPixDepositoText";
-            this.totalPixDepositoText.Size = new System.Drawing.Size(98, 26);
-            this.totalPixDepositoText.TabIndex = 52;
-            this.totalPixDepositoText.TabStop = false;
-            this.totalPixDepositoText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(750, 627);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(130, 16);
-            this.label11.TabIndex = 51;
-            this.label11.Text = "PIX / DEPÓSITOS";
-            // 
-            // descricaoFormaPagamentosDataGridViewTextBoxColumn
-            // 
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.DataPropertyName = "DescricaoFormaPagamentos";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.HeaderText = "Forma Pagamento";
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.Name = "descricaoFormaPagamentosDataGridViewTextBoxColumn";
-            this.descricaoFormaPagamentosDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // totalPagamentoDataGridViewTextBoxColumn
-            // 
-            this.totalPagamentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.totalPagamentoDataGridViewTextBoxColumn.DataPropertyName = "TotalPagamento";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalPagamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.totalPagamentoDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
-            this.totalPagamentoDataGridViewTextBoxColumn.Name = "totalPagamentoDataGridViewTextBoxColumn";
-            this.totalPagamentoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -665,45 +618,74 @@
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
+            // totalPixDepositoText
+            // 
+            this.totalPixDepositoText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPixDepositoText.ForeColor = System.Drawing.Color.Red;
+            this.totalPixDepositoText.Location = new System.Drawing.Point(886, 617);
+            this.totalPixDepositoText.Name = "totalPixDepositoText";
+            this.totalPixDepositoText.Size = new System.Drawing.Size(98, 26);
+            this.totalPixDepositoText.TabIndex = 52;
+            this.totalPixDepositoText.TabStop = false;
+            this.totalPixDepositoText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(750, 627);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(130, 16);
+            this.label11.TabIndex = 51;
+            this.label11.Text = "PIX / DEPÓSITOS";
+            // 
+            // totaisCreditoDataGridView
+            // 
+            this.totaisCreditoDataGridView.AllowUserToAddRows = false;
+            this.totaisCreditoDataGridView.AllowUserToDeleteRows = false;
+            this.totaisCreditoDataGridView.AutoGenerateColumns = false;
+            this.totaisCreditoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.totaisCreditoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.totaisCreditoDataGridView.DataSource = this.totaisPagamentosBindingSource;
+            this.totaisCreditoDataGridView.Location = new System.Drawing.Point(12, 153);
+            this.totaisCreditoDataGridView.Name = "totaisCreditoDataGridView";
+            this.totaisCreditoDataGridView.ReadOnly = true;
+            this.totaisCreditoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.totaisCreditoDataGridView.Size = new System.Drawing.Size(447, 136);
+            this.totaisCreditoDataGridView.TabIndex = 53;
+            // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "CodTipoMovimentacaoConta";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewTextBoxColumn1.FillWeight = 5F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Codigo";
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "DescricaoFormaPagamentos";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Forma Pagamento";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn1.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "DescricaoMovimentacaoConta";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Movimentação";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "TotalMovimentacaoConta";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "TotalPagamento";
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn2.HeaderText = "Total (R$)";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // totaisPagamentosBindingSource
+            // 
+            this.totaisPagamentosBindingSource.DataSource = typeof(Dominio.Consultas.TotalPagamentoSaida);
             // 
             // FrmMovimentacaoCaixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 647);
+            this.Controls.Add(this.totaisCreditoDataGridView);
             this.Controls.Add(this.totalPixDepositoText);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.vendasPixDepositoDataGridView);
@@ -724,11 +706,10 @@
             this.Controls.Add(this.totaisCartaoDataGridView);
             this.Controls.Add(this.totaisSaidaDataGridView);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textTotalMovimentacao);
+            this.Controls.Add(this.textTotalPagamentos);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.totaisMovimentacaoContaDataGridView);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dateTimePickerFinal);
@@ -745,8 +726,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.totaisMovimentacaoContaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.totaisMovimentacaoContaDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totaisSaidaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totaisSaidaDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendasCartaoRede)).EndInit();
@@ -755,6 +734,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.vendasCartaoBaneseCredito)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendasPixDepositoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendasPixDepositoDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.totaisCreditoDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.totaisPagamentosBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -771,12 +752,10 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerFinal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.BindingSource totaisMovimentacaoContaBindingSource;
-        private System.Windows.Forms.DataGridView totaisMovimentacaoContaDataGridView;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textTotalMovimentacao;
+        private System.Windows.Forms.TextBox textTotalPagamentos;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.BindingSource totaisSaidaBindingSource;
         private System.Windows.Forms.DataGridView totaisSaidaDataGridView;
@@ -817,8 +796,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridView totaisCreditoDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.BindingSource totaisPagamentosBindingSource;
     }
 }

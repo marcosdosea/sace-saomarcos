@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using Dados;
 using Dominio;
+using Util;
 
 namespace Negocio
 {
@@ -12,18 +14,18 @@ namespace Negocio
         private static SaceEntities saceContext;
         private static RepositorioGenerico<ContaE> repConta;
 
-       
+
         public static GerenciadorConta GetInstance(SaceEntities context)
         {
             if (gConta == null)
             {
                 gConta = new GerenciadorConta();
             }
-            if (context == null) 
+            if (context == null)
             {
                 repConta = new RepositorioGenerico<ContaE>();
             }
-            else 
+            else
             {
                 repConta = new RepositorioGenerico<ContaE>(context);
             }
@@ -45,7 +47,7 @@ namespace Negocio
 
                 repConta.Inserir(_conta);
                 saceContext.SaveChanges();
-                
+
                 return _conta.codConta;
             }
             catch (Exception e)
@@ -60,7 +62,7 @@ namespace Negocio
         /// <param name="conta"></param>
         public void Atualizar(Conta conta)
         {
-            if ( (conta.CodEntrada != 1) || (conta.CodSaida != 1) )
+            if ((conta.CodEntrada != 1) || (conta.CodSaida != 1))
                 throw new NegocioException("Essa conta não pode ser alterada por estar associada a uma entrada / saída.");
 
             try
@@ -77,7 +79,7 @@ namespace Negocio
                 throw new DadosException("Conta", e.Message, e);
             }
         }
-        
+
         /// <summary>
         /// Atualizar dados da conta no banco de dados.
         /// </summary>
@@ -98,14 +100,14 @@ namespace Negocio
 
 
                 var query2 = from contaSet in saceContext.ContaSet
-                            where contaSet.codSaida == _conta.codSaida
-                            select contaSet;
+                             where contaSet.codSaida == _conta.codSaida
+                             select contaSet;
 
                 decimal somaContas = query2.ToList().Sum(c => (c.valor - c.desconto));
 
                 var query3 = from saida in saceContext.tb_saida
-                            where saida.codSaida == _conta.codSaida
-                            select saida;
+                             where saida.codSaida == _conta.codSaida
+                             select saida;
 
                 tb_saida _saida = query3.ToList().ElementAtOrDefault(0);
                 if (_saida != null)
@@ -121,7 +123,7 @@ namespace Negocio
             }
         }
 
-        public void Atualizar(long codPessoa, DateTime dataVencimento, string formatoConta, 
+        public void Atualizar(long codPessoa, DateTime dataVencimento, string formatoConta,
             string nsuTransacao, decimal valor, long codConta)
         {
             try
@@ -131,7 +133,7 @@ namespace Negocio
                             select contaSet;
 
                 ContaE _conta = query.ToList().ElementAtOrDefault(0);
-                _conta.codPessoa= codPessoa;
+                _conta.codPessoa = codPessoa;
                 _conta.dataVencimento = dataVencimento;
                 _conta.formatoConta = formatoConta;
                 _conta.numeroDocumento = nsuTransacao.ToString();
@@ -146,7 +148,7 @@ namespace Negocio
         }
 
 
-        
+
         /// <summary>
         /// Atualizar dados da conta no banco de dados.
         /// </summary>
@@ -161,7 +163,7 @@ namespace Negocio
                             select contaSet;
                 ContaE _conta = query.ToList().ElementAtOrDefault(0);
                 _conta.codSituacao = codSituacao;
-                
+
                 saceContext.SaveChanges();
             }
             catch (Exception e)
@@ -184,7 +186,7 @@ namespace Negocio
                             select contaSet;
                 ContaE _conta = query.ToList().ElementAtOrDefault(0);
                 Atribuir(conta, _conta);
-                
+
                 saceContext.SaveChanges();
             }
             catch (Exception e)
@@ -286,7 +288,7 @@ namespace Negocio
         /// <returns>código da saida</returns>
         public IEnumerable<Conta> ObterPorSaida(long codSaida)
         {
-            
+
             return GetQuery().Where(conta => conta.CodSaida == codSaida).ToList();
         }
 
@@ -325,7 +327,7 @@ namespace Negocio
                         };
             return query;
         }
-    
+
         /// <summary>
         /// Obter contas por entrada e pagamento da entrada
         /// </summary>
@@ -337,7 +339,7 @@ namespace Negocio
             return GetQuery().Where(conta => conta.CodEntrada == codEntrada && conta.CodPagamento == codPagamento).ToList();
         }
 
-    
+
         /// <summary>
         /// Obter contas pela saída e pagamento da saída
         /// </summary>
@@ -383,7 +385,7 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Conta> ObterPorSituacaoPessoaPeriodo(string situacao1, string situacao2, long codPessoa, DateTime dataInicial, DateTime dataFinal)
         {
-            return GetQuery().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) && 
+            return GetQuery().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) &&
                   conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).OrderBy(conta => conta.DataVencimento).ToList();
         }
 
@@ -398,10 +400,10 @@ namespace Negocio
                         {
                             CodSituacao = situacaoConta.codSituacao,
                             Descricao = situacaoConta.descricaoSituacao
-                            };
+                        };
             return query.ToList();
         }
-       
+
         /// <summary>
         /// Atribui entidade à entidade persistente
         /// </summary>
@@ -424,6 +426,64 @@ namespace Negocio
             _conta.valor = conta.Valor;
         }
 
+        /// <summary>
+        /// Receber pagamentos Contas
+        /// </summary>
+        public void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
+        {
+            DbTransaction transaction = null;
+            try
+            {
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+
+                GerenciadorSaida.GetInstance(saceContext).RegistrarPagamentosSaida(pagamentos, saida);
+
+                saida.TipoSaida = Saida.TIPO_CREDITO;
+                saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+
+                GerenciadorSaida.GetInstance(saceContext).Atualizar(saida);
+
+                var listaCodContas = listaContaSaida.Select(conta => conta.CodConta);
+                var queryContas = from conta in saceContext.ContaSet
+                                  where listaCodContas.Contains(conta.codConta)
+                                  orderby conta.dataVencimento
+                                  select conta;
+                IEnumerable<ContaE> listaContas = queryContas.ToList();
+
+                // adiciona os créditos de devolução ao valor da movimentação
+                decimal totalPagamentos = listaMovimentacaoConta.Sum(m => m.Valor);
+                totalPagamentos += Math.Abs(listaContas.Where(c => c.valor < 0 && c.codSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.valor - c.desconto)));
+
+
+                decimal totalDebitos = listaContas.Where(c => c.valor >= 0 && c.codSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.valor - c.desconto));
+
+                if (totalPagamentos == totalDebitos)
+                {
+                    foreach (ContaE _contaE in listaContas)
+                    {
+                        _contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
+                        _contaE.observacao = "SAIDA" + saida.CodSaida;
+                        saceContext.SaveChanges();
+                    }
+                }
+               
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                throw new DadosException("Saída", e.Message, e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
+                repConta.Dispose();
+            }
+        }
+
+
 
         /// <summary>
         /// Substitui um conjunto de contas por uma nova conta para receber do cartão de crédito. 
@@ -444,8 +504,8 @@ namespace Negocio
 
                 }
                 DateTime dataVecimento = DateTime.Now;
-                Conta contaSubstituida = Obter((long) listaContas.ElementAtOrDefault(0)).ElementAtOrDefault(0);
-                
+                Conta contaSubstituida = Obter((long)listaContas.ElementAtOrDefault(0)).ElementAtOrDefault(0);
+
 
                 for (int i = 0; i < parcelas; i++)
                 {

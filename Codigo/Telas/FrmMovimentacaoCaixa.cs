@@ -34,19 +34,28 @@ namespace Telas
             
             int codContaBanco = (int)codContaBancoComboBox.SelectedValue;
 
-            IEnumerable<TotaisMovimentacaoConta> totaisMovimentacaoConta = GerenciadorMovimentacaoConta.GetInstance(null).ObterTotalMovimentacaoContaPeriodo(codContaBanco, dataInicial, dataFinal);
-            totaisMovimentacaoContaBindingSource.DataSource = totaisMovimentacaoConta;
-            textTotalMovimentacao.Text = totaisMovimentacaoConta.Sum(t => t.TotalMovimentacaoConta).ToString("N2");
+            // Totais de Pagamentos no período
+            IEnumerable<TotalPagamentoSaida> totaisPagamentos = GerenciadorSaidaPagamento.GetInstance(null).ObterTotalPagamento(dataInicial, dataFinal);
+            TotalPagamentoSaida totalPagamentoDinheiro = totaisPagamentos.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
+            if (totalPagamentoDinheiro != null)
+            {
+                decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoPagamentos(dataInicial, dataFinal);
+                totalPagamentoDinheiro.TotalPagamento -= trocoPorPeriodo;
+            }
+            totaisPagamentosBindingSource.DataSource = totaisPagamentos;
 
+
+            // Totais de Vendas no período
             IEnumerable<TotalPagamentoSaida> totaisSaida = GerenciadorSaidaPagamento.GetInstance(null).ObterTotalPagamentoSaida(dataInicial, dataFinal);
             TotalPagamentoSaida totalPagamentoSaidaDinheiro = totaisSaida.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoSaidaDinheiro != null)
             {
-                decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoPorPeriodo(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoSaidas(dataInicial, dataFinal);
                 totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisSaidaBindingSource.DataSource = totaisSaida;
 
+            textTotalPagamentos.Text = totaisPagamentos.Sum(t => t.TotalPagamento).ToString("N2");
             textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
             IEnumerable<VendasCartao> vendasCartao = GerenciadorSaidaPagamento.GetInstance(null).ObterVendasCartao(dataInicial, dataFinal);
@@ -109,11 +118,6 @@ namespace Telas
             FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value);
             frmRecebido.ShowDialog();
             frmRecebido.Dispose();
-        }
-
-        private void label15_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

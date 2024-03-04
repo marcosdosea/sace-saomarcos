@@ -282,7 +282,29 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Obtém totais de movimentação em um dado período
+        /// Obtém totais de pagamentos referentes ao período
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TotalPagamentoSaida> ObterTotalPagamento(DateTime dataInicial, DateTime dataFinal)
+        {
+            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
+                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
+                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA ||
+                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_CREDITO) && (saidaPagamento.codFormaPagamento != FormaPagamento.CREDIARIO)
+                        group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
+
+                        select new TotalPagamentoSaida
+                        {
+                            CodFormaPagamentos = gsaida.Key,
+                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().tb_forma_pagamento.descricao,
+                            //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
+                            TotalPagamento = (decimal)gsaida.Sum(saidaPagamento => saidaPagamento.valor)
+                        };
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// Obtém totais de pagamentos referentes apenas as saídas do período
         /// </summary>
         /// <returns></returns>
         public IEnumerable<TotalPagamentoSaida> ObterTotalPagamentoSaida(DateTime dataInicial, DateTime dataFinal)
@@ -310,7 +332,9 @@ namespace Negocio
         {
             var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
                         where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA) &&
+                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || 
+                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA ||
+                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_CREDITO) &&
                             (saidaPagamento.codFormaPagamento == FormaPagamento.CARTAO)
                         select new VendasCartao
                         {
@@ -333,7 +357,9 @@ namespace Negocio
         {
             var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
                         where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA) &&
+                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || 
+                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA ||
+                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_CREDITO) &&
                             (saidaPagamento.codFormaPagamento == FormaPagamento.DEPOSITO_PIX)
                         select new VendasPixDeposito
                         {

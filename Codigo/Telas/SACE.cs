@@ -59,14 +59,7 @@ namespace Telas
         {
 
             Process currentProcess = Process.GetCurrentProcess();
-
-            if (Process.GetProcessesByName(currentProcess.ProcessName).Any(p => p.Id != currentProcess.Id && !p.HasExited))
-            {
-                return true;
-            }
-
-            return false;
-
+            return Process.GetProcessesByName(currentProcess.ProcessName).Any(p => p.Id != currentProcess.Id && !p.HasExited);
         }
 
 
@@ -319,7 +312,7 @@ namespace Telas
         }
         private void receberPagamentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(false);
+            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa();
             frmReceberPagamento.ShowDialog();
             frmReceberPagamento.Dispose();
         }
@@ -389,13 +382,6 @@ namespace Telas
             FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(false);
             frmCSOSN.ShowDialog();
             frmCSOSN.Dispose();
-        }
-
-        private void receberPagamentosCartõesDeCréditoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmReceberPagamentoPessoa frmReceberPagamento = new FrmReceberPagamentoPessoa(true);
-            frmReceberPagamento.ShowDialog();
-            frmReceberPagamento.Dispose();
         }
 
         private void produtosParaRevendaToolStripMenuItem_Click(object sender, EventArgs e)

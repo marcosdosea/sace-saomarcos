@@ -392,7 +392,6 @@
             this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Name = "receberPagamentosCartõesDeCréditoToolStripMenuItem";
             this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Text = "Receber Pagamentos Administradora Cartões";
-            this.receberPagamentosCartõesDeCréditoToolStripMenuItem.Click += new System.EventHandler(this.receberPagamentosCartõesDeCréditoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
