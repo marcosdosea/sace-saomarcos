@@ -1,0 +1,26 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Util" GeneratedClassName="UtilConfig">
+  <Profiles />
+  <Settings>
+    <Setting Name="SaceConnection" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;server=localhost;port=3306;user=root;password=123456;database=sace;&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=localhost;port=3306;user=root;password=123456;database=sace;</Value>
+    </Setting>
+    <Setting Name="SaceConnectionBackup" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;server=localhost;port=3306;user=root;password=123456;database=sace;&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=localhost;port=3306;user=root;password=123456;database=sace;</Value>
+    </Setting>
+    <Setting Name="ICMS_LOCAL" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">19</Value>
+    </Setting>
+    <Setting Name="ACRESCIMO_PADRAO" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">1.111111</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

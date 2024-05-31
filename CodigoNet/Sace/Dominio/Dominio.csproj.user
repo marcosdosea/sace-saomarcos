@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <None Update="NFE_Schema41\consReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\consSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\consStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\enviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\inutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\leiauteConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\leiauteConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\leiauteInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\nfe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\procInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\procNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\prod_leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\retConsReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\retConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\retConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\retEnviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\retInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\tiposBasico_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema41\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+</Project>

@@ -833,7 +833,7 @@ namespace Negocio
                             NumeroVendas = saidaPeriodoAno.Count(),
                             TotalVendas = (decimal) saidaPeriodoAno.Sum(s => s.totalAVista)
                         };
-            NumerosPeriodo numerosPeriodo = query.First();
+            NumerosPeriodo numerosPeriodo = query.FirstOrDefault();
 
 
             var query2 = from saida in saceContext.tb_saida
@@ -851,11 +851,14 @@ namespace Negocio
                             NumeroVendas = saidaPeriodoAno.Count(),
                             TotalVendas = (decimal)saidaPeriodoAno.Sum(s => s.totalAVista)
                         };
-            NumerosPeriodo numerosPeriodoAnoAnterior = query2.First();
+            NumerosPeriodo numerosPeriodoAnoAnterior = query2.FirstOrDefault();
 
             NumerosPeriodo resultado = new NumerosPeriodo();
-            resultado.NumeroVendas = (numerosPeriodo.NumeroVendas / numerosPeriodoAnoAnterior.NumeroVendas - 1) * 100;
-            resultado.TotalVendas =  (numerosPeriodo.TotalVendas / numerosPeriodoAnoAnterior.TotalVendas - 1) * 100;
+            if (numerosPeriodo != null && numerosPeriodoAnoAnterior != null)
+            {
+                resultado.NumeroVendas = (numerosPeriodo.NumeroVendas / numerosPeriodoAnoAnterior.NumeroVendas - 1) * 100;
+                resultado.TotalVendas = (numerosPeriodo.TotalVendas / numerosPeriodoAnoAnterior.TotalVendas - 1) * 100;
+            }
             return resultado;
         }
 
